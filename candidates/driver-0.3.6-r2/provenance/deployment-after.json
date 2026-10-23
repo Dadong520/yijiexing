@@ -1,0 +1,61 @@
+{
+  "capturedAt": "2026-10-24T01:56:54.408877+08:00",
+  "services": {
+    "driver-demo": {
+      "revision": "driver-demo-00005-2w2",
+      "image": "us-west1-docker.pkg.dev/yijiexing-driver-demo-1023/demo/service@sha256:7d71539b9ad631aa1eaed5af8e34c4648c1fb5953cd78c3737605ea40d5d43ac",
+      "iamUnchanged": true,
+      "environmentUnchanged": true,
+      "scalingMode": "automatic",
+      "min": 0,
+      "max": 1,
+      "revisionMax": "3",
+      "cpuThrottling": "true",
+      "resources": {
+        "limits": {
+          "cpu": "1",
+          "memory": "512Mi"
+        }
+      },
+      "concurrency": 1,
+      "traffic": [
+        {
+          "latestRevision": true,
+          "percent": 100,
+          "revisionName": "driver-demo-00005-2w2"
+        }
+      ]
+    },
+    "driver-admin": {
+      "revision": "driver-admin-00006-2gq",
+      "image": "us-west1-docker.pkg.dev/yijiexing-driver-demo-1023/demo/service@sha256:7d71539b9ad631aa1eaed5af8e34c4648c1fb5953cd78c3737605ea40d5d43ac",
+      "iamUnchanged": true,
+      "environmentUnchanged": true,
+      "scalingMode": "automatic",
+      "min": 0,
+      "max": 1,
+      "revisionMax": "3",
+      "cpuThrottling": "true",
+      "resources": {
+        "limits": {
+          "cpu": "1",
+          "memory": "512Mi"
+        }
+      },
+      "concurrency": 1,
+      "traffic": [
+        {
+          "latestRevision": true,
+          "percent": 100,
+          "revisionName": "driver-admin-00006-2gq"
+        }
+      ]
+    }
+  },
+  "checks": {
+    "health": 200,
+    "driverWithoutAccess": 403,
+    "driverAdminRejected": 404,
+    "adminAnonymous": 403
+  }
+}

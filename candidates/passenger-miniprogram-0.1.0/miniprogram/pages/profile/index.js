@@ -1,0 +1,1 @@
+const {base,store,error}=require('../shared');Page(base({async logout(){try{await store.logout();}catch(e){error(e);}}}));

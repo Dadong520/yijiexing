@@ -1,0 +1,12 @@
+✔ denied permission neither resolves a synthetic point nor poisons next selection (0.922458ms)
+✔ pending 503 exact body survives account switch and returns only to its owner (0.928917ms)
+✔ home map selection converts GCJ02 backend point and displays original GCJ02 (2.130459ms)
+✔ all configured pages and static require modules exist; binding names implemented (3.612958ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 4
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 52.162167

@@ -1,0 +1,79 @@
+test_late_payment_preserves_new_reserved_order_and_old_advance_rejected (test_independent61.Independent61.test_late_payment_preserves_new_reserved_order_and_old_advance_rejected) ... [2026-10-24T01:47:31+08:00] POST /api/passenger/auth/code 200
+[2026-10-24T01:47:31+08:00] POST /api/passenger/auth/login 200
+[2026-10-24T01:47:31+08:00] POST /api/auth/code 200
+[2026-10-24T01:47:31+08:00] POST /api/auth/login 200
+[2026-10-24T01:47:31+08:00] POST /api/action 200
+[2026-10-24T01:47:31+08:00] POST /api/passenger/action 200
+[2026-10-24T01:47:31+08:00] POST /api/action 200
+[2026-10-24T01:47:31+08:00] POST /api/action 200
+[2026-10-24T01:47:31+08:00] POST /api/action 200
+[2026-10-24T01:47:31+08:00] POST /api/action 200
+[2026-10-24T01:47:31+08:00] GET /api/passenger/state 200
+[2026-10-24T01:47:31+08:00] POST /api/passenger/auth/code 200
+[2026-10-24T01:47:31+08:00] POST /api/passenger/auth/login 200
+[2026-10-24T01:47:31+08:00] POST /api/passenger/action 200
+[2026-10-24T01:47:31+08:00] POST /api/action 200
+[2026-10-24T01:47:31+08:00] GET /api/passenger/state 200
+[2026-10-24T01:47:31+08:00] POST /api/passenger/action 200
+[2026-10-24T01:47:31+08:00] POST /api/action 409
+/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/tempfile.py:484: ResourceWarning: Implicitly cleaning up <HTTPError 409: 'Conflict'>
+  _warnings.warn(self.warn_message, ResourceWarning)
+[2026-10-24T01:47:31+08:00] GET /api/passenger/state 200
+[2026-10-24T01:47:31+08:00] GET /api/passenger/state 200
+ok
+test_pay_rejects_negative_fraction_string_and_version_types (test_independent61.Independent61.test_pay_rejects_negative_fraction_string_and_version_types) ... [2026-10-24T01:47:31+08:00] POST /api/passenger/auth/code 200
+[2026-10-24T01:47:31+08:00] POST /api/passenger/auth/login 200
+[2026-10-24T01:47:31+08:00] POST /api/auth/code 200
+[2026-10-24T01:47:31+08:00] POST /api/auth/login 200
+[2026-10-24T01:47:31+08:00] POST /api/action 200
+[2026-10-24T01:47:31+08:00] POST /api/passenger/action 200
+[2026-10-24T01:47:31+08:00] POST /api/action 200
+[2026-10-24T01:47:31+08:00] POST /api/action 200
+[2026-10-24T01:47:31+08:00] POST /api/action 200
+[2026-10-24T01:47:31+08:00] POST /api/action 200
+[2026-10-24T01:47:31+08:00] GET /api/passenger/state 200
+[2026-10-24T01:47:31+08:00] GET /api/state 200
+[2026-10-24T01:47:31+08:00] POST /api/passenger/action 400
+/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/tempfile.py:484: ResourceWarning: Implicitly cleaning up <HTTPError 400: 'Bad Request'>
+  _warnings.warn(self.warn_message, ResourceWarning)
+[2026-10-24T01:47:31+08:00] POST /api/passenger/action 400
+[2026-10-24T01:47:31+08:00] POST /api/passenger/action 400
+[2026-10-24T01:47:31+08:00] POST /api/passenger/action 400
+[2026-10-24T01:47:31+08:00] POST /api/passenger/action 400
+[2026-10-24T01:47:31+08:00] GET /api/passenger/state 200
+[2026-10-24T01:47:31+08:00] GET /api/state 200
+ok
+test_payment_request_id_collision_cannot_change_outcome (test_independent61.Independent61.test_payment_request_id_collision_cannot_change_outcome) ... [2026-10-24T01:47:31+08:00] POST /api/passenger/auth/code 200
+[2026-10-24T01:47:31+08:00] POST /api/passenger/auth/login 200
+[2026-10-24T01:47:32+08:00] POST /api/auth/code 200
+[2026-10-24T01:47:32+08:00] POST /api/auth/login 200
+[2026-10-24T01:47:32+08:00] POST /api/action 200
+[2026-10-24T01:47:32+08:00] POST /api/passenger/action 200
+[2026-10-24T01:47:32+08:00] POST /api/action 200
+[2026-10-24T01:47:32+08:00] POST /api/action 200
+[2026-10-24T01:47:32+08:00] POST /api/action 200
+[2026-10-24T01:47:32+08:00] POST /api/action 200
+[2026-10-24T01:47:32+08:00] GET /api/passenger/state 200
+[2026-10-24T01:47:32+08:00] GET /api/state 200
+[2026-10-24T01:47:32+08:00] POST /api/passenger/action 200
+[2026-10-24T01:47:32+08:00] POST /api/passenger/action 409
+[2026-10-24T01:47:32+08:00] GET /api/passenger/state 200
+[2026-10-24T01:47:32+08:00] GET /api/state 200
+ok
+test_request_id_payload_collision_does_not_advance (test_independent61.Independent61.test_request_id_payload_collision_does_not_advance) ... [2026-10-24T01:47:32+08:00] POST /api/passenger/auth/code 200
+[2026-10-24T01:47:32+08:00] POST /api/passenger/auth/login 200
+[2026-10-24T01:47:32+08:00] POST /api/auth/code 200
+[2026-10-24T01:47:32+08:00] POST /api/auth/login 200
+[2026-10-24T01:47:32+08:00] POST /api/action 200
+[2026-10-24T01:47:32+08:00] POST /api/passenger/action 200
+[2026-10-24T01:47:32+08:00] POST /api/action 200
+[2026-10-24T01:47:32+08:00] POST /api/action 409
+[2026-10-24T01:47:32+08:00] GET /api/passenger/state 200
+[2026-10-24T01:47:32+08:00] POST /api/action 400
+[2026-10-24T01:47:32+08:00] GET /api/passenger/state 200
+ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.759s
+
+OK

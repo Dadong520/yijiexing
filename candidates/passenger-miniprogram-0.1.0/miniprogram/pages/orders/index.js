@@ -1,0 +1,1 @@
+const {base}=require('../shared');Page(base({open(e){wx.navigateTo({url:'/pages/order-detail/index?id='+encodeURIComponent(e.currentTarget.dataset.id)});}}));

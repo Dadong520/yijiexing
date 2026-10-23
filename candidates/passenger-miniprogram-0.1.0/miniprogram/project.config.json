@@ -1,0 +1,15 @@
+{
+  "appid": "touristappid",
+  "projectname": "宜捷行乘客开发版",
+  "description": "共享独立体验云订单；暂无正式小程序AppID",
+  "compileType": "miniprogram",
+  "miniprogramRoot": "./",
+  "setting": { "es6": true, "enhance": true, "minified": true, "urlCheck": true },
+  "packOptions": { "ignore": [
+    { "type": "folder", "value": "tests" },
+    { "type": "folder", "value": "scripts" },
+    { "type": "folder", "value": "preview" },
+    { "type": "folder", "value": "qa" },
+    { "type": "file", "value": "package.json" }
+  ] }
+}

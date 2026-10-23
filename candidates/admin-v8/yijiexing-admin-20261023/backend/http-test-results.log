@@ -1,0 +1,55 @@
+test_bootstrap_persists_and_missing_session_denied (__main__.AdminHTTP.test_bootstrap_persists_and_missing_session_denied) ... [2026-10-23T21:27:47+08:00] POST /api/local/admin/v2/login 200
+[2026-10-23T21:27:47+08:00] GET /api/local/admin/v2/state 401
+[2026-10-23T21:27:47+08:00] GET /api/local/admin/v2/state 200
+ok
+test_certificate_preview_requires_session_and_driver_ownership (__main__.AdminHTTP.test_certificate_preview_requires_session_and_driver_ownership) ... [2026-10-23T21:27:47+08:00] POST /api/local/admin/v2/login 200
+[2026-10-23T21:27:47+08:00] GET /api/local/admin/v2/certificate-file 401
+[2026-10-23T21:27:47+08:00] GET /api/local/admin/v2/certificate-file 200
+[2026-10-23T21:27:47+08:00] GET /api/local/admin/v2/certificate-file 404
+[2026-10-23T21:27:47+08:00] GET /api/local/admin/v2/certificate-file 404
+ok
+test_failed_login_snapshot_failure_is_503 (__main__.AdminHTTP.test_failed_login_snapshot_failure_is_503) ... [2026-10-23T21:27:48+08:00] POST /api/local/admin/v2/login 200
+[2026-10-23T21:27:48+08:00] cloud persistence unavailable: SnapshotUnavailable
+[2026-10-23T21:27:48+08:00] POST /api/local/admin/v2/login 503
+[2026-10-23T21:27:48+08:00] POST /api/local/admin/v2/login 200
+ok
+test_login_limit_survives_new_instances (__main__.AdminHTTP.test_login_limit_survives_new_instances) ... [2026-10-23T21:27:48+08:00] POST /api/local/admin/v2/login 200
+[2026-10-23T21:27:48+08:00] POST /api/local/admin/v2/login 401
+[2026-10-23T21:27:48+08:00] POST /api/local/admin/v2/login 401
+[2026-10-23T21:27:48+08:00] POST /api/local/admin/v2/login 401
+[2026-10-23T21:27:48+08:00] POST /api/local/admin/v2/login 401
+[2026-10-23T21:27:48+08:00] POST /api/local/admin/v2/login 401
+[2026-10-23T21:27:48+08:00] POST /api/local/admin/v2/login 429
+ok
+test_public_driver_and_bad_outer_token (__main__.AdminHTTP.test_public_driver_and_bad_outer_token) ... [2026-10-23T21:27:48+08:00] GET /api/local/admin/v2/state 404
+[2026-10-23T21:27:48+08:00] POST /api/local/admin/v2/login 404
+[2026-10-23T21:27:48+08:00] GET /api/local/admin/v2/state 401
+ok
+test_snapshot_failure_withholds_mutation_success_and_retry_recovers (__main__.AdminHTTP.test_snapshot_failure_withholds_mutation_success_and_retry_recovers) ... [2026-10-23T21:27:48+08:00] POST /api/local/admin/v2/login 200
+[2026-10-23T21:27:48+08:00] cloud persistence unavailable: SnapshotUnavailable
+[2026-10-23T21:27:48+08:00] POST /api/local/admin/v2/action 503
+[2026-10-23T21:27:48+08:00] GET /api/local/admin/v2/state 200
+[2026-10-23T21:27:48+08:00] POST /api/local/admin/v2/action 200
+[2026-10-23T21:27:48+08:00] POST /api/local/admin/v2/action 200
+[2026-10-23T21:27:48+08:00] GET /api/local/admin/v2/state 200
+ok
+test_uncertain_upload_retry_idempotent (__main__.AdminHTTP.test_uncertain_upload_retry_idempotent) ... [2026-10-23T21:27:48+08:00] POST /api/local/admin/v2/login 200
+[2026-10-23T21:27:49+08:00] cloud persistence unavailable: SnapshotUnavailable
+[2026-10-23T21:27:49+08:00] POST /api/local/admin/v2/action 503
+[2026-10-23T21:27:49+08:00] POST /api/local/admin/v2/action 200
+[2026-10-23T21:27:49+08:00] GET /api/local/admin/v2/state 200
+ok
+test_viewer_server_rejects_mutation_and_logout_invalidates (__main__.AdminHTTP.test_viewer_server_rejects_mutation_and_logout_invalidates) ... [2026-10-23T21:27:49+08:00] POST /api/local/admin/v2/login 200
+[2026-10-23T21:27:49+08:00] POST /api/local/admin/v2/action 200
+[2026-10-23T21:27:49+08:00] POST /api/local/admin/v2/login 200
+[2026-10-23T21:27:49+08:00] GET /api/local/admin/v2/state 200
+[2026-10-23T21:27:49+08:00] POST /api/local/admin/v2/action 403
+[2026-10-23T21:27:49+08:00] GET /api/local/admin/v2/export 403
+[2026-10-23T21:27:49+08:00] POST /api/local/admin/v2/logout 200
+[2026-10-23T21:27:49+08:00] GET /api/local/admin/v2/state 401
+ok
+
+----------------------------------------------------------------------
+Ran 8 tests in 1.995s
+
+OK

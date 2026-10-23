@@ -1,0 +1,11 @@
+{
+  "status": "PASS",
+  "r1Sha256": "c5046a0319cfb66da1f140f282395a4ac8136b2417e2b9584aed307226bb62b1",
+  "r2Sha256": "91aff0d8e97b548ee9c27354e6d4afd97ec3d8cdced392ec4c101b82dbed902b",
+  "changedFiles": [
+    "app/src/main/java/cn/hbzjhs/driver/preview/CoreScreens.kt"
+  ],
+  "unchangedFiles": 53,
+  "businessDomainStoreLocationTestsAndApiContractsExact": true,
+  "uiChange": "Available cards before map/statistics; private examples sorted after passenger orders"
+}

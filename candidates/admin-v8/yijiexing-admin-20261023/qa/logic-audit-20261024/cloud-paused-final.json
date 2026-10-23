@@ -1,0 +1,31 @@
+{
+  "recordedAt": "2026-10-24T02:38:11.468675+08:00",
+  "project": "yijiexing-driver-demo-1023",
+  "region": "us-west1",
+  "authority": "Human clarification in passenger chat: intentional resource saving; remain paused until explicit acceptance-test notice.",
+  "action": "ops/cloud-control.sh pause",
+  "exitCode": 0,
+  "verifiedBy": "The script reads service config after each update and requires manual scaling with count 0 and no revision tags.",
+  "services": {
+    "driver-demo": {
+      "scalingMode": "manual",
+      "manualInstanceCount": 0
+    },
+    "driver-admin": {
+      "scalingMode": "manual",
+      "manualInstanceCount": 0
+    }
+  },
+  "devices": {
+    "emulator-5584": "passenger app force-stopped; HOME",
+    "emulator-5586": "driver app force-stopped; HOME"
+  },
+  "diagnosticWatcher": "stopped with SIGINT; session 41034 exited 130",
+  "ordersPreserved": {
+    "A": "PORD9dac969cecf1 WAIT_PAY, unpaid",
+    "B": "PORDaa584245c6e6 AVAILABLE, not accepted",
+    "privateFixture": "driver003 YC1002 WAIT_PAY; driver001/002 data not changed"
+  },
+  "cloudLatePaymentRegression": "NOT_COMPLETED; resume only after explicit human instruction",
+  "storage": "Data and images retained; manual zero does not imply zero storage charges."
+}

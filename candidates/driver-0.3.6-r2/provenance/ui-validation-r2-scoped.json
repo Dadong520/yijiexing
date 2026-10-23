@@ -1,0 +1,28 @@
+{
+  "status": "PASS_SCOPED_UI_ONLY_NOT_RELEASE_ACCEPTANCE",
+  "reviewedAt": "2026-10-24T02:35:16.308361+08:00",
+  "candidate": "036-r2",
+  "apkSha256": "91aff0d8e97b548ee9c27354e6d4afd97ec3d8cdced392ec4c101b82dbed902b",
+  "installationEvidence": "/Users/dongge/Documents/New project 2/yijiexing-passenger-20261023/qa/wait-pay-release/driver-r2-installed.json",
+  "checks": [
+    {
+      "evidenceBase": "/Users/dongge/Documents/New project 2/yijiexing-passenger-20261023/qa/wait-pay-release/16-driver-r2-preserved-debts",
+      "pendingCollections": 2,
+      "nearbyOrdersShown": true,
+      "rootVisuallyReviewed": true
+    },
+    {
+      "evidenceBase": "/Users/dongge/Documents/New project 2/yijiexing-passenger-20261023/qa/wait-pay-release/20-r2-b-near-top",
+      "pendingCollections": 2,
+      "nearbyOrdersShown": true,
+      "rootVisuallyReviewed": true
+    }
+  ],
+  "businessChainPending": [
+    "shared B acceptance",
+    "shared A late payment preserves B"
+  ],
+  "reasonStopped": "explicit user request to keep cloud shut down and defer acceptance",
+  "publicRelease": "NOT_PERFORMED",
+  "antigravity": "NOT_RUN_THIS_ROUND"
+}

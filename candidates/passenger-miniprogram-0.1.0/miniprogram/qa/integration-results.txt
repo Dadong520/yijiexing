@@ -1,0 +1,16 @@
+▶ 真实冻结v8 HTTP与小程序store完整契约
+  ✔ STANDARD代叫、途经点、欠费阻新单但司机可接其他乘客 (107.440958ms)
+  ✔ RESERVED预约接受后推进并模拟支付 (24.709625ms)
+  ✔ BID报价、选择司机、预付、完成 (25.716292ms)
+  ✔ NEG配对、价格异议、重新报价与冻结版本支付 (25.828083ms)
+  ✔ 评价、投诉、常用地址、发票抬头与模拟回执持久化shape (17.166333ms)
+  ✔ 直接加载当前页面处理器并将实际payload送入真实HTTP (23.154417ms)
+✔ 真实冻结v8 HTTP与小程序store完整契约 (477.18225ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 7
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1043.699292

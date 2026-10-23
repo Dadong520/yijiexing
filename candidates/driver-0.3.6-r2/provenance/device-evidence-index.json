@@ -1,0 +1,35 @@
+{
+  "status": "historical owner evidence only; not final acceptance",
+  "files": [
+    {
+      "file": "16-driver-r2-preserved-debts.png",
+      "sha256": "8c28010369d72a459d45b689d80936b2a598f85e4572e727727e77888646347f",
+      "bytes": 192923,
+      "evidenceSource": "/Users/dongge/Documents/New project 2/yijiexing-passenger-20261023/qa/wait-pay-release/16-driver-r2-preserved-debts.png",
+      "included": false
+    },
+    {
+      "file": "16-driver-r2-preserved-debts.xml",
+      "sha256": "e8ad5f99ecaf80756d57db86281e4651dfb7227be72de7f926a0b2c151865665",
+      "bytes": 18710,
+      "evidenceSource": "/Users/dongge/Documents/New project 2/yijiexing-passenger-20261023/qa/wait-pay-release/16-driver-r2-preserved-debts.xml",
+      "included": false
+    },
+    {
+      "file": "20-r2-b-near-top.png",
+      "sha256": "96be3edb4f445ffa4418451762ea26878fd49892d36b7e90e4cc17d323441867",
+      "bytes": 182825,
+      "evidenceSource": "/Users/dongge/Documents/New project 2/yijiexing-passenger-20261023/qa/wait-pay-release/20-r2-b-near-top.png",
+      "included": false
+    },
+    {
+      "file": "20-r2-b-near-top.xml",
+      "sha256": "f0942f9da43c03a728aa92ea044de800e9fa58057a8fa72e58affae94ff56f47",
+      "bytes": 18344,
+      "evidenceSource": "/Users/dongge/Documents/New project 2/yijiexing-passenger-20261023/qa/wait-pay-release/20-r2-b-near-top.xml",
+      "included": false
+    }
+  ],
+  "observed": "r2 retained session and two pending payments; B card visible near top",
+  "notCompleted": "B acceptance plus A late payment"
+}

@@ -1,0 +1,8 @@
+{
+  "scope": "036 UI/domain and Store/LocalApi/location static review",
+  "reviewer": "GPT-6.1 independent agent",
+  "result": "no credible blocking finding",
+  "deviceOrNetworkOperations": false,
+  "automatedTestRerunByReviewer": false,
+  "remaining": "actual emulator and backend joint regression pending service recovery"
+}

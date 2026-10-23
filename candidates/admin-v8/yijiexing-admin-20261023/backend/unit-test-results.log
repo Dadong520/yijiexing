@@ -1,0 +1,18 @@
+test_admin_cancels_wait_continue_order (__main__.ConsoleTests.test_admin_cancels_wait_continue_order) ... ok
+test_canonical_and_cancel_idempotency (__main__.ConsoleTests.test_canonical_and_cancel_idempotency) ... ok
+test_certificate_file_checks_owner_and_current_reference (__main__.ConsoleTests.test_certificate_file_checks_owner_and_current_reference) ... ok
+test_changed_admin_password_not_reset_by_bootstrap_repair (__main__.ConsoleTests.test_changed_admin_password_not_reset_by_bootstrap_repair) ... ok
+test_export_formula_escape (__main__.ConsoleTests.test_export_formula_escape) ... ok
+test_full_flow_adjust_payment_refund_and_complaint (__main__.ConsoleTests.test_full_flow_adjust_payment_refund_and_complaint) ... ok
+test_legacy_bootstrap_hash_repaired_only_when_raw_matches (__main__.ConsoleTests.test_legacy_bootstrap_hash_repaired_only_when_raw_matches) ... ok
+test_login_rate_limit_and_audit (__main__.ConsoleTests.test_login_rate_limit_and_audit) ... ok
+test_new_bootstrap_normalizes_trailing_newline (__main__.ConsoleTests.test_new_bootstrap_normalizes_trailing_newline) ... ok
+test_permissions_sessions_and_password_leak (__main__.ConsoleTests.test_permissions_sessions_and_password_leak) ... ok
+test_refunds_survive_continue_without_double_counting (__main__.ConsoleTests.test_refunds_survive_continue_without_double_counting) ... ok
+test_restart_and_rollback (__main__.ConsoleTests.test_restart_and_rollback) ... ok
+test_state_conflict_and_confirmation (__main__.ConsoleTests.test_state_conflict_and_confirmation) ... ok
+
+----------------------------------------------------------------------
+Ran 13 tests in 7.636s
+
+OK

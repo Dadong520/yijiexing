@@ -1,0 +1,19 @@
+✔ native selection and cancellation are separate; invalid coordinates rejected (1.069375ms)
+✔ plugin clears stale point before open, consumes exactly once and clears cancellation (0.733959ms)
+✔ plugin failure releases selection and missing key prevents navigation (0.240625ms)
+✔ payment freezes amount and rejects a changed quote after confirmation (2.044834ms)
+✔ payment preserves frozen id, amount and version in the submitted request (0.580834ms)
+✔ negotiation accepts pair URI and stops malformed code before claiming (1.259041ms)
+✔ home never asks for location before a user picks and preserves WGS84 points (0.741459ms)
+✔ every page script parses and WXML tags are balanced (2.399958ms)
+✔ removing a waypoint redraws markers immediately (0.544083ms)
+✔ bad plugin result is shown as an error without crashing onShow (1.590166ms)
+✔ display decorators keep business enums but expose Chinese text and Beijing times (1.674208ms)
+ℹ tests 11
+ℹ suites 0
+ℹ pass 11
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 67.951167

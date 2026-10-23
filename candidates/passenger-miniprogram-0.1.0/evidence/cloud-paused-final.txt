@@ -1,0 +1,8 @@
+cloud-control.sh pause completed with exit 0.
+正在处理：driver-demo
+已暂停（实例数量 0）。
+正在处理：driver-admin
+已暂停（实例数量 0）。
+完成：手机接口和管理后台均已暂停。
+
+This is the preserved completion output, not an additional API call.

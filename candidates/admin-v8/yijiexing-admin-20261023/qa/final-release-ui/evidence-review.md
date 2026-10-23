@@ -1,0 +1,9 @@
+# 最终双端新竞价单证据复核
+
+审查 agent 未操作设备或调用云接口，只读核验已保存材料。乘客1.1.3/code5 dca3ecee4389a2dba8c59610be2c24e99ef511407c811ecaef924bbde6d92fab，司机0.3.4/code7 r2 cdaa71477675407d6fc57647cccd48da6e314ac791c3d4d2a145c80b05a152ae，版本来自 installed-packages.json。
+
+01—17 PNG已逐张查看，并核对同名XML；倒计时/前台同步时间在截图与XML间存在数秒差异，但对应业务阶段与金额一致。没有配对码、配对链接、二维码、密码字段或访问凭证画面。
+
+PORDfe4ce3005b17未选阶段参考2926分与司机报价3600分分开显示；选定/确认模拟支付为3600分，预付SUCCESS进入PICKUP；司机实际界面有取消入口并提交原因，随后WAIT_CONTINUE且REFUNDED3600；乘客选择不再用车后两端CANCELLED。退款时间23:30:40保持不变，paid=false、credited=false，DRIVER_CANCEL及PASSENGER_CONTINUE各1条，余额52848分与基线一致。司机详情/费用页显示模拟退款36元及本单未计入收入0元，乘客最终退款展示36元。
+
+接受本轮取消退款闭环及费用标签修复通过；不是正常竞价行程完成验收，也未实际继续匹配新司机。执行者为Codex Android agent，不归入反重力独立UI结果。公开发布一致性由后续下载记录单独确认。

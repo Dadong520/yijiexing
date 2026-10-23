@@ -1,0 +1,43 @@
+{
+  "status": "PASS_SCOPED_DRIVER_UI_PRECONDITION",
+  "completedAt": "2026-10-24T02:10:02.868613+08:00",
+  "apkSha256": "c5046a0319cfb66da1f140f282395a4ac8136b2417e2b9584aed307226bb62b1",
+  "version": "0.3.6-cloud",
+  "versionCode": 9,
+  "device": "emulator-5586",
+  "driverMobileTail": "0003",
+  "privateOrderId": "YC1002",
+  "privateOrderScope": "driver 0003 only, not same ID under 0001/0002",
+  "steps": [
+    "preserved session recovers after503",
+    "003 starts listening",
+    "private example accepted",
+    "PICKUP to ARRIVED",
+    "tail confirmation to TRIP",
+    "TRIP to WAIT_PAY",
+    "return to listening",
+    "pending collections card",
+    "pending filter entry"
+  ],
+  "balanceBefore": 55774,
+  "balanceAtWaitPay": 55774,
+  "paid": false,
+  "credited": false,
+  "activeOrderIds": [],
+  "screenCount": 10,
+  "reviewedScreens": [
+    "01-home-initial",
+    "07-private-waitpay",
+    "09-pending-entry"
+  ],
+  "uiNotes": [
+    "pending entry screenshot includes transient system new-order notification; card remains visible",
+    "no Chinese offline TTS installed; app honestly shows fallback sound/notification status"
+  ],
+  "notYetVerified": [
+    "shared order acceptance while private debt persists",
+    "late payment preserves new active order"
+  ],
+  "deviceHandedTo": "passenger backend owner",
+  "antigravityThisRound": "NOT_RUN"
+}

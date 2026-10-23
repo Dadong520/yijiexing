@@ -1,0 +1,7 @@
+{
+  "name": "yijiexing-passenger-miniprogram",
+  "version": "0.1.0",
+  "private": true,
+  "description": "原生微信小程序开发体验版，无外部构建依赖",
+  "scripts": { "test": "node --test tests/*.test.js", "check": "node scripts/check-project.js" }
+}

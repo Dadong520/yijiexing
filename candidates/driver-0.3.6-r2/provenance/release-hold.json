@@ -1,0 +1,25 @@
+{
+  "status": "HOLD_USER_REQUEST",
+  "recordedAt": "2026-10-24T02:33:46.235521+08:00",
+  "reason": "User asked to keep cloud shut down to conserve resources; finish local packaging; resume acceptance only on user notice",
+  "apkCandidate": "036-r2",
+  "apkSha256": "91aff0d8e97b548ee9c27354e6d4afd97ec3d8cdced392ec4c101b82dbed902b",
+  "publicReleaseAuthorizedNow": false,
+  "cloudTestingAuthorizedNow": false,
+  "lastConfirmedByDeviceOwner": {
+    "driverTail": "0003",
+    "privateOrder": "YC1002 WAIT_PAY, 1860 cents",
+    "sharedA": "PORD9dac969cecf1 WAIT_PAY",
+    "sharedB": "PORDaa584245c6e6 AVAILABLE, not accepted",
+    "driverBalanceCents": 55774,
+    "r2InstalledWithSessionPreserved": true,
+    "pendingCollections": 2,
+    "sharedBVisibleBeforeMap": true
+  },
+  "pendingChecks": [
+    "r2 accepts shared B while two collections remain",
+    "A late payment updates A and balance without altering B",
+    "final cleanup of only test-account orders after authorized acceptance"
+  ],
+  "published": false
+}

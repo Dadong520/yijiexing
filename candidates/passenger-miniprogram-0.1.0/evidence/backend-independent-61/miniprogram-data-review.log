@@ -1,0 +1,35 @@
+✔ 旧GET和旧401不覆盖新快照或新登录 (2.36975ms)
+✔ 不确定结果持久恢复同一id及payload，会话隔离 (3.255417ms)
+✔ ABA费用确认保持冻结版本并交由服务端拒绝 (0.402459ms)
+✔ 接口路径及域名限制且不将秘密放入URL或匿名Authorization (0.624208ms)
+✔ 宜昌坐标往返、境外不变、缺失拒绝 (0.965625ms)
+✔ 整数分解析 (0.227125ms)
+✔ 跨会话旧操作成功响应不得覆盖新乘客 (0.8695ms)
+✔ 新GET进行中收到旧401不得清除会话 (0.270666ms)
+✔ native selection and cancellation are separate; invalid coordinates rejected (1.996125ms)
+✔ plugin clears stale point before open, consumes exactly once and clears cancellation (0.98025ms)
+✔ plugin failure releases selection and missing key prevents navigation (0.450333ms)
+✔ malformed committed HTTP success retains exact mutation on restart; details follow frozen envelope (20.955083ms)
+✔ success without data and proxy error are uncertain; valid business rejection is definite (0.225875ms)
+✔ failed login persists removal of old token before response (0.148584ms)
+✔ storage failure before dispatch sends nothing and can recover (0.223459ms)
+✔ storage failure after server success keeps original pending and permits same-id replay (0.227666ms)
+✔ refresh during action waits; pre-action GET cannot overwrite committed snapshot (0.204084ms)
+✔ logout attempts server revocation despite storage error and removes stale persisted token (0.14825ms)
+✔ new session action not blocked or released by old session mutation (0.176334ms)
+✔ NEG and legacy version confirmations preserve contract values and reject invalid amounts (0.375708ms)
+✔ coordinates reject world bounds and preserve supported external boundary points (0.396959ms)
+✔ login success cannot expose an unpersisted authenticated session (0.11875ms)
+✔ payment freezes amount and rejects a changed quote after confirmation (2.169958ms)
+✔ payment preserves frozen id, amount and version in the submitted request (4.070208ms)
+✔ negotiation accepts pair URI and stops malformed code before claiming (2.648958ms)
+✔ home never asks for location before a user picks and preserves WGS84 points (4.944625ms)
+✔ every page script parses and WXML tags are balanced (7.034209ms)
+ℹ tests 27
+ℹ suites 0
+ℹ pass 27
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 146.792875

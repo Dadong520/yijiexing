@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "status": "LOCAL_CANDIDATE_ON_HOLD_NOT_ACCEPTED",
+  "androidSourceSha256": "3535fa4cc7f9a24b5e5555c2614bbe1438a84393fdee2e566ead88542f69a2ec",
+  "backendSource": "/private/tmp/yijiexing-passenger-v8/cloud-service",
+  "backendVersion": "v8",
+  "androidTests": "55 PASS existing evidence, not rerun",
+  "backendTests": "159+4 PASS owner reported, not rerun",
+  "onlineJointValidation": "INCOMPLETE_ON_HOLD_USER_REQUEST",
+  "finalDeploymentValidation": "HISTORICAL_EVIDENCE_ONLY_CLOUD_CLOSED_BY_USER_REQUEST",
+  "publicDownload": "NOT_PUBLISHED_ON_HOLD",
+  "backendDeploymentImageTreeAlignment": "35_FILES_EXACT_MANIFEST_HISTORICAL_DEPLOYMENT_IMAGE_BOUND",
+  "antigravity": "NOT_RUN_THIS_ROUND",
+  "passenger116": "frozen compatibility only, not public; future mini program",
+  "noBuildDeviceNetworkApiCloudGitActions": true,
+  "candidate": "r2",
+  "backendImageDigest": "sha256:7d71539b9ad631aa1eaed5af8e34c4648c1fb5953cd78c3737605ea40d5d43ac",
+  "r1UiPrivateWaitPay": "root reported normal; does not imply r2 UI pass",
+  "r2Installed": "OWNER_EVIDENCE_INCLUDED",
+  "ops": "5 historical delivery files copied only; never executed/imported/tested",
+  "cloudLiveRecheck": "NOT_PERFORMED"
+}

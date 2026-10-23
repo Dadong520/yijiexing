@@ -1,0 +1,26 @@
+{
+  "project": "yijiexing-driver-demo-1023",
+  "projectNumber": "491829048305",
+  "region": "us-west1",
+  "stateBucket": "yijiexing-demo-state-491829048305",
+  "buildBucket": "yijiexing-demo-build-491829048305",
+  "image": "us-west1-docker.pkg.dev/yijiexing-driver-demo-1023/demo/service@sha256:c8cca4a5a89b33a689d6dc9db979f8d246a267ccba2e9c4d0183459fafcfa382",
+  "services": [
+    "driver-demo",
+    "driver-admin"
+  ],
+  "urls": {
+    "driver": "https://driver-demo-491829048305.us-west1.run.app",
+    "admin": "https://driver-admin-phfgquzmua-uw.a.run.app"
+  },
+  "mobileOrigin": "https://driver-demo-491829048305.us-west1.run.app",
+  "downloadUrl": "https://driver-demo-491829048305.us-west1.run.app/download",
+  "customDomain": {
+    "hostname": "yijiexing-demo.hbzjhs.xyz",
+    "certificateStatus": "PENDING_AT_DELIVERY_CHECK"
+  },
+  "canonicalUrls": {
+    "driver": "https://driver-demo-phfgquzmua-uw.a.run.app",
+    "admin": "https://driver-admin-phfgquzmua-uw.a.run.app"
+  }
+}

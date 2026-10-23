@@ -1,0 +1,88 @@
+{
+  "version": "0.3.6-cloud",
+  "versionCode": 9,
+  "candidate": "r2",
+  "sha256": "91aff0d8e97b548ee9c27354e6d4afd97ec3d8cdced392ec4c101b82dbed902b",
+  "bytes": 54787056,
+  "builtAt": "2026-10-24T02:14:19.546238+08:00",
+  "tests": [
+    {
+      "name": "cn.hbzjhs.driver.preview.ConnectedContractTest",
+      "tests": "7",
+      "skipped": "0",
+      "failures": "0",
+      "errors": "0",
+      "timestamp": "2026-10-23T18:13:33",
+      "hostname": "dongge-2.local",
+      "time": "0.046"
+    },
+    {
+      "name": "cn.hbzjhs.driver.preview.DriverCancellationTest",
+      "tests": "8",
+      "skipped": "0",
+      "failures": "0",
+      "errors": "0",
+      "timestamp": "2026-10-23T18:13:33",
+      "hostname": "dongge-2.local",
+      "time": "0.011"
+    },
+    {
+      "name": "cn.hbzjhs.driver.preview.DriverSettlementTest",
+      "tests": "9",
+      "skipped": "0",
+      "failures": "0",
+      "errors": "0",
+      "timestamp": "2026-10-23T18:13:33",
+      "hostname": "dongge-2.local",
+      "time": "0.005"
+    },
+    {
+      "name": "cn.hbzjhs.driver.preview.NavigationContractTest",
+      "tests": "7",
+      "skipped": "0",
+      "failures": "0",
+      "errors": "0",
+      "timestamp": "2026-10-23T18:13:33",
+      "hostname": "dongge-2.local",
+      "time": "0.011"
+    },
+    {
+      "name": "cn.hbzjhs.driver.preview.NegotiationContractTest",
+      "tests": "9",
+      "skipped": "0",
+      "failures": "0",
+      "errors": "0",
+      "timestamp": "2026-10-23T18:13:33",
+      "hostname": "dongge-2.local",
+      "time": "0.073"
+    },
+    {
+      "name": "cn.hbzjhs.driver.preview.PaymentStatusTest",
+      "tests": "9",
+      "skipped": "0",
+      "failures": "0",
+      "errors": "0",
+      "timestamp": "2026-10-23T18:13:33",
+      "hostname": "dongge-2.local",
+      "time": "0.001"
+    },
+    {
+      "name": "cn.hbzjhs.driver.preview.StateRequestCoordinatorTest",
+      "tests": "6",
+      "skipped": "0",
+      "failures": "0",
+      "errors": "0",
+      "timestamp": "2026-10-23T18:13:33",
+      "hostname": "dongge-2.local",
+      "time": "0.064"
+    }
+  ],
+  "testTotal": 55,
+  "signerSha256": "9ffec9b342d12909ff288bd73f23ba104893b39120cb24ea83c9734a0d2b758f",
+  "sourceSha256": "3535fa4cc7f9a24b5e5555c2614bbe1438a84393fdee2e566ead88542f69a2ec",
+  "sourceFiles": 54,
+  "changedSinceR1": [
+    "app/src/main/java/cn/hbzjhs/driver/preview/CoreScreens.kt"
+  ],
+  "published": false
+}

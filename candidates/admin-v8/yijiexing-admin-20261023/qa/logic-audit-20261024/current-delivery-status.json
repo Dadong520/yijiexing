@@ -1,0 +1,59 @@
+{
+  "updatedAt": "2026-10-24T02:47:43.060633+08:00",
+  "cloud": "PAUSED_BY_USER",
+  "cloudEvidence": "cloud-paused-final.json",
+  "backend": {
+    "version": "v8",
+    "deployed": true,
+    "running": false,
+    "independentTests": 45
+  },
+  "driver": {
+    "version": "0.3.6-r2",
+    "status": "LOCAL_CANDIDATE_ON_HOLD_NOT_ACCEPTED",
+    "published": false,
+    "developerTests": 55,
+    "apkSha256": "91aff0d8e97b548ee9c27354e6d4afd97ec3d8cdced392ec4c101b82dbed902b"
+  },
+  "passenger": {
+    "target": "WECHAT_MINIPROGRAM_DEV",
+    "nativeNewDevelopment": "PAUSED",
+    "appIdAvailable": false,
+    "wechatCompiled": false,
+    "realDeviceTested": false,
+    "developerTests": 41,
+    "independentFinalAffected": 11,
+    "independentFinalProbes": 4,
+    "browserPreview": "http://127.0.0.1:8788/",
+    "previewUsesCloud": false
+  },
+  "orders": {
+    "A": {
+      "id": "PORD9dac969cecf1",
+      "lastVerifiedStage": "WAIT_PAY",
+      "fareFen": 2926,
+      "paid": false
+    },
+    "B": {
+      "id": "PORDaa584245c6e6",
+      "lastVerifiedStage": "AVAILABLE",
+      "accepted": false
+    },
+    "private003": {
+      "id": "YC1002",
+      "stage": "WAIT_PAY"
+    },
+    "user001": "YC1001 and wallet preserved; no root mutation"
+  },
+  "notCompleted": [
+    "B acceptance and old-A late payment during B pickup",
+    "actual admin fee ABA with both apps",
+    "mini program WeChat compilation, permission and device integration",
+    "current Antigravity independent run unavailable under GPT6.1-only requirement"
+  ],
+  "workWindow": {
+    "start": "2026-10-24T02:39:00+08:00",
+    "deadline": "2026-10-24T04:39:00+08:00",
+    "rule": "stop immediately after local wrap-up, no additional polling or agent expansion"
+  }
+}

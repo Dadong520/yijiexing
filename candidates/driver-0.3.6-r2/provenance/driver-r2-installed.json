@@ -1,0 +1,10 @@
+{
+  "at": "2026-10-24T02:29:32.769520+08:00",
+  "sha256": "91aff0d8e97b548ee9c27354e6d4afd97ec3d8cdced392ec4c101b82dbed902b",
+  "bytes": 54787056,
+  "device": "emulator-5586",
+  "method": "adb install -r; no app data clear",
+  "output": "Performing Streamed Install\nSuccess\n",
+  "installedApkSha256": "91aff0d8e97b548ee9c27354e6d4afd97ec3d8cdced392ec4c101b82dbed902b",
+  "installedHashMatches": true
+}
