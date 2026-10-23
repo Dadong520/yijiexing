@@ -1,0 +1,148 @@
+{
+  "status": "RELEASED_034_R2_FINAL_PAIR_CANCEL_REFUND_FLOW_ACCEPTED_WITH_UI_BOUNDARIES",
+  "baseline033FinalZipSha256": "37a32f87b5861700ae31d98e01d98a68486665826ca50b3bdfb63d97340f36a8",
+  "candidateRevision": "r2",
+  "android": {
+    "versionName": "0.3.4-cloud",
+    "versionCode": 7,
+    "source": "read-only frozen034 staging",
+    "sourceChangesFrom033": [
+      "app/build.gradle.kts",
+      "app/src/main/java/cn/hbzjhs/driver/preview/BusinessSupport.kt",
+      "app/src/main/java/cn/hbzjhs/driver/preview/ConnectedStore.kt",
+      "app/src/main/java/cn/hbzjhs/driver/preview/CoreScreens.kt",
+      "app/src/main/java/cn/hbzjhs/driver/preview/DriverDomain.kt",
+      "app/src/test/java/cn/hbzjhs/driver/preview/DriverCancellationTest.kt",
+      "app/src/test/java/cn/hbzjhs/driver/preview/PaymentStatusTest.kt"
+    ],
+    "candidateApkSha256": "cdaa71477675407d6fc57647cccd48da6e314ac791c3d4d2a145c80b05a152ae",
+    "candidateEvidence": {
+      "source": "qa/driver-034/candidate-manifest.json",
+      "sha256": "987fa8a59d74ae4be45b4c03c56a1e6349bc393a40776cea11f1cfdfda575631",
+      "apkBytes": 54733166,
+      "apkHashMatches": true
+    },
+    "candidateApkHashStatus": "provided by root",
+    "manifest": "android-staging-source-manifest.json",
+    "apkIncluded": false,
+    "publishedApkSha256": "cdaa71477675407d6fc57647cccd48da6e314ac791c3d4d2a145c80b05a152ae",
+    "publishedApkBytes": 54733166
+  },
+  "backend": {
+    "buildId": "95828fa5-a4b6-469c-b227-99fab315bdbe",
+    "imageDigest": "sha256:b3cb3e2f61e4a724dd95b6dfac0d357d2bbd793b9e225402965b8fedb5ff0d3d",
+    "exactArchiveSha256": "1097094095c298af9e6d5b132eb37769a18ecd5b44249303986e7d13ab37cec7",
+    "sourceFiles": 22,
+    "provenanceReusedWithoutNetwork": true,
+    "manifestInputSha256": "bbe7c3c27d8580fb9f073e2b41bfa23cec7200b51cfa0d7c36078b666fd76b26"
+  },
+  "apiContractSha256": {
+    "API_CONTRACT.md": "c77d8f9f3b2f1ec9cc98cad40b05d41602b8b777b1c74641f9d6a589fb6e7bb3",
+    "NEGOTIATION_API_CONTRACT.md": "7e0c56d2ec25f6b7342a9a349533f14c768a7ea2c57ec278210f2193d72f43a9"
+  },
+  "contractsAndToolsUnchangedFrom033": true,
+  "cancellationFix": {
+    "selectedSharedPretripPaidAllowed": true,
+    "privatePaidStillBlocked": true,
+    "paidBidSentStillBlocked": true,
+    "tripTerminalParticipationCancelledStillBlocked": true,
+    "serverRefundTiming": "v7 driver cancellation immediately sets simulated REFUNDED then WAIT_CONTINUE; passenger decides continuation/final cancel",
+    "businessUiR1ApkSha256": "04c1ada0dafb4072a091003edfce45c71deccd5c5a838fd0d42a2cad1acb391c",
+    "r1SourceZipSha256": "d985fbaccf50e75db7f76ee341c79988afbf13eafd24c684fc214be2595895cd",
+    "r2CancellationActionReexecuted": true,
+    "businessUiR1Status": "root confirmed original-order cancellation/refund3600; balance52848 unchanged",
+    "uiStatus": "PASS on final driver034r2+passenger113 unique new BID; historical r1/old-display scope retained separately",
+    "displayFix": "paymentStatus-first labels, server refundAmount, cancelled/refunded uncredited income0, credited-only recorded-income label",
+    "historicalOriginalOrder": "PORD5b52d7bea9c4",
+    "finalAcceptedOrder": "PORDfe4ce3005b17"
+  },
+  "regressionBeforeFix": {
+    "source": "qa/driver-034/regression-before-fix.xml",
+    "sha256": "7d2db3e7fdf542a12d90c44b2071fdaaea698c6900643be8e90e85bb77319373",
+    "tests": 8,
+    "failures": 2,
+    "context": "root ran new cancellation tests against 0.3.3 rules before fix; not executed by packaging task"
+  },
+  "afterFixUnitTests": {
+    "count": 40,
+    "status": "root reports passed; packaging did not rerun"
+  },
+  "baseline033AcceptanceNote": "Prior negotiation-only flow passed; not used as034 cancel/refund UI proof",
+  "excluded": [
+    "build/cache/private/local.properties",
+    "logs/database/runtime-data",
+    "QA/verification/APK",
+    "actual invitations/access codes/sessions/passwords/keys",
+    "passenger Android project",
+    "independent admin frontend project",
+    "legacy token admin opener",
+    "mutable shared backend"
+  ],
+  "packagingBoundary": "Documents/manifests only; no source/resources/worktree/staging/outputs/build/test/device/cloud changes",
+  "releaseVerification": {
+    "rootFacts": {
+      "file": "acceptance-034.json",
+      "sha256": "39c509fd74dcdcb2e5b1728fc54ff429a3e51770224b1387d1a8369a138511cf"
+    },
+    "publicDownload": {
+      "file": "download-034-final.json",
+      "sha256": "8c39c3cbb822334e942818d03e318077f2ca26fa1d31bad6c15d4f3e8cb91d1a",
+      "httpStatus": 200,
+      "apkSha256": "cdaa71477675407d6fc57647cccd48da6e314ac791c3d4d2a145c80b05a152ae",
+      "bytes": 54733166,
+      "checkedAt": "2026-10-23T23:37:29.913104+08:00",
+      "hashMatches": true,
+      "tlsCertificateVerified": true
+    },
+    "packageSignature": {
+      "file": "public-apk-package-verification.json",
+      "sha256": "18e54b3bb4f124251ef76d1deb331df674523806abf32d3afaab595c7ece704b",
+      "signerSha256": "9ffec9b342d12909ff288bd73f23ba104893b39120cb24ea83c9734a0d2b758f",
+      "sameSignature": true
+    },
+    "finalPair": {
+      "driverApkSha256": "cdaa71477675407d6fc57647cccd48da6e314ac791c3d4d2a145c80b05a152ae",
+      "passengerVersion": "1.1.3-experience/code5",
+      "passengerApkSha256": "dca3ecee4389a2dba8c59610be2c24e99ef511407c811ecaef924bbde6d92fab",
+      "newBidFlow": {
+        "status": "PASS",
+        "orderId": "PORDfe4ce3005b17",
+        "driverCancellationPerformedOnFinalR2Apk": true,
+        "quoteAmountCents": 3600,
+        "refundAmountCents": 3600,
+        "afterDriverCancelPaymentStatus": "REFUNDED",
+        "afterDriverCancelCanonicalStage": "WAIT_CONTINUE",
+        "passengerFinalStage": "CANCELLED",
+        "driverFinalStage": "CANCELLED",
+        "driverCredited": false,
+        "initialDriverBalanceCents": 52848,
+        "finalDriverBalanceCents": 52848,
+        "cityId": "420500",
+        "cityName": "宜昌",
+        "refundAt": "2026-10-23T23:30:40+08:00",
+        "refundTimeUnchangedOnPassengerClosure": true,
+        "driverCancelEvents": 1,
+        "passengerContinueCancelEvents": 1,
+        "evidenceReference": "qa/driver-034/final-flow-evidence; root reviewed screenshots13/17 and JSON; prepaid/wait-continue/final-state SHA256 fe43e7fd92d5e3e0f03ab489318e82004ebf474add35fd2d36ae5bcf1e523827/6294b357c9e0cb624ebdcbd317d99961ee3b4c6615b209d2826947edb9dfab1d/bdc1eea07c16fff7e6244ee14ba36f254f667822e6a9641922ee7d8d82d1e23a"
+      }
+    },
+    "existingJvmTests": 40,
+    "testsRerunByPackaging": false,
+    "historicalScopes": [
+      "033 negotiation only",
+      "034r1 original-order cancel/refund",
+      "034r2 original-refunded-order two-page display",
+      "034r2+113 unique new BID complete chain"
+    ],
+    "notCompleteUiCoverage": [
+      "physical camera QR scan",
+      "expiry/regeneration/cross-account/network-disconnect boundaries"
+    ],
+    "contractText": "original bytes retained as authoring-time reference",
+    "publishedObject": {
+      "generation": "1792769819125399",
+      "source": "qa/driver-034/published-object.json",
+      "sourceSha256": "f43da0744cb9e99f7b823a75418a97830c6baaa921d91d0db341898fe2693196"
+    }
+  }
+}

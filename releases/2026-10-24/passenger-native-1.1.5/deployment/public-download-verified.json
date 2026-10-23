@@ -1,0 +1,19 @@
+{
+  "checkedAt": "2026-10-24T00:52:09.310013+08:00",
+  "method": "macOS system curl with certificate verification, full GET; no TLS bypass",
+  "versionName": "1.1.5-experience",
+  "versionCode": 7,
+  "pageUrl": "https://driver-demo-491829048305.us-west1.run.app/download-passenger",
+  "apkUrl": "https://driver-demo-491829048305.us-west1.run.app/download-passenger.apk",
+  "pageStatus": 200,
+  "apkStatus": 200,
+  "bytes": 8148421,
+  "sha256": "4f9f2b40d435a905690a4675efaa52c721783e6eb69017eb14e704405bb217fd",
+  "contentType": "application/vnd.android.package-archive",
+  "tlsCertificateVerified": true,
+  "signatureVerified": true,
+  "signerSha256": "9ffec9b342d12909ff288bd73f23ba104893b39120cb24ea83c9734a0d2b758f",
+  "sameSignerAsPrevious": true,
+  "packageMetadata": "package: name='cn.hbzjhs.dc.passenger.cloud' versionCode='7' versionName='1.1.5-experience' platformBuildVersionName='14' platformBuildVersionCode='34' compileSdkVersion='34' compileSdkVersionCodename='14'",
+  "matchesDeliveredAndUiTestedApk": true
+}

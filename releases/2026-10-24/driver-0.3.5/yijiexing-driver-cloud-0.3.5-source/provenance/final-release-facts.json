@@ -1,0 +1,123 @@
+{
+  "status": "ROOT_CONFIRMED_RELEASE_FACTS",
+  "versionName": "0.3.5-cloud",
+  "versionCode": 8,
+  "driverApkSha256": "6b9620a237286002662a966a31ba110f50d3a13c2ca4c113961792b32ee0b4ea",
+  "driverApkBytes": 54757323,
+  "jointValidation": {
+    "status": "PASS",
+    "passengerVersion": "1.1.5",
+    "passengerCode": 7,
+    "passengerApkSha256": "4f9f2b40d435a905690a4675efaa52c721783e6eb69017eb14e704405bb217fd",
+    "standard": {
+      "orderId": "PORD97596bf0cc68",
+      "fareCents": 2926,
+      "wrongTailRejected": true,
+      "failedPaymentCredited": false,
+      "finalStage": "DONE",
+      "balanceBefore": 52848,
+      "balanceAfter": 55774,
+      "exactDelta": 2926,
+      "evaluationStars": 5,
+      "driverComplaint": "CP59d6e38495d3",
+      "driverReplyVisible": true,
+      "passengerComplaint": "PCa6f2b8b98513",
+      "passengerReplyVisible": true
+    },
+    "bid": {
+      "orderId": "PORD2a42ed9559c3",
+      "estimateCents": 2926,
+      "quoteCents": 3600,
+      "refundCents": 3600,
+      "refundedAt": "2026-10-24T00:49:46+08:00",
+      "finalStage": "CANCELLED",
+      "balanceBefore": 55774,
+      "balanceAfter": 55774,
+      "driverCancelEvents": 1,
+      "passengerContinueEvents": 1,
+      "driverFeePage": "Earlier035 UI refund fee screen validated; final new-order fee recapture pending, not counted as completed yet."
+    },
+    "adminReadback": {
+      "path": "/Users/dongge/Documents/New project 2/yijiexing-admin-20261023/qa/ui-redesign-readback.json",
+      "sha256": "3e14bbd39325d1172f6a80e01b42f4eecdf57ed3cdeb56ef9691a2ead0befffb",
+      "assertions": 61,
+      "passed": true,
+      "scope": "canonical/ledger assertions, not APK UI proof"
+    },
+    "cleanup": {
+      "path": "/Users/dongge/Documents/New project 2/yijiexing-passenger-20261023/qa/ui-redesign-regression/cleanup.json",
+      "sha256": "c246b21f8209f325976d318da4f43895c58d40901e503e7715545ddfc612ba5e",
+      "at": "2026-10-24T00:51:46.587785+08:00",
+      "driverOnline": false,
+      "driverBalanceCents": 55774,
+      "devicesFontScale1AndLauncher": true,
+      "independentlyOperatedByPackager": false
+    },
+    "summary": "司机035r3/code8与乘客1.1.5/code7完成本轮联合新单。STANDARD PORD97596bf0cc68：错误尾号被拒、模拟支付失败未入账，成功后DONE仅增加2926分，余额52848→55774分，评价5星；司机投诉CP59d6e38495d3与乘客投诉PCa6f2b8b98513的后台回复已在对应App实际可见。BID PORD2a42ed9559c3：模拟预付3600分，00:49:46司机取消即时模拟退款3600分，乘客结束后最终CANCELLED；余额55774分不增，DRIVER_CANCEL与PASSENGER_CONTINUE各一次。后台权威/台账61断言passed，属于数据读回，不替代APK实际UI。新BID司机费用页未另截，早先只读退款费用页不算本新单证据。乘客owner的cleanup记录确认司机下线、两设备字号1.0并退桌面；组包代理未操作设备。以上均为沙箱模拟，未做真实资金或道路行驶验证。",
+    "evidence": [
+      {
+        "path": "driver-035/joint-validation.json",
+        "sha256": "2919c57e5981cecc07d486ce7acebd67880d8570a5a3b9b744209d41d082dc42"
+      },
+      {
+        "path": "driver-035/standard-payment-root-review.json",
+        "sha256": "13a0c6f49b621cdb388d341de1f1dca337885a7b34d5576e09d96fa47b99b01c"
+      },
+      {
+        "path": "driver-035/driver-complaint-root-review.json",
+        "sha256": "396a29f3e5249211d2b94d3da19d71cc9115100b5eb2a7b8303588312bc014eb"
+      },
+      {
+        "path": "driver-035/source-package-final/joint-evidence-summary.json",
+        "sha256": "9967fc9d081a3e0a1d881cddad1db88b9f22b5427d360bf8094c413e498ccb38"
+      }
+    ],
+    "cleanupOwnerConfirmation": {
+      "driver003Online": false,
+      "emulators": [
+        "5584",
+        "5586"
+      ],
+      "fontScale": 1.0,
+      "finalScreen": "launcher",
+      "source": "Passenger owner message after final business regression"
+    }
+  },
+  "publicRelease": {
+    "status": "PASS",
+    "startedAt": "2026-10-24T00:54:03.236416+08:00",
+    "completedAt": "2026-10-24T00:54:08.950881+08:00",
+    "url": "https://driver-demo-491829048305.us-west1.run.app/download.apk",
+    "finalUrl": "https://driver-demo-491829048305.us-west1.run.app/download.apk",
+    "httpStatus": 200,
+    "tlsCertificateVerified": true,
+    "fullBodyDownloaded": true,
+    "apkSha256": "6b9620a237286002662a966a31ba110f50d3a13c2ca4c113961792b32ee0b4ea",
+    "apkBytes": 54757323,
+    "sameSignature": true,
+    "signerSha256": "9ffec9b342d12909ff288bd73f23ba104893b39120cb24ea83c9734a0d2b758f",
+    "package": "cn.hbzjhs.dc.driver.cloud",
+    "versionName": "0.3.5-cloud",
+    "versionCode": 8,
+    "objectGeneration": "1792774380619536",
+    "contentType": "application/vnd.android.package-archive",
+    "tlsVerificationMethod": "system curl with certificate verification enabled; ssl_verify_result=0",
+    "backendRedeployed": false,
+    "originalTestEnvironmentChanged": false,
+    "summary": "主任务已于2026-10-24 00:54:08.950881+08:00完成公开下载地址全量GET：HTTP200、系统TLS证书验证通过、54,757,323字节，SHA256 6b9620a237286002662a966a31ba110f50d3a13c2ca4c113961792b32ee0b4ea与冻结r3一致；包名cn.hbzjhs.dc.driver.cloud、0.3.5-cloud/code8、签名SHA256 9ffec9b342d12909ff288bd73f23ba104893b39120cb24ea83c9734a0d2b758f兼容性核对通过。后端未重新部署、原测试环境未改变；本次源码组包代理只读取主任务证据，未下载/上传/操作云端。",
+    "evidence": [
+      {
+        "path": "driver-035/public-release-verification.json",
+        "sha256": "9bb97db419877dbd8bde7aa2563d5977920979214f5c1278fcf093102330baa7"
+      }
+    ]
+  },
+  "preparedAt": "2026-10-24T00:54:24.185259+08:00",
+  "boundaries": [
+    "Final new BID driver fee page was not recaptured; earlier read-only035 fee UI is separate and not evidence for this new order.",
+    "Antigravity035 remained permission-blocked with0 actual UI actions.",
+    "No true financial transfer, road driving, or complete all-state UI acceptance."
+  ],
+  "parentExplicitlyConfirmedPublicPass": true,
+  "finalFactsAt": "2026-10-24T00:55:40.469981+08:00"
+}

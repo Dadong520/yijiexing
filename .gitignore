@@ -1,0 +1,16 @@
+.private/
+.env
+.env.*
+*.jks
+*.keystore
+*.pem
+*.p12
+local.properties
+node_modules/
+.gradle/
+**/build/
+__pycache__/
+*.apk
+*.db
+*.sqlite*
+.DS_Store

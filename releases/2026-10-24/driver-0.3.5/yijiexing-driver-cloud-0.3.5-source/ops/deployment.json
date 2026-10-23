@@ -1,0 +1,24 @@
+{
+  "project": "yijiexing-driver-demo-1023",
+  "projectNumber": "491829048305",
+  "region": "us-west1",
+  "image": "us-west1-docker.pkg.dev/yijiexing-driver-demo-1023/demo/service@sha256:b3cb3e2f61e4a724dd95b6dfac0d357d2bbd793b9e225402965b8fedb5ff0d3d",
+  "services": [
+    "driver-demo",
+    "driver-admin"
+  ],
+  "urls": {
+    "driver": "https://driver-demo-491829048305.us-west1.run.app",
+    "admin": "https://driver-admin-phfgquzmua-uw.a.run.app"
+  },
+  "mobileOrigin": "https://driver-demo-491829048305.us-west1.run.app",
+  "downloadUrl": "https://driver-demo-491829048305.us-west1.run.app/download",
+  "snapshot": {
+    "buildId": "95828fa5-a4b6-469c-b227-99fab315bdbe",
+    "imageDigest": "sha256:b3cb3e2f61e4a724dd95b6dfac0d357d2bbd793b9e225402965b8fedb5ff0d3d",
+    "sourceUri": "gs://yijiexing-demo-build-491829048305/source/1792764468.626125-c864e956f4a64deeb2e8cc2b573fb8f3.tgz",
+    "sourceGeneration": "1792764470407185",
+    "archiveSha256": "1097094095c298af9e6d5b132eb37769a18ecd5b44249303986e7d13ab37cec7"
+  },
+  "note": "Metadata for the supplied v7 deployment capture; not a live status or full administration frontend delivery. No tokens, passwords or cloud credentials included."
+}

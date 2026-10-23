@@ -1,0 +1,478 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-10-24T00:55:45.723393+08:00",
+  "algorithm": "SHA256",
+  "scope": "all files except this manifest itself; external ZIP manifest includes it",
+  "files": [
+    {
+      "path": "README.md",
+      "sha256": "9a5d2c4af7b6b55fab90ddcf3b37d868db4daa956473d4b45a466d3ff6179e54",
+      "bytes": 6524
+    },
+    {
+      "path": "android/.gitignore",
+      "sha256": "d8cc1476c1b8ec4c5e4349eb42a0d86f5b632c01079f59e48a3d7524400ca3f6",
+      "bytes": 71
+    },
+    {
+      "path": "android/INTEGRATION.md",
+      "sha256": "b17d8a08d44b9e65e7d8f3e2929782a46c09841b5f3159d2bfcd4b89219ecef1",
+      "bytes": 4170
+    },
+    {
+      "path": "android/README.md",
+      "sha256": "ee0b53e75ddd58e02db37869314708f740dfa66860b2d9a5343cc65362f7104b",
+      "bytes": 5757
+    },
+    {
+      "path": "android/app/build.gradle.kts",
+      "sha256": "a368a2b38a1546883839bc1ceda98dc8704b5dd54aa10c83e9959659062cc102",
+      "bytes": 1904
+    },
+    {
+      "path": "android/app/src/androidTest/java/cn/hbzjhs/driver/preview/NavigationIntentInstrumentedTest.kt",
+      "sha256": "62e4398c82344825c24cca0e1cf857d3dd8d3220f38502a3d60d368f8865045c",
+      "bytes": 4358
+    },
+    {
+      "path": "android/app/src/main/AndroidManifest.xml",
+      "sha256": "aa1953d731b1b0488b12d4169ebdd75eb2b8ce1054f047c0e08a7a07a4fac27c",
+      "bytes": 1988
+    },
+    {
+      "path": "android/app/src/main/assets/third-party/ZXing-LICENSE.txt",
+      "sha256": "3f62881f0566227a24b12e5a754cc79f39aaa94883038e95c94812e1f50af42f",
+      "bytes": 13320
+    },
+    {
+      "path": "android/app/src/main/assets/third-party/ZXing-NOTICE.txt",
+      "sha256": "4db4b60aace29ec6c5c4f13ca9cac1930d3c0c54bcc67dceead0c10771120e66",
+      "bytes": 664
+    },
+    {
+      "path": "android/app/src/main/java/cn/hbzjhs/driver/preview/BusinessCommunity.kt",
+      "sha256": "94ad929a1768a952581be91ade20ca1cbe6b02c602a1cfe48b20de67cfb9fd3d",
+      "bytes": 21405
+    },
+    {
+      "path": "android/app/src/main/java/cn/hbzjhs/driver/preview/BusinessFinance.kt",
+      "sha256": "1c9515057c01960c8adf9fb417a8980ee553e2ad9fe94a44631d3b314af646d9",
+      "bytes": 24696
+    },
+    {
+      "path": "android/app/src/main/java/cn/hbzjhs/driver/preview/BusinessKit.kt",
+      "sha256": "ea8f5fcc6d27eb61a688bbb19658f29961e4966f44d8be8d3fe561617dafbe23",
+      "bytes": 17111
+    },
+    {
+      "path": "android/app/src/main/java/cn/hbzjhs/driver/preview/BusinessScreens.kt",
+      "sha256": "f1c8bbc1c04a92c2ca0c8c62d27ec854148ffe9d884c37b5c2c52467dea774bd",
+      "bytes": 19667
+    },
+    {
+      "path": "android/app/src/main/java/cn/hbzjhs/driver/preview/BusinessSupport.kt",
+      "sha256": "3fd4cf254502083f4800aff7f2a7de32301e7867b604ead3ec00f5776e27d228",
+      "bytes": 24859
+    },
+    {
+      "path": "android/app/src/main/java/cn/hbzjhs/driver/preview/ConnectedStore.kt",
+      "sha256": "fb7e64e41b3fb6eeb95f98cf53afa7dcbf0e40c5a04cba857aa465f6469902ef",
+      "bytes": 26597
+    },
+    {
+      "path": "android/app/src/main/java/cn/hbzjhs/driver/preview/CoreScreens.kt",
+      "sha256": "79b1fbf437f973493bc5658e9cbfcd72eaf38b883bfdda630133cd69b1ea84c6",
+      "bytes": 77022
+    },
+    {
+      "path": "android/app/src/main/java/cn/hbzjhs/driver/preview/DriverDomain.kt",
+      "sha256": "4c81e8a6f70f92c63235fbd77edb6e66b954dd856024fb7b16ba5869b4af42b6",
+      "bytes": 5992
+    },
+    {
+      "path": "android/app/src/main/java/cn/hbzjhs/driver/preview/DriverLocationService.kt",
+      "sha256": "ebe701b8131ff9bd1716d7d52e8aa445b3ad3cdaccaef25d386eba35b9e3df0f",
+      "bytes": 15051
+    },
+    {
+      "path": "android/app/src/main/java/cn/hbzjhs/driver/preview/DriverSpeech.kt",
+      "sha256": "e1524bbe72443d8cb847c6f4434fb21e4d94fee62fb89cd3e1f06c675310675f",
+      "bytes": 22984
+    },
+    {
+      "path": "android/app/src/main/java/cn/hbzjhs/driver/preview/MainActivity.kt",
+      "sha256": "0929d1f4928e14b7c09af5e459a2e25ff70cca425916fb08a4daddafc4f810fe",
+      "bytes": 20390
+    },
+    {
+      "path": "android/app/src/main/java/cn/hbzjhs/driver/preview/MembershipCatalogScreens.kt",
+      "sha256": "4485c2be1154835a7469a24ce32fd066df9a29a609d15b1fa5534d3327a22174",
+      "bytes": 27281
+    },
+    {
+      "path": "android/app/src/main/java/cn/hbzjhs/driver/preview/MembershipEntry.kt",
+      "sha256": "73bf05b8ca6ef5ec934702fa5d4b9cde28e83f281ac2c92f2362fa08bc074d85",
+      "bytes": 6497
+    },
+    {
+      "path": "android/app/src/main/java/cn/hbzjhs/driver/preview/MembershipModels.kt",
+      "sha256": "0318e592154100f8f2b0b4402a765e54afaa07e143dadd3d4742b86e04c54b6a",
+      "bytes": 4789
+    },
+    {
+      "path": "android/app/src/main/java/cn/hbzjhs/driver/preview/MembershipSubscriptions.kt",
+      "sha256": "75a8b9620e9057ccf0120946857edbdf6852413f7966db3fc1b602e5c8781463",
+      "bytes": 26177
+    },
+    {
+      "path": "android/app/src/main/java/cn/hbzjhs/driver/preview/MembershipSupporting.kt",
+      "sha256": "882e20feb347a88182c526153f7375efdab4abd3320b1f66e724696df7d99f96",
+      "bytes": 16329
+    },
+    {
+      "path": "android/app/src/main/java/cn/hbzjhs/driver/preview/MembershipTransactions.kt",
+      "sha256": "1a7abe5798aa78e58e2b8203fe31b625686782761b520da2a1e2fb80de22175a",
+      "bytes": 29273
+    },
+    {
+      "path": "android/app/src/main/java/cn/hbzjhs/driver/preview/MembershipUi.kt",
+      "sha256": "5fbfe27bd20549c7b7459c25bf2a765fc694b2821a40af9a4fb852d080b5a8e6",
+      "bytes": 14941
+    },
+    {
+      "path": "android/app/src/main/java/cn/hbzjhs/driver/preview/NativeMap.kt",
+      "sha256": "53d0a89483181a45ae9eeb5ec342e20371a1fd11bd715c4db65d6f6cd099d709",
+      "bytes": 17063
+    },
+    {
+      "path": "android/app/src/main/java/cn/hbzjhs/driver/preview/NavigationContract.kt",
+      "sha256": "d20235441008d85b4c8d371c56697d524b4b66ffff1458ea9c08bc22d3813761",
+      "bytes": 4033
+    },
+    {
+      "path": "android/app/src/main/java/cn/hbzjhs/driver/preview/NegotiationContract.kt",
+      "sha256": "cd21b64d624a54772f0cc9ed243420e879d974539542802f57f78cc75e07ebb6",
+      "bytes": 4385
+    },
+    {
+      "path": "android/app/src/main/java/cn/hbzjhs/driver/preview/NegotiationSupport.kt",
+      "sha256": "5d14ead67357f71cb7cef1d7ee2d385d239700a27df433fa5a825388ce6933ef",
+      "bytes": 22457
+    },
+    {
+      "path": "android/app/src/main/java/cn/hbzjhs/driver/preview/TripWaypoints.kt",
+      "sha256": "eb3b649e2b18b8c65638616ad18723f3c6b0e8600a8a69d915b9f1c42d2a1ed8",
+      "bytes": 6022
+    },
+    {
+      "path": "android/app/src/main/java/cn/hbzjhs/driver/preview/UiKit.kt",
+      "sha256": "20a3a031aaf578ea0a577df3a72ca23c76db3012f84a4ffedcf54229e329426b",
+      "bytes": 19002
+    },
+    {
+      "path": "android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png",
+      "sha256": "b5410e62753a3a1c1316575e043e937cf51261de416de70269715081fdd196c2",
+      "bytes": 5214
+    },
+    {
+      "path": "android/app/src/main/res/raw/new_order.mp3",
+      "sha256": "0d7bfd3c69df7d451004e50d812ef30042cbf1725f76a43fff749a94c68c7971",
+      "bytes": 13392
+    },
+    {
+      "path": "android/app/src/main/res/raw/success_order.mp3",
+      "sha256": "f8b2d10a8e1cc8b31f2609f2178d4c1f874bdd7268f5fd9a0b60f8fd4ae522be",
+      "bytes": 13392
+    },
+    {
+      "path": "android/app/src/main/res/values-v27/styles.xml",
+      "sha256": "1cf47335a9beb8a12866eb9922249def068ee3e8ed60dec0fdcd431cc4cb47b4",
+      "bytes": 470
+    },
+    {
+      "path": "android/app/src/main/res/values/styles.xml",
+      "sha256": "c6657c7323c9c0f8d923096bfac5491ed1062563b8718ca86bdad611bab90d0c",
+      "bytes": 413
+    },
+    {
+      "path": "android/app/src/main/res/xml/business_file_paths.xml",
+      "sha256": "33d89cb3b518916792be4a249cd5d15c4727b8cb41a0c5ce29248672e64caa34",
+      "bytes": 184
+    },
+    {
+      "path": "android/app/src/main/res/xml/network_security_config.xml",
+      "sha256": "f57da9e1376c30f11b35d3e2f5fe467eac48f68f6f91966dee5906e674e7bcce",
+      "bytes": 217
+    },
+    {
+      "path": "android/app/src/test/java/cn/hbzjhs/driver/preview/ConnectedContractTest.kt",
+      "sha256": "524005972dcdfec5c6e0f497845b0e40832d5628ca7cc13a75197a1dc2276d7c",
+      "bytes": 6093
+    },
+    {
+      "path": "android/app/src/test/java/cn/hbzjhs/driver/preview/DriverCancellationTest.kt",
+      "sha256": "b0e2236a7fe26b20e00639349baa5f3664d68e14b25e69d3e2e218e8440daa07",
+      "bytes": 4496
+    },
+    {
+      "path": "android/app/src/test/java/cn/hbzjhs/driver/preview/NavigationContractTest.kt",
+      "sha256": "01638393c05f7e1e07c09b6aef5d66911ba5937bdda884dc2f3c5f7ea7d0888e",
+      "bytes": 6928
+    },
+    {
+      "path": "android/app/src/test/java/cn/hbzjhs/driver/preview/NegotiationContractTest.kt",
+      "sha256": "768c35dbefecc08b64dbae1dc47544f21a9a111a1501aab133572562407cc3b1",
+      "bytes": 8665
+    },
+    {
+      "path": "android/app/src/test/java/cn/hbzjhs/driver/preview/PaymentStatusTest.kt",
+      "sha256": "715311e05f94b446639a79223ce9afa290ff1f581a09410090ed9e21ebb8604f",
+      "bytes": 4690
+    },
+    {
+      "path": "android/build.gradle.kts",
+      "sha256": "48f7c9d13c50fa379dce0a2b7c028bcffe60d428eada35b12cfb8af28b31c962",
+      "bytes": 142
+    },
+    {
+      "path": "android/gradle.properties",
+      "sha256": "e43a00491832254a35cf5a979ef6de17f78c4e159d446be39319d2e3d3e46325",
+      "bytes": 100
+    },
+    {
+      "path": "android/gradle/wrapper/gradle-wrapper.jar",
+      "sha256": "cb0da6751c2b753a16ac168bb354870ebb1e162e9083f116729cec9c781156b8",
+      "bytes": 43453
+    },
+    {
+      "path": "android/gradle/wrapper/gradle-wrapper.properties",
+      "sha256": "3db66878136a55b95073146f77fee9cb33fbfc0d4354d443ced819b25a147f76",
+      "bytes": 339
+    },
+    {
+      "path": "android/gradlew",
+      "sha256": "fc977a94723af68aaffa4e5d60496fb4aeed1884b6b19e5e2f2fd7612673313d",
+      "bytes": 8692
+    },
+    {
+      "path": "android/gradlew.bat",
+      "sha256": "bdecf875b6868cbcbd36a1f85eedf0832f358ff28092c5797ed645f7edce77d9",
+      "bytes": 2918
+    },
+    {
+      "path": "android/settings.gradle.kts",
+      "sha256": "eab2bbacb0a20118d078a43eee7156db5060c4641384f87b7bb4843ced462385",
+      "bytes": 277
+    },
+    {
+      "path": "cloud-service/.dockerignore",
+      "sha256": "c849d1d4796966a2a3181b6073f4c2a754f94eece980a62a7779359b2df13438",
+      "bytes": 58
+    },
+    {
+      "path": "cloud-service/Dockerfile",
+      "sha256": "39e5d05c6e52ef60d0ed0b4f5fd65f6972f80c27658a755744e79908fdaf07b2",
+      "bytes": 334
+    },
+    {
+      "path": "cloud-service/README.md",
+      "sha256": "4d1b8c27a572ba8da91763956605d86d21d99b1b516371a88c389f43106aca5c",
+      "bytes": 3251
+    },
+    {
+      "path": "cloud-service/admin.py",
+      "sha256": "d68a26dbc7441f73dfc79a5a0bf98e60f7558b6386afde374d09636c9a447222",
+      "bytes": 25185
+    },
+    {
+      "path": "cloud-service/admin_console.py",
+      "sha256": "e85d6ad281a090d9519b45900977215e15e571fcaf19b7397bf28317fd18bace",
+      "bytes": 19416
+    },
+    {
+      "path": "cloud-service/benefits.py",
+      "sha256": "b9f4d100b05e7a3a4c39dd0bba69dbe557110a3ca006eb8a755692235f2470de",
+      "bytes": 15418
+    },
+    {
+      "path": "cloud-service/cloud_server.py",
+      "sha256": "3befeb25bb51fd44b306c17655da54b3015481df7aec3847f3901f4f9e0c9175",
+      "bytes": 15707
+    },
+    {
+      "path": "cloud-service/common.py",
+      "sha256": "3e27cf145d05a96b2ae6e1435d66d460edf585bd98de1935fda1764e27face92",
+      "bytes": 2098
+    },
+    {
+      "path": "cloud-service/distribution.py",
+      "sha256": "c164763c515121a6e7537bda9318e48a0dc35d531f80b408ddd29cc503b082b8",
+      "bytes": 4784
+    },
+    {
+      "path": "cloud-service/domain.py",
+      "sha256": "1c21457d5b1a23d22798249109fbf78ae8d006b2cabb32de51d631971d9994f2",
+      "bytes": 34893
+    },
+    {
+      "path": "cloud-service/negotiation.py",
+      "sha256": "0def00fc292686df616e6aaaac31eb79af10436b1bd0a48fb5f9d11d4b998bf1",
+      "bytes": 8939
+    },
+    {
+      "path": "cloud-service/order_options.py",
+      "sha256": "4ec12f73f400cfae665b828b5714501b6e555bdf00eb99c352e306a5f36cb123",
+      "bytes": 8428
+    },
+    {
+      "path": "cloud-service/passenger.py",
+      "sha256": "8d387e0365d2896f4c3b7660a6a54d98cfa09245476204432fc5d7239effc374",
+      "bytes": 30505
+    },
+    {
+      "path": "cloud-service/passenger_extras.py",
+      "sha256": "fc6a21d2d05adf859754bddd56467dd1d7376fc9a1a9e57c4c0865c4a34983c9",
+      "bytes": 7669
+    },
+    {
+      "path": "cloud-service/requirements.txt",
+      "sha256": "af79caa6e5db292ba03cd708cab33f138b4295460b3f570c61f14e4e146c2f9a",
+      "bytes": 28
+    },
+    {
+      "path": "cloud-service/seed.py",
+      "sha256": "64382842f55bd0486028244a758c951293de1f89f6e6ce2a98273867a44b0d7b",
+      "bytes": 7968
+    },
+    {
+      "path": "cloud-service/server.py",
+      "sha256": "69f713dd3c76df5f2754eb2e8a95f9ef23ada1d0201d3fdc824af5bcf242afc2",
+      "bytes": 17918
+    },
+    {
+      "path": "cloud-service/snapshot.py",
+      "sha256": "31552c1a6406157cc483507a66b3d2d8981c5ca7ab7941f4a2250225cabaca17",
+      "bytes": 6682
+    },
+    {
+      "path": "cloud-service/static/admin.css",
+      "sha256": "de41a30e4b75abbac164764070b76b81cd098716a573bce13f8537b220ab2045",
+      "bytes": 7548
+    },
+    {
+      "path": "cloud-service/static/admin.html",
+      "sha256": "386cb5544b3f3dfe89c461bef4d04471d514e63252a8c06a3a84644be4f3ae13",
+      "bytes": 2073
+    },
+    {
+      "path": "cloud-service/static/admin.js",
+      "sha256": "18fefe0b162a28ae7272c76a94e992c3bcfc6c5654503cadf25d0e5fc5684a17",
+      "bytes": 39246
+    },
+    {
+      "path": "cloud-service/static/sample.jpg",
+      "sha256": "94c65c68e2e11465bef264f86c5abd882e5967b5fc609ae6b99bafda9c1c6718",
+      "bytes": 75712
+    },
+    {
+      "path": "cloud-service/static/sandbox-certificate-sample.png",
+      "sha256": "d0c6e7af6edb96b1b2931b3f763ec51bf31d3eeca9222bf5cfc60b7c971e3186",
+      "bytes": 67721
+    },
+    {
+      "path": "docs/API_CONTRACT.md",
+      "sha256": "c77d8f9f3b2f1ec9cc98cad40b05d41602b8b777b1c74641f9d6a589fb6e7bb3",
+      "bytes": 6223
+    },
+    {
+      "path": "docs/NEGOTIATION_API_CONTRACT.md",
+      "sha256": "7e0c56d2ec25f6b7342a9a349533f14c768a7ea2c57ec278210f2193d72f43a9",
+      "bytes": 4502
+    },
+    {
+      "path": "ops/cloud-control.sh",
+      "sha256": "99302377ae046fd1c553ca3701c46c2e25ba1de2ad7e8a48e2f69fd7e0130a3b",
+      "bytes": 6720
+    },
+    {
+      "path": "ops/deployment.json",
+      "sha256": "a346bd2ef3c55dfd47916209aacfb3b1069d67a36fa208d3341163868f9459ef",
+      "bytes": 1205
+    },
+    {
+      "path": "ops/恢复.command",
+      "sha256": "63f19cef833f4e8b175f48155de6e34d3dd9b09bbc3cc98ab36891b8a0e8693f",
+      "bytes": 381
+    },
+    {
+      "path": "ops/暂停.command",
+      "sha256": "2679a5407981dbc2e259e03a2b926cda3082059750361b8ddf107cd2c578db3e",
+      "bytes": 380
+    },
+    {
+      "path": "ops/查看状态.command",
+      "sha256": "cb1eb865d9eaa3c57b5930a16f6b6e8d1cc9cad861c407dea4482697cd8aa9cf",
+      "bytes": 208
+    },
+    {
+      "path": "provenance/SOURCE.json",
+      "sha256": "8146e3b53a5529eca8dd2286a2bf3ed7eaa0613b15a84563a4bcf639ccd5fe97",
+      "bytes": 8140
+    },
+    {
+      "path": "provenance/android-candidate-r3.json",
+      "sha256": "dfacff3a2ce3960c3816726bed73a98043041d9a1fb0786a31fdb9d0324e5173",
+      "bytes": 1574
+    },
+    {
+      "path": "provenance/android-source-035-r3-manifest.json",
+      "sha256": "b3a30655ad99718704eb8efd3362b5da518e579f7462d1be2cc50eaf87af35eb",
+      "bytes": 10588
+    },
+    {
+      "path": "provenance/antigravity-035-result.json",
+      "sha256": "d1d07bbe5ae13ec2e446cdc264aef2cb45cf6c2a49471b505ec6d59d74d1d693",
+      "bytes": 390
+    },
+    {
+      "path": "provenance/backend-deployed-v7-source.sha256",
+      "sha256": "143fbe142085521b4750a90da7bdfc5cfd709dbe64a21c0f21225584fd029610",
+      "bytes": 88
+    },
+    {
+      "path": "provenance/backend-v7-build-source.json",
+      "sha256": "9793c44d37d50f7126b62f0e3bcf83a53232e83cdd07e49ab97ef3e78e024296",
+      "bytes": 1318
+    },
+    {
+      "path": "provenance/backend-v7-deployed-final.json",
+      "sha256": "31d0a5d19baefb326624f928345ec009d319ab12abb86776767bada8d936087f",
+      "bytes": 2024
+    },
+    {
+      "path": "provenance/backend-v7-source-manifest.json",
+      "sha256": "bbe7c3c27d8580fb9f073e2b41bfa23cec7200b51cfa0d7c36078b666fd76b26",
+      "bytes": 1942
+    },
+    {
+      "path": "provenance/final-release-facts.json",
+      "sha256": "a4faeba3ee0bf5bf3a558d12eae597deb2e5281932095f5c2fdb22df1f415bb3",
+      "bytes": 6170
+    },
+    {
+      "path": "provenance/previous-034-SOURCE.json",
+      "sha256": "76f4798c055ea46a5c8d63c53b4ed2a2e02213f26df4ce7bf10e3c9877e812c1",
+      "bytes": 7144
+    },
+    {
+      "path": "provenance/ui-acceptance-035.json",
+      "sha256": "4045e0b1b0938488a73602fcc93363ba471240a517d6da70b575106cff8a3cd7",
+      "bytes": 1111
+    },
+    {
+      "path": "provenance/ui-results-codex-035.md",
+      "sha256": "cba985b3292d5c4c926b447829cc5b21a93dcdb92b8e850ca1e815f03f573956",
+      "bytes": 8021
+    }
+  ]
+}

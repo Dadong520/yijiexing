@@ -1,0 +1,61 @@
+{
+  "version": "0.3.5-cloud",
+  "versionCode": 8,
+  "candidate": "r3",
+  "sha256": "6b9620a237286002662a966a31ba110f50d3a13c2ca4c113961792b32ee0b4ea",
+  "bytes": 54757323,
+  "builtAt": "2026-10-24T00:17:08.316448+08:00",
+  "tests": [
+    {
+      "name": "cn.hbzjhs.driver.preview.NegotiationContractTest",
+      "tests": "9",
+      "skipped": "0",
+      "failures": "0",
+      "errors": "0",
+      "timestamp": "2026-10-23T16:16:30",
+      "hostname": "dongge-2.local",
+      "time": "0.072"
+    },
+    {
+      "name": "cn.hbzjhs.driver.preview.NavigationContractTest",
+      "tests": "7",
+      "skipped": "0",
+      "failures": "0",
+      "errors": "0",
+      "timestamp": "2026-10-23T16:16:30",
+      "hostname": "dongge-2.local",
+      "time": "0.019"
+    },
+    {
+      "name": "cn.hbzjhs.driver.preview.PaymentStatusTest",
+      "tests": "9",
+      "skipped": "0",
+      "failures": "0",
+      "errors": "0",
+      "timestamp": "2026-10-23T16:16:30",
+      "hostname": "dongge-2.local",
+      "time": "0.002"
+    },
+    {
+      "name": "cn.hbzjhs.driver.preview.ConnectedContractTest",
+      "tests": "7",
+      "skipped": "0",
+      "failures": "0",
+      "errors": "0",
+      "timestamp": "2026-10-23T16:16:30",
+      "hostname": "dongge-2.local",
+      "time": "0.135"
+    },
+    {
+      "name": "cn.hbzjhs.driver.preview.DriverCancellationTest",
+      "tests": "8",
+      "skipped": "0",
+      "failures": "0",
+      "errors": "0",
+      "timestamp": "2026-10-23T16:16:30",
+      "hostname": "dongge-2.local",
+      "time": "0.01"
+    }
+  ],
+  "published": false
+}

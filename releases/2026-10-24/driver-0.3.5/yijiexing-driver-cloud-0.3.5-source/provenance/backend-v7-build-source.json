@@ -1,0 +1,41 @@
+{
+  "id": "95828fa5-a4b6-469c-b227-99fab315bdbe",
+  "projectId": "yijiexing-driver-demo-1023",
+  "status": "SUCCESS",
+  "createTime": "2026-10-23T14:07:51.257491858Z",
+  "finishTime": "2026-10-23T14:08:16.066394Z",
+  "source": {
+    "storageSource": {
+      "bucket": "yijiexing-demo-build-491829048305",
+      "generation": "1792764470407185",
+      "object": "source/1792764468.626125-c864e956f4a64deeb2e8cc2b573fb8f3.tgz"
+    }
+  },
+  "sourceProvenance": {
+    "fileHashes": {
+      "gs://yijiexing-demo-build-491829048305/source/1792764468.626125-c864e956f4a64deeb2e8cc2b573fb8f3.tgz#1792764470407185": {
+        "fileHash": [
+          {
+            "type": "MD5",
+            "value": "FZ1hB5laaGQfPgmZECIfyQ=="
+          },
+          {
+            "type": "SHA256",
+            "value": "EJcJQJXCmK-ebVsTLrN3aaGOzVtEJJMDmG59E6s3zsc="
+          }
+        ]
+      }
+    },
+    "resolvedStorageSource": {
+      "bucket": "yijiexing-demo-build-491829048305",
+      "generation": "1792764470407185",
+      "object": "source/1792764468.626125-c864e956f4a64deeb2e8cc2b573fb8f3.tgz"
+    }
+  },
+  "images": [
+    {
+      "name": "us-west1-docker.pkg.dev/yijiexing-driver-demo-1023/demo/service:20261023-passenger-v7",
+      "digest": "sha256:b3cb3e2f61e4a724dd95b6dfac0d357d2bbd793b9e225402965b8fedb5ff0d3d"
+    }
+  ]
+}

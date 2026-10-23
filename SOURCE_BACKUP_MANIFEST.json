@@ -1,0 +1,1369 @@
+{
+  "capturedAt": "2026-10-24T02:09:36.793699+08:00",
+  "scope": "Immutable packaged baselines and frozen local candidates; ongoing main-thread files are untouched.",
+  "origins": [
+    {
+      "sourceArchive": "source-035-final.zip",
+      "sha256": "d92e17f4e6caf1e3cabecf20e1d604fe191f220f1d175bd4142f4b1ed566a2ea",
+      "repositoryPath": "releases/2026-10-24/driver-0.3.5",
+      "status": "packaged-release-baseline"
+    },
+    {
+      "sourceArchive": "yijiexing-passenger-1.1.5-source.zip",
+      "sha256": "9e7bc000fb9870a17219cf601c44eeafef2799ad063ffb738afb1e20dfb749f8",
+      "repositoryPath": "releases/2026-10-24/passenger-native-1.1.5",
+      "status": "packaged-release-baseline"
+    },
+    {
+      "sourceArchive": "宜捷行后台源码与验收-20261023.zip",
+      "sha256": "4689bfde7ed1b06c51a5e0baffd29f5423a650458ba2a1e4138dae8a830b7adf",
+      "repositoryPath": "releases/2026-10-24/admin-v7",
+      "status": "packaged-release-baseline"
+    },
+    {
+      "sourceArchive": "android-source-036-r1.zip",
+      "sha256": "0674c73ade50ffcbeaa95348db65576cee8aee4b6f03f9c1d6447f2a65b698be",
+      "repositoryPath": "candidates/driver-0.3.6-r1",
+      "status": "candidate-not-released"
+    },
+    {
+      "repositoryPath": "candidates/shared-backend-v8",
+      "status": "frozen-candidate-not-deployment-proof",
+      "frozenAt": "2026-10-24T01:43:55.589752+08:00",
+      "files": 35
+    }
+  ],
+  "excluded": [
+    "actual credentials and .private",
+    "databases and account snapshots",
+    "APK/build caches",
+    "large screenshot and runtime evidence",
+    "unfinished WeChat miniprogram"
+  ],
+  "files": {
+    "candidates/driver-0.3.6-r1/android/.gitignore": {
+      "sha256": "d8cc1476c1b8ec4c5e4349eb42a0d86f5b632c01079f59e48a3d7524400ca3f6",
+      "bytes": 71
+    },
+    "candidates/driver-0.3.6-r1/android/INTEGRATION.md": {
+      "sha256": "75272410744a5dd5f1e74618eaf0a652ba4a5c97870ec102e2646e7ae8368ee9",
+      "bytes": 1993
+    },
+    "candidates/driver-0.3.6-r1/android/README.md": {
+      "sha256": "fbb1ab8c8fe4b4beaaffc8c4bb132bb27588c40508ce6af1c9e1a7a8313150d0",
+      "bytes": 3551
+    },
+    "candidates/driver-0.3.6-r1/android/app/build.gradle.kts": {
+      "sha256": "ea9d9d49646a5b81c9c155e2c5bf93298fbba95b673d78ba0c2eb0906c7280af",
+      "bytes": 1904
+    },
+    "candidates/driver-0.3.6-r1/android/app/src/androidTest/java/cn/hbzjhs/driver/preview/NavigationIntentInstrumentedTest.kt": {
+      "sha256": "62e4398c82344825c24cca0e1cf857d3dd8d3220f38502a3d60d368f8865045c",
+      "bytes": 4358
+    },
+    "candidates/driver-0.3.6-r1/android/app/src/main/AndroidManifest.xml": {
+      "sha256": "aa1953d731b1b0488b12d4169ebdd75eb2b8ce1054f047c0e08a7a07a4fac27c",
+      "bytes": 1988
+    },
+    "candidates/driver-0.3.6-r1/android/app/src/main/assets/third-party/ZXing-LICENSE.txt": {
+      "sha256": "3f62881f0566227a24b12e5a754cc79f39aaa94883038e95c94812e1f50af42f",
+      "bytes": 13320
+    },
+    "candidates/driver-0.3.6-r1/android/app/src/main/assets/third-party/ZXing-NOTICE.txt": {
+      "sha256": "4db4b60aace29ec6c5c4f13ca9cac1930d3c0c54bcc67dceead0c10771120e66",
+      "bytes": 664
+    },
+    "candidates/driver-0.3.6-r1/android/app/src/main/java/cn/hbzjhs/driver/preview/BusinessCommunity.kt": {
+      "sha256": "94ad929a1768a952581be91ade20ca1cbe6b02c602a1cfe48b20de67cfb9fd3d",
+      "bytes": 21405
+    },
+    "candidates/driver-0.3.6-r1/android/app/src/main/java/cn/hbzjhs/driver/preview/BusinessFinance.kt": {
+      "sha256": "1c9515057c01960c8adf9fb417a8980ee553e2ad9fe94a44631d3b314af646d9",
+      "bytes": 24696
+    },
+    "candidates/driver-0.3.6-r1/android/app/src/main/java/cn/hbzjhs/driver/preview/BusinessKit.kt": {
+      "sha256": "ea8f5fcc6d27eb61a688bbb19658f29961e4966f44d8be8d3fe561617dafbe23",
+      "bytes": 17111
+    },
+    "candidates/driver-0.3.6-r1/android/app/src/main/java/cn/hbzjhs/driver/preview/BusinessScreens.kt": {
+      "sha256": "3e2555742e6351ccbd4b1352d21b611e79bf9d0255e38f92911876566fbd3b8e",
+      "bytes": 19667
+    },
+    "candidates/driver-0.3.6-r1/android/app/src/main/java/cn/hbzjhs/driver/preview/BusinessSupport.kt": {
+      "sha256": "3fd4cf254502083f4800aff7f2a7de32301e7867b604ead3ec00f5776e27d228",
+      "bytes": 24859
+    },
+    "candidates/driver-0.3.6-r1/android/app/src/main/java/cn/hbzjhs/driver/preview/ConnectedStore.kt": {
+      "sha256": "2bca6f10f996c75f4bbba4152757bdea2c004e23f09f0c91a2bc3d7b0e60801a",
+      "bytes": 29841
+    },
+    "candidates/driver-0.3.6-r1/android/app/src/main/java/cn/hbzjhs/driver/preview/CoreScreens.kt": {
+      "sha256": "e6e13cd779eeba39b4b0f1846db774c91d1478b09c75ca09a7726f9bcb444b99",
+      "bytes": 80515
+    },
+    "candidates/driver-0.3.6-r1/android/app/src/main/java/cn/hbzjhs/driver/preview/DriverDomain.kt": {
+      "sha256": "676804352d3acb8c0cda491762e075e859c43a03f2b34e58fd86e8976cfc32e3",
+      "bytes": 6528
+    },
+    "candidates/driver-0.3.6-r1/android/app/src/main/java/cn/hbzjhs/driver/preview/DriverLocationService.kt": {
+      "sha256": "3948e4545295d266d2e6fbad5182560a35e689d8333a7f60f20191fb74587737",
+      "bytes": 16055
+    },
+    "candidates/driver-0.3.6-r1/android/app/src/main/java/cn/hbzjhs/driver/preview/DriverSpeech.kt": {
+      "sha256": "e1524bbe72443d8cb847c6f4434fb21e4d94fee62fb89cd3e1f06c675310675f",
+      "bytes": 22984
+    },
+    "candidates/driver-0.3.6-r1/android/app/src/main/java/cn/hbzjhs/driver/preview/MainActivity.kt": {
+      "sha256": "355095f4afe11522ad0bf53244791f88a8dda2a949eae209073608e831a7f977",
+      "bytes": 20915
+    },
+    "candidates/driver-0.3.6-r1/android/app/src/main/java/cn/hbzjhs/driver/preview/MembershipCatalogScreens.kt": {
+      "sha256": "4485c2be1154835a7469a24ce32fd066df9a29a609d15b1fa5534d3327a22174",
+      "bytes": 27281
+    },
+    "candidates/driver-0.3.6-r1/android/app/src/main/java/cn/hbzjhs/driver/preview/MembershipEntry.kt": {
+      "sha256": "73bf05b8ca6ef5ec934702fa5d4b9cde28e83f281ac2c92f2362fa08bc074d85",
+      "bytes": 6497
+    },
+    "candidates/driver-0.3.6-r1/android/app/src/main/java/cn/hbzjhs/driver/preview/MembershipModels.kt": {
+      "sha256": "0318e592154100f8f2b0b4402a765e54afaa07e143dadd3d4742b86e04c54b6a",
+      "bytes": 4789
+    },
+    "candidates/driver-0.3.6-r1/android/app/src/main/java/cn/hbzjhs/driver/preview/MembershipSubscriptions.kt": {
+      "sha256": "75a8b9620e9057ccf0120946857edbdf6852413f7966db3fc1b602e5c8781463",
+      "bytes": 26177
+    },
+    "candidates/driver-0.3.6-r1/android/app/src/main/java/cn/hbzjhs/driver/preview/MembershipSupporting.kt": {
+      "sha256": "882e20feb347a88182c526153f7375efdab4abd3320b1f66e724696df7d99f96",
+      "bytes": 16329
+    },
+    "candidates/driver-0.3.6-r1/android/app/src/main/java/cn/hbzjhs/driver/preview/MembershipTransactions.kt": {
+      "sha256": "1a7abe5798aa78e58e2b8203fe31b625686782761b520da2a1e2fb80de22175a",
+      "bytes": 29273
+    },
+    "candidates/driver-0.3.6-r1/android/app/src/main/java/cn/hbzjhs/driver/preview/MembershipUi.kt": {
+      "sha256": "5fbfe27bd20549c7b7459c25bf2a765fc694b2821a40af9a4fb852d080b5a8e6",
+      "bytes": 14941
+    },
+    "candidates/driver-0.3.6-r1/android/app/src/main/java/cn/hbzjhs/driver/preview/NativeMap.kt": {
+      "sha256": "53d0a89483181a45ae9eeb5ec342e20371a1fd11bd715c4db65d6f6cd099d709",
+      "bytes": 17063
+    },
+    "candidates/driver-0.3.6-r1/android/app/src/main/java/cn/hbzjhs/driver/preview/NavigationContract.kt": {
+      "sha256": "d20235441008d85b4c8d371c56697d524b4b66ffff1458ea9c08bc22d3813761",
+      "bytes": 4033
+    },
+    "candidates/driver-0.3.6-r1/android/app/src/main/java/cn/hbzjhs/driver/preview/NegotiationContract.kt": {
+      "sha256": "cd21b64d624a54772f0cc9ed243420e879d974539542802f57f78cc75e07ebb6",
+      "bytes": 4385
+    },
+    "candidates/driver-0.3.6-r1/android/app/src/main/java/cn/hbzjhs/driver/preview/NegotiationSupport.kt": {
+      "sha256": "5d14ead67357f71cb7cef1d7ee2d385d239700a27df433fa5a825388ce6933ef",
+      "bytes": 22457
+    },
+    "candidates/driver-0.3.6-r1/android/app/src/main/java/cn/hbzjhs/driver/preview/StateRequestCoordinator.kt": {
+      "sha256": "a73d94739770b552314a9a22b731523d67e97d69281294b257bec07fa1489dbc",
+      "bytes": 1506
+    },
+    "candidates/driver-0.3.6-r1/android/app/src/main/java/cn/hbzjhs/driver/preview/TripWaypoints.kt": {
+      "sha256": "eb3b649e2b18b8c65638616ad18723f3c6b0e8600a8a69d915b9f1c42d2a1ed8",
+      "bytes": 6022
+    },
+    "candidates/driver-0.3.6-r1/android/app/src/main/java/cn/hbzjhs/driver/preview/UiKit.kt": {
+      "sha256": "363d76ad3d9ecd0acf212c9a674bcb480f35b327f96ad8e30fa3c462f52b5464",
+      "bytes": 19247
+    },
+    "candidates/driver-0.3.6-r1/android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png": {
+      "sha256": "b5410e62753a3a1c1316575e043e937cf51261de416de70269715081fdd196c2",
+      "bytes": 5214
+    },
+    "candidates/driver-0.3.6-r1/android/app/src/main/res/raw/new_order.mp3": {
+      "sha256": "0d7bfd3c69df7d451004e50d812ef30042cbf1725f76a43fff749a94c68c7971",
+      "bytes": 13392
+    },
+    "candidates/driver-0.3.6-r1/android/app/src/main/res/raw/success_order.mp3": {
+      "sha256": "f8b2d10a8e1cc8b31f2609f2178d4c1f874bdd7268f5fd9a0b60f8fd4ae522be",
+      "bytes": 13392
+    },
+    "candidates/driver-0.3.6-r1/android/app/src/main/res/values-v27/styles.xml": {
+      "sha256": "1cf47335a9beb8a12866eb9922249def068ee3e8ed60dec0fdcd431cc4cb47b4",
+      "bytes": 470
+    },
+    "candidates/driver-0.3.6-r1/android/app/src/main/res/values/styles.xml": {
+      "sha256": "c6657c7323c9c0f8d923096bfac5491ed1062563b8718ca86bdad611bab90d0c",
+      "bytes": 413
+    },
+    "candidates/driver-0.3.6-r1/android/app/src/main/res/xml/business_file_paths.xml": {
+      "sha256": "33d89cb3b518916792be4a249cd5d15c4727b8cb41a0c5ce29248672e64caa34",
+      "bytes": 184
+    },
+    "candidates/driver-0.3.6-r1/android/app/src/main/res/xml/network_security_config.xml": {
+      "sha256": "f57da9e1376c30f11b35d3e2f5fe467eac48f68f6f91966dee5906e674e7bcce",
+      "bytes": 217
+    },
+    "candidates/driver-0.3.6-r1/android/app/src/test/java/cn/hbzjhs/driver/preview/ConnectedContractTest.kt": {
+      "sha256": "524005972dcdfec5c6e0f497845b0e40832d5628ca7cc13a75197a1dc2276d7c",
+      "bytes": 6093
+    },
+    "candidates/driver-0.3.6-r1/android/app/src/test/java/cn/hbzjhs/driver/preview/DriverCancellationTest.kt": {
+      "sha256": "b0e2236a7fe26b20e00639349baa5f3664d68e14b25e69d3e2e218e8440daa07",
+      "bytes": 4496
+    },
+    "candidates/driver-0.3.6-r1/android/app/src/test/java/cn/hbzjhs/driver/preview/DriverSettlementTest.kt": {
+      "sha256": "d558b185fd925603a64860fffbe15cc9225122ee2ff6d5b1fe8e255f31633bde",
+      "bytes": 5533
+    },
+    "candidates/driver-0.3.6-r1/android/app/src/test/java/cn/hbzjhs/driver/preview/NavigationContractTest.kt": {
+      "sha256": "01638393c05f7e1e07c09b6aef5d66911ba5937bdda884dc2f3c5f7ea7d0888e",
+      "bytes": 6928
+    },
+    "candidates/driver-0.3.6-r1/android/app/src/test/java/cn/hbzjhs/driver/preview/NegotiationContractTest.kt": {
+      "sha256": "768c35dbefecc08b64dbae1dc47544f21a9a111a1501aab133572562407cc3b1",
+      "bytes": 8665
+    },
+    "candidates/driver-0.3.6-r1/android/app/src/test/java/cn/hbzjhs/driver/preview/PaymentStatusTest.kt": {
+      "sha256": "715311e05f94b446639a79223ce9afa290ff1f581a09410090ed9e21ebb8604f",
+      "bytes": 4690
+    },
+    "candidates/driver-0.3.6-r1/android/app/src/test/java/cn/hbzjhs/driver/preview/StateRequestCoordinatorTest.kt": {
+      "sha256": "cffa0da7a1414e4f5e7d706f9f5f382a6d5c816d7fe497aeca404de05578073e",
+      "bytes": 7460
+    },
+    "candidates/driver-0.3.6-r1/android/build.gradle.kts": {
+      "sha256": "48f7c9d13c50fa379dce0a2b7c028bcffe60d428eada35b12cfb8af28b31c962",
+      "bytes": 142
+    },
+    "candidates/driver-0.3.6-r1/android/gradle.properties": {
+      "sha256": "e43a00491832254a35cf5a979ef6de17f78c4e159d446be39319d2e3d3e46325",
+      "bytes": 100
+    },
+    "candidates/driver-0.3.6-r1/android/gradle/wrapper/gradle-wrapper.jar": {
+      "sha256": "cb0da6751c2b753a16ac168bb354870ebb1e162e9083f116729cec9c781156b8",
+      "bytes": 43453
+    },
+    "candidates/driver-0.3.6-r1/android/gradle/wrapper/gradle-wrapper.properties": {
+      "sha256": "3db66878136a55b95073146f77fee9cb33fbfc0d4354d443ced819b25a147f76",
+      "bytes": 339
+    },
+    "candidates/driver-0.3.6-r1/android/gradlew": {
+      "sha256": "fc977a94723af68aaffa4e5d60496fb4aeed1884b6b19e5e2f2fd7612673313d",
+      "bytes": 8692
+    },
+    "candidates/driver-0.3.6-r1/android/gradlew.bat": {
+      "sha256": "bdecf875b6868cbcbd36a1f85eedf0832f358ff28092c5797ed645f7edce77d9",
+      "bytes": 2918
+    },
+    "candidates/driver-0.3.6-r1/android/settings.gradle.kts": {
+      "sha256": "eab2bbacb0a20118d078a43eee7156db5060c4641384f87b7bb4843ced462385",
+      "bytes": 277
+    },
+    "candidates/shared-backend-v8/cloud-service/Dockerfile": {
+      "sha256": "39e5d05c6e52ef60d0ed0b4f5fd65f6972f80c27658a755744e79908fdaf07b2",
+      "bytes": 334
+    },
+    "candidates/shared-backend-v8/cloud-service/admin.py": {
+      "sha256": "d68a26dbc7441f73dfc79a5a0bf98e60f7558b6386afde374d09636c9a447222",
+      "bytes": 25185
+    },
+    "candidates/shared-backend-v8/cloud-service/admin_console.py": {
+      "sha256": "4e226e65ac5266769cd19c603bccf2c6b30e8fc148d848cc6b299934a5f9d092",
+      "bytes": 19665
+    },
+    "candidates/shared-backend-v8/cloud-service/benefits.py": {
+      "sha256": "b9f4d100b05e7a3a4c39dd0bba69dbe557110a3ca006eb8a755692235f2470de",
+      "bytes": 15418
+    },
+    "candidates/shared-backend-v8/cloud-service/cloud_server.py": {
+      "sha256": "3befeb25bb51fd44b306c17655da54b3015481df7aec3847f3901f4f9e0c9175",
+      "bytes": 15707
+    },
+    "candidates/shared-backend-v8/cloud-service/common.py": {
+      "sha256": "3e27cf145d05a96b2ae6e1435d66d460edf585bd98de1935fda1764e27face92",
+      "bytes": 2098
+    },
+    "candidates/shared-backend-v8/cloud-service/distribution.py": {
+      "sha256": "c164763c515121a6e7537bda9318e48a0dc35d531f80b408ddd29cc503b082b8",
+      "bytes": 4784
+    },
+    "candidates/shared-backend-v8/cloud-service/domain.py": {
+      "sha256": "ef05f2902e2227c45e6893a2fed03a259d2563e6da951acf33bf7763465443e5",
+      "bytes": 36577
+    },
+    "candidates/shared-backend-v8/cloud-service/negotiation.py": {
+      "sha256": "0c844c35ee4a79b867d7ffb39945021cf9bb03af03125a37a1c9b12006e668b8",
+      "bytes": 8852
+    },
+    "candidates/shared-backend-v8/cloud-service/order_options.py": {
+      "sha256": "4ec12f73f400cfae665b828b5714501b6e555bdf00eb99c352e306a5f36cb123",
+      "bytes": 8428
+    },
+    "candidates/shared-backend-v8/cloud-service/passenger.py": {
+      "sha256": "7f11834c6d9cea342b1e474feaadc702247d4d169f898d5e247c98a00a27729b",
+      "bytes": 32490
+    },
+    "candidates/shared-backend-v8/cloud-service/passenger_extras.py": {
+      "sha256": "fc6a21d2d05adf859754bddd56467dd1d7376fc9a1a9e57c4c0865c4a34983c9",
+      "bytes": 7669
+    },
+    "candidates/shared-backend-v8/cloud-service/requirements.txt": {
+      "sha256": "af79caa6e5db292ba03cd708cab33f138b4295460b3f570c61f14e4e146c2f9a",
+      "bytes": 28
+    },
+    "candidates/shared-backend-v8/cloud-service/seed.py": {
+      "sha256": "64382842f55bd0486028244a758c951293de1f89f6e6ce2a98273867a44b0d7b",
+      "bytes": 7968
+    },
+    "candidates/shared-backend-v8/cloud-service/server.py": {
+      "sha256": "69f713dd3c76df5f2754eb2e8a95f9ef23ada1d0201d3fdc824af5bcf242afc2",
+      "bytes": 17918
+    },
+    "candidates/shared-backend-v8/cloud-service/snapshot.py": {
+      "sha256": "31552c1a6406157cc483507a66b3d2d8981c5ca7ab7941f4a2250225cabaca17",
+      "bytes": 6682
+    },
+    "candidates/shared-backend-v8/cloud-service/static/admin.css": {
+      "sha256": "de41a30e4b75abbac164764070b76b81cd098716a573bce13f8537b220ab2045",
+      "bytes": 7548
+    },
+    "candidates/shared-backend-v8/cloud-service/static/admin.html": {
+      "sha256": "386cb5544b3f3dfe89c461bef4d04471d514e63252a8c06a3a84644be4f3ae13",
+      "bytes": 2073
+    },
+    "candidates/shared-backend-v8/cloud-service/static/admin.js": {
+      "sha256": "18fefe0b162a28ae7272c76a94e992c3bcfc6c5654503cadf25d0e5fc5684a17",
+      "bytes": 39246
+    },
+    "candidates/shared-backend-v8/cloud-service/static/sample.jpg": {
+      "sha256": "94c65c68e2e11465bef264f86c5abd882e5967b5fc609ae6b99bafda9c1c6718",
+      "bytes": 75712
+    },
+    "candidates/shared-backend-v8/cloud-service/static/sandbox-certificate-sample.png": {
+      "sha256": "d0c6e7af6edb96b1b2931b3f763ec51bf31d3eeca9222bf5cfc60b7c971e3186",
+      "bytes": 67721
+    },
+    "candidates/shared-backend-v8/cloud-service/tests/policy_helpers.py": {
+      "sha256": "a2de3fc53c7ce2b41db552dd6b78e5ea9c439afd00b5aec9a1fb1ef47540a53e",
+      "bytes": 2347
+    },
+    "candidates/shared-backend-v8/cloud-service/tests/test_admin_http.py": {
+      "sha256": "3891636746aff7fdc9c732de1905a2e9b5aca3b85ba90cbdc6f6fe1b14d899fb",
+      "bytes": 9811
+    },
+    "candidates/shared-backend-v8/cloud-service/tests/test_advance_stage.py": {
+      "sha256": "1ce39d7765763492024c12f58b7e5064c13a814313033ec6280af44114dc1c3c",
+      "bytes": 3110
+    },
+    "candidates/shared-backend-v8/cloud-service/tests/test_certificate_dates.py": {
+      "sha256": "60de9e575c44397e2b037a89cf3508dbdfb443c7eb66676c37bbe7a19c8f1b78",
+      "bytes": 3732
+    },
+    "candidates/shared-backend-v8/cloud-service/tests/test_cloud.py": {
+      "sha256": "cfb411c1bb5587152edb7a9dd0e241e6a31f82b32d7e2c60a4ab5e0a0e9856f8",
+      "bytes": 15679
+    },
+    "candidates/shared-backend-v8/cloud-service/tests/test_distribution.py": {
+      "sha256": "0623ab6202e74126f684bd9eec7b6e496557a1fc8aed07c96168a56791bcfbe9",
+      "bytes": 8897
+    },
+    "candidates/shared-backend-v8/cloud-service/tests/test_driver_projection_privacy.py": {
+      "sha256": "87e6f0a20af07385990503a47f485802c8e0f75004c2c10cc68e7566a3608316",
+      "bytes": 3344
+    },
+    "candidates/shared-backend-v8/cloud-service/tests/test_fare_confirmation.py": {
+      "sha256": "7622bdfb38050be1da31d639d21f1d12e05d26be51fb2aa75b3723b2440548d1",
+      "bytes": 6667
+    },
+    "candidates/shared-backend-v8/cloud-service/tests/test_negotiation.py": {
+      "sha256": "7a615dc9ae70eee7b4fb7baf18c4c2ce97559dd37b6fafcfdfc53cec43020c18",
+      "bytes": 15790
+    },
+    "candidates/shared-backend-v8/cloud-service/tests/test_original_integration.py": {
+      "sha256": "3962f094097e2cb8a5bfb092dc0c2944158faa74631e7d90536e24268283500f",
+      "bytes": 32405
+    },
+    "candidates/shared-backend-v8/cloud-service/tests/test_passenger.py": {
+      "sha256": "89347133d8092a1ebad1306499a3d71946fac416831c587594dd098625b945a2",
+      "bytes": 25365
+    },
+    "candidates/shared-backend-v8/cloud-service/tests/test_passenger_extras.py": {
+      "sha256": "82e94414711127bd2ce9b2372de2659c4b4984212053e9b2abf1b6136508867d",
+      "bytes": 5890
+    },
+    "candidates/shared-backend-v8/cloud-service/tests/test_passenger_options.py": {
+      "sha256": "71d7b0d05044bd5a102dddc78ea8c728178fac746bfe3976cd398a6d92de48c6",
+      "bytes": 4754
+    },
+    "candidates/shared-backend-v8/cloud-service/tests/test_wait_pay_policy.py": {
+      "sha256": "8108ebfb71626b0697474ce6c1a31366e6318a4d3699e4d13a6a57e496c6f168",
+      "bytes": 10261
+    },
+    "releases/2026-10-24/admin-v7/yijiexing-admin-20261023/.gitignore": {
+      "sha256": "978c021e19a20b2bfd2c428304c145f23e41118c6b9f33a1776334a66db8d587",
+      "bytes": 29
+    },
+    "releases/2026-10-24/admin-v7/yijiexing-admin-20261023/API_CONTRACT.md": {
+      "sha256": "4876c15316d8f2f90220d0b8acb46a5b42eef8110684ffeb48f2a033bc501b96",
+      "bytes": 5936
+    },
+    "releases/2026-10-24/admin-v7/yijiexing-admin-20261023/README.md": {
+      "sha256": "86b2e96ac76b880805b2b0c2fa50e6b55f7b8fac8df1e0f9ea9fb9023db585d4",
+      "bytes": 11445
+    },
+    "releases/2026-10-24/admin-v7/yijiexing-admin-20261023/backend/INTEGRATION.md": {
+      "sha256": "a7592e571d79364245d20085a1c1ed997e3ccbc39ba3d3bd070c36e05555fd73",
+      "bytes": 5782
+    },
+    "releases/2026-10-24/admin-v7/yijiexing-admin-20261023/backend/admin_console.py": {
+      "sha256": "e85d6ad281a090d9519b45900977215e15e571fcaf19b7397bf28317fd18bace",
+      "bytes": 19416
+    },
+    "releases/2026-10-24/admin-v7/yijiexing-admin-20261023/backend/test_admin_console.py": {
+      "sha256": "8af394576ed56152ff0f82a5a1aa26705cdddcf06496f39977dd4948a660dd1a",
+      "bytes": 11483
+    },
+    "releases/2026-10-24/admin-v7/yijiexing-admin-20261023/backend/test_admin_http.py": {
+      "sha256": "49d9bd0e240e9f0b7115f650dbc7db0f30acd5b55177e8178db93247052fd032",
+      "bytes": 6344
+    },
+    "releases/2026-10-24/admin-v7/yijiexing-admin-20261023/docs/ACCEPTANCE.md": {
+      "sha256": "fa671e65fee35831eecccd2b087ad98890c46ce0df6ff96de26b7a59045fcbcf",
+      "bytes": 20732
+    },
+    "releases/2026-10-24/admin-v7/yijiexing-admin-20261023/docs/API_INTEGRATION_TEST_REPORT.md": {
+      "sha256": "459a01abd2f19ad329afcf84c73b7a4fbe5cc9e576913ff874142fc501c0b2be",
+      "bytes": 3464
+    },
+    "releases/2026-10-24/admin-v7/yijiexing-admin-20261023/docs/FEATURE_STATUS.md": {
+      "sha256": "c175c4d42a2dd47addfc6c59608ed9c3396c23c49f45df5769e6a870234116fb",
+      "bytes": 9203
+    },
+    "releases/2026-10-24/admin-v7/yijiexing-admin-20261023/docs/INDEPENDENT_TEST_REPORT.md": {
+      "sha256": "32fd5305f400cdfcd170dc82ecf89f5f28ee86a2a77846c8899a81deda6d0a99",
+      "bytes": 14748
+    },
+    "releases/2026-10-24/admin-v7/yijiexing-admin-20261023/docs/ISSUES.md": {
+      "sha256": "e83769f7b787e241a5b29ea5aa1dd8ae2fe4d45fd1d5fef1b842fdf627bf5b57",
+      "bytes": 13743
+    },
+    "releases/2026-10-24/admin-v7/yijiexing-admin-20261023/docs/JAVA_INTERFACE_INVENTORY.md": {
+      "sha256": "c10d0b5c65581a3fb403423d37fd9dad73570ba27c1d24a26e4809334d80f755",
+      "bytes": 56186
+    },
+    "releases/2026-10-24/admin-v7/yijiexing-admin-20261023/docs/ORIGINAL_MENU_INVENTORY.md": {
+      "sha256": "3f7f191980afcdc626e19f2193351151b0aec81af871193a7807058fb2fcf4f0",
+      "bytes": 15311
+    },
+    "releases/2026-10-24/admin-v7/yijiexing-admin-20261023/docs/SOURCE_FUNCTION_MATRIX.md": {
+      "sha256": "688d91d20870893bfeedd3818f8dcde37a5afac722056ccd7f508c5e55f3970e",
+      "bytes": 11337
+    },
+    "releases/2026-10-24/admin-v7/yijiexing-admin-20261023/docs/THREE_PARTY_UI_REPORT.md": {
+      "sha256": "c769a5a278e9d072fe55477affb929e23e3b3635e25be4f5f3244b9ceb5bfd5a",
+      "bytes": 24256
+    },
+    "releases/2026-10-24/admin-v7/yijiexing-admin-20261023/docs/UI_035_115_THREE_PARTY.md": {
+      "sha256": "2453f1b12dddf8765a0a99e65ea25230d6681f49def618a7aa300dc9f8eab9d9",
+      "bytes": 12176
+    },
+    "releases/2026-10-24/admin-v7/yijiexing-admin-20261023/docs/UI_FINAL_DELIVERY.md": {
+      "sha256": "56ed3a075ab6889008185fef9eb1d91654f731620618d116142e2fbee8646d46",
+      "bytes": 10446
+    },
+    "releases/2026-10-24/admin-v7/yijiexing-admin-20261023/docs/UI_REDESIGN_BUSINESS_REGRESSION.md": {
+      "sha256": "7ba97a16f224e84531a9ee720cd00cf63673c4189d59e167df92ed701185b6d9",
+      "bytes": 12859
+    },
+    "releases/2026-10-24/admin-v7/yijiexing-admin-20261023/docs/UI_REDESIGN_COORDINATION.md": {
+      "sha256": "604ff8c60a1ae859a6508d02741fbf8f61cb1285fca47b580f754c96580503e8",
+      "bytes": 17229
+    },
+    "releases/2026-10-24/admin-v7/yijiexing-admin-20261023/docs/UI_REDESIGN_QA.md": {
+      "sha256": "161568a54d9a88eb28248661f6d1a4ca2a5f26e120c93b8e831778ff9b277ea6",
+      "bytes": 9967
+    },
+    "releases/2026-10-24/admin-v7/yijiexing-admin-20261023/docs/UI_REDESIGN_VISUAL_AUDIT.md": {
+      "sha256": "144698fbe3574df440c2b7bb8572856d2b3a1ad29fdc4ce42131436f0fffe385",
+      "bytes": 4759
+    },
+    "releases/2026-10-24/admin-v7/yijiexing-admin-20261023/ops/package_delivery.py": {
+      "sha256": "ba7c9d17b00a46d029f5affb2a881501b04d1fdc8364ed4fc3eb01169c62c983",
+      "bytes": 2881
+    },
+    "releases/2026-10-24/admin-v7/yijiexing-admin-20261023/ops/prepare_qa.py": {
+      "sha256": "875a913f7e00f795670b485e431c0783d3281e7b8efb7a78c0490afe108cd89f",
+      "bytes": 1547
+    },
+    "releases/2026-10-24/admin-v7/yijiexing-admin-20261023/ops/serve.py": {
+      "sha256": "fbd35c472ab423c20ebdabf612d4729d7efb5fca238754d1c1040f35fc75346e",
+      "bytes": 6366
+    },
+    "releases/2026-10-24/admin-v7/yijiexing-admin-20261023/ops/test_gateway.py": {
+      "sha256": "d11dbd8b342187b05b4284fe6f2bb701640c818a18e0b35ed96e188e28e98a6a",
+      "bytes": 2070
+    },
+    "releases/2026-10-24/admin-v7/yijiexing-admin-20261023/web/admin.css": {
+      "sha256": "f5098d8f5ea0804a02755a77fb576cad4f9c0c592d6ab3edd348395a6bce0e69",
+      "bytes": 7873
+    },
+    "releases/2026-10-24/admin-v7/yijiexing-admin-20261023/web/admin.html": {
+      "sha256": "dee55e9960080855c720b4d63e1611084f2f58b79fbaa13744670861dfb14649",
+      "bytes": 2318
+    },
+    "releases/2026-10-24/admin-v7/yijiexing-admin-20261023/web/admin.js": {
+      "sha256": "248ce14ce0f8c7cadd06c2c2d40f98e7bc7ebd83d273cbf8672ffb894f2d4101",
+      "bytes": 48162
+    },
+    "releases/2026-10-24/admin-v7/yijiexing-admin-20261023/启动后台.command": {
+      "sha256": "467b43b5410f8b9a29d286e5414a934ea0ba14d9e4b2c54a162013c1202597ef",
+      "bytes": 58
+    },
+    "releases/2026-10-24/admin-v7/yijiexing-cloud-20261023/cloud-service/.dockerignore": {
+      "sha256": "c849d1d4796966a2a3181b6073f4c2a754f94eece980a62a7779359b2df13438",
+      "bytes": 58
+    },
+    "releases/2026-10-24/admin-v7/yijiexing-cloud-20261023/cloud-service/Dockerfile": {
+      "sha256": "39e5d05c6e52ef60d0ed0b4f5fd65f6972f80c27658a755744e79908fdaf07b2",
+      "bytes": 334
+    },
+    "releases/2026-10-24/admin-v7/yijiexing-cloud-20261023/cloud-service/admin.py": {
+      "sha256": "d68a26dbc7441f73dfc79a5a0bf98e60f7558b6386afde374d09636c9a447222",
+      "bytes": 25185
+    },
+    "releases/2026-10-24/admin-v7/yijiexing-cloud-20261023/cloud-service/admin_console.py": {
+      "sha256": "e85d6ad281a090d9519b45900977215e15e571fcaf19b7397bf28317fd18bace",
+      "bytes": 19416
+    },
+    "releases/2026-10-24/admin-v7/yijiexing-cloud-20261023/cloud-service/benefits.py": {
+      "sha256": "b9f4d100b05e7a3a4c39dd0bba69dbe557110a3ca006eb8a755692235f2470de",
+      "bytes": 15418
+    },
+    "releases/2026-10-24/admin-v7/yijiexing-cloud-20261023/cloud-service/cloud_server.py": {
+      "sha256": "3befeb25bb51fd44b306c17655da54b3015481df7aec3847f3901f4f9e0c9175",
+      "bytes": 15707
+    },
+    "releases/2026-10-24/admin-v7/yijiexing-cloud-20261023/cloud-service/common.py": {
+      "sha256": "3e27cf145d05a96b2ae6e1435d66d460edf585bd98de1935fda1764e27face92",
+      "bytes": 2098
+    },
+    "releases/2026-10-24/admin-v7/yijiexing-cloud-20261023/cloud-service/distribution.py": {
+      "sha256": "c164763c515121a6e7537bda9318e48a0dc35d531f80b408ddd29cc503b082b8",
+      "bytes": 4784
+    },
+    "releases/2026-10-24/admin-v7/yijiexing-cloud-20261023/cloud-service/domain.py": {
+      "sha256": "1c21457d5b1a23d22798249109fbf78ae8d006b2cabb32de51d631971d9994f2",
+      "bytes": 34893
+    },
+    "releases/2026-10-24/admin-v7/yijiexing-cloud-20261023/cloud-service/negotiation.py": {
+      "sha256": "0def00fc292686df616e6aaaac31eb79af10436b1bd0a48fb5f9d11d4b998bf1",
+      "bytes": 8939
+    },
+    "releases/2026-10-24/admin-v7/yijiexing-cloud-20261023/cloud-service/order_options.py": {
+      "sha256": "4ec12f73f400cfae665b828b5714501b6e555bdf00eb99c352e306a5f36cb123",
+      "bytes": 8428
+    },
+    "releases/2026-10-24/admin-v7/yijiexing-cloud-20261023/cloud-service/passenger.py": {
+      "sha256": "8d387e0365d2896f4c3b7660a6a54d98cfa09245476204432fc5d7239effc374",
+      "bytes": 30505
+    },
+    "releases/2026-10-24/admin-v7/yijiexing-cloud-20261023/cloud-service/passenger_extras.py": {
+      "sha256": "fc6a21d2d05adf859754bddd56467dd1d7376fc9a1a9e57c4c0865c4a34983c9",
+      "bytes": 7669
+    },
+    "releases/2026-10-24/admin-v7/yijiexing-cloud-20261023/cloud-service/requirements.txt": {
+      "sha256": "af79caa6e5db292ba03cd708cab33f138b4295460b3f570c61f14e4e146c2f9a",
+      "bytes": 28
+    },
+    "releases/2026-10-24/admin-v7/yijiexing-cloud-20261023/cloud-service/seed.py": {
+      "sha256": "64382842f55bd0486028244a758c951293de1f89f6e6ce2a98273867a44b0d7b",
+      "bytes": 7968
+    },
+    "releases/2026-10-24/admin-v7/yijiexing-cloud-20261023/cloud-service/server.py": {
+      "sha256": "69f713dd3c76df5f2754eb2e8a95f9ef23ada1d0201d3fdc824af5bcf242afc2",
+      "bytes": 17918
+    },
+    "releases/2026-10-24/admin-v7/yijiexing-cloud-20261023/cloud-service/snapshot.py": {
+      "sha256": "31552c1a6406157cc483507a66b3d2d8981c5ca7ab7941f4a2250225cabaca17",
+      "bytes": 6682
+    },
+    "releases/2026-10-24/admin-v7/yijiexing-cloud-20261023/cloud-service/static/admin.css": {
+      "sha256": "de41a30e4b75abbac164764070b76b81cd098716a573bce13f8537b220ab2045",
+      "bytes": 7548
+    },
+    "releases/2026-10-24/admin-v7/yijiexing-cloud-20261023/cloud-service/static/admin.html": {
+      "sha256": "386cb5544b3f3dfe89c461bef4d04471d514e63252a8c06a3a84644be4f3ae13",
+      "bytes": 2073
+    },
+    "releases/2026-10-24/admin-v7/yijiexing-cloud-20261023/cloud-service/static/admin.js": {
+      "sha256": "18fefe0b162a28ae7272c76a94e992c3bcfc6c5654503cadf25d0e5fc5684a17",
+      "bytes": 39246
+    },
+    "releases/2026-10-24/admin-v7/yijiexing-cloud-20261023/cloud-service/static/sample.jpg": {
+      "sha256": "94c65c68e2e11465bef264f86c5abd882e5967b5fc609ae6b99bafda9c1c6718",
+      "bytes": 75712
+    },
+    "releases/2026-10-24/admin-v7/yijiexing-cloud-20261023/cloud-service/static/sandbox-certificate-sample.png": {
+      "sha256": "d0c6e7af6edb96b1b2931b3f763ec51bf31d3eeca9222bf5cfc60b7c971e3186",
+      "bytes": 67721
+    },
+    "releases/2026-10-24/admin-v7/yijiexing-cloud-20261023/cloud-service/tests/test_admin_http.py": {
+      "sha256": "3891636746aff7fdc9c732de1905a2e9b5aca3b85ba90cbdc6f6fe1b14d899fb",
+      "bytes": 9811
+    },
+    "releases/2026-10-24/admin-v7/yijiexing-cloud-20261023/cloud-service/tests/test_cloud.py": {
+      "sha256": "cfb411c1bb5587152edb7a9dd0e241e6a31f82b32d7e2c60a4ab5e0a0e9856f8",
+      "bytes": 15679
+    },
+    "releases/2026-10-24/admin-v7/yijiexing-cloud-20261023/cloud-service/tests/test_distribution.py": {
+      "sha256": "0623ab6202e74126f684bd9eec7b6e496557a1fc8aed07c96168a56791bcfbe9",
+      "bytes": 8897
+    },
+    "releases/2026-10-24/admin-v7/yijiexing-cloud-20261023/cloud-service/tests/test_negotiation.py": {
+      "sha256": "7a615dc9ae70eee7b4fb7baf18c4c2ce97559dd37b6fafcfdfc53cec43020c18",
+      "bytes": 15790
+    },
+    "releases/2026-10-24/admin-v7/yijiexing-cloud-20261023/cloud-service/tests/test_original_integration.py": {
+      "sha256": "cd4834f893757c4c626753042937a8800201e2db19a04b2fe6b5cfa40f43bbb6",
+      "bytes": 32378
+    },
+    "releases/2026-10-24/admin-v7/yijiexing-cloud-20261023/cloud-service/tests/test_passenger.py": {
+      "sha256": "89347133d8092a1ebad1306499a3d71946fac416831c587594dd098625b945a2",
+      "bytes": 25365
+    },
+    "releases/2026-10-24/admin-v7/yijiexing-cloud-20261023/cloud-service/tests/test_passenger_extras.py": {
+      "sha256": "82e94414711127bd2ce9b2372de2659c4b4984212053e9b2abf1b6136508867d",
+      "bytes": 5890
+    },
+    "releases/2026-10-24/admin-v7/yijiexing-cloud-20261023/cloud-service/tests/test_passenger_options.py": {
+      "sha256": "71d7b0d05044bd5a102dddc78ea8c728178fac746bfe3976cd398a6d92de48c6",
+      "bytes": 4754
+    },
+    "releases/2026-10-24/admin-v7/yijiexing-cloud-20261023/ops/cloud-control.sh": {
+      "sha256": "99302377ae046fd1c553ca3701c46c2e25ba1de2ad7e8a48e2f69fd7e0130a3b",
+      "bytes": 6720
+    },
+    "releases/2026-10-24/admin-v7/yijiexing-cloud-20261023/ops/deployment.json": {
+      "sha256": "0fdaae7f3409b6dd240aebde037e5952f56726cb8c6e45cdf5c76276f9e59134",
+      "bytes": 986
+    },
+    "releases/2026-10-24/admin-v7/yijiexing-cloud-20261023/ops/恢复.command": {
+      "sha256": "63f19cef833f4e8b175f48155de6e34d3dd9b09bbc3cc98ab36891b8a0e8693f",
+      "bytes": 381
+    },
+    "releases/2026-10-24/admin-v7/yijiexing-cloud-20261023/ops/暂停.command": {
+      "sha256": "2679a5407981dbc2e259e03a2b926cda3082059750361b8ddf107cd2c578db3e",
+      "bytes": 380
+    },
+    "releases/2026-10-24/admin-v7/yijiexing-cloud-20261023/ops/查看状态.command": {
+      "sha256": "cb1eb865d9eaa3c57b5930a16f6b6e8d1cc9cad861c407dea4482697cd8aa9cf",
+      "bytes": 208
+    },
+    "releases/2026-10-24/driver-0.3.5/yijiexing-driver-cloud-0.3.5-source/README.md": {
+      "sha256": "9a5d2c4af7b6b55fab90ddcf3b37d868db4daa956473d4b45a466d3ff6179e54",
+      "bytes": 6524
+    },
+    "releases/2026-10-24/driver-0.3.5/yijiexing-driver-cloud-0.3.5-source/android/.gitignore": {
+      "sha256": "d8cc1476c1b8ec4c5e4349eb42a0d86f5b632c01079f59e48a3d7524400ca3f6",
+      "bytes": 71
+    },
+    "releases/2026-10-24/driver-0.3.5/yijiexing-driver-cloud-0.3.5-source/android/INTEGRATION.md": {
+      "sha256": "b17d8a08d44b9e65e7d8f3e2929782a46c09841b5f3159d2bfcd4b89219ecef1",
+      "bytes": 4170
+    },
+    "releases/2026-10-24/driver-0.3.5/yijiexing-driver-cloud-0.3.5-source/android/README.md": {
+      "sha256": "ee0b53e75ddd58e02db37869314708f740dfa66860b2d9a5343cc65362f7104b",
+      "bytes": 5757
+    },
+    "releases/2026-10-24/driver-0.3.5/yijiexing-driver-cloud-0.3.5-source/android/app/build.gradle.kts": {
+      "sha256": "a368a2b38a1546883839bc1ceda98dc8704b5dd54aa10c83e9959659062cc102",
+      "bytes": 1904
+    },
+    "releases/2026-10-24/driver-0.3.5/yijiexing-driver-cloud-0.3.5-source/android/app/src/androidTest/java/cn/hbzjhs/driver/preview/NavigationIntentInstrumentedTest.kt": {
+      "sha256": "62e4398c82344825c24cca0e1cf857d3dd8d3220f38502a3d60d368f8865045c",
+      "bytes": 4358
+    },
+    "releases/2026-10-24/driver-0.3.5/yijiexing-driver-cloud-0.3.5-source/android/app/src/main/AndroidManifest.xml": {
+      "sha256": "aa1953d731b1b0488b12d4169ebdd75eb2b8ce1054f047c0e08a7a07a4fac27c",
+      "bytes": 1988
+    },
+    "releases/2026-10-24/driver-0.3.5/yijiexing-driver-cloud-0.3.5-source/android/app/src/main/assets/third-party/ZXing-LICENSE.txt": {
+      "sha256": "3f62881f0566227a24b12e5a754cc79f39aaa94883038e95c94812e1f50af42f",
+      "bytes": 13320
+    },
+    "releases/2026-10-24/driver-0.3.5/yijiexing-driver-cloud-0.3.5-source/android/app/src/main/assets/third-party/ZXing-NOTICE.txt": {
+      "sha256": "4db4b60aace29ec6c5c4f13ca9cac1930d3c0c54bcc67dceead0c10771120e66",
+      "bytes": 664
+    },
+    "releases/2026-10-24/driver-0.3.5/yijiexing-driver-cloud-0.3.5-source/android/app/src/main/java/cn/hbzjhs/driver/preview/BusinessCommunity.kt": {
+      "sha256": "94ad929a1768a952581be91ade20ca1cbe6b02c602a1cfe48b20de67cfb9fd3d",
+      "bytes": 21405
+    },
+    "releases/2026-10-24/driver-0.3.5/yijiexing-driver-cloud-0.3.5-source/android/app/src/main/java/cn/hbzjhs/driver/preview/BusinessFinance.kt": {
+      "sha256": "1c9515057c01960c8adf9fb417a8980ee553e2ad9fe94a44631d3b314af646d9",
+      "bytes": 24696
+    },
+    "releases/2026-10-24/driver-0.3.5/yijiexing-driver-cloud-0.3.5-source/android/app/src/main/java/cn/hbzjhs/driver/preview/BusinessKit.kt": {
+      "sha256": "ea8f5fcc6d27eb61a688bbb19658f29961e4966f44d8be8d3fe561617dafbe23",
+      "bytes": 17111
+    },
+    "releases/2026-10-24/driver-0.3.5/yijiexing-driver-cloud-0.3.5-source/android/app/src/main/java/cn/hbzjhs/driver/preview/BusinessScreens.kt": {
+      "sha256": "f1c8bbc1c04a92c2ca0c8c62d27ec854148ffe9d884c37b5c2c52467dea774bd",
+      "bytes": 19667
+    },
+    "releases/2026-10-24/driver-0.3.5/yijiexing-driver-cloud-0.3.5-source/android/app/src/main/java/cn/hbzjhs/driver/preview/BusinessSupport.kt": {
+      "sha256": "3fd4cf254502083f4800aff7f2a7de32301e7867b604ead3ec00f5776e27d228",
+      "bytes": 24859
+    },
+    "releases/2026-10-24/driver-0.3.5/yijiexing-driver-cloud-0.3.5-source/android/app/src/main/java/cn/hbzjhs/driver/preview/ConnectedStore.kt": {
+      "sha256": "fb7e64e41b3fb6eeb95f98cf53afa7dcbf0e40c5a04cba857aa465f6469902ef",
+      "bytes": 26597
+    },
+    "releases/2026-10-24/driver-0.3.5/yijiexing-driver-cloud-0.3.5-source/android/app/src/main/java/cn/hbzjhs/driver/preview/CoreScreens.kt": {
+      "sha256": "79b1fbf437f973493bc5658e9cbfcd72eaf38b883bfdda630133cd69b1ea84c6",
+      "bytes": 77022
+    },
+    "releases/2026-10-24/driver-0.3.5/yijiexing-driver-cloud-0.3.5-source/android/app/src/main/java/cn/hbzjhs/driver/preview/DriverDomain.kt": {
+      "sha256": "4c81e8a6f70f92c63235fbd77edb6e66b954dd856024fb7b16ba5869b4af42b6",
+      "bytes": 5992
+    },
+    "releases/2026-10-24/driver-0.3.5/yijiexing-driver-cloud-0.3.5-source/android/app/src/main/java/cn/hbzjhs/driver/preview/DriverLocationService.kt": {
+      "sha256": "ebe701b8131ff9bd1716d7d52e8aa445b3ad3cdaccaef25d386eba35b9e3df0f",
+      "bytes": 15051
+    },
+    "releases/2026-10-24/driver-0.3.5/yijiexing-driver-cloud-0.3.5-source/android/app/src/main/java/cn/hbzjhs/driver/preview/DriverSpeech.kt": {
+      "sha256": "e1524bbe72443d8cb847c6f4434fb21e4d94fee62fb89cd3e1f06c675310675f",
+      "bytes": 22984
+    },
+    "releases/2026-10-24/driver-0.3.5/yijiexing-driver-cloud-0.3.5-source/android/app/src/main/java/cn/hbzjhs/driver/preview/MainActivity.kt": {
+      "sha256": "0929d1f4928e14b7c09af5e459a2e25ff70cca425916fb08a4daddafc4f810fe",
+      "bytes": 20390
+    },
+    "releases/2026-10-24/driver-0.3.5/yijiexing-driver-cloud-0.3.5-source/android/app/src/main/java/cn/hbzjhs/driver/preview/MembershipCatalogScreens.kt": {
+      "sha256": "4485c2be1154835a7469a24ce32fd066df9a29a609d15b1fa5534d3327a22174",
+      "bytes": 27281
+    },
+    "releases/2026-10-24/driver-0.3.5/yijiexing-driver-cloud-0.3.5-source/android/app/src/main/java/cn/hbzjhs/driver/preview/MembershipEntry.kt": {
+      "sha256": "73bf05b8ca6ef5ec934702fa5d4b9cde28e83f281ac2c92f2362fa08bc074d85",
+      "bytes": 6497
+    },
+    "releases/2026-10-24/driver-0.3.5/yijiexing-driver-cloud-0.3.5-source/android/app/src/main/java/cn/hbzjhs/driver/preview/MembershipModels.kt": {
+      "sha256": "0318e592154100f8f2b0b4402a765e54afaa07e143dadd3d4742b86e04c54b6a",
+      "bytes": 4789
+    },
+    "releases/2026-10-24/driver-0.3.5/yijiexing-driver-cloud-0.3.5-source/android/app/src/main/java/cn/hbzjhs/driver/preview/MembershipSubscriptions.kt": {
+      "sha256": "75a8b9620e9057ccf0120946857edbdf6852413f7966db3fc1b602e5c8781463",
+      "bytes": 26177
+    },
+    "releases/2026-10-24/driver-0.3.5/yijiexing-driver-cloud-0.3.5-source/android/app/src/main/java/cn/hbzjhs/driver/preview/MembershipSupporting.kt": {
+      "sha256": "882e20feb347a88182c526153f7375efdab4abd3320b1f66e724696df7d99f96",
+      "bytes": 16329
+    },
+    "releases/2026-10-24/driver-0.3.5/yijiexing-driver-cloud-0.3.5-source/android/app/src/main/java/cn/hbzjhs/driver/preview/MembershipTransactions.kt": {
+      "sha256": "1a7abe5798aa78e58e2b8203fe31b625686782761b520da2a1e2fb80de22175a",
+      "bytes": 29273
+    },
+    "releases/2026-10-24/driver-0.3.5/yijiexing-driver-cloud-0.3.5-source/android/app/src/main/java/cn/hbzjhs/driver/preview/MembershipUi.kt": {
+      "sha256": "5fbfe27bd20549c7b7459c25bf2a765fc694b2821a40af9a4fb852d080b5a8e6",
+      "bytes": 14941
+    },
+    "releases/2026-10-24/driver-0.3.5/yijiexing-driver-cloud-0.3.5-source/android/app/src/main/java/cn/hbzjhs/driver/preview/NativeMap.kt": {
+      "sha256": "53d0a89483181a45ae9eeb5ec342e20371a1fd11bd715c4db65d6f6cd099d709",
+      "bytes": 17063
+    },
+    "releases/2026-10-24/driver-0.3.5/yijiexing-driver-cloud-0.3.5-source/android/app/src/main/java/cn/hbzjhs/driver/preview/NavigationContract.kt": {
+      "sha256": "d20235441008d85b4c8d371c56697d524b4b66ffff1458ea9c08bc22d3813761",
+      "bytes": 4033
+    },
+    "releases/2026-10-24/driver-0.3.5/yijiexing-driver-cloud-0.3.5-source/android/app/src/main/java/cn/hbzjhs/driver/preview/NegotiationContract.kt": {
+      "sha256": "cd21b64d624a54772f0cc9ed243420e879d974539542802f57f78cc75e07ebb6",
+      "bytes": 4385
+    },
+    "releases/2026-10-24/driver-0.3.5/yijiexing-driver-cloud-0.3.5-source/android/app/src/main/java/cn/hbzjhs/driver/preview/NegotiationSupport.kt": {
+      "sha256": "5d14ead67357f71cb7cef1d7ee2d385d239700a27df433fa5a825388ce6933ef",
+      "bytes": 22457
+    },
+    "releases/2026-10-24/driver-0.3.5/yijiexing-driver-cloud-0.3.5-source/android/app/src/main/java/cn/hbzjhs/driver/preview/TripWaypoints.kt": {
+      "sha256": "eb3b649e2b18b8c65638616ad18723f3c6b0e8600a8a69d915b9f1c42d2a1ed8",
+      "bytes": 6022
+    },
+    "releases/2026-10-24/driver-0.3.5/yijiexing-driver-cloud-0.3.5-source/android/app/src/main/java/cn/hbzjhs/driver/preview/UiKit.kt": {
+      "sha256": "20a3a031aaf578ea0a577df3a72ca23c76db3012f84a4ffedcf54229e329426b",
+      "bytes": 19002
+    },
+    "releases/2026-10-24/driver-0.3.5/yijiexing-driver-cloud-0.3.5-source/android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png": {
+      "sha256": "b5410e62753a3a1c1316575e043e937cf51261de416de70269715081fdd196c2",
+      "bytes": 5214
+    },
+    "releases/2026-10-24/driver-0.3.5/yijiexing-driver-cloud-0.3.5-source/android/app/src/main/res/raw/new_order.mp3": {
+      "sha256": "0d7bfd3c69df7d451004e50d812ef30042cbf1725f76a43fff749a94c68c7971",
+      "bytes": 13392
+    },
+    "releases/2026-10-24/driver-0.3.5/yijiexing-driver-cloud-0.3.5-source/android/app/src/main/res/raw/success_order.mp3": {
+      "sha256": "f8b2d10a8e1cc8b31f2609f2178d4c1f874bdd7268f5fd9a0b60f8fd4ae522be",
+      "bytes": 13392
+    },
+    "releases/2026-10-24/driver-0.3.5/yijiexing-driver-cloud-0.3.5-source/android/app/src/main/res/values-v27/styles.xml": {
+      "sha256": "1cf47335a9beb8a12866eb9922249def068ee3e8ed60dec0fdcd431cc4cb47b4",
+      "bytes": 470
+    },
+    "releases/2026-10-24/driver-0.3.5/yijiexing-driver-cloud-0.3.5-source/android/app/src/main/res/values/styles.xml": {
+      "sha256": "c6657c7323c9c0f8d923096bfac5491ed1062563b8718ca86bdad611bab90d0c",
+      "bytes": 413
+    },
+    "releases/2026-10-24/driver-0.3.5/yijiexing-driver-cloud-0.3.5-source/android/app/src/main/res/xml/business_file_paths.xml": {
+      "sha256": "33d89cb3b518916792be4a249cd5d15c4727b8cb41a0c5ce29248672e64caa34",
+      "bytes": 184
+    },
+    "releases/2026-10-24/driver-0.3.5/yijiexing-driver-cloud-0.3.5-source/android/app/src/main/res/xml/network_security_config.xml": {
+      "sha256": "f57da9e1376c30f11b35d3e2f5fe467eac48f68f6f91966dee5906e674e7bcce",
+      "bytes": 217
+    },
+    "releases/2026-10-24/driver-0.3.5/yijiexing-driver-cloud-0.3.5-source/android/app/src/test/java/cn/hbzjhs/driver/preview/ConnectedContractTest.kt": {
+      "sha256": "524005972dcdfec5c6e0f497845b0e40832d5628ca7cc13a75197a1dc2276d7c",
+      "bytes": 6093
+    },
+    "releases/2026-10-24/driver-0.3.5/yijiexing-driver-cloud-0.3.5-source/android/app/src/test/java/cn/hbzjhs/driver/preview/DriverCancellationTest.kt": {
+      "sha256": "b0e2236a7fe26b20e00639349baa5f3664d68e14b25e69d3e2e218e8440daa07",
+      "bytes": 4496
+    },
+    "releases/2026-10-24/driver-0.3.5/yijiexing-driver-cloud-0.3.5-source/android/app/src/test/java/cn/hbzjhs/driver/preview/NavigationContractTest.kt": {
+      "sha256": "01638393c05f7e1e07c09b6aef5d66911ba5937bdda884dc2f3c5f7ea7d0888e",
+      "bytes": 6928
+    },
+    "releases/2026-10-24/driver-0.3.5/yijiexing-driver-cloud-0.3.5-source/android/app/src/test/java/cn/hbzjhs/driver/preview/NegotiationContractTest.kt": {
+      "sha256": "768c35dbefecc08b64dbae1dc47544f21a9a111a1501aab133572562407cc3b1",
+      "bytes": 8665
+    },
+    "releases/2026-10-24/driver-0.3.5/yijiexing-driver-cloud-0.3.5-source/android/app/src/test/java/cn/hbzjhs/driver/preview/PaymentStatusTest.kt": {
+      "sha256": "715311e05f94b446639a79223ce9afa290ff1f581a09410090ed9e21ebb8604f",
+      "bytes": 4690
+    },
+    "releases/2026-10-24/driver-0.3.5/yijiexing-driver-cloud-0.3.5-source/android/build.gradle.kts": {
+      "sha256": "48f7c9d13c50fa379dce0a2b7c028bcffe60d428eada35b12cfb8af28b31c962",
+      "bytes": 142
+    },
+    "releases/2026-10-24/driver-0.3.5/yijiexing-driver-cloud-0.3.5-source/android/gradle.properties": {
+      "sha256": "e43a00491832254a35cf5a979ef6de17f78c4e159d446be39319d2e3d3e46325",
+      "bytes": 100
+    },
+    "releases/2026-10-24/driver-0.3.5/yijiexing-driver-cloud-0.3.5-source/android/gradle/wrapper/gradle-wrapper.jar": {
+      "sha256": "cb0da6751c2b753a16ac168bb354870ebb1e162e9083f116729cec9c781156b8",
+      "bytes": 43453
+    },
+    "releases/2026-10-24/driver-0.3.5/yijiexing-driver-cloud-0.3.5-source/android/gradle/wrapper/gradle-wrapper.properties": {
+      "sha256": "3db66878136a55b95073146f77fee9cb33fbfc0d4354d443ced819b25a147f76",
+      "bytes": 339
+    },
+    "releases/2026-10-24/driver-0.3.5/yijiexing-driver-cloud-0.3.5-source/android/gradlew": {
+      "sha256": "fc977a94723af68aaffa4e5d60496fb4aeed1884b6b19e5e2f2fd7612673313d",
+      "bytes": 8692
+    },
+    "releases/2026-10-24/driver-0.3.5/yijiexing-driver-cloud-0.3.5-source/android/gradlew.bat": {
+      "sha256": "bdecf875b6868cbcbd36a1f85eedf0832f358ff28092c5797ed645f7edce77d9",
+      "bytes": 2918
+    },
+    "releases/2026-10-24/driver-0.3.5/yijiexing-driver-cloud-0.3.5-source/android/settings.gradle.kts": {
+      "sha256": "eab2bbacb0a20118d078a43eee7156db5060c4641384f87b7bb4843ced462385",
+      "bytes": 277
+    },
+    "releases/2026-10-24/driver-0.3.5/yijiexing-driver-cloud-0.3.5-source/cloud-service/.dockerignore": {
+      "sha256": "c849d1d4796966a2a3181b6073f4c2a754f94eece980a62a7779359b2df13438",
+      "bytes": 58
+    },
+    "releases/2026-10-24/driver-0.3.5/yijiexing-driver-cloud-0.3.5-source/cloud-service/Dockerfile": {
+      "sha256": "39e5d05c6e52ef60d0ed0b4f5fd65f6972f80c27658a755744e79908fdaf07b2",
+      "bytes": 334
+    },
+    "releases/2026-10-24/driver-0.3.5/yijiexing-driver-cloud-0.3.5-source/cloud-service/README.md": {
+      "sha256": "4d1b8c27a572ba8da91763956605d86d21d99b1b516371a88c389f43106aca5c",
+      "bytes": 3251
+    },
+    "releases/2026-10-24/driver-0.3.5/yijiexing-driver-cloud-0.3.5-source/cloud-service/admin.py": {
+      "sha256": "d68a26dbc7441f73dfc79a5a0bf98e60f7558b6386afde374d09636c9a447222",
+      "bytes": 25185
+    },
+    "releases/2026-10-24/driver-0.3.5/yijiexing-driver-cloud-0.3.5-source/cloud-service/admin_console.py": {
+      "sha256": "e85d6ad281a090d9519b45900977215e15e571fcaf19b7397bf28317fd18bace",
+      "bytes": 19416
+    },
+    "releases/2026-10-24/driver-0.3.5/yijiexing-driver-cloud-0.3.5-source/cloud-service/benefits.py": {
+      "sha256": "b9f4d100b05e7a3a4c39dd0bba69dbe557110a3ca006eb8a755692235f2470de",
+      "bytes": 15418
+    },
+    "releases/2026-10-24/driver-0.3.5/yijiexing-driver-cloud-0.3.5-source/cloud-service/cloud_server.py": {
+      "sha256": "3befeb25bb51fd44b306c17655da54b3015481df7aec3847f3901f4f9e0c9175",
+      "bytes": 15707
+    },
+    "releases/2026-10-24/driver-0.3.5/yijiexing-driver-cloud-0.3.5-source/cloud-service/common.py": {
+      "sha256": "3e27cf145d05a96b2ae6e1435d66d460edf585bd98de1935fda1764e27face92",
+      "bytes": 2098
+    },
+    "releases/2026-10-24/driver-0.3.5/yijiexing-driver-cloud-0.3.5-source/cloud-service/distribution.py": {
+      "sha256": "c164763c515121a6e7537bda9318e48a0dc35d531f80b408ddd29cc503b082b8",
+      "bytes": 4784
+    },
+    "releases/2026-10-24/driver-0.3.5/yijiexing-driver-cloud-0.3.5-source/cloud-service/domain.py": {
+      "sha256": "1c21457d5b1a23d22798249109fbf78ae8d006b2cabb32de51d631971d9994f2",
+      "bytes": 34893
+    },
+    "releases/2026-10-24/driver-0.3.5/yijiexing-driver-cloud-0.3.5-source/cloud-service/negotiation.py": {
+      "sha256": "0def00fc292686df616e6aaaac31eb79af10436b1bd0a48fb5f9d11d4b998bf1",
+      "bytes": 8939
+    },
+    "releases/2026-10-24/driver-0.3.5/yijiexing-driver-cloud-0.3.5-source/cloud-service/order_options.py": {
+      "sha256": "4ec12f73f400cfae665b828b5714501b6e555bdf00eb99c352e306a5f36cb123",
+      "bytes": 8428
+    },
+    "releases/2026-10-24/driver-0.3.5/yijiexing-driver-cloud-0.3.5-source/cloud-service/passenger.py": {
+      "sha256": "8d387e0365d2896f4c3b7660a6a54d98cfa09245476204432fc5d7239effc374",
+      "bytes": 30505
+    },
+    "releases/2026-10-24/driver-0.3.5/yijiexing-driver-cloud-0.3.5-source/cloud-service/passenger_extras.py": {
+      "sha256": "fc6a21d2d05adf859754bddd56467dd1d7376fc9a1a9e57c4c0865c4a34983c9",
+      "bytes": 7669
+    },
+    "releases/2026-10-24/driver-0.3.5/yijiexing-driver-cloud-0.3.5-source/cloud-service/requirements.txt": {
+      "sha256": "af79caa6e5db292ba03cd708cab33f138b4295460b3f570c61f14e4e146c2f9a",
+      "bytes": 28
+    },
+    "releases/2026-10-24/driver-0.3.5/yijiexing-driver-cloud-0.3.5-source/cloud-service/seed.py": {
+      "sha256": "64382842f55bd0486028244a758c951293de1f89f6e6ce2a98273867a44b0d7b",
+      "bytes": 7968
+    },
+    "releases/2026-10-24/driver-0.3.5/yijiexing-driver-cloud-0.3.5-source/cloud-service/server.py": {
+      "sha256": "69f713dd3c76df5f2754eb2e8a95f9ef23ada1d0201d3fdc824af5bcf242afc2",
+      "bytes": 17918
+    },
+    "releases/2026-10-24/driver-0.3.5/yijiexing-driver-cloud-0.3.5-source/cloud-service/snapshot.py": {
+      "sha256": "31552c1a6406157cc483507a66b3d2d8981c5ca7ab7941f4a2250225cabaca17",
+      "bytes": 6682
+    },
+    "releases/2026-10-24/driver-0.3.5/yijiexing-driver-cloud-0.3.5-source/cloud-service/static/admin.css": {
+      "sha256": "de41a30e4b75abbac164764070b76b81cd098716a573bce13f8537b220ab2045",
+      "bytes": 7548
+    },
+    "releases/2026-10-24/driver-0.3.5/yijiexing-driver-cloud-0.3.5-source/cloud-service/static/admin.html": {
+      "sha256": "386cb5544b3f3dfe89c461bef4d04471d514e63252a8c06a3a84644be4f3ae13",
+      "bytes": 2073
+    },
+    "releases/2026-10-24/driver-0.3.5/yijiexing-driver-cloud-0.3.5-source/cloud-service/static/admin.js": {
+      "sha256": "18fefe0b162a28ae7272c76a94e992c3bcfc6c5654503cadf25d0e5fc5684a17",
+      "bytes": 39246
+    },
+    "releases/2026-10-24/driver-0.3.5/yijiexing-driver-cloud-0.3.5-source/cloud-service/static/sample.jpg": {
+      "sha256": "94c65c68e2e11465bef264f86c5abd882e5967b5fc609ae6b99bafda9c1c6718",
+      "bytes": 75712
+    },
+    "releases/2026-10-24/driver-0.3.5/yijiexing-driver-cloud-0.3.5-source/cloud-service/static/sandbox-certificate-sample.png": {
+      "sha256": "d0c6e7af6edb96b1b2931b3f763ec51bf31d3eeca9222bf5cfc60b7c971e3186",
+      "bytes": 67721
+    },
+    "releases/2026-10-24/driver-0.3.5/yijiexing-driver-cloud-0.3.5-source/docs/API_CONTRACT.md": {
+      "sha256": "c77d8f9f3b2f1ec9cc98cad40b05d41602b8b777b1c74641f9d6a589fb6e7bb3",
+      "bytes": 6223
+    },
+    "releases/2026-10-24/driver-0.3.5/yijiexing-driver-cloud-0.3.5-source/docs/NEGOTIATION_API_CONTRACT.md": {
+      "sha256": "7e0c56d2ec25f6b7342a9a349533f14c768a7ea2c57ec278210f2193d72f43a9",
+      "bytes": 4502
+    },
+    "releases/2026-10-24/driver-0.3.5/yijiexing-driver-cloud-0.3.5-source/ops/cloud-control.sh": {
+      "sha256": "99302377ae046fd1c553ca3701c46c2e25ba1de2ad7e8a48e2f69fd7e0130a3b",
+      "bytes": 6720
+    },
+    "releases/2026-10-24/driver-0.3.5/yijiexing-driver-cloud-0.3.5-source/ops/deployment.json": {
+      "sha256": "a346bd2ef3c55dfd47916209aacfb3b1069d67a36fa208d3341163868f9459ef",
+      "bytes": 1205
+    },
+    "releases/2026-10-24/driver-0.3.5/yijiexing-driver-cloud-0.3.5-source/ops/恢复.command": {
+      "sha256": "63f19cef833f4e8b175f48155de6e34d3dd9b09bbc3cc98ab36891b8a0e8693f",
+      "bytes": 381
+    },
+    "releases/2026-10-24/driver-0.3.5/yijiexing-driver-cloud-0.3.5-source/ops/暂停.command": {
+      "sha256": "2679a5407981dbc2e259e03a2b926cda3082059750361b8ddf107cd2c578db3e",
+      "bytes": 380
+    },
+    "releases/2026-10-24/driver-0.3.5/yijiexing-driver-cloud-0.3.5-source/ops/查看状态.command": {
+      "sha256": "cb1eb865d9eaa3c57b5930a16f6b6e8d1cc9cad861c407dea4482697cd8aa9cf",
+      "bytes": 208
+    },
+    "releases/2026-10-24/driver-0.3.5/yijiexing-driver-cloud-0.3.5-source/provenance/FILELIST.json": {
+      "sha256": "a488db24f8419f2d4be2afe6e0e587219d9859c217b6a2e3d96a22783b68618a",
+      "bytes": 17065
+    },
+    "releases/2026-10-24/driver-0.3.5/yijiexing-driver-cloud-0.3.5-source/provenance/SOURCE.json": {
+      "sha256": "8146e3b53a5529eca8dd2286a2bf3ed7eaa0613b15a84563a4bcf639ccd5fe97",
+      "bytes": 8140
+    },
+    "releases/2026-10-24/driver-0.3.5/yijiexing-driver-cloud-0.3.5-source/provenance/android-candidate-r3.json": {
+      "sha256": "dfacff3a2ce3960c3816726bed73a98043041d9a1fb0786a31fdb9d0324e5173",
+      "bytes": 1574
+    },
+    "releases/2026-10-24/driver-0.3.5/yijiexing-driver-cloud-0.3.5-source/provenance/android-source-035-r3-manifest.json": {
+      "sha256": "b3a30655ad99718704eb8efd3362b5da518e579f7462d1be2cc50eaf87af35eb",
+      "bytes": 10588
+    },
+    "releases/2026-10-24/driver-0.3.5/yijiexing-driver-cloud-0.3.5-source/provenance/antigravity-035-result.json": {
+      "sha256": "d1d07bbe5ae13ec2e446cdc264aef2cb45cf6c2a49471b505ec6d59d74d1d693",
+      "bytes": 390
+    },
+    "releases/2026-10-24/driver-0.3.5/yijiexing-driver-cloud-0.3.5-source/provenance/backend-deployed-v7-source.sha256": {
+      "sha256": "143fbe142085521b4750a90da7bdfc5cfd709dbe64a21c0f21225584fd029610",
+      "bytes": 88
+    },
+    "releases/2026-10-24/driver-0.3.5/yijiexing-driver-cloud-0.3.5-source/provenance/backend-v7-build-source.json": {
+      "sha256": "9793c44d37d50f7126b62f0e3bcf83a53232e83cdd07e49ab97ef3e78e024296",
+      "bytes": 1318
+    },
+    "releases/2026-10-24/driver-0.3.5/yijiexing-driver-cloud-0.3.5-source/provenance/backend-v7-deployed-final.json": {
+      "sha256": "31d0a5d19baefb326624f928345ec009d319ab12abb86776767bada8d936087f",
+      "bytes": 2024
+    },
+    "releases/2026-10-24/driver-0.3.5/yijiexing-driver-cloud-0.3.5-source/provenance/backend-v7-source-manifest.json": {
+      "sha256": "bbe7c3c27d8580fb9f073e2b41bfa23cec7200b51cfa0d7c36078b666fd76b26",
+      "bytes": 1942
+    },
+    "releases/2026-10-24/driver-0.3.5/yijiexing-driver-cloud-0.3.5-source/provenance/final-release-facts.json": {
+      "sha256": "a4faeba3ee0bf5bf3a558d12eae597deb2e5281932095f5c2fdb22df1f415bb3",
+      "bytes": 6170
+    },
+    "releases/2026-10-24/driver-0.3.5/yijiexing-driver-cloud-0.3.5-source/provenance/previous-034-SOURCE.json": {
+      "sha256": "76f4798c055ea46a5c8d63c53b4ed2a2e02213f26df4ce7bf10e3c9877e812c1",
+      "bytes": 7144
+    },
+    "releases/2026-10-24/driver-0.3.5/yijiexing-driver-cloud-0.3.5-source/provenance/ui-acceptance-035.json": {
+      "sha256": "4045e0b1b0938488a73602fcc93363ba471240a517d6da70b575106cff8a3cd7",
+      "bytes": 1111
+    },
+    "releases/2026-10-24/driver-0.3.5/yijiexing-driver-cloud-0.3.5-source/provenance/ui-results-codex-035.md": {
+      "sha256": "cba985b3292d5c4c926b447829cc5b21a93dcdb92b8e850ca1e815f03f573956",
+      "bytes": 8021
+    },
+    "releases/2026-10-24/passenger-native-1.1.5/ANDROID_STATIC_REVIEW.md": {
+      "sha256": "72d768d707f728f1cbd81c1fbd8156a9379aea659c273bd54f9c5634bea1f67c",
+      "bytes": 3418
+    },
+    "releases/2026-10-24/passenger-native-1.1.5/API_CONTRACT.md": {
+      "sha256": "c77d8f9f3b2f1ec9cc98cad40b05d41602b8b777b1c74641f9d6a589fb6e7bb3",
+      "bytes": 6223
+    },
+    "releases/2026-10-24/passenger-native-1.1.5/EXTRAS_API_CONTRACT.md": {
+      "sha256": "949d4b526688e6b0ae0e73d99b71ccc7c731659c52ea31cce0304deb86f790c8",
+      "bytes": 3479
+    },
+    "releases/2026-10-24/passenger-native-1.1.5/NEGOTIATION_API_CONTRACT.md": {
+      "sha256": "7e0c56d2ec25f6b7342a9a349533f14c768a7ea2c57ec278210f2193d72f43a9",
+      "bytes": 4502
+    },
+    "releases/2026-10-24/passenger-native-1.1.5/README-DELIVERY.md": {
+      "sha256": "164afdc895e274334955517694b74a73008f55e8f1665bc4e6d155e4b63d13a6",
+      "bytes": 1718
+    },
+    "releases/2026-10-24/passenger-native-1.1.5/REFERENCE_PROTOTYPE.md": {
+      "sha256": "4931028243fdd518444138c0f5f6e04197c808d995d55e8489aa97835d21a249",
+      "bytes": 6284
+    },
+    "releases/2026-10-24/passenger-native-1.1.5/SOURCE-MANIFEST.json": {
+      "sha256": "4311f96109405332d4e77adcb18ae17d41fd4ac1b52890aa3cf01bde4a55a0eb",
+      "bytes": 14631
+    },
+    "releases/2026-10-24/passenger-native-1.1.5/SOURCE_FUNCTION_AUDIT.md": {
+      "sha256": "491aaee8aa77791950068853494a878e181bbd8675563d27c34123ac5eb335eb",
+      "bytes": 7902
+    },
+    "releases/2026-10-24/passenger-native-1.1.5/deployment/deployed-final.json": {
+      "sha256": "31d0a5d19baefb326624f928345ec009d319ab12abb86776767bada8d936087f",
+      "bytes": 2024
+    },
+    "releases/2026-10-24/passenger-native-1.1.5/deployment/public-download-verified.json": {
+      "sha256": "ed86ff07c19c6574c60e249c6ecf44faa617dacf8ebf6d96ad70ff3b6990064e",
+      "bytes": 1026
+    },
+    "releases/2026-10-24/passenger-native-1.1.5/deployment/v7-source-manifest.json": {
+      "sha256": "bbe7c3c27d8580fb9f073e2b41bfa23cec7200b51cfa0d7c36078b666fd76b26",
+      "bytes": 1942
+    },
+    "releases/2026-10-24/passenger-native-1.1.5/docs/ANDROID_STATIC_REVIEW.md": {
+      "sha256": "72d768d707f728f1cbd81c1fbd8156a9379aea659c273bd54f9c5634bea1f67c",
+      "bytes": 3418
+    },
+    "releases/2026-10-24/passenger-native-1.1.5/docs/API_CONTRACT.md": {
+      "sha256": "c77d8f9f3b2f1ec9cc98cad40b05d41602b8b777b1c74641f9d6a589fb6e7bb3",
+      "bytes": 6223
+    },
+    "releases/2026-10-24/passenger-native-1.1.5/docs/EXTRAS_API_CONTRACT.md": {
+      "sha256": "949d4b526688e6b0ae0e73d99b71ccc7c731659c52ea31cce0304deb86f790c8",
+      "bytes": 3479
+    },
+    "releases/2026-10-24/passenger-native-1.1.5/docs/NEGOTIATION_API_CONTRACT.md": {
+      "sha256": "7e0c56d2ec25f6b7342a9a349533f14c768a7ea2c57ec278210f2193d72f43a9",
+      "bytes": 4502
+    },
+    "releases/2026-10-24/passenger-native-1.1.5/docs/REFERENCE_PROTOTYPE.md": {
+      "sha256": "4931028243fdd518444138c0f5f6e04197c808d995d55e8489aa97835d21a249",
+      "bytes": 6284
+    },
+    "releases/2026-10-24/passenger-native-1.1.5/docs/SOURCE_FUNCTION_AUDIT.md": {
+      "sha256": "491aaee8aa77791950068853494a878e181bbd8675563d27c34123ac5eb335eb",
+      "bytes": 7902
+    },
+    "releases/2026-10-24/passenger-native-1.1.5/docs/安装与体验说明.md": {
+      "sha256": "aa928397648b2b2519c1a68cf7ac04d65447c900be67dfe15caafc7935231940",
+      "bytes": 5841
+    },
+    "releases/2026-10-24/passenger-native-1.1.5/docs/实际验证清单.md": {
+      "sha256": "0a18088f5250c59dabc6d9ffaa377e65c8fce59000087a5b8256a9c3c0ba1483",
+      "bytes": 27523
+    },
+    "releases/2026-10-24/passenger-native-1.1.5/docs/源码与外部服务说明.md": {
+      "sha256": "8c294162950b4ced6ab65233ecf6badd25581cd3c9a036daff90efb3aa7a5b35",
+      "bytes": 11149
+    },
+    "releases/2026-10-24/passenger-native-1.1.5/existing-cloud-ops/cloud-control.sh": {
+      "sha256": "99302377ae046fd1c553ca3701c46c2e25ba1de2ad7e8a48e2f69fd7e0130a3b",
+      "bytes": 6720
+    },
+    "releases/2026-10-24/passenger-native-1.1.5/existing-cloud-ops/provision.py": {
+      "sha256": "a0f37af9f4abf9c39056863ef11ac22c16689a0b4120e8afc626386039530e6d",
+      "bytes": 6946
+    },
+    "releases/2026-10-24/passenger-native-1.1.5/passenger-android/.gitignore": {
+      "sha256": "76bbf877c87000883b47bd677e72fd554ef3077bd394c2051a61850a06a937de",
+      "bytes": 53
+    },
+    "releases/2026-10-24/passenger-native-1.1.5/passenger-android/README.md": {
+      "sha256": "600a24e5ab91936e6ad4506867ee3dbe1d6e93cb0bbbc092f971a2de3b249108",
+      "bytes": 10092
+    },
+    "releases/2026-10-24/passenger-native-1.1.5/passenger-android/app/build.gradle.kts": {
+      "sha256": "9e9bcca0f26d42fddd52217c402e7e4426c660428010e2b4bf276fe008c0ad8f",
+      "bytes": 1462
+    },
+    "releases/2026-10-24/passenger-native-1.1.5/passenger-android/app/src/main/AndroidManifest.xml": {
+      "sha256": "812aa32bf6fd85dd6beca5f641e075853a83be8052bab4516ad29b12715de648",
+      "bytes": 1061
+    },
+    "releases/2026-10-24/passenger-native-1.1.5/passenger-android/app/src/main/java/cn/hbzjhs/passenger/BookingScreens.kt": {
+      "sha256": "71feba419ccad7e1143e173eacc965105820ad97a2b55ad724e69dca7a0e22a5",
+      "bytes": 18005
+    },
+    "releases/2026-10-24/passenger-native-1.1.5/passenger-android/app/src/main/java/cn/hbzjhs/passenger/ExtraScreens.kt": {
+      "sha256": "27b1336a7c02752d99e9b446a81a026dafdfb729439d3c04cc5f35ced044be54",
+      "bytes": 10833
+    },
+    "releases/2026-10-24/passenger-native-1.1.5/passenger-android/app/src/main/java/cn/hbzjhs/passenger/MainActivity.kt": {
+      "sha256": "e9836ee5270ad8a116a7fe5b497ca3b17c49da42df6e6a66378142b5849e2479",
+      "bytes": 17822
+    },
+    "releases/2026-10-24/passenger-native-1.1.5/passenger-android/app/src/main/java/cn/hbzjhs/passenger/Negotiation.kt": {
+      "sha256": "76f3f457e1ebb4787534912beaab0dd7f4d2d173d564894d746f50c2237752b7",
+      "bytes": 5318
+    },
+    "releases/2026-10-24/passenger-native-1.1.5/passenger-android/app/src/main/java/cn/hbzjhs/passenger/OrderDetail.kt": {
+      "sha256": "25648129a987c185e4972e6af239676e0412be4a83408c97b347f54f9e31220f",
+      "bytes": 27116
+    },
+    "releases/2026-10-24/passenger-native-1.1.5/passenger-android/app/src/main/java/cn/hbzjhs/passenger/OrderFarePresentation.kt": {
+      "sha256": "807e08ea6813ea1ab53c8ae25df2161d60b605f0018ccff50079427bffb512eb",
+      "bytes": 1016
+    },
+    "releases/2026-10-24/passenger-native-1.1.5/passenger-android/app/src/main/java/cn/hbzjhs/passenger/OrderIdentity.kt": {
+      "sha256": "8831fd4975384e4226e6d3a200915cde459dcb832381f8e2ef6e4f36f67a6af2",
+      "bytes": 2057
+    },
+    "releases/2026-10-24/passenger-native-1.1.5/passenger-android/app/src/main/java/cn/hbzjhs/passenger/PassengerStore.kt": {
+      "sha256": "74d0cf010ccfd3388a12018b1a984f787e6668e61afcc00cd41d7c0eee92d269",
+      "bytes": 17788
+    },
+    "releases/2026-10-24/passenger-native-1.1.5/passenger-android/app/src/main/java/cn/hbzjhs/passenger/PendingRequestJournal.kt": {
+      "sha256": "1d1b4d1bca498d1c8b53794aeb60cccffa0aab43c31238a43d1dd37a2faf251c",
+      "bytes": 3573
+    },
+    "releases/2026-10-24/passenger-native-1.1.5/passenger-android/app/src/main/java/cn/hbzjhs/passenger/ProfileScreens.kt": {
+      "sha256": "28fa649d545864220ca55097e7b8f4f8e18178f72cb6c48d3e7803e53703f131",
+      "bytes": 13564
+    },
+    "releases/2026-10-24/passenger-native-1.1.5/passenger-android/app/src/main/java/cn/hbzjhs/passenger/UiComponents.kt": {
+      "sha256": "c76f65b8b3e37039ef785602bb3dbd92a2dd2d4e2aaff1289cc03c48fd9e0f86",
+      "bytes": 5356
+    },
+    "releases/2026-10-24/passenger-native-1.1.5/passenger-android/app/src/main/res/drawable/ic_passenger.xml": {
+      "sha256": "ee1154225cb05af1f2f1407133f0ca0d80e0a767269a1a7ceed5fa9f674bb520",
+      "bytes": 450
+    },
+    "releases/2026-10-24/passenger-native-1.1.5/passenger-android/app/src/main/res/values/styles.xml": {
+      "sha256": "d4f9bdd7b3fe36616f36a59cda9a414e72588e98c4fafec02acc4dba96538189",
+      "bytes": 367
+    },
+    "releases/2026-10-24/passenger-native-1.1.5/passenger-android/app/src/test/java/cn/hbzjhs/passenger/NegotiationTest.kt": {
+      "sha256": "2ef59aa0904002c6db6850daa744c9afc6660a81e92d52f0de729353825f2ad3",
+      "bytes": 2438
+    },
+    "releases/2026-10-24/passenger-native-1.1.5/passenger-android/app/src/test/java/cn/hbzjhs/passenger/OrderFarePresentationTest.kt": {
+      "sha256": "176d4494c8f31aef67464c108f171f49e6b79973ee58e4e2041a77c16dc05df4",
+      "bytes": 2031
+    },
+    "releases/2026-10-24/passenger-native-1.1.5/passenger-android/app/src/test/java/cn/hbzjhs/passenger/OrderIdentityTest.kt": {
+      "sha256": "5b8e81cad528cd918f414027509939d09a221183f98e1ffa09c46226aec0c48e",
+      "bytes": 1147
+    },
+    "releases/2026-10-24/passenger-native-1.1.5/passenger-android/app/src/test/java/cn/hbzjhs/passenger/PassengerRulesTest.kt": {
+      "sha256": "076aebf233493a55e634086c02bc4cda8cf3d15410f7f7483aba038ab8b67435",
+      "bytes": 1271
+    },
+    "releases/2026-10-24/passenger-native-1.1.5/passenger-android/app/src/test/java/cn/hbzjhs/passenger/PendingRequestJournalTest.kt": {
+      "sha256": "3e342f024db1686f3350d69e608ff8508cd89f7cbbe07242bcac613f46f769f4",
+      "bytes": 6568
+    },
+    "releases/2026-10-24/passenger-native-1.1.5/passenger-android/build.gradle.kts": {
+      "sha256": "48f7c9d13c50fa379dce0a2b7c028bcffe60d428eada35b12cfb8af28b31c962",
+      "bytes": 142
+    },
+    "releases/2026-10-24/passenger-native-1.1.5/passenger-android/gradle.properties": {
+      "sha256": "e43a00491832254a35cf5a979ef6de17f78c4e159d446be39319d2e3d3e46325",
+      "bytes": 100
+    },
+    "releases/2026-10-24/passenger-native-1.1.5/passenger-android/gradle/wrapper/gradle-wrapper.jar": {
+      "sha256": "cb0da6751c2b753a16ac168bb354870ebb1e162e9083f116729cec9c781156b8",
+      "bytes": 43453
+    },
+    "releases/2026-10-24/passenger-native-1.1.5/passenger-android/gradle/wrapper/gradle-wrapper.properties": {
+      "sha256": "3db66878136a55b95073146f77fee9cb33fbfc0d4354d443ced819b25a147f76",
+      "bytes": 339
+    },
+    "releases/2026-10-24/passenger-native-1.1.5/passenger-android/gradlew": {
+      "sha256": "fc977a94723af68aaffa4e5d60496fb4aeed1884b6b19e5e2f2fd7612673313d",
+      "bytes": 8692
+    },
+    "releases/2026-10-24/passenger-native-1.1.5/passenger-android/gradlew.bat": {
+      "sha256": "bdecf875b6868cbcbd36a1f85eedf0832f358ff28092c5797ed645f7edce77d9",
+      "bytes": 2918
+    },
+    "releases/2026-10-24/passenger-native-1.1.5/passenger-android/settings.gradle.kts": {
+      "sha256": "17fa4b4fa9d625f4d272a44a7305d497b7752e0843980097f85ace07dc916eeb",
+      "bytes": 280
+    },
+    "releases/2026-10-24/passenger-native-1.1.5/passenger-ops/deploy_shared.py": {
+      "sha256": "74f6e6bd4680670ca47c29ae8bf8be79f5d01a36cf615176b32622e126ae3be3",
+      "bytes": 759
+    },
+    "releases/2026-10-24/passenger-native-1.1.5/shared-cloud-service-v7/.dockerignore": {
+      "sha256": "c849d1d4796966a2a3181b6073f4c2a754f94eece980a62a7779359b2df13438",
+      "bytes": 58
+    },
+    "releases/2026-10-24/passenger-native-1.1.5/shared-cloud-service-v7/Dockerfile": {
+      "sha256": "39e5d05c6e52ef60d0ed0b4f5fd65f6972f80c27658a755744e79908fdaf07b2",
+      "bytes": 334
+    },
+    "releases/2026-10-24/passenger-native-1.1.5/shared-cloud-service-v7/admin.py": {
+      "sha256": "d68a26dbc7441f73dfc79a5a0bf98e60f7558b6386afde374d09636c9a447222",
+      "bytes": 25185
+    },
+    "releases/2026-10-24/passenger-native-1.1.5/shared-cloud-service-v7/admin_console.py": {
+      "sha256": "e85d6ad281a090d9519b45900977215e15e571fcaf19b7397bf28317fd18bace",
+      "bytes": 19416
+    },
+    "releases/2026-10-24/passenger-native-1.1.5/shared-cloud-service-v7/benefits.py": {
+      "sha256": "b9f4d100b05e7a3a4c39dd0bba69dbe557110a3ca006eb8a755692235f2470de",
+      "bytes": 15418
+    },
+    "releases/2026-10-24/passenger-native-1.1.5/shared-cloud-service-v7/cloud_server.py": {
+      "sha256": "3befeb25bb51fd44b306c17655da54b3015481df7aec3847f3901f4f9e0c9175",
+      "bytes": 15707
+    },
+    "releases/2026-10-24/passenger-native-1.1.5/shared-cloud-service-v7/common.py": {
+      "sha256": "3e27cf145d05a96b2ae6e1435d66d460edf585bd98de1935fda1764e27face92",
+      "bytes": 2098
+    },
+    "releases/2026-10-24/passenger-native-1.1.5/shared-cloud-service-v7/distribution.py": {
+      "sha256": "c164763c515121a6e7537bda9318e48a0dc35d531f80b408ddd29cc503b082b8",
+      "bytes": 4784
+    },
+    "releases/2026-10-24/passenger-native-1.1.5/shared-cloud-service-v7/domain.py": {
+      "sha256": "1c21457d5b1a23d22798249109fbf78ae8d006b2cabb32de51d631971d9994f2",
+      "bytes": 34893
+    },
+    "releases/2026-10-24/passenger-native-1.1.5/shared-cloud-service-v7/negotiation.py": {
+      "sha256": "0def00fc292686df616e6aaaac31eb79af10436b1bd0a48fb5f9d11d4b998bf1",
+      "bytes": 8939
+    },
+    "releases/2026-10-24/passenger-native-1.1.5/shared-cloud-service-v7/order_options.py": {
+      "sha256": "4ec12f73f400cfae665b828b5714501b6e555bdf00eb99c352e306a5f36cb123",
+      "bytes": 8428
+    },
+    "releases/2026-10-24/passenger-native-1.1.5/shared-cloud-service-v7/passenger.py": {
+      "sha256": "8d387e0365d2896f4c3b7660a6a54d98cfa09245476204432fc5d7239effc374",
+      "bytes": 30505
+    },
+    "releases/2026-10-24/passenger-native-1.1.5/shared-cloud-service-v7/passenger_extras.py": {
+      "sha256": "fc6a21d2d05adf859754bddd56467dd1d7376fc9a1a9e57c4c0865c4a34983c9",
+      "bytes": 7669
+    },
+    "releases/2026-10-24/passenger-native-1.1.5/shared-cloud-service-v7/requirements.txt": {
+      "sha256": "af79caa6e5db292ba03cd708cab33f138b4295460b3f570c61f14e4e146c2f9a",
+      "bytes": 28
+    },
+    "releases/2026-10-24/passenger-native-1.1.5/shared-cloud-service-v7/seed.py": {
+      "sha256": "64382842f55bd0486028244a758c951293de1f89f6e6ce2a98273867a44b0d7b",
+      "bytes": 7968
+    },
+    "releases/2026-10-24/passenger-native-1.1.5/shared-cloud-service-v7/server.py": {
+      "sha256": "69f713dd3c76df5f2754eb2e8a95f9ef23ada1d0201d3fdc824af5bcf242afc2",
+      "bytes": 17918
+    },
+    "releases/2026-10-24/passenger-native-1.1.5/shared-cloud-service-v7/snapshot.py": {
+      "sha256": "31552c1a6406157cc483507a66b3d2d8981c5ca7ab7941f4a2250225cabaca17",
+      "bytes": 6682
+    },
+    "releases/2026-10-24/passenger-native-1.1.5/shared-cloud-service-v7/static/admin.css": {
+      "sha256": "de41a30e4b75abbac164764070b76b81cd098716a573bce13f8537b220ab2045",
+      "bytes": 7548
+    },
+    "releases/2026-10-24/passenger-native-1.1.5/shared-cloud-service-v7/static/admin.html": {
+      "sha256": "386cb5544b3f3dfe89c461bef4d04471d514e63252a8c06a3a84644be4f3ae13",
+      "bytes": 2073
+    },
+    "releases/2026-10-24/passenger-native-1.1.5/shared-cloud-service-v7/static/admin.js": {
+      "sha256": "18fefe0b162a28ae7272c76a94e992c3bcfc6c5654503cadf25d0e5fc5684a17",
+      "bytes": 39246
+    },
+    "releases/2026-10-24/passenger-native-1.1.5/shared-cloud-service-v7/static/sample.jpg": {
+      "sha256": "94c65c68e2e11465bef264f86c5abd882e5967b5fc609ae6b99bafda9c1c6718",
+      "bytes": 75712
+    },
+    "releases/2026-10-24/passenger-native-1.1.5/shared-cloud-service-v7/static/sandbox-certificate-sample.png": {
+      "sha256": "d0c6e7af6edb96b1b2931b3f763ec51bf31d3eeca9222bf5cfc60b7c971e3186",
+      "bytes": 67721
+    },
+    "releases/2026-10-24/passenger-native-1.1.5/shared-cloud-service-v7/tests/test_admin_http.py": {
+      "sha256": "3891636746aff7fdc9c732de1905a2e9b5aca3b85ba90cbdc6f6fe1b14d899fb",
+      "bytes": 9811
+    },
+    "releases/2026-10-24/passenger-native-1.1.5/shared-cloud-service-v7/tests/test_cloud.py": {
+      "sha256": "cfb411c1bb5587152edb7a9dd0e241e6a31f82b32d7e2c60a4ab5e0a0e9856f8",
+      "bytes": 15679
+    },
+    "releases/2026-10-24/passenger-native-1.1.5/shared-cloud-service-v7/tests/test_distribution.py": {
+      "sha256": "0623ab6202e74126f684bd9eec7b6e496557a1fc8aed07c96168a56791bcfbe9",
+      "bytes": 8897
+    },
+    "releases/2026-10-24/passenger-native-1.1.5/shared-cloud-service-v7/tests/test_negotiation.py": {
+      "sha256": "7a615dc9ae70eee7b4fb7baf18c4c2ce97559dd37b6fafcfdfc53cec43020c18",
+      "bytes": 15790
+    },
+    "releases/2026-10-24/passenger-native-1.1.5/shared-cloud-service-v7/tests/test_original_integration.py": {
+      "sha256": "cd4834f893757c4c626753042937a8800201e2db19a04b2fe6b5cfa40f43bbb6",
+      "bytes": 32378
+    },
+    "releases/2026-10-24/passenger-native-1.1.5/shared-cloud-service-v7/tests/test_passenger.py": {
+      "sha256": "89347133d8092a1ebad1306499a3d71946fac416831c587594dd098625b945a2",
+      "bytes": 25365
+    },
+    "releases/2026-10-24/passenger-native-1.1.5/shared-cloud-service-v7/tests/test_passenger_extras.py": {
+      "sha256": "82e94414711127bd2ce9b2372de2659c4b4984212053e9b2abf1b6136508867d",
+      "bytes": 5890
+    },
+    "releases/2026-10-24/passenger-native-1.1.5/shared-cloud-service-v7/tests/test_passenger_options.py": {
+      "sha256": "71d7b0d05044bd5a102dddc78ea8c728178fac746bfe3976cd398a6d92de48c6",
+      "bytes": 4754
+    }
+  }
+}

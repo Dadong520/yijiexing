@@ -1,0 +1,182 @@
+{
+  "status": "RELEASED_035_R3_WITH_BOUNDED_CODEX_UI_JOINT_PUBLIC_EVIDENCE_AG_NOT_TESTED",
+  "generatedAt": "2026-10-24T00:23:22.872056+08:00",
+  "published": true,
+  "android": {
+    "versionName": "0.3.5-cloud",
+    "versionCode": 8,
+    "candidateRevision": "r3",
+    "sourceArchive": "android-source-035-r3.zip",
+    "sourceArchiveSha256": "3739dcb34791138f2c0e34c707b200175a49fbffe11c7f67195c1cd4291dad13",
+    "originalArchiveFiles": 56,
+    "packagedFiles": 51,
+    "exactByteFiles": 49,
+    "documentationExceptions": [
+      "android/README.md",
+      "android/INTEGRATION.md"
+    ],
+    "excludedHistoricalVerificationFiles": [
+      {
+        "path": "android/verification/build-final.log",
+        "sha256": "54b17c84795ad51bc0e93acd3726913b67912ded65a698fb306805e541f80c18",
+        "reason": "historical verification/log/patch metadata; excluded from source delivery"
+      },
+      {
+        "path": "android/verification/build.log",
+        "sha256": "f95aa8fe927872cf3c6f3380c74f1785c29964df65218993686cdfb670b8c0c3",
+        "reason": "historical verification/log/patch metadata; excluded from source delivery"
+      },
+      {
+        "path": "android/verification/candidate-manifest.json",
+        "sha256": "7fde744a7862ff4b006f0b10ec98d3a99d0cd2e86de5676cb097b1758064742c",
+        "reason": "historical verification/log/patch metadata; excluded from source delivery"
+      },
+      {
+        "path": "android/verification/changed-files.txt",
+        "sha256": "c7fd9f9c015520471d0a457587f5eaa368cb3f7db21fe60cc2503cbd5c1f0e06",
+        "reason": "historical verification/log/patch metadata; excluded from source delivery"
+      },
+      {
+        "path": "android/verification/driver-033-changes.patch",
+        "sha256": "8ae8cbb7f4c91e7fb039900ca4bf8581cb855ffe723c40b068ffe2b5ec348c75",
+        "reason": "historical verification/log/patch metadata; excluded from source delivery"
+      }
+    ],
+    "originalManifest": "android-source-035-r3-manifest.json",
+    "candidateRecord": "android-candidate-r3.json",
+    "candidateApkSha256": "6b9620a237286002662a966a31ba110f50d3a13c2ca4c113961792b32ee0b4ea",
+    "candidateApkBytes": 54757323,
+    "apkIncluded": false
+  },
+  "backend": {
+    "buildId": "95828fa5-a4b6-469c-b227-99fab315bdbe",
+    "imageDigest": "sha256:b3cb3e2f61e4a724dd95b6dfac0d357d2bbd793b9e225402965b8fedb5ff0d3d",
+    "exactArchiveSha256": "1097094095c298af9e6d5b132eb37769a18ecd5b44249303986e7d13ab37cec7",
+    "sourceFiles": 22,
+    "provenanceReusedWithoutNetwork": true,
+    "manifestInputSha256": "bbe7c3c27d8580fb9f073e2b41bfa23cec7200b51cfa0d7c36078b666fd76b26",
+    "source034Archive": "source-034-final.zip",
+    "source034ArchiveSha256": "fdaef43b3c7051e00c0dd23c723705131b79bc90e032da6b808c646be8e165f1",
+    "sourceManifest": "backend-v7-source-manifest.json",
+    "exactByteFilesVerified": 22,
+    "liveCloudCheckPerformed": false,
+    "readOnlyArchive": true
+  },
+  "contractsAndTools": {
+    "source": "source-034-final.zip",
+    "exactBytesPreserved": true,
+    "apiContractSha256": {
+      "API_CONTRACT.md": "c77d8f9f3b2f1ec9cc98cad40b05d41602b8b777b1c74641f9d6a589fb6e7bb3",
+      "NEGOTIATION_API_CONTRACT.md": "7e0c56d2ec25f6b7342a9a349533f14c768a7ea2c57ec278210f2193d72f43a9"
+    },
+    "opsScope": "yijiexing-driver-demo-1023/us-west1 only; no tools executed"
+  },
+  "existingUnitTestEvidence": {
+    "source": "android-candidate-r3.json",
+    "tests": 40,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "readExistingResultOnly": true,
+    "testsRunByPackaging": false
+  },
+  "pendingValidation": [],
+  "historyScope": "previous-034-SOURCE.json and preserved backend deployment snapshots are historical provenance only, not035 acceptance or live deployment status",
+  "exclusions": [
+    "local.properties",
+    "build/.gradle/cache",
+    "APK/logs/QA screenshots/verification",
+    "databases/runtime data",
+    "credentials/private keys/access codes/live sessions",
+    "passenger Android and independent admin frontend"
+  ],
+  "packagingBoundary": "documentation/provenance finalization only; Android49/backend22 bytes unchanged; no034 mutation, candidate ZIP changes, rebuild/test/device/API/cloud/GCS/output upload",
+  "uiEvidence": {
+    "codex": "completed with version-specific bounded coverage; original report preserved",
+    "records": {
+      "ui-acceptance-035.json": {
+        "source": "driver-035/ui-acceptance-035.json",
+        "sha256": "4045e0b1b0938488a73602fcc93363ba471240a517d6da70b575106cff8a3cd7"
+      },
+      "ui-results-codex-035.md": {
+        "source": "ui-redesign-035/results-codex.md",
+        "sha256": "cba985b3292d5c4c926b447829cc5b21a93dcdb92b8e850ca1e815f03f573956"
+      },
+      "antigravity-035-result.json": {
+        "source": "driver-035/antigravity-035-result.json",
+        "sha256": "d1d07bbe5ae13ec2e446cdc264aef2cb45cf6c2a49471b505ec6d59d74d1d693"
+      }
+    },
+    "allR3CasesRerun": false
+  },
+  "antigravity": {
+    "status": "BLOCKED_PERMISSION_NOT_TESTED",
+    "attempts": 1,
+    "actualUiActions": 0,
+    "passed": false,
+    "source": "antigravity-035-result.json"
+  },
+  "knownLimitations": [
+    {
+      "id": "TODAY_COUNTERS_SYNTHETIC_CUMULATIVE",
+      "seedLocation": "cloud-service/seed.py:22",
+      "todayIncomeCentsInitial": 11000,
+      "todayAcceptedInitial": 2,
+      "todayCompletedInitial": 2,
+      "dataLocation": "cloud-service/domain.py:data",
+      "creditLocation": "cloud-service/domain.py:credit",
+      "behavior": "No calendar-date recomputation/reset in data(); accepted/credit operations increment persisted counters. App home today values are cumulative synthetic demo values, not daily business reports.",
+      "implementationChanged": false
+    }
+  ],
+  "independentTestingBoundary": "Antigravity attempt blocked, not tested,0UI; Codex UI coverage must not be called independent AG pass",
+  "finalizedAt": "2026-10-24T00:55:45.723393+08:00",
+  "releaseFacts": "final-release-facts.json",
+  "releaseFactsInputSha256": "a4faeba3ee0bf5bf3a558d12eae597deb2e5281932095f5c2fdb22df1f415bb3",
+  "candidateDocumentationUpdatesHistorical": [
+    {
+      "path": "android/README.md",
+      "inputSha256": "fbb1ab8c8fe4b4beaaffc8c4bb132bb27588c40508ce6af1c9e1a7a8313150d0",
+      "packagedSha256": "ea1e7a4080dd3024e2a98a476c23061b579e838042a6a2c90df44bca4d57584e",
+      "scope": "documentation only; candidate identity/status/provenance"
+    },
+    {
+      "path": "android/INTEGRATION.md",
+      "inputSha256": "75272410744a5dd5f1e74618eaf0a652ba4a5c97870ec102e2646e7ae8368ee9",
+      "packagedSha256": "ce888159d4c8b06a5ed36fbc0f7d637990e763ab6f659142c7dddbd6ed2fb157",
+      "scope": "documentation only; candidate identity/status/provenance"
+    },
+    {
+      "path": "cloud-service/README.md",
+      "inputSha256": "22d5396954ba77eececacdc3ed56cec4a5b85260710e7c9810bc85bdc7ac9399",
+      "packagedSha256": "3ebf299b51e1f7b8403c0e375f9c068a490d60ff2937e496e55f6bd4debeaf47",
+      "scope": "documentation only; candidate identity/status/provenance"
+    },
+    {
+      "path": "README.md",
+      "scope": "new035candidate overview;034 release assertions not inherited"
+    }
+  ],
+  "documentationUpdates": [
+    {
+      "path": "README.md",
+      "packagedSha256": "9a5d2c4af7b6b55fab90ddcf3b37d868db4daa956473d4b45a466d3ff6179e54",
+      "scope": "final release documentation only; no executable source/resource/test/build changes"
+    },
+    {
+      "path": "android/README.md",
+      "packagedSha256": "ee0b53e75ddd58e02db37869314708f740dfa66860b2d9a5343cc65362f7104b",
+      "scope": "final release documentation only; no executable source/resource/test/build changes"
+    },
+    {
+      "path": "android/INTEGRATION.md",
+      "packagedSha256": "b17d8a08d44b9e65e7d8f3e2929782a46c09841b5f3159d2bfcd4b89219ecef1",
+      "scope": "final release documentation only; no executable source/resource/test/build changes"
+    },
+    {
+      "path": "cloud-service/README.md",
+      "packagedSha256": "4d1b8c27a572ba8da91763956605d86d21d99b1b516371a88c389f43106aca5c",
+      "scope": "final release documentation only; no executable source/resource/test/build changes"
+    }
+  ]
+}

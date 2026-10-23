@@ -1,0 +1,33 @@
+{
+  "status": "UI_VALIDATED_JOINT_REGRESSION_PENDING",
+  "version": "0.3.5-cloud",
+  "code": 8,
+  "apkSha256": "6b9620a237286002662a966a31ba110f50d3a13c2ca4c113961792b32ee0b4ea",
+  "bytes": 54757323,
+  "signerSha256": "9ffec9b342d12909ff288bd73f23ba104893b39120cb24ea83c9734a0d2b758f",
+  "unitTests": {
+    "total": 40,
+    "failures": 0,
+    "errors": 0
+  },
+  "uiEvidenceIndex": "../ui-redesign-035/run.json",
+  "uiEvidenceIndexSha256": "6906e6208fab3c613790b76bcd63daf1bfe2b91e1afe6b0bb0f096f49886ec04",
+  "uiActualReport": "../ui-redesign-035/results-codex.md",
+  "fontScales": [
+    1.0,
+    1.3,
+    1.5
+  ],
+  "appLargeTextCombined": 1.12,
+  "finalDeviceHandoff": "2026-10-24T00:26:46+08:00",
+  "antigravity": "BLOCKED_PERMISSION_NOT_TESTED",
+  "pending": [
+    "final paired STANDARD order with passenger115",
+    "driver complaint final submit/admin reply visible",
+    "final paired BID prepaid cancellation/refund",
+    "public artifact publication/download verification"
+  ],
+  "backendChanged": false,
+  "originalTestEnvironmentChanged": false,
+  "generatedAt": "2026-10-24T00:29:06.419769+08:00"
+}

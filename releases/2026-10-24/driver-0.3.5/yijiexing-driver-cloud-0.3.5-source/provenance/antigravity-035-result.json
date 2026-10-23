@@ -1,0 +1,11 @@
+{
+  "status": "BLOCKED_PERMISSION_NOT_TESTED",
+  "conversationId": "83070eea-144a-4190-960e-d6bc603c69c7",
+  "jobDirectory": "/Users/dongge/Documents/AI-Team-Link/outputs/20261024-002213",
+  "error": "headless command permission auto-denied; response empty",
+  "wrapperExit": 16,
+  "actualUiActions": 0,
+  "attempts": 1,
+  "globalPermissionsChanged": false,
+  "rawResponsePreserved": true
+}

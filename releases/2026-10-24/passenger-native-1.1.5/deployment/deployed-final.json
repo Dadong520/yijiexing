@@ -1,0 +1,69 @@
+{
+  "project": "yijiexing-driver-demo-1023",
+  "services": {
+    "driver-demo": {
+      "revision": "driver-demo-00004-pnn",
+      "image": "us-west1-docker.pkg.dev/yijiexing-driver-demo-1023/demo/service@sha256:b3cb3e2f61e4a724dd95b6dfac0d357d2bbd793b9e225402965b8fedb5ff0d3d",
+      "url": "https://driver-demo-phfgquzmua-uw.a.run.app",
+      "traffic": [
+        {
+          "latestRevision": true,
+          "percent": 100,
+          "revisionName": "driver-demo-00004-pnn"
+        }
+      ],
+      "configuredMinimum": 0,
+      "serviceScaling": {
+        "run.googleapis.com/maxScale": "1",
+        "run.googleapis.com/scalingMode": "automatic"
+      },
+      "revisionScaling": {
+        "autoscaling.knative.dev/maxScale": "3",
+        "run.googleapis.com/cpu-throttling": "true"
+      },
+      "concurrency": 1,
+      "resources": {
+        "limits": {
+          "cpu": "1",
+          "memory": "512Mi"
+        }
+      },
+      "publicInvoker": true
+    },
+    "driver-admin": {
+      "revision": "driver-admin-00005-pwl",
+      "image": "us-west1-docker.pkg.dev/yijiexing-driver-demo-1023/demo/service@sha256:b3cb3e2f61e4a724dd95b6dfac0d357d2bbd793b9e225402965b8fedb5ff0d3d",
+      "url": "https://driver-admin-phfgquzmua-uw.a.run.app",
+      "traffic": [
+        {
+          "latestRevision": true,
+          "percent": 100,
+          "revisionName": "driver-admin-00005-pwl"
+        }
+      ],
+      "configuredMinimum": 0,
+      "serviceScaling": {
+        "run.googleapis.com/maxScale": "1",
+        "run.googleapis.com/scalingMode": "automatic"
+      },
+      "revisionScaling": {
+        "autoscaling.knative.dev/maxScale": "3",
+        "run.googleapis.com/cpu-throttling": "true"
+      },
+      "concurrency": 1,
+      "resources": {
+        "limits": {
+          "cpu": "1",
+          "memory": "512Mi"
+        }
+      },
+      "publicInvoker": false
+    }
+  },
+  "checks": {
+    "driverHealth": 200,
+    "driverApiWithoutGate": 403,
+    "driverCannotServeAdmin": 404,
+    "adminAnonymousHealth": 403
+  }
+}
