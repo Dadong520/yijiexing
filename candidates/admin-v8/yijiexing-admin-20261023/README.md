@@ -1,18 +1,16 @@
 # 宜捷行后台管理端
 
-> 2026-10-24当前状态：共享v8已部署，**云服务按用户节费要求暂停**（02:38读回两服务manual/实例0），等用户通知验收才恢复。司机036-r2为未公开的本地候选；乘客原生开发暂停，已完成微信小程序开发版源码及本机只读预览 http://127.0.0.1:8788/ ，无AppID/真机验收。后台本机入口已修复，8790页面可启动，但暂停期间登录/云数据请求不可用。当前以[规则修复记录](docs/WAIT_PAY_FIX_20261024.md)、[当前交付状态](qa/logic-audit-20261024/current-delivery-status.json)为准；下方035/115与v7联测均为历史版本证据。
+> 2026-10-24 最新状态：后台已迁移至 [HTTPS 云端入口](https://driver-admin-491829048305.us-west1.run.app/)，先使用 dadonggev587@gmail.com 通过 Google 登录，再输入原管理账号。无需本机代理或保持 Mac 开机。手机及管理服务均按请求计费、automatic / min0 / max1；用户已授权通过适用测试后直接发布独立体验环境，不再自动暂停。详见 [云端访问与发布](docs/CLOUD_BROWSER_ACCESS.md) 和 [当前发布规则](docs/DEPLOYMENT_POLICY_20261024.md)。下文旧版本联测为历史证据。
 
 本工程的浏览器界面通过本机入口访问独立 Google Cloud 体验后台；共享订单、账户、配置和操作日志保存在既有共享 SQLite / 私有 GCS 快照中。后台不连接原测试或生产环境。
 
 ## 启动访问
 
-前提：本机已安装 Python 3 和 Google Cloud CLI，并登录已获 `driver-admin` 调用权限的云账号；既有 `yijiexing-cloud-20261023/.private/admin-token.txt` 保留在本机。
+浏览器打开 <https://driver-admin-491829048305.us-west1.run.app/>。先选择已授权 Google 账号 `dadonggev587@gmail.com`，再输入后台管理账号与密码。其他设备无需安装 Google Cloud CLI，也不依赖本机代理。
 
-双击 `启动后台.command`，或者在此目录执行 `python3 ops/serve.py`。浏览器打开 <http://127.0.0.1:8790>。双击启动会独立运行本机入口，关闭启动窗口后仍可访问；重启电脑后需再次启动。直接执行 ops/serve.py 为前台模式，按 Ctrl+C 关闭入口。
+管理员用户名 `admin`，原密码保存在本机 `.private/admin-bootstrap-password.txt`，未重置；只读/运营测试账号密码仍在 `.private/qa-accounts.json`。不要把这些文件提交到仓库或公开交付包。
 
-入口只监听本机，校验 Host 和跨站来源。云 IAM 身份与外层管理令牌仅由本机进程读取并转发，不进入网页代码。管理账号登录使用独立会话；刷新页面后重新登录。不要将 `.private/`、密码或会话放入公开交付包。
-
-初始管理员用户名为 `admin`，独立随机密码保存在本目录 `.private/admin-bootstrap-password.txt`（仅本机所有者可读）。该密码通过独立 Secret Manager secret 仅提供给管理服务，不与手机访问码或外层管理令牌混用。
+双击 `启动后台.command` 会直接打开云网址。云端 IAM 和 IAP 登录保护保留，外层管理令牌只在服务端使用；通过 Google 登录仍需独立管理会话和角色权限。完整访问与回退说明见 [云端后台访问](docs/CLOUD_BROWSER_ACCESS.md)。旧 `ops/serve.py` 为历史本机代理，不作为当前正式入口。
 
 2026-10-23当前状态：共享后端负责人已完成管理扩展发布；v3修复初始密码换行导致的登录问题，根任务实际云登录已成功。`qa_operator`可处理投诉，`qa_viewer`可查看业务且账号管理页明确拒绝。测试账号密码仅保存本机 `.private/qa-accounts.json`，不在本文或网页公开；两个账号分别用于运营操作及只读验证。最终v7云revision为`driver-demo-00004-pnn`、`driver-admin-00005-pwl`，同镜像SHA-256 `b3cb3e2f61e4a724dd95b6dfac0d357d2bbd793b9e225402965b8fedb5ff0d3d`。新一轮司机0.3.3与乘客1.1.2已完成真实线下议价联动；最终安装包版本、哈希和下载入口见交付清单。
 
@@ -86,4 +84,4 @@ bash ../yijiexing-cloud-20261023/ops/cloud-control.sh status
 - 小程序工程：同级yijiexing-passenger-20261023/miniprogram/；双击preview/启动预览.command可在云暂停时看只读示例界面。导入微信开发者工具的账号/域名/地图条件见其README。
 - 司机036-r2：同级outputs/宜捷行安卓0.3.6本地候选_待验收/，55项自动化通过，未覆盖正式035，未公开发布。
 - 新一轮A单WAIT_PAY、B单AVAILABLE保留；B未接、A晚付不中断B尚待用户开云验收。此前035/115已跑通订单不能替代小程序三端验收。
-- 私库源码统一由后台主会话归档到Dadong520/yijiexing，保留旧基线与各候选；不上传凭据、账户数据库、APK与构建缓存，不启用自动部署。
+- 私库源码统一由后台主会话归档到Dadong520/yijiexing，保留旧基线与各候选；不上传凭据、账户数据库、APK与构建缓存，发布按[当前发布规则](docs/DEPLOYMENT_POLICY_20261024.md)执行；尚未配置 GitHub 自动部署流水线。

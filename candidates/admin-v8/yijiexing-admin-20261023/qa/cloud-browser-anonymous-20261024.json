@@ -1,0 +1,14 @@
+[
+  {
+    "path": "/",
+    "httpStatus": 302,
+    "redirectHost": "accounts.google.com",
+    "unauthenticatedDataExposed": false
+  },
+  {
+    "path": "/api/local/admin/v2/state",
+    "httpStatus": 302,
+    "redirectHost": "accounts.google.com",
+    "unauthenticatedDataExposed": false
+  }
+]
