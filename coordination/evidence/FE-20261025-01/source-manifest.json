@@ -1,0 +1,39 @@
+{
+  "baseSha": "e89f90b0a63b72dc04fca5b3690a8897de1543c7",
+  "targetSha": "fd44ec08d674900cd0b30d3d3f25cd0fc46f1b36",
+  "files": {
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/CoreScreens.kt": {
+      "sha256": "d2dfb30f41771906eb603739578ff6c0c4a1456c246767b58275fec50a9d02c6",
+      "bytes": 83004
+    },
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/ConnectedStore.kt": {
+      "sha256": "2bca6f10f996c75f4bbba4152757bdea2c004e23f09f0c91a2bc3d7b0e60801a",
+      "bytes": 29841
+    },
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/DriverDomain.kt": {
+      "sha256": "676804352d3acb8c0cda491762e075e859c43a03f2b34e58fd86e8976cfc32e3",
+      "bytes": 6528
+    },
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/BusinessScreens.kt": {
+      "sha256": "3e2555742e6351ccbd4b1352d21b611e79bf9d0255e38f92911876566fbd3b8e",
+      "bytes": 19667
+    },
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/UiKit.kt": {
+      "sha256": "363d76ad3d9ecd0acf212c9a674bcb480f35b327f96ad8e30fa3c462f52b5464",
+      "bytes": 19247
+    },
+    "candidates/shared-backend-v8/cloud-service/domain.py": {
+      "sha256": "ef05f2902e2227c45e6893a2fed03a259d2563e6da951acf33bf7763465443e5",
+      "bytes": 36577
+    },
+    "candidates/shared-backend-v8/cloud-service/seed.py": {
+      "sha256": "64382842f55bd0486028244a758c951293de1f89f6e6ce2a98273867a44b0d7b",
+      "bytes": 7968
+    },
+    "candidates/shared-backend-v8/cloud-service/server.py": {
+      "sha256": "69f713dd3c76df5f2754eb2e8a95f9ef23ada1d0201d3fdc824af5bcf242afc2",
+      "bytes": 17918
+    }
+  },
+  "diffSha256": "67cb4bc3b8de94d59ca8e0c483f0d7e56c808064bb4ea37fb1d379d0f7a054d2"
+}

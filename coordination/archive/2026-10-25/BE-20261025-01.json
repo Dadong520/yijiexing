@@ -3,11 +3,14 @@
   "baseSha": "e89f90b0a63b72dc04fca5b3690a8897de1543c7",
   "created": "2026-10-25",
   "deploy_owner": "coordinator",
-  "status": "IN_PROGRESS",
+  "status": "DONE",
   "acceptance": "NOT_RUN",
   "tests": [],
-  "evidence": [],
-  "nextAction": "执行本任务，更新本人交接与证据，不改变他人工作区",
+  "evidence": [
+    "coordination/evidence/BE-20261025-01/CONTRACT.md",
+    "coordination/evidence/BE-20261025-01/checks.json"
+  ],
+  "nextAction": "契约与4组源码核对已完成；业务实施另开任务，营销能力保持关闭",
   "id": "BE-20261025-01",
   "owner": "backend",
   "goal": "只读核对本批营销原需求和服务端差距，提供优惠券/积分/加价最小持久化契约与待确认规则；本轮不实现、不部署。",

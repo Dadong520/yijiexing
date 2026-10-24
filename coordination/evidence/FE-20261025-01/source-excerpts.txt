@@ -1,0 +1,249 @@
+
+FILE candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/CoreScreens.kt @ fd44ec08d674900cd0b30d3d3f25cd0fc46f1b36
+404:     onGrab: (DriverOrder) -> Unit,
+405: ) {
+406:     val payload by store.payload.collectAsState()
+407:     val positionStatus by PositionBus.status.collectAsState()
+408:     val speechStatus by OrderAnnouncementStatus.status.collectAsState()
+409:     val online by store.connected.collectAsState()
+410:     val profile = payload.optJSONObject("profile")?.optJSONObject("driver") ?: JSONObject()
+411:     val features = payload.optJSONObject("features") ?: JSONObject()
+412:     val canAccept = features.optBoolean("canAcceptOrders", false)
+413:     val active = state.activeOrder
+414:     val pendingCollections = state.pendingCollections
+415:     val available = state.orders.filter { it.stage == Stage.AVAILABLE }.sortedBy { it.isPrivateExample }
+549:         if (state.online)
+550:             item {
+551:                 Surface(color = Pale, shape = RoundedCornerShape(14.dp)) {
+552:                     Row(Modifier.fillMaxWidth().padding(14.dp), verticalAlignment = Alignment.CenterVertically) {
+553:                         Glyph("shield", Green, Modifier.size(24.dp))
+554:                         Column(Modifier.padding(start = 12.dp)) {
+555:                             Text("宜捷行安全守护护航中", color = Green, fontSize = 16.sp, fontWeight = FontWeight.Bold)
+556:                             Text("听单中请保持手机通畅，连续驾驶请注意劳逸结合，安全行车。", color = Muted, fontSize = 14.sp)
+557:                         }
+558:                     }
+559:                 }
+560:             }
+664:     val payload by store.payload.collectAsState()
+665:     val profile = payload.optJSONObject("profile") ?: JSONObject()
+666:     val d = profile.optJSONObject("driver") ?: JSONObject()
+667:     LazyColumn(
+668:         contentPadding = PaddingValues(18.dp),
+669:         verticalArrangement = Arrangement.spacedBy(14.dp),
+670:     ) {
+671:         item { PageHeader("司机之家", action = "设置", onAction = { navigate("settings") }) }
+672:         item {
+673:             SheetCard {
+674:                 Row(
+675:                     Modifier.fillMaxWidth().clickable { navigate("driver") },
+676:                     verticalAlignment = Alignment.CenterVertically,
+677:                 ) {
+678:                     Glyph("profile", modifier = Modifier.size(40.dp))
+679:                     Column(Modifier.weight(1f).padding(start = 15.dp)) {
+680:                         Text("司机资料", fontSize = 24.sp, fontWeight = FontWeight.Bold)
+681:                         Text(
+682:                             "姓名：${d.optString("name", "司机")}",
+683:                             fontSize = 18.sp,
+684:                             modifier = Modifier.padding(top = 8.dp),
+685:                         )
+686:                         Text(
+687:                             d.optString("licensePlate", d.optString("plate", "未完善车辆资料")),
+688:                             color = Muted,
+689:                             fontSize = 18.sp,
+690:                             modifier = Modifier.padding(top = 7.dp),
+691:                         )
+692:                         Row(Modifier.padding(top = 8.dp), verticalAlignment = Alignment.CenterVertically) {
+693:                             Pill("服务卡 · 卓越司机 (100分)", Green)
+694:                             Spacer(Modifier.width(8.dp))
+695:                             Text("宜昌交运", color = Muted, fontSize = 14.sp)
+696:                         }
+697:                     }
+698:                     Glyph("right", Muted, Modifier.size(18.dp))
+699:                 }
+700:             }
+701:         }
+702:         item {
+703:             SheetCard {
+704:                 Text("今日运营明细", fontSize = 18.sp, fontWeight = FontWeight.Bold)
+705:                 Row(
+706:                     Modifier.fillMaxWidth().padding(top = 12.dp),
+707:                     horizontalArrangement = Arrangement.SpaceAround
+708:                 ) {
+709:                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
+710:                         Text("6.5 h", fontSize = 22.sp, fontWeight = FontWeight.Bold, color = Green)
+711:                         Text("在线时长", fontSize = 14.sp, color = Muted, modifier = Modifier.padding(top = 4.dp))
+712:                     }
+713:                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
+714:                         Text("12", fontSize = 22.sp, fontWeight = FontWeight.Bold, color = Ink)
+715:                         Text("线上接单", fontSize = 14.sp, color = Muted, modifier = Modifier.padding(top = 4.dp))
+716:                     }
+717:                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
+718:                         Text("12", fontSize = 22.sp, fontWeight = FontWeight.Bold, color = Ink)
+719:                         Text("完单数", fontSize = 14.sp, color = Muted, modifier = Modifier.padding(top = 4.dp))
+
+FILE candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/ConnectedStore.kt @ fd44ec08d674900cd0b30d3d3f25cd0fc46f1b36
+643:             return DriverState(
+644:                 loggedIn = s.optBoolean("loggedIn", true),
+645:                 online = s.optBoolean("online"),
+646:                 voice = s.optBoolean("voice", true),
+647:                 largeText = s.optBoolean("largeText"),
+648:                 floating = s.optBoolean("floating"),
+649:                 range = s.optInt("range", 5),
+650:                 instant = s.optBoolean("instant", true),
+651:                 reservation = s.optBoolean("reservation", true),
+652:                 bidding = s.optBoolean("bidding", true),
+653:                 orders = orders,
+654:                 balance = s.optLong("balance"),
+655:                 todayIncome = s.optLong("todayIncome"),
+656:                 todayAccepted = s.optInt("todayAccepted"),
+657:                 todayCompleted = s.optInt("todayCompleted"),
+
+FILE candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/BusinessScreens.kt @ fd44ec08d674900cd0b30d3d3f25cd0fc46f1b36
+89:                         Text(displayName, fontSize = 23.sp, fontWeight = FontWeight.Bold)
+90:                         Text(
+91:                             driver.bText("organization", fallback = "宜捷行 · 独立演示服务"),
+92:                             fontSize = 16.sp,
+93:                             color = Muted,
+94:                         )
+95:                     }
+96:                     BusinessTextButton(onClick = { serviceCard = true }) { Text("服务卡") }
+97:                 }
+98:                 Spacer(Modifier.height(14.dp))
+99:                 DetailRow("司机编号", driver.bText("id"))
+100:                 DetailRow("手机号", driver.bText("mobile"))
+101:                 DetailRow("车牌", driver.bText("plate", "carNo"))
+102:                 DetailRow("服务区域", driver.bText("cityName", "city"))
+103:                 DetailRow("车型", driver.bText("vehicleType", "vehicleModel"))
+104:                 DetailRow(
+105:                     "资质状态",
+106:                     bStatus(
+107:                         driver.bText(
+108:                             "certificationStatus",
+109:                             "certification",
+110:                             "status",
+111:                             fallback = "",
+112:                         )
+113:                     ),
+114:                     Green,
+137:                 SectionTitle("服务表现")
+138:                 DetailRow("累计完成", "${state.todayCompleted} 单")
+139:                 DetailRow("累计收入", "¥${money(state.todayIncome)}", Green)
+140:                 MenuRow(
+141:                     "shield",
+142:                     "服务分",
+143:                     "${profile.bObj("serviceScore").optInt("value", profile.bObj("serviceScore").optInt("score"))} 分",
+144:                 ) {
+145:                     navigate("serviceScore")
+146:                 }
+147:                 MenuRow("doc", "资质证件") { navigate("qualification") }
+148:                 MenuRow("gift", "我的积分") { navigate("points") }
+149:             }
+150:         }
+151:         item { BusinessHint("资料来自独立演示数据库；不接入真实司机身份库。") }
+152:     }
+153:     if (serviceCard)
+154:         AlertDialog(
+155:             onDismissRequest = { serviceCard = false },
+156:             title = { Text("宜捷行司机服务卡") },
+157:             text = {
+158:                 Column(Modifier.heightIn(max = 440.dp).verticalScroll(rememberScrollState())) {
+159:                     Text(displayName, fontSize = 24.sp, fontWeight = FontWeight.Bold, color = Green)
+160:                     DetailRow("司机编号", driver.bText("id"))
+161:                     DetailRow("车牌", driver.bText("plate", "carNo"))
+162:                     DetailRow("区域", driver.bText("cityName", "city"))
+163:                     BusinessHint("演示服务卡，不作为营运或资质凭证。")
+164:                 }
+
+FILE candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/UiKit.kt @ fd44ec08d674900cd0b30d3d3f25cd0fc46f1b36
+449: fun StatsRow(state: DriverState) {
+450:     Column(Modifier.fillMaxWidth()) {
+451:         Text("累计收入", color = Muted, fontSize = 16.sp, lineHeight = 24.sp)
+452:         Text("含演示初始数据", color = Muted, fontSize = 16.sp, lineHeight = 24.sp)
+453:         Text("¥${money(state.todayIncome)}", fontSize = 30.sp, lineHeight = 40.sp,
+454:             fontWeight = FontWeight.Bold, color = Ink)
+455:         Spacer(Modifier.height(14.dp))
+456:         Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(16.dp)) {
+457:             listOf("累计接单" to state.todayAccepted.toString(), "累计完单" to state.todayCompleted.toString()).forEach { (label, value) ->
+458:                 Column(Modifier.weight(1f)) {
+459:                     Text(value, fontSize = 26.sp, lineHeight = 36.sp, fontWeight = FontWeight.Bold, color = Ink)
+460:                     Text(label, color = Muted, fontSize = 16.sp, lineHeight = 24.sp)
+
+FILE candidates/shared-backend-v8/cloud-service/domain.py @ fd44ec08d674900cd0b30d3d3f25cd0fc46f1b36
+76:     def features(self,driver):
+77:         cat=self.catalog(driver);level=cat['subscription']['rightsSnapshot'] if cat['subscription'] else next(l for l in cat['levels'] if l['id']=='TRIAL')
+78:         r={r['key']:r['enabled'] for r in level['rights']};active=cat['canAccept']
+79:         cfg,_,_=self.effective(cat['city']['id'])
+80:         return {'canAcceptOrders':active and any(r.get(k,False) for k in ('instant','reservation','dispatch','bidding','offlineNegotiation')),'canBid':active and bool(r.get('bidding')),'canNegotiate':active and bool(r.get('offlineNegotiation')) and cfg['levels'][level['id']]['params']['offlineNegotiation'],'canVoice':active and bool(r.get('voice')),'canFloating':active and bool(r.get('floating')),'canHeatmap':active and bool(r.get('heatmap')),'canRanking':active and bool(r.get('ranking')),'trialEndReason':cat['trial']['endReason'],'currentLevel':cat['currentLevel'],'sandbox':True,'map':'公开底图与设备定位；订单路线为合成示意，不作真实导航','payment':'云端演示沙箱，不收款','push':'云端演示订单轮询，未接厂商推送','autoRenew':'仅保存云端演示续费意愿，无支付机构签约或扣款'}
+81:     def data(self,driver):
+82:         self.sync_shared_orders(driver)
+83:         a=self.account(driver);st=json.loads(a['state']);st.setdefault('floating',False);profile=json.loads(a['profile']);cat=self.catalog(driver)
+84:         if not cat['canAccept'] and st['online']:
+85:             st['online']=False;self.save_state(driver,st)
+86:         profile['wallet']['passwordSet']=profile['wallet']['hasPassword']=bool(a['password_hash'])
+87:         profile['ranking']['completed']=st['todayCompleted']
+88:         features=self.features(driver)
+89:         if not features['canRanking']:profile['ranking']={'period':'体验结束或未开放','myRank':None,'completed':None,'entries':[],'restricted':True}
+90:         return {'state':st,'profile':profile,'benefits':cat,'features':features,'serverTime':stamp(),'environment':{'name':'云端演示隔离沙箱','sandbox':True,'originalSpringBackend':False,'persistence':'SQLite','network':'Google Cloud独立演示服务，不连接原测试环境'}}
+91:     def order(self,st,oid):
+92:         o=next((o for o in st['orders'] if o['id']==oid),None);require(o is not None,'订单不存在',404);return o
+93:     def require_driver_certified(self,driver):
+94:         profile=json.loads(self.account(driver)['profile']);require(profile['driver']['certificationStatus']=='APPROVED','司机资质未通过，不能新接单',403)
+95:         today=now().date() # common.now already uses UTC+8; validUntil includes this date.
+96:         for certificate in profile.get('certificates',[]):
+97:             for field in ('validFrom','validUntil'):
+98:                 value=certificate.get(field)
+99:                 # Legacy missing/unrecognized values do not establish an expiry.
+100:                 if not isinstance(value,str) or not re.fullmatch(r'\d{4}-\d{2}-\d{2}',value):continue
+101:                 try: date=dt.date.fromisoformat(value)
+102:                 except ValueError:continue
+103:                 valid=date<=today if field=='validFrom' else date>=today
+104:                 require(valid,'司机证件尚未生效，不能新接单' if field=='validFrom' else '司机证件已到期，不能新接单',403,
+130:     def credit(self,driver,st,o):
+131:         if o['stage']!='DONE' or o['credited']:return
+132:         o['credited']=True;o['completedAt']=stamp();st['balance']+=o['fare'];st['todayIncome']+=o['fare'];st['todayCompleted']+=1
+133:         st['entries'].insert(0,{'id':uid('WE'),'title':'行程收入 '+o['id'],'amount':o['fare'],'note':'云端演示沙箱，不代表真实资金','createdAt':stamp(),'time':stamp()})
+134:         self.db.execute('UPDATE accounts SET trial_completed=trial_completed+1 WHERE id=?',(driver,))
+135:         p=json.loads(self.account(driver)['profile']);p['points']['balance']+=1;p['points']['total']+=1;p['points']['entries'].insert(0,{'title':'完成云端演示订单','delta':1,'date':stamp()});self.save_profile(driver,p)
+150:     def certificate_audit(self,p,actor):
+151:         driver=p.get('driverId');a=self.account(driver);profile=json.loads(a['profile']);cert=next((c for c in profile['certificates'] if c['type']==p.get('type')),None)
+152:         require(cert is not None and cert['status']=='PENDING','资质不在待审核状态',409);approved=p.get('approved');require(isinstance(approved,bool),'审核结果无效')
+153:         if not approved:textfield(p.get('reason'),'退回原因',2,500)
+154:         cert.update(status='APPROVED' if approved else 'REJECTED',statusCode=1 if approved else 4,rejectionReason='' if approved else p['reason'],reply='' if approved else p['reason'],auditedAt=stamp(),auditedBy=actor)
+155:         cert.setdefault('auditRecords',[]).append({'actor':actor,'approved':approved,'reason':p.get('reason',''),'at':stamp()})
+156:         profile['driver']['certificationStatus']='APPROVED' if all(c['status']=='APPROVED' for c in profile['certificates']) else 'PENDING';self.save_profile(driver,profile);self.audit(actor,'certificate.audit',None,{'driverId':driver,'type':cert['type'],'approved':approved});return {'certificate':cert}
+225:         elif action in ('order.accept','order.bid'):
+226:             o=self.order(st,p.get('id'));feature={'RESERVED':'reservation','BID':'bidding','PHONE':'dispatch'}.get(o['kind'],'instant');self.new_accept(driver,st,o,feature)
+227:             if action=='order.bid':require(o['kind']=='BID','仅竞价订单可以报价');o['fare']=cents(p.get('amount'),'报价');o['stage']='BID_SENT';o['bidAt']=stamp()
+228:             else:require(o['kind']!='BID','竞价订单请先报价');o['stage']='RESERVED' if o['kind']=='RESERVED' else 'PICKUP';st['todayAccepted']+=1
+229:             result={'order':o}
+230:         elif action=='order.selectBid':
+231:             require(sandbox_actor,'乘客选择请在云端演示沙箱控制台触发，司机不能代替乘客选择',403)
+232:             o=self.order(st,p.get('id'));require(o['stage']=='BID_SENT','订单不在待选择状态',409);o['stage']='PREPAY';st['todayAccepted']+=1;result={'order':o,'sandbox':True}
+233:         elif action=='order.advance':
+234:             o=self.order(st,p.get('id'));self.validate_advance_stage(o,p);stage=o['stage'];require(stage in ('RESERVED','PICKUP','ARRIVED','TRIP'),'当前订单无法推进',409)
+235:             if stage=='ARRIVED':require(str(p.get('phoneTail',''))==o['phoneTail'],'乘客手机尾号不正确')
+236:             if stage=='TRIP':require(len(o.get('arrivedWaypoints',[]))>=len(o.get('waypoints',[])),'请先确认所有途经点')
+237:             o['stage']={'RESERVED':'PICKUP','PICKUP':'ARRIVED','ARRIVED':'TRIP','TRIP':('DONE' if o['paid'] else 'WAIT_PAY')}[stage];o['updatedAt']=stamp();self.credit(driver,st,o);result={'order':o}
+291:         elif action=='certificate.submit':
+292:             typ=p.get('type');cert=next((c for c in profile['certificates'] if c['type']==typ),None);require(cert is not None,'证件类型无效')
+293:             require(cert['status']!='PENDING','资质审核中，不能重复提交',409)
+294:             if cert['status']=='APPROVED':require(cert['validUntil']!='LONG_TERM' and dt.date.fromisoformat(cert['validUntil'])<=now().date()+dt.timedelta(days=30),'未到临期更新窗口，当前证件仅支持查看',409)
+295:             vf=p.get('validFrom');vu=p.get('validUntil');
+296:             try: start=dt.date.fromisoformat(vf)
+297:             except (ValueError,TypeError):raise ApiError(400,'请输入有效起始日期')
+298:             require(start<=now().date(),'有效起始日期不能晚于今天')
+299:             if vu=='LONG_TERM':require(typ!='insurance','保单不能设置长期')
+300:             else:
+301:                 try:end=dt.date.fromisoformat(vu)
+302:                 except (ValueError,TypeError):raise ApiError(400,'请输入有效到期日期')
+303:                 require(end>start and end>now().date(),'证件到期日须晚于起始日与今天')
+304:             file=self.save_image(driver,p.get('imageBase64'));back=self.save_image(driver,p.get('backImageBase64')) if typ=='license' else None
+305:             cert.update(validFrom=vf,validUntil=vu,fileId=file,imageId=file,backFileId=back,status='PENDING',statusCode=3,submittedAt=stamp(),rejectionReason='',reply='')
+306:             profile['driver']['certificationStatus']='PENDING';result={'certificate':cert,'fileId':file,'backFileId':back}
+
+FILE candidates/shared-backend-v8/cloud-service/server.py @ fd44ec08d674900cd0b30d3d3f25cd0fc46f1b36
+108:                     else:
+109:                         auth=self.headers.get('Authorization','');require(auth.startswith('Bearer '),'请先登录云端演示司机账户',401);token=auth[7:];driver=svc.authenticate(token)
+110:                         if path=='/api/state' and self.command=='GET':data=svc.data(driver)
+111:                         elif path=='/api/auth/logout' and self.command=='POST':svc.db.execute('DELETE FROM sessions WHERE token=?',(token,));data={'loggedOut':True}
+112:                         elif path=='/api/action' and self.command=='POST':

@@ -3,7 +3,7 @@
 更新时间：2026-10-25（Asia/Singapore）。协调者唯一维护；历史聊天仅作证据。
 
 ## 当前发布
-- 私有仓库 Dadong520/yijiexing；main 基线 e89f90b0a63b72dc04fca5b3690a8897de1543c7。
+- 私有仓库 Dadong520/yijiexing；业务发布基线 e89f90b0a63b72dc04fca5b3690a8897de1543c7；协作入口已通过PR #2合并，当前任务以BOARD为准。
 - 后台 https://driver-admin-491829048305.us-west1.run.app/ ，Google账号 dadonggev587@gmail.com + 独立管理账号；凭据仅本机.private。
 - driver-demo: v8镜像7d71539... / driver-demo-00005-2w2。
 - driver-admin: admin-browser镜像037b157... / driver-admin-browser1，保留IAP/IAM。后端升级必须保留 iap_browser.py 和完整管理网页，不可覆盖成旧管理原型。
@@ -33,3 +33,12 @@
 - frontend: 开发宜捷行司机端 / 01a167c8-a5eb-77e3-b77e-214927a029da
 - backend: 开发宜捷行乘客端 Android App / 01a168e2-22f7-70a2-af7f-4fb6be0ea695
 - antigravity: Yijiexing Project Collaboration Workflow / 559ad4bb-7b06-4120-93a6-f437888ab1ef
+
+## 执行边界
+- 已安装项目规则与CI；当前GitHub私库套餐的分支保护API返回403（需Pro或公开），故保留私库、不升级收费。CI可检查但不能声称服务器已强制禁止绕过；协调者是唯一验收/合并/发布责任人。
+- 不安排常驻AI或定时空转；只唤醒有明确任务的角色，任务结束保存交接后idle。
+
+## 本轮交接进度
+- frontend已ACK并完成只读复核，原司机新增统计/服务卡仍FAIL，已idle。
+- backend已ACK并交付营销持久化最小契约及4组源码核对；仅文档完成，业务实现/验收/部署NOT_RUN，已idle。
+- 反重力桌面实际读取AGENTS/STATE/任务/问题单后开始修复；等待新SHA独立验收。

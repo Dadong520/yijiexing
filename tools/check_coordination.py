@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Small, dependency-free project handoff gate; never calls cloud or AI."""
 import argparse
+import hashlib
 import json
 from pathlib import Path
 import re
@@ -46,6 +47,20 @@ def check(root, release=None, sha=None):
             errors.append('release blocked: reviewer must differ from author')
         elif not task.get('tests') or not task.get('evidence'):
             errors.append('release blocked: tests and evidence required')
+        else:
+            for test in task['tests']:
+                if (not isinstance(test,dict) or not test.get('command')
+                        or test.get('status')!='PASS' or test.get('exitCode')!=0
+                        or test.get('sourceSha')!=sha):
+                    errors.append('release blocked: actual PASS test records must match source SHA')
+            for evidence in task['evidence']:
+                if not isinstance(evidence,dict):
+                    errors.append('release blocked: evidence needs path and sha256');continue
+                name=evidence.get('path','');path=root/name
+                if not name or Path(name).is_absolute() or '..' in Path(name).parts or not path.is_file():
+                    errors.append('release blocked: missing or unsafe evidence file');continue
+                if hashlib.sha256(path.read_bytes()).hexdigest()!=evidence.get('sha256'):
+                    errors.append('release blocked: evidence hash mismatch')
     return errors
 
 

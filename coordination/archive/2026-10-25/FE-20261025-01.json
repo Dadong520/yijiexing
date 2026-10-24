@@ -3,11 +3,13 @@
   "baseSha": "e89f90b0a63b72dc04fca5b3690a8897de1543c7",
   "created": "2026-10-25",
   "deploy_owner": "coordinator",
-  "status": "IN_PROGRESS",
-  "acceptance": "NOT_RUN",
+  "status": "DONE",
+  "acceptance": "FAIL",
   "tests": [],
-  "evidence": [],
-  "nextAction": "执行本任务，更新本人交接与证据，不改变他人工作区",
+  "evidence": [
+    "coordination/evidence/FE-20261025-01/review-result.json"
+  ],
+  "nextAction": "只读复核已完成，原提交不通过；等待反重力修复后协调者重新验收",
   "id": "FE-20261025-01",
   "owner": "frontend",
   "goal": "只读复核反重力司机Kotlin新增服务卡与统计代码；核对编译/API依据并给出前端验收步骤。本轮不修改源文件或云配置。",

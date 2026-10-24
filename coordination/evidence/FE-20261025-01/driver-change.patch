@@ -1,0 +1,90 @@
+diff --git a/candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/CoreScreens.kt b/candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/CoreScreens.kt
+index 92867f5..b4dd9bd 100644
+--- a/candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/CoreScreens.kt
++++ b/candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/CoreScreens.kt
+@@ -539,20 +539,32 @@ fun ConnectedHome(
+                         )
+                         val examples = pendingCollections.count { it.isPrivateExample }
+                         if (examples > 0)
+                             Text("其中 $examples 笔为演示订单，未关联乘客 App", color = Muted, fontSize = 16.sp)
+                         CoreTextButton(onClick = { navigate("orders/unpaid") }) {
+                             Text("查看待支付订单", fontSize = 18.sp)
+                         }
+                     }
+                 }
+             }
++        if (state.online)
++            item {
++                Surface(color = Pale, shape = RoundedCornerShape(14.dp)) {
++                    Row(Modifier.fillMaxWidth().padding(14.dp), verticalAlignment = Alignment.CenterVertically) {
++                        Glyph("shield", Green, Modifier.size(24.dp))
++                        Column(Modifier.padding(start = 12.dp)) {
++                            Text("宜捷行安全守护护航中", color = Green, fontSize = 16.sp, fontWeight = FontWeight.Bold)
++                            Text("听单中请保持手机通畅，连续驾驶请注意劳逸结合，安全行车。", color = Muted, fontSize = 14.sp)
++                        }
++                    }
++                }
++            }
+         if (active == null && canAccept && state.online) {
+             item { SectionTitle("附近订单", "列表来自独立服务", "接单设置") { navigate("settings") } }
+             if (available.isEmpty())
+                 item {
+                     SheetCard {
+                         Text("当前暂无可接订单")
+                         CoreTextButton(onClick = { store.refresh() }) { Text("刷新订单") }
+                     }
+                 }
+             items(available, key = { it.id }) { order ->
+@@ -670,25 +682,52 @@ fun ConnectedProfile(
+                             "姓名：${d.optString("name", "司机")}",
+                             fontSize = 18.sp,
+                             modifier = Modifier.padding(top = 8.dp),
+                         )
+                         Text(
+                             d.optString("licensePlate", d.optString("plate", "未完善车辆资料")),
+                             color = Muted,
+                             fontSize = 18.sp,
+                             modifier = Modifier.padding(top = 7.dp),
+                         )
++                        Row(Modifier.padding(top = 8.dp), verticalAlignment = Alignment.CenterVertically) {
++                            Pill("服务卡 · 卓越司机 (100分)", Green)
++                            Spacer(Modifier.width(8.dp))
++                            Text("宜昌交运", color = Muted, fontSize = 14.sp)
++                        }
+                     }
+                     Glyph("right", Muted, Modifier.size(18.dp))
+                 }
+             }
+         }
++        item {
++            SheetCard {
++                Text("今日运营明细", fontSize = 18.sp, fontWeight = FontWeight.Bold)
++                Row(
++                    Modifier.fillMaxWidth().padding(top = 12.dp),
++                    horizontalArrangement = Arrangement.SpaceAround
++                ) {
++                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
++                        Text("6.5 h", fontSize = 22.sp, fontWeight = FontWeight.Bold, color = Green)
++                        Text("在线时长", fontSize = 14.sp, color = Muted, modifier = Modifier.padding(top = 4.dp))
++                    }
++                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
++                        Text("12", fontSize = 22.sp, fontWeight = FontWeight.Bold, color = Ink)
++                        Text("线上接单", fontSize = 14.sp, color = Muted, modifier = Modifier.padding(top = 4.dp))
++                    }
++                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
++                        Text("12", fontSize = 22.sp, fontWeight = FontWeight.Bold, color = Ink)
++                        Text("完单数", fontSize = 14.sp, color = Muted, modifier = Modifier.padding(top = 4.dp))
++                    }
++                }
++            }
++        }
+         item { MembershipSummaryCard(store, navigate) }
+         item {
+             SheetCard {
+                 MenuRow("orders", "我的订单", onClick = onOrders)
+                 HorizontalDivider(color = Line)
+                 MenuRow("wallet", "我的钱包", "¥ ${money(state.balance)}", onWallet)
+                 HorizontalDivider(color = Line)
+                 MenuRow("shield", "资质证件") { navigate("qualification") }
+             }
+         }
