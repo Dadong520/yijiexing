@@ -1,0 +1,103 @@
+{
+  "schemaVersion": 1,
+  "id": "UI-20261025-02",
+  "owner": "antigravity",
+  "goal": "Gemini主导重设计司机与乘客Android UI：司机大字清晰一屏优先接单；乘客简洁叫车视觉。保留全部业务/账户/权限，适用测试和独立视觉验收后发布APK。",
+  "baseSha": "f0f0920995dcf89dfc5f6125542e26af86cf110d",
+  "allow_paths": [
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/UiKit.kt",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/CoreScreens.kt",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/MainActivity.kt",
+    "candidates/driver-0.3.6-r2/android/app/build.gradle.kts",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/MainActivity.kt",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/UiComponents.kt",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/BookingScreens.kt",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/ProfileScreens.kt",
+    "apps/passenger-android/app/build.gradle.kts",
+    "coordination/evidence/UI-20261025-02/"
+  ],
+  "checks": [
+    "Gemini真实产出代码，非仅建议；短分批任务禁止无产出循环",
+    "司机首屏显著可接单入口，大字按钮/可滚动/系统大字不截关键动作",
+    "两端核心Store/金额/支付/请求幂等/旧订单不变，无虚构权益或状态",
+    "离线单测构建/同签名覆盖/模拟器前后截图与独立验收",
+    "协调者唯一APK发布，直连优先、回滚备份、完整公开GET验哈希；后端/admin不变"
+  ],
+  "status": "DEPLOYED_BOUNDED_UI",
+  "acceptance": "PASS",
+  "tests": [
+    {
+      "command": "driver offline testDebugUnitTest assembleDebug;55 tests; fixed cloud origin/signature; driver subtree unchanged by passenger-only final commit",
+      "status": "PASS",
+      "exitCode": 0,
+      "sourceSha": "55dce79f58a780a1de1ea88c448a774bac03fc9f"
+    },
+    {
+      "command": "passenger final white-theme offline testDebugUnitTest assembleDebug;20 tests; fixed origin/signature",
+      "status": "PASS",
+      "exitCode": 0,
+      "sourceSha": "55dce79f58a780a1de1ea88c448a774bac03fc9f"
+    },
+    {
+      "command": "frontend independent emulator bounded UI acceptance and fixed findings retest; both APK hashes/source bound in reports",
+      "status": "PASS",
+      "exitCode": 0,
+      "sourceSha": "55dce79f58a780a1de1ea88c448a774bac03fc9f"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "coordination/evidence/UI-20261025-02/driver-build-result.json",
+      "sha256": "51e8e8deb9eee338671516797c1935dcded9ca43d02469c7dc2c134102bc5b34"
+    },
+    {
+      "path": "coordination/evidence/UI-20261025-02/passenger-build-result.json",
+      "sha256": "b5614f29eed9728647d4318fc6c6be870e29dbc7c74ed33abfe563a664cccc4b"
+    },
+    {
+      "path": "coordination/evidence/UI-20261025-02/final-business-review.md",
+      "sha256": "091f403109ca30d84c11e8de199d85c0ac4201fc606fd3cbc957482f223491fa"
+    },
+    {
+      "path": "coordination/evidence/UI-20261025-02/after/driver/driver-visual-review.json",
+      "sha256": "fe4386ae75953fa0811d80ab70bf6235ab5b504e283d32c41fa40e8f7ac7a15e"
+    },
+    {
+      "path": "coordination/evidence/UI-20261025-02/after/passenger/passenger-visual-review.json",
+      "sha256": "c5a82de1aa76f8f53a0d9b20e87e339500bc7d8dd757f70b77ae361e8e70fbca"
+    },
+    {
+      "path": "coordination/evidence/UI-20261025-02/driver-public-release.json",
+      "sha256": "78e9dbb8b9c69f61ea04b8d2e76a7ffe56f282cb7a8376bec0a17d38650e67c2"
+    },
+    {
+      "path": "coordination/evidence/UI-20261025-02/passenger-public-release.json",
+      "sha256": "a541e9c8415d522499e7ed413b56956d0b78f41077ba5b21dff713296ba747de"
+    }
+  ],
+  "nextAction": "Complete; all model workers idle. Remaining NOT_RUN retained in independent reports.",
+  "deploy_owner": "coordinator",
+  "releaseReady": true,
+  "candidateSha": "55dce79f58a780a1de1ea88c448a774bac03fc9f",
+  "acceptedSha": "55dce79f58a780a1de1ea88c448a774bac03fc9f",
+  "reviewer": "frontend",
+  "acceptanceScope": "Bounded two-client UI release: normal and1.3 fonts, existing session preserved; business core unchanged; no new full three-client lifecycle",
+  "mergeCommit": "d8c34cac4e260233f32cbc12db4b900c31d5a9eb",
+  "pullRequest": "https://github.com/Dadong520/yijiexing/pull/10",
+  "releases": {
+    "driver": {
+      "versionName": "0.3.8-cloud",
+      "versionCode": 11,
+      "url": "https://driver-demo-491829048305.us-west1.run.app/download.apk",
+      "apkSha256": "08732bf8b372e30024711e404e4bf7161a6dc95cf05d4b8094efda895ccda6b7",
+      "objectGeneration": "1792867973276999"
+    },
+    "passenger": {
+      "versionName": "1.1.8-experience",
+      "versionCode": 10,
+      "url": "https://driver-demo-491829048305.us-west1.run.app/download-passenger.apk",
+      "apkSha256": "5ee70fd105e529ed5fdef9f422bbf7bcecf8e09402b64fda6aa14df2ae021f23",
+      "objectGeneration": "1792867963523621"
+    }
+  }
+}

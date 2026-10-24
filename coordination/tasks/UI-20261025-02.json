@@ -23,7 +23,7 @@
     "离线单测构建/同签名覆盖/模拟器前后截图与独立验收",
     "协调者唯一APK发布，直连优先、回滚备份、完整公开GET验哈希；后端/admin不变"
   ],
-  "status": "ACCEPTED_PENDING_MERGE_DEPLOY",
+  "status": "DEPLOYED_BOUNDED_UI",
   "acceptance": "PASS",
   "tests": [
     {
@@ -65,13 +65,39 @@
     {
       "path": "coordination/evidence/UI-20261025-02/after/passenger/passenger-visual-review.json",
       "sha256": "c5a82de1aa76f8f53a0d9b20e87e339500bc7d8dd757f70b77ae361e8e70fbca"
+    },
+    {
+      "path": "coordination/evidence/UI-20261025-02/driver-public-release.json",
+      "sha256": "78e9dbb8b9c69f61ea04b8d2e76a7ffe56f282cb7a8376bec0a17d38650e67c2"
+    },
+    {
+      "path": "coordination/evidence/UI-20261025-02/passenger-public-release.json",
+      "sha256": "a541e9c8415d522499e7ed413b56956d0b78f41077ba5b21dff713296ba747de"
     }
   ],
-  "nextAction": "Merge PR10 after CI then guarded direct APK publication and full download verification",
+  "nextAction": "Complete; all model workers idle. Remaining NOT_RUN retained in independent reports.",
   "deploy_owner": "coordinator",
   "releaseReady": true,
   "candidateSha": "55dce79f58a780a1de1ea88c448a774bac03fc9f",
   "acceptedSha": "55dce79f58a780a1de1ea88c448a774bac03fc9f",
   "reviewer": "frontend",
-  "acceptanceScope": "Bounded two-client UI release: normal and1.3 fonts, existing session preserved; business core unchanged; no new full three-client lifecycle"
+  "acceptanceScope": "Bounded two-client UI release: normal and1.3 fonts, existing session preserved; business core unchanged; no new full three-client lifecycle",
+  "mergeCommit": "d8c34cac4e260233f32cbc12db4b900c31d5a9eb",
+  "pullRequest": "https://github.com/Dadong520/yijiexing/pull/10",
+  "releases": {
+    "driver": {
+      "versionName": "0.3.8-cloud",
+      "versionCode": 11,
+      "url": "https://driver-demo-491829048305.us-west1.run.app/download.apk",
+      "apkSha256": "08732bf8b372e30024711e404e4bf7161a6dc95cf05d4b8094efda895ccda6b7",
+      "objectGeneration": "1792867973276999"
+    },
+    "passenger": {
+      "versionName": "1.1.8-experience",
+      "versionCode": 10,
+      "url": "https://driver-demo-491829048305.us-west1.run.app/download-passenger.apk",
+      "apkSha256": "5ee70fd105e529ed5fdef9f422bbf7bcecf8e09402b64fda6aa14df2ae021f23",
+      "objectGeneration": "1792867963523621"
+    }
+  }
 }
