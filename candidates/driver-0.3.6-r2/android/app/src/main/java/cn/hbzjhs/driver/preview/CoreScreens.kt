@@ -552,7 +552,7 @@ fun ConnectedHome(
                     Row(Modifier.fillMaxWidth().padding(14.dp), verticalAlignment = Alignment.CenterVertically) {
                         Glyph("shield", Green, Modifier.size(24.dp))
                         Column(Modifier.padding(start = 12.dp)) {
-                            Text("宜捷行安全守护护航中", color = Green, fontSize = 16.sp, fontWeight = FontWeight.Bold)
+                            Text("听单中 · 安全行车提醒", color = Green, fontSize = 16.sp, fontWeight = FontWeight.Bold)
                             Text("听单中请保持手机通畅，连续驾驶请注意劳逸结合，安全行车。", color = Muted, fontSize = 14.sp)
                         }
                     }
