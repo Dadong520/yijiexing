@@ -3,7 +3,7 @@
 更新时间：2026-10-25（Asia/Singapore）。协调者唯一维护；历史聊天仅作证据。
 
 ## 当前发布
-- 私有仓库 Dadong520/yijiexing；业务发布基线 e89f90b0a63b72dc04fca5b3690a8897de1543c7；协作入口PR#2、契约PR#4与客户端修复PR#3已合并；源码main=884be476aa19b6a3fa6804139d1080ef9f3523f7，云发布仍为下述旧版；当前任务以BOARD为准。
+- 私有仓库 Dadong520/yijiexing；业务发布基线 e89f90b0a63b72dc04fca5b3690a8897de1543c7；协作入口PR#2、契约PR#4与客户端修复PR#3已合并；客户端业务合并=884be476aa19b6a3fa6804139d1080ef9f3523f7，归档后main=ab9f199241d9771e98e6568ae8b6a5b3b0bdc9da，云发布仍为下述旧版；当前任务以BOARD为准。
 - 后台 https://driver-admin-491829048305.us-west1.run.app/ ，Google账号 dadonggev587@gmail.com + 独立管理账号；凭据仅本机.private。
 - driver-demo: v8镜像7d71539... / driver-demo-00005-2w2。
 - driver-admin: admin-browser镜像037b157... / driver-admin-browser1，保留IAP/IAM。后端升级必须保留 iap_browser.py 和完整管理网页，不可覆盖成旧管理原型。
@@ -43,3 +43,8 @@
 - 反重力完成两轮修复与main同步，工作区干净；根补预览/文档卫生，非作者复核PASS。
 - 电脑锁屏导致后续桌面操作不可用；不影响本轮源码测试与合并，不绕过锁屏。
 - 规则与契约PR#2/#4已合并；最终验收记录随本轮检查点发布。
+
+## 最新沟通与执行方式
+- 用户只向coordinator提需求，由其直接调度两个Codex会话及Gemini，无需用户中转。规则版本2026-10-25-v2。
+- Gemini优先主要实现，默认agy CLI按任务新建上下文，已实测CLI_READY；不与旧桌面会话并发，不用latest/continue串任务。
+- 后端关键规则由backend审查，独立验收与部署仍归coordinator；无任务不启动模型，无常驻AI。
