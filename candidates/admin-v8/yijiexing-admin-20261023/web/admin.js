@@ -18,13 +18,327 @@ function details(obj){return '<dl class="details">'+Object.entries(obj).map(([k,
 function modal(title,body,buttons=[]){$('#modalTitle').textContent=title;$('#modalBody').innerHTML=body;$('#modalFoot').replaceChildren();for(const [name,cls,fn] of buttons){const b=document.createElement('button');b.textContent=name;b.className=cls;b.onclick=async()=>{b.disabled=true;try{await fn()}catch(e){toast(e.message);let err=$('#modalBody .modalerror');if(!err){err=document.createElement('p');err.className='error modalerror';err.setAttribute('role','alert');$('#modalBody').prepend(err)}err.textContent=e.message}finally{b.disabled=false}};$('#modalFoot').append(b)}applyPermissions();if(!$('#modal').open)$('#modal').showModal()}
 const close=()=>$('#modal').close();
 function confirmAction(title,action,payload,fields='',warning='该操作会写入共享数据并留下审计记录。请核对对象与当前状态。'){const requestId=requestUUID();modal(title,`<p>${esc(warning)}</p>${fields}<label>处理原因 / 回复内容<textarea id="reason" minlength="2" maxlength="1000" required placeholder="请填写具体原因，至少 2 个字符"></textarea></label><label><input id="confirmed" type="checkbox">我已核对并确认执行</label>`,[['返回','',close],['确认提交','primary',async()=>{const reason=$('#reason').value.trim();if(reason.length<2)throw Error('请填写至少 2 个字符的原因或回复');if(!$('#confirmed').checked)throw Error('请先勾选确认');const extra=typeof payload==='function'?payload():payload;const result=await act(action,{...extra,reason,reply:reason,confirmed:true},requestId);close();if(!result?.approval)toast('操作已保存，请在两端刷新查看最新结果')} ]])}
-function navigate(p){page=p;query='';status='';pageNo=1;render()}
+function navigate(p){page=p;query='';status='';pageNo=1;render();window.scrollTo(0,0)}
 function render(){const found=pages.find(x=>x[0]===page);$('#pageTitle').textContent=found[2];$('#identity').textContent=`${state.user?.username||''} · ${roleLabel(state.user?.role)}`;$$('nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===page));({overview,orders,drivers,passengers,payments,support,configs,users,audit}[page])();applyPermissions()}
 function dataset(key){return Array.isArray(state[key])?state[key]:[]}
 function listing(key,title,desc,headers,row,opts={}){let all=opts.items||dataset(key);const statusKey=opts.statusKey||'status';const states=[...new Set(all.map(r=>r[statusKey]).filter(Boolean))];const filtered=all.filter(r=>(!query||JSON.stringify(r).toLowerCase().includes(query.toLowerCase()))&&(!status||r[statusKey]===status));const count=filtered.length,max=Math.max(1,Math.ceil(count/15));pageNo=Math.min(pageNo,max);$('#content').innerHTML=head(title,desc,`<button id="export">导出全部数据</button>${opts.buttons||''}`)+`<section class="panel"><div class="filters"><input id="search" aria-label="搜索" placeholder="搜索编号、姓名、手机号或内容" value="${esc(query||'')}"><select id="filterStatus" aria-label="状态筛选"><option value="">全部状态</option>${states.map(s=>`<option value="${esc(s)}" ${s===status?'selected':''}>${esc(label(s))}</option>`).join('')}</select><button id="searchBtn">查询</button><button id="reset">重置</button></div>${count?table(headers,filtered.slice((pageNo-1)*15,pageNo*15).map(row)):'<div class="empty">暂无符合条件的数据<br><small>调整筛选条件，或在 App 创建业务后刷新。</small></div>'}<div class="pagination"><span>共 ${count} 条 · 每页 15 条</span><button id="prev" ${pageNo===1?'disabled':''}>上一页</button><span>${pageNo} / ${max}</span><button id="next" ${pageNo===max?'disabled':''}>下一页</button></div></section>`;$('#searchBtn').onclick=()=>{query=$('#search').value.trim();status=$('#filterStatus').value;pageNo=1;render()};$('#search').onkeydown=e=>{if(e.key==='Enter')$('#searchBtn').click()};$('#filterStatus').onchange=()=>$('#searchBtn').click();$('#reset').onclick=()=>navigate(page);$('#prev').onclick=()=>{pageNo--;render()};$('#next').onclick=()=>{pageNo++;render()};$('#export').onclick=()=>exportCSV(key,filtered);if(!['orders','drivers','passengers','payments','support','audit'].includes(key))$('#export').hidden=true;return filtered}
 async function exportCSV(key){try{if(!can('export'))throw Error('当前账号无导出权限');const r=await backendFetch('/api/local/admin/v2/export?dataset='+encodeURIComponent(key),{headers:{'X-Admin-Session':session}});if(!r.ok){let e;try{e=await r.json()}catch(err){if(isConnectionError(err))throw connectionError(err);throw Error('导出服务返回异常，请检查本机入口与云服务后重试')}throw Error(e.message||'导出失败')}const a=document.createElement('a');a.href=URL.createObjectURL(await r.blob());a.download=`宜捷行-${key}-${new Date().toISOString().slice(0,10)}.csv`;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);toast('全部数据已导出，操作已记录审计')}catch(e){toast(connectionError(e).message)}}
 
-function overview(){const os=dataset('orders'),done=os.filter(o=>o.stage==='DONE'),paid=os.filter(o=>o.stage==='DONE'&&o.paid),active=os.filter(o=>!['DONE','CANCELLED'].includes(o.stage));$('#content').innerHTML=head('经营概览','共享订单与两端账户的实时业务快照')+`<div class="stats"><div class="stat">共享订单总数<b>${os.length}</b><span>全部时间 · 持久化共享订单</span></div><div class="stat">未结束或待结算<b>${active.length}</b><span>含待接单、运输中及待付款；不等同于司机占用</span></div><div class="stat">已完成订单<b>${done.length}</b><span>订单状态为已完成</span></div><div class="stat">模拟支付净额<b>${money(paid.reduce((n,o)=>n+Number(o.fare||0),0))}</b><span>已完成且当前已支付金额合计</span></div></div><div class="split"><section class="panel"><h3>订单状态分布</h3>${[...new Set(os.map(o=>o.stage))].map(s=>{let n=os.filter(o=>o.stage===s).length;return `<div class="barrow"><span>${label(s)}</span><div class="bar"><i style="width:${os.length?n/os.length*100:0}%"></i></div><b>${n}</b></div>`}).join('')}</section><section class="panel"><h3>待办与服务概况</h3>${details({'注册司机':esc(dataset('drivers').length)+' 人','注册乘客':esc(dataset('passengers').length)+' 人','待处理反馈':esc(dataset('support').filter(s=>s.status==='PENDING').length)+' 条','资质待审核':esc(dataset('drivers').reduce((n,d)=>n+(d.certificates||[]).filter(c=>c.status==='PENDING').length,0))+' 项'})}<button id="goSupport">查看投诉与反馈 →</button><p class="muted" style="margin:20px 0 0;font-size:12px">统计口径：全部时间共享订单，不计旧合成演示订单。模拟账务为体验记录，不能作为真实营收。</p></section></div><section class="panel"><h3>最新共享订单</h3>${os.length?table(['订单编号','行程','状态','费用','创建时间'],os.slice(0,5).map(o=>`<tr><td>${esc(o.id)}</td><td>${esc(o.origin)} → ${esc(o.destination)}</td><td>${badge(o.stage)}</td><td>${orderAmount(o)}</td><td>${time(o.createdAt)}</td></tr>`)):'<div class="empty">暂无共享订单，请从乘客 App 发起用车。</div>'}</section>`;$('#goSupport').onclick=()=>navigate('support')}
+function overview() {
+  function getList(key) {
+    try {
+      if (!Array.isArray(state[key])) return null;
+      var d = dataset(key);
+      return Array.isArray(d) ? d : null;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  var orders = getList('orders');
+  var drivers = getList('drivers');
+  var passengers = getList('passengers');
+  var support = getList('support');
+
+  var ordersLoaded = orders !== null;
+  var totalOrders = ordersLoaded ? orders.length : '—';
+
+  // 4个实际全量核心指标
+  var inTransitCount = ordersLoaded
+    ? orders.filter(function (o) {
+        return o && ['PICKUP', 'ARRIVED', 'TRIP'].indexOf(o.stage) !== -1;
+      }).length
+    : '—';
+
+  var waitPayCount = ordersLoaded
+    ? orders.filter(function (o) {
+        return o && o.stage === 'WAIT_PAY';
+      }).length
+    : '—';
+
+  var donePaidOrders = ordersLoaded
+    ? orders.filter(function (o) {
+        return o && o.stage === 'DONE' && Boolean(o.paid);
+      })
+    : [];
+
+  var simulatedRevenue = ordersLoaded
+    ? money(
+        donePaidOrders.reduce(function (sum, o) {
+          return sum + Number((o && o.fare) || 0);
+        }, 0)
+      )
+    : '—';
+
+  // 完成与取消作为补充指标
+  var doneCount = ordersLoaded
+    ? orders.filter(function (o) {
+        return o && o.stage === 'DONE';
+      }).length
+    : '—';
+
+  var cancelledCount = ordersLoaded
+    ? orders.filter(function (o) {
+        return o && o.stage === 'CANCELLED';
+      }).length
+    : '—';
+
+  // 待办与两端账户统计
+  var driversLoaded = drivers !== null;
+  var supportLoaded = support !== null;
+  var passengersLoaded = passengers !== null;
+
+  var pendingCertsCount = driversLoaded
+    ? drivers.reduce(function (sum, d) {
+        return (
+          sum +
+          ((d && d.certificates) || []).filter(function (c) {
+            return c && c.status === 'PENDING';
+          }).length
+        );
+      }, 0)
+    : '—';
+
+  var pendingSupportCount = supportLoaded
+    ? support.filter(function (s) {
+        return s && s.status === 'PENDING';
+      }).length
+    : '—';
+
+  var totalDriversCount = driversLoaded ? drivers.length : '—';
+  var totalPassengersCount = passengersLoaded ? passengers.length : '—';
+
+  // 订单状态分布
+  var stageRowsHtml = '';
+  if (ordersLoaded && orders.length > 0) {
+    var stageCounts = Object.create(null);
+    orders.forEach(function (o) {
+      var s = (o && o.stage) || 'UNKNOWN';
+      stageCounts[s] = (stageCounts[s] || 0) + 1;
+    });
+
+    var orderStages = [
+      'REQUESTED',
+      'MATCHING',
+      'ACCEPTED',
+      'ARRIVED',
+      'PICKUP',
+      'TRIP',
+      'WAIT_PAY',
+      'DONE',
+      'CANCELLED'
+    ];
+    var seen = Object.create(null);
+    var stages = [];
+    orderStages.forEach(function (s) {
+      if (stageCounts[s] !== undefined) {
+        stages.push(s);
+        seen[s] = true;
+      }
+    });
+    Object.keys(stageCounts).forEach(function (s) {
+      if (!seen[s]) {
+        stages.push(s);
+      }
+    });
+
+    stageRowsHtml = stages
+      .map(function (s) {
+        var cnt = stageCounts[s] || 0;
+        var pct = orders.length ? ((cnt / orders.length) * 100).toFixed(1) : '0';
+        return (
+          '<div class="barrow">' +
+          '<span class="bar-label">' +
+          esc(label(s)) +
+          '</span>' +
+          '<div class="bar"><i style="width:' +
+          pct +
+          '%"></i></div>' +
+          '<b class="bar-val">' +
+          cnt +
+          ' <small>(' +
+          pct +
+          '%)</small></b>' +
+          '</div>'
+        );
+      })
+      .join('');
+  } else if (ordersLoaded) {
+    stageRowsHtml = '<div class="empty">暂无共享订单数据</div>';
+  } else {
+    stageRowsHtml = '<div class="empty muted">暂无权限或订单数据未加载</div>';
+  }
+
+  // 最新 5 单（按 createdAt 倒序）
+  var latestOrdersHtml = '';
+  if (ordersLoaded && orders.length > 0) {
+    var sorted = orders
+      .slice()
+      .sort(function (a, b) {
+        var ta = a && a.createdAt ? new Date(a.createdAt).getTime() : 0;
+        var tb = b && b.createdAt ? new Date(b.createdAt).getTime() : 0;
+        return tb - ta;
+      })
+      .slice(0, 5);
+
+    var rows = sorted.map(function (o) {
+      return (
+        '<tr>' +
+        '<td><span class="mono">' +
+        esc((o && o.id) || '') +
+        '</span></td>' +
+        '<td>' +
+        esc((o && o.origin) || '-') +
+        ' <span class="arrow">→</span> ' +
+        esc((o && o.destination) || '-') +
+        '</td>' +
+        '<td>' +
+        badge(o ? o.stage : '') +
+        '</td>' +
+        '<td>' +
+        orderAmount(o) +
+        '</td>' +
+        '<td>' +
+        time(o ? o.createdAt : '') +
+        '</td>' +
+        '</tr>'
+      );
+    });
+
+    latestOrdersHtml = table(
+      ['订单编号', '行程路线', '订单状态', '费用', '创建时间'],
+      rows
+    );
+  } else if (ordersLoaded) {
+    latestOrdersHtml =
+      '<div class="empty">暂无共享订单，请从乘客 App 发起用车。</div>';
+  } else {
+    latestOrdersHtml =
+      '<div class="empty muted">暂无权限查看共享订单列表</div>';
+  }
+
+  var detailsData = {
+    '待审核证件':
+      pendingCertsCount === '—' ? '—' : esc(String(pendingCertsCount)) + ' 项',
+    '待处理反馈':
+      pendingSupportCount === '—'
+        ? '—'
+        : esc(String(pendingSupportCount)) + ' 条',
+    '注册司机':
+      totalDriversCount === '—' ? '—' : esc(String(totalDriversCount)) + ' 人',
+    '注册乘客':
+      totalPassengersCount === '—'
+        ? '—'
+        : esc(String(totalPassengersCount)) + ' 人'
+  };
+
+  $('#content').innerHTML =
+    head('运营工作台', '全量共享订单与两端业务实时运营大盘') +
+    '<div class="stats stats-grid">' +
+    '<div class="stat">' +
+    '<span class="stat-tag">共享订单总数</span>' +
+    '<div class="stat-num">' +
+    (totalOrders === '—' ? '<span class="na">—</span>' : esc(String(totalOrders))) +
+    '</div>' +
+    '<div class="stat-desc">全部时间 · 持久化共享订单</div>' +
+    '<div class="stat-sub">已完成: <b>' +
+    (doneCount === '—' ? '—' : esc(String(doneCount))) +
+    '</b> · 取消: <b>' +
+    (cancelledCount === '—' ? '—' : esc(String(cancelledCount))) +
+    '</b></div>' +
+    '</div>' +
+    '<div class="stat stat-highlight">' +
+    '<span class="stat-tag">运输中行程</span>' +
+    '<div class="stat-num">' +
+    (inTransitCount === '—'
+      ? '<span class="na">—</span>'
+      : esc(String(inTransitCount))) +
+    '</div>' +
+    '<div class="stat-desc">运输中 (PICKUP / ARRIVED / TRIP)</div>' +
+    '<div class="stat-sub">在途运力实时履约中</div>' +
+    '</div>' +
+    '<div class="stat">' +
+    '<span class="stat-tag">待收款订单</span>' +
+    '<div class="stat-num">' +
+    (waitPayCount === '—'
+      ? '<span class="na">—</span>'
+      : esc(String(waitPayCount))) +
+    '</div>' +
+    '<div class="stat-desc">行程结束待结算 (WAIT_PAY)</div>' +
+    '<div class="stat-sub">两端订单待账务确认</div>' +
+    '</div>' +
+    '<div class="stat stat-accent">' +
+    '<span class="stat-tag">已完成模拟实收</span>' +
+    '<div class="stat-num">' +
+    (simulatedRevenue === '—'
+      ? '<span class="na">—</span>'
+      : simulatedRevenue) +
+    '</div>' +
+    '<div class="stat-desc">已完成模拟实收（不是总账净额）</div>' +
+    '<div class="stat-sub">已完成 (DONE) 且已付款 (paid) 合计</div>' +
+    '</div>' +
+    '</div>' +
+    '<div class="split">' +
+    '<section class="panel">' +
+    '<div class="panel-head">' +
+    '<h3>订单状态分布</h3>' +
+    '<span class="panel-badge">生命周期分布</span>' +
+    '</div>' +
+    '<div class="panel-body">' +
+    stageRowsHtml +
+    '</div>' +
+    '</section>' +
+    '<section class="panel">' +
+    '<div class="panel-head">' +
+    '<h3>待办事项与服务概况</h3>' +
+    '<span class="panel-badge">协同提醒</span>' +
+    '</div>' +
+    '<div class="panel-body">' +
+    details(detailsData) +
+    '<div class="quick-nav">' +
+    '<span class="quick-title">快捷只读导航</span>' +
+    '<div class="quick-btns">' +
+    '<button class="btn-quick" id="btnGoOrders">订单中心 →</button>' +
+    '<button class="btn-quick" id="btnGoDrivers">司机管理 →</button>' +
+    '<button class="btn-quick" id="btnGoSupport">投诉反馈 →</button>' +
+    '<button class="btn-quick" id="btnGoPayments">模拟账务 →</button>' +
+    '</div>' +
+    '</div>' +
+    '<p class="foot-note">统计口径：全部时间共享订单，不计旧合成演示订单。模拟账务为体验记录，不能作为真实营收。</p>' +
+    '</div>' +
+    '</section>' +
+    '</div>' +
+    '<section class="panel table-panel">' +
+    '<div class="panel-head">' +
+    '<h3>最新共享订单</h3>' +
+    '<span class="panel-badge">按创建时间倒序（前 5 单）</span>' +
+    '</div>' +
+    '<div class="table-wrap">' +
+    latestOrdersHtml +
+    '</div>' +
+    '</section>';
+
+  function bind(id, fn) {
+    var el = $('#' + id);
+    if (el) el.onclick = fn;
+  }
+
+  bind('btnGoOrders', function () {
+    navigate('orders');
+  });
+  bind('btnGoDrivers', function () {
+    navigate('drivers');
+  });
+  bind('btnGoSupport', function () {
+    navigate('support');
+  });
+  bind('btnGoPayments', function () {
+    navigate('payments');
+  });
+  bind('goSupport', function () {
+    navigate('support');
+  });
+}
 function orders(){listing('orders','订单管理','乘客实际创建的共享订单 · 编号、状态、金额与两端保持一致',['订单 / 类型','起终点','乘客 / 司机','状态','费用 / 支付','时间','操作'],o=>`<tr><td><b>${esc(o.id)}</b><small>${esc(kindLabel(o.kind))}</small></td><td>${esc(o.origin)}<small>→ ${esc(o.destination)}</small></td><td>${esc(o.passengerId||o.passenger?.id)}<small>${esc(o.driver?.name||o.driverId||'未选择司机')}</small></td><td>${badge(o.stage)}</td><td>${orderAmount(o)}<small>${label(o.paymentStatus)}</small></td><td>${time(o.createdAt)}</td><td><button data-order="${esc(o.id)}">查看详情</button></td></tr>`,{statusKey:'stage'});$$('[data-order]').forEach(b=>b.onclick=()=>orderDetail(b.dataset.order))}
 function orderDetail(id){const o=dataset('orders').find(x=>x.id===id);modal('订单详情 · '+id,(o.stage==='WAIT_CONTINUE'?'<p class="notice">权威订单状态：等待乘客继续叫车。原司机已取消，其司机端显示已取消；乘客可继续叫车或取消本次订单。此时暂未匹配新的司机。</p>':'')+(o.stage==='WAIT_PAY'&&Number.isInteger(o.fareVersion)?'<p class="notice">行程已结束，等待乘客付款。该单不占用司机的新接单资格；该乘客结清前不能再次叫车。调价后需重新确认金额与费用版本。</p>':'')+details({'费用版本':Number.isInteger(o.fareVersion)?'V'+o.fareVersion:'当前服务未提供','费用口径':o.destinationPending===true?'目的地待补充，费用待定，不代表免费。导出保留后端原始金额分值。':'体验估价或已确认报价；金额单位为元。','订单类型':esc(kindLabel(o.kind)),'订单状态':badge(o.stage),'行程':esc(o.origin)+' → '+esc(o.destination),'乘客':esc(o.passengerId||o.passenger?.id),'司机':esc(o.driver?.name||o.driverId||'未选择'),'金额':orderAmount(o),'支付':badge(o.paymentStatus)+' · 模拟账务','取消原因':esc(o.cancelReason),'创建时间':time(o.createdAt)})+`<div class="toolbar">${!['TRIP','WAIT_PAY','DONE','CANCELLED'].includes(o.stage)?'<button id="cancelOrder" class="danger">人工取消</button>':''}${o.stage==='WAIT_PAY'&&!o.paid?'<button id="adjustFare">调整体验费用</button>':''}${o.stage==='DONE'&&o.paid&&!o.refundAmount?'<button id="refund">模拟退款</button>':''}</div>${quotationDetails(o)}<h3 style="margin-top:28px">乘客评价</h3><p>${o.evaluation?`${'★'.repeat(o.evaluation.rating)} · ${esc(o.evaluation.content)}`:'尚未评价'}</p><h3>状态与操作时间线</h3><div class="timeline">${(o.events||[]).map(eventRow).join('')||'暂无事件'}</div><details><summary>完整共享订单记录</summary><pre class="code">${pretty(o)}</pre></details>`,[['关闭','',close]]);if($('#cancelOrder'))$('#cancelOrder').onclick=()=>confirmAction('人工取消订单','order.cancel',{id,expectedStage:o.stage,expectedFare:o.fare,fareVersion:o.fareVersion??0},'',`订单 ${id} 将取消；已模拟预付金额按服务端规则处理，不能恢复原状态。`);if($('#adjustFare'))$('#adjustFare').onclick=()=>confirmAction('调整体验费用','order.adjustFare',()=>({id,expectedStage:o.stage,expectedFare:o.fare,fareVersion:o.fareVersion??0,amount:cents($('#fare').value)}),`<label>新金额（元）<input id="fare" type="number" min="0.01" step="0.01" value="${(o.fare/100).toFixed(2)}"></label>`);if($('#refund'))$('#refund').onclick=()=>confirmAction('模拟全额退款','order.refund',{id,expectedStage:o.stage,expectedFare:o.fare,fareVersion:o.fareVersion??0},'',`模拟退还 ${orderAmount(o)}；若金额或版本已变化，须刷新后重新确认。不发生真实资金交易。`) }
 function cents(v){if(!/^\d+(\.\d{1,2})?$/.test(v))throw Error('金额须为非负数且最多两位小数');return Math.round(Number(v)*100)}
@@ -40,7 +354,9 @@ function configForm(scope,target){const c=dataset('configs').find(x=>x.scope===s
 function users(){listing('users','账号与权限','角色权限由服务器校验，界面隐藏或禁用不替代接口鉴权',['用户名','角色','状态','更新时间','操作'],u=>`<tr><td>${esc(u.username)}</td><td>${esc(roleLabel(u.role))}<small>${esc(u.role)}</small></td><td>${badge(u.enabled===false?'DISABLED':'ACTIVE')}</td><td>${time(u.updatedAt||u.createdAt)}</td><td><button data-user="${esc(u.username)}">编辑权限</button></td></tr>`,{buttons:'<button id="newUser" class="primary">新增账号</button><button id="roles">角色权限表</button>'});$('#newUser').onclick=()=>userForm();$$('[data-user]').forEach(b=>b.onclick=()=>userForm(dataset('users').find(u=>u.username===b.dataset.user)));$('#roles').onclick=()=>modal('角色权限表',roleCards(),[['关闭','',close]])}
 function userForm(u={}){const roles=Array.isArray(state.roles)?state.roles.map(r=>typeof r==='string'?r:r.id||r.name):Object.keys(state.roles||{});modal(u.username?'编辑管理账号':'新增管理账号',`<label>用户名<input id="userName" value="${esc(u.username||'')}" ${u.username?'readonly':''}></label><label>密码${u.username?'（留空保持原密码）':''}<input type="password" id="userPassword" autocomplete="new-password"></label><label>角色<select id="userRole">${roles.map(r=>`<option value="${esc(r)}" ${r===u.role?'selected':''}>${esc(roleLabel(r))}（${esc(r)}）</option>`).join('')}</select></label><label><input id="userDisabled" type="checkbox" ${u.enabled===false?'checked':''}>禁用账号</label><label>修改原因<textarea id="userReason"></textarea></label>`,[['关闭','',close],['保存账号','primary',async()=>{const username=$('#userName').value.trim(),password=$('#userPassword').value,reason=$('#userReason').value.trim();if(!username||reason.length<2)throw Error('用户名和至少两个字符的修改原因必填');if(!u.username&&password.length<12)throw Error('密码至少 12 位');await act('user.save',{username,password,role:$('#userRole').value,enabled:!$('#userDisabled').checked,reason,confirmed:true});close();toast('账号已保存')} ]])}
 function audit(){listing('audit','操作日志','由服务端记录操作者、动作与变更前后数据',['编号','操作者','动作','时间','操作'],a=>`<tr><td>${esc(a.id)}</td><td>${esc(a.actor)}</td><td>${esc(a.action)}</td><td>${time(a.at||a.createdAt||a.created)}</td><td><button data-audit="${esc(a.id)}">变更详情</button></td></tr>`);$$('[data-audit]').forEach(b=>b.onclick=()=>modal('操作审计',`<pre class="code">${pretty(dataset('audit').find(a=>String(a.id)===b.dataset.audit))}</pre>`,[['关闭','',close]]))}
-$('#nav').innerHTML=pages.map(([key,icon,name])=>`<button data-page="${key}"><span>${icon}</span>${name}</button>`).join('');$$('[data-page]').forEach(b=>b.onclick=()=>navigate(b.dataset.page));$('#closeModal').onclick=close;$('#refreshBtn').onclick=refresh;$('#logoutBtn').onclick=async()=>{try{await api('logout',{})}catch(e){toast(e.message)}session='';state={};$('#password').value='';$('#app').hidden=true;$('#login').hidden=false;close()};$('#loginForm').onsubmit=async e=>{e.preventDefault();$('#loginBtn').disabled=true;$('#loginError').textContent='';try{const d=await api('login',{username:$('#username').value.trim(),password:$('#password').value});session=d.session;$('#password').value='';state=await api('state');$('#login').hidden=true;$('#app').hidden=false;render();$('#sync').textContent='登录成功 · 点击刷新获取两端最新数据'}catch(e){session='';$('#loginError').textContent=e.message}finally{$('#loginBtn').disabled=false}};
+const navPaths={overview:'M3 3h7v7H3zM14 3h7v7h-7zM3 14h7v7H3zM14 14h7v7h-7z',orders:'M8 4H5v17h14V4h-3M8 2h8v5H8zM8 11h8M8 15h6',drivers:'m3 15 2-8h14l2 8v5h-3v-3H6v3H3zM5 11h14M7 14h1M16 14h1',passengers:'M8 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8M2 21v-2a6 6 0 0 1 12 0v2M17 4a4 4 0 0 1 0 8M17 15a5 5 0 0 1 5 5',payments:'M3 5h17v16H3zM3 5V3h14M15 11h6v5h-6z',support:'M4 4h16v12H9l-5 5zM8 8h8M8 12h5',configs:'M4 6h16M4 12h16M4 18h16M8 3v6M16 9v6M10 15v6',users:'m12 2 8 4v6c0 5-8 10-8 10S4 17 4 12V6zM8 12l3 3 5-6',audit:'M8 3h12v18H4V7zM8 3v5H4M8 12h8M8 16h8'};
+const navGroups=[['工作台',['overview']],['业务运营',['orders','drivers','passengers','payments','support']],['配置与治理',['configs','users','audit']]];
+$('#nav').innerHTML=navGroups.map(([title,keys])=>`<div class="nav-section">${title}</div>`+keys.map(key=>{const item=pages.find(p=>p[0]===key);return `<button data-page="${key}"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"><path d="${navPaths[key]}"></path></svg></span>${esc(item[2])}</button>`}).join('')).join('');$$('[data-page]').forEach(b=>b.onclick=()=>navigate(b.dataset.page));$('#closeModal').onclick=close;$('#refreshBtn').onclick=refresh;$('#logoutBtn').onclick=async()=>{try{await api('logout',{})}catch(e){toast(e.message)}session='';state={};$('#password').value='';$('#app').hidden=true;$('#login').hidden=false;close()};$('#loginForm').onsubmit=async e=>{e.preventDefault();$('#loginBtn').disabled=true;$('#loginError').textContent='';try{const d=await api('login',{username:$('#username').value.trim(),password:$('#password').value});session=d.session;$('#password').value='';state=await api('state');$('#login').hidden=true;$('#app').hidden=false;render();window.scrollTo(0,0);$('#sync').textContent='登录成功 · 点击刷新获取两端最新数据'}catch(e){session='';$('#loginError').textContent=e.message}finally{$('#loginBtn').disabled=false}};
 
 function applyPermissions(){const rules={'#export':'export','#cancelOrder':'order.cancel','#adjustFare':'order.adjustFare','#refund':'order.refund','[data-cert]':'certificate.audit','#newUser':'users.manage','[data-user]':'users.manage','[data-city]':'config.write','#national':'config.write','#regions':'config.write','#batchConfig':'config.write'};for(const [selector,permission] of Object.entries(rules))$$(selector).forEach(b=>{b.disabled=!can(permission);if(b.disabled)b.title='当前角色无此操作权限'});if(page==='users'&&!can('users.manage'))$('#content').innerHTML=head('账号与权限','只有超级管理员可以查看和管理账号')+'<div class="panel empty">权限不足：当前账号无管理账号权限。</div>';}
 

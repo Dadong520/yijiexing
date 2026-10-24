@@ -1,0 +1,19 @@
+{
+  "sourceSha": "dd51abcbd809432479c159c1e0928c05edeedb83",
+  "apkPath": "/Users/dongge/Documents/New project 2/.coordination/integration-ag-final/apps/passenger-android/app/build/outputs/apk/debug/app-debug.apk",
+  "apkSha256": "a36ec7f139351cb5db33749ebbc00805c5345f8b9aa319bac228fbd40ab8dca9",
+  "bytes": 8182629,
+  "versionName": "1.1.7-experience",
+  "versionCode": 9,
+  "signerSha256": "9ffec9b342d12909ff288bd73f23ba104893b39120cb24ea83c9734a0d2b758f",
+  "tests": 20,
+  "failed": 0,
+  "status": "PASS",
+  "url": "https://driver-demo-491829048305.us-west1.run.app/download-passenger.apk",
+  "downloadPage": "https://driver-demo-491829048305.us-west1.run.app/download-passenger",
+  "rollback": "gs://yijiexing-demo-state-491829048305/distribution/rollback/passenger-before-117-1792774299496015.apk",
+  "directFullGetVerified": true,
+  "publishedAt": "2026-10-25T02:13:25.670859+08:00",
+  "acceptanceScope": "limited experience release; see release-decision.json and NOT_RUN",
+  "backendChanged": false
+}

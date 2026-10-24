@@ -1,0 +1,326 @@
+{
+  "source": "original workspace passenger1.1.6 native; no source overwritten",
+  "baseVersion": "1.1.6-experience/code8",
+  "files": [
+    {
+      "path": "README.md",
+      "sha256": "600a24e5ab91936e6ad4506867ee3dbe1d6e93cb0bbbc092f971a2de3b249108"
+    },
+    {
+      "path": "gradlew",
+      "sha256": "fc977a94723af68aaffa4e5d60496fb4aeed1884b6b19e5e2f2fd7612673313d"
+    },
+    {
+      "path": ".gitignore",
+      "sha256": "76bbf877c87000883b47bd677e72fd554ef3077bd394c2051a61850a06a937de"
+    },
+    {
+      "path": "build.gradle.kts",
+      "sha256": "48f7c9d13c50fa379dce0a2b7c028bcffe60d428eada35b12cfb8af28b31c962"
+    },
+    {
+      "path": "settings.gradle.kts",
+      "sha256": "17fa4b4fa9d625f4d272a44a7305d497b7752e0843980097f85ace07dc916eeb"
+    },
+    {
+      "path": "gradle.properties",
+      "sha256": "e43a00491832254a35cf5a979ef6de17f78c4e159d446be39319d2e3d3e46325"
+    },
+    {
+      "path": "gradlew.bat",
+      "sha256": "bdecf875b6868cbcbd36a1f85eedf0832f358ff28092c5797ed645f7edce77d9"
+    },
+    {
+      "path": "app/build.gradle.kts",
+      "sha256": "ce92e9c56d84146afe9066b411fa8f1f413f62d94631f6137cb0a0b12a9f1612"
+    },
+    {
+      "path": "verification/TEST-cn.hbzjhs.passenger.PassengerRulesTest.xml",
+      "sha256": "bd003abde7429401295844d005543db5c524a5704bd08676f2957a0c53a0704a"
+    },
+    {
+      "path": "verification/TEST-cn.hbzjhs.passenger.NegotiationTest.xml",
+      "sha256": "da1dc1d6925d16a125b8722bf1db323bfae84037598f07f5f3e502d86ac18b25"
+    },
+    {
+      "path": "verification/TEST-cn.hbzjhs.passenger.PendingRequestJournalTest.xml",
+      "sha256": "cc4cba92be001a4d2c435597da781c9aa43ce74de89759a4b2d7e6e53f644eaa"
+    },
+    {
+      "path": "verification/lint-results-debug.xml",
+      "sha256": "b3b901cf1b50631a8035cc0df2bdf2070e1672c700251e8018af943fa1e316b8"
+    },
+    {
+      "path": "verification/lint-results-debug.html",
+      "sha256": "46313e512f1505188b8a2e37d331c7d4e522c09b3d9241aed7dedae03fc0865c"
+    },
+    {
+      "path": "verification/build-1.1.2.json",
+      "sha256": "e2040f41ff50843bb356344c073872371ae2d6328045757207015ddd98002cba"
+    },
+    {
+      "path": "verification/current-passenger-screen.png",
+      "sha256": "74f15aca20813dbd4bba8a17059911ba5ccba6176a307d04954b849316830e4e"
+    },
+    {
+      "path": "verification/1.1.3/TEST-cn.hbzjhs.passenger.PassengerRulesTest.xml",
+      "sha256": "2df2c2698592a3351fbfd82624ca8fdc6504f262899c0cf5899e4f8dedf0310f"
+    },
+    {
+      "path": "verification/1.1.3/TEST-cn.hbzjhs.passenger.NegotiationTest.xml",
+      "sha256": "c149a0401034b97bb15fda852c6d71e5efcf47ced2f0e48826e3b7ea6770bbe9"
+    },
+    {
+      "path": "verification/1.1.3/TEST-cn.hbzjhs.passenger.PendingRequestJournalTest.xml",
+      "sha256": "40c1503c63ec8b00dd15cadf0e52af3bfbc96d53e2b793787279718bc28b5808"
+    },
+    {
+      "path": "verification/1.1.3/TEST-cn.hbzjhs.passenger.OrderFarePresentationTest.xml",
+      "sha256": "0a673e85f2527b03edc994808c752023894b38341dd84576c38006253f5dfe35"
+    },
+    {
+      "path": "verification/1.1.3/lint-results-debug.xml",
+      "sha256": "b3b901cf1b50631a8035cc0df2bdf2070e1672c700251e8018af943fa1e316b8"
+    },
+    {
+      "path": "verification/1.1.3/build-1.1.3.json",
+      "sha256": "121b958ea3a92ffac041674a106c262839e55b51b4eeb3d46a4be9ebd40e6363"
+    },
+    {
+      "path": "verification/1.1.3/lint-results-debug.html",
+      "sha256": "5d15be5d144bb3f0d3cd31bf84983f059a96650efd54ea97cf6bbadd60eaaa38"
+    },
+    {
+      "path": "verification/1.1.4/TEST-cn.hbzjhs.passenger.PassengerRulesTest.xml",
+      "sha256": "ba99b7a5b41563a873aca8037ba4c849e82a2bdac24e808c8955b72fb1bc7735"
+    },
+    {
+      "path": "verification/1.1.4/TEST-cn.hbzjhs.passenger.NegotiationTest.xml",
+      "sha256": "b9f1e47e6a54543d123b913937adaf837f14e893e9396d2e78b7ea302244d8d2"
+    },
+    {
+      "path": "verification/1.1.4/TEST-cn.hbzjhs.passenger.OrderIdentityTest.xml",
+      "sha256": "9bffa6d21fc63d00e1c0e73e88efaf9fc905f6e3c74f711b5afa192fe3ae652f"
+    },
+    {
+      "path": "verification/1.1.4/TEST-cn.hbzjhs.passenger.PendingRequestJournalTest.xml",
+      "sha256": "c9864305c872732314ef704715c2b013d2ac34651860e294547a6a207b55e320"
+    },
+    {
+      "path": "verification/1.1.4/lint-results-debug.txt",
+      "sha256": "673d4351ef5e0ab22ae63d2a0726ab643b2948e9c694dce380d633552d0eeda3"
+    },
+    {
+      "path": "verification/1.1.4/TEST-cn.hbzjhs.passenger.OrderFarePresentationTest.xml",
+      "sha256": "bab5849552965ab826e4bcb3d10aa229e163b8753e779a975463e735f92a50b9"
+    },
+    {
+      "path": "verification/1.1.4/build-1.1.4.json",
+      "sha256": "d2b188152cfb6e3847ea08a07ad457c8ec6858c762552acb3fc376a59f3eafb9"
+    },
+    {
+      "path": "verification/1.1.4/lint-results-debug.xml",
+      "sha256": "b3b901cf1b50631a8035cc0df2bdf2070e1672c700251e8018af943fa1e316b8"
+    },
+    {
+      "path": "verification/1.1.4/lint-results-debug.html",
+      "sha256": "e9e8ceba6abf8811711fc2fe23d3987a90c13177465dc805bcd3cc0f9fe4e18e"
+    },
+    {
+      "path": "verification/1.1.5/TEST-cn.hbzjhs.passenger.PassengerRulesTest.xml",
+      "sha256": "c5d672687b9586aeed5debe700e4f953b8413d028ab497036b91bfe1a9ae39f8"
+    },
+    {
+      "path": "verification/1.1.5/TEST-cn.hbzjhs.passenger.NegotiationTest.xml",
+      "sha256": "b774827e805fa731c3899c3648af1bdbf64bd7fd596c6e74f1098959b92a582e"
+    },
+    {
+      "path": "verification/1.1.5/build-1.1.5.json",
+      "sha256": "a74d8861160e74b6ea4391d5469ec7eb6acc1f365e0f80669fded32d2ce856eb"
+    },
+    {
+      "path": "verification/1.1.5/TEST-cn.hbzjhs.passenger.OrderIdentityTest.xml",
+      "sha256": "d4bbabe5c9140075620b5b0642c545eed255f10bcf7f26f881c045136835ebe9"
+    },
+    {
+      "path": "verification/1.1.5/TEST-cn.hbzjhs.passenger.PendingRequestJournalTest.xml",
+      "sha256": "d927e3480ca3279ac94238115b9f394abab314ca7db263881b1fbaed14497622"
+    },
+    {
+      "path": "verification/1.1.5/lint-results-debug.txt",
+      "sha256": "f35ba4a4a2b95c8119a9f35113baa5d75ed7431699eaa8a33997442343087fb8"
+    },
+    {
+      "path": "verification/1.1.5/TEST-cn.hbzjhs.passenger.OrderFarePresentationTest.xml",
+      "sha256": "d31c99030f680ff17c3e6cc742e961554ab0b411aa521f0bd19145b3f608410c"
+    },
+    {
+      "path": "verification/1.1.5/lint-results-debug.xml",
+      "sha256": "7753bca3d7f0aa027dce116afdd64af164b1712106b6e2ebc3a95a2702aa0757"
+    },
+    {
+      "path": "verification/1.1.5/lint-results-debug.html",
+      "sha256": "b272040e7a89c0d61a845651b4665637c345f7572c2bb04aa3f1c80abaea4c0b"
+    },
+    {
+      "path": "verification/1.1.2/TEST-cn.hbzjhs.passenger.PassengerRulesTest.xml",
+      "sha256": "bd003abde7429401295844d005543db5c524a5704bd08676f2957a0c53a0704a"
+    },
+    {
+      "path": "verification/1.1.2/TEST-cn.hbzjhs.passenger.NegotiationTest.xml",
+      "sha256": "da1dc1d6925d16a125b8722bf1db323bfae84037598f07f5f3e502d86ac18b25"
+    },
+    {
+      "path": "verification/1.1.2/OrderDetail-1.1.2.kt",
+      "sha256": "626411b38a52ef0f9cb37dfa04b3acdb305bdb16592b6ced8b3d7ac9a025ac9f"
+    },
+    {
+      "path": "verification/1.1.2/TEST-cn.hbzjhs.passenger.PendingRequestJournalTest.xml",
+      "sha256": "cc4cba92be001a4d2c435597da781c9aa43ce74de89759a4b2d7e6e53f644eaa"
+    },
+    {
+      "path": "verification/1.1.2/lint-results-debug.xml",
+      "sha256": "b3b901cf1b50631a8035cc0df2bdf2070e1672c700251e8018af943fa1e316b8"
+    },
+    {
+      "path": "verification/1.1.2/lint-results-debug.html",
+      "sha256": "46313e512f1505188b8a2e37d331c7d4e522c09b3d9241aed7dedae03fc0865c"
+    },
+    {
+      "path": "verification/1.1.2/build-1.1.2.json",
+      "sha256": "e2040f41ff50843bb356344c073872371ae2d6328045757207015ddd98002cba"
+    },
+    {
+      "path": "verification/1.1.2/current-passenger-screen.png",
+      "sha256": "74f15aca20813dbd4bba8a17059911ba5ccba6176a307d04954b849316830e4e"
+    },
+    {
+      "path": "verification/1.1.6/TEST-cn.hbzjhs.passenger.PassengerRulesTest.xml",
+      "sha256": "0ebf0492de1f5b646ff842a92cfb5733c5d3e2e1a45050328a10bbb51ad13acf"
+    },
+    {
+      "path": "verification/1.1.6/build-1.1.6.json",
+      "sha256": "802a13ed4a8dc78e5b00d720da7b4af48b30290f73df18cf0c60f2de333cafbb"
+    },
+    {
+      "path": "verification/1.1.6/TEST-cn.hbzjhs.passenger.NegotiationTest.xml",
+      "sha256": "98cabe2eb0d016929982170e1da4241e34010c0269894d5040742277379c8d13"
+    },
+    {
+      "path": "verification/1.1.6/TEST-cn.hbzjhs.passenger.PaymentConfirmationTest.xml",
+      "sha256": "3de7b02a8e5cf1612065909470a64c385c6c52ab36ce34b875248e60ed7af93a"
+    },
+    {
+      "path": "verification/1.1.6/TEST-cn.hbzjhs.passenger.OrderIdentityTest.xml",
+      "sha256": "61af00d4f4e5443355c4838c329d472a5ff5f6e220ad8d04e0293a5cfd5cfaf0"
+    },
+    {
+      "path": "verification/1.1.6/TEST-cn.hbzjhs.passenger.PendingRequestJournalTest.xml",
+      "sha256": "a9fe89d842aa431095cf5b33f466de79e0a24e3439fd73c87e9659abc0dc4d8c"
+    },
+    {
+      "path": "verification/1.1.6/TEST-cn.hbzjhs.passenger.OrderFarePresentationTest.xml",
+      "sha256": "4dfed5ccf5a10c9a89bcb9b08a787afdbc9e00e7cb9d7870e542ba445680fc76"
+    },
+    {
+      "path": "verification/1.1.6/lint-results-debug.xml",
+      "sha256": "7bc99d509b7fff1d5076400f2f87650ca4fbeb8d3cd395704c95c5c7d27769bd"
+    },
+    {
+      "path": "verification/1.1.6/lint-results-debug.html",
+      "sha256": "5e68d2c3168994628cfd6c045e6aeddf70221a4f4d17811d89adaf383960c8e7"
+    },
+    {
+      "path": "gradle/wrapper/gradle-wrapper.jar",
+      "sha256": "cb0da6751c2b753a16ac168bb354870ebb1e162e9083f116729cec9c781156b8"
+    },
+    {
+      "path": "gradle/wrapper/gradle-wrapper.properties",
+      "sha256": "3db66878136a55b95073146f77fee9cb33fbfc0d4354d443ced819b25a147f76"
+    },
+    {
+      "path": "app/src/main/AndroidManifest.xml",
+      "sha256": "812aa32bf6fd85dd6beca5f641e075853a83be8052bab4516ad29b12715de648"
+    },
+    {
+      "path": "app/src/main/java/cn/hbzjhs/passenger/OrderIdentity.kt",
+      "sha256": "8831fd4975384e4226e6d3a200915cde459dcb832381f8e2ef6e4f36f67a6af2"
+    },
+    {
+      "path": "app/src/main/java/cn/hbzjhs/passenger/PendingRequestJournal.kt",
+      "sha256": "1d1b4d1bca498d1c8b53794aeb60cccffa0aab43c31238a43d1dd37a2faf251c"
+    },
+    {
+      "path": "app/src/main/java/cn/hbzjhs/passenger/BookingScreens.kt",
+      "sha256": "71feba419ccad7e1143e173eacc965105820ad97a2b55ad724e69dca7a0e22a5"
+    },
+    {
+      "path": "app/src/main/java/cn/hbzjhs/passenger/MainActivity.kt",
+      "sha256": "e9836ee5270ad8a116a7fe5b497ca3b17c49da42df6e6a66378142b5849e2479"
+    },
+    {
+      "path": "app/src/main/java/cn/hbzjhs/passenger/PaymentConfirmation.kt",
+      "sha256": "68e7e9c66a634dff188c2490770a09495e19c121634155f6f4c50298dc1088e4"
+    },
+    {
+      "path": "app/src/main/java/cn/hbzjhs/passenger/OrderFarePresentation.kt",
+      "sha256": "807e08ea6813ea1ab53c8ae25df2161d60b605f0018ccff50079427bffb512eb"
+    },
+    {
+      "path": "app/src/main/java/cn/hbzjhs/passenger/ProfileScreens.kt",
+      "sha256": "28fa649d545864220ca55097e7b8f4f8e18178f72cb6c48d3e7803e53703f131"
+    },
+    {
+      "path": "app/src/main/java/cn/hbzjhs/passenger/Negotiation.kt",
+      "sha256": "d96e137af11de3cda1c5b6387bd911923a840448720c1121d89714792dfe3bf5"
+    },
+    {
+      "path": "app/src/main/java/cn/hbzjhs/passenger/ExtraScreens.kt",
+      "sha256": "27b1336a7c02752d99e9b446a81a026dafdfb729439d3c04cc5f35ced044be54"
+    },
+    {
+      "path": "app/src/main/java/cn/hbzjhs/passenger/UiComponents.kt",
+      "sha256": "c76f65b8b3e37039ef785602bb3dbd92a2dd2d4e2aaff1289cc03c48fd9e0f86"
+    },
+    {
+      "path": "app/src/main/java/cn/hbzjhs/passenger/PassengerStore.kt",
+      "sha256": "74d0cf010ccfd3388a12018b1a984f787e6668e61afcc00cd41d7c0eee92d269"
+    },
+    {
+      "path": "app/src/main/java/cn/hbzjhs/passenger/OrderDetail.kt",
+      "sha256": "7947a807448bc0e0b8176aec9975ee052b0fc0279b4a1bdfcb37dc9f586d6916"
+    },
+    {
+      "path": "app/src/main/res/drawable/ic_passenger.xml",
+      "sha256": "ee1154225cb05af1f2f1407133f0ca0d80e0a767269a1a7ceed5fa9f674bb520"
+    },
+    {
+      "path": "app/src/main/res/values/styles.xml",
+      "sha256": "d4f9bdd7b3fe36616f36a59cda9a414e72588e98c4fafec02acc4dba96538189"
+    },
+    {
+      "path": "app/src/test/java/cn/hbzjhs/passenger/PaymentConfirmationTest.kt",
+      "sha256": "d5b8ec7c4a33d9b5d3d6b777f4f2bf848c44f4430fcb8b55cae8b7e161126102"
+    },
+    {
+      "path": "app/src/test/java/cn/hbzjhs/passenger/NegotiationTest.kt",
+      "sha256": "2ef59aa0904002c6db6850daa744c9afc6660a81e92d52f0de729353825f2ad3"
+    },
+    {
+      "path": "app/src/test/java/cn/hbzjhs/passenger/PendingRequestJournalTest.kt",
+      "sha256": "3e342f024db1686f3350d69e608ff8508cd89f7cbbe07242bcac613f46f769f4"
+    },
+    {
+      "path": "app/src/test/java/cn/hbzjhs/passenger/OrderIdentityTest.kt",
+      "sha256": "5b8e81cad528cd918f414027509939d09a221183f98e1ffa09c46226aec0c48e"
+    },
+    {
+      "path": "app/src/test/java/cn/hbzjhs/passenger/PassengerRulesTest.kt",
+      "sha256": "076aebf233493a55e634086c02bc4cda8cf3d15410f7f7483aba038ab8b67435"
+    },
+    {
+      "path": "app/src/test/java/cn/hbzjhs/passenger/OrderFarePresentationTest.kt",
+      "sha256": "176d4494c8f31aef67464c108f171f49e6b79973ee58e4e2041a77c16dc05df4"
+    }
+  ]
+}

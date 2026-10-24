@@ -1,0 +1,57 @@
+{
+  "versionName": "1.1.2-experience",
+  "versionCode": 4,
+  "apk": "/Users/dongge/Documents/New project 2/yijiexing-passenger-20261023/android/app/build/outputs/apk/debug/app-debug.apk",
+  "sha256": "eefc891e6d890b93f20a907385deb47c5f9e0e000e8fbf1c9101fb95b94998be",
+  "bytes": 8372854,
+  "builtAt": "2026-10-23T14:09:48.950491+00:00",
+  "build": "assembleDebug testDebugUnitTest lintDebug passed",
+  "testSuites": [
+    {
+      "name": "cn.hbzjhs.passenger.NegotiationTest",
+      "tests": "4",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "cn.hbzjhs.passenger.PassengerRulesTest",
+      "tests": "4",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "cn.hbzjhs.passenger.PendingRequestJournalTest",
+      "tests": "4",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    }
+  ],
+  "lint": [
+    {
+      "id": "OldTargetApi",
+      "severity": "Warning"
+    },
+    {
+      "id": "DataExtractionRules",
+      "severity": "Warning"
+    },
+    {
+      "id": "AutoboxingStateCreation",
+      "severity": "Information"
+    },
+    {
+      "id": "AutoboxingStateCreation",
+      "severity": "Information"
+    }
+  ],
+  "verificationScope": "JVM regression tests invoke the production PendingRequestJournal with injected storage and transport failures. No emulator installation or live network-failure injection was performed in this build task.",
+  "sourceSha256": {
+    "app/src/main/java/cn/hbzjhs/passenger/PendingRequestJournal.kt": "1d1b4d1bca498d1c8b53794aeb60cccffa0aab43c31238a43d1dd37a2faf251c",
+    "app/src/main/java/cn/hbzjhs/passenger/PassengerStore.kt": "74d0cf010ccfd3388a12018b1a984f787e6668e61afcc00cd41d7c0eee92d269",
+    "app/src/main/java/cn/hbzjhs/passenger/OrderDetail.kt": "626411b38a52ef0f9cb37dfa04b3acdb305bdb16592b6ced8b3d7ac9a025ac9f",
+    "app/src/test/java/cn/hbzjhs/passenger/PendingRequestJournalTest.kt": "3e342f024db1686f3350d69e608ff8508cd89f7cbbe07242bcac613f46f769f4"
+  }
+}

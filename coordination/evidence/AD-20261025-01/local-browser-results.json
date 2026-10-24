@@ -1,0 +1,19 @@
+{
+  "sourceSha": "dd51abcbd809432479c159c1e0928c05edeedb83",
+  "scope": "local synthetic browser only; no backend writes",
+  "status": "PASS",
+  "checks": [
+    "login",
+    "overview two synthetic orders matches WAIT_PAY29.26 DONE paid26",
+    "sidebar workspace boundary250 no horizontal overflow at1425",
+    "navigation footer no overlap",
+    "orders table pagination",
+    "search no matching rows explicit empty state",
+    "reset filters"
+  ],
+  "notRun": [
+    "real cloud IAP",
+    "real role403",
+    "mobile width"
+  ]
+}

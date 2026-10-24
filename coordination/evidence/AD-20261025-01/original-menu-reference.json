@@ -1,0 +1,24 @@
+{
+  "source": "user-provided original admin screenshot only; no original-site request performed",
+  "labels": [
+    "首页",
+    "平台运维",
+    "系统管理",
+    "业务平台",
+    "基础工具",
+    "协同办公",
+    "开发平台",
+    "乘客管理",
+    "司机管理",
+    "车辆管理",
+    "订单管理",
+    "结算与分账管理",
+    "投诉管理",
+    "开票管理",
+    "结算与分账变更记录",
+    "司机服务分管理",
+    "营销管理"
+  ],
+  "scope": "功能分组参考；原框架/OA/开发平台/真实开票或营销账务未接部分不造假页面",
+  "originalPersonalDataCopied": false
+}

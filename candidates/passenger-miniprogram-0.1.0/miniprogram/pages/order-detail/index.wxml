@@ -66,10 +66,10 @@
         <view class="driver-info">
           <view class="driver-name-row">
             <text class="driver-name">{{order.driver.name}}</text>
-            <text class="rating-star">★ 4.9</text>
-            <text class="driver-orders-count">860单</text>
+            <text class="rating-star">服务评分未提供</text>
+            
           </view>
-          <view class="vehicle-model">{{order.driver.vehicleModel || '舒适型纯电轿车'}} · 白色</view>
+          <view class="vehicle-model">{{order.driver.vehicleModel || '车型未提供'}}</view>
         </view>
         <view class="plate-box">{{order.driver.plate}}</view>
       </view>

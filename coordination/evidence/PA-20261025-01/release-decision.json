@@ -1,0 +1,24 @@
+{
+  "sourceSha": "dd51abcbd809432479c159c1e0928c05edeedb83",
+  "decision": "PASS_FOR_LIMITED_EXPERIENCE_RELEASE",
+  "reviewer": "coordinator with backend independent source review",
+  "basis": [
+    "20 actual unit tests and assembleDebug PASS",
+    "backend 7 source hashes and5 unchanged critical files PASS",
+    "author device smoke reviewed: upgrade/login preserved, zero demo coupons, safety contacts add/delete, changed name clears coords, provider failure and preset fallback",
+    "coordinator independently visually reviewed contact-deleted and selected-fallback screenshots"
+  ],
+  "limitations": [
+    "driver service-card missing-field UI (this account current order has no driver; no new orders created)",
+    "Existing WAIT_PAY UI for0103: current0102 order AVAILABLE, no switching/mutating protected orders",
+    "Points/invite detailed pages, clipboard and dialing runtime",
+    "Contacts edit/restart persistence/account-switch isolation",
+    "Successful Geocoder real-result selection/accuracy and manual-coordinate save",
+    "New order/payment/cancel/full shared-order regression",
+    "Deployment/public download verification"
+  ],
+  "fullThreeClientAcceptance": false,
+  "marketingBackendImplemented": false,
+  "geocoderAvailableOnTestDevice": false,
+  "releaseDoesNotClaimAllRequestedFunctionsComplete": true
+}

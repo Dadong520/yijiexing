@@ -154,9 +154,11 @@ Page({
       return;
     }
     const target = this.data.contacts[0];
-    const msg = createEmergencyMessage({ driverCarPlate: '鄂A·88888', start: '当前行程位置', dest: '目的地' }, target.name);
+    const snap = shared.store.snapshot();
+    const order = ((snap.data && snap.data.orders) || []).find(o => ['PICKUP', 'ARRIVED', 'TRIP'].includes(o.stage)) || {};
+    const msg = createEmergencyMessage({ driverCarPlate: (order.driver && order.driver.plate) || '未提供', start: order.origin || '暂无进行中行程', dest: order.destination || '未提供' }, target.name);
     wx.showModal({
-      title: '模拟紧急短信已触发',
+      title: '求助信息预览（未发送）',
       content: msg,
       showCancel: false,
       confirmText: '知道了'

@@ -1,0 +1,65 @@
+{
+  "versionName": "1.1.3-experience",
+  "versionCode": 5,
+  "apk": "/Users/dongge/Documents/New project 2/yijiexing-passenger-20261023/android/app/build/outputs/apk/debug/app-debug.apk",
+  "sha256": "dca3ecee4389a2dba8c59610be2c24e99ef511407c811ecaef924bbde6d92fab",
+  "bytes": 8126801,
+  "builtAt": "2026-10-23T15:19:07.455488+00:00",
+  "signingCertificateSha256": "9ffec9b342d12909ff288bd73f23ba104893b39120cb24ea83c9734a0d2b758f",
+  "sameCertificateAs112": true,
+  "build": "assembleDebug testDebugUnitTest lintDebug passed",
+  "testSuites": [
+    {
+      "name": "cn.hbzjhs.passenger.NegotiationTest",
+      "tests": "4",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "cn.hbzjhs.passenger.OrderFarePresentationTest",
+      "tests": "2",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "cn.hbzjhs.passenger.PassengerRulesTest",
+      "tests": "4",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "cn.hbzjhs.passenger.PendingRequestJournalTest",
+      "tests": "4",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    }
+  ],
+  "lint": [
+    {
+      "id": "OldTargetApi",
+      "severity": "Warning"
+    },
+    {
+      "id": "DataExtractionRules",
+      "severity": "Warning"
+    },
+    {
+      "id": "AutoboxingStateCreation",
+      "severity": "Information"
+    },
+    {
+      "id": "AutoboxingStateCreation",
+      "severity": "Information"
+    }
+  ],
+  "changeScope": "Display-only BID fare labels and notice, assigned-driver distinction; no amount, backend, business-rule or device changes.",
+  "sourceSha256": {
+    "app/src/main/java/cn/hbzjhs/passenger/OrderFarePresentation.kt": "807e08ea6813ea1ab53c8ae25df2161d60b605f0018ccff50079427bffb512eb",
+    "app/src/main/java/cn/hbzjhs/passenger/OrderDetail.kt": "3d4bf6546de18eaf4ad292cfc16fb5c3d68dc42ff7bbced527ea7aa341128236",
+    "app/src/test/java/cn/hbzjhs/passenger/OrderFarePresentationTest.kt": "176d4494c8f31aef67464c108f171f49e6b79973ee58e4e2041a77c16dc05df4"
+  }
+}
