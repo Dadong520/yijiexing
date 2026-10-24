@@ -67,6 +67,12 @@ fun ProfileScreen(
       HorizontalDivider()
       MenuRow("模拟发票申请与记录", Icons.AutoMirrored.Filled.List, "体验记录，不是正式发票") { navigate("invoices") }
     }
+    Panel("功能体验") {
+      MenuRow("我的卡券 · 演示", Icons.Default.Info, "0张 · 不参与订单抵扣") { navigate("coupons") }
+      MenuRow("积分 · 演示", Icons.Default.Info, "0分 · 未接营销账务") { navigate("points") }
+      MenuRow("邀请体验 · 演示", Icons.Default.Person, "无实际奖励或拉新绑定") { navigate("invite") }
+      MenuRow("安全中心与联系人", Icons.Default.Lock, "当前账号本机保存") { navigate("safety") }
+    }
     Panel("帮助与反馈") {
       MenuRow("我的投诉", Icons.Default.Email) { navigate("complaints") }
       HorizontalDivider()
@@ -80,7 +86,7 @@ fun ProfileScreen(
       MenuRow("连接设置", Icons.Default.Settings, "独立体验环境") { settings() }
       HorizontalDivider()
       Note("体验版 ${BuildConfig.VERSION_NAME}")
-      Note("与司机端共用订单。支付、退款与发票均为模拟，不产生真实资金或凭证。短信、正式地图、电话中继及实时人工客服尚未接入；投诉支持后台查看和回复。")
+      Note("与司机端共用订单。支付、退款与发票均为模拟，不产生真实资金或凭证。地址搜索使用设备系统Geocoder；自动定位、道路导航、短信、电话中继及实时人工客服尚未接入；投诉支持后台查看和回复。")
     }
     OutlinedButton(
       onClick = { logout = true },

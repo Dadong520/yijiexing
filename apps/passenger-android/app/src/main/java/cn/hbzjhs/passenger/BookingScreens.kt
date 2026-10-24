@@ -23,6 +23,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import java.time.LocalDateTime
 import java.time.ZoneId
+import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.isActive
+import kotlinx.coroutines.launch
 import org.json.JSONArray
 import org.json.JSONObject
 
@@ -163,7 +167,7 @@ fun BookingScreen(
         ) {
           Text("交换起终点")
         }
-        Note("地点来自体验地址或手动坐标，未接入自动定位和地图搜索。")
+        Note("可使用设备系统搜索、常用地点或手动WGS84坐标；系统搜索可用性取决于设备，未提供自动定位或道路导航。")
       }
       Text("选择用车方式", fontWeight = FontWeight.SemiBold)
       FlowRow(
@@ -316,62 +320,87 @@ fun AddressDialog(
   close: () -> Unit,
   save: (String, String, String) -> Unit,
 ) {
-  var name by remember { mutableStateOf(initial) }
-  var lat by remember { mutableStateOf(initialLat) }
-  var lng by remember { mutableStateOf(initialLng) }
+  val context = LocalContext.current
+  val scope = rememberCoroutineScope()
+  var name by remember(initial, initialLat, initialLng) { mutableStateOf(initial) }
+  var lat by remember(initial, initialLat, initialLng) { mutableStateOf(initialLat) }
+  var lng by remember(initial, initialLat, initialLng) { mutableStateOf(initialLng) }
   var error by remember { mutableStateOf("") }
   var advanced by remember { mutableStateOf(false) }
+  var searching by remember { mutableStateOf(false) }
+  var searchJob by remember { mutableStateOf<Job?>(null) }
+  var results by remember { mutableStateOf<List<SearchedAddress>>(emptyList()) }
+  var source by remember { mutableStateOf("已有地点与坐标") }
+  fun cancelSearch() { searchJob?.cancel(); searching=false; results=emptyList() }
+  fun selectPlace(n: String, a: String, b: String, from: String) {
+    cancelSearch(); name=n; lat=a; lng=b; source=from; error=""
+  }
   val places =
     (listOf(
         Triple("宜昌东站 · 出租车上客区", "30.6648", "111.3674"),
         Triple("夷陵广场 · 东侧入口", "30.7040", "111.2929"),
         Triple("三峡游客中心", "30.6778", "111.2944"),
-      ) +
-        favorites.map {
-          Triple(
-            it.text("address"),
-            it.optDouble("latitude").toString(),
-            it.optDouble("longitude").toString(),
-          )
-        })
-      .distinctBy { (n, a, b) -> Triple(n, a.toDoubleOrNull(), b.toDoubleOrNull()) }
+      ) + favorites.map {
+        Triple(it.text("address"), it.optDouble("latitude").toString(), it.optDouble("longitude").toString())
+      }).distinctBy { (n, a, b) -> Triple(n, a.toDoubleOrNull(), b.toDoubleOrNull()) }
   PassengerModal(
     title = "选择地点",
     onDismiss = close,
     confirmLabel = "使用此地点",
+    confirmEnabled = !searching,
     onConfirm = {
       runCatching {
-          require(name.trim().length >= 2) { "请填写地址名称" }
-          coordinate(lat, true)
-          coordinate(lng, false)
-          save(name.trim(), lat.trim(), lng.trim())
-        }
-        .onFailure {
-          error = it.message.orEmpty()
-          advanced = true
-        }
+        require(name.trim().length >= 2) { "请填写地址名称" }
+        require(lat.isNotBlank() && lng.isNotBlank()) { "地址文字已修改，请先选择搜索结果、常用地点或填写匹配的坐标" }
+        coordinate(lat, true); coordinate(lng, false)
+        save(name.trim(), lat.trim(), lng.trim())
+      }.onFailure { error=it.message.orEmpty() }
     },
   ) {
-    Field(name, { name = it }, "地址名称")
-    if (error.isNotBlank()) Text(error, color = MaterialTheme.colorScheme.error)
-    Note("可选体验地点或手动坐标；地址名称不会自动换算坐标。")
-    Text("常用与体验地点", fontWeight = FontWeight.SemiBold)
-    places.forEach { (n, a, b) ->
-      MenuRow(n, Icons.Default.LocationOn) {
-        name = n
-        lat = a
-        lng = b
-        error = ""
+    Field(name, { value ->
+      if (value != name) {
+        cancelSearch(); name=value.take(200); lat=""; lng=""; source=""
+        error="地址已修改，原坐标已清除；请搜索并选中地点，或填写匹配坐标。"
       }
+    }, "地点或详细地址")
+    ActionButton(if (searching) "正在搜索…" else "搜索地址", !searching && name.trim().length >= 2) {
+      val query=name.trim()
+      error=""; results=emptyList(); searching=true
+      searchJob=scope.launch {
+        try {
+          val found=searchSystemAddresses(context, query)
+          if (name.trim()==query) {
+            results=found
+            if (found.isEmpty()) error="未找到地址，请补充城市和详细名称，或选择常用地点/手动坐标。"
+          }
+        } catch (e: CancellationException) { throw e }
+        catch (_: Exception) {
+          if (name.trim()==query) error="系统地址搜索暂不可用，请重试，或使用常用地点/手动坐标。"
+        } finally { if (isActive) searching=false }
+      }
+    }
+    if (searching) {
+      LinearProgressIndicator(Modifier.fillMaxWidth())
+      TextButton(onClick={cancelSearch()}) { Text("取消搜索，改用常用或手动地点") }
+    }
+    if (error.isNotBlank()) Text(error, color=MaterialTheme.colorScheme.error)
+    results.forEach { result ->
+      MenuRow(result.name, Icons.Default.LocationOn, "系统搜索 · 选中后绑定名称和坐标") {
+        selectPlace(result.name, result.latitude.toString(), result.longitude.toString(), "系统搜索结果 · WGS84")
+      }
+    }
+    if (source.isNotBlank()) Note("$source：$lat, $lng")
+    Note("搜索由设备系统Geocoder提供，可用性依赖设备服务。请核对地点；未提供自动定位或道路导航。")
+    Text("常用与体验地点", fontWeight=FontWeight.SemiBold)
+    places.forEach { (n, a, b) ->
+      MenuRow(n, Icons.Default.LocationOn) { selectPlace(n,a,b,"常用或体验地点 · WGS84") }
       HorizontalDivider()
     }
-    TextButton(onClick = { advanced = !advanced }) {
-      Text(if (advanced) "收起手动坐标" else "手动坐标 · 高级设置")
-    }
+    TextButton(onClick={advanced=!advanced}) { Text(if (advanced) "收起手动坐标" else "手动坐标 · 高级设置") }
     if (advanced) {
-      Note("未提供自动定位或道路导航。请核对地点与 WGS84 坐标一致。")
-      Field(lat, { lat = it }, "WGS84 纬度", KeyboardType.Decimal)
-      Field(lng, { lng = it }, "WGS84 经度", KeyboardType.Decimal)
+      Note("请核对名称和WGS84坐标一致；手动填写不会查询地点。")
+      Field(lat, {lat=it; source="手动坐标"}, "WGS84 纬度", KeyboardType.Decimal)
+      Field(lng, {lng=it; source="手动坐标"}, "WGS84 经度", KeyboardType.Decimal)
     }
   }
 }

@@ -1,30 +1,34 @@
 'use strict';
-const { base, store, error, points } = require('../shared');
+const { base, store, error, points, getAccountOwner } = require('../shared');
 
 Page(base({
   data: {
     showInviteModal: false,
     showPointsModal: false,
     showRulesModal: false,
-    inviteCode: 'YJX8888',
+    inviteCode: '演示未启用',
     pointsData: {
-      totalPoints: 380,
-      availablePoints: 380,
-      referralStats: { invitedCount: 3, firstOrderCount: 2, totalBonusPoints: 150 },
+      totalPoints: 0,
+      availablePoints: 0,
+      referralStats: { invitedCount: 0, firstOrderCount: 0, totalBonusPoints: 0 },
       history: [],
       tierRules: []
     }
   },
 
-  onShow() {
+  syncState() {
     this.refreshPoints();
   },
 
   refreshPoints() {
     try {
-      const accountKey = (this.data.state && this.data.state.passenger && this.data.state.passenger.mobile) || 'anonymous';
+      const accountKey = getAccountOwner();
+      if (!accountKey) {
+        this.setData({ pointsData: JSON.parse(JSON.stringify(points.DEFAULT_POINTS_DATA)), inviteCode: '演示未启用' });
+        return;
+      }
       if (points && points.loadPointsData) {
-        const pd = points.loadPointsData(null, accountKey);
+        const pd = points.loadPointsData(typeof wx !== 'undefined' ? wx : null, accountKey);
         this.setData({ pointsData: pd });
       }
     } catch (_) {}
@@ -80,7 +84,7 @@ Page(base({
   },
 
   onCopyInviteCode() {
-    const text = `【宜捷行出行】邀请您体验高品质出行！使用我的邀请码 [${this.data.inviteCode}] 注册即送 ¥20 专享乘车券，完成首单双方均享豪礼！`;
+    const text = `【宜捷行开发体验】邀请您体验页面。演示邀请码 [${this.data.inviteCode}] 未接入服务端拉新，不发放乘车券、积分或其他奖励。`;
     wx.setClipboardData({
       data: text,
       success: () => {

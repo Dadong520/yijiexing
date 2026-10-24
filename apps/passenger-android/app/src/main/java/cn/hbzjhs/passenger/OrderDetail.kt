@@ -35,6 +35,7 @@ fun OrderDetail(o: JSONObject, store: PassengerStore, busy: Boolean) {
     remember(id, o.optLong("fare"), o.optBoolean("paid")) { mutableStateOf<JSONObject?>(null) }
   var sortLow by remember { mutableStateOf(true) }
   var showRoute by remember(id) { mutableStateOf(false) }
+  var driverCard by remember(id) { mutableStateOf(false) }
   var choose by remember { mutableStateOf<JSONObject?>(null) }
   var complaintForImage by remember { mutableStateOf("") }
   val imagePicker =
@@ -60,6 +61,7 @@ fun OrderDetail(o: JSONObject, store: PassengerStore, busy: Boolean) {
       }
     }
   }
+  if (driverCard && driver != null) PassengerDriverCard(driver) { driverCard = false }
   val cancellable =
     stage in
       listOf("AVAILABLE", "BID_SENT", "PREPAY", "RESERVED", "PICKUP", "ARRIVED", "WAIT_CONTINUE")
@@ -247,6 +249,7 @@ fun OrderDetail(o: JSONObject, store: PassengerStore, busy: Boolean) {
     }
     if (driver != null)
       Panel("司机与车辆") {
+        TextButton(onClick = { driverCard = true }) { Text("查看司机服务卡") }
         Text("${driver.text("name")} · ${driver.text("plate")}", fontWeight = FontWeight.Bold)
         KV("车型", driver.text("vehicleModel", "体验车辆"))
         KV("司机联系方式", driver.text("mobileMasked", "未提供"))

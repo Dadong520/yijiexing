@@ -304,6 +304,7 @@ fun PassengerApp(
             }
           "orders" -> OrdersScreen(state.rows("orders")) { selected = it }
           "profile" -> ProfileScreen(state, store, settings = { settings = true }) { page = it }
+          "coupons", "points", "invite", "safety" -> PassengerExtrasScreen(page, state.optJSONObject("passenger")?.text("id").orEmpty())
           "favorites" -> FavoritesScreen(state, store)
           "feedback" -> FeedbackScreen(state, store)
           "complaints" -> ComplaintsScreen(state)
@@ -493,7 +494,7 @@ fun LoginScreen(store: PassengerStore, configured: Boolean, settings: () -> Unit
     }
     Panel("体验说明与数据范围") {
       Note(
-        "本应用用于独立云环境验证。订单真实保存并同步到司机端；付款、退款和发票均为模拟，不发生真实扣款。请使用合成资料，不填写真实身份信息。地图仅展示坐标示意，未接入正式地图搜索、导航、短信、电话、推送或实时人工客服；投诉支持后台查看和回复。退出登录会移除本机登录凭证，云端订单记录保留。"
+        "本应用用于独立云环境验证。订单真实保存并同步到司机端；付款、退款和发票均为模拟，不发生真实扣款。请使用合成资料，不填写真实身份信息。地图仅展示坐标示意；地址可使用设备系统Geocoder搜索（可用性依赖设备），未接道路导航、自动定位、短信、电话中继、推送或实时人工客服；投诉支持后台查看和回复。退出登录会移除本机登录凭证，云端订单记录保留。"
       )
     }
   }
