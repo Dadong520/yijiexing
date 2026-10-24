@@ -1,7 +1,14 @@
 <view class="coupons-page">
+  <!-- 兑换码领券区（对齐原团队文档分享链接/二维码/券码领取需求） -->
+  <view class="claim-card">
+    <input class="claim-input" placeholder="输入优惠券兑换码或口令" value="{{claimCodeInput}}" bindinput="onInputClaimCode" />
+    <button class="claim-btn" bindtap="onClaim">兑换领取</button>
+  </view>
+
   <view class="tabs">
     <view class="tab {{activeTab === 'AVAILABLE' ? 'active' : ''}}" bindtap="onSelectTab" data-tab="AVAILABLE">可用券 ({{availableCount}})</view>
-    <view class="tab {{activeTab === 'USED' ? 'active' : ''}}" bindtap="onSelectTab" data-tab="USED">已使用</view>
+    <view class="tab {{activeTab === 'USED' ? 'active' : ''}}" bindtap="onSelectTab" data-tab="USED">已使用/核销</view>
+    <view class="tab {{activeTab === 'EXPIRED' ? 'active' : ''}}" bindtap="onSelectTab" data-tab="EXPIRED">已失效</view>
   </view>
 
   <view class="coupon-list">
@@ -18,9 +25,20 @@
         <view class="coupon-right">
           <view class="coupon-title">{{item.title}}</view>
           <view class="coupon-desc">{{item.description}}</view>
-          <view class="coupon-expire">有效期至：{{item.expiresAt}}</view>
-          <view wx:if="{{item.status === 'AVAILABLE'}}" class="use-btn" bindtap="onUseNow">去使用</view>
-          <view wx:else class="used-tag">已使用</view>
+          
+          <!-- 规则与限制徽章（对齐原团队文档城市范围与计费模式排除规则） -->
+          <view class="coupon-tags-row">
+            <text class="rule-chip" wx:if="{{item.applicableCities && item.applicableCities[0] !== 'ALL'}}">限城市: {{item.applicableCities.join('/')}}</text>
+            <text class="rule-chip rule-chip-tip">线上计费除竞价外可用</text>
+          </view>
+
+          <view class="coupon-bottom-row">
+            <view class="coupon-expire">有效期至：{{item.expiresAt}}</view>
+            <view wx:if="{{item.status === 'AVAILABLE'}}" class="use-btn" bindtap="onUseNow">去使用</view>
+            <view wx:elif="{{item.status === 'FROZEN'}}" class="used-tag">行程冻结中</view>
+            <view wx:elif="{{item.status === 'CONSUMED' || item.status === 'USED'}}" class="used-tag">已真实核销</view>
+            <view wx:else class="used-tag">已失效</view>
+          </view>
         </view>
       </view>
     </block>

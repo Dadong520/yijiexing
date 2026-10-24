@@ -74,8 +74,9 @@
         <view class="plate-box">{{order.driver.plate}}</view>
       </view>
       <view class="driver-actions">
-        <view class="action-btn" bindtap="callDriverMock">📞 模拟联系司机</view>
-        <view class="action-btn" bindtap="openSafetyPanel">📲 分享行程轨迹</view>
+        <view class="action-btn" bindtap="callDriverMock">📞 模拟联系</view>
+        <view class="action-btn" bindtap="openDriverCard">🪪 服务卡</view>
+        <view class="action-btn" bindtap="openSafetyPanel">🛡️ 安全守护</view>
       </view>
       <view wx:if="{{order.driver.location}}" class="driver-loc-time">
         司机最后上报：{{order.driver.location.receivedAtText}}
@@ -133,6 +134,9 @@
         <view wx:if="{{order.couponDiscount > 0}}" class="breakdown-row">
           <text class="name">优惠券立减</text>
           <text class="val" style="color: #d93025;">-¥{{order.couponDiscount / 100}}</text>
+        </view>
+        <view wx:if="{{order.stage === 'CANCELLED' && order.couponDiscount > 0}}" class="refund-tip-row">
+          <text class="refund-tip-text">ℹ️ 行程已取消，优惠券已原路退回卡券中心</text>
         </view>
       </view>
       <view wx:if="{{order.adjustments.length}}" class="adjustment-box">
@@ -297,5 +301,46 @@
       </view>
     </view>
     <button class="btn-close-safety" bindtap="closeSafetyPanel">我知道了，返回行程</button>
+  </view>
+</view>
+
+<!-- 司机服务卡弹窗（对齐原团队文档平台生成每位司机服务卡供乘客查询需求） -->
+<view wx:if="{{showDriverCardModal}}" class="safety-modal-mask">
+  <view class="driver-service-card-modal">
+    <view class="driver-service-header">
+      <view class="corp-name">宜昌交运集团 · 宜捷行驾驶员服务卡</view>
+      <view class="driver-badge-no">工号：YJX-DRV-{{order.driver.name ? '8021' : '0000'}}</view>
+    </view>
+    <view class="driver-service-body">
+      <view class="service-driver-photo-wrap">
+        <view class="service-photo">👨‍✈️</view>
+        <view class="service-driver-name">{{order.driver.name}} 师傅</view>
+        <view class="service-driver-score">服务分：<text class="score-val">100分</text>（卓越司机）</view>
+      </view>
+      <view class="service-info-grid">
+        <view class="service-info-item">
+          <text class="label">准驾车型</text>
+          <text class="val">小型新能源客车 (C1)</text>
+        </view>
+        <view class="service-info-item">
+          <text class="label">服务车牌</text>
+          <text class="val">{{order.driver.plate}}</text>
+        </view>
+        <view class="service-info-item">
+          <text class="label">所属企业</text>
+          <text class="val">宜昌交运旅游客运有限责任公司</text>
+        </view>
+        <view class="service-info-item">
+          <text class="label">网约车运输证</text>
+          <text class="val">420500001889 (有效)</text>
+        </view>
+        <view class="service-info-item">
+          <text class="label">从业资格证</text>
+          <text class="val">420521198008**** (有效)</text>
+        </view>
+      </view>
+      <view class="service-promise-tip">平台承诺：该驾驶员与运营车辆均已通过公安背景审查与官方三证合规校验，提供安全规范出行服务。</view>
+    </view>
+    <button class="btn-close-service-card" bindtap="closeDriverCard">关闭服务卡</button>
   </view>
 </view>

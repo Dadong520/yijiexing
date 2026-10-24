@@ -38,7 +38,8 @@ const page = base({
     markers: [],
     mapLat: 30.697,
     mapLng: 111.286,
-    showSafetyModal: false
+    showSafetyModal: false,
+    showDriverCardModal: false
   },
 
   onLoad(q) {
@@ -90,6 +91,14 @@ const page = base({
 
   closeSafetyPanel() {
     this.setData({ showSafetyModal: false });
+  },
+
+  openDriverCard() {
+    this.setData({ showDriverCardModal: true });
+  },
+
+  closeDriverCard() {
+    this.setData({ showDriverCardModal: false });
   },
 
   setRating(e) {
@@ -173,6 +182,18 @@ const page = base({
       const now = store.confirmPayment(this.data.id);
       if (JSON.stringify(now) !== JSON.stringify(frozen)) throw new Error('金额或版本已变化，请重新确认');
       await store.action('order.pay', Object.assign({}, frozen, { outcome: 'SUCCESS' }));
+      
+      // 遵循原团队规则：订单完成真实核销优惠券，并累加积分
+      try {
+        if (shared.coupons && typeof shared.coupons.consumeCoupon === 'function') {
+          shared.coupons.consumeCoupon(this.data.order && this.data.order.couponId, this.data.id);
+        }
+        if (shared.points && typeof shared.points.awardPoints === 'function') {
+          shared.points.awardPoints('ORDER_COMPLETE', 50, '完成行程奖励积分');
+          const payYuan = Math.max(1, Math.round((frozen.expectedFare || 0) / 100));
+          shared.points.awardPoints('PAYMENT_AMOUNT', payYuan, `实付 ¥${present.money(frozen.expectedFare)} 奖励积分`);
+        }
+      } catch (_) {}
     } catch (e) {
       error(e);
     }
@@ -182,6 +203,15 @@ const page = base({
     const o = this.data.order;
     if (await modal('取消行程', '确定取消当前行程？已模拟支付的款项按服务端规则模拟退款。')) {
       await this.act('order.cancel', { id: o.id, reason: '乘客主动取消' });
+      // 遵循原团队特殊规则第4条：取消订单退券
+      try {
+        if (shared.coupons && typeof shared.coupons.releaseCoupon === 'function') {
+          const released = shared.coupons.releaseCoupon(o.couponId || 'CPN_NEW10', 'PASSENGER_CANCEL');
+          if (released) {
+            wx.showToast({ title: '行程已取消，优惠券已退回卡券包', icon: 'none' });
+          }
+        }
+      } catch (_) {}
     }
   },
 

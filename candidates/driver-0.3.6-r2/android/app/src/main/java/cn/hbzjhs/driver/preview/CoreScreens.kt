@@ -689,8 +689,35 @@ fun ConnectedProfile(
                             fontSize = 18.sp,
                             modifier = Modifier.padding(top = 7.dp),
                         )
+                        Row(Modifier.padding(top = 8.dp), verticalAlignment = Alignment.CenterVertically) {
+                            Pill("服务卡 · 卓越司机 (100分)", Green)
+                            Spacer(Modifier.width(8.dp))
+                            Text("宜昌交运", color = Muted, fontSize = 14.sp)
+                        }
                     }
                     Glyph("right", Muted, Modifier.size(18.dp))
+                }
+            }
+        }
+        item {
+            SheetCard {
+                Text("今日运营明细", fontSize = 18.sp, fontWeight = FontWeight.Bold)
+                Row(
+                    Modifier.fillMaxWidth().padding(top = 12.dp),
+                    horizontalArrangement = Arrangement.SpaceAround
+                ) {
+                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                        Text("6.5 h", fontSize = 22.sp, fontWeight = FontWeight.Bold, color = Green)
+                        Text("在线时长", fontSize = 14.sp, color = Muted, modifier = Modifier.padding(top = 4.dp))
+                    }
+                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                        Text("12", fontSize = 22.sp, fontWeight = FontWeight.Bold, color = Ink)
+                        Text("线上接单", fontSize = 14.sp, color = Muted, modifier = Modifier.padding(top = 4.dp))
+                    }
+                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                        Text("12", fontSize = 22.sp, fontWeight = FontWeight.Bold, color = Ink)
+                        Text("完单数", fontSize = 14.sp, color = Muted, modifier = Modifier.padding(top = 4.dp))
+                    }
                 }
             }
         }

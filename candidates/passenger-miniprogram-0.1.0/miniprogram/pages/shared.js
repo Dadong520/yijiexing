@@ -4,6 +4,7 @@ const coords=require('../lib/coordinates');
 const coupons=require('../lib/coupons');
 const safety=require('../lib/safety');
 const extras=require('../lib/extras');
+const points=require('../lib/points');
 
 function decorate(o){return Object.assign({},o,{stageText:present.stageLabel(o.stage),fareText:o.destinationPending?'费用待定':'¥'+present.money(o.fare||0),shortId:o.id&&o.id.slice(-8),kindText:present.kindLabel(o.kind),paymentStatusText:present.paymentStatusLabel(o.paymentStatus),fareSourceText:present.fareSourceLabel(o.fareSource),negotiationStatusText:present.negotiationStatusLabel(o.negotiationStatus),createdAtText:present.shortTime(o.createdAt),updatedAtText:present.shortTime(o.updatedAt),expiresAtText:present.shortTime(o.expiresAt),scheduledAtText:present.shortTime(o.scheduledAt),driver:o.driver?Object.assign({},o.driver,{location:o.driver.location?Object.assign({},o.driver.location,{receivedAtText:present.shortTime(o.driver.location.receivedAt)}):null}):null,events:(o.events||[]).map(e=>Object.assign({},e,{typeText:present.eventLabel(e.type),atText:present.shortTime(e.at)})),complaints:(o.complaints||[]).map(c=>Object.assign({},c,{statusText:present.complaintStatusLabel(c.status),createdAtText:present.shortTime(c.createdAt)}))});}
 function displayState(raw){const state=Object.assign({},raw);state.feedback=(raw.feedback||[]).map(f=>Object.assign({},f,{statusText:present.complaintStatusLabel(f.status),createdAtText:present.shortTime(f.createdAt)}));state.invoices=(raw.invoices||[]).map(i=>Object.assign({},i,{statusText:i.status==='SIMULATED_ISSUED'?'模拟回执已生成':'回执状态待刷新',createdAtText:present.shortTime(i.createdAt)}));if(raw.support)state.support=Object.assign({},raw.support,{capabilities:(raw.support.capabilities||[]).map(c=>Object.assign({},c,{statusText:['AVAILABLE','SIMULATED','UNCONFIGURED','PARTIAL'].includes(c.status)?({AVAILABLE:'已提供',SIMULATED:'仅模拟体验',UNCONFIGURED:'尚未配置',PARTIAL:'部分能力可用'})[c.status]:'服务能力待确认'}))});return state;}
@@ -11,4 +12,4 @@ function base(extra){const merged=Object.assign({data:{state:{},orders:[],authen
 function error(e){wx.showToast({title:e.message||String(e),icon:'none',duration:3000});}
 function modal(title,content){return new Promise(resolve=>wx.showModal({title,content,success:r=>resolve(r.confirm),fail:()=>resolve(false)}));}
 
-module.exports={base,store,present,coords,decorate,displayState,error,modal,coupons,safety,extras};
+module.exports={base,store,present,coords,decorate,displayState,error,modal,coupons,safety,extras,points};

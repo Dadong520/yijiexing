@@ -64,7 +64,15 @@ const page = base({
   updateMatchedCoupon() {
     try {
       const estimatedFare = 2800;
-      const best = findBestCoupon(estimatedFare);
+      const city = (this.data.state && this.data.state.passenger && this.data.state.passenger.cityName) || '宜昌市';
+      const orderType = this.data.kind || 'STANDARD';
+      const pricingMode = this.data.kind === 'BID' ? 'BID' : 'ONLINE';
+      const best = findBestCoupon({
+        baseFareCents: estimatedFare,
+        city,
+        orderType,
+        pricingMode
+      });
       this.setData({ matchedCoupon: best });
     } catch (_) {}
   },
@@ -189,6 +197,9 @@ const page = base({
 
     const r = await this.act('order.create', payload);
     if (r && r.result && r.result.order) {
+      if (d.matchedCoupon && shared.coupons && typeof shared.coupons.freezeCoupon === 'function') {
+        shared.coupons.freezeCoupon(d.matchedCoupon.id, r.result.order.id);
+      }
       wx.navigateTo({ url: '/pages/order-detail/index?id=' + encodeURIComponent(r.result.order.id) });
     }
   }

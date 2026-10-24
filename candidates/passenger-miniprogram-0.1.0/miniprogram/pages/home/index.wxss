@@ -184,14 +184,17 @@
 }
 
 .point-name {
-  font-size: 30rpx;
-  font-weight: 600;
-  color: #1a2d2a;
+  font-size: 36rpx;
+  font-weight: 700;
+  color: #111827;
+  letter-spacing: 0.5rpx;
+  line-height: 1.35;
 }
 
 .point-name.placeholder {
-  color: #a4b4b2;
-  font-weight: 400;
+  color: #9ca3af;
+  font-weight: 500;
+  font-size: 34rpx;
 }
 
 .quick-pick-btn {

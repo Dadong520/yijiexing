@@ -21,6 +21,24 @@
     <button wx:if="{{!authenticated}}" class="login-pill" bindtap="login">登录体验</button>
   </view>
 
+  <!-- 营销积分与拉新数据看板（原团队文档专项） -->
+  <view class="points-stats-card">
+    <view class="points-col" bindtap="onOpenPoints">
+      <view class="points-num">{{pointsData.availablePoints || 0}}</view>
+      <view class="points-label">我的积分 (明细›)</view>
+    </view>
+    <view class="points-divider"></view>
+    <view class="points-col" bindtap="onOpenInvite">
+      <view class="points-num">{{pointsData.referralStats.invitedCount || 0}}</view>
+      <view class="points-label">成功拉新 (人)</view>
+    </view>
+    <view class="points-divider"></view>
+    <view class="points-col" bindtap="onOpenInvite">
+      <view class="points-num">{{pointsData.referralStats.firstOrderCount || 0}}</view>
+      <view class="points-label">完成首单 (人)</view>
+    </view>
+  </view>
+
   <!-- 核心功能金刚区（4宫格） -->
   <view class="quick-grid">
     <view class="grid-item" bindtap="goOrders">
@@ -61,10 +79,10 @@
     <view class="menu-row" bindtap="onOpenInvite">
       <view class="menu-left">
         <text class="menu-icon">🎁</text>
-        <text class="menu-title">邀请好友得好礼</text>
+        <text class="menu-title">分享拉新得好礼</text>
       </view>
       <view class="menu-right-badge">
-        <text class="reward-tag">立得20元券</text>
+        <text class="reward-tag">首单立得¥20券</text>
         <text class="menu-arrow">›</text>
       </view>
     </view>
@@ -90,7 +108,7 @@
     <view class="menu-row" bindtap="go" data-url="/pages/settings/index?section=feedback">
       <view class="menu-left">
         <text class="menu-icon">💬</text>
-        <text class="menu-title">意见反馈</text>
+        <text class="menu-title">意见反馈与平台回复</text>
       </view>
       <text class="menu-arrow">›</text>
     </view>
@@ -113,7 +131,7 @@
   <button wx:if="{{authenticated}}" class="logout-btn" bindtap="logout">退出体验登录</button>
 </view>
 
-<!-- 邀请好友弹窗 -->
+<!-- 邀请好友与拉新海报弹窗 -->
 <view wx:if="{{showInviteModal}}" class="invite-modal-mask">
   <view class="invite-card">
     <view class="invite-banner">
@@ -121,12 +139,63 @@
       <view class="invite-sub">每成功邀请1位好友完成首单，立享¥20专享乘车券</view>
     </view>
     <view class="invite-body">
+      <!-- 模拟拉新二维码海报 -->
+      <view class="qr-box">
+        <view class="qr-mock">
+          <text class="qr-icon">📱</text>
+          <text class="qr-text">扫码领券出行</text>
+        </view>
+        <view class="qr-rule-link" bindtap="onOpenRules">查看活动阶梯规则 ›</view>
+      </view>
+
       <view class="code-box">
         <text class="code-label">您的专属邀请码</text>
         <text class="code-value">{{inviteCode}}</text>
       </view>
-      <button class="btn-copy" bindtap="onCopyInviteCode">复制邀请码与分享语</button>
+      <button class="btn-copy" bindtap="onCopyInviteCode">复制专属邀请语与链接</button>
       <button class="btn-close-invite" bindtap="onCloseInvite">关闭</button>
+    </view>
+  </view>
+</view>
+
+<!-- 积分明细弹窗 -->
+<view wx:if="{{showPointsModal}}" class="invite-modal-mask">
+  <view class="invite-card points-modal-card">
+    <view class="invite-banner points-banner">
+      <view class="invite-title">我的积分明细</view>
+      <view class="invite-sub">可用积分：{{pointsData.availablePoints}} | 累积获得：{{pointsData.totalPoints}}</view>
+    </view>
+    <scroll-view scroll-y class="points-list-scroll">
+      <view wx:for="{{pointsData.history}}" wx:key="id" class="points-item">
+        <view class="points-item-left">
+          <view class="points-item-title">{{item.typeName}}</view>
+          <view class="points-item-desc">{{item.description}}</view>
+          <view class="points-item-time">{{item.createdAt}}</view>
+        </view>
+        <view class="points-item-val {{item.points.indexOf('+') === 0 ? 'pos' : ''}}">{{item.points}}</view>
+      </view>
+    </scroll-view>
+    <button class="btn-close-invite" bindtap="onClosePoints">返回</button>
+  </view>
+</view>
+
+<!-- 拉新阶梯规则弹窗 -->
+<view wx:if="{{showRulesModal}}" class="invite-modal-mask">
+  <view class="invite-card">
+    <view class="invite-banner">
+      <view class="invite-title">拉新奖励活动规则</view>
+      <view class="invite-sub">宜捷行营销拉新官方规则说明</view>
+    </view>
+    <view class="rules-body">
+      <view class="rule-tip">活动期间，每邀请一位新用户注册并在平台完成首次行程，邀请人与被邀请人均可享受丰厚奖励：</view>
+      <view wx:for="{{pointsData.tierRules}}" wx:key="step" class="rule-tier-row">
+        <view class="rule-step-badge">第{{item.step}}阶梯</view>
+        <view class="rule-step-info">
+          <view class="rule-step-target">{{item.target}}</view>
+          <view class="rule-step-reward">奖励：{{item.reward}}</view>
+        </view>
+      </view>
+      <button class="btn-close-invite" bindtap="onCloseRules">我知道了</button>
     </view>
   </view>
 </view>

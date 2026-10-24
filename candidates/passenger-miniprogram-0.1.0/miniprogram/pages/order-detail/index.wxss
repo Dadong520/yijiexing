@@ -686,3 +686,127 @@
   font-size: 26rpx;
   border-radius: 12rpx;
 }
+
+/* 退券提醒 */
+.refund-tip-row {
+  margin-top: 12rpx;
+  padding: 8rpx 14rpx;
+  background: #fdf2f2;
+  border-radius: 8rpx;
+  text-align: left;
+}
+
+.refund-tip-text {
+  font-size: 22rpx;
+  color: #d93025;
+}
+
+/* 司机服务卡弹窗 */
+.driver-service-card-modal {
+  width: 620rpx;
+  background: #ffffff;
+  border-radius: 24rpx;
+  overflow: hidden;
+  box-shadow: 0 16rpx 40rpx rgba(0, 0, 0, 0.25);
+}
+
+.driver-service-header {
+  background: linear-gradient(135deg, #087f73 0%, #0ca798 100%);
+  color: #ffffff;
+  padding: 28rpx 24rpx;
+  text-align: center;
+}
+
+.corp-name {
+  font-size: 28rpx;
+  font-weight: 700;
+}
+
+.driver-badge-no {
+  font-size: 20rpx;
+  opacity: 0.9;
+  margin-top: 4rpx;
+}
+
+.driver-service-body {
+  padding: 28rpx;
+}
+
+.service-driver-photo-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 24rpx;
+}
+
+.service-photo {
+  width: 110rpx;
+  height: 110rpx;
+  background: #e6f5f3;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 56rpx;
+  border: 4rpx solid #087f73;
+}
+
+.service-driver-name {
+  font-size: 32rpx;
+  font-weight: 700;
+  color: #1a2d2a;
+  margin-top: 10rpx;
+}
+
+.service-driver-score {
+  font-size: 22rpx;
+  color: #647774;
+  margin-top: 4rpx;
+}
+
+.score-val {
+  color: #087f73;
+  font-weight: 700;
+}
+
+.service-info-grid {
+  background: #f7faf9;
+  border-radius: 14rpx;
+  padding: 16rpx 20rpx;
+  display: flex;
+  flex-direction: column;
+  gap: 12rpx;
+}
+
+.service-info-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 22rpx;
+}
+
+.service-info-item .label {
+  color: #647774;
+}
+
+.service-info-item .val {
+  color: #1a2d2a;
+  font-weight: 600;
+}
+
+.service-promise-tip {
+  margin-top: 20rpx;
+  font-size: 20rpx;
+  color: #087f73;
+  line-height: 1.4;
+  text-align: center;
+}
+
+.btn-close-service-card {
+  margin: 0 28rpx 28rpx;
+  background: #087f73;
+  color: #ffffff;
+  font-size: 26rpx;
+  font-weight: 600;
+  border-radius: 12rpx;
+}
