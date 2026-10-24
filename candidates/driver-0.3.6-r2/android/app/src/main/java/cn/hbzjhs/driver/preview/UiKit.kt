@@ -1,5 +1,9 @@
 package cn.hbzjhs.driver.preview
 
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.runtime.*
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -29,13 +33,13 @@ import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
-val Green = Color(0xFF006B60)
-val Ink = Color(0xFF16342F)
-val Muted = Color(0xFF52675F)
-val Pale = Color(0xFFEAF6F2)
-val Page = Color(0xFFF5F7F7)
-val Line = Color(0xFFD4DEDA)
-val Orange = Color(0xFF9C4A13)
+val Green = Color(0xFF007A5E)
+val Ink = Color(0xFF111827)
+val Muted = Color(0xFF64748B)
+val Pale = Color(0xFFF1F5F9)
+val Page = Color(0xFFF8FAFC)
+val Line = Color(0xFFE2E8F0)
+val Orange = Color(0xFFA65A0A)
 
 @Composable
 fun NativeTheme(large: Boolean = false, content: @Composable () -> Unit) {
@@ -55,29 +59,29 @@ fun NativeTheme(large: Boolean = false, content: @Composable () -> Unit) {
                     secondary = Green,
                     secondaryContainer = Pale,
                     onSecondaryContainer = Ink,
-                    outline = Muted,
+                    outline = Line,
                     surfaceVariant = Pale,
                     onSurfaceVariant = Muted,
                 ),
             typography =
                 Typography(
-                    bodySmall = androidx.compose.ui.text.TextStyle(fontSize = 16.sp, lineHeight = 24.sp),
-                    labelMedium = androidx.compose.ui.text.TextStyle(fontSize = 16.sp, lineHeight = 24.sp, fontWeight = FontWeight.Medium),
-                    labelSmall = androidx.compose.ui.text.TextStyle(fontSize = 14.sp, lineHeight = 22.sp),
+                    bodySmall = androidx.compose.ui.text.TextStyle(fontSize = 14.sp, lineHeight = 20.sp),
+                    labelMedium = androidx.compose.ui.text.TextStyle(fontSize = 16.sp, lineHeight = 22.sp, fontWeight = FontWeight.Medium),
+                    labelSmall = androidx.compose.ui.text.TextStyle(fontSize = 14.sp, lineHeight = 20.sp),
                     bodyLarge =
                         androidx.compose.ui.text.TextStyle(
                             fontSize = size,
-                            lineHeight = 28.sp,
+                            lineHeight = 26.sp,
                         ),
                     bodyMedium =
                         androidx.compose.ui.text.TextStyle(
                             fontSize = size,
-                            lineHeight = 28.sp,
+                            lineHeight = 26.sp,
                         ),
                     labelLarge =
                         androidx.compose.ui.text.TextStyle(
                             fontSize = size,
-                            fontWeight = FontWeight.Medium,
+                            fontWeight = FontWeight.SemiBold,
                         ),
                     titleLarge =
                         androidx.compose.ui.text.TextStyle(
@@ -328,93 +332,199 @@ fun Glyph(name: String, color: Color = Green, modifier: Modifier = Modifier.size
 
 @Composable
 fun Pill(text: String, color: Color = Green, bg: Color = Pale) {
-    Text(text, color = color, fontSize = 16.sp, lineHeight = 24.sp,
-        fontWeight = FontWeight.Medium,
-        modifier = Modifier.clip(RoundedCornerShape(8.dp)).background(bg)
-            .padding(horizontal = 10.dp, vertical = 6.dp))
+    Text(
+        text = text,
+        color = color,
+        fontSize = 14.sp,
+        lineHeight = 18.sp,
+        fontWeight = FontWeight.SemiBold,
+        modifier = Modifier
+            .clip(RoundedCornerShape(6.dp))
+            .background(bg)
+            .padding(horizontal = 8.dp, vertical = 4.dp)
+    )
 }
 
 @Composable
 fun SheetCard(modifier: Modifier = Modifier, content: @Composable ColumnScope.() -> Unit) {
-    Surface(modifier.fillMaxWidth(), color = Color.White,
-        shape = RoundedCornerShape(20.dp), shadowElevation = 0.dp) {
-        Column(Modifier.padding(18.dp), content = content)
+    Surface(
+        modifier = modifier.fillMaxWidth(),
+        color = Color.White,
+        shape = RoundedCornerShape(12.dp),
+        border = BorderStroke(1.dp, Line),
+        shadowElevation = 0.dp
+    ) {
+        Column(Modifier.padding(14.dp), content = content)
     }
 }
 
 @Composable
 fun PrimaryButton(label: String, modifier: Modifier = Modifier, enabled: Boolean = true, onClick: () -> Unit) {
-    Button(onClick = onClick, modifier = modifier.fillMaxWidth().heightIn(min = 64.dp),
-        enabled = enabled, shape = RoundedCornerShape(16.dp),
-        contentPadding = PaddingValues(horizontal = 16.dp, vertical = 16.dp)) {
-        Text(label, fontSize = 20.sp, lineHeight = 28.sp,
-            textAlign = androidx.compose.ui.text.style.TextAlign.Center, fontWeight = FontWeight.Bold)
+    Button(
+        onClick = onClick,
+        modifier = modifier.fillMaxWidth().heightIn(min = 60.dp),
+        enabled = enabled,
+        shape = RoundedCornerShape(12.dp),
+        colors = ButtonDefaults.buttonColors(
+            containerColor = Green,
+            contentColor = Color.White,
+            disabledContainerColor = Line,
+            disabledContentColor = Muted
+        ),
+        contentPadding = PaddingValues(horizontal = 16.dp, vertical = 14.dp)
+    ) {
+        Text(
+            text = label,
+            fontSize = 20.sp,
+            lineHeight = 26.sp,
+            textAlign = TextAlign.Center,
+            fontWeight = FontWeight.Bold
+        )
     }
 }
 
 @Composable
 fun PageHeader(title: String, onBack: (() -> Unit)? = null, action: String? = null, onAction: () -> Unit = {}) {
-    Row(Modifier.fillMaxWidth().heightIn(min = 76.dp).padding(horizontal = 12.dp, vertical = 8.dp),
-        verticalAlignment = Alignment.CenterVertically) {
-        if (onBack != null) IconButton(onClick = onBack,
-            modifier = Modifier.size(56.dp).semantics { contentDescription = "返回" }) {
-            Glyph("back", Ink, Modifier.size(28.dp))
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .heightIn(min = 56.dp)
+            .padding(horizontal = 4.dp, vertical = 4.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        if (onBack != null) {
+            IconButton(
+                onClick = onBack,
+                modifier = Modifier.size(56.dp).semantics { contentDescription = "返回" }
+            ) {
+                Glyph("back", Ink, Modifier.size(24.dp))
+            }
         }
-        Text(title, fontSize = 24.sp, lineHeight = 32.sp, fontWeight = FontWeight.Bold,
-            modifier = Modifier.weight(1f).padding(horizontal = 4.dp))
-        if (action != null) TextButton(onClick = onAction,
-            modifier = Modifier.heightIn(min = 56.dp).widthIn(max = 116.dp)) {
-            Text(action, color = Green, fontSize = 18.sp, lineHeight = 26.sp,
-                textAlign = androidx.compose.ui.text.style.TextAlign.Center)
+        Text(
+            text = title,
+            fontSize = 22.sp,
+            lineHeight = 28.sp,
+            fontWeight = FontWeight.Bold,
+            color = Ink,
+            modifier = Modifier.weight(1f).padding(horizontal = 4.dp)
+        )
+        if (action != null) {
+            TextButton(
+                onClick = onAction,
+                modifier = Modifier.heightIn(min = 56.dp).padding(horizontal = 4.dp)
+            ) {
+                Text(
+                    text = action,
+                    color = Green,
+                    fontSize = 18.sp,
+                    lineHeight = 24.sp,
+                    fontWeight = FontWeight.Medium,
+                    textAlign = TextAlign.Center
+                )
+            }
         }
     }
 }
 
 @Composable
 fun SectionTitle(title: String, subtitle: String = "", action: String? = null, onAction: () -> Unit = {}) {
-    Column(Modifier.fillMaxWidth().padding(vertical = 8.dp)) {
-        Text(title, fontSize = 22.sp, lineHeight = 30.sp, fontWeight = FontWeight.SemiBold)
-        if (subtitle.isNotEmpty()) Text(subtitle, color = Muted, fontSize = 16.sp, lineHeight = 24.sp,
-            modifier = Modifier.padding(top = 6.dp))
-        if (action != null) TextButton(onClick = onAction, modifier = Modifier.heightIn(min = 56.dp)) {
-            Text(action, fontSize = 18.sp)
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(top = 8.dp, bottom = 4.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Column(modifier = Modifier.weight(1f)) {
+            Text(title, fontSize = 20.sp, lineHeight = 26.sp, fontWeight = FontWeight.Bold, color = Ink)
+            if (subtitle.isNotEmpty()) {
+                Text(subtitle, color = Muted, fontSize = 14.sp, lineHeight = 18.sp, modifier = Modifier.padding(top = 2.dp))
+            }
+        }
+        if (action != null) {
+            TextButton(onClick = onAction, modifier = Modifier.heightIn(min = 44.dp)) {
+                Text(action, fontSize = 16.sp, fontWeight = FontWeight.Medium, color = Green)
+            }
         }
     }
 }
 
 @Composable
 fun DetailRow(label: String, value: String, color: Color = Ink) {
-    Column(Modifier.fillMaxWidth().padding(vertical = 10.dp)) {
-        Text(label, color = Muted, fontSize = 16.sp, lineHeight = 24.sp)
-        Text(value, color = color, fontSize = 18.sp, lineHeight = 28.sp, fontWeight = FontWeight.Medium,
-            modifier = Modifier.padding(top = 3.dp))
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = 8.dp),
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Text(label, color = Muted, fontSize = 16.sp, lineHeight = 22.sp)
+        Text(value, color = color, fontSize = 18.sp, lineHeight = 24.sp, fontWeight = FontWeight.SemiBold)
     }
 }
 
 @Composable
 fun MenuRow(icon: String, title: String, description: String = "", onClick: () -> Unit) {
-    Row(Modifier.fillMaxWidth().heightIn(min = 72.dp).clickable(onClick = onClick)
-        .padding(vertical = 14.dp), verticalAlignment = Alignment.CenterVertically) {
-        Box(Modifier.size(44.dp).clip(RoundedCornerShape(12.dp)).background(Pale),
-            contentAlignment = Alignment.Center) { Glyph(icon, modifier = Modifier.size(26.dp)) }
-        Column(Modifier.weight(1f).padding(horizontal = 12.dp)) {
-            Text(title, fontSize = 18.sp, lineHeight = 28.sp, fontWeight = FontWeight.Medium)
-            if (description.isNotEmpty()) Text(description, color = Muted, fontSize = 16.sp,
-                lineHeight = 24.sp, modifier = Modifier.padding(top = 4.dp))
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .heightIn(min = 60.dp)
+            .clickable(onClick = onClick)
+            .padding(vertical = 10.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Box(
+            modifier = Modifier
+                .size(38.dp)
+                .clip(RoundedCornerShape(8.dp))
+                .background(Pale),
+            contentAlignment = Alignment.Center
+        ) {
+            Glyph(icon, Green, Modifier.size(22.dp))
         }
-        Glyph("right", Muted, Modifier.size(24.dp))
+        Column(
+            modifier = Modifier
+                .weight(1f)
+                .padding(horizontal = 12.dp)
+        ) {
+            Text(title, fontSize = 18.sp, lineHeight = 24.sp, fontWeight = FontWeight.Medium, color = Ink)
+            if (description.isNotEmpty()) {
+                Text(description, color = Muted, fontSize = 14.sp, lineHeight = 18.sp, modifier = Modifier.padding(top = 2.dp))
+            }
+        }
+        Glyph("right", Muted, Modifier.size(20.dp))
     }
 }
 
 @Composable
 fun RouteStops(order: DriverOrder, compact: Boolean = false) {
-    Column(Modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(14.dp)) {
-        listOf(Triple("上车", order.origin, Green), Triple("送达", order.destination, Orange)).forEach { (label, address, color) ->
+    Column(Modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+        listOf(
+            Triple("上车", order.origin, Green),
+            Triple("送达", order.destination, Orange)
+        ).forEach { (label, address, color) ->
             Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.Top) {
-                Text(label, color = color, fontSize = 16.sp, lineHeight = 28.sp,
-                    fontWeight = FontWeight.Bold, modifier = Modifier.padding(end = 12.dp))
-                Text(address, modifier = Modifier.weight(1f), fontSize = if (compact) 18.sp else 20.sp,
-                    lineHeight = 30.sp, fontWeight = FontWeight.Medium)
+                Box(
+                    modifier = Modifier
+                        .padding(top = 4.dp, end = 10.dp)
+                        .clip(RoundedCornerShape(4.dp))
+                        .background(color.copy(alpha = 0.12f))
+                        .padding(horizontal = 6.dp, vertical = 2.dp)
+                ) {
+                    Text(
+                        text = label,
+                        color = color,
+                        fontSize = 14.sp,
+                        fontWeight = FontWeight.Bold
+                    )
+                }
+                Text(
+                    text = address,
+                    modifier = Modifier.weight(1f),
+                    fontSize = if (compact) 20.sp else 22.sp,
+                    lineHeight = if (compact) 26.sp else 28.sp,
+                    fontWeight = FontWeight.SemiBold,
+                    color = Ink
+                )
             }
         }
     }
@@ -423,24 +533,54 @@ fun RouteStops(order: DriverOrder, compact: Boolean = false) {
 @Composable
 fun OrderCard(order: DriverOrder, action: String? = null, onClick: () -> Unit) {
     SheetCard {
-        Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-            if (order.isPrivateExample)
-                Text("演示订单 · 未关联乘客 App", color = Orange, fontSize = 16.sp, lineHeight = 24.sp)
-            Pill(order.kind.title, if (order.kind == OrderKind.BID) Orange else Green,
-                if (order.kind == OrderKind.BID) Color(0xFFFFF1E6) else Pale)
-            Text(if (order.stage == Stage.AVAILABLE) "距您 ${order.distance} km" else order.stage.title,
-                color = Green, fontSize = 18.sp, lineHeight = 28.sp, fontWeight = FontWeight.SemiBold)
+        if (order.isPrivateExample) {
+            Text(
+                "演示订单 · 未关联乘客 App",
+                color = Orange,
+                fontSize = 14.sp,
+                lineHeight = 20.sp,
+                fontWeight = FontWeight.Medium,
+                modifier = Modifier.padding(bottom = 6.dp)
+            )
         }
-        Spacer(Modifier.height(18.dp))
-        RouteStops(order)
-        Spacer(Modifier.height(18.dp))
-        HorizontalDivider(color = Line)
-        Text(if (order.destinationPending) "费用待定" else "¥${money(order.fare)}", fontSize = 30.sp, lineHeight = 40.sp,
-            fontWeight = FontWeight.Bold, color = Ink, modifier = Modifier.padding(top = 14.dp))
-        Text(if (order.destinationPending) "目的地待补充"
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                Pill(
+                    order.kind.title,
+                    if (order.kind == OrderKind.BID) Orange else Green,
+                    if (order.kind == OrderKind.BID) Color(0xFFFEF3C7) else Pale
+                )
+                Text(
+                    if (order.stage == Stage.AVAILABLE) "距您 ${order.distance} km" else order.stage.title,
+                    color = Green,
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight.Bold
+                )
+            }
+            Text(
+                if (order.destinationPending) "费用待定" else "¥${money(order.fare)}",
+                fontSize = 30.sp,
+                lineHeight = 36.sp,
+                fontWeight = FontWeight.Bold,
+                color = Ink
+            )
+        }
+        Spacer(Modifier.height(10.dp))
+        RouteStops(order, compact = true)
+        Spacer(Modifier.height(8.dp))
+        Text(
+            if (order.destinationPending) "目的地待补充"
             else if (order.kind == OrderKind.BID && order.stage == Stage.AVAILABLE) "参考报价 · 约 ${order.mileage} km"
-            else "订单金额 · 约 ${order.mileage} km", color = Muted, fontSize = 16.sp, lineHeight = 24.sp)
-        Spacer(Modifier.height(14.dp))
+            else "预估里程 · 约 ${order.mileage} km",
+            color = Muted,
+            fontSize = 14.sp,
+            lineHeight = 20.sp
+        )
+        Spacer(Modifier.height(10.dp))
         PrimaryButton(action ?: "查看详情", onClick = onClick)
     }
 }
@@ -448,16 +588,30 @@ fun OrderCard(order: DriverOrder, action: String? = null, onClick: () -> Unit) {
 @Composable
 fun StatsRow(state: DriverState) {
     Column(Modifier.fillMaxWidth()) {
-        Text("累计收入", color = Muted, fontSize = 16.sp, lineHeight = 24.sp)
-        Text("含演示初始数据", color = Muted, fontSize = 16.sp, lineHeight = 24.sp)
-        Text("¥${money(state.todayIncome)}", fontSize = 30.sp, lineHeight = 40.sp,
-            fontWeight = FontWeight.Bold, color = Ink)
-        Spacer(Modifier.height(14.dp))
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.Bottom
+        ) {
+            Column {
+                Text("累计收入 (含演示数据)", color = Muted, fontSize = 14.sp, lineHeight = 20.sp)
+                Text(
+                    "¥${money(state.todayIncome)}",
+                    fontSize = 30.sp,
+                    lineHeight = 38.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = Ink
+                )
+            }
+        }
+        Spacer(Modifier.height(10.dp))
+        HorizontalDivider(color = Line)
+        Spacer(Modifier.height(10.dp))
         Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(16.dp)) {
             listOf("累计接单" to state.todayAccepted.toString(), "累计完单" to state.todayCompleted.toString()).forEach { (label, value) ->
                 Column(Modifier.weight(1f)) {
-                    Text(value, fontSize = 26.sp, lineHeight = 36.sp, fontWeight = FontWeight.Bold, color = Ink)
-                    Text(label, color = Muted, fontSize = 16.sp, lineHeight = 24.sp)
+                    Text(value, fontSize = 24.sp, lineHeight = 32.sp, fontWeight = FontWeight.Bold, color = Ink)
+                    Text(label, color = Muted, fontSize = 14.sp, lineHeight = 20.sp)
                 }
             }
         }
@@ -466,9 +620,17 @@ fun StatsRow(state: DriverState) {
 
 @Composable
 fun DemoNote(text: String = "体验版 · 当前展示演示数据") {
-    Row(Modifier.fillMaxWidth().padding(vertical = 10.dp), verticalAlignment = Alignment.Top) {
-        Glyph("shield", Muted, Modifier.size(20.dp))
-        Text(text, color = Muted, fontSize = 16.sp, lineHeight = 24.sp,
-            modifier = Modifier.weight(1f).padding(start = 8.dp))
+    Row(
+        modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Glyph("shield", Muted, Modifier.size(18.dp))
+        Text(
+            text = text,
+            color = Muted,
+            fontSize = 14.sp,
+            lineHeight = 20.sp,
+            modifier = Modifier.weight(1f).padding(start = 6.dp)
+        )
     }
 }

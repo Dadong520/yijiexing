@@ -1,5 +1,9 @@
 package cn.hbzjhs.passenger
 
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.material3.lightColorScheme
+import androidx.compose.material3.MaterialTheme
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -37,11 +41,11 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import kotlinx.coroutines.delay
 
-val Teal = Color(0xFF087F73)
-val Ink = Color(0xFF192924)
-val Muted = Color(0xFF5E6D67)
-val Paper = Color(0xFFF5F7F6)
-val Amber = Color(0xFF936214)
+val Teal = Color(0xFF007A5E)
+val Ink = Color(0xFF111827)
+val Muted = Color(0xFF6B7280)
+val Paper = Color(0xFFF6F8FA)
+val Amber = Color(0xFFB54708)
 
 class MainActivity : ComponentActivity() {
   private var incomingPair by mutableStateOf<String?>(null)
@@ -69,42 +73,7 @@ class MainActivity : ComponentActivity() {
     super.onCreate(savedInstanceState)
     receivePair(intent)
     setContent {
-      MaterialTheme(
-        colorScheme =
-          lightColorScheme(
-            primary = Teal,
-            background = Paper,
-            surface = Color.White,
-            onSurface = Ink,
-            secondary = Teal,
-            tertiary = Teal,
-            onPrimary = Color.White,
-            onSecondary = Color.White,
-            primaryContainer = Color(0xFFDDEFE8),
-            secondaryContainer = Color(0xFFE4F0EA),
-            tertiaryContainer = Color(0xFFE4F0EA),
-            onPrimaryContainer = Color(0xFF104A3E),
-            onSecondaryContainer = Color(0xFF104A3E),
-            onTertiaryContainer = Color(0xFF104A3E),
-            surfaceVariant = Color(0xFFEDF2EF),
-            onSurfaceVariant = Muted,
-            surfaceTint = Teal,
-            outline = Color(0xFFAFBDB6),
-            outlineVariant = Color(0xFFDFE5E1),
-          ),
-        typography =
-          Typography(
-            bodyLarge = TextStyle(fontSize = 16.sp, lineHeight = 24.sp),
-            bodyMedium = TextStyle(fontSize = 16.sp, lineHeight = 23.sp),
-            bodySmall = TextStyle(fontSize = 13.sp, lineHeight = 19.sp),
-            titleLarge =
-              TextStyle(fontSize = 26.sp, lineHeight = 32.sp, fontWeight = FontWeight.Bold),
-            titleMedium =
-              TextStyle(fontSize = 18.sp, lineHeight = 24.sp, fontWeight = FontWeight.SemiBold),
-            labelLarge =
-              TextStyle(fontSize = 16.sp, lineHeight = 22.sp, fontWeight = FontWeight.SemiBold),
-          ),
-      ) {
+      PassengerVisualTheme {
         PassengerApp(
           incomingCode = incomingPair,
           invalidPair = invalidPair,
@@ -252,7 +221,7 @@ fun PassengerApp(
     },
     bottomBar = {
       if (logged && selected.isEmpty() && page in listOf("home", "orders", "profile"))
-        NavigationBar(containerColor = Color.White) {
+        NavigationBar(containerColor = Color.White, tonalElevation = 0.dp) {
           listOf(
               Triple("home", "出行", Icons.Default.Home),
               Triple("orders", "订单", Icons.AutoMirrored.Filled.List),
@@ -266,9 +235,9 @@ fun PassengerApp(
                 label = { Text(title) },
                 colors =
                   NavigationBarItemDefaults.colors(
-                    indicatorColor = Color(0xFFDDEFE8),
-                    selectedIconColor = Teal,
-                    selectedTextColor = Teal,
+                    indicatorColor = Color(0xFFEDF0F2),
+                    selectedIconColor = Ink,
+                    selectedTextColor = Ink,
                     unselectedIconColor = Muted,
                     unselectedTextColor = Muted,
                   ),
@@ -319,8 +288,11 @@ fun PassengerApp(
 @Composable
 fun PageColumn(content: @Composable ColumnScope.() -> Unit) {
   Column(
-    Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(16.dp),
-    verticalArrangement = Arrangement.spacedBy(12.dp),
+    Modifier
+      .fillMaxSize()
+      .verticalScroll(rememberScrollState())
+      .padding(horizontal = 16.dp, vertical = 14.dp),
+    verticalArrangement = Arrangement.spacedBy(14.dp),
     content = content,
   )
 }
@@ -329,11 +301,24 @@ fun PageColumn(content: @Composable ColumnScope.() -> Unit) {
 fun Panel(title: String? = null, content: @Composable ColumnScope.() -> Unit) {
   Card(
     colors = CardDefaults.cardColors(containerColor = Color.White),
-    shape = RoundedCornerShape(16.dp),
+    shape = RoundedCornerShape(18.dp),
+    border = BorderStroke(1.dp, Color(0xFFEDEFF2)),
+    elevation = CardDefaults.cardElevation(defaultElevation = 1.dp),
     modifier = Modifier.fillMaxWidth(),
   ) {
-    Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
-      title?.let { Text(it, fontWeight = FontWeight.Bold, fontSize = 17.sp) }
+    Column(
+      Modifier.padding(horizontal = 18.dp, vertical = 16.dp),
+      verticalArrangement = Arrangement.spacedBy(8.dp),
+    ) {
+      title?.let {
+        Text(
+          it,
+          fontWeight = FontWeight.Bold,
+          fontSize = 17.sp,
+          color = Ink,
+          lineHeight = 22.sp,
+        )
+      }
       content()
     }
   }
@@ -341,13 +326,26 @@ fun Panel(title: String? = null, content: @Composable ColumnScope.() -> Unit) {
 
 @Composable
 fun Note(text: String) {
-  Text(text, color = Muted, fontSize = 13.sp, lineHeight = 20.sp)
+  Text(
+    text,
+    color = Muted,
+    fontSize = 13.sp,
+    lineHeight = 19.sp,
+  )
 }
 
 @Composable
 fun SectionTitle(title: String, subtitle: String = "") {
-  Text(title, fontSize = 26.sp, fontWeight = FontWeight.Bold)
-  if (subtitle.isNotBlank()) Note(subtitle)
+  Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+    Text(
+      title,
+      fontSize = 24.sp,
+      fontWeight = FontWeight.Bold,
+      color = Ink,
+      lineHeight = 32.sp,
+    )
+    if (subtitle.isNotBlank()) Note(subtitle)
+  }
 }
 
 @Composable
@@ -355,10 +353,21 @@ fun ActionButton(label: String, enabled: Boolean = true, onClick: () -> Unit) {
   Button(
     onClick = onClick,
     enabled = enabled,
-    modifier = Modifier.fillMaxWidth().heightIn(min = 56.dp),
-    shape = RoundedCornerShape(12.dp),
+    modifier = Modifier.fillMaxWidth().heightIn(min = 54.dp),
+    shape = RoundedCornerShape(14.dp),
+    colors = ButtonDefaults.buttonColors(
+      containerColor = Ink,
+      contentColor = Color.White,
+      disabledContainerColor = Color(0xFFE5E7EB),
+      disabledContentColor = Color(0xFF9CA3AF),
+    ),
   ) {
-    Text(label, fontSize = 16.sp)
+    Text(
+      label,
+      fontSize = 16.sp,
+      fontWeight = FontWeight.SemiBold,
+      lineHeight = 22.sp,
+    )
   }
 }
 
@@ -373,9 +382,17 @@ fun Field(
   OutlinedTextField(
     value = value,
     onValueChange = onValue,
-    label = { Text(label) },
+    label = { Text(label, fontSize = 14.sp) },
     modifier = Modifier.fillMaxWidth(),
-    shape = RoundedCornerShape(11.dp),
+    shape = RoundedCornerShape(12.dp),
+    colors = OutlinedTextFieldDefaults.colors(
+      focusedBorderColor = Ink,
+      unfocusedBorderColor = Color(0xFFE2E4E9),
+      focusedLabelColor = Ink,
+      unfocusedLabelColor = Muted,
+      focusedContainerColor = Color(0xFFFBFBFC),
+      unfocusedContainerColor = Color(0xFFFBFBFC),
+    ),
     singleLine = lines == 1,
     minLines = lines,
     keyboardOptions = KeyboardOptions(keyboardType = type),
@@ -385,16 +402,50 @@ fun Field(
 @Composable
 fun EmptyCard(title: String, desc: String) {
   Panel {
-    Text(title, fontWeight = FontWeight.Bold)
-    Note(desc)
+    Column(
+      Modifier.fillMaxWidth().padding(vertical = 12.dp),
+      horizontalAlignment = Alignment.CenterHorizontally,
+      verticalArrangement = Arrangement.spacedBy(8.dp),
+    ) {
+      Text(
+        title,
+        fontWeight = FontWeight.SemiBold,
+        fontSize = 16.sp,
+        color = Ink,
+      )
+      Text(
+        desc,
+        color = Muted,
+        fontSize = 13.sp,
+        lineHeight = 20.sp,
+        textAlign = TextAlign.Center,
+      )
+    }
   }
 }
 
 @Composable
 fun KV(label: String, value: String) {
-  Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-    Text(label, color = Muted, modifier = Modifier.weight(0.4f), fontSize = 15.sp)
-    Text(value, modifier = Modifier.weight(0.6f), fontSize = 15.sp)
+  Row(
+    Modifier.fillMaxWidth().padding(vertical = 2.dp),
+    horizontalArrangement = Arrangement.spacedBy(12.dp),
+    verticalAlignment = Alignment.Top,
+  ) {
+    Text(
+      label,
+      color = Muted,
+      modifier = Modifier.weight(0.38f),
+      fontSize = 14.sp,
+      lineHeight = 20.sp,
+    )
+    Text(
+      value,
+      color = Ink,
+      fontWeight = FontWeight.Medium,
+      modifier = Modifier.weight(0.62f),
+      fontSize = 14.sp,
+      lineHeight = 20.sp,
+    )
   }
 }
 
@@ -498,4 +549,38 @@ fun LoginScreen(store: PassengerStore, configured: Boolean, settings: () -> Unit
       )
     }
   }
+}
+
+@Composable
+fun PassengerVisualTheme(content: @Composable () -> Unit) {
+  val colorScheme = lightColorScheme(
+    primary = Color(0xFF111827),
+    onPrimary = Color.White,
+    primaryContainer = Color(0xFF1F2937),
+    onPrimaryContainer = Color.White,
+    secondary = Color(0xFF007A5E),
+    onSecondary = Color.White,
+    secondaryContainer = Color(0xFFE6F4EA),
+    onSecondaryContainer = Color(0xFF065F46),
+    background = Color(0xFFF6F8FA),
+    onBackground = Color(0xFF111827),
+    surface = Color.White,
+    surfaceTint = Color.Transparent,
+    onSurface = Color(0xFF111827),
+    surfaceVariant = Color(0xFFF1F3F5),
+    onSurfaceVariant = Color(0xFF6B7280),
+    outline = Color(0xFFE5E7EB),
+  )
+  MaterialTheme(
+    colorScheme = colorScheme,
+    typography = Typography(
+      bodyLarge = TextStyle(fontSize = 16.sp, lineHeight = 24.sp),
+      bodyMedium = TextStyle(fontSize = 16.sp, lineHeight = 23.sp),
+      bodySmall = TextStyle(fontSize = 13.sp, lineHeight = 19.sp),
+      titleLarge = TextStyle(fontSize = 24.sp, lineHeight = 30.sp, fontWeight = FontWeight.Bold),
+      titleMedium = TextStyle(fontSize = 18.sp, lineHeight = 24.sp, fontWeight = FontWeight.SemiBold),
+      labelLarge = TextStyle(fontSize = 16.sp, lineHeight = 22.sp, fontWeight = FontWeight.SemiBold),
+    ),
+    content = content,
+  )
 }

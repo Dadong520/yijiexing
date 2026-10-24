@@ -1,0 +1,46 @@
+{
+  "schemaVersion": 1,
+  "id": "AD-20261025-01",
+  "owner": "antigravity",
+  "goal": "参考用户提供原后台菜单分组，美化现有真实数据管理后台；首页及9模块统一桌面UI，保留权限、所有表单动作和IAP，测试后独立发布admin静态覆盖层。",
+  "baseSha": "ea8273957c02fe2bcd77b4ffd63260ef791fae94",
+  "allow_paths": [
+    "candidates/admin-v8/yijiexing-admin-20261023/web/",
+    "coordination/evidence/AD-20261025-01/"
+  ],
+  "checks": [
+    "不访问/改动原环境，不导入原客户/手机号/IP，仅参考菜单标签",
+    "真实数据概览与明确统计口径，缺少权限不当0",
+    "加载/失败/空/弹窗/表格/导航保留，CSS无外部依赖",
+    "只在当前admin-browser镜像基础覆盖静态文件，IAP/IAM/云参数/数据保留；浏览器与权限回读"
+  ],
+  "status": "DEPLOYED_SCOPED_ACCEPTANCE",
+  "acceptance": "PASS",
+  "tests": [
+    {
+      "command": "node --check web/admin.js; overview isolated assertions 6 groups; coordinator synthetic browser layout/filter checks",
+      "status": "PASS",
+      "exitCode": 0,
+      "sourceSha": "dd51abcbd809432479c159c1e0928c05edeedb83"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "coordination/evidence/AD-20261025-01/independent-review.md",
+      "sha256": "5004cc52c79dca37f0cabec56b40c54c7ab7821e233a994f0cc062b0ab6f6f1d"
+    },
+    {
+      "path": "coordination/evidence/AD-20261025-01/local-browser-results.json",
+      "sha256": "a487c94e40e55f289ca1546c9c5c690b059141f79b4d63ef7a6400d7e9e2cebe"
+    },
+    {
+      "path": "coordination/evidence/AD-20261025-01/local-synthetic-overview-fixed.png",
+      "sha256": "005521ef43960ff55697fde83b8b6d5548fa9d098d1d9566c096c11286eb11a1"
+    }
+  ],
+  "nextAction": "Idle; remaining NOT_RUN retained for next iteration",
+  "deploy_owner": "coordinator",
+  "releaseReady": true,
+  "reviewer": "backend",
+  "acceptedSha": "dd51abcbd809432479c159c1e0928c05edeedb83"
+}

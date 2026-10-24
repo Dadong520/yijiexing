@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "id": "UI-20261025-02",
+  "owner": "antigravity",
+  "goal": "Gemini主导重设计司机与乘客Android UI：司机大字清晰一屏优先接单；乘客简洁叫车视觉。保留全部业务/账户/权限，适用测试和独立视觉验收后发布APK。",
+  "baseSha": "f0f0920995dcf89dfc5f6125542e26af86cf110d",
+  "allow_paths": [
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/UiKit.kt",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/CoreScreens.kt",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/MainActivity.kt",
+    "candidates/driver-0.3.6-r2/android/app/build.gradle.kts",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/MainActivity.kt",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/UiComponents.kt",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/BookingScreens.kt",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/ProfileScreens.kt",
+    "apps/passenger-android/app/build.gradle.kts",
+    "coordination/evidence/UI-20261025-02/"
+  ],
+  "checks": [
+    "Gemini真实产出代码，非仅建议；短分批任务禁止无产出循环",
+    "司机首屏显著可接单入口，大字按钮/可滚动/系统大字不截关键动作",
+    "两端核心Store/金额/支付/请求幂等/旧订单不变，无虚构权益或状态",
+    "离线单测构建/同签名覆盖/模拟器前后截图与独立验收",
+    "协调者唯一APK发布，直连优先、回滚备份、完整公开GET验哈希；后端/admin不变"
+  ],
+  "status": "IMPLEMENTED_PENDING_FINAL_BUILD_AND_VISUAL_RETEST",
+  "acceptance": "NOT_RUN",
+  "tests": [],
+  "evidence": [],
+  "nextAction": "Gemini29函数已应用，两端最终隔离构建进行中；frontend独立UI复测、backend业务复核后冻结SHA并发布",
+  "deploy_owner": "coordinator",
+  "releaseReady": false
+}

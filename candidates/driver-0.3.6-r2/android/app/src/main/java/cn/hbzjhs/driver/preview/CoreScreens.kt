@@ -1,5 +1,11 @@
 package cn.hbzjhs.driver.preview
 
+import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.animation.AnimatedVisibility
 import android.content.Intent
 import android.net.Uri
 import android.provider.Settings
@@ -413,158 +419,187 @@ fun ConnectedHome(
     val active = state.activeOrder
     val pendingCollections = state.pendingCollections
     val available = state.orders.filter { it.stage == Stage.AVAILABLE }.sortedBy { it.isPrivateExample }
+    var toolsExpanded by remember { mutableStateOf(false) }
     LazyColumn(
-        contentPadding = PaddingValues(18.dp),
-        verticalArrangement = Arrangement.spacedBy(13.dp),
+        contentPadding = PaddingValues(horizontal = 14.dp, vertical = 10.dp),
+        verticalArrangement = Arrangement.spacedBy(10.dp),
     ) {
         item {
-            Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
-                Box(
-                    Modifier.size(56.dp)
-                        .clip(RoundedCornerShape(14.dp))
-                        .background(Pale)
-                        .clickable { navigate("driver") },
-                    contentAlignment = Alignment.Center,
-                ) {
-                    Glyph("profile")
-                }
-                Column(Modifier.weight(1f).padding(start = 12.dp)) {
-                    Text(
-                        profile.optString("cityName", "宜昌市"),
-                        fontSize = 24.sp,
-                        fontWeight = FontWeight.Bold,
-                    )
-                    Text(
-                        "司机：${profile.optString("name", "司机")}",
-                        fontSize = 16.sp,
-                        color = Muted,
-                        modifier = Modifier.padding(top = 4.dp),
-                    )
-                }
-            }
             Row(
-                Modifier.fillMaxWidth().padding(top = 8.dp),
+                Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                Pill(if (online) "服务已连接" else "服务连接中断", if (online) Green else Orange)
-                Spacer(Modifier.weight(1f))
-                CoreTextButton(
-                    onClick = { navigate("notifications") },
-                    modifier = Modifier.heightIn(min = 56.dp),
+                Row(
+                    Modifier.clickable { navigate("driver") },
+                    verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Glyph("bell", Ink)
-                    Text("消息", fontSize = 18.sp, modifier = Modifier.padding(start = 8.dp))
+                    Box(
+                        Modifier.size(42.dp)
+                            .clip(RoundedCornerShape(10.dp))
+                            .background(Pale),
+                        contentAlignment = Alignment.Center,
+                    ) {
+                        Glyph("profile", Ink, Modifier.size(24.dp))
+                    }
+                    Column(Modifier.padding(start = 10.dp)) {
+                        Row(verticalAlignment = Alignment.CenterVertically) {
+                            Text("宜捷行·司机", fontSize = 18.sp, fontWeight = FontWeight.Bold, color = Ink)
+                            Spacer(Modifier.width(6.dp))
+                            Pill(profile.optString("cityName", "宜昌市"))
+                        }
+                        Text(
+                            profile.optString("name", "司机"),
+                            fontSize = 14.sp,
+                            color = Muted,
+                            modifier = Modifier.padding(top = 1.dp),
+                        )
+                    }
+                }
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Pill(if (online) "网络正常" else "离线", if (online) Green else Orange)
+                    IconButton(
+                        onClick = { navigate("notifications") },
+                        modifier = Modifier.size(56.dp).semantics { contentDescription = "消息通知" },
+                    ) {
+                        Glyph("bell", Ink, Modifier.size(24.dp))
+                    }
                 }
             }
         }
         if (!online)
             item {
                 SheetCard {
-                    Text("独立服务连接中断", fontWeight = FontWeight.Bold)
-                    Text(
-                        "当前显示上次读取的状态，恢复连接后才能提交业务操作。",
-                        color = Muted,
-                        fontSize = 16.sp,
-                        modifier = Modifier.padding(top = 8.dp),
-                    )
-                    CoreTextButton(onClick = { store.refresh() }) { Text("重试连接") }
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Glyph("shield", Orange, Modifier.size(24.dp))
+                        Column(Modifier.weight(1f).padding(horizontal = 8.dp)) {
+                            Text("网络连接中断", fontWeight = FontWeight.Bold, fontSize = 18.sp, color = Orange)
+                            Text("当前展示离线缓存，恢复连接后方可进行接单操作", color = Muted, fontSize = 14.sp)
+                        }
+                        CoreTextButton(onClick = { store.refresh() }, modifier = Modifier.heightIn(min = 48.dp)) {
+                            Text("重试", fontSize = 16.sp, fontWeight = FontWeight.Bold)
+                        }
+                    }
                 }
             }
         if (active != null)
             item {
                 SheetCard {
-                    Pill(active.stage.title)
-                    Spacer(Modifier.height(14.dp))
+                    Row(
+                        Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Pill(active.stage.title)
+                        Text("进行中行程", color = Green, fontSize = 16.sp, fontWeight = FontWeight.Bold)
+                    }
+                    Spacer(Modifier.height(10.dp))
                     RouteStops(active)
-                    Spacer(Modifier.height(16.dp))
+                    Spacer(Modifier.height(12.dp))
                     PrimaryButton("继续当前行程", onClick = { navigate("detail:${active.id}") })
                 }
             }
         else if (!canAccept)
             item {
                 SheetCard {
-                    Text("当前接单权益不可用", fontSize = 24.sp, fontWeight = FontWeight.Bold)
+                    Text("当前接单权益不可用", fontSize = 20.sp, fontWeight = FontWeight.Bold, color = Ink)
                     Text(
                         features.optString("trialEndReason", "请查看权益状态或开通适用城市等级。"),
                         color = Muted,
-                        fontSize = 18.sp,
-                        modifier = Modifier.padding(top = 9.dp),
+                        fontSize = 16.sp,
+                        modifier = Modifier.padding(top = 6.dp),
                     )
-                    Spacer(Modifier.height(15.dp))
+                    Spacer(Modifier.height(12.dp))
                     PrimaryButton("查看会员权益", onClick = { navigate("benefits/expiry") })
                 }
             }
         else if (!state.online)
             item {
                 SheetCard {
-                    Text("准备好，开始听单", fontSize = 24.sp, fontWeight = FontWeight.Bold)
-                    Text(
-                        "上线后可查看并参与附近订单",
-                        color = Muted,
-                        fontSize = 18.sp,
-                        modifier = Modifier.padding(top = 8.dp),
-                    )
-                    Spacer(Modifier.height(18.dp))
-                    PrimaryButton("开始听单", enabled = online, onClick = onToggle)
+                    Row(
+                        Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Column(Modifier.weight(1f)) {
+                            Text("当前休息中", fontSize = 20.sp, fontWeight = FontWeight.Bold, color = Ink)
+                            Text("上线后将实时接收附近订单派单", color = Muted, fontSize = 14.sp)
+                        }
+                        Button(
+                            onClick = onToggle,
+                            enabled = online,
+                            shape = RoundedCornerShape(10.dp),
+                            colors = ButtonDefaults.buttonColors(containerColor = Green, contentColor = Color.White),
+                            modifier = Modifier.heightIn(min = 56.dp).widthIn(min = 120.dp)
+                        ) {
+                            Text("开始听单", fontSize = 18.sp, fontWeight = FontWeight.Bold)
+                        }
+                    }
                 }
             }
         if (state.online && active == null)
             item {
-                SheetCard {
-                    Text("正在听单", fontSize = 26.sp, fontWeight = FontWeight.Bold, color = Green)
-                    Text(
-                        "新订单会显示在下方，请留意声音提醒。",
-                        fontSize = 16.sp,
-                        color = Muted,
-                        modifier = Modifier.padding(top = 8.dp),
-                    )
-                    Spacer(Modifier.height(12.dp))
-                    OutlinedButton(
-                        onClick = onToggle,
-                        modifier = Modifier.fillMaxWidth().heightIn(min = 64.dp),
-                        shape = RoundedCornerShape(12.dp),
+                Surface(
+                    color = Color.White,
+                    shape = RoundedCornerShape(12.dp),
+                    border = BorderStroke(1.dp, Line),
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Row(
+                        Modifier.fillMaxWidth().padding(horizontal = 14.dp, vertical = 8.dp),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
                     ) {
-                        Text("结束听单，休息一下", fontSize = 20.sp)
+                        Row(verticalAlignment = Alignment.CenterVertically) {
+                            Box(Modifier.size(12.dp).clip(CircleShape).background(Green))
+                            Column(Modifier.padding(start = 10.dp)) {
+                                Text("正在听单中", fontSize = 18.sp, fontWeight = FontWeight.Bold, color = Green)
+                                Text("保持手机畅通，留心语音播报", color = Muted, fontSize = 14.sp)
+                            }
+                        }
+                        OutlinedButton(
+                            onClick = onToggle,
+                            modifier = Modifier.heightIn(min = 56.dp),
+                            shape = RoundedCornerShape(10.dp),
+                            border = BorderStroke(1.dp, Line)
+                        ) {
+                            Text("结束听单", color = Ink, fontSize = 16.sp, fontWeight = FontWeight.Medium)
+                        }
                     }
                 }
             }
         if (pendingCollections.isNotEmpty())
             item {
-                Surface(color = Pale, shape = RoundedCornerShape(14.dp)) {
-                    Column(Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 10.dp)) {
-                        Text(
-                            "待收款 ${pendingCollections.size} 笔 · 不影响继续接单",
-                            fontSize = 16.sp,
-                            color = Ink,
-                        )
-                        val examples = pendingCollections.count { it.isPrivateExample }
-                        if (examples > 0)
-                            Text("其中 $examples 笔为演示订单，未关联乘客 App", color = Muted, fontSize = 16.sp)
-                        CoreTextButton(onClick = { navigate("orders/unpaid") }) {
-                            Text("查看待支付订单", fontSize = 18.sp)
+                Surface(
+                    color = Pale,
+                    shape = RoundedCornerShape(10.dp),
+                    border = BorderStroke(1.dp, Line),
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Row(
+                        Modifier.fillMaxWidth().padding(horizontal = 12.dp, vertical = 8.dp),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.SpaceBetween
+                    ) {
+                        Column(Modifier.weight(1f)) {
+                            Text("待收款 ${pendingCollections.size} 笔 · 不影响继续接单", fontSize = 14.sp, fontWeight = FontWeight.Medium, color = Ink)
+                            val examples = pendingCollections.count { it.isPrivateExample }
+                            if (examples > 0)
+                                Text("含 ${examples} 笔演示订单，未关联乘客 App", color = Muted, fontSize = 14.sp)
                         }
-                    }
-                }
-            }
-        if (state.online)
-            item {
-                Surface(color = Pale, shape = RoundedCornerShape(14.dp)) {
-                    Row(Modifier.fillMaxWidth().padding(14.dp), verticalAlignment = Alignment.CenterVertically) {
-                        Glyph("shield", Green, Modifier.size(24.dp))
-                        Column(Modifier.padding(start = 12.dp)) {
-                            Text("听单中 · 安全行车提醒", color = Green, fontSize = 16.sp, fontWeight = FontWeight.Bold)
-                            Text("听单中请保持手机通畅，连续驾驶请注意劳逸结合，安全行车。", color = Muted, fontSize = 14.sp)
+                        CoreTextButton(onClick = { navigate("orders/unpaid") }, modifier = Modifier.heightIn(min = 48.dp)) {
+                            Text("查看", fontSize = 16.sp, fontWeight = FontWeight.Bold, color = Green)
                         }
                     }
                 }
             }
         if (active == null && canAccept && state.online) {
-            item { SectionTitle("附近订单", "列表来自独立服务", "接单设置") { navigate("settings") } }
+            item { SectionTitle("附近订单", "实时路单", "接单设置") { navigate("settings") } }
             if (available.isEmpty())
                 item {
                     SheetCard {
-                        Text("当前暂无可接订单")
-                        CoreTextButton(onClick = { store.refresh() }) { Text("刷新订单") }
+                        Text("当前暂无可接订单", fontSize = 18.sp, color = Muted)
+                        CoreTextButton(onClick = { store.refresh() }) { Text("刷新订单", fontSize = 16.sp) }
                     }
                 }
             items(available, key = { it.id }) { order ->
@@ -574,80 +609,122 @@ fun ConnectedHome(
             }
         }
         item {
-            Box {
-                NativeMap(Modifier.fillMaxWidth().height(140.dp))
-                Surface(
-                    Modifier.padding(10.dp),
-                    color = Color.White.copy(alpha = .94f),
-                    shape = RoundedCornerShape(10.dp),
-                ) {
-                    Row(Modifier.padding(9.dp), verticalAlignment = Alignment.CenterVertically) {
-                        Box(
-                            Modifier.size(7.dp)
-                                .clip(CircleShape)
-                                .background(if (state.online) Green else Muted)
-                        )
-                        Text(
-                            if (state.online) "听单中" else "休息中",
-                            fontSize = 16.sp,
-                            modifier = Modifier.padding(start = 6.dp),
-                        )
+            Surface(
+                color = Color.White,
+                shape = RoundedCornerShape(12.dp),
+                border = BorderStroke(1.dp, Line),
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Column(Modifier.fillMaxWidth().padding(14.dp)) {
+                    Row(
+                        Modifier.fillMaxWidth().heightIn(min = 56.dp).clickable { toolsExpanded = !toolsExpanded },
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Row(verticalAlignment = Alignment.CenterVertically) {
+                            Glyph("chart", Green, Modifier.size(20.dp))
+                            Text(
+                                "出车工具与状态",
+                                fontSize = 18.sp,
+                                fontWeight = FontWeight.Bold,
+                                color = Ink,
+                                modifier = Modifier.padding(start = 8.dp)
+                            )
+                        }
+                        Text(if (toolsExpanded) "收起 ▲" else "展开地图与工具 ▼", color = Green, fontSize = 14.sp, fontWeight = FontWeight.Medium)
+                    }
+                    if (toolsExpanded) {
+                        Spacer(Modifier.height(12.dp))
+                        Box {
+                            NativeMap(Modifier.fillMaxWidth().height(140.dp).clip(RoundedCornerShape(8.dp)))
+                            Surface(
+                                Modifier.padding(8.dp),
+                                color = Color.White.copy(alpha = .94f),
+                                shape = RoundedCornerShape(8.dp),
+                            ) {
+                                Row(Modifier.padding(horizontal = 8.dp, vertical = 6.dp), verticalAlignment = Alignment.CenterVertically) {
+                                    Box(
+                                        Modifier.size(8.dp)
+                                            .clip(CircleShape)
+                                            .background(if (state.online) Green else Muted)
+                                    )
+                                    Text(
+                                        if (state.online) "听单中" else "休息中",
+                                        fontSize = 14.sp,
+                                        fontWeight = FontWeight.Medium,
+                                        modifier = Modifier.padding(start = 6.dp),
+                                    )
+                                }
+                            }
+                        }
+                        Spacer(Modifier.height(10.dp))
+                        Column(Modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                            Text("定位：$positionStatus", color = Muted, fontSize = 16.sp, lineHeight = 24.sp)
+                            if (state.online)
+                                Text("播报：$speechStatus", color = Muted, fontSize = 16.sp, lineHeight = 24.sp)
+                        }
+                        if (state.online) {
+                            Spacer(Modifier.height(8.dp))
+                            Row(
+                                Modifier.fillMaxWidth().background(Pale, RoundedCornerShape(8.dp)).padding(10.dp),
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                Glyph("shield", Green, Modifier.size(20.dp))
+                                Text(
+                                    "安全提醒：连续驾驶请劳逸结合，保持车距安全行车。",
+                                    color = Muted,
+                                    fontSize = 14.sp,
+                                    modifier = Modifier.padding(start = 8.dp)
+                                )
+                            }
+                        }
+                        if (active == null && canAccept && state.online) {
+                            Spacer(Modifier.height(10.dp))
+                            Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+                                OutlinedButton(
+                                    onClick = { navigate("negotiate") },
+                                    enabled = features.optBoolean("canNegotiate"),
+                                    modifier = Modifier.weight(1f).heightIn(min = 56.dp),
+                                    shape = RoundedCornerShape(10.dp),
+                                ) {
+                                    Glyph("scan", modifier = Modifier.size(18.dp))
+                                    Text("线下议价", fontSize = 16.sp, modifier = Modifier.padding(start = 4.dp))
+                                }
+                                OutlinedButton(
+                                    onClick = { navigate("heat") },
+                                    enabled = features.optBoolean("canHeatmap"),
+                                    modifier = Modifier.weight(1f).heightIn(min = 56.dp),
+                                    shape = RoundedCornerShape(10.dp),
+                                ) {
+                                    Glyph("chart", modifier = Modifier.size(18.dp))
+                                    Text("热力分布", fontSize = 16.sp, modifier = Modifier.padding(start = 4.dp))
+                                }
+                            }
+                            if (!features.optBoolean("canNegotiate")) {
+                                Text(
+                                    "线下议价暂不可用：当前城市或会员等级未开放此权益。",
+                                    color = Muted,
+                                    fontSize = 14.sp,
+                                    modifier = Modifier.padding(top = 6.dp)
+                                )
+                                CoreTextButton(onClick = { navigate("benefits") }) {
+                                    Text("查看线下议价权益", fontSize = 14.sp)
+                                }
+                            }
+                        }
                     }
                 }
             }
-        }
-        item {
-            Text(
-                "定位：$positionStatus",
-                color = Muted,
-                fontSize = 16.sp,
-                modifier = Modifier.padding(horizontal = 3.dp),
-            )
-            if (state.online)
-                Text(
-                    "播报：$speechStatus",
-                    color = Muted,
-                    fontSize = 14.sp,
-                    modifier = Modifier.padding(horizontal = 3.dp, vertical = 3.dp),
-                )
         }
         item { SheetCard { StatsRow(state) } }
-        if (active == null && canAccept && state.online) {
-            item {
-                Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
-                    OutlinedButton(
-                        onClick = { navigate("negotiate") },
-                        enabled = features.optBoolean("canNegotiate"),
-                        modifier = Modifier.fillMaxWidth().heightIn(min = 64.dp),
-                        shape = RoundedCornerShape(12.dp),
-                    ) {
-                        Glyph("scan", modifier = Modifier.size(18.dp))
-                        Text("线下议价", fontSize = 20.sp, modifier = Modifier.padding(start = 6.dp))
-                    }
-                    OutlinedButton(
-                        onClick = { navigate("heat") },
-                        enabled = features.optBoolean("canHeatmap"),
-                        modifier = Modifier.fillMaxWidth().heightIn(min = 64.dp),
-                        shape = RoundedCornerShape(12.dp),
-                    ) {
-                        Glyph("chart", modifier = Modifier.size(18.dp))
-                        Text("热力分布", fontSize = 20.sp, modifier = Modifier.padding(start = 6.dp))
-                    }
-                }
-            }
-            if (!features.optBoolean("canNegotiate"))
-                item {
-                    Text("线下议价暂不可用：当前城市或会员等级未开放此权益，请查看本城权益与开通条件。", color = Muted, fontSize = 16.sp)
-                    CoreTextButton(onClick = { navigate("benefits") }) { Text("查看线下议价权益") }
-                }
-        }
         item { MembershipSummaryCard(store, navigate) }
         item {
             Text(
-                "云端独立服务 · 数据不会提交到现有测试环境",
+                "体验环境 · 业务数据仅供模拟展示",
                 fontSize = 14.sp,
                 color = Muted,
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier.fillMaxWidth().padding(vertical = 4.dp),
+                textAlign = TextAlign.Center
             )
         }
     }
@@ -665,8 +742,8 @@ fun ConnectedProfile(
     val profile = payload.optJSONObject("profile") ?: JSONObject()
     val d = profile.optJSONObject("driver") ?: JSONObject()
     LazyColumn(
-        contentPadding = PaddingValues(18.dp),
-        verticalArrangement = Arrangement.spacedBy(14.dp),
+        contentPadding = PaddingValues(horizontal = 14.dp, vertical = 10.dp),
+        verticalArrangement = Arrangement.spacedBy(12.dp),
     ) {
         item { PageHeader("司机之家", action = "设置", onAction = { navigate("settings") }) }
         item {
@@ -675,39 +752,55 @@ fun ConnectedProfile(
                     Modifier.fillMaxWidth().clickable { navigate("driver") },
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
-                    Glyph("profile", modifier = Modifier.size(40.dp))
-                    Column(Modifier.weight(1f).padding(start = 15.dp)) {
-                        Text("司机资料", fontSize = 24.sp, fontWeight = FontWeight.Bold)
+                    Box(
+                        Modifier.size(46.dp)
+                            .clip(RoundedCornerShape(10.dp))
+                            .background(Pale),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Glyph("profile", Green, Modifier.size(28.dp))
+                    }
+                    Column(Modifier.weight(1f).padding(start = 12.dp)) {
+                        Text("司机资料", fontSize = 20.sp, fontWeight = FontWeight.Bold, color = Ink)
                         Text(
                             "姓名：${d.optString("name", "司机")}",
                             fontSize = 18.sp,
-                            modifier = Modifier.padding(top = 8.dp),
+                            fontWeight = FontWeight.Medium,
+                            modifier = Modifier.padding(top = 4.dp),
                         )
                         Text(
                             d.optString("licensePlate", d.optString("plate", "未完善车辆资料")),
                             color = Muted,
-                            fontSize = 18.sp,
-                            modifier = Modifier.padding(top = 7.dp),
+                            fontSize = 16.sp,
+                            modifier = Modifier.padding(top = 2.dp),
                         )
-                        Row(Modifier.padding(top = 8.dp), verticalAlignment = Alignment.CenterVertically) {
+                        Column(
+                            Modifier.fillMaxWidth().padding(top = 6.dp),
+                            verticalArrangement = Arrangement.spacedBy(6.dp)
+                        ) {
                             val serviceScoreObj = profile.optJSONObject("serviceScore")
                             val scoreValue = serviceScoreObj?.optInt("value", serviceScoreObj.optInt("score", -1)) ?: -1
-                            val scoreText = if (scoreValue > 0) "服务卡 · 服务分 ${scoreValue}分" else "服务卡 · 暂未考核"
+                            val scoreText = if (scoreValue > 0) "服务分 ${scoreValue}分" else "服务分 暂未考核"
                             Pill(scoreText, if (scoreValue >= 90) Green else Ink)
-                            Spacer(Modifier.width(8.dp))
                             val org = d.optString("organization", d.optString("company", "未提供组织信息"))
-                            Text(org, color = Muted, fontSize = 14.sp)
+                            Text(
+                                org,
+                                color = Muted,
+                                fontSize = 16.sp,
+                                lineHeight = 24.sp,
+                                modifier = Modifier.fillMaxWidth()
+                            )
                         }
                     }
-                    Glyph("right", Muted, Modifier.size(18.dp))
+                    Glyph("right", Muted, Modifier.size(20.dp))
                 }
             }
         }
         item {
             SheetCard {
-                Text("运营明细（累计）", fontSize = 18.sp, fontWeight = FontWeight.Bold)
+                Text("运营明细（累计）", fontSize = 18.sp, fontWeight = FontWeight.Bold, color = Ink)
                 Row(
-                    Modifier.fillMaxWidth().padding(top = 12.dp),
+                    Modifier.fillMaxWidth().padding(top = 10.dp),
                     horizontalArrangement = Arrangement.SpaceAround
                 ) {
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {

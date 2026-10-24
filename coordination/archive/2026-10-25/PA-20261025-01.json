@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "id": "PA-20261025-01",
+  "owner": "frontend",
+  "goal": "恢复乘客Android并与小程序实际可用业务对齐，保留1.1.6已修复的共享订单和待付款限制；新增界面能力不得冒充真实营销账务；测试后发布独立体验包。",
+  "baseSha": "ea8273957c02fe2bcd77b4ffd63260ef791fae94",
+  "allow_paths": [
+    "apps/passenger-android/",
+    "coordination/evidence/PA-20261025-01/"
+  ],
+  "checks": [
+    "司机0.3.7共享后端兼容，乘客未付款阻止新单但不阻塞司机",
+    "补齐卡券/积分/邀请演示、安全联系人与司机卡，账号隔离、不假承诺",
+    "原生地址选择保留真实坐标，搜索不得只改名称沿用旧坐标",
+    "相关单测与构建、同签名覆盖安装、独立UI检查和公开回读"
+  ],
+  "status": "DEPLOYED_SCOPED_ACCEPTANCE",
+  "acceptance": "PASS",
+  "tests": [
+    {
+      "command": "Gradle testDebugUnitTest assembleDebug --offline; 20 tests; backend frozen source review; device smoke as recorded",
+      "status": "PASS",
+      "exitCode": 0,
+      "sourceSha": "dd51abcbd809432479c159c1e0928c05edeedb83"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "coordination/evidence/PA-20261025-01/build-result.json",
+      "sha256": "a47e5592e218a428e4d20ce00795d227161fea5f2fc78b1eba37aa2a820f681a"
+    },
+    {
+      "path": "coordination/evidence/PA-20261025-01/backend-review.md",
+      "sha256": "86bf6bc4f8b9b788d2cbcb804d37014ffc4631f536b6301579f63d75b5d218c6"
+    },
+    {
+      "path": "coordination/evidence/PA-20261025-01/device-acceptance.json",
+      "sha256": "544b418823b0261ac9d0c69fd20747d5a85eb6e2832c43d17ec9cdb6301e8f7c"
+    },
+    {
+      "path": "coordination/evidence/PA-20261025-01/release-decision.json",
+      "sha256": "0572e6fbfd2c87b7f5720be9749e6005a333d8c5077fa1a2f690d1a800a3bd09"
+    }
+  ],
+  "nextAction": "Idle; remaining NOT_RUN retained for next iteration",
+  "deploy_owner": "coordinator",
+  "releaseReady": true,
+  "acceptedSha": "dd51abcbd809432479c159c1e0928c05edeedb83",
+  "reviewer": "backend",
+  "acceptanceScope": "Limited experience release; independent source review and author device smoke, no claim of new complete three-client flow"
+}
