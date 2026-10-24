@@ -1,11 +1,8 @@
-# coordinator 交接卡 2026-10-25 02:07
-唯一验收/发布负责人coordinator。只恢复STATE/BOARD/3任务卡和此卡。用户总工作≤2小时，目标02:15收口；节省额度，不空转。
-当前clone .coordination/integration-ag-final，branch codex/passenger-android-parity-20261025，HEAD097e3e47ea05f545705a588a9da7beb23bb9ec4b。main ea827395...。
-PA：frontend已冻结7新改源码，root正在离线构建日志.coordination/passenger117-build.log；正确JAVA_HOME /opt/homebrew/opt/openjdk@17/libexec/openjdk.jdk/Contents/Home，ANDROID_HOME /opt/homebrew/share/android-commandlinetools。backend非作者审查；frontend模拟器5584安装r/保留数据有限UI验收，禁操作原订单。code9/version1.1.7。核心Store/Journal等5文件exact保留。
-AD：Gemini生成CSS/overview已应用，root修好margin重复偏移/导航footer/数字断行。synthetic预览53413PID90937，图evidence/AD-20261025-01/local-synthetic-overview-fixed.png，无云写。backend复核。CloudBuild f669acad-81be-462b-a27b-591fd0df9b4a成功：admin-ui@sha256:35726abba61d4ddc4ba49733a726ce81218fac400a212a2f554121cfb6c0a15c。FROM现有admin037仅覆盖static3文件，尚未部署。PASS后仅update driver-admin image保留IAP/ENV/0..1/请求计费，真浏览器回读。回滚原admin-browser@sha256:037b157a28476720b848055bf493f06dad547155240f8219638771bc00c16086。
-WX：profile真正base订阅恢复/身份id本地积分/退出零权益/无虚假注册送券；drivercard去虚构评分车辆；SOS去虚构行程和已发送。58/58单测PASS，preview已重建。重新ZIP并同WECHAT_TRIAL_SETUP.md交付；无AppID，微信真机NOT_RUN，不阻塞其他端。
-CLI已核实：旧.local/bin/agy独立CLI与Gemini.app/Contents/Helpers/agy不同，实际hub为Gemini子进程，无旧App。项目固定内置入口，4.9秒probe成功。PA长任务7de1d11c无产出且超时，精确停止收到STOPPED；不再续跑，Gemini当前无任务。用户已commentary收到准确解释。GEMINI_CLI.md已纠正。
-司机037公开已实测可下载/哈希/签名。此轮别改driver-demo/backend/数据/IAM。不用原eztrips环境，仅菜单标签参考，不保存PII。
-剩余：审查结论→原子提交源码/文档→现有门禁准确范围证据→admin部署+IAP回读；PA测试/UI PASS才发布APK到现有GCS passenger对象，备份/代次前置条件/完整直连GET验证；未达到不冒充已部署。将任务状态、最终结果、handoff、证据及PR更新并清理自建preview服务器。
-
-2026-10-25 02:14最终回读：admin revision driver-admin-ui20261025=100%，IAP和admin浏览器真登录PASS，18旧单保留/待付1/完成7/取消9/待接1/完成已付16124分。max1 automatic/cpu-throttling/IAP/ENV保留，仅static覆盖。乘客1.1.7/code9公开完整直连GET+哈希签名PASS，20单测/构建/保留登录与联系人等限定smoke+非作者源码审查PASS。Geocoder模拟器不可用，失败兜底PASS；新完整三端流程NOT_RUN。小程序58测试PASS/ZIP更新，无AppID和微信真机，NOT_RUN。Gemini内置CLI固定，异常任务停止，无常驻；各角色idle。source dd51abcbd809432479c159c1e0928c05edeedb83。
+# coordinator UI轮交接 02:40
+UI-20261025-02用户明确Gemini主设计司机/乘客原生UI。产品已提交d63fb82620c77466177b80a96e93c45e2428ac74，branch codex/gemini-native-ui-20261025。当前clone .coordination/integration-ag-final，基线main f0f092...。
+Gemini内置CLI司机db715a0a(162秒)/乘客f1b0621d(184秒)已真实返回29函数+主题代码，evidence/UI.../*gemini-design.json。首轮96ee读图headless权限拒绝无产出、不算完成；后两轮严格无工具输入root实际看图观察和源码，不能声称Gemini看图。所有Gemini调用已结束，当前无Gemini任务。
+root应用，修普通字对比Green007A5E/OrangeA65A0A，missing imports。司机r1构建漏云源参数被独立测试拦住；r2重复2.dex，clean r3成功。r3 UI首页抢单按钮首屏完整、确认取消/菜单等PASS，定位和播报挤列、公司名大字截断已修Column全换行，折叠头56dp。乘客r2成功，新黑CTA/路线卡；r3调整white surfaceTint透明/正文16sp/菜单间距8/地点说明放设置后。
+Documents构建r3在文件hash读取阻塞，已精确SIGTERM15581/16049(仅本轮Gradle)。两端最终构建输出隔离到 /Users/dongge/.codex/tmp/yijiexing-native-ui-20261025/<driver|passenger>/_app，project cache也外移；init scripts同根。命令都--offline/--max-workers1/in-process -Xmx1536m，显式-PYIJ_CLOUD_ORIGIN=https://driver-demo-491829048305.us-west1.run.app。日志.coordination/driver038-ui-build-final.log 和passenger118-ui-build-final.log，session75394/78072。最终APK在隔离目录，别用旧app/build APK。
+frontend会话01a167c8...独立设备验收中，5586司机003/5584乘客0102，只读/确认后取消/字体1.3需恢复1.0，无业务提交。after目录有逐页PNG/XML，新r3 font13报告待回。backend01a168e2...非作者代码review两端PASS，13核心文件exact，报告driver/passenger-backend-review.md；最终只布局跟进需短读。
+原公开仍driver037/passenger117/admin新UI不变。保留18历史单，禁止接单支付取消原单。新UI版本目标driver038code11/passenger118code10；须最终测试与独立视觉PASS后root唯一发布。云端两APK对象已server-side备份并记录代次到driver/passenger-rollback.json；发布脚本.coordination/publish-ui-apk.py要求UI任务exactSHA PASS门禁。无新后端/admin/IAM/数据变更。
+剩余：最终构建成功→给frontend准确路径hash覆盖，仅复查修处+大字/弹窗；冻结source d63...，核对tests55/20、signature、origin、hash；短非作者末差异确认；UI任务PASS/evidence绑定→直连APK上传/完整GET/签名回读→PR附加/CI/合并→交付两链接及新截图。根所有路径用绝对root，避免多clone cwd误写；STATE/BOARD当前从root同步。

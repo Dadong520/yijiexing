@@ -1,0 +1,77 @@
+{
+  "schemaVersion": 1,
+  "id": "UI-20261025-02",
+  "owner": "antigravity",
+  "goal": "Gemini主导重设计司机与乘客Android UI：司机大字清晰一屏优先接单；乘客简洁叫车视觉。保留全部业务/账户/权限，适用测试和独立视觉验收后发布APK。",
+  "baseSha": "f0f0920995dcf89dfc5f6125542e26af86cf110d",
+  "allow_paths": [
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/UiKit.kt",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/CoreScreens.kt",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/MainActivity.kt",
+    "candidates/driver-0.3.6-r2/android/app/build.gradle.kts",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/MainActivity.kt",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/UiComponents.kt",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/BookingScreens.kt",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/ProfileScreens.kt",
+    "apps/passenger-android/app/build.gradle.kts",
+    "coordination/evidence/UI-20261025-02/"
+  ],
+  "checks": [
+    "Gemini真实产出代码，非仅建议；短分批任务禁止无产出循环",
+    "司机首屏显著可接单入口，大字按钮/可滚动/系统大字不截关键动作",
+    "两端核心Store/金额/支付/请求幂等/旧订单不变，无虚构权益或状态",
+    "离线单测构建/同签名覆盖/模拟器前后截图与独立验收",
+    "协调者唯一APK发布，直连优先、回滚备份、完整公开GET验哈希；后端/admin不变"
+  ],
+  "status": "ACCEPTED_PENDING_MERGE_DEPLOY",
+  "acceptance": "PASS",
+  "tests": [
+    {
+      "command": "driver offline testDebugUnitTest assembleDebug;55 tests; fixed cloud origin/signature; driver subtree unchanged by passenger-only final commit",
+      "status": "PASS",
+      "exitCode": 0,
+      "sourceSha": "55dce79f58a780a1de1ea88c448a774bac03fc9f"
+    },
+    {
+      "command": "passenger final white-theme offline testDebugUnitTest assembleDebug;20 tests; fixed origin/signature",
+      "status": "PASS",
+      "exitCode": 0,
+      "sourceSha": "55dce79f58a780a1de1ea88c448a774bac03fc9f"
+    },
+    {
+      "command": "frontend independent emulator bounded UI acceptance and fixed findings retest; both APK hashes/source bound in reports",
+      "status": "PASS",
+      "exitCode": 0,
+      "sourceSha": "55dce79f58a780a1de1ea88c448a774bac03fc9f"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "coordination/evidence/UI-20261025-02/driver-build-result.json",
+      "sha256": "51e8e8deb9eee338671516797c1935dcded9ca43d02469c7dc2c134102bc5b34"
+    },
+    {
+      "path": "coordination/evidence/UI-20261025-02/passenger-build-result.json",
+      "sha256": "b5614f29eed9728647d4318fc6c6be870e29dbc7c74ed33abfe563a664cccc4b"
+    },
+    {
+      "path": "coordination/evidence/UI-20261025-02/final-business-review.md",
+      "sha256": "091f403109ca30d84c11e8de199d85c0ac4201fc606fd3cbc957482f223491fa"
+    },
+    {
+      "path": "coordination/evidence/UI-20261025-02/after/driver/driver-visual-review.json",
+      "sha256": "fe4386ae75953fa0811d80ab70bf6235ab5b504e283d32c41fa40e8f7ac7a15e"
+    },
+    {
+      "path": "coordination/evidence/UI-20261025-02/after/passenger/passenger-visual-review.json",
+      "sha256": "c5a82de1aa76f8f53a0d9b20e87e339500bc7d8dd757f70b77ae361e8e70fbca"
+    }
+  ],
+  "nextAction": "Merge PR10 after CI then guarded direct APK publication and full download verification",
+  "deploy_owner": "coordinator",
+  "releaseReady": true,
+  "candidateSha": "55dce79f58a780a1de1ea88c448a774bac03fc9f",
+  "acceptedSha": "55dce79f58a780a1de1ea88c448a774bac03fc9f",
+  "reviewer": "frontend",
+  "acceptanceScope": "Bounded two-client UI release: normal and1.3 fonts, existing session preserved; business core unchanged; no new full three-client lifecycle"
+}

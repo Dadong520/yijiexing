@@ -1,0 +1,9 @@
+{
+  "candidate": "driver038-r3",
+  "apkSha256": "6e51bcf433d18f823424dc211a287563cf5434010b83590b785a47cd5ba4a22b",
+  "bytes": 54010889,
+  "version": "0.3.8-cloud",
+  "versionCode": 11,
+  "fixedCloudOriginVerifiedInDex": "https://driver-demo-491829048305.us-west1.run.app",
+  "fontOriginal": "1.0"
+}

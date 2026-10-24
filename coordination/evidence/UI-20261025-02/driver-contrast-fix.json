@@ -1,0 +1,13 @@
+{
+  "reportedBy": "frontend independent review",
+  "oldBrand": "#059669",
+  "oldWhiteContrast": 3.77,
+  "newBrand": "#007A5E",
+  "newWhiteContrast": 5.32,
+  "oldWarning": "#D97706",
+  "oldWarningWhiteContrast": 3.19,
+  "newWarning": "#A65A0A",
+  "newWarningWhiteContrast": 5.14,
+  "reason": "preserve Gemini hierarchy; improve legibility for ordinary-size labels and older drivers",
+  "status": "source fixed pending rebuild and UI retest"
+}

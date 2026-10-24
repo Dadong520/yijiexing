@@ -1,0 +1,200 @@
+{
+  "task": "UI-20261025-02",
+  "completedAt": "2026-10-25T02:26:37+08:00",
+  "status": "BEFORE_CAPTURE_AND_BOUNDED_VISUAL_AUDIT_COMPLETE",
+  "reviewer": "frontend",
+  "sourceOwner": "Gemini via coordinator; no implementation performed by this reviewer",
+  "captureMethod": "fresh Android uiautomator XML + exact adb screencap, each accepted saved PNG visually inspected",
+  "outputFormat": "before-audit.json with per-step screenshot references (coordinator requested)",
+  "devices": [
+    {
+      "serial": "emulator-5586",
+      "package": "cn.hbzjhs.dc.driver.cloud",
+      "version": [
+        "versionCode=10 minSdk=26 targetSdk=34",
+        "versionName=0.3.7-cloud"
+      ],
+      "installedApkSha256": "226a43e90a242d537cf90ce889e8961f9b6cb2f5f481a34f9a9df5fabec0ffad",
+      "fontScale": "1.0",
+      "size": "Physical size: 1080x2400",
+      "density": "Physical density: 420"
+    },
+    {
+      "serial": "emulator-5584",
+      "package": "cn.hbzjhs.dc.passenger.cloud",
+      "version": [
+        "versionCode=9 minSdk=26 targetSdk=34",
+        "versionName=1.1.7-experience"
+      ],
+      "installedApkSha256": "a36ec7f139351cb5db33749ebbc00805c5345f8b9aa319bac228fbd40ab8dca9",
+      "fontScale": "1.0",
+      "size": "Physical size: 1080x2400",
+      "density": "Physical density: 420"
+    }
+  ],
+  "acceptedScreenshotCount": 9,
+  "steps": [
+    {
+      "step": 1,
+      "screen": "司机首页首屏",
+      "screenshot": "driver/frontend-01-home-top-clean.png",
+      "xml": "driver/frontend-01-home-top-clean.xml",
+      "sha256": "ca8d7962f7161bfb17edb4a2451076865e02b3b84e6e1ab22e607aeece32b2d1",
+      "reviewedActualSavedImage": true,
+      "health": "接单入口被信息块压到首屏之外",
+      "visibleIssues": [
+        "身份与服务连接、听单卡、待收款卡、安全提醒连续堆叠；首屏只出现附近订单标题，不见实际单卡或接单按钮",
+        "结束听单按钮视觉权重大于真实接单目标，信息提示与主操作争夺注意力"
+      ],
+      "recommendation": "压缩顶部身份和状态；待收款/安全提醒保留但改轻量摘要，把首张可接订单和动作优先留在首屏"
+    },
+    {
+      "step": 2,
+      "screen": "司机首页下滑后的可接单卡",
+      "screenshot": "driver/frontend-02-order-card.png",
+      "xml": "driver/frontend-02-order-card.xml",
+      "sha256": "cc3760c6b1290d20bb664d3765f4de9a350c8c5c8a0746d51dbf833fe5baadac",
+      "reviewedActualSavedImage": true,
+      "health": "可用但单卡高度过大",
+      "visibleIssues": [
+        "订单类型、距离、起终点、价格、里程和大按钮分成多层，单卡占据很大高度",
+        "接单设置和通用说明在订单前再占一行；扫读多单需大量纵向移动"
+      ],
+      "recommendation": "保持起终点/金额/接单动作清晰，收紧辅助信息和重复说明；不可仅全局缩字号"
+    },
+    {
+      "step": 3,
+      "screen": "司机订单列表",
+      "screenshot": "driver/frontend-03-order-list.png",
+      "xml": "driver/frontend-03-order-list.xml",
+      "sha256": "a4ce270b507d5db382b2fa4b354f1f4cfc0c17426c3c4469b04a2d096f957a43",
+      "reviewedActualSavedImage": true,
+      "health": "可用但列表密度低",
+      "visibleIssues": [
+        "五个大分类按钮换成两行，挤占列表视口",
+        "首屏约一张完整订单加下一张局部，查看详情按钮与首页接单按钮同样突出"
+      ],
+      "recommendation": "分类用清楚的一行可横向浏览或紧凑选项；历史订单卡以状态/路线/金额为主，详情动作降为清晰次级入口"
+    },
+    {
+      "step": 4,
+      "screen": "司机我的首屏",
+      "screenshot": "driver/frontend-04-profile.png",
+      "xml": "driver/frontend-04-profile.xml",
+      "sha256": "bb86847c6975402690090f516f406269fcfb169ecffc8644c7116c0ef7227d45",
+      "reviewedActualSavedImage": true,
+      "health": "资料正确但层级与排版需调整",
+      "visibleIssues": [
+        "服务分胶囊与企业名横排，企业名生硬折成窄两行",
+        "头像/资料、运营、会员均为大块同等圆角卡，钱包/常用功能首屏只露部分"
+      ],
+      "recommendation": "企业名独立成行，合并身份/服务分摘要；运营与钱包信息有明确主次，会员不抢关键功能空间"
+    },
+    {
+      "step": 5,
+      "screen": "司机我的下滑菜单",
+      "screenshot": "driver/frontend-05-profile-more.png",
+      "xml": "driver/frontend-05-profile-more.xml",
+      "sha256": "d1a179ba498dcfd28bc7839aa3b8b27a2250dff0462e993368ebc57a5dcf1c75",
+      "reviewedActualSavedImage": true,
+      "health": "菜单可达但空间利用松散",
+      "visibleIssues": [
+        "图标底板和菜单行高度大，常用入口分散到多屏",
+        "会员卡、资金、资质与积分没有足够明显的操作优先级区分"
+      ],
+      "recommendation": "保留大触点，减少图标底板和容器重复留白；常用钱包/订单/资质集中，营销权益置后"
+    },
+    {
+      "step": 6,
+      "screen": "乘客首页（已有待接单）",
+      "screenshot": "passenger/device-01-home.png",
+      "xml": "passenger/device-01-home.xml",
+      "sha256": "bc46c75f376bb53168fc9003fc391208686de726fe1f824b0dbebeb829bf8fb0",
+      "reviewedActualSavedImage": true,
+      "health": "当前行程可达但新叫车表单与现有行程竞争",
+      "visibleIssues": [
+        "已有进行中订单的提示卡与可编辑起终点/用车方式同时占屏，容易混淆当前单与新单表单",
+        "地址卡内长篇系统搜索/坐标说明压低方式选择；底部查看当前行程虽然明确，页面中部仍像可直接重叫"
+      ],
+      "recommendation": "已有订单时优先展示行程状态与路线，收起新叫车表单；技术说明保留为必要时可展开帮助，不伪造地图/定位能力"
+    },
+    {
+      "step": 7,
+      "screen": "乘客我的首屏",
+      "screenshot": "passenger/device-02-profile.png",
+      "xml": "passenger/device-02-profile.xml",
+      "sha256": "2f4cdd4c3069e920f33b2e9dcc5e894938d3fcb08ccf82f9a670b3275b7eacde",
+      "reviewedActualSavedImage": true,
+      "health": "信息清楚但纵向占用偏大",
+      "visibleIssues": [
+        "个人身份卡和四条出行服务占据近整屏，新增安全/权益入口在下方",
+        "姓名/手机号/城市/编辑资料分散且身份卡很高，与司机端的导航背景/卡片组织不完全一致"
+      ],
+      "recommendation": "与司机端统一品牌色/圆角/导航选中态；身份信息紧凑分组，关键安全与常用服务更易发现"
+    },
+    {
+      "step": 8,
+      "screen": "乘客我的下滑功能",
+      "screenshot": "passenger/device-03-profile-more.png",
+      "xml": "passenger/device-03-profile-more.xml",
+      "sha256": "e12581e32a1e9e31afee2181e7e57c2c0c7bb92a9324a7964cda076698c62abd",
+      "reviewedActualSavedImage": true,
+      "health": "演示标识清楚，分组仍可改善",
+      "visibleIssues": [
+        "安全中心与联系人与卡券/积分/邀请一起放在功能体验中，容易把实际本机安全联系功能和营销演示混为一类",
+        "说明文案、行距与重复箭头构成长列表，帮助入口继续往下延伸"
+      ],
+      "recommendation": "安全独立分组并标明本机能力；演示营销保持独立弱化且不假装实际资产，统一行高/说明层次"
+    },
+    {
+      "step": 9,
+      "screen": "乘客现存待接单详情",
+      "screenshot": "passenger/device-04-order-detail.png",
+      "xml": "passenger/device-04-order-detail.xml",
+      "sha256": "558ff92263c81340e7990cd1ac03396860f0b93b4738c517c7ce59c77bd0c838",
+      "reviewedActualSavedImage": true,
+      "health": "状态与金额可见，信息组织偏长",
+      "visibleIssues": [
+        "订单编号入口、提示卡、费用、路线各自独立成块，重复留白使详情变长",
+        "普通即时单显示通用等待司机接单/报价标题；行程管理继续在首屏下方，下一步优先级不够集中"
+      ],
+      "recommendation": "状态标题按真实单型呈现；聚合状态/路线/金额摘要，辅助编号/长说明按需展开，取消等操作保持明确而不误触"
+    }
+  ],
+  "rejectedScreenshots": [
+    {
+      "screenshot": "driver/frontend-01-home-top.png",
+      "reason": "Transient system Google Play notification covers app header; replaced with reviewed clean capture; do not use as design reference"
+    }
+  ],
+  "crossSurfacePriorities": [
+    "司机核心接单卡/主动作先出现在首屏；通用状态、收款、安全提示不再等大堆叠",
+    "减少圆角卡/图标底板/分类按钮的重复留白，保持年长用户易读字号和大触点",
+    "统一两端色彩、边距、圆角、图标、按钮层级与导航规则，仍区分司机接单和乘客出行任务",
+    "真实状态、累计口径、演示标签及未接能力边界保留，不能用假地图/假优惠或假认证提升视觉"
+  ],
+  "strengths": [
+    "中文状态、起终点和金额明确；主按钮和导航触点大",
+    "真实待收款/累计统计/服务分/企业与演示说明已显示，重设计应保持数据来源与限制",
+    "两端登录与既有记录可正常打开，无需为设计制造新订单"
+  ],
+  "accessibilityRisks": [
+    "正常字号1.0已出现核心动作出屏和多屏菜单；需优先精简信息，而非缩字",
+    "灰色说明较多且部分文字密集，需后续测量对比度/字号和缩放重排；本轮未做定量合规认定",
+    "服务卡窄列企业名换行影响扫读，需在长名称和1.3/1.5字体下复测"
+  ],
+  "limitsAndNotRun": [
+    "仅当前真实已登录状态/固定分辨率截屏；TalkBack/所有字号/横屏/真机/动效未测",
+    "没有接单/创建订单/支付/取消/拨号/清数据；未为审查修改保留记录",
+    "未重新查询后台18单总数，不能把截图当作18条逐项数据核验",
+    "没有改产品源码、运行Gemini或派代理、构建或部署",
+    "任务JSON在首次读取时尚未落盘，按coordinator直接授权的截图/证据路径执行；未改STATE/BOARD/任务文件"
+  ],
+  "handback": {
+    "5584": "passenger app force-stopped then HOME; login/data retained",
+    "5586": "driver app force-stopped then HOME; login/data retained",
+    "cloudConfigurationChanged": false,
+    "businessMutationActions": 0
+  },
+  "next": "coordinator将clean首页及本截图集交Gemini主设计；frontend等待新稿/实现后的独立UI验收派单"
+}

@@ -1,0 +1,6 @@
+{
+  "object": "gs://yijiexing-demo-state-491829048305/distribution/yijiexing-cloud.apk",
+  "beforeGeneration": "1792862917933200",
+  "backup": "gs://yijiexing-demo-state-491829048305/distribution/rollback/driver-before-ui-20261025-1792862917933200.apk",
+  "serverSideCopy": true
+}

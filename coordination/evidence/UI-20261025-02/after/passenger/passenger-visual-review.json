@@ -1,0 +1,203 @@
+{
+  "taskId": "UI-20261025-02",
+  "reviewer": "frontend independent session 01a167c8-a5eb-77e3-b77e-214927a029da",
+  "at": "2026-10-25T02:49:04.743983+08:00",
+  "acceptance": "PASS",
+  "scope": "Bounded passenger native UI acceptance; no full business/provider certification",
+  "acceptedSourceSha": "55dce79f58a780a1de1ea88c448a774bac03fc9f",
+  "apk": {
+    "sourceSha": "55dce79f58a780a1de1ea88c448a774bac03fc9f",
+    "apkPath": "/Users/dongge/.codex/tmp/yijiexing-native-ui-20261025/passenger/_app/outputs/apk/debug/app-debug.apk",
+    "apkSha256": "5ee70fd105e529ed5fdef9f422bbf7bcecf8e09402b64fda6aa14df2ae021f23",
+    "bytes": 8533149,
+    "versionName": "1.1.8-experience",
+    "versionCode": 10,
+    "signerSha256": "9ffec9b342d12909ff288bd73f23ba104893b39120cb24ea83c9734a0d2b758f",
+    "unitTests": 20,
+    "failed": 0,
+    "origin": "https://driver-demo-491829048305.us-west1.run.app",
+    "buildScope": "offline isolated local output; source from feature branch",
+    "installedSha256": "5ee70fd105e529ed5fdef9f422bbf7bcecf8e09402b64fda6aa14df2ae021f23"
+  },
+  "device": {
+    "serial": "emulator-5584",
+    "resolution": [
+      1080,
+      2400
+    ],
+    "densityDpi": 420,
+    "fontScalesTested": [
+      1.0,
+      1.3
+    ],
+    "restoredFontScale": 1.0,
+    "accountSuffix": "0102"
+  },
+  "evidence": [
+    {
+      "png": "device-final-01-home-font10.png",
+      "xml": "device-final-01-home-font10.xml",
+      "sha256": "3e9ce8f98086f4c30209d433dbb22e2b17f95c0c0cc561a2cded01fdb07d260d",
+      "apkSha256": "f283cff17a96a6574d361d50b1d9663718f774032fffa7b450ee949d2b7a6bcf",
+      "fontScale": 1.0,
+      "visuallyInspected": true,
+      "acceptedFor": "UI interactions/layout; older gray surface color superseded by white-only patch"
+    },
+    {
+      "png": "device-final-02-profile-font10.png",
+      "xml": "device-final-02-profile-font10.xml",
+      "sha256": "871fc1d44620d66872cd19e93995c6fb6c6ede6b4f68a4bb50ad8666bd287997",
+      "apkSha256": "f283cff17a96a6574d361d50b1d9663718f774032fffa7b450ee949d2b7a6bcf",
+      "fontScale": 1.0,
+      "visuallyInspected": true,
+      "acceptedFor": "UI interactions/layout; older gray surface color superseded by white-only patch"
+    },
+    {
+      "png": "device-final-03-orders-font10.png",
+      "xml": "device-final-03-orders-font10.xml",
+      "sha256": "d7bc0ec79a60a8b399cb889c219e76dead06fb6dee24356f70baa24a62855a50",
+      "apkSha256": "f283cff17a96a6574d361d50b1d9663718f774032fffa7b450ee949d2b7a6bcf",
+      "fontScale": 1.0,
+      "visuallyInspected": true,
+      "acceptedFor": "UI interactions/layout; older gray surface color superseded by white-only patch"
+    },
+    {
+      "png": "device-final-04-home-font13.png",
+      "xml": "device-final-04-home-font13.xml",
+      "sha256": "a6a3b857ac01990e2620686b122fed071e5a3cd01a44f8f95c5db5da866d8f35",
+      "apkSha256": "f283cff17a96a6574d361d50b1d9663718f774032fffa7b450ee949d2b7a6bcf",
+      "fontScale": 1.3,
+      "visuallyInspected": true,
+      "acceptedFor": "UI interactions/layout; older gray surface color superseded by white-only patch"
+    },
+    {
+      "png": "device-final-05-profile-font13.png",
+      "xml": "device-final-05-profile-font13.xml",
+      "sha256": "0fc82802c0a8afe8708b20bb67435a6121f0765aaab81f66fad1cfcfb89ad3b4",
+      "apkSha256": "f283cff17a96a6574d361d50b1d9663718f774032fffa7b450ee949d2b7a6bcf",
+      "fontScale": 1.3,
+      "visuallyInspected": true,
+      "acceptedFor": "UI interactions/layout; older gray surface color superseded by white-only patch"
+    },
+    {
+      "png": "device-final-06-orders-font13.png",
+      "xml": "device-final-06-orders-font13.xml",
+      "sha256": "ccd1230c1f1e58b1f8fe5509e0c29359317fae9cf2cb0f229090058f529d99f3",
+      "apkSha256": "f283cff17a96a6574d361d50b1d9663718f774032fffa7b450ee949d2b7a6bcf",
+      "fontScale": 1.3,
+      "visuallyInspected": true,
+      "acceptedFor": "UI interactions/layout; older gray surface color superseded by white-only patch"
+    },
+    {
+      "png": "device-final-07-address-font13.png",
+      "xml": "device-final-07-address-font13.xml",
+      "sha256": "99e4e831d9791e2986c460aa58be778c95c7653805375a598b1bcb78bc7d3732",
+      "apkSha256": "f283cff17a96a6574d361d50b1d9663718f774032fffa7b450ee949d2b7a6bcf",
+      "fontScale": 1.3,
+      "visuallyInspected": true,
+      "acceptedFor": "UI interactions/layout; older gray surface color superseded by white-only patch"
+    },
+    {
+      "png": "device-final-08-address-keyboard-font13.png",
+      "xml": "device-final-08-address-keyboard-font13.xml",
+      "sha256": "3d118b68eefd7691ed23703960bbc20ace4ddb5e7eaff635c5b47ded46f61680",
+      "apkSha256": "f283cff17a96a6574d361d50b1d9663718f774032fffa7b450ee949d2b7a6bcf",
+      "fontScale": 1.3,
+      "visuallyInspected": true,
+      "acceptedFor": "UI interactions/layout; older gray surface color superseded by white-only patch"
+    },
+    {
+      "png": "device-final-09-address-keyboard-scrolled-font13.png",
+      "xml": "device-final-09-address-keyboard-scrolled-font13.xml",
+      "sha256": "ec081ffb25621df120736e43f2b19dbec27f889df21eb539efef9a0c64a7b76d",
+      "apkSha256": "f283cff17a96a6574d361d50b1d9663718f774032fffa7b450ee949d2b7a6bcf",
+      "fontScale": 1.3,
+      "visuallyInspected": true,
+      "acceptedFor": "UI interactions/layout; older gray surface color superseded by white-only patch"
+    },
+    {
+      "png": "device-final-white-01-home-font10.png",
+      "xml": "device-final-white-01-home-font10.xml",
+      "sha256": "2a7d297c31ca46deb77f499c26af27a611177eb7b74f67f737208208ffc7d15c",
+      "apkSha256": "5ee70fd105e529ed5fdef9f422bbf7bcecf8e09402b64fda6aa14df2ae021f23",
+      "fontScale": 1.0,
+      "visuallyInspected": true,
+      "acceptedFor": "Final white-card rendering and normal home layout"
+    }
+  ],
+  "checks": [
+    {
+      "id": "white-home-cards",
+      "result": "PASS",
+      "directOnFinalApk": true,
+      "evidence": [
+        "device-final-white-01-home-font10.png"
+      ],
+      "observed": "Route and use-type cards now white against pale-gray page; clear black fixed CTA. Use-type section precedes location explanation; existing-trip strip remains separate."
+    },
+    {
+      "id": "home-profile-orders-normal-and-large",
+      "result": "PASS",
+      "directOnFinalApk": false,
+      "evidence": [
+        "device-final-01-home-font10.png",
+        "device-final-02-profile-font10.png",
+        "device-final-03-orders-font10.png",
+        "device-final-04-home-font13.png",
+        "device-final-05-profile-font13.png",
+        "device-final-06-orders-font13.png"
+      ],
+      "observed": "Normal and1.3 identity/route/status/29.26 amount/nav readable; long current-trip text wraps, CTA remains complete; account0102 and existing AVAILABLE unpaid order retained."
+    },
+    {
+      "id": "address-dialog-large-font",
+      "result": "PASS",
+      "directOnFinalApk": false,
+      "evidence": [
+        "device-final-07-address-font13.png",
+        "device-final-08-address-keyboard-font13.png",
+        "device-final-09-address-keyboard-scrolled-font13.png"
+      ],
+      "observed": "At1.3 with IME visible, address content scrolls to preset locations while Cancel and Use this place remain visible/enabled above keyboard. Tapped Cancel successfully; did not type, search or save."
+    }
+  ],
+  "equivalenceBasis": {
+    "testedInteractionApk": "f283cff17a96a6574d361d50b1d9663718f774032fffa7b450ee949d2b7a6bcf",
+    "testedSourceSha": "d63fb82620c77466177b80a96e93c45e2428ac74",
+    "acceptedSourceSha": "55dce79f58a780a1de1ea88c448a774bac03fc9f",
+    "independentReadOnlyDiff": "theme-only-final-diff.json",
+    "onlyChange": "PassengerVisualTheme surfaceTint=Color.Transparent -> Color.White",
+    "scopeLimitation": "Per coordinator, latest APK only rechecked normal home render; prior font1.3/dialog interaction evidence is explicitly inherited from f283 package, not represented as rerun on latest binary."
+  },
+  "earlierReadOnlyCoverage": {
+    "report": "r2-visual-findings.json",
+    "note": "Existing-detail view/back, address cancel and explanation/more-trip disclosure expand/collapse checked in earlier layout revision; no order writes."
+  },
+  "unresolvedBlockingFindings": [],
+  "notRun": [
+    "physical phone",
+    "landscape/tablet",
+    "TalkBack/full accessibility certification",
+    "successful real Geocoder lookup (provider unavailable in previous emulator check)",
+    "real map/provider navigation",
+    "new call/acceptance/cancellation/payment/refund/complaint submission",
+    "all18 server orders independently reconciled",
+    "full three-client lifecycle"
+  ],
+  "businessWritesRequested": false,
+  "sourceBuildTests": {
+    "performedBy": "coordinator",
+    "passengerUnitTests": 20,
+    "failures": 0,
+    "reference": "../../passenger-build-result.json",
+    "note": "Not run again by independent UI reviewer"
+  },
+  "teardown": {
+    "fontScale": 1.0,
+    "appForceStopped": true,
+    "homeScreenReturned": true,
+    "loginAndDataRetained": true
+  },
+  "releaseOwner": "coordinator",
+  "deploymentPerformedByReviewer": false
+}

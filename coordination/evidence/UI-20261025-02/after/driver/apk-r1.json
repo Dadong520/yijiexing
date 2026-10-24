@@ -1,0 +1,15 @@
+{
+  "apkSha256": "eeecb343b62bf3fcc663f825ebf0363ed59e25335c53e8318fcbc1b586bf0886",
+  "bytes": 54010889,
+  "version": "0.3.8-cloud",
+  "versionCode": 11,
+  "fontOriginal": "1.0",
+  "candidate": "r1",
+  "paletteCheck": {
+    "foreground": "#ffffff",
+    "background": "#059669",
+    "contrastRatio": 3.7681843718971657,
+    "normalTextAAThreshold": 4.5,
+    "status": "FAIL_IF_USED_FOR_NORMAL_WHITE_TEXT"
+  }
+}

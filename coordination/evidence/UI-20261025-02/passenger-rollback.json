@@ -1,0 +1,6 @@
+{
+  "object": "gs://yijiexing-demo-state-491829048305/distribution/yijiexing-passenger.apk",
+  "beforeGeneration": "1792865602897208",
+  "backup": "gs://yijiexing-demo-state-491829048305/distribution/rollback/passenger-before-ui-20261025-1792865602897208.apk",
+  "serverSideCopy": true
+}

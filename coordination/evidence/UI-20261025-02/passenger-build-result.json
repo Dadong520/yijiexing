@@ -1,0 +1,13 @@
+{
+  "sourceSha": "55dce79f58a780a1de1ea88c448a774bac03fc9f",
+  "apkPath": "/Users/dongge/.codex/tmp/yijiexing-native-ui-20261025/passenger/_app/outputs/apk/debug/app-debug.apk",
+  "apkSha256": "5ee70fd105e529ed5fdef9f422bbf7bcecf8e09402b64fda6aa14df2ae021f23",
+  "bytes": 8533149,
+  "versionName": "1.1.8-experience",
+  "versionCode": 10,
+  "signerSha256": "9ffec9b342d12909ff288bd73f23ba104893b39120cb24ea83c9734a0d2b758f",
+  "unitTests": 20,
+  "failed": 0,
+  "origin": "https://driver-demo-491829048305.us-west1.run.app",
+  "buildScope": "offline isolated local output; source from feature branch"
+}

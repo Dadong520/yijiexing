@@ -1,0 +1,18 @@
+{
+  "baseSha": "f0f0920995dcf89dfc5f6125542e26af86cf110d",
+  "files": {
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/ConnectedStore.kt": "2bca6f10f996c75f4bbba4152757bdea2c004e23f09f0c91a2bc3d7b0e60801a",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/DriverDomain.kt": "676804352d3acb8c0cda491762e075e859c43a03f2b34e58fd86e8976cfc32e3",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/NegotiationContract.kt": "cd21b64d624a54772f0cc9ed243420e879d974539542802f57f78cc75e07ebb6",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/NavigationContract.kt": "d20235441008d85b4c8d371c56697d524b4b66ffff1458ea9c08bc22d3813761",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/TripWaypoints.kt": "eb3b649e2b18b8c65638616ad18723f3c6b0e8600a8a69d915b9f1c42d2a1ed8",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/StateRequestCoordinator.kt": "a73d94739770b552314a9a22b731523d67e97d69281294b257bec07fa1489dbc",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/PassengerStore.kt": "74d0cf010ccfd3388a12018b1a984f787e6668e61afcc00cd41d7c0eee92d269",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/PendingRequestJournal.kt": "1d1b4d1bca498d1c8b53794aeb60cccffa0aab43c31238a43d1dd37a2faf251c",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/PaymentConfirmation.kt": "68e7e9c66a634dff188c2490770a09495e19c121634155f6f4c50298dc1088e4",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/Negotiation.kt": "d96e137af11de3cda1c5b6387bd911923a840448720c1121d89714792dfe3bf5",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/OrderFarePresentation.kt": "807e08ea6813ea1ab53c8ae25df2161d60b605f0018ccff50079427bffb512eb",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/AddressSearch.kt": "6b8f574aa7ccb354e5fc5dd90c0a6385329c473660631b128726997a0d65c0c7",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/PassengerLocalExtras.kt": "3e83db4921770685792acad2a53e185140116c8c6791091861ff21811c11fd30"
+  }
+}

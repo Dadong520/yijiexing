@@ -1,0 +1,190 @@
+{
+  "taskId": "UI-20261025-02",
+  "reviewer": "frontend independent session 01a167c8-a5eb-77e3-b77e-214927a029da",
+  "at": "2026-10-25T02:40:20.935268+08:00",
+  "role": "driver",
+  "revision": "r3",
+  "apk": {
+    "candidate": "driver038-r3",
+    "apkSha256": "6e51bcf433d18f823424dc211a287563cf5434010b83590b785a47cd5ba4a22b",
+    "bytes": 54010889,
+    "version": "0.3.8-cloud",
+    "versionCode": 11,
+    "fixedCloudOriginVerifiedInDex": "https://driver-demo-491829048305.us-west1.run.app",
+    "fontOriginal": "1.0"
+  },
+  "status": "NEEDS_LAYOUT_FIX",
+  "scope": "UI-only; existing accounts/orders retained; no submitted business writes",
+  "evidence": [
+    {
+      "png": "frontend-r3-01-home-font10.png",
+      "xml": "frontend-r3-01-home-font10.xml",
+      "sha256": "019f912b42ce4131bc66a7daa329b628095525c5e505700d108d2968d672822d",
+      "fontScale": 1.0,
+      "visuallyInspected": true,
+      "acceptedEvidence": true,
+      "rejectionReason": null
+    },
+    {
+      "png": "frontend-r3-02-accept-confirm-font10.png",
+      "xml": "frontend-r3-02-accept-confirm-font10.xml",
+      "sha256": "4bbdd8ea87c321391f5f23f681ce673f0ad0ec4abb46015683811e5db1c7f9fb",
+      "fontScale": 1.0,
+      "visuallyInspected": true,
+      "acceptedEvidence": true,
+      "rejectionReason": null
+    },
+    {
+      "png": "frontend-r3-03-orders-font10.png",
+      "xml": "frontend-r3-03-orders-font10.xml",
+      "sha256": "5f3d02b9a6281f72e9d369e9163f2a7b876942ae85ea7aafdd68afe0d0e57f06",
+      "fontScale": 1.0,
+      "visuallyInspected": true,
+      "acceptedEvidence": true,
+      "rejectionReason": null
+    },
+    {
+      "png": "frontend-r3-04-profile-font10.png",
+      "xml": "frontend-r3-04-profile-font10.xml",
+      "sha256": "d2fc6663a5921b8f054347a0a5754724d849d6598e559b656a6eabf9806422fc",
+      "fontScale": 1.0,
+      "visuallyInspected": true,
+      "acceptedEvidence": true,
+      "rejectionReason": null
+    },
+    {
+      "png": "frontend-r3-05-profile-more-font10.png",
+      "xml": "frontend-r3-05-profile-more-font10.xml",
+      "sha256": "e7fa2d6cc923d577f56d9e06bcc35f7639b8058f2d8c7deb84eedd78873ccc9b",
+      "fontScale": 1.0,
+      "visuallyInspected": true,
+      "acceptedEvidence": true,
+      "rejectionReason": null
+    },
+    {
+      "png": "frontend-r3-06-home-tools-font10.png",
+      "xml": "frontend-r3-06-home-tools-font10.xml",
+      "sha256": "c28596bad7b06754f4c9c3d966691d7aa6c58daa2fbd1245678d394ca3f4512f",
+      "fontScale": 1.0,
+      "visuallyInspected": true,
+      "acceptedEvidence": true,
+      "rejectionReason": null
+    },
+    {
+      "png": "frontend-r3-07-tools-expanded-font10.png",
+      "xml": "frontend-r3-07-tools-expanded-font10.xml",
+      "sha256": "16f277e6b32bb5c02ae0dd4b14e7dd8ab90c8b3e1e2da5955f38cb4064de8084",
+      "fontScale": 1.0,
+      "visuallyInspected": true,
+      "acceptedEvidence": true,
+      "rejectionReason": null
+    },
+    {
+      "png": "frontend-r3-08-home-font13.png",
+      "xml": "frontend-r3-08-home-font13.xml",
+      "sha256": "98ecbcce3076a44459bdd89f13ba9315366aed98af03701160601e72e8352001",
+      "fontScale": 1.3,
+      "visuallyInspected": true,
+      "acceptedEvidence": false,
+      "rejectionReason": "Transient Android Digital Wellbeing heads-up notification covers header"
+    },
+    {
+      "png": "frontend-r3-09-profile-font13.png",
+      "xml": "frontend-r3-09-profile-font13.xml",
+      "sha256": "3244a60415c814ca436e25238f07b5712fabaf9709f21b881185b343b9a19b77",
+      "fontScale": 1.3,
+      "visuallyInspected": true,
+      "acceptedEvidence": true,
+      "rejectionReason": null
+    },
+    {
+      "png": "frontend-r3-10-orders-font13.png",
+      "xml": "frontend-r3-10-orders-font13.xml",
+      "sha256": "2cbff64f8db095b53dfee4d3d7495d7b0dc506a9a905901603435869c00870cd",
+      "fontScale": 1.3,
+      "visuallyInspected": true,
+      "acceptedEvidence": true,
+      "rejectionReason": null
+    },
+    {
+      "png": "frontend-r3-11-home-clean-font13.png",
+      "xml": "frontend-r3-11-home-clean-font13.xml",
+      "sha256": "7692c32439f7b0c5b92a9be775df28a806cf33ffec3c4ea8c4afede4ecd22c3b",
+      "fontScale": 1.3,
+      "visuallyInspected": true,
+      "acceptedEvidence": true,
+      "rejectionReason": null
+    },
+    {
+      "png": "frontend-r3-12-confirm-font13.png",
+      "xml": "frontend-r3-12-confirm-font13.xml",
+      "sha256": "7dfb8978abe251ddc7d28c372ec8c663ea4644648b47e9d5fd8c19ae0b0fddb7",
+      "fontScale": 1.3,
+      "visuallyInspected": true,
+      "acceptedEvidence": true,
+      "rejectionReason": null
+    },
+    {
+      "png": "frontend-r3-13-settings-font13.png",
+      "xml": "frontend-r3-13-settings-font13.xml",
+      "sha256": "f67a1b81b6fd3e9bdc8d292610c8ee2fd55e858cd78d2b7027b0a8bec456341d",
+      "fontScale": 1.3,
+      "visuallyInspected": true,
+      "acceptedEvidence": true,
+      "rejectionReason": null
+    },
+    {
+      "png": "frontend-r3-14-settings-bottom-font13.png",
+      "xml": "frontend-r3-14-settings-bottom-font13.xml",
+      "sha256": "4b175fbc016780e7dca28e75e72f76b979412912d6d0913d71873736aca0a7f3",
+      "fontScale": 1.3,
+      "visuallyInspected": true,
+      "acceptedEvidence": true,
+      "rejectionReason": null
+    }
+  ],
+  "actionsNotPerformed": [
+    "confirm acceptance",
+    "create order",
+    "cancel order",
+    "payment/refund",
+    "complaint submission",
+    "online/offline toggle",
+    "logout",
+    "clear data",
+    "deployment",
+    "Amap external UI"
+  ],
+  "notRun": [
+    "physical handset",
+    "TalkBack",
+    "landscape/tablet",
+    "full order/payment lifecycle",
+    "all-platform business acceptance"
+  ],
+  "passed": [
+    "Normal-font first available order and complete accept CTA visible on first screen",
+    "Accept confirmation opens and Return exits at font1.0 and1.3 without confirming",
+    "Orders and status/amount/route remain readable at font1.0 and1.3",
+    "Profile menus scroll; displayed account003, score98, accepted15/completed10 and wallet557.74 preserved",
+    "Home tools expand and actual MapLibre tiles load, with honest missing Chinese offline voice status",
+    "Settings scroll to bottom at1.3; no preference/cloud/account/reset actions changed"
+  ],
+  "findings": [
+    {
+      "id": "DRV-UI-01",
+      "priority": "P2",
+      "evidence": "frontend-r3-07-tools-expanded-font10.png",
+      "observed": "Location and long speech status touch as two narrow columns.",
+      "requestedFix": "Stack location and speech status as independently wrapping rows."
+    },
+    {
+      "id": "DRV-UI-02",
+      "priority": "P2",
+      "evidence": "frontend-r3-09-profile-font13.png",
+      "observed": "Long company name is ellipsized beside service score at1.3.",
+      "requestedFix": "Place company on its own wrapping line."
+    }
+  ],
+  "restoration": "font_scale restored1.0; App force-stopped; HOME; data/login retained"
+}

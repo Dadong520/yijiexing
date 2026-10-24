@@ -1,5 +1,11 @@
 package cn.hbzjhs.passenger
 
+import androidx.compose.ui.graphics.Color
+import androidx.compose.material.icons.filled.*
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.background
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -36,63 +42,102 @@ fun ProfileScreen(
   var logout by remember { mutableStateOf(false) }
   var city by remember(p.text("city")) { mutableStateOf(p.text("city")) }
   PageColumn {
-    SectionTitle("我的")
-    Panel {
-      Row(
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(12.dp),
-      ) {
-        Icon(
-          Icons.Default.AccountCircle,
-          contentDescription = null,
-          tint = Teal,
-          modifier = Modifier.size(48.dp),
-        )
-        Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(4.dp)) {
-          Text(p.text("name", "体验乘客"), fontSize = 22.sp, fontWeight = FontWeight.Bold)
-          Note(p.text("mobile"))
-          Note(p.text("cityName", "宜昌"))
+    SectionTitle("我的", "个人中心与服务")
+    Card(
+      colors = CardDefaults.cardColors(containerColor = Color.White),
+      shape = RoundedCornerShape(20.dp),
+      border = BorderStroke(1.dp, Color(0xFFEDEFF2)),
+      elevation = CardDefaults.cardElevation(defaultElevation = 1.dp),
+      modifier = Modifier.fillMaxWidth(),
+    ) {
+      Column(Modifier.padding(18.dp), verticalArrangement = Arrangement.spacedBy(14.dp)) {
+        Row(
+          verticalAlignment = Alignment.CenterVertically,
+          horizontalArrangement = Arrangement.spacedBy(14.dp),
+        ) {
+          Box(
+            modifier = Modifier
+              .size(54.dp)
+              .background(Color(0xFFF1F3F5), CircleShape),
+            contentAlignment = Alignment.Center,
+          ) {
+            Icon(
+              Icons.Default.AccountCircle,
+              contentDescription = null,
+              tint = Ink,
+              modifier = Modifier.size(50.dp),
+            )
+          }
+          Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(3.dp)) {
+            Text(p.text("name", "体验乘客"), fontSize = 20.sp, fontWeight = FontWeight.Bold, color = Ink)
+            Row(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalAlignment = Alignment.CenterVertically) {
+              Note(p.text("mobile"))
+              Surface(
+                color = Color(0xFFF3F4F6),
+                shape = RoundedCornerShape(4.dp),
+              ) {
+                Text(
+                  p.text("cityName", "宜昌"),
+                  fontSize = 11.sp,
+                  color = Muted,
+                  modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp),
+                )
+              }
+            }
+          }
+          OutlinedButton(
+            onClick = { edit = true },
+            shape = RoundedCornerShape(10.dp),
+            contentPadding = PaddingValues(horizontal = 12.dp, vertical = 6.dp),
+          ) {
+            Text("编辑", fontSize = 13.sp, color = Ink)
+          }
         }
-      }
-      TextButton(onClick = { edit = true }, modifier = Modifier.heightIn(min = 48.dp)) {
-        Text("编辑个人资料")
       }
     }
     Panel("出行服务") {
       MenuRow("常用地址", Icons.Default.Place) { navigate("favorites") }
-      HorizontalDivider()
+      HorizontalDivider(color = Color(0xFFF3F4F6), thickness = 0.8.dp)
       MenuRow("乘车人管理", Icons.Default.Person) { navigate("riders") }
-      HorizontalDivider()
+      HorizontalDivider(color = Color(0xFFF3F4F6), thickness = 0.8.dp)
       MenuRow("发票抬头", Icons.AutoMirrored.Filled.List) { navigate("invoiceTitles") }
-      HorizontalDivider()
+      HorizontalDivider(color = Color(0xFFF3F4F6), thickness = 0.8.dp)
       MenuRow("模拟发票申请与记录", Icons.AutoMirrored.Filled.List, "体验记录，不是正式发票") { navigate("invoices") }
     }
     Panel("功能体验") {
       MenuRow("我的卡券 · 演示", Icons.Default.Info, "0张 · 不参与订单抵扣") { navigate("coupons") }
+      HorizontalDivider(color = Color(0xFFF3F4F6), thickness = 0.8.dp)
       MenuRow("积分 · 演示", Icons.Default.Info, "0分 · 未接营销账务") { navigate("points") }
+      HorizontalDivider(color = Color(0xFFF3F4F6), thickness = 0.8.dp)
       MenuRow("邀请体验 · 演示", Icons.Default.Person, "无实际奖励或拉新绑定") { navigate("invite") }
+      HorizontalDivider(color = Color(0xFFF3F4F6), thickness = 0.8.dp)
       MenuRow("安全中心与联系人", Icons.Default.Lock, "当前账号本机保存") { navigate("safety") }
     }
     Panel("帮助与反馈") {
       MenuRow("我的投诉", Icons.Default.Email) { navigate("complaints") }
-      HorizontalDivider()
+      HorizontalDivider(color = Color(0xFFF3F4F6), thickness = 0.8.dp)
       MenuRow("意见反馈与记录", Icons.Default.Email) { navigate("feedback") }
-      HorizontalDivider()
+      HorizontalDivider(color = Color(0xFFF3F4F6), thickness = 0.8.dp)
       MenuRow("已屏蔽司机", Icons.Default.Lock) { navigate("blocked") }
-      HorizontalDivider()
+      HorizontalDivider(color = Color(0xFFF3F4F6), thickness = 0.8.dp)
       MenuRow("公告、客服与服务说明", Icons.Default.Info) { navigate("help") }
     }
     Panel("应用设置") {
       MenuRow("连接设置", Icons.Default.Settings, "独立体验环境") { settings() }
-      HorizontalDivider()
+      HorizontalDivider(color = Color(0xFFF3F4F6), thickness = 0.8.dp)
       Note("体验版 ${BuildConfig.VERSION_NAME}")
       Note("与司机端共用订单。支付、退款与发票均为模拟，不产生真实资金或凭证。地址搜索使用设备系统Geocoder；自动定位、道路导航、短信、电话中继及实时人工客服尚未接入；投诉支持后台查看和回复。")
     }
     OutlinedButton(
       onClick = { logout = true },
       modifier = Modifier.fillMaxWidth().heightIn(min = 52.dp),
+      shape = RoundedCornerShape(14.dp),
+      colors = ButtonDefaults.outlinedButtonColors(
+        contentColor = Color(0xFFDC2626),
+      ),
+      border = BorderStroke(1.dp, Color(0xFFFCA5A5)),
     ) {
-      Text("退出当前账号")
+      Text("退出当前账号", fontSize = 15.sp, fontWeight = FontWeight.Medium)
     }
   }
   if (edit)
@@ -109,13 +154,19 @@ fun ProfileScreen(
       },
     ) {
       Field(name, { name = it.take(30) }, "昵称（2–30 字）")
-      Text("体验城市", fontWeight = FontWeight.SemiBold)
+      Text("体验城市", fontWeight = FontWeight.SemiBold, color = Ink)
       state.rows("regions").forEach { r ->
+        val selected = city == r.text("id")
         FilterChip(
-          city == r.text("id"),
-          { city = r.text("id") },
+          selected = selected,
+          onClick = { city = r.text("id") },
           enabled = r.optBoolean("enabled"),
           label = { Text(r.text("name") + if (r.optBoolean("enabled")) "" else " · 未开放") },
+          colors = FilterChipDefaults.filterChipColors(
+            selectedContainerColor = Ink,
+            selectedLabelColor = Color.White,
+          ),
+          shape = RoundedCornerShape(8.dp),
         )
       }
       Note("区域开通范围由云端控制；存在进行中的订单时不能切换城市。地点坐标需自行选择到对应城市。")
@@ -123,7 +174,7 @@ fun ProfileScreen(
   if (logout)
     AlertDialog(
       onDismissRequest = { logout = false },
-      title = { Text("退出登录？") },
+      title = { Text("退出登录？", fontWeight = FontWeight.Bold, color = Ink) },
       text = { Text("本机登录凭证将移除，云端订单与资料仍保留。下次可重新获取体验验证码登录。") },
       confirmButton = {
         TextButton(
@@ -132,10 +183,14 @@ fun ProfileScreen(
             logout = false
           }
         ) {
-          Text("退出")
+          Text("退出", color = Color(0xFFDC2626), fontWeight = FontWeight.Bold)
         }
       },
-      dismissButton = { TextButton(onClick = { logout = false }) { Text("取消") } },
+      dismissButton = {
+        TextButton(onClick = { logout = false }) {
+          Text("取消", color = Muted)
+        }
+      },
     )
 }
 
