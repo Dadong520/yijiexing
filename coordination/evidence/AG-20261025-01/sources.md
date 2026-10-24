@@ -2,7 +2,7 @@
 
 ## 1. 外部文档来源
 1. **原团队开发排期与功能清单**
-   - **URL**: `https://doc.weixin.qq.com/sheet/e3_AUQARgaYAFMXan3safDSR0ID91HPF?scode=AJsAQweTABAeCrqQpSAUQARgaYAFM&tab=BB08J2`
+   - **URL**: `https://doc.weixin.qq.com/sheet/e3_AUQARgaYAFMXan3safDSR0ID91HPF`
    - **参考日期**: 2026-10
    - **提取条款**:
      - 优惠券生命周期（新客券、高峰满减、折扣封顶，小费不计入满减门槛）；
@@ -10,7 +10,7 @@
      - 投诉与维权支持凭证图片上传（最多 3 张）及客服回复流转；
      - 司机信息服务卡供乘客查询。
 2. **原团队开发明细与缺陷跟进智能表格**
-   - **URL**: `https://doc.weixin.qq.com/smartsheet/s3_AT4A-AaAALgCNuDskj343RL0xsr9c?scode=AJsAQweTABA1xQBTtXAT4A-AaAALg&tab=5v8j9u&viewId=vk5GMC`
+   - **URL**: `https://doc.weixin.qq.com/smartsheet/s3_AT4A-AaAALgCNuDskj343RL0xsr9c`
    - **参考日期**: 2026-10
    - **提取条款**:
      - 优惠券与竞价订单互斥（竞价订单不可使用卡券）；
@@ -25,7 +25,7 @@
 
 ## 2. 本地原始证据与基线路径
 - **历史契约评审**: `candidates/admin-v8/yijiexing-admin-20261023/qa/passenger-115-compat-review.md`
-- **共享后端参考实现**: `candidates/shared-backend-v8/passenger.py`、`domain.py`
+- **共享后端参考实现**: `candidates/shared-backend-v8/cloud-service/passenger.py`、`candidates/shared-backend-v8/cloud-service/domain.py`
 - **司机端与种子数据**: `candidates/driver-0.3.6-r2/cloud-service/seed.py`
 
 ---
@@ -35,3 +35,6 @@
 2. **硬件录音与警方专网**：无车载物理录音硬件接入，无警方 110 专网定位推送接口，严禁宣称自动录音或自动报备，仅支持调起本地系统电话拨号。
 3. **加价调度费**：后端暂未实现调度费结算分账，提单时不向后端传递 `priorityFee`。
 4. **公安审查与企业资质**：开发体验环境下无第三方公安三证真机查验接口，司机服务卡标注为演示，企业与工号按实际返回动态展示或标明未提供。
+
+## 协调者核对限制
+上述外部原文未由本轮独立验收者逐条核验；作者摘录仅作待核对线索，不能据此认定营销细则已获业务批准。链接仅保存规范地址，不保存分享访问参数。
