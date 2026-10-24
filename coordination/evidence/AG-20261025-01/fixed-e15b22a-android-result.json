@@ -1,0 +1,21 @@
+{
+  "sourceSha": "e15b22ad5889f87fe73639ecbacbd95a8bd8bde1",
+  "command": "gradle test assembleDebug --offline --no-daemon",
+  "exitCode": 0,
+  "variants": {
+    "testDebugUnitTest": {
+      "tests": 55,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "testReleaseUnitTest": {
+      "tests": 55,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  },
+  "logicalTests": 55,
+  "note": "Debug/Release are the same logical tests, not double-counted; no emulator UI or cloud deployment"
+}

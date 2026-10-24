@@ -1,0 +1,113 @@
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/8.7/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
+> Task :app:checkKotlinGradlePluginConfigurationErrors
+> Task :app:preBuild UP-TO-DATE
+> Task :app:preDebugBuild UP-TO-DATE
+> Task :app:generateDebugBuildConfig
+> Task :app:generateDebugResValues
+> Task :app:checkDebugAarMetadata
+> Task :app:mapDebugSourceSetPaths
+> Task :app:generateDebugResources
+> Task :app:packageDebugResources
+> Task :app:createDebugCompatibleScreenManifests
+> Task :app:extractDeepLinksDebug
+> Task :app:mergeDebugResources
+> Task :app:parseDebugLocalResources
+> Task :app:processDebugMainManifest
+> Task :app:processDebugManifest
+> Task :app:preDebugUnitTestBuild UP-TO-DATE
+> Task :app:javaPreCompileDebug
+> Task :app:javaPreCompileDebugUnitTest
+> Task :app:buildKotlinToolingMetadata
+> Task :app:preReleaseBuild UP-TO-DATE
+> Task :app:generateReleaseBuildConfig
+> Task :app:generateReleaseResValues
+> Task :app:checkReleaseAarMetadata
+> Task :app:mapReleaseSourceSetPaths
+> Task :app:generateReleaseResources
+> Task :app:packageReleaseResources
+> Task :app:createReleaseCompatibleScreenManifests
+> Task :app:extractDeepLinksRelease
+> Task :app:processDebugManifestForPackage
+> Task :app:parseReleaseLocalResources
+> Task :app:processReleaseMainManifest
+> Task :app:processReleaseManifest
+> Task :app:preReleaseUnitTestBuild UP-TO-DATE
+> Task :app:javaPreCompileRelease
+> Task :app:javaPreCompileReleaseUnitTest
+> Task :app:mergeDebugNativeDebugMetadata NO-SOURCE
+> Task :app:mergeDebugShaders
+> Task :app:compileDebugShaders NO-SOURCE
+> Task :app:generateDebugAssets UP-TO-DATE
+> Task :app:mergeDebugAssets
+> Task :app:mergeReleaseResources
+> Task :app:desugarDebugFileDependencies
+> Task :app:compressDebugAssets
+> Task :app:mergeDebugStartupProfile
+> Task :app:mergeDebugJniLibFolders
+> Task :app:processDebugResources
+> Task :app:checkDebugDuplicateClasses
+> Task :app:mergeDebugNativeLibs
+> Task :app:mergeLibDexDebug
+> Task :app:validateSigningDebug
+> Task :app:writeDebugAppMetadata
+> Task :app:writeDebugSigningConfigVersions
+> Task :app:processReleaseManifestForPackage
+
+> Task :app:stripDebugDebugSymbols
+Unable to strip the following libraries, packaging them as they are: libmaplibre.so.
+
+> Task :app:processReleaseResources
+> Task :app:mergeExtDexDebug
+> Task :app:compileDebugKotlin
+> Task :app:compileReleaseKotlin
+w: file:///Users/dongge/Documents/New%20project%202/.coordination/incoming/AG-20261025-01/fixed-e15b22a/candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/BusinessCommunity.kt:311:53 Parameter 'profile' is never used
+w: file:///Users/dongge/Documents/New%20project%202/.coordination/incoming/AG-20261025-01/fixed-e15b22a/candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/BusinessCommunity.kt:378:5 Parameter 'onMessage' is never used
+w: file:///Users/dongge/Documents/New%20project%202/.coordination/incoming/AG-20261025-01/fixed-e15b22a/candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/CoreScreens.kt:1614:21 Parameter 'store' is never used
+w: file:///Users/dongge/Documents/New%20project%202/.coordination/incoming/AG-20261025-01/fixed-e15b22a/candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/DriverLocationService.kt:271:43 Unsafe use of a nullable receiver of type JSONObject?
+w: file:///Users/dongge/Documents/New%20project%202/.coordination/incoming/AG-20261025-01/fixed-e15b22a/candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/MembershipCatalogScreens.kt:90:51 Unnecessary non-null assertion (!!) on a non-null receiver of type JSONObject
+w: file:///Users/dongge/Documents/New%20project%202/.coordination/incoming/AG-20261025-01/fixed-e15b22a/candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/MembershipCatalogScreens.kt:114:21 'LinearProgressIndicator(Float, Modifier = ..., Color = ..., Color = ..., StrokeCap = ...): Unit' is deprecated. Use the overload that takes `progress` as a lambda
+w: file:///Users/dongge/Documents/New%20project%202/.coordination/incoming/AG-20261025-01/fixed-e15b22a/candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/MembershipUi.kt:290:30 Unsafe use of a nullable receiver of type Any?
+w: file:///Users/dongge/Documents/New%20project%202/.coordination/incoming/AG-20261025-01/fixed-e15b22a/candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/UiKit.kt:102:43 'List: ImageVector' is deprecated. Use the AutoMirrored version at Icons.AutoMirrored.Outlined.List
+w: file:///Users/dongge/Documents/New%20project%202/.coordination/incoming/AG-20261025-01/fixed-e15b22a/candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/UiKit.kt:104:34 'ArrowBack: ImageVector' is deprecated. Use the AutoMirrored version at Icons.AutoMirrored.Outlined.ArrowBack
+w: file:///Users/dongge/Documents/New%20project%202/.coordination/incoming/AG-20261025-01/fixed-e15b22a/candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/UiKit.kt:105:35 'KeyboardArrowRight: ImageVector' is deprecated. Use the AutoMirrored version at Icons.AutoMirrored.Outlined.KeyboardArrowRight
+
+> Task :app:compileDebugKotlin
+w: file:///Users/dongge/Documents/New%20project%202/.coordination/incoming/AG-20261025-01/fixed-e15b22a/candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/BusinessCommunity.kt:311:53 Parameter 'profile' is never used
+w: file:///Users/dongge/Documents/New%20project%202/.coordination/incoming/AG-20261025-01/fixed-e15b22a/candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/BusinessCommunity.kt:378:5 Parameter 'onMessage' is never used
+w: file:///Users/dongge/Documents/New%20project%202/.coordination/incoming/AG-20261025-01/fixed-e15b22a/candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/CoreScreens.kt:1614:21 Parameter 'store' is never used
+w: file:///Users/dongge/Documents/New%20project%202/.coordination/incoming/AG-20261025-01/fixed-e15b22a/candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/DriverLocationService.kt:271:43 Unsafe use of a nullable receiver of type JSONObject?
+w: file:///Users/dongge/Documents/New%20project%202/.coordination/incoming/AG-20261025-01/fixed-e15b22a/candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/MembershipCatalogScreens.kt:90:51 Unnecessary non-null assertion (!!) on a non-null receiver of type JSONObject
+w: file:///Users/dongge/Documents/New%20project%202/.coordination/incoming/AG-20261025-01/fixed-e15b22a/candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/MembershipCatalogScreens.kt:114:21 'LinearProgressIndicator(Float, Modifier = ..., Color = ..., Color = ..., StrokeCap = ...): Unit' is deprecated. Use the overload that takes `progress` as a lambda
+w: file:///Users/dongge/Documents/New%20project%202/.coordination/incoming/AG-20261025-01/fixed-e15b22a/candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/MembershipUi.kt:290:30 Unsafe use of a nullable receiver of type Any?
+w: file:///Users/dongge/Documents/New%20project%202/.coordination/incoming/AG-20261025-01/fixed-e15b22a/candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/UiKit.kt:102:43 'List: ImageVector' is deprecated. Use the AutoMirrored version at Icons.AutoMirrored.Outlined.List
+w: file:///Users/dongge/Documents/New%20project%202/.coordination/incoming/AG-20261025-01/fixed-e15b22a/candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/UiKit.kt:104:34 'ArrowBack: ImageVector' is deprecated. Use the AutoMirrored version at Icons.AutoMirrored.Outlined.ArrowBack
+w: file:///Users/dongge/Documents/New%20project%202/.coordination/incoming/AG-20261025-01/fixed-e15b22a/candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/UiKit.kt:105:35 'KeyboardArrowRight: ImageVector' is deprecated. Use the AutoMirrored version at Icons.AutoMirrored.Outlined.KeyboardArrowRight
+
+> Task :app:compileReleaseJavaWithJavac
+> Task :app:compileDebugJavaWithJavac
+> Task :app:processDebugJavaRes
+> Task :app:processReleaseJavaRes
+> Task :app:bundleReleaseClassesToRuntimeJar
+> Task :app:bundleReleaseClassesToCompileJar
+> Task :app:bundleDebugClassesToRuntimeJar
+> Task :app:bundleDebugClassesToCompileJar
+> Task :app:dexBuilderDebug
+> Task :app:mergeDebugGlobalSynthetics
+> Task :app:mergeDebugJavaResource
+> Task :app:mergeProjectDexDebug
+> Task :app:packageDebug
+> Task :app:createDebugApkListingFileRedirect
+> Task :app:assembleDebug
+> Task :app:compileReleaseUnitTestKotlin
+> Task :app:compileReleaseUnitTestJavaWithJavac NO-SOURCE
+> Task :app:processReleaseUnitTestJavaRes
+> Task :app:compileDebugUnitTestKotlin
+> Task :app:testReleaseUnitTest
+> Task :app:compileDebugUnitTestJavaWithJavac NO-SOURCE
+> Task :app:processDebugUnitTestJavaRes
+> Task :app:testDebugUnitTest
+> Task :app:test
+
+BUILD SUCCESSFUL in 1m 42s
+70 actionable tasks: 70 executed

@@ -1,0 +1,19 @@
+{
+  "acceptedSourceSha": "6bfc9d0f8223cb7c981f1b9079cd31e705d5be2a",
+  "compiledSourceSha": "801e8cacb3b5f2720d0c009ecbbb890a35df4135",
+  "sourceEquivalence": "Only preview/source.js and sources.md differ; business JS/Kotlin identical",
+  "androidAssembleDebug": {
+    "status": "PASS",
+    "exitCode": 0,
+    "offline": true,
+    "log": "coordination/evidence/AG-20261025-01/final-801e8ca-android-build.log"
+  },
+  "miniTests": {
+    "status": "PASS",
+    "passed": 56
+  },
+  "wechatCompilation": "NOT_RUN_REQUIRES_DEVELOPER_TOOLS",
+  "appId": "NOT_CONFIGURED",
+  "marketingBackend": "NOT_IMPLEMENTED",
+  "cloudDeployment": "NOT_RUN_NO_BACKEND_CHANGE"
+}

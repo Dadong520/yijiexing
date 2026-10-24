@@ -1,8 +1,9 @@
 {
-  "passed": 6,
+  "passed": 7,
   "checks": [
     "valid independent fixture accepted",
     "wrong SHA rejected",
+    "incomplete prerequisites rejected",
     "self-review rejected",
     "failed test rejected",
     "tampered evidence rejected",

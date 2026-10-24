@@ -24,7 +24,7 @@
 - 券、积分、费用与资金记录必须由共享后端持久化、按账户隔离、绑定订单并幂等。客户端演示不可冒充到账。预付与完单不是同一事件。
 - 录音、地图、实名认证、公安背景审查等未实现能力不得在产品中显示已开启/已通过。真实资质展示必须有API数据依据。
 - 本轮AG原始提交已独立审查FAIL；修复后另验精确新SHA。没有微信AppID时，微信编译/真机/地图插件仍记NOT_RUN，不用H5预览冒充。
-- 发布前执行 `python3 tools/check_coordination.py --release-task <任务ID> --sha <完整业务源SHA>`。要求作者之外的验收者、匹配SHA的实跑命令/退出码，以及存在且哈希一致的证据文件。
+- 发布前执行 `python3 tools/check_coordination.py --release-task <任务ID> --sha <完整业务源SHA>`。要求作者之外的验收者、匹配SHA的实跑命令/退出码、存在且哈希一致的证据文件，以及releaseReady=true。仅开发源码通过但正式发布条件未满足时保持releaseReady=false，不把合并当真机发布。
 
 ## 自动化与限制
 
