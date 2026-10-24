@@ -55,3 +55,5 @@
 - MIN-20261025-01：最新小程序ZIP在delivery/2026-10-25，56项测试/结构/ZIP CRC通过，Gemini只读文档复核PASS。无AppID，不是已发布微信小程序。
 - Gemini CLI执行command被非交互权限规则拒绝，未跳过权限；协调者接手测试打包，Gemini仅实际完成文档复核。不能再假定CLI编辑模式可自动执行所有命令。
 - 当前PA-20261025-01进行中：Gemini主实现Android对齐，backend只读矩阵、frontend独立测试，coordinator构建发布。后台/云参数继续保持原保护和按需配置。
+
+2026-10-25 02:14最终回读：admin revision driver-admin-ui20261025=100%，IAP和admin浏览器真登录PASS，18旧单保留/待付1/完成7/取消9/待接1/完成已付16124分。max1 automatic/cpu-throttling/IAP/ENV保留，仅static覆盖。乘客1.1.7/code9公开完整直连GET+哈希签名PASS，20单测/构建/保留登录与联系人等限定smoke+非作者源码审查PASS。Geocoder模拟器不可用，失败兜底PASS；新完整三端流程NOT_RUN。小程序58测试PASS/ZIP更新，无AppID和微信真机，NOT_RUN。Gemini内置CLI固定，异常任务停止，无常驻；各角色idle。source dd51abcbd809432479c159c1e0928c05edeedb83。

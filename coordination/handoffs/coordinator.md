@@ -7,3 +7,5 @@ WX：profile真正base订阅恢复/身份id本地积分/退出零权益/无虚�
 CLI已核实：旧.local/bin/agy独立CLI与Gemini.app/Contents/Helpers/agy不同，实际hub为Gemini子进程，无旧App。项目固定内置入口，4.9秒probe成功。PA长任务7de1d11c无产出且超时，精确停止收到STOPPED；不再续跑，Gemini当前无任务。用户已commentary收到准确解释。GEMINI_CLI.md已纠正。
 司机037公开已实测可下载/哈希/签名。此轮别改driver-demo/backend/数据/IAM。不用原eztrips环境，仅菜单标签参考，不保存PII。
 剩余：审查结论→原子提交源码/文档→现有门禁准确范围证据→admin部署+IAP回读；PA测试/UI PASS才发布APK到现有GCS passenger对象，备份/代次前置条件/完整直连GET验证；未达到不冒充已部署。将任务状态、最终结果、handoff、证据及PR更新并清理自建preview服务器。
+
+2026-10-25 02:14最终回读：admin revision driver-admin-ui20261025=100%，IAP和admin浏览器真登录PASS，18旧单保留/待付1/完成7/取消9/待接1/完成已付16124分。max1 automatic/cpu-throttling/IAP/ENV保留，仅static覆盖。乘客1.1.7/code9公开完整直连GET+哈希签名PASS，20单测/构建/保留登录与联系人等限定smoke+非作者源码审查PASS。Geocoder模拟器不可用，失败兜底PASS；新完整三端流程NOT_RUN。小程序58测试PASS/ZIP更新，无AppID和微信真机，NOT_RUN。Gemini内置CLI固定，异常任务停止，无常驻；各角色idle。source dd51abcbd809432479c159c1e0928c05edeedb83。

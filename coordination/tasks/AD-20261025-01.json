@@ -14,7 +14,7 @@
     "加载/失败/空/弹窗/表格/导航保留，CSS无外部依赖",
     "只在当前admin-browser镜像基础覆盖静态文件，IAP/IAM/云参数/数据保留；浏览器与权限回读"
   ],
-  "status": "ACCEPTED_PENDING_DEPLOY",
+  "status": "DEPLOYED_SCOPED_ACCEPTANCE",
   "acceptance": "PASS",
   "tests": [
     {
@@ -38,7 +38,7 @@
       "sha256": "005521ef43960ff55697fde83b8b6d5548fa9d098d1d9566c096c11286eb11a1"
     }
   ],
-  "nextAction": "Deploy current-base static overlay then verify IAP/runtime and browser real data",
+  "nextAction": "Idle; remaining NOT_RUN retained for next iteration",
   "deploy_owner": "coordinator",
   "releaseReady": true,
   "reviewer": "backend",

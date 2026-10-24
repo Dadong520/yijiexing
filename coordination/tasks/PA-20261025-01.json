@@ -14,7 +14,7 @@
     "原生地址选择保留真实坐标，搜索不得只改名称沿用旧坐标",
     "相关单测与构建、同签名覆盖安装、独立UI检查和公开回读"
   ],
-  "status": "LIMITED_RELEASE_ACCEPTED",
+  "status": "DEPLOYED_SCOPED_ACCEPTANCE",
   "acceptance": "PASS",
   "tests": [
     {
@@ -42,7 +42,7 @@
       "sha256": "0572e6fbfd2c87b7f5720be9749e6005a333d8c5077fa1a2f690d1a800a3bd09"
     }
   ],
-  "nextAction": "Publish existing passenger distribution object with generation guard and public full GET; remaining notRun are retained in evidence",
+  "nextAction": "Idle; remaining NOT_RUN retained for next iteration",
   "deploy_owner": "coordinator",
   "releaseReady": true,
   "acceptedSha": "dd51abcbd809432479c159c1e0928c05edeedb83",
