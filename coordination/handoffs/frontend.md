@@ -1,7 +1,11 @@
 # frontend 交接卡
 
-规则版本：2026-10-25-v1；任务 FE-20261025-01；负责人 frontend（司机原生端与集成质量）。
-ACK：ACK，已读 AGENTS/STATE/BOARD/任务/本卡及 AG-20261025-01 独立审查。
+规则版本：2026-10-25-v2；负责人 frontend（司机原生端与前端集成复核）。
+ACK：ACK v2（2026-10-25T01:00:06+08:00），已实际读取 AGENTS.md v2、GEMINI_CLI.md、STATE、BOARD与本卡。
+当前任务：无（BOARD.activeTaskIds为空）；本轮仅更新规则ACK，随后IDLE。
+执行分工：仅接受coordinator有界派单；Gemini/反重力优先通过agy CLI实现及常规测试；本人负责司机原生/集成复核与被明确分配的独立验收，不争写、不自行发布、不派代理、不常驻或重复测试。保持GPT-6.1；CLI权限提示由coordinator处理。
+
+以下为已归档FE-20261025-01历史复核，结论仅适用于当时fd44ec08，不代表STATE所述后续修复SHA的当前状态。
 状态：READ_ONLY_REVIEW_COMPLETE → IDLE；目标SHA验收 FAIL / CHANGES_REQUESTED。
 基线：e89f90b0a63b72dc04fca5b3690a8897de1543c7；复核：fd44ec08d674900cd0b30d3d3f25cd0fc46f1b36。
 
@@ -13,6 +17,6 @@ ACK：ACK，已读 AGENTS/STATE/BOARD/任务/本卡及 AG-20261025-01 独立审�
 证据：coordination/evidence/FE-20261025-01/ 的 review-result.json、source-observations.json、source-excerpts.txt、source-manifest.json、driver-change.patch、ui-acceptance.txt。
 实际检查：Git精确SHA差异与不可变源码摘取/哈希；Python AST提取冻结seed字段；协调记录结构检查结果见 structure-check.txt。
 NOT_RUN：Gradle构建、安卓单测、模拟器UI、线上API、云操作。本轮静态阻塞已成立，未借用旧55项安卓/50项小程序测试作为本批验收。
-下一步：反重力仅按上述问题修复后交新SHA；coordinator安排离线构建与必要UI矩阵、不同账户/资质/断网/大字及保留单回归，再决定合并发布。
-待合并SHA：无；fd44ec08不建议合并/发布。
+下一步：等待coordinator明确新任务。本轮不重新复核源码或测试；后续修复/合并状态以STATE与协调者独立验收记录为准。
+历史待合并SHA：无；当时fd44ec08不建议合并/发布。本轮未作新合并/发布判定。
 边界：仅写本卡和本任务evidence；无产品修改、无部署、无模拟器操作、无子代理、无自动回信。完成后停止。
