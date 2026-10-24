@@ -1,0 +1,11 @@
+{
+  "baseImage": "us-west1-docker.pkg.dev/yijiexing-driver-demo-1023/demo/service@sha256:7d71539b9ad631aa1eaed5af8e34c4648c1fb5953cd78c3737605ea40d5d43ac",
+  "scope": "driver-admin only; unchanged v8 business modules and database schema",
+  "files": {
+    "Dockerfile": "ebb3a66bd907b35eb406e5729f1442283bea5449c275d85cdb9a8708b807e9f3",
+    "iap_browser.py": "5e33d4384aeaafc79caf64db95587dbc8cf90a3b9f11a0b1f0ae63b8aa3db42e",
+    "static/admin.css": "f5098d8f5ea0804a02755a77fb576cad4f9c0c592d6ab3edd348395a6bce0e69",
+    "static/admin.html": "923267639c26fead28a0fae96789cf73b323072eb7d6a2cb45331ec7ca4446cd",
+    "static/admin.js": "c3f1421b75429fcb9b4a4faae2c3bfcbf4db8df0530037b4402e3a7d3f65a492"
+  }
+}
