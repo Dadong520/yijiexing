@@ -1,0 +1,29 @@
+{
+  "project": "yijiexing-driver-demo-1023",
+  "region": "us-west1",
+  "image": "us-west1-docker.pkg.dev/yijiexing-driver-demo-1023/demo/admin-ui@sha256:35726abba61d4ddc4ba49733a726ce81218fac400a212a2f554121cfb6c0a15c",
+  "originalImage": "us-west1-docker.pkg.dev/yijiexing-driver-demo-1023/demo/admin-browser@sha256:037b157a28476720b848055bf493f06dad547155240f8219638771bc00c16086",
+  "serviceAccountUnchanged": true,
+  "envUnchanged": true,
+  "iap": "true",
+  "maxInstances": "1",
+  "scalingMode": "automatic",
+  "scope": "static overlay only; explicit traffic switch driver-admin-ui20261025=100; browser post-login verification pending",
+  "revision": "driver-admin-ui20261025",
+  "trafficPercent": 100,
+  "browserLogin": "PASS via existing Google IAP then admin login",
+  "realData": {
+    "orders": 18,
+    "WAIT_PAY": 1,
+    "DONE": 7,
+    "CANCELLED": 9,
+    "AVAILABLE": 1,
+    "completedPaidFareCents": 16124
+  },
+  "screenshot": "cloud-overview.png",
+  "remainingNotRun": [
+    "real readonly role403 this revision",
+    "new full three-client flow",
+    "narrow screen"
+  ]
+}

@@ -1,0 +1,62 @@
+{
+  "task": "PA-20261025-01",
+  "performedAt": "2026-10-25T02:11:38+08:00",
+  "reviewer": "frontend implementation author, device smoke only",
+  "independentCodeReview": false,
+  "status": "PARTIAL_PASS_NOT_FULL_ACCEPTANCE",
+  "apkSha256": "a36ec7f139351cb5db33749ebbc00805c5345f8b9aa319bac228fbd40ab8dca9",
+  "apkBytes": 8182629,
+  "versionName": "1.1.7-experience",
+  "versionCode": 9,
+  "device": "emulator-5584",
+  "accountTail": "0102",
+  "checks": [
+    {
+      "name": "Upgrade/login/version",
+      "status": "PASS",
+      "detail": "BUILD SUCCESSFUL gated install -r, no data clear/uninstall; 1.1.7-experience/code9; preserved passenger0102 and existing AVAILABLE order shown"
+    },
+    {
+      "name": "Coupons demo zero",
+      "status": "PASS",
+      "detail": "0 available, explicit non-assets/no discounts/rewards"
+    },
+    {
+      "name": "Safety contact add/delete",
+      "status": "PASS",
+      "detail": "Added fictitious QA_CONTACT/13800000999; visible1/3; delete confirmation→0/3; cleanup complete; no dialer/SMS actions"
+    },
+    {
+      "name": "Address name/coordinates",
+      "status": "PASS_SCOPED",
+      "detail": "Changed name to invalid search query; old coordinate source cleared; UI explicitly requests reselect/manual coordinates"
+    },
+    {
+      "name": "Search failure and fallback selection",
+      "status": "PASS",
+      "detail": "System provider returned unavailable; explicit error shown, common point selectable with bound WGS84 pair. Dialog cancelled, no booking/order changes saved"
+    },
+    {
+      "name": "Device handback",
+      "status": "PASS",
+      "detail": "5584 app force-stopped and HOME; 5586 not touched"
+    }
+  ],
+  "blockers": [],
+  "environmentLimit": "Actual system Geocoder unavailable in this emulator; successful real-result selection not verified",
+  "notRun": [
+    "driver service-card missing-field UI (this account current order has no driver; no new orders created)",
+    "Existing WAIT_PAY UI for0103: current0102 order AVAILABLE, no switching/mutating protected orders",
+    "Points/invite detailed pages, clipboard and dialing runtime",
+    "Contacts edit/restart persistence/account-switch isolation",
+    "Successful Geocoder real-result selection/accuracy and manual-coordinate save",
+    "New order/payment/cancel/full shared-order regression",
+    "Deployment/public download verification"
+  ],
+  "automationNote": "First fallback selector expected second preset offscreen and stopped safely; then selected visible first preset and verified binding; no product error claimed",
+  "contactCleanup": "synthetic contact removed, count restored0",
+  "sourceModifiedDuringTest": false,
+  "businessMutationActions": 0,
+  "deviceReturned": true,
+  "next": "coordinator/backend non-author review must cover remaining items before deciding release; author device smoke is not independent acceptance"
+}

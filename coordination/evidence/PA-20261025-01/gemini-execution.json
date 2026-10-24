@@ -1,0 +1,9 @@
+{
+  "result": "STOPPED_NO_PRODUCT_CHANGES",
+  "conversationId": "7de1d11c-b0ac-4579-b015-4f11f43a91b6",
+  "timeoutFlagMisleading": true,
+  "stopResponse": "STOPPED",
+  "successFlagNotAccepted": true,
+  "newOwner": "frontend",
+  "futureMode": "Short no-tool code-generation prompts with streamed output; do not resume stalled conversation"
+}

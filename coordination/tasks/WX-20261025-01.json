@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "id": "WX-20261025-01",
+  "owner": "coordinator",
+  "goal": "准备微信体验版所需配置说明，保留内置chooseLocation起终点选择；修复对齐中发现的个人页生命周期/假奖励文案和司机展示残留。",
+  "baseSha": "ea8273957c02fe2bcd77b4ffd63260ef791fae94",
+  "allow_paths": [
+    "candidates/passenger-miniprogram-0.1.0/miniprogram/pages/profile/",
+    "candidates/passenger-miniprogram-0.1.0/miniprogram/pages/safety/",
+    "candidates/passenger-miniprogram-0.1.0/miniprogram/pages/order-detail/index.wxml",
+    "candidates/passenger-miniprogram-0.1.0/miniprogram/tests/profile-lifecycle.test.js",
+    "candidates/passenger-miniprogram-0.1.0/miniprogram/preview/source.js",
+    "coordination/WECHAT_TRIAL_SETUP.md"
+  ],
+  "checks": [
+    "58项测试和结构检查，订阅/切号/退出回归通过",
+    "不硬编码司机服务分/单数/车型色彩和求助车牌",
+    "注册AppID/成员/定位隐私/HTTPS配置条件明确，不索要AppSecret"
+  ],
+  "status": "IN_PROGRESS",
+  "acceptance": "NOT_RUN",
+  "tests": [],
+  "evidence": [],
+  "nextAction": "完成小程序适用测试并交独立复核；无AppID不称微信发布",
+  "deploy_owner": "coordinator",
+  "releaseReady": false
+}

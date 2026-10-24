@@ -15,7 +15,7 @@
 - 反重力：/Users/dongge/Documents/yijiexing-antigravity，独立Git工作区；当前特性分支 antigravity/passenger-driver-enhancement。
 - 仓库内当前司机目录 candidates/driver-0.3.6-r2/android；小程序 candidates/passenger-miniprogram-0.1.0/miniprogram；后台 candidates/admin-v8/yijiexing-admin-20261023。
 - 共享后端当前参考 candidates/shared-backend-v8/cloud-service；它目前仍是冻结参考。任何新后端任务先明确新的可写目录（建议 services/backend，复制后校验基线哈希），未建契约前不准改多个副本或部署新账务。
-- 原Java仅参考，不是部署后端。乘客原生App暂停，继续微信小程序；没有正式AppID，未真机验收。
+- 原Java仅参考，不是部署后端。用户最新指令恢复乘客Android与小程序并行；无微信正式AppID，微信未真机验收。新原生唯一可写目录为仓库apps/passenger-android，基于原工作区1.1.6源码验哈希迁入，不覆盖旧目录。
 
 ## 当前任务与验收
 - AG-20261025-01 最终开发源码6bfc9d0f8223cb7c981f1b9079cd31e705d5be2a独立PASS，经历两轮问题修复；PR#3已合并884be476aa19b6a3fa6804139d1080ef9f3523f7。
@@ -54,4 +54,4 @@
 - REL-20261025-01：55项Debug单测及构建、固定云源/同签名、独立覆盖安装与限定UI/云刷新PASS；公开APK已全量直连回读版本/签名/哈希。原035对象已云端备份。仅替换APK，无后端/admin/数据发布。
 - MIN-20261025-01：最新小程序ZIP在delivery/2026-10-25，56项测试/结构/ZIP CRC通过，Gemini只读文档复核PASS。无AppID，不是已发布微信小程序。
 - Gemini CLI执行command被非交互权限规则拒绝，未跳过权限；协调者接手测试打包，Gemini仅实际完成文档复核。不能再假定CLI编辑模式可自动执行所有命令。
-- 四角色当前无活跃任务，等待用户验收反馈；后台/云参数继续保持原保护和按需配置。
+- 当前PA-20261025-01进行中：Gemini主实现Android对齐，backend只读矩阵、frontend独立测试，coordinator构建发布。后台/云参数继续保持原保护和按需配置。

@@ -1,0 +1,106 @@
+{
+  "task": "PA-20261025-01",
+  "owner": "frontend",
+  "rulesAck": "2026-10-25-v2",
+  "baseSha": "097e3e47ea05f545705a588a9da7beb23bb9ec4b",
+  "completedAt": "2026-10-25T02:00:22+08:00",
+  "status": "IMPLEMENTED_PENDING_BUILD_AND_INDEPENDENT_REVIEW",
+  "version": "1.1.7-experience/code9 (coordinator pre-set, unchanged)",
+  "changedFiles": [
+    {
+      "path": "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/PassengerLocalExtras.kt",
+      "sha256": "3e83db4921770685792acad2a53e185140116c8c6791091861ff21811c11fd30",
+      "bytes": 2250
+    },
+    {
+      "path": "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/ParityScreens.kt",
+      "sha256": "7e3a191ac21beff50d5f6aa7642824eddeb6dda95aa480e271a4485f86595f84",
+      "bytes": 6644
+    },
+    {
+      "path": "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/AddressSearch.kt",
+      "sha256": "6b8f574aa7ccb354e5fc5dd90c0a6385329c473660631b128726997a0d65c0c7",
+      "bytes": 1259
+    },
+    {
+      "path": "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/MainActivity.kt",
+      "sha256": "cd8b9ab56cf2d83d92a0ab98361c6a27f4158882d0d224451192942a7deb90ff",
+      "bytes": 18033
+    },
+    {
+      "path": "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/ProfileScreens.kt",
+      "sha256": "7d08176ae60dd90abc3ccb3b0c3ad3714e67c6f8e6b085b446d89f19f0d1e441",
+      "bytes": 14110
+    },
+    {
+      "path": "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/OrderDetail.kt",
+      "sha256": "87ee8974947a9f3befa8af9219496171aa02ede5db74726356af29b2ec248fa0",
+      "bytes": 27790
+    },
+    {
+      "path": "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/BookingScreens.kt",
+      "sha256": "7cca6e6ee90cf712def4b1d188553714d586545e8d8df4db949595342f2fbc4d",
+      "bytes": 20460
+    }
+  ],
+  "criticalFilesByteExact": [
+    {
+      "path": "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/PassengerStore.kt",
+      "sha256": "74d0cf010ccfd3388a12018b1a984f787e6668e61afcc00cd41d7c0eee92d269"
+    },
+    {
+      "path": "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/PendingRequestJournal.kt",
+      "sha256": "1d1b4d1bca498d1c8b53794aeb60cccffa0aab43c31238a43d1dd37a2faf251c"
+    },
+    {
+      "path": "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/PaymentConfirmation.kt",
+      "sha256": "68e7e9c66a634dff188c2490770a09495e19c121634155f6f4c50298dc1088e4"
+    },
+    {
+      "path": "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/Negotiation.kt",
+      "sha256": "d96e137af11de3cda1c5b6387bd911923a840448720c1121d89714792dfe3bf5"
+    },
+    {
+      "path": "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/OrderFarePresentation.kt",
+      "sha256": "807e08ea6813ea1ab53c8ae25df2161d60b605f0018ccff50079427bffb512eb"
+    }
+  ],
+  "implementation": [
+    "个人中心卡券/积分/邀请独立演示入口，默认0；不调用营销/订单抵扣接口、不发奖励；复制说明无注册或首单返利承诺",
+    "安全联系人按state.passenger.id的SHA256私有key存本机；未登录不读；最多3人，增改删及明确删除确认；只由主动按钮调ACTION_DIAL（含110），无CALL_PHONE/短信/录音/警务能力",
+    "司机服务卡只读共享订单driver字段，缺失显示未提供，不虚构评级/颜色/完成数或真实认证",
+    "Android系统Geocoder在IO异步真实搜索；加载/空结果/失败提示及取消，选择结果同时绑定名称和坐标；编辑地点文字清空旧坐标并取消旧搜索；保留常用/体验点与手动WGS84兜底",
+    "原有WAIT_PAY门禁、WAIT_CONTINUE、支付金额/版本、PassengerStore身份及幂等日志、投诉附件未重写"
+  ],
+  "actualChecks": [
+    {
+      "command": "git diff --check -- apps/passenger-android",
+      "status": "PASS"
+    },
+    {
+      "command": "SHA comparison of five critical files against baseline097e3e4",
+      "status": "PASS"
+    }
+  ],
+  "notRun": [
+    "Gradle/unit tests/lint/build (explicitly coordinator-owned)",
+    "Android emulator/physical device/UI/account-switch persistence",
+    "Geocoder provider/network availability, result accuracy and platform coordinate behavior",
+    "Dialer/clipboard runtime and contact persistence scenarios",
+    "New order/payment/cancellation/full driver-passenger integration",
+    "Deployment/Git commit/GitHub upload"
+  ],
+  "limits": [
+    "营销全为明确演示，不与服务端账务相连；没有真实邀请码、券资产或奖励",
+    "安全联系人仅该Android安装内按账号隔离，不跨设备同步；卸载删除",
+    "Geocoder依赖设备系统服务，未接腾讯地图/微信选点或付费SDK；未新增自动定位和道路导航；真机坐标须验收",
+    "Geocoder旧式平台调用虽在IO且可取消界面等待，实际provider请求由系统实现，取消不保证终止其底层网络",
+    "司机卡仅展示后端投影字段，不构建本地司机/订单权威"
+  ],
+  "next": "root统一Gradle构建，backend非作者审查；新账号/切号/未登录/联系人CRUD、搜索成功失败与改名清坐标、卡片缺失字段、既有订单核心回归后由coordinator决定发布。",
+  "sourceFrozenForCoordinatorBuild": true,
+  "newDependencies": false,
+  "subagentsSpawned": 0,
+  "cloudOrDeviceActions": false,
+  "mergeSha": "PENDING coordinator commit"
+}

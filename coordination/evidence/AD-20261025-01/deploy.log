@@ -1,0 +1,6 @@
+Deploying...
+Creating Revision.........................done
+Done.
+Service [driver-admin] revision [driver-admin-browser1] has been deployed and is serving 100 percent of traffic.
+Service URL: https://driver-admin-491829048305.us-west1.run.app
+Proxy locally with: gcloud run services proxy driver-admin --region us-west1 --project yijiexing-driver-demo-1023
