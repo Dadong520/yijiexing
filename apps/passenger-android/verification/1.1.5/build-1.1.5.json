@@ -1,0 +1,93 @@
+{
+  "versionName": "1.1.5-experience",
+  "versionCode": 7,
+  "apk": "/Users/dongge/Documents/New project 2/yijiexing-passenger-20261023/android/verification/1.1.5/app-debug-1.1.5-candidate.apk",
+  "sha256": "4f9f2b40d435a905690a4675efaa52c721783e6eb69017eb14e704405bb217fd",
+  "bytes": 8148421,
+  "builtAt": "2026-10-24T00:18:51.193096+08:00",
+  "build": "assembleDebug testDebugUnitTest lintDebug passed",
+  "testSuites": [
+    {
+      "name": "cn.hbzjhs.passenger.PassengerRulesTest",
+      "tests": "4",
+      "skipped": "0",
+      "failures": "0",
+      "errors": "0",
+      "timestamp": "2026-10-23T16:17:41",
+      "hostname": "dongge-2.local",
+      "time": "0.003"
+    },
+    {
+      "name": "cn.hbzjhs.passenger.NegotiationTest",
+      "tests": "4",
+      "skipped": "0",
+      "failures": "0",
+      "errors": "0",
+      "timestamp": "2026-10-23T16:17:40",
+      "hostname": "dongge-2.local",
+      "time": "0.05"
+    },
+    {
+      "name": "cn.hbzjhs.passenger.OrderIdentityTest",
+      "tests": "2",
+      "skipped": "0",
+      "failures": "0",
+      "errors": "0",
+      "timestamp": "2026-10-23T16:17:41",
+      "hostname": "dongge-2.local",
+      "time": "0.014"
+    },
+    {
+      "name": "cn.hbzjhs.passenger.PendingRequestJournalTest",
+      "tests": "4",
+      "skipped": "0",
+      "failures": "0",
+      "errors": "0",
+      "timestamp": "2026-10-23T16:17:41",
+      "hostname": "dongge-2.local",
+      "time": "0.057"
+    },
+    {
+      "name": "cn.hbzjhs.passenger.OrderFarePresentationTest",
+      "tests": "2",
+      "skipped": "0",
+      "failures": "0",
+      "errors": "0",
+      "timestamp": "2026-10-23T16:17:40",
+      "hostname": "dongge-2.local",
+      "time": "0.005"
+    }
+  ],
+  "lint": [
+    {
+      "id": "OldTargetApi",
+      "severity": "Warning"
+    },
+    {
+      "id": "DataExtractionRules",
+      "severity": "Warning"
+    },
+    {
+      "id": "AutoboxingStateCreation",
+      "severity": "Information"
+    },
+    {
+      "id": "AutoboxingStateCreation",
+      "severity": "Information"
+    }
+  ],
+  "sourceSha256": {
+    "app/src/main/java/cn/hbzjhs/passenger/OrderIdentity.kt": "8831fd4975384e4226e6d3a200915cde459dcb832381f8e2ef6e4f36f67a6af2",
+    "app/src/main/java/cn/hbzjhs/passenger/PendingRequestJournal.kt": "1d1b4d1bca498d1c8b53794aeb60cccffa0aab43c31238a43d1dd37a2faf251c",
+    "app/src/main/java/cn/hbzjhs/passenger/BookingScreens.kt": "71feba419ccad7e1143e173eacc965105820ad97a2b55ad724e69dca7a0e22a5",
+    "app/src/main/java/cn/hbzjhs/passenger/MainActivity.kt": "e9836ee5270ad8a116a7fe5b497ca3b17c49da42df6e6a66378142b5849e2479",
+    "app/src/main/java/cn/hbzjhs/passenger/OrderFarePresentation.kt": "807e08ea6813ea1ab53c8ae25df2161d60b605f0018ccff50079427bffb512eb",
+    "app/src/main/java/cn/hbzjhs/passenger/ProfileScreens.kt": "28fa649d545864220ca55097e7b8f4f8e18178f72cb6c48d3e7803e53703f131",
+    "app/src/main/java/cn/hbzjhs/passenger/Negotiation.kt": "76f3f457e1ebb4787534912beaab0dd7f4d2d173d564894d746f50c2237752b7",
+    "app/src/main/java/cn/hbzjhs/passenger/ExtraScreens.kt": "27b1336a7c02752d99e9b446a81a026dafdfb729439d3c04cc5f35ced044be54",
+    "app/src/main/java/cn/hbzjhs/passenger/UiComponents.kt": "c76f65b8b3e37039ef785602bb3dbd92a2dd2d4e2aaff1289cc03c48fd9e0f86",
+    "app/src/main/java/cn/hbzjhs/passenger/PassengerStore.kt": "74d0cf010ccfd3388a12018b1a984f787e6668e61afcc00cd41d7c0eee92d269",
+    "app/src/main/java/cn/hbzjhs/passenger/OrderDetail.kt": "25648129a987c185e4972e6af239676e0412be4a83408c97b347f54f9e31220f"
+  },
+  "published114ApkUnchanged": true
+}

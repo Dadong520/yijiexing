@@ -1,0 +1,91 @@
+{
+  "versionName": "1.1.4-experience",
+  "versionCode": 6,
+  "apk": "/Users/dongge/Documents/New project 2/yijiexing-passenger-20261023/android/app/build/outputs/apk/debug/app-debug.apk",
+  "sha256": "87eda5e9a1a507cda91f3fbe7ede1d6a6a23862d528d3bc014bb77edd57f8eb9",
+  "bytes": 8132037,
+  "builtAt": "2026-10-23T23:40:18.931684+08:00",
+  "build": "assembleDebug testDebugUnitTest lintDebug passed",
+  "testSuites": [
+    {
+      "name": "cn.hbzjhs.passenger.PassengerRulesTest",
+      "tests": "4",
+      "skipped": "0",
+      "failures": "0",
+      "errors": "0",
+      "timestamp": "2026-10-23T15:39:41",
+      "hostname": "dongge-2.local",
+      "time": "0.006"
+    },
+    {
+      "name": "cn.hbzjhs.passenger.NegotiationTest",
+      "tests": "4",
+      "skipped": "0",
+      "failures": "0",
+      "errors": "0",
+      "timestamp": "2026-10-23T15:39:41",
+      "hostname": "dongge-2.local",
+      "time": "0.057"
+    },
+    {
+      "name": "cn.hbzjhs.passenger.OrderIdentityTest",
+      "tests": "2",
+      "skipped": "0",
+      "failures": "0",
+      "errors": "0",
+      "timestamp": "2026-10-23T15:39:41",
+      "hostname": "dongge-2.local",
+      "time": "0.017"
+    },
+    {
+      "name": "cn.hbzjhs.passenger.PendingRequestJournalTest",
+      "tests": "4",
+      "skipped": "0",
+      "failures": "0",
+      "errors": "0",
+      "timestamp": "2026-10-23T15:39:41",
+      "hostname": "dongge-2.local",
+      "time": "0.072"
+    },
+    {
+      "name": "cn.hbzjhs.passenger.OrderFarePresentationTest",
+      "tests": "2",
+      "skipped": "0",
+      "failures": "0",
+      "errors": "0",
+      "timestamp": "2026-10-23T15:39:41",
+      "hostname": "dongge-2.local",
+      "time": "0.004"
+    }
+  ],
+  "lint": [
+    {
+      "id": "OldTargetApi",
+      "severity": "Warning"
+    },
+    {
+      "id": "DataExtractionRules",
+      "severity": "Warning"
+    },
+    {
+      "id": "AutoboxingStateCreation",
+      "severity": "Information"
+    },
+    {
+      "id": "AutoboxingStateCreation",
+      "severity": "Information"
+    }
+  ],
+  "changeScope": "Chinese order summary with safely formatted placement time; internal identifiers available only through clearly named view/copy dialogs; no order data/backend/business-rule changes.",
+  "sourceSha256": {
+    "app/src/main/java/cn/hbzjhs/passenger/OrderIdentity.kt": "8831fd4975384e4226e6d3a200915cde459dcb832381f8e2ef6e4f36f67a6af2",
+    "app/src/main/java/cn/hbzjhs/passenger/OrderDetail.kt": "ba49d91c62f312d33b2dc00532706974c93bc1bbc7c4b293a5546651d5dfe8eb",
+    "app/src/main/java/cn/hbzjhs/passenger/BookingScreens.kt": "29b9b51a05692fe1171429757dd6f989a5af539aa2485748dab890dd680ab157",
+    "app/src/main/java/cn/hbzjhs/passenger/ExtraScreens.kt": "27b1336a7c02752d99e9b446a81a026dafdfb729439d3c04cc5f35ced044be54",
+    "app/src/main/java/cn/hbzjhs/passenger/ProfileScreens.kt": "71d6c536a82610c2b94ccf23c683294beb4073f0393ad972d8579432fd2f55f4",
+    "app/src/test/java/cn/hbzjhs/passenger/OrderIdentityTest.kt": "5b8e81cad528cd918f414027509939d09a221183f98e1ffa09c46226aec0c48e",
+    "app/build.gradle.kts": "d882579f77c0e214cbf4c154aa5aac007d701f61eded2492850256eb03d9b16a"
+  },
+  "signingCertificateSha256": "9ffec9b342d12909ff288bd73f23ba104893b39120cb24ea83c9734a0d2b758f",
+  "sameCertificateAs113": true
+}

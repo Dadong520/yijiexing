@@ -1,0 +1,127 @@
+{
+  "versionName": "1.1.6-experience",
+  "versionCode": 8,
+  "apk": "/Users/dongge/Documents/New project 2/yijiexing-passenger-20261023/android/verification/1.1.6/app-debug-1.1.6-candidate.apk",
+  "sha256": "53bc309a7d95329dba937fc4d581f025aa0d8430e399eb5b229ee0c1c6edf581",
+  "bytes": 8151325,
+  "builtAt": "2026-10-24T01:31:45.757056+08:00",
+  "build": "assembleDebug testDebugUnitTest lintDebug --offline; temporary independent build; exit0 in42s",
+  "testSuites": [
+    {
+      "name": "cn.hbzjhs.passenger.NegotiationTest",
+      "tests": "4",
+      "skipped": "0",
+      "failures": "0",
+      "errors": "0",
+      "timestamp": "2026-10-23T17:30:35",
+      "hostname": "dongge-2.local",
+      "time": "0.046"
+    },
+    {
+      "name": "cn.hbzjhs.passenger.OrderFarePresentationTest",
+      "tests": "2",
+      "skipped": "0",
+      "failures": "0",
+      "errors": "0",
+      "timestamp": "2026-10-23T17:30:35",
+      "hostname": "dongge-2.local",
+      "time": "0.008"
+    },
+    {
+      "name": "cn.hbzjhs.passenger.OrderIdentityTest",
+      "tests": "2",
+      "skipped": "0",
+      "failures": "0",
+      "errors": "0",
+      "timestamp": "2026-10-23T17:30:35",
+      "hostname": "dongge-2.local",
+      "time": "0.027"
+    },
+    {
+      "name": "cn.hbzjhs.passenger.PassengerRulesTest",
+      "tests": "4",
+      "skipped": "0",
+      "failures": "0",
+      "errors": "0",
+      "timestamp": "2026-10-23T17:30:35",
+      "hostname": "dongge-2.local",
+      "time": "0.004"
+    },
+    {
+      "name": "cn.hbzjhs.passenger.PaymentConfirmationTest",
+      "tests": "4",
+      "skipped": "0",
+      "failures": "0",
+      "errors": "0",
+      "timestamp": "2026-10-23T17:30:35",
+      "hostname": "dongge-2.local",
+      "time": "0.002"
+    },
+    {
+      "name": "cn.hbzjhs.passenger.PendingRequestJournalTest",
+      "tests": "4",
+      "skipped": "0",
+      "failures": "0",
+      "errors": "0",
+      "timestamp": "2026-10-23T17:30:35",
+      "hostname": "dongge-2.local",
+      "time": "0.046"
+    }
+  ],
+  "totalTests": 20,
+  "lint": {
+    "Warning": 2,
+    "Information": 2
+  },
+  "sourceSha256": {
+    "app/src/main/java/cn/hbzjhs/passenger/BookingScreens.kt": "71feba419ccad7e1143e173eacc965105820ad97a2b55ad724e69dca7a0e22a5",
+    "app/src/main/java/cn/hbzjhs/passenger/ExtraScreens.kt": "27b1336a7c02752d99e9b446a81a026dafdfb729439d3c04cc5f35ced044be54",
+    "app/src/main/java/cn/hbzjhs/passenger/MainActivity.kt": "e9836ee5270ad8a116a7fe5b497ca3b17c49da42df6e6a66378142b5849e2479",
+    "app/src/main/java/cn/hbzjhs/passenger/Negotiation.kt": "d96e137af11de3cda1c5b6387bd911923a840448720c1121d89714792dfe3bf5",
+    "app/src/main/java/cn/hbzjhs/passenger/OrderDetail.kt": "7947a807448bc0e0b8176aec9975ee052b0fc0279b4a1bdfcb37dc9f586d6916",
+    "app/src/main/java/cn/hbzjhs/passenger/OrderFarePresentation.kt": "807e08ea6813ea1ab53c8ae25df2161d60b605f0018ccff50079427bffb512eb",
+    "app/src/main/java/cn/hbzjhs/passenger/OrderIdentity.kt": "8831fd4975384e4226e6d3a200915cde459dcb832381f8e2ef6e4f36f67a6af2",
+    "app/src/main/java/cn/hbzjhs/passenger/PassengerStore.kt": "74d0cf010ccfd3388a12018b1a984f787e6668e61afcc00cd41d7c0eee92d269",
+    "app/src/main/java/cn/hbzjhs/passenger/PaymentConfirmation.kt": "68e7e9c66a634dff188c2490770a09495e19c121634155f6f4c50298dc1088e4",
+    "app/src/main/java/cn/hbzjhs/passenger/PendingRequestJournal.kt": "1d1b4d1bca498d1c8b53794aeb60cccffa0aab43c31238a43d1dd37a2faf251c",
+    "app/src/main/java/cn/hbzjhs/passenger/ProfileScreens.kt": "28fa649d545864220ca55097e7b8f4f8e18178f72cb6c48d3e7803e53703f131",
+    "app/src/main/java/cn/hbzjhs/passenger/UiComponents.kt": "c76f65b8b3e37039ef785602bb3dbd92a2dd2d4e2aaff1289cc03c48fd9e0f86"
+  },
+  "protectedExistingSourceMatches115": {
+    "app/src/main/java/cn/hbzjhs/passenger/OrderIdentity.kt": true,
+    "app/src/main/java/cn/hbzjhs/passenger/PendingRequestJournal.kt": true,
+    "app/src/main/java/cn/hbzjhs/passenger/BookingScreens.kt": true,
+    "app/src/main/java/cn/hbzjhs/passenger/MainActivity.kt": true,
+    "app/src/main/java/cn/hbzjhs/passenger/OrderFarePresentation.kt": true,
+    "app/src/main/java/cn/hbzjhs/passenger/ProfileScreens.kt": true,
+    "app/src/main/java/cn/hbzjhs/passenger/ExtraScreens.kt": true,
+    "app/src/main/java/cn/hbzjhs/passenger/UiComponents.kt": true,
+    "app/src/main/java/cn/hbzjhs/passenger/PassengerStore.kt": true
+  },
+  "published115ApkUnchanged": true,
+  "paymentContract": {
+    "ordinaryAndBid": [
+      "id",
+      "outcome",
+      "expectedFare",
+      "fareVersion"
+    ],
+    "missingFareVersionInStateDefault": 0,
+    "negotiatedUnchanged": [
+      "id",
+      "outcome",
+      "amount",
+      "quoteVersion"
+    ]
+  },
+  "status": "CANDIDATE_INSTALLED_SMOKE_CHECKED_NOT_PUBLISHED",
+  "boundaries": [
+    "After build, root authorized only 5584 overwrite-install/startup/account/font check; no order creation/payment/cancel or connection change",
+    "Backend was still v7 during smoke check; v8 business behavior and server race protection not tested by this installation check",
+    "No direct cloud API or deployment action by this child"
+  ],
+  "signatureVerified": true,
+  "signerSha256": "9ffec9b342d12909ff288bd73f23ba104893b39120cb24ea83c9734a0d2b758f",
+  "sameSignerAs115": true,
+  "installationEvidence": "qa/wait-pay-release/116-installed-identity.json"
+}
