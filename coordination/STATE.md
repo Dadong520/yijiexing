@@ -1,5 +1,5 @@
 # 宜捷行当前状态
-更新时间2026-10-25 02:25 Asia/Singapore。协调者唯一维护；恢复读STATE/BOARD/当前任务/角色handoff。
+更新时间2026-10-25 02:54 Asia/Singapore。协调者唯一维护；恢复读STATE/BOARD/当前任务/角色handoff。
 
 当前发布：司机0.3.8/code11，乘客Android1.1.8/code10；driver-demo原v8镜像7d71539...未变。后台新UI driver-admin-ui20261025，image35726abba...，100%流量，IAP/Google dadonggev587@gmail.com+admin登录实测18订单，完成7取消9待接1待付1，完成已付16124分。admin https://driver-admin-491829048305.us-west1.run.app/。独立项目yijiexing-driver-demo-1023/us-west1；两服务automatic/min0/max1/请求计费，不保活、不自动暂停。发布无需再审批，唯一发布者coordinator。
 
