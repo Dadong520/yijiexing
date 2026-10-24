@@ -1,0 +1,124 @@
+{
+  "taskId": "UI-20261025-02",
+  "reviewer": "frontend independent session 01a167c8-a5eb-77e3-b77e-214927a029da",
+  "at": "2026-10-25T02:40:20.939018+08:00",
+  "role": "passenger",
+  "revision": "r2",
+  "apk": {
+    "apkSha256": "d3763b63f422d741dbc565082bd6db00d1082401fc56f40374be20aa38dbb9ac",
+    "bytes": 8205097,
+    "version": "1.1.8-experience",
+    "versionCode": 10,
+    "candidate": "passenger118-r2",
+    "fontOriginal": "1.0"
+  },
+  "status": "INTERACTION_CHECKED_FINAL_VISUAL_PENDING",
+  "scope": "UI-only; existing accounts/orders retained; no submitted business writes",
+  "evidence": [
+    {
+      "png": "device-r2-01-home-font10.png",
+      "xml": "device-r2-01-home-font10.xml",
+      "sha256": "457686711a9ff2523cf08fb8f8628061ef0c7fc922c78065a5c21db491b23f6a",
+      "fontScale": 1.0,
+      "visuallyInspected": true,
+      "acceptedEvidence": true,
+      "rejectionReason": null
+    },
+    {
+      "png": "device-r2-02-profile-font10.png",
+      "xml": "device-r2-02-profile-font10.xml",
+      "sha256": "38e7eff76c5c690c271406a62277078e0632e48e20084451b981ebdc6ad46d95",
+      "fontScale": 1.0,
+      "visuallyInspected": true,
+      "acceptedEvidence": true,
+      "rejectionReason": null
+    },
+    {
+      "png": "device-r2-03-orders-font10.png",
+      "xml": "device-r2-03-orders-font10.xml",
+      "sha256": "8e3741df20540787e4b4c648948c3c03f697d2eb5e1fb979a2d05bfaffbd864c",
+      "fontScale": 1.0,
+      "visuallyInspected": true,
+      "acceptedEvidence": true,
+      "rejectionReason": null
+    },
+    {
+      "png": "device-r2-04-existing-detail-font10.png",
+      "xml": "device-r2-04-existing-detail-font10.xml",
+      "sha256": "cb62882dd7e471bb56630f9d25f19b967e0b3434717bdbd07efd70671538bf3f",
+      "fontScale": 1.0,
+      "visuallyInspected": true,
+      "acceptedEvidence": true,
+      "rejectionReason": null
+    },
+    {
+      "png": "device-r2-05-address-dialog-font10.png",
+      "xml": "device-r2-05-address-dialog-font10.xml",
+      "sha256": "62c55029f40a43dbbedde3034cd1bb4b3784387f8e9b9c0e3196be62b85f5e24",
+      "fontScale": 1.0,
+      "visuallyInspected": true,
+      "acceptedEvidence": true,
+      "rejectionReason": null
+    },
+    {
+      "png": "device-r2-06-profile-more-font10.png",
+      "xml": "device-r2-06-profile-more-font10.xml",
+      "sha256": "4c07928ddd4ba287dba9c7542b54778ccfb7f8dcccf6bda3606578959f47d426",
+      "fontScale": 1.0,
+      "visuallyInspected": true,
+      "acceptedEvidence": true,
+      "rejectionReason": null
+    },
+    {
+      "png": "device-r2-07-address-help-expanded-font10.png",
+      "xml": "device-r2-07-address-help-expanded-font10.xml",
+      "sha256": "e1c9a9694ec2a732896332a8cdfd127fd38152bbfa2d16fdf2097c5020f66696",
+      "fontScale": 1.0,
+      "visuallyInspected": true,
+      "acceptedEvidence": true,
+      "rejectionReason": null
+    },
+    {
+      "png": "device-r2-08-more-settings-expanded-font10.png",
+      "xml": "device-r2-08-more-settings-expanded-font10.xml",
+      "sha256": "108105af346fd67d651efaa342790580718ea76b2bd6c310a0772a74f5fcb112",
+      "fontScale": 1.0,
+      "visuallyInspected": true,
+      "acceptedEvidence": true,
+      "rejectionReason": null
+    }
+  ],
+  "actionsNotPerformed": [
+    "confirm acceptance",
+    "create order",
+    "cancel order",
+    "payment/refund",
+    "complaint submission",
+    "online/offline toggle",
+    "logout",
+    "clear data",
+    "deployment",
+    "Amap external UI"
+  ],
+  "notRun": [
+    "physical handset",
+    "TalkBack",
+    "landscape/tablet",
+    "full order/payment lifecycle",
+    "all-platform business acceptance",
+    "font1.3 pending final passenger r3"
+  ],
+  "passed": [
+    "Home/profile/orders/detail/address dialog screenshots inspected at1.0",
+    "Existing AVAILABLE order route and29.26 unpaid visible",
+    "Existing-trip CTA and Back operate without creating/cancelling order",
+    "Address selector opens/cancels without changing draft coordinates",
+    "Address explanation and more-trip settings expand; no form edit/submission"
+  ],
+  "findings": [
+    {
+      "priority": "P2",
+      "observed": "Coordinator has already scheduled r3 surfaceTint/spacing and section-order polish; do not use r2 for final visual acceptance."
+    }
+  ]
+}

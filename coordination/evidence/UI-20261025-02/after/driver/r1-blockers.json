@@ -1,0 +1,20 @@
+{
+  "status": "BLOCKED",
+  "apkSha256": "eeecb343b62bf3fcc663f825ebf0363ed59e25335c53e8318fcbc1b586bf0886",
+  "blockers": [
+    {
+      "priority": "P1",
+      "description": "No configured cloud origin; restore-session view displays 此安装包尚未配置云端服务",
+      "evidence": "frontend-r1-01-home-font10.png",
+      "testedRequest": "App launch only; no login attempt"
+    },
+    {
+      "priority": "P2",
+      "description": "White normal text on #059669 has3.768:1 contrast; conditional failure for normal text",
+      "standard": "https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html"
+    }
+  ],
+  "fontScale": "1.0 unchanged",
+  "home/orders/profile/font13": "NOT_RUN waiting corrected APK",
+  "device": "5586 app force-stopped; login/access retained"
+}

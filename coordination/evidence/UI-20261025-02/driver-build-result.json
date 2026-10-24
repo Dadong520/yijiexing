@@ -1,0 +1,14 @@
+{
+  "sourceSha": "55dce79f58a780a1de1ea88c448a774bac03fc9f",
+  "apkPath": "/Users/dongge/.codex/tmp/yijiexing-native-ui-20261025/driver/_app/outputs/apk/debug/app-debug.apk",
+  "apkSha256": "08732bf8b372e30024711e404e4bf7161a6dc95cf05d4b8094efda895ccda6b7",
+  "bytes": 54010889,
+  "versionName": "0.3.8-cloud",
+  "versionCode": 11,
+  "signerSha256": "9ffec9b342d12909ff288bd73f23ba104893b39120cb24ea83c9734a0d2b758f",
+  "unitTests": 55,
+  "failed": 0,
+  "origin": "https://driver-demo-491829048305.us-west1.run.app",
+  "buildScope": "offline isolated local output; source from feature branch",
+  "sourceScopeNote": "Driver subtree identical to previously built d63fb826; only passenger surfaceTint changed in final source commit"
+}

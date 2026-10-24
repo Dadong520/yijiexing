@@ -1,0 +1,26 @@
+[
+  {
+    "serial": "emulator-5586",
+    "package": "cn.hbzjhs.dc.driver.cloud",
+    "version": [
+      "versionCode=10 minSdk=26 targetSdk=34",
+      "versionName=0.3.7-cloud"
+    ],
+    "installedApkSha256": "226a43e90a242d537cf90ce889e8961f9b6cb2f5f481a34f9a9df5fabec0ffad",
+    "fontScale": "1.0",
+    "size": "Physical size: 1080x2400",
+    "density": "Physical density: 420"
+  },
+  {
+    "serial": "emulator-5584",
+    "package": "cn.hbzjhs.dc.passenger.cloud",
+    "version": [
+      "versionCode=9 minSdk=26 targetSdk=34",
+      "versionName=1.1.7-experience"
+    ],
+    "installedApkSha256": "a36ec7f139351cb5db33749ebbc00805c5345f8b9aa319bac228fbd40ab8dca9",
+    "fontScale": "1.0",
+    "size": "Physical size: 1080x2400",
+    "density": "Physical density: 420"
+  }
+]

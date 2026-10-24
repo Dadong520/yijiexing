@@ -1,0 +1,7 @@
+{
+  "baseSha": "d63fb82620c77466177b80a96e93c45e2428ac74",
+  "acceptedSourceSha": "55dce79f58a780a1de1ea88c448a774bac03fc9f",
+  "diff": "diff --git a/apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/MainActivity.kt b/apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/MainActivity.kt\nindex 2d2a843..cb02e8f 100644\n--- a/apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/MainActivity.kt\n+++ b/apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/MainActivity.kt\n@@ -565,7 +565,7 @@ fun PassengerVisualTheme(content: @Composable () -> Unit) {\n     background = Color(0xFFF6F8FA),\n     onBackground = Color(0xFF111827),\n     surface = Color.White,\n-    surfaceTint = Color.Transparent,\n+    surfaceTint = Color.White,\n     onSurface = Color(0xFF111827),\n     surfaceVariant = Color(0xFFF1F3F5),\n     onSurfaceVariant = Color(0xFF6B7280),\n",
+  "finding": "Only PassengerVisualTheme.surfaceTint constant changes; no layout/callback changes.",
+  "reviewer": "frontend"
+}

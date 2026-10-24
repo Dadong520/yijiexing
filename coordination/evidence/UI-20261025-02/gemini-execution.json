@@ -1,0 +1,26 @@
+{
+  "driver-ui-gemini": {
+    "conversationId": "96ee98ac-9c11-4a18-8921-12b52e43a6a3",
+    "status": "SUCCESS",
+    "duration": 7.675588,
+    "responseBytes": 0,
+    "toolFailure": true,
+    "containsActualCode": false
+  },
+  "driver-ui-gemini-v2": {
+    "conversationId": "db715a0a-2d4c-4319-b6e5-66da47858e2e",
+    "status": "SUCCESS",
+    "duration": 162.705574,
+    "responseBytes": 41174,
+    "toolFailure": false,
+    "containsActualCode": true
+  },
+  "passenger-ui-gemini": {
+    "conversation_id": "f1b0621d-fd9a-4c64-a352-416c7b363b03",
+    "status": "SUCCESS",
+    "duration_seconds": 183.804359,
+    "responseBytes": 48026,
+    "containsActualCode": true
+  },
+  "activeGeminiTasks": 0
+}
