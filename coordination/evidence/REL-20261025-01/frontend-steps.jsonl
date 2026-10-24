@@ -1,0 +1,30 @@
+{"at": "2026-10-25T01:20:29.318618+08:00", "kind": "capture", "value": "/Users/dongge/Documents/New project 2/coordination/evidence/REL-20261025-01/frontend-01-home-after-upgrade.png"}
+{"at": "2026-10-25T01:21:01.544138+08:00", "kind": "scroll", "value": "up"}
+{"at": "2026-10-25T01:21:04.261933+08:00", "kind": "capture", "value": "/Users/dongge/Documents/New project 2/coordination/evidence/REL-20261025-01/frontend-02-nearby-orders.png"}
+{"at": "2026-10-25T01:21:08.963152+08:00", "kind": "tap", "value": "我的"}
+{"at": "2026-10-25T01:21:18.851643+08:00", "kind": "capture", "value": "/Users/dongge/Documents/New project 2/coordination/evidence/REL-20261025-01/frontend-03-profile.png"}
+{"at": "2026-10-25T01:21:52.078915+08:00", "kind": "tap", "value": "司机资料"}
+{"at": "2026-10-25T01:21:55.214954+08:00", "kind": "capture", "value": "/Users/dongge/Documents/New project 2/coordination/evidence/REL-20261025-01/frontend-04-driver-information.png"}
+{"at": "2026-10-25T01:22:09.069314+08:00", "kind": "tap", "value": "刷新"}
+{"at": "2026-10-25T01:22:12.066372+08:00", "kind": "capture", "value": "/Users/dongge/Documents/New project 2/coordination/evidence/REL-20261025-01/frontend-05-driver-refreshed.png"}
+{"at": "2026-10-25T01:22:16.574376+08:00", "kind": "tap", "value": "服务卡"}
+{"at": "2026-10-25T01:22:37.403561+08:00", "kind": "capture", "value": "/Users/dongge/Documents/New project 2/coordination/evidence/REL-20261025-01/frontend-06-service-card.png"}
+{"at": "2026-10-25T01:22:41.971298+08:00", "kind": "tap", "value": "关闭"}
+{"at": "2026-10-25T01:22:44.686637+08:00", "kind": "tap", "value": "返回"}
+{"at": "2026-10-25T01:22:47.496696+08:00", "kind": "tap", "value": "听单"}
+{"at": "2026-10-25T01:22:50.157694+08:00", "kind": "tap", "value": "查看待支付订单"}
+{"at": "2026-10-25T01:23:05.189830+08:00", "kind": "capture", "value": "/Users/dongge/Documents/New project 2/coordination/evidence/REL-20261025-01/frontend-07-unpaid-list.png"}
+{"at": "2026-10-25T01:23:09.700100+08:00", "kind": "tap", "value": "first visible unpaid order detail (read only)"}
+{"at": "2026-10-25T01:23:18.983969+08:00", "kind": "capture", "value": "/Users/dongge/Documents/New project 2/coordination/evidence/REL-20261025-01/frontend-08-unpaid-detail.png"}
+{"at": "2026-10-25T01:23:23.354098+08:00", "kind": "tap", "value": "刷新支付状态"}
+{"at": "2026-10-25T01:23:53.919557+08:00", "kind": "capture", "value": "/Users/dongge/Documents/New project 2/coordination/evidence/REL-20261025-01/frontend-09-unpaid-refreshed.png"}
+{"at": "2026-10-25T01:23:58.479279+08:00", "kind": "tap", "value": "返回听单"}
+{"at": "2026-10-25T01:24:01.093589+08:00", "kind": "tap", "value": "我的"}
+{"at": "2026-10-25T01:24:01.740294+08:00", "kind": "scroll", "value": "up"}
+{"at": "2026-10-25T01:24:04.399951+08:00", "kind": "capture", "value": "/Users/dongge/Documents/New project 2/coordination/evidence/REL-20261025-01/frontend-10-profile-menus.png"}
+{"at": "2026-10-25T01:24:22.845715+08:00", "kind": "tap", "value": "服务分明细"}
+{"at": "2026-10-25T01:24:25.936291+08:00", "kind": "capture", "value": "/Users/dongge/Documents/New project 2/coordination/evidence/REL-20261025-01/frontend-11-service-score.png"}
+{"at": "2026-10-25T01:24:30.376516+08:00", "kind": "tap", "value": "返回"}
+{"at": "2026-10-25T01:24:32.967247+08:00", "kind": "tap", "value": "钱包"}
+{"at": "2026-10-25T01:24:54.725774+08:00", "kind": "capture", "value": "/Users/dongge/Documents/New project 2/coordination/evidence/REL-20261025-01/frontend-12-wallet.png"}
+{"at": "2026-10-25T01:24:57.298157+08:00", "kind": "handoff", "value": "driver app force-stopped; emulator-5586 HOME; no logout/data clear/server-state change"}

@@ -1,0 +1,7 @@
+{
+  "source": "gs://yijiexing-demo-state-491829048305/distribution/yijiexing-cloud.apk",
+  "sourceGeneration": "1792774380619536",
+  "backup": "gs://yijiexing-demo-state-491829048305/distribution/rollback/driver-before-037-1792774380619536.apk",
+  "sha256": "6b9620a237286002662a966a31ba110f50d3a13c2ca4c113961792b32ee0b4ea",
+  "serverSideCopy": true
+}

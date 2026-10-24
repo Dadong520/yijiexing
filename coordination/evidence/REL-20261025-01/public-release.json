@@ -1,0 +1,21 @@
+{
+  "status": "PASS",
+  "verifiedAt": "2026-10-25T01:28:47.699326+08:00",
+  "url": "https://driver-demo-491829048305.us-west1.run.app/download.apk",
+  "downloadPage": "https://driver-demo-491829048305.us-west1.run.app/download",
+  "versionName": "0.3.7-cloud",
+  "versionCode": 10,
+  "apkSha256": "226a43e90a242d537cf90ce889e8961f9b6cb2f5f481a34f9a9df5fabec0ffad",
+  "bytes": 53994505,
+  "httpStatus": 200,
+  "tlsVerified": true,
+  "fullBodyDownloaded": true,
+  "signerSha256": "9ffec9b342d12909ff288bd73f23ba104893b39120cb24ea83c9734a0d2b758f",
+  "sourceSha": "4b67744eb77639d6814bc3a85bd3d8b0bd5777d3",
+  "objectGeneration": "1792862917933200",
+  "rollback": "gs://yijiexing-demo-state-491829048305/distribution/rollback/driver-before-037-1792774380619536.apk",
+  "transport": "direct; proxy env removed; curl --noproxy *; no global config changed",
+  "backendChanged": false,
+  "adminChanged": false,
+  "dataChanged": false
+}

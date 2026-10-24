@@ -1,0 +1,96 @@
+{
+  "taskId": "REL-20261025-01",
+  "reviewer": "frontend independent reviewer",
+  "reviewedAt": "2026-10-25T01:26:37+08:00",
+  "status": "PASS",
+  "acceptedSha": "4b67744eb77639d6814bc3a85bd3d8b0bd5777d3",
+  "baseSha": "502182a1d171902cb41844552765fceed42eb32a",
+  "apkSha256": "226a43e90a242d537cf90ce889e8961f9b6cb2f5f481a34f9a9df5fabec0ffad",
+  "apkBytes": 53994505,
+  "versionName": "0.3.7-cloud",
+  "versionCode": 10,
+  "package": "cn.hbzjhs.dc.driver.cloud",
+  "signerSha256": "9ffec9b342d12909ff288bd73f23ba104893b39120cb24ea83c9734a0d2b758f",
+  "acceptanceScope": "bounded independent driver0.3.7 release smoke for version/safety-copy delta, not full trip/payment business acceptance",
+  "checks": [
+    {
+      "name": "Independent source scope",
+      "status": "PASS",
+      "detail": "base502182a→4b67744 only version9→10 /0.3.6→0.3.7 and safety heading; no backend/Store/business changes"
+    },
+    {
+      "name": "APK bytes/hash/signer/fixed cloud origin",
+      "status": "PASS",
+      "detail": "53,994,505 bytes; signer matches prior; origin located in packaged dex; package cn.hbzjhs.dc.driver.cloud"
+    },
+    {
+      "name": "In-place upgrade and retained login",
+      "status": "PASS",
+      "detail": "adb install -r success, no uninstall/data clear; 0.3.7-cloud/code10; retained account0003"
+    },
+    {
+      "name": "Cloud connection and explicit refresh",
+      "status": "PASS",
+      "detail": "Fresh launch connected; driver information Refresh and unpaid Refresh Payment Status complete with retained data; no error visible"
+    },
+    {
+      "name": "WAIT_PAY listening UI",
+      "status": "PASS",
+      "detail": "2 collections remain, no active-trip card; nearby shared order and enabled grab button visible; return-to-listening works. No accept request submitted"
+    },
+    {
+      "name": "Profile and service card data",
+      "status": "PASS",
+      "detail": "cumulative15accepted/10completed, score98, company 宜捷行云端演示体验车队, consistent driver detail/score menu; service card sandbox disclaimer retained"
+    },
+    {
+      "name": "Menu smoke and wallet",
+      "status": "PASS",
+      "detail": "profile→driver information/service card, unpaid list/detail, score menu and wallet open; wallet557.74, cumulative income299.74"
+    },
+    {
+      "name": "Scoped UI visual review",
+      "status": "PASS",
+      "detail": "12 screenshot+XML pairs captured; root visually inspected profile/nearby/unpaid-refreshed/wallet; no visible blocking errors or control obstruction in inspected views"
+    },
+    {
+      "name": "Device handback",
+      "status": "PASS",
+      "detail": "emulator5586 app force-stopped and HOME, session/data retained; no other emulator operated"
+    }
+  ],
+  "blockers": [],
+  "notRun": [
+    "New order acceptance/creation, payment, cancellation, tail verification and full late-payment cross-order chain (forbidden in this review)",
+    "0001 account or preserved order mutations",
+    "All-font-size/accessibility/device matrix and real physical Android phone",
+    "Re-running author55unit tests or rebuilding APK (author build result reviewed only)",
+    "New backend/mini-program/real marketing accounting/WeChat device acceptance",
+    "Deployment/GCS publication/public-download readback (coordinator owner)"
+  ],
+  "unitTestsAuthorReport": {
+    "passed": 55,
+    "failed": 0,
+    "independentlyRerun": false,
+    "source": "build-result.json"
+  },
+  "device": {
+    "serial": "emulator-5586",
+    "installedVersion": "0.3.7-cloud",
+    "installedCode": 10,
+    "accountTail": "0003",
+    "stateAtHandback": "app force-stopped, HOME; not logged out; no app data clear"
+  },
+  "observedAccountState": {
+    "pendingCollections": 2,
+    "walletCents": 55774,
+    "cumulativeIncomeCents": 29974,
+    "cumulativeAccepted": 15,
+    "cumulativeCompleted": 10
+  },
+  "newOrderPaymentCancellationActions": 0,
+  "productSourceChangesByReviewer": 0,
+  "subagentsSpawned": 0,
+  "deploymentPerformedByReviewer": false,
+  "nextAction": "coordinator may decide scoped driver APK release and public hash readback; retain outstanding full business/device acceptance limits"
+}

@@ -15,3 +15,5 @@ agy --model gemini-3.8-flash-high --mode plan --print-timeout 120s --output-form
 任务产出应含：ACK规则版本、基线/最终完整SHA、改动文件、实跑测试/退出码、证据路径、FAIL与NOT_RUN、下一步。作者自测后交非作者验收；合并和发布仍由coordinator统一安排。没有任务不调用模型，不常驻、不自动重复工作。
 
 时限注意：print-timeout仅作CLI等待设置，本轮观察到含工具的回复耗时超过该设置，不把它视为已验证的强制任务终止。超时后须核对原任务状态并停止/完成后再续跑，禁止重复启动同一任务。
+
+关闭桌面端实测：用户报告关闭后，agy最小问答SUCCESS，5.04秒返回CLI_DESKTOP_CLOSED_OK。进程核对未见主界面进程，但GeminiAppLauncher与Finder扩展仍运行。因此当前不依赖桌面窗口，不声称强杀全部后台/电脑睡眠/关机后仍可用。证据evidence/CLI-20261025/desktop-closed-result.json。

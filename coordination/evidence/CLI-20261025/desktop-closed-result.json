@@ -1,0 +1,11 @@
+{
+  "date": "2026-10-25",
+  "cli": "agy",
+  "model": "gemini-3.8-flash-high",
+  "status": "SUCCESS",
+  "response": "CLI_DESKTOP_CLOSED_OK",
+  "durationSeconds": 5.039337,
+  "scope": "Minimal response only after user reported desktop app closed; no product actions",
+  "processObservation": "No main GeminiMacOS process observed; GeminiAppLauncher and FinderSyncExtension remain running",
+  "limitation": "Does not prove operation after launcher is killed, computer sleeps, or network is unavailable"
+}

@@ -1,0 +1,28 @@
+diff --git a/candidates/driver-0.3.6-r2/android/app/build.gradle.kts b/candidates/driver-0.3.6-r2/android/app/build.gradle.kts
+index 496faf6..ed4b0be 100644
+--- a/candidates/driver-0.3.6-r2/android/app/build.gradle.kts
++++ b/candidates/driver-0.3.6-r2/android/app/build.gradle.kts
+@@ -9,8 +9,8 @@ android {
+         applicationId = "cn.hbzjhs.dc.driver.cloud"
+         minSdk = 26
+         targetSdk = 34
+-        versionCode = 9
+-        versionName = "0.3.6-cloud"
++        versionCode = 10
++        versionName = "0.3.7-cloud"
+         buildConfigField("String", "CLOUD_API_ORIGIN", "\"$cloudOrigin\"")
+         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+     }
+diff --git a/candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/CoreScreens.kt b/candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/CoreScreens.kt
+index 2a52732..da0588e 100644
+--- a/candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/CoreScreens.kt
++++ b/candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/CoreScreens.kt
+@@ -552,7 +552,7 @@ fun ConnectedHome(
+                     Row(Modifier.fillMaxWidth().padding(14.dp), verticalAlignment = Alignment.CenterVertically) {
+                         Glyph("shield", Green, Modifier.size(24.dp))
+                         Column(Modifier.padding(start = 12.dp)) {
+-                            Text("宜捷行安全守护护航中", color = Green, fontSize = 16.sp, fontWeight = FontWeight.Bold)
++                            Text("听单中 · 安全行车提醒", color = Green, fontSize = 16.sp, fontWeight = FontWeight.Bold)
+                             Text("听单中请保持手机通畅，连续驾驶请注意劳逸结合，安全行车。", color = Muted, fontSize = 14.sp)
+                         }
+                     }
