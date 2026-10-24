@@ -2,7 +2,7 @@
 import json
 from pathlib import Path
 root=Path(__file__).resolve().parents[1]
-names=['home','orders','order-detail','profile','login','places','settings','negotiation']
+names=['home','orders','order-detail','profile','login','places','settings','negotiation','coupons','safety']
 modules={str(f.relative_to(root)):f.read_text() for d in ['pages','lib','config'] for f in (root/d).rglob('*.js')}
 templates={n:(root/'pages'/n/'index.wxml').read_text() for n in names}
 css=(root/'pages/shared.wxss').read_text()+''.join((root/'pages'/n/'index.wxss').read_text() for n in names)

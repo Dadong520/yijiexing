@@ -1,1 +1,341 @@
-<view class="notice">独立体验环境 · 短信、支付与退款均为模拟</view><view wx:if="{{error}}" class="error">{{error}}</view><view wx:for="{{pending}}" wx:key="requestId" class="notice">{{item.actionText}} · {{item.statusText}}<button size="mini" data-id="{{item.requestId}}" bindtap="retry">原请求重试</button></view><view class="page"><view wx:if="{{!order}}" class="empty">登录并刷新以查看此行程。<button bindtap="refresh">刷新</button></view><block wx:if="{{order}}"><view class="title">{{order.stageText}}</view><view class="muted">{{order.kindText}}</view><map class="map" latitude="{{mapLat}}" longitude="{{mapLng}}" markers="{{markers}}" scale="13" show-location="{{false}}"/><view class="muted">仅展示所选地点与司机上报坐标，不含真实导航路线。</view><view class="card"><view class="route">上车 · {{order.origin}}</view><view wx:for="{{order.waypoints}}" wx:key="index" class="route">途经 · {{item.name}}</view><view class="route">到达 · {{order.destinationPending?'目的地待补充':order.destination}}</view><view wx:if="{{order.scheduledAt}}">预约：{{order.scheduledAtText}}</view><view class="subtitle">{{order.fareText}}</view><view class="muted">{{order.fareSourceText}}</view><view class="muted">{{order.destinationPending?'费用未确定，不代表免费':'独立体验报价'}} · {{order.paymentStatusText}}</view><view wx:if="{{order.driver}}" class="point"><view class="subtitle">{{order.driver.name}} · {{order.driver.plate}}</view><view>{{order.driver.vehicleModel}} {{order.driver.mobileMasked}}</view><view wx:if="{{order.driver.location}}" class="muted">位置上报时间：{{order.driver.location.receivedAtText}}</view><view class="muted">真实电话中继未配置，请勿将本环境用于真实出行。</view></view><view wx:if="{{order.rider}}">乘车人：{{order.rider.name}} · {{order.rider.mobileMasked}}</view><view>备注：{{order.remark || '无'}}</view><view wx:if="{{order.adjustments.length}}" class="notice">费用有调整，请重新核对当前金额。<view wx:for="{{order.adjustments}}" wx:key="fareVersion">¥{{item.beforeText}} → ¥{{item.afterText}} · {{item.reason}} · {{item.atText}}</view></view></view><view wx:if="{{order.kind==='BID' && order.stage==='AVAILABLE'}}" class="card"><view class="subtitle">司机报价</view><view class="muted">有效期截至 {{order.expiresAtText}}（独立体验策略）</view><view wx:if="{{!order.bids.length}}" class="empty">等待司机报价</view><view wx:for="{{order.bids}}" wx:key="driverId" class="point"><view>{{item.name}} · {{item.plate}}</view><view>{{item.vehicleModel}}</view><button class="primary" data-id="{{item.driverId}}" bindtap="selectDriver" disabled="{{busy}}">选择 ¥{{item.money}}</button></view></view><view wx:if="{{order.stage==='WAIT_CONTINUE'}}" class="card"><view>司机已取消接驾，是否继续呼叫？</view><button class="primary" data-type="1" bindtap="continueTrip">同一订单继续叫车</button><button data-type="2" bindtap="continueTrip">放弃继续</button></view><view wx:if="{{order.kind==='NEGOTIATED'}}" class="card"><view>议价状态：{{order.negotiationStatusText}}</view><view wx:if="{{order.stage==='PREPAY'}}"><textarea placeholder="价格有异议？说明原因，等待司机重新报价" data-field="dispute" bindinput="input"/><button bindtap="dispute" disabled="{{busy}}">提交价格异议</button></view><view wx:if="{{order.negotiationStatus==='DISPUTED'}}" class="notice">已提出异议，等待司机重新报价后才能模拟支付。</view></view><button wx:if="{{(order.stage==='PREPAY' || order.stage==='WAIT_PAY') && order.negotiationStatus!=='DISPUTED'}}" class="primary" bindtap="pay" disabled="{{busy}}">确认 {{order.fareText}} 并模拟支付</button><view wx:if="{{!order.destinationPending && order.stage==='AVAILABLE' && !order.bids.length}}" class="card"><view class="muted">司机尚未报价或接单时可修改目的地；修改后由服务端重新计算体验估价。</view><button bindtap="destination">地图修改目的地</button><button bindtap="existingDestination">已有 / 体验地点修改目的地</button></view><view wx:if="{{order.destinationPending && (order.stage==='AVAILABLE' || order.stage==='PICKUP' || order.stage==='ARRIVED')}}" class="card"><view class="notice">司机开始行程前须补齐目的地。</view><button bindtap="destination">地图补充目的地</button><button bindtap="existingDestination">已有 / 体验地点补充目的地</button></view><view wx:if="{{order.stage==='AVAILABLE' || order.stage==='PREPAY' || order.stage==='RESERVED' || order.stage==='PICKUP' || order.stage==='ARRIVED' || order.stage==='WAIT_CONTINUE'}}" class="card"><textarea placeholder="更新给司机的备注" data-field="remark" bindinput="input"/><button bindtap="remark" disabled="{{busy}}">保存备注</button><button class="danger" bindtap="cancel" disabled="{{busy}}">取消行程</button></view><view wx:if="{{order.stage==='DONE'}}" class="card"><view class="subtitle">评价行程</view><view wx:if="{{order.evaluation}}">{{order.evaluation.rating}} 星 · {{order.evaluation.content}}</view><block wx:else><input type="number" maxlength="1" value="{{rating}}" placeholder="1—5星" data-field="rating" bindinput="input"/><textarea placeholder="说说乘车体验（可选）" data-field="review" bindinput="input"/><button bindtap="evaluate" disabled="{{busy}}">提交评价</button></block><button data-url="/pages/settings/index?section=invoices" bindtap="go">申请模拟开票回执</button></view><view wx:if="{{order.stage==='DONE' || order.stage==='CANCELLED' || order.stage==='WAIT_PAY'}}" class="card"><view class="subtitle">行程问题</view><textarea placeholder="描述投诉问题，客服后台可查看和回复" data-field="complaint" bindinput="input"/><button bindtap="complain" disabled="{{busy}}">提交投诉</button><button wx:if="{{order.driver}}" bindtap="block" disabled="{{busy}}">屏蔽此司机后续接单</button><view wx:for="{{order.complaints}}" wx:key="id" class="point"><view>{{item.content}} · {{item.statusText}}</view><view>{{item.reply}}</view><view wx:for="{{item.attachments}}" wx:for-item="attachment" wx:key="id">已保存图片 {{index+1}}（{{attachment.size}} 字节）</view><button size="mini" data-id="{{item.id}}" bindtap="attach">添加图片（最多3张）</button></view><button bindtap="again">使用这些地点再次叫车</button></view><view class="card"><view class="subtitle">行程记录</view><view class="muted">以下时间均为北京时间</view><view wx:for="{{order.events}}" wx:key="index" class="muted">{{item.typeText}} · {{item.atText}}</view><view class="muted">订单编号：{{order.id}}</view></view></block></view>
+<view class="notice">独立体验环境 · 短信、支付与退款均为模拟</view>
+<view wx:if="{{error}}" class="error">{{error}}</view>
+<view wx:for="{{pending}}" wx:key="requestId" class="notice">
+  {{item.actionText}} · {{item.statusText}}
+  <button size="mini" data-id="{{item.requestId}}" bindtap="retry">原请求重试</button>
+</view>
+
+<view class="order-detail-page">
+  <view wx:if="{{!order}}" class="empty-state">
+    <text class="empty-text">请登录后刷新查看行程信息</text>
+    <button class="primary-btn" bindtap="refresh">刷新数据</button>
+  </view>
+
+  <block wx:if="{{order}}">
+    <!-- 顶部状态指示横幅与安全守护浮标 -->
+    <view class="status-banner">
+      <view class="status-meta">
+        <view class="stage-badge">{{order.stageText}}</view>
+        <view class="kind-tag">{{order.kindText}} · {{order.createdAtText}}</view>
+      </view>
+      <!-- 安全守护入口浮标（原型核心体验） -->
+      <view class="safety-sos-badge" bindtap="openSafetyPanel">
+        <text class="sos-icon">🛡️</text>
+        <text class="sos-text">安全守护</text>
+      </view>
+    </view>
+
+    <!-- 横向流程指示步进条 -->
+    <view class="stepper-wrap">
+      <view class="step-item {{stepActive >= 1 ? 'done' : ''}}">
+        <view class="step-dot"></view>
+        <text class="step-label">呼叫中</text>
+      </view>
+      <view class="step-line {{stepActive >= 2 ? 'done' : ''}}"></view>
+      <view class="step-item {{stepActive >= 2 ? 'done' : ''}}">
+        <view class="step-dot"></view>
+        <text class="step-label">接驾</text>
+      </view>
+      <view class="step-line {{stepActive >= 3 ? 'done' : ''}}"></view>
+      <view class="step-item {{stepActive >= 3 ? 'done' : ''}}">
+        <view class="step-dot"></view>
+        <text class="step-label">行程中</text>
+      </view>
+      <view class="step-line {{stepActive >= 4 ? 'done' : ''}}"></view>
+      <view class="step-item {{stepActive >= 4 ? 'done' : ''}}">
+        <view class="step-dot"></view>
+        <text class="step-label">待付款</text>
+      </view>
+      <view class="step-line {{stepActive >= 5 ? 'done' : ''}}"></view>
+      <view class="step-item {{stepActive >= 5 ? 'done' : ''}}">
+        <view class="step-dot"></view>
+        <text class="step-label">已完成</text>
+      </view>
+    </view>
+
+    <!-- 地图示意区 -->
+    <view class="map-card">
+      <map class="detail-map" latitude="{{mapLat}}" longitude="{{mapLng}}" markers="{{markers}}" scale="13" show-location="{{false}}" />
+      <view class="map-hint-text">📍 仅展示所选地点与司机坐标，实际以接驾导航为准</view>
+    </view>
+
+    <!-- 司机与车辆信息卡片（已接单或行程中） -->
+    <view wx:if="{{order.driver}}" class="driver-card">
+      <view class="driver-header">
+        <view class="driver-avatar">👨‍✈️</view>
+        <view class="driver-info">
+          <view class="driver-name-row">
+            <text class="driver-name">{{order.driver.name}}</text>
+            <text class="rating-star">★ 4.9</text>
+            <text class="driver-orders-count">860单</text>
+          </view>
+          <view class="vehicle-model">{{order.driver.vehicleModel || '舒适型纯电轿车'}} · 白色</view>
+        </view>
+        <view class="plate-box">{{order.driver.plate}}</view>
+      </view>
+      <view class="driver-actions">
+        <view class="action-btn" bindtap="callDriverMock">📞 模拟联系</view>
+        <view class="action-btn" bindtap="openDriverCard">🪪 服务卡</view>
+        <view class="action-btn" bindtap="openSafetyPanel">🛡️ 安全守护</view>
+      </view>
+      <view wx:if="{{order.driver.location}}" class="driver-loc-time">
+        司机最后上报：{{order.driver.location.receivedAtText}}
+      </view>
+    </view>
+
+    <!-- 路线与乘车人卡片 -->
+    <view class="detail-card">
+      <view class="card-header">路线与乘车信息</view>
+      <view class="route-point-row">
+        <view class="dot start-dot"></view>
+        <view class="point-txt">起点：{{order.origin}}</view>
+      </view>
+      <view wx:for="{{order.waypoints}}" wx:key="index" class="route-point-row">
+        <view class="dot via-dot"></view>
+        <view class="point-txt">途经：{{item.name}}</view>
+      </view>
+      <view class="route-point-row">
+        <view class="dot end-dot"></view>
+        <view class="point-txt">终点：{{order.destinationPending ? '目的地待补充（上车后告知）' : order.destination}}</view>
+      </view>
+      <view wx:if="{{order.scheduledAt}}" class="info-row">
+        <text class="info-label">预约时间：</text>
+        <text class="info-val">{{order.scheduledAtText}}</text>
+      </view>
+      <view wx:if="{{order.rider}}" class="info-row">
+        <text class="info-label">乘车人：</text>
+        <text class="info-val">{{order.rider.name}} · {{order.rider.mobileMasked}}</text>
+      </view>
+      <view class="info-row">
+        <text class="info-label">订单留言：</text>
+        <text class="info-val">{{order.remark || '无特殊要求'}}</text>
+      </view>
+    </view>
+
+    <!-- 费用明细卡片（原型规范：分项拆解） -->
+    <view class="detail-card">
+      <view class="card-header-flex">
+        <text class="card-header">费用明细</text>
+        <text class="pay-status-pill {{order.paymentStatus === 'SUCCESS' ? 'paid' : ''}}">{{order.paymentStatusText}}</text>
+      </view>
+      <view class="fee-display-hero">
+        <text class="fee-total-big">{{order.fareText}}</text>
+        <text class="fee-source-desc">{{order.fareSourceText}}</text>
+      </view>
+      <view class="fee-breakdown">
+        <view class="breakdown-row">
+          <text class="name">标准行程车费</text>
+          <text class="val">{{order.fareText}}</text>
+        </view>
+      </view>
+      <view wx:if="{{order.adjustments.length}}" class="adjustment-box">
+        <view class="adj-title">费用调整记录：</view>
+        <view wx:for="{{order.adjustments}}" wx:key="fareVersion" class="adj-item">
+          ¥{{item.beforeText}} → ¥{{item.afterText}} · {{item.reason}} ({{item.atText}})
+        </view>
+      </view>
+    </view>
+
+    <!-- 竞价阶段：司机报价列表（原型高光卡片） -->
+    <view wx:if="{{order.kind==='BID' && order.stage==='AVAILABLE'}}" class="detail-card bid-section">
+      <view class="card-header-flex">
+        <text class="card-header">司机竞价报价中</text>
+        <text class="expire-time">截止 {{order.expiresAtText}}</text>
+      </view>
+      <view wx:if="{{!order.bids.length}}" class="empty-bid-tip">
+        <text class="radar-anim">📡</text>
+        <text>正在向周边优质司机广播，请稍候报价...</text>
+      </view>
+      <view wx:for="{{order.bids}}" wx:key="driverId" class="bid-driver-item">
+        <view class="bid-left">
+          <view class="bid-driver-name">{{item.name}} <text class="bid-plate">{{item.plate}}</text></view>
+          <view class="bid-driver-car">{{item.vehicleModel || '舒适型轿车'}} · ★ 4.9</view>
+        </view>
+        <view class="bid-right">
+          <view class="bid-money">¥{{item.money}}</view>
+          <button class="select-driver-btn" data-id="{{item.driverId}}" bindtap="selectDriver" disabled="{{busy}}">选择此司机</button>
+        </view>
+      </view>
+    </view>
+
+    <!-- 司机取消后同单继续叫车或放弃（恢复基线关键能力） -->
+    <view wx:if="{{order.stage==='WAIT_CONTINUE'}}" class="detail-card">
+      <view class="card-header">司机已取消接驾</view>
+      <view class="sub-hint">是否保留当前起点和目的地，同一订单继续呼叫附近其他司机？</view>
+      <view class="btn-group-2" style="margin-top: 16rpx;">
+        <button class="primary-btn" data-type="1" bindtap="continueTrip" disabled="{{busy}}">同一订单继续叫车</button>
+        <button class="small-btn danger-text" data-type="2" bindtap="continueTrip" disabled="{{busy}}">放弃本次呼叫</button>
+      </view>
+    </view>
+
+    <!-- 议价处理卡片 -->
+    <view wx:if="{{order.kind==='NEGOTIATED'}}" class="detail-card">
+      <view class="card-header">线下议价状态：{{order.negotiationStatusText}}</view>
+      <view wx:if="{{order.stage==='PREPAY'}}">
+        <textarea class="dispute-input" placeholder="对当前报价有异议？请填写理由并要求司机重新报价" data-field="dispute" bindinput="input" />
+        <button class="secondary-btn" bindtap="dispute" disabled="{{busy}}">提出价格异议</button>
+      </view>
+      <view wx:if="{{order.negotiationStatus==='DISPUTED'}}" class="notice">
+        已提交异议，司机正在重新拟定报价。
+      </view>
+    </view>
+
+    <!-- 模拟支付确认按钮 -->
+    <view wx:if="{{(order.stage==='PREPAY' || order.stage==='WAIT_PAY') && order.negotiationStatus!=='DISPUTED'}}" class="pay-action-card">
+      <view class="pay-summary">待付金额：<text class="pay-sum-big">{{order.fareText}}</text></view>
+      <button class="main-pay-btn" bindtap="pay" disabled="{{busy}}">确认并模拟安全支付</button>
+      <view class="sim-pay-notice">模拟体验环境，不产生真实扣费</view>
+    </view>
+
+    <!-- 目的地补充 / 修改 -->
+    <view wx:if="{{!order.destinationPending && order.stage==='AVAILABLE' && !order.bids.length}}" class="detail-card">
+      <view class="sub-hint">司机接单前可更换目的地：</view>
+      <view class="btn-group-2">
+        <button class="small-btn" bindtap="destination">地图选终点</button>
+        <button class="small-btn" bindtap="existingDestination">体验地点修改</button>
+      </view>
+    </view>
+
+    <view wx:if="{{order.destinationPending && (order.stage==='AVAILABLE' || order.stage==='PICKUP' || order.stage==='ARRIVED')}}" class="detail-card warning-card">
+      <view class="warn-title">⚠️ 请在出发前补充目的地以锁定预估费用</view>
+      <view class="btn-group-2">
+        <button class="small-btn" bindtap="destination">地图选目的地</button>
+        <button class="small-btn" bindtap="existingDestination">体验地点补充</button>
+      </view>
+    </view>
+
+    <!-- 备注更新与取消 -->
+    <view wx:if="{{order.stage==='AVAILABLE' || order.stage==='PREPAY' || order.stage==='RESERVED' || order.stage==='PICKUP' || order.stage==='ARRIVED' || order.stage==='WAIT_CONTINUE'}}" class="detail-card">
+      <input class="remark-input-box" placeholder="补充/修改上车备注" data-field="remark" bindinput="input" />
+      <view class="btn-group-2" style="margin-top: 16rpx;">
+        <button class="small-btn" bindtap="remark" disabled="{{busy}}">更新备注</button>
+        <button class="small-btn danger-text" bindtap="cancel" disabled="{{busy}}">取消行程</button>
+      </view>
+    </view>
+
+    <!-- 行程完单后的评价卡片 -->
+    <view wx:if="{{order.stage==='DONE'}}" class="detail-card">
+      <view class="card-header">行程评价</view>
+      <view wx:if="{{order.evaluation}}" class="evaluated-box">
+        <text class="eval-star">★★★★★ {{order.evaluation.rating}} 星</text>
+        <text class="eval-content">{{order.evaluation.content || '乘客未填写文字评价'}}</text>
+      </view>
+      <block wx:else>
+        <view class="rating-bar">
+          <text class="star-item {{rating >= 1 ? 'active' : ''}}" bindtap="setRating" data-val="1">★</text>
+          <text class="star-item {{rating >= 2 ? 'active' : ''}}" bindtap="setRating" data-val="2">★</text>
+          <text class="star-item {{rating >= 3 ? 'active' : ''}}" bindtap="setRating" data-val="3">★</text>
+          <text class="star-item {{rating >= 4 ? 'active' : ''}}" bindtap="setRating" data-val="4">★</text>
+          <text class="star-item {{rating >= 5 ? 'active' : ''}}" bindtap="setRating" data-val="5">★</text>
+        </view>
+        <textarea class="eval-input" placeholder="说说乘车体验，如司机驾驶平稳、车内整洁（可选）" data-field="review" bindinput="input" />
+        <button class="primary-btn" bindtap="evaluate" disabled="{{busy}}">提交五星好评</button>
+      </block>
+      <button class="outline-btn" data-url="/pages/settings/index?section=invoices" bindtap="go">申请模拟电子开票回执</button>
+    </view>
+
+    <!-- 投诉与维权卡片 -->
+    <view wx:if="{{order.stage==='DONE' || order.stage==='CANCELLED' || order.stage==='WAIT_PAY'}}" class="detail-card">
+      <view class="card-header">售后保障与维权投诉</view>
+      <textarea class="complaint-input" placeholder="若遇到绕路、乱收费或服务不规范，请在此说明，客服后台将跟进回复" data-field="complaint" bindinput="input" />
+      <view class="btn-group-2">
+        <button class="secondary-btn" bindtap="complain" disabled="{{busy}}">提交服务投诉</button>
+        <button wx:if="{{order.driver}}" class="secondary-btn danger-text" bindtap="block" disabled="{{busy}}">拉黑此司机</button>
+      </view>
+      <!-- 投诉记录与后台回复 -->
+      <view wx:for="{{order.complaints}}" wx:key="id" class="complaint-history-item">
+        <view class="comp-head">投诉状态：<text class="comp-status">{{item.statusText}}</text></view>
+        <view class="comp-content">{{item.content}}</view>
+        <view wx:for="{{item.attachments}}" wx:for-item="attachment" wx:key="id" class="attachment-info" style="font-size: 22rpx; color: #647774; margin-top: 6rpx;">
+          已保存凭证图片 {{index+1}}（{{attachment.size}} 字节）
+        </view>
+        <button size="mini" class="small-btn" style="margin-top: 8rpx;" data-id="{{item.id}}" bindtap="attach">上传凭证图片（最多3张）</button>
+        <view wx:if="{{item.reply}}" class="admin-reply-box" style="margin-top: 10rpx;">
+          <text class="reply-tag">客服回复</text>
+          <text class="reply-text">{{item.reply}}</text>
+        </view>
+      </view>
+      <button class="again-btn" bindtap="again">以相同起终点再次叫车</button>
+    </view>
+
+    <!-- 订单流转事件日志 -->
+    <view class="detail-card events-card">
+      <view class="card-header">行程流转时间轴 (UTC+8)</view>
+      <view wx:for="{{order.events}}" wx:key="index" class="event-item">
+        <text class="event-dot">●</text>
+        <text class="event-time">{{item.atText}}</text>
+        <text class="event-desc">{{item.typeText}}</text>
+      </view>
+      <view class="order-id-footer">订单编号：{{order.id}}</view>
+    </view>
+  </block>
+</view>
+
+<!-- 安全守护呼出浮层 -->
+<view wx:if="{{showSafetyModal}}" class="safety-modal-mask">
+  <view class="safety-modal-card">
+    <view class="safety-modal-header">
+      <text class="modal-shield">🛡️</text>
+      <text class="modal-header-title">行程安全保障中心</text>
+    </view>
+    <view class="safety-modal-body">
+      <view class="safety-feature-row">
+        <text class="feature-icon">🚨</text>
+        <view class="feature-text">
+          <text class="title">一键紧急报警</text>
+          <text class="desc">遇到突发险情，调起系统拨号盘拨打110（无专网定位报备）</text>
+        </view>
+        <button class="mini-red-btn" bindtap="triggerPolice">呼叫110</button>
+      </view>
+      <view class="safety-feature-row">
+        <text class="feature-icon">📲</text>
+        <view class="feature-text">
+          <text class="title">向紧急联系人报备</text>
+          <text class="desc">模拟发送包含当前车牌与起终点的求助短信</text>
+        </view>
+        <button class="mini-green-btn" bindtap="triggerSos">发求助</button>
+      </view>
+      <view class="safety-feature-row">
+        <text class="feature-icon">🎙️</text>
+        <view class="feature-text">
+          <text class="title">行程录音保护说明</text>
+          <text class="desc">开发体验说明：当前环境未接入车载硬件录音设备</text>
+        </view>
+      </view>
+    </view>
+    <button class="btn-close-safety" bindtap="closeSafetyPanel">我知道了，返回行程</button>
+  </view>
+</view>
+
+<!-- 司机服务卡弹窗（对齐原团队文档平台生成每位司机服务卡供乘客查询需求） -->
+<view wx:if="{{showDriverCardModal}}" class="safety-modal-mask">
+  <view class="driver-service-card-modal">
+    <view class="driver-service-header">
+      <view class="corp-name">宜捷行驾驶员信息卡（演示）</view>
+      <view class="driver-badge-no">工号：{{order.driver.id || '未提供'}}</view>
+    </view>
+    <view class="driver-service-body">
+      <view class="service-driver-photo-wrap">
+        <view class="service-photo">👨‍✈️</view>
+        <view class="service-driver-name">{{order.driver.name}} 师傅</view>
+        <view class="service-driver-score">服务分：<text class="score-val">{{order.driver.serviceScore || '暂未考核'}}</text></view>
+      </view>
+      <view class="service-info-grid">
+        <view class="service-info-item">
+          <text class="label">准驾车型</text>
+          <text class="val">{{order.driver.vehicleModel || '小型新能源客车'}}</text>
+        </view>
+        <view class="service-info-item">
+          <text class="label">服务车牌</text>
+          <text class="val">{{order.driver.plate}}</text>
+        </view>
+        <view class="service-info-item">
+          <text class="label">所属企业</text>
+          <text class="val">{{order.driver.company || order.driver.organization || '未提供所属企业'}}</text>
+        </view>
+      </view>
+      <view class="service-promise-tip">说明：当前为体验环境模拟驾驶员信息，实际营运资质以交通主管部门官方系统查验为准。</view>
+    </view>
+    <button class="btn-close-service-card" bindtap="closeDriverCard">关闭服务卡</button>
+  </view>
+</view>

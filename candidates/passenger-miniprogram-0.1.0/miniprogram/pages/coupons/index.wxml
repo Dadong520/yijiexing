@@ -1,0 +1,64 @@
+<view class="coupons-page">
+  <!-- 体验环境免责与演示声明 -->
+  <view class="demo-notice-bar" style="background: #fff8e1; color: #b78103; padding: 16rpx 24rpx; border-radius: 12rpx; font-size: 24rpx; line-height: 1.4; margin-bottom: 20rpx; border: 1rpx solid #ffe082;">
+    提示：卡券中心当前为前端交互演示，未接入营销持久化服务端，所有卡券均不参与真实订单抵扣。
+  </view>
+
+  <!-- 兑换码领券区（明确前端演示交互） -->
+  <view class="claim-card">
+    <input class="claim-input" placeholder="输入优惠券体验兑换码" value="{{claimCodeInput}}" bindinput="onInputClaimCode" />
+    <button class="claim-btn" bindtap="onClaim">演示兑换</button>
+  </view>
+
+  <view class="tabs">
+    <view class="tab {{activeTab === 'AVAILABLE' ? 'active' : ''}}" bindtap="onSelectTab" data-tab="AVAILABLE">可用券 ({{availableCount}})</view>
+    <view class="tab {{activeTab === 'USED' ? 'active' : ''}}" bindtap="onSelectTab" data-tab="USED">已使用/核销</view>
+    <view class="tab {{activeTab === 'EXPIRED' ? 'active' : ''}}" bindtap="onSelectTab" data-tab="EXPIRED">已失效</view>
+  </view>
+
+  <!-- 未登录状态拦截 -->
+  <view wx:if="{{!authenticated}}" class="empty-tip" style="padding: 60rpx 0; background: #fff; border-radius: 16rpx; border: 1rpx solid #e2ebe9;">
+    <text class="empty-icon">🔒</text>
+    <text>请先登录体验账户查看我的卡券</text>
+    <button size="mini" class="small-btn" style="margin-top: 16rpx; background: #087f73; color: #fff;" bindtap="goLogin">前往登录</button>
+  </view>
+
+  <!-- 卡券列表 -->
+  <view wx:else class="coupon-list">
+    <block wx:for="{{filteredCoupons}}" wx:key="id">
+      <view class="coupon-card {{item.status !== 'AVAILABLE' ? 'disabled' : ''}}">
+        <view class="coupon-left">
+          <view class="amount-wrap">
+            <text class="symbol">¥</text>
+            <text class="amount">{{item.type === 'AMOUNT' ? item.discountCents / 100 : (100 - item.percent) / 10 + '折'}}</text>
+          </view>
+          <text class="condition">满{{item.minSpendCents / 100}}元可用</text>
+        </view>
+        <view class="coupon-divider"></view>
+        <view class="coupon-right">
+          <view class="coupon-title">{{item.title}}</view>
+          <view class="coupon-desc">{{item.description}}</view>
+          
+          <!-- 规则与限制徽章 -->
+          <view class="coupon-tags-row">
+            <text class="rule-chip" style="background: #ffebee; color: #c62828;">前端演示·不可抵扣</text>
+            <text class="rule-chip" wx:if="{{item.applicableCities && item.applicableCities[0] !== 'ALL'}}">限城市: {{item.applicableCities.join('/')}}</text>
+          </view>
+
+          <view class="coupon-bottom-row">
+            <view class="coupon-expire">有效期至：{{item.expiresAt}}</view>
+            <view wx:if="{{item.status === 'AVAILABLE'}}" class="use-btn" bindtap="onUseNow">去使用体验</view>
+            <view wx:elif="{{item.status === 'FROZEN'}}" class="used-tag">行程冻结中</view>
+            <view wx:elif="{{item.status === 'CONSUMED' || item.status === 'USED'}}" class="used-tag">演示已核销</view>
+            <view wx:else class="used-tag">已失效</view>
+          </view>
+        </view>
+      </view>
+    </block>
+
+    <view wx:if="{{filteredCoupons.length === 0}}" class="empty-tip">
+      <text class="empty-icon">🎟️</text>
+      <text>暂无相关优惠券</text>
+    </view>
+  </view>
+</view>

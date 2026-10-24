@@ -2,7 +2,8 @@
   "pages": [
     "pages/home/index", "pages/orders/index", "pages/profile/index",
     "pages/order-detail/index", "pages/login/index", "pages/places/index",
-    "pages/settings/index", "pages/negotiation/index"
+    "pages/settings/index", "pages/negotiation/index",
+    "pages/coupons/index", "pages/safety/index"
   ],
   "window": {
     "navigationBarTitleText": "宜捷行",
