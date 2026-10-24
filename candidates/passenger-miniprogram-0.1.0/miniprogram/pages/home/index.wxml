@@ -1,1 +1,159 @@
-<view class="notice">独立体验环境 · 短信、支付与退款均为模拟</view><view wx:if="{{error}}" class="error">{{error}}</view><view wx:for="{{pending}}" wx:key="requestId" class="notice">{{item.actionText}} · {{item.statusText}}<button size="mini" data-id="{{item.requestId}}" bindtap="retry">原请求重试</button></view><view class="page"><view class="row"><view><view class="title">宜捷行</view><view class="muted">{{state.passenger.cityName || '请选择地点，开启行程'}}</view></view><button size="mini" data-url="/pages/negotiation/index" bindtap="go">扫码议价</button></view><map class="map" latitude="{{mapLat}}" longitude="{{mapLng}}" markers="{{markers}}" scale="13" show-location="{{false}}"/><view class="muted">地图展示所选地点，不代表当前位置；不提供真实导航。</view><view wx:if="{{active}}" class="card"><text>已有进行中的行程</text><button bindtap="go" data-url="/pages/order-detail/index?id={{active.id}}">查看当前行程</button></view><view class="card"><view class="tabs"><view class="{{kind==='STANDARD'?'selected':''}}" data-kind="STANDARD" bindtap="chooseKind">现在叫车</view><view class="{{kind==='RESERVED'?'selected':''}}" data-kind="RESERVED" bindtap="chooseKind">预约</view><view class="{{kind==='BID'?'selected':''}}" data-kind="BID" bindtap="chooseKind">司机竞价</view></view><view class="point"><text class="subtitle">{{origin ? origin.name : '从哪里出发？'}}</text><view class="row"><button size="mini" data-purpose="origin" bindtap="choosePoint">地图选上车点</button><button size="mini" data-purpose="origin" bindtap="experience">已有 / 体验地点</button></view></view><view class="point" wx:if="{{!destinationPending}}"><text class="subtitle">{{destination ? destination.name : '您要去哪里？'}}</text><view class="row"><button size="mini" data-purpose="destination" bindtap="choosePoint">地图选目的地</button><button size="mini" data-purpose="destination" bindtap="experience">已有 / 体验地点</button></view></view><view wx:if="{{kind==='STANDARD'}}" class="row"><text>暂不填写目的地</text><switch checked="{{destinationPending}}" bindchange="togglePending"/></view><view wx:if="{{destinationPending}}" class="notice">仅即时用车；出发前须补齐目的地，费用待定，不代表免费。</view><view wx:if="{{!destinationPending}}"><view wx:for="{{waypoints}}" wx:key="index" class="row"><text>途经 {{index+1}}：{{item.name}}</text><button size="mini" data-index="{{index}}" bindtap="removeWaypoint">移除</button></view><button wx:if="{{waypoints.length<2}}" size="mini" data-purpose="waypoint" bindtap="experience">添加途经点（最多2个）</button></view><view wx:if="{{kind==='RESERVED'}}" class="row"><picker mode="date" bindchange="date">{{scheduledDate || '选择预约日期'}}</picker><picker mode="time" bindchange="time">{{scheduledTime || '选择时间'}}</picker></view><view wx:if="{{kind==='RESERVED'}}" class="muted">预约时间需在未来15分钟至30天内。</view><picker range="{{riderOptions}}" range-key="name" bindchange="chooseRider"><view class="row">乘车人：{{riderLabel}}（点击选择）</view></picker><textarea maxlength="500" placeholder="给司机留言，如行李、上车位置" data-field="remark" bindinput="input"/><button class="primary" bindtap="submit" disabled="{{busy || !!active}}">{{authenticated?'确认叫车':'登录后叫车'}}</button><view class="muted">金额由体验服务估算；竞价须选择司机报价。请勿将本环境用于真实出行。</view></view></view>
+<view class="notice">独立体验环境 · 短信、支付与退款均为模拟</view>
+<view wx:if="{{error}}" class="error">{{error}}</view>
+<view wx:for="{{pending}}" wx:key="requestId" class="notice">
+  {{item.actionText}} · {{item.statusText}}
+  <button size="mini" data-id="{{item.requestId}}" bindtap="retry">原请求重试</button>
+</view>
+
+<view class="home-container">
+  <!-- 顶部状态栏 -->
+  <view class="top-nav-bar">
+    <view class="brand-box">
+      <view class="brand-title">宜捷行</view>
+      <view class="brand-city">{{state.passenger.cityName || '宜昌市'}} · 出行有道</view>
+    </view>
+    <view class="scan-pill" data-url="/pages/negotiation/index" bindtap="go">
+      <text class="scan-icon">📷</text>
+      <text class="scan-text">扫码议价</text>
+    </view>
+  </view>
+
+  <!-- 进行中订单高亮浮条（原型顶部醒目提示） -->
+  <view wx:if="{{active}}" class="active-order-banner" bindtap="go" data-url="/pages/order-detail/index?id={{active.id}}">
+    <view class="pulse-dot"></view>
+    <view class="active-info">
+      <text class="active-title">您有一笔进行中的行程</text>
+      <text class="active-sub">点击实时查看司机位置与行程进度 ›</text>
+    </view>
+  </view>
+
+  <!-- 地图展示区 -->
+  <view class="map-wrap">
+    <map class="main-map" latitude="{{mapLat}}" longitude="{{mapLng}}" markers="{{markers}}" scale="13" show-location="{{false}}" />
+    <view class="map-hint">📍 地图示意所选地点路线，实际以司机接驾导航为准</view>
+  </view>
+
+  <!-- 下单核心卡片 -->
+  <view class="booking-card">
+    <!-- 用车类型 Tabs -->
+    <view class="kind-tabs">
+      <view class="tab-item {{kind==='STANDARD'?'active':''}}" data-kind="STANDARD" bindtap="chooseKind">
+        <text class="tab-icon">🚗</text>
+        <text class="tab-name">现在叫车</text>
+      </view>
+      <view class="tab-item {{kind==='RESERVED'?'active':''}}" data-kind="RESERVED" bindtap="chooseKind">
+        <text class="tab-icon">⏰</text>
+        <text class="tab-name">预约用车</text>
+      </view>
+      <view class="tab-item {{kind==='BID'?'active':''}}" data-kind="BID" bindtap="chooseKind">
+        <text class="tab-icon">⚡</text>
+        <text class="tab-name">司机竞价</text>
+      </view>
+    </view>
+
+    <!-- 路线起终点 -->
+    <view class="route-panel">
+      <!-- 起点 -->
+      <view class="point-row">
+        <view class="point-badge start-badge"></view>
+        <view class="point-content">
+          <view class="point-name {{origin ? '' : 'placeholder'}}" data-purpose="origin" bindtap="choosePoint">
+            {{origin ? origin.name : '从哪里出发？'}}
+          </view>
+        </view>
+        <view class="quick-pick-btn" data-purpose="origin" bindtap="experience">常用点</view>
+      </view>
+
+      <!-- 途经点列表 -->
+      <view wx:for="{{waypoints}}" wx:key="index" class="point-row waypoint-row">
+        <view class="point-badge via-badge"></view>
+        <view class="point-content">
+          <view class="point-name">{{item.name}}</view>
+        </view>
+        <view class="remove-btn" data-index="{{index}}" bindtap="removeWaypoint">移除</view>
+      </view>
+
+      <!-- 终点 -->
+      <view wx:if="{{!destinationPending}}" class="point-row">
+        <view class="point-badge end-badge"></view>
+        <view class="point-content">
+          <view class="point-name {{destination ? '' : 'placeholder'}}" data-purpose="destination" bindtap="choosePoint">
+            {{destination ? destination.name : '您要去哪里？'}}
+          </view>
+        </view>
+        <view class="quick-pick-btn" data-purpose="destination" bindtap="experience">常用点</view>
+      </view>
+
+      <!-- 暂不填写目的地开关（仅即时打车） -->
+      <view wx:if="{{kind==='STANDARD'}}" class="sub-option-row">
+        <text class="sub-label">稍后补充目的地（上车后再告诉司机）</text>
+        <switch checked="{{destinationPending}}" bindchange="togglePending" color="#087f73" />
+      </view>
+
+      <view wx:if="{{!destinationPending && waypoints.length < 2}}" class="add-waypoint-row" data-purpose="waypoint" bindtap="experience">
+        <text class="add-icon">+</text>
+        <text class="add-text">添加途经点（最多2个）</text>
+      </view>
+    </view>
+
+    <!-- 预约时间选择 -->
+    <view wx:if="{{kind==='RESERVED'}}" class="extra-field-card">
+      <view class="field-title">预约出发时间</view>
+      <view class="date-time-flex">
+        <picker mode="date" bindchange="date" class="time-picker">
+          <view class="picker-inner">📅 {{scheduledDate || '选择预约日期'}}</view>
+        </picker>
+        <picker mode="time" bindchange="time" class="time-picker">
+          <view class="picker-inner">🕒 {{scheduledTime || '选择具体时间'}}</view>
+        </picker>
+      </view>
+      <view class="field-tip">预约时间需在未来15分钟至30天内。</view>
+    </view>
+
+    <!-- 调度加价选项（原型特性：提高司机抢单积极性） -->
+    <view class="extra-field-card">
+      <view class="field-header-flex">
+        <text class="field-title">调度加价（加速接单）</text>
+        <text class="field-sub-val">{{priorityFee > 0 ? '+¥' + (priorityFee / 100) : '未加价'}}</text>
+      </view>
+      <view class="priority-options">
+        <view wx:for="{{priorityOptions}}" wx:key="value" 
+              class="priority-chip {{priorityFee === item.value ? 'selected' : ''}}" 
+              bindtap="onSelectPriority" data-value="{{item.value}}">
+          <text class="chip-label">{{item.label}}</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 优惠券抵扣展示与选择 -->
+    <view class="extra-field-card coupon-bar" bindtap="goCoupons">
+      <view class="field-left-flex">
+        <text class="coupon-icon">🎟️</text>
+        <text class="field-title">优惠券抵扣</text>
+      </view>
+      <view class="field-right-flex">
+        <text wx:if="{{matchedCoupon}}" class="discount-pill">-¥{{matchedCoupon.calculatedDiscount / 100}} ({{matchedCoupon.title}})</text>
+        <text wx:else class="coupon-placeholder">查看可用券 ›</text>
+      </view>
+    </view>
+
+    <!-- 乘车人与留言 -->
+    <view class="extra-field-card">
+      <picker range="{{riderOptions}}" range-key="name" bindchange="chooseRider">
+        <view class="rider-select-row">
+          <text class="rider-title">乘车人：</text>
+          <text class="rider-name">{{riderLabel}}（点击切换代叫人）›</text>
+        </view>
+      </picker>
+      <view class="remark-row">
+        <input class="remark-input" maxlength="200" placeholder="给司机留言，例如有大件行李、特定上车点" value="{{remark}}" data-field="remark" bindinput="input" />
+      </view>
+    </view>
+
+    <!-- 底部确认呼叫按钮 -->
+    <button class="call-car-btn" bindtap="submit" disabled="{{busy || !!active}}">
+      {{authenticated ? (kind==='BID' ? '发起竞价呼叫' : '立即呼叫用车') : '登录后呼叫用车'}}
+    </button>
+    <view class="disclaimer-tip">金额由宜捷行体验服务估算；竞价须选择司机报价。请勿用于真实交通运营。</view>
+  </view>
+</view>

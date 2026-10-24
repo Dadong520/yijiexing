@@ -1,0 +1,33 @@
+<view class="coupons-page">
+  <view class="tabs">
+    <view class="tab {{activeTab === 'AVAILABLE' ? 'active' : ''}}" bindtap="onSelectTab" data-tab="AVAILABLE">可用券 ({{availableCount}})</view>
+    <view class="tab {{activeTab === 'USED' ? 'active' : ''}}" bindtap="onSelectTab" data-tab="USED">已使用</view>
+  </view>
+
+  <view class="coupon-list">
+    <block wx:for="{{filteredCoupons}}" wx:key="id">
+      <view class="coupon-card {{item.status !== 'AVAILABLE' ? 'disabled' : ''}}">
+        <view class="coupon-left">
+          <view class="amount-wrap">
+            <text class="symbol">¥</text>
+            <text class="amount">{{item.type === 'AMOUNT' ? item.discountCents / 100 : (100 - item.percent) / 10 + '折'}}</text>
+          </view>
+          <text class="condition">满{{item.minSpendCents / 100}}元可用</text>
+        </view>
+        <view class="coupon-divider"></view>
+        <view class="coupon-right">
+          <view class="coupon-title">{{item.title}}</view>
+          <view class="coupon-desc">{{item.description}}</view>
+          <view class="coupon-expire">有效期至：{{item.expiresAt}}</view>
+          <view wx:if="{{item.status === 'AVAILABLE'}}" class="use-btn" bindtap="onUseNow">去使用</view>
+          <view wx:else class="used-tag">已使用</view>
+        </view>
+      </view>
+    </block>
+
+    <view wx:if="{{filteredCoupons.length === 0}}" class="empty-tip">
+      <text class="empty-icon">🎟️</text>
+      <text>暂无相关优惠券</text>
+    </view>
+  </view>
+</view>

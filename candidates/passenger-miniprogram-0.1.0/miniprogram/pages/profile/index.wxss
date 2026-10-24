@@ -1,0 +1,260 @@
+.profile-container {
+  padding: 24rpx;
+  background-color: #f5f9f8;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+.user-card {
+  background: linear-gradient(135deg, #087f73 0%, #0ca798 100%);
+  border-radius: 24rpx;
+  padding: 36rpx 28rpx;
+  display: flex;
+  align-items: center;
+  color: #ffffff;
+  box-shadow: 0 8rpx 24rpx rgba(8, 127, 115, 0.22);
+  margin-bottom: 24rpx;
+}
+
+.avatar-wrap {
+  margin-right: 20rpx;
+}
+
+.avatar-circle {
+  width: 96rpx;
+  height: 96rpx;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 48rpx;
+  border: 2rpx solid rgba(255, 255, 255, 0.4);
+}
+
+.user-meta {
+  flex: 1;
+}
+
+.name-row {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+}
+
+.user-name {
+  font-size: 34rpx;
+  font-weight: 700;
+}
+
+.vip-badge {
+  font-size: 20rpx;
+  background: #ffb800;
+  color: #593e00;
+  padding: 2rpx 12rpx;
+  border-radius: 12rpx;
+  font-weight: 600;
+}
+
+.user-phone {
+  display: block;
+  font-size: 24rpx;
+  opacity: 0.88;
+  margin-top: 8rpx;
+}
+
+.login-pill {
+  background: #ffffff;
+  color: #087f73;
+  font-size: 24rpx;
+  font-weight: 600;
+  border-radius: 30rpx;
+  padding: 8rpx 24rpx;
+}
+
+/* 4宫格金刚区 */
+.quick-grid {
+  display: flex;
+  background: #ffffff;
+  border-radius: 20rpx;
+  padding: 28rpx 12rpx;
+  margin-bottom: 24rpx;
+  box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.04);
+  border: 1rpx solid #e2ebe9;
+}
+
+.grid-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10rpx;
+}
+
+.grid-icon {
+  font-size: 44rpx;
+}
+
+.grid-label {
+  font-size: 24rpx;
+  font-weight: 500;
+  color: #1a2d2a;
+}
+
+/* 列表卡片 */
+.menu-card {
+  background: #ffffff;
+  border-radius: 20rpx;
+  padding: 16rpx 28rpx;
+  margin-bottom: 24rpx;
+  box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.04);
+  border: 1rpx solid #e2ebe9;
+}
+
+.menu-header {
+  font-size: 24rpx;
+  font-weight: 600;
+  color: #92a4a1;
+  padding: 12rpx 0 8rpx;
+  text-transform: uppercase;
+}
+
+.menu-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 22rpx 0;
+  border-bottom: 1rpx solid #f2f6f5;
+}
+
+.menu-row:last-child {
+  border-bottom: none;
+}
+
+.menu-left {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+}
+
+.menu-icon {
+  font-size: 32rpx;
+}
+
+.menu-title {
+  font-size: 28rpx;
+  color: #1a2d2a;
+  font-weight: 500;
+}
+
+.menu-right-badge {
+  display: flex;
+  align-items: center;
+  gap: 10rpx;
+}
+
+.reward-tag {
+  font-size: 20rpx;
+  color: #d93025;
+  background: #fce8e6;
+  padding: 4rpx 12rpx;
+  border-radius: 8rpx;
+  font-weight: 600;
+}
+
+.menu-arrow {
+  font-size: 32rpx;
+  color: #b0c2c0;
+}
+
+.logout-btn {
+  margin-top: 16rpx;
+  background: #ffffff;
+  color: #d93025;
+  font-size: 28rpx;
+  border-radius: 16rpx;
+  border: 1rpx solid #fad2cf;
+}
+
+/* 邀请弹窗 */
+.invite-modal-mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.invite-card {
+  width: 580rpx;
+  background: #ffffff;
+  border-radius: 24rpx;
+  overflow: hidden;
+  box-shadow: 0 12rpx 36rpx rgba(0, 0, 0, 0.2);
+}
+
+.invite-banner {
+  background: linear-gradient(135deg, #087f73 0%, #0ca798 100%);
+  color: #ffffff;
+  padding: 36rpx 28rpx;
+  text-align: center;
+}
+
+.invite-title {
+  font-size: 34rpx;
+  font-weight: 700;
+}
+
+.invite-sub {
+  font-size: 22rpx;
+  opacity: 0.9;
+  margin-top: 8rpx;
+}
+
+.invite-body {
+  padding: 32rpx;
+  text-align: center;
+}
+
+.code-box {
+  background: #f5f9f8;
+  border: 2rpx dashed #087f73;
+  border-radius: 16rpx;
+  padding: 24rpx;
+  margin-bottom: 24rpx;
+}
+
+.code-label {
+  display: block;
+  font-size: 22rpx;
+  color: #647774;
+}
+
+.code-value {
+  display: block;
+  font-size: 44rpx;
+  font-weight: 700;
+  color: #087f73;
+  letter-spacing: 4rpx;
+  margin-top: 6rpx;
+}
+
+.btn-copy {
+  background: #087f73;
+  color: #ffffff;
+  font-size: 28rpx;
+  font-weight: 600;
+  border-radius: 12rpx;
+  margin-bottom: 12rpx;
+}
+
+.btn-close-invite {
+  background: transparent;
+  color: #647774;
+  font-size: 26rpx;
+}

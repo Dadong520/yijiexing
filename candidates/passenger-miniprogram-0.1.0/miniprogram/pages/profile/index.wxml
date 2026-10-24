@@ -1,1 +1,132 @@
-<view class="notice">独立体验环境 · 短信、支付与退款均为模拟</view><view wx:if="{{error}}" class="error">{{error}}</view><view wx:for="{{pending}}" wx:key="requestId" class="notice">{{item.actionText}} · {{item.statusText}}<button size="mini" data-id="{{item.requestId}}" bindtap="retry">原请求重试</button></view><view class="page"><view class="title">我的</view><view class="card"><view class="subtitle">{{state.passenger.name || '宜捷行乘客'}}</view><view class="muted">{{state.passenger.mobile || '登录后管理行程与个人资料'}}</view><button wx:if="{{!authenticated}}" bindtap="login">登录体验</button></view><view class="card menu"><view bindtap="go" data-url="/pages/settings/index?section=profile">个人资料与城市 ›</view><view bindtap="go" data-url="/pages/settings/index?section=riders">乘车人管理 ›</view><view bindtap="go" data-url="/pages/places/index">常用地址 ›</view><view bindtap="go" data-url="/pages/settings/index?section=invoices">发票抬头与模拟回执 ›</view><view bindtap="go" data-url="/pages/settings/index?section=blocked">屏蔽司机 ›</view><view bindtap="go" data-url="/pages/settings/index?section=feedback">意见反馈 ›</view><view bindtap="go" data-url="/pages/settings/index?section=support">公告与客服能力 ›</view><view bindtap="go" data-url="/pages/login/index">体验连接设置 ›</view></view><button wx:if="{{authenticated}}" bindtap="logout">退出登录</button></view>
+<view class="notice">独立体验环境 · 短信、支付与退款均为模拟</view>
+<view wx:if="{{error}}" class="error">{{error}}</view>
+<view wx:for="{{pending}}" wx:key="requestId" class="notice">
+  {{item.actionText}} · {{item.statusText}}
+  <button size="mini" data-id="{{item.requestId}}" bindtap="retry">原请求重试</button>
+</view>
+
+<view class="profile-container">
+  <!-- 顶部个人卡片 -->
+  <view class="user-card">
+    <view class="avatar-wrap">
+      <view class="avatar-circle">🚗</view>
+    </view>
+    <view class="user-meta">
+      <view class="name-row">
+        <text class="user-name">{{state.passenger.name || '宜捷行乘客'}}</text>
+        <text class="vip-badge">尊享会员</text>
+      </view>
+      <text class="user-phone">{{state.passenger.mobile || '登录后体验完整出行服务'}}</text>
+    </view>
+    <button wx:if="{{!authenticated}}" class="login-pill" bindtap="login">登录体验</button>
+  </view>
+
+  <!-- 核心功能金刚区（4宫格） -->
+  <view class="quick-grid">
+    <view class="grid-item" bindtap="goOrders">
+      <view class="grid-icon">📋</view>
+      <text class="grid-label">我的行程</text>
+    </view>
+    <view class="grid-item" bindtap="goCoupons">
+      <view class="grid-icon">🎟️</view>
+      <text class="grid-label">优惠券</text>
+    </view>
+    <view class="grid-item" bindtap="goSafety">
+      <view class="grid-icon">🛡️</view>
+      <text class="grid-label">安全中心</text>
+    </view>
+    <view class="grid-item" bindtap="go" data-url="/pages/settings/index?section=invoices">
+      <view class="grid-icon">🧾</view>
+      <text class="grid-label">发票中心</text>
+    </view>
+  </view>
+
+  <!-- 常用出行服务列表 -->
+  <view class="menu-card">
+    <view class="menu-header">出行便民设置</view>
+    <view class="menu-row" bindtap="go" data-url="/pages/settings/index?section=riders">
+      <view class="menu-left">
+        <text class="menu-icon">👥</text>
+        <text class="menu-title">乘车人管理</text>
+      </view>
+      <text class="menu-arrow">›</text>
+    </view>
+    <view class="menu-row" bindtap="go" data-url="/pages/places/index">
+      <view class="menu-left">
+        <text class="menu-icon">📍</text>
+        <text class="menu-title">常用地址（家/公司）</text>
+      </view>
+      <text class="menu-arrow">›</text>
+    </view>
+    <view class="menu-row" bindtap="onOpenInvite">
+      <view class="menu-left">
+        <text class="menu-icon">🎁</text>
+        <text class="menu-title">邀请好友得好礼</text>
+      </view>
+      <view class="menu-right-badge">
+        <text class="reward-tag">立得20元券</text>
+        <text class="menu-arrow">›</text>
+      </view>
+    </view>
+    <view class="menu-row" bindtap="go" data-url="/pages/settings/index?section=blocked">
+      <view class="menu-left">
+        <text class="menu-icon">🚫</text>
+        <text class="menu-title">屏蔽司机名单</text>
+      </view>
+      <text class="menu-arrow">›</text>
+    </view>
+  </view>
+
+  <!-- 支持与设置列表 -->
+  <view class="menu-card">
+    <view class="menu-header">系统与客服</view>
+    <view class="menu-row" bindtap="go" data-url="/pages/settings/index?section=profile">
+      <view class="menu-left">
+        <text class="menu-icon">⚙️</text>
+        <text class="menu-title">个人资料与城市作用域</text>
+      </view>
+      <text class="menu-arrow">›</text>
+    </view>
+    <view class="menu-row" bindtap="go" data-url="/pages/settings/index?section=feedback">
+      <view class="menu-left">
+        <text class="menu-icon">💬</text>
+        <text class="menu-title">意见反馈</text>
+      </view>
+      <text class="menu-arrow">›</text>
+    </view>
+    <view class="menu-row" bindtap="go" data-url="/pages/settings/index?section=support">
+      <view class="menu-left">
+        <text class="menu-icon">📞</text>
+        <text class="menu-title">客服电话与服务能力</text>
+      </view>
+      <text class="menu-arrow">›</text>
+    </view>
+    <view class="menu-row" bindtap="go" data-url="/pages/login/index">
+      <view class="menu-left">
+        <text class="menu-icon">🔌</text>
+        <text class="menu-title">体验连接环境配置</text>
+      </view>
+      <text class="menu-arrow">›</text>
+    </view>
+  </view>
+
+  <button wx:if="{{authenticated}}" class="logout-btn" bindtap="logout">退出体验登录</button>
+</view>
+
+<!-- 邀请好友弹窗 -->
+<view wx:if="{{showInviteModal}}" class="invite-modal-mask">
+  <view class="invite-card">
+    <view class="invite-banner">
+      <view class="invite-title">邀请好友 · 共享好礼</view>
+      <view class="invite-sub">每成功邀请1位好友完成首单，立享¥20专享乘车券</view>
+    </view>
+    <view class="invite-body">
+      <view class="code-box">
+        <text class="code-label">您的专属邀请码</text>
+        <text class="code-value">{{inviteCode}}</text>
+      </view>
+      <button class="btn-copy" bindtap="onCopyInviteCode">复制邀请码与分享语</button>
+      <button class="btn-close-invite" bindtap="onCloseInvite">关闭</button>
+    </view>
+  </view>
+</view>

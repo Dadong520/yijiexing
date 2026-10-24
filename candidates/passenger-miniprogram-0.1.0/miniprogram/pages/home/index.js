@@ -1,1 +1,230 @@
-const {base,store,coords,error}=require('../shared');const picker=require('../../lib/map-picker');const page=base({data:{kind:'STANDARD',origin:null,destination:null,waypoints:[],remark:'',scheduledDate:'',scheduledTime:'',destinationPending:false,riderId:'',riderLabel:'本人',mapLat:30.697,mapLng:111.286,markers:[],polyline:[]},syncState(s){this.setData({riderOptions:[{id:'',name:'本人'}].concat(s.riders||[]),active:(s.orders||[]).find(o=>!['DONE','CANCELLED'].includes(o.stage))||null});},chooseKind(e){this.setData({kind:e.currentTarget.dataset.kind,destinationPending:false});},async choosePoint(e){this._purpose=e.currentTarget.dataset.purpose;try{const result=await picker.pickLocation({purpose:this._purpose});if(result&&!result.pendingPlugin)this.applyPoint(this._purpose,result);}catch(e){error(e);}},applyPoint(purpose,location){const w=location.coordinateSystem==='WGS84'?location:coords.gcj02ToWgs84(location.latitude,location.longitude);const point={name:location.name||location.address,latitude:w.latitude,longitude:w.longitude};if(purpose==='waypoint'){if(this.data.waypoints.length>=2)return error(new Error('最多添加2个途经点'));this.setData({waypoints:this.data.waypoints.concat([point])});}else this.setData({[purpose]:point});this.drawMap();},drawMap(){const list=[this.data.origin].concat(this.data.waypoints).concat(this.data.destination?[this.data.destination]:[]).filter(Boolean);const markers=list.map((p,i)=>Object.assign(coords.wgs84ToGcj02(p.latitude,p.longitude),{id:i,iconPath:'/assets/location-pin.png',width:28,height:36,anchor:{x:0.5,y:1},title:p.name,label:{content:p.name}}));this.setData({markers,mapLat:markers[0]?markers[0].latitude:30.697,mapLng:markers[0]?markers[0].longitude:111.286});},experience(e){this._purpose=e.currentTarget.dataset.purpose;wx.navigateTo({url:'/pages/places/index?pick='+this._purpose});},togglePending(e){this.setData({destinationPending:e.detail.value,destination:null,waypoints:[]});this.drawMap();},removeWaypoint(e){this.setData({waypoints:this.data.waypoints.filter((_,i)=>i!==Number(e.currentTarget.dataset.index))});this.drawMap();},chooseRider(e){const rider=this.data.riderOptions[Number(e.detail.value)];this.setData({riderId:rider.id,riderLabel:rider.name});},date(e){this.setData({scheduledDate:e.detail.value});},time(e){this.setData({scheduledTime:e.detail.value});},async submit(){if(!this.data.authenticated)return this.login();const d=this.data;if(!d.origin)return error(new Error('请选择上车地点'));if(!d.destination&&!d.destinationPending)return error(new Error('请选择目的地'));const payload={kind:d.kind,origin:d.origin.name,originLat:d.origin.latitude,originLng:d.origin.longitude,city:d.state.passenger.city,remark:d.remark,waypoints:d.waypoints};if(d.destinationPending)payload.destinationPending=true;else Object.assign(payload,{destination:d.destination.name,destinationLat:d.destination.latitude,destinationLng:d.destination.longitude});if(d.riderId)payload.riderId=d.riderId;if(d.kind==='RESERVED'){const date=new Date(d.scheduledDate+'T'+d.scheduledTime+':00+08:00');if(!Number.isFinite(date.getTime()))return error(new Error('请选择预约日期与时间'));payload.scheduledAt=date.toISOString();}const r=await this.act('order.create',payload);if(r&&r.result&&r.result.order)wx.navigateTo({url:'/pages/order-detail/index?id='+encodeURIComponent(r.result.order.id)});}});const show=page.onShow;page.onShow=function(){show.call(this);let picked=null;try{picked=picker.consumePickedLocation();}catch(e){error(e);}if(picked)this.applyPoint(picked.purpose,picked.location);const repeat=getApp().globalData.repeatOrder;if(repeat){getApp().globalData.repeatOrder=null;this.setData({origin:repeat.origin,destination:repeat.destination,waypoints:[],destinationPending:!repeat.destination,kind:'STANDARD'});this.drawMap();}const local=getApp().globalData.selectedPlace;if(local){getApp().globalData.selectedPlace=null;this.applyPoint(local.purpose,local.location);}};Page(page);
+'use strict';
+const shared = require('../shared');
+const { base, store, coords, error } = shared;
+const picker = require('../../lib/map-picker');
+
+const PRIORITY_OPTIONS = (shared.extras && shared.extras.PRIORITY_OPTIONS) || [
+  { label: '不加价', value: 0 },
+  { label: '+2元', value: 200 },
+  { label: '+5元', value: 500 },
+  { label: '+10元', value: 1000 }
+];
+
+const findBestCoupon = (shared.coupons && typeof shared.coupons.findBestCoupon === 'function')
+  ? shared.coupons.findBestCoupon
+  : (() => null);
+
+const page = base({
+  data: {
+    kind: 'STANDARD',
+    origin: null,
+    destination: null,
+    waypoints: [],
+    remark: '',
+    scheduledDate: '',
+    scheduledTime: '',
+    destinationPending: false,
+    riderId: '',
+    riderLabel: '本人',
+    mapLat: 30.697,
+    mapLng: 111.286,
+    markers: [],
+    polyline: [],
+    priorityOptions: PRIORITY_OPTIONS,
+    priorityFee: 0,
+    matchedCoupon: null
+  },
+
+  syncState(s) {
+    this.setData({
+      riderOptions: [{ id: '', name: '本人' }].concat(s.riders || []),
+      active: (s.orders || []).find(o => !['DONE', 'CANCELLED'].includes(o.stage)) || null
+    });
+    this.updateMatchedCoupon();
+  },
+
+  chooseKind(e) {
+    this.setData({
+      kind: e.currentTarget.dataset.kind,
+      destinationPending: false
+    });
+  },
+
+  onSelectPriority(e) {
+    const val = Number(e.currentTarget.dataset.value);
+    this.setData({ priorityFee: val });
+  },
+
+  goCoupons() {
+    wx.navigateTo({
+      url: '/pages/coupons/index'
+    });
+  },
+
+  updateMatchedCoupon() {
+    try {
+      const estimatedFare = 2800;
+      const best = findBestCoupon(estimatedFare);
+      this.setData({ matchedCoupon: best });
+    } catch (_) {}
+  },
+
+  async choosePoint(e) {
+    this._purpose = e.currentTarget.dataset.purpose;
+    try {
+      const result = await picker.pickLocation({ purpose: this._purpose });
+      if (result && !result.pendingPlugin) this.applyPoint(this._purpose, result);
+    } catch (e) {
+      error(e);
+    }
+  },
+
+  applyPoint(purpose, location) {
+    const w = location.coordinateSystem === 'WGS84' ? location : coords.gcj02ToWgs84(location.latitude, location.longitude);
+    const point = { name: location.name || location.address, latitude: w.latitude, longitude: w.longitude };
+    if (purpose === 'waypoint') {
+      if (this.data.waypoints.length >= 2) return error(new Error('最多添加2个途经点'));
+      this.setData({ waypoints: this.data.waypoints.concat([point]) });
+    } else {
+      this.setData({ [purpose]: point });
+    }
+    this.drawMap();
+    this.updateMatchedCoupon();
+  },
+
+  drawMap() {
+    const list = [this.data.origin].concat(this.data.waypoints).concat(this.data.destination ? [this.data.destination] : []).filter(Boolean);
+    const markers = list.map((p, i) => Object.assign(coords.wgs84ToGcj02(p.latitude, p.longitude), {
+      id: i,
+      iconPath: '/assets/location-pin.png',
+      width: 28,
+      height: 36,
+      anchor: { x: 0.5, y: 1 },
+      title: p.name,
+      label: { content: p.name }
+    }));
+    this.setData({
+      markers,
+      mapLat: markers[0] ? markers[0].latitude : 30.697,
+      mapLng: markers[0] ? markers[0].longitude : 111.286
+    });
+  },
+
+  experience(e) {
+    this._purpose = e.currentTarget.dataset.purpose;
+    wx.navigateTo({ url: '/pages/places/index?pick=' + this._purpose });
+  },
+
+  togglePending(e) {
+    this.setData({
+      destinationPending: e.detail.value,
+      destination: null,
+      waypoints: []
+    });
+    this.drawMap();
+  },
+
+  removeWaypoint(e) {
+    this.setData({
+      waypoints: this.data.waypoints.filter((_, i) => i !== Number(e.currentTarget.dataset.index))
+    });
+    this.drawMap();
+  },
+
+  chooseRider(e) {
+    const rider = this.data.riderOptions[Number(e.detail.value)];
+    this.setData({ riderId: rider.id, riderLabel: rider.name });
+  },
+
+  date(e) {
+    this.setData({ scheduledDate: e.detail.value });
+  },
+
+  time(e) {
+    this.setData({ scheduledTime: e.detail.value });
+  },
+
+  async submit() {
+    if (!this.data.authenticated) return this.login();
+    const d = this.data;
+    if (!d.origin) return error(new Error('请选择上车地点'));
+    if (!d.destination && !d.destinationPending) return error(new Error('请选择目的地'));
+
+    const payload = {
+      kind: d.kind,
+      origin: d.origin.name,
+      originLat: d.origin.latitude,
+      originLng: d.origin.longitude,
+      city: d.state.passenger.city,
+      remark: d.remark,
+      waypoints: d.waypoints
+    };
+
+    if (d.destinationPending) {
+      payload.destinationPending = true;
+    } else {
+      Object.assign(payload, {
+        destination: d.destination.name,
+        destinationLat: d.destination.latitude,
+        destinationLng: d.destination.longitude
+      });
+    }
+
+    if (d.riderId) payload.riderId = d.riderId;
+
+    if (d.priorityFee > 0) {
+      payload.priorityFee = d.priorityFee;
+    }
+
+    if (d.matchedCoupon) {
+      payload.couponId = d.matchedCoupon.id;
+      payload.couponDiscount = d.matchedCoupon.calculatedDiscount;
+    }
+
+    if (d.kind === 'RESERVED') {
+      const date = new Date(d.scheduledDate + 'T' + d.scheduledTime + ':00+08:00');
+      if (!Number.isFinite(date.getTime())) return error(new Error('请选择预约日期与时间'));
+      payload.scheduledAt = date.toISOString();
+    }
+
+    const r = await this.act('order.create', payload);
+    if (r && r.result && r.result.order) {
+      wx.navigateTo({ url: '/pages/order-detail/index?id=' + encodeURIComponent(r.result.order.id) });
+    }
+  }
+});
+
+const show = page.onShow;
+page.onShow = function() {
+  show.call(this);
+  let picked = null;
+  try {
+    picked = picker.consumePickedLocation();
+  } catch (e) {
+    error(e);
+  }
+  if (picked) this.applyPoint(picked.purpose, picked.location);
+
+  const repeat = getApp().globalData.repeatOrder;
+  if (repeat) {
+    getApp().globalData.repeatOrder = null;
+    this.setData({
+      origin: repeat.origin,
+      destination: repeat.destination,
+      waypoints: [],
+      destinationPending: !repeat.destination,
+      kind: 'STANDARD'
+    });
+    this.drawMap();
+  }
+
+  const local = getApp().globalData.selectedPlace;
+  if (local) {
+    getApp().globalData.selectedPlace = null;
+    this.applyPoint(local.purpose, local.location);
+  }
+
+  this.updateMatchedCoupon();
+};
+
+Page(page);
