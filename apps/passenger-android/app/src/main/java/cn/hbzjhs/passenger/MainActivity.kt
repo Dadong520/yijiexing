@@ -565,7 +565,7 @@ fun PassengerVisualTheme(content: @Composable () -> Unit) {
     background = Color(0xFFF6F8FA),
     onBackground = Color(0xFF111827),
     surface = Color.White,
-    surfaceTint = Color.Transparent,
+    surfaceTint = Color.White,
     onSurface = Color(0xFF111827),
     surfaceVariant = Color(0xFFF1F3F5),
     onSurfaceVariant = Color(0xFF6B7280),
