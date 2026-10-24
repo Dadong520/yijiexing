@@ -1,0 +1,342 @@
+{
+  "sourceSha": "4b67744eb77639d6814bc3a85bd3d8b0bd5777d3",
+  "sourceChangesSince502": "none for mini",
+  "tests": [
+    {
+      "command": "npm test",
+      "status": "PASS",
+      "exitCode": 0
+    },
+    {
+      "command": "npm run check",
+      "status": "PASS",
+      "exitCode": 0
+    }
+  ],
+  "zip": "/Users/dongge/Documents/New project 2/delivery/2026-10-25/yijiexing-passenger-miniprogram-20261025.zip",
+  "sha256": "00e1ac6935719003e4009cd954d328905d968d3f8f1d094ed4876abb3460a4c1",
+  "bytes": 143898,
+  "files": 79,
+  "crc": "PASS",
+  "wechatCompilation": "NOT_RUN",
+  "appId": "touristappid",
+  "cliFailure": "Command permission auto-denied; coordinator executed test/package fallback",
+  "manifest": [
+    {
+      "path": "miniprogram/README.md",
+      "sha256": "5f208850500ed3eb315559156490d45a5bb275e6dbb99bd99cf66f369b8b79ac"
+    },
+    {
+      "path": "miniprogram/app.js",
+      "sha256": "383cc136df63030b238ed837606556f8e95b39e9807b163d1bd382c114837c8e"
+    },
+    {
+      "path": "miniprogram/app.json",
+      "sha256": "28daae2496788b561fb84fd05cdf19c61d0784ccc9a8f6f55061fc1a18daa060"
+    },
+    {
+      "path": "miniprogram/app.wxss",
+      "sha256": "3fcb3790a388e4a167ed70e222e59e2173644365405c3a8187a36c045728f2af"
+    },
+    {
+      "path": "miniprogram/assets/location-pin.png",
+      "sha256": "8cc9faf31eadde9b9ca35b2abb96adde14722db338ee913799c97e3e6e290015"
+    },
+    {
+      "path": "miniprogram/config/location.js",
+      "sha256": "7615c1f43c8e6a47c487f9bcb9b4070aeb2e14edcc20f07d7a8b525c1fea6c8b"
+    },
+    {
+      "path": "miniprogram/lib/api.js",
+      "sha256": "3f9ec2fac96190261406aa077b0037da79cf0dbc2af6fbe8ea3b2113525f1b65"
+    },
+    {
+      "path": "miniprogram/lib/coordinates.js",
+      "sha256": "8eeece6555bb83230acbbc6af4ffb41932fe7a8c7a69c142de125758cd829100"
+    },
+    {
+      "path": "miniprogram/lib/coupons.js",
+      "sha256": "e078b6ef7e95a07482114b7c3d6c559fc6673b478d0034bd7a9044586dc2748d"
+    },
+    {
+      "path": "miniprogram/lib/extras.js",
+      "sha256": "b31015a1a7d9bd179ebcf9ef63d64601976078fed4395d10e62a745433d32a24"
+    },
+    {
+      "path": "miniprogram/lib/map-picker.js",
+      "sha256": "1a4c51ada6733550cb5b5e66f899b3041b18c4bb4c331422b6031d92e6c493b1"
+    },
+    {
+      "path": "miniprogram/lib/points.js",
+      "sha256": "f4d4332620274d087f4aa135305affdfb10543f5c48bc422d1ff28dfeaf7874c"
+    },
+    {
+      "path": "miniprogram/lib/presentation.js",
+      "sha256": "69f581e8d688d2e98a9ed197474521e1e620294437c3372f3a4b8d56d2006545"
+    },
+    {
+      "path": "miniprogram/lib/safety.js",
+      "sha256": "ae4d21209a13f7f9acdcd3289f16fe4874261dd566d0fcfb54e411727df1e08c"
+    },
+    {
+      "path": "miniprogram/lib/store.js",
+      "sha256": "8cbb0c6b630a12426e84a22195a30a9d3f5cf945f9434d79ac7ea3533bbbf938"
+    },
+    {
+      "path": "miniprogram/package.json",
+      "sha256": "b746d220e18475fcf423d3705743784f6838616aa914922fedf700e1892211b7"
+    },
+    {
+      "path": "miniprogram/pages/coupons/index.js",
+      "sha256": "9217c3a86a6b6d0e36d450143d0ca2bc85b0d029408fea90634628edce71adc8"
+    },
+    {
+      "path": "miniprogram/pages/coupons/index.json",
+      "sha256": "43186317faa49efef6714b5a923ae1fa4fdaab0da136be5e310ed2bfb711dbee"
+    },
+    {
+      "path": "miniprogram/pages/coupons/index.wxml",
+      "sha256": "8c8718d3c64218024150c166eb7455240879f0891b54205a6772801ff4e374fa"
+    },
+    {
+      "path": "miniprogram/pages/coupons/index.wxss",
+      "sha256": "b7e7328a42cd0d29ae5da06ceae307c8c265079cc8b0bbb6dfd681d0bde01497"
+    },
+    {
+      "path": "miniprogram/pages/home/index.js",
+      "sha256": "6e4f7c932e39bf2e247ca9735c3722cb7205f99898c44365d47ce8af505b189d"
+    },
+    {
+      "path": "miniprogram/pages/home/index.json",
+      "sha256": "c403cf713f07aeed6810ce0be1e04214f6ba56f247fca75e112ea3ea6ae74994"
+    },
+    {
+      "path": "miniprogram/pages/home/index.wxml",
+      "sha256": "0099ad22bee2656686cafe4b3d2efa7be6f1e979e3588c64c07a6de5f2fe50ce"
+    },
+    {
+      "path": "miniprogram/pages/home/index.wxss",
+      "sha256": "5fdce9298a1b31ce067f70ac7d9fac6556e6563af18258d91c0fa3b0647f1380"
+    },
+    {
+      "path": "miniprogram/pages/login/index.js",
+      "sha256": "9c19ba4eb6272483c36a09b9baa80509aa0e115b7840543cff1f255696d7bbba"
+    },
+    {
+      "path": "miniprogram/pages/login/index.json",
+      "sha256": "c403cf713f07aeed6810ce0be1e04214f6ba56f247fca75e112ea3ea6ae74994"
+    },
+    {
+      "path": "miniprogram/pages/login/index.wxml",
+      "sha256": "4f0e9c5634adff130f3745c08aceb8fe54e30d5afb5588b6312715bbaad79149"
+    },
+    {
+      "path": "miniprogram/pages/login/index.wxss",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "miniprogram/pages/negotiation/index.js",
+      "sha256": "71fb4953af10ed540fee9201ba27c2c17e5cd7420cdce853ca9eb224dc6dcde4"
+    },
+    {
+      "path": "miniprogram/pages/negotiation/index.json",
+      "sha256": "c403cf713f07aeed6810ce0be1e04214f6ba56f247fca75e112ea3ea6ae74994"
+    },
+    {
+      "path": "miniprogram/pages/negotiation/index.wxml",
+      "sha256": "19fb550e826ca90454cb20b47daaefa9b0c35fe7feff982a4f061bdce69a2fc7"
+    },
+    {
+      "path": "miniprogram/pages/negotiation/index.wxss",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "miniprogram/pages/order-detail/index.js",
+      "sha256": "51e32f7c8c992d250f05f8020ade8879aec973353b0b270f101925cb021e733b"
+    },
+    {
+      "path": "miniprogram/pages/order-detail/index.json",
+      "sha256": "c403cf713f07aeed6810ce0be1e04214f6ba56f247fca75e112ea3ea6ae74994"
+    },
+    {
+      "path": "miniprogram/pages/order-detail/index.wxml",
+      "sha256": "f617ed5511a1197e20e6f06f6da18ccacb73e1b19d6540b0b796106c74121100"
+    },
+    {
+      "path": "miniprogram/pages/order-detail/index.wxss",
+      "sha256": "ae1046b8ab7218cb715d317f161ecdc30616da8e8cc21dbb73bf0c799e9d0c12"
+    },
+    {
+      "path": "miniprogram/pages/orders/index.js",
+      "sha256": "2a1684df8bf775a52ceb4b942f9400327563d6207d586bc77162582cc3cc92d7"
+    },
+    {
+      "path": "miniprogram/pages/orders/index.json",
+      "sha256": "c403cf713f07aeed6810ce0be1e04214f6ba56f247fca75e112ea3ea6ae74994"
+    },
+    {
+      "path": "miniprogram/pages/orders/index.wxml",
+      "sha256": "c763e28c65ed25f31b03dc8273bd49fa8056e4d08aebb6391d0cb7613fa31357"
+    },
+    {
+      "path": "miniprogram/pages/orders/index.wxss",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "miniprogram/pages/places/index.js",
+      "sha256": "4a35ca1c087cf886e530882a615fea73865c6ec30be3f1512555e7870dc08eb1"
+    },
+    {
+      "path": "miniprogram/pages/places/index.json",
+      "sha256": "c403cf713f07aeed6810ce0be1e04214f6ba56f247fca75e112ea3ea6ae74994"
+    },
+    {
+      "path": "miniprogram/pages/places/index.wxml",
+      "sha256": "489dd68617658dba0ef872589aa79a330df2b9505448038ad6aff0817fbbcc82"
+    },
+    {
+      "path": "miniprogram/pages/places/index.wxss",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "miniprogram/pages/profile/index.js",
+      "sha256": "17dd030eee0a6d0ae1983226d438b5235c8f75e06661ea3ba4074d8950dda4fe"
+    },
+    {
+      "path": "miniprogram/pages/profile/index.json",
+      "sha256": "c403cf713f07aeed6810ce0be1e04214f6ba56f247fca75e112ea3ea6ae74994"
+    },
+    {
+      "path": "miniprogram/pages/profile/index.wxml",
+      "sha256": "348dabecf85f46e52964e8efac0654c202ec40ea37487c9bb888d6c5ed5c18a2"
+    },
+    {
+      "path": "miniprogram/pages/profile/index.wxss",
+      "sha256": "b017384e57f7ef818388e75f175eba3b810065ba6a0f0c9a172897c3ad39b224"
+    },
+    {
+      "path": "miniprogram/pages/safety/index.js",
+      "sha256": "2a27704d069f9124ca7ce25857f7d56854db2cdf55561ecfb5ca8bb13a3f25ef"
+    },
+    {
+      "path": "miniprogram/pages/safety/index.json",
+      "sha256": "33b63e6f4c535e767f59bfa8a5676601ecab126eabe5fc7239c2bbe0a4214d6c"
+    },
+    {
+      "path": "miniprogram/pages/safety/index.wxml",
+      "sha256": "9e3f8b3bdfe0392b29947ce966b750615da93735b2719a3ed1dbea7cb052cf8e"
+    },
+    {
+      "path": "miniprogram/pages/safety/index.wxss",
+      "sha256": "0eda8aeac33c0bfa51e61aed87a618aac0099c62825698532324f62b057985a1"
+    },
+    {
+      "path": "miniprogram/pages/settings/index.js",
+      "sha256": "370595254c804c0155acb76dfb3df2f53552fba192ebad1f386e2902a50b3efc"
+    },
+    {
+      "path": "miniprogram/pages/settings/index.json",
+      "sha256": "c403cf713f07aeed6810ce0be1e04214f6ba56f247fca75e112ea3ea6ae74994"
+    },
+    {
+      "path": "miniprogram/pages/settings/index.wxml",
+      "sha256": "539da0e404aa79456022557032dbd466fbeb6abaf6aae48b5b1a62d6ad9020ad"
+    },
+    {
+      "path": "miniprogram/pages/settings/index.wxss",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "miniprogram/pages/shared.js",
+      "sha256": "ad5cac53c1aa20a3e49c99cdc5ad94667899ecabb790166fc06a69047495fa1c"
+    },
+    {
+      "path": "miniprogram/pages/shared.wxss",
+      "sha256": "50c1b3d09e80c20b1b2f5501c4ff598785d5af837ba411a5bcf32f75efbeb921"
+    },
+    {
+      "path": "miniprogram/preview/README.md",
+      "sha256": "1004de7640b32dc94f351cd418cc4e64c4bc954d9e5dac58c8b44e90ea2436bf"
+    },
+    {
+      "path": "miniprogram/preview/adapter.js",
+      "sha256": "6394337bf2ea3c7a0babe2bd077e223b9b262279699dd9e4ddbb9a92573b1963"
+    },
+    {
+      "path": "miniprogram/preview/build.py",
+      "sha256": "3092dd1576c84caab73d783775f37678f0caee8e6c3131524670af8ce74f9cfa"
+    },
+    {
+      "path": "miniprogram/preview/capture_screenshots.py",
+      "sha256": "a4f29e039ec1b983891c4eaa9cb99eaf308e054a4a720a141666a969cf570433"
+    },
+    {
+      "path": "miniprogram/preview/index.html",
+      "sha256": "d88592a6312a08949029f2338819b7e3ba3fed22e851f57279f8a7214f3eeefa"
+    },
+    {
+      "path": "miniprogram/preview/source.js",
+      "sha256": "3c5e18be52fc23f966a1dacabdcc9e5af32926a0775508b0257dc6cf7517738e"
+    },
+    {
+      "path": "miniprogram/preview/start_preview.py",
+      "sha256": "60bdd608ed332fa8b228c0116ce48525b4c710e6075a8d5e61ab1b69582480f2"
+    },
+    {
+      "path": "miniprogram/preview/启动预览.command",
+      "sha256": "7b3664465a0f584882c3531036090b3e14b6ece4dc754f888d6f1fd38cad63da"
+    },
+    {
+      "path": "miniprogram/project.config.json",
+      "sha256": "10a50834796444e7ffaee035a58d7737179b38553ae0a923c96df785a843a2db"
+    },
+    {
+      "path": "miniprogram/scripts/check-project.js",
+      "sha256": "ea620e9aff0257ca0b12438e198821853fc4e342afb2f469770fc6c8eb3881a4"
+    },
+    {
+      "path": "miniprogram/scripts/configure-map.js",
+      "sha256": "ac61d34940ae5b05c350057ca491c6c87a740d879ac25e5de39931b937a02c9c"
+    },
+    {
+      "path": "miniprogram/sitemap.json",
+      "sha256": "051d2be2e9ca38af3709251afac991e082e49c8251c60bd2f5defb2fbdbc6ff3"
+    },
+    {
+      "path": "miniprogram/tests/coupons-and-safety.test.js",
+      "sha256": "d828817faf83c87ab7ae98757c75677de96420411c10bbb30b4015befcf5a95a"
+    },
+    {
+      "path": "miniprogram/tests/data-core.test.js",
+      "sha256": "05aea6989b0c46ca48cf836a479ac13a56e4bc4fc297521d2ceb66716b3110b8"
+    },
+    {
+      "path": "miniprogram/tests/integration-v8.test.js",
+      "sha256": "d6e82226b96059e930565e3369ba61fcbc1ee112fb5b9b7d6b9c6c17cc44df53"
+    },
+    {
+      "path": "miniprogram/tests/map-picker.test.js",
+      "sha256": "68b8f3ed3dd22d1f965de4359aa2302d169e242d5cc048af7b126ff5aa666e11"
+    },
+    {
+      "path": "miniprogram/tests/points-and-referral.test.js",
+      "sha256": "533db340ee4f47ec882505e0f48b7ec77f1505c8b2775082cc6379ee5f2ffecb"
+    },
+    {
+      "path": "miniprogram/tests/presentation-labels.test.js",
+      "sha256": "66f3efc8e5c6aafdeb3cdc3c040e1ff9397494eed7af3b6c4e3849ad6fe57148"
+    },
+    {
+      "path": "miniprogram/tests/regression-ag-20261025.test.js",
+      "sha256": "8b2184d7ba0987efa29d023a6dbff6b12b049c4e4f54affd1608a3449570000f"
+    },
+    {
+      "path": "miniprogram/tests/review-data.test.js",
+      "sha256": "12c3822abf9b4182837d7cb00856c3f22707a025e100b5d284db9ddc8728cc85"
+    },
+    {
+      "path": "miniprogram/tests/ui-flow.test.js",
+      "sha256": "816ed1ebb8df2c108a32d081c3de68ef426d7fc5992c72f92df20d8cdc522735"
+    }
+  ]
+}

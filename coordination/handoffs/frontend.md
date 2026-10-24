@@ -1,22 +1,15 @@
 # frontend 交接卡
 
-规则版本：2026-10-25-v2；负责人 frontend（司机原生端与前端集成复核）。
-ACK：ACK v2（2026-10-25T01:00:06+08:00），已实际读取 AGENTS.md v2、GEMINI_CLI.md、STATE、BOARD与本卡。
-当前任务：无（BOARD.activeTaskIds为空）；本轮仅更新规则ACK，随后IDLE。
-执行分工：仅接受coordinator有界派单；Gemini/反重力优先通过agy CLI实现及常规测试；本人负责司机原生/集成复核与被明确分配的独立验收，不争写、不自行发布、不派代理、不常驻或重复测试。保持GPT-6.1；CLI权限提示由coordinator处理。
+规则版本：2026-10-25-v2；ACK v2；负责人 frontend（司机原生/前端集成独立复核）。
+当前任务：REL-20261025-01；已完成 → IDLE。读取AGENTS/STATE/BOARD/任务后执行，未派代理。
+基线：502182a1d171902cb41844552765fceed42eb32a。
+独立验收：PASS（仅司机0.3.7版本/安全文案发布冒烟范围）；精确SHA 4b67744eb77639d6814bc3a85bd3d8b0bd5777d3。
+APK：0.3.7-cloud/code10，53,994,505 bytes；SHA256 226a43e90a242d537cf90ce889e8961f9b6cb2f5f481a34f9a9df5fabec0ffad；同签名9ffec9b3…758f；包名cn.hbzjhs.dc.driver.cloud；固定独立云源已在dex核对。
 
-以下为已归档FE-20261025-01历史复核，结论仅适用于当时fd44ec08，不代表STATE所述后续修复SHA的当前状态。
-状态：READ_ONLY_REVIEW_COMPLETE → IDLE；目标SHA验收 FAIL / CHANGES_REQUESTED。
-基线：e89f90b0a63b72dc04fca5b3690a8897de1543c7；复核：fd44ec08d674900cd0b30d3d3f25cd0fc46f1b36。
-
-结果：目标对基线的Android差异仅 CoreScreens.kt +39行，原生业务/Store未变。
-- P1 FE01：CoreScreens:704–719固定“今日”6.5h/12接单/12完单。API旧today*字段实际累计、初始为2单且无在线时长/日统计契约；不能简单改绑后继续称今日。
-- P1 FE02：CoreScreens:692–695固定100分/卓越/宜昌交运，与profile.serviceScore、driver.organization及既有详情页冲突（种子98/优秀/演示车队）。勋章不是认证；资质仍以certificationStatus+certificates和服务端新接单审核为准，本批无新增认证能力。
-- P2 FE03：CoreScreens:549–556“安全守护护航中”仅依赖state.online，未绑定连接/真实守护能力；建议中性提醒，不能充当录音/警务验收依据。
-
-证据：coordination/evidence/FE-20261025-01/ 的 review-result.json、source-observations.json、source-excerpts.txt、source-manifest.json、driver-change.patch、ui-acceptance.txt。
-实际检查：Git精确SHA差异与不可变源码摘取/哈希；Python AST提取冻结seed字段；协调记录结构检查结果见 structure-check.txt。
-NOT_RUN：Gradle构建、安卓单测、模拟器UI、线上API、云操作。本轮静态阻塞已成立，未借用旧55项安卓/50项小程序测试作为本批验收。
-下一步：等待coordinator明确新任务。本轮不重新复核源码或测试；后续修复/合并状态以STATE与协调者独立验收记录为准。
-历史待合并SHA：无；当时fd44ec08不建议合并/发布。本轮未作新合并/发布判定。
-边界：仅写本卡和本任务evidence；无产品修改、无部署、无模拟器操作、无子代理、无自动回信。完成后停止。
+实测：5586覆盖安装成功，原0003登录保留；启动服务已连接，驾驶员信息刷新和待支付刷新成功；2笔待收款保留且附近单/可点抢单按钮可见，未提交接单。返回听单、司机资料/服务卡、服务分、钱包菜单可用。累计15接单/10完单、服务分98、接口演示车队一致；钱包557.74、累计收入299.74。安全文案已为“听单中·安全行车提醒”。服务卡保留演示非营运/资质凭证声明。
+源码独立差异：仅版本递增和一处安全提醒标题，无Store/订单/后端改动。作者55项测试/构建证据已读，本人未重复跑。
+证据：coordination/evidence/REL-20261025-01/frontend-final-acceptance.json；12张frontend-01…12截图及XML、frontend-steps.jsonl、frontend-installed-version.txt、frontend-source-apk-review.json、frontend-release-scope.patch、frontend-evidence-manifest.json。
+阻塞：无（本次限定范围）。
+NOT_RUN：新接单/支付/取消/尾号/跨单晚付全链、0001与保留订单修改、全字号/实体手机、重跑单测/构建、后端/微信/营销验收、上传部署/公开下载回读。不能称三端全业务已通过。
+设备已交还：5586 App force-stop + HOME，未退出账户/清数据/卸载；5584未操作。云配置未改、服务未暂停。
+下一步：coordinator决定APK发布并回读；本人无发布动作，现idle。此前FE-20261025-01针对fd44ec08的历史FAIL见归档证据，不套用到本次SHA。

@@ -1,0 +1,11 @@
+{
+  "status": "BLOCKED",
+  "reason": "Headless command permission auto-denied",
+  "denied_actions": [
+    {
+      "action": "command",
+      "display_name": "RunCommand"
+    }
+  ],
+  "fallback": "Coordinator ran tests and packaged; Gemini independently reviewed documents only"
+}

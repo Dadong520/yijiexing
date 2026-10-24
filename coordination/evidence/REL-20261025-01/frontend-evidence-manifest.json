@@ -1,0 +1,147 @@
+[
+  {
+    "file": "frontend-01-home-after-upgrade.png",
+    "bytes": 209936,
+    "sha256": "5b9f5c882849db2e7ae0eddb4e96a0cdf10f4c39a330cc1703fd32e4a8fdf9b8"
+  },
+  {
+    "file": "frontend-01-home-after-upgrade.xml",
+    "bytes": 18379,
+    "sha256": "c0ea45b135aa6d8a34d789d9ae146d84a4024626b43f2783562b85ec8a62d8ad"
+  },
+  {
+    "file": "frontend-02-nearby-orders.png",
+    "bytes": 211017,
+    "sha256": "aa8610e6605d23f77d9e2f8e30d82e9fee533fcbc33ef25359e00754ffb0ef8b"
+  },
+  {
+    "file": "frontend-02-nearby-orders.xml",
+    "bytes": 18036,
+    "sha256": "f75dbd54995401b5a257dfff421b519bf5e2bf5ef8eab37e0fee59c6db7db6cc"
+  },
+  {
+    "file": "frontend-03-profile.png",
+    "bytes": 181332,
+    "sha256": "9df4e682f7232aaa9e7c49cce3293f210b1c7e9460639d1bdce55dd3cc323505"
+  },
+  {
+    "file": "frontend-03-profile.xml",
+    "bytes": 19572,
+    "sha256": "b0f210f1bb5eafc126bea652bb180569e1dbed29a137466c833df2fe75363626"
+  },
+  {
+    "file": "frontend-04-driver-information.png",
+    "bytes": 149580,
+    "sha256": "54fb0ac33f760b81947c2131291cb0f0c100de736645652c4ed66e4d5b007bde"
+  },
+  {
+    "file": "frontend-04-driver-information.xml",
+    "bytes": 13593,
+    "sha256": "8752ce11e9e98c6ef5a560878a4b093e2f4ba9f7b3b68ae9efbd2f138fc75640"
+  },
+  {
+    "file": "frontend-05-driver-refreshed.png",
+    "bytes": 149548,
+    "sha256": "df856966a75bac1db6de44a4d4bdb449710fcfc84bf6a12e5995599769587576"
+  },
+  {
+    "file": "frontend-05-driver-refreshed.xml",
+    "bytes": 13593,
+    "sha256": "8752ce11e9e98c6ef5a560878a4b093e2f4ba9f7b3b68ae9efbd2f138fc75640"
+  },
+  {
+    "file": "frontend-06-service-card.png",
+    "bytes": 169847,
+    "sha256": "351226693f2db507af657e1ef736b7bfa48cf91fac5ddc6c02125edf4de9ca9e"
+  },
+  {
+    "file": "frontend-06-service-card.xml",
+    "bytes": 7196,
+    "sha256": "cba28647b22ba25df551e350d4e722274f1baa010a6540d00a680ec8bda37320"
+  },
+  {
+    "file": "frontend-07-unpaid-list.png",
+    "bytes": 160358,
+    "sha256": "09f4f09600cd3964c6eeaf1f6390756b8895dc6bb40c69f6cb8d85d424068bc1"
+  },
+  {
+    "file": "frontend-07-unpaid-list.xml",
+    "bytes": 20519,
+    "sha256": "75777b4a8dd35ca04d97d00deea7a465d03df5673194a247f0e7b164a2e21a9f"
+  },
+  {
+    "file": "frontend-08-unpaid-detail.png",
+    "bytes": 200700,
+    "sha256": "23e946715e109a7666d4f13442f8daf75248af938b6b57253d402f39d7363df4"
+  },
+  {
+    "file": "frontend-08-unpaid-detail.xml",
+    "bytes": 12466,
+    "sha256": "a1a6e1eea096b3b0db67cddbca701576af03ae3689b7cbb346e65e53f06ab6cd"
+  },
+  {
+    "file": "frontend-09-unpaid-refreshed.png",
+    "bytes": 200700,
+    "sha256": "23e946715e109a7666d4f13442f8daf75248af938b6b57253d402f39d7363df4"
+  },
+  {
+    "file": "frontend-09-unpaid-refreshed.xml",
+    "bytes": 12466,
+    "sha256": "a1a6e1eea096b3b0db67cddbca701576af03ae3689b7cbb346e65e53f06ab6cd"
+  },
+  {
+    "file": "frontend-10-profile-menus.png",
+    "bytes": 151019,
+    "sha256": "6d3b149bec839fdb75c2fa0e971d5c899cb8205fbfeb7881812432f503b36881"
+  },
+  {
+    "file": "frontend-10-profile-menus.xml",
+    "bytes": 18812,
+    "sha256": "c44f262d41f95d05fb86ee6073e0722239685261a5a67330312bc6193f55fe12"
+  },
+  {
+    "file": "frontend-11-service-score.png",
+    "bytes": 139096,
+    "sha256": "88e7ede41d57a08e0789fcac27741b9455752e94c8ba798a59a6a17036a6d50b"
+  },
+  {
+    "file": "frontend-11-service-score.xml",
+    "bytes": 8274,
+    "sha256": "23dc83b5d59c9ddc4931fb593b8201c1d6def6f11b6f0875bf328ad78cebe464"
+  },
+  {
+    "file": "frontend-12-wallet.png",
+    "bytes": 161961,
+    "sha256": "f390e4444e47de96371dc668a215ff0106559e2a512d71330450a0cc94cbd3a8"
+  },
+  {
+    "file": "frontend-12-wallet.xml",
+    "bytes": 15840,
+    "sha256": "9912b95e263f4f29b300218ff538744e34676e82fed1cfe5c7e849a16457ae38"
+  },
+  {
+    "file": "frontend-final-acceptance.json",
+    "bytes": 4165,
+    "sha256": "430ad4f7eef5e2311195a6b2791952ae4152f709cbe18cb41a8ffcef0d0957a6"
+  },
+  {
+    "file": "frontend-installed-version.txt",
+    "bytes": 62,
+    "sha256": "c640949249fab7457342c61e5f7dda841e03594774adb6dd5aa5c491e325468e"
+  },
+  {
+    "file": "frontend-release-scope.patch",
+    "bytes": 1880,
+    "sha256": "b300b455569ac5a2b74ebd050914d3d2743e8bb3fb7a61512de09aa6f72ed786"
+  },
+  {
+    "file": "frontend-source-apk-review.json",
+    "bytes": 686,
+    "sha256": "a2936acc7f0b0190365c8988dccd171b2f149976fcda1c7aa2148959a45b09fe"
+  },
+  {
+    "file": "frontend-steps.jsonl",
+    "bytes": 3718,
+    "sha256": "e22f8e7e83f2db802d62c1686241da077d1f355943969968a90c835e5f924142"
+  }
+]

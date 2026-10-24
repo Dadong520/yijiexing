@@ -1,0 +1,48 @@
+{
+  "schemaVersion": 1,
+  "id": "MIN-20261025-01",
+  "owner": "coordinator",
+  "goal": "整理最新小程序开发者工具导入包和离线预览，实际自测并写面向用户的验收步骤，不冒充微信发布。",
+  "baseSha": "502182a1d171902cb41844552765fceed42eb32a",
+  "allow_paths": [
+    "coordination/evidence/MIN-20261025-01/",
+    "delivery/2026-10-25/"
+  ],
+  "checks": [
+    "小程序56项与结构检查实际运行，预览和源码一致",
+    "无凭据/APK/node_modules/缓存，ZIP CRC正确，可导入开发者工具",
+    "AppID未配置、地图插件与营销演示限制明确；不修改产品代码或部署"
+  ],
+  "status": "DONE",
+  "acceptance": "PASS",
+  "tests": [
+    {
+      "command": "npm test",
+      "status": "PASS",
+      "exitCode": 0,
+      "sourceSha": "4b67744eb77639d6814bc3a85bd3d8b0bd5777d3"
+    },
+    {
+      "command": "npm run check; ZIP testzip + required entries",
+      "status": "PASS",
+      "exitCode": 0,
+      "sourceSha": "4b67744eb77639d6814bc3a85bd3d8b0bd5777d3"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "coordination/evidence/MIN-20261025-01/package-result.json",
+      "sha256": "32eee08c1fd03b1cf7a7d0b7a19f7fe1b63d45d5ffc0738e4b8b234808550547"
+    },
+    {
+      "path": "coordination/evidence/MIN-20261025-01/gemini-document-review.json",
+      "sha256": "087cd96576d78c1bfb324aab76696fce52e52e882a19a84060cc424f8cb82862"
+    }
+  ],
+  "nextAction": "开发包已交付本机delivery；AppID/微信编译与真机另立任务，不阻塞司机发布",
+  "deploy_owner": "coordinator",
+  "releaseReady": true,
+  "reviewer": "Gemini read-only documentation review; automated package verification by coordinator",
+  "acceptanceScope": "仅开发者工具导入源码包/离线页面预览交付，不是微信编译或正式发布",
+  "acceptedSha": "4b67744eb77639d6814bc3a85bd3d8b0bd5777d3"
+}

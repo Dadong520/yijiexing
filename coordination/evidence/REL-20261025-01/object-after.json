@@ -1,0 +1,22 @@
+{
+  "bucket": "yijiexing-demo-state-491829048305",
+  "cache_control": "no-store",
+  "content_type": "application/vnd.android.package-archive",
+  "crc32c_hash": "Z+7fuw==",
+  "creation_time": "2026-10-24T17:28:37+0000",
+  "custom_fields": {
+    "sha256": "226a43e90a242d537cf90ce889e8961f9b6cb2f5f481a34f9a9df5fabec0ffad",
+    "source": "4b67744eb77639d6814bc3a85bd3d8b0bd5777d3",
+    "version": "0.3.7-cloud"
+  },
+  "etag": "CJDx6uqW05cDEAE=",
+  "generation": "1792862917933200",
+  "md5_hash": "Hs2ORK3jU5LX+C+NlRsmlA==",
+  "metageneration": 1,
+  "name": "distribution/yijiexing-cloud.apk",
+  "size": 53994505,
+  "storage_class": "STANDARD",
+  "storage_class_update_time": "2026-10-24T17:28:37+0000",
+  "storage_url": "gs://yijiexing-demo-state-491829048305/distribution/yijiexing-cloud.apk#1792862917933200",
+  "update_time": "2026-10-24T17:28:37+0000"
+}

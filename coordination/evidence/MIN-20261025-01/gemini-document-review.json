@@ -1,0 +1,6 @@
+{
+  "model": "gemini-3.8-flash-high",
+  "scope": "Read-only package-document review; did not execute tests or inspect ZIP binary",
+  "status": "SUCCESS",
+  "response": "只读文档复核：**PASS**\n\n**核对结论：**\n1. **包声明与上线状态**：明确本包为源码开发验收包，文末明确声明“当前包不是已发布的微信小程序”，未混淆为上线版本。\n2. **实跑测试归属与边界**：JSON 准确记录权限被拒后由协调者接手实跑测试与打包；微信编译明确标注为 `NOT_RUN`，真机及完整流程未验收。\n3. **AppID 与预览限制**：清楚注明使用 `touristappid`、无正式 AppID 及真机限制；说明浏览器预览仅供脱敏静态界面走查，下单支付写入拒绝，卡券/录音/警方专网均为演示/未接入。\n\n文档表述严谨合规，复核通过。\n"
+}

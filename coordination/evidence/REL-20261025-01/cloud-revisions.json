@@ -1,0 +1,31 @@
+[
+  {
+    "metadata": {
+      "name": "driver-admin"
+    },
+    "status": {
+      "latestReadyRevisionName": "driver-admin-browser1",
+      "traffic": [
+        {
+          "percent": 100,
+          "revisionName": "driver-admin-browser1"
+        }
+      ]
+    }
+  },
+  {
+    "metadata": {
+      "name": "driver-demo"
+    },
+    "status": {
+      "latestReadyRevisionName": "driver-demo-00005-2w2",
+      "traffic": [
+        {
+          "latestRevision": true,
+          "percent": 100,
+          "revisionName": "driver-demo-00005-2w2"
+        }
+      ]
+    }
+  }
+]

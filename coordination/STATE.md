@@ -3,7 +3,8 @@
 更新时间：2026-10-25（Asia/Singapore）。协调者唯一维护；历史聊天仅作证据。
 
 ## 当前发布
-- 私有仓库 Dadong520/yijiexing；业务发布基线 e89f90b0a63b72dc04fca5b3690a8897de1543c7；协作入口PR#2、契约PR#4与客户端修复PR#3已合并；客户端业务合并=884be476aa19b6a3fa6804139d1080ef9f3523f7，归档后main=ab9f199241d9771e98e6568ae8b6a5b3b0bdc9da，云发布仍为下述旧版；当前任务以BOARD为准。
+- 2026-10-25 01:28（UTC+8）司机0.3.7-cloud/code10已公开发布并全量直连回读PASS，下载 https://driver-demo-491829048305.us-west1.run.app/download ，SHA256 226a43e90a242d537cf90ce889e8961f9b6cb2f5f481a34f9a9df5fabec0ffad。覆盖安装同签名保留登录；发布源码4b67744...，合并69804ef...。
+- 私有仓库 Dadong520/yijiexing；业务发布基线 e89f90b0a63b72dc04fca5b3690a8897de1543c7；协作入口PR#2、契约PR#4与客户端修复PR#3已合并；客户端业务合并=884be476aa19b6a3fa6804139d1080ef9f3523f7，本轮司机发布源码合并=69804ef4f375b68713d6b25e8169bf8dc6920adf，云发布仍为下述旧版；当前任务以BOARD为准。
 - 后台 https://driver-admin-491829048305.us-west1.run.app/ ，Google账号 dadonggev587@gmail.com + 独立管理账号；凭据仅本机.private。
 - driver-demo: v8镜像7d71539... / driver-demo-00005-2w2。
 - driver-admin: admin-browser镜像037b157... / driver-admin-browser1，保留IAP/IAM。后端升级必须保留 iap_browser.py 和完整管理网页，不可覆盖成旧管理原型。
@@ -19,7 +20,7 @@
 ## 当前任务与验收
 - AG-20261025-01 最终开发源码6bfc9d0f8223cb7c981f1b9079cd31e705d5be2a独立PASS，经历两轮问题修复；PR#3已合并884be476aa19b6a3fa6804139d1080ef9f3523f7。
 - 小程序56/56、结构10页24JS通过；最终司机Android离线assembleDebug成功，首轮55项逻辑测试通过；预览包已重建并独立核对源码一致。
-- 仅开发版验收：微信AppID/工具编译/真机、真实营销持久化、新三端流程仍未验收；releaseReady=false，不发布客户端或云业务。
+- 原AG合并仅开发源码验收；后续REL独立司机发布任务已单独PASS并发布0.3.7，不再受微信AppID阻塞。微信编译/真机、真实营销持久化和新三端完整流程仍未验收。
 - 分工：反重力主开发；backend负责接口/账务规则；frontend负责司机原生与前端集成复核；coordinator安排独立验收、合并和唯一发布。
 - 业务外部依据摘录未独立逐条核实；profile演示积分owner待统一，不能用于真实账务。
 
@@ -30,8 +31,8 @@
 
 ## 角色会话
 - coordinator: 开发宜捷行后台管理端 / 01a168e6-d76c-7ef0-8c87-706cc6e32d57
-- frontend: 开发宜捷行司机端 / 01a167c8-a5eb-77e3-b77e-214927a029da
-- backend: 开发宜捷行乘客端 Android App / 01a168e2-22f7-70a2-af7f-4fb6be0ea695
+- frontend: 宜捷行｜司机端与前端验收 / 01a167c8-a5eb-77e3-b77e-214927a029da
+- backend: 宜捷行｜后端与业务规则 / 01a168e2-22f7-70a2-af7f-4fb6be0ea695
 - antigravity: Yijiexing Project Collaboration Workflow / 559ad4bb-7b06-4120-93a6-f437888ab1ef
 
 ## 执行边界
@@ -48,3 +49,9 @@
 - 用户只向coordinator提需求，由其直接调度两个Codex会话及Gemini，无需用户中转。规则版本2026-10-25-v2。
 - Gemini优先主要实现，默认agy CLI按任务新建上下文，已实测CLI_READY；不与旧桌面会话并发，不用latest/continue串任务。
 - 后端关键规则由backend审查，独立验收与部署仍归coordinator；无任务不启动模型，无常驻AI。
+
+## 最新交付与限制
+- REL-20261025-01：55项Debug单测及构建、固定云源/同签名、独立覆盖安装与限定UI/云刷新PASS；公开APK已全量直连回读版本/签名/哈希。原035对象已云端备份。仅替换APK，无后端/admin/数据发布。
+- MIN-20261025-01：最新小程序ZIP在delivery/2026-10-25，56项测试/结构/ZIP CRC通过，Gemini只读文档复核PASS。无AppID，不是已发布微信小程序。
+- Gemini CLI执行command被非交互权限规则拒绝，未跳过权限；协调者接手测试打包，Gemini仅实际完成文档复核。不能再假定CLI编辑模式可自动执行所有命令。
+- 四角色当前无活跃任务，等待用户验收反馈；后台/云参数继续保持原保护和按需配置。

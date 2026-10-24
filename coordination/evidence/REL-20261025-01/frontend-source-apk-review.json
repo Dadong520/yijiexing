@@ -1,0 +1,16 @@
+{
+  "reviewer": "frontend independent reviewer",
+  "baseSha": "502182a1d171902cb41844552765fceed42eb32a",
+  "sourceSha": "4b67744eb77639d6814bc3a85bd3d8b0bd5777d3",
+  "changedPaths": [
+    "candidates/driver-0.3.6-r2/android/app/build.gradle.kts",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/CoreScreens.kt"
+  ],
+  "scope": "version9→10, 0.3.6→0.3.7; safety heading only; no business/Store/backend changes",
+  "apkSha256": "226a43e90a242d537cf90ce889e8961f9b6cb2f5f481a34f9a9df5fabec0ffad",
+  "cloudOriginLocatedInDex": [
+    "classes3.dex"
+  ],
+  "fixedOrigin": "https://driver-demo-491829048305.us-west1.run.app",
+  "sourceReview": "PASS"
+}

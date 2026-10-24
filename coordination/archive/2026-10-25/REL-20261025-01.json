@@ -1,0 +1,84 @@
+{
+  "schemaVersion": 1,
+  "id": "REL-20261025-01",
+  "owner": "coordinator",
+  "goal": "按端发布最新司机体验包；与微信AppID及营销后端解耦。版本签名/适用测试/覆盖安装通过后替换公开下载，保留回退；不改云服务或数据。",
+  "baseSha": "502182a1d171902cb41844552765fceed42eb32a",
+  "allow_paths": [
+    "candidates/driver-0.3.6-r2/android/app/build.gradle.kts",
+    "coordination/evidence/REL-20261025-01/",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/CoreScreens.kt"
+  ],
+  "checks": [
+    "司机APK同签名、版本递增、固定独立体验云源",
+    "相关单测与构建通过、模拟器覆盖安装与基本页面验证",
+    "独立复核本次发布范围，直连上传及下载回读哈希一致",
+    "备份原下载对象，仅替换APK，不修改订单/IAP/云运行配置"
+  ],
+  "status": "DONE",
+  "acceptance": "PASS",
+  "tests": [
+    {
+      "command": "gradle testDebugUnitTest assembleDebug --offline -PYIJ_CLOUD_ORIGIN=https://driver-demo-491829048305.us-west1.run.app",
+      "sourceSha": "4b67744eb77639d6814bc3a85bd3d8b0bd5777d3",
+      "status": "PASS",
+      "exitCode": 0,
+      "passed": 55
+    },
+    {
+      "command": "apksigner verify; aapt package/version; packaged dex cloud origin",
+      "sourceSha": "4b67744eb77639d6814bc3a85bd3d8b0bd5777d3",
+      "status": "PASS",
+      "exitCode": 0
+    },
+    {
+      "command": "independent emulator5586 install-r, retained login, cloud refresh and scoped menu/UI smoke",
+      "sourceSha": "4b67744eb77639d6814bc3a85bd3d8b0bd5777d3",
+      "status": "PASS",
+      "exitCode": 0
+    },
+    {
+      "command": "direct GCS conditional upload + full public HTTPS GET + apk version/signer/SHA256",
+      "sourceSha": "4b67744eb77639d6814bc3a85bd3d8b0bd5777d3",
+      "status": "PASS",
+      "exitCode": 0
+    }
+  ],
+  "evidence": [
+    {
+      "path": "coordination/evidence/REL-20261025-01/build-result.json",
+      "sha256": "cf9474041172883e2e39dc1f048a886ef3818394645428c4f26d7dae4a27e7fe"
+    },
+    {
+      "path": "coordination/evidence/REL-20261025-01/android-build.log",
+      "sha256": "ff8f2fbfc2107e9e5a2cacc2626694d21fc7f3b170f12fc7348436f6b91f4125"
+    },
+    {
+      "path": "coordination/evidence/REL-20261025-01/frontend-source-apk-review.json",
+      "sha256": "a2936acc7f0b0190365c8988dccd171b2f149976fcda1c7aa2148959a45b09fe"
+    },
+    {
+      "path": "coordination/evidence/REL-20261025-01/frontend-final-acceptance.json",
+      "sha256": "430ad4f7eef5e2311195a6b2791952ae4152f709cbe18cb41a8ffcef0d0957a6"
+    },
+    {
+      "path": "coordination/evidence/REL-20261025-01/public-release.json",
+      "sha256": "5128e4a1533ded06b9639a52003e10be70b05d24ad90a9ebe537cd8b5aa659fe"
+    },
+    {
+      "path": "coordination/evidence/REL-20261025-01/rollback.json",
+      "sha256": "b9bafbf8b7d0f9ab381fa6cdfa59dfd908a558d59b8855a773973423e7a77797"
+    }
+  ],
+  "nextAction": "已公开发布并全量直连回读PASS；交用户覆盖安装验收，后续按反馈另建任务",
+  "deploy_owner": "coordinator",
+  "releaseReady": true,
+  "acceptedSha": "4b67744eb77639d6814bc3a85bd3d8b0bd5777d3",
+  "headSha": "4b67744eb77639d6814bc3a85bd3d8b0bd5777d3",
+  "reviewer": "frontend independent reviewer (GPT-6.1)",
+  "acceptanceScope": "bounded independent driver0.3.7 release smoke for version/safety-copy delta, not full trip/payment business acceptance",
+  "published": true,
+  "publicUrl": "https://driver-demo-491829048305.us-west1.run.app/download.apk",
+  "publishedVersion": "0.3.7-cloud",
+  "mergedSha": "69804ef4f375b68713d6b25e8169bf8dc6920adf"
+}
