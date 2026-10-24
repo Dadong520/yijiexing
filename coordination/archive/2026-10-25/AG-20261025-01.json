@@ -1,0 +1,92 @@
+{
+  "schemaVersion": 1,
+  "baseSha": "e89f90b0a63b72dc04fca5b3690a8897de1543c7",
+  "created": "2026-10-25",
+  "deploy_owner": "coordinator",
+  "status": "DONE",
+  "acceptance": "PASS",
+  "tests": [
+    {
+      "command": "npm test",
+      "sourceSha": "801e8cacb3b5f2720d0c009ecbbb890a35df4135",
+      "status": "PASS",
+      "exitCode": 0,
+      "passed": 56
+    },
+    {
+      "command": "npm run check",
+      "sourceSha": "801e8cacb3b5f2720d0c009ecbbb890a35df4135",
+      "status": "PASS",
+      "exitCode": 0
+    },
+    {
+      "command": "gradle assembleDebug --offline --no-daemon",
+      "sourceSha": "801e8cacb3b5f2720d0c009ecbbb890a35df4135",
+      "status": "PASS",
+      "exitCode": 0
+    },
+    {
+      "command": "independent preview payload/source equivalence",
+      "sourceSha": "6bfc9d0f8223cb7c981f1b9079cd31e705d5be2a",
+      "status": "PASS",
+      "exitCode": 0
+    }
+  ],
+  "evidence": [
+    {
+      "path": "coordination/reviews/AG-20261025-01.md",
+      "sha256": "486cee3a7fc430995d98d68792220da9930d19022feb3c9c1fff45c74f4ed3f5"
+    },
+    {
+      "path": "coordination/reviews/AG-20261025-01-round1.md",
+      "sha256": "2cacbc370751dcc7c5adb5ea3c8e23d1797457b8d0892fbef4afaaa7e3f55354"
+    },
+    {
+      "path": "coordination/reviews/AG-20261025-01-round2.md",
+      "sha256": "9f43f1302a8db9506ee7c5a389ffed29b4108d2a3247c975a487610db0abe41c"
+    },
+    {
+      "path": "coordination/evidence/AG-20261025-01/final-build-result.json",
+      "sha256": "a01c80b26ef663301a4f389e4b4781f54381713e3e08d77a0bb713104bbd9f89"
+    },
+    {
+      "path": "coordination/evidence/AG-20261025-01/final-801e8ca-unit-tests.log",
+      "sha256": "d22f5ea3e0d71ddd948658d8a78d9d18241e40257626a6048b1e38cdd9c26f53"
+    },
+    {
+      "path": "coordination/evidence/AG-20261025-01/final-801e8ca-project-check.log",
+      "sha256": "9d353a9c80181d2e3e894958b2f80e06255d7d6f0d610e0b25a0e95e512e517f"
+    },
+    {
+      "path": "coordination/evidence/AG-20261025-01/final-801e8ca-android-build.log",
+      "sha256": "b5724cc6e58f81e6e75a8273d067afb7c7f789d58dfb58fafb56317b6b977cd4"
+    }
+  ],
+  "nextAction": "本轮完成并idle；未来营销后端与微信真机分别建任务，不发布本批业务",
+  "id": "AG-20261025-01",
+  "owner": "antigravity",
+  "goal": "修复本批客户端回归及误导性能力展示，提交可独立验收的前端改动；未有后端账务时关闭正式营销入口或清楚隔离为演示，不影响真实订单金额。",
+  "headSha": "6bfc9d0f8223cb7c981f1b9079cd31e705d5be2a",
+  "allow_paths": [
+    "candidates/passenger-miniprogram-0.1.0/miniprogram/",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/CoreScreens.kt",
+    "coordination/handoffs/antigravity.md",
+    "coordination/evidence/AG-20261025-01/"
+  ],
+  "checks": [
+    "恢复WAIT_CONTINUE同单继续/放弃及投诉附件入口",
+    "失败或结果不确定不得退券/发积分；未接服务端营销不得对真实订单显示已优惠或已加价",
+    "去掉固定28元、假司机统计、无依据资质/录音/警方联动承诺",
+    "本地演示数据按账号隔离；过期券不得选中；无后端能力清晰标注不可用于真实支付",
+    "新增页面级回归测试，实际运行小程序测试和结构检查；报告微信未运行项"
+  ],
+  "releaseReady": false,
+  "releaseLimitations": [
+    "微信AppID/正式编译/真机尚未配置验证",
+    "营销后端尚未实施，仅验收开发版隔离修复"
+  ],
+  "acceptedSha": "6bfc9d0f8223cb7c981f1b9079cd31e705d5be2a",
+  "reviewer": "review_antigravity_batch (GPT-6.1) + coordinator",
+  "acceptanceScope": "仅开发版源码与预览集成；不是微信真机、营销持久化或三端全流程验收",
+  "mergedSha": "884be476aa19b6a3fa6804139d1080ef9f3523f7"
+}

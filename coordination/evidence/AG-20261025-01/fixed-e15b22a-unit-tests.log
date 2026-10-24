@@ -1,0 +1,69 @@
+
+> yijiexing-passenger-miniprogram@0.1.0 test
+> node --test tests/*.test.js
+
+✔ coupons: calculates amount and percent discounts correctly (5.895417ms)
+✔ coupons: rule #3 tips cannot contribute to min spend threshold (1.348375ms)
+✔ coupons: rule #4 & #5 lifecycle - freeze, release, and consume (3.484209ms)
+✔ coupons: exclusions for bidding orders and claim code (2.775584ms)
+✔ coupons: findBestCoupon selects highest discount (0.995833ms)
+✔ safety: emergency contacts CRUD and message generator (1.573542ms)
+✔ extras: options and format utilities conform to cents (0.143042ms)
+✔ 旧GET和旧401不覆盖新快照或新登录 (5.362292ms)
+✔ 不确定结果持久恢复同一id及payload，会话隔离 (0.816291ms)
+✔ ABA费用确认保持冻结版本并交由服务端拒绝 (0.260792ms)
+✔ 接口路径及域名限制且不将秘密放入URL或匿名Authorization (1.182875ms)
+✔ 宜昌坐标往返、境外不变、缺失拒绝 (1.763417ms)
+✔ 整数分解析 (1.711959ms)
+✔ 跨会话旧操作成功响应不得覆盖新乘客 (0.274583ms)
+✔ 新GET进行中收到旧401不得清除会话 (0.152459ms)
+▶ 真实冻结v8 HTTP与小程序store完整契约
+  ✔ STANDARD代叫、途经点、欠费阻新单但司机可接其他乘客 (127.448917ms)
+  ✔ RESERVED预约接受后推进并模拟支付 (31.36025ms)
+  ✔ BID报价、选择司机、预付、完成 (31.901208ms)
+  ✔ NEG配对、价格异议、重新报价与冻结版本支付 (28.1005ms)
+  ✔ 评价、投诉、常用地址、发票抬头与模拟回执持久化shape (24.674333ms)
+  ✔ 直接加载当前页面处理器并将实际payload送入真实HTTP (25.373375ms)
+✔ 真实冻结v8 HTTP与小程序store完整契约 (607.796958ms)
+✔ native selection and cancellation are separate; invalid coordinates rejected (3.307875ms)
+✔ plugin clears stale point before open, consumes exactly once and clears cancellation (1.145709ms)
+✔ plugin failure releases selection and missing key prevents navigation (0.572333ms)
+✔ points: load points initial data and tier rules (0.652208ms)
+✔ points: award points for referral and order complete (7.65025ms)
+✔ v8显示枚举全部映射中文且模拟支付边界明确 (1.068ms)
+✔ 未知缺失和原型字段不泄露原始代码 (0.256166ms)
+✔ 时间固定北京时间、跨日和缺失有明确文案 (0.349333ms)
+✔ 金额函数原有整数分行为保持 (0.2565ms)
+✔ AG-20261025-01 回归: order-detail WAIT_CONTINUE 支持同单继续与放弃 (5.313333ms)
+✔ AG-20261025-01 回归: 取消订单严格校验服务端结果，无券不兜底退券 (6.209916ms)
+✔ AG-20261025-01 回归: pay() 仅执行契约支付，不私自核销券或发放假积分 (1.887125ms)
+✔ AG-20261025-01 回归: 过期卡券严格不可选，本地存储按账号严格隔离 (0.314041ms)
+✔ AG-20261025-01 回归: 投诉支持多图凭证上传，无伪造公安查验和录音保证 (0.221083ms)
+✔ AG-20261025-01 回归: 司机端移除硬编码6.5h/12单和卓越司机100分 (0.479334ms)
+✔ malformed committed HTTP success retains exact mutation on restart; details follow frozen envelope (29.282291ms)
+✔ success without data and proxy error are uncertain; valid business rejection is definite (0.266958ms)
+✔ failed login persists removal of old token before response (0.164209ms)
+✔ storage failure before dispatch sends nothing and can recover (0.223584ms)
+✔ storage failure after server success keeps original pending and permits same-id replay (0.299584ms)
+✔ refresh during action waits; pre-action GET cannot overwrite committed snapshot (0.248959ms)
+✔ logout attempts server revocation despite storage error and removes stale persisted token (0.171042ms)
+✔ new session action not blocked or released by old session mutation (0.217958ms)
+✔ NEG and legacy version confirmations preserve contract values and reject invalid amounts (0.434166ms)
+✔ coordinates reject world bounds and preserve supported external boundary points (0.536125ms)
+✔ login success cannot expose an unpersisted authenticated session (0.143875ms)
+✔ payment freezes amount and rejects a changed quote after confirmation (2.715125ms)
+✔ payment preserves frozen id, amount and version in the submitted request (2.18475ms)
+✔ negotiation accepts pair URI and stops malformed code before claiming (1.343375ms)
+✔ home never asks for location before a user picks and preserves WGS84 points (0.814791ms)
+✔ every page script parses and WXML tags are balanced (5.802792ms)
+✔ removing a waypoint redraws markers immediately (0.849583ms)
+✔ bad plugin result is shown as an error without crashing onShow (2.03975ms)
+✔ display decorators keep business enums but expose Chinese text and Beijing times (2.523416ms)
+ℹ tests 56
+ℹ suites 0
+ℹ pass 56
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1276.532458

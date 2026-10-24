@@ -43,6 +43,8 @@ def check(root, release=None, sha=None):
         if not task: errors.append('release task must be in active board')
         elif not sha or task.get('acceptedSha')!=sha or task.get('acceptance')!='PASS':
             errors.append('release blocked: independent PASS must match exact SHA')
+        elif task.get('releaseReady') is not True:
+            errors.append('release blocked: deployment prerequisites or required checks remain incomplete')
         elif not task.get('reviewer') or task['reviewer']==task.get('owner'):
             errors.append('release blocked: reviewer must differ from author')
         elif not task.get('tests') or not task.get('evidence'):
