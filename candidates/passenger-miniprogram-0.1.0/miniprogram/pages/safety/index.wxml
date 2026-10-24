@@ -1,28 +1,33 @@
 <view class="safety-page">
+  <!-- 体验环境免责与专网提示 notice 绑定 -->
+  <view class="safety-notice-bar" style="background: #fff8e1; color: #b78103; padding: 16rpx 24rpx; border-radius: 12rpx; font-size: 24rpx; line-height: 1.4; margin-bottom: 20rpx; border: 1rpx solid #ffe082;">
+    {{config.notice || '体验环境：未接入硬件录音与警方自动专网，紧急按钮仅调起本地电话拨号'}}
+  </view>
+
   <view class="hero-shield-card">
     <view class="shield-icon">🛡️</view>
     <view class="shield-info">
-      <view class="shield-title">宜捷行安全护航中</view>
-      <view class="shield-sub">全程轨迹记录 · 录音保护 · 24小时守护</view>
+      <view class="shield-title">宜捷行安全中心（体验版）</view>
+      <view class="shield-sub">紧急拨号 · 联系人求助 · 待接入专网</view>
     </view>
   </view>
 
-  <!-- 安全设置卡片 -->
+  <!-- 安全设置卡片（禁用虚假承诺与未实现能力） -->
   <view class="section-card">
-    <view class="card-title">安全守护设置</view>
+    <view class="card-title">安全守护设置 (体验展示)</view>
     <view class="setting-item">
       <view class="setting-text">
-        <text class="name">夜间自动守护 (22:00-06:00)</text>
-        <text class="desc">夜间行程自动开启高频轨迹记录与预警提示</text>
+        <text class="name">夜间自动守护 (未接入/不可启用)</text>
+        <text class="desc">服务端自动守护接口尚未接入，暂不可启用</text>
       </view>
-      <switch checked="{{config.autoShareNight}}" bindchange="onToggleNight" color="#087f73" />
+      <switch checked="{{false}}" disabled="{{true}}" bindchange="onToggleNight" color="#087f73" />
     </view>
     <view class="setting-item">
       <view class="setting-text">
-        <text class="name">行程录音保护</text>
-        <text class="desc">行程中加密记录音频，仅用于投诉争议核实</text>
+        <text class="name">行程录音保护 (未接入/不可启用)</text>
+        <text class="desc">未接入车载硬件录音与云端加密存储，暂不可启用</text>
       </view>
-      <switch checked="{{config.audioRecordProtection}}" bindchange="onToggleAudio" color="#087f73" />
+      <switch checked="{{false}}" disabled="{{true}}" bindchange="onToggleAudio" color="#087f73" />
     </view>
   </view>
 
@@ -30,9 +35,17 @@
   <view class="section-card">
     <view class="card-header-flex">
       <view class="card-title">紧急联系人</view>
-      <view class="add-btn" bindtap="openAddModal">+ 添加联系人</view>
+      <view wx:if="{{authenticated}}" class="add-btn" bindtap="openAddModal">+ 添加联系人</view>
     </view>
-    <view class="contact-list">
+
+    <!-- 未登录提示 -->
+    <view wx:if="{{!authenticated}}" class="empty-tip" style="padding: 24rpx 0;">
+      <text>请先登录体验账户查看与管理紧急联系人</text>
+      <button size="mini" class="small-btn" style="margin-top: 14rpx; background: #087f73; color: #fff;" bindtap="goLogin">前往登录</button>
+    </view>
+
+    <!-- 联系人列表（仅登录用户展示） -->
+    <view wx:else class="contact-list">
       <block wx:for="{{contacts}}" wx:key="id">
         <view class="contact-item">
           <view class="contact-info">
@@ -52,9 +65,9 @@
   <!-- 紧急求助入口 -->
   <view class="section-card emergency-box">
     <view class="card-title" style="color: #d93025;">紧急求助通道</view>
-    <view class="emergency-desc">遇到危险情况时，请立即拨打报警电话或触发一键求助：</view>
+    <view class="emergency-desc">遇到危险情况时，调起系统拨号盘拨打 110 或模拟向联系人发送求助短信：</view>
     <view class="emergency-actions">
-      <button class="btn-police" bindtap="onCallPolice">🚨 一键拨打 110</button>
+      <button class="btn-police" bindtap="onCallPolice">🚨 调起电话呼叫 110</button>
       <button class="btn-sos" bindtap="onSendSos">📲 模拟向联系人求助</button>
     </view>
   </view>
@@ -64,16 +77,16 @@
     <view class="modal-box">
       <view class="modal-title">添加紧急联系人</view>
       <view class="input-group">
-        <text class="label">姓名</text>
-        <input class="input" placeholder="请输入联系人姓名" value="{{inputName}}" bindinput="onInputName" />
+        <text class="label">联系人姓名</text>
+        <input class="input" placeholder="请输入姓名" value="{{inputName}}" bindinput="onInputName" />
       </view>
       <view class="input-group">
         <text class="label">手机号码</text>
-        <input class="input" type="number" placeholder="请输入11位手机号" value="{{inputPhone}}" bindinput="onInputPhone" />
+        <input class="input" type="number" placeholder="请输入11位手机号码" value="{{inputPhone}}" bindinput="onInputPhone" />
       </view>
       <view class="input-group">
-        <text class="label">关系</text>
-        <input class="input" placeholder="例如：家人 / 朋友 / 同事" value="{{inputRelation}}" bindinput="onInputRelation" />
+        <text class="label">与您的关系</text>
+        <input class="input" placeholder="如：家属 / 朋友 / 同事" value="{{inputRelation}}" bindinput="onInputRelation" />
       </view>
       <view class="modal-actions">
         <button class="btn-cancel" bindtap="closeAddModal">取消</button>

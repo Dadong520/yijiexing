@@ -138,7 +138,8 @@ const page = base({
   },
 
   triggerSos() {
-    const contacts = loadEmergencyContacts();
+    const accountKey = (typeof shared.getAccountOwner === 'function') ? shared.getAccountOwner() : null;
+    const contacts = accountKey ? loadEmergencyContacts(null, accountKey) : [];
     if (contacts.length === 0) {
       wx.showToast({ title: '尚未添加紧急联系人，请前往安全中心添加', icon: 'none' });
       return;

@@ -283,7 +283,7 @@
         <text class="feature-icon">🚨</text>
         <view class="feature-text">
           <text class="title">一键紧急报警</text>
-          <text class="desc">遇到突发险情，直接呼叫110并定位报备</text>
+          <text class="desc">遇到突发险情，调起系统拨号盘拨打110（无专网定位报备）</text>
         </view>
         <button class="mini-red-btn" bindtap="triggerPolice">呼叫110</button>
       </view>
@@ -311,8 +311,8 @@
 <view wx:if="{{showDriverCardModal}}" class="safety-modal-mask">
   <view class="driver-service-card-modal">
     <view class="driver-service-header">
-      <view class="corp-name">宜昌交运集团 · 宜捷行驾驶员信息卡</view>
-      <view class="driver-badge-no">工号：YJX-DRV-{{order.driver.name ? '8021' : '0000'}}</view>
+      <view class="corp-name">宜捷行驾驶员信息卡（演示）</view>
+      <view class="driver-badge-no">工号：{{order.driver.id || '未提供'}}</view>
     </view>
     <view class="driver-service-body">
       <view class="service-driver-photo-wrap">
@@ -331,7 +331,7 @@
         </view>
         <view class="service-info-item">
           <text class="label">所属企业</text>
-          <text class="val">宜昌交运旅游客运有限责任公司</text>
+          <text class="val">{{order.driver.company || order.driver.organization || '未提供所属企业'}}</text>
         </view>
       </view>
       <view class="service-promise-tip">说明：当前为体验环境模拟驾驶员信息，实际营运资质以交通主管部门官方系统查验为准。</view>

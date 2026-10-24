@@ -45,16 +45,12 @@ function saveSafetyConfig(config, wxPlatform, accountKey) {
 function loadEmergencyContacts(wxPlatform, accountKey) {
   const p = getStorage(wxPlatform);
   const key = getStorageKey(CONTACTS_BASE_KEY, accountKey);
-  if (!p) return JSON.parse(JSON.stringify(DEFAULT_CONTACTS));
+  if (!p) return [];
   try {
     const data = p.getStorageSync(key);
     if (Array.isArray(data)) return data;
   } catch (_) {}
-  const initial = JSON.parse(JSON.stringify(DEFAULT_CONTACTS));
-  try {
-    p.setStorageSync(key, initial);
-  } catch (_) {}
-  return initial;
+  return [];
 }
 
 function saveEmergencyContacts(contacts, wxPlatform, accountKey) {

@@ -1,5 +1,7 @@
 'use strict';
+const shared = require('../shared');
 const {
+  DEFAULT_CONFIG,
   loadSafetyConfig,
   saveSafetyConfig,
   loadEmergencyContacts,
@@ -10,7 +12,8 @@ const {
 
 Page({
   data: {
-    config: {},
+    authenticated: false,
+    config: DEFAULT_CONFIG,
     contacts: [],
     showModal: false,
     inputName: '',
@@ -22,30 +25,44 @@ Page({
     this.refreshData();
   },
 
+  getAccountKey() {
+    return (typeof shared.getAccountOwner === 'function') ? shared.getAccountOwner() : null;
+  },
+
   refreshData() {
+    const accountKey = this.getAccountKey();
+    if (!accountKey) {
+      this.setData({
+        authenticated: false,
+        config: DEFAULT_CONFIG,
+        contacts: []
+      });
+      return;
+    }
+    const wxPlatform = typeof wx !== 'undefined' ? wx : null;
     this.setData({
-      config: loadSafetyConfig(),
-      contacts: loadEmergencyContacts()
+      authenticated: true,
+      config: loadSafetyConfig(wxPlatform, accountKey),
+      contacts: loadEmergencyContacts(wxPlatform, accountKey)
     });
   },
 
-  onToggleNight(e) {
-    const val = e.detail.value;
-    const next = { ...this.data.config, autoShareNight: val };
-    saveSafetyConfig(next);
-    this.setData({ config: next });
-    wx.showToast({ title: val ? '已开启夜间守护' : '已关闭夜间守护', icon: 'none' });
+  onToggleNight() {
+    // 禁用虚假开启反馈，明确未接入
+    this.setData({ 'config.autoShareNight': false });
+    wx.showToast({ title: '体验环境：未接入服务端守护接口，暂不可启用', icon: 'none' });
   },
 
-  onToggleAudio(e) {
-    const val = e.detail.value;
-    const next = { ...this.data.config, audioRecordProtection: val };
-    saveSafetyConfig(next);
-    this.setData({ config: next });
-    wx.showToast({ title: val ? '录音保护已启用' : '录音保护已停用', icon: 'none' });
+  onToggleAudio() {
+    // 禁用虚假开启反馈，明确未接入
+    this.setData({ 'config.audioRecordProtection': false });
+    wx.showToast({ title: '体验环境：未接入车载录音硬件，暂不可启用', icon: 'none' });
   },
 
   openAddModal() {
+    if (!this.getAccountKey()) {
+      return wx.showToast({ title: '请先登录体验账户后再添加联系人', icon: 'none' });
+    }
     this.setData({
       showModal: true,
       inputName: '',
@@ -71,13 +88,18 @@ Page({
   },
 
   confirmAddContact() {
+    const accountKey = this.getAccountKey();
+    if (!accountKey) {
+      return wx.showToast({ title: '请先登录体验账户', icon: 'none' });
+    }
     const { inputName, inputPhone, inputRelation } = this.data;
     if (!inputName || !inputPhone) {
       wx.showToast({ title: '姓名和电话必填', icon: 'none' });
       return;
     }
     try {
-      addEmergencyContact({ name: inputName, phone: inputPhone, relation: inputRelation });
+      const wxPlatform = typeof wx !== 'undefined' ? wx : null;
+      addEmergencyContact({ name: inputName, phone: inputPhone, relation: inputRelation }, wxPlatform, accountKey);
       this.closeAddModal();
       this.refreshData();
       wx.showToast({ title: '联系人已保存', icon: 'success' });
@@ -87,13 +109,16 @@ Page({
   },
 
   onRemoveContact(e) {
+    const accountKey = this.getAccountKey();
+    if (!accountKey) return;
     const id = e.currentTarget.dataset.id;
     wx.showModal({
       title: '提示',
       content: '确定要删除该紧急联系人吗？',
       success: (res) => {
         if (res.confirm) {
-          removeEmergencyContact(id);
+          const wxPlatform = typeof wx !== 'undefined' ? wx : null;
+          removeEmergencyContact(id, wxPlatform, accountKey);
           this.refreshData();
           wx.showToast({ title: '已删除', icon: 'none' });
         }
@@ -104,7 +129,7 @@ Page({
   onCallPolice() {
     wx.showModal({
       title: '紧急报警提示',
-      content: '即将呼叫 110 报警电话。请在确保自身安全的情况下配合警方处置。',
+      content: '即将调起系统电话拨号呼叫 110。当前体验环境未接入警方自动专网或定位报备。',
       confirmText: '呼叫',
       confirmColor: '#d93025',
       success: (res) => {
@@ -112,7 +137,7 @@ Page({
           wx.makePhoneCall({
             phoneNumber: '110',
             fail: () => {
-              wx.showToast({ title: '模拟环境已触发110呼叫', icon: 'none' });
+              wx.showToast({ title: '模拟环境已调起拨号呼叫', icon: 'none' });
             }
           });
         }
@@ -121,6 +146,9 @@ Page({
   },
 
   onSendSos() {
+    if (!this.getAccountKey()) {
+      return wx.showToast({ title: '请先登录体验账户', icon: 'none' });
+    }
     if (this.data.contacts.length === 0) {
       wx.showToast({ title: '请先添加紧急联系人', icon: 'none' });
       return;
@@ -133,5 +161,9 @@ Page({
       showCancel: false,
       confirmText: '知道了'
     });
+  },
+
+  goLogin() {
+    wx.navigateTo({ url: '/pages/login/index' });
   }
 });

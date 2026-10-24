@@ -695,7 +695,8 @@ fun ConnectedProfile(
                             val scoreText = if (scoreValue > 0) "服务卡 · 服务分 ${scoreValue}分" else "服务卡 · 暂未考核"
                             Pill(scoreText, if (scoreValue >= 90) Green else Ink)
                             Spacer(Modifier.width(8.dp))
-                            Text("宜昌交运", color = Muted, fontSize = 14.sp)
+                            val org = d.optString("organization", d.optString("company", "未提供组织信息"))
+                            Text(org, color = Muted, fontSize = 14.sp)
                         }
                     }
                     Glyph("right", Muted, Modifier.size(18.dp))
@@ -704,7 +705,7 @@ fun ConnectedProfile(
         }
         item {
             SheetCard {
-                Text("今日运营明细", fontSize = 18.sp, fontWeight = FontWeight.Bold)
+                Text("运营明细（累计）", fontSize = 18.sp, fontWeight = FontWeight.Bold)
                 Row(
                     Modifier.fillMaxWidth().padding(top = 12.dp),
                     horizontalArrangement = Arrangement.SpaceAround
@@ -715,11 +716,11 @@ fun ConnectedProfile(
                     }
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
                         Text("${state.todayAccepted}", fontSize = 22.sp, fontWeight = FontWeight.Bold, color = Ink)
-                        Text("线上接单", fontSize = 14.sp, color = Muted, modifier = Modifier.padding(top = 4.dp))
+                        Text("累计接单", fontSize = 14.sp, color = Muted, modifier = Modifier.padding(top = 4.dp))
                     }
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
                         Text("${state.todayCompleted}", fontSize = 22.sp, fontWeight = FontWeight.Bold, color = Ink)
-                        Text("完单数", fontSize = 14.sp, color = Muted, modifier = Modifier.padding(top = 4.dp))
+                        Text("累计完单", fontSize = 14.sp, color = Muted, modifier = Modifier.padding(top = 4.dp))
                     }
                 }
             }

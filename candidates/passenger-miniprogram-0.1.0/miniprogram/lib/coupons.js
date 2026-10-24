@@ -256,21 +256,23 @@ function claimCoupon(couponCode, wxPlatform, accountKey) {
   }
 
   const newCoupon = {
-    id: 'CLAIM_' + code + '_' + Date.now().toString().slice(-4),
-    title: '专属体验兑换券',
+    id: 'DEMO_' + code + '_' + Date.now().toString().slice(-4),
+    title: '专属体验券 (前端演示)',
     type: 'AMOUNT',
     discountCents: 1500,
     minSpendCents: 3000,
     expiresAt: '2026-12-31',
-    description: `兑换码[${code}]专享立减15元`,
+    description: `兑换码[${code}]（前端体验演示，不可抵扣真实订单）`,
     status: 'AVAILABLE',
+    isSimulated: true,
+    nonDeductible: true,
     applicableCities: ['ALL'],
     applicableOrderTypes: ['ALL', 'STANDARD', 'RESERVED']
   };
 
   list.unshift(newCoupon);
   saveCoupons(list, wxPlatform, accountKey);
-  return { success: true, message: '领取成功！已存入卡券中心', coupon: newCoupon };
+  return { success: true, message: '演示兑换成功（仅供前端UI展示，不可抵扣实际金额）', coupon: newCoupon };
 }
 
 module.exports = {
