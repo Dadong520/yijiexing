@@ -1,0 +1,73 @@
+{
+  "taskId": "FE-20261025-01",
+  "owner": "frontend",
+  "ack": "ACK",
+  "completedAt": "2026-10-25T00:18:58+08:00",
+  "baseSha": "e89f90b0a63b72dc04fca5b3690a8897de1543c7",
+  "reviewedSha": "fd44ec08d674900cd0b30d3d3f25cd0fc46f1b36",
+  "workflowStatus": "READ_ONLY_REVIEW_COMPLETE_IDLE",
+  "targetAcceptance": "FAIL_CHANGES_REQUESTED",
+  "reviewerIsAuthor": false,
+  "findings": [
+    {
+      "id": "FE01",
+      "priority": "P1",
+      "title": "今日运营明细以固定样例冒充账户统计",
+      "source": "CoreScreens.kt:704-719",
+      "evidence": [
+        "固定6.5 h、12接单、12完单，无state/payload读取",
+        "ConnectedStore.kt:655-657已有todayIncome/todayAccepted/todayCompleted解析，但这些旧命名字段由后端持续累加",
+        "domain.py:130-135/225-237为收款完单及接单累加；seed.py:22初始接单/完单均2，而非12",
+        "未见在线时长字段或按UTC+8日界重置/查询契约；UiKit.kt:451-457原有标签明确为累计、含演示初始数据"
+      ],
+      "impact": "切换账户、接单、完单或跨日仍显示相同今日值；与既有累计页面冲突。",
+      "required": "先移除今日固定统计或明确隔离为演示示例；已有单量仅按累计口径读服务端。日统计/在线时长须等待后端定义日期、时区、计数和新鲜度契约，不得仅把today*字段改绑到今日标题。"
+    },
+    {
+      "id": "FE02",
+      "priority": "P1",
+      "title": "服务卡分数等级与所属车队硬编码，与API和详情页冲突",
+      "source": "CoreScreens.kt:692-695",
+      "evidence": [
+        "固定卓越司机(100分)、宜昌交运；未读取profile.serviceScore或driver.organization",
+        "冻结后端初始资料为serviceScore.value=98/level=优秀、organization=宜捷行云端演示体验车队",
+        "BusinessScreens.kt:89-114/137-164已按API显示organization、certificationStatus和serviceScore，并明确演示服务卡不作为营运或资质凭证"
+      ],
+      "impact": "同账户首页勋章与司机详情/服务分不一致，其他车队与低分账户也获得固定100分标签。",
+      "required": "从同一profile读分数/等级/车队，缺失时显示未提供；保留演示边界和独立资质状态。勋章不是资质认证，本批未新增证件认证接口，也未改变后端审核/接单校验，不应宣称新增真实认证能力。"
+    },
+    {
+      "id": "FE03",
+      "priority": "P2",
+      "title": "安全守护护航中仅由听单状态触发，能力依据不足",
+      "source": "CoreScreens.kt:549-556",
+      "evidence": [
+        "唯一条件state.online；未要求store.connected、定位许可或任何安全服务能力字段",
+        "domain.py:76-90返回features包含会员/语音/热力等，不包含已启用录音、警务或安全守护服务契约"
+      ],
+      "impact": "网络中断而缓存online仍true等情况下也可显示护航中；静态提醒不能证明安防能力实际运行。",
+      "required": "改为中性行车安全提醒；若要宣称具体保护状态，须有对应真实能力和状态来源。此项是措辞/能力边界问题，不声称已证明后台安全服务故障。"
+    }
+  ],
+  "androidDiff": {
+    "changedFiles": 1,
+    "addedLines": 39,
+    "removedLines": 0,
+    "onlyFile": "CoreScreens.kt"
+  },
+  "verification": {
+    "immutableSourceAndAstInspection": "COMPLETED",
+    "offlineGradleBuild": "NOT_RUN",
+    "androidUnitTests": "NOT_RUN",
+    "emulatorUi": "NOT_RUN",
+    "liveApi": "NOT_RUN",
+    "cloudActions": "NOT_RUN",
+    "reason": "静态阻塞已充分成立，按有界只读和省额度要求不为此构建或占用模拟器；不继承旧55项/小程序50项测试为本批验收。"
+  },
+  "next": "反重力修复FE01/FE02及能力措辞，提交新SHA；coordinator指派独立验收，按ui-acceptance.txt验证后才能合并/发布。",
+  "mergeSha": null,
+  "productCodeModified": false,
+  "allowedWritesOnly": true,
+  "subagentsSpawned": 0,
+  "automaticReplySent": false
+}

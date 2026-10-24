@@ -1,0 +1,63 @@
+
+> yijiexing-passenger-miniprogram@0.1.0 test
+> node --test tests/*.test.js
+
+✔ coupons: calculates amount and percent discounts correctly (2.715ms)
+✔ coupons: rule #3 tips cannot contribute to min spend threshold (0.121458ms)
+✔ coupons: rule #4 & #5 lifecycle - freeze, release, and consume (1.547292ms)
+✔ coupons: exclusions for bidding orders and claim code (0.235791ms)
+✔ coupons: findBestCoupon selects highest discount (0.19ms)
+✔ safety: emergency contacts CRUD and message generator (0.489042ms)
+✔ extras: options and format utilities conform to cents (0.96725ms)
+✔ 旧GET和旧401不覆盖新快照或新登录 (2.691916ms)
+✔ 不确定结果持久恢复同一id及payload，会话隔离 (5.777292ms)
+✔ ABA费用确认保持冻结版本并交由服务端拒绝 (0.345667ms)
+✔ 接口路径及域名限制且不将秘密放入URL或匿名Authorization (1.519834ms)
+✔ 宜昌坐标往返、境外不变、缺失拒绝 (1.00175ms)
+✔ 整数分解析 (0.227083ms)
+✔ 跨会话旧操作成功响应不得覆盖新乘客 (0.290834ms)
+✔ 新GET进行中收到旧401不得清除会话 (0.135125ms)
+▶ 真实冻结v8 HTTP与小程序store完整契约
+  ✔ STANDARD代叫、途经点、欠费阻新单但司机可接其他乘客 (114.776208ms)
+  ✔ RESERVED预约接受后推进并模拟支付 (24.396208ms)
+  ✔ BID报价、选择司机、预付、完成 (26.516959ms)
+  ✔ NEG配对、价格异议、重新报价与冻结版本支付 (32.132209ms)
+  ✔ 评价、投诉、常用地址、发票抬头与模拟回执持久化shape (18.17525ms)
+  ✔ 直接加载当前页面处理器并将实际payload送入真实HTTP (19.569291ms)
+✔ 真实冻结v8 HTTP与小程序store完整契约 (607.134917ms)
+✔ native selection and cancellation are separate; invalid coordinates rejected (2.152417ms)
+✔ plugin clears stale point before open, consumes exactly once and clears cancellation (1.317625ms)
+✔ plugin failure releases selection and missing key prevents navigation (0.350375ms)
+✔ points: load points initial data and tier rules (1.303625ms)
+✔ points: award points for referral and order complete (4.104958ms)
+✔ v8显示枚举全部映射中文且模拟支付边界明确 (1.34475ms)
+✔ 未知缺失和原型字段不泄露原始代码 (0.198791ms)
+✔ 时间固定北京时间、跨日和缺失有明确文案 (0.285792ms)
+✔ 金额函数原有整数分行为保持 (0.238792ms)
+✔ malformed committed HTTP success retains exact mutation on restart; details follow frozen envelope (28.260375ms)
+✔ success without data and proxy error are uncertain; valid business rejection is definite (0.359084ms)
+✔ failed login persists removal of old token before response (0.192959ms)
+✔ storage failure before dispatch sends nothing and can recover (0.376791ms)
+✔ storage failure after server success keeps original pending and permits same-id replay (0.312209ms)
+✔ refresh during action waits; pre-action GET cannot overwrite committed snapshot (0.209542ms)
+✔ logout attempts server revocation despite storage error and removes stale persisted token (0.155583ms)
+✔ new session action not blocked or released by old session mutation (0.191458ms)
+✔ NEG and legacy version confirmations preserve contract values and reject invalid amounts (0.23975ms)
+✔ coordinates reject world bounds and preserve supported external boundary points (0.375167ms)
+✔ login success cannot expose an unpersisted authenticated session (0.114333ms)
+✔ payment freezes amount and rejects a changed quote after confirmation (2.659583ms)
+✔ payment preserves frozen id, amount and version in the submitted request (1.141625ms)
+✔ negotiation accepts pair URI and stops malformed code before claiming (1.071333ms)
+✔ home never asks for location before a user picks and preserves WGS84 points (0.978916ms)
+✔ every page script parses and WXML tags are balanced (5.524666ms)
+✔ removing a waypoint redraws markers immediately (0.743917ms)
+✔ bad plugin result is shown as an error without crashing onShow (1.566708ms)
+✔ display decorators keep business enums but expose Chinese text and Beijing times (1.498333ms)
+ℹ tests 50
+ℹ suites 0
+ℹ pass 50
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1268.673916

@@ -1,0 +1,41 @@
+{
+  "kind": "immutable-source inspection, not runtime/UI tests",
+  "targetSha": "fd44ec08d674900cd0b30d3d3f25cd0fc46f1b36",
+  "changedAndroidFiles": 1,
+  "addedLines": 39,
+  "removedLines": 0,
+  "hardcodedUi": {
+    "onlineHours": "6.5 h",
+    "accepted": 12,
+    "completed": 12,
+    "serviceScore": 100,
+    "serviceLevel": "卓越司机",
+    "organization": "宜昌交运"
+  },
+  "frozenBackendSeedFixture": {
+    "state": {
+      "online": false,
+      "todayIncome": 11000,
+      "todayAccepted": 2,
+      "todayCompleted": 2
+    },
+    "profile": {
+      "serviceScore": {
+        "value": 98,
+        "score": 98,
+        "level": "优秀"
+      },
+      "driver": {
+        "organization": "宜捷行云端演示体验车队",
+        "certificationStatus": "APPROVED"
+      }
+    }
+  },
+  "dailyStatsContract": "NOT_PRESENT_IN_REVIEWED_STATE/PARSER; legacy today* fields are accumulated by acceptance/credit, no day reset demonstrated",
+  "newCertificateApiOrValidationAdded": false,
+  "existingCertificationSource": "profile.driver.certificationStatus + profile.certificates[]; domain.require_driver_certified guards new orders",
+  "compile": "NOT_RUN; static blockers established; no build needed for this bounded read-only review",
+  "runtimeApi": "NOT_RUN",
+  "emulatorUi": "NOT_RUN",
+  "cloud": "NOT_RUN"
+}

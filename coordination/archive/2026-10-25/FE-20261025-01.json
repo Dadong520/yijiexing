@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "baseSha": "e89f90b0a63b72dc04fca5b3690a8897de1543c7",
+  "created": "2026-10-25",
+  "deploy_owner": "coordinator",
+  "status": "DONE",
+  "acceptance": "FAIL",
+  "tests": [],
+  "evidence": [
+    "coordination/evidence/FE-20261025-01/review-result.json"
+  ],
+  "nextAction": "只读复核已完成，原提交不通过；等待反重力修复后协调者重新验收",
+  "id": "FE-20261025-01",
+  "owner": "frontend",
+  "goal": "只读复核反重力司机Kotlin新增服务卡与统计代码；核对编译/API依据并给出前端验收步骤。本轮不修改源文件或云配置。",
+  "headSha": "fd44ec08d674900cd0b30d3d3f25cd0fc46f1b36",
+  "allow_paths": [
+    "coordination/handoffs/frontend.md",
+    "coordination/evidence/FE-20261025-01/"
+  ],
+  "checks": [
+    "指出硬编码统计及证件状态与实际API差距",
+    "必要时在自己隔离副本离线编译，不占用别人模拟器",
+    "给出待UI验收步骤与NOT_RUN，不冒充三端通过"
+  ]
+}

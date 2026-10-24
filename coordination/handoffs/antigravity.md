@@ -1,8 +1,11 @@
-# Antigravity 任务交接卡 (AG-20261025-01 Round 2)
+# antigravity 交接卡 (AG-20261025-01 Round 2)
 
-## 1. 规则确认 (ACK)
-- 已读并确认 `/Users/dongge/Documents/New project 2/coordination/reviews/AG-20261025-01-round1.md`。
-- 本轮修改范围仅限前端及客户端允许路径，未改后端/云端、未合并 main，未碰 Codex 业务源码。
+规则版本：2026-10-25-v1
+当前职责：前端开发与修复；执行 AG-20261025-01 第二轮收口，依据独立审查修复，不自行合并或发布。
+ACK：已读并确认 `/Users/dongge/Documents/New project 2/coordination/reviews/AG-20261025-01-round1.md`。
+
+## 1. 业务代码提交 SHA
+- 精确业务提交 SHA: `d23e963413df40f926b2321d8509352d73907430`
 
 ## 2. 第2轮修复收口要点
 1. **安全与报警去伪存真**：safety 页面绑定 `config.notice`，开关标明未接入并禁用虚假开启反馈；订单页报警去伪存真（明确仅调起系统拨号盘 110，无专网定位报备）。
@@ -15,4 +18,4 @@
 ## 3. 实测结果与日志
 - `npm test`: 56 pass, 0 fail (含 regression 6 项)。
 - `npm run check`: PASS (wechatCompilation: NOT_RUN_REQUIRES_DEVELOPER_TOOLS)。
-- 详细日志见 `coordination/evidence/AG-20261025-01/` (`summary.md`, `sources.md`, `test-run.log`, `check-project.log`)。
+- 详细证据见 `coordination/evidence/AG-20261025-01/` (`summary.md`, `sources.md`, `test-run.log`, `check-project.log`)。

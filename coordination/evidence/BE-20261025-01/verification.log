@@ -1,0 +1,7 @@
+$ python3 coordination/evidence/BE-20261025-01/verify_contract_sources.py
+PASS: 4 source assertions; exact target source evidence saved; no business/runtime acceptance claimed.
+
+$ python3 tools/check_coordination.py
+PASS: compact project records are valid; this is not business acceptance
+
+Initial source-verifier draft falsely matched generic points (route coordinates), so its overly broad lexical assertion was narrowed to points_ledger. Final source assertions all passed; no product change or business failure was inferred.

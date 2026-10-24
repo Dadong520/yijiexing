@@ -1,0 +1,41 @@
+{
+  "task": "BE-20261025-01",
+  "recordedAt": "2026-10-25T00:21:23.029043+08:00",
+  "status": "DESIGN_COMPLETE_READY_FOR_COORDINATOR_REVIEW",
+  "baseSha": "e89f90b0a63b72dc04fca5b3690a8897de1543c7",
+  "targetSha": "fd44ec08d674900cd0b30d3d3f25cd0fc46f1b36",
+  "checks": [
+    {
+      "command": [
+        "python3",
+        "coordination/evidence/BE-20261025-01/verify_contract_sources.py"
+      ],
+      "exitCode": 0,
+      "result": "PASS"
+    },
+    {
+      "command": [
+        "python3",
+        "tools/check_coordination.py"
+      ],
+      "exitCode": 0,
+      "result": "PASS"
+    },
+    {
+      "check": "backend handoff <= 6144 bytes",
+      "bytes": 2097,
+      "result": "PASS"
+    }
+  ],
+  "businessAcceptance": "NOT_RUN",
+  "independentReview": "NOT_RUN for this proposed contract",
+  "productMutation": false,
+  "deployment": "NOT_RUN",
+  "agentsSpawned": 0,
+  "mergeSha": null,
+  "allowedWrites": [
+    "coordination/handoffs/backend.md",
+    "coordination/evidence/BE-20261025-01/"
+  ],
+  "nextAction": "Coordinator review, approve unresolved policies, then separate scoped implementation task. Backend idle."
+}
