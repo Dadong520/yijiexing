@@ -120,16 +120,16 @@ const page = base({
 
   triggerPolice() {
     wx.showModal({
-      title: '紧急报警确认',
-      content: '即将呼叫 110 报警电话，并将当前车牌与位置提交警务联动系统。',
-      confirmText: '立即呼叫',
+      title: '紧急报警呼叫',
+      content: '即将调起手机电话系统拨打 110 报警电话。请向接警人员说明具体情况。',
+      confirmText: '拨打110',
       confirmColor: '#d93025',
       success: (res) => {
         if (res.confirm) {
           wx.makePhoneCall({
             phoneNumber: '110',
             fail: () => {
-              wx.showToast({ title: '模拟环境已触发110求助', icon: 'none' });
+              wx.showToast({ title: '模拟环境已触发拨打110', icon: 'none' });
             }
           });
         }
@@ -145,7 +145,7 @@ const page = base({
     }
     const target = contacts[0];
     const order = this.data.order;
-    const plate = order && order.driver ? order.driver.plate : '鄂A·88888';
+    const plate = order && order.driver ? order.driver.plate : '待接驾车辆';
     const msg = createEmergencyMessage({
       driverCarPlate: plate,
       start: order ? order.origin : '起点',
@@ -153,7 +153,7 @@ const page = base({
     }, target.name);
 
     wx.showModal({
-      title: '模拟求助短信已发送',
+      title: '模拟求助短信通知',
       content: msg,
       showCancel: false,
       confirmText: '确定'
@@ -182,18 +182,7 @@ const page = base({
       const now = store.confirmPayment(this.data.id);
       if (JSON.stringify(now) !== JSON.stringify(frozen)) throw new Error('金额或版本已变化，请重新确认');
       await store.action('order.pay', Object.assign({}, frozen, { outcome: 'SUCCESS' }));
-      
-      // 遵循原团队规则：订单完成真实核销优惠券，并累加积分
-      try {
-        if (shared.coupons && typeof shared.coupons.consumeCoupon === 'function') {
-          shared.coupons.consumeCoupon(this.data.order && this.data.order.couponId, this.data.id);
-        }
-        if (shared.points && typeof shared.points.awardPoints === 'function') {
-          shared.points.awardPoints('ORDER_COMPLETE', 50, '完成行程奖励积分');
-          const payYuan = Math.max(1, Math.round((frozen.expectedFare || 0) / 100));
-          shared.points.awardPoints('PAYMENT_AMOUNT', payYuan, `实付 ¥${present.money(frozen.expectedFare)} 奖励积分`);
-        }
-      } catch (_) {}
+      // 遵循Codex协作与账务规则：PREPAY仅为预付，营销持久化与完单积分统一由服务端后续处理，客户端不充当账务权威
     } catch (e) {
       error(e);
     }
@@ -201,17 +190,15 @@ const page = base({
 
   async cancel() {
     const o = this.data.order;
+    if (!o) return;
     if (await modal('取消行程', '确定取消当前行程？已模拟支付的款项按服务端规则模拟退款。')) {
-      await this.act('order.cancel', { id: o.id, reason: '乘客主动取消' });
-      // 遵循原团队特殊规则第4条：取消订单退券
-      try {
-        if (shared.coupons && typeof shared.coupons.releaseCoupon === 'function') {
-          const released = shared.coupons.releaseCoupon(o.couponId || 'CPN_NEW10', 'PASSENGER_CANCEL');
-          if (released) {
-            wx.showToast({ title: '行程已取消，优惠券已退回卡券包', icon: 'none' });
-          }
-        }
-      } catch (_) {}
+      const res = await this.act('order.cancel', { id: o.id, reason: '乘客主动取消' });
+      // 严格检查服务端返回：如果失败或返回null，绝不退券
+      if (!res || !res.result) return;
+      // 只有订单本身有真实使用的couponId时才执行本地释放，严禁兜底释放别单券
+      if (o.couponId && shared.coupons && typeof shared.coupons.releaseCoupon === 'function') {
+        shared.coupons.releaseCoupon(o.couponId, 'PASSENGER_CANCEL');
+      }
     }
   },
 

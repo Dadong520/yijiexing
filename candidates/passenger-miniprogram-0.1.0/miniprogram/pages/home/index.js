@@ -62,19 +62,8 @@ const page = base({
   },
 
   updateMatchedCoupon() {
-    try {
-      const estimatedFare = 2800;
-      const city = (this.data.state && this.data.state.passenger && this.data.state.passenger.cityName) || '宜昌市';
-      const orderType = this.data.kind || 'STANDARD';
-      const pricingMode = this.data.kind === 'BID' ? 'BID' : 'ONLINE';
-      const best = findBestCoupon({
-        baseFareCents: estimatedFare,
-        city,
-        orderType,
-        pricingMode
-      });
-      this.setData({ matchedCoupon: best });
-    } catch (_) {}
+    // 遵循Codex审查要求：未有服务端真实账务时，不假定固定2800估价，不冒充扣减实际金额
+    this.setData({ matchedCoupon: null });
   },
 
   async choosePoint(e) {
@@ -180,15 +169,7 @@ const page = base({
 
     if (d.riderId) payload.riderId = d.riderId;
 
-    if (d.priorityFee > 0) {
-      payload.priorityFee = d.priorityFee;
-    }
-
-    if (d.matchedCoupon) {
-      payload.couponId = d.matchedCoupon.id;
-      payload.couponDiscount = d.matchedCoupon.calculatedDiscount;
-    }
-
+    // 遵循Codex审查要求：未接入服务端营销前，不将本地优惠券或调度加价伪造发送到真实订单
     if (d.kind === 'RESERVED') {
       const date = new Date(d.scheduledDate + 'T' + d.scheduledTime + ':00+08:00');
       if (!Number.isFinite(date.getTime())) return error(new Error('请选择预约日期与时间'));
@@ -197,9 +178,6 @@ const page = base({
 
     const r = await this.act('order.create', payload);
     if (r && r.result && r.result.order) {
-      if (d.matchedCoupon && shared.coupons && typeof shared.coupons.freezeCoupon === 'function') {
-        shared.coupons.freezeCoupon(d.matchedCoupon.id, r.result.order.id);
-      }
       wx.navigateTo({ url: '/pages/order-detail/index?id=' + encodeURIComponent(r.result.order.id) });
     }
   }

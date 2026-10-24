@@ -22,8 +22,9 @@ Page(base({
 
   refreshPoints() {
     try {
+      const accountKey = (this.data.state && this.data.state.passenger && this.data.state.passenger.mobile) || 'anonymous';
       if (points && points.loadPointsData) {
-        const pd = points.loadPointsData();
+        const pd = points.loadPointsData(null, accountKey);
         this.setData({ pointsData: pd });
       }
     } catch (_) {}

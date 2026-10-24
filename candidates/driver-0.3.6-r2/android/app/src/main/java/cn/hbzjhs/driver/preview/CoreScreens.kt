@@ -690,7 +690,10 @@ fun ConnectedProfile(
                             modifier = Modifier.padding(top = 7.dp),
                         )
                         Row(Modifier.padding(top = 8.dp), verticalAlignment = Alignment.CenterVertically) {
-                            Pill("服务卡 · 卓越司机 (100分)", Green)
+                            val serviceScoreObj = profile.optJSONObject("serviceScore")
+                            val scoreValue = serviceScoreObj?.optInt("value", serviceScoreObj.optInt("score", -1)) ?: -1
+                            val scoreText = if (scoreValue > 0) "服务卡 · 服务分 ${scoreValue}分" else "服务卡 · 暂未考核"
+                            Pill(scoreText, if (scoreValue >= 90) Green else Ink)
                             Spacer(Modifier.width(8.dp))
                             Text("宜昌交运", color = Muted, fontSize = 14.sp)
                         }
@@ -707,15 +710,15 @@ fun ConnectedProfile(
                     horizontalArrangement = Arrangement.SpaceAround
                 ) {
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                        Text("6.5 h", fontSize = 22.sp, fontWeight = FontWeight.Bold, color = Green)
-                        Text("在线时长", fontSize = 14.sp, color = Muted, modifier = Modifier.padding(top = 4.dp))
+                        Text(if (state.online) "出车中" else "休息中", fontSize = 20.sp, fontWeight = FontWeight.Bold, color = if (state.online) Green else Muted)
+                        Text("在线状态", fontSize = 14.sp, color = Muted, modifier = Modifier.padding(top = 4.dp))
                     }
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                        Text("12", fontSize = 22.sp, fontWeight = FontWeight.Bold, color = Ink)
+                        Text("${state.todayAccepted}", fontSize = 22.sp, fontWeight = FontWeight.Bold, color = Ink)
                         Text("线上接单", fontSize = 14.sp, color = Muted, modifier = Modifier.padding(top = 4.dp))
                     }
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                        Text("12", fontSize = 22.sp, fontWeight = FontWeight.Bold, color = Ink)
+                        Text("${state.todayCompleted}", fontSize = 22.sp, fontWeight = FontWeight.Bold, color = Ink)
                         Text("完单数", fontSize = 14.sp, color = Muted, modifier = Modifier.padding(top = 4.dp))
                     }
                 }

@@ -14,8 +14,9 @@ test('points: load points initial data and tier rules', () => {
   assert.ok(data);
   assert.equal(typeof data.totalPoints, 'number');
   assert.ok(data.tierRules.length >= 3);
-  assert.equal(data.referralStats.invitedCount, 3);
-  assert.equal(data.referralStats.firstOrderCount, 2);
+  assert.equal(data.referralStats.invitedCount, 0);
+  assert.equal(data.referralStats.firstOrderCount, 0);
+  assert.equal(data.isSimulated, true);
 });
 
 test('points: award points for referral and order complete', () => {
@@ -31,7 +32,7 @@ test('points: award points for referral and order complete', () => {
   // 邀请好友完成首单
   const updated = points.awardPoints('REFERRAL_FIRST_ORDER', 100, '好友 188****0001 完成首单', mockWx);
   assert.equal(updated.availablePoints, basePoints + 100);
-  assert.equal(updated.referralStats.firstOrderCount, 3);
+  assert.equal(updated.referralStats.firstOrderCount, 1);
   assert.equal(updated.history[0].type, 'REFERRAL_FIRST_ORDER');
   assert.equal(updated.history[0].typeName, '邀请好友完成首单');
 

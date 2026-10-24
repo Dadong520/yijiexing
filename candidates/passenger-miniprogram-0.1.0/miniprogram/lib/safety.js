@@ -1,23 +1,20 @@
 'use strict';
 
-const CONTACTS_STORAGE_KEY = 'yijiexing.safety.contacts.v1';
-const CONFIG_STORAGE_KEY = 'yijiexing.safety.config.v1';
+const CONTACTS_BASE_KEY = 'yijiexing.safety.contacts.v1';
+const CONFIG_BASE_KEY = 'yijiexing.safety.config.v1';
+
+function getStorageKey(baseKey, accountKey) {
+  if (!accountKey || accountKey === 'anonymous') return baseKey;
+  return `${baseKey}.${accountKey}`;
+}
 
 const DEFAULT_CONFIG = {
-  autoShareNight: true,       // 22:00-06:00 自动开启夜间守护
-  audioRecordProtection: true,// 行程录音保护标识
-  dialNumber: '110'
+  autoShareNight: false,
+  dialNumber: '110',
+  notice: '体验环境：未接入硬件录音与警方自动专网，紧急按钮仅调起本地电话拨号'
 };
 
-const DEFAULT_CONTACTS = [
-  {
-    id: 'SEC_001',
-    name: '家人（备用联系人）',
-    phone: '13800000101',
-    relation: '家人',
-    isEmergency: true
-  }
-];
+const DEFAULT_CONTACTS = [];
 
 function getStorage(wxPlatform) {
   const p = wxPlatform || (typeof wx !== 'undefined' ? wx : null);
@@ -25,82 +22,86 @@ function getStorage(wxPlatform) {
   return p;
 }
 
-function loadSafetyConfig(wxPlatform) {
+function loadSafetyConfig(wxPlatform, accountKey) {
   const p = getStorage(wxPlatform);
+  const key = getStorageKey(CONFIG_BASE_KEY, accountKey);
   if (!p) return { ...DEFAULT_CONFIG };
   try {
-    const data = p.getStorageSync(CONFIG_STORAGE_KEY);
+    const data = p.getStorageSync(key);
     if (data && typeof data === 'object') return { ...DEFAULT_CONFIG, ...data };
   } catch (_) {}
   return { ...DEFAULT_CONFIG };
 }
 
-function saveSafetyConfig(config, wxPlatform) {
+function saveSafetyConfig(config, wxPlatform, accountKey) {
   const p = getStorage(wxPlatform);
   if (!p) return;
+  const key = getStorageKey(CONFIG_BASE_KEY, accountKey);
   try {
-    p.setStorageSync(CONFIG_STORAGE_KEY, config);
+    p.setStorageSync(key, config);
   } catch (_) {}
 }
 
-function loadEmergencyContacts(wxPlatform) {
+function loadEmergencyContacts(wxPlatform, accountKey) {
   const p = getStorage(wxPlatform);
+  const key = getStorageKey(CONTACTS_BASE_KEY, accountKey);
   if (!p) return JSON.parse(JSON.stringify(DEFAULT_CONTACTS));
   try {
-    const data = p.getStorageSync(CONTACTS_STORAGE_KEY);
+    const data = p.getStorageSync(key);
     if (Array.isArray(data)) return data;
   } catch (_) {}
   const initial = JSON.parse(JSON.stringify(DEFAULT_CONTACTS));
   try {
-    p.setStorageSync(CONTACTS_STORAGE_KEY, initial);
+    p.setStorageSync(key, initial);
   } catch (_) {}
   return initial;
 }
 
-function saveEmergencyContacts(contacts, wxPlatform) {
+function saveEmergencyContacts(contacts, wxPlatform, accountKey) {
   const p = getStorage(wxPlatform);
   if (!p) return;
+  const key = getStorageKey(CONTACTS_BASE_KEY, accountKey);
   try {
-    p.setStorageSync(CONTACTS_STORAGE_KEY, contacts);
+    p.setStorageSync(key, contacts);
   } catch (_) {}
 }
 
-function addEmergencyContact(contact, wxPlatform) {
-  if (!contact || !contact.name || !contact.phone) throw new Error('请完整填写姓名和手机号');
-  const list = loadEmergencyContacts(wxPlatform);
-  const newContact = {
-    id: 'SEC_' + Date.now().toString(36),
-    name: String(contact.name).trim(),
-    phone: String(contact.phone).trim(),
-    relation: String(contact.relation || '亲友').trim(),
+function addEmergencyContact(contact, wxPlatform, accountKey) {
+  const list = loadEmergencyContacts(wxPlatform, accountKey);
+  const item = {
+    id: 'SEC_' + Date.now(),
+    name: contact.name,
+    phone: contact.phone,
+    relation: contact.relation || '紧急联系人',
     isEmergency: true
   };
-  list.push(newContact);
-  saveEmergencyContacts(list, wxPlatform);
-  return newContact;
+  list.push(item);
+  saveEmergencyContacts(list, wxPlatform, accountKey);
+  return item;
 }
 
-function removeEmergencyContact(id, wxPlatform) {
-  const list = loadEmergencyContacts(wxPlatform);
-  const filtered = list.filter(c => c.id !== id);
-  saveEmergencyContacts(filtered, wxPlatform);
+function removeEmergencyContact(contactId, wxPlatform, accountKey) {
+  const list = loadEmergencyContacts(wxPlatform, accountKey);
+  const filtered = list.filter(c => c.id !== contactId);
+  saveEmergencyContacts(filtered, wxPlatform, accountKey);
   return filtered;
 }
 
-function createEmergencyMessage(orderInfo, contactName) {
-  const car = orderInfo && orderInfo.driverCarPlate ? `车牌[${orderInfo.driverCarPlate}]` : '网约车';
-  const start = orderInfo && orderInfo.start ? orderInfo.start : '当前位置';
-  const dest = orderInfo && orderInfo.dest ? orderInfo.dest : '目的地';
-  return `【宜捷行出行安全求助】尊敬的${contactName}：乘客正在乘坐${car}从${start}前往${dest}，触发了紧急求助，请立即核实或协助拨打110！`;
+function createEmergencyMessage(tripInfo, contactName) {
+  const plate = tripInfo.driverCarPlate || '待接单车辆';
+  const start = tripInfo.start || '未指定起点';
+  const dest = tripInfo.dest || '未指定终点';
+  return `【紧急求助通知】${contactName || '您好'}：我正在乘坐宜捷行车辆（车牌：${plate}），行程路线从【${start}】到【${dest}】。若您收到此消息且无法与我取得联系，请及时关注我的安全并协助向110报警求助。`;
 }
 
 module.exports = {
+  DEFAULT_CONFIG,
+  DEFAULT_CONTACTS,
   loadSafetyConfig,
   saveSafetyConfig,
   loadEmergencyContacts,
   saveEmergencyContacts,
   addEmergencyContact,
   removeEmergencyContact,
-  createEmergencyMessage,
-  DEFAULT_CONFIG
+  createEmergencyMessage
 };

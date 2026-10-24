@@ -21,7 +21,10 @@
     <button wx:if="{{!authenticated}}" class="login-pill" bindtap="login">登录体验</button>
   </view>
 
-  <!-- 营销积分与拉新数据看板（原团队文档专项） -->
+  <!-- 营销积分与拉新数据看板（前端演示·待服务端接入统一账务） -->
+  <view class="points-notice-bar" style="font-size: 20rpx; color: #647774; text-align: center; margin-bottom: 8rpx;">
+    营销拉新积分（前端体验预览 · 待服务端统一账务接入）
+  </view>
   <view class="points-stats-card">
     <view class="points-col" bindtap="onOpenPoints">
       <view class="points-num">{{pointsData.availablePoints || 0}}</view>

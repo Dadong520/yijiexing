@@ -110,10 +110,10 @@
       <view class="field-tip">预约时间需在未来15分钟至30天内。</view>
     </view>
 
-    <!-- 调度加价选项（原型特性：提高司机抢单积极性） -->
+    <!-- 调度加价选项（体验中未接入派单引擎） -->
     <view class="extra-field-card">
       <view class="field-header-flex">
-        <text class="field-title">调度加价（加速接单）</text>
+        <text class="field-title">调度加价（体验中·未接入实际调度费）</text>
         <text class="field-sub-val">{{priorityFee > 0 ? '+¥' + (priorityFee / 100) : '未加价'}}</text>
       </view>
       <view class="priority-options">
@@ -125,15 +125,14 @@
       </view>
     </view>
 
-    <!-- 优惠券抵扣展示与选择 -->
+    <!-- 优惠券包查看（待营销服务端接入统一账务） -->
     <view class="extra-field-card coupon-bar" bindtap="goCoupons">
       <view class="field-left-flex">
         <text class="coupon-icon">🎟️</text>
-        <text class="field-title">优惠券抵扣</text>
+        <text class="field-title">我的卡券包（待营销服务接入）</text>
       </view>
       <view class="field-right-flex">
-        <text wx:if="{{matchedCoupon}}" class="discount-pill">-¥{{matchedCoupon.calculatedDiscount / 100}} ({{matchedCoupon.title}})</text>
-        <text wx:else class="coupon-placeholder">查看可用券 ›</text>
+        <text class="coupon-placeholder">查看券包明细 ›</text>
       </view>
     </view>
 

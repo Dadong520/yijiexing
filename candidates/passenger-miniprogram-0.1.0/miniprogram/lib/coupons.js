@@ -1,14 +1,12 @@
 'use strict';
 
-const STORAGE_KEY = 'yijiexing.coupons.v1';
+const STORAGE_BASE_KEY = 'yijiexing.coupons.v1';
 
-/**
- * 原团队优惠券模板定义（参考《宜捷行优惠券开发V-20260914.xlsx》）：
- * 1. 满减券门槛与减免金额精确到分
- * 2. 适用城市精确到区县（当阳市、宜昌市或全部）
- * 3. 适用订单类型（全部、普通叫车 STANDARD、预约用车 RESERVED 等），明确排斥司机竞价(BID)
- * 4. 有效期支持固定时间起止与天数
- */
+function getStorageKey(accountKey) {
+  if (!accountKey || accountKey === 'anonymous') return STORAGE_BASE_KEY;
+  return `${STORAGE_BASE_KEY}.${accountKey}`;
+}
+
 const INITIAL_COUPONS = [
   {
     id: 'CPN_NEW10',
@@ -71,32 +69,56 @@ function getStorage(wxPlatform) {
   return p;
 }
 
-function loadCoupons(wxPlatform) {
+function loadCoupons(wxPlatform, accountKey) {
   const p = getStorage(wxPlatform);
-  if (!p) return JSON.parse(JSON.stringify(INITIAL_COUPONS));
-  try {
-    const data = p.getStorageSync(STORAGE_KEY);
-    if (Array.isArray(data) && data.length > 0) return data;
-  } catch (_) {}
-  const initial = JSON.parse(JSON.stringify(INITIAL_COUPONS));
-  try {
-    p.setStorageSync(STORAGE_KEY, initial);
-  } catch (_) {}
-  return initial;
+  const key = getStorageKey(accountKey);
+  const today = new Date().toISOString().slice(0, 10);
+
+  let list = null;
+  if (p) {
+    try {
+      const data = p.getStorageSync(key);
+      if (Array.isArray(data) && data.length > 0) {
+        list = data;
+      }
+    } catch (_) {}
+  }
+
+  if (!list) {
+    list = JSON.parse(JSON.stringify(INITIAL_COUPONS));
+    if (p) {
+      try { p.setStorageSync(key, list); } catch (_) {}
+    }
+  }
+
+  // 严格过期核对：过期的可用券自动标记为已失效 EXPIRED
+  let changed = false;
+  for (const c of list) {
+    if (c.status === 'AVAILABLE' && c.expiresAt && today > c.expiresAt) {
+      c.status = 'EXPIRED';
+      changed = true;
+    }
+  }
+  if (changed && p) {
+    try { p.setStorageSync(key, list); } catch (_) {}
+  }
+
+  return list;
 }
 
-function saveCoupons(coupons, wxPlatform) {
+function saveCoupons(coupons, wxPlatform, accountKey) {
   const p = getStorage(wxPlatform);
   if (!p) return;
+  const key = getStorageKey(accountKey);
   try {
-    p.setStorageSync(STORAGE_KEY, coupons);
+    p.setStorageSync(key, coupons);
   } catch (_) {}
 }
 
 /**
  * 校验券是否在当前上下文可用
  * @param {Object} coupon 券对象
- * @param {Object} context { baseFareCents, orderType, city, pricingMode, tipCents }
+ * @param {Object} context { baseFareCents, orderType, city, pricingMode, tipCents, currentDate }
  */
 function isCouponApplicable(coupon, context) {
   if (!coupon || coupon.status !== 'AVAILABLE') return false;
@@ -105,6 +127,12 @@ function isCouponApplicable(coupon, context) {
   const orderType = (context && context.orderType) || 'STANDARD';
   const city = (context && context.city) || '宜昌市';
   const pricingMode = (context && context.pricingMode) || 'ONLINE';
+  const today = (context && context.currentDate) || new Date().toISOString().slice(0, 10);
+
+  // 校验有效期：过期直接不可用
+  if (coupon.expiresAt && today > coupon.expiresAt) {
+    return false;
+  }
 
   // 竞价订单排除
   if (pricingMode === 'BID' || orderType === 'BID') return false;
@@ -129,12 +157,6 @@ function isCouponApplicable(coupon, context) {
   return true;
 }
 
-/**
- * 计算优惠抵扣金额
- * 遵循原团队需求文档特殊场景第3条：“添加小费金额数不能影响优惠券满减”
- * @param {Object} coupon 券对象
- * @param {number|Object} fareOrOptions 运价分或选项上下文
- */
 function calculateDiscount(coupon, fareOrOptions) {
   let baseFareCents = 0;
   let context = {};
@@ -159,14 +181,11 @@ function calculateDiscount(coupon, fareOrOptions) {
   return 0;
 }
 
-/**
- * 寻找最优券
- */
-function findBestCoupon(fareOrOptions, wxPlatform) {
+function findBestCoupon(fareOrOptions, wxPlatform, accountKey) {
   let baseFareCents = typeof fareOrOptions === 'number' ? fareOrOptions : (fareOrOptions && fareOrOptions.baseFareCents) || 0;
   if (!baseFareCents || baseFareCents <= 0) return null;
 
-  const list = loadCoupons(wxPlatform).filter(c => c.status === 'AVAILABLE');
+  const list = loadCoupons(wxPlatform, accountKey).filter(c => c.status === 'AVAILABLE');
   let best = null;
   let maxDiscount = 0;
   for (const c of list) {
@@ -179,27 +198,23 @@ function findBestCoupon(fareOrOptions, wxPlatform) {
   return best;
 }
 
-/**
- * 下单时冻结优惠券（遵循特殊规则第5条：下单后进入冻结状态，不作真实核销）
- */
-function freezeCoupon(couponId, orderId, wxPlatform) {
-  const list = loadCoupons(wxPlatform);
+function freezeCoupon(couponId, orderId, wxPlatform, accountKey) {
+  if (!couponId || !orderId) return false;
+  const list = loadCoupons(wxPlatform, accountKey);
   const target = list.find(c => c.id === couponId);
   if (target && target.status === 'AVAILABLE') {
     target.status = 'FROZEN';
     target.frozenOrderId = orderId;
     target.frozenAt = new Date().toISOString();
-    saveCoupons(list, wxPlatform);
+    saveCoupons(list, wxPlatform, accountKey);
     return true;
   }
   return false;
 }
 
-/**
- * 退券逻辑（遵循特殊规则第4条：乘客取消、有责取消、后台有责/无责取消、超时取消均退券）
- */
-function releaseCoupon(couponId, reason, wxPlatform) {
-  const list = loadCoupons(wxPlatform);
+function releaseCoupon(couponId, reason, wxPlatform, accountKey) {
+  if (!couponId) return false;
+  const list = loadCoupons(wxPlatform, accountKey);
   const target = list.find(c => c.id === couponId);
   if (target && (target.status === 'FROZEN' || target.status === 'USED')) {
     target.status = 'AVAILABLE';
@@ -207,38 +222,32 @@ function releaseCoupon(couponId, reason, wxPlatform) {
     target.releasedAt = new Date().toISOString();
     delete target.frozenOrderId;
     delete target.usedOrderId;
-    saveCoupons(list, wxPlatform);
+    saveCoupons(list, wxPlatform, accountKey);
     return true;
   }
   return false;
 }
 
-/**
- * 订单完成并入账时真实核销优惠券
- */
-function consumeCoupon(couponId, orderId, wxPlatform) {
-  const list = loadCoupons(wxPlatform);
+function consumeCoupon(couponId, orderId, wxPlatform, accountKey) {
+  if (!couponId) return false;
+  const list = loadCoupons(wxPlatform, accountKey);
   const target = list.find(c => c.id === couponId);
   if (target) {
     target.status = 'CONSUMED';
     target.consumedAt = new Date().toISOString();
     target.consumedOrderId = orderId;
-    saveCoupons(list, wxPlatform);
+    saveCoupons(list, wxPlatform, accountKey);
     return true;
   }
   return false;
 }
 
-// 保持向下兼容
-function markCouponUsed(couponId, orderId, wxPlatform) {
-  return consumeCoupon(couponId, orderId, wxPlatform);
+function markCouponUsed(couponId, orderId, wxPlatform, accountKey) {
+  return consumeCoupon(couponId, orderId, wxPlatform, accountKey);
 }
 
-/**
- * 领取新优惠券（支持兑换码或营销活动）
- */
-function claimCoupon(couponCode, wxPlatform) {
-  const list = loadCoupons(wxPlatform);
+function claimCoupon(couponCode, wxPlatform, accountKey) {
+  const list = loadCoupons(wxPlatform, accountKey);
   const code = (couponCode || '').toUpperCase().trim();
   if (!code) return { success: false, message: '请输入兑换码' };
 
@@ -246,7 +255,6 @@ function claimCoupon(couponCode, wxPlatform) {
     return { success: false, message: '您已拥有该优惠券，不可重复领取' };
   }
 
-  // 模拟兑换特定体验券
   const newCoupon = {
     id: 'CLAIM_' + code + '_' + Date.now().toString().slice(-4),
     title: '专属体验兑换券',
@@ -261,7 +269,7 @@ function claimCoupon(couponCode, wxPlatform) {
   };
 
   list.unshift(newCoupon);
-  saveCoupons(list, wxPlatform);
+  saveCoupons(list, wxPlatform, accountKey);
   return { success: true, message: '领取成功！已存入卡券中心', coupon: newCoupon };
 }
 
