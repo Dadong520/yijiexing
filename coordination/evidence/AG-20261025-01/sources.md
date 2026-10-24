@@ -1,0 +1,37 @@
+# 原团队参考文档与规则来源依据 (sources.md)
+
+## 1. 外部文档来源
+1. **原团队开发排期与功能清单**
+   - **URL**: `https://doc.weixin.qq.com/sheet/e3_AUQARgaYAFMXan3safDSR0ID91HPF?scode=AJsAQweTABAeCrqQpSAUQARgaYAFM&tab=BB08J2`
+   - **参考日期**: 2026-10
+   - **提取条款**:
+     - 优惠券生命周期（新客券、高峰满减、折扣封顶，小费不计入满减门槛）；
+     - 司机取消行程后支持乘客同单继续叫车或放弃行程；
+     - 投诉与维权支持凭证图片上传（最多 3 张）及客服回复流转；
+     - 司机信息服务卡供乘客查询。
+2. **原团队开发明细与缺陷跟进智能表格**
+   - **URL**: `https://doc.weixin.qq.com/smartsheet/s3_AT4A-AaAALgCNuDskj343RL0xsr9c?scode=AJsAQweTABA1xQBTtXAT4A-AaAALg&tab=5v8j9u&viewId=vk5GMC`
+   - **参考日期**: 2026-10
+   - **提取条款**:
+     - 优惠券与竞价订单互斥（竞价订单不可使用卡券）；
+     - 城市范围核验（如限当阳市、宜昌市使用）；
+     - 紧急联系人与一键求助报备。
+3. **李章飞原型设计**
+   - **URL**: `https://modao.cc/workspace/team/spm1kchiq6d612qx`
+   - **参考日期**: 2026-10
+   - **提取条款**: 乘客端与司机端页面布局、司机服务卡、卡券中心、安全中心原型交互。
+
+---
+
+## 2. 本地原始证据与基线路径
+- **历史契约评审**: `candidates/admin-v8/yijiexing-admin-20261023/qa/passenger-115-compat-review.md`
+- **共享后端参考实现**: `candidates/shared-backend-v8/passenger.py`、`domain.py`
+- **司机端与种子数据**: `candidates/driver-0.3.6-r2/cloud-service/seed.py`
+
+---
+
+## 3. 明确未核实项（未获批准，严禁作为正式上线依据）
+1. **营销持久化真实服务端**：服务端卡券与积分接口未接入，当前客户端所有卡券/积分仅为前端演示，严禁客户端充当账务权威（待 `BE-20261025-01` 契约落地）。
+2. **硬件录音与警方专网**：无车载物理录音硬件接入，无警方 110 专网定位推送接口，严禁宣称自动录音或自动报备，仅支持调起本地系统电话拨号。
+3. **加价调度费**：后端暂未实现调度费结算分账，提单时不向后端传递 `priorityFee`。
+4. **公安审查与企业资质**：开发体验环境下无第三方公安三证真机查验接口，司机服务卡标注为演示，企业与工号按实际返回动态展示或标明未提供。
