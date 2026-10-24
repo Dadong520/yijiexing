@@ -1,0 +1,46 @@
+{
+  "verifiedAt": "2026-10-24T15:34:42.288650+00:00",
+  "services": [
+    {
+      "service": "driver-demo",
+      "url": "https://driver-demo-phfgquzmua-uw.a.run.app",
+      "scalingMode": "automatic",
+      "min": 0,
+      "max": 1,
+      "requestBasedBilling": true,
+      "iapEnabled": false,
+      "image": "us-west1-docker.pkg.dev/yijiexing-driver-demo-1023/demo/service@sha256:7d71539b9ad631aa1eaed5af8e34c4648c1fb5953cd78c3737605ea40d5d43ac",
+      "traffic": [
+        {
+          "latestRevision": true,
+          "percent": 100,
+          "revisionName": "driver-demo-00005-2w2"
+        }
+      ]
+    },
+    {
+      "service": "driver-admin",
+      "url": "https://driver-admin-phfgquzmua-uw.a.run.app",
+      "scalingMode": "automatic",
+      "min": 0,
+      "max": 1,
+      "requestBasedBilling": true,
+      "iapEnabled": true,
+      "image": "us-west1-docker.pkg.dev/yijiexing-driver-demo-1023/demo/admin-browser@sha256:037b157a28476720b848055bf493f06dad547155240f8219638771bc00c16086",
+      "traffic": [
+        {
+          "percent": 100,
+          "revisionName": "driver-admin-browser1"
+        }
+      ]
+    }
+  ],
+  "adminPublicInvoker": false,
+  "liveBrowserGoogleAndConsoleLogin": "PASS",
+  "realOrders": 18,
+  "csvRows": 18,
+  "viewerUiPermissionCheck": "PASS",
+  "localSignedAssertionTests": 8,
+  "otherPhysicalDevicesTested": false,
+  "businessOrderMutations": false
+}
