@@ -1,0 +1,12 @@
+{
+  "schemaVersion": 1,
+  "updated": "2026-10-25",
+  "coordinator": "coordinator",
+  "activeTaskIds": [
+    "AG-20261025-01",
+    "BE-20261025-01",
+    "FE-20261025-01"
+  ],
+  "releaseOwner": "coordinator",
+  "policy": "作者提交→自测→独立验收→协调者合并→部署回读；无业务验收PASS不发布"
+}

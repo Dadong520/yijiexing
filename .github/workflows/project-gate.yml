@@ -1,0 +1,27 @@
+name: project-gate
+on:
+  pull_request:
+  push:
+    branches: [main]
+permissions:
+  contents: read
+concurrency:
+  group: project-gate-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+jobs:
+  project-gate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Check compact task and handoff records
+        run: python3 tools/check_coordination.py
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Mini program regression
+        working-directory: candidates/passenger-miniprogram-0.1.0/miniprogram
+        run: npm test && npm run check
