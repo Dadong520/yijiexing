@@ -1,0 +1,103 @@
+{
+  "schemaVersion": 1,
+  "id": "UI-20261025-03",
+  "owner": "antigravity",
+  "goal": "按用户原项目截图/墨刀司机原型和可核查GitHub视觉资源重新设计两端原生UI，暂停专门适老化布局，以地图+底部面板、品牌图形及精致紧凑卡片为目标，实际测试后发布。",
+  "baseSha": "ff9f5a787fede48bb2ac1035c38d45ff543323b2",
+  "allow_paths": [
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/UiKit.kt",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/CoreScreens.kt",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/MainActivity.kt",
+    "candidates/driver-0.3.6-r2/android/app/src/main/res/drawable/",
+    "candidates/driver-0.3.6-r2/android/app/build.gradle.kts",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/MainActivity.kt",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/UiComponents.kt",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/BookingScreens.kt",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/ProfileScreens.kt",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/PassengerMap.kt",
+    "apps/passenger-android/app/src/main/res/drawable/",
+    "apps/passenger-android/app/src/main/assets/third-party/",
+    "apps/passenger-android/app/build.gradle.kts",
+    "coordination/evidence/UI-20261025-03/",
+    "candidates/driver-0.3.6-r2/android/app/src/main/res/drawable-nodpi/",
+    "apps/passenger-android/app/src/main/res/drawable-nodpi/"
+  ],
+  "fileOwnership": {
+    "Gemini via coordinator": "two clients Compose visual functions; no direct concurrent editor",
+    "coordinator": "passenger real map adapter/dependency/assets and integration/build/release",
+    "frontend": "read-only before/after device captures and independent visual comparison",
+    "backend": "read-only payload/money/identity/guard review after change"
+  },
+  "checks": [
+    "先真实读取用户墨刀首页/司机之家，保存参考图；GitHub资源核实来源/许可，不复制无许可代码或密钥",
+    "真实地图而非生成地图截图背景，保留来源署名；地图失败明确可重试/原地址下单可用",
+    "原登录/访问码/账号/Store/金额/幂等/订单状态和回调保留，未知能力不假装开通",
+    "正常字体美观、点击目标>=48dp、长字能换行；此次不要求适老大字号布局",
+    "与参考同屏状态对比design-qa，不仅编译/截图就通过",
+    "现有55/20逻辑测试+同签名升级保留登录、地图/导航/主要弹窗，独立验收后唯一协调者发布并直连完整回读"
+  ],
+  "status": "SOURCE_ACCEPTED_PENDING_ACCESS",
+  "acceptance": "PASS",
+  "tests": [
+    {
+      "name": "driver unit tests + build",
+      "command": "/Users/dongge/.gradle/wrapper/dists/gradle-8.7-bin/c4fynqkwxqrcieir78ry8jtzf/gradle-8.7/bin/gradle --offline --no-daemon --max-workers=1 -Dorg.gradle.jvmargs=-Xmx1536m -Pkotlin.compiler.execution.strategy=in-process -PYIJ_CLOUD_ORIGIN=https://driver-demo-491829048305.us-west1.run.app --project-cache-dir /Users/dongge/.codex/tmp/yijiexing-native-ui-20261025/driver-cache --init-script /Users/dongge/.codex/tmp/yijiexing-native-ui-20261025/driver-build.init.gradle testDebugUnitTest assembleDebug",
+      "status": "PASS",
+      "exitCode": 0,
+      "sourceSha": "b9bd90a58f01a4e6f09e37366ed8f8b3feaaa51b",
+      "tests": 55
+    },
+    {
+      "name": "passenger unit tests + build",
+      "command": "/Users/dongge/.gradle/wrapper/dists/gradle-8.7-bin/c4fynqkwxqrcieir78ry8jtzf/gradle-8.7/bin/gradle --offline --no-daemon --max-workers=1 -Dorg.gradle.jvmargs=-Xmx1536m -Pkotlin.compiler.execution.strategy=in-process -PYIJ_CLOUD_ORIGIN=https://driver-demo-491829048305.us-west1.run.app --project-cache-dir /Users/dongge/.codex/tmp/yijiexing-native-ui-20261025/passenger-cache --init-script /Users/dongge/.codex/tmp/yijiexing-native-ui-20261025/passenger-build.init.gradle testDebugUnitTest assembleDebug",
+      "status": "PASS",
+      "exitCode": 0,
+      "sourceSha": "b9bd90a58f01a4e6f09e37366ed8f8b3feaaa51b",
+      "tests": 20
+    }
+  ],
+  "evidence": [
+    {
+      "path": "coordination/evidence/UI-20261025-03/driver-build-result.json",
+      "sha256": "15328f96f92eb61e14437ff5f9e50dc7f4fa7dc6f7c161871c4d8577ea3e6a3c"
+    },
+    {
+      "path": "coordination/evidence/UI-20261025-03/passenger-build-result.json",
+      "sha256": "223e638cc47d5d6564aa02e5be51243896be91f83efcc4c2763da83fdfdae881"
+    },
+    {
+      "path": "coordination/evidence/UI-20261025-03/backend-review-final.json",
+      "sha256": "d48161e99a35a470edfd212c10694ee59da8ed8adcd9f1fda29c4c5f10f5a628"
+    },
+    {
+      "path": "coordination/evidence/UI-20261025-03/after-final/design-qa.json",
+      "sha256": "5899957113660ee9c14a8d14c1ec5fc726d0f10d47685beb3902ce8716efaa6e"
+    },
+    {
+      "path": "coordination/evidence/UI-20261025-03/after-unlocked/design-qa.json",
+      "sha256": "cee29265b0dea9c0581ae832439e3c27e50329a4e99ac937633126d643f1366a"
+    },
+    {
+      "path": "coordination/evidence/UI-20261025-03/product-source-manifest.json",
+      "sha256": "e1ba2c5acede6ab7d8a433e67050ca2ae06cc4976e2c40812d7d3f922a45dc4a"
+    }
+  ],
+  "nextAction": "Merge accepted UI03 source; hold039/119 publication per latest user request. ACCESS releases new no-code apps/backend together.",
+  "deploy_owner": "coordinator",
+  "releaseReady": false,
+  "productSha": "b9bd90a58f01a4e6f09e37366ed8f8b3feaaa51b",
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-ui03-integration",
+  "reviewer": "frontend + backend (non-authors)",
+  "blockers": [],
+  "notRun": [
+    "Physical handset/TalkBack/landscape and dedicated large-font matrix",
+    "New complete three-end transaction lifecycle; this run is native UI delta",
+    "New no-access-code login belongs to ACCESS-20261025-01"
+  ],
+  "pr": "https://github.com/Dadong520/yijiexing/pull/12",
+  "currentPublished": {
+    "driver": "0.3.8-cloud",
+    "passenger": "1.1.8-experience"
+  },
+  "acceptedSha": "b9bd90a58f01a4e6f09e37366ed8f8b3feaaa51b"
+}

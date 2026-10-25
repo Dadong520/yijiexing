@@ -1,0 +1,22 @@
+[
+  {
+    "client": "driver",
+    "command": "/Users/dongge/.gradle/wrapper/dists/gradle-8.7-bin/c4fynqkwxqrcieir78ry8jtzf/gradle-8.7/bin/gradle --offline --no-daemon --max-workers=1 -Dorg.gradle.jvmargs=-Xmx1536m -Pkotlin.compiler.execution.strategy=in-process -PYIJ_CLOUD_ORIGIN=https://driver-demo-491829048305.us-west1.run.app --project-cache-dir /Users/dongge/.codex/tmp/yijiexing-native-ui-20261025/driver-cache --init-script /Users/dongge/.codex/tmp/yijiexing-native-ui-20261025/driver-build.init.gradle testDebugUnitTest assembleDebug",
+    "exitCode": 0,
+    "startedAt": "2026-10-25T18:04:49.938392+08:00",
+    "completedAt": "2026-10-25T18:04:57.395612+08:00",
+    "logPath": "/Users/dongge/.codex/tmp/yijiexing-ui03-integration/coordination/evidence/UI-20261025-03/driver-build.log",
+    "cwd": "/Users/dongge/.codex/tmp/yijiexing-ui03-integration/candidates/driver-0.3.6-r2/android",
+    "sourceSha": "4d089b37790069a0a13bfe8bfc770f0aaa03a653"
+  },
+  {
+    "client": "passenger",
+    "command": "/Users/dongge/.gradle/wrapper/dists/gradle-8.7-bin/c4fynqkwxqrcieir78ry8jtzf/gradle-8.7/bin/gradle --offline --no-daemon --max-workers=1 -Dorg.gradle.jvmargs=-Xmx1536m -Pkotlin.compiler.execution.strategy=in-process -PYIJ_CLOUD_ORIGIN=https://driver-demo-491829048305.us-west1.run.app --project-cache-dir /Users/dongge/.codex/tmp/yijiexing-native-ui-20261025/passenger-cache --init-script /Users/dongge/.codex/tmp/yijiexing-native-ui-20261025/passenger-build.init.gradle testDebugUnitTest assembleDebug",
+    "exitCode": 0,
+    "startedAt": "2026-10-25T18:04:57.396143+08:00",
+    "completedAt": "2026-10-25T18:05:03.890640+08:00",
+    "logPath": "/Users/dongge/.codex/tmp/yijiexing-ui03-integration/coordination/evidence/UI-20261025-03/passenger-build.log",
+    "cwd": "/Users/dongge/.codex/tmp/yijiexing-ui03-integration/apps/passenger-android",
+    "sourceSha": "4d089b37790069a0a13bfe8bfc770f0aaa03a653"
+  }
+]

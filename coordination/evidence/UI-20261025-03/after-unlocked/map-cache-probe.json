@@ -1,0 +1,20 @@
+{
+  "at": "2026-10-25T18:54:48.647835+08:00",
+  "onlyKnownSdkPaths": [
+    "files/mbgl-offline.db",
+    "files/mbgl-offline.db-wal",
+    "files/mbgl-offline.db-shm",
+    "files/mbgl-offline.db-journal",
+    "cache/mbgl-offline.db",
+    "cache/mbgl-offline.db-wal",
+    "cache/mbgl-offline.db-shm",
+    "cache/mbgl-offline.db-journal"
+  ],
+  "found": [
+    {
+      "path": "files/mbgl-offline.db",
+      "listing": "-rw------- 1 u0_a192 u0_a192 442368 2026-10-25 18:51 files/mbgl-offline.db"
+    }
+  ],
+  "privatePrefsOrTokensRead": false
+}

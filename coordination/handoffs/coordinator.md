@@ -1,8 +1,7 @@
-# coordinator 最终交接 2026-10-25 02:54
-UI-20261025-02完成，全部角色idle，无常驻或自动续跑。根统一维护STATE/BOARD/任务和验收，恢复只读这几份，勿扫描旧聊天。
-用户要求Gemini重设计两端Android。Gemini两次短无工具代码生成真实返回29函数/主题，root应用；首次读图headless拒绝未绕过、无产出不计完成。源码55dce79f58a780a1de1ea88c448a774bac03fc9f，PR10合并d8c34cac4e260233f32cbc12db4b900c31d5a9eb。Gemini当前无活跃任务。
-司机0.3.8/code11已公开 /download.apk，SHA08732bf8b372e30024711e404e4bf7161a6dc95cf05d4b8094efda895ccda6b7；乘客1.1.8/code10 /download-passenger.apk，SHA5ee70fd105e529ed5fdef9f422bbf7bcecf8e09402b64fda6aa14df2ae021f23。固定cloud origin driver-demo-491829048305.us-west1.run.app，同签名保留登录，分别55/20单测+构建PASS；直连上传与完整GET版本/签名/哈希PASS。GCS服务器侧回滚记录driver/passenger-rollback.json，所有发布报告在evidence/UI-20261025-02。没有后端/admin/IAM/业务数据修改。
-独立frontend限定UI PASS：正常/1.3字体，首屏司机抢单可见、确认返回不提交；工具状态分行、公司名全显；乘客白卡、首页顺序、菜单、地址dialog与键盘确认取消可达；两个模拟器5586/5584均恢复1.0/stop+HOME，登录保留、没有订单/投诉/支付写。报告after/{driver,passenger}/*visual-review.json，绑定final source/API hash。passenger最终仅一条surfaceTint白色常量相对前包，已独立diff与最新安装hash/截图，报告如实继承大字/弹窗范围。
-backend限定业务审查PASS，13核心文件与Booking下单参数/订单筛选原样，最终业务补记有8sourcehash。root修复漏构建云源、对比度、长字、工具状态、白卡/间距等，失败首包未发布。Documents缓存重复dex/文件hash阻塞后，最终build输出/project cache在/Users/dongge/.codex/tmp/yijiexing-native-ui-20261025；用--offline --max-workers1 -Xmx1536m in-process并显式云源。
-范围限制：非新完整三端生命周期、非实体手机/TalkBack/横屏；系统Geocoder成功仍未验证，微信AppID未配置，营销仍演示。旧保护订单与18历史单不得为测试清空。两个Cloud Run automatic/min0/max1/request/IAP继续保留，不保活不自动暂停。大传输直连优先，凭据/APK/cache不入Git。
-收尾docs/receipt待PR记录，源码已合并且公开包已验证；后续只按用户新需求唤醒当前负责人。
+# coordinator UI03 19:06交接
+用户已解锁，项目已恢复；当前待最终delta后发布，不可因历史BLOCKED停工，也不可未PASS发布。
+唯一clone /Users/dongge/.codex/tmp/yijiexing-ui03-integration（非iCloud），source b9bd90a58f01a4e6f09e37366ed8f8b3feaaa51b。branchcodex/prototype-native-ui-20261025，PR12草稿。UI source只2文件增12删3改viewport/density；31函数Gemini主写原始设计，root集成。本机source/API/数据规则没有变化。旧Documents clone保留。
+旧8499实测22截图证明主要页/地图/署名/确认返回/键盘取消/保留登录/安装哈希；after-unlocked/design-qa=PARTIAL_PASS_2_P2。根P2修driver mapheight min(.36*max,max-500dp), min200；passenger fit64px→24/72/76/72dp的真实px，density为effect key。backend-review-final.json绑定b9、13核心/Booking/所有守卫PASS_SCOPE。构建55/20最终PASS，新hashdriver52dae8ee…/pass1f86150d…，版本039/119同签名，build-result已更新，旧元数据before-fixes。
+frontend当前唯一设备操作者，after-final限定delta，<=8min任务：安装新hash、两屏P2+可选390x844dp临时wm size恢复、离线点retry再联网验证key新视图/瓦片/署名。旧cache离线PASS；隔离cache失败提示PASS但先联网自动恢复导致按钮没点，不能冒称explicitretry已测。缓存只能同设备rename/restore已知files/mbgl-offline.db及sidecar，绝不pm clear/读prefs/token/清订单；网络/size必须finally恢复。root无ADB并发。
+接下来收到最终报告→实际打开最终截图与参考同屏看，并补design-qa.md关闭P0–P2；检查sourceSha/hash与b9新包一致。task acceptedSha b9/releaseReady PASS+新unit/testreview/证据hash，限8KB；75测试已过不再重复。先rootcheck_coordination再commit文档，push直连（每命令-c http.proxy=避免全局git代理），PR12ready/CI后merge --merge --match-head-commit。实际上传脚本 /Users/dongge/.codex/tmp/ui03-publish.py 已适配稳定clone/UI03，要求PR已merge及exact gate/manifest/APK/旧GCSgeneration，直连GCS和完整GET验hash/signature/version；按driver/passenger依次调用。旧包server-side备份两个rollback.json，无CloudRun新镜像或IAM变更。上传后收据另commit/PR，源码原PR始终attach已完成。最终源码/报告/两下载地址和版本、截图交付，未新跑三端交易全流程要如实。
+当前旧公开038/118/原v8/adminUI和IAP保留。新候选不会从源仓库传APK，下载回读放/Users/dongge/.codex/artifacts/yijiexing/2026-10-25避免iCloud。scripts都会输出小metadata，不泄访问码。服务按需min0max1不保活不自动暂停。结束不常驻。

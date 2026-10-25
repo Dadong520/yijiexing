@@ -1,0 +1,34 @@
+[
+  {
+    "conversation_id": "0bb51e50-14cc-4b58-ab68-fd8eb0d7fabd",
+    "status": "SUCCESS",
+    "duration_seconds": 200.387289,
+    "num_turns": 1,
+    "usage": {
+      "input_tokens": 25158,
+      "output_tokens": 33432,
+      "thinking_tokens": 23807,
+      "cache_read_tokens": 57328,
+      "total_tokens": 58590
+    },
+    "client": "driver",
+    "functions": 14,
+    "scopedReferencesRead": true
+  },
+  {
+    "conversation_id": "37f20385-13cc-4d30-9062-ca6e2a814cc9",
+    "status": "SUCCESS",
+    "duration_seconds": 206.111614,
+    "num_turns": 1,
+    "usage": {
+      "input_tokens": 27813,
+      "output_tokens": 42304,
+      "thinking_tokens": 27198,
+      "cache_read_tokens": 22004,
+      "total_tokens": 70117
+    },
+    "client": "passenger",
+    "functions": 17,
+    "scopedReferencesRead": true
+  }
+]

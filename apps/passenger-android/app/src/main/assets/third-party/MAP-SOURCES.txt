@@ -1,0 +1,6 @@
+MapLibre Native Android 11.8.0 — BSD 2-Clause, see MapLibre-Native-LICENSE.txt.
+Map style/tiles https://tiles.openfreemap.org/styles/liberty
+OpenFreeMap, OpenMapTiles, © OpenStreetMap contributors. Visible attribution is displayed by MapLibre.
+https://openfreemap.org/quick_start/
+https://www.openstreetmap.org/copyright
+No offline bulk downloads or embedded map screenshot.

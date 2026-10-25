@@ -1,13 +1,17 @@
-# frontend 交接卡
+# frontend短交接
 
-规则2026-10-25-v2；ACK v2。UI-20261025-02 独立限定UI验收已完成，PASS → IDLE，等待协调者统一合并/发布。
-仅截图/界面导航/报告；未改产品源码、未构建、未调Gemini/代理、未部署。协调者01a168e6-d76c-7ef0-8c87-706cc6e32d57，任务/状态由其维护。
+ACK v2。UI-20261025-03 最终Android UI delta独立验收 **PASS_SCOPE / IDLE / READY_FOR_COORDINATOR**。只改证据/handoff；没有改产品源码、构建、部署或唤醒额外角色。唯一设备操作权已交还coordinator，不再自行ADB/窗口操作。
 
-acceptedSourceSha 55dce79f58a780a1de1ea88c448a774bac03fc9f。司机最终0.3.8/code11 APK SHA256 08732bf8b372e30024711e404e4bf7161a6dc95cf05d4b8094efda895ccda6b7；乘客最终1.1.8/code10 5ee70fd105e529ed5fdef9f422bbf7bcecf8e09402b64fda6aa14df2ae021f23（8533149B）。均install-r，并回读设备已装base.apk哈希与给定文件一致。
-证据：coordination/evidence/UI-20261025-02/after/driver/driver-visual-review.json；after/passenger/passenger-visual-review.json，报告绑定hash、逐图查看、PASS范围/NOT_RUN/修复与继承验证。每图PNG+XML，apk-final.json。
+工作根 `/Users/dongge/.codex/tmp/yijiexing-ui03-integration`；源 **b9bd90a58f01a4e6f09e37366ed8f8b3feaaa51b**。最终报告 `coordination/evidence/UI-20261025-03/after-final/design-qa.json`；截图PNG/XML、source-delta、installed hash、恢复记录在同目录。19:05:21开始，全部设备操作19:10:49完成，未超过19:13:21的8min上限。最后07/08也已逐图确认真实道路、两标记和来源弹窗。
 
-司机PASS：正常首屏第一张可接单及完整抢单按钮；打开确认→返回，无确认；地图工具入口点击框实测56dp；定位/长播报已独立分行，font1.0/1.3全文可读；我的企业名在1.3全文显示，身份003/服务分98/15接单10完单/557.74可见保持。final01有App通知遮挡REJECTED，final05clean有效。r3的订单/设置/菜单与1.3确认返回作为已授权的前轮限定覆盖，报告明确非最终包重跑；两P2已修复复测。司机子树d63与55完全同一Git tree60e84772da898c863505ddc7c5c1c428da00f4d6。
-乘客PASS：前f283包正常/1.3首页、我的、订单；地址dialog在1.3+键盘时可滚动、确认/取消可见，实际取消无改动。最新5ee70包只补正常首页，白卡已实际看图确认；独立git diff d63→55只surfaceTint Transparent→White一行，theme-only-final-diff.json。报告逐图标出所属APK，前轮大字/弹窗结果按协调者授权继承，未假称最新包全重跑。r2只读现存详情返回/地址取消/折叠设置展开收起另存r2-visual-findings.json。
+独立install-r和base.apk回读匹配：driver **0.3.9-cloud/code12** SHA256 `52dae8eebe44851be37de1a55df096cbbe07286f5c88b7a3d3a3bf22338bf13f`；passenger **1.1.9-experience/code11** SHA256 `1f86150d465997dcf72052a278c44ffff3601cec4525beecdd985a819f23d7e5`。同签名升级保留原003/0102会话；root55/20测试构建证据继承，本人未重复运行。
 
-设备5586司机003/5584乘客0102，最终font均1.0、App force-stop并HOME，保留数据/登录。未接单确认/创建或取消订单/支付/投诉提交/上下线/拨号/清数据/改云。恢复时人类历史回复“已同意高德”已向root说明，本任务未扩测高德。
-NOT_RUN：真机/横屏/TalkBack/完整无障碍、成功系统地址搜索、高德终点文字、本轮全量18单/三端业务闭环。UI PASS不等于上述通过；关键业务保护由backend另审、协调者安排发布。无需更多UI截图或重跑，无常驻。
+两P2已关闭：driver正常1080x2400和临时1024x2216/420dpi首抢单CTA完整可见、不用滚动（02/03）；passenger初始fit与实际平移回位两点避开badge/recenter（02/03/04）。两01有系统heads-up横幅，已剔除完整页面验收依据。实际参考对比继承原8499全轮，地图+底部面板层级保持；profile分组行与参考图标网格差异为既有非阻塞设计差异。
+
+关键精确retry已补齐PASS：唯一可逆SDK cache备份 `files/.ui03-map-cache-final-b9-20261025-1909`，原files/mbgl-offline.db 765952B，其他账户文件不读。offline wifi/data0/0显示地图暂未加载和真实重试按钮（05）；**19:10:11实际在离线点击重新加载地图，06进入地图加载中**；随后恢复网络，07真实道路瓦片/两点恢复、08来源为MapLibre/OpenFreeMap/OpenMapTiles/OpenStreetMap。没有第二次在线地图重试tap；云连接重试单独记录，无呼叫提交。`map-retry-final.json`证明originalSdkCacheRestored=true、networkRestored1/1、font1.0。
+
+恢复完成：driver临时wm已reset回physical1080x2400；两端font1.0不变；driver网络未改；passenger wifi/data1/1恢复；原SDK DB已rename回原路径。本轮生成DB保留在上述唯一backup/generated/files/mbgl-offline.db，不删除。旧1855备份仍保留，不再动。两App均force-stop/HOME；原两AVD留给root，默认ADB5037正常。无prefs/token读取、pm clear、清数据、切在线、接单/下单/取消/支付/投诉业务写入。
+
+范围边界：精确diff8499→b9仅CoreScreens.kt mapheight和PassengerMap.kt密度/相机padding；原after-unlocked全UI证据可限定继承（订单/个人、确认Return、地址键盘Cancel、48dp抽样、缓存离线、司机地图平移/回位/署名），不假称最终包全套重跑。旧两个P2与retry NOT_RUN被本轮明确证据关闭。**NOT_RUN**：新登录/OTP、真机/横屏/TalkBack/专门大字、外部高德终点、投诉、新真实交易/三端全生命周期、任意超长文本。不是整个业务发布验收。
+
+下一步coordinator读取本报告/PNG，维护task最终acceptedSha和gate并合并UI03源码；按最新派单039/119不单独发布，后续含UI的ACCESS无码版本独立验收后统一发布回读；本人未commit或发布，不进行无变化轮询/自动回信。待合并产品SHA为b9；报告/handoff由root统一收尾提交。

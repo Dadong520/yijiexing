@@ -1,0 +1,14 @@
+{
+  "object": "gs://yijiexing-demo-state-491829048305/distribution/yijiexing-passenger.apk",
+  "beforeGeneration": "1792867963523621",
+  "backup": "gs://yijiexing-demo-state-491829048305/distribution/backups/UI-20261025-03/passenger-1792867963523621.apk",
+  "backupGeneration": "1792922912355762",
+  "bytes": 8533149,
+  "serverSideCopy": true,
+  "beforeMetadata": {
+    "sha256": "5ee70fd105e529ed5fdef9f422bbf7bcecf8e09402b64fda6aa14df2ae021f23",
+    "source": "55dce79f58a780a1de1ea88c448a774bac03fc9f",
+    "version": "1.1.8-experience"
+  },
+  "createdAt": "2026-10-25T18:08:34.490319+08:00"
+}

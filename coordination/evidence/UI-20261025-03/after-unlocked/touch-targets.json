@@ -1,0 +1,211 @@
+{
+  "densityDpi": 420,
+  "checkedAppOwnedTargets": [
+    {
+      "xml": "driver-05-orders-font10.xml",
+      "label": "进行中",
+      "boundsPx": [
+        197,
+        273,
+        383,
+        399
+      ],
+      "widthDp": 70.86,
+      "heightDp": 48.0
+    },
+    {
+      "xml": "driver-05-orders-font10.xml",
+      "label": "待支付",
+      "boundsPx": [
+        396,
+        273,
+        582,
+        399
+      ],
+      "widthDp": 70.86,
+      "heightDp": 48.0
+    },
+    {
+      "xml": "driver-05-orders-font10.xml",
+      "label": "已完成",
+      "boundsPx": [
+        595,
+        273,
+        781,
+        399
+      ],
+      "widthDp": 70.86,
+      "heightDp": 48.0
+    },
+    {
+      "xml": "driver-05-orders-font10.xml",
+      "label": "已取消",
+      "boundsPx": [
+        794,
+        273,
+        980,
+        399
+      ],
+      "widthDp": 70.86,
+      "heightDp": 48.0
+    },
+    {
+      "xml": "driver-05-orders-font10.xml",
+      "label": "查看详情",
+      "boundsPx": [
+        69,
+        791,
+        1011,
+        928
+      ],
+      "widthDp": 358.86,
+      "heightDp": 52.19
+    },
+    {
+      "xml": "driver-05-orders-font10.xml",
+      "label": "查看详情",
+      "boundsPx": [
+        69,
+        1351,
+        1011,
+        1488
+      ],
+      "widthDp": 358.86,
+      "heightDp": 52.19
+    },
+    {
+      "xml": "driver-05-orders-font10.xml",
+      "label": "查看详情",
+      "boundsPx": [
+        69,
+        1911,
+        1011,
+        2048
+      ],
+      "widthDp": 358.86,
+      "heightDp": 52.19
+    },
+    {
+      "xml": "passenger-02-home-stable-font10.xml",
+      "label": "回到起终点",
+      "boundsPx": [
+        922,
+        850,
+        1048,
+        976
+      ],
+      "widthDp": 48.0,
+      "heightDp": 48.0
+    },
+    {
+      "xml": "passenger-02-home-stable-font10.xml",
+      "label": "即刻出发",
+      "boundsPx": [
+        42,
+        1108,
+        360,
+        1234
+      ],
+      "widthDp": 121.14,
+      "heightDp": 48.0
+    },
+    {
+      "xml": "passenger-02-home-stable-font10.xml",
+      "label": "预约叫车",
+      "boundsPx": [
+        381,
+        1108,
+        699,
+        1234
+      ],
+      "widthDp": 121.14,
+      "heightDp": 48.0
+    },
+    {
+      "xml": "passenger-02-home-stable-font10.xml",
+      "label": "司机竞价",
+      "boundsPx": [
+        720,
+        1108,
+        1038,
+        1234
+      ],
+      "widthDp": 121.14,
+      "heightDp": 48.0
+    },
+    {
+      "xml": "passenger-02-home-stable-font10.xml",
+      "label": "确认呼叫 · 即时用车",
+      "boundsPx": [
+        42,
+        1959,
+        1038,
+        2101
+      ],
+      "widthDp": 379.43,
+      "heightDp": 54.1
+    },
+    {
+      "xml": "passenger-06-orders-font10.xml",
+      "label": "已完成",
+      "boundsPx": [
+        255,
+        510,
+        447,
+        636
+      ],
+      "widthDp": 73.14,
+      "heightDp": 48.0
+    },
+    {
+      "xml": "passenger-06-orders-font10.xml",
+      "label": "已取消",
+      "boundsPx": [
+        468,
+        510,
+        660,
+        636
+      ],
+      "widthDp": 73.14,
+      "heightDp": 48.0
+    },
+    {
+      "xml": "passenger-06-orders-font10.xml",
+      "label": "全部",
+      "boundsPx": [
+        681,
+        510,
+        837,
+        636
+      ],
+      "widthDp": 59.43,
+      "heightDp": 48.0
+    },
+    {
+      "xml": "passenger-09-address-keyboard-font10.xml",
+      "label": "取消",
+      "boundsPx": [
+        100,
+        1291,
+        441,
+        1417
+      ],
+      "widthDp": 129.9,
+      "heightDp": 48.0
+    },
+    {
+      "xml": "passenger-09-address-keyboard-font10.xml",
+      "label": "使用此地点",
+      "boundsPx": [
+        467,
+        1291,
+        979,
+        1417
+      ],
+      "widthDp": 195.05,
+      "heightDp": 48.0
+    }
+  ],
+  "result": "All sampled full visible primary owned targets>=48dp high",
+  "limits": "Not exhaustive TalkBack/touch-delegate certification; initial clipped driver CTA separately P2"
+}

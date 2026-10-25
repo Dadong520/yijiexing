@@ -1,0 +1,21 @@
+{
+  "client": "driver",
+  "status": "PASS",
+  "sourceSha": "b9bd90a58f01a4e6f09e37366ed8f8b3feaaa51b",
+  "command": "/Users/dongge/.gradle/wrapper/dists/gradle-8.7-bin/c4fynqkwxqrcieir78ry8jtzf/gradle-8.7/bin/gradle --offline --no-daemon --max-workers=1 -Dorg.gradle.jvmargs=-Xmx1536m -Pkotlin.compiler.execution.strategy=in-process -PYIJ_CLOUD_ORIGIN=https://driver-demo-491829048305.us-west1.run.app --project-cache-dir /Users/dongge/.codex/tmp/yijiexing-native-ui-20261025/driver-cache --init-script /Users/dongge/.codex/tmp/yijiexing-native-ui-20261025/driver-build.init.gradle testDebugUnitTest assembleDebug",
+  "cwd": "/Users/dongge/.codex/tmp/yijiexing-ui03-integration/candidates/driver-0.3.6-r2/android",
+  "startedAt": "2026-10-25T19:01:53.862172+08:00",
+  "completedAt": "2026-10-25T19:02:28.964635+08:00",
+  "exitCode": 0,
+  "logPath": "/Users/dongge/.codex/tmp/yijiexing-ui03-integration/coordination/evidence/UI-20261025-03/after-fixes/driver-build.log",
+  "tests": 55,
+  "failures": 0,
+  "apkPath": "/Users/dongge/.codex/tmp/yijiexing-native-ui-20261025/driver/_app/outputs/apk/debug/app-debug.apk",
+  "apkSha256": "52dae8eebe44851be37de1a55df096cbbe07286f5c88b7a3d3a3bf22338bf13f",
+  "bytes": 56471006,
+  "versionName": "0.3.9-cloud",
+  "versionCode": 12,
+  "signerSha256": "9ffec9b342d12909ff288bd73f23ba104893b39120cb24ea83c9734a0d2b758f",
+  "packageId": "cn.hbzjhs.dc.driver.cloud",
+  "cloudOrigin": "https://driver-demo-491829048305.us-west1.run.app"
+}

@@ -1,0 +1,461 @@
+{
+  "taskId": "UI-20261025-03",
+  "reviewer": "frontend independent non-author 01a167c8-a5eb-77e3-b77e-214927a029da",
+  "sourceSha": "8499d6e5b6a19fc64c4375c6d70cd6edfccfa80f",
+  "endedAt": "2026-10-25T19:00:27.949791+08:00",
+  "runtimeWindow": {
+    "deviceRecoveryStarted": "2026-10-25T18:42:26+08:00",
+    "coreAcceptanceStarted": "2026-10-25T18:44:28+08:00",
+    "lastDeviceOperation": "2026-10-25T18:57:01+08:00",
+    "extraScope": "Coordinator explicitly allowed one reversible SDK-cache-only retry scenario up to3min"
+  },
+  "result": "PARTIAL_PASS_REQUIRES_FOLLOWUP",
+  "uiRuntimeResult": "PASS_WITH_2_P2",
+  "releaseGate": "NOT_READY",
+  "reason": "Two visual fixes are planned by coordinator; exact MapView retry-button replacement path still not executed because button disappeared after network restoration before tap.",
+  "installedPackages": {
+    "driver": {
+      "client": "driver",
+      "command": "/Users/dongge/.gradle/wrapper/dists/gradle-8.7-bin/c4fynqkwxqrcieir78ry8jtzf/gradle-8.7/bin/gradle --offline --no-daemon --max-workers=1 -Dorg.gradle.jvmargs=-Xmx1536m -Pkotlin.compiler.execution.strategy=in-process -PYIJ_CLOUD_ORIGIN=https://driver-demo-491829048305.us-west1.run.app --project-cache-dir /Users/dongge/.codex/tmp/yijiexing-native-ui-20261025/driver-cache --init-script /Users/dongge/.codex/tmp/yijiexing-native-ui-20261025/driver-build.init.gradle testDebugUnitTest assembleDebug",
+      "exitCode": 0,
+      "logPath": "/Users/dongge/.codex/tmp/yijiexing-ui03-integration/coordination/evidence/UI-20261025-03/driver-build.log",
+      "sourceSha": "8499d6e5b6a19fc64c4375c6d70cd6edfccfa80f",
+      "status": "PASS",
+      "tests": 55,
+      "apkPath": "/Users/dongge/.codex/tmp/yijiexing-native-ui-20261025/driver/_app/outputs/apk/debug/app-debug.apk",
+      "apkSha256": "63764e489cb121a4627d8940f5ba18295747d98ce7f5fa4e7085106efe75dc1f",
+      "bytes": 55655839,
+      "versionName": "0.3.9-cloud",
+      "versionCode": 12,
+      "signerSha256": "9ffec9b342d12909ff288bd73f23ba104893b39120cb24ea83c9734a0d2b758f",
+      "sourceContentVerified": true,
+      "cwd": "/Users/dongge/.codex/tmp/yijiexing-ui03-integration/candidates/driver-0.3.6-r2/android",
+      "verifiedAt": "2026-10-25T18:07:14.085282+08:00",
+      "startedAt": "2026-10-25T18:04:49.938392+08:00",
+      "completedAt": "2026-10-25T18:04:57.395612+08:00",
+      "precedingLocalBuild": {
+        "client": "driver",
+        "command": "/Users/dongge/.gradle/wrapper/dists/gradle-8.7-bin/c4fynqkwxqrcieir78ry8jtzf/gradle-8.7/bin/gradle --offline --no-daemon --max-workers=1 -Dorg.gradle.jvmargs=-Xmx1536m -Pkotlin.compiler.execution.strategy=in-process -PYIJ_CLOUD_ORIGIN=https://driver-demo-491829048305.us-west1.run.app --project-cache-dir /Users/dongge/.codex/tmp/yijiexing-native-ui-20261025/driver-cache --init-script /Users/dongge/.codex/tmp/yijiexing-native-ui-20261025/driver-build.init.gradle testDebugUnitTest assembleDebug",
+        "exitCode": 0,
+        "startedAt": "2026-10-25T18:04:49.938392+08:00",
+        "completedAt": "2026-10-25T18:04:57.395612+08:00",
+        "logPath": "/Users/dongge/.codex/tmp/yijiexing-ui03-integration/coordination/evidence/UI-20261025-03/driver-build.log",
+        "cwd": "/Users/dongge/.codex/tmp/yijiexing-ui03-integration/candidates/driver-0.3.6-r2/android",
+        "sourceSha": "4d089b37790069a0a13bfe8bfc770f0aaa03a653"
+      },
+      "installedSha256": "63764e489cb121a4627d8940f5ba18295747d98ce7f5fa4e7085106efe75dc1f",
+      "serial": "emulator-5586",
+      "fontScale": "1.0",
+      "checkedAt": 1792925043.5270479
+    },
+    "passenger": {
+      "client": "passenger",
+      "command": "/Users/dongge/.gradle/wrapper/dists/gradle-8.7-bin/c4fynqkwxqrcieir78ry8jtzf/gradle-8.7/bin/gradle --offline --no-daemon --max-workers=1 -Dorg.gradle.jvmargs=-Xmx1536m -Pkotlin.compiler.execution.strategy=in-process -PYIJ_CLOUD_ORIGIN=https://driver-demo-491829048305.us-west1.run.app --project-cache-dir /Users/dongge/.codex/tmp/yijiexing-native-ui-20261025/passenger-cache --init-script /Users/dongge/.codex/tmp/yijiexing-native-ui-20261025/passenger-build.init.gradle testDebugUnitTest assembleDebug",
+      "exitCode": 0,
+      "logPath": "/Users/dongge/.codex/tmp/yijiexing-ui03-integration/coordination/evidence/UI-20261025-03/passenger-final-build.log",
+      "sourceSha": "8499d6e5b6a19fc64c4375c6d70cd6edfccfa80f",
+      "status": "PASS",
+      "tests": 20,
+      "apkPath": "/Users/dongge/.codex/tmp/yijiexing-native-ui-20261025/passenger/_app/outputs/apk/debug/app-debug.apk",
+      "apkSha256": "4a99709011fd1be8be421801dd80f52357a67e153a9616787952cd3afa61bc2c",
+      "bytes": 54125743,
+      "versionName": "1.1.9-experience",
+      "versionCode": 11,
+      "signerSha256": "9ffec9b342d12909ff288bd73f23ba104893b39120cb24ea83c9734a0d2b758f",
+      "sourceContentVerified": true,
+      "cwd": "/Users/dongge/.codex/tmp/yijiexing-ui03-integration/apps/passenger-android",
+      "verifiedAt": "2026-10-25T18:07:14.526815+08:00",
+      "finalRebuild": {
+        "command": "/Users/dongge/.gradle/wrapper/dists/gradle-8.7-bin/c4fynqkwxqrcieir78ry8jtzf/gradle-8.7/bin/gradle --offline --no-daemon --max-workers=1 -Dorg.gradle.jvmargs=-Xmx1536m -Pkotlin.compiler.execution.strategy=in-process -PYIJ_CLOUD_ORIGIN=https://driver-demo-491829048305.us-west1.run.app --project-cache-dir /Users/dongge/.codex/tmp/yijiexing-native-ui-20261025/passenger-cache --init-script /Users/dongge/.codex/tmp/yijiexing-native-ui-20261025/passenger-build.init.gradle testDebugUnitTest assembleDebug",
+        "exitCode": 0,
+        "sourceSha": "8499d6e5b6a19fc64c4375c6d70cd6edfccfa80f",
+        "logPath": "coordination/evidence/UI-20261025-03/passenger-final-build.log",
+        "verifiedAt": "2026-10-25T18:07:14.526815+08:00",
+        "startTimestamp": "NOT_RECORDED",
+        "reason": "two display literal corrections after4d089b3"
+      },
+      "precedingLocalBuild": {
+        "client": "passenger",
+        "command": "/Users/dongge/.gradle/wrapper/dists/gradle-8.7-bin/c4fynqkwxqrcieir78ry8jtzf/gradle-8.7/bin/gradle --offline --no-daemon --max-workers=1 -Dorg.gradle.jvmargs=-Xmx1536m -Pkotlin.compiler.execution.strategy=in-process -PYIJ_CLOUD_ORIGIN=https://driver-demo-491829048305.us-west1.run.app --project-cache-dir /Users/dongge/.codex/tmp/yijiexing-native-ui-20261025/passenger-cache --init-script /Users/dongge/.codex/tmp/yijiexing-native-ui-20261025/passenger-build.init.gradle testDebugUnitTest assembleDebug",
+        "exitCode": 0,
+        "startedAt": "2026-10-25T18:04:57.396143+08:00",
+        "completedAt": "2026-10-25T18:05:03.890640+08:00",
+        "logPath": "/Users/dongge/.codex/tmp/yijiexing-ui03-integration/coordination/evidence/UI-20261025-03/passenger-build.log",
+        "cwd": "/Users/dongge/.codex/tmp/yijiexing-ui03-integration/apps/passenger-android",
+        "sourceSha": "4d089b37790069a0a13bfe8bfc770f0aaa03a653"
+      },
+      "installedSha256": "4a99709011fd1be8be421801dd80f52357a67e153a9616787952cd3afa61bc2c",
+      "serial": "emulator-5584",
+      "fontScale": "1.0",
+      "checkedAt": 1792925042.46461
+    }
+  },
+  "evidence": [
+    {
+      "png": "driver-01-home-font10.png",
+      "xml": "driver-01-home-font10.xml",
+      "sha256": "e7fbcd8188331b1319f1da7f30e30bc4a4bda280865593004146be2c77ff8f42",
+      "visuallyInspected": true,
+      "acceptedForScene": false,
+      "limitation": "Initial loading/system warning; not normal-home acceptance"
+    },
+    {
+      "png": "driver-02-home-stable-font10.png",
+      "xml": "driver-02-home-stable-font10.xml",
+      "sha256": "18c67c1f5de1c6d87a6291b9e9e8ffe89d10595b0513e61f5acf0a3fa508cf0d",
+      "visuallyInspected": true,
+      "acceptedForScene": true,
+      "limitation": null
+    },
+    {
+      "png": "driver-03-order-cta-scroll-font10.png",
+      "xml": "driver-03-order-cta-scroll-font10.xml",
+      "sha256": "84eed3712db1bddf30e9a37f61d0c823bd02f7dc0e63c3be3fe994785f95201b",
+      "visuallyInspected": true,
+      "acceptedForScene": true,
+      "limitation": null
+    },
+    {
+      "png": "driver-04-accept-dialog-font10.png",
+      "xml": "driver-04-accept-dialog-font10.xml",
+      "sha256": "a24309ea0b10ada87f8f63f12f9f85208bf9d760f76758b294615bee8077092b",
+      "visuallyInspected": true,
+      "acceptedForScene": true,
+      "limitation": null
+    },
+    {
+      "png": "driver-05-orders-font10.png",
+      "xml": "driver-05-orders-font10.xml",
+      "sha256": "f8a9e0c385442c137bd71f743e768e6286af16a764230db842f72dee424e493d",
+      "visuallyInspected": true,
+      "acceptedForScene": true,
+      "limitation": null
+    },
+    {
+      "png": "driver-06-profile-font10.png",
+      "xml": "driver-06-profile-font10.xml",
+      "sha256": "3cc81532945469bbd8eec60e12409cd92a55d2b9895221f32c17afc8d661ddf8",
+      "visuallyInspected": true,
+      "acceptedForScene": true,
+      "limitation": null
+    },
+    {
+      "png": "driver-07-map-panned-font10.png",
+      "xml": "driver-07-map-panned-font10.xml",
+      "sha256": "8116e23c6a339aab32e097fb3436b0e971e2f22bb6a2ffbfc17f8d8f4e7a5fc7",
+      "visuallyInspected": true,
+      "acceptedForScene": true,
+      "limitation": null
+    },
+    {
+      "png": "driver-08-map-recentered-font10.png",
+      "xml": "driver-08-map-recentered-font10.xml",
+      "sha256": "6dc86a1abefa3187bffb3ce2eeb58621b15deadb1a6bfacaa3971ad087c1f676",
+      "visuallyInspected": true,
+      "acceptedForScene": true,
+      "limitation": null
+    },
+    {
+      "png": "driver-09-map-attribution-font10.png",
+      "xml": "driver-09-map-attribution-font10.xml",
+      "sha256": "255f065be571fc32c4069c92777eff4da4854df05afbec34d0896b1ab5c41cd2",
+      "visuallyInspected": true,
+      "acceptedForScene": true,
+      "limitation": null
+    },
+    {
+      "png": "passenger-01-home-font10.png",
+      "xml": "passenger-01-home-font10.xml",
+      "sha256": "27eb2e50f0b7d15212b2afaf2cf602a5cb933fc661c21c465fbc8c7d023e92d0",
+      "visuallyInspected": true,
+      "acceptedForScene": false,
+      "limitation": "Initial loading/system warning; not normal-home acceptance"
+    },
+    {
+      "png": "passenger-02-home-stable-font10.png",
+      "xml": "passenger-02-home-stable-font10.xml",
+      "sha256": "4cce8685dfdaa6d1381b8b3364f9cad04d0f6a4975642544d269e6a076c9df0f",
+      "visuallyInspected": true,
+      "acceptedForScene": true,
+      "limitation": null
+    },
+    {
+      "png": "passenger-03-map-panned-font10.png",
+      "xml": "passenger-03-map-panned-font10.xml",
+      "sha256": "3df4037d2d71453200a1375d34ff14c6766210fd4ba1f36f40e83a796e9305db",
+      "visuallyInspected": true,
+      "acceptedForScene": true,
+      "limitation": null
+    },
+    {
+      "png": "passenger-04-map-recentered-font10.png",
+      "xml": "passenger-04-map-recentered-font10.xml",
+      "sha256": "19a7659aa65ae93a9de339cefab9390e3ecad918fa5bec55e493c7c1b99af223",
+      "visuallyInspected": true,
+      "acceptedForScene": true,
+      "limitation": null
+    },
+    {
+      "png": "passenger-05-map-attribution-font10.png",
+      "xml": "passenger-05-map-attribution-font10.xml",
+      "sha256": "c088128f3b88404e3939d7287a2674634beced4e5357965d99e407d389d889bf",
+      "visuallyInspected": true,
+      "acceptedForScene": true,
+      "limitation": null
+    },
+    {
+      "png": "passenger-06-orders-font10.png",
+      "xml": "passenger-06-orders-font10.xml",
+      "sha256": "61f814a5b638a412b96dee405329c75d7a3703cbf77bbde5bfae7fe0912fa967",
+      "visuallyInspected": true,
+      "acceptedForScene": true,
+      "limitation": null
+    },
+    {
+      "png": "passenger-07-profile-font10.png",
+      "xml": "passenger-07-profile-font10.xml",
+      "sha256": "ba225fedbbe1f920a0330b8891f00086634f91b5f8547d9e3378c27451f5a0fe",
+      "visuallyInspected": true,
+      "acceptedForScene": true,
+      "limitation": null
+    },
+    {
+      "png": "passenger-08-address-dialog-font10.png",
+      "xml": "passenger-08-address-dialog-font10.xml",
+      "sha256": "782de2d293d0e4390c09be5a670e7e060ae56ca22818b048b9ec91b97fa38836",
+      "visuallyInspected": true,
+      "acceptedForScene": true,
+      "limitation": null
+    },
+    {
+      "png": "passenger-09-address-keyboard-font10.png",
+      "xml": "passenger-09-address-keyboard-font10.xml",
+      "sha256": "861e783acd36fcf091291d6309e76ff2a4a667fc28fbf9b6932764f88e7a03a8",
+      "visuallyInspected": true,
+      "acceptedForScene": true,
+      "limitation": null
+    },
+    {
+      "png": "passenger-10-map-offline-font10.png",
+      "xml": "passenger-10-map-offline-font10.xml",
+      "sha256": "dc58def8ce822e9f08acfa998c52b592549f14052979c9a0ab1904eecbb6d74a",
+      "visuallyInspected": true,
+      "acceptedForScene": true,
+      "limitation": "Network-state evidence, not a stable online-home screenshot"
+    },
+    {
+      "png": "passenger-11-map-network-restored-font10.png",
+      "xml": "passenger-11-map-network-restored-font10.xml",
+      "sha256": "dd19d18148a7b3d2b9a0b8f4cb5804ef67200ab3d4cafb0ed209d2ef8f33a721",
+      "visuallyInspected": true,
+      "acceptedForScene": true,
+      "limitation": "Network-state evidence, not a stable online-home screenshot"
+    },
+    {
+      "png": "passenger-12-home-cloud-restored-font10.png",
+      "xml": "passenger-12-home-cloud-restored-font10.xml",
+      "sha256": "6c0355518cc67eada983515e343a08d6cd7c7a8560dfe1a9c5e099d4fd175dcf",
+      "visuallyInspected": true,
+      "acceptedForScene": true,
+      "limitation": null
+    },
+    {
+      "png": "passenger-13-map-isolated-offline-font10.png",
+      "xml": "passenger-13-map-isolated-offline-font10.xml",
+      "sha256": "7556bc0f0e9ca7084f5072b2d7d841ae985d3b3bf70f0776587cb33fd264979b",
+      "visuallyInspected": true,
+      "acceptedForScene": true,
+      "limitation": "Network-state evidence, not a stable online-home screenshot"
+    }
+  ],
+  "checks": [
+    {
+      "check": "Final same-signature install-r with existing identity retained",
+      "result": "PASS",
+      "evidence": [
+        "driver-apk.json",
+        "passenger-apk.json",
+        "driver-06-profile-font10.png",
+        "passenger-07-profile-font10.png"
+      ]
+    },
+    {
+      "check": "Two real map home surfaces and bottom panels",
+      "result": "PASS_WITH_P2",
+      "evidence": [
+        "driver-02-home-stable-font10.png",
+        "passenger-02-home-stable-font10.png"
+      ]
+    },
+    {
+      "check": "Chinese selected route labels/amounts/buttons readable on normal font",
+      "result": "PASS_LIMITED_TO_EXISTING_LABELS",
+      "note": "No arbitrary-length stress string or dedicated large-font matrix; driver first CTA clip is P2."
+    },
+    {
+      "check": "Driver acceptance modal Return only",
+      "result": "PASS",
+      "evidence": [
+        "driver-03-order-cta-scroll-font10.png",
+        "driver-04-accept-dialog-font10.png"
+      ],
+      "note": "Opened demo call order then Return, never Confirm acceptance."
+    },
+    {
+      "check": "Orders and profile tabs",
+      "result": "PASS",
+      "evidence": [
+        "driver-05-orders-font10.png",
+        "driver-06-profile-font10.png",
+        "passenger-06-orders-font10.png",
+        "passenger-07-profile-font10.png"
+      ],
+      "note": "Passenger in-progress empty state retained; did not generate an order. Driver displays29.26 WAIT_PAY, wallet557.74, counts15/10 and score98."
+    },
+    {
+      "check": "Map pan/recenter",
+      "result": "PASS",
+      "evidence": [
+        "driver-07-map-panned-font10.png",
+        "driver-08-map-recentered-font10.png",
+        "passenger-03-map-panned-font10.png",
+        "passenger-04-map-recentered-font10.png"
+      ],
+      "note": "Driver recenter follows cold-boot AVD default GPS at Googleplex; not evidence of real-world GPS accuracy or Chinese navigation."
+    },
+    {
+      "check": "Map source attribution dialog",
+      "result": "PASS",
+      "evidence": [
+        "driver-09-map-attribution-font10.png",
+        "passenger-05-map-attribution-font10.png"
+      ],
+      "observed": "MapLibre Android, OpenFreeMap, OpenMapTiles, OpenStreetMap."
+    },
+    {
+      "check": "Address editor with keyboard and Cancel",
+      "result": "PASS",
+      "evidence": [
+        "passenger-08-address-dialog-font10.png",
+        "passenger-09-address-keyboard-font10.png"
+      ],
+      "note": "Focused existing address without typing/saving; Cancel worked, both action buttons remained visible above keyboard."
+    },
+    {
+      "check": "Sampled primary app control48dp hit areas",
+      "result": "PASS_SAMPLED",
+      "evidence": [
+        "touch-targets.json"
+      ]
+    },
+    {
+      "check": "Offline cached-map availability",
+      "result": "PASS",
+      "evidence": [
+        "passenger-10-map-offline-font10.png",
+        "network-retry.json"
+      ],
+      "note": "WiFi/data off on passenger AVD only, cold app startup22s, cache still rendered actual map. Cloud connection failure is distinct from map failure."
+    },
+    {
+      "check": "Cloud connection retry after restoring network",
+      "result": "PASS",
+      "evidence": [
+        "passenger-11-map-network-restored-font10.png",
+        "passenger-12-home-cloud-restored-font10.png"
+      ],
+      "note": "Tapped cloud retry; stable map home and active call CTA returned; no call submitted."
+    },
+    {
+      "check": "Map load-failure message with SDK cache isolated",
+      "result": "PASS",
+      "evidence": [
+        "passenger-13-map-isolated-offline-font10.png",
+        "map-cache-isolated-retry.json"
+      ],
+      "note": "Only identified files/mbgl-offline.db reversibly renamed, no prefs/tokens/account data read. Offline showed map unavailable, address fallback, actual reload button."
+    },
+    {
+      "check": "Exact MapView key replacement from actual reload-button tap",
+      "result": "NOT_RUN",
+      "evidence": [
+        "map-cache-isolated-retry.json"
+      ],
+      "note": "After restoring network and4s wait, fresh node tree no longer had reload button; tap assertion0 stopped procedure. No false claim of retry tap, automatic recovered tiles or key-path PASS."
+    }
+  ],
+  "findings": [
+    {
+      "id": "UI03-DRV-P2-01",
+      "priority": "P2",
+      "evidence": "driver-02-home-stable-font10.png",
+      "observed": "First order CTA lower edge is clipped by bottom navigation on initial normal-font home; scrolling reaches full CTA and modal works.",
+      "recommendation": "Reduce fixed map share or reserved status area so first CTA fits; coordinator plans0.42→0.36."
+    },
+    {
+      "id": "UI03-PAX-P2-02",
+      "priority": "P2",
+      "evidence": [
+        "passenger-02-home-stable-font10.png",
+        "passenger-04-map-recentered-font10.png"
+      ],
+      "observed": "Selected point markers sit close to corners and are partly covered by preview badge/recenter control after fit.",
+      "recommendation": "Density-aware asymmetric padding around map overlays."
+    }
+  ],
+  "p0p1ProductFindings": [],
+  "referenceComparison": [
+    {
+      "reference": "../after/reference/modao-driver-map-home-clean.png",
+      "actual": "driver-02-home-stable-font10.png",
+      "matchedState": "Logged in, listening, no live accepted trip; actual has explicit demo offers",
+      "assessment": "Map-first hierarchy and lower order surface implemented. Actual fixed map/status cards still leave less immediate CTA room than compact prototype, captured as P2. Different order inventory is not fabricated to match."
+    },
+    {
+      "reference": "../after/reference/modao-driver-profile-clean.png",
+      "actual": "driver-06-profile-font10.png",
+      "matchedState": "Driver profile with same retained account",
+      "assessment": "Compact identity and grouped operations/platform sections improved; actual uses grouped vertical menu rows while reference uses icon grids. Record as design difference rather than claim pixel-faithful clone."
+    },
+    {
+      "reference": "../after/reference/provided-passenger-map-home.png",
+      "actual": "passenger-02-home-stable-font10.png",
+      "matchedState": "Ready to call, no active trip",
+      "assessment": "Real large map, white bottom route panel and prominent call action follow reference direction. Existing three service modes retained; no unsupported95128 banner or fake GPS promise added."
+    }
+  ],
+  "notRun": [
+    "New login screen because existing accounts retained, no logout",
+    "Physical phone/landscape/TalkBack/full accessibility",
+    "Dedicated elder/large-font matrix paused by current task",
+    "External Amap endpoint text and complaints submission",
+    "New real acceptance/call/payment/cancellation or full three-client business lifecycle",
+    "Arbitrary ultra-long address stress test",
+    "Exact retry-button key branch as specified above"
+  ],
+  "teardown": {
+    "bothAppsForceStopped": true,
+    "bothAtHome": true,
+    "fontsUnchanged": 1.0,
+    "passengerNetworkRestored": {
+      "wifi_on": "1",
+      "mobile_data": "1"
+    },
+    "originalSdkMapCacheRestored": true,
+    "generatedSdkDbPreservedAt": [
+      {
+        "path": "files/mbgl-offline.db",
+        "backup": "files/.ui03-map-cache-20261025-1855/generated/files/mbgl-offline.db"
+      }
+    ],
+    "noPrefsOrTokensRead": true,
+    "accountsNotCleared": true,
+    "noOrderOrMoneyActions": true,
+    "noOnlineOfflineToggle": true,
+    "originalAvdsLeftRunningForNextScopedPackage": true
+  },
+  "sourceEditsByReviewer": false,
+  "buildsByReviewer": false,
+  "deploymentsByReviewer": false,
+  "nextStep": "Coordinator applies2P2 changes; fresh SHA/hash delta retest and separately complete exact map reload-button branch; no publication based solely on this partial report."
+}

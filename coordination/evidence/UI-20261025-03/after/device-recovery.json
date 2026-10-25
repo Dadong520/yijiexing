@@ -1,0 +1,24 @@
+{
+  "at": "2026-10-25T18:07:37.045149+08:00",
+  "reason": "Both guest shell commands timed out8s; old emulator kill/TERM eventually exited; no duplicate launch",
+  "devices": [
+    {
+      "role": "driver",
+      "pid": 3430,
+      "avd": "Yijiexing_Driver_Pair_QA",
+      "port": 5586,
+      "wipeData": false,
+      "deleteSnapshot": false,
+      "skipSnapshotLoadSave": true
+    },
+    {
+      "role": "passenger",
+      "pid": 3431,
+      "avd": "Yijiexing_Passenger_QA",
+      "port": 5584,
+      "wipeData": false,
+      "deleteSnapshot": false,
+      "skipSnapshotLoadSave": true
+    }
+  ]
+}

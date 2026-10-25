@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "id": "AUTH-20261025-01",
+  "owner": "coordinator",
+  "goal": "排查司机与乘客演示访问码无效，核验现有凭据和两端登录；不旋转密钥或修改业务代码。",
+  "baseSha": "ff9f5a787fede48bb2ac1035c38d45ff543323b2",
+  "allow_paths": [
+    "coordination/evidence/AUTH-20261025-01/"
+  ],
+  "checks": [
+    "当前服务固定secret version1与本机私密文件一致",
+    "有效访问码通过鉴权边界，错误控制码403",
+    "两端合成测试账户获取验证码、登录和认证读取成功；不执行订单动作"
+  ],
+  "status": "SERVER_VERIFIED_CURRENT_CODE_DELIVERED",
+  "acceptance": "PASS",
+  "acceptanceScope": "Existing code and API login verified; user-device re-entry not observed",
+  "tests": [
+    {
+      "command": "direct curl boundary controls and two test-account code/login/state flows; secret read only into memory",
+      "status": "PASS",
+      "exitCode": 0
+    }
+  ],
+  "evidence": [
+    "coordination/evidence/AUTH-20261025-01/access-boundary-check.json",
+    "coordination/evidence/AUTH-20261025-01/login-verification.json"
+  ],
+  "nextAction": "用户从本机private文件复制完整32位码到两端连接设置；如仍报错按具体设备继续排查",
+  "deploy_owner": "coordinator",
+  "releaseReady": false,
+  "sourceChanged": false,
+  "credentialsRotated": false,
+  "deploymentPerformed": false,
+  "orderWriteActions": 0
+}

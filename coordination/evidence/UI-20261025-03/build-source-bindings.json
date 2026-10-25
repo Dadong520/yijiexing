@@ -1,0 +1,66 @@
+{
+  "sourceSha": "4d089b37790069a0a13bfe8bfc770f0aaa03a653",
+  "allTaskSourceIdentical": true,
+  "files": [
+    {
+      "path": "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/UiKit.kt",
+      "sha256": "839ca2ef3ba49f834eac6a6f79615e1515668525a8d962fe7a9939a67a70ed9f"
+    },
+    {
+      "path": "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/CoreScreens.kt",
+      "sha256": "d205093b7cac3fbb674046d715893eeea64962062b629e3e149d656b05263c63"
+    },
+    {
+      "path": "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/MainActivity.kt",
+      "sha256": "7309d701c9eb0a69ec8e36a941854f36b224e80795feb53b9f22b94384cbb651"
+    },
+    {
+      "path": "candidates/driver-0.3.6-r2/android/app/build.gradle.kts",
+      "sha256": "add05feadf44c1039f7cd2eec4ae1c53188ede01bf9eab7a2d6d13faf07a24cb"
+    },
+    {
+      "path": "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/MainActivity.kt",
+      "sha256": "3f963db0a45b3974bb6a15cac285166ae9db3f53d52a4004cb541fa3f926fbce"
+    },
+    {
+      "path": "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/UiComponents.kt",
+      "sha256": "aa43882ae16df3af4ecdde7a0d9198090dd15b6f8777b7865ee9a1530e1941e4"
+    },
+    {
+      "path": "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/BookingScreens.kt",
+      "sha256": "125b0f277905b2620387e08b8efb051b23720e97430d7f050f429af301af341d"
+    },
+    {
+      "path": "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/ProfileScreens.kt",
+      "sha256": "731757797398bfb4611ae20d2ec53c6b98126e1ea4b558f9a562a12f2331e258"
+    },
+    {
+      "path": "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/PassengerMap.kt",
+      "sha256": "22c8a358862fa967e89b25427298e65ed2a0361dbb014c04a567757134f99e92"
+    },
+    {
+      "path": "apps/passenger-android/app/src/main/res/drawable/ic_passenger.xml",
+      "sha256": "ee1154225cb05af1f2f1407133f0ca0d80e0a767269a1a7ceed5fa9f674bb520"
+    },
+    {
+      "path": "apps/passenger-android/app/src/main/assets/third-party/MAP-SOURCES.txt",
+      "sha256": "769ae0abce7a83eef399c3708196bd2f4235fd965b9763d26da823dec30b8a8d"
+    },
+    {
+      "path": "apps/passenger-android/app/src/main/assets/third-party/MapLibre-Native-LICENSE.txt",
+      "sha256": "554cff8b6f6d2e77629e8c6eab769844ab86adc610ca2d60401ba2e0dce3c229"
+    },
+    {
+      "path": "apps/passenger-android/app/build.gradle.kts",
+      "sha256": "ccb14c4ca80f98e72d791c5843ea1683bc76812910833d90ace7b08db8cba954"
+    },
+    {
+      "path": "candidates/driver-0.3.6-r2/android/app/src/main/res/drawable-nodpi/yijiexing_welcome_hero.png",
+      "sha256": "7571d9e447125b3a52362ed1bd684e7ac2a90236a0ded20558c3de1820ddfa01"
+    },
+    {
+      "path": "apps/passenger-android/app/src/main/res/drawable-nodpi/yijiexing_welcome_hero.png",
+      "sha256": "7571d9e447125b3a52362ed1bd684e7ac2a90236a0ded20558c3de1820ddfa01"
+    }
+  ]
+}

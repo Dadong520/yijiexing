@@ -1,0 +1,278 @@
+{
+  "task": "UI-20261025-03",
+  "reviewer": "backend",
+  "authorIndependent": true,
+  "rulesAck": "2026-10-25-v2",
+  "recordedAt": "2026-10-25T18:08:46.850599+08:00",
+  "status": "PASS_SCOPE",
+  "baseSha": "ff9f5a787fede48bb2ac1035c38d45ff543323b2",
+  "finalSourceSha": "8499d6e5b6a19fc64c4375c6d70cd6edfccfa80f",
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-ui03-integration",
+  "sourceFiles": [
+    {
+      "path": "apps/passenger-android/app/build.gradle.kts",
+      "sha256": "ccb14c4ca80f98e72d791c5843ea1683bc76812910833d90ace7b08db8cba954",
+      "bytes": 1520
+    },
+    {
+      "path": "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/BookingScreens.kt",
+      "sha256": "125b0f277905b2620387e08b8efb051b23720e97430d7f050f429af301af341d",
+      "bytes": 31075
+    },
+    {
+      "path": "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/MainActivity.kt",
+      "sha256": "51fbffa46628a2b90982035a0dd5adaf0960cd2bc179c2607d4f2d9334f4e6cb",
+      "bytes": 21936
+    },
+    {
+      "path": "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/PassengerMap.kt",
+      "sha256": "22c8a358862fa967e89b25427298e65ed2a0361dbb014c04a567757134f99e92",
+      "bytes": 6671
+    },
+    {
+      "path": "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/ProfileScreens.kt",
+      "sha256": "731757797398bfb4611ae20d2ec53c6b98126e1ea4b558f9a562a12f2331e258",
+      "bytes": 17161
+    },
+    {
+      "path": "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/UiComponents.kt",
+      "sha256": "aa43882ae16df3af4ecdde7a0d9198090dd15b6f8777b7865ee9a1530e1941e4",
+      "bytes": 7768
+    },
+    {
+      "path": "candidates/driver-0.3.6-r2/android/app/build.gradle.kts",
+      "sha256": "add05feadf44c1039f7cd2eec4ae1c53188ede01bf9eab7a2d6d13faf07a24cb",
+      "bytes": 1905
+    },
+    {
+      "path": "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/CoreScreens.kt",
+      "sha256": "d205093b7cac3fbb674046d715893eeea64962062b629e3e149d656b05263c63",
+      "bytes": 93275
+    },
+    {
+      "path": "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/MainActivity.kt",
+      "sha256": "7309d701c9eb0a69ec8e36a941854f36b224e80795feb53b9f22b94384cbb651",
+      "bytes": 20915
+    },
+    {
+      "path": "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/UiKit.kt",
+      "sha256": "839ca2ef3ba49f834eac6a6f79615e1515668525a8d962fe7a9939a67a70ed9f",
+      "bytes": 22153
+    }
+  ],
+  "criticalFiles": [
+    {
+      "path": "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/ConnectedStore.kt",
+      "expectedSha256": "2bca6f10f996c75f4bbba4152757bdea2c004e23f09f0c91a2bc3d7b0e60801a",
+      "actualSha256": "2bca6f10f996c75f4bbba4152757bdea2c004e23f09f0c91a2bc3d7b0e60801a",
+      "result": "PASS"
+    },
+    {
+      "path": "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/DriverDomain.kt",
+      "expectedSha256": "676804352d3acb8c0cda491762e075e859c43a03f2b34e58fd86e8976cfc32e3",
+      "actualSha256": "676804352d3acb8c0cda491762e075e859c43a03f2b34e58fd86e8976cfc32e3",
+      "result": "PASS"
+    },
+    {
+      "path": "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/NegotiationContract.kt",
+      "expectedSha256": "cd21b64d624a54772f0cc9ed243420e879d974539542802f57f78cc75e07ebb6",
+      "result": "PASS",
+      "actualSha256": "cd21b64d624a54772f0cc9ed243420e879d974539542802f57f78cc75e07ebb6"
+    },
+    {
+      "path": "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/NavigationContract.kt",
+      "expectedSha256": "d20235441008d85b4c8d371c56697d524b4b66ffff1458ea9c08bc22d3813761",
+      "result": "PASS",
+      "actualSha256": "d20235441008d85b4c8d371c56697d524b4b66ffff1458ea9c08bc22d3813761"
+    },
+    {
+      "path": "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/TripWaypoints.kt",
+      "expectedSha256": "eb3b649e2b18b8c65638616ad18723f3c6b0e8600a8a69d915b9f1c42d2a1ed8",
+      "actualSha256": "eb3b649e2b18b8c65638616ad18723f3c6b0e8600a8a69d915b9f1c42d2a1ed8",
+      "result": "PASS"
+    },
+    {
+      "path": "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/StateRequestCoordinator.kt",
+      "expectedSha256": "a73d94739770b552314a9a22b731523d67e97d69281294b257bec07fa1489dbc",
+      "actualSha256": "a73d94739770b552314a9a22b731523d67e97d69281294b257bec07fa1489dbc",
+      "result": "PASS"
+    },
+    {
+      "path": "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/PassengerStore.kt",
+      "expectedSha256": "74d0cf010ccfd3388a12018b1a984f787e6668e61afcc00cd41d7c0eee92d269",
+      "actualSha256": "74d0cf010ccfd3388a12018b1a984f787e6668e61afcc00cd41d7c0eee92d269",
+      "result": "PASS"
+    },
+    {
+      "path": "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/PendingRequestJournal.kt",
+      "expectedSha256": "1d1b4d1bca498d1c8b53794aeb60cccffa0aab43c31238a43d1dd37a2faf251c",
+      "actualSha256": "1d1b4d1bca498d1c8b53794aeb60cccffa0aab43c31238a43d1dd37a2faf251c",
+      "result": "PASS"
+    },
+    {
+      "path": "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/PaymentConfirmation.kt",
+      "expectedSha256": "68e7e9c66a634dff188c2490770a09495e19c121634155f6f4c50298dc1088e4",
+      "actualSha256": "68e7e9c66a634dff188c2490770a09495e19c121634155f6f4c50298dc1088e4",
+      "result": "PASS"
+    },
+    {
+      "path": "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/Negotiation.kt",
+      "expectedSha256": "d96e137af11de3cda1c5b6387bd911923a840448720c1121d89714792dfe3bf5",
+      "actualSha256": "d96e137af11de3cda1c5b6387bd911923a840448720c1121d89714792dfe3bf5",
+      "result": "PASS"
+    },
+    {
+      "path": "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/OrderFarePresentation.kt",
+      "expectedSha256": "807e08ea6813ea1ab53c8ae25df2161d60b605f0018ccff50079427bffb512eb",
+      "actualSha256": "807e08ea6813ea1ab53c8ae25df2161d60b605f0018ccff50079427bffb512eb",
+      "result": "PASS"
+    },
+    {
+      "path": "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/AddressSearch.kt",
+      "expectedSha256": "6b8f574aa7ccb354e5fc5dd90c0a6385329c473660631b128726997a0d65c0c7",
+      "result": "PASS",
+      "actualSha256": "6b8f574aa7ccb354e5fc5dd90c0a6385329c473660631b128726997a0d65c0c7"
+    },
+    {
+      "path": "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/PassengerLocalExtras.kt",
+      "expectedSha256": "3e83db4921770685792acad2a53e185140116c8c6791091861ff21811c11fd30",
+      "result": "PASS",
+      "actualSha256": "3e83db4921770685792acad2a53e185140116c8c6791091861ff21811c11fd30"
+    }
+  ],
+  "checks": [
+    {
+      "name": "critical13ByteExact",
+      "result": "PASS"
+    },
+    {
+      "name": "bookingControllerExact",
+      "result": "PASS"
+    },
+    {
+      "name": "addressDialogExact",
+      "result": "PASS"
+    },
+    {
+      "name": "routes retained CoreScreens.kt",
+      "result": "PASS",
+      "details": {
+        "file": "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/CoreScreens.kt",
+        "missing": [],
+        "added": []
+      }
+    },
+    {
+      "name": "routes retained ProfileScreens.kt",
+      "result": "PASS",
+      "details": {
+        "file": "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/ProfileScreens.kt",
+        "missing": [],
+        "added": []
+      }
+    },
+    {
+      "name": "literal business action call names and counts",
+      "result": "PASS",
+      "details": "Compared all changed Kotlin files against exact base; no additions/removals."
+    },
+    {
+      "name": "login/profile guards",
+      "result": "PASS_READ_SCOPE",
+      "details": "PassengerApp gates LoginScreen on !logged, auth subscription and logged-reset retained, extras owner=passenger.id; profile edit keeps name length/busy and profile.update, logout remains explicit confirmation. Driver MainActivity business flow unchanged apart from visual scalars."
+    },
+    {
+      "name": "driver active/WAIT_PAY/rights/onGrab",
+      "result": "PASS_READ_SCOPE",
+      "details": "Uses canAcceptOrders false by default, state.activeOrder and pendingCollections separately; AVAILABLE real-first sort and active==null&&canAccept&&online order gate; onGrab callback and parent confirmation route retained."
+    },
+    {
+      "name": "amounts/simulation/features",
+      "result": "PASS_READ_SCOPE",
+      "details": "UI displays existing service amounts and status; no new marketing asset/pay/reward writes; demo labels and unavailable capability boundaries retained. No core reducers modified."
+    },
+    {
+      "name": "PassengerMap retry and no business write",
+      "result": "FIX_CONFIRMED_STATIC",
+      "details": "key(mapView) is present in final commit; old observer removed and view destroyed in DisposableEffect; late async callbacks guard disposed. Coordinates only drive markers/camera; no GPS, new order mutation, or navigation claim."
+    }
+  ],
+  "findings": [
+    {
+      "severity": "P1",
+      "file": "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/PassengerMap.kt",
+      "issue": "retry created new remembered MapView but AndroidView factory node had no key, risking display of destroyed old instance",
+      "status": "FIXED_IN_FINAL_SOURCE_STATIC",
+      "requiredDeviceCase": "disable network -> visible failure -> restore network -> retry, real new map view displayed and old callbacks not applied",
+      "reference": "https://developer.android.com/reference/kotlin/androidx/compose/ui/viewinterop/AndroidView.composable"
+    }
+  ],
+  "notRun": [
+    "Build/unit/backend suites by this reviewer (not repeated)",
+    "Emulator real map load/lifecycle and offline-failure->network recovery->retry",
+    "Coordinate accuracy, actual attribution visibility, navigation/keyboard physical interaction",
+    "Artifact signing/coverage install/cloud deployment/public readback"
+  ],
+  "executionNotes": [
+    "Source reads blocked in pathlib.read_bytes, first localized to DriverDomain.kt, then other unchanged files; no mismatching hash was inferred from a timeout.",
+    "Stopped this review’s sessions 16556/49060/32553/84282 with Ctrl-C; bounded reader69333 also exited. No product/process of other owner was stopped.",
+    "No source edit, build, deployment, cloud call, child agent or Gemini run.",
+    "Coordinator hydrated dataless files with brctl; this was one final bounded20s pass, no new background retry loop.",
+    "Final non-iCloud local Git commit objects supplied by coordinator read normally. No further retry loop or external task was started."
+  ],
+  "recommendation": "PASS_SCOPE applies to finalSourceSha, exactly two literal substitutions after prior accepted source. Keep frontend map retry/runtime acceptance and coordinator artifact build/signature/download gates. This review does not change backend/admin scope.",
+  "state": "IDLE",
+  "finalTargetedAttempt": {
+    "startedAfterCoordinatorHydration": true,
+    "maxSeconds": 20,
+    "unfinished": [
+      "Command '['git', '-C', '/Users/dongge/Documents/New project 2/.coordination/integration-ag-final', 'show', 'ff9f5a787fede48bb2ac1035c38d45ff543323b2:apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/BookingScreens.kt']' timed out after 19.995965957990848 seconds"
+    ],
+    "checks": [
+      {
+        "name": "critical13 final one-pass",
+        "result": "PASS",
+        "verified": 13,
+        "total": 13
+      }
+    ],
+    "endedAt": "2026-10-25T18:02:35.315229+08:00",
+    "resolution": "Completed on coordinator-provided non-iCloud source at finalSourceSha; exact baseline comparison and all hashes now PASS."
+  },
+  "checksAfterHydration": {
+    "critical13ByteExact": true,
+    "bookingControllerExact": true,
+    "addressDialogExact": true
+  },
+  "historicalReadAttempts": {
+    "statusBeforeLocalMigration": "FAIL_INCOMPLETE_OR_CHANGED_REVIEW",
+    "cause": "Documents dataless files / source object reads timed out; no business mismatch",
+    "supersededByFinalLocalCommitReview": true
+  },
+  "previousAcceptedSourceSha": "4d089b37790069a0a13bfe8bfc770f0aaa03a653",
+  "finalTextOnlyFollowup": {
+    "fromSha": "4d089b37790069a0a13bfe8bfc770f0aaa03a653",
+    "toSha": "8499d6e5b6a19fc64c4375c6d70cd6edfccfa80f",
+    "changedNativePaths": [
+      "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/MainActivity.kt"
+    ],
+    "exactlyTwoLiteralReplacements": true,
+    "literalReplacements": [
+      [
+        "我已阅读并同意下方体验说明与服务协议",
+        "我已阅读并同意下方体验说明"
+      ],
+      [
+        "地图仅展示坐标示意；",
+        "地图展示已选起终点，非实时定位；"
+      ]
+    ],
+    "logicChanged": false,
+    "actualMainActivitySha256": "51fbffa46628a2b90982035a0dd5adaf0960cd2bc179c2607d4f2d9334f4e6cb",
+    "reviewedBy": "backend/non-author",
+    "runtimeTestsByReviewer": "NOT_RUN",
+    "coordinatorReportedTests": "Final55/20 PASS; not independently rerun here",
+    "coordinatorBuildBindingsEvidence": "build-source-bindings.json (coordinator reported)",
+    "sourceVerifierNote": "Initial verifier assumed each changed string occupied a Text(...) line; one is a multiline Note string. Replaced with exact full-file reconstruction from two literal substitutions; no product fault inferred."
+  }
+}

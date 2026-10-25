@@ -1,0 +1,35 @@
+[
+  {
+    "args": [
+      "-P",
+      "5038",
+      "start-server"
+    ],
+    "code": 0,
+    "out": "",
+    "err": "* daemon not running; starting now at tcp:5038\n* daemon started successfully\n"
+  },
+  {
+    "args": [
+      "-P",
+      "5038",
+      "devices",
+      "-l"
+    ],
+    "code": 0,
+    "out": "List of devices attached\nemulator-5584          offline transport_id:1\n\n",
+    "err": ""
+  },
+  {
+    "connect": 5587,
+    "code": 0,
+    "out": "connected to 127.0.0.1:5587\n",
+    "err": ""
+  },
+  {
+    "connect": 5585,
+    "code": 0,
+    "out": "connected to 127.0.0.1:5585\n",
+    "err": ""
+  }
+]
