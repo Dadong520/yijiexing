@@ -36,7 +36,7 @@
     "与参考同屏状态对比design-qa，不仅编译/截图就通过",
     "现有55/20逻辑测试+同签名升级保留登录、地图/导航/主要弹窗，独立验收后唯一协调者发布并直连完整回读"
   ],
-  "status": "SOURCE_ACCEPTED_PENDING_ACCESS",
+  "status": "DEPLOYED",
   "acceptance": "PASS",
   "tests": [
     {
@@ -82,7 +82,7 @@
       "sha256": "e1ba2c5acede6ab7d8a433e67050ca2ae06cc4976e2c40812d7d3f922a45dc4a"
     }
   ],
-  "nextAction": "Merge accepted UI03 source; hold039/119 publication per latest user request. ACCESS releases new no-code apps/backend together.",
+  "nextAction": "本轮完成并停止。等待用户体验反馈，不常驻工作，不自动暂停Cloud Run。",
   "deploy_owner": "coordinator",
   "releaseReady": false,
   "productSha": "b9bd90a58f01a4e6f09e37366ed8f8b3feaaa51b",

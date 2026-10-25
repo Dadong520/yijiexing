@@ -1,15 +1,17 @@
-# frontend ACCESS短交接
+# frontend ACCESS最终短交接
 
-ACK v2。ACCESS-20261025-01独立原生主流程 **PASS_WITH_ONE_P2 / IDLE**，releaseReady=false待文案修正；唯一设备操作权已交还root，不再ADB/窗口、不自动派单或轮询。只改证据/handoff；没有源码、构建、提交、部署或额外会话唤醒。
+ACK v2。ACCESS-20261025-01最后文字delta独立验收 **PASS_SCOPE / IDLE**，唯一设备操作权已交还coordinator。只改证据/handoff，不产品/构建/commit/部署/额外唤醒。20:30:58开始，原4min至20:34:58；所有设备操作 **20:34:13**结束，未用root后来延长到20:38的时间继续操作。
 
-活跃worktree `/Users/dongge/.codex/tmp/yijiexing-access-20261025`，产品 **2e5dd4e7784467f1ee417f9c7ff2144d907e1467**；driver0.3.10-cloud/code13 SHA256 `673422e7f4a064423640903b310a1b2d24fc33e05d4315ee853159a13040b0a7`；passenger1.1.10-experience/code12 SHA256 `6ab82b23cff0d689605cfc2b8702f80349c1c051aec7c6c90f9fc81359f2b599`。两install-r、pm path/base.apk独立hash和apksigner签名回读匹配，原03/02会话保留。证据根 `coordination/evidence/ACCESS-20261025-01/frontend/`，22PNG/XML全部逐图查看，最终design-qa.json SHA256 **2ee62e11750e80dbf4bb1f2bd26b97ecc6e07a01cf9b882cb452b44cbb1cb638**。20:07:56开始，设备全部操作20:16:36完成，未超20:17:56十分钟上限。
+唯一AUTH根 `/Users/dongge/.codex/tmp/yijiexing-access-20261025`；最终产品 **eb54e70f27c53aaf569390039349cf3487ff008f**。driver0.3.10-cloud/code13已装SHA256 `95c948f29ba44fdf30904e5e7880ce298d33d67036686be19e0b7da152441042`；passenger1.1.10-experience/code12已装SHA256 `c2a640c69e2781ca75d2b0754dc14b2d84c9ed8e30c0f3da06f9879bf84842f9`。两install-r/pm-path base.apk实际bytes SHA与local APK一致，apksigner同旧签名。55/20为root再次构建证据，本人不重跑。
 
-实际PASS：升级后两端真实首页和资料、passenger刷新订单、driver连接重试；正常App退出→无访问码/验证码输入的新登录页；同意前进入按钮可点击父节点disabled；菜单3体验账号并选回默认driver003/passenger0102；连接对话框和driver设置顶部/底部无重置访问码；两AVD各wifi/data0/0进入失败，明确中文提示留登录页；恢复1/1后driver单击、passenger连续双击进入均到真实地图及本人资料；force-stop重开保留登录。doubletap只证明正确单一UI身份，不伪称逐请求计数或捕获busy帧。源绑定两个Store无X-Demo-Access header，内部role token及身份校验保留；没拦截TLS/读token/prefs/code。
+最终报告 `coordination/evidence/ACCESS-20261025-01/frontend-final/design-qa.json` SHA256 **10a80989db4952d7669dbe445ba2eb7fc1f8c57bf7ace50b9559236868c02610**。6PNG/XML全实际看图；installed/delta/connection-recovery/source-delta/static-review齐。**ACCESS-PAX-P2-01 CLOSED**：实际新版退出确认03说“下次可选择体验账号一键进入”，点击取消，未登出。Pax资料02保留0102，后续04真实地图首页和call CTA、无连接更新错误；driver恢复后02图/树为03网络正常及可用offer/待收款2笔共存，无登录再触发。
 
-OPEN **ACCESS-PAX-P2-01**：passenger退出确认实图04仍写“下次可重新获取体验验证码登录”，与实际无码流程冲突。源码ProfileScreens.kt约187行；建议改“下次可选择体验账号一键进入”。已两次短报root，由root安排修正文案/重建/最终增量验收。本报告只接受2e5及上述已装hash，不替任何后续包自动放行。
+必须保留的观察：初driver01为session仍在的“服务连接提示：云端服务返回了无法识别的响应”，Pax01更新中；root说明当时未部署copy镜像或切流。driver重新打开时已自动刷新恢复成功，**没有实际点击重试按钮**（02文件名含retry仅描述原计划，JSON/报告明确retry未点）。Pax再打开04也clean。driver02有App新单heads-up覆盖头部，身份/网络同时有fresh XML证据，不冒称完整视觉重测。异常原因未确定，不能把冷启动/网络假说当事实；原错误图/JSON保留。已报root，无复现依据不改业务。
 
-资源完全恢复：driver/passenger-restoration.json逐字段original==final，wifi/data1/1、font1.0、physical1080x2400/420dpi均与原值相同；默认003/0102新登录保留；双App force-stop/HOME；原5586/5584 AVD留用。无订单/钱包/投诉/支付业务操作、在线切换、pm clear、清账户、缓存隔离。司机原网络正常、待收款2笔不影响接单与可用offer共存，557.74/15/10/98保留；29.26细单未在本轮重开，root已另做API保留对比不冒称本人测过。
+源2e5→eb54精确diff只有3文件4段文字：Pax logout和help短信项、driverStore旧DEMO错误提示、LocationService错误通知；auth/Home/数据/业务路径未变，后两异常不人为诱发。2e5全登录矩阵证据限定继承 `frontend/design-qa.json` SHA2562ee62e11750e80dbf4bb1f2bd26b97ecc6e07a01cf9b882cb452b44cbb1cb638：同意门禁/三账号菜单/单击与双击/离线失败恢复/角色资料/重启保留等确实已跑，不假称本包重跑。旧P2仅由本轮实际新版图关闭。
 
-测试辅助纠正均已如实记报告：初始/driver重启UI dump nullroot为屏幕休眠，wake后fresh截图通过；早期disabled断言看了Text子节点，纠正为按钮祖先，非产品缺陷；主脚本passenger完成，driver末图经单独有限wake补齐后双端恢复，完整login-checks/steps/restoration有证据。55/20构建非本人重复跑，root另拥有已上线API边界证据，不能冒称整三端交易完。
+非作者下载源码review **PASS_STATIC_SCOPE**：唯一API `/Users/dongge/.codex/tmp/yijiexing-api-20261025/apps/cloud-service/distribution.py` 实际bytes与 **ecab94fd2022d3142eefbedbb63c38641979bece**一致，仅该文件2行HTML/颜色及乘客replace变化；实际推导两份HTML均正确角色+勾说明进入，无访问码/手填验证码文字，后台独立登录/模拟收费边界保留。API auth原3422f1ccb9263438533eee8e89890d7296b644be没在本delta改；原源审/8HTTP由root限定继承，不冒称我再次HTTP/部署/公开页回读。
 
-NOT_RUN：其余账号实际登录、busy瞬时图/精确auth请求数、29.26原生细单、新完整交易/三端流程、外部高德/投诉、专门真机/横屏/大字/TalkBack、公开APK发布回读。UI03原已验收范围另有原报告，不本轮重复。下一步root关P2并绑定最终SHA/hash/gate统一合并发布；本人不继续无明确任务的新操作。
+恢复：原/最终network1/1、font1.0、physical1080x2400/420dpi逐字段相同，本轮未改这些设置；默认003/0102登录不变，无真实退出、订单/钱包/在线/投诉/支付、无prefs/token/code读取、pm clear或清缓存。双App最后均force-stop/HOME，原5586/5584 AVD仍留root。不要再无任务ADB或轮询。
+
+NOT_RUN：重复全登录矩阵、人工403/DEMO/定位通知触发、帮助整页导航（文字已读源码）、新公开下载HTML/APK发布GET、异常根因/稳定性压力、TLS请求计数、真机大字横屏/TalkBack、新三端交易全流程/高德/投诉。下一步coordinator精确绑定最终SHA/hash/gate，统一合并发布回读；本人IDLE，待明确新任务。

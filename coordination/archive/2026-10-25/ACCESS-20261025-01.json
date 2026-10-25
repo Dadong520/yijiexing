@@ -29,7 +29,7 @@
     "后端相关自动化/新增正负边界、两App构建测试、非作者实际无访问码登录与共享数据读取通过，后台IAP302/管理边界实测后发布回读",
     "CloudRun独立项目/min0/max1/请求计费/IAM/IAP保留，不增常驻服务；大包直连优先，secret不进APK/Git/消息"
   ],
-  "status": "ACCEPTED_FOR_DEPLOY",
+  "status": "DEPLOYED",
   "acceptance": "PASS",
   "tests": [
     {
@@ -84,14 +84,31 @@
     {
       "path": "coordination/evidence/ACCESS-20261025-01/frontend-final/passenger-delta.json",
       "sha256": "6e59767ebfdcb88c25d1b7c7fd0c45d37077baa728a14d836f413182f5752093"
+    },
+    {
+      "path": "coordination/evidence/ACCESS-20261025-01/frontend-final/design-qa.json",
+      "sha256": "10a80989db4952d7669dbe445ba2eb7fc1f8c57bf7ace50b9559236868c02610"
+    },
+    {
+      "path": "coordination/evidence/ACCESS-20261025-01/driver-public-release.json",
+      "sha256": "ca3e2613c17decf71b26c0deefd346d6480853758406b24f60a8a6ef0580a903"
+    },
+    {
+      "path": "coordination/evidence/ACCESS-20261025-01/passenger-public-release.json",
+      "sha256": "2cfc8b9e065129ba8c388238a153e39fae0fc0de102836dc660a7a912b2f4136"
     }
   ],
-  "nextAction": "Merge native PR after CI; publish both exact signed APK hashes then full public download readback.",
+  "nextAction": "本轮完成并停止。等待用户体验反馈，不常驻工作，不自动暂停Cloud Run。",
   "deploy_owner": "coordinator",
   "releaseReady": true,
   "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-access-20261025",
   "dependsOn": "OPENAPI-20261025-01 supplies live API; UI03 source merged98e87eb",
   "acceptedSha": "eb54e70f27c53aaf569390039349cf3487ff008f",
   "productSha": "eb54e70f27c53aaf569390039349cf3487ff008f",
-  "reviewer": "frontend (non-author native installation/login/UI tests and four-literal final delta)"
+  "reviewer": "frontend (non-author native installation/login/UI tests and four-literal final delta)",
+  "mergedSha": "8461a4e64113b461ca667851ea1a7fb148d34328",
+  "publishedVersions": {
+    "driver": "0.3.10-cloud (13)",
+    "passenger": "1.1.10-experience (12)"
+  }
 }
