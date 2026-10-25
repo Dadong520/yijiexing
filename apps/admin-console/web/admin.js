@@ -841,11 +841,22 @@ function memberLevelLabel(value){return {TRIAL:'体验司机',NORMAL:'普通司�
 function orderAmount(order){return order?.destinationPending===true?'费用待定（目的地待补充）':money(order?.fare)}
 function paymentAmount(record){if(record.type==='模拟提现'||record.recordType==='WITHDRAWAL')return money(record.amount??record.fare);const order=record.orderId?dataset('orders').find(o=>o.id===record.orderId):null;return record.destinationPending===true||order?.destinationPending===true?'费用待定（目的地待补充）':money(record.amount??record.fare)}
 
+function distanceReasonLabel(reason) {
+  if (reason==='OUTSIDE_DISTANCE') return '实际距离超过本次允许范围';
+  if (reason==='CONSENT_EXPIRED') return '乘客确认已超过有效期';
+  if (reason==='ORDER_CONTEXT_CHANGED') return '订单阶段、司机或目的地已变化';
+  if (reason==='DESTINATION_INVALID_OR_SYNTHETIC') return '目的地坐标缺失、无效或为演示坐标';
+  const prefix=reason?.startsWith('DRIVER_LOCATION_')?'司机':reason?.startsWith('PASSENGER_LOCATION_')?'乘客':null;
+  const suffix=prefix?reason.replace(/^(DRIVER|PASSENGER)_LOCATION_/, ''):'';
+  const problems={MISSING:'尚未上传当前定位',STALE:'定位已过旧',POOR_ACCURACY:'定位精度不足',INVALID:'定位数据无效'};
+  return prefix&&problems[suffix]?prefix+problems[suffix]:'其他定位核验原因，请展开快照查看';
+}
+
 function distanceConsentDetails(o) {
   const rows = [o.distanceConsent, ...(o.distanceConsentHistory || [])].filter(Boolean);
   const seen = new Set();
   const names = {PENDING:'等待乘客同意',APPROVED:'乘客已同意',REJECTED:'乘客已拒绝',EXPIRED:'确认已过期',INVALIDATED:'确认已失效',SUPERSEDED:'已被新请求替代'};
-  return '<h3 style="margin-top:24px">接送距离与乘客确认</h3><p class="muted">距离由服务端按定位计算；超过阈值或定位缺失、过旧时须由本订单乘客同意。未同意前不推进订单。</p>' + (rows.filter(x=>!seen.has(x.id)&&seen.add(x.id)).map(x=>'<section class="panel">'+details({'确认编号':esc(x.id),'确认事项':x.type==='PICKUP'?'接到乘客':'送达乘客','处理状态':esc(names[x.status]||x.status),'实测直线距离':Number.isFinite(x.distanceMeters)?esc(Math.round(x.distanceMeters))+' 米':'定位不足，未计算','本次阈值':esc(x.thresholdMeters)+' 米','触发原因':esc(x.reason),'创建时间':time(x.createdAt),'有效期至':time(x.expiresAt),'原订单阶段':badge(x.expectedStage),'同意后阶段':badge(x.nextStage)})+'<details><summary>定位及规则快照</summary><pre class="code">'+pretty(x)+'</pre></details></section>').join('') || '<p class="muted">尚无需要乘客确认的接送请求。</p>');
+  return '<h3 style="margin-top:24px">接送距离与乘客确认</h3><p class="muted">距离由服务端按定位计算；超过阈值或定位缺失、过旧时须由本订单乘客同意。未同意前不推进订单。</p>' + (rows.filter(x=>!seen.has(x.id)&&seen.add(x.id)).map(x=>'<section class="panel">'+details({'确认编号':esc(x.id),'确认事项':x.type==='PICKUP'?'接到乘客':'送达乘客','处理状态':esc(names[x.status]||x.status),'实测直线距离':Number.isFinite(x.distanceMeters)?esc(Math.round(x.distanceMeters))+' 米':'定位不足，未计算','本次阈值':esc(x.thresholdMeters)+' 米','触发原因':esc(distanceReasonLabel(x.reason)),'创建时间':time(x.createdAt),'有效期至':time(x.expiresAt),'原订单阶段':badge(x.expectedStage),'同意后阶段':badge(x.nextStage)})+'<details><summary>定位及规则快照</summary><pre class="code">'+pretty(x)+'</pre></details></section>').join('') || '<p class="muted">尚无需要乘客确认的接送请求。</p>');
 }
 
 function tripDistanceForm(initialScope='national', initialTarget='CN') {
