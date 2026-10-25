@@ -132,7 +132,7 @@ fun ProfileScreen(
       MenuRow("公告、客服与服务说明", Icons.Default.Info) { navigate("help") }
     }
     Panel("应用设置") {
-      MenuRow("连接设置", Icons.Default.Settings, "独立体验环境") { settings() }
+      MenuRow("连接状态", Icons.Default.Settings, "网络异常时重试") { settings() }
       HorizontalDivider(color = Color(0xFFF3F4F6), thickness = 0.8.dp)
       Note("体验版 ${BuildConfig.VERSION_NAME}")
       Note("与司机端共用订单。支付、退款与发票均为模拟，不产生真实资金或凭证。地址搜索使用设备系统Geocoder；自动定位、道路导航、短信、电话中继及实时人工客服尚未接入；投诉支持后台查看和回复。")

@@ -1,5 +1,7 @@
 package cn.hbzjhs.driver.preview
 
+import androidx.compose.material3.RadioButton
+import androidx.compose.foundation.selection.selectable
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.semantics.semantics
@@ -42,61 +44,27 @@ import org.json.JSONObject
 
 @Composable
 fun LocalLogin(store: ConnectedStore) {
-    var phone by rememberSaveable { mutableStateOf("13800000001") }
-    var code by rememberSaveable { mutableStateOf("") }
-    var remaining by rememberSaveable { mutableIntStateOf(0) }
+    var selectedPhone by rememberSaveable { mutableStateOf("13800000003") }
     var connectionDialog by remember { mutableStateOf(false) }
-    var accessPrompt by remember { mutableStateOf(false) }
-    var requestingCode by remember { mutableStateOf(false) }
-    var phoneError by rememberSaveable { mutableStateOf<String?>(null) }
-    var codeError by rememberSaveable { mutableStateOf<String?>(null) }
-    var formError by rememberSaveable { mutableStateOf<String?>(null) }
-    val focus = LocalFocusManager.current
+    var agreed by rememberSaveable { mutableStateOf(false) }
+    var accountMenu by remember { mutableStateOf(false) }
     val loading by store.loading.collectAsState()
-    val accessConfigured by store.accessConfigured.collectAsState()
     val sessionAvailable by store.sessionAvailable.collectAsState()
     val connectionError by store.error.collectAsState()
-    val allowedPhones = setOf("13800000001", "13800000002", "13800000003")
-    var agreed by rememberSaveable { mutableStateOf(false) }
-    fun checkConnectionAndPhone(): Boolean {
-        formError = null
-        phoneError =
-            when {
-                phone.isBlank() -> "请输入演示手机号"
-                phone.length != 11 -> "手机号应为 11 位，请使用下方列出的演示账号"
-                phone !in allowedPhones -> "仅支持 13800000001、13800000002、13800000003，请使用演示账号"
-                else -> null
-            }
-        if (!accessConfigured) {
-            focus.clearFocus()
-            accessPrompt = true
-            connectionDialog = true
-            return false
-        }
-        if (phoneError != null) return false
-        if (store.endpoint.isBlank()) {
-            formError = "此安装包未配置云端服务，请安装提供的最新版体验包"
-            return false
-        }
-        return true
-    }
-    LaunchedEffect(remaining) {
-        if (remaining > 0) {
-            delay(1000)
-            remaining--
-        }
-    }
+    val driverAccounts = listOf(
+        "13800000001" to "体验司机01 (13800000001)",
+        "13800000002" to "体验司机02 (13800000002)",
+        "13800000003" to "体验司机03 (13800000003)",
+    )
+
     Column(
         Modifier.fillMaxSize().imePadding().verticalScroll(rememberScrollState()).padding(20.dp)
     ) {
         Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
             CoreTextButton(
-                onClick = {
-                    accessPrompt = false
-                    connectionDialog = true
-                }
+                onClick = { connectionDialog = true }
             ) {
-                Text(if (accessConfigured) "连接设置 · 已保存访问码" else "设置演示访问码", fontSize = 16.sp)
+                Text("连接状态", fontSize = 16.sp)
             }
         }
         androidx.compose.foundation.Image(
@@ -109,19 +77,8 @@ fun LocalLogin(store: ConnectedStore) {
         Spacer(Modifier.height(18.dp))
         Text("宜捷行 · 司机", fontSize = 28.sp, fontWeight = FontWeight.Bold, color = Green)
         Text("欢迎回来，师傅", color = Ink, fontSize = 20.sp, fontWeight = FontWeight.SemiBold, modifier = Modifier.padding(top = 4.dp))
-        Text("体验账号登录 · 验证码直接填入，不发送短信", color = Muted, fontSize = 13.sp, modifier = Modifier.padding(top = 8.dp, bottom = 12.dp))
-        if (!accessConfigured) {
-            Spacer(Modifier.height(12.dp))
-            Text("首次使用请先设置演示访问码。点“获取验证码”会引导设置，保存后再获取。", color = Green, fontSize = 16.sp)
-            CoreTextButton(
-                onClick = {
-                    accessPrompt = true
-                    connectionDialog = true
-                }
-            ) {
-                Text("先设置演示访问码")
-            }
-        }
+        Text("选择体验账号，一键进入", color = Muted, fontSize = 13.sp, modifier = Modifier.padding(top = 8.dp, bottom = 12.dp))
+
         if (!sessionAvailable && connectionError != null) {
             Spacer(Modifier.height(12.dp))
             SheetCard {
@@ -137,157 +94,106 @@ fun LocalLogin(store: ConnectedStore) {
                     modifier = Modifier.padding(top = 8.dp),
                 )
                 CoreTextButton(
-                    onClick = {
-                        accessPrompt = false
-                        connectionDialog = true
-                    }
+                    onClick = { connectionDialog = true }
                 ) {
-                    Text("检查演示访问码与连接")
+                    Text("查看连接状态")
                 }
             }
         }
-        if (sessionAvailable && accessConfigured) {
-            Spacer(Modifier.height(18.dp))
+        if (sessionAvailable) {
+            Spacer(Modifier.height(14.dp))
             SheetCard {
-                Text("暂未连接云端，已有登录状态已保留", fontWeight = FontWeight.SemiBold, color = Ink)
+                Text("服务连接提示", fontWeight = FontWeight.SemiBold, color = Ink)
                 Text(
-                    connectionError ?: "若服务已暂停，请先在电脑上恢复服务，再点下方按钮继续原账号。无需重新获取验证码。",
+                    connectionError ?: "若遇网络波动或服务休眠，可点下方按钮重试连接。",
                     fontSize = 16.sp,
                     color = Muted,
-                    modifier = Modifier.padding(top = 10.dp),
+                    modifier = Modifier.padding(top = 8.dp),
                 )
-                Spacer(Modifier.height(12.dp))
-                PrimaryButton("重试连接，继续原账号", onClick = { store.refresh() })
-                Text(
-                    "此按钮会尝试唤醒已开启的服务；硬暂停期间无法连接。",
-                    fontSize = 16.sp,
-                    color = Muted,
-                    modifier = Modifier.padding(top = 9.dp),
-                )
+                Spacer(Modifier.height(10.dp))
+                PrimaryButton("重试连接", onClick = { store.refresh() })
             }
         }
-        Spacer(Modifier.height(22.dp))
-        OutlinedTextField(
-            phone,
-            {
-                phone = it.filter(Char::isDigit).take(11)
-                phoneError = null
-                formError = null
-            },
-            label = { Text("演示手机号") },
-            isError = phoneError != null,
-            supportingText = { Text(phoneError ?: "仅支持 13800000001、13800000002、13800000003") },
-            singleLine = true,
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Phone),
-            shape = RoundedCornerShape(12.dp),
-            modifier = Modifier.fillMaxWidth(),
-        )
-        Spacer(Modifier.height(12.dp))
-        OutlinedTextField(
-            code,
-            {
-                code = it.filter(Char::isDigit).take(6)
-                codeError = null
-                formError = null
-            },
-            label = { Text("验证码") },
-            isError = codeError != null,
-            supportingText = codeError?.let { error -> { Text(error) } },
-            singleLine = true,
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-            shape = RoundedCornerShape(12.dp),
-            modifier = Modifier.fillMaxWidth(),
-        )
-        Spacer(Modifier.height(12.dp))
-        OutlinedButton(
-            enabled = remaining == 0 && !requestingCode && !loading,
-            modifier = Modifier.fillMaxWidth().heightIn(min = 64.dp),
-            shape = RoundedCornerShape(12.dp),
-            onClick = {
-                if (checkConnectionAndPhone()) {
-                    requestingCode = true
-                    codeError = null
-                    store.requestCode(phone, onFailure = { requestingCode = false }) { data ->
-                        code = data.optString("verificationCode", data.optString("code"))
-                        remaining = 60
-                        requestingCode = false
-                    }
+
+        Spacer(Modifier.height(20.dp))
+        Text("选择体验司机账号", fontSize = 16.sp, fontWeight = FontWeight.SemiBold, color = Ink)
+        Spacer(Modifier.height(8.dp))
+
+        Box(Modifier.fillMaxWidth()) {
+            OutlinedButton(onClick = { accountMenu = true }, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) {
+                Text("体验司机${selectedPhone.takeLast(2)}", fontSize = 16.sp)
+                Spacer(Modifier.weight(1f))
+                Text("切换账号", fontSize = 14.sp)
+            }
+            DropdownMenu(expanded = accountMenu, onDismissRequest = { accountMenu = false }) {
+                driverAccounts.forEach { (phone, label) ->
+                    DropdownMenuItem(text = { Text(label) }, onClick = { selectedPhone = phone; accountMenu = false }, modifier = Modifier.heightIn(min = 48.dp))
                 }
-            },
-        ) {
-            Text(
-                if (requestingCode) "正在获取验证码…"
-                else if (remaining > 0) "${remaining}秒后可重新获取" else "获取验证码",
-                fontSize = 20.sp,
-                fontWeight = FontWeight.SemiBold,
-            )
+            }
         }
+
+        Spacer(Modifier.height(12.dp))
         Row(
             Modifier.fillMaxWidth()
-                .heightIn(min = 64.dp)
+                .heightIn(min = 48.dp)
                 .toggleable(
                     value = agreed,
                     role = Role.Checkbox,
-                    onValueChange = {
-                        agreed = it
-                        if (it) formError = null
-                    },
+                    onValueChange = { agreed = it },
                 )
-                .padding(vertical = 12.dp),
+                .padding(vertical = 8.dp),
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Checkbox(agreed, onCheckedChange = null)
             Text(
-                "我已了解演示说明，账号仅用于本次体验",
-                fontSize = 18.sp,
+                "我已了解体验说明和共享演示数据范围",
+                fontSize = 16.sp,
                 color = Ink,
                 modifier = Modifier.weight(1f).padding(start = 10.dp),
             )
         }
-        formError?.let {
-            Text(
-                it,
-                color = MaterialTheme.colorScheme.error,
-                fontSize = 16.sp,
-                modifier = Modifier.padding(bottom = 10.dp),
-            )
-        }
+
+        Spacer(Modifier.height(8.dp))
         PrimaryButton(
-            if (loading && !requestingCode) "登录中…" else "登录",
-            enabled = !loading && !requestingCode,
+            if (loading) "正在进入…" else "进入体验",
+            enabled = !loading && agreed,
             onClick = {
-                if (checkConnectionAndPhone()) {
-                    codeError = if (code.length != 6) "请先获取并输入 6 位演示验证码" else null
-                    if (!agreed) formError = "请先勾选“我已了解演示说明”"
-                    if (codeError == null && agreed) store.login(phone, code)
-                }
+                store.loginExperience(selectedPhone)
             },
         )
+
         Spacer(Modifier.height(20.dp))
         SheetCard {
-            Text("体验说明", fontSize = 20.sp, fontWeight = FontWeight.Bold)
+            Text("体验说明", fontSize = 18.sp, fontWeight = FontWeight.Bold)
             Text(
-                "仅供受邀体验。访问码由体验提供方单独提供；可使用 13800000001（备选 002、003 尾号）。请勿上传真实证件、银行卡等资料。",
+                "体验账号共用演示数据；支付、退款为模拟，不会真实扣款。请使用演示资料。",
                 color = Muted,
                 fontSize = 16.sp,
-                lineHeight = 25.sp,
-                modifier = Modifier.padding(top = 10.dp),
+                lineHeight = 24.sp,
+                modifier = Modifier.padding(top = 8.dp),
+            )
+            Text(
+                "本应用用于独立演示验证。选择账号即可体验司机抢单、计价与行程管理；未对接真实短信、实名认证与银行结算。",
+                color = Muted,
+                fontSize = 14.sp,
+                lineHeight = 20.sp,
+                modifier = Modifier.padding(top = 6.dp),
             )
         }
         Text(
             "本版不连接现有测试或生产环境",
-            fontSize = 16.sp,
+            fontSize = 14.sp,
             color = Muted,
             modifier = Modifier.fillMaxWidth().padding(top = 16.dp),
         )
     }
-    if (connectionDialog)
+
+    if (connectionDialog) {
         CloudConnectionDialog(
-            store,
-            if (accessPrompt) "获取验证码前需要演示访问码，请先保存访问码，再点“获取验证码”。访问码由体验提供方单独提供，不是短信验证码。" else null,
-        ) {
-            connectionDialog = false
-        }
+            store = store,
+            onDismiss = { connectionDialog = false },
+        )
+    }
 }
 
 @Composable
@@ -296,91 +202,54 @@ private fun CloudConnectionDialog(
     reason: String? = null,
     onDismiss: () -> Unit,
 ) {
-    val configured by store.accessConfigured.collectAsState()
-    var access by remember { mutableStateOf("") }
-    var inputError by remember { mutableStateOf<String?>(null) }
+    val connectionError by store.error.collectAsState()
+    val sessionAvailable by store.sessionAvailable.collectAsState()
     AlertDialog(
         onDismissRequest = onDismiss,
-        title = { Text("云端连接与访问码") },
+        title = { Text("连接状态") },
         text = {
-            Column(Modifier.heightIn(max = 360.dp).verticalScroll(rememberScrollState())) {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .verticalScroll(rememberScrollState()),
+                verticalArrangement = Arrangement.spacedBy(10.dp),
+            ) {
                 reason?.let {
                     Text(
                         it,
                         color = Green,
-                        fontSize = 18.sp,
-                        fontWeight = FontWeight.SemiBold,
-                        modifier = Modifier.padding(bottom = 12.dp),
-                    )
-                }
-                Text(
-                    "此版本仅连接专用 HTTPS 演示服务。服务暂停后无法登录或提交业务，恢复服务后点重试。",
-                    fontSize = 18.sp,
-                    color = Muted,
-                )
-                Text(
-                    store.endpoint.ifBlank { "安装包尚未配置云端地址，请安装正式体验包" },
-                    fontSize = 16.sp,
-                    color = Muted,
-                    modifier = Modifier.padding(vertical = 12.dp),
-                )
-                OutlinedTextField(
-                    value = access,
-                    onValueChange = {
-                        access = it.take(256)
-                        inputError = null
-                    },
-                    label = { Text(if (configured) "新演示访问码（留空保留已保存的码）" else "演示访问码") },
-                    singleLine = true,
-                    visualTransformation = PasswordVisualTransformation(),
-                    keyboardOptions =
-                        KeyboardOptions(keyboardType = KeyboardType.Password, autoCorrect = false),
-                    modifier = Modifier.fillMaxWidth(),
-                )
-                inputError?.let {
-                    Text(
-                        it,
-                        color = MaterialTheme.colorScheme.error,
                         fontSize = 16.sp,
-                        modifier = Modifier.padding(top = 8.dp),
+                        fontWeight = FontWeight.SemiBold,
                     )
                 }
                 Text(
-                    "访问码只在本机加密保存，不包含在安装包内。请勿分享访问码；忘记后可重新输入。",
+                    "联网后选择体验账号即可进入；已有登录状态时可以重试连接。",
                     fontSize = 16.sp,
-                    color = Muted,
-                    modifier = Modifier.padding(top = 10.dp),
+                    color = Ink,
                 )
-                if (configured)
-                    CoreTextButton(
-                        onClick = {
-                            access = ""
-                            store.clearDemoAccess()
-                            onDismiss()
-                        }
-                    ) {
-                        Text("清除访问码并退出登录", color = MaterialTheme.colorScheme.error)
-                    }
+                if (connectionError != null) {
+                    Text(
+                        connectionError!!,
+                        color = MaterialTheme.colorScheme.error,
+                        fontSize = 14.sp,
+                    )
+                }
             }
         },
         confirmButton = {
             CoreTextButton(
                 onClick = {
-                    if (access.isBlank() && configured) onDismiss()
-                    else {
-                        inputError =
-                            runCatching { validateDemoAccess(access) }.exceptionOrNull()?.message
-                        if (inputError == null && store.updateDemoAccess(access)) {
-                            access = ""
-                            onDismiss()
-                        }
-                    }
+                    if (sessionAvailable) store.refresh() else onDismiss()
                 }
             ) {
-                Text("保存")
+                Text(if (sessionAvailable) "重试连接" else "返回体验")
             }
         },
-        dismissButton = { CoreTextButton(onClick = onDismiss) { Text("取消") } },
+        dismissButton = {
+            CoreTextButton(onClick = onDismiss) {
+                Text("关闭")
+            }
+        },
     )
 }
 
@@ -1524,7 +1393,6 @@ fun ConnectedSettings(
             else onMessage("尚未允许悬浮显示，可在系统设置中授权后再开启。")
         }
     var showEndpoint by remember { mutableStateOf(false) }
-    var reset by remember { mutableStateOf(false) }
     fun setting(k: String, v: Any) {
         store.perform("settings.update", JSONObject().put(k, v))
     }
@@ -1610,9 +1478,7 @@ fun ConnectedSettings(
                 SheetCard {
                     MenuRow("shield", "查看城市会员权益") { navigate("benefits") }
                     HorizontalDivider(color = Line)
-                    MenuRow("settings", "云端连接与访问码", "独立演示环境") { showEndpoint = true }
-                    HorizontalDivider(color = Line)
-                    MenuRow("doc", "重置云端沙箱账户") { reset = true }
+                    MenuRow("settings", "连接状态", "独立演示环境") { showEndpoint = true }
                     HorizontalDivider(color = Line)
                     MenuRow("profile", "退出登录") { store.logout() }
                 }
@@ -1620,23 +1486,6 @@ fun ConnectedSettings(
         }
     }
     if (showEndpoint) CloudConnectionDialog(store) { showEndpoint = false }
-    if (reset)
-        AlertDialog(
-            onDismissRequest = { reset = false },
-            title = { Text("重置云端沙箱数据") },
-            text = { Text("这会重置当前独立账户的订单、余额、资料和订阅，不影响现有测试环境。") },
-            confirmButton = {
-                CoreTextButton(
-                    onClick = {
-                        reset = false
-                        store.perform("local.reset") { onMessage("云端沙箱账户已重置") }
-                    }
-                ) {
-                    Text("确认重置")
-                }
-            },
-            dismissButton = { CoreTextButton(onClick = { reset = false }) { Text("返回") } },
-        )
 }
 
 @Composable
