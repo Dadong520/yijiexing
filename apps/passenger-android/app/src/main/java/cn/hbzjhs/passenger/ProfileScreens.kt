@@ -184,7 +184,7 @@ fun ProfileScreen(
     AlertDialog(
       onDismissRequest = { logout = false },
       title = { Text("退出登录？", fontWeight = FontWeight.Bold, color = Ink) },
-      text = { Text("本机登录凭证将移除，云端订单与资料仍保留。下次可重新获取体验验证码登录。") },
+      text = { Text("本机登录凭证将移除，云端订单与资料仍保留。下次可选择体验账号一键进入。") },
       confirmButton = {
         TextButton(
           onClick = {
@@ -350,7 +350,7 @@ fun HelpScreen(state: JSONObject) {
       Note("紧急情况请使用手机系统电话联系当地紧急服务；本应用不能代替紧急呼叫。")
     }
     Panel("第三方服务配置") {
-      KV("短信", "体验验证码回显，未发送短信")
+      KV("短信", "未接真实短信；体验账号一键进入")
       KV("支付与退款", "模拟，不发生资金变动")
       KV("地图与路线", "坐标连线示意，未接真实导航")
       KV("通知", "前台轮询，未接后台推送")

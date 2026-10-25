@@ -327,7 +327,7 @@ class ConnectedStore(app: Application) : AndroidViewModel(app) {
                                 is LocalApiException ->
                                     when (e.details.optString("reason")) {
                                         "DEMO_ACCESS_REQUIRED",
-                                        "DEMO_ACCESS_INVALID" -> "演示访问码未设置或已失效，请在连接设置中更新"
+                                        "DEMO_ACCESS_INVALID" -> "体验服务连接失败，请重试连接或重新进入体验"
                                         "DEMO_PAUSED" -> "云端演示服务已暂停，请在电脑上恢复服务后重试"
                                         else -> e.message ?: "请求失败"
                                     }
