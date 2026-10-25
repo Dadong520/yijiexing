@@ -1,0 +1,277 @@
+----------------------------- REMOTE BUILD OUTPUT ------------------------------
+starting build "fc3ab1de-2ba8-42a1-92c3-4f3abfc9b91c" using release legacy
+
+FETCHSOURCE
+Fetching storage object: gs://yijiexing-driver-demo-1023_cloudbuild/source/1792929440.011595-9f44c15676c14be68677a8c59c6066ec.tgz#1792929441845057
+Copying gs://yijiexing-driver-demo-1023_cloudbuild/source/1792929440.011595-9f44c15676c14be68677a8c59c6066ec.tgz#1792929441845057...
+/ [0 files][    0.0 B/197.2 KiB]                                                / [1 files][197.2 KiB/197.2 KiB]                                                
+Operation completed over 1 objects/197.2 KiB.
+BUILD
+Already have image (with digest): gcr.io/cloud-builders/gcb-internal
+DEPRECATED: The legacy builder is deprecated and will be removed in a future release.
+            Install the buildx component to build images with BuildKit:
+            https://docs.docker.com/go/buildx/
+
+Sending build context to Docker daemon  420.4kB
+Step 1/10 : FROM python:3.12-slim
+3.12-slim: Pulling from library/python
+f2be67225471: Pulling fs layer
+be6443c06d3c: Pulling fs layer
+b524bb3aba73: Pulling fs layer
+5c397e4307db: Pulling fs layer
+5c397e4307db: Download complete
+be6443c06d3c: Verifying Checksum
+be6443c06d3c: Download complete
+b524bb3aba73: Verifying Checksum
+b524bb3aba73: Download complete
+f2be67225471: Verifying Checksum
+f2be67225471: Download complete
+f2be67225471: Pull complete
+be6443c06d3c: Pull complete
+b524bb3aba73: Pull complete
+5c397e4307db: Pull complete
+Digest: sha256:a0f57064cbdcd6285fa45f51237ab0b35ea8ebaed06a1f5973e89e19dfb86704
+Status: Downloaded newer image for python:3.12-slim
+ ---> a33c10a97f11
+Step 2/10 : ENV PYTHONUNBUFFERED=1 PYTHONDONTWRITEBYTECODE=1
+ ---> Running in 909d478aff9d
+Removing intermediate container 909d478aff9d
+ ---> 590584218616
+Step 3/10 : WORKDIR /app
+ ---> Running in d7c0c466fb0a
+Removing intermediate container d7c0c466fb0a
+ ---> 191ca71d66ec
+Step 4/10 : COPY requirements.txt .
+ ---> 54fb5507aca4
+Step 5/10 : RUN pip install --no-cache-dir -r requirements.txt && useradd --uid 10001 --create-home demo
+ ---> Running in 0665bda8f8c3
+Collecting google-cloud-storage==3.4.1 (from -r requirements.txt (line 1))
+  Downloading google_cloud_storage-3.4.1-py3-none-any.whl.metadata (13 kB)
+Collecting google-auth<3.0.0,>=2.26.1 (from google-cloud-storage==3.4.1->-r requirements.txt (line 1))
+  Downloading google_auth-2.62.0-py3-none-any.whl.metadata (6.0 kB)
+Collecting google-api-core<3.0.0,>=2.15.0 (from google-cloud-storage==3.4.1->-r requirements.txt (line 1))
+  Downloading google_api_core-2.43.0-py3-none-any.whl.metadata (3.2 kB)
+Collecting google-cloud-core<3.0.0,>=2.4.2 (from google-cloud-storage==3.4.1->-r requirements.txt (line 1))
+  Downloading google_cloud_core-2.8.0-py3-none-any.whl.metadata (2.9 kB)
+Collecting google-resumable-media<3.0.0,>=2.7.2 (from google-cloud-storage==3.4.1->-r requirements.txt (line 1))
+  Downloading google_resumable_media-2.11.0-py3-none-any.whl.metadata (2.3 kB)
+Collecting requests<3.0.0,>=2.22.0 (from google-cloud-storage==3.4.1->-r requirements.txt (line 1))
+  Downloading requests-2.34.2-py3-none-any.whl.metadata (4.8 kB)
+Collecting google-crc32c<2.0.0,>=1.1.3 (from google-cloud-storage==3.4.1->-r requirements.txt (line 1))
+  Downloading google_crc32c-1.9.0-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (2.2 kB)
+Collecting googleapis-common-protos<2.0.0,>=1.69.2 (from google-api-core<3.0.0,>=2.15.0->google-cloud-storage==3.4.1->-r requirements.txt (line 1))
+  Downloading googleapis_common_protos-1.76.0-py3-none-any.whl.metadata (8.5 kB)
+Collecting protobuf<8.0.0,>=6.33.5 (from google-api-core<3.0.0,>=2.15.0->google-cloud-storage==3.4.1->-r requirements.txt (line 1))
+  Downloading protobuf-7.36.2-cp310-abi3-manylinux2014_x86_64.whl.metadata (595 bytes)
+Collecting proto-plus<2.0.0,>=1.26.1 (from google-api-core<3.0.0,>=2.15.0->google-cloud-storage==3.4.1->-r requirements.txt (line 1))
+  Downloading proto_plus-1.29.0-py3-none-any.whl.metadata (2.2 kB)
+Collecting opentelemetry-api<2.0.0,>=1.44.0 (from google-api-core<3.0.0,>=2.15.0->google-cloud-storage==3.4.1->-r requirements.txt (line 1))
+  Downloading opentelemetry_api-1.45.1-py3-none-any.whl.metadata (1.4 kB)
+Collecting pyasn1-modules>=0.2.1 (from google-auth<3.0.0,>=2.26.1->google-cloud-storage==3.4.1->-r requirements.txt (line 1))
+  Downloading pyasn1_modules-0.4.2-py3-none-any.whl.metadata (3.5 kB)
+Collecting cryptography>=38.0.3 (from google-auth<3.0.0,>=2.26.1->google-cloud-storage==3.4.1->-r requirements.txt (line 1))
+  Downloading cryptography-50.0.2-cp311-abi3-manylinux_2_34_x86_64.whl.metadata (4.4 kB)
+Collecting charset_normalizer<4,>=2 (from requests<3.0.0,>=2.22.0->google-cloud-storage==3.4.1->-r requirements.txt (line 1))
+  Downloading charset_normalizer-3.5.2-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (46 kB)
+Collecting idna<4,>=2.5 (from requests<3.0.0,>=2.22.0->google-cloud-storage==3.4.1->-r requirements.txt (line 1))
+  Downloading idna-3.20-py3-none-any.whl.metadata (7.2 kB)
+Collecting urllib3<3,>=1.26 (from requests<3.0.0,>=2.22.0->google-cloud-storage==3.4.1->-r requirements.txt (line 1))
+  Downloading urllib3-2.8.0-py3-none-any.whl.metadata (7.4 kB)
+Collecting certifi>=2023.5.7 (from requests<3.0.0,>=2.22.0->google-cloud-storage==3.4.1->-r requirements.txt (line 1))
+  Downloading certifi-2026.10.23-py3-none-any.whl.metadata (2.5 kB)
+Collecting cffi>=2.0.0 (from cryptography>=38.0.3->google-auth<3.0.0,>=2.26.1->google-cloud-storage==3.4.1->-r requirements.txt (line 1))
+  Downloading cffi-2.1.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (2.5 kB)
+Collecting typing-extensions>=4.5.0 (from opentelemetry-api<2.0.0,>=1.44.0->google-api-core<3.0.0,>=2.15.0->google-cloud-storage==3.4.1->-r requirements.txt (line 1))
+  Downloading typing_extensions-4.16.0-py3-none-any.whl.metadata (3.3 kB)
+Collecting pyasn1<0.7.0,>=0.6.1 (from pyasn1-modules>=0.2.1->google-auth<3.0.0,>=2.26.1->google-cloud-storage==3.4.1->-r requirements.txt (line 1))
+  Downloading pyasn1-0.6.4-py3-none-any.whl.metadata (8.4 kB)
+Collecting pycparser (from cffi>=2.0.0->cryptography>=38.0.3->google-auth<3.0.0,>=2.26.1->google-cloud-storage==3.4.1->-r requirements.txt (line 1))
+  Downloading pycparser-3.12-py3-none-any.whl.metadata (9.7 kB)
+Downloading google_cloud_storage-3.4.1-py3-none-any.whl (290 kB)
+Downloading google_api_core-2.43.0-py3-none-any.whl (223 kB)
+Downloading google_auth-2.62.0-py3-none-any.whl (267 kB)
+Downloading google_cloud_core-2.8.0-py3-none-any.whl (31 kB)
+Downloading google_crc32c-1.9.0-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (36 kB)
+Downloading google_resumable_media-2.11.0-py3-none-any.whl (81 kB)
+Downloading requests-2.34.2-py3-none-any.whl (73 kB)
+Downloading certifi-2026.10.23-py3-none-any.whl (135 kB)
+Downloading charset_normalizer-3.5.2-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (257 kB)
+Downloading cryptography-50.0.2-cp311-abi3-manylinux_2_34_x86_64.whl (4.8 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.8/4.8 MB 192.5 MB/s eta 0:00:00
+Downloading googleapis_common_protos-1.76.0-py3-none-any.whl (307 kB)
+Downloading idna-3.20-py3-none-any.whl (69 kB)
+Downloading opentelemetry_api-1.45.1-py3-none-any.whl (60 kB)
+Downloading proto_plus-1.29.0-py3-none-any.whl (50 kB)
+Downloading protobuf-7.36.2-cp310-abi3-manylinux2014_x86_64.whl (343 kB)
+Downloading pyasn1_modules-0.4.2-py3-none-any.whl (181 kB)
+Downloading urllib3-2.8.0-py3-none-any.whl (135 kB)
+Downloading cffi-2.1.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (221 kB)
+Downloading pyasn1-0.6.4-py3-none-any.whl (84 kB)
+Downloading typing_extensions-4.16.0-py3-none-any.whl (45 kB)
+Downloading pycparser-3.12-py3-none-any.whl (62 kB)
+Installing collected packages: urllib3, typing-extensions, pycparser, pyasn1, protobuf, idna, google-crc32c, charset_normalizer, certifi, requests, pyasn1-modules, proto-plus, opentelemetry-api, googleapis-common-protos, google-resumable-media, cffi, cryptography, google-auth, google-api-core, google-cloud-core, google-cloud-storage
+Successfully installed certifi-2026.10.23 cffi-2.1.1 charset_normalizer-3.5.2 cryptography-50.0.2 google-api-core-2.43.0 google-auth-2.62.0 google-cloud-core-2.8.0 google-cloud-storage-3.4.1 google-crc32c-1.9.0 google-resumable-media-2.11.0 googleapis-common-protos-1.76.0 idna-3.20 opentelemetry-api-1.45.1 proto-plus-1.29.0 protobuf-7.36.2 pyasn1-0.6.4 pyasn1-modules-0.4.2 pycparser-3.12 requests-2.34.2 typing-extensions-4.16.0 urllib3-2.8.0
+[91mWARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+[0m[91m
+[notice] A new release of pip is available: 25.0.1 -> 26.2.2
+[notice] To update, run: pip install --upgrade pip
+[0mRemoving intermediate container 0665bda8f8c3
+ ---> f091ec83b716
+Step 6/10 : COPY --chown=demo:demo *.py ./
+ ---> 2de9f7e00d85
+Step 7/10 : COPY --chown=demo:demo static ./static
+ ---> 7b267ea43097
+Step 8/10 : USER 10001:10001
+ ---> Running in 08e05beee35c
+Removing intermediate container 08e05beee35c
+ ---> 361ffc5933c7
+Step 9/10 : EXPOSE 8080
+ ---> Running in a76eba7cb7d3
+Removing intermediate container a76eba7cb7d3
+ ---> c3e70df9166b
+Step 10/10 : CMD ["python", "cloud_server.py"]
+ ---> Running in 51298263aaee
+Removing intermediate container 51298263aaee
+ ---> 1710a9a00805
+Successfully built 1710a9a00805
+Successfully tagged us-west1-docker.pkg.dev/yijiexing-driver-demo-1023/demo/service:public-access-3422f1cc
+PUSH
+Pushing us-west1-docker.pkg.dev/yijiexing-driver-demo-1023/demo/service:public-access-3422f1cc
+The push refers to repository [us-west1-docker.pkg.dev/yijiexing-driver-demo-1023/demo/service]
+f9b1f818fe9f: Preparing
+fa1833609f12: Preparing
+a686dc0dca87: Preparing
+a7f8245d0983: Preparing
+e1b3186f26b0: Preparing
+93881a54803b: Preparing
+500ecb68a701: Preparing
+33d3a9468385: Preparing
+a70f6272827f: Preparing
+500ecb68a701: Layer already exists
+93881a54803b: Layer already exists
+33d3a9468385: Layer already exists
+f9b1f818fe9f: Pushed
+e1b3186f26b0: Pushed
+a7f8245d0983: Pushed
+fa1833609f12: Pushed
+a686dc0dca87: Pushed
+a70f6272827f: Pushed
+public-access-3422f1cc: digest: sha256:3037c29c25d99fff8348e99ccfbf130c2b14d5a010a5558a44d8fd64042adc0d size: 2204
+DONE
+--------------------------------------------------------------------------------
+{
+  "artifacts": {
+    "images": [
+      "us-west1-docker.pkg.dev/yijiexing-driver-demo-1023/demo/service:public-access-3422f1cc"
+    ]
+  },
+  "createTime": "2026-10-25T11:57:22.895751462Z",
+  "finishTime": "2026-10-25T11:57:55.107701Z",
+  "id": "fc3ab1de-2ba8-42a1-92c3-4f3abfc9b91c",
+  "images": [
+    "us-west1-docker.pkg.dev/yijiexing-driver-demo-1023/demo/service:public-access-3422f1cc"
+  ],
+  "logUrl": "https://console.cloud.google.com/cloud-build/builds;region=us-west1/fc3ab1de-2ba8-42a1-92c3-4f3abfc9b91c?project=491829048305",
+  "logsBucket": "gs://491829048305.cloudbuild-logs.googleusercontent.com",
+  "name": "projects/491829048305/locations/us-west1/builds/fc3ab1de-2ba8-42a1-92c3-4f3abfc9b91c",
+  "options": {
+    "logging": "LEGACY",
+    "pool": {},
+    "workerRelease": "legacy"
+  },
+  "projectId": "yijiexing-driver-demo-1023",
+  "queueTtl": "3600s",
+  "results": {
+    "buildStepImages": [
+      "sha256:2af4bb8cbc5d5ffa8a42b30b3b0f0b435b28e5a39d9cfcf0f2662bdb9e825b19"
+    ],
+    "buildStepOutputs": [
+      ""
+    ],
+    "images": [
+      {
+        "artifactRegistryPackage": "projects/yijiexing-driver-demo-1023/locations/us-west1/repositories/demo/packages/service/versions/sha256:3037c29c25d99fff8348e99ccfbf130c2b14d5a010a5558a44d8fd64042adc0d",
+        "digest": "sha256:3037c29c25d99fff8348e99ccfbf130c2b14d5a010a5558a44d8fd64042adc0d",
+        "name": "us-west1-docker.pkg.dev/yijiexing-driver-demo-1023/demo/service:public-access-3422f1cc",
+        "pushTiming": {
+          "endTime": "2026-10-25T11:57:54.383986626Z",
+          "startTime": "2026-10-25T11:57:46.697636815Z"
+        }
+      }
+    ]
+  },
+  "serviceAccount": "projects/yijiexing-driver-demo-1023/serviceAccounts/491829048305-compute@developer.gserviceaccount.com",
+  "source": {
+    "storageSource": {
+      "bucket": "yijiexing-driver-demo-1023_cloudbuild",
+      "generation": "1792929441845057",
+      "object": "source/1792929440.011595-9f44c15676c14be68677a8c59c6066ec.tgz"
+    }
+  },
+  "sourceProvenance": {
+    "fileHashes": {
+      "gs://yijiexing-driver-demo-1023_cloudbuild/source/1792929440.011595-9f44c15676c14be68677a8c59c6066ec.tgz#1792929441845057": {
+        "fileHash": [
+          {
+            "type": "MD5",
+            "value": "H9enlZ2XUNC6DoamVjA1oA=="
+          },
+          {
+            "type": "SHA256",
+            "value": "-3YUHAuiUBjDIdDW1QsboCujs64Houi-rpBPFX3pZw8="
+          }
+        ]
+      }
+    },
+    "resolvedStorageSource": {
+      "bucket": "yijiexing-driver-demo-1023_cloudbuild",
+      "generation": "1792929441845057",
+      "object": "source/1792929440.011595-9f44c15676c14be68677a8c59c6066ec.tgz"
+    }
+  },
+  "startTime": "2026-10-25T11:57:23.655760680Z",
+  "status": "SUCCESS",
+  "steps": [
+    {
+      "args": [
+        "docker",
+        "build",
+        "--network",
+        "cloudbuild",
+        "--no-cache",
+        "-t",
+        "us-west1-docker.pkg.dev/yijiexing-driver-demo-1023/demo/service:public-access-3422f1cc",
+        "."
+      ],
+      "name": "gcr.io/cloud-builders/gcb-internal",
+      "pullTiming": {
+        "endTime": "2026-10-25T11:57:28.271807488Z",
+        "startTime": "2026-10-25T11:57:28.268437350Z"
+      },
+      "status": "SUCCESS",
+      "timing": {
+        "endTime": "2026-10-25T11:57:46.652457877Z",
+        "startTime": "2026-10-25T11:57:28.268437350Z"
+      }
+    }
+  ],
+  "timeout": "3600s",
+  "timing": {
+    "BUILD": {
+      "endTime": "2026-10-25T11:57:46.696650783Z",
+      "startTime": "2026-10-25T11:57:27.523053557Z"
+    },
+    "FETCHSOURCE": {
+      "endTime": "2026-10-25T11:57:27.522586103Z",
+      "startTime": "2026-10-25T11:57:24.266776316Z"
+    },
+    "PUSH": {
+      "endTime": "2026-10-25T11:57:54.384162166Z",
+      "startTime": "2026-10-25T11:57:46.696895218Z"
+    },
+    "STORAGE_SOURCE": {
+      "endTime": "2026-10-25T11:57:27.522586103Z",
+      "startTime": "2026-10-25T11:57:24.266776316Z"
+    }
+  }
+}

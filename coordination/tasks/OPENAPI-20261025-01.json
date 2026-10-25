@@ -19,42 +19,40 @@
   "acceptance": "PASS",
   "tests": [
     {
-      "name": "author complete backend regression, byte-exact transferred source",
-      "command": "PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover -s tests -p 'test_*.py' -v",
+      "name": "distribution copy regression",
+      "command": "python3 -m unittest discover -s tests -p 'test_distribution.py' -v",
       "status": "PASS",
       "exitCode": 0,
-      "sourceSha": "3422f1ccb9263438533eee8e89890d7296b644be",
-      "tests": 167,
-      "binding": "source-transfer.json"
+      "sourceSha": "ecab94fd2022d3142eefbedbb63c38641979bece",
+      "tests": 9
     },
     {
-      "name": "non-author HTTP client/admin/role/reset boundaries",
-      "command": "PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover -s tests -p 'test_public_experience.py' -v",
+      "name": "Independent literal delta review and previous backend acceptance inheritance",
+      "command": "frontend reviewed git diff 3422f1c..ecab94f -- apps/cloud-service; only distribution.py literal changes; same API auth and domain bytes",
       "status": "PASS",
       "exitCode": 0,
-      "sourceSha": "3422f1ccb9263438533eee8e89890d7296b644be",
-      "tests": 8
+      "sourceSha": "ecab94fd2022d3142eefbedbb63c38641979bece"
     }
   ],
   "evidence": [
     {
-      "path": "coordination/evidence/OPENAPI-20261025-01/author-backend-result.json",
-      "sha256": "665886ff5ef915d7e215de080af4dc9ad08a2d8b5b7a57bb3528fad7eeb9676a"
+      "path": "coordination/evidence/OPENAPI-20261025-01/frontend-copy-review.json",
+      "sha256": "831d589d1af2c17fe55019371ac7b861dc271add7b7df0d8611ad4ae0aa97589"
     },
     {
-      "path": "coordination/evidence/OPENAPI-20261025-01/source-transfer.json",
-      "sha256": "5056894acbb020f8db9c9d3784af7664acc4fdf86bf216375c9180e658f9a4e5"
+      "path": "coordination/evidence/OPENAPI-20261025-01/download-copy-tests.log",
+      "sha256": "8ff7423c79e09d2f9acde7e5c6b56fa5a696fe29ae82f5d085bc9dc609e64586"
     },
     {
-      "path": "coordination/evidence/OPENAPI-20261025-01/independent-http.log",
-      "sha256": "b29fb9c042e9a4fc87990b8b85f81ddf76db6035cf06861ef1d904aa972c8c51"
+      "path": "coordination/evidence/OPENAPI-20261025-01/live-api-review.json",
+      "sha256": "1d056be244d2780586f79e13eff2fbe1aa384c9fbb5ebe8a70cb8e8afb662e84"
     },
     {
-      "path": "coordination/evidence/OPENAPI-20261025-01/coordinator-review.json",
-      "sha256": "e16151a6405cebd826ad36ac0d3af07f1fcef0308f3b2344d1a7da87f9419a97"
+      "path": "coordination/evidence/OPENAPI-20261025-01/deployment-readback.json",
+      "sha256": "8a6cc4235bad683f5aa1cfceeab82924a34293074e1e50e3dfb9e3dbc4d27d20"
     }
   ],
-  "nextAction": "merge server-only PR, build from matched37-source manifest, update driver-demo image only, run live boundary and config readback",
+  "nextAction": "Deploy download-copy image; public API logic already deployed and 14 live boundaries PASS.",
   "deploy_owner": "coordinator",
   "releaseReady": true,
   "fileOwnership": {
@@ -66,7 +64,7 @@
     "no token/wrong role/reset/admin public paths denied and IAP302 retained",
     "service image and scaling/billing config readback; original order IDs/stages/amounts preserved"
   ],
-  "acceptedSha": "3422f1ccb9263438533eee8e89890d7296b644be",
-  "productSha": "3422f1ccb9263438533eee8e89890d7296b644be",
-  "reviewer": "coordinator (not author)"
+  "acceptedSha": "ecab94fd2022d3142eefbedbb63c38641979bece",
+  "productSha": "ecab94fd2022d3142eefbedbb63c38641979bece",
+  "reviewer": "frontend (non-author copy delta) + coordinator (non-author API guards)"
 }

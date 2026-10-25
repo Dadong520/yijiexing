@@ -1,0 +1,17 @@
+{
+  "at": "2026-10-25T20:09:21.925721+08:00",
+  "status": "PASS",
+  "apiSourceSha": "3422f1ccb9263438533eee8e89890d7296b644be",
+  "apiMergeSha": "13e9b9d8e21283ea2b64c9361a16ec3a3a86bb48",
+  "revision": "driver-demo-public3422f1cc",
+  "image": "us-west1-docker.pkg.dev/yijiexing-driver-demo-1023/demo/service@sha256:3037c29c25d99fff8348e99ccfbf130c2b14d5a010a5558a44d8fd64042adc0d",
+  "serviceMaxInstances": 1,
+  "scaling": "automatic",
+  "minInstances": 0,
+  "billing": "request/cpu-throttled",
+  "serviceAccountUnchanged": true,
+  "iapAdminStatus": 302,
+  "adminImageChanged": false,
+  "iamChanged": false,
+  "secretConfigurationChanged": false
+}

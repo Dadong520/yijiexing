@@ -1,0 +1,41 @@
+test_admin_role_does_not_expose_distribution (test_distribution.DistributionIntegration.test_admin_role_does_not_expose_distribution) ... [2026-10-25T20:24:33+08:00] GET /download 404
+[2026-10-25T20:24:33+08:00] GET /download.apk 404
+ok
+test_fixed_apk_stream_is_bounded_and_generation_pinned (test_distribution.DistributionIntegration.test_fixed_apk_stream_is_bounded_and_generation_pinned) ... [2026-10-25T20:24:33+08:00] GET /download.apk 200
+ok
+test_head_reads_only_apk_metadata_and_install_head_no_storage (test_distribution.DistributionIntegration.test_head_reads_only_apk_metadata_and_install_head_no_storage) ... [2026-10-25T20:24:33+08:00] HEAD /download 200
+[2026-10-25T20:24:33+08:00] HEAD /download.apk 200
+ok
+test_interrupted_source_has_no_successful_terminal_chunk (test_distribution.DistributionIntegration.test_interrupted_source_has_no_successful_terminal_chunk) ... [2026-10-25T20:24:33+08:00] GET /download.apk 200
+[2026-10-25T20:24:33+08:00] APK stream interrupted: RuntimeError
+ok
+test_missing_or_oversized_apk_is_friendly_and_never_touches_db (test_distribution.DistributionIntegration.test_missing_or_oversized_apk_is_friendly_and_never_touches_db) ... [2026-10-25T20:24:33+08:00] APK unavailable: APKUnavailable
+[2026-10-25T20:24:33+08:00] GET /download.apk 503
+/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/tempfile.py:484: ResourceWarning: Implicitly cleaning up <HTTPError 404: 'Not Found'>
+  _warnings.warn(self.warn_message, ResourceWarning)
+/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/tempfile.py:484: ResourceWarning: Implicitly cleaning up <HTTPError 503: 'Service Unavailable'>
+  _warnings.warn(self.warn_message, ResourceWarning)
+[2026-10-25T20:24:33+08:00] APK unavailable: APKUnavailable
+[2026-10-25T20:24:33+08:00] GET /download.apk 503
+ok
+test_no_object_path_query_or_path_traversal (test_distribution.DistributionIntegration.test_no_object_path_query_or_path_traversal) ... [2026-10-25T20:24:33+08:00] GET /download.apk 400
+[2026-10-25T20:24:33+08:00] GET /download 400
+[2026-10-25T20:24:33+08:00] GET /download.apk 400
+[2026-10-25T20:24:33+08:00] GET /download.apk/../../demo/state.sqlite 404
+ok
+test_passenger_distribution_is_fixed_and_separate (test_distribution.DistributionIntegration.test_passenger_distribution_is_fixed_and_separate) ... [2026-10-25T20:24:33+08:00] GET /download-passenger 200
+[2026-10-25T20:24:33+08:00] GET /download-passenger.apk 200
+[2026-10-25T20:24:33+08:00] GET /download.apk 200
+[2026-10-25T20:24:33+08:00] GET /download-passenger.apk 400
+[2026-10-25T20:24:33+08:00] GET /download-passenger.apk/other 404
+[2026-10-25T20:24:33+08:00] GET /download-passenger 404
+ok
+test_public_install_page_has_no_secret_and_never_touches_storage (test_distribution.DistributionIntegration.test_public_install_page_has_no_secret_and_never_touches_storage) ... [2026-10-25T20:24:33+08:00] GET /download 200
+ok
+test_real_http_53mib_chunk_framing_and_exact_decoded_hash (test_distribution.DistributionIntegration.test_real_http_53mib_chunk_framing_and_exact_decoded_hash) ... [2026-10-25T20:24:33+08:00] GET /download.apk 200
+ok
+
+----------------------------------------------------------------------
+Ran 9 tests in 0.215s
+
+OK
