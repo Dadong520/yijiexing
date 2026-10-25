@@ -1,0 +1,30 @@
+{
+  "status": "PASS",
+  "at": "2026-10-26T01:36:28.874451+08:00",
+  "sourceSha": "edb532549506abd962e0a2000015857b6ec6d6ce",
+  "components": {
+    "api": "8ec8419d30955c216d7e4fe90451584d2a9622cf",
+    "web": "2863623ff932afc9adc1f59caa64e2b3069dbbae",
+    "native": "3e9f6ee943948e1081ec9ab0102eef803d447c8b",
+    "passengerArtifact": "d896ebf0c58da093e0c25dae16ddbb40593768df"
+  },
+  "method": "Fixed product byte manifests match integration, non-author reviews by frontend for native / backend for Web / coordinator for API; no new product edits in evidence commit.",
+  "checks": {
+    "backend208": true,
+    "coordinatorIndependentHttp5": true,
+    "driver55": true,
+    "passenger20": true,
+    "miniprogram58AndSyntax": true,
+    "nonAuthorWebConfigAndChineseDelta": true,
+    "nonAuthorTwoAVDsAndFinalGpsRecovery": true,
+    "realCloudSameOrderDonePaid": true
+  },
+  "jointOrder": "PORDf4f910a233dc",
+  "amountCents": 2926,
+  "notRun": [
+    "Real OEM/force-stop survival",
+    "Subjective audio listening / recorded audio file",
+    "WeChat compilation/device/publication without AppID",
+    "Full new weak-network matrix; reused relevant server CAS/failure tests"
+  ]
+}

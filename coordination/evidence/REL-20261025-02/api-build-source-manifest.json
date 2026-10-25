@@ -1,0 +1,23 @@
+{
+  "backendSourceSha": "8ec8419d30955c216d7e4fe90451584d2a9622cf",
+  "baseImage": "us-west1-docker.pkg.dev/yijiexing-driver-demo-1023/demo/service@sha256:ebf71391a5d5abbe21416d6248e5ae1027a35a4595396eec66bb9eca4a062bfa",
+  "files": {
+    "server.py": "4aaf099733be16eb36f4fc1a9f84be49f9a11fe183906c6b7e5fc850028219c0",
+    "domain.py": "a0e967b9058645950f63c0cff479b7beabd3350101b7d90a5a4f29034a7622ab",
+    "admin_queries.py": "eb7077abd704dcdf9cfe9f0c435a0471701f4042dc480df82c90ea0e6188bd1c",
+    "Dockerfile": "da14758c96fcf4473c37a20d4c563659bfdd8f64747018636646bff0c7621d23",
+    "order_options.py": "4ec12f73f400cfae665b828b5714501b6e555bdf00eb99c352e306a5f36cb123",
+    "cloud_server.py": "8a4ba1ef1fc5cab5151f5463622cc1f4ebc4622a5c377102cd1ac08fe8dc54d9",
+    "distribution.py": "303e3b1087f7d9b1278d383b6b386e4f0c0ceb7d9de87c48693895962a4d6084",
+    "trip_distance.py": "7d9bb3b97d5a2f0c1e860fb699157b703ad001b886a1ba31718692b3f69951a8",
+    "seed.py": "8488012f02b36b32f26cf1b2d96c403cc9523622e01f95fb084e7d624d85a23a",
+    "passenger_extras.py": "fc6a21d2d05adf859754bddd56467dd1d7376fc9a1a9e57c4c0865c4a34983c9",
+    "admin_console.py": "485be7459e08a2d1db791fe4652fb59bf3d89d8bf1a717cb275ff777003075b1",
+    "admin.py": "a003e1fba8f832a8aa89b53a3c98c6c30d0761eccddd8126315d333c24a33bd9",
+    "common.py": "3e27cf145d05a96b2ae6e1435d66d460edf585bd98de1935fda1764e27face92",
+    "benefits.py": "b9f4d100b05e7a3a4c39dd0bba69dbe557110a3ca006eb8a755692235f2470de",
+    "negotiation.py": "dd60d20998107bcb65fc8890d5959ca8d65ab5716259ed51329e5b957c462da0",
+    "snapshot.py": "31552c1a6406157cc483507a66b3d2d8981c5ca7ab7941f4a2250225cabaca17",
+    "passenger.py": "cfe7e8ad4094c0760e106b3897c0854d9db90b50f9814d0df165c44472a64485"
+  }
+}

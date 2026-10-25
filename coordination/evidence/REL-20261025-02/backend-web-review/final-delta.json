@@ -1,0 +1,46 @@
+{
+  "scope": "Only WEB-P2-01 localized distance reason delta; no repeated configuration matrix or backend208",
+  "result": "PASS",
+  "finding": "WEB-P2-01 CLOSED",
+  "reviewer": "backend, non-author Web UI",
+  "webSha": "2863623ff932afc9adc1f59caa64e2b3069dbbae",
+  "previousWebSha": "c10aadfc98b5cc48de70568e6c3a1a9cc9b423ad",
+  "apiProductSha": "8ec8419d30955c216d7e4fe90451584d2a9622cf",
+  "source": {
+    "path": "apps/admin-console/web/admin.js",
+    "sha256": "7d52433f006c4c4d7c7297f2800ed5d89e86a521aa6ba084088736606453d28d",
+    "bytesMatchFixedCommit": true
+  },
+  "checks": {
+    "chinesePrimaryReason": true,
+    "expiredStateRetained": true,
+    "unknownDistanceNotZero": true,
+    "originalThreshold300": true,
+    "rawCodeInSnapshot": true
+  },
+  "steps": [
+    {
+      "step": 1,
+      "description": "New Chrome local8808 tab, sign in, filter DISTANCE-UI, open details",
+      "health": "PASS"
+    },
+    {
+      "step": 2,
+      "description": "Primary Chinese reason, expired status, unknown distance and300m snapshot visible",
+      "health": "PASS"
+    },
+    {
+      "step": 3,
+      "description": "Expand stored snapshot; raw DRIVER_LOCATION_MISSING retained; screenshot inspected from saved bytes",
+      "health": "PASS"
+    }
+  ],
+  "evidence": {
+    "10-final-chinese-reason.png": "80c61c5fc076533e15896e4c1603373768fafb5adafcc1ab4017d58dd585f5f4",
+    "11-final-raw-code.png": "70773d92753ffa88b38430a7fb62f983a1109c0b7b7eb4ad9af6089118a7204b",
+    "final-delta-ax.txt": "d771388747f452766de597a507ec9ed3209b35017d07ac1639f8e05e0e8537a6",
+    "final-delta-snapshot-ax.txt": "fb40756ddeff1245015b8f1399caa6b53524e3f5efbaffdf8cfe430dbc9627e1"
+  },
+  "limits": "Prior1366/district publish/nonempty history/full a11y NOT_RUN unchanged; no cloud, deployment, ADB, data edits or product edits",
+  "cleanup": "QA tab1055271354 closed; Chrome returned; idle"
+}

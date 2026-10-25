@@ -80,9 +80,10 @@ class NativeOrderAnnouncer(context: Context) {
     init {
         notifications.createNotificationChannel(
             NotificationChannel(CHANNEL, "新订单提醒", NotificationManager.IMPORTANCE_HIGH).apply {
-                description = "独立演示服务的新订单提醒；声音由应用语音设置控制"
-                setSound(null, null)
-                enableVibration(false)
+                description = "听单新订单横幅、提示音与振动；可在系统设置中调整"
+                setSound(android.media.RingtoneManager.getDefaultUri(android.media.RingtoneManager.TYPE_NOTIFICATION),
+                    AudioAttributes.Builder().setUsage(AudioAttributes.USAGE_NOTIFICATION).build())
+                enableVibration(true)
             }
         )
         main.post {
@@ -200,6 +201,7 @@ class NativeOrderAnnouncer(context: Context) {
             stopAudio(true)
             cancelNotifications()
             seen.clear()
+            NewOrderAlerts.clear()
             wasOnline = false
             account = identity
         }
@@ -222,6 +224,7 @@ class NativeOrderAnnouncer(context: Context) {
         val active = orders.any { it.optString("stage") in ACTIVE_STAGES }
         if (!online || !features.optBoolean("canAcceptOrders") || active) {
             remindersEnabled = false
+            NewOrderAlerts.clear()
             stopAudio(true)
             if (online) seen.addAll(availableIds)
             OrderAnnouncementStatus.mutable.value =
@@ -234,19 +237,35 @@ class NativeOrderAnnouncer(context: Context) {
         }
         // Text notifications are independent of voice permission, audio preference and TTS
         // parameters.
+        fun createdAtMillis(order: JSONObject): Long = runCatching {
+            java.time.OffsetDateTime.parse(order.optString("createdAt")).toInstant().toEpochMilli()
+        }.getOrDefault(0L)
         val newOrders =
-            if (firstOnline) available.take(1) else available.filter { it.optString("id") !in seen }
+            if (firstOnline) listOfNotNull(available.maxByOrNull(::createdAtMillis))
+            else available.filter { it.optString("id") !in seen }.sortedBy(::createdAtMillis)
         seen.addAll(availableIds)
         while (seen.size > 4096) seen.remove(seen.first())
-        val notices = newOrders.map { it to notifyOrder(it) }
+        NewOrderAlerts.retainAvailable(availableIds)
+        newOrders.forEach(NewOrderAlerts::publish)
+        val notices = newOrders.map { it to notifyOrder(it, state.optBoolean("voice")) }
         val noticesSummary = notices.map { it.second }.distinct().joinToString("；")
         val wasEnabled = remindersEnabled
         remindersEnabled = state.optBoolean("voice") && features.optBoolean("canVoice")
         if (!remindersEnabled) {
             stopAudio(true)
-            val reason = if (!state.optBoolean("voice")) "声音提醒已关闭" else "当前地区或等级未开放语音提醒"
+            if (state.optBoolean("voice") && newOrders.isNotEmpty() &&
+                !noticesSummary.contains("系统订单通知已发送") && DriverUiPresence.visible &&
+                audio.ringerMode == AudioManager.RINGER_MODE_NORMAL && audio.getStreamVolume(AudioManager.STREAM_NOTIFICATION)>0) {
+                runCatching {
+                    val cue = MediaPlayer.create(app, R.raw.new_order, AudioAttributes.Builder().setUsage(AudioAttributes.USAGE_NOTIFICATION).setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION).build(), 0)
+                    player = cue
+                    cue?.setOnCompletionListener { if (player===it) player=null; it.release() }
+                    cue?.start()
+                }
+            }
+            val reason = if (!state.optBoolean("voice")) "声音已关闭，新单保留界面和静默通知" else "语音播报未开放，使用基础新单提示"
             OrderAnnouncementStatus.mutable.value =
-                reason + if (noticesSummary.isBlank()) "；新单仍使用静默系统通知" else " · $noticesSummary"
+                reason + if (noticesSummary.isBlank()) "；新单保留界面及系统通知" else " · $noticesSummary"
             return
         }
         val benefits = data.optJSONObject("benefits")
@@ -277,7 +296,7 @@ class NativeOrderAnnouncer(context: Context) {
             stopAudio(true)
             OrderAnnouncementStatus.mutable.value =
                 "服务端语音参数无效，未套用默认值" +
-                    if (noticesSummary.isBlank()) "；新单仍使用静默系统通知" else " · $noticesSummary"
+                    if (noticesSummary.isBlank()) "；新单保留界面及系统通知" else " · $noticesSummary"
             return
         }
         notices.forEach { (order, notified) ->
@@ -317,7 +336,7 @@ class NativeOrderAnnouncer(context: Context) {
         if (Looper.myLooper() == Looper.getMainLooper()) action.run() else main.post(action)
     }
 
-    private fun notifyOrder(order: JSONObject): String {
+    private fun notifyOrder(order: JSONObject, soundEnabled: Boolean): String {
         val allowed =
             Build.VERSION.SDK_INT < 33 ||
                 app.checkSelfPermission(Manifest.permission.POST_NOTIFICATIONS) ==
@@ -344,20 +363,21 @@ class NativeOrderAnnouncer(context: Context) {
         return runCatching {
                 notifications.notify(
                     number,
-                    Notification.Builder(app, CHANNEL)
+                    androidx.core.app.NotificationCompat.Builder(app, CHANNEL)
                         .setSmallIcon(android.R.drawable.ic_dialog_map)
                         .setContentTitle("宜捷行 · 云端沙箱新订单")
                         .setContentText(
                             "${order.optString("origin")} → ${order.optString("destination")}"
                         )
                         .setStyle(
-                            Notification.BigTextStyle()
+                            androidx.core.app.NotificationCompat.BigTextStyle()
                                 .bigText(
                                     "${order.optString("origin")} → ${order.optString("destination")}\n点按返回司机端查看，订单可接状态以服务端为准。"
                                 )
                         )
                         .setContentIntent(pending)
                         .setAutoCancel(true)
+                        .setSilent(!soundEnabled)
                         .setOnlyAlertOnce(true)
                         .build(),
                 )
@@ -544,6 +564,7 @@ class NativeOrderAnnouncer(context: Context) {
         val action = Runnable {
             stopAudio(true)
             cancelNotifications()
+            NewOrderAlerts.clear()
             engine?.shutdown()
             engine = null
             OrderAnnouncementStatus.mutable.value = "新订单播报已停止"
@@ -552,7 +573,7 @@ class NativeOrderAnnouncer(context: Context) {
     }
 
     companion object {
-        private const val CHANNEL = "driver-new-orders"
+        private const val CHANNEL = "new-orders-v2"
         private val ACTIVE_STAGES =
             setOf("BID_SENT", "PREPAY", "RESERVED", "PICKUP", "ARRIVED", "TRIP")
     }

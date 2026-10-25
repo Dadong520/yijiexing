@@ -1,0 +1,184 @@
+{
+  "schemaVersion": 1,
+  "taskId": "ALERT-20261025-01",
+  "releaseTask": "REL-20261025-02",
+  "reviewer": "frontend非作者 / 01a167c8-a5eb-77e3-b77e-214927a029da",
+  "acceptance": "PASS",
+  "verdict": "PASS_SCOPE",
+  "scope": "两原生端权限/提醒、同一真实共享即时单距离确认与模拟付款及明确最终差量。资源收尾有1项需coordinator确认，不能把本结论扩大为全系统完成。",
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-native-permissions-20261025",
+  "sourceSha": "3e9f6ee943948e1081ec9ab0102eef803d447c8b",
+  "finalPackages": {
+    "driver": {
+      "version": "0.3.12-cloud",
+      "code": 15,
+      "sha256": "bce9fcff928b3690525f14a6ae5f3a4e074fc6f9ca9bf491733e4b1609852a85",
+      "actualIdentity": "gps-recovery-delta.json"
+    },
+    "passenger": {
+      "version": "1.1.12-experience",
+      "code": 14,
+      "sha256": "61417866fce94d9176ff74e42718d6ce60fa658064e289bf8e0dccfae10257d8",
+      "builtAtSource": "d896ebf0c58da093e0c25dae16ddbb40593768df",
+      "unchangedAtFinalSource": true,
+      "actualIdentity": "passenger-release-install.json"
+    },
+    "signerSha256": "9ffec9b342d12909ff288bd73f23ba104893b39120cb24ea83c9734a0d2b758f",
+    "origin": "https://yijiexing-demo.hbzjhs.xyz"
+  },
+  "lineage": {
+    "initialGuides": "pass e1a1240 / driver c74f3d9",
+    "fullTrip": "driver10b0c9381e4f1c559955806a4984a096907a5aff / pass e1a1240",
+    "alertAndChinese": "d896ebf0c58da093e0c25dae16ddbb40593768df",
+    "lastGpsFix": "3e9f6ee943948e1081ec9ab0102eef803d447c8b",
+    "apiRevision": "driver-demo-distance-8ec8419d",
+    "deltaEvidence": [
+      "release-delta-from-tested-chain.txt",
+      "gps-recovery-delta.json"
+    ]
+  },
+  "scenarios": [
+    {
+      "step": 1,
+      "case": "安装及原账号",
+      "result": "PASS",
+      "actual": "实际base.apk hash/签名/版本/DEX自有origin匹配，driver03/pass02保留；无清data/prefs/token。"
+    },
+    {
+      "step": 2,
+      "case": "权限指引",
+      "result": "PASS_SCOPE",
+      "actual": "两端原userdata升级首引导；乘客系统拒绝→再申请→使用期间授权，返回状态更新；稍后重开不重复，两端入口重进；司机系统浮窗及App显式开关实测。"
+    },
+    {
+      "step": 3,
+      "case": "提醒与声音",
+      "result": "PASS_SCOPE",
+      "actual": "真实新单前台Dialog、后台大卡与原小泡；点卡只打开AVAILABLE未抢。d896新00d单卡shown1次，31秒观察后自动收起。UID10192 MediaPlayer started/stopped及new-orders-v2 sound URI/high/no bypassDnd；无音频采集，不称听见或中文播报完成。"
+    },
+    {
+      "step": 4,
+      "case": "同单接客超距",
+      "result": "PASS",
+      "actual": "f4手工接单PICKUP→ARRIVED→正确0102；真实provider accuracy5m两GPS相差11062m/阈值300。pending保持ARRIVED；本人拒绝不推进；再申请本人同意才TRIP。"
+    },
+    {
+      "step": 5,
+      "case": "同单旧GPS送达",
+      "result": "PASS",
+      "actual": "系统UI关司机GPS>132s；双方TRIP pending显示距离未知/定位过旧>120s，非0。本人送达确认快速2点→WAIT_PAY29.26未付。"
+    },
+    {
+      "step": 6,
+      "case": "待付与模拟付款",
+      "result": "PASS_SCOPE",
+      "actual": "欠款乘客home只有查看当前行程，无新叫CTA；driver回听单待收款3且能开私有单确认框，已返回未确认。模拟29.26成功按钮快速2点→DONE；root另会话后台2926/paid/credited/SIMULATED，PASSENGER_PAY仅1次。"
+    },
+    {
+      "step": 7,
+      "case": "最终差量",
+      "result": "PASS",
+      "actual": "d896实际覆盖两包，历史APPROVED已中文乘客已同意，提醒最新队列/超时退休实测。3e9仅Service provider监听delta，off启动→系统on→真实GPS请求/新采样恢复，on后无App重启。其余距离代码按diff继承。"
+    }
+  ],
+  "orders": {
+    "PORDa5be6365d8b1": "前台提醒后CANCELLED/unpaid",
+    "PORDf4f910a233dc": "完整即时单DONE/2926/paid模拟",
+    "PORD00d6844fa2c3": "最终alert delta后CANCELLED/unpaid"
+  },
+  "independentMoneyProof": {
+    "path": "/Users/dongge/.codex/tmp/yijiexing-permission-trip-20261025/coordination/evidence/REL-20261025-02/live/order-final-paid.json",
+    "sha256": "dc43f175aedc0414f94814bcee7f6e68b9c89a318ba5aae77295e153431adaf7",
+    "author": "coordinator另会话实际浏览器回读；本角色只读该回执，未用Chrome",
+    "stage": "DONE",
+    "fare": 2926,
+    "paid": true,
+    "credited": true,
+    "paymentMode": "SIMULATED",
+    "payEventCount": 1
+  },
+  "resolvedFindings": [
+    "旧空访问码service guard+load由root修",
+    "旧notice队首由root最新队列/20s退休修",
+    "历史英文码由root中文修",
+    "GPS off启动后on不恢复，由root3e9修，真实delta PASS"
+  ],
+  "cleanup": {
+    "acceptance": "PARTIAL_NEEDS_COORDINATOR_CONFIRMATION",
+    "closedAt": "2026-10-26T01:28:32.071668+08:00",
+    "passengerClosedAt": "2026-10-26T01:24:29.853805+08:00",
+    "devicesAbsentFromAdb": true,
+    "preserved": "原userdata、账号和snapshot；未wipe，未读私有prefs/token",
+    "effectiveStatesRestored": "网络1/1、字体1.0、1080x2400/420dpi、zen0、locationMode3；driver fine/coarse/通知true；pass fine/coarsefalse；Appfloatingfalse有45截图；GPS两端真实provider恢复37.421997,-122.084/alt5",
+    "pending": "driver-46系统UI截图开关确为OFF；但之后最终3e9 reinstall的appops仍SYSTEM_ALERT_WINDOW:allow。初始默认拒绝，故最终有效系统浮窗权限不能直接宣称恢复；已短报coordinator，请其确认/仅收尾恢复。两AVD已正常关闭，本角色不再次启动。",
+    "evidence": [
+      "resource-restoration.json",
+      "gps-recovery-delta.json",
+      "driver-46-final-overlay-denied.png",
+      "driver-45-floating-preference-restored.png",
+      "devices-final-closed.txt"
+    ],
+    "permissionFlags": "USER_SET/REVOKED_COMPAT与访问时间因真实UI授权测试改变，不称raw appops全文一致"
+  },
+  "notRun": [
+    "真机/OEM强杀/长期保活或电池白名单",
+    "音频录制/主观听音/中文TTS地址播报完成；静音与DND逐档实际测试",
+    "新装无userdata/新账号/先授权再登录意愿分支实际操作",
+    "网络失败恢复、180秒确认过期、全UI/横屏/大字/TalkBack",
+    "第二笔真实共享单实际接入（只开私有确认框返回）",
+    "原生共享NEGOTIATED预付全链（本次即时单）",
+    "小程序/后台配置浏览器/正式支付/外部高德",
+    "公开APK发布下载与最终merge SHA由coordinator统一"
+  ],
+  "actualCommands": [
+    {
+      "command": "python3 install_upgrade.py / final_driver_upgrade.py / release_upgrade.py",
+      "result": "阶段实际装机身份PASS；初始AVD关闭/源变更assert在安装前安全停记录保留"
+    },
+    {
+      "command": "分步Python ADB系统UI tap/Back/emu geo fix，见*-steps.jsonl及XML/PNG",
+      "result": "上述7场景真实操作，未源码注入订单"
+    },
+    {
+      "command": "python3 release_delta.py",
+      "result": "中文/最新后台卡/31秒去重PASS；取消断言因页头在视口外停，46上滚后实见CANCELLED"
+    },
+    {
+      "command": "python3 final_restore.py",
+      "result": "原权限/GPS有效状态读取与正常关机；最终overlay AppOps矛盾如cleanup，未掩盖"
+    },
+    {
+      "command": "python3 gps_recovery_delta.py",
+      "result": "3e9实际身份、GPS off→on无App重启恢复PASS，01:28:32正常关闭"
+    }
+  ],
+  "visualEvidence": [
+    "driver-18-background-card-immediate.png",
+    "driver-20-background-card-before-click.png",
+    "driver-21-card-opened-order.png",
+    "driver-42-release-background-latest.png",
+    "passenger-22-pickup-consent-pending.png",
+    "passenger-27-approved-trip.png",
+    "passenger-33-dropoff-unknown-pending.png",
+    "passenger-42-history-chinese.png"
+  ],
+  "harnessLimits": [
+    "早期卡14-17/迟到点击19不作大卡正面证据，及时18/20/21及最终42替代",
+    "标题/按钮重名与视口外控件导致辅助断言停止，按新UI树/系统Back纠正；不称每个脚本零失败",
+    "Google Play系统提醒偶尔遮顶部，未改系统Google设置；只接受主体目标可见图"
+  ],
+  "authorTests": "root driver55/乘客20构建PASS来源JSON；frontend未重建或重跑单测",
+  "ownership": {
+    "modifiedProduct": false,
+    "built": false,
+    "committed": false,
+    "deployed": false,
+    "chrome": false,
+    "spawnedAgents": false,
+    "adb": "RETURNED_TO_COORDINATOR",
+    "status": "IDLE",
+    "deployOwner": "coordinator",
+    "pendingMergeSha": null
+  },
+  "completedAt": "2026-10-26T01:35:30.552168+08:00"
+}

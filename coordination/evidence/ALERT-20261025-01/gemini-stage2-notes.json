@@ -1,0 +1,4 @@
+[
+  "DriverTripDistance.kt完全实现driverHasPendingDistanceConsent和DriverTripDistanceCard，支持ISO与Instant解析倒计时、直线米数/阈值对比、定位原因中文翻译、模拟单免责声明，且不代为批准。",
+  "PassengerTripDistance.kt实现PassengerTripDistanceCard，包含快照Dialog确认防误点防并发、倒计时失效停用推进、核验同id同stage；实现PassengerTripLocationReporter，按生命周期STARTED仅活动订单上报最新有效GPS至store.reportLocation，严防切号/伪造。"
+]

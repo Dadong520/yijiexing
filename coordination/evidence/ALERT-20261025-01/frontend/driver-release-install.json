@@ -1,0 +1,47 @@
+{
+  "sourceSha": "d896ebf0c58da093e0c25dae16ddbb40593768df",
+  "at": "2026-10-26T01:14:18.192027+08:00",
+  "before": {
+    "versionName": "0.3.12-cloud",
+    "versionCode": 15,
+    "sha256": "ac320e0f335e8bc017f1fedca133ee024fdbe0a4227d600f26e2cff87d8afa89",
+    "bytes": 56563229,
+    "signer": "Signer #1 certificate SHA-256 digest: 9ffec9b342d12909ff288bd73f23ba104893b39120cb24ea83c9734a0d2b758f",
+    "originDexFiles": [
+      "classes3.dex"
+    ],
+    "permissionLines": [
+      "android.permission.SYSTEM_ALERT_WINDOW: granted=false, flags=[ USER_SET]",
+      "android.permission.POST_NOTIFICATIONS: granted=true, flags=[ USER_SET|USER_SENSITIVE_WHEN_GRANTED|USER_SENSITIVE_WHEN_DENIED]",
+      "android.permission.ACCESS_FINE_LOCATION: granted=true, flags=[ USER_SET|USER_SENSITIVE_WHEN_GRANTED|USER_SENSITIVE_WHEN_DENIED]",
+      "android.permission.ACCESS_COARSE_LOCATION: granted=true, flags=[ USER_SET|USER_SENSITIVE_WHEN_GRANTED|USER_SENSITIVE_WHEN_DENIED]"
+    ]
+  },
+  "after": {
+    "versionName": "0.3.12-cloud",
+    "versionCode": 15,
+    "sha256": "d103e58f2f29a73501f235a86efb7373c85bf23836e290f6ce8bfdca018bda77",
+    "bytes": 56563985,
+    "signer": "Signer #1 certificate SHA-256 digest: 9ffec9b342d12909ff288bd73f23ba104893b39120cb24ea83c9734a0d2b758f",
+    "originDexFiles": [
+      "classes3.dex"
+    ],
+    "permissionLines": [
+      "android.permission.SYSTEM_ALERT_WINDOW: granted=false, flags=[ USER_SET]",
+      "android.permission.POST_NOTIFICATIONS: granted=true, flags=[ USER_SET|USER_SENSITIVE_WHEN_GRANTED|USER_SENSITIVE_WHEN_DENIED]",
+      "android.permission.ACCESS_FINE_LOCATION: granted=true, flags=[ USER_SET|USER_SENSITIVE_WHEN_GRANTED|USER_SENSITIVE_WHEN_DENIED]",
+      "android.permission.ACCESS_COARSE_LOCATION: granted=true, flags=[ USER_SET|USER_SENSITIVE_WHEN_GRANTED|USER_SENSITIVE_WHEN_DENIED]"
+    ]
+  },
+  "startW": "Starting: Intent { cmp=cn.hbzjhs.dc.driver.cloud/cn.hbzjhs.driver.preview.MainActivity }\nStatus: ok\nLaunchState: COLD\nActivity: cn.hbzjhs.dc.driver.cloud/cn.hbzjhs.driver.preview.MainActivity\nTotalTime: 915\nWaitTime: 919\nComplete\n",
+  "texts": [
+    "发现新订单",
+    "起：",
+    "国贸大厦",
+    "终：",
+    "三峡机场",
+    "稍后",
+    "查看订单"
+  ],
+  "acceptance": "PASS"
+}

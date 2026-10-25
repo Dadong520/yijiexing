@@ -1,0 +1,6 @@
+[
+  "三个独立组件完全遵循Android Compose与原生LocationManager规范实现，无新增外部第三方库依赖。",
+  "DriverPermissions实现分步引导、系统渠道与设置跳转、Lifecycle前台刷新状态、SharedPreferences seen/asked防骚扰，已授权不重复弹窗。",
+  "PassengerPermissions实现前台位置采集与数据总线PassengerPositionBus，校验时间新鲜度(<=120秒)和有效精度，onStop/onDispose停止搜星。",
+  "NewOrderAlerts与NewOrderOverlay实现订单事件总线、Dialog前台弹窗、TYPE_APPLICATION_OVERLAY悬浮卡片(20秒自动收起、安全异常捕获、主线程处理、点击唤醒MainActivity并写入查看意向)。"
+]

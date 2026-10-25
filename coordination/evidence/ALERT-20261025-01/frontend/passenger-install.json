@@ -1,0 +1,59 @@
+{
+  "sourceSha": "e1a1240e1948ccd62ee286f8a55cd7c61653eb23",
+  "serial": "emulator-5584",
+  "pkg": "cn.hbzjhs.dc.passenger.cloud",
+  "startedAt": "2026-10-26T00:42:10.909969+08:00",
+  "initialEnvironment": {
+    "size": "Physical size: 1080x2400",
+    "density": "Physical density: 420",
+    "font": "1.0",
+    "wifi": "1",
+    "data": "1",
+    "locationMode": "3",
+    "zen": "0",
+    "appops": "Uid mode: COARSE_LOCATION: ignore\nFINE_LOCATION: ignore\nREAD_CLIPBOARD: allow; time=+2d0h58m55s25ms ago\nWRITE_CLIPBOARD: allow; time=+2d0h59m38s442ms ago\n",
+    "locationLines": []
+  },
+  "beforeIdentity": {
+    "versionName": "1.1.11-experience",
+    "versionCode": 13,
+    "sha256": "8740d21e86484d0187cdcb9c99c03dbf2a8dc8d75488edfaf9f15ffb825c8edb",
+    "bytes": 54125743,
+    "signer": "Signer #1 certificate SHA-256 digest: 9ffec9b342d12909ff288bd73f23ba104893b39120cb24ea83c9734a0d2b758f",
+    "originDexFiles": [
+      "classes3.dex"
+    ],
+    "permissionLines": [
+      "android.permission.ACCESS_FINE_LOCATION: granted=false, flags=[ USER_SENSITIVE_WHEN_GRANTED|USER_SENSITIVE_WHEN_DENIED]",
+      "android.permission.ACCESS_COARSE_LOCATION: granted=false, flags=[ USER_SENSITIVE_WHEN_GRANTED|USER_SENSITIVE_WHEN_DENIED]"
+    ]
+  },
+  "installResult": "Performing Streamed Install\nSuccess",
+  "afterIdentity": {
+    "versionName": "1.1.12-experience",
+    "versionCode": 14,
+    "sha256": "e8a64c17db746c1bbcbf5f0a49165111889902d2a9d3d0322eee7e43eacd946b",
+    "bytes": 54158511,
+    "signer": "Signer #1 certificate SHA-256 digest: 9ffec9b342d12909ff288bd73f23ba104893b39120cb24ea83c9734a0d2b758f",
+    "originDexFiles": [
+      "classes3.dex"
+    ],
+    "permissionLines": [
+      "android.permission.ACCESS_FINE_LOCATION: granted=false, flags=[ USER_SENSITIVE_WHEN_GRANTED|USER_SENSITIVE_WHEN_DENIED]",
+      "android.permission.ACCESS_COARSE_LOCATION: granted=false, flags=[ USER_SENSITIVE_WHEN_GRANTED|USER_SENSITIVE_WHEN_DENIED]"
+    ]
+  },
+  "startW": "Starting: Intent { cmp=cn.hbzjhs.dc.passenger.cloud/cn.hbzjhs.passenger.MainActivity }\nStatus: ok\nLaunchState: COLD\nActivity: cn.hbzjhs.dc.passenger.cloud/cn.hbzjhs.passenger.MainActivity\nTotalTime: 1327\nWaitTime: 1335\nComplete\n",
+  "guideScreenshot": "/Users/dongge/.codex/tmp/yijiexing-native-permissions-20261025/coordination/evidence/ALERT-20261025-01/frontend/passenger-01-upgrade-permission-guide.png",
+  "texts": [
+    "位置服务授权指引",
+    "为了快速自动定位当前上车点、计算接驾预估距离以及活动订单接客核验，需要获取您的前台位置信息。",
+    "当前状态",
+    "未获取权限",
+    "定位总线：无定位权限",
+    "一键允许定位权限",
+    "稍后设置"
+  ],
+  "installAcceptance": "PASS",
+  "endedAt": "2026-10-26T00:42:41.683291+08:00"
+}

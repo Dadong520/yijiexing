@@ -1,0 +1,101 @@
+[
+  {
+    "text": "",
+    "content-desc": "",
+    "class": "android.view.View",
+    "checkable": "true",
+    "checked": "true",
+    "enabled": "true",
+    "bounds": "[859,597][996,723]"
+  },
+  {
+    "text": "",
+    "content-desc": "",
+    "class": "android.view.View",
+    "checkable": "true",
+    "checked": "true",
+    "enabled": "true",
+    "bounds": "[859,775][996,901]"
+  },
+  {
+    "text": "",
+    "content-desc": "",
+    "class": "android.view.View",
+    "checkable": "true",
+    "checked": "true",
+    "enabled": "true",
+    "bounds": "[859,953][996,1079]"
+  },
+  {
+    "text": "声音提醒",
+    "content-desc": "",
+    "class": "android.widget.TextView",
+    "checkable": "false",
+    "checked": "false",
+    "enabled": "true",
+    "bounds": "[84,1163][859,1225]"
+  },
+  {
+    "text": "",
+    "content-desc": "",
+    "class": "android.view.View",
+    "checkable": "true",
+    "checked": "true",
+    "enabled": "true",
+    "bounds": "[859,1131][996,1257]"
+  },
+  {
+    "text": "",
+    "content-desc": "",
+    "class": "android.view.View",
+    "checkable": "true",
+    "checked": "false",
+    "enabled": "true",
+    "bounds": "[859,1309][996,1435]"
+  },
+  {
+    "text": "接单悬浮入口",
+    "content-desc": "",
+    "class": "android.widget.TextView",
+    "checkable": "false",
+    "checked": "false",
+    "enabled": "true",
+    "bounds": "[84,1490][336,1552]"
+  },
+  {
+    "text": "",
+    "content-desc": "",
+    "class": "android.view.View",
+    "checkable": "true",
+    "checked": "false",
+    "enabled": "true",
+    "bounds": "[859,1518][996,1644]"
+  },
+  {
+    "text": "",
+    "content-desc": "",
+    "class": "android.view.View",
+    "checkable": "true",
+    "checked": "false",
+    "enabled": "true",
+    "bounds": "[84,1885][301,2032]"
+  },
+  {
+    "text": "",
+    "content-desc": "",
+    "class": "android.view.View",
+    "checkable": "true",
+    "checked": "true",
+    "enabled": "true",
+    "bounds": "[327,1885][544,2032]"
+  },
+  {
+    "text": "",
+    "content-desc": "",
+    "class": "android.view.View",
+    "checkable": "true",
+    "checked": "false",
+    "enabled": "true",
+    "bounds": "[570,1885][814,2032]"
+  }
+]

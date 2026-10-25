@@ -91,6 +91,9 @@ private fun ConnectedApp(store: ConnectedStore, state: DriverState) {
     var cancelReason by rememberSaveable { mutableStateOf("") }
     var cancelOther by rememberSaveable { mutableStateOf("") }
     var wantsOnline by remember { mutableStateOf(false) }
+    var showPermissionGuide by rememberSaveable { mutableStateOf(false) }
+    var pendingFloatingEnable by rememberSaveable { mutableStateOf(false) }
+    val requestedAlertOrder by NewOrderAlerts.openRequested.collectAsState()
     val holder = rememberSaveableStateHolder()
     val snackbar = remember { SnackbarHostState() }
     val scope = rememberCoroutineScope()
@@ -108,6 +111,7 @@ private fun ConnectedApp(store: ConnectedStore, state: DriverState) {
     }
     fun navigate(value: String) {
         when (value) {
+            "permissions" -> showPermissionGuide = true
             "home" -> {
                 tab = 0
                 stack = listOf("root")
@@ -224,6 +228,35 @@ private fun ConnectedApp(store: ConnectedStore, state: DriverState) {
         } else context.stopService(intent)
     }
     BackHandler(state.loggedIn && stack.size > 1) { back() }
+    val guideShowing = DriverPermissions(showPermissionGuide, { showPermissionGuide = false }) {
+        if (!state.loggedIn || !connected || loading) {
+            pendingFloatingEnable = true
+            message("已记录开启意愿，登录后会核对权益并开启应用浮窗提醒")
+        } else if (payload.optJSONObject("features")?.optBoolean("canFloating") == true)
+            store.perform("settings.update", JSONObject().put("floating", true))
+        else message("当前城市或等级未开放浮窗提醒，已保留系统通知和应用内新单提示")
+    }
+    LaunchedEffect(pendingFloatingEnable, state.loggedIn, connected, loading) {
+        if (pendingFloatingEnable && state.loggedIn && connected && !loading) {
+            pendingFloatingEnable = false
+            if (payload.optJSONObject("features")?.optBoolean("canFloating") == true && android.provider.Settings.canDrawOverlays(context))
+                store.perform("settings.update", JSONObject().put("floating", true))
+            else message("浮窗尚未启用，请在权限与提醒检查中核对系统授权和当前权益")
+        }
+    }
+    LaunchedEffect(requestedAlertOrder, state.loggedIn) {
+        val id = requestedAlertOrder
+        if (id != null && state.loggedIn) {
+            NewOrderAlerts.consumeOpen()
+            store.refresh()
+            navigate("detail:$id")
+        }
+    }
+    if (!guideShowing && state.loggedIn) NewOrderDialog { id ->
+        NewOrderAlerts.dismiss(id)
+        store.refresh()
+        navigate("detail:$id")
+    }
     val route = stack.last()
     Box(Modifier.fillMaxSize().background(Page), contentAlignment = Alignment.TopCenter) {
         Scaffold(

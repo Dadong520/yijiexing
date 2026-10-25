@@ -1,0 +1,61 @@
+{
+  "phase": "TRIP_AFTER_PASSENGER_APPROVAL",
+  "id": "PORDf4f910a233dc",
+  "stage": "TRIP",
+  "fareCents": 2926,
+  "paid": false,
+  "passengerId": "Pf0d9d547bb06",
+  "driverId": "D40a1fd8faa0e",
+  "consents": [
+    {
+      "id": "DC70ba5fe313c3",
+      "type": "PICKUP",
+      "status": "REJECTED",
+      "distanceMeters": 11062.102,
+      "thresholdMeters": 300,
+      "createdAt": "2026-10-26T01:01:36+08:00",
+      "decidedAt": "2026-10-26T01:02:49+08:00",
+      "reason": "OUTSIDE_DISTANCE"
+    },
+    {
+      "id": "DCdc609cb444a2",
+      "type": "PICKUP",
+      "status": "APPROVED",
+      "distanceMeters": 11062.102,
+      "thresholdMeters": 300,
+      "createdAt": "2026-10-26T01:04:06+08:00",
+      "decidedAt": "2026-10-26T01:04:26+08:00",
+      "reason": "OUTSIDE_DISTANCE"
+    }
+  ],
+  "events": [
+    {
+      "type": "PASSENGER_CREATED",
+      "at": "2026-10-26T00:55:52+08:00"
+    },
+    {
+      "type": "DRIVER_ACCEPT",
+      "at": "2026-10-26T01:01:15+08:00"
+    },
+    {
+      "type": "DRIVER_ADVANCE",
+      "at": "2026-10-26T01:01:22+08:00"
+    },
+    {
+      "type": "DRIVER_ADVANCE",
+      "at": "2026-10-26T01:01:36+08:00"
+    },
+    {
+      "type": "DISTANCE_CONSENT_REJECTED",
+      "at": "2026-10-26T01:02:49+08:00"
+    },
+    {
+      "type": "DRIVER_ADVANCE",
+      "at": "2026-10-26T01:04:06+08:00"
+    },
+    {
+      "type": "DISTANCE_CONSENT_APPROVED",
+      "at": "2026-10-26T01:04:26+08:00"
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "object": "gs://yijiexing-demo-state-491829048305/distribution/yijiexing-passenger.apk",
+  "beforeGeneration": "1792939059627852",
+  "backup": "gs://yijiexing-demo-state-491829048305/distribution/backups/ALERT-20261025-01/passenger-1792939059627852.apk",
+  "version": "1.1.11-experience",
+  "sha256": "8740d21e86484d0187cdcb9c99c03dbf2a8dc8d75488edfaf9f15ffb825c8edb",
+  "serverSideBackup": true
+}

@@ -1,0 +1,55 @@
+Browser tab: 1055271354, Title: "宜捷行 · 运营管理中心", URL: "http://127.0.0.1:8808/".
+The following is a diff from the previous accessibility tree with ~ and + representing changed and added elements, respectively. Removed elements are summarized by ID range.
+~				81 button (expanded) 定位及规则快照, Secondary Actions: Collapse
++				94 text {
+  "type": "PICKUP",
+  "distanceMeters": null,
+  "thresholdMeters": 300,
+  "reason": "DRIVER_LOCATION_MISSING",
+  "driverLocation": null,
+  "targetLocation": null,
+  "rules": {
+    "pickupMaxMeters": 300,
+    "dropoffMaxMeters": 300,
+    "locationMaxAgeSeconds": 120,
+    "locationMaxAccuracyMeters": 100,
+    "consentTtlSeconds": 180,
+    "coordinateSystem": "WGS84",
+    "distanceMethod": "SERVER_HAVERSINE",
+    "gpsAttested": false,
+    "version": "national:CN:1|region:CENTRAL:1|city:420500:1",
+    "sources": {
+      "pickupMaxMeters": {
+        "scope": "national",
+        "target": "CN",
+        "version": 1,
+        "label": "全国默认"
+      },
+      "dropoffMaxMeters": {
+        "scope": "national",
+        "target": "CN",
+        "version": 1,
+        "label": "全国默认"
+      }
+    }
+  },
+  "id": "DCc7959e5d3481",
+  "orderId": "DISTANCE-UI",
+  "driverId": "D1",
+  "status": "EXPIRED",
+  "expectedStage": "ARRIVED",
+  "nextStage": "TRIP",
+  "createdAt": "2026-10-26T00:37:18+08:00",
+  "expiresAt": "2026-10-26T00:40:18+08:00",
+  "context": {
+    "orderId": "DISTANCE-UI",
+    "passengerId": "P1",
+    "driverId": "D1",
+    "expectedStage": "ARRIVED",
+    "phoneTail": "0101",
+    "destinationPending": false
+  },
+  "decidedAt": "2026-10-26T00:40:26+08:00",
+  "invalidationReason": "CONSENT_EXPIRED"
+}
+The focused UI element is 81 button (expanded) 定位及规则快照, Secondary Actions: Collapse

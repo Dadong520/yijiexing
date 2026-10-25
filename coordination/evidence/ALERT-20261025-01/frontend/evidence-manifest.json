@@ -1,0 +1,922 @@
+[
+  {
+    "file": "boot-result.json",
+    "sha256": "fe195ade673379a28f1c860f5750fa5b042213de4da486fd3cddb06cd12c7dab"
+  },
+  {
+    "file": "checkpoint.json",
+    "sha256": "e529e097ef96ed11d28890012262db4fc43faf0440b28a365b2d6574f182c32b"
+  },
+  {
+    "file": "device_ui.py",
+    "sha256": "8be9107dda95928a4ea882c6a285634e148a6e9e3b66d1b6efd15cc90f207b82"
+  },
+  {
+    "file": "devices-final-closed.txt",
+    "sha256": "36f15c2fe32964a6fbe902e914a47739d4e6304b0d3e812bf08096ff0419b7ae"
+  },
+  {
+    "file": "driver-01-upgrade-permission-guide.png",
+    "sha256": "8ed328160328c74e0f97b351e1afd286defa5aa853ec27678e2986caf09c6758"
+  },
+  {
+    "file": "driver-01-upgrade-permission-guide.xml",
+    "sha256": "5e8b83096b92a3533d9907fe4b498737debb3e1b7b96fa14f0c189168d620a52"
+  },
+  {
+    "file": "driver-02-guide-clean.png",
+    "sha256": "6bb133367c73f501de7bfe16a75e092d223f24adf7a9d43bfe5d36a005b0c48a"
+  },
+  {
+    "file": "driver-02-guide-clean.xml",
+    "sha256": "5e8b83096b92a3533d9907fe4b498737debb3e1b7b96fa14f0c189168d620a52"
+  },
+  {
+    "file": "driver-03-system-overlay-list.png",
+    "sha256": "2966dcbd4128685760cdbe226609b9334979bfe854bce32e588891ec809d9a6a"
+  },
+  {
+    "file": "driver-03-system-overlay-list.xml",
+    "sha256": "7e2f240b3e184ab9f792d339f2d19766897f18c31c572832a8e2d351de42e275"
+  },
+  {
+    "file": "driver-04-system-overlay-toggle.png",
+    "sha256": "888986524b639977f2a85812c829e85aa98185e44c957e179d339fe81f136b3b"
+  },
+  {
+    "file": "driver-04-system-overlay-toggle.xml",
+    "sha256": "e64a38d7d6305a296896d2a70b284dbf421e602ccc9c559e3285345df46c2789"
+  },
+  {
+    "file": "driver-05-system-overlay-granted.png",
+    "sha256": "38d637f554438c2c26bf0723f954d14bab0d6c70524ee05d7d9774e37b34dccc"
+  },
+  {
+    "file": "driver-05-system-overlay-granted.xml",
+    "sha256": "c34d52cef4197ab38111b6b60f79c6da77f4cc73ba7ffe77e70ae516f542ebbd"
+  },
+  {
+    "file": "driver-06-guide-overlay-updated.png",
+    "sha256": "7dc74f3ce4c0ec998a42e1ac40318abd617618dfbe9345745af03dce7f616cde"
+  },
+  {
+    "file": "driver-06-guide-overlay-updated.xml",
+    "sha256": "e2fc7e3e9ae967c5fc7a0dca5fdc68102a9d356801f069c82d5be9963fb78f04"
+  },
+  {
+    "file": "driver-07-foreground-alert-or-home.png",
+    "sha256": "01be8a2bb6ff22fd0250032aaf45da229459b567bc038f5bea645c3bd3d08d54"
+  },
+  {
+    "file": "driver-07-foreground-alert-or-home.xml",
+    "sha256": "1a55fe61f6ca25d66b467afb767d4f641e2d3cd021b2117d858936462fe70adc"
+  },
+  {
+    "file": "driver-08-final-upgrade.png",
+    "sha256": "daea3ea52274271719178d516ce22700f0f00adf3fc3c5c74e74793f32e1951f"
+  },
+  {
+    "file": "driver-08-final-upgrade.xml",
+    "sha256": "d158b8c61aae598fe7bce3c2d4d4c7b365569c7fdab081b242b1c3ae73d5736f"
+  },
+  {
+    "file": "driver-09-final-retained-account.png",
+    "sha256": "0e3fd1de87ed406ca12732a49fb4a85676f2baf688bc2fad0fff3ed0f111972d"
+  },
+  {
+    "file": "driver-09-final-retained-account.xml",
+    "sha256": "97054c2b615ceaaf18c69f34bea70e267246e5388904f8361b8353c8c2cdbd12"
+  },
+  {
+    "file": "driver-10-final-settings-baseline.png",
+    "sha256": "c482835bbb7197478962e46a8b0ef80018bcd114d0c21d28487469a9cd468a58"
+  },
+  {
+    "file": "driver-10-final-settings-baseline.xml",
+    "sha256": "1d5637136fe0c4ac969e07bdbd8c3c5974808902d1809035a54b24c0bab25a97"
+  },
+  {
+    "file": "driver-11-floating-explicit-on.png",
+    "sha256": "c6f421ee36ebad2db556f4bb46e7e412a92eb3eeaa38e00127543d8cb6a1feac"
+  },
+  {
+    "file": "driver-11-floating-explicit-on.xml",
+    "sha256": "d74a8f94f66e3a3f013378b90da1a56e92350d7d532fb29f71c19019177e91b6"
+  },
+  {
+    "file": "driver-12-guide-reentry-final.png",
+    "sha256": "7dadc671bf9ec040bcaaa44f2be0d6bc220b3cc85a472083d67d8235223adff9"
+  },
+  {
+    "file": "driver-12-guide-reentry-final.xml",
+    "sha256": "e2fc7e3e9ae967c5fc7a0dca5fdc68102a9d356801f069c82d5be9963fb78f04"
+  },
+  {
+    "file": "driver-13-background-before-new.png",
+    "sha256": "d48963f638329277acd87e4b01a1407112d5378a5c902600c53d20b0921648c0"
+  },
+  {
+    "file": "driver-13-background-before-new.xml",
+    "sha256": "10f4453aeb9ad3e97694b19e24ef481219cc572ec90aa0df47214f3f321f36c3"
+  },
+  {
+    "file": "driver-14-background-new-order.png",
+    "sha256": "22ba5378317f9116ad42d91ab76be21dc9cdbdb43adb72cfe1ed2d3a81697ef3"
+  },
+  {
+    "file": "driver-14-background-new-order.xml",
+    "sha256": "10f4453aeb9ad3e97694b19e24ef481219cc572ec90aa0df47214f3f321f36c3"
+  },
+  {
+    "file": "driver-15-background-second-new.png",
+    "sha256": "edf70273519d893d73cb6fa93eef443554b51de3d0bc745ce9591831619865a6"
+  },
+  {
+    "file": "driver-15-background-second-new.xml",
+    "sha256": "10f4453aeb9ad3e97694b19e24ef481219cc572ec90aa0df47214f3f321f36c3"
+  },
+  {
+    "file": "driver-16-background-actual-new.png",
+    "sha256": "3a489422819c1075563eb833b1e531ca69622d854ba0eb7c6dfab85ffc374d7d"
+  },
+  {
+    "file": "driver-16-background-actual-new.xml",
+    "sha256": "10f4453aeb9ad3e97694b19e24ef481219cc572ec90aa0df47214f3f321f36c3"
+  },
+  {
+    "file": "driver-17-background-after-poll.png",
+    "sha256": "2572fb82b446adef2fdf69d3ed06c7e89c7f956f91175782892d45826875d54f"
+  },
+  {
+    "file": "driver-17-background-after-poll.xml",
+    "sha256": "10f4453aeb9ad3e97694b19e24ef481219cc572ec90aa0df47214f3f321f36c3"
+  },
+  {
+    "file": "driver-18-background-card-immediate.png",
+    "sha256": "0699ab7fe844f79416f0a50d7e5addf707b685795b276a42bae22885933a4884"
+  },
+  {
+    "file": "driver-19-card-view-only-result.png",
+    "sha256": "4dd85ce30bc50c2a6c9003e56b0c17c9cefda01b797b2fd59c592accab1d4943"
+  },
+  {
+    "file": "driver-19-card-view-only-result.xml",
+    "sha256": "10f4453aeb9ad3e97694b19e24ef481219cc572ec90aa0df47214f3f321f36c3"
+  },
+  {
+    "file": "driver-20-background-card-before-click.png",
+    "sha256": "ef6673071b78bc5909e1384733680c14080aff65e221cea31be6e21859de9d03"
+  },
+  {
+    "file": "driver-21-card-opened-order.png",
+    "sha256": "75e6fc680ee78f25f57ef2bba5d93045770f08c4454743bdfac778e98d61ba63"
+  },
+  {
+    "file": "driver-21-card-opened-order.xml",
+    "sha256": "69a0c5abb5101bcede93c0d2d117f5f39aa3dd79ff36169a16ef2012f41044f9"
+  },
+  {
+    "file": "driver-22-accepted-pickup.png",
+    "sha256": "73df7960ae2e85d21296e2c5ec5a96d88e79c01a46426d53a2db527840eda475"
+  },
+  {
+    "file": "driver-22-accepted-pickup.xml",
+    "sha256": "8991d26324e5dbad538f34639a62688b072087d60e60f020d8d4881e1adc12f7"
+  },
+  {
+    "file": "driver-23-confirmed-pickup.png",
+    "sha256": "27369fa883fdf19c8742d14199f21c9e92d37dcaf88d2cf515205f9de00d236b"
+  },
+  {
+    "file": "driver-23-confirmed-pickup.xml",
+    "sha256": "1ae2e3b4508726464e4191753808429830f33510355f33026a6f8d352eecc066"
+  },
+  {
+    "file": "driver-24-arrived.png",
+    "sha256": "f3406f25040cda2b0c18105c2495d5f3dd17b5f8384f85d9910becd116b8b6d6"
+  },
+  {
+    "file": "driver-24-arrived.xml",
+    "sha256": "36d4d4312069f2627a7398a562ce1747b13eacc8c91764bc4ca1ec6dfac5ae04"
+  },
+  {
+    "file": "driver-25-phone-tail-entered.png",
+    "sha256": "b2ea3806685213f8a4f981d6a6c143bafb9cf61f5fa018894ad6bfc85c659349"
+  },
+  {
+    "file": "driver-25-phone-tail-entered.xml",
+    "sha256": "dfd1346bd5857fb600f12505de985b7a5a1238656a00408111a9a57335ed7930"
+  },
+  {
+    "file": "driver-26-pickup-pending.png",
+    "sha256": "511e5fc11ef5424b514a56df02e7b7963b26e9dd0ca953d520191b40e8670e00"
+  },
+  {
+    "file": "driver-26-pickup-pending.xml",
+    "sha256": "b3b711375779996d11aafd6f05adb70b882497470ef4cbdc8de14a70c2a4dbca"
+  },
+  {
+    "file": "driver-27-after-rejection.png",
+    "sha256": "56c4cdddbd6a646f7f5fd6a4229139ba0194bc7aa77a0464e647045f4ca6a676"
+  },
+  {
+    "file": "driver-27-after-rejection.xml",
+    "sha256": "442add4430e265bebe950b65e523360eab84754dd9dc2f8f1d6dc9de1429454f"
+  },
+  {
+    "file": "driver-28-second-pending.png",
+    "sha256": "148ad7b8c4afba3ca2d2177c376f57ec72dd2a960cbfdfdcfecbc22d8c85e209"
+  },
+  {
+    "file": "driver-28-second-pending.xml",
+    "sha256": "b3b711375779996d11aafd6f05adb70b882497470ef4cbdc8de14a70c2a4dbca"
+  },
+  {
+    "file": "driver-29-after-approved-trip.png",
+    "sha256": "148ad7b8c4afba3ca2d2177c376f57ec72dd2a960cbfdfdcfecbc22d8c85e209"
+  },
+  {
+    "file": "driver-29-after-approved-trip.xml",
+    "sha256": "b3b711375779996d11aafd6f05adb70b882497470ef4cbdc8de14a70c2a4dbca"
+  },
+  {
+    "file": "driver-30-system-location-settings.png",
+    "sha256": "15d9075d89eeef81b6ac7b6b100909cff1ad21f49edab363df5be6935d2072f8"
+  },
+  {
+    "file": "driver-30-system-location-settings.xml",
+    "sha256": "92ae36ee661418f19c6861409d4fcaea7c6e00402031f4259b422c470920857e"
+  },
+  {
+    "file": "driver-31-system-location-off.png",
+    "sha256": "ae9fe6e62bfcff4cdac0e6bebd811aa5708040c874cfd905dc0cfb254136a1d7"
+  },
+  {
+    "file": "driver-31-system-location-off.xml",
+    "sha256": "391333e6b1ab37185259c01438f1d3c41e93cf951a0fa92ed713781bd4aa60e2"
+  },
+  {
+    "file": "driver-32-trip-with-location-off.png",
+    "sha256": "9dfaf92e20aceafc0036e76323798b770fe6df2b331a0e5af83c16a3d214bb95"
+  },
+  {
+    "file": "driver-32-trip-with-location-off.xml",
+    "sha256": "b8f15fea82f1ee0fcdaa375919cbfc0fe5a5431eb09e4a72b24f04d38db94572"
+  },
+  {
+    "file": "driver-33-dropoff-pending.png",
+    "sha256": "86fa466080a0012d8ccd1d56c941eed88835bf5000225d80b3a73e008e465b61"
+  },
+  {
+    "file": "driver-33-dropoff-pending.xml",
+    "sha256": "f9fb8fec02bf329691a66031eb5191aecdc1f41a85134eb53933567cb1472009"
+  },
+  {
+    "file": "driver-34-after-dropoff-approval.png",
+    "sha256": "c8c2fcb73ae3e5628efeb3156644316cb21d67e0f472cc9ebdf5d75d8a11621a"
+  },
+  {
+    "file": "driver-34-after-dropoff-approval.xml",
+    "sha256": "e644b9cfdbe27582e27bd132f6690a018d17ae1ca1417dbe819e095148509619"
+  },
+  {
+    "file": "driver-35-listening-with-unpaid-order.png",
+    "sha256": "aaf744329396767a943e0324d174618e98e5b47f723d136fcfcffbe56faf5eaa"
+  },
+  {
+    "file": "driver-35-listening-with-unpaid-order.xml",
+    "sha256": "7a75f9da2795eb7a6494b44356285bb2d215c92f8bf1a1f8c9a087992040fe1b"
+  },
+  {
+    "file": "driver-36-new-accept-confirm-available.png",
+    "sha256": "1a97382a4059fc7f5e198f95048992855cddd63dce10e36db723558339610e35"
+  },
+  {
+    "file": "driver-36-new-accept-confirm-available.xml",
+    "sha256": "1b7fad6bcbd77b6ed62634fa06779c6080aeacb5957632a8036ab2aa12229081"
+  },
+  {
+    "file": "driver-40-release-upgrade.png",
+    "sha256": "7cb732f2ccbea86f5ccd294afac3e4b086f43f156c554e9a04bc5fa49e43a8ed"
+  },
+  {
+    "file": "driver-40-release-upgrade.xml",
+    "sha256": "4458e06de318b44ed85db398868c2b207d8e4fa212a5d25fa1c4b367f26026f7"
+  },
+  {
+    "file": "driver-41-location-service-restored.png",
+    "sha256": "262feace7693f64f1675ebb375e6dcba08c31fdef9ba82dd79e55a9973d76c2b"
+  },
+  {
+    "file": "driver-41-location-service-restored.xml",
+    "sha256": "9692d5ddbd7ee93b7d0832aec3dae60c79a6a327a5443cebeb3bbabe49da9559"
+  },
+  {
+    "file": "driver-42-release-background-latest.png",
+    "sha256": "66720dc6dbba1867a78ea200e5a52e339f4daca7473e652c24c67476e4066a7c"
+  },
+  {
+    "file": "driver-43-release-after-autohide.png",
+    "sha256": "e077e6f502b9ab0cda8369deddbbe4ac81ad1e21c79c2e6928d8f7d65ffedd1a"
+  },
+  {
+    "file": "driver-44-release-driver-account.png",
+    "sha256": "be3a5242b2aa1d1687f14ccbf9ee3c9aa86f6cf641aa5b4f95110a70a8dba68d"
+  },
+  {
+    "file": "driver-44-release-driver-account.xml",
+    "sha256": "9267f0ebb4c54fa23af0ffb228f793e20847379e38578f5067ef5ce5d9aafeac"
+  },
+  {
+    "file": "driver-45-floating-preference-restored.png",
+    "sha256": "c5c663b63bd1ad41f8638ab20be947ab3248d19a53a42886eaedb779355e09d4"
+  },
+  {
+    "file": "driver-45-floating-preference-restored.xml",
+    "sha256": "1d5637136fe0c4ac969e07bdbd8c3c5974808902d1809035a54b24c0bab25a97"
+  },
+  {
+    "file": "driver-46-final-overlay-denied.png",
+    "sha256": "888986524b639977f2a85812c829e85aa98185e44c957e179d339fe81f136b3b"
+  },
+  {
+    "file": "driver-46-final-overlay-denied.xml",
+    "sha256": "e64a38d7d6305a296896d2a70b284dbf421e602ccc9c559e3285345df46c2789"
+  },
+  {
+    "file": "driver-48-gps-disabled-before-install.png",
+    "sha256": "ae9fe6e62bfcff4cdac0e6bebd811aa5708040c874cfd905dc0cfb254136a1d7"
+  },
+  {
+    "file": "driver-48-gps-disabled-before-install.xml",
+    "sha256": "391333e6b1ab37185259c01438f1d3c41e93cf951a0fa92ed713781bd4aa60e2"
+  },
+  {
+    "file": "driver-49-gps-switched-on-no-app-restart.png",
+    "sha256": "c3e3b7228312026c40adc67a32fcccf985e2567552552bf1fb99cbd8ec811b4b"
+  },
+  {
+    "file": "driver-49-gps-switched-on-no-app-restart.xml",
+    "sha256": "09726d9bb5bca395f7a6b11288eca476e096fe74d6956d0ea1f17614a2215aea"
+  },
+  {
+    "file": "driver-50-gps-recovery-final-home.png",
+    "sha256": "fef3e1192394e36ba0f975b2bbce3ded82ec25d1be8280359a44913dade87002"
+  },
+  {
+    "file": "driver-50-gps-recovery-final-home.xml",
+    "sha256": "fb0aca29f9c2c7a42e699f2123b09c9d9fd8cf4d5ea31240ac65277f53412745"
+  },
+  {
+    "file": "driver-audio-playback-events.txt",
+    "sha256": "db46497b53f84cde23bb96b8b76ff6653748659d0009cf29ed52006d61b51eb3"
+  },
+  {
+    "file": "driver-audio-system-events.txt",
+    "sha256": "006f09426ebfb9ecf043d8e386b54c2f3551d8e559ef4ebf634cbd3331aee50e"
+  },
+  {
+    "file": "driver-background-notification.txt",
+    "sha256": "bda90328357908e3f46d398b86ba99e4617bc489c53e6990ce8baf009097345f"
+  },
+  {
+    "file": "driver-background-windows.txt",
+    "sha256": "5fd7343244755da3b933b65a99e0d3d0d2011ff582c0b043296dac5df702b423"
+  },
+  {
+    "file": "driver-emulator-start.log",
+    "sha256": "b652da88bf2193e5bff2c30d63c11e7afe25be77df273ef039d47c1bb1d348f1"
+  },
+  {
+    "file": "driver-final-build-result.json",
+    "sha256": "7f1e372c2a6edb21346091e22dae630d17c77d9cf558888446fe44f7ae852d03"
+  },
+  {
+    "file": "driver-final-gps-restart.json",
+    "sha256": "4617933fd5fbe3b25f41055e0c3b7d26e97114ba8e8536cfbb0c6879486a621c"
+  },
+  {
+    "file": "driver-final-gps-restart.log",
+    "sha256": "70d9bb4012f386c40e1f70af37395800405976d8d86bd75623819d48b40ca335"
+  },
+  {
+    "file": "driver-final-install.json",
+    "sha256": "186bcbcd0ed41a25c60c7c7e476ad44e201d7e620d127ed4216e40c0e2bcff71"
+  },
+  {
+    "file": "driver-final-service.txt",
+    "sha256": "7d6ab4b7c298cf7269385a6d773158e7d23cb99c621f70911d43008720eb8b4c"
+  },
+  {
+    "file": "driver-gps-final-build-result.json",
+    "sha256": "331db50fa984dabd90e8e820d8df36e8218f461616dd6a2b684605f8791a65e2"
+  },
+  {
+    "file": "driver-initial-build-result.json",
+    "sha256": "f901d49312e19f8fdd5695c09894f2b4de2bf282c9ed5ee279b1508f1e55e17f"
+  },
+  {
+    "file": "driver-install.json",
+    "sha256": "68a69770e2c08876010f524e98fdb282ec0cf7e36277fd8cdeed56d750cabaf7"
+  },
+  {
+    "file": "driver-location-off.json",
+    "sha256": "3f06fa818a9271ffdd3c6fcf5af2b59a49d3dbeaae990ff2efbbc03fa018b5fa"
+  },
+  {
+    "file": "driver-notification-evidence.txt",
+    "sha256": "8244189fae1c502b041680d8559c557919de01b05f021c0252743f373899c9f6"
+  },
+  {
+    "file": "driver-notifications-second-order.txt",
+    "sha256": "a0984dec87f795c8b0bd5ff970eba566990d38d4257f6b4148698cfe25b1ac55"
+  },
+  {
+    "file": "driver-preboot-unavailable.json",
+    "sha256": "2d0de85880a05975cbba5e190db68eacf30e7d75e2f227485030347423e55d6b"
+  },
+  {
+    "file": "driver-release-build-result.json",
+    "sha256": "75ba05d8ded63c5dc2a6b606c168c6909b01abeedde73199c07fa4340072baf6"
+  },
+  {
+    "file": "driver-release-install.json",
+    "sha256": "ba9f4497c5599341c855a91206b1d7736a4c9bf396854167c864d070cf29ebc8"
+  },
+  {
+    "file": "driver-release-overlay-log.txt",
+    "sha256": "9ff6c7aa8ef9a13ed48063780b597a28f2c8d4bdec968d1727b21590d394f6bd"
+  },
+  {
+    "file": "driver-settings-baseline.json",
+    "sha256": "0da2554b9d788cb0e793536c0a5956eea6ea5903c51e65e795f39c399c9b3737"
+  },
+  {
+    "file": "driver-source-superseded-before-install.json",
+    "sha256": "41c26c2e0767425dd7524edec4091646e102e9d791973f84efd8c38c46bc3bc2"
+  },
+  {
+    "file": "driver-steps.jsonl",
+    "sha256": "85d1ca37062038ed5657a2eb4ca4c314bc58bb1190bcceac47d2a8c87a1023a8"
+  },
+  {
+    "file": "dropoff-request-time.json",
+    "sha256": "883911c63eb5fa105bf0b31ae02581dab6dc32550151798450e411b3a48af77b"
+  },
+  {
+    "file": "emulator-start.json",
+    "sha256": "d1277484ca010e7260f8393432fc220a5969a661425ec624afc59245664f7b40"
+  },
+  {
+    "file": "final-native-delta.txt",
+    "sha256": "cf4f00ac495a2842acf116642e592fb3277643b81aec608d59cadda6e2dacb3e"
+  },
+  {
+    "file": "final_driver_upgrade.py",
+    "sha256": "9087c3ad52db9e39d419c862c0b37212390c48e71676b40206e4fbd2ccd11a97"
+  },
+  {
+    "file": "final_restore.py",
+    "sha256": "e93fb1fdba59b68965eb79b2113146a031ba3fd694208a36c10bbf641b8b5db5"
+  },
+  {
+    "file": "gps-before-distance.json",
+    "sha256": "0580e39b22029faee764e0d0a3b8238d5e82cf4946c550d68b8c208aead35db1"
+  },
+  {
+    "file": "gps-before-test.json",
+    "sha256": "7edcc77fa19c64a7b7dc097982b54313dae8083837f946fc9b5640fdff11a72f"
+  },
+  {
+    "file": "gps-driver-after-injection.txt",
+    "sha256": "df8ed5d7bae62e3be3ee36753d8fd0f07e15eca61e918482efa22f624cc7db6b"
+  },
+  {
+    "file": "gps-recovery-delta.json",
+    "sha256": "719cba93e2adf2f65c8889f089771e26aa3c744ebd9801e532f473102ca74605"
+  },
+  {
+    "file": "gps-restore-commands.json",
+    "sha256": "9f77ce9cb7a532fc883a7a67a7083202ffa3b9279a4b8c07a217a059b1817256"
+  },
+  {
+    "file": "gps-restored-readback.json",
+    "sha256": "af11b7f528f7763f0656965273abd5f868f7359f0c6d04bb159d7531cfc9f10c"
+  },
+  {
+    "file": "gps-test-injection.json",
+    "sha256": "c5c7a217acc6afb7dc1d2bd896b345048e230e4aae3181c32dc9d37cbf233c6d"
+  },
+  {
+    "file": "gps_recovery_delta.py",
+    "sha256": "44c441c123aa4d3b561af19f421de570c10b3703141dfccd837ffd795e20a99d"
+  },
+  {
+    "file": "install_upgrade.py",
+    "sha256": "1e4d9f073f3c018406b9327f4a65410f2969ec479c092e6e3480df56b95724ed"
+  },
+  {
+    "file": "passenger-01-upgrade-permission-guide.png",
+    "sha256": "2632a3844ef6a274f66513257c98a61216afa7e70b3ad130633b480e8ce9f39b"
+  },
+  {
+    "file": "passenger-01-upgrade-permission-guide.xml",
+    "sha256": "3dda78019fbc79d5e5737f1afc0492b62b2838ae2d2d7b4c8c04e51787888b42"
+  },
+  {
+    "file": "passenger-02-guide-clean.png",
+    "sha256": "5c7d9d560a1f6c273e2e2c7d3da3c3ec24abb8a20bf881882138db968caa2d1f"
+  },
+  {
+    "file": "passenger-02-guide-clean.xml",
+    "sha256": "3dda78019fbc79d5e5737f1afc0492b62b2838ae2d2d7b4c8c04e51787888b42"
+  },
+  {
+    "file": "passenger-03-system-location-request.png",
+    "sha256": "2a6435ce727f6c97aef0dd222946a6ae6245618cc75de5a54ffa4e4829b8a27e"
+  },
+  {
+    "file": "passenger-03-system-location-request.xml",
+    "sha256": "6fe4227bcce3241b7579ace38c1890ad748ffa3726dc4ab9cef2d880ef47de98"
+  },
+  {
+    "file": "passenger-04-location-denied.png",
+    "sha256": "35d3203b882f664624297f9b3a9b0721e566c38157f6ef4edbe5b18c223a1c9b"
+  },
+  {
+    "file": "passenger-04-location-denied.xml",
+    "sha256": "3dda78019fbc79d5e5737f1afc0492b62b2838ae2d2d7b4c8c04e51787888b42"
+  },
+  {
+    "file": "passenger-05-location-granted.png",
+    "sha256": "b46f0d2fdcb057f868b6bf44b33008baed56405cdd5033e23303bd335e6355d5"
+  },
+  {
+    "file": "passenger-05-location-granted.xml",
+    "sha256": "d6216f8b71ff03ee2a8be5c36801ff8dda7ce63e38d6cd7b598e13953dc94aa9"
+  },
+  {
+    "file": "passenger-06-retained-account.png",
+    "sha256": "165b39ecd1c0e961818aaa15d3197a1b1d5e0bc72f97c944d5b1f9ba46c3cf76"
+  },
+  {
+    "file": "passenger-06-retained-account.xml",
+    "sha256": "b85541eebeeebc418dbf29f37826f7bf8522e72867587899b8809a4bbcc666f0"
+  },
+  {
+    "file": "passenger-07-guide-reentry.png",
+    "sha256": "98fe820f116c660368863212883e90e186f5b44fb276decb89be277426376806"
+  },
+  {
+    "file": "passenger-07-guide-reentry.xml",
+    "sha256": "6a0cec3e1e76abf54100862724a197e76ed4ba57816bbafd54d408b94d38827e"
+  },
+  {
+    "file": "passenger-08-relaunch-no-repeat.png",
+    "sha256": "31f0f8685eb8e22f99372008569cfc1053c613f0052e4f196b3aaaca39a32f5b"
+  },
+  {
+    "file": "passenger-08-relaunch-no-repeat.xml",
+    "sha256": "6eb5bb5a6ca171447cc6a611cae2145171191a75f0b9fc1c3780f621a391a53f"
+  },
+  {
+    "file": "passenger-09-first-order-created.png",
+    "sha256": "3a720a15e4a5b2f1c20fa73be3a2639bb5e0b2aa7d528b59884ddd26ab7c014e"
+  },
+  {
+    "file": "passenger-09-first-order-created.xml",
+    "sha256": "0a6e37345ff950b26563746ac0b5066f7bfcbf1ac2a0ce6de78129d08ee14f10"
+  },
+  {
+    "file": "passenger-10-first-order-id.png",
+    "sha256": "361379c3e3140eeedfb04d9980a240da92d720d20b20e8b592c4f342ee38b07e"
+  },
+  {
+    "file": "passenger-10-first-order-id.xml",
+    "sha256": "e11e1913602e8805fd28a2e84d9aa5f3332100745692c753b86297dba0304416"
+  },
+  {
+    "file": "passenger-11-first-order-manage.png",
+    "sha256": "e0b5dbebdaa7da54f2fbcdb15955c28ab087715e657c323b737cf43794e196ff"
+  },
+  {
+    "file": "passenger-11-first-order-manage.xml",
+    "sha256": "cad133c453873ee2fe611bee99c50e51cafb4e0d2e81ad2d4c64f24199339e9e"
+  },
+  {
+    "file": "passenger-12-first-cancel-dialog.png",
+    "sha256": "d9cb24df8906e55bbb9dcb7ba184ba6e782e441f63985eb91d197ba4f9a0f461"
+  },
+  {
+    "file": "passenger-12-first-cancel-dialog.xml",
+    "sha256": "5e7aa8b536b4831d4be62b7ba30597750a8cfac4be777a9d53753c412ae5c762"
+  },
+  {
+    "file": "passenger-13-first-cancelled.png",
+    "sha256": "7ab8078fc52959f280e9300b6755df9d2d12845a7678e0987dac2aca6fa22e6a"
+  },
+  {
+    "file": "passenger-13-first-cancelled.xml",
+    "sha256": "b5e7f8d96986c92a8228035d70105836d1578e4ba5c677c1ca6fb4f687ea5641"
+  },
+  {
+    "file": "passenger-16-navigation-current.png",
+    "sha256": "85aeeeef8b8de015a913b1477147d41f69e0aac8073a79556623b97c04b89089"
+  },
+  {
+    "file": "passenger-16-navigation-current.xml",
+    "sha256": "bdd8cffaacc0f417c72700f009c62820231112824304c49ee8439a57d9040dde"
+  },
+  {
+    "file": "passenger-17-second-order-created.png",
+    "sha256": "e62f384d5ed0403fbc827c001f073b90cab2e2e080bd12e72414629cbe8a58fe"
+  },
+  {
+    "file": "passenger-17-second-order-created.xml",
+    "sha256": "3bd89f1e65be64586f900fd1be15732231bf783ad4714355ebaba5136084c9e2"
+  },
+  {
+    "file": "passenger-18-second-order-id.png",
+    "sha256": "94d0da4edeaa472445d1597e97f63e4cd80f83eed64a4b578e58bee0e63437be"
+  },
+  {
+    "file": "passenger-18-second-order-id.xml",
+    "sha256": "f2bf47a3affee5c50faf6329b210f20d9c65650d8c7a076667c145a71590746f"
+  },
+  {
+    "file": "passenger-19-system-back-navigation.png",
+    "sha256": "0696ef65c0fa5f81abfa899394374716d8874cee72a5b48432b953318f2dcd41"
+  },
+  {
+    "file": "passenger-19-system-back-navigation.xml",
+    "sha256": "cc3ebcc11c4108a2b2cfbaf9773a861685c8e8fd5a47116e4f6511230e71bdc6"
+  },
+  {
+    "file": "passenger-20-before-accept.png",
+    "sha256": "c53347890f2aa108e479c0792333be60bb45da88853115b0a160c1611ce498e7"
+  },
+  {
+    "file": "passenger-20-before-accept.xml",
+    "sha256": "cb2c54230cb71798e49262c03434d6c16893a480a71dbbdb735a22d230e86bdf"
+  },
+  {
+    "file": "passenger-22-pickup-consent-pending.png",
+    "sha256": "374f4852324884f3a4ae0b58824e5e1afcce03d966bd8fabf16e8fdfb0405bce"
+  },
+  {
+    "file": "passenger-22-pickup-consent-pending.xml",
+    "sha256": "71b58836efd7c700c0e2e174967019d410f32c258ab2cadef337473e2348cb20"
+  },
+  {
+    "file": "passenger-23-reject-confirmation.png",
+    "sha256": "9be58f5005f41365611201796d0db08a7b2bbe5080ba7a73446712ab640ebac7"
+  },
+  {
+    "file": "passenger-23-reject-confirmation.xml",
+    "sha256": "de165aa2ca26f85cf30b27f498ef5b04a52aa54a2b56f9e620f4d99292232b3b"
+  },
+  {
+    "file": "passenger-24-rejected-still-arrived.png",
+    "sha256": "50781c586eaf2c8255e505bc3eeb7e4d278500e6cd9ab288cfd14718557edae0"
+  },
+  {
+    "file": "passenger-24-rejected-still-arrived.xml",
+    "sha256": "116e043e696da40bea481a55fa1a5f3707ed0ad70df66c4d0fb6d7a54671801c"
+  },
+  {
+    "file": "passenger-25-second-pickup-request.png",
+    "sha256": "d5afbc779e99e89443f02e921587d68e946a54601ff752cae11c81c4ecd5e41d"
+  },
+  {
+    "file": "passenger-25-second-pickup-request.xml",
+    "sha256": "7a8c16c022f95ce0fa457e7fd08283282a6a2011349a19b34a890407052856e6"
+  },
+  {
+    "file": "passenger-26-pickup-approve-dialog.png",
+    "sha256": "111021c14826476c4ae4a8c9b8bb130d8c9d67dd0f4293772910a159cc636acd"
+  },
+  {
+    "file": "passenger-26-pickup-approve-dialog.xml",
+    "sha256": "4e82e0bda2dacf932aadcc304ba884664ce02542c625ad324696dac78db33096"
+  },
+  {
+    "file": "passenger-27-approved-trip.png",
+    "sha256": "5f39ab52e0effb88584209c389ac89f992a4306bf9292625ce7cd456d0cd5559"
+  },
+  {
+    "file": "passenger-27-approved-trip.xml",
+    "sha256": "4873536a0379265005c594428369b798a417e340e856f46f44ade1a348ec7f27"
+  },
+  {
+    "file": "passenger-28-system-app-info-restore.png",
+    "sha256": "c6c488c3edb5a50715336e05b9b005560c8351c2e65072d5b460e306d81cf449"
+  },
+  {
+    "file": "passenger-28-system-app-info-restore.xml",
+    "sha256": "ba61a5a6f99321dffb574f2328bbe851760a18fd2c66d53c5d153d2c6b52ec07"
+  },
+  {
+    "file": "passenger-29-system-permissions-restore.png",
+    "sha256": "a5521d96976b3c8393a453483d105f16bc097970b3b73856f05f7987f3d8c9ac"
+  },
+  {
+    "file": "passenger-29-system-permissions-restore.xml",
+    "sha256": "520a1cd419ccedec895ece2f9121417ee6ad992c26f6f3de7226b1e843bd3033"
+  },
+  {
+    "file": "passenger-30-system-location-permission-restore.png",
+    "sha256": "b30802f31c5bbad808f77d3c68dfcaf31802ce9249f76003dea6eba94157e251"
+  },
+  {
+    "file": "passenger-30-system-location-permission-restore.xml",
+    "sha256": "afa01f006b2f019af9f6136ef6fe310a7528e10433a0c0d755875addebc5a471"
+  },
+  {
+    "file": "passenger-31-location-restored-denied.png",
+    "sha256": "a4afbd8ddc956b57e7fc13878118a4a45881cf8efe65a59615d6f1d25543c426"
+  },
+  {
+    "file": "passenger-31-location-restored-denied.xml",
+    "sha256": "4e62c55b625d4bf26674bb7864c328f15897473458055bc2f4ca829160287fb2"
+  },
+  {
+    "file": "passenger-32-resume-after-denied.png",
+    "sha256": "71e43c284267c0cbe63e397f09b2b95c94200ffd366ff6a0478e722918ce3469"
+  },
+  {
+    "file": "passenger-32-resume-after-denied.xml",
+    "sha256": "16e8b50bdde0a281f900ccad0f05c3b33a25756c2447b9440cc02a1772288885"
+  },
+  {
+    "file": "passenger-33-dropoff-unknown-pending.png",
+    "sha256": "8a5665de7ca82460c54ba05b14b0b87beb917f00bf24311afb340ec8753582c2"
+  },
+  {
+    "file": "passenger-33-dropoff-unknown-pending.xml",
+    "sha256": "17da9bd4d5b304032fd0871364fa5330156f4207dafcf1a474fbe6fea2fd848d"
+  },
+  {
+    "file": "passenger-34-dropoff-confirm-dialog.png",
+    "sha256": "e32b1cf12348ea12fd85516c5bbdb73bdf986931b5db4dffeac86bf93a23064a"
+  },
+  {
+    "file": "passenger-34-dropoff-confirm-dialog.xml",
+    "sha256": "4e82e0bda2dacf932aadcc304ba884664ce02542c625ad324696dac78db33096"
+  },
+  {
+    "file": "passenger-35-dropoff-approved-waitpay.png",
+    "sha256": "6f4c4fde48f5471af4b57ce35776cbf8b23f23d82b67a0d1da7190b6319313ad"
+  },
+  {
+    "file": "passenger-35-dropoff-approved-waitpay.xml",
+    "sha256": "5e12d68aa49b0d6c408bbb051a0c3b1ca99aa0f6c15a85df7fd09228e0d2281f"
+  },
+  {
+    "file": "passenger-36-debt-home.png",
+    "sha256": "44e32a8d8b7b71f36d6ff69a1cec2eb695d5e512df14859496e292d9ef5ea335"
+  },
+  {
+    "file": "passenger-36-debt-home.xml",
+    "sha256": "a235ceb40b10d1ab8b2032232b7d825d86fda34ac77388ba780049e4dfb9e485"
+  },
+  {
+    "file": "passenger-38-simulated-payment-confirm.png",
+    "sha256": "824d165cdc3379b2ded92952b8e8f2b31532d6a380700a1c9efdd0192df065a0"
+  },
+  {
+    "file": "passenger-38-simulated-payment-confirm.xml",
+    "sha256": "af629d0d7f6926d5c36e1905c5ab2aaf998c84ed0fb019c58768adae4003674a"
+  },
+  {
+    "file": "passenger-39-paid-done.png",
+    "sha256": "469eafbd01081d0eda612a9909e84b9a522d7f1d02e164ad3a0191141390e78d"
+  },
+  {
+    "file": "passenger-39-paid-done.xml",
+    "sha256": "d9025d27041b01b8ac425d369c474dc9985e116f92e0cc373ddf3eaea4bece31"
+  },
+  {
+    "file": "passenger-40-release-upgrade.png",
+    "sha256": "13db97dda94efc4dfbe0a9703e223f3cc2a782c1c04cdd96c5e036974674bc41"
+  },
+  {
+    "file": "passenger-40-release-upgrade.xml",
+    "sha256": "6eb5bb5a6ca171447cc6a611cae2145171191a75f0b9fc1c3780f621a391a53f"
+  },
+  {
+    "file": "passenger-41-release-account-retained.png",
+    "sha256": "29733fb067a709bb38b4628a3447fc0fe870977f3f257c8cc9cc4b486f243fd9"
+  },
+  {
+    "file": "passenger-41-release-account-retained.xml",
+    "sha256": "b85541eebeeebc418dbf29f37826f7bf8522e72867587899b8809a4bbcc666f0"
+  },
+  {
+    "file": "passenger-42-history-chinese.png",
+    "sha256": "30469701f367a05000adfd93bcf01556c7fc457dc08661588da3f959d6f2278e"
+  },
+  {
+    "file": "passenger-42-history-chinese.xml",
+    "sha256": "17ca8d66f618cfbf80a494a68f811b60c8d5f0df809eed9732a410cb1e6ed275"
+  },
+  {
+    "file": "passenger-43-delta-third-created.png",
+    "sha256": "44809a85173da5236126e49e45fd18538dcc86e4e3f13e8a6d18aa45afff1c0c"
+  },
+  {
+    "file": "passenger-43-delta-third-created.xml",
+    "sha256": "eb20b76fc7fc3c21df34ccd49e124e1b052dbb78db738d58c303ed8019f2c9a8"
+  },
+  {
+    "file": "passenger-44-delta-third-id.png",
+    "sha256": "e32e9e20df6ce7d1b10ad22b4d20525f108be8a8578fb1ad6d4a0408a3893391"
+  },
+  {
+    "file": "passenger-44-delta-third-id.xml",
+    "sha256": "cc980fb9fe86ff26abe41ddc2569ac99bf052edf224ef566094d65360354f9e5"
+  },
+  {
+    "file": "passenger-45-third-cancelled.png",
+    "sha256": "273d55bdb6970e03edd25fba8b8a3f04543695d7907d8fc060d82dd8ce0f6ad5"
+  },
+  {
+    "file": "passenger-45-third-cancelled.xml",
+    "sha256": "cc849c7411a0f6695df00e4bf774b3df91eed7bf397ed701c87cdf00b1a34158"
+  },
+  {
+    "file": "passenger-46-third-cancel-header.png",
+    "sha256": "fec7ca6181e86cea95912ef3e95f02070e509d794fd85e6726afb2033a8c22f5"
+  },
+  {
+    "file": "passenger-46-third-cancel-header.xml",
+    "sha256": "69310116b908aec126e4583e2a6c5dd4d3d64b65408915430d84fdcf365d2482"
+  },
+  {
+    "file": "passenger-47-final-location-denied.png",
+    "sha256": "866dc0f2e7f88c5fd312a589cf0fa6495ccc82de2f9855c287e957cde0903012"
+  },
+  {
+    "file": "passenger-47-final-location-denied.xml",
+    "sha256": "4e62c55b625d4bf26674bb7864c328f15897473458055bc2f4ca829160287fb2"
+  },
+  {
+    "file": "passenger-emulator-start.log",
+    "sha256": "0da6558cf8ece37b7febdcc29d3754ac80de54023a4f41c3b85affb407a310a5"
+  },
+  {
+    "file": "passenger-initial-build-result.json",
+    "sha256": "2c03290be2ff139286d3468c37afdac71be48f811970a9a19b5131bba60ca31e"
+  },
+  {
+    "file": "passenger-install.json",
+    "sha256": "ab248b6a448574ab2ce2614c940faaed21df6c8449c5980c56c23f4a7cd2f99f"
+  },
+  {
+    "file": "passenger-preboot-unavailable.json",
+    "sha256": "cbf6c54258d86d4b7e0e27aeebc7d5921183b3f6cd10751711f8753e5ae10bb6"
+  },
+  {
+    "file": "passenger-release-build-result.json",
+    "sha256": "b371e1bdf9eb7816dc94e932f59b28fdd42bcacecb2d295273f4d180709ab645"
+  },
+  {
+    "file": "passenger-release-install.json",
+    "sha256": "e768bfa5c3cae1bbdd0b8a65b8563ef2df69c36eb6e29244d55d75cc169e56ab"
+  },
+  {
+    "file": "passenger-steps.jsonl",
+    "sha256": "8a649aebf84c45d4f94903fe8430753f648ec13ae154f3dff720c3943cbb67a7"
+  },
+  {
+    "file": "post-freeze-unbuilt-delta.txt",
+    "sha256": "22516299bc685d1ea67fa9e4888c0a704586414a8f3856f6cd7d9ee19e0bf316"
+  },
+  {
+    "file": "release-alert-delta.json",
+    "sha256": "67a0f525a4c2d4c1168f441711792fcc9564f397b88c1d7d6247198e08eb06bb"
+  },
+  {
+    "file": "release-delta-from-tested-chain.txt",
+    "sha256": "4559f3ceb2c6e4fe6ba79ff3bc36184b32f554683a6e53d36cbea551a6eba832"
+  },
+  {
+    "file": "release_delta.py",
+    "sha256": "cc05e77ac045cee461ca9172fe37db27b25063a2bef27c2a42a1e36b396f746a"
+  },
+  {
+    "file": "release_upgrade.py",
+    "sha256": "416ce2550fcd2c51e08d3005e3726d6e796fbf4de6f03988eda05eea3e8e13f9"
+  },
+  {
+    "file": "resource-restoration.json",
+    "sha256": "727e17bb3a45960721e65e2b3aece285d1b7382bf2cf8422223073c1e6dcdc85"
+  },
+  {
+    "file": "static-stage1.json",
+    "sha256": "fb60d97c4ec68345b76c827f9285213441b19bff318eaf0d6cb1b9fb513b28e6"
+  },
+  {
+    "file": "third-order.json",
+    "sha256": "b2de083b32c77d573a398f473f2226b81e606d755aca9416479e2a6bf28ce687"
+  }
+]

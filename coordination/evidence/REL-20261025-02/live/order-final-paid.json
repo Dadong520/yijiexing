@@ -1,0 +1,89 @@
+{
+  "checkedAt": "2026-10-25T17:25:07.500Z",
+  "source": "actual authorized admin UI / complete shared order rendered JSON",
+  "id": "PORDf4f910a233dc",
+  "passengerId": "Pf0d9d547bb06",
+  "driverId": "D40a1fd8faa0e",
+  "stage": "DONE",
+  "fare": 2926,
+  "paid": true,
+  "credited": true,
+  "paymentStatus": "SUCCESS",
+  "paymentMode": "SIMULATED",
+  "paidAt": "2026-10-26T01:13:13+08:00",
+  "events": [
+    {
+      "type": "PASSENGER_CREATED",
+      "at": "2026-10-26T00:55:52+08:00"
+    },
+    {
+      "type": "DRIVER_ACCEPT",
+      "at": "2026-10-26T01:01:15+08:00"
+    },
+    {
+      "type": "DRIVER_ADVANCE",
+      "at": "2026-10-26T01:01:22+08:00"
+    },
+    {
+      "type": "DRIVER_ADVANCE",
+      "at": "2026-10-26T01:01:36+08:00"
+    },
+    {
+      "type": "DISTANCE_CONSENT_REJECTED",
+      "at": "2026-10-26T01:02:49+08:00"
+    },
+    {
+      "type": "DRIVER_ADVANCE",
+      "at": "2026-10-26T01:04:06+08:00"
+    },
+    {
+      "type": "DISTANCE_CONSENT_APPROVED",
+      "at": "2026-10-26T01:04:26+08:00"
+    },
+    {
+      "type": "DRIVER_ADVANCE",
+      "at": "2026-10-26T01:07:58+08:00"
+    },
+    {
+      "type": "DISTANCE_CONSENT_APPROVED",
+      "at": "2026-10-26T01:09:13+08:00"
+    },
+    {
+      "type": "PASSENGER_PAY",
+      "at": "2026-10-26T01:13:13+08:00"
+    }
+  ],
+  "consents": [
+    {
+      "id": "DC70ba5fe313c3",
+      "type": "PICKUP",
+      "status": "REJECTED",
+      "distanceMeters": 11062.102,
+      "thresholdMeters": 300,
+      "reason": "OUTSIDE_DISTANCE",
+      "createdAt": "2026-10-26T01:01:36+08:00",
+      "decidedAt": "2026-10-26T01:02:49+08:00"
+    },
+    {
+      "id": "DCdc609cb444a2",
+      "type": "PICKUP",
+      "status": "APPROVED",
+      "distanceMeters": 11062.102,
+      "thresholdMeters": 300,
+      "reason": "OUTSIDE_DISTANCE",
+      "createdAt": "2026-10-26T01:04:06+08:00",
+      "decidedAt": "2026-10-26T01:04:26+08:00"
+    }
+  ],
+  "payEventCount": 1,
+  "currentConsent": {
+    "id": "DC4b9020444a41",
+    "type": "DROPOFF",
+    "status": "APPROVED",
+    "distanceMeters": null,
+    "thresholdMeters": 300,
+    "reason": "DRIVER_LOCATION_STALE",
+    "createdAt": "2026-10-26T01:07:58+08:00",
+    "decidedAt": "2026-10-26T01:09:13+08:00"
+  }
+}

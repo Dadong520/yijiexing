@@ -1,0 +1,20 @@
+{
+  "client": "driver",
+  "status": "PASS",
+  "sourceSha": "d896ebf0c58da093e0c25dae16ddbb40593768df",
+  "command": "/Users/dongge/.gradle/wrapper/dists/gradle-8.7-bin/c4fynqkwxqrcieir78ry8jtzf/gradle-8.7/bin/gradle --offline --no-daemon --max-workers=1 -Dorg.gradle.jvmargs=-Xmx1536m -Pkotlin.compiler.execution.strategy=in-process -PYIJ_CLOUD_ORIGIN=https://yijiexing-demo.hbzjhs.xyz --project-cache-dir /Users/dongge/.codex/tmp/yijiexing-native-alert-build-20261026/driver-cache --init-script /Users/dongge/.codex/tmp/yijiexing-native-alert-build-20261026/driver-build.init.gradle testDebugUnitTest assembleDebug",
+  "cwd": "/Users/dongge/.codex/tmp/yijiexing-native-permissions-20261025/candidates/driver-0.3.6-r2/android",
+  "startedAt": "2026-10-26T01:08:56.271059+08:00",
+  "completedAt": "2026-10-26T01:09:04.903771+08:00",
+  "exitCode": 0,
+  "tests": 55,
+  "logPath": "/Users/dongge/.codex/tmp/yijiexing-native-permissions-20261025/coordination/evidence/ALERT-20261025-01/driver-build.log",
+  "apkPath": "/Users/dongge/.codex/tmp/yijiexing-native-alert-build-20261026/driver/_app/outputs/apk/debug/app-debug.apk",
+  "apkSha256": "d103e58f2f29a73501f235a86efb7373c85bf23836e290f6ce8bfdca018bda77",
+  "bytes": 56563985,
+  "versionCode": 15,
+  "versionName": "0.3.12-cloud",
+  "packageId": "cn.hbzjhs.dc.driver.cloud",
+  "signerSha256": "9ffec9b342d12909ff288bd73f23ba104893b39120cb24ea83c9734a0d2b758f",
+  "cloudOrigin": "https://yijiexing-demo.hbzjhs.xyz"
+}

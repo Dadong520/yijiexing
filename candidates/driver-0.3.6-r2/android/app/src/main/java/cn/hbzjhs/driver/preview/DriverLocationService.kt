@@ -55,8 +55,19 @@ class DriverLocationService : Service(), LocationListener {
     private var bubble: TextView? = null
     private var windows: WindowManager? = null
     private var announcer: NativeOrderAnnouncer? = null
+    private var orderOverlay: NewOrderOverlay? = null
+    private var shownOverlayId: String? = null
 
     private fun updateBubble() {
+        val notice = NewOrderAlerts.notices.value.lastOrNull()
+        val overlayAllowed = floatingEnabled && floatingAllowed && !DriverUiPresence.visible && Settings.canDrawOverlays(this)
+        if (overlayAllowed && notice != null && shownOverlayId != notice.id) {
+            shownOverlayId = notice.id
+            orderOverlay?.show(notice)
+        } else if (!overlayAllowed || notice == null) {
+            orderOverlay?.hide()
+            shownOverlayId = null
+        }
         val shouldShow =
             floatingEnabled &&
                 floatingAllowed &&
@@ -167,6 +178,7 @@ class DriverLocationService : Service(), LocationListener {
     override fun onCreate() {
         super.onCreate()
         announcer = NativeOrderAnnouncer(this)
+        orderOverlay = NewOrderOverlay(this)
         val notifications = getSystemService(NotificationManager::class.java)
         notifications.createNotificationChannel(
             NotificationChannel("driver-location", "接单期间的位置服务", NotificationManager.IMPORTANCE_LOW)
@@ -190,9 +202,8 @@ class DriverLocationService : Service(), LocationListener {
         )
         manager = getSystemService(LocationManager::class.java)
         if (LocalApi.token.isBlank()) LocalApi.token = SessionVault(this).load()
-        if (LocalApi.demoAccess.isBlank()) LocalApi.demoAccess = DemoAccessVault(this).load()
         if (
-            LocalApi.token.isBlank() || LocalApi.demoAccess.isBlank() || LocalApi.baseUrl.isBlank()
+            LocalApi.token.isBlank() ||  LocalApi.baseUrl.isBlank()
         ) {
             PositionBus.mutableStatus.value = "请先完成云端连接设置并登录"
             stopSelf()
@@ -209,16 +220,20 @@ class DriverLocationService : Service(), LocationListener {
         try {
             val providers =
                 listOf(LocationManager.GPS_PROVIDER, LocationManager.NETWORK_PROVIDER).filter {
-                    manager.isProviderEnabled(it)
+                    it in manager.allProviders
                 }
-            if (providers.isEmpty()) PositionBus.mutableStatus.value = "请开启系统定位服务"
-            else {
-                PositionBus.mutableStatus.value = "正在获取位置"
+            // Keep listeners registered while the system location switch is off, so
+            // enabling it resumes fixes without restarting the listening service.
+            if (providers.none { manager.isProviderEnabled(it) })
+                PositionBus.mutableStatus.value = "请开启系统定位服务"
+            if (providers.isNotEmpty()) {
+                if (providers.any { manager.isProviderEnabled(it) })
+                    PositionBus.mutableStatus.value = "正在获取位置"
                 providers.forEach { provider ->
                     manager.requestLocationUpdates(
                         provider,
                         15000L,
-                        15f,
+                        0f,
                         this,
                         Looper.getMainLooper(),
                     )
@@ -370,6 +385,9 @@ class DriverLocationService : Service(), LocationListener {
         bubble = null
         announcer?.close()
         announcer = null
+        orderOverlay?.close()
+        orderOverlay = null
+        NewOrderAlerts.clear()
         scope.cancel()
         PositionBus.mutableStatus.value = "未启动定位"
         super.onDestroy()

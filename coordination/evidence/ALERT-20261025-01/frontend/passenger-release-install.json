@@ -1,0 +1,58 @@
+{
+  "sourceSha": "d896ebf0c58da093e0c25dae16ddbb40593768df",
+  "at": "2026-10-26T01:14:18.189587+08:00",
+  "before": {
+    "versionName": "1.1.12-experience",
+    "versionCode": 14,
+    "sha256": "e8a64c17db746c1bbcbf5f0a49165111889902d2a9d3d0322eee7e43eacd946b",
+    "bytes": 54158511,
+    "signer": "Signer #1 certificate SHA-256 digest: 9ffec9b342d12909ff288bd73f23ba104893b39120cb24ea83c9734a0d2b758f",
+    "originDexFiles": [
+      "classes3.dex"
+    ],
+    "permissionLines": [
+      "android.permission.ACCESS_FINE_LOCATION: granted=false, flags=[ USER_SET|USER_SENSITIVE_WHEN_GRANTED|USER_SENSITIVE_WHEN_DENIED|524288]",
+      "android.permission.ACCESS_COARSE_LOCATION: granted=false, flags=[ USER_SET|REVOKED_COMPAT|USER_SENSITIVE_WHEN_GRANTED|USER_SENSITIVE_WHEN_DENIED]"
+    ]
+  },
+  "after": {
+    "versionName": "1.1.12-experience",
+    "versionCode": 14,
+    "sha256": "61417866fce94d9176ff74e42718d6ce60fa658064e289bf8e0dccfae10257d8",
+    "bytes": 54547693,
+    "signer": "Signer #1 certificate SHA-256 digest: 9ffec9b342d12909ff288bd73f23ba104893b39120cb24ea83c9734a0d2b758f",
+    "originDexFiles": [
+      "classes3.dex"
+    ],
+    "permissionLines": [
+      "android.permission.ACCESS_FINE_LOCATION: granted=false, flags=[ USER_SET|USER_SENSITIVE_WHEN_GRANTED|USER_SENSITIVE_WHEN_DENIED]",
+      "android.permission.ACCESS_COARSE_LOCATION: granted=false, flags=[ USER_SET|USER_SENSITIVE_WHEN_GRANTED|USER_SENSITIVE_WHEN_DENIED]"
+    ]
+  },
+  "startW": "Starting: Intent { cmp=cn.hbzjhs.dc.passenger.cloud/cn.hbzjhs.passenger.MainActivity }\nStatus: ok\nLaunchState: COLD\nActivity: cn.hbzjhs.dc.passenger.cloud/cn.hbzjhs.passenger.MainActivity\nTotalTime: 1276\nWaitTime: 1285\nComplete\n",
+  "texts": [
+    "Showing a Map created with MapLibre. Scroll by dragging two fingers. Zoom by pinching two fingers.",
+    "Attribution icon. Activate to show attribution dialog.",
+    "起终点预览 · 非实时定位",
+    "回到起终点",
+    "即刻出发",
+    "预约叫车",
+    "司机竞价",
+    "乘车路线",
+    "交换起终点",
+    "从这里出发",
+    "宜昌东站 · 出租车上客区",
+    "目的地",
+    "夷陵广场 · 东侧入口",
+    "先叫车，稍后补充目的地",
+    "确认呼叫 · 即时用车",
+    "宜捷行",
+    "权限",
+    "宜昌市",
+    "刷新订单",
+    "出行",
+    "订单",
+    "我的"
+  ],
+  "acceptance": "PASS"
+}

@@ -1,0 +1,70 @@
+{
+  "schemaVersion": 1,
+  "id": "ALERT-20261025-01",
+  "owner": "antigravity",
+  "goal": "两Android首次权限引导和权限中心；司机前台声音/新单卡与后台通知/悬浮提醒，并对接司机/乘客距离确认UI。",
+  "baseSha": "a5bb882fed045ac62fe8d8398cdc8e483015cc19",
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-native-permissions-20261025",
+  "allow_paths": [
+    "candidates/driver-0.3.6-r2/android/",
+    "apps/passenger-android/",
+    "candidates/passenger-miniprogram-0.1.0/miniprogram/pages/order-detail/",
+    "candidates/passenger-miniprogram-0.1.0/miniprogram/lib/",
+    "coordination/evidence/ALERT-20261025-01/"
+  ],
+  "checks": [
+    "首次打开说明用途并一键逐步系统授权，可暂不/拒绝后恢复/永久拒绝设置引导",
+    "司机通知(含系统渠道)、位置、悬浮窗和后台电池设置检查；不强制或申请无用权限",
+    "新单id去重、前台明显卡/声音，后台前台服务保活轮询+高优先通知+有权悬浮弹卡；退出/离线/失权停止",
+    "乘客仅前台定位/必要通知，不为乘客申请司机悬浮/后台权限",
+    "对接TRIP契约，双方真实确认、等待/拒绝/过期/网络重试可读",
+    "55/20适用测试和构建；不同会话两AVD独立权限/提醒/距离流程测试"
+  ],
+  "status": "ACCEPTED",
+  "acceptance": "PASS",
+  "tests": [
+    {
+      "command": "driver Gradle testDebugUnitTest assembleDebug:55 PASS; passenger20 PASS at d896 with exact unchanged source scope proof",
+      "status": "PASS",
+      "exitCode": 0,
+      "sourceSha": "3e9f6ee943948e1081ec9ab0102eef803d447c8b"
+    },
+    {
+      "command": "frontend independent real-device permissions, foreground/background reminders, distance consent, final queue/localization and 3e9 GPS off-to-on delta; see frontend/design-qa.json",
+      "status": "PASS",
+      "exitCode": 0,
+      "sourceSha": "3e9f6ee943948e1081ec9ab0102eef803d447c8b"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "coordination/evidence/ALERT-20261025-01/frontend/design-qa.json",
+      "sha256": "ffba9278e65ddddac402f1a2bb3702454c0e5541da24aedb3078859044ac05f1"
+    },
+    {
+      "path": "coordination/evidence/ALERT-20261025-01/frontend/REPORT.md",
+      "sha256": "14587a2cf669bd4d9f8e367c9ed8998f2cee0d37a7131016754e516d8a8c2aa2"
+    },
+    {
+      "path": "coordination/evidence/ALERT-20261025-01/frontend/gps-recovery-delta.json",
+      "sha256": "719cba93e2adf2f65c8889f089771e26aa3c744ebd9801e532f473102ca74605"
+    },
+    {
+      "path": "coordination/evidence/ALERT-20261025-01/driver-build-result.json",
+      "sha256": "331db50fa984dabd90e8e820d8df36e8218f461616dd6a2b684605f8791a65e2"
+    },
+    {
+      "path": "coordination/evidence/ALERT-20261025-01/passenger-build-result.json",
+      "sha256": "b371e1bdf9eb7816dc94e932f59b28fdd42bcacecb2d295273f4d180709ab645"
+    },
+    {
+      "path": "coordination/evidence/ALERT-20261025-01/native-source-manifest.json",
+      "sha256": "aaed3c5efc8996acf45d203256b68ba312b40bb7fdec40a3d68c3104d99fb181"
+    }
+  ],
+  "nextAction": "Coordinator merge PR23, deploy accepted admin image and publish exact verified APK bytes; save public readbacks.",
+  "deploy_owner": "coordinator",
+  "releaseReady": true,
+  "acceptedSha": "3e9f6ee943948e1081ec9ab0102eef803d447c8b",
+  "reviewer": "frontend"
+}

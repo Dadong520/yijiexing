@@ -1,0 +1,55 @@
+{
+  "at": "2026-10-26T00:40:10.953751+08:00",
+  "sourceSha": "e1a1240e1948ccd62ee286f8a55cd7c61653eb23",
+  "manifestAllMatched": true,
+  "fileCount": 116,
+  "blockingFinding": {
+    "id": "ALERT-P1-legacy-access-service",
+    "severity": "P1",
+    "description": "司机service仍加载遗留访问码并把空码作为stopSelf条件；免访问码新用户未存旧码无法运行定位/后台提醒，旧AVD若存码可能掩盖。",
+    "evidence": {
+      "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/ConnectedStore.kt": [
+        {
+          "line": 150,
+          "text": "    @Volatile var demoAccess: String = \"\""
+        },
+        {
+          "line": 156,
+          "text": "    data class Credentials(val token: String, val demoAccess: String, val revision: Long)"
+        },
+        {
+          "line": 158,
+          "text": "    fun credentials() = Credentials(token, demoAccess, sessionRevision)"
+        },
+        {
+          "line": 253,
+          "text": "        LocalApi.demoAccess = \"\""
+        },
+        {
+          "line": 268,
+          "text": "        LocalApi.demoAccess = \"\""
+        },
+        {
+          "line": 275,
+          "text": "        LocalApi.demoAccess = \"\""
+        }
+      ],
+      "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/DriverLocationService.kt": [
+        {
+          "line": 205,
+          "text": "        if (LocalApi.demoAccess.isBlank()) LocalApi.demoAccess = DemoAccessVault(this).load()"
+        },
+        {
+          "line": 207,
+          "text": "            LocalApi.token.isBlank() || LocalApi.demoAccess.isBlank() || LocalApi.baseUrl.isBlank()"
+        }
+      ]
+    }
+  },
+  "environment": "adb5037无设备，host无qemu；装机脚本boot读取前退出，未改设备。",
+  "notRun": [
+    "装机与权限系统UI",
+    "新单提醒",
+    "距离真实订单"
+  ]
+}

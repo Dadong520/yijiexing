@@ -1,0 +1,20 @@
+{
+  "client": "passenger",
+  "status": "PASS",
+  "sourceSha": "e1a1240e1948ccd62ee286f8a55cd7c61653eb23",
+  "command": "/Users/dongge/.gradle/wrapper/dists/gradle-8.7-bin/c4fynqkwxqrcieir78ry8jtzf/gradle-8.7/bin/gradle --offline --no-daemon --max-workers=1 -Dorg.gradle.jvmargs=-Xmx1536m -Pkotlin.compiler.execution.strategy=in-process -PYIJ_CLOUD_ORIGIN=https://yijiexing-demo.hbzjhs.xyz --project-cache-dir /Users/dongge/.codex/tmp/yijiexing-native-alert-build-20261026/passenger-cache --init-script /Users/dongge/.codex/tmp/yijiexing-native-alert-build-20261026/passenger-build.init.gradle testDebugUnitTest assembleDebug",
+  "cwd": "/Users/dongge/.codex/tmp/yijiexing-native-permissions-20261025/apps/passenger-android",
+  "startedAt": "2026-10-26T00:33:33.200258+08:00",
+  "completedAt": "2026-10-26T00:34:12.564589+08:00",
+  "exitCode": 0,
+  "tests": 20,
+  "logPath": "/Users/dongge/.codex/tmp/yijiexing-native-permissions-20261025/coordination/evidence/ALERT-20261025-01/passenger-build.log",
+  "apkPath": "/Users/dongge/.codex/tmp/yijiexing-native-alert-build-20261026/passenger/_app/outputs/apk/debug/app-debug.apk",
+  "apkSha256": "e8a64c17db746c1bbcbf5f0a49165111889902d2a9d3d0322eee7e43eacd946b",
+  "bytes": 54158511,
+  "versionCode": 14,
+  "versionName": "1.1.12-experience",
+  "packageId": "cn.hbzjhs.dc.passenger.cloud",
+  "signerSha256": "9ffec9b342d12909ff288bd73f23ba104893b39120cb24ea83c9734a0d2b758f",
+  "cloudOrigin": "https://yijiexing-demo.hbzjhs.xyz"
+}

@@ -1,0 +1,21 @@
+ACTIVITY MANAGER SERVICES (dumpsys activity services)
+  User 0 active services:
+  * ServiceRecord{d878c9f u0 cn.hbzjhs.dc.driver.cloud/cn.hbzjhs.driver.preview.DriverLocationService}
+    intent={cmp=cn.hbzjhs.dc.driver.cloud/cn.hbzjhs.driver.preview.DriverLocationService}
+    packageName=cn.hbzjhs.dc.driver.cloud
+    processName=cn.hbzjhs.dc.driver.cloud
+    baseDir=/data/app/~~nHuq5IsHPh4inxr-G22JRg==/cn.hbzjhs.dc.driver.cloud-0_G2MFrU9lGzhsrkZOtu7A==/base.apk
+    dataDir=/data/user/0/cn.hbzjhs.dc.driver.cloud
+    app=ProcessRecord{53091b8 4821:cn.hbzjhs.dc.driver.cloud/u0a192}
+    mAllowWhileInUsePermissionInFgsReason=PROC_STATE_TOP
+    allowUiJobScheduling=true
+    recentCallingPackage=cn.hbzjhs.dc.driver.cloud
+    recentCallingUid=10192
+    allowStartForeground=PROC_STATE_TOP
+    startForegroundCount=1
+    infoAllowStartForeground=[callingPackage: cn.hbzjhs.dc.driver.cloud; callingUid: 10192; uidState: TOP ; uidBFSL: [BFSL]; intent: Intent { cmp=cn.hbzjhs.dc.driver.cloud/cn.hbzjhs.driver.preview.DriverLocationService (has extras) }; code:PROC_STATE_TOP; tempAllowListReason:<null>; targetSdkVersion:34; callerTargetSdkVersion:34; startForegroundCount:0; bindFromPackage:null: isBindService:false]
+    isForeground=true foregroundId=2688 types=00000008 foregroundNoti=Notification(channel=driver-location shortcut=null contentView=null vibrate=null sound=null defaults=0x0 flags=0x62 color=0x00000000 vis=PRIVATE)
+    createTime=-55s604ms startingBgTimeout=--
+    lastActivity=-55s603ms restartTime=-55s603ms createdFromFg=true
+    startRequested=true delayedStop=false stopIfKilled=true callStart=true lastStartId=1
+ startCommandResult=2

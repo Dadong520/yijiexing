@@ -1,0 +1,32 @@
+10-26 00:55:59:877 new player piid:743 uid/pid:10192/4821 type:android.media.MediaPlayer attr:AudioAttributes: usage=USAGE_UNKNOWN content=CONTENT_TYPE_UNKNOWN flags=0x800 tags= bundle=null session:737
+10-26 00:55:59:878 player piid:743 new AudioAttributes:AudioAttributes: usage=USAGE_ASSISTANCE_NAVIGATION_GUIDANCE content=CONTENT_TYPE_SPEECH flags=0x800 tags= bundle=null
+10-26 00:55:59:928 player piid:743 event:started
+10-26 00:55:59:987 port updated portId:94 mapped to player piid:743
+10-26 00:56:00:076 player piid:743 format update:FormatInfo{isSpatialized=false, channelMask=0x1, sampleRate=24000}
+10-26 00:56:00:203 player piid:743 event:device updated deviceId:2
+10-26 00:56:02:343 player piid:743 event:stopped
+10-26 00:56:02:345 releasing player piid:743
+10-26 00:56:02:359 new player piid:759 uid/pid:10192/4821 type:android.media.MediaPlayer attr:AudioAttributes: usage=USAGE_UNKNOWN content=CONTENT_TYPE_UNKNOWN flags=0x800 tags= bundle=null session:753
+10-26 00:56:02:359 player piid:759 new AudioAttributes:AudioAttributes: usage=USAGE_ASSISTANCE_NAVIGATION_GUIDANCE content=CONTENT_TYPE_SPEECH flags=0x800 tags= bundle=null
+10-26 00:56:02:390 player piid:759 event:started
+10-26 00:56:02:434 port updated portId:96 mapped to player piid:759
+10-26 00:56:02:436 player piid:759 format update:FormatInfo{isSpatialized=false, channelMask=0x1, sampleRate=24000}
+10-26 00:56:02:452 player piid:759 event:device updated deviceId:2
+10-26 00:56:04:750 player piid:759 event:stopped
+10-26 00:56:04:750 releasing player piid:759
+10-26 00:56:04:760 new player piid:767 uid/pid:10192/4821 type:android.media.MediaPlayer attr:AudioAttributes: usage=USAGE_UNKNOWN content=CONTENT_TYPE_UNKNOWN flags=0x800 tags= bundle=null session:761
+10-26 00:56:04:761 player piid:767 new AudioAttributes:AudioAttributes: usage=USAGE_ASSISTANCE_NAVIGATION_GUIDANCE content=CONTENT_TYPE_SPEECH flags=0x800 tags= bundle=null
+10-26 00:56:04:777 player piid:767 event:started
+10-26 00:56:04:811 port updated portId:97 mapped to player piid:767
+10-26 00:56:04:812 player piid:767 format update:FormatInfo{isSpatialized=false, channelMask=0x1, sampleRate=24000}
+10-26 00:56:04:816 player piid:767 event:device updated deviceId:2
+10-26 00:56:07:128 player piid:767 event:stopped
+10-26 00:56:07:128 releasing player piid:767
+10-26 01:01:16:444 new player piid:815 uid/pid:10192/4821 type:android.media.MediaPlayer attr:AudioAttributes: usage=USAGE_UNKNOWN content=CONTENT_TYPE_UNKNOWN flags=0x800 tags= bundle=null session:817
+10-26 01:01:16:445 player piid:815 new AudioAttributes:AudioAttributes: usage=USAGE_UNKNOWN content=CONTENT_TYPE_UNKNOWN flags=0x800 tags= bundle=null
+10-26 01:01:16:474 player piid:815 event:started
+10-26 01:01:16:508 port updated portId:104 mapped to player piid:815
+10-26 01:01:16:552 player piid:815 format update:FormatInfo{isSpatialized=false, channelMask=0x1, sampleRate=22050}
+10-26 01:01:16:702 player piid:815 event:device updated deviceId:2
+10-26 01:01:18:721 player piid:815 event:stopped
+10-26 01:01:18:721 releasing player piid:815

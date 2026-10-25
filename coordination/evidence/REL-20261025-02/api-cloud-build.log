@@ -1,0 +1,224 @@
+Creating temporary archive of 17 file(s) totalling 241.2 KiB before compression.
+Uploading tarball of [/Users/dongge/.codex/tmp/yijiexing-trip-api-build-8ec8419d] to [gs://yijiexing-driver-demo-1023_cloudbuild/source/1792946373.197972-e0726880c17a46719259bb81e6827dc0.tgz]
+Created [https://cloudbuild.googleapis.com/v1/projects/yijiexing-driver-demo-1023/locations/us-west1/builds/fcfc2539-c761-4592-bc0a-6973190b3b43].
+Logs are available at [ https://console.cloud.google.com/cloud-build/builds;region=us-west1/fcfc2539-c761-4592-bc0a-6973190b3b43?project=491829048305 ].
+Waiting for build to complete. Polling interval: 1 second(s).
+
+----------------------------- REMOTE BUILD OUTPUT ------------------------------
+starting build "fcfc2539-c761-4592-bc0a-6973190b3b43" using release legacy
+
+FETCHSOURCE
+Fetching storage object: gs://yijiexing-driver-demo-1023_cloudbuild/source/1792946373.197972-e0726880c17a46719259bb81e6827dc0.tgz#1792946374601169
+Copying gs://yijiexing-driver-demo-1023_cloudbuild/source/1792946373.197972-e0726880c17a46719259bb81e6827dc0.tgz#1792946374601169...
+/ [0 files][    0.0 B/ 72.4 KiB]                                                
+/ [1 files][ 72.4 KiB/ 72.4 KiB]                                                
+Operation completed over 1 objects/72.4 KiB.
+BUILD
+Already have image (with digest): gcr.io/cloud-builders/gcb-internal
+DEPRECATED: The legacy builder is deprecated and will be removed in a future release.
+            Install the buildx component to build images with BuildKit:
+            https://docs.docker.com/go/buildx/
+
+Sending build context to Docker daemon  261.1kB
+
+Step 1/5 : FROM us-west1-docker.pkg.dev/yijiexing-driver-demo-1023/demo/service@sha256:ebf71391a5d5abbe21416d6248e5ae1027a35a4595396eec66bb9eca4a062bfa
+us-west1-docker.pkg.dev/yijiexing-driver-demo-1023/demo/service@sha256:ebf71391a5d5abbe21416d6248e5ae1027a35a4595396eec66bb9eca4a062bfa: Pulling from yijiexing-driver-demo-1023/demo/service
+485c8d6dcedb: Pulling fs layer
+be6443c06d3c: Pulling fs layer
+b524bb3aba73: Pulling fs layer
+5c397e4307db: Pulling fs layer
+e6351bef6f42: Pulling fs layer
+1725a7f12640: Pulling fs layer
+7829a9ea567b: Pulling fs layer
+f7c7a4071e57: Pulling fs layer
+2e5f9f0bf4b4: Pulling fs layer
+7829a9ea567b: Waiting
+2e5f9f0bf4b4: Waiting
+f7c7a4071e57: Waiting
+be6443c06d3c: Verifying Checksum
+be6443c06d3c: Download complete
+e6351bef6f42: Verifying Checksum
+e6351bef6f42: Download complete
+5c397e4307db: Verifying Checksum
+5c397e4307db: Download complete
+1725a7f12640: Verifying Checksum
+1725a7f12640: Download complete
+b524bb3aba73: Verifying Checksum
+b524bb3aba73: Download complete
+f7c7a4071e57: Verifying Checksum
+f7c7a4071e57: Download complete
+2e5f9f0bf4b4: Verifying Checksum
+2e5f9f0bf4b4: Download complete
+485c8d6dcedb: Download complete
+7829a9ea567b: Verifying Checksum
+7829a9ea567b: Download complete
+485c8d6dcedb: Pull complete
+be6443c06d3c: Pull complete
+b524bb3aba73: Pull complete
+5c397e4307db: Pull complete
+e6351bef6f42: Pull complete
+1725a7f12640: Pull complete
+7829a9ea567b: Pull complete
+f7c7a4071e57: Pull complete
+2e5f9f0bf4b4: Pull complete
+Digest: sha256:ebf71391a5d5abbe21416d6248e5ae1027a35a4595396eec66bb9eca4a062bfa
+Status: Downloaded newer image for us-west1-docker.pkg.dev/yijiexing-driver-demo-1023/demo/service@sha256:ebf71391a5d5abbe21416d6248e5ae1027a35a4595396eec66bb9eca4a062bfa
+ ---> 2c94f0d5dabb
+Step 2/5 : USER root
+ ---> Running in 2741073b5a94
+Removing intermediate container 2741073b5a94
+ ---> ca0bf9ed5a58
+Step 3/5 : COPY --chown=demo:demo *.py /app/
+ ---> f1f5b2381332
+Step 4/5 : USER 10001:10001
+ ---> Running in daa804534296
+Removing intermediate container daa804534296
+ ---> 3456f1a4eda2
+Step 5/5 : CMD ["python","cloud_server.py"]
+ ---> Running in fbae56d3c916
+Removing intermediate container fbae56d3c916
+ ---> 59f2ca2b2705
+Successfully built 59f2ca2b2705
+Successfully tagged us-west1-docker.pkg.dev/yijiexing-driver-demo-1023/demo/driver-cloud:trip-8ec8419d
+PUSH
+Pushing us-west1-docker.pkg.dev/yijiexing-driver-demo-1023/demo/driver-cloud:trip-8ec8419d
+The push refers to repository [us-west1-docker.pkg.dev/yijiexing-driver-demo-1023/demo/driver-cloud]
+c557c66629c3: Preparing
+c5195d5cfa53: Preparing
+73d16681d514: Preparing
+2d9a47c045d8: Preparing
+74a442424217: Preparing
+94a27e8212b5: Preparing
+93881a54803b: Preparing
+500ecb68a701: Preparing
+33d3a9468385: Preparing
+a70f6272827f: Preparing
+500ecb68a701: Layer already exists
+94a27e8212b5: Layer already exists
+c5195d5cfa53: Layer already exists
+2d9a47c045d8: Layer already exists
+73d16681d514: Layer already exists
+74a442424217: Layer already exists
+a70f6272827f: Layer already exists
+33d3a9468385: Layer already exists
+93881a54803b: Layer already exists
+c557c66629c3: Pushed
+trip-8ec8419d: digest: sha256:454c0a42f9e36c499c3f524c66ae35f4bb3bb68538b19b5a34148c8b5704b875 size: 2413
+DONE
+--------------------------------------------------------------------------------
+{
+  "artifacts": {
+    "images": [
+      "us-west1-docker.pkg.dev/yijiexing-driver-demo-1023/demo/driver-cloud:trip-8ec8419d"
+    ]
+  },
+  "createTime": "2026-10-25T16:39:35.531655796Z",
+  "finishTime": "2026-10-25T16:39:51.272465Z",
+  "id": "fcfc2539-c761-4592-bc0a-6973190b3b43",
+  "images": [
+    "us-west1-docker.pkg.dev/yijiexing-driver-demo-1023/demo/driver-cloud:trip-8ec8419d"
+  ],
+  "logUrl": "https://console.cloud.google.com/cloud-build/builds;region=us-west1/fcfc2539-c761-4592-bc0a-6973190b3b43?project=491829048305",
+  "logsBucket": "gs://491829048305.cloudbuild-logs.googleusercontent.com",
+  "name": "projects/491829048305/locations/us-west1/builds/fcfc2539-c761-4592-bc0a-6973190b3b43",
+  "options": {
+    "logging": "LEGACY",
+    "pool": {},
+    "workerRelease": "legacy"
+  },
+  "projectId": "yijiexing-driver-demo-1023",
+  "queueTtl": "3600s",
+  "results": {
+    "buildStepImages": [
+      "sha256:2af4bb8cbc5d5ffa8a42b30b3b0f0b435b28e5a39d9cfcf0f2662bdb9e825b19"
+    ],
+    "buildStepOutputs": [
+      ""
+    ],
+    "images": [
+      {
+        "artifactRegistryPackage": "projects/yijiexing-driver-demo-1023/locations/us-west1/repositories/demo/packages/driver-cloud/versions/sha256:454c0a42f9e36c499c3f524c66ae35f4bb3bb68538b19b5a34148c8b5704b875",
+        "digest": "sha256:454c0a42f9e36c499c3f524c66ae35f4bb3bb68538b19b5a34148c8b5704b875",
+        "name": "us-west1-docker.pkg.dev/yijiexing-driver-demo-1023/demo/driver-cloud:trip-8ec8419d",
+        "pushTiming": {
+          "endTime": "2026-10-25T16:39:50.513756079Z",
+          "startTime": "2026-10-25T16:39:49.010432769Z"
+        }
+      }
+    ]
+  },
+  "serviceAccount": "projects/yijiexing-driver-demo-1023/serviceAccounts/491829048305-compute@developer.gserviceaccount.com",
+  "source": {
+    "storageSource": {
+      "bucket": "yijiexing-driver-demo-1023_cloudbuild",
+      "generation": "1792946374601169",
+      "object": "source/1792946373.197972-e0726880c17a46719259bb81e6827dc0.tgz"
+    }
+  },
+  "sourceProvenance": {
+    "fileHashes": {
+      "gs://yijiexing-driver-demo-1023_cloudbuild/source/1792946373.197972-e0726880c17a46719259bb81e6827dc0.tgz#1792946374601169": {
+        "fileHash": [
+          {
+            "type": "MD5",
+            "value": "E451b1Zcf-Lb5hiAoKt5Iw=="
+          },
+          {
+            "type": "SHA256",
+            "value": "82WTW0l0iMz6hO6ZZp8zRk4euuIMcp84NjhT5iDl0vE="
+          }
+        ]
+      }
+    },
+    "resolvedStorageSource": {
+      "bucket": "yijiexing-driver-demo-1023_cloudbuild",
+      "generation": "1792946374601169",
+      "object": "source/1792946373.197972-e0726880c17a46719259bb81e6827dc0.tgz"
+    }
+  },
+  "startTime": "2026-10-25T16:39:36.332942264Z",
+  "status": "SUCCESS",
+  "steps": [
+    {
+      "args": [
+        "docker",
+        "build",
+        "--network",
+        "cloudbuild",
+        "--no-cache",
+        "-t",
+        "us-west1-docker.pkg.dev/yijiexing-driver-demo-1023/demo/driver-cloud:trip-8ec8419d",
+        "."
+      ],
+      "name": "gcr.io/cloud-builders/gcb-internal",
+      "pullTiming": {
+        "endTime": "2026-10-25T16:39:40.463514074Z",
+        "startTime": "2026-10-25T16:39:40.460762486Z"
+      },
+      "status": "SUCCESS",
+      "timing": {
+        "endTime": "2026-10-25T16:39:48.968920271Z",
+        "startTime": "2026-10-25T16:39:40.460762486Z"
+      }
+    }
+  ],
+  "timeout": "300s",
+  "timing": {
+    "BUILD": {
+      "endTime": "2026-10-25T16:39:49.009258863Z",
+      "startTime": "2026-10-25T16:39:39.792835966Z"
+    },
+    "FETCHSOURCE": {
+      "endTime": "2026-10-25T16:39:39.792401856Z",
+      "startTime": "2026-10-25T16:39:36.679607094Z"
+    },
+    "PUSH": {
+      "endTime": "2026-10-25T16:39:50.513928022Z",
+      "startTime": "2026-10-25T16:39:49.009417773Z"
+    },
+    "STORAGE_SOURCE": {
+      "endTime": "2026-10-25T16:39:39.792401856Z",
+      "startTime": "2026-10-25T16:39:36.679607094Z"
+    }
+  }
+}

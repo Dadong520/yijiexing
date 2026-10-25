@@ -1,0 +1,66 @@
+diff --git a/candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/DriverLocationService.kt b/candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/DriverLocationService.kt
+index ed4e688..39e16e7 100644
+--- a/candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/DriverLocationService.kt
++++ b/candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/DriverLocationService.kt
+@@ -59,7 +59,7 @@ class DriverLocationService : Service(), LocationListener {
+     private var shownOverlayId: String? = null
+ 
+     private fun updateBubble() {
+-        val notice = NewOrderAlerts.notices.value.firstOrNull()
++        val notice = NewOrderAlerts.notices.value.lastOrNull()
+         val overlayAllowed = floatingEnabled && floatingAllowed && !DriverUiPresence.visible && Settings.canDrawOverlays(this)
+         if (overlayAllowed && notice != null && shownOverlayId != notice.id) {
+             shownOverlayId = notice.id
+diff --git a/candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/DriverSpeech.kt b/candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/DriverSpeech.kt
+index 200b379..98dcb2c 100644
+--- a/candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/DriverSpeech.kt
++++ b/candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/DriverSpeech.kt
+@@ -237,8 +237,12 @@ class NativeOrderAnnouncer(context: Context) {
+         }
+         // Text notifications are independent of voice permission, audio preference and TTS
+         // parameters.
++        fun createdAtMillis(order: JSONObject): Long = runCatching {
++            java.time.OffsetDateTime.parse(order.optString("createdAt")).toInstant().toEpochMilli()
++        }.getOrDefault(0L)
+         val newOrders =
+-            if (firstOnline) available.take(1) else available.filter { it.optString("id") !in seen }
++            if (firstOnline) listOfNotNull(available.maxByOrNull(::createdAtMillis))
++            else available.filter { it.optString("id") !in seen }.sortedBy(::createdAtMillis)
+         seen.addAll(availableIds)
+         while (seen.size > 4096) seen.remove(seen.first())
+         NewOrderAlerts.retainAvailable(availableIds)
+diff --git a/candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/NewOrderAlerts.kt b/candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/NewOrderAlerts.kt
+index ba976a0..906aaf2 100644
+--- a/candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/NewOrderAlerts.kt
++++ b/candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/NewOrderAlerts.kt
+@@ -205,7 +205,8 @@ class NewOrderOverlay(private val appContext: Context) {
+     private val windowManager = appContext.getSystemService(Context.WINDOW_SERVICE) as? WindowManager
+     private val mainHandler = Handler(Looper.getMainLooper())
+     private var currentView: View? = null
+-    private val autoHideRunnable = Runnable { hide() }
++    private var currentNoticeId: String? = null
++    private val autoHideRunnable = Runnable { val id=currentNoticeId; hide(); id?.let(NewOrderAlerts::dismiss) }
+ 
+     fun show(notice: OrderNotice) {
+         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !Settings.canDrawOverlays(appContext)) {
+@@ -331,8 +332,12 @@ class NewOrderOverlay(private val appContext: Context) {
+         try {
+             wm.addView(rootLayout, params)
+             currentView = rootLayout
++            currentNoticeId = notice.id
++            android.util.Log.i("YJXOrderOverlay", "shown:"+notice.id)
+             mainHandler.postDelayed(autoHideRunnable, 20000L)
+         } catch (e: Exception) {
++            android.util.Log.w("YJXOrderOverlay", "not-shown:"+e.javaClass.simpleName)
++            currentNoticeId = null
+             currentView = null
+         }
+     }
+@@ -343,6 +348,7 @@ class NewOrderOverlay(private val appContext: Context) {
+             return
+         }
+         mainHandler.removeCallbacks(autoHideRunnable)
++        currentNoticeId = null
+         val view = currentView
+         if (view != null) {
+             try {

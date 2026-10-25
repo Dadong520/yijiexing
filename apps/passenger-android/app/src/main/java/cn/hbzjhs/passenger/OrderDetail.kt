@@ -68,6 +68,7 @@ fun OrderDetail(o: JSONObject, store: PassengerStore, busy: Boolean) {
   PageColumn {
     SectionTitle(stageName(stage), orderSummary(o))
     IdentifierButton(id)
+    PassengerTripDistanceCard(o, store, busy)
     Panel {
       Text(
         when (stage) {
@@ -76,7 +77,7 @@ fun OrderDetail(o: JSONObject, store: PassengerStore, busy: Boolean) {
           "PREPAY" ->
             if (negotiated) {
               if (o.text("negotiationStatus") == "DISPUTED") "您已提出价格异议，等待原司机重新报价。异议未解决前不可付款。"
-              else "您与司机已线下配对。请核对车牌、报价版本和金额；明确确认后模拟支付，成功即开始行程。"
+              else "您与司机已线下配对。请核对车牌、报价版本和金额；明确确认后模拟支付，随后等待接驾；司机核验上车和距离后开始行程。"
             } else "已选定司机，请模拟预付后等待接驾。"
           "RESERVED" -> "司机已接单，将按预约时间前来接您。"
           "PICKUP" -> "司机正在前往上车点，请在安全位置等待。"

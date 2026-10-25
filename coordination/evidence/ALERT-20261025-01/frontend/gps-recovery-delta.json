@@ -1,0 +1,115 @@
+{
+  "sourceSha": "3e9f6ee943948e1081ec9ab0102eef803d447c8b",
+  "startedAt": "2026-10-26T01:27:49.954174+08:00",
+  "beforeIdentity": {
+    "versionName": "0.3.12-cloud",
+    "versionCode": 15,
+    "sha256": "d103e58f2f29a73501f235a86efb7373c85bf23836e290f6ce8bfdca018bda77",
+    "bytes": 56563985,
+    "signer": "Signer #1 certificate SHA-256 digest: 9ffec9b342d12909ff288bd73f23ba104893b39120cb24ea83c9734a0d2b758f",
+    "originDexFiles": [
+      "classes3.dex"
+    ],
+    "permissionLines": [
+      "android.permission.SYSTEM_ALERT_WINDOW: granted=false, flags=[ USER_SET]",
+      "android.permission.POST_NOTIFICATIONS: granted=true, flags=[ USER_SET|USER_SENSITIVE_WHEN_GRANTED|USER_SENSITIVE_WHEN_DENIED]",
+      "android.permission.ACCESS_FINE_LOCATION: granted=true, flags=[ USER_SET|USER_SENSITIVE_WHEN_GRANTED|USER_SENSITIVE_WHEN_DENIED]",
+      "android.permission.ACCESS_COARSE_LOCATION: granted=true, flags=[ USER_SET|USER_SENSITIVE_WHEN_GRANTED|USER_SENSITIVE_WHEN_DENIED]"
+    ]
+  },
+  "installed": {
+    "versionName": "0.3.12-cloud",
+    "versionCode": 15,
+    "sha256": "bce9fcff928b3690525f14a6ae5f3a4e074fc6f9ca9bf491733e4b1609852a85",
+    "bytes": 56564439,
+    "signer": "Signer #1 certificate SHA-256 digest: 9ffec9b342d12909ff288bd73f23ba104893b39120cb24ea83c9734a0d2b758f",
+    "originDexFiles": [
+      "classes3.dex"
+    ],
+    "permissionLines": [
+      "android.permission.SYSTEM_ALERT_WINDOW: granted=false, flags=[ USER_SET]",
+      "android.permission.POST_NOTIFICATIONS: granted=true, flags=[ USER_SET|USER_SENSITIVE_WHEN_GRANTED|USER_SENSITIVE_WHEN_DENIED]",
+      "android.permission.ACCESS_FINE_LOCATION: granted=true, flags=[ USER_SET|USER_SENSITIVE_WHEN_GRANTED|USER_SENSITIVE_WHEN_DENIED]",
+      "android.permission.ACCESS_COARSE_LOCATION: granted=true, flags=[ USER_SET|USER_SENSITIVE_WHEN_GRANTED|USER_SENSITIVE_WHEN_DENIED]"
+    ]
+  },
+  "offService": "ACTIVITY MANAGER SERVICES (dumpsys activity services)\n  User 0 active services:\n  * ServiceRecord{cded820 u0 cn.hbzjhs.dc.driver.cloud/cn.hbzjhs.driver.preview.DriverLocationService}\n    intent={cmp=cn.hbzjhs.dc.driver.cloud/cn.hbzjhs.driver.preview.DriverLocationService}\n    packageName=cn.hbzjhs.dc.driver.cloud\n    processName=cn.hbzjhs.dc.driver.cloud\n    baseDir=/data/app/~~Rm19PxMNhGlSaTxLUDBd7g==/cn.hbzjhs.dc.driver.cloud-OtWZbQeSNkKQERjUsINQPw==/base.apk\n    dataDir=/data/user/0/cn.hbzjhs.dc.driver.cloud\n    app=ProcessRecord{31e41eb 3484:cn.hbzjhs.dc.driver.cloud/u0a192}\n    mAllowWhileInUsePermissionInFgsReason=PROC_STATE_TOP\n    allowUiJobScheduling=true\n    recentCallingPackage=cn.hbzjhs.dc.driver.cloud\n    recentCallingUid=10192\n    allowStartForeground=PROC_STATE_TOP\n    startForegroundCount=1\n    infoAllowStartForeground=[callingPackage: cn.hbzjhs.dc.driver.cloud; callingUid: 10192; uidState: TOP ; uidBFSL: [BFSL]; intent: Intent { cmp=cn.hbzjhs.dc.driver.cloud/cn.hbzjhs.driver.preview.DriverLocationService (has extras) }; code:PROC_STATE_TOP; tempAllowListReason:<null>; targetSdkVersion:34; callerTargetSdkVersion:34; startForegroundCount:0; bindFromPackage:null: isBindService:false]\n    isForeground=true foregroundId=2688 types=00000008 foregroundNoti=Notification(channel=driver-location shortcut=null contentView=null vibrate=null sound=null defaults=0x0 flags=0x42 color=0x00000000 vis=PRIVATE)\n    createTime=-3s688ms startingBgTimeout=--\n    lastActivity=-3s687ms restartTime=-3s687ms createdFromFg=true\n    startRequested=true delayedStop=false stopIfKilled=true callStart=true lastStartId=1\n startCommandResult=2\n",
+  "offLocationLines": [
+    "last location=null",
+    "last location=null",
+    "10192/cn.hbzjhs.dc.driver.cloud/DBD90A74 {na} Request[@+15s0ms HIGH_ACCURACY, WorkSource{10192 cn.hbzjhs.dc.driver.cloud}] (inactive)",
+    "last location=null",
+    "10192/cn.hbzjhs.dc.driver.cloud: min/max interval = 15s/15s, total/active/foreground duration = +3s598ms/0/+3s598ms, locations = 0",
+    "10-26 01:28:09.939: gps provider +registration 10192/cn.hbzjhs.dc.driver.cloud/DBD90A74 -> Request[@+15s0ms HIGH_ACCURACY, WorkSource{10192 cn.hbzjhs.dc.driver.cloud}]"
+  ],
+  "systemOnAt": "2026-10-26T01:28:16.479073+08:00",
+  "recovered": true,
+  "onLocationLines": [
+    "last location=Location[gps 37.421997,-122.084000 hAcc=5.0 et=+2m11s757ms alt=5.0 vAcc=0.5 vel=0.0 sAcc=0.5 bear=0.0 bAcc=30.0 {Bundle[{satellites=0, maxCn0=0, meanCn0=0}]}]",
+    "last location=Location[gps 37.421997,-122.084000 hAcc=5.0 et=+2m11s757ms alt=5.0 vAcc=0.5 vel=0.0 sAcc=0.5 bear=0.0 bAcc=30.0 {Bundle[{satellites=0, maxCn0=0, meanCn0=0}]}]"
+  ],
+  "ownGpsRequests": [
+    "service: ProviderRequest[@+15s0ms, HIGH_ACCURACY, WorkSource{10192 cn.hbzjhs.dc.driver.cloud}]",
+    "10192/cn.hbzjhs.dc.driver.cloud/DBD90A74 Request[@+15s0ms HIGH_ACCURACY, WorkSource{10192 cn.hbzjhs.dc.driver.cloud}]",
+    "10-26 01:28:09.938: gps provider +registration 10192/cn.hbzjhs.dc.driver.cloud/DBD90A74 -> Request[@+15s0ms HIGH_ACCURACY, WorkSource{10192 cn.hbzjhs.dc.driver.cloud}]",
+    "10-26 01:28:16.395: gps provider request = ProviderRequest[@+15s0ms, HIGH_ACCURACY, WorkSource{10192 cn.hbzjhs.dc.driver.cloud}]"
+  ],
+  "recoveredWithoutAppRestart": true,
+  "environment": {
+    "size": "Physical size: 1080x2400",
+    "density": "Physical density: 420",
+    "font": "1.0",
+    "wifi": "1",
+    "data": "1",
+    "locationMode": "3",
+    "zen": "0",
+    "appops": "Uid mode: COARSE_LOCATION: foreground\nFINE_LOCATION: foreground\nCOARSE_LOCATION: allow\nFINE_LOCATION: allow; time=+1s66ms ago\nGPS: allow; time=+4s862ms ago (running)\nSYSTEM_ALERT_WINDOW: allow; time=+22m55s406ms ago; duration=+189ms\nREAD_CLIPBOARD: allow; time=+2d2h49m3s714ms ago\nTAKE_AUDIO_FOCUS: allow; time=+9s838ms ago\nMONITOR_LOCATION: allow; time=+4s862ms ago (running)\nMONITOR_HIGH_POWER_LOCATION: allow; time=+4s862ms ago (running)\nSTART_FOREGROUND: allow; time=+7s103ms ago (running)\n",
+    "locationLines": [
+      "last location=Location[gps 37.421997,-122.084000 hAcc=5.0 et=+2m11s757ms alt=5.0 vAcc=0.5 vel=0.0 sAcc=0.5 bear=0.0 bAcc=30.0 {Bundle[{satellites=0, maxCn0=0, meanCn0=0}]}]",
+      "last location=Location[gps 37.421997,-122.084000 hAcc=5.0 et=+2m11s757ms alt=5.0 vAcc=0.5 vel=0.0 sAcc=0.5 bear=0.0 bAcc=30.0 {Bundle[{satellites=0, maxCn0=0, meanCn0=0}]}]"
+    ]
+  },
+  "permissions": [
+    "android.permission.SYSTEM_ALERT_WINDOW: granted=false, flags=[ USER_SET]",
+    "android.permission.POST_NOTIFICATIONS: granted=true, flags=[ USER_SET|USER_SENSITIVE_WHEN_GRANTED|USER_SENSITIVE_WHEN_DENIED]",
+    "android.permission.ACCESS_FINE_LOCATION: granted=true, flags=[ USER_SET|USER_SENSITIVE_WHEN_GRANTED|USER_SENSITIVE_WHEN_DENIED]",
+    "android.permission.ACCESS_COARSE_LOCATION: granted=true, flags=[ USER_SET|USER_SENSITIVE_WHEN_GRANTED|USER_SENSITIVE_WHEN_DENIED]"
+  ],
+  "homeTexts": [
+    "Showing a Map created with MapLibre. Scroll by dragging two fingers. Zoom by pinching two fingers.",
+    "Attribution icon. Activate to show attribution dialog.",
+    "宜捷行·司机",
+    "宜昌市",
+    "云端验收司机03",
+    "网络正常",
+    "消息通知",
+    "正在听单中",
+    "保持手机畅通，留心语音播报",
+    "点击下线",
+    "待收款 2 笔 · 不影响继续接单",
+    "含 1 笔演示订单，未关联乘客 App",
+    "查看",
+    "附近订单",
+    "实时路单",
+    "接单设置",
+    "演示订单 · 未关联乘客 App",
+    "预约订单",
+    "距您 2.4 km",
+    "¥76.00",
+    "起",
+    "国贸大厦",
+    "终",
+    "三峡机场",
+    "预估里程 · 约 31 km",
+    "立即抢单",
+    "演示订单 · 未关联乘客 App",
+    "听单",
+    "订单",
+    "钱包",
+    "我的"
+  ],
+  "acceptance": "PASS",
+  "endedAt": "2026-10-26T01:28:31.919119+08:00",
+  "normalShutdown": "OK: killing emulator, bye bye\r\nOK\r\n",
+  "shutdownAt": "2026-10-26T01:28:32.071668+08:00"
+}
