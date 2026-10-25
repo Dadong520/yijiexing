@@ -1,0 +1,6 @@
+Deploying...
+Creating Revision..............................................................................................................................................................................done
+Routing traffic.....done
+Done.
+Service [driver-demo] revision [driver-demo-public3422f1cc] has been deployed and is serving 100 percent of traffic.
+Service URL: https://driver-demo-491829048305.us-west1.run.app

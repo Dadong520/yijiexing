@@ -1,0 +1,197 @@
+{
+  "at": "2026-10-25T20:07:53.521551+08:00",
+  "sourceSha": "3422f1ccb9263438533eee8e89890d7296b644be",
+  "status": "PASS",
+  "directTLS": true,
+  "checks": [
+    {
+      "check": "legacy session no shared code",
+      "status": 200,
+      "result": "PASS"
+    },
+    {
+      "check": "no token driver state",
+      "status": 401,
+      "result": "PASS"
+    },
+    {
+      "check": "passenger no-code auth/code",
+      "status": 200,
+      "result": "PASS"
+    },
+    {
+      "check": "passenger no-code auth/login",
+      "status": 200,
+      "result": "PASS"
+    },
+    {
+      "check": "passenger role state",
+      "status": 200,
+      "result": "PASS"
+    },
+    {
+      "check": "passenger token driver API",
+      "status": 401,
+      "result": "PASS"
+    },
+    {
+      "check": "driver token passenger API",
+      "status": 401,
+      "result": "PASS"
+    },
+    {
+      "check": "non-allowlisted phone",
+      "status": 403,
+      "result": "PASS"
+    },
+    {
+      "check": "public management path",
+      "status": 404,
+      "result": "PASS"
+    },
+    {
+      "check": "public reset denied",
+      "status": 403,
+      "result": "PASS"
+    },
+    {
+      "check": "state after denied reset",
+      "status": 200,
+      "result": "PASS"
+    },
+    {
+      "check": "driver no-code auth/code",
+      "status": 200,
+      "result": "PASS"
+    },
+    {
+      "check": "driver no-code auth/login",
+      "status": 200,
+      "result": "PASS"
+    },
+    {
+      "check": "new driver session state",
+      "status": 200,
+      "result": "PASS"
+    }
+  ],
+  "existingOrderIdsPreserved": true,
+  "existingFaresPreserved": true,
+  "beforeCount": 18,
+  "afterCount": 18,
+  "deniedResetStateUnchanged": true,
+  "tokensOrCodesLogged": false,
+  "postSnapshot": {
+    "orders": [
+      {
+        "id": "PORD9dac969cecf1",
+        "stage": "WAIT_PAY",
+        "fare": 2926,
+        "kind": "STANDARD"
+      },
+      {
+        "id": "PORD2a42ed9559c3",
+        "stage": "CANCELLED",
+        "fare": 3600,
+        "kind": "BID"
+      },
+      {
+        "id": "PORD97596bf0cc68",
+        "stage": "DONE",
+        "fare": 2926,
+        "kind": "STANDARD"
+      },
+      {
+        "id": "PORDfe4ce3005b17",
+        "stage": "CANCELLED",
+        "fare": 3600,
+        "kind": "BID"
+      },
+      {
+        "id": "PORD5b52d7bea9c4",
+        "stage": "CANCELLED",
+        "fare": 3600,
+        "kind": "BID"
+      },
+      {
+        "id": "NEG1bafda5d1f03",
+        "stage": "DONE",
+        "fare": 2600,
+        "kind": "NEGOTIATED"
+      },
+      {
+        "id": "PORD29d6c69f4de0",
+        "stage": "DONE",
+        "fare": 2926,
+        "kind": "STANDARD"
+      },
+      {
+        "id": "PORD2db3ea661d0d",
+        "stage": "DONE",
+        "fare": 1724,
+        "kind": "RESERVED"
+      },
+      {
+        "id": "PORD04d3caf838a1",
+        "stage": "DONE",
+        "fare": 2500,
+        "kind": "BID"
+      },
+      {
+        "id": "PORDdcabe83784eb",
+        "stage": "DONE",
+        "fare": 1724,
+        "kind": "STANDARD"
+      },
+      {
+        "id": "PORD13dd359e7a99",
+        "stage": "DONE",
+        "fare": 1724,
+        "kind": "STANDARD"
+      },
+      {
+        "id": "YC1001",
+        "stage": "DONE",
+        "fare": 2850,
+        "kind": "STANDARD"
+      },
+      {
+        "id": "YC1002",
+        "stage": "WAIT_PAY",
+        "fare": 1860,
+        "kind": "STANDARD"
+      },
+      {
+        "id": "YC1003",
+        "stage": "AVAILABLE",
+        "fare": 7600,
+        "kind": "RESERVED"
+      },
+      {
+        "id": "YC1004",
+        "stage": "AVAILABLE",
+        "fare": 3500,
+        "kind": "PHONE"
+      },
+      {
+        "id": "YC1005",
+        "stage": "AVAILABLE",
+        "fare": 4200,
+        "kind": "BID"
+      },
+      {
+        "id": "HISTORY01",
+        "stage": "DONE",
+        "fare": 3200,
+        "kind": "STANDARD"
+      },
+      {
+        "id": "HISTORY02",
+        "stage": "DONE",
+        "fare": 7800,
+        "kind": "RESERVED"
+      }
+    ],
+    "balance": 55774
+  }
+}

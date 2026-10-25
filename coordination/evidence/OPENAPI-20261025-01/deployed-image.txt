@@ -1,0 +1,1 @@
+us-west1-docker.pkg.dev/yijiexing-driver-demo-1023/demo/service@sha256:3037c29c25d99fff8348e99ccfbf130c2b14d5a010a5558a44d8fd64042adc0d

@@ -1,0 +1,118 @@
+{
+  "at": "2026-10-25T20:04:38.194881+08:00",
+  "status": "PASS",
+  "snapshot": {
+    "orders": [
+      {
+        "id": "PORD9dac969cecf1",
+        "stage": "WAIT_PAY",
+        "fare": 2926,
+        "kind": "STANDARD"
+      },
+      {
+        "id": "PORD2a42ed9559c3",
+        "stage": "CANCELLED",
+        "fare": 3600,
+        "kind": "BID"
+      },
+      {
+        "id": "PORD97596bf0cc68",
+        "stage": "DONE",
+        "fare": 2926,
+        "kind": "STANDARD"
+      },
+      {
+        "id": "PORDfe4ce3005b17",
+        "stage": "CANCELLED",
+        "fare": 3600,
+        "kind": "BID"
+      },
+      {
+        "id": "PORD5b52d7bea9c4",
+        "stage": "CANCELLED",
+        "fare": 3600,
+        "kind": "BID"
+      },
+      {
+        "id": "NEG1bafda5d1f03",
+        "stage": "DONE",
+        "fare": 2600,
+        "kind": "NEGOTIATED"
+      },
+      {
+        "id": "PORD29d6c69f4de0",
+        "stage": "DONE",
+        "fare": 2926,
+        "kind": "STANDARD"
+      },
+      {
+        "id": "PORD2db3ea661d0d",
+        "stage": "DONE",
+        "fare": 1724,
+        "kind": "RESERVED"
+      },
+      {
+        "id": "PORD04d3caf838a1",
+        "stage": "DONE",
+        "fare": 2500,
+        "kind": "BID"
+      },
+      {
+        "id": "PORDdcabe83784eb",
+        "stage": "DONE",
+        "fare": 1724,
+        "kind": "STANDARD"
+      },
+      {
+        "id": "PORD13dd359e7a99",
+        "stage": "DONE",
+        "fare": 1724,
+        "kind": "STANDARD"
+      },
+      {
+        "id": "YC1001",
+        "stage": "DONE",
+        "fare": 2850,
+        "kind": "STANDARD"
+      },
+      {
+        "id": "YC1002",
+        "stage": "WAIT_PAY",
+        "fare": 1860,
+        "kind": "STANDARD"
+      },
+      {
+        "id": "YC1003",
+        "stage": "AVAILABLE",
+        "fare": 7600,
+        "kind": "RESERVED"
+      },
+      {
+        "id": "YC1004",
+        "stage": "AVAILABLE",
+        "fare": 3500,
+        "kind": "PHONE"
+      },
+      {
+        "id": "YC1005",
+        "stage": "AVAILABLE",
+        "fare": 4200,
+        "kind": "BID"
+      },
+      {
+        "id": "HISTORY01",
+        "stage": "DONE",
+        "fare": 3200,
+        "kind": "STANDARD"
+      },
+      {
+        "id": "HISTORY02",
+        "stage": "DONE",
+        "fare": 7800,
+        "kind": "RESERVED"
+      }
+    ],
+    "balance": 55774
+  },
+  "secretOrTokenRecorded": false
+}

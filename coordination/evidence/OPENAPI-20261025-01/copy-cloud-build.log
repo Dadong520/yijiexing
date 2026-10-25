@@ -1,0 +1,5 @@
+Creating temporary archive of 21 file(s) totalling 392.3 KiB before compression.
+Uploading tarball of [/Users/dongge/.codex/tmp/yijiexing-api-build-3422f1cc] to [gs://yijiexing-driver-demo-1023_cloudbuild/source/1792931237.345919-9868ecdd92f34532929342e1d7c5b0cb.tgz]
+Created [https://cloudbuild.googleapis.com/v1/projects/yijiexing-driver-demo-1023/locations/us-west1/builds/6e1feb22-0c0c-4e11-8036-cc5eed0c979e].
+Logs are available at [ https://console.cloud.google.com/cloud-build/builds;region=us-west1/6e1feb22-0c0c-4e11-8036-cc5eed0c979e?project=491829048305 ].
+Waiting for build to complete. Polling interval: 1 second(s).

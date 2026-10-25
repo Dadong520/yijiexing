@@ -1,0 +1,28 @@
+{
+  "sourceSha": "3422f1ccb9263438533eee8e89890d7296b644be",
+  "stage": "/Users/dongge/.codex/tmp/yijiexing-api-build-3422f1cc",
+  "files": {
+    "Dockerfile": "39e5d05c6e52ef60d0ed0b4f5fd65f6972f80c27658a755744e79908fdaf07b2",
+    "requirements.txt": "af79caa6e5db292ba03cd708cab33f138b4295460b3f570c61f14e4e146c2f9a",
+    "server.py": "69f713dd3c76df5f2754eb2e8a95f9ef23ada1d0201d3fdc824af5bcf242afc2",
+    "domain.py": "ef05f2902e2227c45e6893a2fed03a259d2563e6da951acf33bf7763465443e5",
+    "order_options.py": "4ec12f73f400cfae665b828b5714501b6e555bdf00eb99c352e306a5f36cb123",
+    "cloud_server.py": "8a4ba1ef1fc5cab5151f5463622cc1f4ebc4622a5c377102cd1ac08fe8dc54d9",
+    "distribution.py": "c164763c515121a6e7537bda9318e48a0dc35d531f80b408ddd29cc503b082b8",
+    "seed.py": "64382842f55bd0486028244a758c951293de1f89f6e6ce2a98273867a44b0d7b",
+    "passenger_extras.py": "fc6a21d2d05adf859754bddd56467dd1d7376fc9a1a9e57c4c0865c4a34983c9",
+    "admin_console.py": "4e226e65ac5266769cd19c603bccf2c6b30e8fc148d848cc6b299934a5f9d092",
+    "admin.py": "d68a26dbc7441f73dfc79a5a0bf98e60f7558b6386afde374d09636c9a447222",
+    "common.py": "3e27cf145d05a96b2ae6e1435d66d460edf585bd98de1935fda1764e27face92",
+    "benefits.py": "b9f4d100b05e7a3a4c39dd0bba69dbe557110a3ca006eb8a755692235f2470de",
+    "negotiation.py": "0c844c35ee4a79b867d7ffb39945021cf9bb03af03125a37a1c9b12006e668b8",
+    "snapshot.py": "31552c1a6406157cc483507a66b3d2d8981c5ca7ab7941f4a2250225cabaca17",
+    "passenger.py": "7f11834c6d9cea342b1e474feaadc702247d4d169f898d5e247c98a00a27729b",
+    "static/admin.html": "386cb5544b3f3dfe89c461bef4d04471d514e63252a8c06a3a84644be4f3ae13",
+    "static/sandbox-certificate-sample.png": "d0c6e7af6edb96b1b2931b3f763ec51bf31d3eeca9222bf5cfc60b7c971e3186",
+    "static/admin.css": "de41a30e4b75abbac164764070b76b81cd098716a573bce13f8537b220ab2045",
+    "static/sample.jpg": "94c65c68e2e11465bef264f86c5abd882e5967b5fc609ae6b99bafda9c1c6718",
+    "static/admin.js": "18fefe0b162a28ae7272c76a94e992c3bcfc6c5654503cadf25d0e5fc5684a17"
+  },
+  "noPrivateOrDatabaseFiles": true
+}
