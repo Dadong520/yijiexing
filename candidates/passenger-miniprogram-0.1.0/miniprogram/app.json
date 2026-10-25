@@ -1,9 +1,15 @@
 {
   "pages": [
-    "pages/home/index", "pages/orders/index", "pages/profile/index",
-    "pages/order-detail/index", "pages/login/index", "pages/places/index",
-    "pages/settings/index", "pages/negotiation/index",
-    "pages/coupons/index", "pages/safety/index"
+    "pages/home/index",
+    "pages/orders/index",
+    "pages/profile/index",
+    "pages/order-detail/index",
+    "pages/login/index",
+    "pages/places/index",
+    "pages/settings/index",
+    "pages/negotiation/index",
+    "pages/coupons/index",
+    "pages/safety/index"
   ],
   "window": {
     "navigationBarTitleText": "宜捷行",
@@ -12,15 +18,33 @@
     "backgroundColor": "#f5f9f8"
   },
   "tabBar": {
-    "color": "#647774", "selectedColor": "#087f73", "backgroundColor": "#ffffff",
+    "color": "#647774",
+    "selectedColor": "#087f73",
+    "backgroundColor": "#ffffff",
     "list": [
-      { "pagePath": "pages/home/index", "text": "打车" },
-      { "pagePath": "pages/orders/index", "text": "行程" },
-      { "pagePath": "pages/profile/index", "text": "我的" }
+      {
+        "pagePath": "pages/home/index",
+        "text": "打车"
+      },
+      {
+        "pagePath": "pages/orders/index",
+        "text": "行程"
+      },
+      {
+        "pagePath": "pages/profile/index",
+        "text": "我的"
+      }
     ]
   },
-  "permission": { "scope.userLocation": { "desc": "用于您主动选择上下车地点，不在后台持续定位" } },
-  "requiredPrivateInfos": ["chooseLocation"],
+  "permission": {
+    "scope.userLocation": {
+      "desc": "用于您主动选择上下车地点、活动订单上车核验，不在后台持续定位"
+    }
+  },
+  "requiredPrivateInfos": [
+    "chooseLocation",
+    "getLocation"
+  ],
   "style": "v2",
   "sitemapLocation": "sitemap.json"
 }

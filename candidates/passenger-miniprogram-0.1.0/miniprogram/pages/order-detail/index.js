@@ -53,6 +53,14 @@ const page = base({
       return;
     }
     const o = decorate(raw);
+    const dc = raw.distanceConsent;
+    o.distanceConsent = dc ? Object.assign({}, dc, {
+      active: dc.status === 'PENDING' && dc.expectedStage === raw.stage && Date.parse(dc.expiresAt) > Date.now(),
+      title: dc.type === 'DROPOFF' ? '司机申请确认已送达' : '司机申请确认已接到您',
+      distanceText: Number.isFinite(dc.distanceMeters) ? Math.round(dc.distanceMeters) + ' 米' : '定位不足，无法计算',
+      thresholdText: Number.isInteger(dc.thresholdMeters) ? dc.thresholdMeters + ' 米' : '规则待同步',
+      expiresText: present.shortTime(dc.expiresAt)
+    }) : null;
     o.adjustments = (raw.adjustments || []).map(a => Object.assign({}, a, {
       beforeText: present.money(a.before),
       afterText: present.money(a.after),
@@ -158,6 +166,37 @@ const page = base({
       content: msg,
       showCancel: false,
       confirmText: '确定'
+    });
+  },
+
+  async decideDistance(e) {
+    const order = this.data.order;
+    const frozen = order && order.distanceConsent;
+    if (!frozen || !frozen.active) return error(new Error('请求已处理或已过期，请刷新订单'));
+    const approve = String(e.currentTarget.dataset.approve) === 'true';
+    const title = approve ? (frozen.type === 'DROPOFF' ? '确认已经送达' : '确认已经上车') : '拒绝本次确认';
+    const text = approve ? '请仅在实际已上车或已送达时同意；同意后订单会推进，送达可能结束本次行程。' : '拒绝后订单保持当前阶段，司机可重新定位后发起请求。';
+    if (!(await modal(title, text))) return;
+    const latest = this.data.order;
+    const current = latest && latest.distanceConsent;
+    if (!current || current.id !== frozen.id || latest.id !== order.id || latest.stage !== frozen.expectedStage || current.status !== 'PENDING' || !(Date.parse(current.expiresAt) > Date.now())) return error(new Error('订单或确认请求已变化，请刷新后核对'));
+    await this.act('order.distanceConsent', { id: order.id, consentId: frozen.id, approve });
+  },
+
+  reportCurrentPosition() {
+    const order = this.data.order;
+    if (!order || !['AVAILABLE','PREPAY','RESERVED','PICKUP','ARRIVED','TRIP'].includes(order.stage)) return error(new Error('仅活动订单可更新位置'));
+    wx.getLocation({
+      type: 'wgs84', isHighAccuracy: true,
+      success: async (position) => {
+        const latest = this.data.order;
+        if (!latest || latest.id !== order.id || !['AVAILABLE','PREPAY','RESERVED','PICKUP','ARRIVED','TRIP'].includes(latest.stage)) return;
+        const accuracy = Number(position.horizontalAccuracy || position.accuracy);
+        if (!Number.isFinite(position.latitude) || !Number.isFinite(position.longitude) || !Number.isFinite(accuracy) || accuracy <= 0) return error(new Error('本次定位无有效精度，请重试；定位不足时仍需您确认'));
+        try { await this.act('location.report', { id: order.id, latitude: position.latitude, longitude: position.longitude, accuracy, time: Date.now(), coordinateSystem: 'WGS84' }); }
+        catch (e) { error(e); }
+      },
+      fail: () => error(new Error('未获取定位，请在微信小程序设置允许位置权限；未定位时仍可核对并同意或拒绝司机请求'))
     });
   },
 
