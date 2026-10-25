@@ -1,0 +1,124 @@
+{
+  "schemaVersion": 1,
+  "task": "ADMIN-20261025-04",
+  "reviewer": "frontend independent non-author",
+  "sourceSha": "0d7dfc045a137ee93b354acd669edebf6724af29",
+  "mergeSha": "1d099fdf5c6ce3054e89e2b7a073e380ae45ac24",
+  "revision": "driver-admin-queries-0d7dfc04",
+  "revisionProvenance": "Deployment/revision reported by coordinator; this run independently verifies actual delivered asset bodies and login-page appearance, not Cloud Run control plane.",
+  "acceptance": "PARTIAL_PASS_NOT_RUN_AUTHENTICATED_READBACK",
+  "scope": "Chrome HTTPS deployment readback only, no order/account/payment/configuration writes. Existing Google IAP authorization used to reach app login; no Google or IAM settings changed.",
+  "startedAt": "2026-10-25T21:47:21+08:00",
+  "originalDeadline": "2026-10-25T21:52:21+08:00",
+  "coordinatorExtendedDeadline": "2026-10-25T21:59:00+08:00",
+  "browserEndedAt": "2026-10-25T14:00:38.631Z",
+  "reportCompletedAt": "2026-10-25T22:02:26.525429+08:00",
+  "targetOrigin": "https://driver-admin-491829048305.us-west1.run.app",
+  "passed": [
+    {
+      "check": "Actual HTTPS app login page accessible after existing IAP",
+      "result": "PASS",
+      "evidence": "01-live-login.jpg",
+      "observed": "1440x693 Chrome page, left brand/right empty login form readable and uncut."
+    },
+    {
+      "check": "Delivered JS/CSS bodies equal accepted source",
+      "result": "PASS",
+      "evidence": "delivered-assets.json",
+      "observed": "Read actual page-loaded resources with CDP Page.getResourceContent, SHA256 and bytes equal local0d JS/CSS. No unauthenticated fetch substitution or inferred source hash."
+    }
+  ],
+  "assets": [
+    {
+      "asset": "admin.js",
+      "sha256": "9cc93a2ff8f3d5f4f69c91d2a837ad1166a9bb72b01fea70c19c4bc4b1aa5c01",
+      "expectedSha256": "9cc93a2ff8f3d5f4f69c91d2a837ad1166a9bb72b01fea70c19c4bc4b1aa5c01",
+      "matchesSource": true,
+      "bytes": 82313
+    },
+    {
+      "asset": "admin.css",
+      "sha256": "13905b7f7ce00511efcb328ac9d0d5c11ea40d4355a90f087956ed3288469e4d",
+      "expectedSha256": "13905b7f7ce00511efcb328ac9d0d5c11ea40d4355a90f087956ed3288469e4d",
+      "matchesSource": true,
+      "bytes": 15314
+    }
+  ],
+  "authenticationObservation": {
+    "result": "NOT_VERIFIED_TOOL_OR_RUNTIME",
+    "firstClick": "One login-button click ended with browser Detached tool error; fresh page remained on filled login with no explicit account/password error. No verified auth response/session.",
+    "credentialHandling": "Password read solely inside Cua runtime and directly filled masked exact-origin field; never printed to model, copied to clipboard, written to source/evidence, or saved in Chrome. Fields then cleared.",
+    "additionalAuthorization": "Coordinator explicitly permitted one Enter after checking script-generated DOM. Actual DOM showed12 generated nav buttons, all initialization element IDs present and no visible error. Exactly one authorized Enter was then used; later page still showed login with empty error, so no further submit.",
+    "bindingEvidence": "form-binding.json",
+    "interpretationLimit": "Cua read-only evaluator does not reliably expose main-world function references. Earlier formBound=false was NOT accepted as proof of a product bug; script-generated12-menu DOM proves substantial JS initialization ran. Actual auth/network success or native-navigation request was not verified.",
+    "attempts": {
+      "initialClick": "One Detached tool action, actual application submission unverified",
+      "coordinatorAuthorizedEnter": 1,
+      "furtherSubmissions": 0
+    },
+    "generatedNavButtons": 12,
+    "requiredDomElementsPresent": true
+  },
+  "expectedReadbackNotMeasured": {
+    "orderId": "PORD9dac969cecf1",
+    "expectedStage": "WAIT_PAY",
+    "expectedFareCents": 2926,
+    "expectedDisplayedYuan": "29.26",
+    "expectedOrderCountBefore": 19,
+    "source": "Coordinator supplied expectations, NOT verified by this run."
+  },
+  "notRun": [
+    "Authenticated real19-order state and navigating9 live report pages (only generated12-nav DOM inspected)",
+    "Target-order id/stage/fare query and detail",
+    "Live date/type combined query",
+    "Live filtered CSV download/count/hash/units",
+    "Verified application login/logout of a new admin session",
+    "Main-world form-handler execution/initialization diagnosis"
+  ],
+  "privacy": {
+    "rawPasswordOrSessionHeaderStored": false,
+    "rawCsvStoredInRepository": false,
+    "credentialFieldsCleared": true,
+    "onlyEmptyLoginScreenshot": true,
+    "businessMutations": false
+  },
+  "teardown": {
+    "endedAt": "2026-10-25T14:00:38.631Z",
+    "credentialFieldsCleared": true,
+    "noVerifiedNewAdminSession": true,
+    "oneAuthorizedEnterUsedAfterInitialToolDetached": true,
+    "noRepeatedPasswordAttempts": true,
+    "networkObservationDisabled": true,
+    "originalUserTabsUntouched": true,
+    "googleAccountAndSettingsUnchanged": true,
+    "onlineBusinessMutations": false,
+    "ownNewChromeTabClosed": true
+  },
+  "screenshots": [
+    {
+      "path": "01-live-login.jpg",
+      "sha256": "e62e10e5735bde6fa88bf13d7292421a7552185a7e27196e2a253d9a70f1ed5c",
+      "savedAndInspected": true
+    }
+  ],
+  "evidence": [
+    {
+      "path": "delivered-assets.json",
+      "sha256": "9c36fbfd70f5bd0dc3f27fe80617442dc7dd24e6c25c3a4a4374bc0fe003cec7"
+    },
+    {
+      "path": "form-binding.json",
+      "sha256": "e72e67875a4f133645db55217ea6f4dff0a82928bd2cfc58453ec77635606216"
+    },
+    {
+      "path": "extended-observation.json",
+      "sha256": "01b70dcd62eb668da4dbef2bc99609b44cc3422fb0027a2aaea046d44755b020"
+    },
+    {
+      "path": "teardown.json",
+      "sha256": "167a81d0cbaface83b1dea956b4c7ae6596ac4f91942c91af25dcf158916b25b"
+    }
+  ],
+  "nextAction": "Coordinator independently resolves the live browser submission/handler ambiguity before claiming authenticated real-order readback complete. Existing local baseline/final acceptance remains valid for their stated scope. Frontend IDLE; no further retries or browser actions.",
+  "timeBoundaryNote": "Final credential clearing and evidence write completed around22:00, after last21:59 bound; no further submissions were performed and own tab was closed during cleanup."
+}

@@ -1,0 +1,11 @@
+{
+  "status": "PASS",
+  "beforeCount": 19,
+  "afterCount": 19,
+  "existingOrderIdsPreserved": true,
+  "existingAmountsPreserved": true,
+  "existingOrderStagesAndPaymentUnchanged": true,
+  "newIds": [],
+  "accountLibraryWrittenOrLogged": false,
+  "at": "2026-10-25T21:46:23.006422+08:00"
+}

@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "id": "NET-20261025-01",
   "owner": "coordinator",
-  "goal": "后台及App使用稳定HTTPS域名，使底层IP或服务迁移不必重新打包；现有run.app已非硬编码IP，核对自有域名/DNS后再绑定独立体验子域名。",
-  "baseSha": "0d7dfc045a137ee93b354acd669edebf6724af29",
+  "goal": "复用已验证HTTPS API域名yijiexing-demo.hbzjhs.xyz，配置后台demo-admin.hbzjhs.xyz并保留既有演示demo.hbzjhs.xyz；两App一次切换构建，之后底层IP变动无须重新打包。",
+  "baseSha": "1d099fdf5c6ce3054e89e2b7a073e380ae45ac24",
   "allow_paths": [
     "coordination/NETWORK_DOMAINS.md",
     "coordination/evidence/NET-20261025-01/"
@@ -15,11 +15,21 @@
     "若切换App基地址域名需一次新包及旧域名兼容；此后仅换后端IP不改包",
     "不新增常驻代理/收费负载均衡，不降低证书或IAP保护"
   ],
-  "status": "WAITING_DOMAIN_DETAILS",
+  "status": "WAITING_CERTIFICATE",
   "acceptance": "NOT_RUN",
   "tests": [],
   "evidence": [],
-  "nextAction": "已向用户询问自有域名及DNS平台；继续完成ADMIN发布，未得到域名选择前不猜测修改DNS。",
+  "nextAction": "后台DNS-only CNAME已保存且Google公共DNS确认；托管HTTPS证书仍CertificatePending，Google自动重试。App独立差量验收转NET-20261025-02发布，不用后台证书等待阻挡已有效API域名的包。",
   "deploy_owner": "coordinator",
-  "releaseReady": false
+  "releaseReady": false,
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-domains-20261025",
+  "fileOwnership": {
+    "coordinator": "DNS/Cloud Run映射与Origin配置、两Gradle版本/域名、构建发布",
+    "frontend": "非作者两原生App安装升级保留登录与真实域名读取验收，唯一ADB操作者"
+  },
+  "childTask": "NET-20261025-02",
+  "remaining": [
+    "后台自有域名TLS就绪",
+    "自有后台域名IAP和登录只读验收"
+  ]
 }

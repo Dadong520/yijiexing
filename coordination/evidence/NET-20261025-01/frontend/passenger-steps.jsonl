@@ -1,0 +1,8 @@
+{"at": "2026-10-25T22:22:14.244806+08:00", "kind": "capture", "value": "passenger-01-before-home"}
+{"at": "2026-10-25T22:22:21.380164+08:00", "kind": "tap", "value": "我的"}
+{"at": "2026-10-25T22:22:31.224997+08:00", "kind": "capture", "value": "passenger-02-before-profile"}
+{"at": "2026-10-25T22:23:11.775193+08:00", "kind": "capture", "value": "passenger-03-after-domain-home"}
+{"at": "2026-10-25T22:23:17.199320+08:00", "kind": "tap", "value": "刷新订单"}
+{"at": "2026-10-25T22:23:24.233198+08:00", "kind": "tap", "value": "我的"}
+{"at": "2026-10-25T22:23:29.893604+08:00", "kind": "capture", "value": "passenger-05-after-domain-profile"}
+{"at": "2026-10-25T22:23:45.232822+08:00", "kind": "capture", "value": "passenger-06-relaunch-domain-home"}

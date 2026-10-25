@@ -1,0 +1,34 @@
+{
+  "status": "PASS",
+  "publishedAt": "2026-10-25T21:44:58.452239+08:00",
+  "sourceSha": "0d7dfc045a137ee93b354acd669edebf6724af29",
+  "backendSourceSha": "8a02527d025245381ebca517fcd88508c5e9606d",
+  "mergeSha": "1d099fdf5c6ce3054e89e2b7a073e380ae45ac24",
+  "revision": "driver-admin-queries-0d7dfc04",
+  "imageDigest": "us-west1-docker.pkg.dev/yijiexing-driver-demo-1023/demo/admin-ui@sha256:a4ce4c7f762775483b3bdd0a9559cfd949d07a4cb9397c376fb79bb27f745125",
+  "traffic": [
+    {
+      "percent": 100,
+      "revisionName": "driver-admin-queries-0d7dfc04"
+    }
+  ],
+  "url": "https://driver-admin-491829048305.us-west1.run.app/",
+  "anonymousIAPRedirect": 302,
+  "iamUnchanged": true,
+  "iapEnabled": true,
+  "serviceAccountUnchanged": true,
+  "envAndSecretReferencesUnchanged": true,
+  "containerOnlyImageChanged": true,
+  "automaticScaling": true,
+  "minInstances": 0,
+  "maxInstances": 1,
+  "requestBilling": true,
+  "driverServiceUnchanged": true,
+  "driverRevision": "driver-demo-publiccopy-ecab94fd",
+  "rollbackRevision": "driver-admin-ui20261025",
+  "trafficNote": "Service was pinned to prior revision. New image digest verified, then explicitly routed100% to named new revision; latestReady was old until traffic changed.",
+  "notRun": [
+    "own-domain DNS/TLS pending user details",
+    "new full three-end lifecycle"
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "endedAt": "2026-10-25T14:00:38.631Z",
+  "credentialFieldsCleared": true,
+  "noVerifiedNewAdminSession": true,
+  "oneAuthorizedEnterUsedAfterInitialToolDetached": true,
+  "noRepeatedPasswordAttempts": true,
+  "networkObservationDisabled": true,
+  "originalUserTabsUntouched": true,
+  "googleAccountAndSettingsUnchanged": true,
+  "onlineBusinessMutations": false,
+  "ownNewChromeTabClosed": true
+}

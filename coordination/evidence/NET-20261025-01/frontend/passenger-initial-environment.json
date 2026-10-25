@@ -1,0 +1,10 @@
+{
+  "power": [
+    "mWakefulness=Awake",
+    "mWakefulnessChanging=false",
+    "Display Power: com.android.server.power.PowerManagerService$1@f984190"
+  ],
+  "keyguard": [
+    "mKeyguardOccluded=false mKeyguardOccludedChanged=false mPendingKeyguardOccluded=false"
+  ]
+}

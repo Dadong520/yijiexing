@@ -1,0 +1,20 @@
+{
+  "sourceSha": "7ee63cc33d8f08808d24ee1c27477415933a72ab",
+  "baselineSha": "1d099fdf5c6ce3054e89e2b7a073e380ae45ac24",
+  "nativeChangedFiles": [
+    "apps/passenger-android/app/build.gradle.kts",
+    "candidates/driver-0.3.6-r2/android/app/build.gradle.kts"
+  ],
+  "nativeSourceOnlyGradleDomainVersion": true,
+  "observedAt": "2026-10-25T22:19:31.454929+08:00",
+  "hostHealth": {
+    "url": "https://yijiexing-demo.hbzjhs.xyz/health",
+    "status": 200,
+    "tlsVerified": true,
+    "verifier": "macOS system curl default trust",
+    "direct": true,
+    "bodySha256": "9320ac6fcce184c2ce2e98474209b33546e31354810873bb3ee1ca4357e9596c",
+    "evidenceLayer": "Host only, not emulator packets",
+    "earlierPythonTrustStoreMissingIssuer": true
+  }
+}
