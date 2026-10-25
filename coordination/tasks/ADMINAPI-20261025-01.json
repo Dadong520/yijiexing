@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "id": "ADMINAPI-20261025-01",
+  "owner": "backend",
+  "goal": "核对原Java管理查询和体验数据字段，新增统一服务端筛选分页及同筛选导出/真实持久数据报表投影；只读业务数据，现有角色与API兼容。",
+  "baseSha": "e600e6bd15d894afe9fbd85a7b1f57cf3cb4e842",
+  "allow_paths": [
+    "apps/cloud-service/admin_console.py",
+    "apps/cloud-service/admin_queries.py",
+    "apps/cloud-service/server.py",
+    "apps/cloud-service/tests/test_admin_queries.py",
+    "coordination/evidence/ADMINAPI-20261025-01/"
+  ],
+  "fileOwnership": {
+    "backend": "API query/export projection/route and tests; no static frontend/guard/domain changes",
+    "coordinator": "integration/deploy only"
+  },
+  "checks": [
+    "原后台13项订单筛选逐项核对来源；空值不伪造组织/电话叫车/指派数据",
+    "登录页新旧CSS冲突消除，左右可读/1366与窄屏不截断，键盘表单验证",
+    "6类列表及经营报表各用实际服务端过滤，查询/重置/分页/筛选导出一致",
+    "独立浏览器实际UI及接口权限/导出/日期边界/空态失败恢复测试PASS",
+    "保留IAM/IAP与账务数据、无真实生产访问，唯一coordinator发布回读"
+  ],
+  "status": "IN_PROGRESS",
+  "acceptance": "NOT_RUN",
+  "tests": [],
+  "evidence": [],
+  "nextAction": "先10分钟内给简明query契约及缺字段清单，随后实现和自测；不得发布或派其他代理。",
+  "deploy_owner": "coordinator",
+  "releaseReady": false,
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-api-20261025"
+}

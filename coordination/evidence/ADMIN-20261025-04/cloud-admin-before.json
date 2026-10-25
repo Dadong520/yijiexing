@@ -1,0 +1,42 @@
+{
+  "latestReadyRevision": "driver-admin-ui20261025",
+  "image": "us-west1-docker.pkg.dev/yijiexing-driver-demo-1023/demo/admin-ui@sha256:35726abba61d4ddc4ba49733a726ce81218fac400a212a2f554121cfb6c0a15c",
+  "serviceAnnotations": {
+    "run.googleapis.com/client-name": "gcloud",
+    "run.googleapis.com/client-version": "589.0.0",
+    "run.googleapis.com/iap-enabled": "true",
+    "run.googleapis.com/ingress": "all",
+    "run.googleapis.com/ingress-status": "all",
+    "run.googleapis.com/maxScale": "1",
+    "run.googleapis.com/operation-id": "ed430cf9-1761-47a3-ad13-b8175ed3c966",
+    "run.googleapis.com/scalingMode": "automatic",
+    "run.googleapis.com/urls": "[\"https://driver-admin-491829048305.us-west1.run.app\",\"https://driver-admin-phfgquzmua-uw.a.run.app\"]",
+    "serving.knative.dev/creator": "dadonggev587@gmail.com",
+    "serving.knative.dev/lastModifier": "dadonggev587@gmail.com"
+  },
+  "revisionAnnotations": {
+    "autoscaling.knative.dev/maxScale": "3",
+    "run.googleapis.com/client-name": "gcloud",
+    "run.googleapis.com/client-version": "589.0.0",
+    "run.googleapis.com/cpu-throttling": "true",
+    "run.googleapis.com/execution-environment": "gen2",
+    "run.googleapis.com/startup-cpu-boost": "false"
+  },
+  "serviceAccount": "demo-admin@yijiexing-driver-demo-1023.iam.gserviceaccount.com",
+  "envNames": [
+    "CLOUD_ROLE",
+    "SNAPSHOT_BUCKET",
+    "SNAPSHOT_OBJECT",
+    "DEMO_ADMIN_TOKEN",
+    "ADMIN_BOOTSTRAP_PASSWORD",
+    "IAP_EXPECTED_AUDIENCE",
+    "IAP_ALLOWED_EMAILS",
+    "DEMO_ALLOWED_ORIGINS"
+  ],
+  "traffic": [
+    {
+      "percent": 100,
+      "revisionName": "driver-admin-ui20261025"
+    }
+  ]
+}

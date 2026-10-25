@@ -1,3 +1,5 @@
+当前新任务2026-10-25 20:47：ADMIN-20261025-04前端 /Users/dongge/.codex/tmp/yijiexing-admin-20261025 branchcodex/admin-query-ui-20261025，apps/admin-console从已部署v8 web/backend/ops迁入，Gemini主要UI实现；ADMINAPI-20261025-01 backend仍独占/Users/dongge/.codex/tmp/yijiexing-api-20261025/apps/cloud-service，待负责人读契约实现。原eztrips仅用用户截图和本地Java源码，不访问原线上环境。root只发布driver-admin；driver-demo免访问码与两APK已发并回读。先query契约后UI，对照13项订单筛选和六类报表，真实缺字段明确不造。新用户任务为新一轮限2小时，至22:47前收尾，尽量更早完成。
+
 # 宜捷行当前状态 2026-10-25 20:40 Asia/Singapore
 
 用户最新要求两App直接去掉访问码。已实现、独立验收、合并和实际发布。

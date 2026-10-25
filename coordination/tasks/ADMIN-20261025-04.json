@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "id": "ADMIN-20261025-04",
+  "owner": "antigravity",
+  "goal": "修复后台登录可读性/布局冲突，依据用户原后台订单截图和本地Java接口补齐适用模块查询、分页、详情与同筛选导出；新增取消/退款等可由现有持久数据派生报表，独立验收后发布driver-admin。",
+  "baseSha": "e600e6bd15d894afe9fbd85a7b1f57cf3cb4e842",
+  "allow_paths": [
+    "apps/admin-console/",
+    "coordination/evidence/ADMIN-20261025-04/"
+  ],
+  "fileOwnership": {
+    "Gemini via coordinator": "apps/admin-console/web UI/query integration; coordinator applies bounded generated patches and serves tests",
+    "backend": "separate ADMINAPI task unique apps/cloud-service owns query/export projection/API",
+    "frontend": "independent browser and report tests only; no author source edits"
+  },
+  "checks": [
+    "原后台13项订单筛选逐项核对来源；空值不伪造组织/电话叫车/指派数据",
+    "登录页新旧CSS冲突消除，左右可读/1366与窄屏不截断，键盘表单验证",
+    "6类列表及经营报表各用实际服务端过滤，查询/重置/分页/筛选导出一致",
+    "独立浏览器实际UI及接口权限/导出/日期边界/空态失败恢复测试PASS",
+    "保留IAM/IAP与账务数据、无真实生产访问，唯一coordinator发布回读"
+  ],
+  "status": "IN_PROGRESS",
+  "acceptance": "NOT_RUN",
+  "tests": [],
+  "evidence": [],
+  "nextAction": "Gemini修CSS/login；backend提供contract后Gemini完成查询UI；frontend独立验收；coordinator合并部署",
+  "deploy_owner": "coordinator",
+  "releaseReady": false,
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-admin-20261025"
+}
