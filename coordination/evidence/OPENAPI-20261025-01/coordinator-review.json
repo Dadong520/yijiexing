@@ -1,0 +1,16 @@
+{
+  "sourceSha": "3422f1ccb9263438533eee8e89890d7296b644be",
+  "reviewer": "coordinator (not server author)",
+  "status": "PASS",
+  "runtimeDelta": "Cloud handler shared-code requirement removed only; role dispatch, bearer, phone allowlist, admin and reset boundaries retained",
+  "sourceTransferByteExact": true,
+  "verifiedFiles": 37,
+  "independentHTTP": {
+    "command": "PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover -s tests -p 'test_public_experience.py' -v",
+    "exitCode": 0,
+    "tests": 8
+  },
+  "reviewed": "cloud_server.guard + original server.dispatch state/action/file/admin authentication + both client login transaction ordering",
+  "adminImageUnchanged": true,
+  "originalDomainsSchemaCASUnchanged": true
+}

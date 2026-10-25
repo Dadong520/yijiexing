@@ -5,7 +5,6 @@
   "goal": "按用户最新要求移除司机和乘客体验访问码；新安装包选择体验账号并同意体验说明后一键进入，真实持久化身份/订单不变，后台IAM/IAP与管理API保护保留，兼容旧App后统一发布。",
   "baseSha": "b9bd90a58f01a4e6f09e37366ed8f8b3feaaa51b",
   "allow_paths": [
-    "apps/cloud-service/",
     "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/ConnectedStore.kt",
     "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/CoreScreens.kt",
     "candidates/driver-0.3.6-r2/android/app/build.gradle.kts",
@@ -16,7 +15,7 @@
     "coordination/evidence/ACCESS-20261025-01/"
   ],
   "fileOwnership": {
-    "backend": "apps/cloud-service copied from frozen v8 and both ConnectedStore/PassengerStore; auth API contract and automation tests; no deployment",
+    "backend": "two native auth stores only; API authored code transferred unchanged to OPENAPI unique path",
     "Gemini via coordinator": "LocalLogin/CloudConnectionDialog + passenger LoginScreen/ConnectionDialog presentation; preserve other functions",
     "coordinator": "integration/version/build/state/independent server guard review/only deploy",
     "frontend": "independent device/UI/auth usability and no-code live role tests, no source edits"
@@ -36,5 +35,6 @@
   "nextAction": "backend inspect guard and publish short contract, implement server+both auth stores; coordinator Gemini UI update; frontend finish UI03 then new access task",
   "deploy_owner": "coordinator",
   "releaseReady": false,
-  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-access-20261025"
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-access-20261025",
+  "dependsOn": "OPENAPI-20261025-01 supplies live API; UI03 source merged98e87eb"
 }

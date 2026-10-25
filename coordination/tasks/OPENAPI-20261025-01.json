@@ -1,0 +1,72 @@
+{
+  "schemaVersion": 1,
+  "id": "OPENAPI-20261025-01",
+  "owner": "backend",
+  "goal": "单独发布已测试的免演示访问码公共体验API；仅放开客户端共享码，保留角色token/手机号白名单/管理员保护/持久化与旧客户端兼容，为ACCESS两端实际无码登录验收提供服务。",
+  "baseSha": "98e87eb57371abf2e20893d4bcc1485ae4ac989e",
+  "allow_paths": [
+    "apps/cloud-service/",
+    "coordination/evidence/OPENAPI-20261025-01/"
+  ],
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-api-20261025",
+  "checks": [
+    "作者167测试及8HTTP边界通过，搬迁文件逐SHA与已测源一致",
+    "非作者复核runtime仅guard改变、管理API隔离/手机白名单/role token/禁止清空保留，独立HTTP8边界通过",
+    "原域/金额/schema/CAS/数据源与旧session兼容，原admin服务镜像和IAP不发布不变",
+    "业务验收PASS且同SHA发布仅driver-demo新镜像，原环境/账号/历史订单不导入不清理，CloudRunautomatic/min0/max1/request计费保留"
+  ],
+  "status": "ACCEPTED_FOR_DEPLOY",
+  "acceptance": "PASS",
+  "tests": [
+    {
+      "name": "author complete backend regression, byte-exact transferred source",
+      "command": "PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover -s tests -p 'test_*.py' -v",
+      "status": "PASS",
+      "exitCode": 0,
+      "sourceSha": "3422f1ccb9263438533eee8e89890d7296b644be",
+      "tests": 167,
+      "binding": "source-transfer.json"
+    },
+    {
+      "name": "non-author HTTP client/admin/role/reset boundaries",
+      "command": "PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover -s tests -p 'test_public_experience.py' -v",
+      "status": "PASS",
+      "exitCode": 0,
+      "sourceSha": "3422f1ccb9263438533eee8e89890d7296b644be",
+      "tests": 8
+    }
+  ],
+  "evidence": [
+    {
+      "path": "coordination/evidence/OPENAPI-20261025-01/author-backend-result.json",
+      "sha256": "665886ff5ef915d7e215de080af4dc9ad08a2d8b5b7a57bb3528fad7eeb9676a"
+    },
+    {
+      "path": "coordination/evidence/OPENAPI-20261025-01/source-transfer.json",
+      "sha256": "5056894acbb020f8db9c9d3784af7664acc4fdf86bf216375c9180e658f9a4e5"
+    },
+    {
+      "path": "coordination/evidence/OPENAPI-20261025-01/independent-http.log",
+      "sha256": "b29fb9c042e9a4fc87990b8b85f81ddf76db6035cf06861ef1d904aa972c8c51"
+    },
+    {
+      "path": "coordination/evidence/OPENAPI-20261025-01/coordinator-review.json",
+      "sha256": "e16151a6405cebd826ad36ac0d3af07f1fcef0308f3b2344d1a7da87f9419a97"
+    }
+  ],
+  "nextAction": "merge server-only PR, build from matched37-source manifest, update driver-demo image only, run live boundary and config readback",
+  "deploy_owner": "coordinator",
+  "releaseReady": true,
+  "fileOwnership": {
+    "backend": "authored service frozen after167PASS; new unique API source directory transferred unchanged",
+    "coordinator": "non-author review, packaging, commit/merge/deployment and readback"
+  },
+  "postDeployChecks": [
+    "health and no-code auth/state both roles, old-session read compatibility",
+    "no token/wrong role/reset/admin public paths denied and IAP302 retained",
+    "service image and scaling/billing config readback; original order IDs/stages/amounts preserved"
+  ],
+  "acceptedSha": "3422f1ccb9263438533eee8e89890d7296b644be",
+  "productSha": "3422f1ccb9263438533eee8e89890d7296b644be",
+  "reviewer": "coordinator (not author)"
+}
