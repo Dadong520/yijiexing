@@ -1,3 +1,7 @@
+最新部署分工：UI03已独立PASS并合并PR12=98e87eb57371abf2e20893d4bcc1485ae4ac989e，039/119不单独发布。用户新增去访问码拆为OPENAPI-20261025-01服务端先行（独占/Users/dongge/.codex/tmp/yijiexing-api-20261025/apps/cloud-service，branchcodex/public-experience-api-20261025，已从Auth目录原样移动37文件并核SHA，无双写；API产品3422f1ccb9263438533eee8e89890d7296b644be，167作者+8独立HTTP/非作者源审PASS，待主服务部署和live回读）；ACCESS-20261025-01只负责两客户端AuthStore+Gemini登录UI，活跃目录/Users/dongge/.codex/tmp/yijiexing-access-20261025，0310/1110，编译预检两端PASS，未最终提交或实机。后台driver-admin镜像/IAP不更新。旧Apps兼容由API测试覆盖，新Apps需先API上线再独立无码登录实测，最终才换APK下载。
+
+最新用户指令：去掉两端演示访问码，下载后即可体验。新增ACCESS-20261025-01，唯一活跃AUTH worktree /Users/dongge/.codex/tmp/yijiexing-access-20261025，branchcodex/remove-demo-code-20261025，base b9bd90a58f01a4e6f09e37366ed8f8b3feaaa51b；backend独占apps/cloud-service（从v8冻结参考复制）、两auth Store，协调者/Gemini只改login/connect UI。此apps/cloud-service是新唯一后端开发源，旧v8只读参考不改。公开客户端可免demo码，role token/allowlist/管理API/IAM/IAP保留；无隐藏内置通行码。UI03仍独立完成最终delta，其包不单独发布，之后ACCESS合并含UI升级的新包再统一发布。
+
 # 宜捷行当前状态
 更新2026-10-25 18:16 Asia/Singapore。根协调者唯一维护，恢复先读STATE/BOARD/当前task/role handoff。
 
