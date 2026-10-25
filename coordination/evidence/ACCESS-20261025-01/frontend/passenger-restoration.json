@@ -1,0 +1,20 @@
+{
+  "role": "passenger",
+  "original": {
+    "wmSize": "Physical size: 1080x2400",
+    "wmDensity": "Physical density: 420",
+    "fontScale": "1.0",
+    "wifi": "1",
+    "mobileData": "1"
+  },
+  "final": {
+    "wmSize": "Physical size: 1080x2400",
+    "wmDensity": "Physical density: 420",
+    "fontScale": "1.0",
+    "wifi": "1",
+    "mobileData": "1"
+  },
+  "same": true,
+  "appStoppedAndHome": true,
+  "endedAt": "2026-10-25T20:16:36.226196+08:00"
+}

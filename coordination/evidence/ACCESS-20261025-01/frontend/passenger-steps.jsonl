@@ -1,0 +1,25 @@
+{"at": "2026-10-25T20:09:46.871230+08:00", "kind": "capture", "value": "passenger-01-upgrade-session"}
+{"at": "2026-10-25T20:10:14.827801+08:00", "kind": "tap", "value": "刷新订单"}
+{"at": "2026-10-25T20:10:22.311382+08:00", "kind": "tap", "value": "我的"}
+{"at": "2026-10-25T20:10:29.003635+08:00", "kind": "capture", "value": "passenger-02-upgrade-profile"}
+{"at": "2026-10-25T20:10:40.324081+08:00", "kind": "capture", "value": "passenger-03-profile-bottom"}
+{"at": "2026-10-25T20:11:29.546230+08:00", "kind": "tap", "value": "退出当前账号"}
+{"at": "2026-10-25T20:11:36.383384+08:00", "kind": "capture", "value": "passenger-04-logout-confirm"}
+{"at": "2026-10-25T20:11:44.009586+08:00", "kind": "tap", "value": "退出"}
+{"at": "2026-10-25T20:11:52.054317+08:00", "kind": "capture", "value": "passenger-06-login-not-agreed"}
+{"at": "2026-10-25T20:13:07.357061+08:00", "kind": "tap", "value": "切换账号"}
+{"at": "2026-10-25T20:13:17.057725+08:00", "kind": "capture", "value": "passenger-07-account-menu"}
+{"at": "2026-10-25T20:13:24.153682+08:00", "kind": "tap", "value": "体验乘客02 (13800000102)"}
+{"at": "2026-10-25T20:13:29.321867+08:00", "kind": "tap", "value": "连接状态"}
+{"at": "2026-10-25T20:13:39.023510+08:00", "kind": "capture", "value": "passenger-08-connection-dialog"}
+{"at": "2026-10-25T20:13:46.246526+08:00", "kind": "tap", "value": "返回体验"}
+{"at": "2026-10-25T20:13:50.483145+08:00", "kind": "tap", "value": "我已阅读并同意下方体验说明"}
+{"at": "2026-10-25T20:13:56.883139+08:00", "kind": "tap", "value": "进入体验"}
+{"at": "2026-10-25T20:14:27.468839+08:00", "kind": "capture", "value": "passenger-09-offline-login-failed"}
+{"at": "2026-10-25T20:14:40.629032+08:00", "kind": "tap", "value": "进入体验 online"}
+{"at": "2026-10-25T20:14:40.964715+08:00", "kind": "tap", "value": "进入体验 immediate second tap same observed bounds"}
+{"at": "2026-10-25T20:14:59.780258+08:00", "kind": "capture", "value": "passenger-10-online-login-home"}
+{"at": "2026-10-25T20:15:10.314776+08:00", "kind": "tap", "value": "我的"}
+{"at": "2026-10-25T20:15:18.997530+08:00", "kind": "capture", "value": "passenger-11-online-login-profile"}
+{"at": "2026-10-25T20:15:36.244920+08:00", "kind": "capture", "value": "passenger-12-relaunch-session"}
+{"at": "2026-10-25T20:16:36.225606+08:00", "kind": "teardown", "value": "original network/font/size retained; default account logged in; force-stop/HOME; AVD left running"}

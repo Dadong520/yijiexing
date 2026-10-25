@@ -1,0 +1,24 @@
+{"at": "2026-10-25T20:09:47.325778+08:00", "kind": "capture", "value": "driver-01-upgrade-session"}
+{"at": "2026-10-25T20:10:14.930598+08:00", "kind": "tap", "value": "我的"}
+{"at": "2026-10-25T20:10:21.786166+08:00", "kind": "capture", "value": "driver-02-upgrade-profile"}
+{"at": "2026-10-25T20:10:29.877077+08:00", "kind": "tap", "value": "设置"}
+{"at": "2026-10-25T20:10:37.053564+08:00", "kind": "capture", "value": "driver-03-settings-top"}
+{"at": "2026-10-25T20:10:47.071678+08:00", "kind": "capture", "value": "driver-04-settings-bottom"}
+{"at": "2026-10-25T20:11:15.019379+08:00", "kind": "tap", "value": "连接状态"}
+{"at": "2026-10-25T20:11:21.600828+08:00", "kind": "capture", "value": "driver-05-connection-dialog"}
+{"at": "2026-10-25T20:11:28.856603+08:00", "kind": "tap", "value": "重试连接"}
+{"at": "2026-10-25T20:11:35.917134+08:00", "kind": "tap", "value": "关闭"}
+{"at": "2026-10-25T20:11:40.330638+08:00", "kind": "tap", "value": "退出登录"}
+{"at": "2026-10-25T20:11:48.387254+08:00", "kind": "capture", "value": "driver-06-login-not-agreed"}
+{"at": "2026-10-25T20:13:07.360166+08:00", "kind": "tap", "value": "切换账号"}
+{"at": "2026-10-25T20:13:16.804860+08:00", "kind": "capture", "value": "driver-07-account-menu"}
+{"at": "2026-10-25T20:13:23.581350+08:00", "kind": "tap", "value": "体验司机03 (13800000003)"}
+{"at": "2026-10-25T20:13:29.326895+08:00", "kind": "tap", "value": "我已了解体验说明和共享演示数据范围"}
+{"at": "2026-10-25T20:13:37.344360+08:00", "kind": "tap", "value": "进入体验"}
+{"at": "2026-10-25T20:14:06.916030+08:00", "kind": "capture", "value": "driver-09-offline-login-failed"}
+{"at": "2026-10-25T20:14:16.787432+08:00", "kind": "tap", "value": "进入体验 online"}
+{"at": "2026-10-25T20:14:37.194543+08:00", "kind": "capture", "value": "driver-10-online-login-home"}
+{"at": "2026-10-25T20:14:46.859423+08:00", "kind": "tap", "value": "我的"}
+{"at": "2026-10-25T20:14:52.986095+08:00", "kind": "capture", "value": "driver-11-online-login-profile"}
+{"at": "2026-10-25T20:16:30.920530+08:00", "kind": "capture", "value": "driver-12-relaunch-session"}
+{"at": "2026-10-25T20:16:36.438690+08:00", "kind": "teardown", "value": "original network/font/size retained; default account logged in; force-stop/HOME; AVD left running"}
