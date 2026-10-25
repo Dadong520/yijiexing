@@ -1,0 +1,14 @@
+{
+  "at": "2026-10-25T22:38:42.362026+08:00",
+  "adminRunAppTLS": true,
+  "adminUnauthenticatedStatus": 302,
+  "iapPreserved": true,
+  "customAdminReady": false,
+  "customAdminAuthenticatedTest": "NOT_RUN_CERTIFICATE_PENDING",
+  "prototypeDomainChanged": false,
+  "localQAListenersStopped": true,
+  "frontendDevicesRestored": true,
+  "apiCloudRunBusinessRevisionChanged": false,
+  "nativePublicDownloads": "Both full public HTTPS GET hashes/signatures/versions passed; see exact role receipts",
+  "completeNewThreeClientLifecycle": "NOT_RUN"
+}

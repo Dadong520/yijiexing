@@ -15,7 +15,7 @@
     },
     "name": "demo-admin.hbzjhs.xyz",
     "namespace": "491829048305",
-    "resourceVersion": "AAZeqwTOalg",
+    "resourceVersion": "AAZeqxaykU8",
     "selfLink": "/apis/domains.cloudrun.com/v1/namespaces/491829048305/domainmappings/demo-admin.hbzjhs.xyz",
     "uid": "912e390c-0476-4e61-ad8a-c7df35854034"
   },
@@ -44,8 +44,8 @@
         "type": "DomainRoutable"
       },
       {
-        "lastTransitionTime": "2026-10-25T14:07:52.544126Z",
-        "message": "System will retry after 05:00 from lastTransitionTime for polling interval",
+        "lastTransitionTime": "2026-10-25T14:32:53.483855Z",
+        "message": "System will retry after 15:00 from lastTransitionTime for polling interval",
         "reason": "WaitingForOperation",
         "severity": "Info",
         "status": "True",
