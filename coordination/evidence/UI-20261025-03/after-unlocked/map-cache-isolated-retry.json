@@ -1,0 +1,56 @@
+{
+  "startedAt": "2026-10-25T18:56:26.149755+08:00",
+  "scope": "MapLibre SDK mbgl-offline.db only, reversible rename, no prefs/token/account/record read or deletion",
+  "backupDirectory": "files/.ui03-map-cache-20261025-1855",
+  "originalNetwork": {
+    "wifi_on": "1",
+    "mobile_data": "1"
+  },
+  "renamedOriginal": [
+    {
+      "path": "files/mbgl-offline.db",
+      "backup": "files/.ui03-map-cache-20261025-1855/original/files/mbgl-offline.db"
+    }
+  ],
+  "preservedGenerated": [
+    {
+      "path": "files/mbgl-offline.db",
+      "backup": "files/.ui03-map-cache-20261025-1855/generated/files/mbgl-offline.db"
+    }
+  ],
+  "offlineTexts": [
+    "Showing a Map created with MapLibre. Scroll by dragging two fingers. Zoom by pinching two fingers.",
+    "Attribution icon. Activate to show attribution dialog.",
+    "起终点预览 · 非实时定位",
+    "回到起终点",
+    "地图暂未加载",
+    "仍可在下方选择地址",
+    "重新加载地图",
+    "即刻出发",
+    "预约叫车",
+    "司机竞价",
+    "乘车路线",
+    "交换起终点",
+    "从这里出发",
+    "宜昌东站 · 出租车上客区",
+    "目的地",
+    "夷陵广场 · 东侧入口",
+    "确认呼叫 · 即时用车",
+    "宜捷行",
+    "刷新订单",
+    "连接暂未更新，请刷新重试",
+    "重试连接",
+    "暂时无法连接云端，请检查网络或恢复已暂停的体验服务后重试。已有数据仅供查看。",
+    "重试",
+    "出行",
+    "订单",
+    "我的"
+  ],
+  "mapFailureExposed": true,
+  "originalCacheRestored": true,
+  "networkRestored": {
+    "wifi_on": "1",
+    "mobile_data": "1"
+  },
+  "endedAt": "2026-10-25T18:57:01.312989+08:00"
+}

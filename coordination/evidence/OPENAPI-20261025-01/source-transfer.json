@@ -1,0 +1,157 @@
+{
+  "from": "/Users/dongge/.codex/tmp/yijiexing-access-20261025",
+  "to": "/Users/dongge/.codex/tmp/yijiexing-api-20261025",
+  "reason": "Separate deployable API task so server guard is independently accepted and deployed before native no-code live tests; one task one branch",
+  "authorFrozen": true,
+  "contentChanged": false,
+  "files": {
+    "apps/cloud-service/Dockerfile": {
+      "sha256": "39e5d05c6e52ef60d0ed0b4f5fd65f6972f80c27658a755744e79908fdaf07b2",
+      "bytes": 334
+    },
+    "apps/cloud-service/PUBLIC_EXPERIENCE.md": {
+      "sha256": "9590a36cfae2e8d7f5bf8be5da0728a05542a17e5487ce7eb7110be6a36d0a16",
+      "bytes": 1733
+    },
+    "apps/cloud-service/admin.py": {
+      "sha256": "d68a26dbc7441f73dfc79a5a0bf98e60f7558b6386afde374d09636c9a447222",
+      "bytes": 25185
+    },
+    "apps/cloud-service/admin_console.py": {
+      "sha256": "4e226e65ac5266769cd19c603bccf2c6b30e8fc148d848cc6b299934a5f9d092",
+      "bytes": 19665
+    },
+    "apps/cloud-service/benefits.py": {
+      "sha256": "b9f4d100b05e7a3a4c39dd0bba69dbe557110a3ca006eb8a755692235f2470de",
+      "bytes": 15418
+    },
+    "apps/cloud-service/cloud_server.py": {
+      "sha256": "8a4ba1ef1fc5cab5151f5463622cc1f4ebc4622a5c377102cd1ac08fe8dc54d9",
+      "bytes": 15447
+    },
+    "apps/cloud-service/common.py": {
+      "sha256": "3e27cf145d05a96b2ae6e1435d66d460edf585bd98de1935fda1764e27face92",
+      "bytes": 2098
+    },
+    "apps/cloud-service/distribution.py": {
+      "sha256": "c164763c515121a6e7537bda9318e48a0dc35d531f80b408ddd29cc503b082b8",
+      "bytes": 4784
+    },
+    "apps/cloud-service/domain.py": {
+      "sha256": "ef05f2902e2227c45e6893a2fed03a259d2563e6da951acf33bf7763465443e5",
+      "bytes": 36577
+    },
+    "apps/cloud-service/negotiation.py": {
+      "sha256": "0c844c35ee4a79b867d7ffb39945021cf9bb03af03125a37a1c9b12006e668b8",
+      "bytes": 8852
+    },
+    "apps/cloud-service/order_options.py": {
+      "sha256": "4ec12f73f400cfae665b828b5714501b6e555bdf00eb99c352e306a5f36cb123",
+      "bytes": 8428
+    },
+    "apps/cloud-service/passenger.py": {
+      "sha256": "7f11834c6d9cea342b1e474feaadc702247d4d169f898d5e247c98a00a27729b",
+      "bytes": 32490
+    },
+    "apps/cloud-service/passenger_extras.py": {
+      "sha256": "fc6a21d2d05adf859754bddd56467dd1d7376fc9a1a9e57c4c0865c4a34983c9",
+      "bytes": 7669
+    },
+    "apps/cloud-service/requirements.txt": {
+      "sha256": "af79caa6e5db292ba03cd708cab33f138b4295460b3f570c61f14e4e146c2f9a",
+      "bytes": 28
+    },
+    "apps/cloud-service/seed.py": {
+      "sha256": "64382842f55bd0486028244a758c951293de1f89f6e6ce2a98273867a44b0d7b",
+      "bytes": 7968
+    },
+    "apps/cloud-service/server.py": {
+      "sha256": "69f713dd3c76df5f2754eb2e8a95f9ef23ada1d0201d3fdc824af5bcf242afc2",
+      "bytes": 17918
+    },
+    "apps/cloud-service/snapshot.py": {
+      "sha256": "31552c1a6406157cc483507a66b3d2d8981c5ca7ab7941f4a2250225cabaca17",
+      "bytes": 6682
+    },
+    "apps/cloud-service/static/admin.css": {
+      "sha256": "de41a30e4b75abbac164764070b76b81cd098716a573bce13f8537b220ab2045",
+      "bytes": 7548
+    },
+    "apps/cloud-service/static/admin.html": {
+      "sha256": "386cb5544b3f3dfe89c461bef4d04471d514e63252a8c06a3a84644be4f3ae13",
+      "bytes": 2073
+    },
+    "apps/cloud-service/static/admin.js": {
+      "sha256": "18fefe0b162a28ae7272c76a94e992c3bcfc6c5654503cadf25d0e5fc5684a17",
+      "bytes": 39246
+    },
+    "apps/cloud-service/static/sample.jpg": {
+      "sha256": "94c65c68e2e11465bef264f86c5abd882e5967b5fc609ae6b99bafda9c1c6718",
+      "bytes": 75712
+    },
+    "apps/cloud-service/static/sandbox-certificate-sample.png": {
+      "sha256": "d0c6e7af6edb96b1b2931b3f763ec51bf31d3eeca9222bf5cfc60b7c971e3186",
+      "bytes": 67721
+    },
+    "apps/cloud-service/tests/policy_helpers.py": {
+      "sha256": "a2de3fc53c7ce2b41db552dd6b78e5ea9c439afd00b5aec9a1fb1ef47540a53e",
+      "bytes": 2347
+    },
+    "apps/cloud-service/tests/test_admin_http.py": {
+      "sha256": "3891636746aff7fdc9c732de1905a2e9b5aca3b85ba90cbdc6f6fe1b14d899fb",
+      "bytes": 9811
+    },
+    "apps/cloud-service/tests/test_advance_stage.py": {
+      "sha256": "1ce39d7765763492024c12f58b7e5064c13a814313033ec6280af44114dc1c3c",
+      "bytes": 3110
+    },
+    "apps/cloud-service/tests/test_certificate_dates.py": {
+      "sha256": "60de9e575c44397e2b037a89cf3508dbdfb443c7eb66676c37bbe7a19c8f1b78",
+      "bytes": 3732
+    },
+    "apps/cloud-service/tests/test_cloud.py": {
+      "sha256": "6d8ea6e370cd6bbd044bc3e5879761e5bb9693be33f77bac86ecafec177c4f9a",
+      "bytes": 15561
+    },
+    "apps/cloud-service/tests/test_distribution.py": {
+      "sha256": "0623ab6202e74126f684bd9eec7b6e496557a1fc8aed07c96168a56791bcfbe9",
+      "bytes": 8897
+    },
+    "apps/cloud-service/tests/test_driver_projection_privacy.py": {
+      "sha256": "87e6f0a20af07385990503a47f485802c8e0f75004c2c10cc68e7566a3608316",
+      "bytes": 3344
+    },
+    "apps/cloud-service/tests/test_fare_confirmation.py": {
+      "sha256": "7622bdfb38050be1da31d639d21f1d12e05d26be51fb2aa75b3723b2440548d1",
+      "bytes": 6667
+    },
+    "apps/cloud-service/tests/test_negotiation.py": {
+      "sha256": "7a615dc9ae70eee7b4fb7baf18c4c2ce97559dd37b6fafcfdfc53cec43020c18",
+      "bytes": 15790
+    },
+    "apps/cloud-service/tests/test_original_integration.py": {
+      "sha256": "3962f094097e2cb8a5bfb092dc0c2944158faa74631e7d90536e24268283500f",
+      "bytes": 32405
+    },
+    "apps/cloud-service/tests/test_passenger.py": {
+      "sha256": "89347133d8092a1ebad1306499a3d71946fac416831c587594dd098625b945a2",
+      "bytes": 25365
+    },
+    "apps/cloud-service/tests/test_passenger_extras.py": {
+      "sha256": "82e94414711127bd2ce9b2372de2659c4b4984212053e9b2abf1b6136508867d",
+      "bytes": 5890
+    },
+    "apps/cloud-service/tests/test_passenger_options.py": {
+      "sha256": "71d7b0d05044bd5a102dddc78ea8c728178fac746bfe3976cd398a6d92de48c6",
+      "bytes": 4754
+    },
+    "apps/cloud-service/tests/test_public_experience.py": {
+      "sha256": "11e0efbc751f6b6908cfa65e5e79dbd1a339a02c95a960e3f052708c477d93b8",
+      "bytes": 8729
+    },
+    "apps/cloud-service/tests/test_wait_pay_policy.py": {
+      "sha256": "8108ebfb71626b0697474ce6c1a31366e6318a4d3699e4d13a6a57e496c6f168",
+      "bytes": 10261
+    }
+  }
+}

@@ -1,0 +1,135 @@
+{
+  "task": "UI-20261025-03",
+  "reviewer": "backend/non-author",
+  "rulesAck": "2026-10-25-v2",
+  "recordedAt": "2026-10-25T19:02:55.436421+08:00",
+  "status": "PASS_SCOPE",
+  "finalSourceSha": "b9bd90a58f01a4e6f09e37366ed8f8b3feaaa51b",
+  "previousAcceptedSourceSha": "8499d6e5b6a19fc64c4375c6d70cd6edfccfa80f",
+  "baseSha": "ff9f5a787fede48bb2ac1035c38d45ff543323b2",
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-ui03-integration",
+  "scope": "Read-only two-file viewport/density follow-up. No product edit/build/device/cloud/deployment/agents.",
+  "changedNativeFiles": [
+    {
+      "path": "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/PassengerMap.kt",
+      "sha256": "9cb9a507608d689ccbc72b68b93090e8de043ea097a16069d2fde630a2c01938",
+      "bytes": 7071
+    },
+    {
+      "path": "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/CoreScreens.kt",
+      "sha256": "86df88c40c1e3405b7258c32dbcc080bc7713b87a14f8fbb8150f0890126626b",
+      "bytes": 93300
+    }
+  ],
+  "nativeDeltaNumstat": [
+    "11\t2\tapps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/PassengerMap.kt",
+    "1\t1\tcandidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/CoreScreens.kt"
+  ],
+  "checks": [
+    {
+      "name": "native delta limited to two declared files",
+      "result": "PASS"
+    },
+    {
+      "name": "CoreScreens exact reconstruction with only mapHeight expression replaced",
+      "result": "PASS",
+      "detail": "Leaves more bottom panel room; active/WAIT_PAY/rights/onGrab/confirmation/routes/amounts unchanged."
+    },
+    {
+      "name": "PassengerMap exact reconstruction using import/dp-to-px fitPadding/density effect key/fit-call replacements only",
+      "result": "PASS",
+      "detail": "No MapView key, lifecycle, map source, coordinate parsing/markers, callback or business mutation change. Padding order remains left/top/right/bottom."
+    },
+    {
+      "name": "critical file hashes and bytes",
+      "result": "PASS",
+      "count": 13
+    },
+    {
+      "name": "BookingScreen and original controller",
+      "result": "PASS",
+      "detail": "Whole BookingScreens unchanged from8499; controller still byte-exact to task base."
+    },
+    {
+      "name": "route/account/money guards inherited",
+      "result": "PASS_SCOPE",
+      "detail": "Previously reviewed logic remains byte-exact except the isolated viewport expression and camera-fit values."
+    }
+  ],
+  "criticalFiles": [
+    {
+      "path": "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/ConnectedStore.kt",
+      "sha256": "2bca6f10f996c75f4bbba4152757bdea2c004e23f09f0c91a2bc3d7b0e60801a",
+      "result": "PASS"
+    },
+    {
+      "path": "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/DriverDomain.kt",
+      "sha256": "676804352d3acb8c0cda491762e075e859c43a03f2b34e58fd86e8976cfc32e3",
+      "result": "PASS"
+    },
+    {
+      "path": "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/NegotiationContract.kt",
+      "sha256": "cd21b64d624a54772f0cc9ed243420e879d974539542802f57f78cc75e07ebb6",
+      "result": "PASS"
+    },
+    {
+      "path": "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/NavigationContract.kt",
+      "sha256": "d20235441008d85b4c8d371c56697d524b4b66ffff1458ea9c08bc22d3813761",
+      "result": "PASS"
+    },
+    {
+      "path": "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/TripWaypoints.kt",
+      "sha256": "eb3b649e2b18b8c65638616ad18723f3c6b0e8600a8a69d915b9f1c42d2a1ed8",
+      "result": "PASS"
+    },
+    {
+      "path": "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/StateRequestCoordinator.kt",
+      "sha256": "a73d94739770b552314a9a22b731523d67e97d69281294b257bec07fa1489dbc",
+      "result": "PASS"
+    },
+    {
+      "path": "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/PassengerStore.kt",
+      "sha256": "74d0cf010ccfd3388a12018b1a984f787e6668e61afcc00cd41d7c0eee92d269",
+      "result": "PASS"
+    },
+    {
+      "path": "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/PendingRequestJournal.kt",
+      "sha256": "1d1b4d1bca498d1c8b53794aeb60cccffa0aab43c31238a43d1dd37a2faf251c",
+      "result": "PASS"
+    },
+    {
+      "path": "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/PaymentConfirmation.kt",
+      "sha256": "68e7e9c66a634dff188c2490770a09495e19c121634155f6f4c50298dc1088e4",
+      "result": "PASS"
+    },
+    {
+      "path": "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/Negotiation.kt",
+      "sha256": "d96e137af11de3cda1c5b6387bd911923a840448720c1121d89714792dfe3bf5",
+      "result": "PASS"
+    },
+    {
+      "path": "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/OrderFarePresentation.kt",
+      "sha256": "807e08ea6813ea1ab53c8ae25df2161d60b605f0018ccff50079427bffb512eb",
+      "result": "PASS"
+    },
+    {
+      "path": "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/AddressSearch.kt",
+      "sha256": "6b8f574aa7ccb354e5fc5dd90c0a6385329c473660631b128726997a0d65c0c7",
+      "result": "PASS"
+    },
+    {
+      "path": "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/PassengerLocalExtras.kt",
+      "sha256": "3e83db4921770685792acad2a53e185140116c8c6791091861ff21811c11fd30",
+      "result": "PASS"
+    }
+  ],
+  "findings": [],
+  "runtimeEvidence": "Coordinator reports independent frontend ran map/recenter/attribution/navigation/return-only confirmation/address keyboard cancel and identified the two P2 fixes. These runs were NOT executed by this reviewer; final installed-package validation remains frontend/coordinator responsibility.",
+  "notRunByReviewer": [
+    "75 unit tests or build (not repeated)",
+    "Device UI/map failure recovery retry/final viewport measurements",
+    "Signing/coverage install/artifact public readback/deployment"
+  ],
+  "releaseScope": "No remaining source business blocker at finalSourceSha. Proceed only after final same-SHA build and frontend targeted runtime PASS are recorded by coordinator. No backend/admin/legacy data changes covered.",
+  "state": "IDLE"
+}

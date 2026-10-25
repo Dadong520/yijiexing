@@ -1,0 +1,94 @@
+test_internal_admin_secret_and_app_session_protection_unchanged (test_public_experience.PublicExperienceHTTP.test_internal_admin_secret_and_app_session_protection_unchanged) ... [2026-10-25T19:45:03+08:00] POST /api/auth/code 200
+[2026-10-25T19:45:03+08:00] POST /api/auth/login 200
+[2026-10-25T19:45:03+08:00] GET /api/local/admin/state 401
+[2026-10-25T19:45:03+08:00] GET /api/local/admin/state 401
+[2026-10-25T19:45:03+08:00] GET /api/local/admin/state 200
+[2026-10-25T19:45:03+08:00] GET /api/local/admin/v2/state 401
+[2026-10-25T19:45:03+08:00] POST /api/auth/code 404
+[2026-10-25T19:45:03+08:00] POST /api/passenger/auth/code 404
+[2026-10-25T19:45:03+08:00] POST /api/local/admin/shutdown 404
+ok
+test_legacy_header_valid_wrong_or_absent_does_not_gate_existing_session (test_public_experience.PublicExperienceHTTP.test_legacy_header_valid_wrong_or_absent_does_not_gate_existing_session) ... [2026-10-25T19:45:03+08:00] POST /api/auth/code 200
+[2026-10-25T19:45:03+08:00] POST /api/auth/login 200
+[2026-10-25T19:45:03+08:00] POST /api/passenger/auth/code 200
+[2026-10-25T19:45:04+08:00] POST /api/passenger/auth/login 200
+[2026-10-25T19:45:04+08:00] GET /api/state 200
+[2026-10-25T19:45:04+08:00] GET /api/passenger/state 200
+[2026-10-25T19:45:04+08:00] GET /api/state 200
+[2026-10-25T19:45:04+08:00] GET /api/passenger/state 200
+[2026-10-25T19:45:04+08:00] GET /api/state 200
+[2026-10-25T19:45:04+08:00] GET /api/passenger/state 200
+[2026-10-25T19:45:04+08:00] GET /api/state 200
+[2026-10-25T19:45:04+08:00] GET /api/passenger/state 200
+ok
+test_no_code_login_and_correct_role_state (test_public_experience.PublicExperienceHTTP.test_no_code_login_and_correct_role_state) ... [2026-10-25T19:45:04+08:00] POST /api/auth/code 200
+[2026-10-25T19:45:04+08:00] POST /api/auth/login 200
+[2026-10-25T19:45:04+08:00] POST /api/passenger/auth/code 200
+[2026-10-25T19:45:04+08:00] POST /api/passenger/auth/login 200
+[2026-10-25T19:45:04+08:00] GET /api/state 200
+[2026-10-25T19:45:04+08:00] GET /api/passenger/state 200
+ok
+test_no_token_and_wrong_role_rejected_for_state_and_action (test_public_experience.PublicExperienceHTTP.test_no_token_and_wrong_role_rejected_for_state_and_action) ... [2026-10-25T19:45:04+08:00] POST /api/auth/code 200
+[2026-10-25T19:45:04+08:00] POST /api/auth/login 200
+[2026-10-25T19:45:04+08:00] POST /api/passenger/auth/code 200
+[2026-10-25T19:45:04+08:00] POST /api/passenger/auth/login 200
+[2026-10-25T19:45:04+08:00] GET /api/state 401
+[2026-10-25T19:45:04+08:00] POST /api/action 401
+[2026-10-25T19:45:04+08:00] GET /api/passenger/state 401
+[2026-10-25T19:45:04+08:00] POST /api/passenger/action 401
+[2026-10-25T19:45:04+08:00] GET /api/state 401
+[2026-10-25T19:45:04+08:00] GET /api/passenger/state 401
+[2026-10-25T19:45:04+08:00] POST /api/action 401
+[2026-10-25T19:45:04+08:00] POST /api/passenger/action 401
+ok
+test_non_allowlisted_and_cross_role_mobile_rejected (test_public_experience.PublicExperienceHTTP.test_non_allowlisted_and_cross_role_mobile_rejected) ... [2026-10-25T19:45:04+08:00] POST /api/auth/code 403
+[2026-10-25T19:45:04+08:00] POST /api/auth/login 403
+[2026-10-25T19:45:04+08:00] POST /api/auth/code 403
+[2026-10-25T19:45:04+08:00] POST /api/auth/login 403
+[2026-10-25T19:45:04+08:00] POST /api/passenger/auth/code 403
+[2026-10-25T19:45:04+08:00] POST /api/passenger/auth/login 403
+[2026-10-25T19:45:04+08:00] POST /api/passenger/auth/code 403
+[2026-10-25T19:45:04+08:00] POST /api/passenger/auth/login 403
+ok
+test_ordinary_authenticated_action_and_request_id_replay_still_work (test_public_experience.PublicExperienceHTTP.test_ordinary_authenticated_action_and_request_id_replay_still_work) ... [2026-10-25T19:45:04+08:00] POST /api/auth/code 200
+[2026-10-25T19:45:04+08:00] POST /api/auth/login 200
+[2026-10-25T19:45:04+08:00] POST /api/action 200
+[2026-10-25T19:45:04+08:00] POST /api/action 200
+[2026-10-25T19:45:04+08:00] POST /api/action 409
+ok
+test_public_tokens_cannot_reach_admin_routes_or_erase_accounts (test_public_experience.PublicExperienceHTTP.test_public_tokens_cannot_reach_admin_routes_or_erase_accounts) ... [2026-10-25T19:45:04+08:00] POST /api/auth/code 200
+[2026-10-25T19:45:04+08:00] POST /api/auth/login 200
+[2026-10-25T19:45:04+08:00] POST /api/passenger/auth/code 200
+[2026-10-25T19:45:04+08:00] POST /api/passenger/auth/login 200
+[2026-10-25T19:45:04+08:00] GET /api/state 200
+[2026-10-25T19:45:04+08:00] GET /api/local/admin/state 404
+[2026-10-25T19:45:04+08:00] GET /api/local/admin/v2/state 404
+[2026-10-25T19:45:04+08:00] POST /api/local/admin/action 404
+[2026-10-25T19:45:04+08:00] POST /api/local/admin/v2/action 404
+[2026-10-25T19:45:04+08:00] POST /api/local/admin/shutdown 404
+[2026-10-25T19:45:04+08:00] GET /api/local/admin/state 404
+[2026-10-25T19:45:04+08:00] GET /api/local/admin/v2/state 404
+[2026-10-25T19:45:04+08:00] POST /api/local/admin/action 404
+[2026-10-25T19:45:04+08:00] POST /api/local/admin/v2/action 404
+[2026-10-25T19:45:04+08:00] POST /api/local/admin/shutdown 404
+[2026-10-25T19:45:04+08:00] GET /api/local/admin/state 404
+[2026-10-25T19:45:04+08:00] GET /api/local/admin/v2/state 404
+[2026-10-25T19:45:04+08:00] POST /api/local/admin/action 404
+[2026-10-25T19:45:04+08:00] POST /api/local/admin/v2/action 404
+[2026-10-25T19:45:04+08:00] POST /api/local/admin/shutdown 404
+[2026-10-25T19:45:04+08:00] POST /api/action 403
+[2026-10-25T19:45:04+08:00] POST /api/action 404
+[2026-10-25T19:45:04+08:00] GET /api/state 200
+ok
+test_tokens_remain_valid_after_public_server_recreation (test_public_experience.PublicExperienceHTTP.test_tokens_remain_valid_after_public_server_recreation) ... [2026-10-25T19:45:04+08:00] POST /api/auth/code 200
+[2026-10-25T19:45:04+08:00] POST /api/auth/login 200
+[2026-10-25T19:45:04+08:00] POST /api/passenger/auth/code 200
+[2026-10-25T19:45:04+08:00] POST /api/passenger/auth/login 200
+[2026-10-25T19:45:04+08:00] GET /api/state 200
+[2026-10-25T19:45:04+08:00] GET /api/passenger/state 200
+ok
+
+----------------------------------------------------------------------
+Ran 8 tests in 1.018s
+
+OK

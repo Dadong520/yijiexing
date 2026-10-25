@@ -1,0 +1,356 @@
+{
+  "schemaVersion": 1,
+  "task": "UI-20261025-03",
+  "reviewer": "frontend",
+  "acceptance": "PASS",
+  "sourceSha": "b9bd90a58f01a4e6f09e37366ed8f8b3feaaa51b",
+  "scope": "Independent final Android UI delta acceptance. Full unchanged UI observations inherited only from the explicitly bound 8499 round; no claim of new end-to-end transaction acceptance.",
+  "startedAt": "2026-10-25T19:05:21+08:00",
+  "deviceTestingEndedAt": "2026-10-25T19:10:49.304437+08:00",
+  "reportCompletedAt": "2026-10-25T19:16:04.520715+08:00",
+  "deviceTimeLimit": "2026-10-25T19:13:21+08:00",
+  "releaseOwner": "coordinator",
+  "reviewerBuiltOrDeployed": false,
+  "apkBindings": [
+    {
+      "client": "driver",
+      "sourceSha": "b9bd90a58f01a4e6f09e37366ed8f8b3feaaa51b",
+      "versionName": "0.3.9-cloud",
+      "versionCode": 12,
+      "apkSha256": "52dae8eebe44851be37de1a55df096cbbe07286f5c88b7a3d3a3bf22338bf13f",
+      "installedSha256": "52dae8eebe44851be37de1a55df096cbbe07286f5c88b7a3d3a3bf22338bf13f",
+      "bytes": 56471006,
+      "serial": "emulator-5586",
+      "packageId": "cn.hbzjhs.dc.driver.cloud",
+      "signerSha256": "9ffec9b342d12909ff288bd73f23ba104893b39120cb24ea83c9734a0d2b758f"
+    },
+    {
+      "client": "passenger",
+      "sourceSha": "b9bd90a58f01a4e6f09e37366ed8f8b3feaaa51b",
+      "versionName": "1.1.9-experience",
+      "versionCode": 11,
+      "apkSha256": "1f86150d465997dcf72052a278c44ffff3601cec4525beecdd985a819f23d7e5",
+      "installedSha256": "1f86150d465997dcf72052a278c44ffff3601cec4525beecdd985a819f23d7e5",
+      "bytes": 54473601,
+      "serial": "emulator-5584",
+      "packageId": "cn.hbzjhs.dc.passenger.cloud",
+      "signerSha256": "9ffec9b342d12909ff288bd73f23ba104893b39120cb24ea83c9734a0d2b758f"
+    }
+  ],
+  "sourceDelta": {
+    "baselineSha": "8499d6e5b6a19fc64c4375c6d70cd6edfccfa80f",
+    "targetSha": "b9bd90a58f01a4e6f09e37366ed8f8b3feaaa51b",
+    "evidence": "source-delta.txt",
+    "evidenceSha256": "0738d99a2356862b64728a5dc0bffffa305febef9dd7936d251c2347edaac13e",
+    "files": [
+      "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/CoreScreens.kt",
+      "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/PassengerMap.kt"
+    ],
+    "observed": "Only driver map-height allocation and passenger density-aware asymmetric camera padding/effect key changed. No payload, account, amount, identity, order callback or map retry/key lifecycle changed."
+  },
+  "checks": [
+    {
+      "check": "Final install-r and independent installed base.apk hash readback",
+      "result": "PASS",
+      "evidence": [
+        "driver-apk.json",
+        "passenger-apk.json"
+      ],
+      "note": "Both retained existing logged-in sessions; no logout or new OTP request."
+    },
+    {
+      "check": "Driver first order CTA complete on normal screen",
+      "result": "PASS",
+      "evidence": [
+        "driver-03-home-normal-clean-font10.png"
+      ],
+      "observed": "1080x2400 /420dpi /font1.0. Whole first green CTA including rounded bottom visible above navigation without scrolling."
+    },
+    {
+      "check": "Driver first order CTA complete on smaller screen",
+      "result": "PASS",
+      "evidence": [
+        "driver-02-home-small-1024x2216-font10.png",
+        "driver-screen-restore.json"
+      ],
+      "observed": "Temporary 1024x2216 /420dpi, about390x844dp. Whole CTA visible; original physical1080x2400 restored."
+    },
+    {
+      "check": "Passenger point fit avoids preview badge/recenter overlay",
+      "result": "PASS",
+      "evidence": [
+        "passenger-02-home-clean-font10.png",
+        "passenger-04-map-recentered-font10.png"
+      ],
+      "observed": "Both selected origin/destination point circles fully visible after initial fit and recenter."
+    },
+    {
+      "check": "Passenger map pan and recenter",
+      "result": "PASS",
+      "evidence": [
+        "passenger-03-map-panned-font10.png",
+        "passenger-04-map-recentered-font10.png"
+      ],
+      "observed": "Map responds to gesture and actual recenter tap; fitted points return within reserved overlay padding."
+    },
+    {
+      "check": "Uncached offline map failure with address fallback",
+      "result": "PASS",
+      "evidence": [
+        "passenger-05-map-offline-failed-font10.png",
+        "map-retry-final.json"
+      ],
+      "observed": "Only identified mbgl SDK cache reversibly isolated. Offline map unavailable, address fields and real map reload button remain visible."
+    },
+    {
+      "check": "Actual map reload button tapped while still offline",
+      "result": "PASS",
+      "evidence": [
+        "passenger-06-map-retry-while-offline-font10.png",
+        "map-retry-final.json",
+        "passenger-steps.jsonl"
+      ],
+      "observed": "WiFi/data both0 at19:10:11.372865+08. Actual reload tap changes failure panel to 地图加载中… before network restoration. This closes prior exact-retry NOT_RUN."
+    },
+    {
+      "check": "Network restoration after actual offline retry",
+      "result": "PASS",
+      "evidence": [
+        "passenger-07-map-retry-network-restored-font10.png"
+      ],
+      "observed": "Actual road tiles and both point markers restored. Failure/loading overlays gone. Cloud connection retry is separately recorded; no call submitted. No second online map-reload tap was needed."
+    },
+    {
+      "check": "Map attribution after retry recovery",
+      "result": "PASS",
+      "evidence": [
+        "passenger-08-map-retry-attribution-font10.png"
+      ],
+      "observed": "Actual popup shows MapLibre Android, OPENFREEMAP, © OPENMAPTILES and OPENSTREETMAP."
+    }
+  ],
+  "findings": [
+    {
+      "id": "UI03-DRV-P2-01",
+      "priority": "P2",
+      "status": "CLOSED",
+      "evidence": [
+        "driver-02-home-small-1024x2216-font10.png",
+        "driver-03-home-normal-clean-font10.png"
+      ],
+      "resolution": "Smaller map allocation leaves complete first CTA visible in both tested screen sizes."
+    },
+    {
+      "id": "UI03-PAX-P2-02",
+      "priority": "P2",
+      "status": "CLOSED",
+      "evidence": [
+        "passenger-02-home-clean-font10.png",
+        "passenger-04-map-recentered-font10.png"
+      ],
+      "resolution": "Density-aware asymmetric padding keeps fitted point circles clear of overlays."
+    }
+  ],
+  "openBlockingUiFindings": [],
+  "referenceComparison": {
+    "references": [
+      "../after/reference/modao-driver-map-home-clean.png",
+      "../after/reference/modao-driver-profile-clean.png",
+      "../after/reference/provided-passenger-map-home.png"
+    ],
+    "result": "PASS_SCOPE",
+    "note": "Driver map with bottom order panel and passenger map with route/call panel preserve the supplied visual hierarchy. Existing grouped driver-profile rows differ from reference icon grid; recorded nonblocking design difference in prior full round. Final delta changes only viewport geometry. Existing Chinese labels remain readable; arbitrary long-string stress not run."
+  },
+  "inheritedFrom": {
+    "path": "../after-unlocked/design-qa.json",
+    "sha256": "cee29265b0dea9c0581ae832439e3c27e50329a4e99ac937633126d643f1366a",
+    "sourceSha": "8499d6e5b6a19fc64c4375c6d70cd6edfccfa80f",
+    "driverApkSha256": "63764e489cb121a4627d8940f5ba18295747d98ce7f5fa4e7085106efe75dc1f",
+    "passengerApkSha256": "4a99709011fd1be8be421801dd80f52357a67e153a9616787952cd3afa61bc2c",
+    "note": "These observations were actually run on8499 and were NOT repeated wholesale on b9. Exact two-file delta was inspected before inheritance. Prior2P2 and map-reload NOT_RUN are superseded only by current evidence.",
+    "checks": [
+      "Orders/profile tabs both clients",
+      "Driver acceptance modal opened and Return only",
+      "Passenger address keyboard and Cancel",
+      "Sampled app control hit targets>=48dp",
+      "Chinese existing route/amount labels",
+      "Both map surfaces/attribution and driver pan/recenter",
+      "Cached offline map availability and cloud connection recovery"
+    ]
+  },
+  "resourceRestoration": {
+    "driverWm": {
+      "original": "Physical size: 1080x2400",
+      "temporary": "1024x2216",
+      "densityDpi": 420,
+      "restored": "Physical size: 1080x2400"
+    },
+    "fontScale": "1.0 both, unchanged",
+    "passengerNetwork": {
+      "wifi_on": "1",
+      "mobile_data": "1"
+    },
+    "driverNetwork": "unchanged",
+    "originalSdkCacheRestored": true,
+    "preservedSdkCacheBackup": "files/.ui03-map-cache-final-b9-20261025-1909",
+    "generatedSdkCachePreserved": [
+      {
+        "path": "files/mbgl-offline.db",
+        "backup": "files/.ui03-map-cache-final-b9-20261025-1909/generated/files/mbgl-offline.db"
+      }
+    ],
+    "teardown": "Both apps force-stopped and HOME; original AVDs retained running for coordinator. Sole device operation ownership returned after report.",
+    "accountsAndData": "Existing driver003/passenger0102 sessions retained. No prefs/token read, no pm clear, no data deletion, no order acceptance/call/payment/cancellation/complaint writes.",
+    "evidence": [
+      "driver-screen-restore.json",
+      "driver-steps.jsonl",
+      "map-retry-final.json"
+    ]
+  },
+  "buildTestProvenance": {
+    "owner": "coordinator",
+    "driverUnitTests": 55,
+    "passengerUnitTests": 20,
+    "result": "PASS per bound build metadata; reviewer did not rerun or rebuild"
+  },
+  "notRun": [
+    "New login screen/OTP, because existing sessions retained without logout",
+    "Physical phone, landscape, TalkBack/full accessibility",
+    "Dedicated elder/large-font matrix paused by task",
+    "External Amap endpoint text and complaint submission in this UI delta round",
+    "New real acceptance/call/cancellation/payment/refund and full three-client business lifecycle",
+    "Arbitrary ultra-long address stress test"
+  ],
+  "screenshots": [
+    {
+      "png": "driver-01-home-final-font10.png",
+      "pngSha256": "902e8e08ad6dba30cc77db53026a08cc93545ad908569ae597e1c121ebee38f4",
+      "xml": "driver-01-home-final-font10.xml",
+      "xmlSha256": "fb0aca29f9c2c7a42e699f2123b09c9d9fd8cf4d5ea31240ac65277f53412745",
+      "visuallyInspected": true,
+      "acceptanceEvidence": false,
+      "note": "Excluded: OS heads-up notification overlays header."
+    },
+    {
+      "png": "driver-02-home-small-1024x2216-font10.png",
+      "pngSha256": "d84600a39edbe208ea379dfa0b9f6b6ef47787f2da7001ccd5d8d993782ee632",
+      "xml": "driver-02-home-small-1024x2216-font10.xml",
+      "xmlSha256": "e80f6cc0bf989bb677a5a0d40ff1b7abd0d0f6f03936d9e41cac4948dd4c55de",
+      "visuallyInspected": true,
+      "acceptanceEvidence": true,
+      "note": "Actual emulator image inspected; fresh UI hierarchy paired."
+    },
+    {
+      "png": "driver-03-home-normal-clean-font10.png",
+      "pngSha256": "20d537186fdae961ce49a2d3404fe16e288ef7ca5f2e9b8288139bcbb872d31a",
+      "xml": "driver-03-home-normal-clean-font10.xml",
+      "xmlSha256": "fb0aca29f9c2c7a42e699f2123b09c9d9fd8cf4d5ea31240ac65277f53412745",
+      "visuallyInspected": true,
+      "acceptanceEvidence": true,
+      "note": "Actual emulator image inspected; fresh UI hierarchy paired."
+    },
+    {
+      "png": "passenger-01-home-final-font10.png",
+      "pngSha256": "338cd7468e7176dd28a2d0abfdefd0dae521f978bb53981af3e40cf4d61f4e51",
+      "xml": "passenger-01-home-final-font10.xml",
+      "xmlSha256": "26255208ca91b9813f105f16a150ee04d9830b7353ac6b412e7464bf5421ee3a",
+      "visuallyInspected": true,
+      "acceptanceEvidence": false,
+      "note": "Excluded: OS heads-up notification overlays header."
+    },
+    {
+      "png": "passenger-02-home-clean-font10.png",
+      "pngSha256": "55d8d8d082a312152b3a0e27e441c5dcec8aa1cf2ebe9b6399db0e160570edd7",
+      "xml": "passenger-02-home-clean-font10.xml",
+      "xmlSha256": "26255208ca91b9813f105f16a150ee04d9830b7353ac6b412e7464bf5421ee3a",
+      "visuallyInspected": true,
+      "acceptanceEvidence": true,
+      "note": "Actual emulator image inspected; fresh UI hierarchy paired."
+    },
+    {
+      "png": "passenger-03-map-panned-font10.png",
+      "pngSha256": "7b6b15c0ed44fedc5eac2f185adc841dc9298de6b3eea1db92c62f207e3ac66a",
+      "xml": "passenger-03-map-panned-font10.xml",
+      "xmlSha256": "26255208ca91b9813f105f16a150ee04d9830b7353ac6b412e7464bf5421ee3a",
+      "visuallyInspected": true,
+      "acceptanceEvidence": true,
+      "note": "Actual emulator image inspected; fresh UI hierarchy paired."
+    },
+    {
+      "png": "passenger-04-map-recentered-font10.png",
+      "pngSha256": "72eac32f7fd344677dadcc9300988f37edbebda0e5b8ac5e3241ccf73d0a85d8",
+      "xml": "passenger-04-map-recentered-font10.xml",
+      "xmlSha256": "26255208ca91b9813f105f16a150ee04d9830b7353ac6b412e7464bf5421ee3a",
+      "visuallyInspected": true,
+      "acceptanceEvidence": true,
+      "note": "Actual emulator image inspected; fresh UI hierarchy paired."
+    },
+    {
+      "png": "passenger-05-map-offline-failed-font10.png",
+      "pngSha256": "c5f4fd62b29b617f0c2e4bc260b596d7c8a0449d9235ebd27595b4481e6c7bb9",
+      "xml": "passenger-05-map-offline-failed-font10.xml",
+      "xmlSha256": "a8376f832871518e1298528952c7b57985aeb4431b530c5cc0e3d1373b7218c1",
+      "visuallyInspected": true,
+      "acceptanceEvidence": true,
+      "note": "Actual emulator image inspected; fresh UI hierarchy paired."
+    },
+    {
+      "png": "passenger-06-map-retry-while-offline-font10.png",
+      "pngSha256": "733b62a7b4d75733be84a096279545633e6b8e3d25b83f437f67d945397ff778",
+      "xml": "passenger-06-map-retry-while-offline-font10.xml",
+      "xmlSha256": "dd08b145b0bfd957755a029fe5a2d3fa7f1f90ce3ac74605fc764b6f11615069",
+      "visuallyInspected": true,
+      "acceptanceEvidence": true,
+      "note": "Actual emulator image inspected; fresh UI hierarchy paired."
+    },
+    {
+      "png": "passenger-07-map-retry-network-restored-font10.png",
+      "pngSha256": "2d3934f87af3b5bff7f3c1b8ccfd1f508a3a0883622b38edb18483cb623cfa6f",
+      "xml": "passenger-07-map-retry-network-restored-font10.xml",
+      "xmlSha256": "26255208ca91b9813f105f16a150ee04d9830b7353ac6b412e7464bf5421ee3a",
+      "visuallyInspected": true,
+      "acceptanceEvidence": true,
+      "note": "Actual emulator image inspected; fresh UI hierarchy paired."
+    },
+    {
+      "png": "passenger-08-map-retry-attribution-font10.png",
+      "pngSha256": "88c9206129e29165a82f72a670ef12a2f20747188ae40941d3811e53130a8cdc",
+      "xml": "passenger-08-map-retry-attribution-font10.xml",
+      "xmlSha256": "d4bba0235bc2e9874230408fda10ece7986987d2069bd3131bcce70ef5c33c2e",
+      "visuallyInspected": true,
+      "acceptanceEvidence": true,
+      "note": "Actual emulator image inspected; fresh UI hierarchy paired."
+    }
+  ],
+  "evidenceManifest": [
+    {
+      "path": "driver-apk.json",
+      "sha256": "8ffad1b8e9b9be97d86b478c8217ae6d8321a8c2020b1b95cb6233d4f22a6e1b"
+    },
+    {
+      "path": "passenger-apk.json",
+      "sha256": "04eee897516d70db71e73471acc57db177cb3408ce727e9b7f8f85716aab1c4c"
+    },
+    {
+      "path": "driver-screen-restore.json",
+      "sha256": "28c429ff5a0a971e1432225608fec383f951f31763c525bb8f80d5162ecb818f"
+    },
+    {
+      "path": "map-retry-final.json",
+      "sha256": "95e9533f3c207718de6dcbe706cd7cb09d5e3dbc47f6e7e72eb5d1335d85ddef"
+    },
+    {
+      "path": "source-delta.txt",
+      "sha256": "0738d99a2356862b64728a5dc0bffffa305febef9dd7936d251c2347edaac13e"
+    },
+    {
+      "path": "driver-steps.jsonl",
+      "sha256": "0e2320131a2ab58e263cc53ccfc58f8e0359c1dabdf3f718a6d7561da4ba2e9a"
+    },
+    {
+      "path": "passenger-steps.jsonl",
+      "sha256": "bfa23364426ae1582b44feb6e80902230c388277b031a76ae272a3c7d34f730e"
+    }
+  ],
+  "nextAction": "Coordinator merges accepted UI03 source first. Per subsequent ACCESS-20261025-01 dispatch, do not publish039/119 separately; release later with no-access-code version after its own independent acceptance. No deployment performed by reviewer."
+}

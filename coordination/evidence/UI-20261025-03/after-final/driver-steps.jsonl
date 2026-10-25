@@ -1,0 +1,5 @@
+{"at": "2026-10-25T19:06:18.932369+08:00", "kind": "capture", "value": "driver-01-home-final-font10"}
+{"at": "2026-10-25T19:08:03.023832+08:00", "kind": "dismiss", "value": "observed heads-up banner, upward gesture only"}
+{"at": "2026-10-25T19:08:10.331981+08:00", "kind": "capture", "value": "driver-02-home-small-1024x2216-font10"}
+{"at": "2026-10-25T19:08:15.923344+08:00", "kind": "capture", "value": "driver-03-home-normal-clean-font10"}
+{"at": "2026-10-25T19:08:16.038561+08:00", "kind": "teardown", "value": "wm restored, font unchanged, stopped/home"}

@@ -1,0 +1,24 @@
+{
+  "startedAt": "2026-10-25T18:43:02.969449+08:00",
+  "unlockedNativeInventorySucceeded": true,
+  "devices": [
+    {
+      "role": "driver",
+      "avd": "Yijiexing_Driver_Pair_QA",
+      "port": 5586,
+      "pid": 26069,
+      "wipeData": false,
+      "snapshotDeleted": false,
+      "skipSnapshotLoadSave": true
+    },
+    {
+      "role": "passenger",
+      "avd": "Yijiexing_Passenger_QA",
+      "port": 5584,
+      "pid": 26070,
+      "wipeData": false,
+      "snapshotDeleted": false,
+      "skipSnapshotLoadSave": true
+    }
+  ]
+}

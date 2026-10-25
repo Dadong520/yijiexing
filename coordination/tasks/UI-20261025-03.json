@@ -36,69 +36,68 @@
     "与参考同屏状态对比design-qa，不仅编译/截图就通过",
     "现有55/20逻辑测试+同签名升级保留登录、地图/导航/主要弹窗，独立验收后唯一协调者发布并直连完整回读"
   ],
-  "status": "WAITING_DEVICE_UNLOCK",
-  "acceptance": "BLOCKED",
+  "status": "SOURCE_ACCEPTED_PENDING_ACCESS",
+  "acceptance": "PASS",
   "tests": [
     {
-      "name": "driver native unit tests and build",
+      "name": "driver unit tests + build",
       "command": "/Users/dongge/.gradle/wrapper/dists/gradle-8.7-bin/c4fynqkwxqrcieir78ry8jtzf/gradle-8.7/bin/gradle --offline --no-daemon --max-workers=1 -Dorg.gradle.jvmargs=-Xmx1536m -Pkotlin.compiler.execution.strategy=in-process -PYIJ_CLOUD_ORIGIN=https://driver-demo-491829048305.us-west1.run.app --project-cache-dir /Users/dongge/.codex/tmp/yijiexing-native-ui-20261025/driver-cache --init-script /Users/dongge/.codex/tmp/yijiexing-native-ui-20261025/driver-build.init.gradle testDebugUnitTest assembleDebug",
       "status": "PASS",
       "exitCode": 0,
-      "sourceSha": "8499d6e5b6a19fc64c4375c6d70cd6edfccfa80f",
-      "tests": 55,
-      "evidence": "coordination/evidence/UI-20261025-03/driver-build-result.json"
+      "sourceSha": "b9bd90a58f01a4e6f09e37366ed8f8b3feaaa51b",
+      "tests": 55
     },
     {
-      "name": "passenger native unit tests and build",
+      "name": "passenger unit tests + build",
       "command": "/Users/dongge/.gradle/wrapper/dists/gradle-8.7-bin/c4fynqkwxqrcieir78ry8jtzf/gradle-8.7/bin/gradle --offline --no-daemon --max-workers=1 -Dorg.gradle.jvmargs=-Xmx1536m -Pkotlin.compiler.execution.strategy=in-process -PYIJ_CLOUD_ORIGIN=https://driver-demo-491829048305.us-west1.run.app --project-cache-dir /Users/dongge/.codex/tmp/yijiexing-native-ui-20261025/passenger-cache --init-script /Users/dongge/.codex/tmp/yijiexing-native-ui-20261025/passenger-build.init.gradle testDebugUnitTest assembleDebug",
       "status": "PASS",
       "exitCode": 0,
-      "sourceSha": "8499d6e5b6a19fc64c4375c6d70cd6edfccfa80f",
-      "tests": 20,
-      "evidence": "coordination/evidence/UI-20261025-03/passenger-build-result.json"
+      "sourceSha": "b9bd90a58f01a4e6f09e37366ed8f8b3feaaa51b",
+      "tests": 20
     }
   ],
   "evidence": [
     {
       "path": "coordination/evidence/UI-20261025-03/driver-build-result.json",
-      "sha256": "546765b9c5b9716a278cbcca900e3b19e461ab7696df8601e23d01a9c7607a85"
+      "sha256": "15328f96f92eb61e14437ff5f9e50dc7f4fa7dc6f7c161871c4d8577ea3e6a3c"
     },
     {
       "path": "coordination/evidence/UI-20261025-03/passenger-build-result.json",
-      "sha256": "8591b569a3c75d4a365176a16609e7eaa84d2b8acf3b7fe3d63741474e0278ba"
+      "sha256": "223e638cc47d5d6564aa02e5be51243896be91f83efcc4c2763da83fdfdae881"
     },
     {
-      "path": "coordination/evidence/UI-20261025-03/backend-review.json",
-      "sha256": "5790d24e555685c932a9c231ebc4744633f66bc7c14ba81bae43901a5dbe41ae"
+      "path": "coordination/evidence/UI-20261025-03/backend-review-final.json",
+      "sha256": "d48161e99a35a470edfd212c10694ee59da8ed8adcd9f1fda29c4c5f10f5a628"
     },
     {
-      "path": "coordination/evidence/UI-20261025-03/after/design-qa.json",
-      "sha256": "3894cb75a8654a3004de5202489155099db05c43793045b34517ce73a9769d47"
+      "path": "coordination/evidence/UI-20261025-03/after-final/design-qa.json",
+      "sha256": "5899957113660ee9c14a8d14c1ec5fc726d0f10d47685beb3902ce8716efaa6e"
     },
     {
-      "path": "coordination/evidence/UI-20261025-03/after/coordinator-resource-teardown.json",
-      "sha256": "66bad3703ef1802dd6751c915f983b3cfc842a74ea5c2b8d2a1bd096b03635f3"
+      "path": "coordination/evidence/UI-20261025-03/after-unlocked/design-qa.json",
+      "sha256": "cee29265b0dea9c0581ae832439e3c27e50329a4e99ac937633126d643f1366a"
+    },
+    {
+      "path": "coordination/evidence/UI-20261025-03/product-source-manifest.json",
+      "sha256": "e1ba2c5acede6ab7d8a433e67050ca2ae06cc4976e2c40812d7d3f922a45dc4a"
     }
   ],
-  "nextAction": "User unlock Mac, then root dispatch frontend targeted device recovery/UI/map retry acceptance; keep PR12 draft. No publication without independent actual PASS.",
+  "nextAction": "Merge accepted UI03 source; hold039/119 publication per latest user request. ACCESS releases new no-code apps/backend together.",
   "deploy_owner": "coordinator",
   "releaseReady": false,
-  "productSha": "8499d6e5b6a19fc64c4375c6d70cd6edfccfa80f",
+  "productSha": "b9bd90a58f01a4e6f09e37366ed8f8b3feaaa51b",
   "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-ui03-integration",
   "reviewer": "frontend + backend (non-authors)",
-  "blockers": [
-    "Mac locked: native UI observation refused; user manual unlock requested",
-    "Both original emulator guest shells time out even after bounded restart/alternate5038 transport; no final UI acceptance"
-  ],
+  "blockers": [],
   "notRun": [
-    "final installed APK hash/same-signature session observation",
-    "actual map load/attribution/failed-load retry and visual comparison",
-    "final-page navigation and keyboard/dialog device verification",
-    "new three-end business lifecycle (out of this UI-only run)"
+    "Physical handset/TalkBack/landscape and dedicated large-font matrix",
+    "New complete three-end transaction lifecycle; this run is native UI delta",
+    "New no-access-code login belongs to ACCESS-20261025-01"
   ],
   "pr": "https://github.com/Dadong520/yijiexing/pull/12",
   "currentPublished": {
     "driver": "0.3.8-cloud",
     "passenger": "1.1.8-experience"
-  }
+  },
+  "acceptedSha": "b9bd90a58f01a4e6f09e37366ed8f8b3feaaa51b"
 }
