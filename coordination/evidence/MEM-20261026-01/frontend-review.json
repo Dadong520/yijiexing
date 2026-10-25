@@ -1,0 +1,114 @@
+{
+  "taskId": "MEM-20261026-01",
+  "reviewerRole": "frontend",
+  "threadId": "01a167c8-a5eb-77e3-b77e-214927a029da",
+  "protocolAck": "2026-10-26-v3",
+  "reviewedAt": "2026-10-26T02:03:57.225832+08:00",
+  "memoryStatus": "HANDOFF_RECOMMENDED",
+  "contextUsedPercent": null,
+  "measurementSource": "not_exposed",
+  "telemetryStatus": "UNKNOWN",
+  "reason": "长会话跨多阶段；下一大任务前换新角色降低旧状态干扰，不假称模型占用或技术阈值已测。",
+  "recommendNewRoleSession": true,
+  "handoffPath": "coordination/handoffs/frontend.md",
+  "handoffBytes": 3599,
+  "finiteReadInputs": [
+    "AGENTS.md",
+    "coordination/START_HERE.md",
+    "coordination/MEMORY_POLICY.md",
+    "coordination/STATE.md",
+    "coordination/BOARD.json",
+    "coordination/SESSION_REGISTRY.json",
+    "coordination/DECISIONS.md",
+    "coordination/tasks/MEM-20261026-01.json",
+    "coordination/handoffs/frontend.md",
+    "coordination/NEW_CHAT_PROMPT.txt"
+  ],
+  "documentReview": {
+    "acceptance": "PASS_SCOPE",
+    "finiteBootstrap": "有限中央入口足以恢复已发3e9、精确包/PR merge与QA/WX遗留；不需历史聊天或releases扫描。旧中央ADMIN05卡已由本角色更正。",
+    "singleCoordinator": "只有coordinator可写STATE/BOARD/SESSION/DECISIONS；新会话需人类明确新开/要求创建、显式接任并登记新ID/退休旧ID；frontend角色也由coordinator替换，旧会话不得双派/双发。",
+    "telemetryHonesty": "UNKNOWN/null和source/time要求明确；70/85/40是项目约定，非官方技术限制；不承诺无限无损、自动清桌面或常驻监控。",
+    "caveat": "文件协议与检查器是协作约束，无法作为不可绕过的技术锁或读取模型内部上下文。"
+  },
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-memory-20261026",
+  "branch": "codex/project-memory-20261026",
+  "baselineSha": "55071ffd5b7b214e8d2c81e509cea4fe021385fe",
+  "reviewedHead": "55071ffd5b7b214e8d2c81e509cea4fe021385fe",
+  "checkerReview": {
+    "status": "FAIL_PREFLIGHT",
+    "uncommittedCandidate": true,
+    "finalAuthorSha": "NOT_PROVIDED",
+    "fileSha256": {
+      "tools/check_coordination.py": "1a50b38245d28a8c43784e0ed76690b1202f5d503d988651e3e7079c62bc6b8d",
+      "tools/test_check_coordination.py": "1163726c407e173f1832adebde84a847ca05c7fcf05a805f75346a653c9095ef"
+    },
+    "stableDuringTest": true,
+    "tests": [
+      {
+        "command": "python3 -m unittest discover -s tools -p test_check_coordination.py -v",
+        "exitCode": 0,
+        "status": "PASS",
+        "output": "test_ack_cannot_exist_without_matching_handoff (test_check_coordination.MemorySafetyTests.test_ack_cannot_exist_without_matching_handoff) ... ok\ntest_declared_telemetry_threshold_cannot_be_marked_healthy (test_check_coordination.MemorySafetyTests.test_declared_telemetry_threshold_cannot_be_marked_healthy) ... ok\ntest_dispatch_requires_ack_and_current_protocol (test_check_coordination.MemorySafetyTests.test_dispatch_requires_ack_and_current_protocol) ... ok\ntest_duplicate_thread_rejected (test_check_coordination.MemorySafetyTests.test_duplicate_thread_rejected) ... ok\ntest_exact_sha_release_gate_remains_effective (test_check_coordination.MemorySafetyTests.test_exact_sha_release_gate_remains_effective) ... ok\ntest_handoff_required_blocks_role_preflight_but_not_other_idle_roles (test_check_coordination.MemorySafetyTests.test_handoff_required_blocks_role_preflight_but_not_other_idle_roles) ... ok\ntest_nan_boolean_and_out_of_range_percent_rejected (test_check_coordination.MemorySafetyTests.test_nan_boolean_and_out_of_range_percent_rejected) ... ok\ntest_newer_canonical_registry_blocks_stale_worktree_preflight (test_check_coordination.MemorySafetyTests.test_newer_canonical_registry_blocks_stale_worktree_preflight) ... ok\ntest_numeric_context_requires_provenance_not_account_quota (test_check_coordination.MemorySafetyTests.test_numeric_context_requires_provenance_not_account_quota) ... ok\ntest_recommendation_does_not_block_finishing_checkpoint (test_check_coordination.MemorySafetyTests.test_recommendation_does_not_block_finishing_checkpoint) ... ok\ntest_retired_coordinator_cannot_dispatch_again (test_check_coordination.MemorySafetyTests.test_retired_coordinator_cannot_dispatch_again) ... ok\ntest_size_budget_and_missing_policy_rejected (test_check_coordination.MemorySafetyTests.test_size_budget_and_missing_policy_rejected) ... ok\ntest_unknown_context_is_valid_and_reported_unknown (test_check_coordination.MemorySafetyTests.test_unknown_context_is_valid_and_reported_unknown) ... ok\ntest_untrusted_handoff_paths_and_malformed_roles_rejected (test_check_coordination.MemorySafetyTests.test_untrusted_handoff_paths_and_malformed_roles_rejected) ... ok\n\n----------------------------------------------------------------------\nRan 14 tests in 0.045s\n\nOK"
+      },
+      {
+        "command": "python3 tools/check_coordination.py --root /Users/dongge/Documents/New project 2",
+        "exitCode": 0,
+        "status": "PASS",
+        "output": "PASS: compact project records are valid; this is not business acceptance"
+      },
+      {
+        "command": "python3 tools/check_coordination.py --root /Users/dongge/Documents/New project 2 --memory-role frontend",
+        "exitCode": 1,
+        "status": "FAIL",
+        "output": "FAIL: memory: acknowledge current protocol before work"
+      }
+    ],
+    "thresholdLinesReviewed": [
+      {
+        "line": 81,
+        "text": "                if percent >= 85 and session.get('memoryStatus') != 'HANDOFF_REQUIRED':"
+      },
+      {
+        "line": 82,
+        "text": "                    errors.append('memory: declared context >=85% requires handoff for ' + name)"
+      },
+      {
+        "line": 83,
+        "text": "                elif percent >= 70 and session.get('memoryStatus') in ('UNKNOWN', 'NORMAL'):"
+      },
+      {
+        "line": 84,
+        "text": "                    errors.append('memory: declared context >=70% needs rollover warning for ' + name)"
+      }
+    ],
+    "coverage": "14实跑单测覆盖UNKNOWN/配额假遥测、非法数值、重复/退休ID、红色角色写门禁、ACK、过时中央登记、预算与原exact-SHA/hash发布门禁；结构检查不等于业务验收。",
+    "initialPreflight": "早先失败：coordinator卡缺版本、frontend ACK未登记；本轮后续中央已变化，重跑结果如tests，未改他人卡或注册表。",
+    "boundary": "只验证声明的遥测来源，不能证明产品工具来源真实或阻止有写权限者绕过；唯一协调仍需显式接任/登记及停旧派单。",
+    "codeReviewAcceptance": "PASS_SCOPE"
+  },
+  "issues": [
+    {
+      "severity": "INFO",
+      "description": "仍未提供最终作者commit SHA；本独立结果绑定明确文件SHA，提交后须核对字节相同。"
+    },
+    {
+      "severity": "PENDING",
+      "description": "frontend角色preflight未通过，精确输出：FAIL: memory: acknowledge current protocol before work；ACK/注册表归root，本角色未越权修改。"
+    }
+  ],
+  "resourceState": "依据中央STATE全部off；本轮未启动任何业务资源、ADB、Chrome、Gemini或部署。",
+  "writes": [
+    "coordination/handoffs/frontend.md",
+    "coordination/evidence/MEM-20261026-01/frontend-review.json"
+  ],
+  "notRun": [
+    "产品/mini/75测试",
+    "云端发布与APK重新下载",
+    "实时设备/Chrome/CLI状态复查",
+    "模型内部上下文遥测或后台记忆监控"
+  ],
+  "committed": false,
+  "spawnedAgents": false,
+  "nextAction": "短ACK与代码/检查结果交root，IDLE；未请求新会话，不再轮询。"
+}

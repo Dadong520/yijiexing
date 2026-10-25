@@ -1,8 +1,20 @@
-# frontend ADMIN05独立验收完成 / IDLE
-任务ADMIN-20261025-05，root委派最多8min，只本地Chrome非作者验收。sourceRoot /Users/dongge/.codex/tmp/yijiexing-sidebar-20261025；base531a49f358756e0faf5a5c10b76a3455bac2be35；fixed7f489c243cb7d93ef6718cee13357ba330083e07，branchcodex/admin-sidebar-20261025。仅CSS16增3删作者Gemini/root应用；本角色未改产品、构建、提交、发布、ADB或派agent。
+# frontend 中央交接卡
+ACK: 2026-10-26-v3
+role: frontend | threadId: 01a167c8-a5eb-77e3-b77e-214927a029da
+updatedAt: 2026-10-26T02:01:25.400069+08:00 | checkpointId: MEM-20261026-01 | workflowState: IDLE
+memoryStatus: HANDOFF_RECOMMENDED | contextUsedPercent: null（UNKNOWN）
+measurementSource: not_exposed；不推测压缩次数/百分比，不把运行时长或账号额度当上下文遥测。下一大任务建议换新frontend角色会话：本会话已跨多轮原生/后台验收，历史较长，中央旧ADMIN05卡曾滞后；本次补齐有限入口后适合切换，减少旧状态干扰。仅建议，未经用户明确新开/要求创建不自动换会话。
 
-**PASS_SCOPE**：http://127.0.0.1:8808合成真实后端，CSS实服=工作树=固定commit字节。1440x693/500/900 nav/footer矩形相接无重叠，12按钮40px；滚动末尾3菜单elementFromPoint均命中button自身。693/500/390宽实际城市会员/账号权限/日志click内容标题对应，3城市/2账号/207日志只读。500高12Tab焦点全部可见+自动滚动，2px outline，Enter日志成功。390x844水平滚到末尾3菜单命中/点击正常，既有窄屏34px保留。
+## 本轮/唯一归属
+MEM-20261026-01；base/HEAD 55071ffd5b7b214e8d2c81e509cea4fe021385fe；sourceRoot /Users/dongge/.codex/tmp/yijiexing-memory-20261026，branch codex/project-memory-20261026。只写本中央卡及evidence/MEM-20261026-01/frontend-review.json；MEM树协议/检查器未提交改动归coordinator，不覆盖。当前无新产品任务，不接管STATE/BOARD/SESSION/DECISIONS，不独立提交。待合并SHA：MEM尚待root给最终SHA及检查器独立验收。
 
-证据coordination/evidence/ADMIN-20261025-05/frontend/design-qa.json SHA256 ceaaf6b7ffe9b625a71b79e6cf234fc3549893d99668bec1bc700d74a784d45c；REPORT.md含步骤和截图；measurements/keyboard/page-checks存原始限定证据。08切viewport首图仍旧桌面缩放被拒绝，09/10/11稳定窄图替代。所有接受截图保存同字节并已实际查看。窄屏页头拥挤属范围外既有风险，只宣称导航PASS。
+## 已发布固定基线（中央STATE为准）
+原生唯一作者树 /Users/dongge/.codex/tmp/yijiexing-native-permissions-20261025，branch codex/permission-alert-native-20261025，源3e9f6ee943948e1081ec9ab0102eef803d447c8b。driver0.3.12/code15 SHA bce9fcff928b3690525f14a6ae5f3a4e074fc6f9ca9bf491733e4b1609852a85；pass1.1.12/code14 SHA61417866fce94d9176ff74e42718d6ce60fa658064e289bf8e0dccfae10257d8（d896建，最后driver修复不改pass字节）。已覆盖/签名/账号保留核对；root已发布并公开完整GET验证。PR23 merge af7ec4ce6c618cf0b984c54a76ba7024751e5e10；发布回执PR24 merge55071ffd5b7b214e8d2c81e509cea4fe021385fe。当前无待发布，勿重部署。共享后端唯一目录看STATE，不使用旧重复快照。
 
-最后已本地退出、QA tab1055271278关闭、viewport reset；用户线上tab1055271265完全未操作，Chrome所有权交回coordinator，frontend IDLE。无业务配置写。旧CSS复现/root已有证据，本轮不回退；云发布/线上菜单回读、185/75重跑、全系统三端/完整无障碍NOT_RUN。待合并SHA/唯一发布回读由root安排。
+## 独立验收范围与边界
+权限首引导/稍后/拒绝后系统授权/重进；前台新单Dialog、后台新卡及旧小泡、点卡只查看、队列去重与超时；真实共享即时单11062m/300拒绝不推进→本人同意接客，旧GPS/null送达仍需本人同意，模拟29.26 DONE；root另会话三端金额/单次付款回读。最终provider off→on不重开App恢复GPS有差量PASS。仅声音系统播放/通道路径，未采集音频/主观听音；真机OEM/永久保活、新增弱网/全无障碍/空userdata/原生议价全链未测；未实际再接第二shared，只开private确认后返回。
+证据：ALERT-20261025-01/frontend/design-qa.json SHA ffba9278e65ddddac402f1a2bb3702454c0e5541da24aedb3078859044ac05f1；同目录REPORT.md；REL02/live/order-final-paid.json SHA dc43f175aedc0414f94814bcee7f6e68b9c89a318ba5aae77295e153431adaf7。只按需读，不加载整目录。
+
+## QA遗留/资源/下一步
+QA-20261026-01：初始有效系统悬浮未授权；收尾UI OFF但重装后AppOps仍allow，包级default/ignore及root后续UIDdefault均未证实恢复，不能写已恢复。App内floating=false；原网络/定位/普通权限和GPS已恢复。两AVD、8808预览及全部CLI均off，依据中央STATE；本轮不调用ADB/Chrome复查，不常驻。WX缺AppID继续NOT_RUN。
+本轮MEM检查器14单测及中央basic/memory-role已实跑（结果与文件hash在frontend-review.json），作者最终SHA仍待绑定；下一步仅交root统一合并；新大任务前建议新frontend对话，由用户明确新开/要求创建、协调者替换角色ID后移交。旧会话不双写/不双指挥，资源归属先交清。长期决定引用DECISIONS：GOV-01/03、ENV-01/02、APP-01、BIZ-01/02/03、DEMO-01、MEM-01。

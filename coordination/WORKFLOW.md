@@ -47,3 +47,9 @@ GitHub Actions的project-gate执行记录结构检查及小程序回归，旧运
 上下文压缩由各产品自身管理，协调者不宣称能读取或统一设定所有工具阈值。项目文件是可靠恢复入口；每阶段/约40分钟有效工作保存短交接，再由协调者按需新开执行上下文。没有任务时不启动模型，不做常驻空轮询；当前回合结束不意味着持续后台工作。
 
 CLI验证和调用约束见coordination/GEMINI_CLI.md。当前已实测非交互调用返回CLI_READY；该测试仅证明本机CLI连通，不代表所有编辑、权限、构建和部署自动通过。
+
+## 记忆、预警与接任（2026-10-26-v3，替代旧恢复入口）
+
+遵守START_HERE、MEMORY_POLICY、SESSION_REGISTRY、DECISIONS。中央目录保存最新运行状态，Git工作树保留可提交检查点；旧快照不得反向覆盖中央。每角色阶段/约40分钟有效工作更新短卡，未知上下文占用写UNKNOWN。具体预警与换会话条件以MEMORY_POLICY为准，百分比门槛是项目预防约定，不是产品限制。
+
+下一次大任务前若角色已HANDOFF_RECOMMENDED，coordinator先向用户提示并给NEW_CHAT_PROMPT；达到HANDOFF_REQUIRED则只做消除冲突和交接。用户新开或明确要求创建后才切换，SESSION登记唯一协调者，旧对话停止新派单。角色接单/恢复执行check_coordination.py --memory-role，提交/CI运行结构及记忆检查器回归；无任务不监控、不唤醒模型。
