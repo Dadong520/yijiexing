@@ -72,7 +72,7 @@ class NegotiationMixin:
             profile=self.passenger_profile(pid)
             require(not any(b['phoneTail']==profile['mobile'][-4:] for b in json.loads(a['profile'])['blacklist']),'此司机不可与当前乘客配对',403)
             amount=cents(o['fare'],'报价')
-            o=clone(o);o.pop('negotiationPairingRequired',None);o.pop('pairingExpiresAt',None);o['remark']=str(o.get('remark','')).replace('待沙箱乘客支付','待已配对乘客确认并模拟支付');o.update(passengerId=pid,driverId=driver,shared=True,paymentMode='SIMULATED',paymentStatus='UNPAID',paid=False,credited=False,
+            o=clone(o);o.pop('negotiationPairingRequired',None);o.pop('pairingExpiresAt',None);o.pop('distanceEnforcement',None);o.pop('distanceEnforcementNotice',None);o['remark']=str(o.get('remark','')).replace('待沙箱乘客支付','待已配对乘客确认并模拟支付');o.update(passengerId=pid,driverId=driver,shared=True,synthetic=False,paymentMode='SIMULATED',paymentStatus='UNPAID',paid=False,credited=False,
                 phoneTail=profile['mobile'][-4:],rider={'id':None,'name':profile['name'],'mobileMasked':profile['mobile'][:3]+'****'+profile['mobile'][-4:]},
                 estimatedFare=amount,fareSource='DRIVER_NEGOTIATED',fareConfirmed=False,destinationPending=False,negotiationStatus='OFFERED',quoteVersion=1,
                 quoteHistory=[{'version':1,'amount':amount,'createdAt':stamp(),'actor':'DRIVER'}],priceDisputes=[],bids=[],evaluation=None,complaints=[],
