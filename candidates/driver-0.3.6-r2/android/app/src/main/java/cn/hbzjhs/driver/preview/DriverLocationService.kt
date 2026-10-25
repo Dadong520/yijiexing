@@ -220,11 +220,15 @@ class DriverLocationService : Service(), LocationListener {
         try {
             val providers =
                 listOf(LocationManager.GPS_PROVIDER, LocationManager.NETWORK_PROVIDER).filter {
-                    manager.isProviderEnabled(it)
+                    it in manager.allProviders
                 }
-            if (providers.isEmpty()) PositionBus.mutableStatus.value = "请开启系统定位服务"
-            else {
-                PositionBus.mutableStatus.value = "正在获取位置"
+            // Keep listeners registered while the system location switch is off, so
+            // enabling it resumes fixes without restarting the listening service.
+            if (providers.none { manager.isProviderEnabled(it) })
+                PositionBus.mutableStatus.value = "请开启系统定位服务"
+            if (providers.isNotEmpty()) {
+                if (providers.any { manager.isProviderEnabled(it) })
+                    PositionBus.mutableStatus.value = "正在获取位置"
                 providers.forEach { provider ->
                     manager.requestLocationUpdates(
                         provider,
