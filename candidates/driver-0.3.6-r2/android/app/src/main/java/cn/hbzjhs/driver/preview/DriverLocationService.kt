@@ -204,7 +204,7 @@ class DriverLocationService : Service(), LocationListener {
         if (LocalApi.token.isBlank()) LocalApi.token = SessionVault(this).load()
         if (LocalApi.demoAccess.isBlank()) LocalApi.demoAccess = DemoAccessVault(this).load()
         if (
-            LocalApi.token.isBlank() || LocalApi.demoAccess.isBlank() || LocalApi.baseUrl.isBlank()
+            LocalApi.token.isBlank() ||  LocalApi.baseUrl.isBlank()
         ) {
             PositionBus.mutableStatus.value = "请先完成云端连接设置并登录"
             stopSelf()
