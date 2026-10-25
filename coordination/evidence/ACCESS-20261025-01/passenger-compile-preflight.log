@@ -1,0 +1,28 @@
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/8.7/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
+> Task :app:checkKotlinGradlePluginConfigurationErrors
+> Task :app:preBuild UP-TO-DATE
+> Task :app:preDebugBuild UP-TO-DATE
+> Task :app:generateDebugBuildConfig
+> Task :app:checkDebugAarMetadata UP-TO-DATE
+> Task :app:generateDebugResValues UP-TO-DATE
+> Task :app:mapDebugSourceSetPaths UP-TO-DATE
+> Task :app:generateDebugResources UP-TO-DATE
+> Task :app:mergeDebugResources UP-TO-DATE
+> Task :app:packageDebugResources UP-TO-DATE
+> Task :app:parseDebugLocalResources UP-TO-DATE
+> Task :app:createDebugCompatibleScreenManifests
+> Task :app:extractDeepLinksDebug UP-TO-DATE
+> Task :app:processDebugMainManifest
+> Task :app:processDebugManifest
+> Task :app:processDebugManifestForPackage
+> Task :app:processDebugResources
+
+> Task :app:compileDebugKotlin
+w: file:///Users/dongge/.codex/tmp/yijiexing-access-20261025/apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/BookingScreens.kt:197:56 'Send: ImageVector' is deprecated. Use the AutoMirrored version at Icons.AutoMirrored.Filled.Send
+w: file:///Users/dongge/.codex/tmp/yijiexing-access-20261025/apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/MainActivity.kt:115:7 Variable 'syncAt' is never used
+w: file:///Users/dongge/.codex/tmp/yijiexing-access-20261025/apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/MainActivity.kt:465:43 Parameter 'configured' is never used
+w: file:///Users/dongge/.codex/tmp/yijiexing-access-20261025/apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/MainActivity.kt:493:40 Parameter 'configured' is never used
+
+BUILD SUCCESSFUL in 22s
+16 actionable tasks: 8 executed, 8 up-to-date

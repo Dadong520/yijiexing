@@ -17,12 +17,18 @@ Daemon will be stopped at the end of the build
 > Task :app:processDebugManifest UP-TO-DATE
 > Task :app:processDebugManifestForPackage UP-TO-DATE
 > Task :app:processDebugResources UP-TO-DATE
-> Task :app:compileDebugKotlin UP-TO-DATE
+
+> Task :app:compileDebugKotlin
+w: file:///Users/dongge/.codex/tmp/yijiexing-access-20261025/apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/BookingScreens.kt:197:56 'Send: ImageVector' is deprecated. Use the AutoMirrored version at Icons.AutoMirrored.Filled.Send
+w: file:///Users/dongge/.codex/tmp/yijiexing-access-20261025/apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/MainActivity.kt:115:7 Variable 'syncAt' is never used
+w: file:///Users/dongge/.codex/tmp/yijiexing-access-20261025/apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/MainActivity.kt:465:43 Parameter 'configured' is never used
+w: file:///Users/dongge/.codex/tmp/yijiexing-access-20261025/apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/MainActivity.kt:493:40 Parameter 'configured' is never used
+
 > Task :app:javaPreCompileDebug UP-TO-DATE
-> Task :app:compileDebugJavaWithJavac
+> Task :app:compileDebugJavaWithJavac UP-TO-DATE
 > Task :app:bundleDebugClassesToRuntimeJar
 > Task :app:bundleDebugClassesToCompileJar
-> Task :app:compileDebugUnitTestKotlin
+> Task :app:compileDebugUnitTestKotlin UP-TO-DATE
 > Task :app:preDebugUnitTestBuild UP-TO-DATE
 > Task :app:javaPreCompileDebugUnitTest UP-TO-DATE
 > Task :app:compileDebugUnitTestJavaWithJavac NO-SOURCE
@@ -51,8 +57,8 @@ Daemon will be stopped at the end of the build
 > Task :app:writeDebugAppMetadata UP-TO-DATE
 > Task :app:writeDebugSigningConfigVersions UP-TO-DATE
 > Task :app:packageDebug
-> Task :app:createDebugApkListingFileRedirect
+> Task :app:createDebugApkListingFileRedirect UP-TO-DATE
 > Task :app:assembleDebug
 
-BUILD SUCCESSFUL in 14s
-45 actionable tasks: 10 executed, 35 up-to-date
+BUILD SUCCESSFUL in 21s
+45 actionable tasks: 8 executed, 37 up-to-date

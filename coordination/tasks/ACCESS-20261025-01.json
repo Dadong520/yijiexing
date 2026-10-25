@@ -12,12 +12,13 @@
     "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/MainActivity.kt",
     "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/ProfileScreens.kt",
     "apps/passenger-android/app/build.gradle.kts",
-    "coordination/evidence/ACCESS-20261025-01/"
+    "coordination/evidence/ACCESS-20261025-01/",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/DriverLocationService.kt"
   ],
   "fileOwnership": {
     "backend": "two native auth stores only; API authored code transferred unchanged to OPENAPI unique path",
     "Gemini via coordinator": "LocalLogin/CloudConnectionDialog + passenger LoginScreen/ConnectionDialog presentation; preserve other functions",
-    "coordinator": "integration/version/build/state/independent server guard review/only deploy",
+    "coordinator": "integration/version/build/release + UI/help/error copy only; no change to backend-authored authentication control flow",
     "frontend": "independent device/UI/auth usability and no-code live role tests, no source edits"
   },
   "checks": [
@@ -28,13 +29,69 @@
     "后端相关自动化/新增正负边界、两App构建测试、非作者实际无访问码登录与共享数据读取通过，后台IAP302/管理边界实测后发布回读",
     "CloudRun独立项目/min0/max1/请求计费/IAM/IAP保留，不增常驻服务；大包直连优先，secret不进APK/Git/消息"
   ],
-  "status": "IN_PROGRESS",
-  "acceptance": "NOT_RUN",
-  "tests": [],
-  "evidence": [],
-  "nextAction": "backend inspect guard and publish short contract, implement server+both auth stores; coordinator Gemini UI update; frontend finish UI03 then new access task",
+  "status": "ACCEPTED_FOR_DEPLOY",
+  "acceptance": "PASS",
+  "tests": [
+    {
+      "name": "driver actual unit tests and assembleDebug",
+      "command": "/Users/dongge/.gradle/wrapper/dists/gradle-8.7-bin/c4fynqkwxqrcieir78ry8jtzf/gradle-8.7/bin/gradle --offline --no-daemon --max-workers=1 -Dorg.gradle.jvmargs=-Xmx1536m -Pkotlin.compiler.execution.strategy=in-process -PYIJ_CLOUD_ORIGIN=https://driver-demo-491829048305.us-west1.run.app --project-cache-dir /Users/dongge/.codex/tmp/yijiexing-native-ui-20261025/driver-cache --init-script /Users/dongge/.codex/tmp/yijiexing-native-ui-20261025/driver-build.init.gradle testDebugUnitTest assembleDebug",
+      "status": "PASS",
+      "exitCode": 0,
+      "sourceSha": "eb54e70f27c53aaf569390039349cf3487ff008f",
+      "tests": 55
+    },
+    {
+      "name": "passenger actual unit tests and assembleDebug",
+      "command": "/Users/dongge/.gradle/wrapper/dists/gradle-8.7-bin/c4fynqkwxqrcieir78ry8jtzf/gradle-8.7/bin/gradle --offline --no-daemon --max-workers=1 -Dorg.gradle.jvmargs=-Xmx1536m -Pkotlin.compiler.execution.strategy=in-process -PYIJ_CLOUD_ORIGIN=https://driver-demo-491829048305.us-west1.run.app --project-cache-dir /Users/dongge/.codex/tmp/yijiexing-native-ui-20261025/passenger-cache --init-script /Users/dongge/.codex/tmp/yijiexing-native-ui-20261025/passenger-build.init.gradle testDebugUnitTest assembleDebug",
+      "status": "PASS",
+      "exitCode": 0,
+      "sourceSha": "eb54e70f27c53aaf569390039349cf3487ff008f",
+      "tests": 20
+    },
+    {
+      "name": "Independent final APK installation, preserved role state, new logout copy and connection recovery; initial no-code/offline/doubletap scope inherited from 2e5 (four literal-only changes)",
+      "command": "frontend actual ADB install-r and UIAutomator evidence frontend + frontend-final; source-delta.txt reviewed",
+      "status": "PASS",
+      "exitCode": 0,
+      "sourceSha": "eb54e70f27c53aaf569390039349cf3487ff008f"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "coordination/evidence/ACCESS-20261025-01/driver-build-result.json",
+      "sha256": "78ef702210a2a485c0a2ca8a41a13f00dc797adfa9eb64c659ad8cdc6826b30c"
+    },
+    {
+      "path": "coordination/evidence/ACCESS-20261025-01/passenger-build-result.json",
+      "sha256": "98a7ed0255cb461b096eb9ce6ec9ba7efe0bf7ac2bd4a1d50532fe3eecfe7957"
+    },
+    {
+      "path": "coordination/evidence/ACCESS-20261025-01/frontend/design-qa.json",
+      "sha256": "2ee62e11750e80dbf4bb1f2bd26b97ecc6e07a01cf9b882cb452b44cbb1cb638"
+    },
+    {
+      "path": "coordination/evidence/ACCESS-20261025-01/frontend-final/static-review.json",
+      "sha256": "831d589d1af2c17fe55019371ac7b861dc271add7b7df0d8611ad4ae0aa97589"
+    },
+    {
+      "path": "coordination/evidence/ACCESS-20261025-01/frontend-final/driver-connection-recovery.json",
+      "sha256": "45aedef6e2bf985dcca8c5e591f15591b97ad99b0c1f08d2c744aa840c04255d"
+    },
+    {
+      "path": "coordination/evidence/ACCESS-20261025-01/frontend-final/passenger-connection-recovery.json",
+      "sha256": "88e648d446a14c31b521eaf1718722af84d618dcd53a8659b7bf0bcda7a63663"
+    },
+    {
+      "path": "coordination/evidence/ACCESS-20261025-01/frontend-final/passenger-delta.json",
+      "sha256": "6e59767ebfdcb88c25d1b7c7fd0c45d37077baa728a14d836f413182f5752093"
+    }
+  ],
+  "nextAction": "Merge native PR after CI; publish both exact signed APK hashes then full public download readback.",
   "deploy_owner": "coordinator",
-  "releaseReady": false,
+  "releaseReady": true,
   "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-access-20261025",
-  "dependsOn": "OPENAPI-20261025-01 supplies live API; UI03 source merged98e87eb"
+  "dependsOn": "OPENAPI-20261025-01 supplies live API; UI03 source merged98e87eb",
+  "acceptedSha": "eb54e70f27c53aaf569390039349cf3487ff008f",
+  "productSha": "eb54e70f27c53aaf569390039349cf3487ff008f",
+  "reviewer": "frontend (non-author native installation/login/UI tests and four-literal final delta)"
 }

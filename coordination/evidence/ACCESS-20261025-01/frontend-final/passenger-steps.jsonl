@@ -1,0 +1,7 @@
+{"at": "2026-10-25T20:31:52.208270+08:00", "kind": "capture", "value": "passenger-01-home-retained"}
+{"at": "2026-10-25T20:31:57.461615+08:00", "kind": "tap", "value": "我的"}
+{"at": "2026-10-25T20:32:00.331407+08:00", "kind": "capture", "value": "passenger-02-profile-retained"}
+{"at": "2026-10-25T20:32:12.077143+08:00", "kind": "tap", "value": "退出当前账号"}
+{"at": "2026-10-25T20:32:14.592542+08:00", "kind": "capture", "value": "passenger-03-logout-copy-fixed"}
+{"at": "2026-10-25T20:32:18.786437+08:00", "kind": "tap", "value": "取消"}
+{"at": "2026-10-25T20:34:09.449358+08:00", "kind": "capture", "value": "passenger-04-home-final-relaunch"}

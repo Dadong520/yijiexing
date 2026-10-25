@@ -1,0 +1,39 @@
+{
+  "role": "driver",
+  "sourceSha": "eb54e70f27c53aaf569390039349cf3487ff008f",
+  "startedAt": "2026-10-25T20:31:36.151369+08:00",
+  "homeTexts": [
+    "连接状态",
+    "宜捷行出租车与司机品牌插画",
+    "宜捷行 · 司机",
+    "欢迎回来，师傅",
+    "选择体验账号，一键进入",
+    "服务连接提示",
+    "云端服务返回了无法识别的响应，请稍后重试",
+    "重试连接",
+    "选择体验司机账号",
+    "体验司机03",
+    "切换账号",
+    "我已了解体验说明和共享演示数据范围",
+    "进入体验"
+  ],
+  "resourceRestoration": {
+    "original": {
+      "wmSize": "Physical size: 1080x2400",
+      "wmDensity": "Physical density: 420",
+      "fontScale": "1.0",
+      "wifi": "1",
+      "mobileData": "1"
+    },
+    "final": {
+      "wmSize": "Physical size: 1080x2400",
+      "wmDensity": "Physical density: 420",
+      "fontScale": "1.0",
+      "wifi": "1",
+      "mobileData": "1"
+    },
+    "same": true
+  },
+  "appStoppedAndHome": true,
+  "endedAt": "2026-10-25T20:31:54.798193+08:00"
+}

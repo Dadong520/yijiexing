@@ -1,5 +1,5 @@
 {
-  "sourceSha": "2e5dd4e7784467f1ee417f9c7ff2144d907e1467",
+  "sourceSha": "eb54e70f27c53aaf569390039349cf3487ff008f",
   "files": {
     "apps/passenger-android/app/build.gradle.kts": "f8469d12185be4280bfddf32894ee88528834902e30b9fe560e782da526f288c",
     "apps/passenger-android/app/src/main/AndroidManifest.xml": "812aa32bf6fd85dd6beca5f641e075853a83be8052bab4516ad29b12715de648",
@@ -17,7 +17,7 @@
     "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/PassengerStore.kt": "c39029aa3ffb10d718ae9ace471bcfc7e6dd7fee0966c3ea99f37ec0c6ab2e27",
     "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/PaymentConfirmation.kt": "68e7e9c66a634dff188c2490770a09495e19c121634155f6f4c50298dc1088e4",
     "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/PendingRequestJournal.kt": "1d1b4d1bca498d1c8b53794aeb60cccffa0aab43c31238a43d1dd37a2faf251c",
-    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/ProfileScreens.kt": "500446335a898d3271b3b68cf263b6019918c49a9c99a6b53a3b45abf4785bdc",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/ProfileScreens.kt": "d6a255cf9847c933914c5a97391e672a3a88bb4659d19519d9e550deb6c7b1f0",
     "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/UiComponents.kt": "aa43882ae16df3af4ecdde7a0d9198090dd15b6f8777b7865ee9a1530e1941e4",
     "apps/passenger-android/app/src/main/res/drawable-nodpi/yijiexing_welcome_hero.png": "7571d9e447125b3a52362ed1bd684e7ac2a90236a0ded20558c3de1820ddfa01",
     "apps/passenger-android/app/src/main/res/drawable/ic_passenger.xml": "ee1154225cb05af1f2f1407133f0ca0d80e0a767269a1a7ceed5fa9f674bb520",
@@ -75,10 +75,10 @@
     "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/BusinessKit.kt": "ea8f5fcc6d27eb61a688bbb19658f29961e4966f44d8be8d3fe561617dafbe23",
     "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/BusinessScreens.kt": "3e2555742e6351ccbd4b1352d21b611e79bf9d0255e38f92911876566fbd3b8e",
     "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/BusinessSupport.kt": "3fd4cf254502083f4800aff7f2a7de32301e7867b604ead3ec00f5776e27d228",
-    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/ConnectedStore.kt": "1289402d353849e6607c975ce6f3403df5e9ce3683e16e1f2d7a03075f04a559",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/ConnectedStore.kt": "7d7a95ef19de039533582f88fd6f235f460612dce0c3cd9b806006f5d1db309a",
     "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/CoreScreens.kt": "30e1b210b1c08e0eed7c687b0e32bd08cc675ccfd57a334cfa57f62455c68ab6",
     "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/DriverDomain.kt": "676804352d3acb8c0cda491762e075e859c43a03f2b34e58fd86e8976cfc32e3",
-    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/DriverLocationService.kt": "3948e4545295d266d2e6fbad5182560a35e689d8333a7f60f20191fb74587737",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/DriverLocationService.kt": "bab9fe3adc70384c8f368e66594ddbb0901535a54a0e8056139f37e3cff07200",
     "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/DriverSpeech.kt": "e1524bbe72443d8cb847c6f4434fb21e4d94fee62fb89cd3e1f06c675310675f",
     "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/MainActivity.kt": "7309d701c9eb0a69ec8e36a941854f36b224e80795feb53b9f22b94384cbb651",
     "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/MembershipCatalogScreens.kt": "4485c2be1154835a7469a24ce32fd066df9a29a609d15b1fa5534d3327a22174",
