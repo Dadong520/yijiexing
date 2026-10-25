@@ -357,6 +357,38 @@ class PassengerStore(app: Application) : AndroidViewModel(app) {
     }
   }
 
+
+  private var locationReportInFlight = false
+  private var lastLocationReportKey = ""
+  fun reportLocation(orderId: String, latitude: Double, longitude: Double, accuracy: Float, time: Long) {
+    val generation = sessionGeneration
+    val account = _state.value.optJSONObject("passenger")?.optString("id").orEmpty()
+    val token = PassengerApi.token
+    val orders = _state.value.optJSONArray("orders")
+    val active = (0 until (orders?.length() ?: 0)).any { i ->
+      val o=orders?.optJSONObject(i)
+      o?.optString("id")==orderId && o.optString("stage") in setOf("AVAILABLE","PREPAY","RESERVED","PICKUP","ARRIVED","TRIP")
+    }
+    val key = "$account:$orderId:$time:$latitude:$longitude:$accuracy"
+    if (account.isBlank() || token.isBlank() || !_loggedIn.value || !active || locationReportInFlight ||
+      !latitude.isFinite() || latitude !in -90.0..90.0 || !longitude.isFinite() || longitude !in -180.0..180.0 ||
+      !accuracy.isFinite() || accuracy<=0 || System.currentTimeMillis()-time !in -30000L..120000L || key==lastLocationReportKey) return
+    locationReportInFlight = true
+    viewModelScope.launch {
+      try {
+        if (generation!=sessionGeneration || token!=PassengerApi.token) return@launch
+        val payload=JSONObject().put("id",orderId).put("latitude",latitude).put("longitude",longitude)
+          .put("accuracy",accuracy).put("time",time).put("coordinateSystem","WGS84")
+        PassengerApi.request("POST","/api/passenger/action",JSONObject().put("action","location.report")
+          .put("payload",payload).put("requestId",java.util.UUID.nameUUIDFromBytes(key.toByteArray()).toString()), tokenOverride=token)
+        if (generation==sessionGeneration && token==PassengerApi.token) lastLocationReportKey=key
+      } catch (e: CancellationException) { throw e }
+      catch (e: Exception) {
+        if (generation==sessionGeneration) PassengerPositionBus.updateStatus("位置暂未上传，稍后自动重试；定位不足时需您确认上车或送达")
+      } finally { locationReportInFlight=false }
+    }
+  }
+
   fun action(action: String, payload: JSONObject = JSONObject(), done: (JSONObject) -> Unit = {}) {
     if (_state.value.optJSONObject("passenger")?.text("id").isNullOrBlank()) {
       _error.value = "乘客资料尚未同步，请先刷新后再提交"

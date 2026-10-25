@@ -116,6 +116,9 @@ fun PassengerApp(
   var page by rememberSaveable { mutableStateOf("home") }
   var selected by rememberSaveable { mutableStateOf("") }
   var settings by remember { mutableStateOf(false) }
+  var showPermissionGuide by rememberSaveable { mutableStateOf(false) }
+  PassengerPermissions(showPermissionGuide) { showPermissionGuide = false }
+  PassengerTripLocationReporter(state, logged, store)
   val lifecycle = LocalLifecycleOwner.current
   LaunchedEffect(logged, incomingCode) {
     if (logged && incomingCode != null) {
@@ -183,6 +186,7 @@ fun PassengerApp(
             color = Teal,
             modifier = Modifier.weight(1f),
           )
+          TextButton(onClick = { showPermissionGuide = true }) { Text("权限", color = Teal) }
           if (logged) {
             Text(
               state.optJSONObject("passenger")?.text("cityName", "宜昌市").orEmpty(),

@@ -91,6 +91,8 @@ private fun ConnectedApp(store: ConnectedStore, state: DriverState) {
     var cancelReason by rememberSaveable { mutableStateOf("") }
     var cancelOther by rememberSaveable { mutableStateOf("") }
     var wantsOnline by remember { mutableStateOf(false) }
+    var showPermissionGuide by rememberSaveable { mutableStateOf(false) }
+    val requestedAlertOrder by NewOrderAlerts.openRequested.collectAsState()
     val holder = rememberSaveableStateHolder()
     val snackbar = remember { SnackbarHostState() }
     val scope = rememberCoroutineScope()
@@ -108,6 +110,7 @@ private fun ConnectedApp(store: ConnectedStore, state: DriverState) {
     }
     fun navigate(value: String) {
         when (value) {
+            "permissions" -> showPermissionGuide = true
             "home" -> {
                 tab = 0
                 stack = listOf("root")
@@ -224,6 +227,24 @@ private fun ConnectedApp(store: ConnectedStore, state: DriverState) {
         } else context.stopService(intent)
     }
     BackHandler(state.loggedIn && stack.size > 1) { back() }
+    val guideShowing = DriverPermissions(showPermissionGuide, { showPermissionGuide = false }) {
+        if (state.loggedIn && payload.optJSONObject("features")?.optBoolean("canFloating") == true)
+            store.perform("settings.update", JSONObject().put("floating", true))
+        else message("请登录并确认当前城市/等级已开放浮窗提醒，再开启应用浮窗")
+    }
+    LaunchedEffect(requestedAlertOrder, state.loggedIn) {
+        val id = requestedAlertOrder
+        if (id != null && state.loggedIn) {
+            NewOrderAlerts.consumeOpen()
+            store.refresh()
+            navigate("detail:$id")
+        }
+    }
+    if (!guideShowing && state.loggedIn) NewOrderDialog { id ->
+        NewOrderAlerts.dismiss(id)
+        store.refresh()
+        navigate("detail:$id")
+    }
     val route = stack.last()
     Box(Modifier.fillMaxSize().background(Page), contentAlignment = Alignment.TopCenter) {
         Scaffold(

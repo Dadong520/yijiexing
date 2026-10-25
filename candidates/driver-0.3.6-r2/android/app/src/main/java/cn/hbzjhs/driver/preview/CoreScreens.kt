@@ -725,6 +725,7 @@ fun ConnectedTrip(
     val context = LocalContext.current
     val tripBusy by store.loading.collectAsState()
     val hasPendingWaypoints = order.stage == Stage.TRIP && order.pendingWaypoints.isNotEmpty()
+    val distancePending = driverHasPendingDistanceConsent(order.id, order.stage.name, store)
     var verify by remember(order.id) { mutableStateOf(false) }
     var tail by rememberSaveable(order.id) { mutableStateOf("") }
     var verifyError by remember(order.id) { mutableStateOf<String?>(null) }
@@ -741,7 +742,7 @@ fun ConnectedTrip(
             else -> order.stage.title
         }
     val action =
-        when (order.stage) {
+        if (distancePending) "等待乘客同意" else when (order.stage) {
             Stage.RESERVED -> "出发接驾"
             Stage.PICKUP -> "到达上车点"
             Stage.ARRIVED -> if (order.destinationPending) "等待乘客补充目的地" else "接到乘客，开始行程"
@@ -861,6 +862,7 @@ fun ConnectedTrip(
                     }
                 }
             }
+            item { DriverTripDistanceCard(order.id, order.stage.name, store) }
             if (order.waypoints.isNotEmpty()) item { TripWaypoints(order, store, onMessage) }
             if (order.isActive)
                 item {
@@ -890,7 +892,7 @@ fun ConnectedTrip(
             Column(Modifier.padding(16.dp)) {
                 PrimaryButton(
                     action,
-                    enabled = !tripBusy && !hasPendingWaypoints,
+                    enabled = !tripBusy && !hasPendingWaypoints && !distancePending,
                     onClick = {
                         when (order.stage) {
                             Stage.ARRIVED -> {
@@ -1398,6 +1400,7 @@ fun ConnectedSettings(
     }
     Column(Modifier.fillMaxSize()) {
         PageHeader("接单与应用设置", onBack)
+        MenuRow("shield", "权限与提醒检查", "定位 / 通知 / 悬浮窗") { navigate("permissions") }
         LazyColumn(
             Modifier.weight(1f),
             contentPadding = PaddingValues(18.dp),

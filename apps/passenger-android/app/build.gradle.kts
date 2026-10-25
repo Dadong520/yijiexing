@@ -8,8 +8,8 @@ android {
         applicationId = "cn.hbzjhs.dc.passenger.cloud"
         minSdk = 26
         targetSdk = 34
-        versionCode = 13
-        versionName = "1.1.11-experience"
+        versionCode = 14
+        versionName = "1.1.12-experience"
         buildConfigField("String", "CLOUD_API_ORIGIN", "\"$cloudOrigin\"")
     }
     buildFeatures { compose = true; buildConfig = true }
