@@ -1,0 +1,34 @@
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/8.7/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
+> Task :app:checkKotlinGradlePluginConfigurationErrors
+> Task :app:preBuild UP-TO-DATE
+> Task :app:preDebugBuild UP-TO-DATE
+> Task :app:generateDebugBuildConfig
+> Task :app:checkDebugAarMetadata UP-TO-DATE
+> Task :app:generateDebugResValues UP-TO-DATE
+> Task :app:mapDebugSourceSetPaths UP-TO-DATE
+> Task :app:generateDebugResources UP-TO-DATE
+> Task :app:mergeDebugResources UP-TO-DATE
+> Task :app:packageDebugResources UP-TO-DATE
+> Task :app:parseDebugLocalResources UP-TO-DATE
+> Task :app:createDebugCompatibleScreenManifests
+> Task :app:extractDeepLinksDebug UP-TO-DATE
+> Task :app:processDebugMainManifest
+> Task :app:processDebugManifest
+> Task :app:processDebugManifestForPackage
+> Task :app:processDebugResources
+
+> Task :app:compileDebugKotlin
+w: file:///Users/dongge/.codex/tmp/yijiexing-access-20261025/candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/BusinessCommunity.kt:311:53 Parameter 'profile' is never used
+w: file:///Users/dongge/.codex/tmp/yijiexing-access-20261025/candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/BusinessCommunity.kt:378:5 Parameter 'onMessage' is never used
+w: file:///Users/dongge/.codex/tmp/yijiexing-access-20261025/candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/CoreScreens.kt:1547:21 Parameter 'store' is never used
+w: file:///Users/dongge/.codex/tmp/yijiexing-access-20261025/candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/DriverLocationService.kt:271:43 Unsafe use of a nullable receiver of type JSONObject?
+w: file:///Users/dongge/.codex/tmp/yijiexing-access-20261025/candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/MembershipCatalogScreens.kt:90:51 Unnecessary non-null assertion (!!) on a non-null receiver of type JSONObject
+w: file:///Users/dongge/.codex/tmp/yijiexing-access-20261025/candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/MembershipCatalogScreens.kt:114:21 'LinearProgressIndicator(Float, Modifier = ..., Color = ..., Color = ..., StrokeCap = ...): Unit' is deprecated. Use the overload that takes `progress` as a lambda
+w: file:///Users/dongge/.codex/tmp/yijiexing-access-20261025/candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/MembershipUi.kt:290:30 Unsafe use of a nullable receiver of type Any?
+w: file:///Users/dongge/.codex/tmp/yijiexing-access-20261025/candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/UiKit.kt:85:43 'List: ImageVector' is deprecated. Use the AutoMirrored version at Icons.AutoMirrored.Outlined.List
+w: file:///Users/dongge/.codex/tmp/yijiexing-access-20261025/candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/UiKit.kt:87:34 'ArrowBack: ImageVector' is deprecated. Use the AutoMirrored version at Icons.AutoMirrored.Outlined.ArrowBack
+w: file:///Users/dongge/.codex/tmp/yijiexing-access-20261025/candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/UiKit.kt:88:35 'KeyboardArrowRight: ImageVector' is deprecated. Use the AutoMirrored version at Icons.AutoMirrored.Outlined.KeyboardArrowRight
+
+BUILD SUCCESSFUL in 30s
+16 actionable tasks: 8 executed, 8 up-to-date

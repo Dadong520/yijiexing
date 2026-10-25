@@ -1,0 +1,446 @@
+{
+  "schemaVersion": 1,
+  "task": "ACCESS-20261025-01",
+  "reviewer": "frontend (independent non-author)",
+  "sourceSha": "2e5dd4e7784467f1ee417f9c7ff2144d907e1467",
+  "acceptance": "PASS_WITH_ONE_P2",
+  "mainFlowAcceptance": "PASS",
+  "releaseReady": false,
+  "scope": "Native Android upgrade + new no-access-code login UI, network failure/recovery, correct identity and process relaunch persistence. Open residual passenger logout copy needs coordinator resolution. Not a full business lifecycle or server-security review.",
+  "startedAt": "2026-10-25T20:07:56+08:00",
+  "deviceDeadline": "2026-10-25T20:17:56+08:00",
+  "deviceTestingEndedAt": "2026-10-25T20:16:36.438958+08:00",
+  "reportCompletedAt": "2026-10-25T20:18:52.868834+08:00",
+  "releaseOwner": "coordinator",
+  "reviewerEditedProductBuiltOrDeployed": false,
+  "apkBindings": [
+    {
+      "client": "driver",
+      "sourceSha": "2e5dd4e7784467f1ee417f9c7ff2144d907e1467",
+      "versionName": "0.3.10-cloud",
+      "versionCode": 13,
+      "packageId": "cn.hbzjhs.dc.driver.cloud",
+      "apkSha256": "673422e7f4a064423640903b310a1b2d24fc33e05d4315ee853159a13040b0a7",
+      "installedSha256": "673422e7f4a064423640903b310a1b2d24fc33e05d4315ee853159a13040b0a7",
+      "signerSha256": "9ffec9b342d12909ff288bd73f23ba104893b39120cb24ea83c9734a0d2b758f",
+      "signerReadback": "Signer #1 certificate SHA-256 digest: 9ffec9b342d12909ff288bd73f23ba104893b39120cb24ea83c9734a0d2b758f",
+      "installResult": "Performing Streamed Install\nSuccess",
+      "serial": "emulator-5586",
+      "bytes": 55655843
+    },
+    {
+      "client": "passenger",
+      "sourceSha": "2e5dd4e7784467f1ee417f9c7ff2144d907e1467",
+      "versionName": "1.1.10-experience",
+      "versionCode": 12,
+      "packageId": "cn.hbzjhs.dc.passenger.cloud",
+      "apkSha256": "6ab82b23cff0d689605cfc2b8702f80349c1c051aec7c6c90f9fc81359f2b599",
+      "installedSha256": "6ab82b23cff0d689605cfc2b8702f80349c1c051aec7c6c90f9fc81359f2b599",
+      "signerSha256": "9ffec9b342d12909ff288bd73f23ba104893b39120cb24ea83c9734a0d2b758f",
+      "signerReadback": "Signer #1 certificate SHA-256 digest: 9ffec9b342d12909ff288bd73f23ba104893b39120cb24ea83c9734a0d2b758f",
+      "installResult": "Performing Streamed Install\nSuccess",
+      "serial": "emulator-5584",
+      "bytes": 54125743
+    }
+  ],
+  "actualCommands": [
+    "adb -s SERIAL install -r APK_PATH (no data clear)",
+    "adb -s SERIAL shell pm path PACKAGE; adb -s SERIAL exec-out cat BASE_APK_PATH; local SHA256 equals bound build APK",
+    "/opt/homebrew/share/android-commandlinetools/build-tools/35.0.0/apksigner verify --print-certs APK_PATH",
+    "python3 coordination/evidence/ACCESS-20261025-01/frontend/run_login_checks.py (two independent AVDs, no same-device concurrent actions)",
+    "fresh uiautomator dump + screencap for every named capture; evidence device_ui.py and per-role steps.jsonl",
+    "driver relaunch capture wake recovery and both device restore completed separately; both restoration.json attest final settings and stopped/HOME"
+  ],
+  "checks": [
+    {
+      "name": "Same-signature upgrade, installed bytes and original session retained",
+      "result": "PASS",
+      "evidence": [
+        "driver-installed.json",
+        "passenger-installed.json",
+        "driver-01-upgrade-session.png",
+        "passenger-01-upgrade-session.png"
+      ]
+    },
+    {
+      "name": "Existing role account refresh/profile with new public API",
+      "result": "PASS",
+      "evidence": [
+        "driver-02-upgrade-profile.png",
+        "passenger-02-upgrade-profile.png",
+        "driver-05-connection-dialog.png",
+        "driver-steps.jsonl",
+        "passenger-steps.jsonl"
+      ],
+      "note": "Passenger actual Refresh orders tap; driver actual connection Retry tap. Driver03 and passenger02 retained. Driver wallet display557.74, score98,15/10 counts retained; no wallet operation."
+    },
+    {
+      "name": "Normal in-app logout reaches fresh no-code login",
+      "result": "PASS",
+      "evidence": [
+        "driver-06-login-not-agreed.png",
+        "passenger-04-logout-confirm.png",
+        "passenger-06-login-not-agreed.png"
+      ],
+      "note": "No pm clear, preferences/token reads or account storage manipulation. No code/OTP input fields visible or in hierarchy."
+    },
+    {
+      "name": "Consent gate and account menus",
+      "result": "PASS",
+      "evidence": [
+        "driver-06-login-not-agreed.xml",
+        "passenger-06-login-not-agreed.xml",
+        "driver-07-account-menu.png",
+        "passenger-07-account-menu.png"
+      ],
+      "note": "Clickable button ancestor disabled before consent; Text child enabled=true is normal Compose semantics. Three allowed accounts displayed and default03/02 selected through menu. Other accounts not authenticated."
+    },
+    {
+      "name": "Connection dialogs/settings no longer ask access code or reset it",
+      "result": "PASS",
+      "evidence": [
+        "driver-03-settings-top.png",
+        "driver-04-settings-bottom.png",
+        "driver-05-connection-dialog.png",
+        "passenger-08-connection-dialog.png"
+      ],
+      "note": "Both connection dialogs opened. Driver top/bottom settings and dialog show no access-code/reset fields or actions."
+    },
+    {
+      "name": "Offline entry fails clearly and stays logged out",
+      "result": "PASS",
+      "evidence": [
+        "driver-09-offline-login-failed.png",
+        "passenger-09-offline-login-failed.png",
+        "driver-login-checks.json",
+        "passenger-login-checks.json"
+      ],
+      "note": "Both devices separately wifi/data0/0 at entry. Explicit Chinese cloud/network error; no home entered. Consent remains selected, user can retry."
+    },
+    {
+      "name": "Online entry after failure reaches actual account and map",
+      "result": "PASS",
+      "evidence": [
+        "driver-10-online-login-home.png",
+        "passenger-10-online-login-home.png",
+        "driver-11-online-login-profile.png",
+        "passenger-11-online-login-profile.png"
+      ],
+      "note": "After wifi/data restoration, driver one tap and passenger two immediate taps at current observed button coordinates. Both reached correct default role profile with actual tiles. No access code or manually entered verification code."
+    },
+    {
+      "name": "Rapid double tap outcome",
+      "result": "PASS_LIMITED",
+      "evidence": [
+        "passenger-steps.jsonl",
+        "passenger-10-online-login-home.png",
+        "passenger-11-online-login-profile.png"
+      ],
+      "note": "Two actual consecutive entry taps, then one correct logged-in UI identity. Source busy guard reviewed. No wire-level count or transient busy-frame claim."
+    },
+    {
+      "name": "Process restart retains new login",
+      "result": "PASS",
+      "evidence": [
+        "driver-12-relaunch-session.png",
+        "passenger-12-relaunch-session.png"
+      ],
+      "note": "Both force-stop/relaunch without new login tap. Driver first snapshot null root due display sleep; KEYCODE_WAKEUP then fresh successful capture. No data reset."
+    },
+    {
+      "name": "Existing pending-payment banner does not block available offers",
+      "result": "PASS_READ_ONLY",
+      "evidence": [
+        "driver-01-upgrade-session.png",
+        "driver-10-online-login-home.png",
+        "driver-12-relaunch-session.png"
+      ],
+      "note": "Pending2 banner and available offer CTA coexist. No accept tap, no online toggle. Exact29.26 order detail not reopened in this bounded login round."
+    },
+    {
+      "name": "Original network/font/size and default accounts restored",
+      "result": "PASS",
+      "evidence": [
+        "driver-restoration.json",
+        "passenger-restoration.json",
+        "driver-login-checks.json",
+        "passenger-login-checks.json"
+      ],
+      "note": "Final settings equal captured originals, wifi/data1/1,font1.0,physical1080x2400/420dpi. Default03/02 sessions retained, apps stopped/HOME, original AVDs left running."
+    }
+  ],
+  "findings": [
+    {
+      "id": "ACCESS-PAX-P2-01",
+      "priority": "P2",
+      "status": "OPEN",
+      "file": "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/ProfileScreens.kt",
+      "observed": "Logout confirmation still says 下次可重新获取体验验证码登录, which conflicts with the new one-tap UI.",
+      "evidence": [
+        "passenger-04-logout-confirm.png",
+        "passenger-04-logout-confirm.xml"
+      ],
+      "recommendation": "Replace with 下次可选择体验账号一键进入. Coordinator owns source fix/rebuild and final targeted acceptance; reviewer has not changed product or accepted a newer binary."
+    }
+  ],
+  "sourceReview": [
+    {
+      "path": "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/ConnectedStore.kt",
+      "sha256AtBoundCommit": "1289402d353849e6607c975ce6f3403df5e9ce3683e16e1f2d7a03075f04a559",
+      "demoAccessHeaderAbsent": true,
+      "note": "Bound source reviewed: code/login/state sequence uses role token, checks expected identity before persisting session. Runtime request bodies/tokens not intercepted or read."
+    },
+    {
+      "path": "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/PassengerStore.kt",
+      "sha256AtBoundCommit": "c39029aa3ffb10d718ae9ace471bcfc7e6dd7fee0966c3ea99f37ec0c6ab2e27",
+      "demoAccessHeaderAbsent": true,
+      "note": "Bound source reviewed: code/login/state sequence uses role token, checks expected identity before persisting session. Runtime request bodies/tokens not intercepted or read."
+    }
+  ],
+  "resourceRestoration": [
+    {
+      "role": "driver",
+      "original": {
+        "wmSize": "Physical size: 1080x2400",
+        "wmDensity": "Physical density: 420",
+        "fontScale": "1.0",
+        "wifi": "1",
+        "mobileData": "1"
+      },
+      "final": {
+        "wmSize": "Physical size: 1080x2400",
+        "wmDensity": "Physical density: 420",
+        "fontScale": "1.0",
+        "wifi": "1",
+        "mobileData": "1"
+      },
+      "same": true,
+      "appStoppedAndHome": true,
+      "endedAt": "2026-10-25T20:16:36.438958+08:00"
+    },
+    {
+      "role": "passenger",
+      "original": {
+        "wmSize": "Physical size: 1080x2400",
+        "wmDensity": "Physical density: 420",
+        "fontScale": "1.0",
+        "wifi": "1",
+        "mobileData": "1"
+      },
+      "final": {
+        "wmSize": "Physical size: 1080x2400",
+        "wmDensity": "Physical density: 420",
+        "fontScale": "1.0",
+        "wifi": "1",
+        "mobileData": "1"
+      },
+      "same": true,
+      "appStoppedAndHome": true,
+      "endedAt": "2026-10-25T20:16:36.226196+08:00"
+    }
+  ],
+  "limitations": [
+    "No TLS interception, token/prefs/code reads or wire request-count claim; no-access-header evidence is bound source plus successful live UI auth/state chain. Root separately owns live server boundary verification.",
+    "No new real orders/acceptance/cancel/payment/refund/complaint writes, no online-status toggle, no wallet actions.",
+    "No full3-client lifecycle, high-stakes business completion, external Amap endpoint/navigation accuracy, real SMS or identity verification claim.",
+    "Driver AVD default GPS may show emulator Googleplex after startup; this round does not validate real location accuracy.",
+    "Normal fonts only; full small/large-font landscape, TalkBack, physical phone, long-string matrix not rerun. UI03 maps/cache isolation inherited scope remains separate."
+  ],
+  "harnessNotes": [
+    "Initial install verification succeeded but first uiautomator root was null with sleeping display; wake resolved.",
+    "Early consent assertion incorrectly inspected Text child rather than clickable disabled parent; corrected without product changes.",
+    "Main login script completed passenger; driver final capture null-root handled with bounded wake/readback recovery, then both teardown records completed. These were harness/environment corrections, not hidden product failures."
+  ],
+  "notRun": [
+    "Other account actual login",
+    "Transient busy screenshot or precise auth request-count trace",
+    "Exact29.26 native order detail in this run",
+    "Dedicated physical-phone/accessibility/large-font matrix",
+    "External Amap and complaints workflow",
+    "New transaction/full three-client business lifecycle",
+    "Publication/download readback by reviewer"
+  ],
+  "screenshots": [
+    {
+      "png": "driver-01-upgrade-session.png",
+      "pngSha256": "9e46a49625f3261357ab2b6e15aa9727ae8c38782fc97e53ed5eee3579b51fb9",
+      "xml": "driver-01-upgrade-session.xml",
+      "xmlSha256": "fb0aca29f9c2c7a42e699f2123b09c9d9fd8cf4d5ea31240ac65277f53412745",
+      "visuallyInspected": true
+    },
+    {
+      "png": "driver-02-upgrade-profile.png",
+      "pngSha256": "c713ccf511542643108a47ce1c3ea4c064fbb2b93f13a6b32bceb10612baaf12",
+      "xml": "driver-02-upgrade-profile.xml",
+      "xmlSha256": "97054c2b615ceaaf18c69f34bea70e267246e5388904f8361b8353c8c2cdbd12",
+      "visuallyInspected": true
+    },
+    {
+      "png": "driver-03-settings-top.png",
+      "pngSha256": "d9a2895566cc368d3085b371997a64d214848beae540168601611d5972bbad2b",
+      "xml": "driver-03-settings-top.xml",
+      "xmlSha256": "f55280337fc3d4f1c45582b8980f365f81a341eca8f52870113ceb667e829445",
+      "visuallyInspected": true
+    },
+    {
+      "png": "driver-04-settings-bottom.png",
+      "pngSha256": "08bbc5f2677bef9f73a92a270283d047045749639f6ea44f6ee8a5c70fa80b8b",
+      "xml": "driver-04-settings-bottom.xml",
+      "xmlSha256": "8d9736a6710d9788b49c9526541170acedd6ecd38b028748be8c120a6d0f1049",
+      "visuallyInspected": true
+    },
+    {
+      "png": "driver-05-connection-dialog.png",
+      "pngSha256": "c4609fff4ae7cbc9db8947a74efdb76c674700d4bce881f89cba97e631d09305",
+      "xml": "driver-05-connection-dialog.xml",
+      "xmlSha256": "67d80a073ca122cd6738ff81611eaff9cab1ef51c97788f8c056837d6dcd4020",
+      "visuallyInspected": true
+    },
+    {
+      "png": "driver-06-login-not-agreed.png",
+      "pngSha256": "6ab4e675fb536af69fd49067f781141d52d702d7442481d4a72d2b392e7afa82",
+      "xml": "driver-06-login-not-agreed.xml",
+      "xmlSha256": "561f2a898f301af9761df5486827beb7be5712a34732703077b710ad74a82548",
+      "visuallyInspected": true
+    },
+    {
+      "png": "driver-07-account-menu.png",
+      "pngSha256": "23bd2fe0b5fe6067b26aa226c48bf3911cb84c631100abb3a7c98a4b4d36b80a",
+      "xml": "driver-07-account-menu.xml",
+      "xmlSha256": "0cc04c8cd4a2d9f9351b3294fcdf3a4b5ff1f6974251b64d007f1d722be3e49b",
+      "visuallyInspected": true
+    },
+    {
+      "png": "driver-09-offline-login-failed.png",
+      "pngSha256": "0ce752500ba60523b41555792f388eb9973daae79eb2bbf4b41cd610497a29c3",
+      "xml": "driver-09-offline-login-failed.xml",
+      "xmlSha256": "3dcb9bd40cdce0dcd34f7f2fa7980a1eab1c1ed1d6189fd8a61a9d76403cc72b",
+      "visuallyInspected": true
+    },
+    {
+      "png": "driver-10-online-login-home.png",
+      "pngSha256": "eab5b8d2d30e407cb9abce1ed0863638fab89f4f324ba8296989c2494cf56a9e",
+      "xml": "driver-10-online-login-home.xml",
+      "xmlSha256": "fb0aca29f9c2c7a42e699f2123b09c9d9fd8cf4d5ea31240ac65277f53412745",
+      "visuallyInspected": true
+    },
+    {
+      "png": "driver-11-online-login-profile.png",
+      "pngSha256": "35bd8fe21c84fd612e150fa09316638db1dcbff5957b7518cd3deb9673d010e5",
+      "xml": "driver-11-online-login-profile.xml",
+      "xmlSha256": "97054c2b615ceaaf18c69f34bea70e267246e5388904f8361b8353c8c2cdbd12",
+      "visuallyInspected": true
+    },
+    {
+      "png": "driver-12-relaunch-session.png",
+      "pngSha256": "6ec486a95e46d9a5e5ca30b5999286632c48b37d9c91f1405dc5a4de197da6b0",
+      "xml": "driver-12-relaunch-session.xml",
+      "xmlSha256": "fb0aca29f9c2c7a42e699f2123b09c9d9fd8cf4d5ea31240ac65277f53412745",
+      "visuallyInspected": true
+    },
+    {
+      "png": "passenger-01-upgrade-session.png",
+      "pngSha256": "0813d326db3c11f65f9b7ba896ba0e721a6d9de340b9d848b6913ca3b5f72ec5",
+      "xml": "passenger-01-upgrade-session.xml",
+      "xmlSha256": "26255208ca91b9813f105f16a150ee04d9830b7353ac6b412e7464bf5421ee3a",
+      "visuallyInspected": true
+    },
+    {
+      "png": "passenger-02-upgrade-profile.png",
+      "pngSha256": "aba8d40f93a959876f72cb2ed4342353a9ac3d3f20112181d45a88b1c3ea007b",
+      "xml": "passenger-02-upgrade-profile.xml",
+      "xmlSha256": "8ce9848cc5b0c44c88c031a4d455e4a7e5881222a9d619e79f43e0d9c7daf6de",
+      "visuallyInspected": true
+    },
+    {
+      "png": "passenger-03-profile-bottom.png",
+      "pngSha256": "82ddad6e8a91d3aa11d6f8b8857c9baa7842779284bffbae0b5be55c7a60d11b",
+      "xml": "passenger-03-profile-bottom.xml",
+      "xmlSha256": "70adcba35b0087eb1af881f70d2225364374430d2b71e7ae8cdd2d1150a659bd",
+      "visuallyInspected": true
+    },
+    {
+      "png": "passenger-04-logout-confirm.png",
+      "pngSha256": "ccc7f145313e1002a6efa7e61a6ea21af14803f6b76d6876027e424bed076b5d",
+      "xml": "passenger-04-logout-confirm.xml",
+      "xmlSha256": "1dbf9ddaf8de39f2662ef67d340b86a5c94db8ed215ffb443126037add14acda",
+      "visuallyInspected": true
+    },
+    {
+      "png": "passenger-06-login-not-agreed.png",
+      "pngSha256": "67c00bb062c1cfdb1e38fa9f4f62eb87282549229a5686d8bad9cb43df0b2cec",
+      "xml": "passenger-06-login-not-agreed.xml",
+      "xmlSha256": "30d369e3569fa20590aebba2c0fa4c381cd6f936eeee7543576005f2d9347f4b",
+      "visuallyInspected": true
+    },
+    {
+      "png": "passenger-07-account-menu.png",
+      "pngSha256": "d4e928d6a2445f2d8cc65fd7778810cd08a7b82b3732c7c4e792662109f3918c",
+      "xml": "passenger-07-account-menu.xml",
+      "xmlSha256": "7ece1008bea0ef2f52b4b55f2e5b3389a342c73da7b1a3ac32e28e0bb4ef26db",
+      "visuallyInspected": true
+    },
+    {
+      "png": "passenger-08-connection-dialog.png",
+      "pngSha256": "0f092656a569fe1950c5f8a02fae62ec332d6babf08ec025d04180b0212194f8",
+      "xml": "passenger-08-connection-dialog.xml",
+      "xmlSha256": "f803be277ccbdd063008ee473ea60dfe9c51e94d1ec2cf91a0688908aaa6dfbb",
+      "visuallyInspected": true
+    },
+    {
+      "png": "passenger-09-offline-login-failed.png",
+      "pngSha256": "b7b97f2eeef2919bfd5042a81fd6a91bd79b3f4a8c4306664035cc30e884ea94",
+      "xml": "passenger-09-offline-login-failed.xml",
+      "xmlSha256": "06dfe32ba48f6efe467a2b78ddbbc0486bce260c319628799dcec329008398a6",
+      "visuallyInspected": true
+    },
+    {
+      "png": "passenger-10-online-login-home.png",
+      "pngSha256": "5f3dd4979a62b57638cad0a2c3e372c8fcb0da5e243682196d2d8f8dd23af78f",
+      "xml": "passenger-10-online-login-home.xml",
+      "xmlSha256": "26255208ca91b9813f105f16a150ee04d9830b7353ac6b412e7464bf5421ee3a",
+      "visuallyInspected": true
+    },
+    {
+      "png": "passenger-11-online-login-profile.png",
+      "pngSha256": "b5e441f15d7bc2e995b524d69298f18ae8d5352b9b18e0796632c284bcaf5209",
+      "xml": "passenger-11-online-login-profile.xml",
+      "xmlSha256": "8ce9848cc5b0c44c88c031a4d455e4a7e5881222a9d619e79f43e0d9c7daf6de",
+      "visuallyInspected": true
+    },
+    {
+      "png": "passenger-12-relaunch-session.png",
+      "pngSha256": "30a5f52bd0cda3c3168ee5ca0e8216d3b74991798b457cde4aab3181d9642655",
+      "xml": "passenger-12-relaunch-session.xml",
+      "xmlSha256": "26255208ca91b9813f105f16a150ee04d9830b7353ac6b412e7464bf5421ee3a",
+      "visuallyInspected": true
+    }
+  ],
+  "evidence": [
+    {
+      "path": "driver-installed.json",
+      "sha256": "af09a0c3ea4bbf0046c55257d3b49855b1c5bca101cd606547fdaa11ff076c6f"
+    },
+    {
+      "path": "driver-login-checks.json",
+      "sha256": "f2ddb6511d037f632bd6ff36ec0d769757347e449c17a84de6c5f00cad154dfd"
+    },
+    {
+      "path": "driver-restoration.json",
+      "sha256": "398b2179e3e79f8a3a8a61f6fe320d201c7ee7aa9072a486f143649a91fabc45"
+    },
+    {
+      "path": "passenger-installed.json",
+      "sha256": "c1c6f59dd0df30287838c4e9d915f2cf2bdabdaeb9f5bb8ec3c2ad784fe2f002"
+    },
+    {
+      "path": "passenger-login-checks.json",
+      "sha256": "46cd7372828afa24fadff73dbee4f535e11d244ed61d3cfb7364ad37e75668bc"
+    },
+    {
+      "path": "passenger-restoration.json",
+      "sha256": "1aca26ae8774789bc8aedd733f6988c2a4f095e1c2102e4ba1aa68b6d0d8578a"
+    }
+  ],
+  "nextAction": "Coordinator resolves ACCESS-PAX-P2-01, binds final source/APK/independent delta evidence, merges and publishes once gates pass. Frontend is idle and device ownership returned; no unrequested new tests or deployments."
+}

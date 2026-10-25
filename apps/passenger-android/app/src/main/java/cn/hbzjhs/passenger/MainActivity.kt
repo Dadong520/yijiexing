@@ -1,5 +1,8 @@
 package cn.hbzjhs.passenger
 
+import androidx.compose.material3.RadioButtonDefaults
+import androidx.compose.material3.RadioButton
+import androidx.compose.foundation.selection.selectable
 import androidx.compose.ui.draw.clip
 import androidx.compose.material.icons.filled.*
 import androidx.compose.ui.res.painterResource
@@ -460,44 +463,26 @@ fun KV(label: String, value: String) {
 
 @Composable
 fun SettingsDialog(store: PassengerStore, configured: Boolean, close: () -> Unit) {
-  var access by remember { mutableStateOf("") }
   val settingsError by store.error.collectAsState()
+  val logged by store.loggedIn.collectAsState()
   AlertDialog(
     onDismissRequest = close,
-    title = { Text("独立云端连接") },
+    title = { Text("连接状态") },
     text = {
       Column(
         Modifier.verticalScroll(rememberScrollState()),
         verticalArrangement = Arrangement.spacedBy(12.dp),
       ) {
-        Note("仅连接以下独立 Google Cloud 体验环境；不连接原测试环境。")
-        Text(BuildConfig.CLOUD_API_ORIGIN, fontSize = 11.sp)
-        OutlinedTextField(
-          access,
-          { access = it },
-          label = { Text(if (configured) "替换访问码" else "输入体验访问码") },
-          visualTransformation = PasswordVisualTransformation(),
-          singleLine = true,
-        )
-        settingsError?.let { Text(it, color = MaterialTheme.colorScheme.error, fontSize = 12.sp) }
-        Note("访问码和登录会话经 Android 密钥库加密保存在本机；安装包不包含访问凭证。暂停云服务后需恢复服务，再手动刷新。")
-        if (configured)
-          TextButton(
-            onClick = {
-              store.clearAccess()
-              close()
-            }
-          ) {
-            Text("清除访问码并退出登录")
-          }
+        Note("请选择体验账号进入；遇到连接异常时可以重试。")
+        settingsError?.let { Text(it, color = MaterialTheme.colorScheme.error, fontSize = 14.sp) }
+        Note("已有登录状态时可重试连接；尚未登录时请返回并进入体验。")
       }
     },
     confirmButton = {
       TextButton(
-        onClick = { if (store.saveAccess(access)) close() },
-        enabled = access.isNotBlank(),
+        onClick = { if (logged) store.refresh() else close() },
       ) {
-        Text("保存访问码")
+        Text(if (logged) "重试连接" else "返回体验", color = Teal)
       }
     },
     dismissButton = { TextButton(onClick = close) { Text("关闭") } },
@@ -507,9 +492,16 @@ fun SettingsDialog(store: PassengerStore, configured: Boolean, close: () -> Unit
 @Composable
 fun LoginScreen(store: PassengerStore, configured: Boolean, settings: () -> Unit) {
   var mobile by rememberSaveable { mutableStateOf("13800000102") }
-  var code by rememberSaveable { mutableStateOf("") }
   var agreed by rememberSaveable { mutableStateOf(false) }
+  var accountMenu by remember { mutableStateOf(false) }
   val busy by store.busy.collectAsState()
+  val error by store.error.collectAsState()
+  val passengerAccounts = listOf(
+    "13800000101" to "体验乘客01 (13800000101)",
+    "13800000102" to "体验乘客02 (13800000102)",
+    "13800000103" to "体验乘客03 (13800000103)",
+  )
+
   Column(
     Modifier
       .fillMaxSize()
@@ -532,50 +524,43 @@ fun LoginScreen(store: PassengerStore, configured: Boolean, settings: () -> Unit
         .padding(horizontal = 16.dp, vertical = 12.dp),
       verticalArrangement = Arrangement.spacedBy(14.dp),
     ) {
-      Column(
+      Row(
         Modifier.fillMaxWidth().padding(vertical = 4.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(4.dp),
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically,
       ) {
-        Text(
-          "宜捷出行，欢迎您！",
-          fontSize = 22.sp,
-          fontWeight = FontWeight.Bold,
-          color = Ink,
-        )
-        Note("选择目的地，查看司机报价，与司机端共享同一订单")
-      }
-      Panel("登录乘客体验账号") {
-        Field(mobile, { mobile = it.take(11) }, "手机号", KeyboardType.Phone)
-        Row(
-          horizontalArrangement = Arrangement.spacedBy(8.dp),
-          verticalAlignment = Alignment.CenterVertically,
+        Column(
+          modifier = Modifier.weight(1f),
+          verticalArrangement = Arrangement.spacedBy(4.dp),
         ) {
-          OutlinedTextField(
-            value = code,
-            onValueChange = { code = it.take(8) },
-            label = { Text("体验验证码", fontSize = 14.sp) },
-            singleLine = true,
-            modifier = Modifier.weight(1f),
-            shape = RoundedCornerShape(12.dp),
-            colors = OutlinedTextFieldDefaults.colors(
-              focusedBorderColor = Teal,
-              unfocusedBorderColor = Color(0xFFE2E4E9),
-              focusedLabelColor = Teal,
-              unfocusedLabelColor = Muted,
-            ),
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+          Text(
+            "宜捷出行，欢迎您！",
+            fontSize = 22.sp,
+            fontWeight = FontWeight.Bold,
+            color = Ink,
           )
-          OutlinedButton(
-            onClick = { store.requestCode(mobile) { code = it } },
-            enabled = configured && !busy,
-            shape = RoundedCornerShape(12.dp),
-            modifier = Modifier.heightIn(min = 52.dp),
-          ) {
-            Text("获取验证码", color = if (configured && !busy) Teal else Muted)
+          Note("选择目的地，查看司机报价，与司机端共享同一订单")
+        }
+        TextButton(
+          onClick = settings,
+          modifier = Modifier.heightIn(min = 48.dp),
+        ) {
+          Text("连接状态", color = Teal, fontSize = 14.sp)
+        }
+      }
+      Panel("选择体验乘客账号") {
+        Box(Modifier.fillMaxWidth()) {
+          OutlinedButton(onClick = { accountMenu = true }, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) {
+            Text("体验乘客${mobile.takeLast(2)}", fontSize = 16.sp)
+            Spacer(Modifier.weight(1f))
+            Text("切换账号", fontSize = 14.sp)
+          }
+          DropdownMenu(expanded = accountMenu, onDismissRequest = { accountMenu = false }) {
+            passengerAccounts.forEach { (phone, label) ->
+              DropdownMenuItem(text = { Text(label) }, onClick = { mobile = phone; accountMenu = false }, modifier = Modifier.heightIn(min = 48.dp))
+            }
           }
         }
-        Note("推荐体验账号：13800000102。也可输入 13800000101 / 13800000103。验证码直接回显，未对接真实短信。")
         Row(
           verticalAlignment = Alignment.CenterVertically,
           modifier = Modifier
@@ -589,24 +574,22 @@ fun LoginScreen(store: PassengerStore, configured: Boolean, settings: () -> Unit
             colors = CheckboxDefaults.colors(checkedColor = Teal),
           )
           Spacer(Modifier.width(8.dp))
-          Text("我已阅读并同意下方体验说明", fontSize = 13.sp, color = Ink)
+          Text("我已阅读并同意下方体验说明", fontSize = 14.sp, color = Ink)
         }
-        ActionButton("登录并开始出行", configured && agreed && code.isNotBlank() && !busy) {
-          store.login(mobile, code)
+        error?.let {
+          Text(it, color = MaterialTheme.colorScheme.error, fontSize = 14.sp)
         }
-        if (!configured) {
-          OutlinedButton(
-            onClick = settings,
-            modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp),
-            shape = RoundedCornerShape(12.dp),
-          ) {
-            Text("先设置体验访问码", color = Teal)
-          }
+        ActionButton(if (busy) "正在进入…" else "进入体验", agreed && !busy) {
+          store.loginExperience(mobile)
         }
       }
       Panel("体验说明与数据范围") {
         Note(
-          "本应用用于独立云环境验证。订单真实保存并同步到司机端；付款、退款和发票均为模拟，不发生真实扣款。请使用合成资料，不填写真实身份信息。地图展示已选起终点，非实时定位；地址可使用设备系统Geocoder搜索（可用性依赖设备），未接道路导航、自动定位、短信、电话中继、推送或实时人工客服；投诉支持后台查看和回复。退出登录会移除本机登录凭证，云端订单记录保留。"
+          "体验账号共用演示数据；支付、退款为模拟，不会真实扣款。请使用演示资料。"
+        )
+        Spacer(Modifier.height(6.dp))
+        Note(
+          "本应用用于独立演示环境验证。订单真实保存并同步到司机端；付款、退款和发票均为模拟，不发生真实扣款。请使用合成资料，不填写真实身份信息。未接道路导航、自动定位、短信、电话中继、推送或实时人工客服；退出登录会移除本机体验状态，云端订单记录保留。"
         )
       }
       Spacer(Modifier.height(16.dp))
