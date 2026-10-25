@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "id": "ACCESS-20261025-01",
+  "owner": "backend",
+  "goal": "按用户最新要求移除司机和乘客体验访问码；新安装包选择体验账号并同意体验说明后一键进入，真实持久化身份/订单不变，后台IAM/IAP与管理API保护保留，兼容旧App后统一发布。",
+  "baseSha": "b9bd90a58f01a4e6f09e37366ed8f8b3feaaa51b",
+  "allow_paths": [
+    "apps/cloud-service/",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/ConnectedStore.kt",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/CoreScreens.kt",
+    "candidates/driver-0.3.6-r2/android/app/build.gradle.kts",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/PassengerStore.kt",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/MainActivity.kt",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/ProfileScreens.kt",
+    "apps/passenger-android/app/build.gradle.kts",
+    "coordination/evidence/ACCESS-20261025-01/"
+  ],
+  "fileOwnership": {
+    "backend": "apps/cloud-service copied from frozen v8 and both ConnectedStore/PassengerStore; auth API contract and automation tests; no deployment",
+    "Gemini via coordinator": "LocalLogin/CloudConnectionDialog + passenger LoginScreen/ConnectionDialog presentation; preserve other functions",
+    "coordinator": "integration/version/build/state/independent server guard review/only deploy",
+    "frontend": "independent device/UI/auth usability and no-code live role tests, no source edits"
+  },
+  "checks": [
+    "无需X-Demo-Access即可体验auth.code/auth.login及持有正确role token的客户端业务API；旧App有码/错误旧码公共业务继续兼容",
+    "未登录state/action仍拒绝、错误角色token拒绝、非允许体验手机号拒绝，管理API仍受管理员权限和内部保护；不能全局删安全校验",
+    "新Android无访问码字段、无隐藏内置通行码；一键体验仍绑定确定角色/体验账号，保留必要体验说明同意",
+    "原始账号/历史订单/状态/金额/账本/审计不迁移不清理，原v8冻结目录不写，唯一新后端apps/cloud-service",
+    "后端相关自动化/新增正负边界、两App构建测试、非作者实际无访问码登录与共享数据读取通过，后台IAP302/管理边界实测后发布回读",
+    "CloudRun独立项目/min0/max1/请求计费/IAM/IAP保留，不增常驻服务；大包直连优先，secret不进APK/Git/消息"
+  ],
+  "status": "IN_PROGRESS",
+  "acceptance": "NOT_RUN",
+  "tests": [],
+  "evidence": [],
+  "nextAction": "backend inspect guard and publish short contract, implement server+both auth stores; coordinator Gemini UI update; frontend finish UI03 then new access task",
+  "deploy_owner": "coordinator",
+  "releaseReady": false,
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-access-20261025"
+}

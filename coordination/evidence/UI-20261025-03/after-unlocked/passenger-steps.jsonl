@@ -1,0 +1,26 @@
+{"at": "2026-10-25T18:44:14.231589+08:00", "kind": "capture", "value": "passenger-01-home-font10"}
+{"at": "2026-10-25T18:45:26.807542+08:00", "kind": "capture", "value": "passenger-02-home-stable-font10"}
+{"at": "2026-10-25T18:47:26.195871+08:00", "kind": "pan", "value": "actual map middle; no address edits"}
+{"at": "2026-10-25T18:47:29.131014+08:00", "kind": "capture", "value": "passenger-03-map-panned-font10"}
+{"at": "2026-10-25T18:47:31.320932+08:00", "kind": "tap", "value": "回到起终点"}
+{"at": "2026-10-25T18:47:34.322538+08:00", "kind": "capture", "value": "passenger-04-map-recentered-font10"}
+{"at": "2026-10-25T18:47:36.475152+08:00", "kind": "tap", "value": "Attribution icon. Activate to show attribution dialog."}
+{"at": "2026-10-25T18:47:39.068755+08:00", "kind": "capture", "value": "passenger-05-map-attribution-font10"}
+{"at": "2026-10-25T18:47:43.559729+08:00", "kind": "tap", "value": "订单"}
+{"at": "2026-10-25T18:47:46.010220+08:00", "kind": "capture", "value": "passenger-06-orders-font10"}
+{"at": "2026-10-25T18:47:48.185826+08:00", "kind": "tap", "value": "我的"}
+{"at": "2026-10-25T18:47:50.608879+08:00", "kind": "capture", "value": "passenger-07-profile-font10"}
+{"at": "2026-10-25T18:49:32.821347+08:00", "kind": "tap", "value": "出行"}
+{"at": "2026-10-25T18:49:35.269567+08:00", "kind": "tap", "value": "目的地"}
+{"at": "2026-10-25T18:49:37.745624+08:00", "kind": "capture", "value": "passenger-08-address-dialog-font10"}
+{"at": "2026-10-25T18:49:39.874640+08:00", "kind": "focus", "value": "existing address only, no typing"}
+{"at": "2026-10-25T18:49:42.520541+08:00", "kind": "capture", "value": "passenger-09-address-keyboard-font10"}
+{"at": "2026-10-25T18:49:44.631211+08:00", "kind": "tap", "value": "取消"}
+{"at": "2026-10-25T18:50:52.121688+08:00", "kind": "network", "value": "wifi/data disabled only passenger AVD for offline map check"}
+{"at": "2026-10-25T18:51:17.871178+08:00", "kind": "capture", "value": "passenger-10-map-offline-font10"}
+{"at": "2026-10-25T18:51:20.095100+08:00", "kind": "network", "value": "restored original wifi/data{'wifi_on': '1', 'mobile_data': '1'}"}
+{"at": "2026-10-25T18:51:33.569754+08:00", "kind": "capture", "value": "passenger-11-map-network-restored-font10"}
+{"at": "2026-10-25T18:53:51.879956+08:00", "kind": "tap", "value": "重试"}
+{"at": "2026-10-25T18:53:59.373635+08:00", "kind": "capture", "value": "passenger-12-home-cloud-restored-font10"}
+{"at": "2026-10-25T18:54:01.662664+08:00", "kind": "teardown", "value": "stopped/home; original wifi1/data1 restored; font1.0 unchanged"}
+{"at": "2026-10-25T18:56:52.331822+08:00", "kind": "capture", "value": "passenger-13-map-isolated-offline-font10"}

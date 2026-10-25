@@ -1,5 +1,5 @@
 {
-  "sourceSha": "8499d6e5b6a19fc64c4375c6d70cd6edfccfa80f",
+  "sourceSha": "b9bd90a58f01a4e6f09e37366ed8f8b3feaaa51b",
   "baseSha": "ff9f5a787fede48bb2ac1035c38d45ff543323b2",
   "files": {
     "apps/passenger-android/app/build.gradle.kts": "ccb14c4ca80f98e72d791c5843ea1683bc76812910833d90ace7b08db8cba954",
@@ -7,12 +7,12 @@
     "apps/passenger-android/app/src/main/assets/third-party/MapLibre-Native-LICENSE.txt": "554cff8b6f6d2e77629e8c6eab769844ab86adc610ca2d60401ba2e0dce3c229",
     "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/BookingScreens.kt": "125b0f277905b2620387e08b8efb051b23720e97430d7f050f429af301af341d",
     "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/MainActivity.kt": "51fbffa46628a2b90982035a0dd5adaf0960cd2bc179c2607d4f2d9334f4e6cb",
-    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/PassengerMap.kt": "22c8a358862fa967e89b25427298e65ed2a0361dbb014c04a567757134f99e92",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/PassengerMap.kt": "9cb9a507608d689ccbc72b68b93090e8de043ea097a16069d2fde630a2c01938",
     "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/ProfileScreens.kt": "731757797398bfb4611ae20d2ec53c6b98126e1ea4b558f9a562a12f2331e258",
     "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/UiComponents.kt": "aa43882ae16df3af4ecdde7a0d9198090dd15b6f8777b7865ee9a1530e1941e4",
     "apps/passenger-android/app/src/main/res/drawable-nodpi/yijiexing_welcome_hero.png": "7571d9e447125b3a52362ed1bd684e7ac2a90236a0ded20558c3de1820ddfa01",
     "candidates/driver-0.3.6-r2/android/app/build.gradle.kts": "add05feadf44c1039f7cd2eec4ae1c53188ede01bf9eab7a2d6d13faf07a24cb",
-    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/CoreScreens.kt": "d205093b7cac3fbb674046d715893eeea64962062b629e3e149d656b05263c63",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/CoreScreens.kt": "86df88c40c1e3405b7258c32dbcc080bc7713b87a14f8fbb8150f0890126626b",
     "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/MainActivity.kt": "7309d701c9eb0a69ec8e36a941854f36b224e80795feb53b9f22b94384cbb651",
     "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/UiKit.kt": "839ca2ef3ba49f834eac6a6f79615e1515668525a8d962fe7a9939a67a70ed9f",
     "candidates/driver-0.3.6-r2/android/app/src/main/res/drawable-nodpi/yijiexing_welcome_hero.png": "7571d9e447125b3a52362ed1bd684e7ac2a90236a0ded20558c3de1820ddfa01"

@@ -1,0 +1,8 @@
+{
+  "at": "2026-10-25T18:47:59.788853+08:00",
+  "direct": true,
+  "url": "https://driver-demo-491829048305.us-west1.run.app/health",
+  "exitCode": 0,
+  "output": "{\"code\":0,\"data\":{\"status\":\"ok\",\"environment\":\"CLOUD_ISOLATED_SANDBOX\",\"role\":\"driver\",\"originalSpringBackend\":false}}\n200 0.703266",
+  "readOnly": true
+}

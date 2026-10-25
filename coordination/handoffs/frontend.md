@@ -1,12 +1,17 @@
-# frontend交接卡
+# frontend短交接
 
-ACK规则2026-10-25-v2。UI-20261025-03 独立新包验收环境阻塞，产品验收NOT_RUN，不能发布放行。本人只read-only设备/报告；没有改源码/构建/部署/唤醒代理。
-新稳定clone /Users/dongge/.codex/tmp/yijiexing-ui03-integration；根明确所有后续写coordination/evidence/UI-20261025-03/after，不再UI03缩写（已移入）。产品8499d6e5b6a19fc64c4375c6d70cd6edfccfa80f；root55/20测试PASS只是构建证据。driver039/code12 SHA63764e489cb121a4627d8940f5ba18295747d98ce7f5fa4e7085106efe75dc1f；passenger119/code11 SHA4a99709011fd1be8be421801dd80f52357a67e153a9616787952cd3afa61bc2c，路径看同目录上级build-result.json。
+ACK v2。UI-20261025-03 最终Android UI delta独立验收 **PASS_SCOPE / IDLE / READY_FOR_COORDINATOR**。只改证据/handoff；没有改产品源码、构建、部署或唤醒额外角色。唯一设备操作权已交还coordinator，不再自行ADB/窗口操作。
 
-18:04:48开始，限12min至18:16:48。两原AVD在adb列device但shell getprop超8s；adb emu kill+TERM最终退出后18:07:37以no-snapshot-load/save冷启原userdata，没wipe/删快照。当前AVD进程driver3430/passenger3431，端口5586/5584，日志分别20s/19s完成boot。新boot仍shell超时。重启默认adb server5037 failed ACK，日志Address already in use但lsof无监听；独立5038服务可启动并connect127.0.0.1:5587/5585，但两个shell仍超6s。未走到包读取/安装任何一步。Computer Use native inventory明确Mac锁定自动解锁失败；不能用该兜底，不绕过锁屏。已短报root，原12min不延长。
-证据after/design-qa.json完整列NOT_RUN和环境阻塞（P1_ENV_ONLY非产品UI缺陷）、device-recovery.json、adb-recovery.json、adb-alternate-transport.json和两restart.log。参考3图已限时复制到after/reference并实际读取；对比要点已记，不能假称实际新包同屏比较完成。
+工作根 `/Users/dongge/.codex/tmp/yijiexing-ui03-integration`；源 **b9bd90a58f01a4e6f09e37366ed8f8b3feaaa51b**。最终报告 `coordination/evidence/UI-20261025-03/after-final/design-qa.json`；截图PNG/XML、source-delta、installed hash、恢复记录在同目录。19:05:21开始，全部设备操作19:10:49完成，未超过19:13:21的8min上限。最后07/08也已逐图确认真实道路、两标记和来源弹窗。
 
-本轮未改网络（离线/失败/重试均NOT_RUN）、未改font、未清数据/退出/切在线/接单/下单/取消/支付/投诉。无当前新包截图、无安装hash独立回读、无登录/弹窗通过。旧before七图在原DocumentsUI03证据，仅旧038/118，不冒充039/119。
-下一步人类手动解锁Mac后，coordinator先恢复ADB稳定响应，明确重新派有限设备验收；本人不延时轮询或自行扩大工作。结束前如清理本机临时5038服务/恢复默认5037有结果将附本卡，不改云/Google配置。
+独立install-r和base.apk回读匹配：driver **0.3.9-cloud/code12** SHA256 `52dae8eebe44851be37de1a55df096cbbe07286f5c88b7a3d3a3bf22338bf13f`；passenger **1.1.9-experience/code11** SHA256 `1f86150d465997dcf72052a278c44ffff3601cec4525beecdd985a819f23d7e5`。同签名升级保留原003/0102会话；root55/20测试构建证据继承，本人未重复运行。
 
-收尾：root已向人类发解锁请求，未回复；root只读验证5038 PID10634正在LISTEN且有连接，要求不再攻5037。本人遵从保留5038服务与两已启动AVD供解锁后恢复，不再调用ADB或窗口；没有本轮网络/font/安装/订单改动。App stop/HOME因guest不可响应无法验证，明确NOT_VERIFIED。design-qa.json已补endedAt/teardown，IDLE等人类解锁及root新派单；不继续轮询，不发重复解锁问题。
+两P2已关闭：driver正常1080x2400和临时1024x2216/420dpi首抢单CTA完整可见、不用滚动（02/03）；passenger初始fit与实际平移回位两点避开badge/recenter（02/03/04）。两01有系统heads-up横幅，已剔除完整页面验收依据。实际参考对比继承原8499全轮，地图+底部面板层级保持；profile分组行与参考图标网格差异为既有非阻塞设计差异。
+
+关键精确retry已补齐PASS：唯一可逆SDK cache备份 `files/.ui03-map-cache-final-b9-20261025-1909`，原files/mbgl-offline.db 765952B，其他账户文件不读。offline wifi/data0/0显示地图暂未加载和真实重试按钮（05）；**19:10:11实际在离线点击重新加载地图，06进入地图加载中**；随后恢复网络，07真实道路瓦片/两点恢复、08来源为MapLibre/OpenFreeMap/OpenMapTiles/OpenStreetMap。没有第二次在线地图重试tap；云连接重试单独记录，无呼叫提交。`map-retry-final.json`证明originalSdkCacheRestored=true、networkRestored1/1、font1.0。
+
+恢复完成：driver临时wm已reset回physical1080x2400；两端font1.0不变；driver网络未改；passenger wifi/data1/1恢复；原SDK DB已rename回原路径。本轮生成DB保留在上述唯一backup/generated/files/mbgl-offline.db，不删除。旧1855备份仍保留，不再动。两App均force-stop/HOME；原两AVD留给root，默认ADB5037正常。无prefs/token读取、pm clear、清数据、切在线、接单/下单/取消/支付/投诉业务写入。
+
+范围边界：精确diff8499→b9仅CoreScreens.kt mapheight和PassengerMap.kt密度/相机padding；原after-unlocked全UI证据可限定继承（订单/个人、确认Return、地址键盘Cancel、48dp抽样、缓存离线、司机地图平移/回位/署名），不假称最终包全套重跑。旧两个P2与retry NOT_RUN被本轮明确证据关闭。**NOT_RUN**：新登录/OTP、真机/横屏/TalkBack/专门大字、外部高德终点、投诉、新真实交易/三端全生命周期、任意超长文本。不是整个业务发布验收。
+
+下一步coordinator读取本报告/PNG，维护task最终acceptedSha和gate并合并UI03源码；按最新派单039/119不单独发布，后续含UI的ACCESS无码版本独立验收后统一发布回读；本人未commit或发布，不进行无变化轮询/自动回信。待合并产品SHA为b9；报告/handoff由root统一收尾提交。

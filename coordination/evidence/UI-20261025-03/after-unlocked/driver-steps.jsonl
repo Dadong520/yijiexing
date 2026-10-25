@@ -1,0 +1,18 @@
+{"at": "2026-10-25T18:44:13.561590+08:00", "kind": "capture", "value": "driver-01-home-font10"}
+{"at": "2026-10-25T18:45:24.554947+08:00", "kind": "capture", "value": "driver-02-home-stable-font10"}
+{"at": "2026-10-25T18:47:28.783373+08:00", "kind": "capture", "value": "driver-03-order-cta-scroll-font10"}
+{"at": "2026-10-25T18:47:31.015281+08:00", "kind": "tap", "value": "立即抢单"}
+{"at": "2026-10-25T18:47:33.722319+08:00", "kind": "capture", "value": "driver-04-accept-dialog-font10"}
+{"at": "2026-10-25T18:47:38.275269+08:00", "kind": "tap", "value": "返回"}
+{"at": "2026-10-25T18:47:40.544817+08:00", "kind": "tap", "value": "订单"}
+{"at": "2026-10-25T18:47:43.150279+08:00", "kind": "capture", "value": "driver-05-orders-font10"}
+{"at": "2026-10-25T18:47:45.322403+08:00", "kind": "tap", "value": "我的"}
+{"at": "2026-10-25T18:47:47.957673+08:00", "kind": "capture", "value": "driver-06-profile-font10"}
+{"at": "2026-10-25T18:49:32.829739+08:00", "kind": "tap", "value": "听单"}
+{"at": "2026-10-25T18:49:34.872967+08:00", "kind": "pan", "value": "driver map middle"}
+{"at": "2026-10-25T18:49:37.402068+08:00", "kind": "capture", "value": "driver-07-map-panned-font10"}
+{"at": "2026-10-25T18:49:39.617842+08:00", "kind": "tap", "value": "recenter button freshly matched XML bounds945,837,1071,963"}
+{"at": "2026-10-25T18:49:42.358832+08:00", "kind": "capture", "value": "driver-08-map-recentered-font10"}
+{"at": "2026-10-25T18:49:44.575629+08:00", "kind": "tap", "value": "Attribution icon. Activate to show attribution dialog."}
+{"at": "2026-10-25T18:49:47.111177+08:00", "kind": "capture", "value": "driver-09-map-attribution-font10"}
+{"at": "2026-10-25T18:53:47.454602+08:00", "kind": "teardown", "value": "stopped/home; no online/offline command; font1.0 unchanged"}

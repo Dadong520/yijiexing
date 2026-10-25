@@ -1,0 +1,13 @@
+{"at": "2026-10-25T19:06:19.169507+08:00", "kind": "capture", "value": "passenger-01-home-final-font10"}
+{"at": "2026-10-25T19:08:03.024382+08:00", "kind": "dismiss", "value": "observed system heads-up banner, upward gesture only"}
+{"at": "2026-10-25T19:08:05.765104+08:00", "kind": "capture", "value": "passenger-02-home-clean-font10"}
+{"at": "2026-10-25T19:08:08.898985+08:00", "kind": "capture", "value": "passenger-03-map-panned-font10"}
+{"at": "2026-10-25T19:08:11.069792+08:00", "kind": "tap", "value": "回到起终点"}
+{"at": "2026-10-25T19:08:13.605863+08:00", "kind": "capture", "value": "passenger-04-map-recentered-font10"}
+{"at": "2026-10-25T19:10:07.042470+08:00", "kind": "capture", "value": "passenger-05-map-offline-failed-font10"}
+{"at": "2026-10-25T19:10:11.372707+08:00", "kind": "tap", "value": "重新加载地图"}
+{"at": "2026-10-25T19:10:13.762678+08:00", "kind": "capture", "value": "passenger-06-map-retry-while-offline-font10"}
+{"at": "2026-10-25T19:10:34.433757+08:00", "kind": "tap", "value": "重试"}
+{"at": "2026-10-25T19:10:39.872181+08:00", "kind": "capture", "value": "passenger-07-map-retry-network-restored-font10"}
+{"at": "2026-10-25T19:10:44.152677+08:00", "kind": "tap", "value": "Attribution icon. Activate to show attribution dialog."}
+{"at": "2026-10-25T19:10:46.506267+08:00", "kind": "capture", "value": "passenger-08-map-retry-attribution-font10"}

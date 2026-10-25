@@ -1,10 +1,7 @@
-# coordinator UI03交接 2026-10-25 18:16
-当前等待用户手动解锁Mac，UI03 acceptance BLOCKED/releaseReady false，绝不能发布。PR12草稿，产品8499d6e5b6a19fc64c4375c6d70cd6edfccfa80f，GitHub源已推；当前文档证据收尾另提交。当前root不自动续跑/常驻。
-根活跃clone /Users/dongge/.codex/tmp/yijiexing-ui03-integration，originGitHub，branchcodex/prototype-native-ui-20261025；Documents旧clone因为iCloud dataless读阻塞已保留，任务允许文件逐一cp，15hash一致。根/roles协调文档要同步回项目root，不覆盖他人代码。driver candidates/driver-0.3.6-r2/android、passenger apps/passenger-android。后端不迁移不改。
-Gemini scoped --add-dir实际read_file原图/墨刀SUCCESS，司机14乘客17函数、hero内置imagegen；root加PassengerMap11.8.0真实OpenFreeMap+WGS84选定点/回位/失败提示，非GPS腾讯导航，保留署名/许可证。暂停适老大字但48dp目标，原业务guard/controller/routes/模拟标识保留。
-构建55/20 PASS，同签名；driver039/code12 63764e48…，pass119/code11 4a997090…，绝对路径见build-result。稳定本机重建6/5sec缓存通过；乘客两显示文案准确化后final-build，未单独记录该run启动时戳。别把历史coordinator构建时间当实操时间。backend独立PASS_SCOPE，13核心/Booking前后/route/action/钱/权益确认；指出retry旧视图，root key(mapView)修复仅静态确认，必须runtime恢复测试。
-frontend原AVD冷启不删snapshot/不wipe，5038本地替代连接也guest shell timeout，CUA提示Mac locked不能查看，所有最终UI/升级installedhash/地图署名/失败恢复/键盘确认实操NOT_RUN。报告after/design-qa.json和恢复日志，没伪造P0-P2/最终UI图。根已异步请求用户解锁，未获回答。frontend在18:16:48限时收尾并恢复临时服务。不得继续无变化轮询。
-后续用户解锁→只唤醒frontend，对最终同sha包做实际home/orders/profile/地址dialog与键盘/driver确认返回、地图断网失败恢复重试；若缺陷root/AG修复、复测。不得业务写/清旧单。非作者PASS→taskacceptedSha准确、证据hash+测试sourceSha全匹配→check_coordination --release-task UI-20261025-03 --sha8499…→PRready/CI/merge→根发布GCS两包/公开完整GET/签名版本哈希回读。发布脚本旧.coord/publish-ui-apk.py硬编码UI02，要适配本task+稳定clone；无CloudRun重建必要。两旧包server-side备份UI03/{driver,passenger}-rollback.json含generation预防并发；大传输直连首选，密钥不输出。
-当前公开仍038/118；GCP driver-demo原v8/admin当前UI和IAP、历史账号订单未改。用户要求全部优化/验收后才部署，本次未发布，不称三端新完整流程完成。
-
-18:18 root收尾：frontend已IDLE，根已正常SIGTERM本轮匹配的两个原AVD和临时5038 adb服务，保留userdata/快照，不再空转CPU，CloudRun未暂停；见after/coordinator-resource-teardown.json。等待用户解锁回复再派独立验收。
+# coordinator UI03 19:06交接
+用户已解锁，项目已恢复；当前待最终delta后发布，不可因历史BLOCKED停工，也不可未PASS发布。
+唯一clone /Users/dongge/.codex/tmp/yijiexing-ui03-integration（非iCloud），source b9bd90a58f01a4e6f09e37366ed8f8b3feaaa51b。branchcodex/prototype-native-ui-20261025，PR12草稿。UI source只2文件增12删3改viewport/density；31函数Gemini主写原始设计，root集成。本机source/API/数据规则没有变化。旧Documents clone保留。
+旧8499实测22截图证明主要页/地图/署名/确认返回/键盘取消/保留登录/安装哈希；after-unlocked/design-qa=PARTIAL_PASS_2_P2。根P2修driver mapheight min(.36*max,max-500dp), min200；passenger fit64px→24/72/76/72dp的真实px，density为effect key。backend-review-final.json绑定b9、13核心/Booking/所有守卫PASS_SCOPE。构建55/20最终PASS，新hashdriver52dae8ee…/pass1f86150d…，版本039/119同签名，build-result已更新，旧元数据before-fixes。
+frontend当前唯一设备操作者，after-final限定delta，<=8min任务：安装新hash、两屏P2+可选390x844dp临时wm size恢复、离线点retry再联网验证key新视图/瓦片/署名。旧cache离线PASS；隔离cache失败提示PASS但先联网自动恢复导致按钮没点，不能冒称explicitretry已测。缓存只能同设备rename/restore已知files/mbgl-offline.db及sidecar，绝不pm clear/读prefs/token/清订单；网络/size必须finally恢复。root无ADB并发。
+接下来收到最终报告→实际打开最终截图与参考同屏看，并补design-qa.md关闭P0–P2；检查sourceSha/hash与b9新包一致。task acceptedSha b9/releaseReady PASS+新unit/testreview/证据hash，限8KB；75测试已过不再重复。先rootcheck_coordination再commit文档，push直连（每命令-c http.proxy=避免全局git代理），PR12ready/CI后merge --merge --match-head-commit。实际上传脚本 /Users/dongge/.codex/tmp/ui03-publish.py 已适配稳定clone/UI03，要求PR已merge及exact gate/manifest/APK/旧GCSgeneration，直连GCS和完整GET验hash/signature/version；按driver/passenger依次调用。旧包server-side备份两个rollback.json，无CloudRun新镜像或IAM变更。上传后收据另commit/PR，源码原PR始终attach已完成。最终源码/报告/两下载地址和版本、截图交付，未新跑三端交易全流程要如实。
+当前旧公开038/118/原v8/adminUI和IAP保留。新候选不会从源仓库传APK，下载回读放/Users/dongge/.codex/artifacts/yijiexing/2026-10-25避免iCloud。scripts都会输出小metadata，不泄访问码。服务按需min0max1不保活不自动暂停。结束不常驻。
