@@ -205,7 +205,8 @@ class NewOrderOverlay(private val appContext: Context) {
     private val windowManager = appContext.getSystemService(Context.WINDOW_SERVICE) as? WindowManager
     private val mainHandler = Handler(Looper.getMainLooper())
     private var currentView: View? = null
-    private val autoHideRunnable = Runnable { hide() }
+    private var currentNoticeId: String? = null
+    private val autoHideRunnable = Runnable { val id=currentNoticeId; hide(); id?.let(NewOrderAlerts::dismiss) }
 
     fun show(notice: OrderNotice) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !Settings.canDrawOverlays(appContext)) {
@@ -331,8 +332,12 @@ class NewOrderOverlay(private val appContext: Context) {
         try {
             wm.addView(rootLayout, params)
             currentView = rootLayout
+            currentNoticeId = notice.id
+            android.util.Log.i("YJXOrderOverlay", "shown:"+notice.id)
             mainHandler.postDelayed(autoHideRunnable, 20000L)
         } catch (e: Exception) {
+            android.util.Log.w("YJXOrderOverlay", "not-shown:"+e.javaClass.simpleName)
+            currentNoticeId = null
             currentView = null
         }
     }
@@ -343,6 +348,7 @@ class NewOrderOverlay(private val appContext: Context) {
             return
         }
         mainHandler.removeCallbacks(autoHideRunnable)
+        currentNoticeId = null
         val view = currentView
         if (view != null) {
             try {
