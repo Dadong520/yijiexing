@@ -1,0 +1,8 @@
+{
+  "object": "gs://yijiexing-demo-state-491829048305/distribution/yijiexing-cloud.apk",
+  "beforeGeneration": "1792931964382081",
+  "backup": "gs://yijiexing-demo-state-491829048305/distribution/backups/NET-20261025-01/driver-1792931964382081.apk",
+  "version": "0.3.10-cloud",
+  "sha256": "95c948f29ba44fdf30904e5e7880ce298d33d67036686be19e0b7da152441042",
+  "serverSideBackup": true
+}

@@ -1,0 +1,75 @@
+{
+  "sourceSha": "7ee63cc33d8f08808d24ee1c27477415933a72ab",
+  "startedAt": "2026-10-25T22:24:54.746817+08:00",
+  "priorBaselineUiautomator": "null root; no driver install previously occurred",
+  "beforeStartW": "Starting: Intent { cmp=cn.hbzjhs.dc.driver.cloud/cn.hbzjhs.driver.preview.MainActivity }\nStatus: ok\nLaunchState: COLD\nActivity: cn.hbzjhs.dc.driver.cloud/cn.hbzjhs.driver.preview.MainActivity\nTotalTime: 4408\nWaitTime: 4469\nComplete\n",
+  "installed": {
+    "sourceSha": "7ee63cc33d8f08808d24ee1c27477415933a72ab",
+    "versionName": "0.3.11-cloud",
+    "versionCode": 14,
+    "apkSha256": "e935ccb92478e2bc8fa1b9e8abcf8430a68c48be36b02d30905e9c0347926bf0",
+    "bytes": 55655843,
+    "cloudOrigin": "https://yijiexing-demo.hbzjhs.xyz",
+    "signerSha256": "9ffec9b342d12909ff288bd73f23ba104893b39120cb24ea83c9734a0d2b758f",
+    "packageId": "cn.hbzjhs.dc.driver.cloud",
+    "installedSha256": "e935ccb92478e2bc8fa1b9e8abcf8430a68c48be36b02d30905e9c0347926bf0",
+    "installedSigner": "Signer #1 certificate SHA-256 digest: 9ffec9b342d12909ff288bd73f23ba104893b39120cb24ea83c9734a0d2b758f",
+    "embeddedOriginDexFiles": [
+      "classes3.dex"
+    ],
+    "installResult": "Performing Streamed Install\nSuccess"
+  },
+  "afterStartW": "Starting: Intent { cmp=cn.hbzjhs.dc.driver.cloud/cn.hbzjhs.driver.preview.MainActivity }\nStatus: ok\nLaunchState: COLD\nActivity: cn.hbzjhs.dc.driver.cloud/cn.hbzjhs.driver.preview.MainActivity\nTotalTime: 5087\nWaitTime: 5148\nComplete\n",
+  "afterHomeTexts": [
+    "Showing a Map created with MapLibre. Scroll by dragging two fingers. Zoom by pinching two fingers.",
+    "Attribution icon. Activate to show attribution dialog.",
+    "宜捷行·司机",
+    "宜昌市",
+    "云端验收司机03",
+    "网络正常",
+    "消息通知",
+    "正在听单中",
+    "保持手机畅通，留心语音播报",
+    "点击下线",
+    "待收款 2 笔 · 不影响继续接单",
+    "含 1 笔演示订单，未关联乘客 App",
+    "查看",
+    "附近订单",
+    "实时路单",
+    "接单设置",
+    "演示订单 · 未关联乘客 App",
+    "预约订单",
+    "距您 2.4 km",
+    "¥76.00",
+    "起",
+    "国贸大厦",
+    "终",
+    "三峡机场",
+    "预估里程 · 约 31 km",
+    "立即抢单",
+    "演示订单 · 未关联乘客 App",
+    "听单",
+    "订单",
+    "钱包",
+    "我的"
+  ],
+  "restoration": {
+    "original": {
+      "size": "Physical size: 1080x2400",
+      "density": "Physical density: 420",
+      "font": "1.0",
+      "wifi": "1",
+      "data": "1"
+    },
+    "final": {
+      "size": "Physical size: 1080x2400",
+      "density": "Physical density: 420",
+      "font": "1.0",
+      "wifi": "1",
+      "data": "1"
+    },
+    "same": true
+  },
+  "appStoppedAndHome": true,
+  "endedAt": "2026-10-25T22:26:17.832589+08:00"
+}

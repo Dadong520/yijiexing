@@ -20,7 +20,7 @@
     "独立浏览器实际UI及接口权限/导出/日期边界/空态失败恢复测试PASS",
     "保留IAM/IAP与账务数据、无真实生产访问，唯一coordinator发布回读"
   ],
-  "status": "ACCEPTED_FOR_DEPLOY",
+  "status": "DEPLOYED",
   "acceptance": "PASS",
   "tests": [
     {
@@ -72,11 +72,13 @@
       "sha256": "49d9c87ce5a6eb9cab84a7aa2117f42839c9f97368d9722de927d1b7995bf6c7"
     }
   ],
-  "nextAction": "Merge exact accepted code/records, deploy only driver-admin image, verify IAP/scaling/real-data browser and preserved orders.",
+  "nextAction": "本轮管理查询/界面已发布并实际网页登录与1条导出PASS，19共享单前后不变；域名后续由NET01单独处理。",
   "deploy_owner": "coordinator",
   "releaseReady": true,
   "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-admin-20261025",
   "productSha": "0d7dfc045a137ee93b354acd669edebf6724af29",
   "acceptedSha": "0d7dfc045a137ee93b354acd669edebf6724af29",
-  "reviewer": "frontend independent non-author"
+  "reviewer": "frontend independent non-author",
+  "mergedSha": "1d099fdf5c6ce3054e89e2b7a073e380ae45ac24",
+  "deployedRevision": "driver-admin-queries-0d7dfc04"
 }

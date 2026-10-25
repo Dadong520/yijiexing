@@ -1,0 +1,411 @@
+{
+  "schemaVersion": 1,
+  "taskId": "NET-20261025-01",
+  "role": "frontend",
+  "reviewerThread": "01a167c8-a5eb-77e3-b77e-214927a029da",
+  "acceptance": "PASS",
+  "verdict": "PASS_SCOPE",
+  "scope": "独立验收两款原生App由既有0310/1110升级至0311/1111的稳定API域名配置、实际安装身份、保留登录与只读页面/地图冷启动。不是NET全任务、后台DNS证书或完整三端业务验收。",
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-domains-20261025",
+  "baselineSha": "1d099fdf5c6ce3054e89e2b7a073e380ae45ac24",
+  "sourceSha": "7ee63cc33d8f08808d24ee1c27477415933a72ab",
+  "mergeSha": null,
+  "mergeOwner": "coordinator",
+  "deployOwner": "coordinator",
+  "createdAt": "2026-10-25T22:32:56.198985+08:00",
+  "lastDeviceActionAt": "2026-10-25T22:28:10.865204+08:00",
+  "deviceDeadline": "2026-10-25T22:29:00+08:00",
+  "productDiff": {
+    "nativeFiles": [
+      "apps/passenger-android/app/build.gradle.kts",
+      "candidates/driver-0.3.6-r2/android/app/build.gradle.kts"
+    ],
+    "onlyDomainVersionLiteralChanges": true,
+    "literalLineReplacements": 6,
+    "behavioralRegressionBasis": "既有已发布0310/1110逻辑未变；本次只重测域名/升级差量，不重新声称整套历史矩阵已跑。"
+  },
+  "devices": {
+    "driver": {
+      "serial": "emulator-5586",
+      "installed": {
+        "sourceSha": "7ee63cc33d8f08808d24ee1c27477415933a72ab",
+        "versionName": "0.3.11-cloud",
+        "versionCode": 14,
+        "apkSha256": "e935ccb92478e2bc8fa1b9e8abcf8430a68c48be36b02d30905e9c0347926bf0",
+        "bytes": 55655843,
+        "cloudOrigin": "https://yijiexing-demo.hbzjhs.xyz",
+        "signerSha256": "9ffec9b342d12909ff288bd73f23ba104893b39120cb24ea83c9734a0d2b758f",
+        "packageId": "cn.hbzjhs.dc.driver.cloud",
+        "installedSha256": "e935ccb92478e2bc8fa1b9e8abcf8430a68c48be36b02d30905e9c0347926bf0",
+        "installedSigner": "Signer #1 certificate SHA-256 digest: 9ffec9b342d12909ff288bd73f23ba104893b39120cb24ea83c9734a0d2b758f",
+        "embeddedOriginDexFiles": [
+          "classes3.dex"
+        ],
+        "installResult": "Performing Streamed Install\nSuccess"
+      },
+      "beforeVersion": {
+        "name": "0.3.10-cloud",
+        "code": 13
+      },
+      "homeIdentityBeforeAfter": "云端验收司机03",
+      "homeBeforeAfterReadOnly": [
+        "网络正常",
+        "待收款2笔",
+        "演示订单¥76.00 国贸大厦→三峡机场"
+      ],
+      "afterProfile": [
+        "司机之家",
+        "设置",
+        "云端验收司机03师傅，您好",
+        "车牌：鄂E·A1234",
+        "服务分 98分",
+        "宜捷行云端演示体验车队",
+        "运营明细（累计）",
+        "出车中",
+        "在线状态",
+        "15",
+        "累计接单",
+        "10",
+        "累计完单",
+        "普通司机",
+        "宜昌市 · 2027.10.23 到期",
+        "管理",
+        "营运中心",
+        "我的订单",
+        "我的钱包",
+        "¥ 557.74",
+        "资质证件",
+        "平台服务",
+        "服务分明细",
+        "我的积分",
+        "听单",
+        "订单",
+        "钱包",
+        "我的"
+      ],
+      "retainedLoginAfterRelaunch": true,
+      "restoration": {
+        "original": {
+          "size": "Physical size: 1080x2400",
+          "density": "Physical density: 420",
+          "font": "1.0",
+          "wifi": "1",
+          "data": "1"
+        },
+        "final": {
+          "size": "Physical size: 1080x2400",
+          "density": "Physical density: 420",
+          "font": "1.0",
+          "wifi": "1",
+          "data": "1"
+        },
+        "same": true
+      },
+      "stoppedAndHome": true,
+      "endedAt": "2026-10-25T22:28:10.865204+08:00"
+    },
+    "passenger": {
+      "serial": "emulator-5584",
+      "installed": {
+        "sourceSha": "7ee63cc33d8f08808d24ee1c27477415933a72ab",
+        "versionName": "1.1.11-experience",
+        "versionCode": 13,
+        "apkSha256": "8740d21e86484d0187cdcb9c99c03dbf2a8dc8d75488edfaf9f15ffb825c8edb",
+        "bytes": 54125743,
+        "cloudOrigin": "https://yijiexing-demo.hbzjhs.xyz",
+        "signerSha256": "9ffec9b342d12909ff288bd73f23ba104893b39120cb24ea83c9734a0d2b758f",
+        "packageId": "cn.hbzjhs.dc.passenger.cloud",
+        "installedSha256": "8740d21e86484d0187cdcb9c99c03dbf2a8dc8d75488edfaf9f15ffb825c8edb",
+        "installedSigner": "Signer #1 certificate SHA-256 digest: 9ffec9b342d12909ff288bd73f23ba104893b39120cb24ea83c9734a0d2b758f",
+        "embeddedOriginDexFiles": [
+          "classes3.dex"
+        ],
+        "installResult": "Performing Streamed Install\nSuccess"
+      },
+      "beforeVersion": {
+        "name": "1.1.10-experience",
+        "code": 12
+      },
+      "unchangedProfileFields": [
+        "体验乘客02",
+        "13800000102",
+        "宜昌市"
+      ],
+      "refreshOrdersClicked": true,
+      "retainedLoginAfterRelaunch": true,
+      "restoration": {
+        "original": {
+          "size": "Physical size: 1080x2400",
+          "density": "Physical density: 420",
+          "font": "1.0",
+          "wifi": "1",
+          "data": "1"
+        },
+        "final": {
+          "size": "Physical size: 1080x2400",
+          "density": "Physical density: 420",
+          "font": "1.0",
+          "wifi": "1",
+          "data": "1"
+        },
+        "same": true
+      },
+      "stoppedAndHome": true,
+      "endedAt": "2026-10-25T22:23:46.385913+08:00"
+    }
+  },
+  "evidenceLayers": {
+    "source": "两Gradle文件实际内容对7ee提交一致，App原生源差量仅域名/版本。",
+    "installed": "install-r成功；从实际pm path读取base.apk，SHA256与交付包一致，实际安装字节签名验证一致；installed versionCode/name一致；classes3.dex含自有HTTPS origin。",
+    "device": "升级后原账号保留，实际页面/地图正常；乘客刷新订单；两App force-stop再打开后仍为原账号；司机首页网络正常。",
+    "host": {
+      "url": "https://yijiexing-demo.hbzjhs.xyz/health",
+      "status": 200,
+      "tlsVerified": true,
+      "verifier": "macOS system curl default trust",
+      "direct": true,
+      "bodySha256": "9320ac6fcce184c2ce2e98474209b33546e31354810873bb3ee1ca4357e9596c",
+      "evidenceLayer": "Host only, not emulator packets",
+      "earlierPythonTrustStoreMissingIssuer": true
+    },
+    "limit": "主机TLS/health为主机证据，安装DEX为配置证据，设备UI为运行证据；未抓模拟器网络，不声称逐请求实际主机名或请求数量。"
+  },
+  "visualReview": {
+    "inspected": [
+      "driver-10-before-active.png",
+      "driver-11-after-active.png",
+      "driver-12-domain-profile.png",
+      "driver-13-domain-relaunch.png",
+      "passenger-01-before-home.png",
+      "passenger-02-before-profile.png",
+      "passenger-03-after-domain-home.png",
+      "passenger-05-after-domain-profile.png",
+      "passenger-06-relaunch-domain-home.png"
+    ],
+    "findings": [],
+    "caveats": [
+      "passenger-03顶部有Google Play系统通知，干净最终页面以passenger-06为准。",
+      "environment-screen仅清理后桌面图，不作为启动失败或App验收证据。",
+      "司机紧邻升级前仅首页真实截图可比；资料字段只核对升级后已知既有账号，不伪称紧邻升级前资料对比。"
+    ]
+  },
+  "actualTests": [
+    {
+      "command": "python3 coordination/evidence/NET-20261025-01/frontend/run_device_upgrade.py",
+      "result": "乘客完整PASS；初始driver基线UiAutomator null-root，脚本在其install前退出，driver-upgrade.json不作通过结论。"
+    },
+    {
+      "command": "python3 coordination/evidence/NET-20261025-01/frontend/run_driver_focused.py",
+      "result": "PASS：am start -W 精确组件Status ok，前后20秒等待实际截图，install-r、包/签名/版本/DEX、恢复。"
+    },
+    {
+      "command": "Driver final inline Python ADB profile/relaunch check; exact ADB operations in driver-steps.jsonl",
+      "result": "PASS：driver-postcheck.json；结束22:28:10+08，force-stop/HOME。"
+    },
+    {
+      "command": "/usr/bin/curl --noproxy * https://yijiexing-demo.hbzjhs.xyz/health (default system trust)",
+      "result": "HTTP200/TLS验证；早先Python缺本机issuer失败，未降级SSL。"
+    }
+  ],
+  "harnessLimitations": [
+    "早期UiAutomator null-root只影响取树；未当成产品启动失败。root延长到22:29后改精确am start -W+真实活动截图完成司机验收，未重启AVD。",
+    "最终报告在设备截止后整理，所有设备操作已在22:28:10结束。"
+  ],
+  "buildProvenance": {
+    "driverUnitTests": 55,
+    "passengerUnitTests": 20,
+    "result": "root构建结果PASS，frontend读取来源，未重跑或重建。",
+    "evidence": [
+      "../driver-build-result.json",
+      "../passenger-build-result.json"
+    ]
+  },
+  "notRun": [
+    "重新执行全部UI/登录同意/弱网/连续点击矩阵",
+    "新账号登录或再次同意条款（原会话保留）",
+    "真机、横屏、大字体、TalkBack全量检查",
+    "新接单/叫车/取消/支付/退款/投诉等业务写入及完整三端生命周期",
+    "高德外部界面导航",
+    "19笔订单逐项ID/stage/fare/paid/refund前后校验",
+    "模拟器网络拦截或请求主机名抓包",
+    "后台自有域名DNS/证书就绪、合并和公开APK下载回读"
+  ],
+  "safetyAndOwnership": {
+    "productSourceChangedByReviewer": false,
+    "rebuilt": false,
+    "committed": false,
+    "deployed": false,
+    "browserOrCuaUsed": false,
+    "newAgentsSpawned": false,
+    "ordersOrMoneyWritten": false,
+    "readPrefsTokensOrSecrets": false,
+    "dataCleared": false,
+    "avdsRestarted": false,
+    "settingsMutated": false,
+    "adbOwnership": "RELEASED_TO_COORDINATOR",
+    "reviewerStatus": "IDLE"
+  },
+  "nextAction": "coordinator按独立PASS_SCOPE合并固定7ee源码并独占发布、完整公开GET校验；后台域名单独验收。",
+  "evidenceManifest": [
+    {
+      "path": "device_ui.py",
+      "bytes": 2519,
+      "sha256": "560550a2955c82b5be279d63bd9bd67b63a1e08fab573171e0ea26f10a91319a"
+    },
+    {
+      "path": "driver-10-before-active.png",
+      "bytes": 546352,
+      "sha256": "104db043dea8e4f77458eedddb06f64e94e4de296381c9bc3ca6ba2b7790957a"
+    },
+    {
+      "path": "driver-11-after-active.png",
+      "bytes": 546538,
+      "sha256": "ba631bcfb8a0c6f87da1b8858488ef0e7a1714899cfd0d9483e3152562c79288"
+    },
+    {
+      "path": "driver-11-after-active.xml",
+      "bytes": 24527,
+      "sha256": "fb0aca29f9c2c7a42e699f2123b09c9d9fd8cf4d5ea31240ac65277f53412745"
+    },
+    {
+      "path": "driver-12-domain-profile.png",
+      "bytes": 180798,
+      "sha256": "1754f13a2c6c91ebf400badfcb8b2b3a372aa088fd257eb5337aa6a923b06faa"
+    },
+    {
+      "path": "driver-12-domain-profile.xml",
+      "bytes": 22257,
+      "sha256": "97054c2b615ceaaf18c69f34bea70e267246e5388904f8361b8353c8c2cdbd12"
+    },
+    {
+      "path": "driver-13-domain-relaunch.png",
+      "bytes": 546565,
+      "sha256": "c9f69ef8304a3eb95d63d0f6843b4d80bc6715b990bc21006f4e1d475dae6738"
+    },
+    {
+      "path": "driver-13-domain-relaunch.xml",
+      "bytes": 24527,
+      "sha256": "fb0aca29f9c2c7a42e699f2123b09c9d9fd8cf4d5ea31240ac65277f53412745"
+    },
+    {
+      "path": "driver-environment-screen.png",
+      "bytes": 1374542,
+      "sha256": "2dbb4ddd58db7ebd59e4218792e8e4d2ee90d9526c777eb6ed55718b41270628"
+    },
+    {
+      "path": "driver-focused.json",
+      "bytes": 2825,
+      "sha256": "dff82a2ac55896402be0c11983304f8583de12f8c4a4066f1abece1aa00ff6a2"
+    },
+    {
+      "path": "driver-initial-environment.json",
+      "bytes": 270,
+      "sha256": "d3543a9eb8143f5cd98a7ed919d30e37887b2adc5cb4f5a02c6586995c3f0801"
+    },
+    {
+      "path": "driver-postcheck.json",
+      "bytes": 2034,
+      "sha256": "cd1ecbc2f7b9f0b605e8f2d0a410b3a9dfa0765336bd7f3a4ca4842be8afd0f8"
+    },
+    {
+      "path": "driver-steps.jsonl",
+      "bytes": 276,
+      "sha256": "c8e577c8c88959f1d4a6d143f815d553c98d184019b95f4e604c16d55a9dd409"
+    },
+    {
+      "path": "driver-upgrade.json",
+      "bytes": 660,
+      "sha256": "3f549c3dc28d11ce78bf58212db84a46d5ae267ca3c5125c3554d5521a94edbc"
+    },
+    {
+      "path": "passenger-01-before-home.png",
+      "bytes": 656877,
+      "sha256": "543af64ceb7e6e6d27729b6636564e1e6c8b7437180235cbdea516d1e4f24795"
+    },
+    {
+      "path": "passenger-01-before-home.xml",
+      "bytes": 21262,
+      "sha256": "26255208ca91b9813f105f16a150ee04d9830b7353ac6b412e7464bf5421ee3a"
+    },
+    {
+      "path": "passenger-02-before-profile.png",
+      "bytes": 167380,
+      "sha256": "66d71790a649f9c3b221bceb76b899222a146bcbc0231c31a1f66a66583931c2"
+    },
+    {
+      "path": "passenger-02-before-profile.xml",
+      "bytes": 19068,
+      "sha256": "8ce9848cc5b0c44c88c031a4d455e4a7e5881222a9d619e79f43e0d9c7daf6de"
+    },
+    {
+      "path": "passenger-03-after-domain-home.png",
+      "bytes": 645994,
+      "sha256": "f565a4538c527111ca7a4c1eac08b3abab9af8d2415f5829c5cd8a4e9934eac1"
+    },
+    {
+      "path": "passenger-03-after-domain-home.xml",
+      "bytes": 21262,
+      "sha256": "26255208ca91b9813f105f16a150ee04d9830b7353ac6b412e7464bf5421ee3a"
+    },
+    {
+      "path": "passenger-05-after-domain-profile.png",
+      "bytes": 168116,
+      "sha256": "f6ff1771de6d5f1f830421e02ab9e59707ac7c1c639d8c8a22dad4216edd9d84"
+    },
+    {
+      "path": "passenger-05-after-domain-profile.xml",
+      "bytes": 19068,
+      "sha256": "8ce9848cc5b0c44c88c031a4d455e4a7e5881222a9d619e79f43e0d9c7daf6de"
+    },
+    {
+      "path": "passenger-06-relaunch-domain-home.png",
+      "bytes": 657488,
+      "sha256": "827f805d89af60d5ea09acfa1cc78a9a06da73845a1ac84f39b792585eb101a0"
+    },
+    {
+      "path": "passenger-06-relaunch-domain-home.xml",
+      "bytes": 21262,
+      "sha256": "26255208ca91b9813f105f16a150ee04d9830b7353ac6b412e7464bf5421ee3a"
+    },
+    {
+      "path": "passenger-environment-screen.png",
+      "bytes": 1376715,
+      "sha256": "112e6688f3ef0b6d0fb2ebd9f674916f35d3a056995b480fe7f8846de48b4b1e"
+    },
+    {
+      "path": "passenger-initial-environment.json",
+      "bytes": 270,
+      "sha256": "397b6c471aacf474e5a0e80ead8229ebe02314df6264ee8652e35e602e179d2a"
+    },
+    {
+      "path": "passenger-steps.jsonl",
+      "bytes": 759,
+      "sha256": "d77f076bdb934f800f0773f3e5318bcf73ba421610b7ae9b4c99a27ba2795348"
+    },
+    {
+      "path": "passenger-upgrade.json",
+      "bytes": 4575,
+      "sha256": "058ba39bce30ab1b70fd6a8f89298c96dfcbbb4f706fe1942055f00cffffd41d"
+    },
+    {
+      "path": "run_device_upgrade.py",
+      "bytes": 5425,
+      "sha256": "4886d927b5451ede3b2b417fe2982160dbeda3a3603c9e43209c0160986aeaa1"
+    },
+    {
+      "path": "run_driver_focused.py",
+      "bytes": 3624,
+      "sha256": "c23baa53fac0a0009e438b4ea5cd2773bac66771ed4cd8151fd637d6c75af50f"
+    },
+    {
+      "path": "source-and-host-health.json",
+      "bytes": 750,
+      "sha256": "bcf5f1eae2d5b515bf7d6da5e73f035490fd0b122f6819f2e24733ceceaa481b"
+    },
+    {
+      "path": "source-delta.txt",
+      "bytes": 2262,
+      "sha256": "cb35cf6330627d39d7567cacbe57a48364000ca6203f12cfc145c417b050b9ee"
+    }
+  ]
+}

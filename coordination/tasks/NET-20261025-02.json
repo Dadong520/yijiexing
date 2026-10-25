@@ -1,0 +1,75 @@
+{
+  "schemaVersion": 1,
+  "id": "NET-20261025-02",
+  "owner": "coordinator",
+  "goal": "将两Android体验包一次切换至已验证的自有HTTPS API域名，完成保留登录升级、非作者差量验收与公开下载校验；后台新域名证书由NET01单独跟踪。",
+  "baseSha": "1d099fdf5c6ce3054e89e2b7a073e380ae45ac24",
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-domains-20261025",
+  "allow_paths": [
+    "candidates/driver-0.3.6-r2/android/app/build.gradle.kts",
+    "apps/passenger-android/app/build.gradle.kts",
+    "coordination/NETWORK_DOMAINS.md",
+    "coordination/evidence/NET-20261025-01/"
+  ],
+  "checks": [
+    "源码差量仅两Gradle的域名及版本6行",
+    "API域名HTTPS证书有效且health200",
+    "55司机和20乘客单元测试及构建PASS",
+    "不同会话核验实际安装APK身份、保留账号、地图与冷启动",
+    "源码合并后原子对象版本保护上传并公开完整GET校验"
+  ],
+  "status": "ACCEPTED_PENDING_PUBLISH",
+  "acceptance": "PASS",
+  "acceptanceScope": "Native domain/version change; no new full three-client lifecycle and no admin-domain certificate acceptance",
+  "acceptedSha": "7ee63cc33d8f08808d24ee1c27477415933a72ab",
+  "reviewer": "frontend",
+  "reviewerThread": "01a167c8-a5eb-77e3-b77e-214927a029da",
+  "tests": [
+    {
+      "command": "/Users/dongge/.gradle/wrapper/dists/gradle-8.7-bin/c4fynqkwxqrcieir78ry8jtzf/gradle-8.7/bin/gradle --offline --no-daemon --max-workers=1 -Dorg.gradle.jvmargs=-Xmx1536m -Pkotlin.compiler.execution.strategy=in-process -PYIJ_CLOUD_ORIGIN=https://yijiexing-demo.hbzjhs.xyz --project-cache-dir /Users/dongge/.codex/tmp/yijiexing-native-domain-20261025/driver-cache --init-script /Users/dongge/.codex/tmp/yijiexing-native-domain-20261025/driver-build.init.gradle testDebugUnitTest assembleDebug",
+      "status": "PASS",
+      "exitCode": 0,
+      "sourceSha": "7ee63cc33d8f08808d24ee1c27477415933a72ab",
+      "testCount": 55
+    },
+    {
+      "command": "/Users/dongge/.gradle/wrapper/dists/gradle-8.7-bin/c4fynqkwxqrcieir78ry8jtzf/gradle-8.7/bin/gradle --offline --no-daemon --max-workers=1 -Dorg.gradle.jvmargs=-Xmx1536m -Pkotlin.compiler.execution.strategy=in-process -PYIJ_CLOUD_ORIGIN=https://yijiexing-demo.hbzjhs.xyz --project-cache-dir /Users/dongge/.codex/tmp/yijiexing-native-domain-20261025/passenger-cache --init-script /Users/dongge/.codex/tmp/yijiexing-native-domain-20261025/passenger-build.init.gradle testDebugUnitTest assembleDebug",
+      "status": "PASS",
+      "exitCode": 0,
+      "sourceSha": "7ee63cc33d8f08808d24ee1c27477415933a72ab",
+      "testCount": 20
+    },
+    {
+      "command": "frontend independent install-r + installed base.apk hash/signature/version/DEX origin + retained identity + map/profile/force-stop relaunch; run_device_upgrade.py, run_driver_focused.py, driver-postcheck.json",
+      "status": "PASS",
+      "exitCode": 0,
+      "sourceSha": "7ee63cc33d8f08808d24ee1c27477415933a72ab",
+      "scope": "Native domain upgrade only; complete business lifecycle NOT_RUN"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "coordination/evidence/NET-20261025-01/driver-build-result.json",
+      "sha256": "447758894d05e2f3d5f650dcf51ae4a997d521fa2bf8082c1d823a1bb78aab20"
+    },
+    {
+      "path": "coordination/evidence/NET-20261025-01/passenger-build-result.json",
+      "sha256": "0153630f21b7fc37aba2107bf5678311a587158ed735bc3a653aac6447ec0e0f"
+    },
+    {
+      "path": "coordination/evidence/NET-20261025-01/native-source-manifest.json",
+      "sha256": "a7fe98db5aba0331abd1276e408e926457d9cbc6c4f9aefafa034eef9f2831f8"
+    },
+    {
+      "path": "coordination/evidence/NET-20261025-01/frontend/design-qa.json",
+      "sha256": "cc422bbe9bea3ebc2aa7da2b15abd53ed239853a0293ee2e4e70a1376bb9e5b6"
+    },
+    {
+      "path": "coordination/evidence/NET-20261025-01/frontend/source-and-host-health.json",
+      "sha256": "bcf5f1eae2d5b515bf7d6da5e73f035490fd0b122f6819f2e24733ceceaa481b"
+    }
+  ],
+  "releaseReady": true,
+  "nextAction": "合并固定7ee源码和验收记录，coordinator唯一发布并完成公开GET签名/版本/SHA核对。",
+  "deploy_owner": "coordinator"
+}

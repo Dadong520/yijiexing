@@ -1,0 +1,65 @@
+{
+  "apiVersion": "domains.cloudrun.com/v1",
+  "kind": "DomainMapping",
+  "metadata": {
+    "annotations": {
+      "run.googleapis.com/operation-id": "93e5057e-24f5-472d-aef1-8216ce685c27",
+      "serving.knative.dev/creator": "dadonggev587@gmail.com",
+      "serving.knative.dev/lastModifier": "dadonggev587@gmail.com"
+    },
+    "creationTimestamp": "2026-10-25T13:51:34.473481Z",
+    "generation": 1,
+    "labels": {
+      "cloud.googleapis.com/location": "us-west1",
+      "run.googleapis.com/overrideAt": "2026-10-25T13:51:38.786Z"
+    },
+    "name": "demo-admin.hbzjhs.xyz",
+    "namespace": "491829048305",
+    "resourceVersion": "AAZeqwTOalg",
+    "selfLink": "/apis/domains.cloudrun.com/v1/namespaces/491829048305/domainmappings/demo-admin.hbzjhs.xyz",
+    "uid": "912e390c-0476-4e61-ad8a-c7df35854034"
+  },
+  "spec": {
+    "routeName": "driver-admin"
+  },
+  "status": {
+    "conditions": [
+      {
+        "lastTransitionTime": "2026-10-25T13:51:40.075365Z",
+        "message": "Waiting for certificate provisioning. You must configure your DNS records for certificate issuance to begin.",
+        "reason": "CertificatePending",
+        "status": "Unknown",
+        "type": "Ready"
+      },
+      {
+        "lastTransitionTime": "2026-10-25T14:27:53.319Z",
+        "message": "Certificate issuance pending. The challenge data was not visible through the public internet. This may indicate that DNS is not properly configured or has not fully propagated. The system will retry.",
+        "reason": "CertificatePending",
+        "status": "Unknown",
+        "type": "CertificateProvisioned"
+      },
+      {
+        "lastTransitionTime": "2026-10-25T13:51:40.075365Z",
+        "status": "True",
+        "type": "DomainRoutable"
+      },
+      {
+        "lastTransitionTime": "2026-10-25T14:07:52.544126Z",
+        "message": "System will retry after 05:00 from lastTransitionTime for polling interval",
+        "reason": "WaitingForOperation",
+        "severity": "Info",
+        "status": "True",
+        "type": "Retry"
+      }
+    ],
+    "mappedRouteName": "driver-admin",
+    "observedGeneration": 1,
+    "resourceRecords": [
+      {
+        "name": "demo-admin",
+        "rrdata": "ghs.googlehosted.com.",
+        "type": "CNAME"
+      }
+    ]
+  }
+}

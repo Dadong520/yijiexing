@@ -1,0 +1,16 @@
+[
+  {
+    "asset": "admin.js",
+    "sha256": "9cc93a2ff8f3d5f4f69c91d2a837ad1166a9bb72b01fea70c19c4bc4b1aa5c01",
+    "expectedSha256": "9cc93a2ff8f3d5f4f69c91d2a837ad1166a9bb72b01fea70c19c4bc4b1aa5c01",
+    "matchesSource": true,
+    "bytes": 82313
+  },
+  {
+    "asset": "admin.css",
+    "sha256": "13905b7f7ce00511efcb328ac9d0d5c11ea40d4355a90f087956ed3288469e4d",
+    "expectedSha256": "13905b7f7ce00511efcb328ac9d0d5c11ea40d4355a90f087956ed3288469e4d",
+    "matchesSource": true,
+    "bytes": 15314
+  }
+]

@@ -1,12 +1,11 @@
 {
   "schemaVersion": 1,
-  "updated": "2026-10-25 20:47",
+  "updated": "2026-10-25 22:35",
   "coordinator": "coordinator",
   "activeTaskIds": [
     "WX-20261025-01",
-    "ADMIN-20261025-04",
-    "ADMINAPI-20261025-01",
-    "NET-20261025-01"
+    "NET-20261025-01",
+    "NET-20261025-02"
   ],
   "releaseOwner": "coordinator",
   "policy": "作者提交→自测→独立验收→协调者合并→部署回读；无业务验收PASS不发布",
@@ -22,6 +21,8 @@
     "coordination/archive/2026-10-25/AUTH-20261025-01.json",
     "coordination/archive/2026-10-25/UI-20261025-03.json",
     "coordination/archive/2026-10-25/ACCESS-20261025-01.json",
-    "coordination/archive/2026-10-25/OPENAPI-20261025-01.json"
+    "coordination/archive/2026-10-25/OPENAPI-20261025-01.json",
+    "coordination/archive/2026-10-25/ADMIN-20261025-04.json",
+    "coordination/archive/2026-10-25/ADMINAPI-20261025-01.json"
   ]
 }

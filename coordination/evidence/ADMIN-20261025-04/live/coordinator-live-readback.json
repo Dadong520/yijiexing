@@ -1,0 +1,30 @@
+{
+  "status": "PASS",
+  "reviewer": "coordinator actual deployed browser check (separate from independent local acceptance)",
+  "sourceSha": "0d7dfc045a137ee93b354acd669edebf6724af29",
+  "revision": "driver-admin-queries-0d7dfc04",
+  "googleIAP": "existing authorized Google session",
+  "realConsoleLogin": true,
+  "navigationGeneratedButtons": 12,
+  "sharedOrderCount": 19,
+  "actualOrderFilter": {
+    "id": "PORD9dac969cecf1",
+    "stage": "WAIT_PAY",
+    "fareCents": 2926,
+    "rows": 1
+  },
+  "csv": {
+    "actualLocalDownload": true,
+    "sha256": "9bcc032b196cb99bd20614fbd12ee61d56c846fd4618352619e68ea60ec3ea7c",
+    "bytes": 424,
+    "rows": 1,
+    "rawPrivateColumnsCopiedToRepo": false
+  },
+  "testNotes": [
+    "Cua Playwright Enter did not produce confirmed form submission; actual coordinate click set loading and login succeeded. No credential error was observed.",
+    "Cua download event wait timed out twice, but actual Chrome Downloads files4/5 exist with one expected CSV row and success toast. Events are not treated as download failure."
+  ],
+  "orderOrFinancialMutations": false,
+  "authAndExportAuditExpected": true,
+  "at": "2026-10-25T22:16:05.269981+08:00"
+}

@@ -1,0 +1,28 @@
+{
+  "role": "driver",
+  "sourceSha": "7ee63cc33d8f08808d24ee1c27477415933a72ab",
+  "startedAt": "2026-10-25T22:21:42.856797+08:00",
+  "beforeVersion": {
+    "name": "0.3.10-cloud",
+    "code": 13
+  },
+  "resourceRestoration": {
+    "original": {
+      "size": "Physical size: 1080x2400",
+      "density": "Physical density: 420",
+      "font": "1.0",
+      "wifi": "1",
+      "data": "1"
+    },
+    "final": {
+      "size": "Physical size: 1080x2400",
+      "density": "Physical density: 420",
+      "font": "1.0",
+      "wifi": "1",
+      "data": "1"
+    },
+    "same": true
+  },
+  "appStoppedAndHome": true,
+  "endedAt": "2026-10-25T22:22:25.042334+08:00"
+}

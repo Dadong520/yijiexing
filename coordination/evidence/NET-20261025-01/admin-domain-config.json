@@ -1,0 +1,32 @@
+{
+  "status": "PASS_CONFIG",
+  "at": "2026-10-25T22:18:28.910467+08:00",
+  "revision": "driver-admin-domain-7ee63cc",
+  "imageUnchanged": true,
+  "allowedOrigins": [
+    "https://driver-admin-491829048305.us-west1.run.app",
+    "https://driver-admin-phfgquzmua-uw.a.run.app",
+    "https://demo-admin.hbzjhs.xyz"
+  ],
+  "allOtherEnvAndSecretRefsUnchanged": true,
+  "iapEnabled": true,
+  "serviceAccountUnchanged": true,
+  "maxInstances": 1,
+  "traffic": [
+    {
+      "percent": 100,
+      "revisionName": "driver-admin-domain-7ee63cc"
+    }
+  ],
+  "adminDomain": "demo-admin.hbzjhs.xyz",
+  "apiDomain": "yijiexing-demo.hbzjhs.xyz",
+  "dns": {
+    "type": "CNAME",
+    "name": "demo-admin.hbzjhs.xyz",
+    "target": "ghs.googlehosted.com",
+    "proxy": false,
+    "savedAndUIReadback": true,
+    "publicDoH": true
+  },
+  "certificate": "PENDING; next separate control-plane readback"
+}
