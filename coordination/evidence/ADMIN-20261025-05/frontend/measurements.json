@@ -1,0 +1,998 @@
+[
+  {
+    "label": "1440x693-start",
+    "banner": "工作空间 / 经营概览admin · 超级管理员刷新数据退出",
+    "buttons": [
+      {
+        "bottom": 158.5,
+        "h": 40,
+        "hit": "BUTTON",
+        "hitInButton": true,
+        "hitText": "经营概览",
+        "right": 215,
+        "text": "经营概览",
+        "w": 205,
+        "x": 10,
+        "y": 118.5
+      },
+      {
+        "bottom": 202.5,
+        "h": 40,
+        "hit": "BUTTON",
+        "hitInButton": true,
+        "hitText": "经营报表",
+        "right": 215,
+        "text": "经营报表",
+        "w": 205,
+        "x": 10,
+        "y": 162.5
+      },
+      {
+        "bottom": 291,
+        "h": 40,
+        "hit": "BUTTON",
+        "hitInButton": true,
+        "hitText": "订单管理",
+        "right": 215,
+        "text": "订单管理",
+        "w": 205,
+        "x": 10,
+        "y": 251
+      },
+      {
+        "bottom": 335,
+        "h": 40,
+        "hit": "BUTTON",
+        "hitInButton": true,
+        "hitText": "取消订单记录",
+        "right": 215,
+        "text": "取消订单记录",
+        "w": 205,
+        "x": 10,
+        "y": 295
+      },
+      {
+        "bottom": 379,
+        "h": 40,
+        "hit": "BUTTON",
+        "hitInButton": true,
+        "hitText": "司机与车辆",
+        "right": 215,
+        "text": "司机与车辆",
+        "w": 205,
+        "x": 10,
+        "y": 339
+      },
+      {
+        "bottom": 423,
+        "h": 40,
+        "hit": "BUTTON",
+        "hitInButton": true,
+        "hitText": "乘客管理",
+        "right": 215,
+        "text": "乘客管理",
+        "w": 205,
+        "x": 10,
+        "y": 383
+      },
+      {
+        "bottom": 467,
+        "h": 40,
+        "hit": "BUTTON",
+        "hitInButton": true,
+        "hitText": "模拟账务",
+        "right": 215,
+        "text": "模拟账务",
+        "w": 205,
+        "x": 10,
+        "y": 427
+      },
+      {
+        "bottom": 511,
+        "h": 40,
+        "hit": "BUTTON",
+        "hitInButton": true,
+        "hitText": "模拟退款记录",
+        "right": 215,
+        "text": "模拟退款记录",
+        "w": 205,
+        "x": 10,
+        "y": 471
+      },
+      {
+        "bottom": 555,
+        "h": 40,
+        "hit": "BUTTON",
+        "hitInButton": true,
+        "hitText": "评价投诉反馈",
+        "right": 215,
+        "text": "评价投诉反馈",
+        "w": 205,
+        "x": 10,
+        "y": 515
+      },
+      {
+        "bottom": 643.5,
+        "h": 40,
+        "hit": "DIV",
+        "hitInButton": false,
+        "hitText": "独立云体验环境支付 / 退款 / 提现均为模拟",
+        "right": 215,
+        "text": "城市与会员",
+        "w": 205,
+        "x": 10,
+        "y": 603.5
+      },
+      {
+        "bottom": 687.5,
+        "h": 40,
+        "hit": "SMALL",
+        "hitInButton": false,
+        "hitText": "支付 / 退款 / 提现均为模拟",
+        "right": 215,
+        "text": "账号与权限",
+        "w": 205,
+        "x": 10,
+        "y": 647.5
+      },
+      {
+        "bottom": 731.5,
+        "h": 40,
+        "hitInButton": false,
+        "right": 215,
+        "text": "操作日志",
+        "w": 205,
+        "x": 10,
+        "y": 691.5
+      }
+    ],
+    "footer": {
+      "bottom": 693,
+      "h": 75.5,
+      "right": 240,
+      "w": 240,
+      "x": 0,
+      "y": 617.5
+    },
+    "heading": "运营工作台",
+    "nav": {
+      "bottom": 617.5,
+      "clientHeight": 558,
+      "h": 557.5,
+      "right": 240,
+      "scrollHeight": 686,
+      "scrollTop": 0,
+      "w": 240,
+      "x": 0,
+      "y": 60
+    },
+    "viewport": {
+      "h": 693,
+      "w": 1440
+    }
+  },
+  {
+    "label": "1440x693-bottom",
+    "banner": "工作空间 / 经营概览admin · 超级管理员刷新数据退出",
+    "buttons": [
+      {
+        "bottom": 30.5,
+        "h": 40,
+        "hit": "DIV",
+        "hitInButton": false,
+        "hitText": "宜宜捷行运营管理中心",
+        "right": 215,
+        "text": "经营概览",
+        "w": 205,
+        "x": 10,
+        "y": -9.5
+      },
+      {
+        "bottom": 74.5,
+        "h": 40,
+        "hit": "DIV",
+        "hitInButton": false,
+        "hitText": "宜宜捷行运营管理中心",
+        "right": 215,
+        "text": "经营报表",
+        "w": 205,
+        "x": 10,
+        "y": 34.5
+      },
+      {
+        "bottom": 163,
+        "h": 40,
+        "hit": "BUTTON",
+        "hitInButton": true,
+        "hitText": "订单管理",
+        "right": 215,
+        "text": "订单管理",
+        "w": 205,
+        "x": 10,
+        "y": 123
+      },
+      {
+        "bottom": 207,
+        "h": 40,
+        "hit": "BUTTON",
+        "hitInButton": true,
+        "hitText": "取消订单记录",
+        "right": 215,
+        "text": "取消订单记录",
+        "w": 205,
+        "x": 10,
+        "y": 167
+      },
+      {
+        "bottom": 251,
+        "h": 40,
+        "hit": "BUTTON",
+        "hitInButton": true,
+        "hitText": "司机与车辆",
+        "right": 215,
+        "text": "司机与车辆",
+        "w": 205,
+        "x": 10,
+        "y": 211
+      },
+      {
+        "bottom": 295,
+        "h": 40,
+        "hit": "BUTTON",
+        "hitInButton": true,
+        "hitText": "乘客管理",
+        "right": 215,
+        "text": "乘客管理",
+        "w": 205,
+        "x": 10,
+        "y": 255
+      },
+      {
+        "bottom": 339,
+        "h": 40,
+        "hit": "BUTTON",
+        "hitInButton": true,
+        "hitText": "模拟账务",
+        "right": 215,
+        "text": "模拟账务",
+        "w": 205,
+        "x": 10,
+        "y": 299
+      },
+      {
+        "bottom": 383,
+        "h": 40,
+        "hit": "BUTTON",
+        "hitInButton": true,
+        "hitText": "模拟退款记录",
+        "right": 215,
+        "text": "模拟退款记录",
+        "w": 205,
+        "x": 10,
+        "y": 343
+      },
+      {
+        "bottom": 427,
+        "h": 40,
+        "hit": "BUTTON",
+        "hitInButton": true,
+        "hitText": "评价投诉反馈",
+        "right": 215,
+        "text": "评价投诉反馈",
+        "w": 205,
+        "x": 10,
+        "y": 387
+      },
+      {
+        "bottom": 515.5,
+        "h": 40,
+        "hit": "BUTTON",
+        "hitInButton": true,
+        "hitText": "城市与会员",
+        "right": 215,
+        "text": "城市与会员",
+        "w": 205,
+        "x": 10,
+        "y": 475.5
+      },
+      {
+        "bottom": 559.5,
+        "h": 40,
+        "hit": "BUTTON",
+        "hitInButton": true,
+        "hitText": "账号与权限",
+        "right": 215,
+        "text": "账号与权限",
+        "w": 205,
+        "x": 10,
+        "y": 519.5
+      },
+      {
+        "bottom": 603.5,
+        "h": 40,
+        "hit": "BUTTON",
+        "hitInButton": true,
+        "hitText": "操作日志",
+        "right": 215,
+        "text": "操作日志",
+        "w": 205,
+        "x": 10,
+        "y": 563.5
+      }
+    ],
+    "footer": {
+      "bottom": 693,
+      "h": 75.5,
+      "right": 240,
+      "w": 240,
+      "x": 0,
+      "y": 617.5
+    },
+    "heading": "运营工作台",
+    "nav": {
+      "bottom": 617.5,
+      "clientHeight": 558,
+      "h": 557.5,
+      "right": 240,
+      "scrollHeight": 686,
+      "scrollTop": 128,
+      "w": 240,
+      "x": 0,
+      "y": 60
+    },
+    "viewport": {
+      "h": 693,
+      "w": 1440
+    }
+  },
+  {
+    "label": "1440x500-keyboard-bottom",
+    "banner": "工作空间 / 操作日志admin · 超级管理员刷新数据退出",
+    "buttons": [
+      {
+        "bottom": -162.5,
+        "h": 40,
+        "hitInButton": false,
+        "right": 215,
+        "text": "经营概览",
+        "w": 205,
+        "x": 10,
+        "y": -202.5
+      },
+      {
+        "bottom": -118.5,
+        "h": 40,
+        "hitInButton": false,
+        "right": 215,
+        "text": "经营报表",
+        "w": 205,
+        "x": 10,
+        "y": -158.5
+      },
+      {
+        "bottom": -30,
+        "h": 40,
+        "hitInButton": false,
+        "right": 215,
+        "text": "订单管理",
+        "w": 205,
+        "x": 10,
+        "y": -70
+      },
+      {
+        "bottom": 14,
+        "h": 40,
+        "hitInButton": false,
+        "right": 215,
+        "text": "取消订单记录",
+        "w": 205,
+        "x": 10,
+        "y": -26
+      },
+      {
+        "bottom": 58,
+        "h": 40,
+        "hit": "SMALL",
+        "hitInButton": false,
+        "hitText": "运营管理中心",
+        "right": 215,
+        "text": "司机与车辆",
+        "w": 205,
+        "x": 10,
+        "y": 18
+      },
+      {
+        "bottom": 102,
+        "h": 40,
+        "hit": "BUTTON",
+        "hitInButton": true,
+        "hitText": "乘客管理",
+        "right": 215,
+        "text": "乘客管理",
+        "w": 205,
+        "x": 10,
+        "y": 62
+      },
+      {
+        "bottom": 146,
+        "h": 40,
+        "hit": "BUTTON",
+        "hitInButton": true,
+        "hitText": "模拟账务",
+        "right": 215,
+        "text": "模拟账务",
+        "w": 205,
+        "x": 10,
+        "y": 106
+      },
+      {
+        "bottom": 190,
+        "h": 40,
+        "hit": "BUTTON",
+        "hitInButton": true,
+        "hitText": "模拟退款记录",
+        "right": 215,
+        "text": "模拟退款记录",
+        "w": 205,
+        "x": 10,
+        "y": 150
+      },
+      {
+        "bottom": 234,
+        "h": 40,
+        "hit": "BUTTON",
+        "hitInButton": true,
+        "hitText": "评价投诉反馈",
+        "right": 215,
+        "text": "评价投诉反馈",
+        "w": 205,
+        "x": 10,
+        "y": 194
+      },
+      {
+        "bottom": 322.5,
+        "h": 40,
+        "hit": "BUTTON",
+        "hitInButton": true,
+        "hitText": "城市与会员",
+        "right": 215,
+        "text": "城市与会员",
+        "w": 205,
+        "x": 10,
+        "y": 282.5
+      },
+      {
+        "bottom": 366.5,
+        "h": 40,
+        "hit": "BUTTON",
+        "hitInButton": true,
+        "hitText": "账号与权限",
+        "right": 215,
+        "text": "账号与权限",
+        "w": 205,
+        "x": 10,
+        "y": 326.5
+      },
+      {
+        "bottom": 410.5,
+        "h": 40,
+        "hit": "BUTTON",
+        "hitInButton": true,
+        "hitText": "操作日志",
+        "right": 215,
+        "text": "操作日志",
+        "w": 205,
+        "x": 10,
+        "y": 370.5
+      }
+    ],
+    "footer": {
+      "bottom": 500,
+      "h": 75.5,
+      "right": 240,
+      "w": 240,
+      "x": 0,
+      "y": 424.5
+    },
+    "heading": "操作日志",
+    "nav": {
+      "bottom": 424.5,
+      "clientHeight": 365,
+      "h": 364.5,
+      "right": 240,
+      "scrollHeight": 686,
+      "scrollTop": 321,
+      "w": 240,
+      "x": 0,
+      "y": 60
+    },
+    "viewport": {
+      "h": 500,
+      "w": 1440
+    }
+  },
+  {
+    "label": "1440x900-tall",
+    "banner": "工作空间 / 操作日志admin · 超级管理员刷新数据退出",
+    "buttons": [
+      {
+        "bottom": 158.5,
+        "h": 40,
+        "hit": "BUTTON",
+        "hitInButton": true,
+        "hitText": "经营概览",
+        "right": 230,
+        "text": "经营概览",
+        "w": 220,
+        "x": 10,
+        "y": 118.5
+      },
+      {
+        "bottom": 202.5,
+        "h": 40,
+        "hit": "BUTTON",
+        "hitInButton": true,
+        "hitText": "经营报表",
+        "right": 230,
+        "text": "经营报表",
+        "w": 220,
+        "x": 10,
+        "y": 162.5
+      },
+      {
+        "bottom": 291,
+        "h": 40,
+        "hit": "BUTTON",
+        "hitInButton": true,
+        "hitText": "订单管理",
+        "right": 230,
+        "text": "订单管理",
+        "w": 220,
+        "x": 10,
+        "y": 251
+      },
+      {
+        "bottom": 335,
+        "h": 40,
+        "hit": "BUTTON",
+        "hitInButton": true,
+        "hitText": "取消订单记录",
+        "right": 230,
+        "text": "取消订单记录",
+        "w": 220,
+        "x": 10,
+        "y": 295
+      },
+      {
+        "bottom": 379,
+        "h": 40,
+        "hit": "BUTTON",
+        "hitInButton": true,
+        "hitText": "司机与车辆",
+        "right": 230,
+        "text": "司机与车辆",
+        "w": 220,
+        "x": 10,
+        "y": 339
+      },
+      {
+        "bottom": 423,
+        "h": 40,
+        "hit": "BUTTON",
+        "hitInButton": true,
+        "hitText": "乘客管理",
+        "right": 230,
+        "text": "乘客管理",
+        "w": 220,
+        "x": 10,
+        "y": 383
+      },
+      {
+        "bottom": 467,
+        "h": 40,
+        "hit": "BUTTON",
+        "hitInButton": true,
+        "hitText": "模拟账务",
+        "right": 230,
+        "text": "模拟账务",
+        "w": 220,
+        "x": 10,
+        "y": 427
+      },
+      {
+        "bottom": 511,
+        "h": 40,
+        "hit": "BUTTON",
+        "hitInButton": true,
+        "hitText": "模拟退款记录",
+        "right": 230,
+        "text": "模拟退款记录",
+        "w": 220,
+        "x": 10,
+        "y": 471
+      },
+      {
+        "bottom": 555,
+        "h": 40,
+        "hit": "BUTTON",
+        "hitInButton": true,
+        "hitText": "评价投诉反馈",
+        "right": 230,
+        "text": "评价投诉反馈",
+        "w": 220,
+        "x": 10,
+        "y": 515
+      },
+      {
+        "bottom": 643.5,
+        "h": 40,
+        "hit": "BUTTON",
+        "hitInButton": true,
+        "hitText": "城市与会员",
+        "right": 230,
+        "text": "城市与会员",
+        "w": 220,
+        "x": 10,
+        "y": 603.5
+      },
+      {
+        "bottom": 687.5,
+        "h": 40,
+        "hit": "BUTTON",
+        "hitInButton": true,
+        "hitText": "账号与权限",
+        "right": 230,
+        "text": "账号与权限",
+        "w": 220,
+        "x": 10,
+        "y": 647.5
+      },
+      {
+        "bottom": 731.5,
+        "h": 40,
+        "hit": "BUTTON",
+        "hitInButton": true,
+        "hitText": "操作日志",
+        "right": 230,
+        "text": "操作日志",
+        "w": 220,
+        "x": 10,
+        "y": 691.5
+      }
+    ],
+    "footer": {
+      "bottom": 900,
+      "h": 75.5,
+      "right": 240,
+      "w": 240,
+      "x": 0,
+      "y": 824.5
+    },
+    "heading": "操作日志",
+    "nav": {
+      "bottom": 824.5,
+      "clientHeight": 765,
+      "h": 764.5,
+      "right": 240,
+      "scrollHeight": 765,
+      "scrollTop": 0,
+      "w": 240,
+      "x": 0,
+      "y": 60
+    },
+    "viewport": {
+      "h": 900,
+      "w": 1440
+    }
+  },
+  {
+    "label": "390x844-start",
+    "banner": "工作空间 / 操作日志admin · 超级管理员刷新数据退出",
+    "buttons": [
+      {
+        "bottom": 88,
+        "h": 34,
+        "hit": "BUTTON",
+        "hitInButton": true,
+        "hitText": "经营概览",
+        "right": 177.640625,
+        "text": "经营概览",
+        "w": 102,
+        "x": 75.640625,
+        "y": 54
+      },
+      {
+        "bottom": 88,
+        "h": 34,
+        "hit": "BUTTON",
+        "hitInButton": true,
+        "hitText": "经营报表",
+        "right": 283.640625,
+        "text": "经营报表",
+        "w": 102,
+        "x": 181.640625,
+        "y": 54
+      },
+      {
+        "bottom": 88,
+        "h": 34,
+        "hitInButton": false,
+        "right": 465.1640625,
+        "text": "订单管理",
+        "w": 102,
+        "x": 363.1640625,
+        "y": 54
+      },
+      {
+        "bottom": 88,
+        "h": 34,
+        "hitInButton": false,
+        "right": 599.1640625,
+        "text": "取消订单记录",
+        "w": 130,
+        "x": 469.1640625,
+        "y": 54
+      },
+      {
+        "bottom": 88,
+        "h": 34,
+        "hitInButton": false,
+        "right": 719.1640625,
+        "text": "司机与车辆",
+        "w": 116,
+        "x": 603.1640625,
+        "y": 54
+      },
+      {
+        "bottom": 88,
+        "h": 34,
+        "hitInButton": false,
+        "right": 825.1640625,
+        "text": "乘客管理",
+        "w": 102,
+        "x": 723.1640625,
+        "y": 54
+      },
+      {
+        "bottom": 88,
+        "h": 34,
+        "hitInButton": false,
+        "right": 931.1640625,
+        "text": "模拟账务",
+        "w": 102,
+        "x": 829.1640625,
+        "y": 54
+      },
+      {
+        "bottom": 88,
+        "h": 34,
+        "hitInButton": false,
+        "right": 1065.1640625,
+        "text": "模拟退款记录",
+        "w": 130,
+        "x": 935.1640625,
+        "y": 54
+      },
+      {
+        "bottom": 88,
+        "h": 34,
+        "hitInButton": false,
+        "right": 1199.1640625,
+        "text": "评价投诉反馈",
+        "w": 130,
+        "x": 1069.1640625,
+        "y": 54
+      },
+      {
+        "bottom": 88,
+        "h": 34,
+        "hitInButton": false,
+        "right": 1406.5703125,
+        "text": "城市与会员",
+        "w": 116,
+        "x": 1290.5703125,
+        "y": 54
+      },
+      {
+        "bottom": 88,
+        "h": 34,
+        "hitInButton": false,
+        "right": 1526.5703125,
+        "text": "账号与权限",
+        "w": 116,
+        "x": 1410.5703125,
+        "y": 54
+      },
+      {
+        "bottom": 88,
+        "h": 34,
+        "hitInButton": false,
+        "right": 1632.5703125,
+        "text": "操作日志",
+        "w": 102,
+        "x": 1530.5703125,
+        "y": 54
+      }
+    ],
+    "footer": {
+      "bottom": 0,
+      "h": 0,
+      "right": 0,
+      "w": 0,
+      "x": 0,
+      "y": 0
+    },
+    "heading": "操作日志",
+    "nav": {
+      "bottom": 120.5,
+      "clientHeight": 57,
+      "h": 72.5,
+      "right": 375,
+      "scrollHeight": 57,
+      "scrollTop": 0,
+      "w": 375,
+      "x": 0,
+      "y": 48
+    },
+    "viewport": {
+      "h": 844,
+      "w": 390
+    }
+  },
+  {
+    "label": "390x844-end",
+    "banner": "工作空间 / 操作日志admin · 超级管理员刷新数据退出",
+    "buttons": [
+      {
+        "bottom": 88,
+        "h": 34,
+        "hitInButton": false,
+        "right": -1091.859375,
+        "text": "经营概览",
+        "w": 102,
+        "x": -1193.859375,
+        "y": 54
+      },
+      {
+        "bottom": 88,
+        "h": 34,
+        "hitInButton": false,
+        "right": -985.859375,
+        "text": "经营报表",
+        "w": 102,
+        "x": -1087.859375,
+        "y": 54
+      },
+      {
+        "bottom": 88,
+        "h": 34,
+        "hitInButton": false,
+        "right": -804.3359375,
+        "text": "订单管理",
+        "w": 102,
+        "x": -906.3359375,
+        "y": 54
+      },
+      {
+        "bottom": 88,
+        "h": 34,
+        "hitInButton": false,
+        "right": -670.3359375,
+        "text": "取消订单记录",
+        "w": 130,
+        "x": -800.3359375,
+        "y": 54
+      },
+      {
+        "bottom": 88,
+        "h": 34,
+        "hitInButton": false,
+        "right": -550.3359375,
+        "text": "司机与车辆",
+        "w": 116,
+        "x": -666.3359375,
+        "y": 54
+      },
+      {
+        "bottom": 88,
+        "h": 34,
+        "hitInButton": false,
+        "right": -444.3359375,
+        "text": "乘客管理",
+        "w": 102,
+        "x": -546.3359375,
+        "y": 54
+      },
+      {
+        "bottom": 88,
+        "h": 34,
+        "hitInButton": false,
+        "right": -338.3359375,
+        "text": "模拟账务",
+        "w": 102,
+        "x": -440.3359375,
+        "y": 54
+      },
+      {
+        "bottom": 88,
+        "h": 34,
+        "hitInButton": false,
+        "right": -204.3359375,
+        "text": "模拟退款记录",
+        "w": 130,
+        "x": -334.3359375,
+        "y": 54
+      },
+      {
+        "bottom": 88,
+        "h": 34,
+        "hitInButton": false,
+        "right": -70.3359375,
+        "text": "评价投诉反馈",
+        "w": 130,
+        "x": -200.3359375,
+        "y": 54
+      },
+      {
+        "bottom": 88,
+        "h": 34,
+        "hit": "BUTTON",
+        "hitInButton": true,
+        "hitText": "城市与会员",
+        "right": 137.0703125,
+        "text": "城市与会员",
+        "w": 116,
+        "x": 21.0703125,
+        "y": 54
+      },
+      {
+        "bottom": 88,
+        "h": 34,
+        "hit": "BUTTON",
+        "hitInButton": true,
+        "hitText": "账号与权限",
+        "right": 257.0703125,
+        "text": "账号与权限",
+        "w": 116,
+        "x": 141.0703125,
+        "y": 54
+      },
+      {
+        "bottom": 88,
+        "h": 34,
+        "hit": "BUTTON",
+        "hitInButton": true,
+        "hitText": "操作日志",
+        "right": 363.0703125,
+        "text": "操作日志",
+        "w": 102,
+        "x": 261.0703125,
+        "y": 54
+      }
+    ],
+    "footer": {
+      "bottom": 0,
+      "h": 0,
+      "right": 0,
+      "w": 0,
+      "x": 0,
+      "y": 0
+    },
+    "heading": "操作日志",
+    "nav": {
+      "bottom": 120.5,
+      "clientHeight": 57,
+      "h": 72.5,
+      "right": 375,
+      "scrollHeight": 57,
+      "scrollTop": 0,
+      "w": 375,
+      "x": 0,
+      "y": 48
+    },
+    "viewport": {
+      "h": 844,
+      "w": 390
+    }
+  }
+]

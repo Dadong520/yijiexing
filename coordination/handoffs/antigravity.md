@@ -1,3 +1,2 @@
-# antigravity 当前交接 UI-20261025-03
-2026-10-25 18:10，IDLE。用户指定主要UI实现由Gemini完成，内置agy plan+scoped --add-dir原图/墨刀参考只读，司机14函数和乘客17函数SUCCESS，约200/206秒，conversation和usage见evidence/UI-20261025-03/gemini-run-record.json。根统一应用代码/地图适配/构建，不在AG独立目录切分支或覆盖。原CLI无并发未跳权限。hero内置imagegen原创生成根集成。
-当前产品SHA8499d6e5b6a19fc64c4375c6d70cd6edfccfa80f，稳定非iCloud clone /Users/dongge/.codex/tmp/yijiexing-ui03-integration；Gemini source在driver/passenger-gemini-design.json，根修正对比度/48dp/地图AndroidView重试key和两处准确文案。作者自测不等于验收，backend业务静态审查PASS，frontend真机模拟器独立UI/地图恢复待完成，尚未发布。后端/IAM/历史订单/账号不改，新版本APK和缓存不进Git，后续只按明确任务唤醒。
+# antigravity ADMIN05 / IDLE
+23:34独立agy plan/low纯代码10.7秒SUCCESS，conversation c6d34ad8-6485-4831-b6fb-4099b1f1e7c2；无工具/无权限绕过/不改全局模型。最小CSS3处replacement已root逐字唯一匹配集成。footer static/flex-shrink0，nav min-height0/按钮与section不缩，键盘focus-visible；只apps/admin-console/web/admin.css。sourceRoot /Users/dongge/.codex/tmp/yijiexing-sidebar-20261025，验收frontend/合并发布coordinator；作者自测不算验收。证据ADMIN05/gemini-run-record.json及applied-replacements。无后台/订单/账号/金额写，已停止AG任务。
