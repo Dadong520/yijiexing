@@ -1,0 +1,52 @@
+{
+  "status": "PASS",
+  "sourceSha": "7f489c243cb7d93ef6718cee13357ba330083e07",
+  "checks": [
+    {
+      "buttonHeight": 40,
+      "centerHitButton": true,
+      "footerPosition": "static",
+      "footerTop": 617.5,
+      "heading": "城市与会员配置",
+      "navBottom": 617.5,
+      "rows": 4,
+      "title": "城市与会员",
+      "viewport": {
+        "height": 693,
+        "width": 1440
+      }
+    },
+    {
+      "buttonHeight": 40,
+      "centerHitButton": true,
+      "footerPosition": "static",
+      "footerTop": 617.5,
+      "heading": "账号与权限",
+      "navBottom": 617.5,
+      "rows": 4,
+      "title": "账号与权限",
+      "viewport": {
+        "height": 693,
+        "width": 1440
+      }
+    },
+    {
+      "buttonHeight": 40,
+      "centerHitButton": true,
+      "footerPosition": "static",
+      "footerTop": 617.5,
+      "heading": "操作日志",
+      "navBottom": 617.5,
+      "rows": 21,
+      "title": "操作日志",
+      "viewport": {
+        "height": 693,
+        "width": 1440
+      },
+      "loaded": true
+    }
+  ],
+  "auditRecords": 292,
+  "auditLoadVerifiedAfterInitialLoading": true,
+  "orderOrFinancialWrites": false
+}
