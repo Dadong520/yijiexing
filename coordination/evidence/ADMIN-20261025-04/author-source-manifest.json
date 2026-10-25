@@ -14,6 +14,8 @@
     "apps/admin-console/web/admin.js": "b049819aec78860084d465162c63f0e9f40efbc4218d7b8762302b0a4fb6feb9",
     "apps/admin-console/backend/iap_browser.py": "5e33d4384aeaafc79caf64db95587dbc8cf90a3b9f11a0b1f0ae63b8aa3db42e",
     "apps/admin-console/backend/test_iap_browser.py": "eabc898b7fc205485991d502192438986cf72a69c932801737741d299c009388",
-    "apps/admin-console/ops/prepare_browser_build.py": "beff52411130945a0aa3a331051c5d38b78b35ffad56d5ce6fa83d3bbde3a057"
-  }
+    "apps/admin-console/ops/prepare_browser_build.py": "4f7bcd0aa3bfc8eabc89dc0915b5421c2db1f236e875625a5408f24431e6f560"
+  },
+  "sourceSha": "fe201d921eb9a5eca5be3b51d404dfc49fa4c71a",
+  "frontendSourceSha": "8eb46ea3038e978166edb82ea3658d8eec7d85f6"
 }

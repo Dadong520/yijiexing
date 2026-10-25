@@ -1,0 +1,225 @@
+- complementary:
+  - generic: 宜
+  - generic: 宜捷行运营管理中心
+  - navigation:
+    - generic: 工作台
+    - button "经营概览":
+      - text: 经营概览
+    - button "经营报表":
+      - text: 经营报表
+    - generic: 业务运营
+    - button "订单管理":
+      - text: 订单管理
+    - button "取消订单记录":
+      - text: 取消订单记录
+    - button "司机与车辆":
+      - text: 司机与车辆
+    - button "乘客管理":
+      - text: 乘客管理
+    - button "模拟账务":
+      - text: 模拟账务
+    - button "模拟退款记录":
+      - text: 模拟退款记录
+    - button "评价投诉反馈":
+      - text: 评价投诉反馈
+    - generic: 配置与治理
+    - button "城市与会员":
+      - text: 城市与会员
+    - button "账号与权限":
+      - text: 账号与权限
+    - button "操作日志":
+      - text: 操作日志
+  - text: 独立云体验环境
+  - generic: 支付 / 退款 / 提现均为模拟
+- banner:
+  - text: 工作空间 /
+  - strong: 取消订单记录
+  - generic: admin · 超级管理员
+  - button "刷新数据"
+  - button "退出"
+- main:
+  - generic: 体验环境 · 本后台与司机、乘客端共用持久化业务数据。所有金额均为模拟账务，不发生真实资金交易。
+  - heading "订单取消记录" [level=1]
+  - paragraph: 记录取消方、原因及后续状态，不作为多次取消流水
+  - button "导出筛选结果"
+  - generic: 搜索
+  - textbox "搜索"
+  - generic: 开始日期
+  - textbox "开始日期"
+  - generic: 结束日期
+  - textbox "结束日期"
+  - generic: 订单类型
+  - combobox "订单类型":
+    - option "全部" [selected]
+    - option "司机报价"
+    - option "议价用车"
+    - option "预约用车"
+    - option "即时用车"
+  - generic: 费用来源
+  - combobox "费用来源":
+    - option "全部" [selected]
+    - option "EXPERIENCE_ESTIMATE"
+  - generic: 乘客账号电话
+  - textbox "乘客账号电话"
+  - generic: 驾驶员账号
+  - textbox "驾驶员账号"
+  - generic: 驾驶员姓名
+  - textbox "驾驶员姓名"
+  - generic: 驾驶员电话
+  - textbox "驾驶员电话"
+  - generic: 订单状态
+  - combobox "订单状态":
+    - option "全部" [selected]
+    - option "司机已到达"
+    - option "待接单"
+    - option "已取消"
+    - option "已完成"
+    - option "接驾中"
+    - option "待预付（模拟）"
+    - option "预约待接驾"
+    - option "行程中"
+    - option "司机取消·待乘客续叫"
+    - option "待支付（模拟）"
+  - generic: 取消参与方
+  - combobox "取消参与方":
+    - option "全部" [selected]
+    - option "后台取消"
+    - option "司机取消"
+    - option "乘客取消"
+  - generic: 车辆号牌
+  - textbox "车辆号牌"
+  - generic: 订单编号
+  - textbox "订单编号"
+  - generic: 行政区划
+  - combobox "行政区划":
+    - option "全部" [selected]
+    - option "宜昌市"
+  - generic: 计费模式 (原后台线上/线下计费模式未在共享订单持久保存，费用来源不等于计费模式。)
+  - textbox "计费模式 (原后台线上/线下计费模式未在共享订单持久保存，费用来源不等于计费模式。)" [disabled]:
+    - /placeholder: 原后台线上/线下计费模式未在共享订单持久保存，费用来源不等于计费模式。
+  - generic: 所属公司 (共享订单没有权威公司ID或归属；演示司机organization不作为公司维度。)
+  - textbox "所属公司 (共享订单没有权威公司ID或归属；演示司机organization不作为公司维度。)" [disabled]:
+    - /placeholder: 共享订单没有权威公司ID或归属；演示司机organization不作为公司维度。
+  - generic: 是否指派 (未实现后台指派业务，driverId不等于是否指派。)
+  - textbox "是否指派 (未实现后台指派业务，driverId不等于是否指派。)" [disabled]:
+    - /placeholder: 未实现后台指派业务，driverId不等于是否指派。
+  - button "查询"
+  - button "重置"
+  - combobox:
+    - option "15 条/页"
+    - option "20 条/页" [selected]
+    - option "50 条/页"
+    - option "100 条/页"
+  - generic: 已应用过滤：无
+  - generic: 总匹配数
+  - generic: "2"
+  - generic: 订单数
+  - generic: "2"
+  - generic: 完成数
+  - generic: "0"
+  - generic: 取消数
+  - generic: "1"
+  - generic: 活跃/进行中
+  - generic: "1"
+  - generic: 已完成模拟收款
+  - generic: ¥0.00
+  - generic: 模拟退款
+  - generic: ¥27.00
+  - generic: 口径：共享订单记录；排除司机私有演示订单。金额为整数分。模拟收款仅统计已完成且仍已付款订单的费用，不是历史收款或清分收入；累计模拟退款为历史每轮退款与当前退款之和，等额同刻也不去重。仅当前已取消或等待乘客续叫；后者待乘客续叫，不是已终结。最后取消事件时间缺失保持未知，不展示为历史全部取消次数。所有支付、退款、提现为模拟；未接真实收单、银行打款或公司清分。不提供电话叫车、后台指派、超时/有责取消的虚构对应。 (UTC+8，同条件全匹配汇总)
+  - generic: 1 条记录时间缺失或无效，启用日期筛选时将被排除
+  - table:
+    - rowgroup:
+      - row "订单 起终点 参与账号 取消方 取消时间 结果 操作":
+        - columnheader "订单"
+        - columnheader "起终点"
+        - columnheader "参与账号"
+        - columnheader "取消方"
+        - columnheader "取消时间"
+        - columnheader "结果"
+        - columnheader "操作"
+    - rowgroup:
+      - 'row "B 即时用车 | 宜昌市 起: 宜昌站 终: 商场 客: 乘客P1 13800000101 司: 张司机 13800000001 乘客 因: 行程有变 2026/10/24 16:00:00 已终止 详情"':
+        - cell "B 即时用车 | 宜昌市":
+          - generic: B
+          - generic: 即时用车 | 宜昌市
+        - 'cell "起: 宜昌站 终: 商场"':
+          - generic: "起: 宜昌站"
+          - generic: "终: 商场"
+        - 'cell "客: 乘客P1 13800000101 司: 张司机 13800000001"':
+          - generic: "客: 乘客P1 13800000101"
+          - generic: "司: 张司机 13800000001"
+        - 'cell "乘客 因: 行程有变"':
+          - generic: 乘客
+          - generic "行程有变": "因: 行程有变"
+        - cell "2026/10/24 16:00:00"
+        - cell "已终止":
+          - generic: 已终止
+        - cell "详情":
+          - button "详情"
+      - 'row "C 即时用车 | 宜昌市 起: 宜昌站 终: 商场 客: 乘客P1 13800000101 司: 张司机 13800000001 司机 因: 车辆故障 未记录 待乘客确认(进行中) 详情"':
+        - cell "C 即时用车 | 宜昌市":
+          - generic: C
+          - generic: 即时用车 | 宜昌市
+        - 'cell "起: 宜昌站 终: 商场"':
+          - generic: "起: 宜昌站"
+          - generic: "终: 商场"
+        - 'cell "客: 乘客P1 13800000101 司: 张司机 13800000001"':
+          - generic: "客: 乘客P1 13800000101"
+          - generic: "司: 张司机 13800000001"
+        - 'cell "司机 因: 车辆故障"':
+          - generic: 司机
+          - generic "车辆故障": "因: 车辆故障"
+        - cell "未记录"
+        - cell "待乘客确认(进行中)":
+          - generic: 待乘客确认(进行中)
+        - cell "详情":
+          - button "详情"
+  - text: 共
+  - strong: "2"
+  - text: 条记录，第
+  - strong: "1"
+  - text: /
+  - strong: "1"
+  - text: 页
+  - button "上一页" [disabled]
+  - button "下一页" [disabled]
+  - generic: 登录成功 · 点击刷新获取两端最新数据
+- dialog:
+  - heading "订单详情 · C" [level=2]
+  - button "关闭" [active]: ×
+  - paragraph: 权威订单状态：等待乘客继续叫车。原司机已取消，其司机端显示已取消；乘客可继续叫车或取消本次订单。此时暂未匹配新的司机。
+  - term: 费用版本
+  - definition: V0
+  - term: 费用口径
+  - definition: 体验估价或已确认报价；金额单位为元。
+  - term: 订单类型
+  - definition: 即时用车
+  - term: 订单状态
+  - definition:
+    - generic: 等待乘客继续叫车
+  - term: 行程
+  - definition: 宜昌站 → 商场
+  - term: 乘客
+  - definition: P1
+  - term: 司机
+  - definition: D1
+  - term: 金额
+  - definition: ¥9.00
+  - term: 支付
+  - definition:
+    - generic: 未支付
+    - text: · 模拟账务
+  - term: 取消原因
+  - definition: 车辆故障
+  - term: 创建时间
+  - definition: 2026/10/24 00:00:00
+  - button "人工取消"
+  - heading "司机报价" [level=3]
+  - paragraph: 暂无报价记录
+  - heading "乘客评价" [level=3]
+  - paragraph: 尚未评价
+  - heading "状态与操作时间线" [level=3]
+  - generic: 暂无事件
+  - generic "完整共享订单记录"
+  - button "关闭"
+- status: 已导出当前已应用条件的全部匹配记录，操作已记入审计

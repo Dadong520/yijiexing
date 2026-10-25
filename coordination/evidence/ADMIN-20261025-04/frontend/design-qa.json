@@ -1,0 +1,416 @@
+{
+  "schemaVersion": 1,
+  "task": "ADMIN-20261025-04",
+  "reviewer": "frontend independent non-author",
+  "sourceSha": "fe201d921eb9a5eca5be3b51d404dfc49fa4c71a",
+  "frontendSourceSha": "8eb46ea3038e978166edb82ea3658d8eec7d85f6",
+  "apiSourceSha": "8a02527d025245381ebca517fcd88508c5e9606d",
+  "acceptance": "REQUIRES_FIX",
+  "releaseReady": false,
+  "scope": "Independent localhost UI and real API query/export/auth/permissions with only synthetic34 orders. No online Chrome admin, emulator, deployed services, source mutations, agents or real business writes.",
+  "startedAt": "2026-10-25T21:15:54+08:00",
+  "browserEndedAt": "2026-10-25T13:29:04.234Z",
+  "deadline": "2026-10-25T21:33:54+08:00",
+  "reportCompletedAt": "2026-10-25T21:32:26.245639+08:00",
+  "steps": [
+    {
+      "number": 1,
+      "name": "登录页和错误提示",
+      "result": "PASS",
+      "observed": "1366级左右布局清楚；390x844无横溢出，输入label可读；合成错误密码有明确提示。",
+      "evidence": [
+        "01-login-desktop.jpg",
+        "02-login-narrow.jpg",
+        "03-login-error.jpg"
+      ]
+    },
+    {
+      "number": 2,
+      "name": "订单时间和多条件筛选",
+      "result": "PASS",
+      "observed": "UTC8的10月24日只D/B/C，退款2700分；kind+账号手机+车牌+DONE组合只D，chips正确。",
+      "evidence": [
+        "05-orders-date.jpg",
+        "dom-1-orders-date.txt",
+        "dom-2-orders-combined.txt",
+        "06-orders-combined-detail.jpg"
+      ]
+    },
+    {
+      "number": 3,
+      "name": "分页、详情和返回",
+      "result": "PASS",
+      "observed": "20条与15条/页，翻页后PAGE-06详情金额10.06正确；重置回第1页；空查询0条；从日志返回订单保留PAGE过滤且旧审计按钮不可见。",
+      "evidence": [
+        "07-orders-page2-detail.jpg",
+        "08-orders-empty.jpg",
+        "18-return-orders.txt"
+      ]
+    },
+    {
+      "number": 4,
+      "name": "实际CSV导出",
+      "result": "PASS",
+      "observed": "日期匹配3条、无筛选第2页导出34条、PAGE过滤第2页导出27条；非当前页15条或全库34条。未提交草稿不生效；=CMD(A1)加单引号保护。",
+      "evidence": [
+        "csv-verification.json",
+        "orders-date-applied-draft-ignored.csv",
+        "orders-all-from-page2.csv",
+        "orders-filtered27-from-page2.csv",
+        "19-filtered-page2-before-export.txt"
+      ]
+    },
+    {
+      "number": 5,
+      "name": "失败和重试",
+      "result": "PASS",
+      "observed": "实际fail-next造成query503，页面明确持久化不可用，导出禁用、PAGE草稿保留；实际点重试恢复27条。",
+      "evidence": [
+        "09-query-failed.jpg",
+        "09-query-failed.txt"
+      ]
+    },
+    {
+      "number": 6,
+      "name": "取消、退款和报表",
+      "result": "PASS",
+      "observed": "C是WAIT_CONTINUE待乘客续叫而非终结；退款3轮同额同刻各900分共2700不去重；日统计3单1完1取消1活跃，模拟实付20/退款27元；详情可读。",
+      "evidence": [
+        "10-cancellation-C-detail.txt",
+        "11-refunds.txt",
+        "11-refund-detail.jpg",
+        "16-statistics-detail.jpg"
+      ]
+    },
+    {
+      "number": 7,
+      "name": "司机、乘客和模拟账务",
+      "result": "PASS_READ_ONLY",
+      "observed": "三个列表均加载真实query并实际查询/打开对应详情；缺登记日期明确禁用且说明，不伪造。提现审核变更本轮未执行。",
+      "evidence": [
+        "12-drivers.txt",
+        "12-driver-detail.jpg",
+        "13-passengers.txt",
+        "13-passenger-detail.jpg",
+        "14-payments.txt",
+        "14-payment-detail.jpg"
+      ]
+    },
+    {
+      "number": 8,
+      "name": "投诉和历史审计",
+      "result": "REQUIRES_FIX",
+      "observed": "投诉筛选/详情可用，但OC1列表显示D/D，详情账号P1/订单D，API accountId=P1；另按ADMIN:old能查到id1，超旧state最近200限制。",
+      "evidence": [
+        "15-support.txt",
+        "15-support-detail.jpg",
+        "17-audit-old.txt",
+        "17-audit-old-detail.jpg"
+      ]
+    },
+    {
+      "number": 9,
+      "name": "只读角色和边界",
+      "result": "PASS",
+      "observed": "VIEWER导出和调价按钮disabled；自己的HTTP会话直接export/action403、无session401、driver路径404；结束所有本地会话logout并重置viewport。",
+      "evidence": [
+        "18-viewer-orders.txt",
+        "18-viewer-detail.jpg",
+        "independent-http.json",
+        "ui-steps.json"
+      ]
+    }
+  ],
+  "findings": [
+    {
+      "id": "ADMIN-WITHDRAW-P1-01",
+      "priority": "P1",
+      "status": "OPEN",
+      "observed": "Payment projection id WITHDRAWAL:D1:W1 differs from real withdrawalId W1; both approve/reject handlers still pass p.id.",
+      "source": "apps/admin-console/web/admin.js:798",
+      "proof": "Non-author static source confirms dispatch uses id:p.id; backend query contract and actual W2 detail show prefixed projection id. Coordinator first reported failure. Reviewer did not click monetary mutation or independently induce404.",
+      "recommendation": "Use withdrawalId||id only for withdrawal action payload, retain projection id for row lookup. Fix author then independent delta with explicit local fixture mutation if authorized."
+    },
+    {
+      "id": "ADMIN-SUPPORT-P2-01",
+      "priority": "P2",
+      "status": "OPEN",
+      "observed": "OC1 list labels associated account as D, but actual account is P1 and order is D; detail already correct.",
+      "source": "apps/admin-console/web/admin.js:800",
+      "evidence": [
+        "15-support.txt",
+        "15-support-detail.txt",
+        "15-support-detail.jpg",
+        "independent-http.json"
+      ],
+      "recommendation": "Display accountId/factual account label in list; preserve ownerId for support reply payload."
+    }
+  ],
+  "csvEvidence": [
+    {
+      "file": "orders-date-applied-draft-ignored.csv",
+      "rows": 3,
+      "ids": [
+        "D",
+        "B",
+        "C"
+      ],
+      "sha256": "490cfd522b64f6e1ae60607b5045f7057c0972c13a4460cd2e5cf765b5e6851b"
+    },
+    {
+      "file": "orders-all-from-page2.csv",
+      "rows": 34,
+      "ids": [
+        "PAGE-26",
+        "PAGE-25",
+        "PAGE-24",
+        "PAGE-23",
+        "PAGE-22",
+        "PAGE-21",
+        "PAGE-20",
+        "PAGE-19",
+        "PAGE-18",
+        "PAGE-17",
+        "PAGE-16",
+        "PAGE-15",
+        "PAGE-14",
+        "PAGE-13",
+        "PAGE-12",
+        "PAGE-11",
+        "PAGE-10",
+        "PAGE-09",
+        "PAGE-08",
+        "PAGE-07",
+        "PAGE-06",
+        "PAGE-05",
+        "PAGE-04",
+        "PAGE-03",
+        "PAGE-02",
+        "PAGE-01",
+        "PAGE-00",
+        "E",
+        "D",
+        "B",
+        "C",
+        "A",
+        "LEGACY",
+        "ORPHAN"
+      ],
+      "sha256": "4124a8dcfdc7b0dec0c7333e9c70e7f429914a11f3ed8978cee765147cbcfc22"
+    },
+    {
+      "file": "orders-filtered27-from-page2.csv",
+      "rows": 27,
+      "ids": [
+        "PAGE-26",
+        "PAGE-25",
+        "PAGE-24",
+        "PAGE-23",
+        "PAGE-22",
+        "PAGE-21",
+        "PAGE-20",
+        "PAGE-19",
+        "PAGE-18",
+        "PAGE-17",
+        "PAGE-16",
+        "PAGE-15",
+        "PAGE-14",
+        "PAGE-13",
+        "PAGE-12",
+        "PAGE-11",
+        "PAGE-10",
+        "PAGE-09",
+        "PAGE-08",
+        "PAGE-07",
+        "PAGE-06",
+        "PAGE-05",
+        "PAGE-04",
+        "PAGE-03",
+        "PAGE-02",
+        "PAGE-01",
+        "PAGE-00"
+      ],
+      "sha256": "895ba3c0e7687b1af7b68cba43acc94cca7e79e5b88f0ea3498b898d803cf4b2"
+    }
+  ],
+  "apiIndependentReview": {
+    "path": "adminapi-nonauthor-review.json",
+    "acceptance": "PASS_SCOPE",
+    "checks": 13,
+    "sourceSha": "8a02527d025245381ebca517fcd88508c5e9606d"
+  },
+  "sourceBinding": {
+    "readback": "source-readback.json",
+    "sameAsAuthorManifest": true,
+    "apiFiles": {
+      "apps/cloud-service/admin_queries.py": "eb7077abd704dcdf9cfe9f0c435a0471701f4042dc480df82c90ea0e6188bd1c",
+      "apps/cloud-service/admin_console.py": "829abdfe5ff5e1ebb80b35dd83f87a39e18bafbe625846dd169fd29a91f699ae",
+      "apps/cloud-service/server.py": "4aaf099733be16eb36f4fc1a9f84be49f9a11fe183906c6b7e5fc850028219c0"
+    }
+  },
+  "environment": {
+    "url": "http://127.0.0.1:8808/",
+    "syntheticSharedOrders": 34,
+    "outerIap": "loopback adapter only",
+    "businessFixtureMutations": false,
+    "expectedReadAuditWrites": "Login attempts/success and exports add security/audit records; no order/payment/support changes. Initial205 old audits plus test operations account for current total>205.",
+    "cloudAndOriginalDataTouched": false
+  },
+  "teardown": {
+    "adminAndViewerLoggedOut": true,
+    "ownHttpSessionsLoggedOut": true,
+    "viewportReset": true,
+    "onlineChromeUntouched": true,
+    "originalServerLeftRunning": true,
+    "browserOperationOwnershipReturned": true
+  },
+  "accessibilityLimits": "Labels/error and390px reflow observed. No full WCAG, contrast-ratio, keyboard-only or screen-reader compliance claim.",
+  "notRun": [
+    "Withdrawal approve/reject actual mutation on original fe201d (known static bug)",
+    "Fix-version final delta acceptance",
+    "Exhaustive filter cross-product for all9 datasets; focused UI+13HTTP only",
+    "Dedicated narrow-screen table/detail matrix beyond login",
+    "Keyboard-only/full assistive technology audit",
+    "Cloud deployment and online IAP/public readback",
+    "Real bank clearing/payment/new3-end complete lifecycle"
+  ],
+  "screenshots": [
+    {
+      "path": "01-login-desktop.jpg",
+      "sha256": "4a302d9ff3649a836ff155be7910537fa52c88a1d4bb117b8655676d3dc23048",
+      "inspectedSavedFile": true,
+      "note": "Viewport captures show selected state; long tables/empty summary supported by paired DOM snapshots."
+    },
+    {
+      "path": "02-login-narrow.jpg",
+      "sha256": "17e1da44e357987bb0b7a0b0f9175ba0c56c55f9bb264a47e9c0334c226f8fad",
+      "inspectedSavedFile": true,
+      "note": "Viewport captures show selected state; long tables/empty summary supported by paired DOM snapshots."
+    },
+    {
+      "path": "03-login-error.jpg",
+      "sha256": "d6f10a24c0975b4b6b2819681e8720acb74ee926c6f344af797ea89b0f9dfbb9",
+      "inspectedSavedFile": true,
+      "note": "Viewport captures show selected state; long tables/empty summary supported by paired DOM snapshots."
+    },
+    {
+      "path": "04-overview.jpg",
+      "sha256": "8ae4e4fbca1d6635399e5bc7fa03faa3b3a980de4068c46e1c194c06302a1d07",
+      "inspectedSavedFile": true,
+      "note": "Viewport captures show selected state; long tables/empty summary supported by paired DOM snapshots."
+    },
+    {
+      "path": "05-orders-date.jpg",
+      "sha256": "a197d80e4ad0712f37a06e6fb2670a6009c6a0a9509f1ce85df9ee80fdc13023",
+      "inspectedSavedFile": true,
+      "note": "Viewport captures show selected state; long tables/empty summary supported by paired DOM snapshots."
+    },
+    {
+      "path": "06-orders-combined-detail.jpg",
+      "sha256": "cd3c510c805ca34ea46ee31d060811e818424336284275eda440575aee999a7c",
+      "inspectedSavedFile": true,
+      "note": "Viewport captures show selected state; long tables/empty summary supported by paired DOM snapshots."
+    },
+    {
+      "path": "07-orders-page2-detail.jpg",
+      "sha256": "96d5ac999eae7ea31c8c512a9692ed049e88df8001248ee1302bd33c6b838b62",
+      "inspectedSavedFile": true,
+      "note": "Viewport captures show selected state; long tables/empty summary supported by paired DOM snapshots."
+    },
+    {
+      "path": "08-orders-empty.jpg",
+      "sha256": "d68496799a62af399168cfa1f3216aa245f88164f25fdc2d869745b368ee3346",
+      "inspectedSavedFile": true,
+      "note": "Viewport captures show selected state; long tables/empty summary supported by paired DOM snapshots."
+    },
+    {
+      "path": "09-query-failed.jpg",
+      "sha256": "b5904f8bec2a5baaba1ca13747868a51f1f9e102c92b4ede0b93ea41122a337e",
+      "inspectedSavedFile": true,
+      "note": "Viewport captures show selected state; long tables/empty summary supported by paired DOM snapshots."
+    },
+    {
+      "path": "10-cancellations.jpg",
+      "sha256": "44cbf0bc45d7ded90c8e70108d81c3c51a397d80c34fa65479f060c6ab707f19",
+      "inspectedSavedFile": true,
+      "note": "Viewport captures show selected state; long tables/empty summary supported by paired DOM snapshots."
+    },
+    {
+      "path": "11-refund-detail.jpg",
+      "sha256": "2b795a6027904f3fcb0b120b8efe3b4d4312bd15dc1a05fb48051619bb524477",
+      "inspectedSavedFile": true,
+      "note": "Viewport captures show selected state; long tables/empty summary supported by paired DOM snapshots."
+    },
+    {
+      "path": "12-driver-detail.jpg",
+      "sha256": "8aaad024e4b6a77e25e92bcd052708a741c55716f6401a85bc0e0e507c60de75",
+      "inspectedSavedFile": true,
+      "note": "Viewport captures show selected state; long tables/empty summary supported by paired DOM snapshots."
+    },
+    {
+      "path": "13-passenger-detail.jpg",
+      "sha256": "8a02a6f157115bed2152504745fe52bb482eee294016f2ee1c2a6ea0b2f020ee",
+      "inspectedSavedFile": true,
+      "note": "Viewport captures show selected state; long tables/empty summary supported by paired DOM snapshots."
+    },
+    {
+      "path": "14-payment-detail.jpg",
+      "sha256": "ec4de1cf2a83d469794d279afd90638d70749b540af1134cb9f3aa7ba5fa8cfd",
+      "inspectedSavedFile": true,
+      "note": "Viewport captures show selected state; long tables/empty summary supported by paired DOM snapshots."
+    },
+    {
+      "path": "15-support-detail.jpg",
+      "sha256": "655e12d7784f9e17ba2f86ee0270386a563daa63c50cd51ea83368fdc4e18161",
+      "inspectedSavedFile": true,
+      "note": "Viewport captures show selected state; long tables/empty summary supported by paired DOM snapshots."
+    },
+    {
+      "path": "16-statistics-detail.jpg",
+      "sha256": "930287ec812417065cd8f82ef69ec000fd13db13c7267bcfdf65359b969bbdbd",
+      "inspectedSavedFile": true,
+      "note": "Viewport captures show selected state; long tables/empty summary supported by paired DOM snapshots."
+    },
+    {
+      "path": "17-audit-old-detail.jpg",
+      "sha256": "f551efb1526d578f496c305cc28e892eb3b995f0a8c3eed75309f9728f45383e",
+      "inspectedSavedFile": true,
+      "note": "Viewport captures show selected state; long tables/empty summary supported by paired DOM snapshots."
+    },
+    {
+      "path": "18-viewer-detail.jpg",
+      "sha256": "8416c87b08ab7500fcb2351bbceea9439260aaf9711089f769a1148c523aa9c2",
+      "inspectedSavedFile": true,
+      "note": "Viewport captures show selected state; long tables/empty summary supported by paired DOM snapshots."
+    },
+    {
+      "path": "19-filtered-page2-export.jpg",
+      "sha256": "d28a5d1972e782133f61542a7b10f07ac5d78bf9f72f10cc394bd0994280f136",
+      "inspectedSavedFile": true,
+      "note": "Viewport captures show selected state; long tables/empty summary supported by paired DOM snapshots."
+    }
+  ],
+  "evidence": [
+    {
+      "path": "adminapi-nonauthor-review.json",
+      "sha256": "5df8b437fbb85c670dfb6a4d685d7197f286fd4ae5d8020a13061017162e4eb1"
+    },
+    {
+      "path": "csv-verification.json",
+      "sha256": "647dbcdd21881d31dbb25766b05bc4173aaec3f3cab1ca6e5c2a0a51b87598bb"
+    },
+    {
+      "path": "independent-http.json",
+      "sha256": "5d83525df81661c6d781a5739cdaa7fc24e605ff9475bef719f8a60892122dd8"
+    },
+    {
+      "path": "source-readback.json",
+      "sha256": "99cab107e067442a8cf1c3c7ef988239811f962ac03e017ff845c6853ed3378a"
+    },
+    {
+      "path": "ui-steps.json",
+      "sha256": "c6f69741cab3a58a9086fa10c233a353f396d24bc300e75e4a69ceacd6fc6099"
+    }
+  ],
+  "nextAction": "Coordinator fixes two issues on a new fixed SHA, then dispatches bounded independent delta. No whole release PASS for fe201d; reviewer IDLE after report."
+}

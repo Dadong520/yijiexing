@@ -1,0 +1,46 @@
+test_browser_viewer_cannot_manage_accounts_or_adjust_fares (test_iap_browser.BrowserTests.test_browser_viewer_cannot_manage_accounts_or_adjust_fares) ... [2026-10-25T21:31:16+08:00] POST /api/local/admin/v2/login 200
+[2026-10-25T21:31:16+08:00] POST /api/local/admin/v2/action 200
+[2026-10-25T21:31:16+08:00] POST /api/local/admin/v2/login 200
+[2026-10-25T21:31:16+08:00] GET /api/local/admin/v2/state 200
+[2026-10-25T21:31:16+08:00] POST /api/local/admin/v2/action 403
+[2026-10-25T21:31:16+08:00] POST /api/local/admin/v2/action 403
+ok
+test_certificate_outage_is_retryable_without_mutation (test_iap_browser.BrowserTests.test_certificate_outage_is_retryable_without_mutation) ... [2026-10-25T21:31:16+08:00] GET /api/local/admin/v2/state 503
+ok
+test_console_login_state_logout_and_no_secret_disclosure (test_iap_browser.BrowserTests.test_console_login_state_logout_and_no_secret_disclosure) ... [2026-10-25T21:31:17+08:00] POST /api/local/admin/v2/login 200
+[2026-10-25T21:31:17+08:00] GET /api/local/admin/v2/state 200
+[2026-10-25T21:31:17+08:00] POST /api/local/admin/v2/logout 200
+[2026-10-25T21:31:17+08:00] GET /api/local/admin/v2/state 401
+ok
+test_cross_origin_and_missing_origin_operations_rejected (test_iap_browser.BrowserTests.test_cross_origin_and_missing_origin_operations_rejected) ... [2026-10-25T21:31:17+08:00] POST /api/local/admin/v2/login 403
+[2026-10-25T21:31:17+08:00] POST /api/local/admin/v2/login 403
+[2026-10-25T21:31:17+08:00] POST /api/local/admin/v2/login 403
+ok
+test_legacy_admin_mutations_and_shutdown_unavailable (test_iap_browser.BrowserTests.test_legacy_admin_mutations_and_shutdown_unavailable) ... [2026-10-25T21:31:17+08:00] POST /api/local/admin/action 404
+[2026-10-25T21:31:17+08:00] POST /api/local/admin/shutdown 404
+[2026-10-25T21:31:17+08:00] POST /api/auth/login 404
+ok
+test_missing_assertion_rejected_even_with_outer_secret (test_iap_browser.BrowserTests.test_missing_assertion_rejected_even_with_outer_secret) ... [2026-10-25T21:31:17+08:00] GET /api/local/admin/v2/state 401
+ok
+test_signed_assertion_does_not_bypass_console_login (test_iap_browser.BrowserTests.test_signed_assertion_does_not_bypass_console_login) ... [2026-10-25T21:31:17+08:00] GET /api/local/admin/v2/state 401
+ok
+test_signed_query_is_session_protected_and_filtered_export_matches (test_iap_browser.BrowserTests.test_signed_query_is_session_protected_and_filtered_export_matches) ... [2026-10-25T21:31:17+08:00] GET /api/local/admin/v2/query 401
+[2026-10-25T21:31:17+08:00] POST /api/local/admin/v2/login 200
+[2026-10-25T21:31:17+08:00] GET /api/local/admin/v2/query 200
+[2026-10-25T21:31:17+08:00] GET /api/local/admin/v2/export 200
+[2026-10-25T21:31:17+08:00] GET /api/local/admin/v2/query 400
+[2026-10-25T21:31:17+08:00] GET /api/local/admin/v2/query 401
+ok
+test_wrong_audience_email_issuer_expired_and_tampered_rejected (test_iap_browser.BrowserTests.test_wrong_audience_email_issuer_expired_and_tampered_rejected) ... [2026-10-25T21:31:17+08:00] GET /api/local/admin/v2/state 403
+[2026-10-25T21:31:17+08:00] GET /api/local/admin/v2/state 403
+[2026-10-25T21:31:17+08:00] GET /api/local/admin/v2/state 403
+[2026-10-25T21:31:17+08:00] GET /api/local/admin/v2/state 403
+[2026-10-25T21:31:17+08:00] GET /api/local/admin/v2/state 403
+[2026-10-25T21:31:17+08:00] GET /api/local/admin/v2/state 403
+[2026-10-25T21:31:17+08:00] GET /api/local/admin/v2/state 403
+ok
+
+----------------------------------------------------------------------
+Ran 9 tests in 0.507s
+
+OK

@@ -1,17 +1,22 @@
-# frontend ACCESS最终短交接
+# frontend ADMIN最终短交接
 
-ACK v2。ACCESS-20261025-01最后文字delta独立验收 **PASS_SCOPE / IDLE**，唯一设备操作权已交还coordinator。只改证据/handoff，不产品/构建/commit/部署/额外唤醒。20:30:58开始，原4min至20:34:58；所有设备操作 **20:34:13**结束，未用root后来延长到20:38的时间继续操作。
+ACK v2。ADMIN-20261025-04最终限定delta **PASS_SCOPE / IDLE**；API ADMINAPI-20261025-01非作者13专项HTTP **PASS_SCOPE**。唯一浏览器操作权已交root，不再浏览器/HTTP/模拟器/源码/构建/提交/部署/唤醒。主树 `/Users/dongge/.codex/tmp/yijiexing-admin-20261025`，最终产品 **0d7dfc045a137ee93b354acd669edebf6724af29**，API仍 **8a02527d025245381ebca517fcd88508c5e9606d**。root唯一发布新image，不能旧fe镜像。
 
-唯一AUTH根 `/Users/dongge/.codex/tmp/yijiexing-access-20261025`；最终产品 **eb54e70f27c53aaf569390039349cf3487ff008f**。driver0.3.10-cloud/code13已装SHA256 `95c948f29ba44fdf30904e5e7880ce298d33d67036686be19e0b7da152441042`；passenger1.1.10-experience/code12已装SHA256 `c2a640c69e2781ca75d2b0754dc14b2d84c9ed8e30c0f3da06f9879bf84842f9`。两install-r/pm-path base.apk实际bytes SHA与local APK一致，apksigner同旧签名。55/20为root再次构建证据，本人不重跑。
+最终报告 `coordination/evidence/ADMIN-20261025-04/frontend-final/design-qa.json` SHA256 **dfb5c592720072a67784a67080bf926ecb272c2d1f80b0452301f8f4a166cfa0**；同目录REPORT.md/6JPG实际看图/DOM/CSV/真实POST proof/source-delta/teardown。21:33:17开始，浏览器21:35:36结束（5min内，21:38:17前）。fresh reload实际新JS才登录，无混旧source。
 
-最终报告 `coordination/evidence/ACCESS-20261025-01/frontend-final/design-qa.json` SHA256 **10a80989db4952d7669dbe445ba2eb7fc1f8c57bf7ace50b9559236868c02610**。6PNG/XML全实际看图；installed/delta/connection-recovery/source-delta/static-review齐。**ACCESS-PAX-P2-01 CLOSED**：实际新版退出确认03说“下次可选择体验账号一键进入”，点击取消，未登出。Pax资料02保留0102，后续04真实地图首页和call CTA、无连接更新错误；driver恢复后02图/树为03网络正常及可用offer/待收款2笔共存，无登录再触发。
+4项实际PASS：
+1 OC1列表现在“乘客P1 · P1”/订单D，详情一致；reply payload ownerId保持静态双源对比无变，未回复投诉。
+2 **ADMIN-WITHDRAW-P1-01 CLOSED**：仅本地8808合成W1从PENDING审核通过。UI填原因+确认，CDP观测实际POST /api/local/admin/v2/action HTTP200，payload action wallet.withdrawal.audit/id=W1/driverId=D1/approved=true/confirmed=true，绝非composite。query刷新+展开原记录显示withdrawalIdW1/statusSANDBOX_APPROVED/300分。证明见withdrawal-http-proof.json（不含header/session）、06-withdrawal-readback.txt/JPG。只是模拟审核，未银行打款/未云端写；保留此localfixture变更供root，不清库/不回退。
+3 Admin PAGE已应用27条后退出、换viewer进入订单，搜索空/已应用无/34条，export仍disabled。源queryViews/pendingRequests清空+queryTicket递增已看；未作并发竞态压力。
+4 实际导出toast金额单位分，27条CSV fare1000+i，和首轮filtered27 CSV字节一致，单位正确。
+**ADMIN-SUPPORT-P2-01 CLOSED**：实际列表与详情P1相同。
 
-必须保留的观察：初driver01为session仍在的“服务连接提示：云端服务返回了无法识别的响应”，Pax01更新中；root说明当时未部署copy镜像或切流。driver重新打开时已自动刷新恢复成功，**没有实际点击重试按钮**（02文件名含retry仅描述原计划，JSON/报告明确retry未点）。Pax再打开04也clean。driver02有App新单heads-up覆盖头部，身份/网络同时有fresh XML证据，不冒称完整视觉重测。异常原因未确定，不能把冷启动/网络假说当事实；原错误图/JSON保留。已报root，无复现依据不改业务。
+精确diff fe201d→0d仅admin.js4行；其余原UI和API不变。两审核按钮fallback withdrawalId||id已静态确认，实际只测approve，不重复reject；唯一API三文件字节再次与8a commit一致。IAP9由root另跑，不冒称本角色做真实Google/IAP。
 
-源2e5→eb54精确diff只有3文件4段文字：Pax logout和help短信项、driverStore旧DEMO错误提示、LocationService错误通知；auth/Home/数据/业务路径未变，后两异常不人为诱发。2e5全登录矩阵证据限定继承 `frontend/design-qa.json` SHA2562ee62e11750e80dbf4bb1f2bd26b97ecc6e07a01cf9b882cb452b44cbb1cb638：同意门禁/三账号菜单/单击与双击/离线失败恢复/角色资料/重启保留等确实已跑，不假称本包重跑。旧P2仅由本轮实际新版图关闭。
+首轮基线 `frontend/design-qa.json` SHA256 **21b5fb4672195fd6d3c540c47f5c193768c229cfd004d7b191cbfb96b9282d7e** = REQUIRES_FIX，19JPG/9步REPORT/DOM/CSV全已落盘。绑定fe201d921eb9a5eca5be3b51d404dfc49fa4c71a（UI8eb46ea，API8a）；通过登录1366/390可读无横溢出/label错误、九dataset实际列表详情、订单UTC8 10/24只D/B/C+2700退款分、多条件只D、20/15分页后详情、空态/reset、真实503保草稿实际retry恢复、退款同刻同额3轮不去重、C WAIT_CONTINUE非终结、旧audit id1及actor过滤、VIEWERdisabled。三个真实下载CSV分别3/34/27条，未提交draft不进已应用导出，公式'=CMD(A1)单引号保护。
 
-非作者下载源码review **PASS_STATIC_SCOPE**：唯一API `/Users/dongge/.codex/tmp/yijiexing-api-20261025/apps/cloud-service/distribution.py` 实际bytes与 **ecab94fd2022d3142eefbedbb63c38641979bece**一致，仅该文件2行HTML/颜色及乘客replace变化；实际推导两份HTML均正确角色+勾说明进入，无访问码/手填验证码文字，后台独立登录/模拟收费边界保留。API auth原3422f1ccb9263438533eee8e89890d7296b644be没在本delta改；原源审/8HTTP由root限定继承，不冒称我再次HTTP/部署/公开页回读。
+独立API报告 `frontend/adminapi-nonauthor-review.json` SHA256 **5df8b437fbb85c670dfb6a4d685d7197f286fd4ae5d8020a13061017162e4eb1**，13 bounded HTTP PASS：九数据集、日期/组合/分页/退款/续叫/历史/不可用字段400、viewer导出变更403/无session401/driver路径404。证据independent-http.json；自有session皆logout，不输出token/password。非185重跑，外层IAP仅回环adapter，内层真实SQLite/CAS。
 
-恢复：原/最终network1/1、font1.0、physical1080x2400/420dpi逐字段相同，本轮未改这些设置；默认003/0102登录不变，无真实退出、订单/钱包/在线/投诉/支付、无prefs/token/code读取、pm clear或清缓存。双App最后均force-stop/HOME，原5586/5584 AVD仍留root。不要再无任务ADB或轮询。
+Teardown：admin/viewer均退出、viewport reset、Network观察disabled；没有线上旧Chrome、模拟器、部署/原cloud数据访问。baseline只有正常login/export审计，final仅上述W1模拟审核及正常审计；localserver原样留root。截图helper捕获目录绑定旧闭包，6新图已按SHA原字节移至frontend-final，旧19图/报告不变，最终无混版本图。
 
-NOT_RUN：重复全登录矩阵、人工403/DEMO/定位通知触发、帮助整页导航（文字已读源码）、新公开下载HTML/APK发布GET、异常根因/稳定性压力、TLS请求计数、真机大字横屏/TalkBack、新三端交易全流程/高德/投诉。下一步coordinator精确绑定最终SHA/hash/gate，统一合并发布回读；本人IDLE，待明确新任务。
+NOT_RUN：reject实际变更/投诉回复、并发logout竞态、最终包重复185/九UI全矩阵、无障碍全覆盖/表格窄屏、线上IAP/发布回读、银行清分/真支付/新完整三端交易。完成范围仅本地后台功能与delta；下一步root统一exactSHA门禁/合并/新image发布回读，本人停止IDLE。

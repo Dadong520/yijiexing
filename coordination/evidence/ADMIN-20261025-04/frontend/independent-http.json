@@ -1,0 +1,211 @@
+{
+  "reviewer": "frontend non-author",
+  "apiSourceSha": "8a02527d025245381ebca517fcd88508c5e9606d",
+  "nativeUiSourceSha": "fe201d921eb9a5eca5be3b51d404dfc49fa4c71a",
+  "scope": "Real query/export/auth/permissions over loopback synthetic SQLite/CAS fixture; outer IAP replaced only; no production claims",
+  "checks": [
+    {
+      "check": "All9 real datasets query",
+      "result": "PASS",
+      "proof": {
+        "orders": {
+          "total": 34,
+          "summary": {
+            "orderCount": 34,
+            "completedCount": 2,
+            "cancelledCount": 1,
+            "activeCount": 31,
+            "paidFare": 2900,
+            "refundAmount": 2700,
+            "rowCount": 34,
+            "missingDateCount": 2
+          }
+        },
+        "drivers": {
+          "total": 2,
+          "summary": {
+            "rowCount": 2,
+            "missingDateCount": 0
+          }
+        },
+        "passengers": {
+          "total": 2,
+          "summary": {
+            "rowCount": 2,
+            "missingDateCount": 0
+          }
+        },
+        "payments": {
+          "total": 36,
+          "summary": {
+            "orderCount": 34,
+            "withdrawalCount": 2,
+            "orderFare": 34751,
+            "refundAmount": 2700,
+            "withdrawalAmount": 700,
+            "rowCount": 36,
+            "missingDateCount": 2
+          }
+        },
+        "support": {
+          "total": 4,
+          "summary": {
+            "rowCount": 4,
+            "missingDateCount": 0
+          }
+        },
+        "audit": {
+          "total": 212,
+          "summary": {
+            "rowCount": 212,
+            "missingDateCount": 0
+          }
+        },
+        "statistics": {
+          "total": 4,
+          "summary": {
+            "orderCount": 34,
+            "completedCount": 2,
+            "cancelledCount": 1,
+            "activeCount": 31,
+            "paidFare": 2900,
+            "refundAmount": 2700,
+            "rowCount": 4,
+            "missingDateCount": 2
+          }
+        },
+        "cancellations": {
+          "total": 2,
+          "summary": {
+            "orderCount": 2,
+            "completedCount": 0,
+            "cancelledCount": 1,
+            "activeCount": 1,
+            "paidFare": 0,
+            "refundAmount": 2700,
+            "rowCount": 2,
+            "missingDateCount": 1
+          }
+        },
+        "refunds": {
+          "total": 3,
+          "summary": {
+            "refundCount": 3,
+            "refundAmount": 2700,
+            "rowCount": 3,
+            "missingDateCount": 0
+          }
+        }
+      }
+    },
+    {
+      "check": "UTC8 inclusive date boundaries",
+      "result": "PASS",
+      "proof": {
+        "ids": [
+          "D",
+          "B",
+          "C"
+        ],
+        "refundCents": 2700
+      }
+    },
+    {
+      "check": "Combined date/type/phone/plate/status",
+      "result": "PASS",
+      "proof": [
+        "D"
+      ]
+    },
+    {
+      "check": "Pagination15 no duplicates",
+      "result": "PASS",
+      "proof": {
+        "total": 34,
+        "page1": 15,
+        "page2": 15
+      }
+    },
+    {
+      "check": "Equal amount/time refunds not deduplicated",
+      "result": "PASS",
+      "proof": {
+        "ids": [
+          "B:CURRENT",
+          "B:HISTORY:0",
+          "B:HISTORY:1"
+        ],
+        "amounts": [
+          900,
+          900,
+          900
+        ]
+      }
+    },
+    {
+      "check": "CancelC awaiting continuation",
+      "result": "PASS",
+      "proof": {
+        "stage": "WAIT_CONTINUE",
+        "status": "AWAITING_PASSENGER"
+      }
+    },
+    {
+      "check": "Historical audit beyond legacy200",
+      "result": "PASS",
+      "proof": {
+        "allTotal": 212,
+        "oldActorTotal": 1,
+        "oldId1Visible": true
+      }
+    },
+    {
+      "check": "Unavailable field/date rejected",
+      "result": "PASS",
+      "proof": {
+        "ordersBillingMode": 400,
+        "driversDate": 400
+      }
+    },
+    {
+      "check": "Support account source evidence",
+      "result": "PASS",
+      "proof": {
+        "id": "OC1",
+        "accountId": "P1",
+        "ownerId": "D",
+        "orderId": "D"
+      }
+    },
+    {
+      "check": "viewerExport",
+      "result": "PASS",
+      "proof": {
+        "httpStatus": 403
+      }
+    },
+    {
+      "check": "viewerMutation",
+      "result": "PASS",
+      "proof": {
+        "httpStatus": 403
+      }
+    },
+    {
+      "check": "noSession",
+      "result": "PASS",
+      "proof": {
+        "httpStatus": 401
+      }
+    },
+    {
+      "check": "driverPath",
+      "result": "PASS",
+      "proof": {
+        "httpStatus": 404
+      }
+    }
+  ],
+  "ownSessionsLoggedOut": true,
+  "endedAt": "2026-10-25T21:26:06.696710+08:00"
+}

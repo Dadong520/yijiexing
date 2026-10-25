@@ -20,12 +20,63 @@
     "独立浏览器实际UI及接口权限/导出/日期边界/空态失败恢复测试PASS",
     "保留IAM/IAP与账务数据、无真实生产访问，唯一coordinator发布回读"
   ],
-  "status": "IN_PROGRESS",
-  "acceptance": "NOT_RUN",
-  "tests": [],
-  "evidence": [],
-  "nextAction": "Gemini修CSS/login；backend提供contract后Gemini完成查询UI；frontend独立验收；coordinator合并部署",
+  "status": "ACCEPTED_FOR_DEPLOY",
+  "acceptance": "PASS",
+  "tests": [
+    {
+      "name": "JavaScript syntax",
+      "command": "node --check apps/admin-console/web/admin.js",
+      "status": "PASS",
+      "exitCode": 0,
+      "sourceSha": "0d7dfc045a137ee93b354acd669edebf6724af29"
+    },
+    {
+      "name": "Signed IAP HTTP/session/query/export integration",
+      "command": "YIJ_BACKEND_SOURCE=<unique API> python -m unittest discover -s apps/admin-console/backend -p test_iap_browser.py -v",
+      "status": "PASS",
+      "exitCode": 0,
+      "sourceSha": "0d7dfc045a137ee93b354acd669edebf6724af29",
+      "tests": 9
+    },
+    {
+      "name": "Independent actual browser full matrix and final4-line delta",
+      "command": "frontend Chrome+real local SQLite/CAS interaction and downloaded CSV verification; frontend-final/design-qa.json binds inherited fe201d matrix and actual0d fixes",
+      "status": "PASS",
+      "exitCode": 0,
+      "sourceSha": "0d7dfc045a137ee93b354acd669edebf6724af29"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "coordination/evidence/ADMIN-20261025-04/frontend-final/design-qa.json",
+      "sha256": "dfb5c592720072a67784a67080bf926ecb272c2d1f80b0452301f8f4a166cfa0"
+    },
+    {
+      "path": "coordination/evidence/ADMIN-20261025-04/frontend/design-qa.json",
+      "sha256": "21b5fb4672195fd6d3c540c47f5c193768c229cfd004d7b191cbfb96b9282d7e"
+    },
+    {
+      "path": "coordination/evidence/ADMIN-20261025-04/frontend/csv-verification.json",
+      "sha256": "647dbcdd21881d31dbb25766b05bc4173aaec3f3cab1ca6e5c2a0a51b87598bb"
+    },
+    {
+      "path": "coordination/evidence/ADMIN-20261025-04/frontend-final/withdrawal-http-proof.json",
+      "sha256": "89ffd3fe5d3424329a446010a5a0c73dbf496a023ff912f76ed4972750a9f214"
+    },
+    {
+      "path": "coordination/evidence/ADMIN-20261025-04/iap-final-regression.log",
+      "sha256": "5c2fcff6e83dc1086c5c894c25e637813ee73104aceef9a1d3d3b10708bd9dc8"
+    },
+    {
+      "path": "coordination/evidence/ADMIN-20261025-04/final-build-source-manifest.json",
+      "sha256": "49d9c87ce5a6eb9cab84a7aa2117f42839c9f97368d9722de927d1b7995bf6c7"
+    }
+  ],
+  "nextAction": "Merge exact accepted code/records, deploy only driver-admin image, verify IAP/scaling/real-data browser and preserved orders.",
   "deploy_owner": "coordinator",
-  "releaseReady": false,
-  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-admin-20261025"
+  "releaseReady": true,
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-admin-20261025",
+  "productSha": "0d7dfc045a137ee93b354acd669edebf6724af29",
+  "acceptedSha": "0d7dfc045a137ee93b354acd669edebf6724af29",
+  "reviewer": "frontend independent non-author"
 }

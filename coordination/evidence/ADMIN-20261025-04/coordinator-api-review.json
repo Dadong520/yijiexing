@@ -1,0 +1,66 @@
+{
+  "reviewer": "coordinator, non-author of backend product",
+  "backendSourceSha": "8a02527d025245381ebca517fcd88508c5e9606d",
+  "baseSha": "e600e6bd15d894afe9fbd85a7b1f57cf3cb4e842",
+  "status": "PASS_STATIC_AND_SIGNED_HTTP_SCOPE",
+  "checked": [
+    "Server query and export require existing admin session after internal guard; role permission checked before rows/schema",
+    "Explicit parser rejects unknown/repeated/unsupported fields and validates dates/page bounds",
+    "UTC+8 [start,endNextDay) inclusive selected calendar days; unknown historical dates not synthesized",
+    "Amount stays integer cents; historical equal refund rounds retained, no deduplication; withdrawals separate from order sums",
+    "Query and export share exact select path; export adds audit; formula strings protected",
+    "Existing money/order transitions, schema/CAS/IAP/driver-public guard unchanged byte-for-byte",
+    "Nine actual signed IAP HTTP tests PASS including new session-protected query and filtered export"
+  ],
+  "protectedFiles": [
+    {
+      "file": "apps/cloud-service/domain.py",
+      "unchanged": true,
+      "sha256": "ef05f2902e2227c45e6893a2fed03a259d2563e6da951acf33bf7763465443e5"
+    },
+    {
+      "file": "apps/cloud-service/common.py",
+      "unchanged": true,
+      "sha256": "3e27cf145d05a96b2ae6e1435d66d460edf585bd98de1935fda1764e27face92"
+    },
+    {
+      "file": "apps/cloud-service/seed.py",
+      "unchanged": true,
+      "sha256": "64382842f55bd0486028244a758c951293de1f89f6e6ce2a98273867a44b0d7b"
+    },
+    {
+      "file": "apps/cloud-service/snapshot.py",
+      "unchanged": true,
+      "sha256": "31552c1a6406157cc483507a66b3d2d8981c5ca7ab7941f4a2250225cabaca17"
+    },
+    {
+      "file": "apps/cloud-service/cloud_server.py",
+      "unchanged": true,
+      "sha256": "8a4ba1ef1fc5cab5151f5463622cc1f4ebc4622a5c377102cd1ac08fe8dc54d9"
+    },
+    {
+      "file": "apps/cloud-service/passenger.py",
+      "unchanged": true,
+      "sha256": "7f11834c6d9cea342b1e474feaadc702247d4d169f898d5e247c98a00a27729b"
+    },
+    {
+      "file": "apps/cloud-service/negotiation.py",
+      "unchanged": true,
+      "sha256": "0c844c35ee4a79b867d7ffb39945021cf9bb03af03125a37a1c9b12006e668b8"
+    },
+    {
+      "file": "apps/cloud-service/benefits.py",
+      "unchanged": true,
+      "sha256": "b9f4d100b05e7a3a4c39dd0bba69dbe557110a3ca006eb8a755692235f2470de"
+    },
+    {
+      "file": "apps/cloud-service/admin.py",
+      "unchanged": true,
+      "sha256": "d68a26dbc7441f73dfc79a5a0bf98e60f7558b6386afde374d09636c9a447222"
+    }
+  ],
+  "notRun": [
+    "New live shared-order creation or financial lifecycle",
+    "Full production-scale dataset performance"
+  ]
+}

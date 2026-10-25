@@ -1,0 +1,148 @@
+- complementary:
+  - generic: 宜
+  - generic: 宜捷行运营管理中心
+  - navigation:
+    - generic: 工作台
+    - button "经营概览":
+      - text: 经营概览
+    - button "经营报表":
+      - text: 经营报表
+    - generic: 业务运营
+    - button "订单管理":
+      - text: 订单管理
+    - button "取消订单记录":
+      - text: 取消订单记录
+    - button "司机与车辆":
+      - text: 司机与车辆
+    - button "乘客管理":
+      - text: 乘客管理
+    - button "模拟账务":
+      - text: 模拟账务
+    - button "模拟退款记录":
+      - text: 模拟退款记录
+    - button "评价投诉反馈" [active]:
+      - text: 评价投诉反馈
+    - generic: 配置与治理
+    - button "城市与会员":
+      - text: 城市与会员
+    - button "账号与权限":
+      - text: 账号与权限
+    - button "操作日志":
+      - text: 操作日志
+  - text: 独立云体验环境
+  - generic: 支付 / 退款 / 提现均为模拟
+- banner:
+  - text: 工作空间 /
+  - strong: 评价投诉反馈
+  - generic: admin · 超级管理员
+  - button "刷新数据"
+  - button "退出"
+- main:
+  - generic: 体验环境 · 本后台与司机、乘客端共用持久化业务数据。所有金额均为模拟账务，不发生真实资金交易。
+  - heading "评价投诉与反馈" [level=1]
+  - paragraph: 处理结果保存后两端刷新可查 · 评价随订单保留
+  - button "导出筛选结果"
+  - generic: 搜索
+  - textbox "搜索"
+  - generic: 开始日期
+  - textbox "开始日期"
+  - generic: 结束日期
+  - textbox "结束日期"
+  - generic: 来源
+  - combobox "来源":
+    - option "全部" [selected]
+    - option "司机投诉"
+    - option "司机反馈"
+    - option "订单评价"
+    - option "订单投诉"
+    - option "乘客反馈"
+  - generic: 处理状态
+  - combobox "处理状态":
+    - option "全部" [selected]
+    - option "待处理"
+    - option "已记录"
+    - option "已回复"
+  - generic: 订单编号
+  - textbox "订单编号"
+  - generic: 账号
+  - textbox "账号"
+  - button "查询"
+  - button "重置"
+  - combobox:
+    - option "15 条/页"
+    - option "20 条/页" [selected]
+    - option "50 条/页"
+    - option "100 条/页"
+  - generic: 已应用过滤：无
+  - generic: 总匹配数
+  - generic: "4"
+  - generic: 口径：持久共享订单评价/投诉及乘客、司机反馈/投诉；保留来源和原记录ID。所有支付、退款、提现为模拟；未接真实收单、银行打款或公司清分。不提供电话叫车、后台指派、超时/有责取消的虚构对应。 (UTC+8，同条件全匹配汇总)
+  - table:
+    - rowgroup:
+      - row "记录 / 来源 关联账号 / 订单 内容 状态 回复 操作":
+        - columnheader "记录 / 来源"
+        - columnheader "关联账号 / 订单"
+        - columnheader "内容"
+        - columnheader "状态"
+        - columnheader "回复"
+        - columnheader "操作"
+    - rowgroup:
+      - row "EVAL:D 乘客订单评价 P1 D 不错 已记录 查看与处理":
+        - cell "EVAL:D 乘客订单评价":
+          - text: EVAL:D
+          - generic: 乘客订单评价
+        - cell "P1 D":
+          - text: P1
+          - generic: D
+        - cell "不错"
+        - cell "已记录":
+          - generic: 已记录
+        - cell
+        - cell "查看与处理":
+          - button "查看与处理"
+      - row "OC1 乘客订单投诉 D D 费用说明请求 待处理 查看与处理":
+        - cell "OC1 乘客订单投诉":
+          - text: OC1
+          - generic: 乘客订单投诉
+        - cell "D D":
+          - text: D
+          - generic: D
+        - cell "费用说明请求"
+        - cell "待处理":
+          - generic: 待处理
+        - cell
+        - cell "查看与处理":
+          - button "查看与处理"
+      - row "DF1 司机意见反馈 D1 司机反馈 待处理 查看与处理":
+        - cell "DF1 司机意见反馈":
+          - text: DF1
+          - generic: 司机意见反馈
+        - cell "D1": D1
+        - cell "司机反馈"
+        - cell "待处理":
+          - generic: 待处理
+        - cell
+        - cell "查看与处理":
+          - button "查看与处理"
+      - row "PF1 乘客意见反馈 P1 车内整洁问题 已回复 已处理 查看与处理":
+        - cell "PF1 乘客意见反馈":
+          - text: PF1
+          - generic: 乘客意见反馈
+        - cell "P1": P1
+        - cell "车内整洁问题"
+        - cell "已回复":
+          - generic: 已回复
+        - cell "已处理"
+        - cell "查看与处理":
+          - button "查看与处理"
+  - text: 共
+  - strong: "4"
+  - text: 条记录，第
+  - strong: "1"
+  - text: /
+  - strong: "1"
+  - text: 页
+  - button "上一页" [disabled]
+  - button "下一页" [disabled]
+  - generic: 登录成功 · 点击刷新获取两端最新数据
+- status: 已导出当前已应用条件的全部匹配记录，操作已记入审计

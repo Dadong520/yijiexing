@@ -22,12 +22,49 @@
     "独立浏览器实际UI及接口权限/导出/日期边界/空态失败恢复测试PASS",
     "保留IAM/IAP与账务数据、无真实生产访问，唯一coordinator发布回读"
   ],
-  "status": "IN_PROGRESS",
-  "acceptance": "NOT_RUN",
-  "tests": [],
-  "evidence": [],
-  "nextAction": "先10分钟内给简明query契约及缺字段清单，随后实现和自测；不得发布或派其他代理。",
+  "status": "ACCEPTED_FOR_DEPLOY",
+  "acceptance": "PASS",
+  "tests": [
+    {
+      "name": "Author full backend regression including18query tests",
+      "command": "PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover -s tests -p 'test_*.py' -v",
+      "status": "PASS",
+      "exitCode": 0,
+      "sourceSha": "8a02527d025245381ebca517fcd88508c5e9606d",
+      "tests": 185
+    },
+    {
+      "name": "Non-author real HTTP dataset/filter/export/auth boundaries",
+      "command": "frontend independent HTTP requests to local real SQLite/CAS query/export/auth endpoints; independent-http.json 13 checks",
+      "status": "PASS",
+      "exitCode": 0,
+      "sourceSha": "8a02527d025245381ebca517fcd88508c5e9606d",
+      "checks": 13
+    }
+  ],
+  "evidence": [
+    {
+      "path": "coordination/evidence/ADMIN-20261025-04/frontend/adminapi-nonauthor-review.json",
+      "sha256": "5df8b437fbb85c670dfb6a4d685d7197f286fd4ae5d8020a13061017162e4eb1"
+    },
+    {
+      "path": "coordination/evidence/ADMIN-20261025-04/frontend/independent-http.json",
+      "sha256": "5d83525df81661c6d781a5739cdaa7fc24e605ff9475bef719f8a60892122dd8"
+    },
+    {
+      "path": "coordination/evidence/ADMIN-20261025-04/coordinator-api-review.json",
+      "sha256": "e15a5f87d09c6a4374f1da761677875cfcd7786ef586ad4627e17dca5bc59512"
+    },
+    {
+      "path": "coordination/evidence/ADMINAPI-20261025-01/results.json",
+      "sha256": "dcb3b6f7e6f1a576a8ac75a499f004a8759fb2ab94f0af5771543d9e0ea00a2b"
+    }
+  ],
+  "nextAction": "Merge exact accepted code/records, deploy only driver-admin image, verify IAP/scaling/real-data browser and preserved orders.",
   "deploy_owner": "coordinator",
-  "releaseReady": false,
-  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-api-20261025"
+  "releaseReady": true,
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-api-20261025",
+  "productSha": "8a02527d025245381ebca517fcd88508c5e9606d",
+  "acceptedSha": "8a02527d025245381ebca517fcd88508c5e9606d",
+  "reviewer": "frontend + coordinator independent non-authors"
 }

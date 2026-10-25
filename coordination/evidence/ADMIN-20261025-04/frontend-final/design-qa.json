@@ -1,0 +1,222 @@
+{
+  "schemaVersion": 1,
+  "task": "ADMIN-20261025-04",
+  "relatedTask": "ADMINAPI-20261025-01",
+  "reviewer": "frontend independent non-author",
+  "sourceSha": "0d7dfc045a137ee93b354acd669edebf6724af29",
+  "apiSourceSha": "8a02527d025245381ebca517fcd88508c5e9606d",
+  "acceptance": "PASS",
+  "verdict": "PASS_SCOPE",
+  "scope": "Final4-line admin.js delta plus explicit local synthetic W1 mutation, support display, logout/query isolation and export-unit proof. Earlier fe201d broad matrix inherited only as bound below. Not production or whole three-end lifecycle acceptance.",
+  "startedAt": "2026-10-25T21:33:17+08:00",
+  "deadline": "2026-10-25T21:38:17+08:00",
+  "browserEndedAt": "2026-10-25T13:35:36.830Z",
+  "reportCompletedAt": "2026-10-25T21:39:39.866442+08:00",
+  "releaseOwner": "coordinator",
+  "reviewerEditedSourceBuiltOrDeployed": false,
+  "sourceReadback": {
+    "onlyChangedFile": "apps/admin-console/web/admin.js",
+    "sha256": "9cc93a2ff8f3d5f4f69c91d2a837ad1166a9bb72b01fea70c19c4bc4b1aa5c01",
+    "diskEqualsNewCommit": true,
+    "apiFilesUnchangedAt8a": {
+      "apps/cloud-service/admin_queries.py": "eb7077abd704dcdf9cfe9f0c435a0471701f4042dc480df82c90ea0e6188bd1c",
+      "apps/cloud-service/admin_console.py": "829abdfe5ff5e1ebb80b35dd83f87a39e18bafbe625846dd169fd29a91f699ae",
+      "apps/cloud-service/server.py": "4aaf099733be16eb36f4fc1a9f84be49f9a11fe183906c6b7e5fc850028219c0"
+    },
+    "replyPayloadOwnerIdUnchanged": true,
+    "logoutClearsQueryPendingAndTicket": true,
+    "evidence": "source-delta.txt"
+  },
+  "checks": [
+    {
+      "number": 1,
+      "name": "OC1 associated account fixed",
+      "result": "PASS",
+      "evidence": [
+        "01-support-account-fixed.jpg",
+        "01-support-fixed.txt",
+        "02-support-detail.txt"
+      ],
+      "observed": "List now乘客P1 · P1/orderD, same as actual detail. Reply payload ownerId preserved by exact source check; no reply posted."
+    },
+    {
+      "number": 2,
+      "name": "W1 synthetic withdrawal approval succeeds with real business id",
+      "result": "PASS",
+      "evidence": [
+        "03-withdrawals-before.txt",
+        "04-withdrawal-confirm.jpg",
+        "withdrawal-http-proof.json",
+        "05-withdrawal-after.txt",
+        "06-withdrawal-readback.txt",
+        "06-withdrawal-readback.jpg"
+      ],
+      "observed": "Only localhost fixture W1 PENDING, amount300 cents. UI reason+confirmation then actual browser POST action HTTP200, payload.id W1 (not WITHDRAWAL:D1:W1). Query refresh and expanded raw record report withdrawalId W1/status SANDBOX_APPROVED. No bank transfer or cloud mutation."
+    },
+    {
+      "number": 3,
+      "name": "Logout isolates filters between accounts",
+      "result": "PASS",
+      "evidence": [
+        "07-export-units.txt",
+        "08-viewer-filters-cleared.txt",
+        "08-viewer-new-session.jpg"
+      ],
+      "observed": "Admin applied searchPAGE- yielding27. Logged out, logged viewer in, orders search empty/applied none/34 records, export disabled. Source clears queryViews, pendingRequests and increments queryTicket. No timing-race stress claim."
+    },
+    {
+      "number": 4,
+      "name": "Export copy and actual cents unit",
+      "result": "PASS",
+      "evidence": [
+        "07-export-unit-cents.jpg",
+        "07-export-units.txt",
+        "orders-PAGE-units-cents.csv"
+      ],
+      "observed": "Actual export toast says金额列单位为分. CSV27 PAGE rows, fare1000+i matches prior UI10.00+i/100 yuan. File bytes equal independently accepted baseline filtered27 export."
+    }
+  ],
+  "findings": [
+    {
+      "id": "ADMIN-WITHDRAW-P1-01",
+      "status": "CLOSED",
+      "proof": "Actual correct-id HTTP200 and persisted local SANDBOX_APPROVED readback."
+    },
+    {
+      "id": "ADMIN-SUPPORT-P2-01",
+      "status": "CLOSED",
+      "proof": "Actual list+detail agree on P1; reply routing remains ownerId."
+    }
+  ],
+  "openBlockingDeltaFindings": [],
+  "inheritance": {
+    "sourceSha": "fe201d921eb9a5eca5be3b51d404dfc49fa4c71a",
+    "path": "../frontend/design-qa.json",
+    "sha256": "21b5fb4672195fd6d3c540c47f5c193768c229cfd004d7b191cbfb96b9282d7e",
+    "originalAcceptance": "REQUIRES_FIX",
+    "scope": "All baseline passing9-dataset UI/detail/query/export/page/empty/reset/503-retry/refund/continuation/audit/VIEWER observations inherited; two original findings superseded only by this explicit fixed-source delta. No full matrix repeated.",
+    "apiPath": "../frontend/adminapi-nonauthor-review.json",
+    "apiSha256": "5df8b437fbb85c670dfb6a4d685d7197f286fd4ae5d8020a13061017162e4eb1",
+    "apiAcceptance": "PASS_SCOPE",
+    "apiChecks": 13,
+    "apiSourceSha": "8a02527d025245381ebca517fcd88508c5e9606d"
+  },
+  "csv": {
+    "path": "orders-PAGE-units-cents.csv",
+    "sha256": "895ba3c0e7687b1af7b68cba43acc94cca7e79e5b88f0ea3498b898d803cf4b2",
+    "rows": 27,
+    "amountUnit": "integer cents",
+    "sameBytesAsBaselineFiltered27": true
+  },
+  "environmentAndChanges": {
+    "onlyTarget": "http://127.0.0.1:8808/",
+    "fixtureBusinessMutation": "Only W1 PENDING -> SANDBOX_APPROVED in isolated local SQLite/CAS fixture, explicitly authorized. Retained for coordinator; not reversed or cleared.",
+    "normalAuditWrites": "Login, export and one synthetic approval audit expected.",
+    "realCloudOrdersOrBanking": false,
+    "onlineChromeOrEmulatorsTouched": false
+  },
+  "teardown": {
+    "endedAt": "2026-10-25T13:35:36.830Z",
+    "loggedOut": true,
+    "viewportReset": true,
+    "networkObservationDisabled": true,
+    "onlyBusinessMutation": "local synthetic W1 PENDING -> SANDBOX_APPROVED",
+    "cloudUntouched": true,
+    "screenshots": [
+      "01-support-account-fixed.jpg",
+      "04-withdrawal-confirm.jpg",
+      "05-withdrawal-approved.jpg",
+      "06-withdrawal-readback.jpg",
+      "07-export-unit-cents.jpg",
+      "08-viewer-new-session.jpg"
+    ],
+    "screenshotCollectionNote": "Capture helper retained original output binding; six new delta images moved byte-for-byte to frontend-final with SHA verification. Baseline19 screenshots/report unchanged; no mixed-version extra images left there."
+  },
+  "notRun": [
+    "Rejection path actual mutation (same id fallback reviewed statically)",
+    "Actual complaint reply (payload statically unchanged)",
+    "Concurrent logout/in-flight race stress (source ticket cancellation inspected)",
+    "Repeat185 API/full9UI matrix on final4-line delta",
+    "Live IAP/cloud deployment/public readback (coordinator owns)",
+    "Real bank clearing/payments or new complete3-end transaction"
+  ],
+  "screenshots": [
+    {
+      "path": "01-support-account-fixed.jpg",
+      "sha256": "d9b375bae436527575cde7542eb62b47a8c7e09e24602b3c0a475616781726d0",
+      "savedAndVisuallyInspected": true
+    },
+    {
+      "path": "04-withdrawal-confirm.jpg",
+      "sha256": "859f1da87e53b2d5b6704a5866626ec4a8e970b2129ab1c37351b4d36666a772",
+      "savedAndVisuallyInspected": true
+    },
+    {
+      "path": "05-withdrawal-approved.jpg",
+      "sha256": "709168c83c81477ec7d58f633d3c42ab024bca95204201982e0a7a91d1c56d1a",
+      "savedAndVisuallyInspected": true
+    },
+    {
+      "path": "06-withdrawal-readback.jpg",
+      "sha256": "caba1bc201e514f5d3b0f8c7788d602f9513a5083af233f437a587d79200391f",
+      "savedAndVisuallyInspected": true
+    },
+    {
+      "path": "07-export-unit-cents.jpg",
+      "sha256": "26394963383cfa9dd0b4b2d6dd3e73c3e821de0275b4ebe6699c2804729d93c5",
+      "savedAndVisuallyInspected": true
+    },
+    {
+      "path": "08-viewer-new-session.jpg",
+      "sha256": "af0cd0b0ba3bf8c019814e73cfb28774f992518a564a16c55f2d3abd381577b2",
+      "savedAndVisuallyInspected": true
+    }
+  ],
+  "evidence": [
+    {
+      "path": "01-support-fixed.txt",
+      "sha256": "d8b303104ad34fe51d4d074e91ec68d95689add11c370ce45b3d2bd0f3a6fd0a"
+    },
+    {
+      "path": "02-support-detail.txt",
+      "sha256": "a53a42d2958a0d265e0b76cf4cc79ef19cd16f9ae2686875910cd57f0663e06a"
+    },
+    {
+      "path": "03-payments-before.txt",
+      "sha256": "21665cbef699cefd23e1ab360a06ec5673689220c1d6b763d3f4ae17d5800d67"
+    },
+    {
+      "path": "03-withdrawals-before.txt",
+      "sha256": "6cb75ac8289eb769b897beb624b9f7d9a3a0bd59d7e057dd37f366da425a6d0c"
+    },
+    {
+      "path": "05-withdrawal-after.txt",
+      "sha256": "4a2cf9e64b5b838dc992b0f60aa0c1eba92f551177454c0a033932b56724c181"
+    },
+    {
+      "path": "06-withdrawal-readback.txt",
+      "sha256": "76a6ee8f9b68eca7ba2f0843e4efedbc20b9b8bc1c19416f1913bcc83151fb84"
+    },
+    {
+      "path": "07-export-units.txt",
+      "sha256": "0d6dfaa14aef5a5d7c178789f6788cb3256847fb5b69821370bff676170890e9"
+    },
+    {
+      "path": "08-viewer-filters-cleared.txt",
+      "sha256": "3970c82a77a5e7242837cfeb1795e75188c99bafd359d21c26f86e7a85640a1a"
+    },
+    {
+      "path": "source-delta.txt",
+      "sha256": "3e50b845361549515de84047cd61834c72d650f8010f61714646a219eb9657d9"
+    },
+    {
+      "path": "withdrawal-http-proof.json",
+      "sha256": "89ffd3fe5d3424329a446010a5a0c73dbf496a023ff912f76ed4972750a9f214"
+    },
+    {
+      "path": "teardown.json",
+      "sha256": "6ff6bff6b692a3bd6723bc752b47b447dac46da0a3bd7f219727a887338c51f8"
+    }
+  ],
+  "nextAction": "Coordinator binds final accepted source, merges/deploys exact new image and independently reads it back. Reviewer stopped/IDLE and browser operation ownership returned."
+}

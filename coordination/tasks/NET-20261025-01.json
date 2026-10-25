@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "id": "NET-20261025-01",
+  "owner": "coordinator",
+  "goal": "后台及App使用稳定HTTPS域名，使底层IP或服务迁移不必重新打包；现有run.app已非硬编码IP，核对自有域名/DNS后再绑定独立体验子域名。",
+  "baseSha": "0d7dfc045a137ee93b354acd669edebf6724af29",
+  "allow_paths": [
+    "coordination/NETWORK_DOMAINS.md",
+    "coordination/evidence/NET-20261025-01/"
+  ],
+  "checks": [
+    "确认现两APK实际构建origin为固定HTTPS主机名而非IP",
+    "选择域名和DNS管理平台，核对控制权；不触碰原eztrips主站或原生产",
+    "自有域名映射和有效TLS后，保留IAP/管理权限；API与后台分离",
+    "若切换App基地址域名需一次新包及旧域名兼容；此后仅换后端IP不改包",
+    "不新增常驻代理/收费负载均衡，不降低证书或IAP保护"
+  ],
+  "status": "WAITING_DOMAIN_DETAILS",
+  "acceptance": "NOT_RUN",
+  "tests": [],
+  "evidence": [],
+  "nextAction": "已向用户询问自有域名及DNS平台；继续完成ADMIN发布，未得到域名选择前不猜测修改DNS。",
+  "deploy_owner": "coordinator",
+  "releaseReady": false
+}
