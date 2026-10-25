@@ -1,3 +1,2 @@
-# 当前收尾 2026-10-25 20:36
-ACCESS产品eb54e70f27c53aaf569390039349cf3487ff008f，55/20+构建PASS，非作者frontend实际无访问码登录/说明门禁/离线恢复/忙锁/旧账号保留PASS，最后四文字增量独立实机通过，新退出提示已关闭P2。首启瞬时非JSON错误重开自动恢复，保留观测，不伪称点击重试。新包driver0.3.10/code13 SHA95c948f29ba44fdf30904e5e7880ce298d33d67036686be19e0b7da152441042，pass1.1.10/code12 SHAc2a640c69e2781ca75d2b0754dc14b2d84c9ed8e30c0f3da06f9879bf84842f9。APK尚未发布；只/coordinator在PR合并后调用/tmp/access-publish.py role prnumber执行精确gate+generation保护+公开完整下载SHA/签名验证，旧备份已存。
-API3422已上线14live边界PASS；仅下载文案ecab94fd新镜像build PASS和9测试+frontend静态PASS，PR14等待CI合并/driver-demo更新。后台不部署，IAM/IAP/旧订单金额保持；唯一API源码/Users/dongge/.codex/tmp/yijiexing-api-20261025/apps/cloud-service，App/Users/dongge/.codex/tmp/yijiexing-access-20261025。20:41前结束本轮。
+# coordinator 收尾2026-10-25 20:40
+本轮全部发布且公开回读PASS，司机0310/code13、乘客1110/code12无需访问码，用户覆盖安装后选择账号/说明一键体验。产品eb54，PR15合并8461a4e64113b461ca667851ea1a7fb148d34328；API下载文案ecab，PR14合并526e5994，revdriver-demo-publiccopy-ecab94fd。App/实际API目录、完整hash/证据/当前限制见STATE。后台IAM/IAP原保护、旧单数据/金额保留。首次连接异常重开恢复、原因未定写报告，不隐瞒；无新完整三端交易。本轮不再开发/常驻，Cloud Run不自动暂停。源与截图/部署回读已入协调证据，最终交付记录PR跟进完成即停止。

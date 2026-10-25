@@ -15,7 +15,7 @@
     "原域/金额/schema/CAS/数据源与旧session兼容，原admin服务镜像和IAP不发布不变",
     "业务验收PASS且同SHA发布仅driver-demo新镜像，原环境/账号/历史订单不导入不清理，CloudRunautomatic/min0/max1/request计费保留"
   ],
-  "status": "ACCEPTED_FOR_DEPLOY",
+  "status": "DEPLOYED",
   "acceptance": "PASS",
   "tests": [
     {
@@ -52,7 +52,7 @@
       "sha256": "8a6cc4235bad683f5aa1cfceeab82924a34293074e1e50e3dfb9e3dbc4d27d20"
     }
   ],
-  "nextAction": "Deploy download-copy image; public API logic already deployed and 14 live boundaries PASS.",
+  "nextAction": "本轮完成并停止。等待用户体验反馈，不常驻工作，不自动暂停Cloud Run。",
   "deploy_owner": "coordinator",
   "releaseReady": true,
   "fileOwnership": {
@@ -66,5 +66,7 @@
   ],
   "acceptedSha": "ecab94fd2022d3142eefbedbb63c38641979bece",
   "productSha": "ecab94fd2022d3142eefbedbb63c38641979bece",
-  "reviewer": "frontend (non-author copy delta) + coordinator (non-author API guards)"
+  "reviewer": "frontend (non-author copy delta) + coordinator (non-author API guards)",
+  "mergedSha": "526e5994a4d411a83f1e22ccaf8246cd886b0feb",
+  "deployedRevision": "driver-demo-publiccopy-ecab94fd"
 }

@@ -1,0 +1,43 @@
+{
+  "status": "PASS",
+  "sourceSha": "ecab94fd2022d3142eefbedbb63c38641979bece",
+  "revision": "driver-demo-publiccopy-ecab94fd",
+  "traffic": [
+    {
+      "latestRevision": true,
+      "percent": 100,
+      "revisionName": "driver-demo-publiccopy-ecab94fd"
+    }
+  ],
+  "downloadPages": [
+    {
+      "path": "/download",
+      "status": "PASS",
+      "correctRoleInstructions": true,
+      "noManualCodeInstructions": true
+    },
+    {
+      "path": "/download-passenger",
+      "status": "PASS",
+      "correctRoleInstructions": true,
+      "noManualCodeInstructions": true
+    }
+  ],
+  "adminIAP": 302,
+  "scaling": {
+    "run.googleapis.com/client-name": "gcloud",
+    "run.googleapis.com/client-version": "589.0.0",
+    "run.googleapis.com/ingress": "all",
+    "run.googleapis.com/ingress-status": "all",
+    "run.googleapis.com/invoker-iam-disabled": "true",
+    "run.googleapis.com/maxScale": "1",
+    "run.googleapis.com/operation-id": "89fa7ebd-3113-496c-a9c0-6756e38ed717",
+    "run.googleapis.com/scalingMode": "automatic",
+    "run.googleapis.com/urls": "[\"https://driver-demo-491829048305.us-west1.run.app\",\"https://driver-demo-phfgquzmua-uw.a.run.app\"]",
+    "serving.knative.dev/creator": "dadonggev587@gmail.com",
+    "serving.knative.dev/lastModifier": "dadonggev587@gmail.com"
+  },
+  "requestBilling": true,
+  "ordersOrMoneyChanged": false,
+  "fullRoleLiveProbe": "14 checks already PASS before literal-only HTML update"
+}
