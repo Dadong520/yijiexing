@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "id": "QA-20261026-01",
+  "owner": "frontend",
+  "goal": "下次模拟器测试时核实并恢复driver AVD临时SYSTEM_ALERT_WINDOW有效授权为原未授权；本轮设备已关闭，产品验收/发布不依赖此收尾。",
+  "baseSha": "edb532549506abd962e0a2000015857b6ec6d6ce",
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-permission-trip-20261025",
+  "allow_paths": [
+    "coordination/evidence/ALERT-20261025-01/"
+  ],
+  "checks": [
+    "核对系统有效授权而非仅历史AppOps记录",
+    "只恢复该op，不重置全部权限、数据或快照",
+    "不开App/不造单，正常关闭既有AVD"
+  ],
+  "status": "FOLLOWUP",
+  "acceptance": "FAIL",
+  "tests": [
+    {
+      "command": "package default/ignore and UID default readback",
+      "status": "FAIL",
+      "exitCode": 0,
+      "note": "命令exit0但package get仍allow，不能称恢复成功"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "coordination/evidence/ALERT-20261025-01/overlay-restoration-coordinator.json",
+      "sha256": "440cd149b0ec159fda0d428780c20b34f7ac44ec820a056e651ed4313e84a800"
+    },
+    {
+      "path": "coordination/evidence/ALERT-20261025-01/frontend/overlay-restoration-final.json",
+      "sha256": "ec2601ca596a872350157fceff47ca108fa5a90dfee32db0a231714edf22b0d0"
+    }
+  ],
+  "nextAction": "本轮01:50硬截止，不自动重启或继续反复尝试。下次实际测试时先处理；当前模拟器均已关闭。",
+  "deploy_owner": "coordinator",
+  "releaseReady": false
+}

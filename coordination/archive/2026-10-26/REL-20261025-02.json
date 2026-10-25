@@ -20,7 +20,7 @@
     "域名/API兼容，无访问码，新APK签名版本覆盖安装",
     "发布后完整公开GET校验/真实云端同源记录回读；不可称系统强杀也永久常驻"
   ],
-  "status": "ACCEPTED",
+  "status": "DEPLOYED",
   "acceptance": "PASS",
   "tests": [
     {
@@ -56,9 +56,17 @@
     {
       "path": "coordination/evidence/ALERT-20261025-01/frontend/design-qa.json",
       "sha256": "ffba9278e65ddddac402f1a2bb3702454c0e5541da24aedb3078859044ac05f1"
+    },
+    {
+      "path": "coordination/evidence/REL-20261025-02/admin-deployment-readback.json",
+      "sha256": "cc3b4e76273384149dc9d2a8d767d65068bc999265ebb263a4edd3193e519caa"
+    },
+    {
+      "path": "coordination/evidence/REL-20261025-02/live/published-domain-readback.json",
+      "sha256": "81c4be716c1a20a3b892bf3b9f470df41da131b8e238485099c4bd10f2f2662e"
     }
   ],
-  "nextAction": "Coordinator merge PR23, deploy accepted admin image and publish exact verified APK bytes; save public readbacks.",
+  "nextAction": "No further deployment required; retain readbacks and rollback points. Known test limits remain in reports.",
   "deploy_owner": "coordinator",
   "releaseReady": true,
   "fileOwnership": {
@@ -68,5 +76,8 @@
     "frontend": "原生非作者实际双AVD复核"
   },
   "acceptedSha": "edb532549506abd962e0a2000015857b6ec6d6ce",
-  "reviewer": "frontend+backend"
+  "reviewer": "frontend+backend",
+  "completedAt": "2026-10-26T01:45:56.370315+08:00",
+  "mergeSha": "af7ec4ce6c618cf0b984c54a76ba7024751e5e10",
+  "nativeCleanupLimit": "QA-20261026-01, product unaffected; no claim all resources restored"
 }

@@ -20,7 +20,7 @@
     "对接TRIP契约，双方真实确认、等待/拒绝/过期/网络重试可读",
     "55/20适用测试和构建；不同会话两AVD独立权限/提醒/距离流程测试"
   ],
-  "status": "ACCEPTED",
+  "status": "DEPLOYED",
   "acceptance": "PASS",
   "tests": [
     {
@@ -60,11 +60,26 @@
     {
       "path": "coordination/evidence/ALERT-20261025-01/native-source-manifest.json",
       "sha256": "aaed3c5efc8996acf45d203256b68ba312b40bb7fdec40a3d68c3104d99fb181"
+    },
+    {
+      "path": "coordination/evidence/ALERT-20261025-01/driver-public-release.json",
+      "sha256": "6832c62897862fd4ed8e67b08d532491358fba282f1fca157fcaa742e086befd"
+    },
+    {
+      "path": "coordination/evidence/ALERT-20261025-01/passenger-public-release.json",
+      "sha256": "1426fa68767c6d8f4281232209240030e77a45d15ba667c87d8f77dd2e6570f2"
     }
   ],
-  "nextAction": "Coordinator merge PR23, deploy accepted admin image and publish exact verified APK bytes; save public readbacks.",
+  "nextAction": "No further deployment required; retain readbacks and rollback points. Known test limits remain in reports.",
   "deploy_owner": "coordinator",
   "releaseReady": true,
   "acceptedSha": "3e9f6ee943948e1081ec9ab0102eef803d447c8b",
-  "reviewer": "frontend"
+  "reviewer": "frontend",
+  "completedAt": "2026-10-26T01:45:56.369225+08:00",
+  "mergeSha": "af7ec4ce6c618cf0b984c54a76ba7024751e5e10",
+  "publicRelease": {
+    "driver": "0.3.12-cloud / code15",
+    "passenger": "1.1.12-experience / code14"
+  },
+  "resourceCleanup": "All devices closed; overlay op original-default restoration remains unresolved, see QA-20261026-01"
 }

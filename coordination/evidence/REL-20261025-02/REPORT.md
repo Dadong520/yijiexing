@@ -27,3 +27,8 @@ PORDf4f910a233dc，体验乘客02、云端验收司机03，金额2926分（29.26
 - 无AppID，小程序仅源代码更新，未编译发布。
 
 发布固定SHA、镜像、APK签名/公开下载整包校验与回退点见同目录机器回执和ALERT目录public-release回执。构建缓存、APK、私有账号及凭据均不入源码仓库。
+
+## 已发布回读
+2026-10-26 01:38前，后台driver-admin-trip-2863623f及两APK已发布，PR23合并af7ec4ce6c618cf0b984c54a76ba7024751e5e10。两公开APK完整HTTPS GET、版本、签名和SHA均PASS。自有后台域名实际Google+管理账号登录、新规则300/300及f4完成单回读PASS。详OPERATIONS与public-release/部署JSON。
+
+测试资源有一项未恢复：模拟器SYSTEM_ALERT_WINDOW包级模式读回仍allow；多种降回原默认命令未证实生效，见QA-20261026-01。两AVD已正常关闭，未掩盖此收尾失败。它不代表已发布App的功能验收失败，也不能据此声称全部测试资源完全恢复。

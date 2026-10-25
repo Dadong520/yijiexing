@@ -1,0 +1,77 @@
+{
+  "status": "PASS_SCOPE",
+  "reviewer": "backend, independent read-only domain closeout",
+  "checkedAt": "2026-10-26T01:44:23+08:00",
+  "domain": "demo-admin.hbzjhs.xyz",
+  "project": "yijiexing-driver-demo-1023",
+  "region": "us-west1",
+  "anonymousDirectCurl": {
+    "exitCode": 0,
+    "httpCode": "302",
+    "tlsVerifyResult": "0",
+    "redirectScheme": "https",
+    "redirectHost": "accounts.google.com",
+    "redirectPath": "/o/oauth2/v2/auth",
+    "direct": true,
+    "anonymous": true,
+    "error": ""
+  },
+  "domainMapping": {
+    "routeName": "driver-admin",
+    "mappedRouteName": "driver-admin",
+    "conditions": {
+      "Ready": "True",
+      "CertificateProvisioned": "True",
+      "DomainRoutable": "True"
+    },
+    "observedGeneration": 1
+  },
+  "commands": [
+    "curl --noproxy '*' --max-time 15 https://demo-admin.hbzjhs.xyz/ (anonymous; TLS verified; no redirect followed)",
+    "gcloud beta run domain-mappings describe --domain=demo-admin.hbzjhs.xyz --project=yijiexing-driver-demo-1023 --region=us-west1 --format=json"
+  ],
+  "evidenceReview": {
+    "deploymentRevision": "driver-admin-trip-2863623f",
+    "webSourceSha": "2863623ff932afc9adc1f59caa64e2b3069dbbae",
+    "traffic": [
+      {
+        "percent": 100,
+        "revisionName": "driver-admin-trip-2863623f"
+      }
+    ],
+    "rootRecordedIamIapUnchanged": true,
+    "rootRecordedMin0Max1RequestBilling": true,
+    "screenshotSettings": {
+      "pickupMeters": 300,
+      "dropoffMeters": 300,
+      "range": "50..5000",
+      "observed": true
+    },
+    "screenshotOrder": {
+      "id": "PORDf4f910a233dc",
+      "stage": "DONE",
+      "amountCents": 2926,
+      "paymentLabel": "模拟支付成功",
+      "observed": true
+    },
+    "rootReadbackClaims": {
+      "distanceConsentCards": 3,
+      "unknownDistanceNotZero": true,
+      "historyRejectAndApproveVisible": true
+    },
+    "imageLimit": "Order screenshot shows completed status and payment above the fold; three confirmation cards/history are recorded in root JSON, not independently visible in the supplied screenshot."
+  },
+  "scopeLimits": [
+    "Independent anonymous TLS/IAP entry and DomainMapping checks only; signed-in Google/admin session was not repeated.",
+    "IAM policy, environment and low-cost settings preservation reviewed from root deployment readback, not re-read with additional cloud commands.",
+    "No configuration changes, product edits, ADB, Chrome, deployment or test-suite reruns."
+  ],
+  "issues": [],
+  "next": "Coordinator may archive prior WAITING_CERTIFICATE based on this scoped check plus authenticated root evidence; reviewer idle.",
+  "evidenceSha256": {
+    "coordination/evidence/REL-20261025-02/live/published-domain-readback.json": "81c4be716c1a20a3b892bf3b9f470df41da131b8e238485099c4bd10f2f2662e",
+    "coordination/evidence/REL-20261025-02/live/published-distance-settings.png": "08a1319c6844a69219cca1bc606536b45e68cdeef16fd18c683343c822b85919",
+    "coordination/evidence/REL-20261025-02/live/published-order-detail.png": "a4db5d85068aca42690f80fc7626ba05ad906f50b08a8fa1bd4fcb2c7f255d32",
+    "coordination/evidence/REL-20261025-02/admin-deployment-readback.json": "cc3b4e76273384149dc9d2a8d767d65068bc999265ebb263a4edd3193e519caa"
+  }
+}

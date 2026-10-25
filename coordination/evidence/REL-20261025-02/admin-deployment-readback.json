@@ -1,0 +1,22 @@
+{
+  "status": "PASS",
+  "at": "2026-10-26T01:37:58.683191+08:00",
+  "sourceSha": "2863623ff932afc9adc1f59caa64e2b3069dbbae",
+  "integrationSourceSha": "edb532549506abd962e0a2000015857b6ec6d6ce",
+  "mergeSha": "af7ec4ce6c618cf0b984c54a76ba7024751e5e10",
+  "revision": "driver-admin-trip-2863623f",
+  "imageDigest": "us-west1-docker.pkg.dev/yijiexing-driver-demo-1023/demo/admin-ui@sha256:264abd84bb07954504fb9efd620f0882e14e94d824b95137908bc6b64fac03c9",
+  "traffic": [
+    {
+      "percent": 100,
+      "revisionName": "driver-admin-trip-2863623f"
+    }
+  ],
+  "url": "https://driver-admin-491829048305.us-west1.run.app",
+  "anonymousStatus": 302,
+  "iamIAPEnvSecretsSAUnchanged": true,
+  "apiServiceUnchanged": true,
+  "automaticMin0Max1RequestBilling": true,
+  "orderOrFinancialActionsByDeployer": false,
+  "rollbackRevision": "driver-admin-sidebar-7f489c24"
+}
