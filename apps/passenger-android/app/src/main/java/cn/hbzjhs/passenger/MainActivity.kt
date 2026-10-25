@@ -1,5 +1,13 @@
 package cn.hbzjhs.passenger
 
+import androidx.compose.ui.draw.clip
+import androidx.compose.material.icons.filled.*
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.Image
+import androidx.compose.runtime.Composable
+import androidx.compose.material3.Typography
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.material3.lightColorScheme
@@ -41,11 +49,11 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import kotlinx.coroutines.delay
 
-val Teal = Color(0xFF007A5E)
+val Teal = Color(0xFF007F76)
 val Ink = Color(0xFF111827)
 val Muted = Color(0xFF6B7280)
 val Paper = Color(0xFFF6F8FA)
-val Amber = Color(0xFFB54708)
+val Amber = Color(0xFFF59E0B)
 
 class MainActivity : ComponentActivity() {
   private var incomingPair by mutableStateOf<String?>(null)
@@ -169,6 +177,7 @@ fun PassengerApp(
             "宜捷行",
             fontWeight = FontWeight.Bold,
             fontSize = 20.sp,
+            color = Teal,
             modifier = Modifier.weight(1f),
           )
           if (logged) {
@@ -235,9 +244,9 @@ fun PassengerApp(
                 label = { Text(title) },
                 colors =
                   NavigationBarItemDefaults.colors(
-                    indicatorColor = Color(0xFFEDF0F2),
-                    selectedIconColor = Ink,
-                    selectedTextColor = Ink,
+                    indicatorColor = Color(0xFFE4F4EF),
+                    selectedIconColor = Teal,
+                    selectedTextColor = Teal,
                     unselectedIconColor = Muted,
                     unselectedTextColor = Muted,
                   ),
@@ -356,7 +365,7 @@ fun ActionButton(label: String, enabled: Boolean = true, onClick: () -> Unit) {
     modifier = Modifier.fillMaxWidth().heightIn(min = 54.dp),
     shape = RoundedCornerShape(14.dp),
     colors = ButtonDefaults.buttonColors(
-      containerColor = Ink,
+      containerColor = Teal,
       contentColor = Color.White,
       disabledContainerColor = Color(0xFFE5E7EB),
       disabledContentColor = Color(0xFF9CA3AF),
@@ -386,9 +395,9 @@ fun Field(
     modifier = Modifier.fillMaxWidth(),
     shape = RoundedCornerShape(12.dp),
     colors = OutlinedTextFieldDefaults.colors(
-      focusedBorderColor = Ink,
+      focusedBorderColor = Teal,
       unfocusedBorderColor = Color(0xFFE2E4E9),
-      focusedLabelColor = Ink,
+      focusedLabelColor = Teal,
       unfocusedLabelColor = Muted,
       focusedContainerColor = Color(0xFFFBFBFC),
       unfocusedContainerColor = Color(0xFFFBFBFC),
@@ -501,52 +510,106 @@ fun LoginScreen(store: PassengerStore, configured: Boolean, settings: () -> Unit
   var code by rememberSaveable { mutableStateOf("") }
   var agreed by rememberSaveable { mutableStateOf(false) }
   val busy by store.busy.collectAsState()
-  PageColumn {
-    Spacer(Modifier.height(16.dp))
-    SectionTitle("每一次出发，都从这里开始", "选择目的地，查看司机报价，与司机端共享同一订单。")
-    Panel("登录乘客体验账号") {
-      Field(mobile, { mobile = it.take(11) }, "手机号", KeyboardType.Phone)
-      Row(
-        horizontalArrangement = Arrangement.spacedBy(8.dp),
-        verticalAlignment = Alignment.CenterVertically,
+  Column(
+    Modifier
+      .fillMaxSize()
+      .background(Paper)
+      .verticalScroll(rememberScrollState())
+      .imePadding()
+  ) {
+    Image(
+      painter = painterResource(id = R.drawable.yijiexing_welcome_hero),
+      contentDescription = "宜捷行品牌插画",
+      modifier = Modifier
+        .fillMaxWidth()
+        .height(240.dp),
+      contentScale = ContentScale.Crop,
+      alignment = Alignment.BottomCenter,
+    )
+    Column(
+      Modifier
+        .fillMaxWidth()
+        .padding(horizontal = 16.dp, vertical = 12.dp),
+      verticalArrangement = Arrangement.spacedBy(14.dp),
+    ) {
+      Column(
+        Modifier.fillMaxWidth().padding(vertical = 4.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(4.dp),
       ) {
-        OutlinedTextField(
-          code,
-          { code = it.take(8) },
-          label = { Text("体验验证码") },
-          singleLine = true,
-          modifier = Modifier.weight(1f),
-          keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+        Text(
+          "宜捷出行，欢迎您！",
+          fontSize = 22.sp,
+          fontWeight = FontWeight.Bold,
+          color = Ink,
         )
-        OutlinedButton(
-          onClick = { store.requestCode(mobile) { code = it } },
-          enabled = configured && !busy,
-        ) {
-          Text("获取验证码")
-        }
+        Note("选择目的地，查看司机报价，与司机端共享同一订单")
       }
-      Note("推荐体验账号：13800000102。也可输入 13800000101 / 13800000103。验证码直接回显，未对接真实短信。")
-      Row(
-        verticalAlignment = Alignment.CenterVertically,
-        modifier =
-          Modifier.fillMaxWidth()
+      Panel("登录乘客体验账号") {
+        Field(mobile, { mobile = it.take(11) }, "手机号", KeyboardType.Phone)
+        Row(
+          horizontalArrangement = Arrangement.spacedBy(8.dp),
+          verticalAlignment = Alignment.CenterVertically,
+        ) {
+          OutlinedTextField(
+            value = code,
+            onValueChange = { code = it.take(8) },
+            label = { Text("体验验证码", fontSize = 14.sp) },
+            singleLine = true,
+            modifier = Modifier.weight(1f),
+            shape = RoundedCornerShape(12.dp),
+            colors = OutlinedTextFieldDefaults.colors(
+              focusedBorderColor = Teal,
+              unfocusedBorderColor = Color(0xFFE2E4E9),
+              focusedLabelColor = Teal,
+              unfocusedLabelColor = Muted,
+            ),
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+          )
+          OutlinedButton(
+            onClick = { store.requestCode(mobile) { code = it } },
+            enabled = configured && !busy,
+            shape = RoundedCornerShape(12.dp),
+            modifier = Modifier.heightIn(min = 52.dp),
+          ) {
+            Text("获取验证码", color = if (configured && !busy) Teal else Muted)
+          }
+        }
+        Note("推荐体验账号：13800000102。也可输入 13800000101 / 13800000103。验证码直接回显，未对接真实短信。")
+        Row(
+          verticalAlignment = Alignment.CenterVertically,
+          modifier = Modifier
+            .fillMaxWidth()
             .heightIn(min = 48.dp)
             .toggleable(value = agreed, role = Role.Checkbox, onValueChange = { agreed = it }),
-      ) {
-        Checkbox(agreed, onCheckedChange = null)
-        Spacer(Modifier.width(10.dp))
-        Text("我已阅读并同意下方体验说明", fontSize = 13.sp)
+        ) {
+          Checkbox(
+            checked = agreed,
+            onCheckedChange = null,
+            colors = CheckboxDefaults.colors(checkedColor = Teal),
+          )
+          Spacer(Modifier.width(8.dp))
+          Text("我已阅读并同意下方体验说明与服务协议", fontSize = 13.sp, color = Ink)
+        }
+        ActionButton("登录并开始出行", configured && agreed && code.isNotBlank() && !busy) {
+          store.login(mobile, code)
+        }
+        if (!configured) {
+          OutlinedButton(
+            onClick = settings,
+            modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp),
+            shape = RoundedCornerShape(12.dp),
+          ) {
+            Text("先设置体验访问码", color = Teal)
+          }
+        }
       }
-      ActionButton("登录并开始出行", configured && agreed && code.isNotBlank() && !busy) {
-        store.login(mobile, code)
+      Panel("体验说明与数据范围") {
+        Note(
+          "本应用用于独立云环境验证。订单真实保存并同步到司机端；付款、退款和发票均为模拟，不发生真实扣款。请使用合成资料，不填写真实身份信息。地图仅展示坐标示意；地址可使用设备系统Geocoder搜索（可用性依赖设备），未接道路导航、自动定位、短信、电话中继、推送或实时人工客服；投诉支持后台查看和回复。退出登录会移除本机登录凭证，云端订单记录保留。"
+        )
       }
-      if (!configured)
-        OutlinedButton(onClick = settings, modifier = Modifier.fillMaxWidth()) { Text("先设置体验访问码") }
-    }
-    Panel("体验说明与数据范围") {
-      Note(
-        "本应用用于独立云环境验证。订单真实保存并同步到司机端；付款、退款和发票均为模拟，不发生真实扣款。请使用合成资料，不填写真实身份信息。地图仅展示坐标示意；地址可使用设备系统Geocoder搜索（可用性依赖设备），未接道路导航、自动定位、短信、电话中继、推送或实时人工客服；投诉支持后台查看和回复。退出登录会移除本机登录凭证，云端订单记录保留。"
-      )
+      Spacer(Modifier.height(16.dp))
     }
   }
 }
@@ -554,21 +617,21 @@ fun LoginScreen(store: PassengerStore, configured: Boolean, settings: () -> Unit
 @Composable
 fun PassengerVisualTheme(content: @Composable () -> Unit) {
   val colorScheme = lightColorScheme(
-    primary = Color(0xFF111827),
+    primary = Teal,
     onPrimary = Color.White,
-    primaryContainer = Color(0xFF1F2937),
-    onPrimaryContainer = Color.White,
-    secondary = Color(0xFF007A5E),
+    primaryContainer = Color(0xFFE0F4F2),
+    onPrimaryContainer = Color(0xFF004D47),
+    secondary = Ink,
     onSecondary = Color.White,
-    secondaryContainer = Color(0xFFE6F4EA),
-    onSecondaryContainer = Color(0xFF065F46),
-    background = Color(0xFFF6F8FA),
-    onBackground = Color(0xFF111827),
+    secondaryContainer = Color(0xFFF1F3F5),
+    onSecondaryContainer = Ink,
+    background = Paper,
+    onBackground = Ink,
     surface = Color.White,
     surfaceTint = Color.White,
-    onSurface = Color(0xFF111827),
+    onSurface = Ink,
     surfaceVariant = Color(0xFFF1F3F5),
-    onSurfaceVariant = Color(0xFF6B7280),
+    onSurfaceVariant = Muted,
     outline = Color(0xFFE5E7EB),
   )
   MaterialTheme(
@@ -584,3 +647,4 @@ fun PassengerVisualTheme(content: @Composable () -> Unit) {
     content = content,
   )
 }
+

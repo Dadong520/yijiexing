@@ -234,7 +234,7 @@ private fun ConnectedApp(store: ConnectedStore, state: DriverState) {
             bottomBar = {
                 if (state.loggedIn && route == "root")
                     NavigationBar(
-                        modifier = Modifier.heightIn(min = 88.dp),
+                        modifier = Modifier.heightIn(min = 72.dp),
                         containerColor = Color.White,
                         tonalElevation = 0.dp,
                         windowInsets = WindowInsets(0, 0, 0, 0),
@@ -249,8 +249,8 @@ private fun ConnectedApp(store: ConnectedStore, state: DriverState) {
                                 NavigationBarItem(
                                     tab == i,
                                     { tab = i },
-                                    icon = { Glyph(icon, if (tab == i) Green else Muted, Modifier.size(28.dp)) },
-                                    label = { Text(label, fontSize = 16.sp, lineHeight = 24.sp, fontWeight = if (tab == i) FontWeight.Bold else FontWeight.Medium) },
+                                    icon = { Glyph(icon, if (tab == i) Green else Muted, Modifier.size(24.dp)) },
+                                    label = { Text(label, fontSize = 13.sp, lineHeight = 20.sp, fontWeight = if (tab == i) FontWeight.Bold else FontWeight.Medium) },
                                     colors =
                                         NavigationBarItemDefaults.colors(
                                             indicatorColor = Pale,

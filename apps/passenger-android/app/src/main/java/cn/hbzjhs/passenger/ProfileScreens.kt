@@ -1,5 +1,7 @@
 package cn.hbzjhs.passenger
 
+import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
+import androidx.compose.foundation.clickable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.material.icons.filled.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -42,7 +44,6 @@ fun ProfileScreen(
   var logout by remember { mutableStateOf(false) }
   var city by remember(p.text("city")) { mutableStateOf(p.text("city")) }
   PageColumn {
-    SectionTitle("我的", "个人中心与服务")
     Card(
       colors = CardDefaults.cardColors(containerColor = Color.White),
       shape = RoundedCornerShape(20.dp),
@@ -50,22 +51,27 @@ fun ProfileScreen(
       elevation = CardDefaults.cardElevation(defaultElevation = 1.dp),
       modifier = Modifier.fillMaxWidth(),
     ) {
-      Column(Modifier.padding(18.dp), verticalArrangement = Arrangement.spacedBy(14.dp)) {
+      Box(
+        Modifier
+          .fillMaxWidth()
+          .background(Color(0xFFF0FAF8))
+          .padding(18.dp)
+      ) {
         Row(
           verticalAlignment = Alignment.CenterVertically,
           horizontalArrangement = Arrangement.spacedBy(14.dp),
         ) {
           Box(
             modifier = Modifier
-              .size(54.dp)
-              .background(Color(0xFFF1F3F5), CircleShape),
+              .size(56.dp)
+              .background(Color(0xFFD6F0EB), CircleShape),
             contentAlignment = Alignment.Center,
           ) {
             Icon(
               Icons.Default.AccountCircle,
               contentDescription = null,
-              tint = Ink,
-              modifier = Modifier.size(50.dp),
+              tint = Teal,
+              modifier = Modifier.size(52.dp),
             )
           }
           Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(3.dp)) {
@@ -73,13 +79,15 @@ fun ProfileScreen(
             Row(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalAlignment = Alignment.CenterVertically) {
               Note(p.text("mobile"))
               Surface(
-                color = Color(0xFFF3F4F6),
+                color = Color.White,
                 shape = RoundedCornerShape(4.dp),
+                border = BorderStroke(0.5.dp, Color(0xFFBCE3DC)),
               ) {
                 Text(
                   p.text("cityName", "宜昌"),
                   fontSize = 11.sp,
-                  color = Muted,
+                  color = Teal,
+                  fontWeight = FontWeight.Medium,
                   modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp),
                 )
               }
@@ -88,9 +96,10 @@ fun ProfileScreen(
           OutlinedButton(
             onClick = { edit = true },
             shape = RoundedCornerShape(10.dp),
+            border = BorderStroke(1.dp, Teal),
             contentPadding = PaddingValues(horizontal = 12.dp, vertical = 6.dp),
           ) {
-            Text("编辑", fontSize = 13.sp, color = Ink)
+            Text("编辑", fontSize = 13.sp, color = Teal)
           }
         }
       }
@@ -163,7 +172,7 @@ fun ProfileScreen(
           enabled = r.optBoolean("enabled"),
           label = { Text(r.text("name") + if (r.optBoolean("enabled")) "" else " · 未开放") },
           colors = FilterChipDefaults.filterChipColors(
-            selectedContainerColor = Ink,
+            selectedContainerColor = Teal,
             selectedLabelColor = Color.White,
           ),
           shape = RoundedCornerShape(8.dp),

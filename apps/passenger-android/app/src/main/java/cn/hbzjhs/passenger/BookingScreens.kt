@@ -1,5 +1,8 @@
 package cn.hbzjhs.passenger
 
+import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.material.icons.filled.*
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.shape.CircleShape
@@ -119,161 +122,154 @@ fun BookingScreen(
       }
       .onFailure { store.reportError(it.message ?: "请检查填写内容") }
   }
-  Scaffold(
-    containerColor = Paper,
-    bottomBar = {
-      Surface(
-        color = Color.White,
-        shadowElevation = 8.dp,
-        border = BorderStroke(1.dp, Color(0xFFF1F3F5)),
-      ) {
-        Column(
-          Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 12.dp),
-          verticalArrangement = Arrangement.spacedBy(6.dp),
-        ) {
-          ActionButton(
-            if (active != null) "查看当前行程" else "确认呼叫 · ${kindName(kind)}",
-            !busy && !submitting,
-          ) {
-            if (active != null) openOrder(active.text("id")) else submitOrder()
-          }
-        }
-      }
-    },
-  ) {
-    insets ->
-    Column(
-      Modifier.fillMaxSize().padding(insets).verticalScroll(rememberScrollState()).padding(16.dp),
-      verticalArrangement = Arrangement.spacedBy(14.dp),
+  Column(Modifier.fillMaxSize()) {
+    PassengerMap(
+      originLat = oLat,
+      originLng = oLng,
+      destinationLat = if (destinationPending && kind == "STANDARD") "" else dLat,
+      destinationLng = if (destinationPending && kind == "STANDARD") "" else dLng,
+      modifier = Modifier
+        .fillMaxWidth()
+        .weight(0.43f)
+        .heightIn(min = 200.dp),
+    )
+    Surface(
+      shape = RoundedCornerShape(topStart = 24.dp, topEnd = 24.dp),
+      color = Color.White,
+      shadowElevation = 8.dp,
+      border = BorderStroke(1.dp, Color(0xFFEDEFF2)),
+      modifier = Modifier
+        .fillMaxWidth()
+        .weight(0.57f),
     ) {
-      SectionTitle("您要去哪里？")
-      if (active != null) {
-        Surface(
-          shape = RoundedCornerShape(14.dp),
-          color = Color(0xFFF0FDF4),
-          border = BorderStroke(1.dp, Color(0xFFDCFCE7)),
-          modifier = Modifier.fillMaxWidth().clickable { openOrder(active.text("id")) },
+      Column(Modifier.fillMaxSize()) {
+        Column(
+          Modifier
+            .weight(1f)
+            .verticalScroll(rememberScrollState())
+            .padding(horizontal = 16.dp, vertical = 12.dp),
+          verticalArrangement = Arrangement.spacedBy(10.dp),
         ) {
-          Row(
-            Modifier.padding(horizontal = 14.dp, vertical = 12.dp),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(10.dp),
-          ) {
-            Box(Modifier.size(8.dp).background(Teal, CircleShape))
-            Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
-              Row(
-                horizontalArrangement = Arrangement.spacedBy(8.dp),
-                verticalAlignment = Alignment.CenterVertically,
-              ) {
-                Text("进行中行程", fontWeight = FontWeight.Bold, fontSize = 14.sp, color = Ink)
-                Text(stageName(active.text("stage")), color = Teal, fontSize = 13.sp, fontWeight = FontWeight.Medium)
-              }
-              Text(
-                "${active.text("origin")} → ${active.text("destination")}",
-                fontSize = 13.sp,
-                color = Muted,
-              )
-            }
-            Text("查看行程", fontSize = 13.sp, fontWeight = FontWeight.SemiBold, color = Teal)
-            Icon(
-              Icons.AutoMirrored.Filled.KeyboardArrowRight,
-              contentDescription = null,
-              tint = Teal,
-              modifier = Modifier.size(16.dp),
-            )
-          }
-        }
-      }
-      Card(
-        colors = CardDefaults.cardColors(containerColor = Color.White),
-        shape = RoundedCornerShape(18.dp),
-        border = BorderStroke(1.dp, Color(0xFFEDEFF2)),
-        elevation = CardDefaults.cardElevation(defaultElevation = 1.dp),
-        modifier = Modifier.fillMaxWidth(),
-      ) {
-        Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
-          Row(
-            Modifier.fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween,
-          ) {
-            Text("乘车路线", fontWeight = FontWeight.Bold, fontSize = 15.sp, color = Ink)
-            TextButton(
-              contentPadding = PaddingValues(horizontal = 8.dp, vertical = 2.dp),
-              onClick = {
-                val address = origin
-                origin = destination
-                destination = address
-                val lat = oLat
-                oLat = dLat
-                dLat = lat
-                val lng = oLng
-                oLng = dLng
-                dLng = lng
-              },
+          if (active != null) {
+            Surface(
+              shape = RoundedCornerShape(12.dp),
+              color = Color(0xFFF0FDF4),
+              border = BorderStroke(1.dp, Color(0xFFDCFCE7)),
+              modifier = Modifier.fillMaxWidth().clickable { openOrder(active.text("id")) },
             ) {
-              Text("交换起终点", fontSize = 13.sp, color = Teal)
-            }
-          }
-          AddressRow("从这里出发", origin) { editor = "origin" }
-          HorizontalDivider(color = Color(0xFFF3F4F6), thickness = 0.8.dp)
-          AddressRow(
-            "目的地",
-            if (destinationPending && kind == "STANDARD") "稍后补充目的地" else destination,
-            emphasize = true,
-          ) {
-            editor = "destination"
-          }
-        }
-      }
-      Card(
-        colors = CardDefaults.cardColors(containerColor = Color.White),
-        shape = RoundedCornerShape(18.dp),
-        border = BorderStroke(1.dp, Color(0xFFEDEFF2)),
-        elevation = CardDefaults.cardElevation(defaultElevation = 1.dp),
-        modifier = Modifier.fillMaxWidth(),
-      ) {
-        Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
-          Text("用车方式", fontWeight = FontWeight.Bold, fontSize = 15.sp, color = Ink)
-          FlowRow(
-            horizontalArrangement = Arrangement.spacedBy(8.dp),
-            verticalArrangement = Arrangement.spacedBy(6.dp),
-          ) {
-            listOf("STANDARD", "RESERVED", "BID").forEach { mode ->
-              val selected = kind == mode
-              FilterChip(
-                selected = selected,
-                onClick = { kind = mode },
-                label = {
+              Row(
+                Modifier.padding(horizontal = 14.dp, vertical = 10.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(10.dp),
+              ) {
+                Box(Modifier.size(8.dp).background(Teal, CircleShape))
+                Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
+                  Row(
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                  ) {
+                    Text("进行中行程", fontWeight = FontWeight.Bold, fontSize = 14.sp, color = Ink)
+                    Text(stageName(active.text("stage")), color = Teal, fontSize = 13.sp, fontWeight = FontWeight.Medium)
+                  }
                   Text(
-                    kindName(mode),
-                    fontSize = 14.sp,
-                    fontWeight = if (selected) FontWeight.Bold else FontWeight.Normal,
+                    "${active.text("origin")} → ${active.text("destination")}",
+                    fontSize = 13.sp,
+                    color = Muted,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
                   )
-                },
-                colors = FilterChipDefaults.filterChipColors(
-                  selectedContainerColor = Ink,
-                  selectedLabelColor = Color.White,
-                  containerColor = Color(0xFFF8F9FA),
-                  labelColor = Ink,
-                ),
-                border = FilterChipDefaults.filterChipBorder(
-                  enabled = true,
-                  selected = selected,
-                  borderColor = if (selected) Ink else Color(0xFFE5E7EB),
-                  selectedBorderColor = Ink,
-                ),
-                shape = RoundedCornerShape(10.dp),
-              )
+                }
+                Text("查看行程", fontSize = 13.sp, fontWeight = FontWeight.SemiBold, color = Teal)
+                Icon(
+                  Icons.AutoMirrored.Filled.KeyboardArrowRight,
+                  contentDescription = null,
+                  tint = Teal,
+                  modifier = Modifier.size(16.dp),
+                )
+              }
             }
           }
-          Note(
-            if (destinationPending && kind == "STANDARD") "补充目的地后生成体验估价，费用待定。"
-            else if (kind == "BID") "下单后等待司机报价，选定司机后模拟预付。"
-            else "下单后生成体验估价，行程结束后模拟支付。"
-          )
+          Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+          ) {
+            listOf(
+              Triple("STANDARD", "即刻出发", Icons.Default.Send),
+              Triple("RESERVED", "预约叫车", Icons.Default.DateRange),
+              Triple("BID", "司机竞价", Icons.Default.Person),
+            ).forEach { (mode, label, icon) ->
+              val selected = kind == mode
+              Surface(
+                onClick = { kind = mode },
+                shape = RoundedCornerShape(12.dp),
+                color = if (selected) Teal else Color(0xFFF6F8FA),
+                border = BorderStroke(1.dp, if (selected) Teal else Color(0xFFEDEFF2)),
+                modifier = Modifier.weight(1f).heightIn(min = 48.dp),
+              ) {
+                Row(
+                  modifier = Modifier.padding(horizontal = 4.dp, vertical = 10.dp),
+                  verticalAlignment = Alignment.CenterVertically,
+                  horizontalArrangement = Arrangement.Center,
+                ) {
+                  Icon(
+                    icon,
+                    contentDescription = null,
+                    tint = if (selected) Color.White else Ink,
+                    modifier = Modifier.size(16.dp),
+                  )
+                  Spacer(Modifier.width(4.dp))
+                  Text(
+                    label,
+                    fontSize = 13.sp,
+                    fontWeight = if (selected) FontWeight.Bold else FontWeight.Medium,
+                    color = if (selected) Color.White else Ink,
+                  )
+                }
+              }
+            }
+          }
+          Card(
+            colors = CardDefaults.cardColors(containerColor = Color(0xFFF9FAFB)),
+            shape = RoundedCornerShape(16.dp),
+            border = BorderStroke(1.dp, Color(0xFFEDEFF2)),
+            modifier = Modifier.fillMaxWidth(),
+          ) {
+            Column(Modifier.padding(horizontal = 14.dp, vertical = 8.dp)) {
+              Row(
+                Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween,
+              ) {
+                Text("乘车路线", fontWeight = FontWeight.Bold, fontSize = 14.sp, color = Ink)
+                TextButton(
+                  contentPadding = PaddingValues(horizontal = 6.dp, vertical = 2.dp),
+                  onClick = {
+                    val address = origin
+                    origin = destination
+                    destination = address
+                    val lat = oLat
+                    oLat = dLat
+                    dLat = lat
+                    val lng = oLng
+                    oLng = dLng
+                    dLng = lng
+                  },
+                ) {
+                  Text("交换起终点", fontSize = 12.sp, color = Teal)
+                }
+              }
+              AddressRow("从这里出发", origin) { editor = "origin" }
+              HorizontalDivider(color = Color(0xFFEAECEF), thickness = 0.8.dp)
+              AddressRow(
+                "目的地",
+                if (destinationPending && kind == "STANDARD") "稍后补充目的地" else destination,
+                emphasize = true,
+              ) {
+                editor = "destination"
+              }
+            }
+          }
           if (kind == "STANDARD") {
-            HorizontalDivider(color = Color(0xFFF3F4F6), thickness = 0.8.dp)
             Row(
               Modifier
                 .fillMaxWidth()
@@ -282,152 +278,175 @@ fun BookingScreen(
                   role = Role.Checkbox,
                   onValueChange = { destinationPending = it },
                 )
-                .heightIn(min = 44.dp),
+                .heightIn(min = 40.dp),
               verticalAlignment = Alignment.CenterVertically,
             ) {
               Checkbox(
                 destinationPending,
                 onCheckedChange = null,
-                colors = CheckboxDefaults.colors(checkedColor = Ink),
+                colors = CheckboxDefaults.colors(checkedColor = Teal),
               )
               Spacer(Modifier.width(8.dp))
-              Text("先叫车，稍后补充目的地", fontSize = 15.sp, color = Ink, modifier = Modifier.weight(1f))
+              Text("先叫车，稍后补充目的地", fontSize = 14.sp, color = Ink, modifier = Modifier.weight(1f))
             }
           }
-        }
-      }
-      ExpandablePanel("更多行程设置", "乘车人、用车备注、途经点", initialExpanded = kind == "RESERVED") {
-        if (kind == "RESERVED") {
-          Text("预约时间：${date.replace('T', ' ')}", color = Ink, fontWeight = FontWeight.Medium)
-          OutlinedButton(
-            onClick = {
-              val current =
-                runCatching { LocalDateTime.parse(date) }
-                  .getOrDefault(LocalDateTime.now().plusHours(1))
-              DatePickerDialog(
-                  context,
-                  { _, y, m, d ->
-                    TimePickerDialog(
-                        context,
-                        { _, h, min -> date = LocalDateTime.of(y, m + 1, d, h, min).toString() },
-                        current.hour,
-                        current.minute,
-                        true,
-                      )
-                      .show()
-                  },
-                  current.year,
-                  current.monthValue - 1,
-                  current.dayOfMonth,
-                )
-                .show()
-            },
-            shape = RoundedCornerShape(10.dp),
-          ) {
-            Text("选择预约日期与时间", color = Ink)
-          }
-          Note("预约范围：15 分钟后至未来 30 天；设备当地时间。")
-        }
-        val contacts = state.rows("riders")
-        if (contacts.isNotEmpty()) {
-          Text("乘车人", fontWeight = FontWeight.SemiBold, color = Ink)
-          FlowRow(
-            horizontalArrangement = Arrangement.spacedBy(8.dp),
-            verticalArrangement = Arrangement.spacedBy(6.dp),
-          ) {
-            val selfSelected = contactId.isBlank()
-            FilterChip(
-              selected = selfSelected,
-              onClick = { contactId = "" },
-              label = {
-                Text("本人 · 尾号 ${state.optJSONObject("passenger")?.text("mobile")?.takeLast(4)}")
-              },
-              colors = FilterChipDefaults.filterChipColors(
-                selectedContainerColor = Ink,
-                selectedLabelColor = Color.White,
-              ),
-              shape = RoundedCornerShape(8.dp),
-            )
-            contacts.forEach { c ->
-              val cSelected = contactId == c.text("id")
-              FilterChip(
-                selected = cSelected,
-                onClick = { contactId = c.text("id") },
-                label = { Text("${c.text("name")} · ${c.text("mobile").takeLast(4)}") },
-                colors = FilterChipDefaults.filterChipColors(
-                  selectedContainerColor = Ink,
-                  selectedLabelColor = Color.White,
-                ),
-                shape = RoundedCornerShape(8.dp),
-              )
-            }
-          }
-        }
-        Field(remark, { remark = it.take(500) }, "用车备注（可选）", lines = 2)
-        TextButton(
-          onClick = { showWaypoints = !showWaypoints },
-          enabled = !(destinationPending && kind == "STANDARD"),
-        ) {
-          Text(if (showWaypoints) "收起途经点" else "添加途经点（可选）", color = Teal)
-        }
-        if (showWaypoints && !(destinationPending && kind == "STANDARD")) {
-          Field(waypointName, { waypointName = it }, "途经点名称")
-          Field(waypointLat, { waypointLat = it }, "途经点纬度", KeyboardType.Decimal)
-          Field(waypointLng, { waypointLng = it }, "途经点经度", KeyboardType.Decimal)
-          HorizontalDivider(color = Color(0xFFF3F4F6), thickness = 0.8.dp)
-          Text("第二途经点（可选）", fontWeight = FontWeight.SemiBold, color = Ink)
-          Field(waypointName2, { waypointName2 = it }, "第二途经点名称")
-          Field(waypointLat2, { waypointLat2 = it }, "第二途经点纬度", KeyboardType.Decimal)
-          Field(waypointLng2, { waypointLng2 = it }, "第二途经点经度", KeyboardType.Decimal)
-          Note("最多 2 个途经点，按顺序经过。司机到达后确认，乘客可在订单查看进度。")
-        }
-      }
-      ExpandablePanel("地点选择说明", "系统搜索与坐标提示", initialExpanded = false) {
-        Note("可使用设备系统搜索、常用地点或手动WGS84坐标；系统搜索可用性取决于设备，未提供自动定位或道路导航。")
-      }
-      Panel { MenuRow("线下议价", Icons.Default.Info, "与现场司机配对，核对报价") { onNegotiation() } }
-      state
-        .rows("orders")
-        .firstOrNull { it.text("stage") in listOf("DONE", "CANCELLED") }
-        ?.let { recent ->
-          Card(
-            colors = CardDefaults.cardColors(containerColor = Color.White),
-            shape = RoundedCornerShape(18.dp),
-            border = BorderStroke(1.dp, Color(0xFFEDEFF2)),
-            modifier = Modifier.fillMaxWidth(),
-          ) {
-            Row(
-              Modifier.padding(16.dp),
-              verticalAlignment = Alignment.CenterVertically,
-              horizontalArrangement = Arrangement.spacedBy(10.dp),
-            ) {
-              Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
-                Text("常用行程", fontSize = 13.sp, color = Muted)
-                Text(
-                  "${recent.text("origin")} → ${recent.text("destination")}",
-                  fontWeight = FontWeight.SemiBold,
-                  fontSize = 15.sp,
-                  color = Ink,
-                )
-              }
+          Note(
+            if (destinationPending && kind == "STANDARD") "补充目的地后生成体验估价，费用待定。"
+            else if (kind == "BID") "下单后等待司机报价，选定司机后模拟预付。"
+            else "下单后生成体验估价，行程结束后模拟支付。"
+          )
+          ExpandablePanel("更多行程设置与代叫", "乘车人、用车备注、预约时间、途经点", initialExpanded = kind == "RESERVED") {
+            if (kind == "RESERVED") {
+              Text("预约时间：${date.replace('T', ' ')}", color = Ink, fontWeight = FontWeight.Medium, fontSize = 14.sp)
               OutlinedButton(
                 onClick = {
-                  origin = recent.text("origin")
-                  destination = recent.text("destination")
-                  oLat = recent.optDouble("originLat").toString()
-                  oLng = recent.optDouble("originLng").toString()
-                  dLat = recent.optDouble("destinationLat").toString()
-                  dLng = recent.optDouble("destinationLng").toString()
+                  val current =
+                    runCatching { LocalDateTime.parse(date) }
+                      .getOrDefault(LocalDateTime.now().plusHours(1))
+                  DatePickerDialog(
+                      context,
+                      { _, y, m, d ->
+                        TimePickerDialog(
+                            context,
+                            { _, h, min -> date = LocalDateTime.of(y, m + 1, d, h, min).toString() },
+                            current.hour,
+                            current.minute,
+                            true,
+                          )
+                          .show()
+                      },
+                      current.year,
+                      current.monthValue - 1,
+                      current.dayOfMonth,
+                    )
+                    .show()
                 },
                 shape = RoundedCornerShape(10.dp),
-                contentPadding = PaddingValues(horizontal = 12.dp, vertical = 6.dp),
               ) {
-                Text("填入路线", fontSize = 13.sp, color = Ink)
+                Text("选择预约日期与时间", color = Teal, fontSize = 13.sp)
               }
+              Note("预约范围：15 分钟后至未来 30 天；设备当地时间。")
+            }
+            val contacts = state.rows("riders")
+            if (contacts.isNotEmpty()) {
+              Text("乘车人", fontWeight = FontWeight.SemiBold, fontSize = 14.sp, color = Ink)
+              FlowRow(
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                verticalArrangement = Arrangement.spacedBy(6.dp),
+              ) {
+                val selfSelected = contactId.isBlank()
+                FilterChip(
+                  selected = selfSelected,
+                  onClick = { contactId = "" },
+                  label = {
+                    Text("本人 · 尾号 ${state.optJSONObject("passenger")?.text("mobile")?.takeLast(4)}", fontSize = 13.sp)
+                  },
+                  colors = FilterChipDefaults.filterChipColors(
+                    selectedContainerColor = Teal,
+                    selectedLabelColor = Color.White,
+                  ),
+                  shape = RoundedCornerShape(8.dp),
+                )
+                contacts.forEach { c ->
+                  val cSelected = contactId == c.text("id")
+                  FilterChip(
+                    selected = cSelected,
+                    onClick = { contactId = c.text("id") },
+                    label = { Text("${c.text("name")} · ${c.text("mobile").takeLast(4)}", fontSize = 13.sp) },
+                    colors = FilterChipDefaults.filterChipColors(
+                      selectedContainerColor = Teal,
+                      selectedLabelColor = Color.White,
+                    ),
+                    shape = RoundedCornerShape(8.dp),
+                  )
+                }
+              }
+            }
+            Field(remark, { remark = it.take(500) }, "用车备注（可选）", lines = 2)
+            TextButton(
+              onClick = { showWaypoints = !showWaypoints },
+              enabled = !(destinationPending && kind == "STANDARD"),
+            ) {
+              Text(if (showWaypoints) "收起途经点" else "添加途经点（可选）", color = Teal, fontSize = 13.sp)
+            }
+            if (showWaypoints && !(destinationPending && kind == "STANDARD")) {
+              Field(waypointName, { waypointName = it }, "途经点名称")
+              Field(waypointLat, { waypointLat = it }, "途经点纬度", KeyboardType.Decimal)
+              Field(waypointLng, { waypointLng = it }, "途经点经度", KeyboardType.Decimal)
+              HorizontalDivider(color = Color(0xFFF3F4F6), thickness = 0.8.dp)
+              Text("第二途经点（可选）", fontWeight = FontWeight.SemiBold, fontSize = 14.sp, color = Ink)
+              Field(waypointName2, { waypointName2 = it }, "第二途经点名称")
+              Field(waypointLat2, { waypointLat2 = it }, "第二途经点纬度", KeyboardType.Decimal)
+              Field(waypointLng2, { waypointLng2 = it }, "第二途经点经度", KeyboardType.Decimal)
+              Note("最多 2 个途经点，按顺序经过。司机到达后确认，乘客可在订单查看进度。")
+            }
+            HorizontalDivider(color = Color(0xFFF1F3F5), thickness = 0.8.dp)
+            MenuRow("线下议价", Icons.Default.Info, "与现场司机配对，核对报价") { onNegotiation() }
+            state
+              .rows("orders")
+              .firstOrNull { it.text("stage") in listOf("DONE", "CANCELLED") }
+              ?.let { recent ->
+                Card(
+                  colors = CardDefaults.cardColors(containerColor = Color(0xFFF9FAFB)),
+                  shape = RoundedCornerShape(12.dp),
+                  border = BorderStroke(1.dp, Color(0xFFEDEFF2)),
+                  modifier = Modifier.fillMaxWidth(),
+                ) {
+                  Row(
+                    Modifier.padding(12.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(10.dp),
+                  ) {
+                    Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
+                      Text("常用行程", fontSize = 12.sp, color = Muted)
+                      Text(
+                        "${recent.text("origin")} → ${recent.text("destination")}",
+                        fontWeight = FontWeight.SemiBold,
+                        fontSize = 14.sp,
+                        color = Ink,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
+                      )
+                    }
+                    OutlinedButton(
+                      onClick = {
+                        origin = recent.text("origin")
+                        destination = recent.text("destination")
+                        oLat = recent.optDouble("originLat").toString()
+                        oLng = recent.optDouble("originLng").toString()
+                        dLat = recent.optDouble("destinationLat").toString()
+                        dLng = recent.optDouble("destinationLng").toString()
+                      },
+                      shape = RoundedCornerShape(10.dp),
+                      contentPadding = PaddingValues(horizontal = 10.dp, vertical = 4.dp),
+                    ) {
+                      Text("填入路线", fontSize = 12.sp, color = Teal)
+                    }
+                  }
+                }
+              }
+            ExpandablePanel("地点选择说明", "系统搜索与坐标提示", initialExpanded = false) {
+              Note("可使用设备系统搜索、常用地点或手动WGS84坐标；系统搜索可用性取决于设备，未提供自动定位或道路导航。")
+            }
+          }
+          Spacer(Modifier.height(4.dp))
+        }
+        Surface(
+          color = Color.White,
+          shadowElevation = 8.dp,
+          border = BorderStroke(1.dp, Color(0xFFF1F3F5)),
+          modifier = Modifier.fillMaxWidth(),
+        ) {
+          Box(Modifier.padding(horizontal = 16.dp, vertical = 10.dp)) {
+            ActionButton(
+              if (active != null) "查看当前行程" else "确认呼叫 · ${kindName(kind)}",
+              !busy && !submitting,
+            ) {
+              if (active != null) openOrder(active.text("id")) else submitOrder()
             }
           }
         }
-      Spacer(Modifier.height(8.dp))
+      }
     }
   }
   if (editor.isNotBlank())
@@ -576,7 +595,7 @@ fun OrdersScreen(orders: List<JSONObject>, open: (String) -> Unit) {
           onClick = { filter = f },
           label = { Text(f, fontSize = 14.sp, fontWeight = if (selected) FontWeight.Bold else FontWeight.Normal) },
           colors = FilterChipDefaults.filterChipColors(
-            selectedContainerColor = Ink,
+            selectedContainerColor = Teal,
             selectedLabelColor = Color.White,
             containerColor = Color.White,
             labelColor = Ink,
@@ -584,8 +603,8 @@ fun OrdersScreen(orders: List<JSONObject>, open: (String) -> Unit) {
           border = FilterChipDefaults.filterChipBorder(
             enabled = true,
             selected = selected,
-            borderColor = if (selected) Ink else Color(0xFFE5E7EB),
-            selectedBorderColor = Ink,
+            borderColor = if (selected) Teal else Color(0xFFE5E7EB),
+            selectedBorderColor = Teal,
           ),
           shape = RoundedCornerShape(10.dp),
         )
@@ -694,3 +713,4 @@ fun OrdersScreen(orders: List<JSONObject>, open: (String) -> Unit) {
     }
   }
 }
+

@@ -1,5 +1,13 @@
 package cn.hbzjhs.passenger
 
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.material.icons.automirrored.filled.List
+import androidx.compose.foundation.selection.toggleable
+import androidx.compose.foundation.Image
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.material.icons.filled.*
@@ -43,13 +51,13 @@ fun MenuRow(title: String, icon: ImageVector, subtitle: String? = null, onClick:
     Box(
       modifier = Modifier
         .size(36.dp)
-        .background(Color(0xFFF0F4F8), RoundedCornerShape(10.dp)),
+        .background(Color(0xFFEBF7F5), RoundedCornerShape(10.dp)),
       contentAlignment = Alignment.Center,
     ) {
       Icon(
         icon,
         contentDescription = null,
-        tint = Ink,
+        tint = Teal,
         modifier = Modifier.size(20.dp),
       )
     }
@@ -95,7 +103,7 @@ fun ExpandablePanel(
         Modifier
           .fillMaxWidth()
           .clickable { expanded = !expanded }
-          .heightIn(min = 44.dp),
+          .heightIn(min = 48.dp),
         verticalAlignment = Alignment.CenterVertically,
       ) {
         Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
@@ -123,26 +131,26 @@ fun AddressRow(label: String, address: String, emphasize: Boolean = false, onCli
     Modifier
       .fillMaxWidth()
       .clickable(onClick = onClick)
-      .heightIn(min = 58.dp)
-      .padding(vertical = 10.dp),
+      .heightIn(min = 56.dp)
+      .padding(vertical = 8.dp),
     verticalAlignment = Alignment.CenterVertically,
-    horizontalArrangement = Arrangement.spacedBy(14.dp),
+    horizontalArrangement = Arrangement.spacedBy(12.dp),
   ) {
     Box(
       modifier = Modifier
-        .size(12.dp)
+        .size(10.dp)
         .background(
           if (emphasize) Amber else Teal,
           CircleShape,
         ),
     )
     Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
-      Text(label, color = Muted, fontSize = 13.sp)
+      Text(label, color = Muted, fontSize = 12.sp)
       Text(
         address,
         fontWeight = if (emphasize) FontWeight.Bold else FontWeight.SemiBold,
-        fontSize = if (emphasize) 19.sp else 17.sp,
-        lineHeight = if (emphasize) 26.sp else 24.sp,
+        fontSize = if (emphasize) 18.sp else 16.sp,
+        lineHeight = if (emphasize) 24.sp else 22.sp,
         color = Ink,
       )
     }
@@ -218,7 +226,7 @@ fun PassengerModal(
               modifier = Modifier.weight(0.6f).heightIn(min = 48.dp),
               shape = RoundedCornerShape(12.dp),
               colors = ButtonDefaults.buttonColors(
-                containerColor = Ink,
+                containerColor = Teal,
                 contentColor = Color.White,
               ),
             ) {
@@ -230,3 +238,4 @@ fun PassengerModal(
     }
   }
 }
+
