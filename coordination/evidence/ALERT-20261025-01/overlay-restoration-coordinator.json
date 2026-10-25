@@ -1,0 +1,116 @@
+{
+  "status": "NOT_RESTORED",
+  "at": "2026-10-26T01:44:06.644495+08:00",
+  "purpose": "restore original package and UID-level default for overlay only; no App launch or order writes",
+  "packageResult": "SYSTEM_ALERT_WINDOW: allow; time=+38m40s229ms ago; duration=+189ms\n",
+  "uidResult": "No operations.\nDefault mode: default\n",
+  "appPid": "",
+  "rows": [
+    {
+      "args": [
+        "shell",
+        "appops",
+        "get",
+        "--user",
+        "0",
+        "cn.hbzjhs.dc.driver.cloud",
+        "SYSTEM_ALERT_WINDOW"
+      ],
+      "exitCode": 0,
+      "output": "SYSTEM_ALERT_WINDOW: allow; time=+38m40s90ms ago; duration=+189ms"
+    },
+    {
+      "args": [
+        "shell",
+        "appops",
+        "get",
+        "10192",
+        "SYSTEM_ALERT_WINDOW"
+      ],
+      "exitCode": 0,
+      "output": "No operations.\nDefault mode: default"
+    },
+    {
+      "args": [
+        "shell",
+        "appops",
+        "set",
+        "--user",
+        "0",
+        "--uid",
+        "cn.hbzjhs.dc.driver.cloud",
+        "SYSTEM_ALERT_WINDOW",
+        "default"
+      ],
+      "exitCode": 255,
+      "output": ""
+    },
+    {
+      "args": [
+        "shell",
+        "appops",
+        "set",
+        "--user",
+        "0",
+        "cn.hbzjhs.dc.driver.cloud",
+        "SYSTEM_ALERT_WINDOW",
+        "default"
+      ],
+      "exitCode": 0,
+      "output": ""
+    },
+    {
+      "args": [
+        "shell",
+        "appops",
+        "get",
+        "--user",
+        "0",
+        "cn.hbzjhs.dc.driver.cloud",
+        "SYSTEM_ALERT_WINDOW"
+      ],
+      "exitCode": 0,
+      "output": "SYSTEM_ALERT_WINDOW: allow; time=+38m40s229ms ago; duration=+189ms"
+    },
+    {
+      "args": [
+        "shell",
+        "appops",
+        "get",
+        "10192",
+        "SYSTEM_ALERT_WINDOW"
+      ],
+      "exitCode": 0,
+      "output": "No operations.\nDefault mode: default"
+    },
+    {
+      "args": [
+        "shell",
+        "appops",
+        "write-settings"
+      ],
+      "exitCode": 0,
+      "output": "Current settings written."
+    },
+    {
+      "args": [
+        "shell",
+        "pidof",
+        "cn.hbzjhs.dc.driver.cloud"
+      ],
+      "exitCode": 1,
+      "output": ""
+    },
+    {
+      "args": [
+        "emu",
+        "kill"
+      ],
+      "exitCode": 0,
+      "output": "OK: killing emulator, bye bye\nOK"
+    }
+  ],
+  "normalShutdown": "OK: killing emulator, bye bye\nOK\n",
+  "fixedProductChanged": false,
+  "initialEvidence": "driver01/02 permission guide ungranted and package initial appops absent; default UID mode expected"
+}

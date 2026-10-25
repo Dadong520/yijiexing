@@ -19,7 +19,7 @@
     "后台能查确认及距离证据/操作日志；旧接口和历史数据保持可读",
     "真实HTTP+回归/临界300米/新鲜度/角色越权/失效和支付幂等测试"
   ],
-  "status": "ACCEPTED_PENDING_PUBLISH",
+  "status": "DEPLOYED",
   "acceptance": "PASS",
   "tests": [
     {
@@ -41,12 +41,18 @@
     {
       "path": "coordination/evidence/REL-20261025-02/independent-distance.log",
       "sha256": "c623afab78a3f7631966819e3f51bf3a5264692b3b438ba6577f12197fb5cb0c"
+    },
+    {
+      "path": "coordination/evidence/REL-20261025-02/api-deployment-readback.json",
+      "sha256": "dd5f56d6a6d4a17fcad95f9cb9dd2a6642fea973b2074340d4f245b2ea6faf7f"
     }
   ],
-  "nextAction": "frontend已确认静态及权限基础无阻碍，root合并后端并发布新API供两原生同单独立验收；App和Web未验收不标完成。",
+  "nextAction": "No further deployment required; retain readbacks and rollback points. Known test limits remain in reports.",
   "deploy_owner": "coordinator",
   "releaseReady": true,
   "acceptedSha": "8ec8419d30955c216d7e4fe90451584d2a9622cf",
   "reviewer": "coordinator",
-  "acceptanceScope": "backend source only; native/Web acceptance remains separate"
+  "acceptanceScope": "backend source only; native/Web acceptance remains separate",
+  "completedAt": "2026-10-26T01:45:56.367382+08:00",
+  "mergeSha": "af7ec4ce6c618cf0b984c54a76ba7024751e5e10"
 }

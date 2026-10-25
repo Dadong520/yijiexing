@@ -15,21 +15,38 @@
     "若切换App基地址域名需一次新包及旧域名兼容；此后仅换后端IP不改包",
     "不新增常驻代理/收费负载均衡，不降低证书或IAP保护"
   ],
-  "status": "WAITING_CERTIFICATE",
-  "acceptance": "NOT_RUN",
-  "tests": [],
-  "evidence": [],
-  "nextAction": "后台DNS-only CNAME已保存且Google公共DNS确认；托管HTTPS证书仍CertificatePending，Google自动重试。App独立差量验收转NET-20261025-02发布，不用后台证书等待阻挡已有效API域名的包。",
+  "status": "DEPLOYED",
+  "acceptance": "PASS",
+  "tests": [
+    {
+      "command": "direct anonymous TLS/IAP302 plus DomainMapping Ready/CertificateProvisioned/DomainRoutable and source evidence review",
+      "status": "PASS",
+      "exitCode": 0,
+      "sourceSha": "edb532549506abd962e0a2000015857b6ec6d6ce"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "coordination/evidence/NET-20261025-01/final-domain-independent-review.json",
+      "sha256": "c44102e202240f15642e82ac0bf870a73bea7a06d267f020bc68b6af3059f8f6"
+    },
+    {
+      "path": "coordination/evidence/REL-20261025-02/live/published-domain-readback.json",
+      "sha256": "81c4be716c1a20a3b892bf3b9f470df41da131b8e238485099c4bd10f2f2662e"
+    }
+  ],
+  "nextAction": "No further deployment required; retain readbacks and rollback points. Known test limits remain in reports.",
   "deploy_owner": "coordinator",
-  "releaseReady": false,
+  "releaseReady": true,
   "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-domains-20261025",
   "fileOwnership": {
     "coordinator": "DNS/Cloud Run映射与Origin配置、两Gradle版本/域名、构建发布",
     "frontend": "非作者两原生App安装升级保留登录与真实域名读取验收，唯一ADB操作者"
   },
   "childTask": "NET-20261025-02",
-  "remaining": [
-    "后台自有域名TLS就绪",
-    "自有后台域名IAP和登录只读验收"
-  ]
+  "remaining": [],
+  "completedAt": "2026-10-26T01:45:56.371133+08:00",
+  "mergeSha": "af7ec4ce6c618cf0b984c54a76ba7024751e5e10",
+  "reviewer": "backend",
+  "acceptedSha": "edb532549506abd962e0a2000015857b6ec6d6ce"
 }

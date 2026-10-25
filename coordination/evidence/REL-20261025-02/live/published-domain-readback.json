@@ -1,0 +1,24 @@
+{
+  "status": "PASS",
+  "at": "2026-10-25T17:40:48.651Z",
+  "url": "https://demo-admin.hbzjhs.xyz/",
+  "googleIapAccount": "dadonggev587@gmail.com",
+  "applicationLogin": "existing admin account",
+  "configurationReadOnly": {
+    "pickupMeters": 300,
+    "dropoffMeters": 300,
+    "allowedRange": "50..5000",
+    "nationalRegionCityOptions": true
+  },
+  "jointOrder": "PORDf4f910a233dc",
+  "amountCents": 2926,
+  "stage": "DONE",
+  "payment": "SIMULATED_SUCCESS",
+  "distanceConsentCards": 3,
+  "unknownDistanceNotZero": true,
+  "oldThresholdRetained": 300,
+  "historyRejectAndApproveVisible": true,
+  "configurationWriteOnCloud": false,
+  "configPublishTests": "non-author local isolated environment with identical fixed source, see backend-web-review",
+  "secretsWrittenToEvidence": false
+}
