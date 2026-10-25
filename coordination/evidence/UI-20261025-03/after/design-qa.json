@@ -1,0 +1,143 @@
+{
+  "taskId": "UI-20261025-03",
+  "reviewer": "frontend independent session 01a167c8-a5eb-77e3-b77e-214927a029da",
+  "startedAt": "2026-10-25T18:04:48+08:00",
+  "updatedAt": "2026-10-25T18:15:16.753206+08:00",
+  "deadlineAt": "2026-10-25T18:16:48+08:00",
+  "sourceSha": "8499d6e5b6a19fc64c4375c6d70cd6edfccfa80f",
+  "result": "BLOCKED_ENVIRONMENT",
+  "productAcceptance": "NOT_RUN",
+  "buildEvidenceProvidedByCoordinator": {
+    "driver": {
+      "client": "driver",
+      "command": "/Users/dongge/.gradle/wrapper/dists/gradle-8.7-bin/c4fynqkwxqrcieir78ry8jtzf/gradle-8.7/bin/gradle --offline --no-daemon --max-workers=1 -Dorg.gradle.jvmargs=-Xmx1536m -Pkotlin.compiler.execution.strategy=in-process -PYIJ_CLOUD_ORIGIN=https://driver-demo-491829048305.us-west1.run.app --project-cache-dir /Users/dongge/.codex/tmp/yijiexing-native-ui-20261025/driver-cache --init-script /Users/dongge/.codex/tmp/yijiexing-native-ui-20261025/driver-build.init.gradle testDebugUnitTest assembleDebug",
+      "exitCode": 0,
+      "startedAt": "2026-10-25T17:57:12.283089+08:00",
+      "completedAt": "2026-10-25T18:01:19.297951+08:00",
+      "logPath": "/Users/dongge/.codex/tmp/yijiexing-ui03-integration/coordination/evidence/UI-20261025-03/driver-build.log",
+      "sourceSha": "8499d6e5b6a19fc64c4375c6d70cd6edfccfa80f",
+      "status": "PASS",
+      "tests": 55,
+      "apkPath": "/Users/dongge/.codex/tmp/yijiexing-native-ui-20261025/driver/_app/outputs/apk/debug/app-debug.apk",
+      "apkSha256": "63764e489cb121a4627d8940f5ba18295747d98ce7f5fa4e7085106efe75dc1f",
+      "bytes": 55655839,
+      "versionName": "0.3.9-cloud",
+      "versionCode": 12,
+      "signerSha256": "9ffec9b342d12909ff288bd73f23ba104893b39120cb24ea83c9734a0d2b758f",
+      "sourceContentVerified": true,
+      "cwd": "/Users/dongge/.codex/tmp/yijiexing-ui03-integration/candidates/driver-0.3.6-r2/android",
+      "verifiedAt": "2026-10-25T18:07:14.085282+08:00"
+    },
+    "passenger": {
+      "client": "passenger",
+      "command": "/Users/dongge/.gradle/wrapper/dists/gradle-8.7-bin/c4fynqkwxqrcieir78ry8jtzf/gradle-8.7/bin/gradle --offline --no-daemon --max-workers=1 -Dorg.gradle.jvmargs=-Xmx1536m -Pkotlin.compiler.execution.strategy=in-process -PYIJ_CLOUD_ORIGIN=https://driver-demo-491829048305.us-west1.run.app --project-cache-dir /Users/dongge/.codex/tmp/yijiexing-native-ui-20261025/passenger-cache --init-script /Users/dongge/.codex/tmp/yijiexing-native-ui-20261025/passenger-build.init.gradle testDebugUnitTest assembleDebug",
+      "exitCode": 0,
+      "startedAt": "2026-10-25T18:01:19.298285+08:00",
+      "completedAt": "2026-10-25T18:02:25.793956+08:00",
+      "logPath": "/Users/dongge/.codex/tmp/yijiexing-ui03-integration/coordination/evidence/UI-20261025-03/passenger-final-build.log",
+      "sourceSha": "8499d6e5b6a19fc64c4375c6d70cd6edfccfa80f",
+      "status": "PASS",
+      "tests": 20,
+      "apkPath": "/Users/dongge/.codex/tmp/yijiexing-native-ui-20261025/passenger/_app/outputs/apk/debug/app-debug.apk",
+      "apkSha256": "4a99709011fd1be8be421801dd80f52357a67e153a9616787952cd3afa61bc2c",
+      "bytes": 54125743,
+      "versionName": "1.1.9-experience",
+      "versionCode": 11,
+      "signerSha256": "9ffec9b342d12909ff288bd73f23ba104893b39120cb24ea83c9734a0d2b758f",
+      "sourceContentVerified": true,
+      "cwd": "/Users/dongge/.codex/tmp/yijiexing-ui03-integration/apps/passenger-android",
+      "verifiedAt": "2026-10-25T18:07:14.526815+08:00"
+    }
+  },
+  "independentInstalledApkHash": "NOT_RUN shell unavailable before package read/install",
+  "references": [
+    {
+      "file": "reference/modao-driver-map-home-clean.png",
+      "sha256": "62afcfad2d1815ca36de7a97670815cee7ab772d036a55f26650944a09499f9a",
+      "visuallyRead": true
+    },
+    {
+      "file": "reference/modao-driver-profile-clean.png",
+      "sha256": "7e4967e2386b5aeeca36d34172e0901567c6b046d4add01bdc88dc3cb7ea0e1c",
+      "visuallyRead": true
+    },
+    {
+      "file": "reference/provided-passenger-map-home.png",
+      "sha256": "73f745150e6267c502b9d59f29d9277ef111b96c7b79b1050f172dd22bddc494",
+      "visuallyRead": true
+    }
+  ],
+  "referenceObservations": {
+    "driverHome": "Prototype uses map as main upper surface with compact order/control sheet below; listening/offline status must match for comparison.",
+    "driverProfile": "Prototype has compact identity header plus grouped icon grids for orders/wallet/platform services.",
+    "passengerHome": "User reference has large map, destination-first white bottom call panel, lower shortcut icons and banner."
+  },
+  "actualComparison": "NOT_RUN - no current-run new APK screen could be captured or operated. Reference reading alone does not establish design parity.",
+  "actualProductP0P1P2Findings": [],
+  "severityAssessment": "NOT_ASSESSABLE_ON_DEVICE; no device UI PASS claimed",
+  "environmentBlockers": [
+    {
+      "id": "ENV-ADB-01",
+      "severity": "P1_ENV_ONLY",
+      "observed": "Both default-port shell getprop requests timed out8s. Original AVD graceful restart retained userdata/no wipe and skipped snapshot load/save; emulator logs report boot completed~19/20s but subsequent shell requests still time out.",
+      "evidence": [
+        "device-recovery.json",
+        "driver-restart.log",
+        "passenger-restart.log"
+      ]
+    },
+    {
+      "id": "ENV-ADB-02",
+      "severity": "P1_ENV_ONLY",
+      "observed": "Default adb server restart failed ACK with Address already in use on5037. Separate5038 server starts/connects both emulator TCP endpoints, yet shell getprop on each still timed out6s before any package install/read.",
+      "evidence": [
+        "adb-recovery.json",
+        "adb-alternate-transport.json"
+      ]
+    },
+    {
+      "id": "ENV-UI-03",
+      "severity": "P1_ENV_ONLY",
+      "observed": "Computer Use native-app inventory reports Mac is locked and automatic unlock could not unlock it. Manual human unlock required for native-window fallback; no unlock bypass attempted.",
+      "evidence": "Tool result cua.getState on2026-10-25 around18:12, native apps unavailable"
+    }
+  ],
+  "checks": {
+    "final driver installed hash/version": "NOT_RUN",
+    "final passenger install-r and installed hash/version": "NOT_RUN",
+    "retained login on new UI": "NOT_RUN",
+    "driver home map and sheet": "NOT_RUN",
+    "passenger home map and sheet": "NOT_RUN",
+    "map attribution visible": "NOT_RUN",
+    "long address and CTA": "NOT_RUN",
+    "order lists and profile": "NOT_RUN",
+    "address keyboard/cancel": "NOT_RUN",
+    "driver accept confirmation then Return": "NOT_RUN",
+    "offline cold-map failure": "NOT_RUN",
+    "restore network and retry real tiles": "NOT_RUN",
+    "at least48dp targets": "NOT_RUN",
+    "same-state actual/reference comparison": "NOT_RUN"
+  },
+  "networkChanged": false,
+  "noBusinessActions": true,
+  "accountsCleared": false,
+  "snapshotsDeleted": false,
+  "newAccountsCreated": false,
+  "fontChanged": false,
+  "sourceEditedByReviewer": false,
+  "builtOrDeployedByReviewer": false,
+  "agentsStarted": false,
+  "nextStep": "Human unlocks Mac; coordinator restores responsive ADB and explicitly dispatches new bounded device acceptance. Do not publish on this QA result.",
+  "endedAt": "2026-10-25T18:15:56.416442+08:00",
+  "teardown": {
+    "networkWasNeverChanged": true,
+    "fontWasNeverChanged": true,
+    "noNewInstallationExecutedByReviewer": true,
+    "accountsAndDataNotCleared": true,
+    "emulatorsLeftBooted": true,
+    "adb5038LeftRunningPerCoordinator": "Coordinator independently verified listener PID10634; retain for recovery after human unlock",
+    "defaultAdb5037": "Unresolved, no further attempts per coordinator",
+    "appsStoppedOrHomeReturned": "NOT_VERIFIED because guest command unavailable",
+    "status": "IDLE_AWAIT_HUMAN_UNLOCK_AND_NEW_DISPATCH"
+  }
+}

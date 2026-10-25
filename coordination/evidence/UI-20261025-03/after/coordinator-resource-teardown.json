@@ -1,0 +1,24 @@
+{
+  "at": "2026-10-25T18:20:23.580506+08:00",
+  "processes": [
+    {
+      "pid": 3430,
+      "expected": "-avd Yijiexing_Driver_Pair_QA",
+      "action": "SIGTERM graceful shutdown requested"
+    },
+    {
+      "pid": 3431,
+      "expected": "-avd Yijiexing_Passenger_QA",
+      "action": "SIGTERM graceful shutdown requested"
+    },
+    {
+      "pid": 10634,
+      "expected": "adb -L tcp:5038",
+      "action": "SIGTERM graceful shutdown requested"
+    }
+  ],
+  "reason": "Independent UI blocked waiting manual unlock; avoid idle test VM CPU and temporary adb service",
+  "noUserdataDeleted": true,
+  "noCloudPause": true,
+  "clarification": "Frontend teardown recorded its then-booted state and inferred5038 retention. Coordinator now stops only matching project test processes; no general instruction to keep5038 running was issued."
+}

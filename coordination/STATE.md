@@ -1,18 +1,18 @@
 # 宜捷行当前状态
-更新时间2026-10-25 17:49 Asia/Singapore。协调者唯一维护；恢复读STATE/BOARD/当前任务/角色handoff。
+更新2026-10-25 18:16 Asia/Singapore。根协调者唯一维护，恢复先读STATE/BOARD/当前task/role handoff。
 
-当前UI-20261025-03进行中：用户原截图/墨刀司机原型，暂停适老化大字，Gemini主设计/代码，root集成/乘客真实地图/构建/唯一发布；frontend独立截图验收。分支codex/prototype-native-ui-20261025，基线ff9f5a787fede48bb2ac1035c38d45ff543323b2。Gemini scoped --add-dir读图已成功，司机代码生成限6min运行；品牌hero已完成UI03/assets。模拟器无损启动只读采样。产品SHA4d089b37790069a0a13bfe8bfc770f0aaa03a653，本轮UI活跃clone已切到/Users/dongge/.codex/tmp/yijiexing-ui03-integration（原Documents源出现compressed,dataless读取卡，逐task文件cp至稳定本地目录；原源保留，无后台改动）。最终包尚未发布。
+当前任务UI-20261025-03 WAITING_DEVICE_UNLOCK，acceptance BLOCKED，releaseReady=false。用户原图/墨刀原型，暂停专门适老大字；Gemini直接读图并主写31个Compose函数，root集成真实乘客MapLibre和原创hero，正常字号/青绿/地图底部面板。产品SHA8499d6e5b6a19fc64c4375c6d70cd6edfccfa80f；PR12 https://github.com/Dadong520/yijiexing/pull/12 草稿未合并/未发布，CI结构+58小程序回归PASS不是设备PASS。
 
-当前发布：司机0.3.8/code11，乘客Android1.1.8/code10；driver-demo原v8镜像7d71539...未变。后台新UI driver-admin-ui20261025，image35726abba...，100%流量，IAP/Google dadonggev587@gmail.com+admin登录实测18订单，完成7取消9待接1待付1，完成已付16124分。admin https://driver-admin-491829048305.us-west1.run.app/。独立项目yijiexing-driver-demo-1023/us-west1；两服务automatic/min0/max1/请求计费，不保活、不自动暂停。发布无需再审批，唯一发布者coordinator。
+两端同签名候选：driver0.3.9/code12 SHA63764e489cb121a4627d8940f5ba18295747d98ce7f5fa4e7085106efe75dc1f；passenger1.1.9/code11 SHA4a99709011fd1be8be421801dd80f52357a67e153a9616787952cd3afa61bc2c。55/20既有单测+构建PASS；backend非作者13核心文件/下单controller/AddressDialog/routes/动作/金额权益审查PASS_SCOPE。backend发现重试旧MapView问题root用key(mapView)修正、静态复核PASS，实际失败恢复必须验。独立frontend实际UI验收NOT_RUN：Mac锁屏拒绝原生观察、ADB guest shell超时，冷启两原AVD及本地5038连接均未恢复；没有最终新UI截图，不清账号、不造订单，未动网络。已请求用户手动解锁，未回复；不绕锁或凭编译发布。
 
-源码：私库Dadong520/yijiexing，main已合并PR#9=f0f0920995dcf89dfc5f6125542e26af86cf110d。当前clone .coordination/integration-ag-final，UI源码分支codex/gemini-native-ui-20261025已合并；收尾文档分支codex/ui-release-receipt-20261025。原工作区无统一Git。反重力独立目录/Users/dongge/Documents/yijiexing-antigravity不切分支/覆盖。司机源码candidates/driver-0.3.6-r2/android；乘客apps/passenger-android；mini candidates/passenger-miniprogram-0.1.0/miniprogram；backend candidates/shared-backend-v8/cloud-service冻结参考。原Java仅参考，禁止连接旧环境或导入旧账户/密钥。
+本轮稳定UI源码clone /Users/dongge/.codex/tmp/yijiexing-ui03-integration，branch codex/prototype-native-ui-20261025，origin真正GitHub。原Documents clone integration-ag-final出现dataless云占位读取卡，task源逐文件cp+15hash一致迁到本地，原clone保留不reset。两端源码candidates/driver-0.3.6-r2/android、apps/passenger-android。build输出 /Users/dongge/.codex/tmp/yijiexing-native-ui-20261025/{driver,passenger}/_app/outputs/apk/debug/app-debug.apk。不能回旧云占位目录重建；后台源归属保持原STATE独立冻结cloud-service，不改重复后端。
 
-UI-20261025-02已完成：Gemini真实生成29个Compose函数及主题；root集成，frontend两端独立限定UI验收PASS(正常/1.3字体、司机首屏抢单/确认取消、工具状态/公司全换行、乘客导航及地址弹窗键盘可达)，backend13核心文件/下单参数/筛选保护PASS。最终55司机/20乘客单测和隔离构建PASS，固定云源/同签名。司机038/passenger118两APK已直连上传并完整公开GET验版本/签名/哈希PASS，分别08732bf8...和5ee70fd1...。回滚备份记录evidence/UI-20261025-02/。产品source55dce79f58a780a1de1ea88c448a774bac03fc9f，PR10合并d8c34cac4e260233f32cbc12db4b900c31d5a9eb。无后端/admin/历史业务数据变更；不是新三端完整流程验收。所有角色和Gemini均idle，无自动续跑。构建缓存已隔离至/Users/dongge/.codex/tmp/yijiexing-native-ui-20261025，避开Documents旧dex/文件读取问题；临时目录不入Git。
+当前公开发行仍driver0.3.8/code11与passenger1.1.8/code10（UI02，source55dce79f...），入口https://driver-demo-491829048305.us-west1.run.app/download 与 /download-passenger。driver-demo revdriver-demo-00005-2w2/v8镜像7d71539...。admin https://driver-admin-491829048305.us-west1.run.app/，revdriver-admin-ui20261025/image35726abba...，Google IAP dadonggev587@gmail.com再admin应用登录。独立项目yijiexing-driver-demo-1023/us-west1，既有automatic/min0/max1/request计费，不保活不自动暂停。仅coordinator可发布，无需反复审批但必须真验收。此次仅GCS服务器端备份旧APK（UI03 rollback.json），没有新APK发布/云服务/IAM/订单数据变更。
 
-保留PORD9dac969cecf1 WAIT_PAY2926与PORDaa584245c6e6 AVAILABLE及18历史单。模拟器5586司机0003/5584乘客0102；frontend当前只读现状UI检查，不接单/支付/取消/清数据。无新完整三端流程验收。
+AUTH01已核实两端访问码匹配Secret driver-demo-access:1和本机yijiexing-cloud-20261023/.private/driver-access-code.txt，32位私密不可进消息/Git；合成司机0003/乘客0102登录和认证读取PASS，未旋转/清数据。验证码与访问码不同。保护既有订单包括PORD9dac969cecf1 WAIT_PAY2926/PORDaa584245c6e6 AVAILABLE，不凭旧快照声称当前总18，禁止为UI测试清单。
 
-Gemini入口固定 /Applications/Gemini.app/Contents/Helpers/agy（内置CLI），旧.local/bin/agy不是同一二进制，实际hub属Gemini。禁止skip-permissions/盲latest/不明确续跑；每任务短上下文和时限，无产出需精确停止并验证。PA异常任务7de1d11c已STOPPED无代码，不再续跑。CLI不依赖桌面窗口可见，非关机离线承诺。
+Gemini固定/Applications/Gemini.app/Contents/Helpers/agy（旧.local/bin独立App不是同一CLI）。UI03 scoped --add-dir读图成功，两个独立run见coordination/evidence/UI-20261025-03/gemini-run-record.json；当前Gemini idle，不latest/skip权限/并发同桌面上下文。Codex用6.1，frontend01a167c8-a5eb-77e3-b77e-214927a029da、backend01a168e2-22f7-70a2-af7f-4fb6be0ea695。根只唤醒当前负责人，不自动回复循环。
 
-微信无真实AppID；开发ZIP更新，58测试PASS、preview已构建；无工具编译/真机/体验上传，不等于上线。采用wx.chooseLocation原生选择位置，待AppID/权限/隐私/合法域名实际核验。WECHAT_TRIAL_SETUP.md说明条件。营销积分/卡券/邀请为明确零资产演示，无后台账务。安全联系人按账号本机保存；无短信/录音/警务联动。Android系统Geocoder模拟器不可用，失败/常用地点兜底PASS；不能称成功地图搜索。
+微信无真实AppID，仅开发版，wx.chooseLocation，未体验上传/真机；营销卡券积分为零资产演示，支付退款发票模拟；Geocoder成功依设备，乘客新地图是已选点预览非GPS/导航/腾讯SDK/95128。大传输直连优先；凭据/APK/cache不进仓库。解锁后恢复frontend独立实操→处理真实缺陷→同SHA报告/精确gate→根唯一合并/发布并完整公开GET签名哈希核验。未收到新输入不常驻工作。
 
-交付历史delivery/2026-10-25；driver public/download，passenger public/download-passenger；APK不入Git。大传输直连优先，不改全局代理。GitHub私库套餐403不支持强制保护，不升级公开；CI有记录并不等于强制保护。角色：frontend01a167c8-a5eb-77e3-b77e-214927a029da；backend01a168e2-22f7-70a2-af7f-4fb6be0ea695；Codex用6.1，Gemini沿用现有模型。无任务idle，无常驻AI。
+18:18 root收尾：frontend已IDLE，根已正常SIGTERM本轮匹配的两个原AVD和临时5038 adb服务，保留userdata/快照，不再空转CPU，CloudRun未暂停；见after/coordinator-resource-teardown.json。等待用户解锁回复再派独立验收。

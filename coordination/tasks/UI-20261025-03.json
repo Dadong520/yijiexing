@@ -36,8 +36,8 @@
     "与参考同屏状态对比design-qa，不仅编译/截图就通过",
     "现有55/20逻辑测试+同签名升级保留登录、地图/导航/主要弹窗，独立验收后唯一协调者发布并直连完整回读"
   ],
-  "status": "IN_PROGRESS",
-  "acceptance": "NOT_RUN",
+  "status": "WAITING_DEVICE_UNLOCK",
+  "acceptance": "BLOCKED",
   "tests": [
     {
       "name": "driver native unit tests and build",
@@ -58,10 +58,47 @@
       "evidence": "coordination/evidence/UI-20261025-03/passenger-build-result.json"
     }
   ],
-  "evidence": [],
-  "nextAction": "frontend actual device visual/map recovery review pending; coordinator owns PR and publish only after independent PASS",
+  "evidence": [
+    {
+      "path": "coordination/evidence/UI-20261025-03/driver-build-result.json",
+      "sha256": "546765b9c5b9716a278cbcca900e3b19e461ab7696df8601e23d01a9c7607a85"
+    },
+    {
+      "path": "coordination/evidence/UI-20261025-03/passenger-build-result.json",
+      "sha256": "8591b569a3c75d4a365176a16609e7eaa84d2b8acf3b7fe3d63741474e0278ba"
+    },
+    {
+      "path": "coordination/evidence/UI-20261025-03/backend-review.json",
+      "sha256": "5790d24e555685c932a9c231ebc4744633f66bc7c14ba81bae43901a5dbe41ae"
+    },
+    {
+      "path": "coordination/evidence/UI-20261025-03/after/design-qa.json",
+      "sha256": "3894cb75a8654a3004de5202489155099db05c43793045b34517ce73a9769d47"
+    },
+    {
+      "path": "coordination/evidence/UI-20261025-03/after/coordinator-resource-teardown.json",
+      "sha256": "66bad3703ef1802dd6751c915f983b3cfc842a74ea5c2b8d2a1bd096b03635f3"
+    }
+  ],
+  "nextAction": "User unlock Mac, then root dispatch frontend targeted device recovery/UI/map retry acceptance; keep PR12 draft. No publication without independent actual PASS.",
   "deploy_owner": "coordinator",
   "releaseReady": false,
   "productSha": "8499d6e5b6a19fc64c4375c6d70cd6edfccfa80f",
-  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-ui03-integration"
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-ui03-integration",
+  "reviewer": "frontend + backend (non-authors)",
+  "blockers": [
+    "Mac locked: native UI observation refused; user manual unlock requested",
+    "Both original emulator guest shells time out even after bounded restart/alternate5038 transport; no final UI acceptance"
+  ],
+  "notRun": [
+    "final installed APK hash/same-signature session observation",
+    "actual map load/attribution/failed-load retry and visual comparison",
+    "final-page navigation and keyboard/dialog device verification",
+    "new three-end business lifecycle (out of this UI-only run)"
+  ],
+  "pr": "https://github.com/Dadong520/yijiexing/pull/12",
+  "currentPublished": {
+    "driver": "0.3.8-cloud",
+    "passenger": "1.1.8-experience"
+  }
 }

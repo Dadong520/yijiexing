@@ -1,14 +1,10 @@
-当前补记18:03：Gemini司机14/乘客17函数SUCCESS，实际读图，两个run记录在UI03/gemini-run-record.json。MapLibre乘客新渲染、hero两端已集成；backend发现retry旧MapView问题root已key(mapView)修正。源码因Documents云占位读卡，允许文件逐一cp到/Users/dongge/.codex/tmp/yijiexing-ui03-integration，产品提交4d089b37790069a0a13bfe8bfc770f0aaa03a653，origin真正GitHub（不再旧本地origin）。原clone保留不reset。后台源码归属不变。backend正在新本机clone最终非作者核对；root最终两构建任务session33455仍跑Documents原clone同文件，需hash绑定或在新clone重建，别误称SHA已测试。
-# coordinator 当前交接 2026-10-25 17:49
-UI-20261025-03进行中，见task/BOARD。用户原图/墨刀地图+白面板+青绿，暂停适老大字。Gemini主代码；root唯一集成/PassengerMap；frontend当前只读before截图。clone integration-ag-final分支codex/prototype-native-ui-20261025从main ff9f5a7；origin是本地AG库，fetch/push显式GitHub。
-Gemini固定/Applications/Gemini.app/Contents/Helpers/agy，plan+--add-dir reference成功read_file图，probe会话12ddd735-4790-4dd2-85ff-9c4fea65ce44。脚本.coord/start-ui03-driver.py，输出.coord/ui03-driver.ndjson，pid87136，限6min。不能同CLI会话并发。refs和hero在UI03/reference、assets；asset1254方图无字。root待加入MapLibre真实地图、Gemini函数+版本039/119、隔离构建55/20、非作者业务/视觉审查、精确SHA gate+PR+唯一发布。绝不改业务保护/接口/钱/数据；不能称新三端完整流程/真实腾讯SDK/95128。
+# coordinator UI03交接 2026-10-25 18:16
+当前等待用户手动解锁Mac，UI03 acceptance BLOCKED/releaseReady false，绝不能发布。PR12草稿，产品8499d6e5b6a19fc64c4375c6d70cd6edfccfa80f，GitHub源已推；当前文档证据收尾另提交。当前root不自动续跑/常驻。
+根活跃clone /Users/dongge/.codex/tmp/yijiexing-ui03-integration，originGitHub，branchcodex/prototype-native-ui-20261025；Documents旧clone因为iCloud dataless读阻塞已保留，任务允许文件逐一cp，15hash一致。根/roles协调文档要同步回项目root，不覆盖他人代码。driver candidates/driver-0.3.6-r2/android、passenger apps/passenger-android。后端不迁移不改。
+Gemini scoped --add-dir实际read_file原图/墨刀SUCCESS，司机14乘客17函数、hero内置imagegen；root加PassengerMap11.8.0真实OpenFreeMap+WGS84选定点/回位/失败提示，非GPS腾讯导航，保留署名/许可证。暂停适老大字但48dp目标，原业务guard/controller/routes/模拟标识保留。
+构建55/20 PASS，同签名；driver039/code12 63764e48…，pass119/code11 4a997090…，绝对路径见build-result。稳定本机重建6/5sec缓存通过；乘客两显示文案准确化后final-build，未单独记录该run启动时戳。别把历史coordinator构建时间当实操时间。backend独立PASS_SCOPE，13核心/Booking前后/route/action/钱/权益确认；指出retry旧视图，root key(mapView)修复仅静态确认，必须runtime恢复测试。
+frontend原AVD冷启不删snapshot/不wipe，5038本地替代连接也guest shell timeout，CUA提示Mac locked不能查看，所有最终UI/升级installedhash/地图署名/失败恢复/键盘确认实操NOT_RUN。报告after/design-qa.json和恢复日志，没伪造P0-P2/最终UI图。根已异步请求用户解锁，未获回答。frontend在18:16:48限时收尾并恢复临时服务。不得继续无变化轮询。
+后续用户解锁→只唤醒frontend，对最终同sha包做实际home/orders/profile/地址dialog与键盘/driver确认返回、地图断网失败恢复重试；若缺陷root/AG修复、复测。不得业务写/清旧单。非作者PASS→taskacceptedSha准确、证据hash+测试sourceSha全匹配→check_coordination --release-task UI-20261025-03 --sha8499…→PRready/CI/merge→根发布GCS两包/公开完整GET/签名版本哈希回读。发布脚本旧.coord/publish-ui-apk.py硬编码UI02，要适配本task+稳定clone；无CloudRun重建必要。两旧包server-side备份UI03/{driver,passenger}-rollback.json含generation预防并发；大传输直连首选，密钥不输出。
+当前公开仍038/118；GCP driver-demo原v8/admin当前UI和IAP、历史账号订单未改。用户要求全部优化/验收后才部署，本次未发布，不称三端新完整流程完成。
 
-司机0.3.8/code11已公开 /download.apk，SHA08732bf8b372e30024711e404e4bf7161a6dc95cf05d4b8094efda895ccda6b7；乘客1.1.8/code10 /download-passenger.apk，SHA5ee70fd105e529ed5fdef9f422bbf7bcecf8e09402b64fda6aa14df2ae021f23。固定cloud origin driver-demo-491829048305.us-west1.run.app，同签名保留登录，分别55/20单测+构建PASS；直连上传与完整GET版本/签名/哈希PASS。GCS服务器侧回滚记录driver/passenger-rollback.json，所有发布报告在evidence/UI-20261025-02。没有后端/admin/IAM/业务数据修改。
-独立frontend限定UI PASS：正常/1.3字体，首屏司机抢单可见、确认返回不提交；工具状态分行、公司名全显；乘客白卡、首页顺序、菜单、地址dialog与键盘确认取消可达；两个模拟器5586/5584均恢复1.0/stop+HOME，登录保留、没有订单/投诉/支付写。报告after/{driver,passenger}/*visual-review.json，绑定final source/API hash。passenger最终仅一条surfaceTint白色常量相对前包，已独立diff与最新安装hash/截图，报告如实继承大字/弹窗范围。
-backend限定业务审查PASS，13核心文件与Booking下单参数/订单筛选原样，最终业务补记有8sourcehash。root修复漏构建云源、对比度、长字、工具状态、白卡/间距等，失败首包未发布。Documents缓存重复dex/文件hash阻塞后，最终build输出/project cache在/Users/dongge/.codex/tmp/yijiexing-native-ui-20261025；用--offline --max-workers1 -Xmx1536m in-process并显式云源。
-范围限制：非新完整三端生命周期、非实体手机/TalkBack/横屏；系统Geocoder成功仍未验证，微信AppID未配置，营销仍演示。旧保护订单与18历史单不得为测试清空。两个Cloud Run automatic/min0/max1/request/IAP继续保留，不保活不自动暂停。大传输直连优先，凭据/APK/cache不入Git。
-收尾docs/receipt待PR记录，源码已合并且公开包已验证；后续只按用户新需求唤醒当前负责人。
-
-收尾PR11已合并 ff9f5a787fede48bb2ac1035c38d45ff543323b2，CI10秒PASS。main包含最终公开回读报告，所有角色idle。
-
-2026-10-25 16:47 AUTH-20261025-01：用户报两端访问码无效。云仍driver-demo-00005-2w2/secret driver-demo-access:1，与本机.private/driver-access-code.txt一致32位。直接有效码两端guard通过，错误控制403；司机0003/乘客0102获取体验验证码、登录、认证读取均PASS。凭据/token不输出或进Git，未旋转密钥/改源码/部署/操作订单。已给用户本机私密文件和重新粘贴步骤；手机端重录待用户操作，不声称已远程修手机。证据evidence/AUTH-20261025-01，未唤醒其它模型。
+18:18 root收尾：frontend已IDLE，根已正常SIGTERM本轮匹配的两个原AVD和临时5038 adb服务，保留userdata/快照，不再空转CPU，CloudRun未暂停；见after/coordinator-resource-teardown.json。等待用户解锁回复再派独立验收。
