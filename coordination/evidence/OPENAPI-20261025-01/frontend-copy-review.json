@@ -1,0 +1,20 @@
+{
+  "reviewer": "frontend non-author",
+  "nativeBaseSha": "2e5dd4e7784467f1ee417f9c7ff2144d907e1467",
+  "nativeSourceSha": "eb54e70f27c53aaf569390039349cf3487ff008f",
+  "nativeResult": "PASS_LITERAL_ONLY",
+  "nativeDelta": "Four string replacements in ProfileScreens.kt (logout/help), ConnectedStore.kt (legacy error copy), DriverLocationService.kt (error notification). No authentication/control flow/home/business changes. Driver403/legacy demo reasons not induced.",
+  "apiSourceSha": "ecab94fd2022d3142eefbedbb63c38641979bece",
+  "apiPath": "/Users/dongge/.codex/tmp/yijiexing-api-20261025/apps/cloud-service/distribution.py",
+  "apiSourceSha256": "303e3b1087f7d9b1278d383b6b386e4f0c0ceb7d9de87c48693895962a4d6084",
+  "apiChangedFiles": [
+    "apps/cloud-service/distribution.py"
+  ],
+  "downloadSourceReview": "PASS",
+  "driverInstructions": "选择体验司机账号，阅读并勾选体验说明后点击进入体验",
+  "passengerInstructions": "选择体验乘客账号，阅读并勾选体验说明后点击进入体验",
+  "downloadCopyHasAccessCodeOrManualOtp": false,
+  "realSmsOrPaymentClaim": false,
+  "adminProtectionStillStated": true,
+  "note": "Only driver HTML literal and passenger derivation replacement changed. API auth code unchanged by this commit; prior source/HTTP acceptance inherited separately, not rerun here. No deployment or live public HTML assertion."
+}

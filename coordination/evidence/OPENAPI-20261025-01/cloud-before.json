@@ -1,0 +1,46 @@
+{
+  "metadata": {
+    "annotations": {
+      "run.googleapis.com/client-name": "gcloud",
+      "run.googleapis.com/client-version": "589.0.0",
+      "run.googleapis.com/ingress": "all",
+      "run.googleapis.com/ingress-status": "all",
+      "run.googleapis.com/invoker-iam-disabled": "true",
+      "run.googleapis.com/maxScale": "1",
+      "run.googleapis.com/operation-id": "8b3e4d7a-43ba-4e15-a310-c5f1aa35f4cf",
+      "run.googleapis.com/scalingMode": "automatic",
+      "run.googleapis.com/urls": "[\"https://driver-demo-491829048305.us-west1.run.app\",\"https://driver-demo-phfgquzmua-uw.a.run.app\"]",
+      "serving.knative.dev/creator": "dadonggev587@gmail.com",
+      "serving.knative.dev/lastModifier": "dadonggev587@gmail.com"
+    }
+  },
+  "spec": {
+    "template": {
+      "metadata": {
+        "annotations": {
+          "autoscaling.knative.dev/maxScale": "3",
+          "run.googleapis.com/client-name": "gcloud",
+          "run.googleapis.com/client-version": "589.0.0",
+          "run.googleapis.com/cpu-throttling": "true",
+          "run.googleapis.com/execution-environment": "gen2",
+          "run.googleapis.com/startup-cpu-boost": "false"
+        }
+      },
+      "spec": {
+        "containerConcurrency": 1,
+        "serviceAccountName": "demo-driver@yijiexing-driver-demo-1023.iam.gserviceaccount.com"
+      }
+    }
+  },
+  "status": {
+    "latestReadyRevisionName": "driver-demo-00005-2w2",
+    "traffic": [
+      {
+        "latestRevision": true,
+        "percent": 100,
+        "revisionName": "driver-demo-00005-2w2"
+      }
+    ],
+    "url": "https://driver-demo-phfgquzmua-uw.a.run.app"
+  }
+}
