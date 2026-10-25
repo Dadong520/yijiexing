@@ -1,0 +1,97 @@
+test_admin_configuration_session_permissions_and_rules_readback (test_trip_distance.TripDistanceHttp.test_admin_configuration_session_permissions_and_rules_readback) ... [2026-10-26T00:17:24+08:00] POST /api/local/admin/v2/login 200
+[2026-10-26T00:17:24+08:00] POST /api/local/admin/v2/action 200
+[2026-10-26T00:17:24+08:00] POST /api/local/admin/v2/login 200
+[2026-10-26T00:17:24+08:00] GET /api/local/admin/v2/state 200
+[2026-10-26T00:17:24+08:00] POST /api/local/admin/v2/action 403
+[2026-10-26T00:17:24+08:00] POST /api/local/admin/v2/action 200
+[2026-10-26T00:17:24+08:00] POST /api/local/admin/v2/action 200
+[2026-10-26T00:17:24+08:00] GET /api/local/admin/v2/state 401
+ok
+test_cross_instance_cas_loser_retry_cannot_double_complete_or_credit (test_trip_distance.TripDistanceHttp.test_cross_instance_cas_loser_retry_cannot_double_complete_or_credit) ... [2026-10-26T00:17:24+08:00] POST /api/passenger/auth/code 200
+[2026-10-26T00:17:24+08:00] POST /api/passenger/auth/login 200
+[2026-10-26T00:17:24+08:00] POST /api/auth/code 200
+[2026-10-26T00:17:24+08:00] POST /api/auth/login 200
+[2026-10-26T00:17:24+08:00] POST /api/action 200
+[2026-10-26T00:17:24+08:00] POST /api/passenger/action 200
+[2026-10-26T00:17:24+08:00] POST /api/action 200
+[2026-10-26T00:17:24+08:00] POST /api/passenger/action 200
+[2026-10-26T00:17:24+08:00] POST /api/passenger/action 200
+[2026-10-26T00:17:24+08:00] POST /api/action 200
+[2026-10-26T00:17:24+08:00] POST /api/action 200
+[2026-10-26T00:17:24+08:00] POST /api/passenger/action 200
+[2026-10-26T00:17:24+08:00] POST /api/action 200
+[2026-10-26T00:17:24+08:00] GET /api/passenger/state 200
+[2026-10-26T00:17:24+08:00] POST /api/passenger/action 200
+[2026-10-26T00:17:24+08:00] cloud persistence unavailable: SnapshotConflict
+[2026-10-26T00:17:24+08:00] POST /api/passenger/action 503
+[2026-10-26T00:17:24+08:00] POST /api/passenger/action 200
+[2026-10-26T00:17:24+08:00] GET /api/state 200
+ok
+test_real_http_ownership_pending_consent_atomic_progress_and_cold_reload (test_trip_distance.TripDistanceHttp.test_real_http_ownership_pending_consent_atomic_progress_and_cold_reload) ... [2026-10-26T00:17:24+08:00] POST /api/passenger/auth/code 200
+[2026-10-26T00:17:24+08:00] POST /api/passenger/auth/login 200
+[2026-10-26T00:17:24+08:00] POST /api/auth/code 200
+[2026-10-26T00:17:24+08:00] POST /api/auth/login 200
+[2026-10-26T00:17:24+08:00] POST /api/action 200
+[2026-10-26T00:17:24+08:00] POST /api/passenger/action 200
+[2026-10-26T00:17:24+08:00] POST /api/action 200
+[2026-10-26T00:17:24+08:00] POST /api/action 200
+[2026-10-26T00:17:24+08:00] POST /api/action 200
+[2026-10-26T00:17:24+08:00] POST /api/passenger/auth/code 200
+[2026-10-26T00:17:24+08:00] POST /api/passenger/auth/login 200
+[2026-10-26T00:17:24+08:00] POST /api/passenger/action 404
+/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/tempfile.py:484: ResourceWarning: Implicitly cleaning up <HTTPError 404: 'Not Found'>
+  _warnings.warn(self.warn_message, ResourceWarning)
+[2026-10-26T00:17:24+08:00] POST /api/passenger/action 401
+/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/tempfile.py:484: ResourceWarning: Implicitly cleaning up <HTTPError 401: 'Unauthorized'>
+  _warnings.warn(self.warn_message, ResourceWarning)
+[2026-10-26T00:17:24+08:00] POST /api/passenger/action 200
+[2026-10-26T00:17:24+08:00] POST /api/passenger/action 200
+[2026-10-26T00:17:24+08:00] GET /api/passenger/state 200
+[2026-10-26T00:17:24+08:00] POST /api/passenger/action 200
+[2026-10-26T00:17:24+08:00] POST /api/action 200
+[2026-10-26T00:17:24+08:00] POST /api/action 200
+[2026-10-26T00:17:24+08:00] POST /api/passenger/action 200
+[2026-10-26T00:17:24+08:00] POST /api/passenger/action 200
+[2026-10-26T00:17:24+08:00] GET /api/state 200
+ok
+test_simultaneous_passenger_agreements_complete_paid_trip_once (test_trip_distance.TripDistanceHttp.test_simultaneous_passenger_agreements_complete_paid_trip_once) ... [2026-10-26T00:17:24+08:00] POST /api/passenger/auth/code 200
+[2026-10-26T00:17:24+08:00] POST /api/passenger/auth/login 200
+[2026-10-26T00:17:25+08:00] POST /api/auth/code 200
+[2026-10-26T00:17:25+08:00] POST /api/auth/login 200
+[2026-10-26T00:17:25+08:00] POST /api/action 200
+[2026-10-26T00:17:25+08:00] POST /api/passenger/action 200
+[2026-10-26T00:17:25+08:00] POST /api/action 200
+[2026-10-26T00:17:25+08:00] POST /api/passenger/action 200
+[2026-10-26T00:17:25+08:00] POST /api/passenger/action 200
+[2026-10-26T00:17:25+08:00] POST /api/action 200
+[2026-10-26T00:17:25+08:00] POST /api/action 200
+[2026-10-26T00:17:25+08:00] POST /api/passenger/action 200
+[2026-10-26T00:17:25+08:00] POST /api/action 200
+[2026-10-26T00:17:25+08:00] POST /api/passenger/action 200
+[2026-10-26T00:17:25+08:00] POST /api/passenger/action 200
+[2026-10-26T00:17:25+08:00] GET /api/state 200
+ok
+test_config_validation_defaults_for_legacy_and_passenger_privacy (test_trip_distance.TripDistanceRules.test_config_validation_defaults_for_legacy_and_passenger_privacy) ... ok
+test_driver_cancel_and_continue_invalidate_old_confirmation (test_trip_distance.TripDistanceRules.test_driver_cancel_and_continue_invalidate_old_confirmation) ... ok
+test_driver_reassignment_and_destination_edit_invalidate_binding (test_trip_distance.TripDistanceRules.test_driver_reassignment_and_destination_edit_invalidate_binding) ... ok
+test_dropoff_exact_boundary_and_wait_pay_does_not_block_next_accept (test_trip_distance.TripDistanceRules.test_dropoff_exact_boundary_and_wait_pay_does_not_block_next_accept) ... ok
+test_dropoff_old_or_synthetic_destination_requires_agreement (test_trip_distance.TripDistanceRules.test_dropoff_old_or_synthetic_destination_requires_agreement) ... ok
+test_expected_stage_and_forged_driver_authorization_rejected (test_trip_distance.TripDistanceRules.test_expected_stage_and_forged_driver_authorization_rejected) ... ok
+test_expired_cancelled_changed_driver_or_destination_invalidates (test_trip_distance.TripDistanceRules.test_expired_cancelled_changed_driver_or_destination_invalidates) ... ok
+test_legacy_missing_destination_requires_confirmation_not_zero (test_trip_distance.TripDistanceRules.test_legacy_missing_destination_requires_confirmation_not_zero) ... ok
+test_location_upload_validation_old_driver_compatibility_and_no_attestation_claim (test_trip_distance.TripDistanceRules.test_location_upload_validation_old_driver_compatibility_and_no_attestation_claim) ... ok
+test_missing_driver_or_passenger_location_never_becomes_zero (test_trip_distance.TripDistanceRules.test_missing_driver_or_passenger_location_never_becomes_zero) ... ok
+test_paid_consent_completion_and_replayed_payment_credit_only_once (test_trip_distance.TripDistanceRules.test_paid_consent_completion_and_replayed_payment_credit_only_once) ... ok
+test_pending_reused_and_decision_idempotent_across_distinct_requests (test_trip_distance.TripDistanceRules.test_pending_reused_and_decision_idempotent_across_distinct_requests) ... ok
+test_pickup_above_300_meters_waits_for_actual_passenger (test_trip_distance.TripDistanceRules.test_pickup_above_300_meters_waits_for_actual_passenger) ... ok
+test_pickup_below_300_meters_is_allowed (test_trip_distance.TripDistanceRules.test_pickup_below_300_meters_is_allowed) ... ok
+test_pickup_exactly_300_meters_is_allowed (test_trip_distance.TripDistanceRules.test_pickup_exactly_300_meters_is_allowed) ... ok
+test_reject_then_new_request_archives_previous_evidence (test_trip_distance.TripDistanceRules.test_reject_then_new_request_archives_previous_evidence) ... ok
+test_rule_snapshot_not_weakened_and_hierarchical_config_audited (test_trip_distance.TripDistanceRules.test_rule_snapshot_not_weakened_and_hierarchical_config_audited) ... ok
+test_stale_samples_receipts_invalid_accuracy_and_coordinates_cannot_allow (test_trip_distance.TripDistanceRules.test_stale_samples_receipts_invalid_accuracy_and_coordinates_cannot_allow) ... ok
+test_tail_destination_and_waypoint_checks_run_before_creating_consent (test_trip_distance.TripDistanceRules.test_tail_destination_and_waypoint_checks_run_before_creating_consent) ... ok
+
+----------------------------------------------------------------------
+Ran 23 tests in 1.067s
+
+OK
