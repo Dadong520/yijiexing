@@ -34,11 +34,11 @@
   "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-memory-20261026",
   "branch": "codex/project-memory-20261026",
   "baselineSha": "55071ffd5b7b214e8d2c81e509cea4fe021385fe",
-  "reviewedHead": "55071ffd5b7b214e8d2c81e509cea4fe021385fe",
+  "reviewedHead": "047d82e227824b9038f53f5e73303ae58732fe06",
   "checkerReview": {
-    "status": "FAIL_PREFLIGHT",
+    "status": "PASS_FIXED_SOURCE",
     "uncommittedCandidate": true,
-    "finalAuthorSha": "NOT_PROVIDED",
+    "finalAuthorSha": "047d82e227824b9038f53f5e73303ae58732fe06",
     "fileSha256": {
       "tools/check_coordination.py": "1a50b38245d28a8c43784e0ed76690b1202f5d503d988651e3e7079c62bc6b8d",
       "tools/test_check_coordination.py": "1163726c407e173f1832adebde84a847ca05c7fcf05a805f75346a653c9095ef"
@@ -85,18 +85,14 @@
     "coverage": "14实跑单测覆盖UNKNOWN/配额假遥测、非法数值、重复/退休ID、红色角色写门禁、ACK、过时中央登记、预算与原exact-SHA/hash发布门禁；结构检查不等于业务验收。",
     "initialPreflight": "早先失败：coordinator卡缺版本、frontend ACK未登记；本轮后续中央已变化，重跑结果如tests，未改他人卡或注册表。",
     "boundary": "只验证声明的遥测来源，不能证明产品工具来源真实或阻止有写权限者绕过；唯一协调仍需显式接任/登记及停旧派单。",
-    "codeReviewAcceptance": "PASS_SCOPE"
-  },
-  "issues": [
-    {
-      "severity": "INFO",
-      "description": "仍未提供最终作者commit SHA；本独立结果绑定明确文件SHA，提交后须核对字节相同。"
+    "codeReviewAcceptance": "PASS_SCOPE",
+    "finalFileSha256": {
+      "tools/check_coordination.py": "2a9f76eedd5e96f1c89cc06ca0f7b1a9f35b795c212e8a7632f70bde2774d00d",
+      "tools/test_check_coordination.py": "3ad877434f8ae1b1c2cfc234a14b3835fbeb44a9dfab2c1e6c16ce3a47bf4e13"
     },
-    {
-      "severity": "PENDING",
-      "description": "frontend角色preflight未通过，精确输出：FAIL: memory: acknowledge current protocol before work；ACK/注册表归root，本角色未越权修改。"
-    }
-  ],
+    "priorPreflightFailureResolvedByCoordinator": true
+  },
+  "issues": [],
   "resourceState": "依据中央STATE全部off；本轮未启动任何业务资源、ADB、Chrome、Gemini或部署。",
   "writes": [
     "coordination/handoffs/frontend.md",
@@ -110,5 +106,79 @@
   ],
   "committed": false,
   "spawnedAgents": false,
-  "nextAction": "短ACK与代码/检查结果交root，IDLE；未请求新会话，不再轮询。"
+  "nextAction": "最终限定验收交coordinator统一合并，frontend IDLE；不更改卡/产品/注册表。",
+  "finalDelta": {
+    "sourceSha": "047d82e227824b9038f53f5e73303ae58732fe06",
+    "reviewedAt": "2026-10-26T02:06:59.568964+08:00",
+    "scope": "14→16 caller身份声明匹配差量及70/85声明来源门槛，不执行产品/云/ADB/Chrome/Gemini",
+    "fileSha256": {
+      "tools/check_coordination.py": "2a9f76eedd5e96f1c89cc06ca0f7b1a9f35b795c212e8a7632f70bde2774d00d",
+      "tools/test_check_coordination.py": "3ad877434f8ae1b1c2cfc234a14b3835fbeb44a9dfab2c1e6c16ce3a47bf4e13"
+    },
+    "matchesCommitBytes": true,
+    "matchesCentralToolBytes": true,
+    "stableDuringTests": true,
+    "tests": [
+      {
+        "case": "unit16",
+        "command": "python3 -m unittest discover -s tools -p test_check_coordination.py -v",
+        "expectedExitCode": 0,
+        "exitCode": 0,
+        "status": "PASS",
+        "output": "test_ack_cannot_exist_without_matching_handoff (test_check_coordination.MemorySafetyTests.test_ack_cannot_exist_without_matching_handoff) ... ok\ntest_declared_telemetry_threshold_cannot_be_marked_healthy (test_check_coordination.MemorySafetyTests.test_declared_telemetry_threshold_cannot_be_marked_healthy) ... ok\ntest_dispatch_requires_ack_and_current_protocol (test_check_coordination.MemorySafetyTests.test_dispatch_requires_ack_and_current_protocol) ... ok\ntest_duplicate_thread_rejected (test_check_coordination.MemorySafetyTests.test_duplicate_thread_rejected) ... ok\ntest_exact_sha_release_gate_remains_effective (test_check_coordination.MemorySafetyTests.test_exact_sha_release_gate_remains_effective) ... ok\ntest_handoff_required_blocks_role_preflight_but_not_other_idle_roles (test_check_coordination.MemorySafetyTests.test_handoff_required_blocks_role_preflight_but_not_other_idle_roles) ... ok\ntest_nan_boolean_and_out_of_range_percent_rejected (test_check_coordination.MemorySafetyTests.test_nan_boolean_and_out_of_range_percent_rejected) ... ok\ntest_newer_canonical_registry_blocks_stale_worktree_preflight (test_check_coordination.MemorySafetyTests.test_newer_canonical_registry_blocks_stale_worktree_preflight) ... ok\ntest_numeric_context_requires_provenance_not_account_quota (test_check_coordination.MemorySafetyTests.test_numeric_context_requires_provenance_not_account_quota) ... ok\ntest_recommendation_does_not_block_finishing_checkpoint (test_check_coordination.MemorySafetyTests.test_recommendation_does_not_block_finishing_checkpoint) ... ok\ntest_replaced_coordinator_old_caller_cannot_use_new_registration (test_check_coordination.MemorySafetyTests.test_replaced_coordinator_old_caller_cannot_use_new_registration) ... ok\ntest_retired_coordinator_cannot_dispatch_again (test_check_coordination.MemorySafetyTests.test_retired_coordinator_cannot_dispatch_again) ... ok\ntest_role_preflight_needs_actual_caller_id (test_check_coordination.MemorySafetyTests.test_role_preflight_needs_actual_caller_id) ... ok\ntest_size_budget_and_missing_policy_rejected (test_check_coordination.MemorySafetyTests.test_size_budget_and_missing_policy_rejected) ... ok\ntest_unknown_context_is_valid_and_reported_unknown (test_check_coordination.MemorySafetyTests.test_unknown_context_is_valid_and_reported_unknown) ... ok\ntest_untrusted_handoff_paths_and_malformed_roles_rejected (test_check_coordination.MemorySafetyTests.test_untrusted_handoff_paths_and_malformed_roles_rejected) ... ok\n\n----------------------------------------------------------------------\nRan 16 tests in 0.053s\n\nOK"
+      },
+      {
+        "case": "snapshot-basic",
+        "command": "python3 tools/check_coordination.py",
+        "expectedExitCode": 0,
+        "exitCode": 0,
+        "status": "PASS",
+        "output": "PASS: compact project records are valid; this is not business acceptance"
+      },
+      {
+        "case": "central-basic",
+        "command": "python3 tools/check_coordination.py --root /Users/dongge/Documents/New project 2",
+        "expectedExitCode": 0,
+        "exitCode": 0,
+        "status": "PASS",
+        "output": "PASS: compact project records are valid; this is not business acceptance"
+      },
+      {
+        "case": "frontend-current-caller",
+        "command": "python3 tools/check_coordination.py --root /Users/dongge/Documents/New project 2 --memory-role frontend --session-id 01a167c8-a5eb-77e3-b77e-214927a029da",
+        "expectedExitCode": 0,
+        "exitCode": 0,
+        "status": "PASS",
+        "output": "PASS: compact project records are valid; this is not business acceptance\nMEMORY: frontend HANDOFF_RECOMMENDED; context=UNKNOWN (no model telemetry)"
+      },
+      {
+        "case": "frontend-old-caller-rejected",
+        "command": "python3 tools/check_coordination.py --root /Users/dongge/Documents/New project 2 --memory-role frontend --session-id 01a167c8-a5eb-77e3-b77e-000000000000",
+        "expectedExitCode": 1,
+        "exitCode": 1,
+        "status": "PASS",
+        "output": "FAIL: memory: actual caller session id must match active registered role"
+      },
+      {
+        "case": "frontend-missing-caller-rejected",
+        "command": "python3 tools/check_coordination.py --root /Users/dongge/Documents/New project 2 --memory-role frontend",
+        "expectedExitCode": 1,
+        "exitCode": 1,
+        "status": "PASS",
+        "output": "FAIL: memory: actual caller session id must match active registered role"
+      }
+    ],
+    "acceptance": "PASS_SCOPE",
+    "newBlockingFindings": [],
+    "callerIdentityBoundary": "--session-id由调用会话如实提供，本检查只校验其与已登记角色ID相等，未做平台身份签名认证；不把它承诺为不能伪造或不可绕过的安全锁。",
+    "telemetryBoundary": "70/85只用于有声明来源/时间的占用数据；本角色没有可靠遥测，仍UNKNOWN/null，不承诺自动监控或无限记忆。",
+    "notRun": [
+      "业务/mini/75测试",
+      "模拟器/Chrome/云部署/Gemini调用",
+      "模型内部遥测",
+      "自动创建新会话或更改注册表"
+    ]
+  },
+  "sourceSha": "047d82e227824b9038f53f5e73303ae58732fe06",
+  "acceptance": "PASS_SCOPE"
 }

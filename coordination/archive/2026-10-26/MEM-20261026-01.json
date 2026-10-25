@@ -1,0 +1,74 @@
+{
+  "schemaVersion": 1,
+  "id": "MEM-20261026-01",
+  "owner": "coordinator",
+  "goal": "固化项目记忆、上下文预警、角色ACK与新会话无历史恢复机制，修正过时README/交接卡。",
+  "baseSha": "55071ffd5b7b214e8d2c81e509cea4fe021385fe",
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-memory-20261026",
+  "allow_paths": [
+    "AGENTS.md",
+    "README.md",
+    "coordination/",
+    "tools/check_coordination.py",
+    "tools/test_check_coordination.py",
+    ".github/workflows/project-gate.yml"
+  ],
+  "fileOwnership": {
+    "coordinator": "协议/入口/注册表/状态/README/检查器/合并",
+    "backend": "只写中央handoffs/backend.md与MEM证据backend-review.json",
+    "frontend": "只写中央handoffs/frontend.md与MEM证据frontend-review.json"
+  },
+  "checks": [
+    "三角色ACK当前协议与短交接，实际上下文未知不报假百分比",
+    "有限启动资料能恢复基线/发布/待办，不扫描历史",
+    "检查器拒绝非法登记/ACK/假遥测/红色角色继续写；保留原发布gate",
+    "新会话仅人类明确接任后登记唯一coordinator",
+    "代码/测试适用性由非作者独立复核；文档不触发部署"
+  ],
+  "status": "COMPLETE",
+  "acceptance": "PASS",
+  "tests": [
+    {
+      "command": "python3 -m unittest discover -s tools -p 'test_check_coordination.py' -v",
+      "status": "PASS",
+      "exitCode": 0,
+      "sourceSha": "047d82e227824b9038f53f5e73303ae58732fe06"
+    },
+    {
+      "command": "independent frontend unit16 + current-ID preflight positive + wrong/missing-ID expected rejection; see frontend-review finalDelta",
+      "status": "PASS",
+      "exitCode": 0,
+      "sourceSha": "047d82e227824b9038f53f5e73303ae58732fe06"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "coordination/evidence/MEM-20261026-01/acceptance.json",
+      "sha256": "42cc81f0a2d15943ea62c0d2af56324067f0a8727083fd779b2c785e4118a0a2"
+    },
+    {
+      "path": "coordination/evidence/MEM-20261026-01/bootstrap-audit.json",
+      "sha256": "0fca586ba2e05061aa20b20cb705c10929be271d8ea5d3afa85d81b8babf3b40"
+    },
+    {
+      "path": "coordination/evidence/MEM-20261026-01/author-tests.log",
+      "sha256": "7c7bd21c6e5880206c8b7e2f62de955a1728b7d5cc323052ac80022998655a08"
+    },
+    {
+      "path": "coordination/evidence/MEM-20261026-01/frontend-review.json",
+      "sha256": "624c9c3aee4361b8fcdf6e1932f9f53ee8caf0bf8dafa66766afdb098ca4f5e3"
+    },
+    {
+      "path": "coordination/evidence/MEM-20261026-01/backend-review.json",
+      "sha256": "cbd42c572280a475fc6df6ec1bd366f23d5aaa76317b5c14003faccef9e9b1bc"
+    }
+  ],
+  "nextAction": "No business deployment. User starts new coordinator chat with NEW_CHAT_PROMPT before next large task; roles marked HANDOFF_RECOMMENDED.",
+  "deploy_owner": "coordinator",
+  "releaseReady": false,
+  "acceptedSha": "047d82e227824b9038f53f5e73303ae58732fe06",
+  "reviewer": "frontend+backend",
+  "mergePr": "https://github.com/Dadong520/yijiexing/pull/25",
+  "mergeSha": null,
+  "mergeNote": "Main containing this snapshot means PR25 merged; inspect PR metadata for merge SHA. No cloud release required."
+}

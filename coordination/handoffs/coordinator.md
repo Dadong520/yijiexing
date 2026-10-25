@@ -1,13 +1,8 @@
-# coordinator交接 / 2026-10-26T02:02:11.565133+08:00
-协议ACK：2026-10-26-v3；角色coordinator；threadId 01a168e6-d76c-7ef0-8c87-706cc6e32d57。
-memoryStatus：HANDOFF_RECOMMENDED。上下文实际百分比UNKNOWN/null；理由是当前多轮长历史，完成本方案后下一大任务建议换新协调对话，不是假称已测到阈值。
+# coordinator / MEM完成交接 / 2026-10-26T02:11:38.454082+08:00
+ACK2026-10-26-v3；真实threadId01a168e6-d76c-7ef0-8c87-706cc6e32d57；memoryStatus HANDOFF_RECOMMENDED，实际用量UNKNOWN/null。理由：此对话跨多轮长历史，下一大任务前建议新总协调对话；本轮只收尾，不继续业务。
 
-当前仅MEM-20261026-01：sourceRoot /Users/dongge/.codex/tmp/yijiexing-memory-20261026；branch codex/project-memory-20261026；基线55071ffd5b7b214e8d2c81e509cea4fe021385fe。文件修改均为本任务文档/检查器/CI，待提交；不改产品、不部署。root独占STATE/BOARD/SESSION/DECISIONS，backend/frontend只各写中央本角色卡与MEM审查JSON。
+MEM-20261026-01已完成有限启动/记忆层次/风险预警/新会话提示/角色登记与README纠偏。sourceRoot /Users/dongge/.codex/tmp/yijiexing-memory-20261026，branch codex/project-memory-20261026，基线55071ffd5b7b214e8d2c81e509cea4fe021385fe，固定产品047d82e227824b9038f53f5e73303ae58732fe06。16单测与frontend非作者正常ID/旧缺ID回归PASS，backend规则复核PASS，证据evidence/MEM-20261026-01。两个角色已ACK并缩短卡，均建议下一大任务换新。只剩证据提交/PR25合并动作，main包含此快照代表已合并，merge SHA查PR25/中央STATE即时回执。未提交内容只本轮证据/检查点，无产品改动/云部署。
 
-上一轮已发布PR23 af7ec4ce6c618cf0b984c54a76ba7024751e5e10，回执PR24 main55071ff。driver0312/pass1112、API8ec、Web286，固定SHA/包哈希/自有域名/IAP均见STATE及REL02回执，不再重复发布。唯一后端业务树仍/Users/dongge/.codex/tmp/yijiexing-trip-api-20261025/apps/cloud-service；新memory工作树只改协作文档。
+旧业务已经发：API8ec/Web286/native3e9及两0312/1112包；PR23/24，完整域名/哈希/订单/边界去STATE与REL02，不重复调查发布。唯一后端仍trip-api-20261025，不是memory树。活跃剩余WX缺AppID、QA overlay恢复未证实；所有AVD/8808/CLI已停，无本轮资源，角色卡记录原未提交文件归属不覆盖。
 
-剩余业务：WX缺AppID，未编译/真机发布；QA模拟器overlay原未授权恢复未证实，两AVD已关闭。原生OEM/强杀/实际听感等NOT_RUN边界见报告，不在本轮扩测。当前无ADB/Chrome/部署/CLI资源占用，无后台AI。
-
-下一步：检查器回归、两角色ACK+非作者审查→固定产品提交SHA→合并文档PR→向用户交付协议和可复制新会话指令。换协调者须人类明确接任后更新SESSION登记，旧coordinator停止新派单，不可并发发布。新会话先中央START_HERE，不翻历史；遇到具体缺口只读一个契约/证据。
-
-长期决定引用DECISIONS GOV/ENV/APP/BIZ/MEM；原始日志进evidence/MEM，不复制回卡。待合并SHA：尚未提交；实际测试与复核完成前不称已固化。
+接任：用户新开总管会话粘贴NEW_CHAT_PROMPT；先中央START_HERE/STATE/BOARD/SESSION/本卡/获派任务，确认用户明确接任并核对真实ID，旧coordinator退休、旧会话停止派单，再协调两角色换新/接手。不得自建新会话、双协调者发布、假报上下文百分比或常驻AI。长期决定引用DECISIONS，不能把历史冻结目录当当前源。

@@ -1,12 +1,12 @@
 # frontend 中央交接卡
 ACK: 2026-10-26-v3
 role: frontend | threadId: 01a167c8-a5eb-77e3-b77e-214927a029da
-updatedAt: 2026-10-26T02:01:25.400069+08:00 | checkpointId: MEM-20261026-01 | workflowState: IDLE
+updatedAt: 2026-10-26T02:10:15.365875+08:00 | checkpointId: MEM-20261026-01 | workflowState: IDLE
 memoryStatus: HANDOFF_RECOMMENDED | contextUsedPercent: null（UNKNOWN）
 measurementSource: not_exposed；不推测压缩次数/百分比，不把运行时长或账号额度当上下文遥测。下一大任务建议换新frontend角色会话：本会话已跨多轮原生/后台验收，历史较长，中央旧ADMIN05卡曾滞后；本次补齐有限入口后适合切换，减少旧状态干扰。仅建议，未经用户明确新开/要求创建不自动换会话。
 
 ## 本轮/唯一归属
-MEM-20261026-01；base/HEAD 55071ffd5b7b214e8d2c81e509cea4fe021385fe；sourceRoot /Users/dongge/.codex/tmp/yijiexing-memory-20261026，branch codex/project-memory-20261026。只写本中央卡及evidence/MEM-20261026-01/frontend-review.json；MEM树协议/检查器未提交改动归coordinator，不覆盖。当前无新产品任务，不接管STATE/BOARD/SESSION/DECISIONS，不独立提交。待合并SHA：MEM尚待root给最终SHA及检查器独立验收。
+MEM-20261026-01；base/HEAD 55071ffd5b7b214e8d2c81e509cea4fe021385fe；sourceRoot /Users/dongge/.codex/tmp/yijiexing-memory-20261026，branch codex/project-memory-20261026。只写本中央卡及evidence/MEM-20261026-01/frontend-review.json；MEM协议/检查器固定提交，后续证据由coordinator统一归档。当前无新产品任务，不接管STATE/BOARD/SESSION/DECISIONS，不独立提交。MEM检查器固定047d82e227824b9038f53f5e73303ae58732fe06，独立复核完成，无待验代码；root正关闭MEM并合并PR25，合并SHA由其回填。
 
 ## 已发布固定基线（中央STATE为准）
 原生唯一作者树 /Users/dongge/.codex/tmp/yijiexing-native-permissions-20261025，branch codex/permission-alert-native-20261025，源3e9f6ee943948e1081ec9ab0102eef803d447c8b。driver0.3.12/code15 SHA bce9fcff928b3690525f14a6ae5f3a4e074fc6f9ca9bf491733e4b1609852a85；pass1.1.12/code14 SHA61417866fce94d9176ff74e42718d6ce60fa658064e289bf8e0dccfae10257d8（d896建，最后driver修复不改pass字节）。已覆盖/签名/账号保留核对；root已发布并公开完整GET验证。PR23 merge af7ec4ce6c618cf0b984c54a76ba7024751e5e10；发布回执PR24 merge55071ffd5b7b214e8d2c81e509cea4fe021385fe。当前无待发布，勿重部署。共享后端唯一目录看STATE，不使用旧重复快照。
@@ -17,4 +17,4 @@ MEM-20261026-01；base/HEAD 55071ffd5b7b214e8d2c81e509cea4fe021385fe；sourceRoo
 
 ## QA遗留/资源/下一步
 QA-20261026-01：初始有效系统悬浮未授权；收尾UI OFF但重装后AppOps仍allow，包级default/ignore及root后续UIDdefault均未证实恢复，不能写已恢复。App内floating=false；原网络/定位/普通权限和GPS已恢复。两AVD、8808预览及全部CLI均off，依据中央STATE；本轮不调用ADB/Chrome复查，不常驻。WX缺AppID继续NOT_RUN。
-本轮MEM检查器14单测及中央basic/memory-role已实跑（结果与文件hash在frontend-review.json），作者最终SHA仍待绑定；下一步仅交root统一合并；新大任务前建议新frontend对话，由用户明确新开/要求创建、协调者替换角色ID后移交。旧会话不双写/不双指挥，资源归属先交清。长期决定引用DECISIONS：GOV-01/03、ENV-01/02、APP-01、BIZ-01/02/03、DEMO-01、MEM-01。
+本轮16单测PASS、基本/真实session-id正向PASS，旧/缺ID负例均预期拒绝；ACK已登记gen3，证据绑定047d（frontend-review.json）。无待验代码，交root统一合并；新大任务前建议新frontend对话，由用户明确新开/要求创建、协调者替换角色ID后移交。旧会话不双写/不双指挥，资源归属先交清。长期规则按DECISIONS/START_HERE恢复。

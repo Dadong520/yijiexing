@@ -1,0 +1,41 @@
+{
+  "status": "PASS",
+  "productSourceSha": "047d82e227824b9038f53f5e73303ae58732fe06",
+  "reviewer": "frontend (non-author code and flow) + backend (business decision consistency)",
+  "at": "2026-10-26T02:08:45.715166+08:00",
+  "tests": {
+    "authorRegression": {
+      "command": "python3 -m unittest discover -s tools -p 'test_check_coordination.py' -v",
+      "exitCode": 0,
+      "tests": 16
+    },
+    "independentRegressionAndRolePositiveAndNegative": "frontend-review.json finalDelta; 16PASS, positive0, negative1(expected)"
+  },
+  "allThreeCodexAckVersion": "2026-10-26-v3",
+  "contextPercentAll": null,
+  "recommendedRolloverBeforeNextLargeTask": [
+    "coordinator",
+    "backend",
+    "frontend"
+  ],
+  "files": {
+    "AGENTS.md": "f2f38ba2ecaf276464c96b333ff6ce1591cb1274f10035fb9ef8470d57e03b16",
+    "README.md": "bac6b483b6ed2269e830c6d9d230a573100306ed322fa1ae7c25dfb67006c57f",
+    "coordination/START_HERE.md": "89849ab4d96b356a799b76be630c954985763f979a2d55410026686213e411dd",
+    "coordination/MEMORY_POLICY.md": "0fa2c7a2e00071d00dfcae7b448e920073beb444d98d7545839cb6d69c163367",
+    "coordination/NEW_CHAT_PROMPT.txt": "b79bf49f144523a1b3b5d1c5d012614226140fa21bf6bf4f4dfec19b8de665f8",
+    "coordination/DECISIONS.md": "0e1ec1fc4146370a6450f7d25fe16beb9fd1c35e6f4b90ea857ec454746d5f69",
+    "coordination/WORKFLOW.md": "d963572a8323664a15d4c48a44a5bb6ee115b3aea493f4fcea96e9f0835b6e73",
+    "tools/check_coordination.py": "2a9f76eedd5e96f1c89cc06ca0f7b1a9f35b795c212e8a7632f70bde2774d00d",
+    "tools/test_check_coordination.py": "3ad877434f8ae1b1c2cfc234a14b3835fbeb44a9dfab2c1e6c16ce3a47bf4e13",
+    ".github/workflows/project-gate.yml": "99a8217d3a1d7463eef660b27ffc3e494fc727d410ca4e1e2fa323e4aa0d343c"
+  },
+  "productOrCloudChanged": false,
+  "geminiWokenForProtocolOnly": false,
+  "limits": [
+    "No internal model-context telemetry",
+    "Actual caller id is honest declared matching, not platform-signed identity",
+    "No constant background monitor",
+    "No automatic new thread creation without human instruction"
+  ]
+}

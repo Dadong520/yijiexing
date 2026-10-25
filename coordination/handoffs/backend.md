@@ -17,4 +17,4 @@ memoryStatus: HANDOFF_RECOMMENDED；contextUsedPercent: null；measurementSource
 
 未完成/NOT_RUN：精确1366、大区Web发布、本人非空确认历史浏览及完整a11y未跑；root另有真实同单三卡回读，不能混淆范围。微信缺AppID；QA-20261026-01模拟器overlay恢复读回仍有异常，由后续任务处理，不当已解决。真实支付/短信/厂商推送/GPS防伪等未接，不承诺强杀常驻。旧券积分金额待办仅属历史审查，未重新获派不得启动。
 
-资源：本角色无CLI/ADB/Chrome/部署占用；中央STATE记8808已停、AVD已关、无后台AI；本轮不重启验证。下一动作：coordinator收ACK并更新SESSION登记/提交MEM；后续新backend从本卡与START_HERE读取一个明确任务，不翻全历史、不重复208。MEM检查见backend-review.json；中央旧检查器不认识--memory-role，需root同步新版或明确新版脚本--root中央。
+资源：本角色无CLI/ADB/Chrome/部署占用；中央STATE记8808已停、AVD已关、无后台AI；本轮不重启验证。下一动作：MEM工具/ACK已就绪（检查器047d82e227824b9038f53f5e73303ae58732fe06）；后续新大任务建议新角色会话，合并状态查PR25与中央STATE。新backend从本卡与START_HERE读取一个明确任务，不翻全历史、不重复208。MEM历史检查见backend-review.json，工具/ACK问题已由root后续解决。

@@ -1,0 +1,21 @@
+test_ack_cannot_exist_without_matching_handoff (test_check_coordination.MemorySafetyTests.test_ack_cannot_exist_without_matching_handoff) ... ok
+test_declared_telemetry_threshold_cannot_be_marked_healthy (test_check_coordination.MemorySafetyTests.test_declared_telemetry_threshold_cannot_be_marked_healthy) ... ok
+test_dispatch_requires_ack_and_current_protocol (test_check_coordination.MemorySafetyTests.test_dispatch_requires_ack_and_current_protocol) ... ok
+test_duplicate_thread_rejected (test_check_coordination.MemorySafetyTests.test_duplicate_thread_rejected) ... ok
+test_exact_sha_release_gate_remains_effective (test_check_coordination.MemorySafetyTests.test_exact_sha_release_gate_remains_effective) ... ok
+test_handoff_required_blocks_role_preflight_but_not_other_idle_roles (test_check_coordination.MemorySafetyTests.test_handoff_required_blocks_role_preflight_but_not_other_idle_roles) ... ok
+test_nan_boolean_and_out_of_range_percent_rejected (test_check_coordination.MemorySafetyTests.test_nan_boolean_and_out_of_range_percent_rejected) ... ok
+test_newer_canonical_registry_blocks_stale_worktree_preflight (test_check_coordination.MemorySafetyTests.test_newer_canonical_registry_blocks_stale_worktree_preflight) ... ok
+test_numeric_context_requires_provenance_not_account_quota (test_check_coordination.MemorySafetyTests.test_numeric_context_requires_provenance_not_account_quota) ... ok
+test_recommendation_does_not_block_finishing_checkpoint (test_check_coordination.MemorySafetyTests.test_recommendation_does_not_block_finishing_checkpoint) ... ok
+test_replaced_coordinator_old_caller_cannot_use_new_registration (test_check_coordination.MemorySafetyTests.test_replaced_coordinator_old_caller_cannot_use_new_registration) ... ok
+test_retired_coordinator_cannot_dispatch_again (test_check_coordination.MemorySafetyTests.test_retired_coordinator_cannot_dispatch_again) ... ok
+test_role_preflight_needs_actual_caller_id (test_check_coordination.MemorySafetyTests.test_role_preflight_needs_actual_caller_id) ... ok
+test_size_budget_and_missing_policy_rejected (test_check_coordination.MemorySafetyTests.test_size_budget_and_missing_policy_rejected) ... ok
+test_unknown_context_is_valid_and_reported_unknown (test_check_coordination.MemorySafetyTests.test_unknown_context_is_valid_and_reported_unknown) ... ok
+test_untrusted_handoff_paths_and_malformed_roles_rejected (test_check_coordination.MemorySafetyTests.test_untrusted_handoff_paths_and_malformed_roles_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 16 tests in 0.058s
+
+OK
