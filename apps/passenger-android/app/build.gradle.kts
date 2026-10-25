@@ -1,5 +1,5 @@
 plugins { id("com.android.application"); id("org.jetbrains.kotlin.android") }
-val cloudOrigin = providers.gradleProperty("YIJ_CLOUD_ORIGIN").orElse("https://driver-demo-491829048305.us-west1.run.app").get()
+val cloudOrigin = providers.gradleProperty("YIJ_CLOUD_ORIGIN").orElse("https://yijiexing-demo.hbzjhs.xyz").get()
 require(cloudOrigin.matches(Regex("https://[a-z0-9.-]+"))) { "Cloud origin must be plain HTTPS" }
 android {
     namespace = "cn.hbzjhs.passenger"
@@ -8,8 +8,8 @@ android {
         applicationId = "cn.hbzjhs.dc.passenger.cloud"
         minSdk = 26
         targetSdk = 34
-        versionCode = 12
-        versionName = "1.1.10-experience"
+        versionCode = 13
+        versionName = "1.1.11-experience"
         buildConfigField("String", "CLOUD_API_ORIGIN", "\"$cloudOrigin\"")
     }
     buildFeatures { compose = true; buildConfig = true }
