@@ -92,6 +92,7 @@ private fun ConnectedApp(store: ConnectedStore, state: DriverState) {
     var cancelOther by rememberSaveable { mutableStateOf("") }
     var wantsOnline by remember { mutableStateOf(false) }
     var showPermissionGuide by rememberSaveable { mutableStateOf(false) }
+    var pendingFloatingEnable by rememberSaveable { mutableStateOf(false) }
     val requestedAlertOrder by NewOrderAlerts.openRequested.collectAsState()
     val holder = rememberSaveableStateHolder()
     val snackbar = remember { SnackbarHostState() }
@@ -228,9 +229,20 @@ private fun ConnectedApp(store: ConnectedStore, state: DriverState) {
     }
     BackHandler(state.loggedIn && stack.size > 1) { back() }
     val guideShowing = DriverPermissions(showPermissionGuide, { showPermissionGuide = false }) {
-        if (state.loggedIn && payload.optJSONObject("features")?.optBoolean("canFloating") == true)
+        if (!state.loggedIn || !connected || loading) {
+            pendingFloatingEnable = true
+            message("已记录开启意愿，登录后会核对权益并开启应用浮窗提醒")
+        } else if (payload.optJSONObject("features")?.optBoolean("canFloating") == true)
             store.perform("settings.update", JSONObject().put("floating", true))
-        else message("请登录并确认当前城市/等级已开放浮窗提醒，再开启应用浮窗")
+        else message("当前城市或等级未开放浮窗提醒，已保留系统通知和应用内新单提示")
+    }
+    LaunchedEffect(pendingFloatingEnable, state.loggedIn, connected, loading) {
+        if (pendingFloatingEnable && state.loggedIn && connected && !loading) {
+            pendingFloatingEnable = false
+            if (payload.optJSONObject("features")?.optBoolean("canFloating") == true && android.provider.Settings.canDrawOverlays(context))
+                store.perform("settings.update", JSONObject().put("floating", true))
+            else message("浮窗尚未启用，请在权限与提醒检查中核对系统授权和当前权益")
+        }
     }
     LaunchedEffect(requestedAlertOrder, state.loggedIn) {
         val id = requestedAlertOrder

@@ -25,6 +25,15 @@
       </view>
     </view>
 
+    <view wx:if="{{order.distanceConsent.active}}" class="notice">
+      <view><text>{{order.distanceConsent.title}}</text></view>
+      <view>实测直线距离：{{order.distanceConsent.distanceText}} · 本次阈值：{{order.distanceConsent.thresholdText}}</view>
+      <view>确认有效期至 {{order.distanceConsent.expiresText}}。未同意前订单不推进，请按实际乘车情况选择。</view>
+      <button data-approve="true" bindtap="decideDistance">{{order.distanceConsent.type === 'DROPOFF' ? '同意已送达' : '同意已上车'}}</button>
+      <button data-approve="false" bindtap="decideDistance">拒绝本次请求</button>
+      <button size="mini" bindtap="reportCurrentPosition">更新我的实时位置</button>
+    </view>
+
     <!-- 横向流程指示步进条 -->
     <view class="stepper-wrap">
       <view class="step-item {{stepActive >= 1 ? 'done' : ''}}">

@@ -202,7 +202,6 @@ class DriverLocationService : Service(), LocationListener {
         )
         manager = getSystemService(LocationManager::class.java)
         if (LocalApi.token.isBlank()) LocalApi.token = SessionVault(this).load()
-        if (LocalApi.demoAccess.isBlank()) LocalApi.demoAccess = DemoAccessVault(this).load()
         if (
             LocalApi.token.isBlank() ||  LocalApi.baseUrl.isBlank()
         ) {
