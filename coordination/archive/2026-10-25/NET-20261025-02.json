@@ -18,7 +18,7 @@
     "不同会话核验实际安装APK身份、保留账号、地图与冷启动",
     "源码合并后原子对象版本保护上传并公开完整GET校验"
   ],
-  "status": "ACCEPTED_PENDING_PUBLISH",
+  "status": "DEPLOYED",
   "acceptance": "PASS",
   "acceptanceScope": "Native domain/version change; no new full three-client lifecycle and no admin-domain certificate acceptance",
   "acceptedSha": "7ee63cc33d8f08808d24ee1c27477415933a72ab",
@@ -67,9 +67,19 @@
     {
       "path": "coordination/evidence/NET-20261025-01/frontend/source-and-host-health.json",
       "sha256": "bcf5f1eae2d5b515bf7d6da5e73f035490fd0b122f6819f2e24733ceceaa481b"
+    },
+    {
+      "path": "coordination/evidence/NET-20261025-01/driver-public-release.json",
+      "sha256": "965fc7166bfeb2fca934742a7344eacd9302f20745ff845aa729991b1cc4a03e"
+    },
+    {
+      "path": "coordination/evidence/NET-20261025-01/passenger-public-release.json",
+      "sha256": "809028edda818e74029e7cf4cec7e8f95fcacee369c5ee26a6710c43c4b6ef9c"
     }
   ],
   "releaseReady": true,
-  "nextAction": "合并固定7ee源码和验收记录，coordinator唯一发布并完成公开GET签名/版本/SHA核对。",
-  "deploy_owner": "coordinator"
+  "nextAction": "已完成，两公开下载链接可验收；后台证书单独留NET01，不常驻。",
+  "deploy_owner": "coordinator",
+  "mergedSha": "3bc2f3beb7c10f1d4fd51a6b8ae5ad9a304c7efe",
+  "publishedAt": "2026-10-25 22:37"
 }
