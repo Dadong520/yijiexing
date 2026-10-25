@@ -24,6 +24,7 @@ class NegotiationIntegration(unittest.TestCase):
     da=test_passenger.PassengerIntegration.da
     passenger_login=test_passenger.PassengerIntegration.passenger_login
     get_order=test_passenger.PassengerIntegration.get_order
+    finish=test_passenger.PassengerIntegration.finish
     assert_driver_compatible=test_passenger.PassengerIntegration.assert_driver_compatible
 
     def offer(self,mobile='13800000001',amount=2800):
@@ -37,11 +38,11 @@ class NegotiationIntegration(unittest.TestCase):
     def test_pair_claim_real_shared_trip_and_single_credit(self):
         p,d,o,offer=self.pair();pt,dtok=p['token'],d['token'];oid=o['id']
         self.assertEqual(o['kind'],'NEGOTIATED');self.assertEqual(o['stage'],'PREPAY');self.assertEqual(o['quoteVersion'],1)
-        self.assertTrue(o['shared']);self.assertEqual(len(offer['pairCode']),32);self.assertTrue(offer['pairUri'].startswith('yijiexing://negotiation?code='))
+        self.assertTrue(o['shared']);self.assertFalse(o['synthetic']);self.assertEqual(o['distanceEnforcement'],'PASSENGER_CONSENT_REQUIRED');self.assertNotIn('distanceEnforcementNotice',o);self.assertEqual(len(offer['pairCode']),32);self.assertTrue(offer['pairUri'].startswith('yijiexing://negotiation?code='))
         state=self.request('/api/state',token=dtok)['state'];self.assertEqual(sum(x['id']==oid for x in state['orders']),1)
         pay={'id':oid,'quoteVersion':1,'amount':o['fare'],'outcome':'SUCCESS'}
-        result=self.pa(pt,'order.pay',pay,rid='neg-pay');self.assertEqual(result['result']['order']['stage'],'TRIP')
-        self.da(dtok,'order.advance',{'id':oid});self.assertEqual(self.get_order(pt,oid)['stage'],'DONE')
+        result=self.pa(pt,'order.pay',pay,rid='neg-pay');self.assertEqual(result['result']['order']['stage'],'PICKUP')
+        self.finish(dtok,oid);self.assertEqual(self.get_order(pt,oid)['stage'],'DONE')
         before=self.request('/api/state',token=dtok)['state'];self.pa(pt,'order.pay',pay,rid='neg-pay');self.pa(pt,'order.pay',pay)
         after=self.request('/api/state',token=dtok)['state'];self.assertEqual(after['balance'],before['balance']);self.assertEqual(after['todayCompleted'],3)
         self.pa(pt,'order.evaluate',{'id':oid,'rating':5,'content':'现场议价体验完成'});self.pa(pt,'order.complaint',{'id':oid,'reason':'费用问题','content':'独立配对行程测试投诉'})
@@ -131,7 +132,7 @@ class NegotiationIntegration(unittest.TestCase):
             except urllib.error.HTTPError as exc:return exc.code
         with concurrent.futures.ThreadPoolExecutor(2) as pool:statuses=list(pool.map(send,operations))
         self.assertEqual(sorted(statuses),[200,409]);order=self.get_order(p['token'],oid)
-        if statuses[0]==200:self.assertEqual((order['stage'],order['fare'],order['quoteVersion']),('TRIP',2800,1))
+        if statuses[0]==200:self.assertEqual((order['stage'],order['fare'],order['quoteVersion']),('PICKUP',2800,1))
         else:self.assertEqual((order['stage'],order['fare'],order['quoteVersion']),('PREPAY',2500,2));self.assertFalse(order['paid'])
 
     def test_pairing_requires_no_active_passenger_order_and_blocks_fake_code(self):

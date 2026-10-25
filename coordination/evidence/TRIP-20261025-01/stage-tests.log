@@ -1,0 +1,94 @@
+test_legacy_missing_stage_still_supported_and_invalid_stage_cannot_mutate (test_advance_stage.AdvanceStageTests.test_legacy_missing_stage_still_supported_and_invalid_stage_cannot_mutate) ... [2026-10-26T00:09:27+08:00] POST /api/passenger/auth/code 200
+[2026-10-26T00:09:27+08:00] POST /api/passenger/auth/login 200
+[2026-10-26T00:09:28+08:00] POST /api/auth/code 200
+[2026-10-26T00:09:28+08:00] POST /api/auth/login 200
+[2026-10-26T00:09:28+08:00] POST /api/action 200
+[2026-10-26T00:09:28+08:00] POST /api/passenger/action 200
+[2026-10-26T00:09:28+08:00] POST /api/action 200
+[2026-10-26T00:09:28+08:00] POST /api/action 409
+/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/tempfile.py:484: ResourceWarning: Implicitly cleaning up <HTTPError 409: 'Conflict'>
+  _warnings.warn(self.warn_message, ResourceWarning)
+[2026-10-26T00:09:28+08:00] POST /api/action 409
+[2026-10-26T00:09:28+08:00] POST /api/action 409
+[2026-10-26T00:09:28+08:00] POST /api/action 409
+[2026-10-26T00:09:28+08:00] GET /api/passenger/state 200
+[2026-10-26T00:09:28+08:00] GET /api/state 200
+[2026-10-26T00:09:28+08:00] POST /api/action 200
+[2026-10-26T00:09:28+08:00] GET /api/passenger/state 200
+ok
+test_private_stale_arrived_does_not_end_trip_and_original_retry_is_safe (test_advance_stage.AdvanceStageTests.test_private_stale_arrived_does_not_end_trip_and_original_retry_is_safe) ... [2026-10-26T00:09:28+08:00] POST /api/passenger/auth/code 200
+[2026-10-26T00:09:28+08:00] POST /api/passenger/auth/login 200
+[2026-10-26T00:09:28+08:00] POST /api/auth/code 200
+[2026-10-26T00:09:28+08:00] POST /api/auth/login 200
+[2026-10-26T00:09:28+08:00] POST /api/action 200
+[2026-10-26T00:09:28+08:00] POST /api/action 200
+[2026-10-26T00:09:28+08:00] GET /api/state 200
+[2026-10-26T00:09:28+08:00] POST /api/action 200
+[2026-10-26T00:09:28+08:00] GET /api/state 200
+[2026-10-26T00:09:28+08:00] POST /api/action 200
+[2026-10-26T00:09:28+08:00] GET /api/state 200
+[2026-10-26T00:09:28+08:00] POST /api/action 409
+[2026-10-26T00:09:28+08:00] GET /api/state 200
+[2026-10-26T00:09:28+08:00] POST /api/action 200
+[2026-10-26T00:09:28+08:00] GET /api/state 200
+[2026-10-26T00:09:28+08:00] GET /api/state 200
+[2026-10-26T00:09:28+08:00] POST /api/action 200
+[2026-10-26T00:09:28+08:00] POST /api/passenger/action 200
+[2026-10-26T00:09:28+08:00] POST /api/action 200
+[2026-10-26T00:09:28+08:00] GET /api/passenger/state 200
+[2026-10-26T00:09:28+08:00] POST /api/action 409
+[2026-10-26T00:09:28+08:00] GET /api/state 200
+[2026-10-26T00:09:28+08:00] POST /api/action 200
+[2026-10-26T00:09:28+08:00] GET /api/passenger/state 200
+[2026-10-26T00:09:28+08:00] GET /api/state 200
+ok
+test_shared_all_stage_preconditions_replay_and_cross_order_unchanged (test_advance_stage.AdvanceStageTests.test_shared_all_stage_preconditions_replay_and_cross_order_unchanged) ... [2026-10-26T00:09:28+08:00] POST /api/passenger/auth/code 200
+[2026-10-26T00:09:28+08:00] POST /api/passenger/auth/login 200
+[2026-10-26T00:09:28+08:00] POST /api/auth/code 200
+[2026-10-26T00:09:28+08:00] POST /api/auth/login 200
+[2026-10-26T00:09:28+08:00] POST /api/action 200
+[2026-10-26T00:09:28+08:00] POST /api/passenger/action 200
+[2026-10-26T00:09:28+08:00] POST /api/action 200
+[2026-10-26T00:09:28+08:00] GET /api/state 200
+[2026-10-26T00:09:28+08:00] POST /api/action 200
+[2026-10-26T00:09:28+08:00] GET /api/passenger/state 200
+[2026-10-26T00:09:28+08:00] POST /api/action 409
+[2026-10-26T00:09:28+08:00] GET /api/state 200
+[2026-10-26T00:09:28+08:00] POST /api/action 200
+[2026-10-26T00:09:28+08:00] GET /api/passenger/state 200
+[2026-10-26T00:09:28+08:00] GET /api/state 200
+[2026-10-26T00:09:28+08:00] POST /api/action 200
+[2026-10-26T00:09:28+08:00] GET /api/passenger/state 200
+[2026-10-26T00:09:28+08:00] POST /api/action 409
+[2026-10-26T00:09:28+08:00] GET /api/state 200
+[2026-10-26T00:09:28+08:00] POST /api/action 200
+[2026-10-26T00:09:28+08:00] GET /api/passenger/state 200
+[2026-10-26T00:09:28+08:00] GET /api/state 200
+[2026-10-26T00:09:28+08:00] GET /api/passenger/state 200
+[2026-10-26T00:09:28+08:00] POST /api/passenger/action 200
+[2026-10-26T00:09:28+08:00] POST /api/action 200
+[2026-10-26T00:09:28+08:00] POST /api/action 200
+[2026-10-26T00:09:28+08:00] GET /api/passenger/state 200
+[2026-10-26T00:09:28+08:00] POST /api/action 409
+[2026-10-26T00:09:28+08:00] GET /api/state 200
+[2026-10-26T00:09:28+08:00] POST /api/action 200
+[2026-10-26T00:09:28+08:00] GET /api/passenger/state 200
+[2026-10-26T00:09:28+08:00] GET /api/state 200
+[2026-10-26T00:09:28+08:00] POST /api/action 200
+[2026-10-26T00:09:28+08:00] POST /api/action 200
+[2026-10-26T00:09:28+08:00] POST /api/passenger/auth/code 200
+[2026-10-26T00:09:28+08:00] POST /api/passenger/auth/login 200
+[2026-10-26T00:09:28+08:00] POST /api/passenger/action 200
+[2026-10-26T00:09:28+08:00] POST /api/action 200
+[2026-10-26T00:09:28+08:00] GET /api/passenger/state 200
+[2026-10-26T00:09:28+08:00] POST /api/action 409
+[2026-10-26T00:09:28+08:00] GET /api/state 200
+[2026-10-26T00:09:28+08:00] POST /api/action 200
+[2026-10-26T00:09:28+08:00] GET /api/passenger/state 200
+[2026-10-26T00:09:28+08:00] GET /api/passenger/state 200
+ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.637s
+
+OK

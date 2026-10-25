@@ -82,7 +82,10 @@ class AdminConsole:
         require(permission in ROLES.get(user['role'],set()),'当前账号没有此操作权限',403)
     def orders(self):
         orders=[json.loads(r['payload']) for r in self.db.execute('SELECT payload FROM passenger_orders ORDER BY created DESC,rowid DESC')]
-        for o in orders:o.setdefault('fareVersion',self.svc.order_fare_version(o))
+        for o in orders:
+            self.svc.refresh_distance_consent(o)
+            o.setdefault('fareVersion',self.svc.order_fare_version(o))
+            o['distanceRules']=self.svc.trip_distance_rules(o['city']) if o.get('city') else None
         return orders
     def state(self,user):
         orders=self.orders();base=self.svc.admin_state()

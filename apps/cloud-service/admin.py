@@ -4,7 +4,11 @@ from seed import CITIES, RIGHTS, PARAMS
 class AdminMixin:
     def validate_patch(self,patch,scope):
         require(isinstance(patch,dict),'配置内容须为JSON对象')
-        require(set(patch)<= {'systemEnabled','levels','trialDays','trialOrders','remarks'},'含未知配置字段')
+        require(set(patch)<= {'systemEnabled','levels','trialDays','trialOrders','remarks','tripDistance'},'含未知配置字段')
+        if 'tripDistance' in patch:
+            rules=patch['tripDistance']
+            require(isinstance(rules,dict) and set(rules)<={'pickupMaxMeters','dropoffMaxMeters'},'接送距离配置字段无效')
+            require(all(type(v) is int and 50<=v<=5000 for v in rules.values()),'接送距离须为50至5000整数米')
         if 'systemEnabled' in patch: require(isinstance(patch['systemEnabled'],bool),'总开关须为布尔值')
         for key in ('trialDays','trialOrders'):
             if key in patch: require(isinstance(patch[key],int) and not isinstance(patch[key],bool) and 1<=patch[key]<= (365 if key=='trialDays' else 10000),key+'须为有效正整数')
@@ -63,7 +67,7 @@ class AdminMixin:
         cities=[]
         for c in CITIES:
             cfg,src,v=self.effective(c['id']);cityrow=self.config_row('city',c['id'])
-            cities.append({**c,'version':v,'customized':bool(json.loads(cityrow['published'])),'source':src.get('levels.NORMAL.price',{'label':'全国默认'})['label'],'systemEnabled':cfg['systemEnabled'],'normalPrice':cfg['levels']['NORMAL']['price'],'vipPrice':cfg['levels']['VIP']['price'],'levels':[self.level_payload(code,cfg,src,v) for code in ('TRIAL','NORMAL','VIP')]})
+            cities.append({**c,'tripDistanceRules':self.trip_distance_rules(c['id']),'version':v,'customized':bool(json.loads(cityrow['published'])),'source':src.get('levels.NORMAL.price',{'label':'全国默认'})['label'],'systemEnabled':cfg['systemEnabled'],'normalPrice':cfg['levels']['NORMAL']['price'],'vipPrice':cfg['levels']['VIP']['price'],'levels':[self.level_payload(code,cfg,src,v) for code in ('TRIAL','NORMAL','VIP')]})
         datasets={}
         for table in ('approvals','scheduled','batches'):
             datasets[table]=[json.loads(r['payload']) for r in self.db.execute(f'SELECT payload FROM {table} ORDER BY created DESC')]

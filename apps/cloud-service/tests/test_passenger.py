@@ -16,7 +16,10 @@ class PassengerIntegration(unittest.TestCase):
     login=test_cloud.CloudIntegration.login
     def passenger_login(self,mobile='13800000101',server=None):
         code=self.request('/api/passenger/auth/code',{'mobile':mobile},server=server)['verificationCode']
-        return self.request('/api/passenger/auth/login',{'mobile':mobile,'code':code},server=server)
+        result=self.request('/api/passenger/auth/login',{'mobile':mobile,'code':code},server=server)
+        if not hasattr(self,'trip_fixture_passengers'):self.trip_fixture_passengers={}
+        self.trip_fixture_passengers[result['passenger']['id']]=result['token']
+        return result
     def pa(self,token,action,payload=None,rid=None,**kw):
         return self.request('/api/passenger/action',{'action':action,'payload':payload or {},'requestId':rid or str(uuid.uuid4())},token=token,**kw)
     def assert_driver_compatible(self,reply):
@@ -32,6 +35,22 @@ class PassengerIntegration(unittest.TestCase):
             for field in ('originLat','originLng','destinationLat','destinationLng'):self.assertIsInstance(order[field],(int,float));self.assertTrue(math.isfinite(order[field]))
         return reply
     def da(self,token,action,payload=None,**kw):
+        # These older regressions exercise fares/stages/policy, not distance.
+        # Supply explicit fresh virtual GPS through both authenticated APIs.
+        # test_trip_distance uses a separate raw driver_action and tests missing,
+        # stale, remote, rejected and approved positions without this helper.
+        if action=='order.advance' and payload and kw.get('expected',200)==200:
+            state=self.request('/api/state',token=token,server=kw.get('server'))['state']
+            current=next((o for o in state['orders'] if o['id']==payload.get('id')),None)
+            if current and current.get('shared') and current['stage'] in ('ARRIVED','TRIP') and payload.get('expectedStage',current['stage'])==current['stage']:
+                prefix='origin' if current['stage']=='ARRIVED' else 'destination'
+                location={'latitude':current[prefix+'Lat'],'longitude':current[prefix+'Lng'],'accuracy':5,'time':stamp(),'coordinateSystem':'WGS84'}
+                if current['stage']=='ARRIVED':
+                    for passenger_token in getattr(self,'trip_fixture_passengers',{}).values():
+                        owned=self.request('/api/passenger/state',token=passenger_token,server=kw.get('server'))['orders']
+                        if any(o['id']==current['id'] for o in owned):
+                            self.pa(passenger_token,'location.report',{'id':current['id'],**location},server=kw.get('server'));break
+                self.request('/api/action',{'action':'location.report','payload':location,'requestId':str(uuid.uuid4())},token=token,server=kw.get('server'))
         return self.assert_driver_compatible(self.request('/api/action',{'action':action,'payload':payload or {},'requestId':kw.pop('rid',str(uuid.uuid4()))},token=token,**kw))
     def create(self,token,kind='STANDARD',**overrides):
         p={'kind':kind,'origin':'万达广场','destination':'宜昌东站','originLat':30.6687,'originLng':111.3226,'destinationLat':30.6645,'destinationLng':111.3694}

@@ -7,6 +7,7 @@ from common import *
 from passenger_extras import PassengerExtrasMixin
 from order_options import PassengerOrderOptionsMixin
 from negotiation import NegotiationMixin
+from trip_distance import TripDistanceMixin
 
 PASSENGER_MOBILES = ('13800000101', '13800000102', '13800000103')
 PASSENGER_SCHEMA = '''
@@ -18,7 +19,7 @@ CREATE TABLE IF NOT EXISTS passenger_actions(passenger TEXT,request_id TEXT,requ
 '''
 UNFINISHED = {'AVAILABLE','BID_SENT','PREPAY','RESERVED','PICKUP','ARRIVED','TRIP','WAIT_PAY','WAIT_CONTINUE'}
 
-class PassengerMixin(NegotiationMixin,PassengerOrderOptionsMixin,PassengerExtrasMixin):
+class PassengerMixin(TripDistanceMixin,NegotiationMixin,PassengerOrderOptionsMixin,PassengerExtrasMixin):
     def init_passenger(self):
         self.db.executescript(PASSENGER_SCHEMA)
     def passenger_mobile(self, mobile):
@@ -78,10 +79,12 @@ class PassengerMixin(NegotiationMixin,PassengerOrderOptionsMixin,PassengerExtras
         value=clone(result)
         order=value.get('order')
         if isinstance(order,dict) and (order.get('shared') or self.shared_order(order.get('id'))):
+            order=value['order']=self.trip_order_view(order)
             for key in ('passengerId','bids','complaints'):order.pop(key,None)
             order.setdefault('fareVersion',self.order_fare_version(order))
         return value
     def save_shared(self,o,event=None):
+        self.refresh_distance_consent(o,persist=False)
         o['updatedAt']=stamp()
         if event:o['events'].append({'type':event,'at':stamp()})
         self.db.execute('UPDATE passenger_orders SET driver=?,payload=? WHERE id=?',(o.get('driverId'),dumps(o),o['id']))
@@ -89,7 +92,8 @@ class PassengerMixin(NegotiationMixin,PassengerOrderOptionsMixin,PassengerExtras
         a=self.account(driver);d=json.loads(a['profile'])['driver']
         return {'id':driver,'name':d['name'],'plate':d['plate'],'vehicleModel':d.get('vehicleModel',''),'mobileMasked':a['mobile'][:3]+'****'+a['mobile'][-4:]}
     def passenger_view(self,o):
-        value=clone(o);value.pop('passengerId',None)
+        self.refresh_distance_consent(o)
+        value=self.trip_order_view(o);value.pop('passengerId',None)
         value.setdefault('fareVersion',self.order_fare_version(o))
         value['driver']=self.driver_public(o['driverId']) if o.get('driverId') else None
         if value['driver']:
@@ -110,7 +114,7 @@ class PassengerMixin(NegotiationMixin,PassengerOrderOptionsMixin,PassengerExtras
         from seed import CITIES
         for city in CITIES:
             cfg,_,_=self.effective(city['id']);regions.append({'id':city['id'],'name':city['name'],'enabled':bool(cfg['systemEnabled'])})
-        return {**self.passenger_extra_data(pid),'historicalLocations':historical[:20],'regions':regions,'passenger':{k:v for k,v in profile.items() if k not in ('favorites','feedback')},'orders':orders,'favorites':profile['favorites'],'feedback':profile['feedback'],
+        return {**self.passenger_extra_data(pid),'tripDistanceRules':self.trip_distance_rules(profile['city']),'historicalLocations':historical[:20],'regions':regions,'passenger':{k:v for k,v in profile.items() if k not in ('favorites','feedback')},'orders':orders,'favorites':profile['favorites'],'feedback':profile['feedback'],
             'notices':[{'title':'独立体验环境','content':'双端共享实际创建的订单；短信、支付、退款为模拟。路线仅为坐标示意。后台可查看和回复已保存投诉；实时人工客服、电话中继和推送未配置。'}],
             'features':{'payment':'SIMULATED','sms':'SIMULATED','route':'SCHEMATIC','driverLocation':True,'externalPush':False,'humanSupport':False},
             'environment':{'name':'宜捷行独立云体验环境','sandbox':True,'originalSpringBackend':False,'network':'Google Cloud独立体验服务，不连接原测试环境'},'serverTime':stamp()}
@@ -119,6 +123,8 @@ class PassengerMixin(NegotiationMixin,PassengerOrderOptionsMixin,PassengerExtras
         a=self.account(driver);st=json.loads(a['state']);city=json.loads(a['profile'])['driver']['city']
         private=[o for o in st['orders'] if not o.get('shared')]
         for value in private:
+            value['distanceEnforcement']='SYNTHETIC_DEMO_EXEMPT'
+            value['distanceEnforcementNotice']='司机私有合成演示单，无真实乘客确认；接送距离规则仅在共享真实订单执行。'
             # Pairing is opt-in. Restart recovery reveals only lock/expiry metadata,
             # never the one-time code, URI, or hashed invitation lookup value.
             value.pop('negotiationPairingRequired',None);value.pop('pairingExpiresAt',None)
@@ -127,9 +133,9 @@ class PassengerMixin(NegotiationMixin,PassengerOrderOptionsMixin,PassengerExtras
                 value['negotiationPairingRequired']=True;value['pairingExpiresAt']=offer['expires']
         visible=[]
         for row in self.db.execute('SELECT payload FROM passenger_orders ORDER BY created DESC,rowid DESC'):
-            o=json.loads(row['payload']);assigned=o.get('driverId');bid=next((b for b in o['bids'] if b['driverId']==driver),None)
+            o=json.loads(row['payload']);self.refresh_distance_consent(o);assigned=o.get('driverId');bid=next((b for b in o['bids'] if b['driverId']==driver),None)
             if assigned==driver or (not assigned and o['stage']=='AVAILABLE' and o['city']==city and self.passenger_driver_allowed(o['passengerId'],driver)):
-                value=clone(o);value.pop('passengerId',None);value.pop('bids',None);value.pop('complaints',None)
+                value=self.trip_order_view(o);value.pop('passengerId',None);value.pop('bids',None);value.pop('complaints',None)
                 value.setdefault('fareVersion',self.order_fare_version(o))
                 if bid and not assigned:value['stage']='BID_SENT';value['fare']=bid['amount'];value['bidAt']=bid['createdAt']
                 # Keep the shipped driver's Stage.valueOf parser compatible while
@@ -197,6 +203,8 @@ class PassengerMixin(NegotiationMixin,PassengerOrderOptionsMixin,PassengerExtras
             require(old['request_hash']==fp,'请求标识已被其他操作使用',409);return json.loads(old['result'])
         profile=self.passenger_profile(pid);result={}
         if action=='order.create':result=self.passenger_create_order(pid,p)
+        elif action=='order.distanceConsent':result=self.passenger_distance_consent(pid,p)
+        elif action=='location.report':result=self.passenger_report_location(pid,p)
         elif action in ('negotiation.claim','negotiation.dispute'):result=self.passenger_negotiation_action(pid,action,p)
         elif action in ('order.blockDriver','order.unblockDriver','order.remark','order.complaint.attach'):result=self.passenger_order_option(pid,action,p)
         elif action.startswith('order.'):
@@ -219,7 +227,7 @@ class PassengerMixin(NegotiationMixin,PassengerOrderOptionsMixin,PassengerExtras
                 require(o['stage'] in ('PREPAY','WAIT_PAY'),'当前订单不能支付',409)
                 o['paymentStatus']={'SUCCESS':'SUCCESS','FAILED':'FAILED','PENDING':'PROCESSING','CANCEL':'CANCELLED'}[outcome]
                 if outcome=='SUCCESS':
-                    o['paid']=True;o['paidAt']=stamp();o['stage']=('TRIP' if o['kind']=='NEGOTIATED' else 'PICKUP') if o['stage']=='PREPAY' else 'DONE'
+                    o['paid']=True;o['paidAt']=stamp();o['stage']='PICKUP' if o['stage']=='PREPAY' else 'DONE'
                     if o['kind']=='NEGOTIATED':o.update(negotiationStatus='ACCEPTED',fareConfirmed=True,fareConfirmedAt=stamp())
                     self.shared_credit(o)
             elif action=='order.cancel':
@@ -281,7 +289,7 @@ class PassengerMixin(NegotiationMixin,PassengerOrderOptionsMixin,PassengerExtras
             f={'id':uid('PF'),'content':textfield(p.get('content'),'反馈内容',5,2000),'status':'PENDING','reply':'','createdAt':stamp()};profile['feedback'].insert(0,f);result={'feedback':f}
         else:result=self.passenger_extra_action(pid,action,p)
         self.db.execute('UPDATE passengers SET profile=? WHERE id=?',(dumps(profile),pid))
-        self.audit('PASSENGER:'+pid,action,None,{'id':p.get('id')})
+        if action!='location.report':self.audit('PASSENGER:'+pid,action,None,{'id':p.get('id')})
         return self.record_passenger_action(pid,request_id,fp,result)
     def record_passenger_action(self,pid,rid,fp,result):
         self.db.execute('INSERT INTO passenger_actions VALUES (?,?,?,?)',(pid,rid,fp,dumps(result)));return result
@@ -307,9 +315,9 @@ class PassengerMixin(NegotiationMixin,PassengerOrderOptionsMixin,PassengerExtras
                 self.validate_advance_stage(o,p);stage=o['stage'];require(stage in ('RESERVED','PICKUP','ARRIVED','TRIP'),'当前订单不能推进',409)
                 if stage=='ARRIVED':
                     require(not o.get('destinationPending'),'请等待乘客补充目的地后再开始行程',409)
-                    require(str(p.get('phoneTail',''))==o['phoneTail'],'乘客手机尾号不正确');o['fareConfirmed']=True;o['fareConfirmedAt']=stamp()
+                    require(str(p.get('phoneTail',''))==o['phoneTail'],'乘客手机尾号不正确')
                 if stage=='TRIP':require(len(o['arrivedWaypoints'])==len(o['waypoints']),'请先确认全部途经点',409)
-                o['stage']={'RESERVED':'PICKUP','PICKUP':'ARRIVED','ARRIVED':'TRIP','TRIP':'DONE' if o['paid'] else 'WAIT_PAY'}[stage]
+                self.gate_shared_advance(o,p)
             elif action=='order.waypoint':
                 require(o['stage']=='TRIP','仅行程中可确认途经点',409);i=p.get('index');require(type(i) is int and 0<=i<len(o['waypoints']),'途经点序号无效')
                 if i not in o['arrivedWaypoints']:o['arrivedWaypoints'].append(i)
