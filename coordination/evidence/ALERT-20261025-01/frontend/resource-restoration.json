@@ -1,0 +1,58 @@
+{
+  "at": "2026-10-26T01:24:12.264470+08:00",
+  "gps": {
+    "driver": [],
+    "passenger": [
+      "last location=Location[gps 37.421997,-122.084000 hAcc=5.0 et=+42m59s887ms alt=5.0 vAcc=0.5 vel=0.0 sAcc=0.5 bear=0.0 bAcc=30.0 {Bundle[{satellites=0, maxCn0=0, meanCn0=0}]}]",
+      "last location=Location[gps 37.421997,-122.084000 hAcc=5.0 et=+42m59s887ms alt=5.0 vAcc=0.5 vel=0.0 sAcc=0.5 bear=0.0 bAcc=30.0 {Bundle[{satellites=0, maxCn0=0, meanCn0=0}]}]"
+    ]
+  },
+  "driver": {
+    "environment": {
+      "size": "Physical size: 1080x2400",
+      "density": "Physical density: 420",
+      "font": "1.0",
+      "wifi": "1",
+      "data": "1",
+      "locationMode": "3",
+      "zen": "0",
+      "appops": "Uid mode: COARSE_LOCATION: foreground\nFINE_LOCATION: foreground\nCOARSE_LOCATION: allow\nFINE_LOCATION: allow; time=+1s388ms ago\nGPS: allow; time=+9s253ms ago (running)\nSYSTEM_ALERT_WINDOW: deny; time=+4m16s853ms ago; duration=+979ms\nREAD_CLIPBOARD: allow; time=+2d2h45m11s959ms ago\nTAKE_AUDIO_FOCUS: allow; time=+19s73ms ago\nMONITOR_LOCATION: allow; time=+9s253ms ago (running)\nMONITOR_HIGH_POWER_LOCATION: allow; time=+9s252ms ago (running)\nSTART_FOREGROUND: allow; time=+9s252ms ago (running)\n",
+      "locationLines": [
+        "last location=Location[gps 37.421997,-122.084000 hAcc=5.0 et=+43m17s751ms alt=5.0 vAcc=0.5 vel=0.0 sAcc=0.5 bear=0.0 bAcc=30.0 {Bundle[{satellites=0, maxCn0=0, meanCn0=0}]}]",
+        "last location=Location[gps 37.421997,-122.084000 hAcc=5.0 et=+43m17s751ms alt=5.0 vAcc=0.5 vel=0.0 sAcc=0.5 bear=0.0 bAcc=30.0 {Bundle[{satellites=0, maxCn0=0, meanCn0=0}]}]"
+      ]
+    },
+    "permissions": [
+      "android.permission.SYSTEM_ALERT_WINDOW: granted=false, flags=[ USER_SET]",
+      "android.permission.POST_NOTIFICATIONS: granted=true, flags=[ USER_SET|USER_SENSITIVE_WHEN_GRANTED|USER_SENSITIVE_WHEN_DENIED]",
+      "android.permission.ACCESS_FINE_LOCATION: granted=true, flags=[ USER_SET|USER_SENSITIVE_WHEN_GRANTED|USER_SENSITIVE_WHEN_DENIED]",
+      "android.permission.ACCESS_COARSE_LOCATION: granted=true, flags=[ USER_SET|USER_SENSITIVE_WHEN_GRANTED|USER_SENSITIVE_WHEN_DENIED]"
+    ],
+    "appStoppedAndHome": true,
+    "normalEmulatorShutdown": "OK: killing emulator, bye bye\r\nOK\r\n"
+  },
+  "passenger": {
+    "environment": {
+      "size": "Physical size: 1080x2400",
+      "density": "Physical density: 420",
+      "font": "1.0",
+      "wifi": "1",
+      "data": "1",
+      "locationMode": "3",
+      "zen": "0",
+      "appops": "Uid mode: COARSE_LOCATION: ignore\nFINE_LOCATION: ignore\nFINE_LOCATION: allow; time=+19s782ms ago\nGPS: allow; time=+24s189ms ago; duration=+7s609ms\nREAD_CLIPBOARD: allow; time=+2d1h41m13s247ms ago\nWRITE_CLIPBOARD: allow; time=+2d1h41m56s664ms ago\nMONITOR_LOCATION: allow; time=+24s191ms ago; duration=+7s609ms\nMONITOR_HIGH_POWER_LOCATION: allow; time=+24s191ms ago; duration=+7s609ms\nACCESS_RESTRICTED_SETTINGS: allow; time=+18m58s55ms ago\n",
+      "locationLines": [
+        "last location=Location[gps 37.421997,-122.084000 hAcc=5.0 et=+42m59s887ms alt=5.0 vAcc=0.5 vel=0.0 sAcc=0.5 bear=0.0 bAcc=30.0 {Bundle[{satellites=0, maxCn0=0, meanCn0=0}]}]",
+        "last location=Location[gps 37.421997,-122.084000 hAcc=5.0 et=+42m59s887ms alt=5.0 vAcc=0.5 vel=0.0 sAcc=0.5 bear=0.0 bAcc=30.0 {Bundle[{satellites=0, maxCn0=0, meanCn0=0}]}]"
+      ]
+    },
+    "permissions": [
+      "android.permission.ACCESS_FINE_LOCATION: granted=false, flags=[ USER_SET|USER_SENSITIVE_WHEN_GRANTED|USER_SENSITIVE_WHEN_DENIED]",
+      "android.permission.ACCESS_COARSE_LOCATION: granted=false, flags=[ USER_SET|REVOKED_COMPAT|USER_SENSITIVE_WHEN_GRANTED|USER_SENSITIVE_WHEN_DENIED]"
+    ],
+    "appStoppedAndHome": true,
+    "normalEmulatorShutdown": "OK: killing emulator, bye bye\r\nOK\r\n"
+  },
+  "beforeShutdownAt": "2026-10-26T01:24:29.792932+08:00",
+  "shutdownCommandsEndedAt": "2026-10-26T01:24:29.853805+08:00"
+}

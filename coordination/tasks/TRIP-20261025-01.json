@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "id": "TRIP-20261025-01",
+  "owner": "backend",
+  "goal": "共享订单接客/送达300米服务端校验、乘客真实确认与后台可配置阈值，保护幂等、状态、归属、金额和兼容。",
+  "baseSha": "a5bb882fed045ac62fe8d8398cdc8e483015cc19",
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-trip-api-20261025",
+  "allow_paths": [
+    "apps/cloud-service/*.py",
+    "apps/cloud-service/tests/",
+    "coordination/contracts/TRIP-20261025-01.md",
+    "coordination/evidence/TRIP-20261025-01/"
+  ],
+  "checks": [
+    "默认上客/送达各300米，合法范围与城市/全局继承明确",
+    "接客以新鲜乘客定位为先；缺定位/旧定位同超距须确认，不能默认为零距离",
+    "司机请求后保持原stage；仅该订单乘客同意才能推进；拒绝/过期/取消/换司机失效",
+    "requestId重试/重复点击/并发同意只能推进和入账一次；expectedStage、尾号、途经点校验保留",
+    "后台能查确认及距离证据/操作日志；旧接口和历史数据保持可读",
+    "真实HTTP+回归/临界300米/新鲜度/角色越权/失效和支付幂等测试"
+  ],
+  "status": "ACCEPTED_PENDING_PUBLISH",
+  "acceptance": "PASS",
+  "tests": [
+    {
+      "command": "python3 -m unittest discover -s tests -v (backend author final208) + coordinator independent_distance_http.py (5 raw HTTP scenarios)",
+      "status": "PASS",
+      "exitCode": 0,
+      "sourceSha": "8ec8419d30955c216d7e4fe90451584d2a9622cf"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "coordination/evidence/TRIP-20261025-01/results.json",
+      "sha256": "ae7043763ace35d9975f5011031110614e33fd7e2bcde179f5bd82ffbefd78da"
+    },
+    {
+      "path": "coordination/evidence/REL-20261025-02/independent-distance-tree.json",
+      "sha256": "22228d25a233090c93657a48415c98e03d42c2b151490400a729756af86b676e"
+    },
+    {
+      "path": "coordination/evidence/REL-20261025-02/independent-distance.log",
+      "sha256": "c623afab78a3f7631966819e3f51bf3a5264692b3b438ba6577f12197fb5cb0c"
+    }
+  ],
+  "nextAction": "frontend已确认静态及权限基础无阻碍，root合并后端并发布新API供两原生同单独立验收；App和Web未验收不标完成。",
+  "deploy_owner": "coordinator",
+  "releaseReady": true,
+  "acceptedSha": "8ec8419d30955c216d7e4fe90451584d2a9622cf",
+  "reviewer": "coordinator",
+  "acceptanceScope": "backend source only; native/Web acceptance remains separate"
+}

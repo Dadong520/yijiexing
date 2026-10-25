@@ -1,0 +1,23 @@
+{
+  "at": "2026-10-26T00:55:47.603800+08:00",
+  "positions": {
+    "driver": {
+      "latitude": 37.421998,
+      "longitude": -122.084,
+      "altitude": 5.0,
+      "evidence": [
+        "last location=Location[gps 37.421998,-122.084000 hAcc=5.0 et=+14m26s27ms alt=5.0 vAcc=0.5 vel=0.0 sAcc=0.5 bear=0.0 bAcc=30.0 {Bundle[{satellites=0, maxCn0=0, meanCn0=0}]}]",
+        "last location=Location[gps 37.421998,-122.084000 hAcc=5.0 et=+14m26s27ms alt=5.0 vAcc=0.5 vel=0.0 sAcc=0.5 bear=0.0 bAcc=30.0 {Bundle[{satellites=0, maxCn0=0, meanCn0=0}]}]"
+      ]
+    },
+    "passenger": {
+      "latitude": 37.421998,
+      "longitude": -122.084,
+      "altitude": 5.0,
+      "evidence": [
+        "last location=Location[gps 37.421998,-122.084000 hAcc=5.0 et=+14m35s43ms alt=5.0 vAcc=0.5 vel=0.0 sAcc=0.5 bear=0.0 bAcc=30.0 {Bundle[{satellites=0, maxCn0=0, meanCn0=0}]}]",
+        "last location=Location[gps 37.421998,-122.084000 hAcc=5.0 et=+14m35s43ms alt=5.0 vAcc=0.5 vel=0.0 sAcc=0.5 bear=0.0 bAcc=30.0 {Bundle[{satellites=0, maxCn0=0, meanCn0=0}]}]"
+      ]
+    }
+  }
+}

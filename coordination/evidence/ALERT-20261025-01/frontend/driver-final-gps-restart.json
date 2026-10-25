@@ -1,0 +1,15 @@
+{
+  "at": "2026-10-26T01:26:05.108123+08:00",
+  "pid": 6451,
+  "args": [
+    "/opt/homebrew/share/android-commandlinetools/emulator/emulator",
+    "-avd",
+    "Yijiexing_Driver_Pair_QA",
+    "-port",
+    "5586",
+    "-no-snapshot-load",
+    "-no-snapshot-save",
+    "-no-boot-anim"
+  ],
+  "reason": "root3e9f GPS recovery delta instruction arrived after both normal shutdown at01:24:29; passenger stays closed; originaluserdata"
+}

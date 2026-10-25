@@ -1,0 +1,79 @@
+{"at": "2026-10-26T00:43:56.826467+08:00", "kind": "capture", "value": "driver-01-upgrade-permission-guide"}
+{"at": "2026-10-26T00:45:02.661524+08:00", "kind": "capture", "value": "driver-02-guide-clean"}
+{"at": "2026-10-26T00:45:04.976816+08:00", "kind": "tap", "value": "去系统授权悬浮窗"}
+{"at": "2026-10-26T00:45:09.411073+08:00", "kind": "capture", "value": "driver-03-system-overlay-list"}
+{"at": "2026-10-26T00:46:27.408304+08:00", "kind": "tap", "value": "宜捷行云端体验版"}
+{"at": "2026-10-26T00:46:29.905488+08:00", "kind": "capture", "value": "driver-04-system-overlay-toggle"}
+{"at": "2026-10-26T00:46:58.721080+08:00", "kind": "tap", "value": "Allow display over other apps"}
+{"at": "2026-10-26T00:47:01.077512+08:00", "kind": "capture", "value": "driver-05-system-overlay-granted"}
+{"at": "2026-10-26T00:47:03.760483+08:00", "kind": "capture", "value": "driver-06-guide-overlay-updated"}
+{"at": "2026-10-26T00:47:39.772757+08:00", "kind": "tap", "value": "完成指引"}
+{"at": "2026-10-26T00:47:42.244270+08:00", "kind": "capture", "value": "driver-07-foreground-alert-or-home"}
+{"at": "2026-10-26T00:48:49.214879+08:00", "kind": "capture", "value": "driver-08-final-upgrade"}
+{"at": "2026-10-26T00:49:23.664271+08:00", "kind": "tap", "value": "稍后"}
+{"at": "2026-10-26T00:49:25.925853+08:00", "kind": "tap", "value": "我的"}
+{"at": "2026-10-26T00:49:28.675846+08:00", "kind": "capture", "value": "driver-09-final-retained-account"}
+{"at": "2026-10-26T00:49:30.888215+08:00", "kind": "tap", "value": "设置"}
+{"at": "2026-10-26T00:49:33.314530+08:00", "kind": "capture", "value": "driver-10-final-settings-baseline"}
+{"at": "2026-10-26T00:50:13.607875+08:00", "kind": "toggle", "value": {"label": "接单悬浮入口", "from": false, "to": true, "basis": "10-final-settings-baseline XML checkable enabled bounds"}}
+{"at": "2026-10-26T00:50:16.283895+08:00", "kind": "capture", "value": "driver-11-floating-explicit-on"}
+{"at": "2026-10-26T00:50:18.474500+08:00", "kind": "tap", "value": "权限与提醒检查"}
+{"at": "2026-10-26T00:50:20.900734+08:00", "kind": "capture", "value": "driver-12-guide-reentry-final"}
+{"at": "2026-10-26T00:50:25.168173+08:00", "kind": "tap", "value": "完成指引"}
+{"at": "2026-10-26T00:51:21.209067+08:00", "kind": "capture", "value": "driver-13-background-before-new"}
+{"at": "2026-10-26T00:52:16.049175+08:00", "kind": "capture", "value": "driver-14-background-new-order"}
+{"at": "2026-10-26T00:54:17.654685+08:00", "kind": "capture", "value": "driver-15-background-second-new"}
+{"at": "2026-10-26T00:56:30.772623+08:00", "kind": "capture", "value": "driver-16-background-actual-new"}
+{"at": "2026-10-26T00:56:42.037903+08:00", "kind": "emulatorTestGPS", "value": {"role": "driver", "latitude": 30.65, "longitude": 111.2, "altitude": 5, "result": "OK\r\n"}}
+{"at": "2026-10-26T00:57:21.176400+08:00", "kind": "capture", "value": "driver-17-background-after-poll"}
+{"at": "2026-10-26T00:57:49.469508+08:00", "kind": "capture", "value": "driver-18-background-card-immediate.png"}
+{"at": "2026-10-26T00:58:21.768343+08:00", "kind": "tapBackgroundCardView", "value": {"x": 830, "y": 790, "evidence": "driver-18-background-card-immediate.png"}}
+{"at": "2026-10-26T00:58:24.833499+08:00", "kind": "capture", "value": "driver-19-card-view-only-result"}
+{"at": "2026-10-26T00:58:54.391224+08:00", "kind": "tapBackgroundCardViewImmediate", "value": {"x": 830, "y": 790, "screenshot": "driver-20-background-card-before-click.png"}}
+{"at": "2026-10-26T00:58:58.790050+08:00", "kind": "capture", "value": "driver-21-card-opened-order"}
+{"at": "2026-10-26T00:59:50.588711+08:00", "kind": "tap", "value": "返回听单"}
+{"at": "2026-10-26T00:59:54.974036+08:00", "kind": "tap", "value": "立即抢单"}
+{"at": "2026-10-26T00:59:57.368813+08:00", "kind": "capture", "value": "driver-22-accepted-pickup"}
+{"at": "2026-10-26T01:01:15.520681+08:00", "kind": "tap_button", "value": {"label": "确认接单", "bounds": "[572,1335][844,1482]"}}
+{"at": "2026-10-26T01:01:18.526284+08:00", "kind": "capture", "value": "driver-23-confirmed-pickup"}
+{"at": "2026-10-26T01:01:22.822930+08:00", "kind": "tap", "value": "到达上车点"}
+{"at": "2026-10-26T01:01:25.257224+08:00", "kind": "capture", "value": "driver-24-arrived"}
+{"at": "2026-10-26T01:01:29.522418+08:00", "kind": "tap", "value": "接到乘客，开始行程"}
+{"at": "2026-10-26T01:01:31.678334+08:00", "kind": "tap", "value": "手机尾号"}
+{"at": "2026-10-26T01:01:34.416566+08:00", "kind": "capture", "value": "driver-25-phone-tail-entered"}
+{"at": "2026-10-26T01:01:36.525947+08:00", "kind": "tap_button", "value": {"label": "确认上车", "bounds": "[645,1417][897,1564]"}}
+{"at": "2026-10-26T01:01:39.107155+08:00", "kind": "capture", "value": "driver-26-pickup-pending"}
+{"at": "2026-10-26T01:02:56.398400+08:00", "kind": "capture", "value": "driver-27-after-rejection"}
+{"at": "2026-10-26T01:03:00.645406+08:00", "kind": "tap", "value": "接到乘客，开始行程"}
+{"at": "2026-10-26T01:04:03.967696+08:00", "kind": "tap", "value": "手机尾号"}
+{"at": "2026-10-26T01:04:06.401182+08:00", "kind": "tap_button", "value": {"label": "确认上车", "bounds": "[645,1417][897,1564]"}}
+{"at": "2026-10-26T01:04:08.986169+08:00", "kind": "capture", "value": "driver-28-second-pending"}
+{"at": "2026-10-26T01:04:33.301076+08:00", "kind": "capture", "value": "driver-29-after-approved-trip"}
+{"at": "2026-10-26T01:04:38.322940+08:00", "kind": "capture", "value": "driver-30-system-location-settings"}
+{"at": "2026-10-26T01:05:22.687427+08:00", "kind": "tap", "value": "Use location"}
+{"at": "2026-10-26T01:05:25.318593+08:00", "kind": "capture", "value": "driver-31-system-location-off"}
+{"at": "2026-10-26T01:05:27.944161+08:00", "kind": "capture", "value": "driver-32-trip-with-location-off"}
+{"at": "2026-10-26T01:07:58.647961+08:00", "kind": "tap", "value": "到达目的地"}
+{"at": "2026-10-26T01:08:01.070820+08:00", "kind": "capture", "value": "driver-33-dropoff-pending"}
+{"at": "2026-10-26T01:09:20.985414+08:00", "kind": "capture", "value": "driver-34-after-dropoff-approval"}
+{"at": "2026-10-26T01:12:48.369961+08:00", "kind": "tap", "value": "返回听单"}
+{"at": "2026-10-26T01:12:51.285385+08:00", "kind": "capture", "value": "driver-35-listening-with-unpaid-order"}
+{"at": "2026-10-26T01:12:55.627318+08:00", "kind": "tap", "value": "立即抢单"}
+{"at": "2026-10-26T01:12:58.015853+08:00", "kind": "capture", "value": "driver-36-new-accept-confirm-available"}
+{"at": "2026-10-26T01:13:02.179412+08:00", "kind": "tap_button", "value": {"label": "返回", "bounds": "[393,1335][551,1482]"}}
+{"at": "2026-10-26T01:14:39.333845+08:00", "kind": "capture", "value": "driver-40-release-upgrade"}
+{"at": "2026-10-26T01:17:44.928355+08:00", "kind": "tap", "value": "Use location"}
+{"at": "2026-10-26T01:17:48.412920+08:00", "kind": "capture", "value": "driver-41-location-service-restored"}
+{"at": "2026-10-26T01:20:16.956507+08:00", "kind": "tap", "value": "我的"}
+{"at": "2026-10-26T01:20:19.428676+08:00", "kind": "capture", "value": "driver-44-release-driver-account"}
+{"at": "2026-10-26T01:20:21.613628+08:00", "kind": "tap", "value": "设置"}
+{"at": "2026-10-26T01:20:26.223981+08:00", "kind": "capture", "value": "driver-45-floating-preference-restored"}
+{"at": "2026-10-26T01:24:24.123983+08:00", "kind": "tap", "value": "宜捷行云端体验版"}
+{"at": "2026-10-26T01:24:26.422456+08:00", "kind": "tap", "value": "Allow display over other apps"}
+{"at": "2026-10-26T01:24:28.778543+08:00", "kind": "capture", "value": "driver-46-final-overlay-denied"}
+{"at": "2026-10-26T01:27:59.358028+08:00", "kind": "tap", "value": "Use location"}
+{"at": "2026-10-26T01:28:01.818036+08:00", "kind": "capture", "value": "driver-48-gps-disabled-before-install"}
+{"at": "2026-10-26T01:28:16.416417+08:00", "kind": "tap", "value": "Use location"}
+{"at": "2026-10-26T01:28:18.882771+08:00", "kind": "capture", "value": "driver-49-gps-switched-on-no-app-restart"}
+{"at": "2026-10-26T01:28:26.421489+08:00", "kind": "tap", "value": "稍后"}
+{"at": "2026-10-26T01:28:28.864268+08:00", "kind": "capture", "value": "driver-50-gps-recovery-final-home"}

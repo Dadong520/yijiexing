@@ -1,0 +1,8 @@
+{
+  "initial": "headless RunCommand auto-denied; no files changed",
+  "originalContext": "ba5967c8-cf4c-4400-9a0d-b5b9a95feaa6",
+  "fallback": "pure code same context, root applies only allowlisted files",
+  "firstPureAttempt": "Google userinfo EOF; no code output",
+  "directRetry": "SUCCESS; no permission/global model changes",
+  "dangerousSkipPermissionsUsed": false
+}

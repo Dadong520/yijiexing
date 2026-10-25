@@ -1,0 +1,69 @@
+{
+  "sourceSha": "10b0c9381e4f1c559955806a4984a096907a5aff",
+  "startedAt": "2026-10-26T00:48:28.393119+08:00",
+  "beforeIdentity": {
+    "versionName": "0.3.12-cloud",
+    "versionCode": 15,
+    "sha256": "6c7294eb0394eca31027173aabbeaa110c81351a5149591b7a844bc2b0d76d5e",
+    "bytes": 56562055,
+    "signer": "Signer #1 certificate SHA-256 digest: 9ffec9b342d12909ff288bd73f23ba104893b39120cb24ea83c9734a0d2b758f",
+    "originDexFiles": [
+      "classes3.dex"
+    ],
+    "permissionLines": [
+      "android.permission.SYSTEM_ALERT_WINDOW: granted=false, flags=[ USER_SET]",
+      "android.permission.POST_NOTIFICATIONS: granted=true, flags=[ USER_SET|USER_SENSITIVE_WHEN_GRANTED|USER_SENSITIVE_WHEN_DENIED]",
+      "android.permission.ACCESS_FINE_LOCATION: granted=true, flags=[ USER_SET|USER_SENSITIVE_WHEN_GRANTED|USER_SENSITIVE_WHEN_DENIED]",
+      "android.permission.ACCESS_COARSE_LOCATION: granted=true, flags=[ USER_SET|USER_SENSITIVE_WHEN_GRANTED|USER_SENSITIVE_WHEN_DENIED]"
+    ]
+  },
+  "metadata": {
+    "client": "driver",
+    "status": "PASS",
+    "sourceSha": "10b0c9381e4f1c559955806a4984a096907a5aff",
+    "command": "/Users/dongge/.gradle/wrapper/dists/gradle-8.7-bin/c4fynqkwxqrcieir78ry8jtzf/gradle-8.7/bin/gradle --offline --no-daemon --max-workers=1 -Dorg.gradle.jvmargs=-Xmx1536m -Pkotlin.compiler.execution.strategy=in-process -PYIJ_CLOUD_ORIGIN=https://yijiexing-demo.hbzjhs.xyz --project-cache-dir /Users/dongge/.codex/tmp/yijiexing-native-alert-build-20261026/driver-cache --init-script /Users/dongge/.codex/tmp/yijiexing-native-alert-build-20261026/driver-build.init.gradle testDebugUnitTest assembleDebug",
+    "cwd": "/Users/dongge/.codex/tmp/yijiexing-native-permissions-20261025/candidates/driver-0.3.6-r2/android",
+    "startedAt": "2026-10-26T00:45:01.510244+08:00",
+    "completedAt": "2026-10-26T00:45:49.072384+08:00",
+    "exitCode": 0,
+    "tests": 55,
+    "logPath": "/Users/dongge/.codex/tmp/yijiexing-native-permissions-20261025/coordination/evidence/ALERT-20261025-01/driver-build.log",
+    "apkPath": "/Users/dongge/.codex/tmp/yijiexing-native-alert-build-20261026/driver/_app/outputs/apk/debug/app-debug.apk",
+    "apkSha256": "ac320e0f335e8bc017f1fedca133ee024fdbe0a4227d600f26e2cff87d8afa89",
+    "bytes": 56563229,
+    "versionCode": 15,
+    "versionName": "0.3.12-cloud",
+    "packageId": "cn.hbzjhs.dc.driver.cloud",
+    "signerSha256": "9ffec9b342d12909ff288bd73f23ba104893b39120cb24ea83c9734a0d2b758f",
+    "cloudOrigin": "https://yijiexing-demo.hbzjhs.xyz"
+  },
+  "installResult": "Performing Streamed Install\nSuccess\n",
+  "afterIdentity": {
+    "versionName": "0.3.12-cloud",
+    "versionCode": 15,
+    "sha256": "ac320e0f335e8bc017f1fedca133ee024fdbe0a4227d600f26e2cff87d8afa89",
+    "bytes": 56563229,
+    "signer": "Signer #1 certificate SHA-256 digest: 9ffec9b342d12909ff288bd73f23ba104893b39120cb24ea83c9734a0d2b758f",
+    "originDexFiles": [
+      "classes3.dex"
+    ],
+    "permissionLines": [
+      "android.permission.SYSTEM_ALERT_WINDOW: granted=false, flags=[ USER_SET]",
+      "android.permission.POST_NOTIFICATIONS: granted=true, flags=[ USER_SET|USER_SENSITIVE_WHEN_GRANTED|USER_SENSITIVE_WHEN_DENIED]",
+      "android.permission.ACCESS_FINE_LOCATION: granted=true, flags=[ USER_SET|USER_SENSITIVE_WHEN_GRANTED|USER_SENSITIVE_WHEN_DENIED]",
+      "android.permission.ACCESS_COARSE_LOCATION: granted=true, flags=[ USER_SET|USER_SENSITIVE_WHEN_GRANTED|USER_SENSITIVE_WHEN_DENIED]"
+    ]
+  },
+  "startW": "Starting: Intent { cmp=cn.hbzjhs.dc.driver.cloud/cn.hbzjhs.driver.preview.MainActivity }\nStatus: ok\nLaunchState: COLD\nActivity: cn.hbzjhs.dc.driver.cloud/cn.hbzjhs.driver.preview.MainActivity\nTotalTime: 691\nWaitTime: 693\nComplete\n",
+  "texts": [
+    "发现新订单",
+    "起：",
+    "宜昌东站 · 出租车上客区",
+    "终：",
+    "夷陵广场 · 东侧入口",
+    "稍后",
+    "查看订单"
+  ],
+  "acceptance": "PASS",
+  "endedAt": "2026-10-26T00:48:51.360605+08:00"
+}

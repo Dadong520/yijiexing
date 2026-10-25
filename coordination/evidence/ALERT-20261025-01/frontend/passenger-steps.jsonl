@@ -1,0 +1,96 @@
+{"at": "2026-10-26T00:42:38.296518+08:00", "kind": "capture", "value": "passenger-01-upgrade-permission-guide"}
+{"at": "2026-10-26T00:44:02.663539+08:00", "kind": "capture", "value": "passenger-02-guide-clean"}
+{"at": "2026-10-26T00:44:04.858305+08:00", "kind": "tap", "value": "一键允许定位权限"}
+{"at": "2026-10-26T00:44:07.418777+08:00", "kind": "capture", "value": "passenger-03-system-location-request"}
+{"at": "2026-10-26T00:44:44.586923+08:00", "kind": "tap", "value": "Don’t allow"}
+{"at": "2026-10-26T00:44:47.050183+08:00", "kind": "capture", "value": "passenger-04-location-denied"}
+{"at": "2026-10-26T00:44:51.250205+08:00", "kind": "tap", "value": "一键允许定位权限"}
+{"at": "2026-10-26T00:44:55.634889+08:00", "kind": "tap", "value": "While using the app"}
+{"at": "2026-10-26T00:44:58.097698+08:00", "kind": "capture", "value": "passenger-05-location-granted"}
+{"at": "2026-10-26T00:45:59.664422+08:00", "kind": "tap", "value": "稍后设置"}
+{"at": "2026-10-26T00:46:01.927721+08:00", "kind": "tap", "value": "我的"}
+{"at": "2026-10-26T00:46:04.359682+08:00", "kind": "capture", "value": "passenger-06-retained-account"}
+{"at": "2026-10-26T00:46:08.618635+08:00", "kind": "tap", "value": "出行"}
+{"at": "2026-10-26T00:46:10.811439+08:00", "kind": "tap", "value": "权限"}
+{"at": "2026-10-26T00:46:14.310942+08:00", "kind": "capture", "value": "passenger-07-guide-reentry"}
+{"at": "2026-10-26T00:46:16.414963+08:00", "kind": "tap", "value": "稍后设置"}
+{"at": "2026-10-26T00:46:23.023230+08:00", "kind": "capture", "value": "passenger-08-relaunch-no-repeat"}
+{"at": "2026-10-26T00:47:24.903373+08:00", "kind": "tap", "value": "确认呼叫 · 即时用车"}
+{"at": "2026-10-26T00:47:27.499625+08:00", "kind": "capture", "value": "passenger-09-first-order-created"}
+{"at": "2026-10-26T00:47:58.061944+08:00", "kind": "tap", "value": "查看订单编号"}
+{"at": "2026-10-26T00:48:00.470324+08:00", "kind": "capture", "value": "passenger-10-first-order-id"}
+{"at": "2026-10-26T00:49:04.568875+08:00", "kind": "tap", "value": "关闭"}
+{"at": "2026-10-26T00:49:06.793216+08:00", "kind": "tap", "value": "返回"}
+{"at": "2026-10-26T00:50:27.721811+08:00", "kind": "tap", "value": "等待司机接单 / 报价"}
+{"at": "2026-10-26T00:50:29.908005+08:00", "kind": "tap", "value": "行程管理"}
+{"at": "2026-10-26T00:50:34.441834+08:00", "kind": "capture", "value": "passenger-11-first-order-manage"}
+{"at": "2026-10-26T00:51:11.653038+08:00", "kind": "tap", "value": "取消本次订单"}
+{"at": "2026-10-26T00:51:14.100165+08:00", "kind": "capture", "value": "passenger-12-first-cancel-dialog"}
+{"at": "2026-10-26T00:51:51.136468+08:00", "kind": "tap", "value": "确认提交"}
+{"at": "2026-10-26T00:51:53.548287+08:00", "kind": "capture", "value": "passenger-13-first-cancelled"}
+{"at": "2026-10-26T00:52:29.325705+08:00", "kind": "tap", "value": "返回"}
+{"at": "2026-10-26T00:52:56.366966+08:00", "kind": "capture", "value": "passenger-16-navigation-current"}
+{"at": "2026-10-26T00:53:51.610746+08:00", "kind": "tap", "value": "返回"}
+{"at": "2026-10-26T00:54:37.955257+08:00", "kind": "capture", "value": "passenger-19-system-back-navigation"}
+{"at": "2026-10-26T00:55:49.861805+08:00", "kind": "tap", "value": "出行"}
+{"at": "2026-10-26T00:55:52.178431+08:00", "kind": "tap", "value": "确认呼叫 · 即时用车"}
+{"at": "2026-10-26T00:55:54.784486+08:00", "kind": "capture", "value": "passenger-17-second-order-created"}
+{"at": "2026-10-26T00:55:58.977895+08:00", "kind": "tap", "value": "查看订单编号"}
+{"at": "2026-10-26T00:56:01.325886+08:00", "kind": "capture", "value": "passenger-18-second-order-id"}
+{"at": "2026-10-26T00:56:05.549686+08:00", "kind": "tap", "value": "关闭"}
+{"at": "2026-10-26T00:56:42.055764+08:00", "kind": "emulatorTestGPS", "value": {"role": "passenger", "latitude": 30.7, "longitude": 111.3, "altitude": 5, "result": "OK\r\n"}}
+{"at": "2026-10-26T00:58:29.232156+08:00", "kind": "tap", "value": "刷新订单"}
+{"at": "2026-10-26T00:58:31.678425+08:00", "kind": "capture", "value": "passenger-20-before-accept"}
+{"at": "2026-10-26T01:01:43.507825+08:00", "kind": "tap", "value": "刷新订单"}
+{"at": "2026-10-26T01:01:46.379140+08:00", "kind": "capture", "value": "passenger-22-pickup-consent-pending"}
+{"at": "2026-10-26T01:02:45.031823+08:00", "kind": "tap", "value": "拒绝"}
+{"at": "2026-10-26T01:02:47.374295+08:00", "kind": "capture", "value": "passenger-23-reject-confirmation"}
+{"at": "2026-10-26T01:02:49.487629+08:00", "kind": "tap_button", "value": {"label": "确认", "bounds": "[552,1305][873,1431]"}}
+{"at": "2026-10-26T01:02:51.818899+08:00", "kind": "capture", "value": "passenger-24-rejected-still-arrived"}
+{"at": "2026-10-26T01:04:13.303903+08:00", "kind": "tap", "value": "刷新订单"}
+{"at": "2026-10-26T01:04:15.680462+08:00", "kind": "capture", "value": "passenger-25-second-pickup-request"}
+{"at": "2026-10-26T01:04:19.946248+08:00", "kind": "tap", "value": "同意已上车"}
+{"at": "2026-10-26T01:04:22.278350+08:00", "kind": "capture", "value": "passenger-26-pickup-approve-dialog"}
+{"at": "2026-10-26T01:04:26.482595+08:00", "kind": "tap_button", "value": {"label": "确认", "bounds": "[552,1305][873,1431]"}}
+{"at": "2026-10-26T01:04:28.817461+08:00", "kind": "capture", "value": "passenger-27-approved-trip"}
+{"at": "2026-10-26T01:05:33.772051+08:00", "kind": "capture", "value": "passenger-28-system-app-info-restore"}
+{"at": "2026-10-26T01:06:14.880893+08:00", "kind": "tap", "value": "Permissions"}
+{"at": "2026-10-26T01:06:17.822723+08:00", "kind": "capture", "value": "passenger-29-system-permissions-restore"}
+{"at": "2026-10-26T01:06:22.296252+08:00", "kind": "tap", "value": "Location"}
+{"at": "2026-10-26T01:06:24.636306+08:00", "kind": "capture", "value": "passenger-30-system-location-permission-restore"}
+{"at": "2026-10-26T01:07:02.958407+08:00", "kind": "tap", "value": "Don’t allow"}
+{"at": "2026-10-26T01:07:05.373430+08:00", "kind": "capture", "value": "passenger-31-location-restored-denied"}
+{"at": "2026-10-26T01:07:10.707314+08:00", "kind": "capture", "value": "passenger-32-resume-after-denied"}
+{"at": "2026-10-26T01:08:09.650062+08:00", "kind": "tap", "value": "刷新订单"}
+{"at": "2026-10-26T01:08:12.518217+08:00", "kind": "capture", "value": "passenger-33-dropoff-unknown-pending"}
+{"at": "2026-10-26T01:09:08.404009+08:00", "kind": "tap", "value": "同意已送达"}
+{"at": "2026-10-26T01:09:11.098542+08:00", "kind": "capture", "value": "passenger-34-dropoff-confirm-dialog"}
+{"at": "2026-10-26T01:09:13.404805+08:00", "kind": "rapidRepeatedDropoffConfirm", "value": {"count": 2, "bounds": "[552,1305][873,1431]", "basis": "34-dropoff-confirm-dialog"}}
+{"at": "2026-10-26T01:09:16.198836+08:00", "kind": "capture", "value": "passenger-35-dropoff-approved-waitpay"}
+{"at": "2026-10-26T01:11:40.372555+08:00", "kind": "tap", "value": "出行"}
+{"at": "2026-10-26T01:11:42.903406+08:00", "kind": "capture", "value": "passenger-36-debt-home"}
+{"at": "2026-10-26T01:13:04.543144+08:00", "kind": "tap", "value": "查看当前行程"}
+{"at": "2026-10-26T01:13:06.768589+08:00", "kind": "tap", "value": "模拟支付 ¥29.26"}
+{"at": "2026-10-26T01:13:09.175646+08:00", "kind": "capture", "value": "passenger-38-simulated-payment-confirm"}
+{"at": "2026-10-26T01:13:13.447077+08:00", "kind": "rapidRepeatedSimulatedPayment", "value": {"count": 2, "amount": "29.26", "bounds": "[183,1050][897,1176]", "basis": "38-simulated-payment-confirm"}}
+{"at": "2026-10-26T01:13:15.862356+08:00", "kind": "capture", "value": "passenger-39-paid-done"}
+{"at": "2026-10-26T01:14:40.786599+08:00", "kind": "capture", "value": "passenger-40-release-upgrade"}
+{"at": "2026-10-26T01:17:51.010250+08:00", "kind": "tap", "value": "我的"}
+{"at": "2026-10-26T01:17:53.445178+08:00", "kind": "capture", "value": "passenger-41-release-account-retained"}
+{"at": "2026-10-26T01:17:57.682957+08:00", "kind": "tap", "value": "订单"}
+{"at": "2026-10-26T01:17:59.822544+08:00", "kind": "tap", "value": "已完成"}
+{"at": "2026-10-26T01:18:04.171105+08:00", "kind": "tap", "value": "下单时间：10月26日 00:55"}
+{"at": "2026-10-26T01:18:06.578050+08:00", "kind": "capture", "value": "passenger-42-history-chinese"}
+{"at": "2026-10-26T01:18:10.912889+08:00", "kind": "tap", "value": "出行"}
+{"at": "2026-10-26T01:18:13.161122+08:00", "kind": "tap", "value": "确认呼叫 · 即时用车"}
+{"at": "2026-10-26T01:18:15.696242+08:00", "kind": "capture", "value": "passenger-43-delta-third-created"}
+{"at": "2026-10-26T01:18:17.845012+08:00", "kind": "tap", "value": "查看订单编号"}
+{"at": "2026-10-26T01:18:22.312929+08:00", "kind": "capture", "value": "passenger-44-delta-third-id"}
+{"at": "2026-10-26T01:18:24.425815+08:00", "kind": "tap", "value": "关闭"}
+{"at": "2026-10-26T01:19:03.088307+08:00", "kind": "tap_button", "value": {"label": "取消本次订单", "bounds": "[89,1468][991,1594]"}}
+{"at": "2026-10-26T01:19:08.473608+08:00", "kind": "tap_button", "value": {"label": "确认提交", "bounds": "[467,1351][979,1477]"}}
+{"at": "2026-10-26T01:19:10.980566+08:00", "kind": "capture", "value": "passenger-45-third-cancelled"}
+{"at": "2026-10-26T01:20:09.987006+08:00", "kind": "capture", "value": "passenger-46-third-cancel-header"}
+{"at": "2026-10-26T01:24:05.123517+08:00", "kind": "tap", "value": "Allow only while using the app"}
+{"at": "2026-10-26T01:24:16.751243+08:00", "kind": "tap", "value": "Don’t allow"}
+{"at": "2026-10-26T01:24:19.228346+08:00", "kind": "capture", "value": "passenger-47-final-location-denied"}

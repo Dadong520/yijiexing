@@ -1,0 +1,41 @@
+{
+  "at": "2026-10-26T00:41:05.224797+08:00",
+  "devices": [
+    {
+      "role": "driver",
+      "avd": "Yijiexing_Driver_Pair_QA",
+      "port": 5586,
+      "pid": 51620,
+      "args": [
+        "/opt/homebrew/share/android-commandlinetools/emulator/emulator",
+        "-avd",
+        "Yijiexing_Driver_Pair_QA",
+        "-port",
+        "5586",
+        "-no-snapshot-load",
+        "-no-snapshot-save",
+        "-no-boot-anim"
+      ],
+      "initialState": "CLOSED; no qemu or listeners at chosen ports",
+      "restoration": "normally close at end; preserve userdata/snapshots"
+    },
+    {
+      "role": "passenger",
+      "avd": "Yijiexing_Passenger_QA",
+      "port": 5584,
+      "pid": 51621,
+      "args": [
+        "/opt/homebrew/share/android-commandlinetools/emulator/emulator",
+        "-avd",
+        "Yijiexing_Passenger_QA",
+        "-port",
+        "5584",
+        "-no-snapshot-load",
+        "-no-snapshot-save",
+        "-no-boot-anim"
+      ],
+      "initialState": "CLOSED; no qemu or listeners at chosen ports",
+      "restoration": "normally close at end; preserve userdata/snapshots"
+    }
+  ]
+}

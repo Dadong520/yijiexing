@@ -1,0 +1,97 @@
+Browser tab: 1055271354, Title: "宜捷行 · 运营管理中心", URL: "http://127.0.0.1:8808/".
+0 AXWebArea 宜捷行 · 运营管理中心, URL: 127.0.0.1:8808/
+	1 container modal
+		2 container
+			3 heading 订单详情 · DISTANCE-UI, Value: 2, ID: modalTitle
+				4 text 订单详情 · DISTANCE-UI
+			5 button Description: 关闭, ID: closeModal
+		6 container modalBody
+			7 definition list
+				8 container 费用版本
+					9 text 费用版本
+				10 text V0
+				11 container 费用口径
+					12 text 费用口径
+				13 text 体验估价或已确认报价；金额单位为元。
+				14 container 订单类型
+					15 text 订单类型
+				16 text 即时用车
+				17 container 订单状态
+					18 text 订单状态
+				19 text 已到达
+				20 container 行程
+					21 text 行程
+				22 text =CMD(A1) → 商场
+				23 container 乘客
+					24 text 乘客
+				25 text P1
+				26 container 司机
+					27 text 司机
+				28 text D1
+				29 container 金额
+					30 text 金额
+				31 text ¥20.00
+				32 container 支付
+					33 text 支付
+				34 container
+					35 text 未支付  · 模拟账务
+				36 container 取消原因
+					37 text 取消原因
+				38 text —
+				39 container 创建时间
+					40 text 创建时间
+				41 text 2026/10/24 23:59:59
+			42 button 人工取消, ID: cancelOrder
+			43 heading 司机报价, Value: 3
+				44 text 司机报价
+			45 text 暂无报价记录
+			46 heading 接送距离与乘客确认, Value: 3
+				47 text 接送距离与乘客确认
+			48 text 距离由服务端按定位计算；超过阈值或定位缺失、过旧时须由本订单乘客同意。未同意前不推进订单。
+			49 container
+				50 definition list
+					51 container 确认编号
+						52 text 确认编号
+					53 text DCc7959e5d3481
+					54 container 确认事项
+						55 text 确认事项
+					56 text 接到乘客
+					57 container 处理状态
+						58 text 处理状态
+					59 text 确认已过期
+					60 container 实测直线距离
+						61 text 实测直线距离
+					62 text 定位不足，未计算
+					63 container 本次阈值
+						64 text 本次阈值
+					65 text 300 米
+					66 container 触发原因
+						67 text 触发原因
+					68 text 司机尚未上传当前定位
+					69 container 创建时间
+						70 text 创建时间
+					71 text 2026/10/26 00:37:18
+					72 container 有效期至
+						73 text 有效期至
+					74 text 2026/10/26 00:40:18
+					75 container 原订单阶段
+						76 text 原订单阶段
+					77 text 已到达
+					78 container 同意后阶段
+						79 text 同意后阶段
+					80 text 行程中
+				81 button (collapsed) 定位及规则快照, Secondary Actions: Expand
+					82 text 定位及规则快照
+			83 heading 乘客评价, Value: 3
+				84 text 乘客评价
+			85 text ★★★★★ · 不错
+			86 heading 状态与操作时间线, Value: 3
+				87 text 状态与操作时间线
+			88 container DISTANCE_CONSENT_EXPIRED
+				89 text 业务事件
+				90 text 2026/10/26 00:40:26
+			91 button (collapsed) 完整共享订单记录, Secondary Actions: Expand
+				92 text 完整共享订单记录
+		93 button 关闭
+
+The focused UI element is 5 button Description: 关闭, ID: closeModal

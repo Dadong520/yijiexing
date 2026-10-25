@@ -1,0 +1,74 @@
+{
+  "sourceSha": "c74f3d95faa9d4a06fa70421f8bbedeef5ca6cb4",
+  "serial": "emulator-5586",
+  "pkg": "cn.hbzjhs.dc.driver.cloud",
+  "startedAt": "2026-10-26T00:43:31.266707+08:00",
+  "initialEnvironment": {
+    "size": "Physical size: 1080x2400",
+    "density": "Physical density: 420",
+    "font": "1.0",
+    "wifi": "1",
+    "data": "1",
+    "locationMode": "3",
+    "zen": "0",
+    "appops": "Uid mode: COARSE_LOCATION: foreground\nFINE_LOCATION: foreground\nFINE_LOCATION: allow; time=+2h15m33s626ms ago\nGPS: allow; time=+2h15m21s753ms ago; duration=+21ms\nREAD_CLIPBOARD: allow; time=+2d2h4m14s437ms ago\nTAKE_AUDIO_FOCUS: allow; time=+2h15m34s942ms ago\nMONITOR_LOCATION: allow; time=+2h15m21s753ms ago; duration=+19ms\nMONITOR_HIGH_POWER_LOCATION: allow; time=+2h15m21s753ms ago\nSTART_FOREGROUND: allow; time=+2h15m21s752ms ago; duration=+31ms\n",
+    "locationLines": []
+  },
+  "beforeIdentity": {
+    "versionName": "0.3.11-cloud",
+    "versionCode": 14,
+    "sha256": "e935ccb92478e2bc8fa1b9e8abcf8430a68c48be36b02d30905e9c0347926bf0",
+    "bytes": 55655843,
+    "signer": "Signer #1 certificate SHA-256 digest: 9ffec9b342d12909ff288bd73f23ba104893b39120cb24ea83c9734a0d2b758f",
+    "originDexFiles": [
+      "classes3.dex"
+    ],
+    "permissionLines": [
+      "android.permission.SYSTEM_ALERT_WINDOW: granted=false",
+      "android.permission.POST_NOTIFICATIONS: granted=true, flags=[ USER_SET|USER_SENSITIVE_WHEN_GRANTED|USER_SENSITIVE_WHEN_DENIED]",
+      "android.permission.ACCESS_FINE_LOCATION: granted=true, flags=[ USER_SET|USER_SENSITIVE_WHEN_GRANTED|USER_SENSITIVE_WHEN_DENIED]",
+      "android.permission.ACCESS_COARSE_LOCATION: granted=true, flags=[ USER_SET|USER_SENSITIVE_WHEN_GRANTED|USER_SENSITIVE_WHEN_DENIED]"
+    ]
+  },
+  "installResult": "Performing Streamed Install\nSuccess",
+  "afterIdentity": {
+    "versionName": "0.3.12-cloud",
+    "versionCode": 15,
+    "sha256": "6c7294eb0394eca31027173aabbeaa110c81351a5149591b7a844bc2b0d76d5e",
+    "bytes": 56562055,
+    "signer": "Signer #1 certificate SHA-256 digest: 9ffec9b342d12909ff288bd73f23ba104893b39120cb24ea83c9734a0d2b758f",
+    "originDexFiles": [
+      "classes3.dex"
+    ],
+    "permissionLines": [
+      "android.permission.SYSTEM_ALERT_WINDOW: granted=false",
+      "android.permission.POST_NOTIFICATIONS: granted=true, flags=[ USER_SET|USER_SENSITIVE_WHEN_GRANTED|USER_SENSITIVE_WHEN_DENIED]",
+      "android.permission.ACCESS_FINE_LOCATION: granted=true, flags=[ USER_SET|USER_SENSITIVE_WHEN_GRANTED|USER_SENSITIVE_WHEN_DENIED]",
+      "android.permission.ACCESS_COARSE_LOCATION: granted=true, flags=[ USER_SET|USER_SENSITIVE_WHEN_GRANTED|USER_SENSITIVE_WHEN_DENIED]"
+    ]
+  },
+  "startW": "Starting: Intent { cmp=cn.hbzjhs.dc.driver.cloud/cn.hbzjhs.driver.preview.MainActivity }\nStatus: ok\nLaunchState: COLD\nActivity: cn.hbzjhs.dc.driver.cloud/cn.hbzjhs.driver.preview.MainActivity\nTotalTime: 1060\nWaitTime: 1068\nComplete\n",
+  "guideScreenshot": "/Users/dongge/.codex/tmp/yijiexing-native-permissions-20261025/coordination/evidence/ALERT-20261025-01/frontend/driver-01-upgrade-permission-guide.png",
+  "texts": [
+    "司机听单与服务权限指引",
+    "请配置接单必要权限。听单期间保持前台服务运行；系统清理或强杀后需重新打开应用。",
+    "1. 精确位置与定位服务",
+    "已就绪",
+    "用途：计算与乘客距离、接驾导航、订单里程计费。",
+    "授权定位 / 打开定位服务",
+    "2. 新订单通知与提醒渠道",
+    "已正常",
+    "用途：接收即时派单、乘客取消及状态变动通知。",
+    "设置系统通知与渠道",
+    "3. 悬浮窗订单卡片",
+    "未授权",
+    "用途：切换到导航或后台时弹出新订单卡片，点击快速查看。",
+    "去系统授权悬浮窗",
+    "4. 电池优化与后台听单说明 (可选)",
+    "听单以持续前台服务维持，建议将应用加入电池优化不限制白名单。本说明不伪造任何系统自启动，若系统强制清理仍需重新开启听单。",
+    "稍后设置",
+    "完成指引"
+  ],
+  "installAcceptance": "PASS",
+  "endedAt": "2026-10-26T00:43:59.011184+08:00"
+}

@@ -1,0 +1,27 @@
+{
+  "status": "PASS",
+  "at": "2026-10-26T00:56:13.438485+08:00",
+  "sourceSha": "8ec8419d30955c216d7e4fe90451584d2a9622cf",
+  "mergeSha": "275ea3eb251998a7e54399a3e0b0d280dde1a554",
+  "revision": "driver-demo-distance-8ec8419d",
+  "traffic": [
+    {
+      "percent": 100,
+      "revisionName": "driver-demo-distance-8ec8419d"
+    }
+  ],
+  "imageDigest": "us-west1-docker.pkg.dev/yijiexing-driver-demo-1023/demo/driver-cloud@sha256:454c0a42f9e36c499c3f524c66ae35f4bb3bb68538b19b5a34148c8b5704b875",
+  "healthHTTP": 200,
+  "healthRole": "driver",
+  "iamEnvSecretsSAUnchanged": true,
+  "iamAssertionPassedBeforeProbe": true,
+  "automaticMin0Max1RequestBilling": true,
+  "beforeOrders": 21,
+  "afterOrders": 22,
+  "allPriorOrderIdsPreserved": true,
+  "priorStageFarePaidRefundUnchanged": true,
+  "orderOrFinancialActionsByDeployer": false,
+  "rollbackRevision": "driver-demo-publiccopy-ecab94fd",
+  "nativeJointAcceptance": "PENDING",
+  "probeCorrection": "Initial deployment completed. First receipt probe read role at wrong JSON level; read-only recovery verified code0/data.role, with no repeated deployment."
+}

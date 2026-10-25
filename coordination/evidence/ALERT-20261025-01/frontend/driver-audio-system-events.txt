@@ -1,0 +1,27 @@
+10-26 00:47:12:991 abandonAudioFocus() from uid/pid 10169/756 clientId=android.media.AudioManager@4473e98
+10-26 00:47:36:552 requestAudioFocus() from uid/pid 10192/3523 AA=USAGE_ASSISTANCE_NAVIGATION_GUIDANCE/CONTENT_TYPE_SPEECH clientId=android.media.AudioManager@67349d9cn.hbzjhs.driver.preview.NativeOrderAnnouncer$$ExternalSyntheticLambda10@6fe5249 callingPack=cn.hbzjhs.dc.driver.cloud req=3 flags=0x0 sdk=34
+10-26 00:47:36:579 requestAudioFocus() from uid/pid 10169/756 AA=USAGE_NOTIFICATION/CONTENT_TYPE_UNKNOWN clientId=android.media.AudioManager@53cee93 callingPack=com.android.systemui req=3 flags=0x0 sdk=34
+10-26 00:47:38:939 abandonAudioFocus() from uid/pid 10169/756 clientId=android.media.AudioManager@53cee93
+10-26 00:47:43:703 abandonAudioFocus() from uid/pid 10192/3523 clientId=android.media.AudioManager@67349d9cn.hbzjhs.driver.preview.NativeOrderAnnouncer$$ExternalSyntheticLambda10@6fe5249
+10-26 00:48:33:470 requestAudioFocus() from uid/pid 10169/756 AA=USAGE_NOTIFICATION/CONTENT_TYPE_SONIFICATION clientId=android.media.AudioManager@5fc187e callingPack=com.android.systemui req=3 flags=0x0 sdk=34
+10-26 00:48:44:052 requestAudioFocus() from uid/pid 10169/756 AA=USAGE_NOTIFICATION/CONTENT_TYPE_SONIFICATION clientId=android.media.AudioManager@f0e6fe0 callingPack=com.android.systemui req=3 flags=0x0 sdk=34
+10-26 00:48:46:065 requestAudioFocus() from uid/pid 10192/4821 AA=USAGE_ASSISTANCE_NAVIGATION_GUIDANCE/CONTENT_TYPE_SPEECH clientId=android.media.AudioManager@e0422c4cn.hbzjhs.driver.preview.NativeOrderAnnouncer$$ExternalSyntheticLambda10@1f2b5ad callingPack=cn.hbzjhs.dc.driver.cloud req=3 flags=0x0 sdk=34
+10-26 00:48:48:492 abandonAudioFocus() from uid/pid 10169/756 clientId=android.media.AudioManager@f0e6fe0
+10-26 00:48:51:350 abandonAudioFocus() from uid/pid 10169/756 clientId=android.media.AudioManager@94c0920
+10-26 00:48:53:279 abandonAudioFocus() from uid/pid 10192/4821 clientId=android.media.AudioManager@e0422c4cn.hbzjhs.driver.preview.NativeOrderAnnouncer$$ExternalSyntheticLambda10@1f2b5ad
+10-26 00:48:54:026 requestAudioFocus() from uid/pid 10169/756 AA=USAGE_NOTIFICATION/CONTENT_TYPE_SONIFICATION clientId=android.media.AudioManager@b8266bd callingPack=com.android.systemui req=3 flags=0x0 sdk=34
+10-26 00:49:11:404 abandonAudioFocus() from uid/pid 10169/756 clientId=android.media.AudioManager@150fa27
+10-26 00:55:59:871 requestAudioFocus() from uid/pid 10192/4821 AA=USAGE_ASSISTANCE_NAVIGATION_GUIDANCE/CONTENT_TYPE_SPEECH clientId=android.media.AudioManager@e0422c4cn.hbzjhs.driver.preview.NativeOrderAnnouncer$$ExternalSyntheticLambda10@94cd9f7 callingPack=cn.hbzjhs.dc.driver.cloud req=3 flags=0x0 sdk=34
+10-26 00:55:59:934 requestAudioFocus() from uid/pid 10169/756 AA=USAGE_NOTIFICATION/CONTENT_TYPE_UNKNOWN clientId=android.media.AudioManager@66af8ce callingPack=com.android.systemui req=3 flags=0x0 sdk=34
+10-26 00:56:02:340 abandonAudioFocus() from uid/pid 10169/756 clientId=android.media.AudioManager@66af8ce
+10-26 00:56:07:138 abandonAudioFocus() from uid/pid 10192/4821 clientId=android.media.AudioManager@e0422c4cn.hbzjhs.driver.preview.NativeOrderAnnouncer$$ExternalSyntheticLambda10@94cd9f7
+10-26 01:00:00:083 requestAudioFocus() from uid/pid 10169/756 AA=USAGE_NOTIFICATION/CONTENT_TYPE_SONIFICATION clientId=android.media.AudioManager@1319453 callingPack=com.android.systemui req=3 flags=0x0 sdk=34
+10-26 00:49:11:405 releasing player piid:735
+10-26 00:55:59:877 new player piid:743 uid/pid:10192/4821 type:android.media.MediaPlayer attr:AudioAttributes: usage=USAGE_UNKNOWN content=CONTENT_TYPE_UNKNOWN flags=0x800 tags= bundle=null session:737
+10-26 00:55:59:878 player piid:743 new AudioAttributes:AudioAttributes: usage=USAGE_ASSISTANCE_NAVIGATION_GUIDANCE content=CONTENT_TYPE_SPEECH flags=0x800 tags= bundle=null
+10-26 00:56:02:345 releasing player piid:743
+10-26 00:56:02:359 new player piid:759 uid/pid:10192/4821 type:android.media.MediaPlayer attr:AudioAttributes: usage=USAGE_UNKNOWN content=CONTENT_TYPE_UNKNOWN flags=0x800 tags= bundle=null session:753
+10-26 00:56:02:359 player piid:759 new AudioAttributes:AudioAttributes: usage=USAGE_ASSISTANCE_NAVIGATION_GUIDANCE content=CONTENT_TYPE_SPEECH flags=0x800 tags= bundle=null
+10-26 00:56:04:750 releasing player piid:759
+10-26 00:56:04:760 new player piid:767 uid/pid:10192/4821 type:android.media.MediaPlayer attr:AudioAttributes: usage=USAGE_UNKNOWN content=CONTENT_TYPE_UNKNOWN flags=0x800 tags= bundle=null session:761
+10-26 00:56:04:761 player piid:767 new AudioAttributes:AudioAttributes: usage=USAGE_ASSISTANCE_NAVIGATION_GUIDANCE content=CONTENT_TYPE_SPEECH flags=0x800 tags= bundle=null

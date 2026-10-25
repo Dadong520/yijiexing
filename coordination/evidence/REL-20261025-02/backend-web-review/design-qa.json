@@ -1,0 +1,92 @@
+{
+  "task": "REL-20261025-02/backend-web-review",
+  "reviewer": "backend, non-author of Web UI",
+  "webSha": "c10aadfc98b5cc48de70568e6c3a1a9cc9b423ad",
+  "apiProductSha": "8ec8419d30955c216d7e4fe90451584d2a9622cf",
+  "webSourceHashes": {
+    "apps/admin-console/web/admin.js": "ed1aa9670b18acd640fa2f41fa8f6a2aa186d5b6384facf4ea462dcd3e241436",
+    "apps/admin-console/web/admin.css": "6d5be85c66d935f1284b55bd568ade07cd7d8be7a1cf0f5793a49a1c1790dfc5"
+  },
+  "scope": "Chrome UI only; local temporary SQLite fixtures at 127.0.0.1:8808; no live accounts/cloud/ADB/API regression rerun",
+  "result": "PASS_WITH_P2_AND_SCOPE_LIMITS",
+  "viewport": {
+    "width": 1440,
+    "height": 749,
+    "exact1366": "NOT_RUN"
+  },
+  "checks": [
+    {
+      "id": "distance-detail",
+      "status": "PASS_WITH_P2",
+      "actual": "Pending then EXPIRED read; null distance shown as 定位不足，未计算; threshold remains 300 after global publish; evidence rule snapshot accessible. Expired status saved in expired-detail-ax.txt."
+    },
+    {
+      "id": "invalid-input",
+      "status": "PASS",
+      "actual": "0 below min50; 50.5 step mismatch; 5001 above max5000; browser validity false and no save. Native Chrome validation messages were English."
+    },
+    {
+      "id": "draft-not-effective",
+      "status": "PASS",
+      "actual": "Published300/300 remains while saved draft500/600; UI JSON levels equal, actual DOM evidence saved."
+    },
+    {
+      "id": "publish-saved-full-draft",
+      "status": "PASS",
+      "actual": "Modal explicitly states full saved draft may include other changes; unsaved700 not submitted, after reason/checkbox publication reopened national V2 500/600."
+    },
+    {
+      "id": "city-inheritance",
+      "status": "PASS",
+      "actual": "Inherited500/600 fields disabled; unchecked pickup saved550 draft while live500; restored inheritance then saved draft.tripDistance={} via removePaths; city levels unchanged."
+    },
+    {
+      "id": "viewer",
+      "status": "PASS",
+      "actual": "Viewer login, distance/member/region/batch/config edit buttons disabled; viewer can read details."
+    },
+    {
+      "id": "membership-price",
+      "status": "PASS",
+      "actual": "Rendered national/city levels JSON unchanged; city table still199/328 and250/365 after publishing only distance."
+    },
+    {
+      "id": "audit",
+      "status": "PASS_WITH_SCREENSHOT_LIMIT",
+      "actual": "UI rows observed:210 config.draft 00:43:11;211 config.publish00:43:54;212/213 citydraft00:44:50/00:45:04;209 SYSTEM trip.distanceConsent.expired00:40:26. 07 screenshot shows audit page/header, rows below fold."
+    }
+  ],
+  "findings": [
+    {
+      "id": "WEB-P2-01",
+      "severity": "P2",
+      "step": "distance-detail",
+      "issue": "Primary trigger reason displays raw DRIVER_LOCATION_MISSING without Chinese explanation.",
+      "evidence": "02-distance-evidence.png",
+      "reportedTo": "coordinator; author acknowledged and will fix; reviewer did not edit source",
+      "status": "OPEN"
+    }
+  ],
+  "notRun": [
+    "Exact1366 viewport; actual1440×749",
+    "District edit/publish; district choices observed only",
+    "Nonempty distanceConsentHistory rendering; provided fixture has no history",
+    "Screen reader/full keyboard/contrast compliance",
+    "API208, live environment, native/AVD and deployment"
+  ],
+  "fixtureEndState": "National published V2 500/600; Yichang unsubmitted inherited draft tripDistance={}; no membership values changed. QA tab1055271350 closed; Chrome released.",
+  "acceptedScreenshots": [
+    "02-distance-evidence.png",
+    "03-default-rules.png",
+    "04-full-draft-confirm.png",
+    "05-published-500-600.png",
+    "06-city-inherited.png",
+    "08-viewer-readonly.png",
+    "09-expired-confirmation.png"
+  ],
+  "limitedScreenshots": {
+    "01-distance-pending.png": "Top of modal only; does not independently prove pending status",
+    "07-config-audit.png": "Audit header only; row evidence from AX observation"
+  },
+  "initialActions": "AX stale/detached errors recovered using fresh DOM locators; no UI source modifications and no policy bypass"
+}

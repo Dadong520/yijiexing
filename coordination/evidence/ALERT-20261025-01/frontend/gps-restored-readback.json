@@ -1,0 +1,10 @@
+{
+  "at": "2026-10-26T01:21:51.036833+08:00",
+  "positions": {
+    "driver": [],
+    "passenger": [
+      "last location=Location[gps 30.699998,111.299998 hAcc=5.0 et=+24m20s529ms alt=5.0 vAcc=0.5 vel=0.0 sAcc=0.5 bear=0.0 bAcc=30.0 {Bundle[{satellites=0, maxCn0=0, meanCn0=0}]}]",
+      "last location=Location[gps 30.699998,111.299998 hAcc=5.0 et=+24m20s529ms alt=5.0 vAcc=0.5 vel=0.0 sAcc=0.5 bear=0.0 bAcc=30.0 {Bundle[{satellites=0, maxCn0=0, meanCn0=0}]}]"
+    ]
+  }
+}

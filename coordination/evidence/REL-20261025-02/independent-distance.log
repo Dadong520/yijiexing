@@ -1,0 +1,115 @@
+{"coordinatorIndependentScenarios": 5, "run": 5, "failures": 0, "errors": 0, "localOnly": true, "authorDistanceFixturesUsed": false}
+
+test_missing_gps_pending_then_same_consent_cannot_double_advance_or_credit (__main__.IndependentDistance.test_missing_gps_pending_then_same_consent_cannot_double_advance_or_credit) ... [2026-10-26T00:15:30+08:00] POST /api/auth/code 200
+[2026-10-26T00:15:30+08:00] POST /api/auth/login 200
+[2026-10-26T00:15:30+08:00] POST /api/passenger/auth/code 200
+[2026-10-26T00:15:30+08:00] POST /api/passenger/auth/login 200
+[2026-10-26T00:15:30+08:00] POST /api/action 200
+[2026-10-26T00:15:30+08:00] POST /api/passenger/action 200
+[2026-10-26T00:15:30+08:00] POST /api/action 200
+[2026-10-26T00:15:30+08:00] POST /api/action 200
+[2026-10-26T00:15:30+08:00] GET /api/passenger/state 200
+[2026-10-26T00:15:30+08:00] GET /api/state 200
+[2026-10-26T00:15:30+08:00] POST /api/action 200
+[2026-10-26T00:15:30+08:00] GET /api/passenger/state 200
+[2026-10-26T00:15:30+08:00] POST /api/action 200
+[2026-10-26T00:15:30+08:00] POST /api/action 200
+[2026-10-26T00:15:30+08:00] GET /api/passenger/state 200
+[2026-10-26T00:15:30+08:00] POST /api/passenger/auth/code 200
+[2026-10-26T00:15:30+08:00] POST /api/passenger/auth/login 200
+[2026-10-26T00:15:30+08:00] POST /api/passenger/action 404
+[2026-10-26T00:15:30+08:00] POST /api/passenger/action 200
+[2026-10-26T00:15:30+08:00] GET /api/passenger/state 200
+[2026-10-26T00:15:30+08:00] POST /api/passenger/action 200
+[2026-10-26T00:15:30+08:00] GET /api/passenger/state 200
+[2026-10-26T00:15:30+08:00] POST /api/passenger/action 409
+[2026-10-26T00:15:30+08:00] POST /api/action 409
+[2026-10-26T00:15:30+08:00] POST /api/action 200
+[2026-10-26T00:15:30+08:00] GET /api/passenger/state 200
+[2026-10-26T00:15:30+08:00] POST /api/passenger/action 200
+[2026-10-26T00:15:30+08:00] POST /api/passenger/action 200
+[2026-10-26T00:15:30+08:00] GET /api/passenger/state 200
+[2026-10-26T00:15:30+08:00] GET /api/state 200
+[2026-10-26T00:15:30+08:00] POST /api/passenger/action 409
+[2026-10-26T00:15:30+08:00] POST /api/passenger/action 200
+[2026-10-26T00:15:30+08:00] POST /api/action 200
+[2026-10-26T00:15:30+08:00] GET /api/state 200
+[2026-10-26T00:15:30+08:00] POST /api/passenger/action 200
+[2026-10-26T00:15:30+08:00] POST /api/passenger/action 200
+[2026-10-26T00:15:30+08:00] POST /api/passenger/action 200
+[2026-10-26T00:15:30+08:00] GET /api/passenger/state 200
+[2026-10-26T00:15:30+08:00] GET /api/state 200
+ok
+test_below_and_above_300_use_server_coordinates (__main__.IndependentDistance.test_below_and_above_300_use_server_coordinates) ... [2026-10-26T00:15:30+08:00] POST /api/auth/code 200
+[2026-10-26T00:15:30+08:00] POST /api/auth/login 200
+[2026-10-26T00:15:30+08:00] POST /api/passenger/auth/code 200
+[2026-10-26T00:15:30+08:00] POST /api/passenger/auth/login 200
+[2026-10-26T00:15:30+08:00] POST /api/action 200
+[2026-10-26T00:15:30+08:00] POST /api/passenger/action 200
+[2026-10-26T00:15:30+08:00] POST /api/action 200
+[2026-10-26T00:15:30+08:00] POST /api/action 200
+[2026-10-26T00:15:30+08:00] GET /api/passenger/state 200
+[2026-10-26T00:15:30+08:00] POST /api/action 200
+[2026-10-26T00:15:30+08:00] POST /api/passenger/action 200
+[2026-10-26T00:15:30+08:00] POST /api/action 200
+[2026-10-26T00:15:30+08:00] GET /api/passenger/state 200
+[2026-10-26T00:15:30+08:00] POST /api/action 200
+[2026-10-26T00:15:30+08:00] GET /api/passenger/state 200
+ok
+test_301_rejection_preserves_stage_and_bad_tail_cannot_create_request (__main__.IndependentDistance.test_301_rejection_preserves_stage_and_bad_tail_cannot_create_request) ... [2026-10-26T00:15:30+08:00] POST /api/auth/code 200
+[2026-10-26T00:15:30+08:00] POST /api/auth/login 200
+[2026-10-26T00:15:30+08:00] POST /api/passenger/auth/code 200
+[2026-10-26T00:15:30+08:00] POST /api/passenger/auth/login 200
+[2026-10-26T00:15:30+08:00] POST /api/action 200
+[2026-10-26T00:15:30+08:00] POST /api/passenger/action 200
+[2026-10-26T00:15:30+08:00] POST /api/action 200
+[2026-10-26T00:15:30+08:00] POST /api/action 200
+[2026-10-26T00:15:30+08:00] GET /api/passenger/state 200
+[2026-10-26T00:15:30+08:00] POST /api/action 200
+[2026-10-26T00:15:30+08:00] POST /api/passenger/action 200
+[2026-10-26T00:15:30+08:00] POST /api/action 400
+[2026-10-26T00:15:30+08:00] GET /api/passenger/state 200
+[2026-10-26T00:15:30+08:00] POST /api/action 200
+[2026-10-26T00:15:30+08:00] GET /api/passenger/state 200
+[2026-10-26T00:15:30+08:00] POST /api/passenger/action 200
+[2026-10-26T00:15:30+08:00] GET /api/passenger/state 200
+[2026-10-26T00:15:30+08:00] POST /api/passenger/action 409
+ok
+test_stale_location_not_accepted_and_future_or_invalid_rejected (__main__.IndependentDistance.test_stale_location_not_accepted_and_future_or_invalid_rejected) ... [2026-10-26T00:15:30+08:00] POST /api/auth/code 200
+[2026-10-26T00:15:30+08:00] POST /api/auth/login 200
+[2026-10-26T00:15:31+08:00] POST /api/passenger/auth/code 200
+[2026-10-26T00:15:31+08:00] POST /api/passenger/auth/login 200
+[2026-10-26T00:15:31+08:00] POST /api/action 200
+[2026-10-26T00:15:31+08:00] POST /api/passenger/action 200
+[2026-10-26T00:15:31+08:00] POST /api/action 200
+[2026-10-26T00:15:31+08:00] POST /api/action 200
+[2026-10-26T00:15:31+08:00] GET /api/passenger/state 200
+[2026-10-26T00:15:31+08:00] POST /api/action 200
+[2026-10-26T00:15:31+08:00] POST /api/passenger/action 200
+[2026-10-26T00:15:31+08:00] POST /api/action 200
+[2026-10-26T00:15:31+08:00] POST /api/action 200
+[2026-10-26T00:15:31+08:00] GET /api/passenger/state 200
+[2026-10-26T00:15:31+08:00] GET /api/passenger/state 200
+[2026-10-26T00:15:31+08:00] POST /api/action 400
+[2026-10-26T00:15:31+08:00] POST /api/passenger/action 400
+ok
+test_cancel_invalidates_pending_consent (__main__.IndependentDistance.test_cancel_invalidates_pending_consent) ... [2026-10-26T00:15:31+08:00] POST /api/auth/code 200
+[2026-10-26T00:15:31+08:00] POST /api/auth/login 200
+[2026-10-26T00:15:31+08:00] POST /api/passenger/auth/code 200
+[2026-10-26T00:15:31+08:00] POST /api/passenger/auth/login 200
+[2026-10-26T00:15:31+08:00] POST /api/action 200
+[2026-10-26T00:15:31+08:00] POST /api/passenger/action 200
+[2026-10-26T00:15:31+08:00] POST /api/action 200
+[2026-10-26T00:15:31+08:00] POST /api/action 200
+[2026-10-26T00:15:31+08:00] GET /api/passenger/state 200
+[2026-10-26T00:15:31+08:00] POST /api/action 200
+[2026-10-26T00:15:31+08:00] GET /api/passenger/state 200
+[2026-10-26T00:15:31+08:00] POST /api/passenger/action 200
+[2026-10-26T00:15:31+08:00] POST /api/passenger/action 409
+[2026-10-26T00:15:31+08:00] GET /api/passenger/state 200
+ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.990s
+
+OK

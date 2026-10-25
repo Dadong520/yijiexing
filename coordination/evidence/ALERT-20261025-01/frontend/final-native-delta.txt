@@ -1,0 +1,50 @@
+diff --git a/candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/DriverLocationService.kt b/candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/DriverLocationService.kt
+index ffb7656..ed4e688 100644
+--- a/candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/DriverLocationService.kt
++++ b/candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/DriverLocationService.kt
+@@ -202,9 +202,8 @@ class DriverLocationService : Service(), LocationListener {
+         )
+         manager = getSystemService(LocationManager::class.java)
+         if (LocalApi.token.isBlank()) LocalApi.token = SessionVault(this).load()
+-        if (LocalApi.demoAccess.isBlank()) LocalApi.demoAccess = DemoAccessVault(this).load()
+         if (
+-            LocalApi.token.isBlank() || LocalApi.demoAccess.isBlank() || LocalApi.baseUrl.isBlank()
++            LocalApi.token.isBlank() ||  LocalApi.baseUrl.isBlank()
+         ) {
+             PositionBus.mutableStatus.value = "请先完成云端连接设置并登录"
+             stopSelf()
+diff --git a/candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/MainActivity.kt b/candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/MainActivity.kt
+index fe6f2bc..9a8f5a0 100644
+--- a/candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/MainActivity.kt
++++ b/candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/MainActivity.kt
+@@ -92,6 +92,7 @@ private fun ConnectedApp(store: ConnectedStore, state: DriverState) {
+     var cancelOther by rememberSaveable { mutableStateOf("") }
+     var wantsOnline by remember { mutableStateOf(false) }
+     var showPermissionGuide by rememberSaveable { mutableStateOf(false) }
++    var pendingFloatingEnable by rememberSaveable { mutableStateOf(false) }
+     val requestedAlertOrder by NewOrderAlerts.openRequested.collectAsState()
+     val holder = rememberSaveableStateHolder()
+     val snackbar = remember { SnackbarHostState() }
+@@ -228,9 +229,20 @@ private fun ConnectedApp(store: ConnectedStore, state: DriverState) {
+     }
+     BackHandler(state.loggedIn && stack.size > 1) { back() }
+     val guideShowing = DriverPermissions(showPermissionGuide, { showPermissionGuide = false }) {
+-        if (state.loggedIn && payload.optJSONObject("features")?.optBoolean("canFloating") == true)
++        if (!state.loggedIn || !connected || loading) {
++            pendingFloatingEnable = true
++            message("已记录开启意愿，登录后会核对权益并开启应用浮窗提醒")
++        } else if (payload.optJSONObject("features")?.optBoolean("canFloating") == true)
+             store.perform("settings.update", JSONObject().put("floating", true))
+-        else message("请登录并确认当前城市/等级已开放浮窗提醒，再开启应用浮窗")
++        else message("当前城市或等级未开放浮窗提醒，已保留系统通知和应用内新单提示")
++    }
++    LaunchedEffect(pendingFloatingEnable, state.loggedIn, connected, loading) {
++        if (pendingFloatingEnable && state.loggedIn && connected && !loading) {
++            pendingFloatingEnable = false
++            if (payload.optJSONObject("features")?.optBoolean("canFloating") == true && android.provider.Settings.canDrawOverlays(context))
++                store.perform("settings.update", JSONObject().put("floating", true))
++            else message("浮窗尚未启用，请在权限与提醒检查中核对系统授权和当前权益")
++        }
+     }
+     LaunchedEffect(requestedAlertOrder, state.loggedIn) {
+         val id = requestedAlertOrder

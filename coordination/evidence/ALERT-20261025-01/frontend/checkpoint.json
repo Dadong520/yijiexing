@@ -1,0 +1,35 @@
+{
+  "at": "2026-10-26T01:07:39.475891+08:00",
+  "finalNativeSource": "10b0c9381e4f1c559955806a4984a096907a5aff",
+  "driverHash": "ac320e0f335e8bc017f1fedca133ee024fdbe0a4227d600f26e2cff87d8afa89",
+  "passengerHash": "e8a64c17db746c1bbcbf5f0a49165111889902d2a9d3d0322eee7e43eacd946b",
+  "devicesRunning": [
+    "emulator-5586",
+    "emulator-5584"
+  ],
+  "originalDevicesClosed": true,
+  "deadline": "2026-10-26T01:18:00+08:00",
+  "permissions": "driver baseline fine/coarse/notifications true overlay false; passenger baseline fine/coarse false; now passenger system UI granted after deny+reask; driver overlay via system UI granted",
+  "settings": "driver floating baseline false -> explicitly true via App; voice true unchanged",
+  "orders": [
+    {
+      "id": "PORDa5be6365d8b1",
+      "purpose": "foreground alert",
+      "finalStage": "CANCELLED",
+      "paid": false
+    }
+  ],
+  "observed": "final driver real new-order Dialog; service foreground true; new-orders-v2 high/sound/vibrate/no bypassDnd; small bubble retained background screenshot13",
+  "notYet": "background new card and same-order distance, await root API ready; no GPS injection performed, baseline system last-location empty",
+  "next": "driverGPSsystemUIoff since driver-location-off.json; waitUntilEpoch +132s -> dropoff stale unknown. Passenger restoring denied location via systemUI. Then approve dropoff, WAIT_PAY unpaid29.26, repeat/blockednewcall/driverunblocked, cleanup baseline+normalclose2AVD.",
+  "reportDeadline": "2026-10-26T01:25:00+08:00",
+  "apiRevision": "driver-demo-distance-8ec8419d",
+  "sameOrder": "PORDf4f910a233dc",
+  "currentStage": "TRIP, both native UI observed",
+  "pickupDistanceMeters": 11062,
+  "thresholdMeters": 300,
+  "pickupFlow": "ARRIVED correct0102 -> PENDING same stage -> passenger REJECTED still ARRIVED -> correct0102 reapply -> passenger confirmation APPROVED -> TRIP",
+  "background": "Large card screenshot18+20 PASS; card View actual21 shows stillAVAILABLE/unpaid29.26; smallbubble preserved. Earlier16/17 missed20s autoHide and are not positive card evidence.",
+  "audio": "UID10192 MediaPlayer started/stopped logs + channelURI/high/no bypassDnd; no audio capture/no subjective hearing claim",
+  "postFreezeWorkingTree": "3 driver files root unbuilt changes; recorded post-freeze-unbuilt-delta. Actual acceptance remains fixedAPK10b until new SHA/package supplied"
+}

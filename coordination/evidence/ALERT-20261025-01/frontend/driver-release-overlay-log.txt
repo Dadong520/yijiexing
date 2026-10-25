@@ -1,0 +1,5 @@
+--------- beginning of main
+10-26 01:17:43.348  7902  7902 I YJXOrderOverlay: shown:YC1003
+10-26 01:18:26.200  7902  7902 I YJXOrderOverlay: shown:YC1003
+10-26 01:18:27.582  7902  7902 I YJXOrderOverlay: shown:PORD00d6844fa2c3
+10-26 01:18:48.058  7902  7902 I YJXOrderOverlay: shown:YC1003
