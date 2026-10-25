@@ -405,7 +405,7 @@ fun ConnectedHome(
     var toolsExpanded by remember { mutableStateOf(false) }
 
     BoxWithConstraints(Modifier.fillMaxSize().background(Page)) {
-        val mapHeight = (maxHeight * 0.42f).coerceAtLeast(200.dp)
+        val mapHeight = minOf(maxHeight * 0.36f, maxHeight - 500.dp).coerceAtLeast(200.dp)
         Column(Modifier.fillMaxSize()) {
             Box(Modifier.fillMaxWidth().height(mapHeight)) {
                 NativeMap(Modifier.fillMaxSize(), order = active)

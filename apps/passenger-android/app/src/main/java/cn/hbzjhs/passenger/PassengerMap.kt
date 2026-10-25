@@ -10,6 +10,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.unit.dp
@@ -42,6 +43,11 @@ fun PassengerMap(
   modifier: Modifier = Modifier,
 ) {
   val context = LocalContext.current
+  val density = LocalDensity.current
+  // MapLibre camera padding is physical pixels; reserve space for the map overlays.
+  val fitPadding = with(density) {
+    intArrayOf(24.dp.roundToPx(), 72.dp.roundToPx(), 76.dp.roundToPx(), 72.dp.roundToPx())
+  }
   val owner = LocalLifecycleOwner.current
   var retry by remember { mutableIntStateOf(0) }
   var map by remember(retry) { mutableStateOf<MapLibreMap?>(null) }
@@ -105,7 +111,7 @@ fun PassengerMap(
     delay(18000)
     if (!ready) failed = true
   }
-  LaunchedEffect(ready, originLat, originLng, destinationLat, destinationLng, recenter) {
+  LaunchedEffect(ready, originLat, originLng, destinationLat, destinationLng, recenter, density.density) {
     val m = map ?: return@LaunchedEffect
     if (!ready) return@LaunchedEffect
     listOf("pickup" to origin, "dropoff" to destination).forEach { (id,p) ->
@@ -114,7 +120,10 @@ fun PassengerMap(
     }
     val points = listOfNotNull(origin,destination)
     if (points.size == 2 && points[0].distanceTo(points[1]) > 80) {
-      m.animateCamera(CameraUpdateFactory.newLatLngBounds(LatLngBounds.Builder().includes(points).build(),64))
+      m.animateCamera(CameraUpdateFactory.newLatLngBounds(
+        LatLngBounds.Builder().includes(points).build(),
+        fitPadding[0], fitPadding[1], fitPadding[2], fitPadding[3],
+      ))
     } else points.firstOrNull()?.let { m.animateCamera(CameraUpdateFactory.newLatLngZoom(it,14.0)) }
   }
   Box(modifier.background(Color(0xFFE9F3EF))) {
