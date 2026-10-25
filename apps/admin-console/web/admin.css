@@ -232,6 +232,7 @@ aside {
 }
 
 aside .brand {
+  flex-shrink: 0;
   height: 60px;
   padding: 0 20px;
   display: flex;
@@ -256,7 +257,8 @@ aside .brand b {
 }
 
 nav#nav {
-  flex: 1;
+  flex: 1 1 auto;
+  min-height: 0;
   padding: 14px 10px;
   overflow-y: auto;
   display: flex;
@@ -269,6 +271,7 @@ nav#nav a {
   all: unset;
   display: flex;
   align-items: center;
+  flex-shrink: 0;
   height: 40px;
   padding: 0 12px;
   border-radius: 6px;
@@ -278,6 +281,12 @@ nav#nav a {
   cursor: pointer;
   box-sizing: border-box;
   transition: color 0.15s ease, background 0.15s ease;
+}
+
+nav#nav button:focus-visible,
+nav#nav a:focus-visible {
+  outline: 2px solid var(--teal-primary);
+  outline-offset: 1px;
 }
 
 nav#nav button:hover,
@@ -296,10 +305,14 @@ nav#nav a[aria-current="page"] {
 }
 
 aside .asidefoot {
+  position: static;
+  left: auto;
+  bottom: auto;
+  flex-shrink: 0;
   padding: 14px 16px;
   border-top: 1px solid rgba(255, 255, 255, 0.08);
   font-size: 13px;
-  color: #64748b;
+  color: #94a3b8;
 }
 
 .workspace {
@@ -537,4 +550,4 @@ aside .asidefoot {
   }
 }
 
-.loginbox .error:empty{display:none}.nav-icon svg{width:19px;height:19px;display:block}.nav-icon{display:inline-flex;width:26px;flex:none}.nav-section{padding:16px 12px 8px;color:#b8d4c9;font-size:11px;letter-spacing:.08em} .record-text{white-space:pre-wrap;overflow-wrap:anywhere}
+.loginbox .error:empty{display:none}.nav-icon svg{width:19px;height:19px;display:block}.nav-icon{display:inline-flex;width:26px;flex:none}.nav-section{flex-shrink:0;padding:16px 12px 8px;color:#b8d4c9;font-size:11px;letter-spacing:.08em} .record-text{white-space:pre-wrap;overflow-wrap:anywhere}
