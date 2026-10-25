@@ -1,0 +1,62 @@
+test_filtered_http_query_export_cold_reload_and_failure_recovery (test_admin_queries.AdminQueryHttp.test_filtered_http_query_export_cold_reload_and_failure_recovery) ... [2026-10-25T21:02:45+08:00] POST /api/local/admin/v2/login 200
+[2026-10-25T21:02:45+08:00] GET /api/local/admin/v2/query 200
+[2026-10-25T21:02:45+08:00] GET /api/local/admin/v2/export 200
+[2026-10-25T21:02:45+08:00] GET /api/local/admin/v2/query 200
+[2026-10-25T21:02:45+08:00] cloud persistence unavailable: SnapshotUnavailable
+[2026-10-25T21:02:45+08:00] GET /api/local/admin/v2/query 503
+[2026-10-25T21:02:45+08:00] GET /api/local/admin/v2/query 200
+[2026-10-25T21:02:45+08:00] GET /api/local/admin/v2/query 200
+ok
+test_query_auth_session_role_and_public_driver_boundaries (test_admin_queries.AdminQueryHttp.test_query_auth_session_role_and_public_driver_boundaries) ... [2026-10-25T21:02:45+08:00] GET /api/local/admin/v2/query 401
+[2026-10-25T21:02:45+08:00] POST /api/local/admin/v2/login 200
+[2026-10-25T21:02:45+08:00] GET /api/local/admin/v2/query 401
+[2026-10-25T21:02:45+08:00] GET /api/local/admin/v2/query 404
+[2026-10-25T21:02:45+08:00] GET /api/local/admin/v2/query 200
+[2026-10-25T21:02:45+08:00] POST /api/local/admin/v2/action 200
+[2026-10-25T21:02:45+08:00] POST /api/local/admin/v2/login 200
+[2026-10-25T21:02:45+08:00] GET /api/local/admin/v2/query 200
+[2026-10-25T21:02:45+08:00] GET /api/local/admin/v2/export 403
+[2026-10-25T21:02:45+08:00] GET /api/local/admin/v2/query 200
+[2026-10-25T21:02:45+08:00] GET /api/local/admin/v2/export 403
+[2026-10-25T21:02:45+08:00] GET /api/local/admin/v2/query 200
+[2026-10-25T21:02:45+08:00] GET /api/local/admin/v2/export 403
+[2026-10-25T21:02:45+08:00] GET /api/local/admin/v2/query 200
+[2026-10-25T21:02:45+08:00] GET /api/local/admin/v2/export 403
+[2026-10-25T21:02:45+08:00] GET /api/local/admin/v2/query 200
+[2026-10-25T21:02:45+08:00] GET /api/local/admin/v2/export 403
+[2026-10-25T21:02:45+08:00] GET /api/local/admin/v2/query 200
+[2026-10-25T21:02:45+08:00] GET /api/local/admin/v2/export 403
+[2026-10-25T21:02:45+08:00] GET /api/local/admin/v2/query 200
+[2026-10-25T21:02:45+08:00] GET /api/local/admin/v2/export 403
+[2026-10-25T21:02:45+08:00] GET /api/local/admin/v2/query 200
+[2026-10-25T21:02:45+08:00] GET /api/local/admin/v2/export 403
+[2026-10-25T21:02:45+08:00] GET /api/local/admin/v2/query 200
+[2026-10-25T21:02:45+08:00] GET /api/local/admin/v2/export 403
+[2026-10-25T21:02:45+08:00] GET /api/local/admin/v2/query 400
+[2026-10-25T21:02:45+08:00] GET /api/local/admin/v2/query 400
+[2026-10-25T21:02:45+08:00] GET /api/local/admin/v2/query 400
+[2026-10-25T21:02:45+08:00] GET /api/local/admin/v2/query 400
+[2026-10-25T21:02:45+08:00] GET /api/local/admin/v2/query 400
+[2026-10-25T21:02:45+08:00] GET /api/local/admin/v2/export 400
+ok
+test_account_filters_persistent_and_date_explicitly_unsupported (test_admin_queries.AdminQueryProjection.test_account_filters_persistent_and_date_explicitly_unsupported) ... ok
+test_audit_query_reads_beyond_old_state_200_limit (test_admin_queries.AdminQueryProjection.test_audit_query_reads_beyond_old_state_200_limit) ... ok
+test_cancellation_report_current_scope_and_missing_event_date (test_admin_queries.AdminQueryProjection.test_cancellation_report_current_scope_and_missing_event_date) ... ok
+test_combined_order_filters_join_persistent_accounts (test_admin_queries.AdminQueryProjection.test_combined_order_filters_join_persistent_accounts) ... ok
+test_csv_exact_selection_all_pages_and_formula_protection (test_admin_queries.AdminQueryProjection.test_csv_exact_selection_all_pages_and_formula_protection) ... ok
+test_equal_refund_rounds_all_counted_and_event_dates_used (test_admin_queries.AdminQueryProjection.test_equal_refund_rounds_all_counted_and_event_dates_used) ... ok
+test_invalid_query_inputs_rejected (test_admin_queries.AdminQueryProjection.test_invalid_query_inputs_rejected) ... ok
+test_missing_old_fields_not_fabricated_and_unknown_dates_visible (test_admin_queries.AdminQueryProjection.test_missing_old_fields_not_fabricated_and_unknown_dates_visible) ... ok
+test_pagination_stable_ties_and_summary_before_slice (test_admin_queries.AdminQueryProjection.test_pagination_stable_ties_and_summary_before_slice) ... ok
+test_payments_order_refund_and_withdrawal_filters_and_separate_totals (test_admin_queries.AdminQueryProjection.test_payments_order_refund_and_withdrawal_filters_and_separate_totals) ... ok
+test_permissions_and_related_account_fields (test_admin_queries.AdminQueryProjection.test_permissions_and_related_account_fields) ... ok
+test_query_projection_does_not_write_domain_rows (test_admin_queries.AdminQueryProjection.test_query_projection_does_not_write_domain_rows) ... ok
+test_statistics_cohorts_and_summary_not_page_or_duplicate_refunds (test_admin_queries.AdminQueryProjection.test_statistics_cohorts_and_summary_not_page_or_duplicate_refunds) ... ok
+test_support_all_sources_and_real_account_join (test_admin_queries.AdminQueryProjection.test_support_all_sources_and_real_account_join) ... ok
+test_unsupported_original_fields_disabled_and_nonempty_rejected (test_admin_queries.AdminQueryProjection.test_unsupported_original_fields_disabled_and_nonempty_rejected) ... ok
+test_utc8_inclusive_calendar_days_are_closed_open_instants (test_admin_queries.AdminQueryProjection.test_utc8_inclusive_calendar_days_are_closed_open_instants) ... ok
+
+----------------------------------------------------------------------
+Ran 18 tests in 0.445s
+
+OK

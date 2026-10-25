@@ -1,0 +1,1384 @@
+{
+  "notice": "Only local synthetic fixture data; nested fields omitted from examples. Not a live environment readback.",
+  "examples": {
+    "orders": {
+      "dataset": "orders",
+      "items": [
+        {
+          "id": "E",
+          "passengerId": "P2",
+          "driverId": "D2",
+          "stage": "AVAILABLE",
+          "kind": "RESERVED",
+          "fare": 900,
+          "paid": false,
+          "paymentStatus": "UNPAID",
+          "paymentMode": "SIMULATED",
+          "origin": "宜昌站",
+          "destination": "商场",
+          "city": "420100",
+          "createdAt": "2026-10-24T16:00:00+00:00",
+          "updatedAt": "2026-10-25T18:00:00+08:00",
+          "fareSource": "EXPERIENCE_ESTIMATE",
+          "evaluation": null,
+          "shared": true,
+          "fareVersion": 0,
+          "passengerMobile": "13800000102",
+          "passengerName": "乘客P2",
+          "driverMobile": "13800000002",
+          "driverName": "李司机",
+          "plate": "鄂A·B1002",
+          "vehicleType": "舒适型",
+          "orderId": "E",
+          "cancellationType": null,
+          "cancelledAt": null
+        }
+      ],
+      "total": 7,
+      "page": 1,
+      "pageSize": 1,
+      "schema": [
+        {
+          "name": "search",
+          "label": "搜索",
+          "type": "text",
+          "availability": "AVAILABLE"
+        },
+        {
+          "name": "startDate",
+          "label": "开始日期",
+          "type": "date",
+          "availability": "AVAILABLE"
+        },
+        {
+          "name": "endDate",
+          "label": "结束日期",
+          "type": "date",
+          "availability": "AVAILABLE"
+        },
+        {
+          "name": "kind",
+          "label": "订单类型",
+          "type": "select",
+          "availability": "AVAILABLE"
+        },
+        {
+          "name": "fareSource",
+          "label": "费用来源",
+          "type": "select",
+          "availability": "AVAILABLE"
+        },
+        {
+          "name": "passengerMobile",
+          "label": "乘客账号电话",
+          "type": "text",
+          "availability": "AVAILABLE"
+        },
+        {
+          "name": "driverId",
+          "label": "驾驶员账号",
+          "type": "text",
+          "availability": "AVAILABLE"
+        },
+        {
+          "name": "driverName",
+          "label": "驾驶员姓名",
+          "type": "text",
+          "availability": "AVAILABLE"
+        },
+        {
+          "name": "driverMobile",
+          "label": "驾驶员电话",
+          "type": "text",
+          "availability": "AVAILABLE"
+        },
+        {
+          "name": "stage",
+          "label": "订单状态",
+          "type": "select",
+          "availability": "AVAILABLE"
+        },
+        {
+          "name": "cancellationType",
+          "label": "取消参与方",
+          "type": "select",
+          "availability": "AVAILABLE"
+        },
+        {
+          "name": "plate",
+          "label": "车辆号牌",
+          "type": "text",
+          "availability": "AVAILABLE"
+        },
+        {
+          "name": "orderId",
+          "label": "订单编号",
+          "type": "text",
+          "availability": "AVAILABLE"
+        },
+        {
+          "name": "city",
+          "label": "行政区划",
+          "type": "select",
+          "availability": "AVAILABLE"
+        },
+        {
+          "name": "billingMode",
+          "label": "计费模式",
+          "type": "text",
+          "availability": "NOT_IMPLEMENTED",
+          "reason": "原后台线上/线下计费模式未在共享订单持久保存，费用来源不等于计费模式。"
+        },
+        {
+          "name": "company",
+          "label": "所属公司",
+          "type": "text",
+          "availability": "NOT_IMPLEMENTED",
+          "reason": "共享订单没有权威公司ID或归属；演示司机organization不作为公司维度。"
+        },
+        {
+          "name": "assigned",
+          "label": "是否指派",
+          "type": "text",
+          "availability": "NOT_IMPLEMENTED",
+          "reason": "未实现后台指派业务，driverId不等于是否指派。"
+        }
+      ],
+      "options": {
+        "kind": [
+          {
+            "value": "BID",
+            "label": "司机报价"
+          },
+          {
+            "value": "NEGOTIATED",
+            "label": "议价用车"
+          },
+          {
+            "value": "RESERVED",
+            "label": "预约用车"
+          },
+          {
+            "value": "STANDARD",
+            "label": "即时用车"
+          }
+        ],
+        "fareSource": [
+          {
+            "value": "EXPERIENCE_ESTIMATE",
+            "label": "EXPERIENCE_ESTIMATE"
+          }
+        ],
+        "stage": [
+          {
+            "value": "ARRIVED",
+            "label": "司机已到达"
+          },
+          {
+            "value": "AVAILABLE",
+            "label": "待接单"
+          },
+          {
+            "value": "CANCELLED",
+            "label": "已取消"
+          },
+          {
+            "value": "DONE",
+            "label": "已完成"
+          },
+          {
+            "value": "PICKUP",
+            "label": "接驾中"
+          },
+          {
+            "value": "PREPAY",
+            "label": "待预付（模拟）"
+          },
+          {
+            "value": "RESERVED",
+            "label": "预约待接驾"
+          },
+          {
+            "value": "TRIP",
+            "label": "行程中"
+          },
+          {
+            "value": "WAIT_CONTINUE",
+            "label": "司机取消·待乘客续叫"
+          },
+          {
+            "value": "WAIT_PAY",
+            "label": "待支付（模拟）"
+          }
+        ],
+        "cancellationType": [
+          {
+            "value": "ADMIN",
+            "label": "后台取消"
+          },
+          {
+            "value": "DRIVER",
+            "label": "司机取消"
+          },
+          {
+            "value": "PASSENGER",
+            "label": "乘客取消"
+          }
+        ],
+        "city": [
+          {
+            "value": "420100",
+            "label": "武汉市"
+          },
+          {
+            "value": "420500",
+            "label": "宜昌市"
+          }
+        ]
+      },
+      "summary": {
+        "orderCount": 7,
+        "completedCount": 2,
+        "cancelledCount": 1,
+        "activeCount": 4,
+        "paidFare": 2900,
+        "refundAmount": 2700,
+        "rowCount": 7,
+        "missingDateCount": 2
+      },
+      "definition": "共享passenger_orders权威记录；排除司机私有演示订单。金额为整数分。paidFare仅为DONE且仍paid订单的fare，不是历史收款或清分收入；refundAmount为历史每轮退款与当前退款之和，等额同刻也不去重。所有支付、退款、提现为模拟；未接真实收单、银行打款或公司清分。不提供电话叫车、后台指派、超时/有责取消的虚构对应。",
+      "dateField": "createdAt",
+      "timezone": "UTC+08:00",
+      "dateRange": {
+        "startInclusive": null,
+        "endExclusive": null
+      }
+    },
+    "drivers": {
+      "dataset": "drivers",
+      "items": [
+        {
+          "id": "D1",
+          "mobile": "13800000001",
+          "name": "张司机",
+          "city": "420500",
+          "currentLevel": "TRIAL",
+          "online": false,
+          "balance": 36800,
+          "subscription": null,
+          "driverId": "D1",
+          "plate": "鄂E·A1001",
+          "vehicleType": "舒适型",
+          "certificateStatus": "APPROVED"
+        }
+      ],
+      "total": 2,
+      "page": 1,
+      "pageSize": 1,
+      "schema": [
+        {
+          "name": "search",
+          "label": "搜索",
+          "type": "text",
+          "availability": "AVAILABLE"
+        },
+        {
+          "name": "startDate",
+          "label": "开始日期",
+          "type": "date",
+          "availability": "NOT_IMPLEMENTED",
+          "reason": "旧账号表没有持久登记时间，无法提供注册日期筛选。"
+        },
+        {
+          "name": "endDate",
+          "label": "结束日期",
+          "type": "date",
+          "availability": "NOT_IMPLEMENTED",
+          "reason": "旧账号表没有持久登记时间，无法提供注册日期筛选。"
+        },
+        {
+          "name": "driverId",
+          "label": "司机账号",
+          "type": "text",
+          "availability": "AVAILABLE"
+        },
+        {
+          "name": "mobile",
+          "label": "司机电话",
+          "type": "text",
+          "availability": "AVAILABLE"
+        },
+        {
+          "name": "city",
+          "label": "行政区划",
+          "type": "select",
+          "availability": "AVAILABLE"
+        },
+        {
+          "name": "currentLevel",
+          "label": "司机等级",
+          "type": "select",
+          "availability": "AVAILABLE"
+        },
+        {
+          "name": "certificateStatus",
+          "label": "资质状态",
+          "type": "select",
+          "availability": "AVAILABLE"
+        },
+        {
+          "name": "vehicleType",
+          "label": "车型",
+          "type": "select",
+          "availability": "AVAILABLE"
+        },
+        {
+          "name": "plate",
+          "label": "车牌",
+          "type": "text",
+          "availability": "AVAILABLE"
+        }
+      ],
+      "options": {
+        "city": [
+          {
+            "value": "420100",
+            "label": "武汉市"
+          },
+          {
+            "value": "420500",
+            "label": "宜昌市"
+          }
+        ],
+        "currentLevel": [
+          {
+            "value": "NORMAL",
+            "label": "普通权益"
+          },
+          {
+            "value": "TRIAL",
+            "label": "体验权益"
+          },
+          {
+            "value": "VIP",
+            "label": "VIP权益"
+          }
+        ],
+        "certificateStatus": [
+          {
+            "value": "APPROVED",
+            "label": "资质通过"
+          },
+          {
+            "value": "PENDING",
+            "label": "资质待审核"
+          },
+          {
+            "value": "REJECTED",
+            "label": "资质驳回"
+          }
+        ],
+        "vehicleType": [
+          {
+            "value": "舒适型",
+            "label": "舒适型"
+          }
+        ]
+      },
+      "summary": {
+        "rowCount": 2,
+        "missingDateCount": 0
+      },
+      "definition": "实际accounts账号及持久profile，不使用城市预置司机数量；无登记日期。所有支付、退款、提现为模拟；未接真实收单、银行打款或公司清分。不提供电话叫车、后台指派、超时/有责取消的虚构对应。",
+      "dateField": null,
+      "timezone": "UTC+08:00",
+      "dateRange": {
+        "startInclusive": null,
+        "endExclusive": null
+      }
+    },
+    "passengers": {
+      "dataset": "passengers",
+      "items": [
+        {
+          "id": "P1",
+          "mobile": "13800000101",
+          "name": "乘客P1",
+          "city": "420500",
+          "passengerId": "P1"
+        }
+      ],
+      "total": 2,
+      "page": 1,
+      "pageSize": 1,
+      "schema": [
+        {
+          "name": "search",
+          "label": "搜索",
+          "type": "text",
+          "availability": "AVAILABLE"
+        },
+        {
+          "name": "startDate",
+          "label": "开始日期",
+          "type": "date",
+          "availability": "NOT_IMPLEMENTED",
+          "reason": "旧账号表没有持久登记时间，无法提供注册日期筛选。"
+        },
+        {
+          "name": "endDate",
+          "label": "结束日期",
+          "type": "date",
+          "availability": "NOT_IMPLEMENTED",
+          "reason": "旧账号表没有持久登记时间，无法提供注册日期筛选。"
+        },
+        {
+          "name": "passengerId",
+          "label": "乘客账号",
+          "type": "text",
+          "availability": "AVAILABLE"
+        },
+        {
+          "name": "mobile",
+          "label": "账号电话",
+          "type": "text",
+          "availability": "AVAILABLE"
+        },
+        {
+          "name": "city",
+          "label": "行政区划",
+          "type": "select",
+          "availability": "AVAILABLE"
+        }
+      ],
+      "options": {
+        "city": [
+          {
+            "value": "420100",
+            "label": "武汉市"
+          },
+          {
+            "value": "420500",
+            "label": "宜昌市"
+          }
+        ]
+      },
+      "summary": {
+        "rowCount": 2,
+        "missingDateCount": 0
+      },
+      "definition": "实际passengers账号及持久profile，不从掩码还原手机号；无登记日期。所有支付、退款、提现为模拟；未接真实收单、银行打款或公司清分。不提供电话叫车、后台指派、超时/有责取消的虚构对应。",
+      "dateField": null,
+      "timezone": "UTC+08:00",
+      "dateRange": {
+        "startInclusive": null,
+        "endExclusive": null
+      }
+    },
+    "payments": {
+      "dataset": "payments",
+      "items": [
+        {
+          "id": "WITHDRAWAL:D1:W2",
+          "amount": 400,
+          "status": "SANDBOX_APPROVED",
+          "createdAt": "2026-10-25T12:00:00+08:00",
+          "sandbox": true,
+          "withdrawalId": "W2",
+          "recordType": "WITHDRAWAL",
+          "accountId": "D1",
+          "driverId": "D1",
+          "withdrawalStatus": "SANDBOX_APPROVED",
+          "paymentMode": "SIMULATED"
+        }
+      ],
+      "total": 9,
+      "page": 1,
+      "pageSize": 1,
+      "schema": [
+        {
+          "name": "search",
+          "label": "搜索",
+          "type": "text",
+          "availability": "AVAILABLE"
+        },
+        {
+          "name": "startDate",
+          "label": "开始日期",
+          "type": "date",
+          "availability": "AVAILABLE"
+        },
+        {
+          "name": "endDate",
+          "label": "结束日期",
+          "type": "date",
+          "availability": "AVAILABLE"
+        },
+        {
+          "name": "recordType",
+          "label": "记录类型",
+          "type": "select",
+          "availability": "AVAILABLE"
+        },
+        {
+          "name": "paymentStatus",
+          "label": "订单支付状态",
+          "type": "select",
+          "availability": "AVAILABLE"
+        },
+        {
+          "name": "refundStatus",
+          "label": "订单退款状态",
+          "type": "select",
+          "availability": "AVAILABLE"
+        },
+        {
+          "name": "withdrawalStatus",
+          "label": "提现状态",
+          "type": "select",
+          "availability": "AVAILABLE"
+        },
+        {
+          "name": "orderId",
+          "label": "订单编号",
+          "type": "text",
+          "availability": "AVAILABLE"
+        },
+        {
+          "name": "accountId",
+          "label": "账号",
+          "type": "text",
+          "availability": "AVAILABLE"
+        }
+      ],
+      "options": {
+        "recordType": [
+          {
+            "value": "ORDER",
+            "label": "订单支付状态"
+          },
+          {
+            "value": "WITHDRAWAL",
+            "label": "模拟提现申请"
+          }
+        ],
+        "paymentStatus": [
+          {
+            "value": "CANCELLED",
+            "label": "支付已取消"
+          },
+          {
+            "value": "FAILED",
+            "label": "模拟支付失败"
+          },
+          {
+            "value": "PROCESSING",
+            "label": "模拟支付处理中"
+          },
+          {
+            "value": "REFUNDED",
+            "label": "已模拟退款"
+          },
+          {
+            "value": "SUCCESS",
+            "label": "模拟支付成功"
+          },
+          {
+            "value": "UNPAID",
+            "label": "未支付"
+          }
+        ],
+        "refundStatus": [
+          {
+            "value": "HAS_REFUND",
+            "label": "存在模拟退款"
+          },
+          {
+            "value": "NONE",
+            "label": "无退款"
+          }
+        ],
+        "withdrawalStatus": [
+          {
+            "value": "PENDING",
+            "label": "待审核"
+          },
+          {
+            "value": "REJECTED",
+            "label": "已驳回"
+          },
+          {
+            "value": "SANDBOX_APPROVED",
+            "label": "模拟审核通过·未银行打款"
+          }
+        ]
+      },
+      "summary": {
+        "orderCount": 7,
+        "withdrawalCount": 2,
+        "orderFare": 7400,
+        "refundAmount": 2700,
+        "withdrawalAmount": 700,
+        "rowCount": 9,
+        "missingDateCount": 2
+      },
+      "definition": "订单支付状态一订单一行，时间为paidAt或createdAt；另包含持久司机提现记录。订单金额、退款、提现分开汇总，不作为历史收款或公司清分。所有支付、退款、提现为模拟；未接真实收单、银行打款或公司清分。不提供电话叫车、后台指派、超时/有责取消的虚构对应。",
+      "dateField": "createdAt",
+      "timezone": "UTC+08:00",
+      "dateRange": {
+        "startInclusive": null,
+        "endExclusive": null
+      }
+    },
+    "support": {
+      "dataset": "support",
+      "items": [
+        {
+          "rating": 5,
+          "content": "不错",
+          "createdAt": "2026-10-24T23:59:59+08:00",
+          "id": "EVAL:D",
+          "source": "EVALUATION",
+          "ownerId": "P1",
+          "orderId": "D",
+          "status": "RECORDED",
+          "accountId": "P1",
+          "rowId": "EVALUATION:P1:EVAL:D"
+        }
+      ],
+      "total": 4,
+      "page": 1,
+      "pageSize": 1,
+      "schema": [
+        {
+          "name": "search",
+          "label": "搜索",
+          "type": "text",
+          "availability": "AVAILABLE"
+        },
+        {
+          "name": "startDate",
+          "label": "开始日期",
+          "type": "date",
+          "availability": "AVAILABLE"
+        },
+        {
+          "name": "endDate",
+          "label": "结束日期",
+          "type": "date",
+          "availability": "AVAILABLE"
+        },
+        {
+          "name": "source",
+          "label": "来源",
+          "type": "select",
+          "availability": "AVAILABLE"
+        },
+        {
+          "name": "status",
+          "label": "处理状态",
+          "type": "select",
+          "availability": "AVAILABLE"
+        },
+        {
+          "name": "orderId",
+          "label": "订单编号",
+          "type": "text",
+          "availability": "AVAILABLE"
+        },
+        {
+          "name": "accountId",
+          "label": "账号",
+          "type": "text",
+          "availability": "AVAILABLE"
+        }
+      ],
+      "options": {
+        "source": [
+          {
+            "value": "DRIVER_COMPLAINT",
+            "label": "司机投诉"
+          },
+          {
+            "value": "DRIVER_FEEDBACK",
+            "label": "司机反馈"
+          },
+          {
+            "value": "EVALUATION",
+            "label": "订单评价"
+          },
+          {
+            "value": "ORDER_COMPLAINT",
+            "label": "订单投诉"
+          },
+          {
+            "value": "PASSENGER_FEEDBACK",
+            "label": "乘客反馈"
+          }
+        ],
+        "status": [
+          {
+            "value": "PENDING",
+            "label": "待处理"
+          },
+          {
+            "value": "RECORDED",
+            "label": "已记录"
+          },
+          {
+            "value": "REPLIED",
+            "label": "已回复"
+          }
+        ]
+      },
+      "summary": {
+        "rowCount": 4,
+        "missingDateCount": 0
+      },
+      "definition": "持久共享订单评价/投诉及乘客、司机反馈/投诉；保留来源和原记录ID。所有支付、退款、提现为模拟；未接真实收单、银行打款或公司清分。不提供电话叫车、后台指派、超时/有责取消的虚构对应。",
+      "dateField": "createdAt",
+      "timezone": "UTC+08:00",
+      "dateRange": {
+        "startInclusive": null,
+        "endExclusive": null
+      }
+    },
+    "audit": {
+      "dataset": "audit",
+      "items": [
+        {
+          "id": 1,
+          "actor": "ADMIN:old",
+          "action": "query.fixture",
+          "before_value": "{}",
+          "after_value": "{}",
+          "created": "2026-10-24T12:00:00+08:00"
+        }
+      ],
+      "total": 205,
+      "page": 1,
+      "pageSize": 1,
+      "schema": [
+        {
+          "name": "search",
+          "label": "搜索",
+          "type": "text",
+          "availability": "AVAILABLE"
+        },
+        {
+          "name": "startDate",
+          "label": "开始日期",
+          "type": "date",
+          "availability": "AVAILABLE"
+        },
+        {
+          "name": "endDate",
+          "label": "结束日期",
+          "type": "date",
+          "availability": "AVAILABLE"
+        },
+        {
+          "name": "actor",
+          "label": "操作者",
+          "type": "text",
+          "availability": "AVAILABLE"
+        },
+        {
+          "name": "action",
+          "label": "操作",
+          "type": "text",
+          "availability": "AVAILABLE"
+        }
+      ],
+      "options": {},
+      "summary": {
+        "rowCount": 205,
+        "missingDateCount": 0
+      },
+      "definition": "全部持久audits记录，查询不受旧state最近200条限制。所有支付、退款、提现为模拟；未接真实收单、银行打款或公司清分。不提供电话叫车、后台指派、超时/有责取消的虚构对应。",
+      "dateField": "created",
+      "timezone": "UTC+08:00",
+      "dateRange": {
+        "startInclusive": null,
+        "endExclusive": null
+      }
+    },
+    "statistics": {
+      "dataset": "statistics",
+      "items": [
+        {
+          "id": "2026-10-25",
+          "date": "2026-10-25",
+          "orderCount": 1,
+          "completedCount": 0,
+          "cancelledCount": 0,
+          "activeCount": 1,
+          "paidFare": 0,
+          "refundAmount": 0
+        }
+      ],
+      "total": 4,
+      "page": 1,
+      "pageSize": 1,
+      "schema": [
+        {
+          "name": "search",
+          "label": "搜索",
+          "type": "text",
+          "availability": "AVAILABLE"
+        },
+        {
+          "name": "startDate",
+          "label": "开始日期",
+          "type": "date",
+          "availability": "AVAILABLE"
+        },
+        {
+          "name": "endDate",
+          "label": "结束日期",
+          "type": "date",
+          "availability": "AVAILABLE"
+        },
+        {
+          "name": "kind",
+          "label": "订单类型",
+          "type": "select",
+          "availability": "AVAILABLE"
+        },
+        {
+          "name": "fareSource",
+          "label": "费用来源",
+          "type": "select",
+          "availability": "AVAILABLE"
+        },
+        {
+          "name": "passengerMobile",
+          "label": "乘客账号电话",
+          "type": "text",
+          "availability": "AVAILABLE"
+        },
+        {
+          "name": "driverId",
+          "label": "驾驶员账号",
+          "type": "text",
+          "availability": "AVAILABLE"
+        },
+        {
+          "name": "driverName",
+          "label": "驾驶员姓名",
+          "type": "text",
+          "availability": "AVAILABLE"
+        },
+        {
+          "name": "driverMobile",
+          "label": "驾驶员电话",
+          "type": "text",
+          "availability": "AVAILABLE"
+        },
+        {
+          "name": "stage",
+          "label": "订单状态",
+          "type": "select",
+          "availability": "AVAILABLE"
+        },
+        {
+          "name": "cancellationType",
+          "label": "取消参与方",
+          "type": "select",
+          "availability": "AVAILABLE"
+        },
+        {
+          "name": "plate",
+          "label": "车辆号牌",
+          "type": "text",
+          "availability": "AVAILABLE"
+        },
+        {
+          "name": "orderId",
+          "label": "订单编号",
+          "type": "text",
+          "availability": "AVAILABLE"
+        },
+        {
+          "name": "city",
+          "label": "行政区划",
+          "type": "select",
+          "availability": "AVAILABLE"
+        },
+        {
+          "name": "billingMode",
+          "label": "计费模式",
+          "type": "text",
+          "availability": "NOT_IMPLEMENTED",
+          "reason": "原后台线上/线下计费模式未在共享订单持久保存，费用来源不等于计费模式。"
+        },
+        {
+          "name": "company",
+          "label": "所属公司",
+          "type": "text",
+          "availability": "NOT_IMPLEMENTED",
+          "reason": "共享订单没有权威公司ID或归属；演示司机organization不作为公司维度。"
+        },
+        {
+          "name": "assigned",
+          "label": "是否指派",
+          "type": "text",
+          "availability": "NOT_IMPLEMENTED",
+          "reason": "未实现后台指派业务，driverId不等于是否指派。"
+        }
+      ],
+      "options": {
+        "kind": [
+          {
+            "value": "BID",
+            "label": "司机报价"
+          },
+          {
+            "value": "NEGOTIATED",
+            "label": "议价用车"
+          },
+          {
+            "value": "RESERVED",
+            "label": "预约用车"
+          },
+          {
+            "value": "STANDARD",
+            "label": "即时用车"
+          }
+        ],
+        "fareSource": [
+          {
+            "value": "EXPERIENCE_ESTIMATE",
+            "label": "EXPERIENCE_ESTIMATE"
+          }
+        ],
+        "stage": [
+          {
+            "value": "ARRIVED",
+            "label": "司机已到达"
+          },
+          {
+            "value": "AVAILABLE",
+            "label": "待接单"
+          },
+          {
+            "value": "CANCELLED",
+            "label": "已取消"
+          },
+          {
+            "value": "DONE",
+            "label": "已完成"
+          },
+          {
+            "value": "PICKUP",
+            "label": "接驾中"
+          },
+          {
+            "value": "PREPAY",
+            "label": "待预付（模拟）"
+          },
+          {
+            "value": "RESERVED",
+            "label": "预约待接驾"
+          },
+          {
+            "value": "TRIP",
+            "label": "行程中"
+          },
+          {
+            "value": "WAIT_CONTINUE",
+            "label": "司机取消·待乘客续叫"
+          },
+          {
+            "value": "WAIT_PAY",
+            "label": "待支付（模拟）"
+          }
+        ],
+        "cancellationType": [
+          {
+            "value": "ADMIN",
+            "label": "后台取消"
+          },
+          {
+            "value": "DRIVER",
+            "label": "司机取消"
+          },
+          {
+            "value": "PASSENGER",
+            "label": "乘客取消"
+          }
+        ],
+        "city": [
+          {
+            "value": "420100",
+            "label": "武汉市"
+          },
+          {
+            "value": "420500",
+            "label": "宜昌市"
+          }
+        ]
+      },
+      "summary": {
+        "orderCount": 7,
+        "completedCount": 2,
+        "cancelledCount": 1,
+        "activeCount": 4,
+        "paidFare": 2900,
+        "refundAmount": 2700,
+        "rowCount": 4,
+        "missingDateCount": 2
+      },
+      "definition": "共享passenger_orders权威记录；排除司机私有演示订单。金额为整数分。paidFare仅为DONE且仍paid订单的fare，不是历史收款或清分收入；refundAmount为历史每轮退款与当前退款之和，等额同刻也不去重。按UTC+8订单创建日归组；日期条件筛选订单创建日，并非退款发生日。所有支付、退款、提现为模拟；未接真实收单、银行打款或公司清分。不提供电话叫车、后台指派、超时/有责取消的虚构对应。",
+      "dateField": "createdAt",
+      "timezone": "UTC+08:00",
+      "dateRange": {
+        "startInclusive": null,
+        "endExclusive": null
+      }
+    },
+    "cancellations": {
+      "dataset": "cancellations",
+      "items": [
+        {
+          "id": "B",
+          "passengerId": "P1",
+          "driverId": "D1",
+          "stage": "CANCELLED",
+          "kind": "STANDARD",
+          "fare": 900,
+          "paid": false,
+          "paymentStatus": "REFUNDED",
+          "paymentMode": "SIMULATED",
+          "origin": "宜昌站",
+          "destination": "商场",
+          "city": "420500",
+          "createdAt": "2026-10-23T16:00:00+00:00",
+          "updatedAt": "2026-10-25T18:00:00+08:00",
+          "fareSource": "EXPERIENCE_ESTIMATE",
+          "evaluation": null,
+          "shared": true,
+          "cancelledBy": "PASSENGER",
+          "cancelReason": "行程有变",
+          "refundAmount": 900,
+          "refundedAt": "2026-10-24T16:00:00+08:00",
+          "refundMode": "SIMULATED",
+          "fareVersion": 0,
+          "passengerMobile": "13800000101",
+          "passengerName": "乘客P1",
+          "driverMobile": "13800000001",
+          "driverName": "张司机",
+          "plate": "鄂E·A1001",
+          "vehicleType": "舒适型",
+          "orderId": "B",
+          "cancellationType": "PASSENGER",
+          "cancelledAt": "2026-10-24T16:00:00+08:00",
+          "cancellationStatus": "CLOSED"
+        }
+      ],
+      "total": 2,
+      "page": 1,
+      "pageSize": 1,
+      "schema": [
+        {
+          "name": "search",
+          "label": "搜索",
+          "type": "text",
+          "availability": "AVAILABLE"
+        },
+        {
+          "name": "startDate",
+          "label": "开始日期",
+          "type": "date",
+          "availability": "AVAILABLE"
+        },
+        {
+          "name": "endDate",
+          "label": "结束日期",
+          "type": "date",
+          "availability": "AVAILABLE"
+        },
+        {
+          "name": "kind",
+          "label": "订单类型",
+          "type": "select",
+          "availability": "AVAILABLE"
+        },
+        {
+          "name": "fareSource",
+          "label": "费用来源",
+          "type": "select",
+          "availability": "AVAILABLE"
+        },
+        {
+          "name": "passengerMobile",
+          "label": "乘客账号电话",
+          "type": "text",
+          "availability": "AVAILABLE"
+        },
+        {
+          "name": "driverId",
+          "label": "驾驶员账号",
+          "type": "text",
+          "availability": "AVAILABLE"
+        },
+        {
+          "name": "driverName",
+          "label": "驾驶员姓名",
+          "type": "text",
+          "availability": "AVAILABLE"
+        },
+        {
+          "name": "driverMobile",
+          "label": "驾驶员电话",
+          "type": "text",
+          "availability": "AVAILABLE"
+        },
+        {
+          "name": "stage",
+          "label": "订单状态",
+          "type": "select",
+          "availability": "AVAILABLE"
+        },
+        {
+          "name": "cancellationType",
+          "label": "取消参与方",
+          "type": "select",
+          "availability": "AVAILABLE"
+        },
+        {
+          "name": "plate",
+          "label": "车辆号牌",
+          "type": "text",
+          "availability": "AVAILABLE"
+        },
+        {
+          "name": "orderId",
+          "label": "订单编号",
+          "type": "text",
+          "availability": "AVAILABLE"
+        },
+        {
+          "name": "city",
+          "label": "行政区划",
+          "type": "select",
+          "availability": "AVAILABLE"
+        },
+        {
+          "name": "billingMode",
+          "label": "计费模式",
+          "type": "text",
+          "availability": "NOT_IMPLEMENTED",
+          "reason": "原后台线上/线下计费模式未在共享订单持久保存，费用来源不等于计费模式。"
+        },
+        {
+          "name": "company",
+          "label": "所属公司",
+          "type": "text",
+          "availability": "NOT_IMPLEMENTED",
+          "reason": "共享订单没有权威公司ID或归属；演示司机organization不作为公司维度。"
+        },
+        {
+          "name": "assigned",
+          "label": "是否指派",
+          "type": "text",
+          "availability": "NOT_IMPLEMENTED",
+          "reason": "未实现后台指派业务，driverId不等于是否指派。"
+        }
+      ],
+      "options": {
+        "kind": [
+          {
+            "value": "BID",
+            "label": "司机报价"
+          },
+          {
+            "value": "NEGOTIATED",
+            "label": "议价用车"
+          },
+          {
+            "value": "RESERVED",
+            "label": "预约用车"
+          },
+          {
+            "value": "STANDARD",
+            "label": "即时用车"
+          }
+        ],
+        "fareSource": [
+          {
+            "value": "EXPERIENCE_ESTIMATE",
+            "label": "EXPERIENCE_ESTIMATE"
+          }
+        ],
+        "stage": [
+          {
+            "value": "ARRIVED",
+            "label": "司机已到达"
+          },
+          {
+            "value": "AVAILABLE",
+            "label": "待接单"
+          },
+          {
+            "value": "CANCELLED",
+            "label": "已取消"
+          },
+          {
+            "value": "DONE",
+            "label": "已完成"
+          },
+          {
+            "value": "PICKUP",
+            "label": "接驾中"
+          },
+          {
+            "value": "PREPAY",
+            "label": "待预付（模拟）"
+          },
+          {
+            "value": "RESERVED",
+            "label": "预约待接驾"
+          },
+          {
+            "value": "TRIP",
+            "label": "行程中"
+          },
+          {
+            "value": "WAIT_CONTINUE",
+            "label": "司机取消·待乘客续叫"
+          },
+          {
+            "value": "WAIT_PAY",
+            "label": "待支付（模拟）"
+          }
+        ],
+        "cancellationType": [
+          {
+            "value": "ADMIN",
+            "label": "后台取消"
+          },
+          {
+            "value": "DRIVER",
+            "label": "司机取消"
+          },
+          {
+            "value": "PASSENGER",
+            "label": "乘客取消"
+          }
+        ],
+        "city": [
+          {
+            "value": "420500",
+            "label": "宜昌市"
+          }
+        ]
+      },
+      "summary": {
+        "orderCount": 2,
+        "completedCount": 0,
+        "cancelledCount": 1,
+        "activeCount": 1,
+        "paidFare": 0,
+        "refundAmount": 2700,
+        "rowCount": 2,
+        "missingDateCount": 1
+      },
+      "definition": "共享passenger_orders权威记录；排除司机私有演示订单。金额为整数分。paidFare仅为DONE且仍paid订单的fare，不是历史收款或清分收入；refundAmount为历史每轮退款与当前退款之和，等额同刻也不去重。仅当前CANCELLED/WAIT_CONTINUE；后者待乘客续叫，不是已终结。最后取消事件时间缺失保持未知，不展示为历史全部取消次数。所有支付、退款、提现为模拟；未接真实收单、银行打款或公司清分。不提供电话叫车、后台指派、超时/有责取消的虚构对应。",
+      "dateField": "cancelledAt",
+      "timezone": "UTC+08:00",
+      "dateRange": {
+        "startInclusive": null,
+        "endExclusive": null
+      }
+    },
+    "refunds": {
+      "dataset": "refunds",
+      "items": [
+        {
+          "id": "B:CURRENT",
+          "orderId": "B",
+          "accountId": "P1",
+          "driverId": "D1",
+          "amount": 900,
+          "refundedAt": "2026-10-24T16:00:00+08:00",
+          "refundSource": "CURRENT",
+          "roundIndex": 2,
+          "paymentMode": "SIMULATED"
+        }
+      ],
+      "total": 3,
+      "page": 1,
+      "pageSize": 1,
+      "schema": [
+        {
+          "name": "search",
+          "label": "搜索",
+          "type": "text",
+          "availability": "AVAILABLE"
+        },
+        {
+          "name": "startDate",
+          "label": "开始日期",
+          "type": "date",
+          "availability": "AVAILABLE"
+        },
+        {
+          "name": "endDate",
+          "label": "结束日期",
+          "type": "date",
+          "availability": "AVAILABLE"
+        },
+        {
+          "name": "orderId",
+          "label": "订单编号",
+          "type": "text",
+          "availability": "AVAILABLE"
+        },
+        {
+          "name": "accountId",
+          "label": "乘客账号",
+          "type": "text",
+          "availability": "AVAILABLE"
+        },
+        {
+          "name": "driverId",
+          "label": "司机账号",
+          "type": "text",
+          "availability": "AVAILABLE"
+        },
+        {
+          "name": "refundSource",
+          "label": "退款轮次来源",
+          "type": "select",
+          "availability": "AVAILABLE"
+        }
+      ],
+      "options": {
+        "refundSource": [
+          {
+            "value": "CURRENT",
+            "label": "当前轮次"
+          },
+          {
+            "value": "HISTORY",
+            "label": "续叫前历史轮次"
+          }
+        ]
+      },
+      "summary": {
+        "refundCount": 3,
+        "refundAmount": 2700,
+        "rowCount": 3,
+        "missingDateCount": 0
+      },
+      "definition": "每笔共享订单的refundHistory各轮及当前refundAmount分别一行；不按金额/时间去重，按退款发生时间筛选。所有支付、退款、提现为模拟；未接真实收单、银行打款或公司清分。不提供电话叫车、后台指派、超时/有责取消的虚构对应。",
+      "dateField": "refundedAt",
+      "timezone": "UTC+08:00",
+      "dateRange": {
+        "startInclusive": null,
+        "endExclusive": null
+      }
+    }
+  }
+}
