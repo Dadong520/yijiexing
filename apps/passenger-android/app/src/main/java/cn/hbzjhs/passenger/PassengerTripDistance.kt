@@ -71,7 +71,7 @@ fun PassengerTripDistanceCard(
                 colors = CardDefaults.cardColors(containerColor = Color(0xFFF5F5F5))
             ) {
                 Text(
-                    text = "历史距离确认状态: $status",
+                    text = "历史距离确认状态：" + when (status) { "APPROVED" -> "乘客已同意"; "REJECTED" -> "乘客已拒绝"; "EXPIRED" -> "请求已过期"; "INVALIDATED" -> "请求已失效"; "SUPERSEDED" -> "已被新请求替代"; else -> "状态已更新，请刷新查看" },
                     fontSize = 14.sp,
                     color = Color(0xFF757575),
                     modifier = Modifier.padding(12.dp)
