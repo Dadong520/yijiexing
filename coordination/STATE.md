@@ -1,5 +1,7 @@
 # 宜捷行当前状态
-更新时间2026-10-25 02:54 Asia/Singapore。协调者唯一维护；恢复读STATE/BOARD/当前任务/角色handoff。
+更新时间2026-10-25 17:49 Asia/Singapore。协调者唯一维护；恢复读STATE/BOARD/当前任务/角色handoff。
+
+当前UI-20261025-03进行中：用户原截图/墨刀司机原型，暂停适老化大字，Gemini主设计/代码，root集成/乘客真实地图/构建/唯一发布；frontend独立截图验收。分支codex/prototype-native-ui-20261025，基线ff9f5a787fede48bb2ac1035c38d45ff543323b2。Gemini scoped --add-dir读图已成功，司机代码生成限6min运行；品牌hero已完成UI03/assets。模拟器无损启动只读采样。产品SHA4d089b37790069a0a13bfe8bfc770f0aaa03a653，本轮UI活跃clone已切到/Users/dongge/.codex/tmp/yijiexing-ui03-integration（原Documents源出现compressed,dataless读取卡，逐task文件cp至稳定本地目录；原源保留，无后台改动）。最终包尚未发布。
 
 当前发布：司机0.3.8/code11，乘客Android1.1.8/code10；driver-demo原v8镜像7d71539...未变。后台新UI driver-admin-ui20261025，image35726abba...，100%流量，IAP/Google dadonggev587@gmail.com+admin登录实测18订单，完成7取消9待接1待付1，完成已付16124分。admin https://driver-admin-491829048305.us-west1.run.app/。独立项目yijiexing-driver-demo-1023/us-west1；两服务automatic/min0/max1/请求计费，不保活、不自动暂停。发布无需再审批，唯一发布者coordinator。
 
