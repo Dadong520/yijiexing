@@ -1,0 +1,99 @@
+{
+  "task": "TRIP-20261025-01",
+  "owner": "backend",
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-trip-api-20261025",
+  "baseSha": "a5bb882fed045ac62fe8d8398cdc8e483015cc19",
+  "productSha": "8ec8419d30955c216d7e4fe90451584d2a9622cf",
+  "branch": "codex/trip-distance-api-20261025",
+  "sourceHashes": {
+    "apps/cloud-service/admin.py": "a003e1fba8f832a8aa89b53a3c98c6c30d0761eccddd8126315d333c24a33bd9",
+    "apps/cloud-service/admin_console.py": "485be7459e08a2d1db791fe4652fb59bf3d89d8bf1a717cb275ff777003075b1",
+    "apps/cloud-service/domain.py": "a0e967b9058645950f63c0cff479b7beabd3350101b7d90a5a4f29034a7622ab",
+    "apps/cloud-service/passenger.py": "cfe7e8ad4094c0760e106b3897c0854d9db90b50f9814d0df165c44472a64485",
+    "apps/cloud-service/seed.py": "8488012f02b36b32f26cf1b2d96c403cc9523622e01f95fb084e7d624d85a23a",
+    "apps/cloud-service/negotiation.py": "dd60d20998107bcb65fc8890d5959ca8d65ab5716259ed51329e5b957c462da0",
+    "apps/cloud-service/trip_distance.py": "7d9bb3b97d5a2f0c1e860fb699157b703ad001b886a1ba31718692b3f69951a8",
+    "apps/cloud-service/tests/test_passenger.py": "9763d78241dd279579f7c1184a3d6476d6fd64fdf71a532ede164af820333e05",
+    "apps/cloud-service/tests/test_negotiation.py": "39bac757732feebe1bb1b917de25bc69d0a75ad0fae23cd47e47a0192b71d69a",
+    "apps/cloud-service/tests/test_trip_distance.py": "ea5648d2f9993ac9fd3201b4fb6ea963c364697acb802ca3988b407fc5d73abb"
+  },
+  "protectedSources": {
+    "apps/cloud-service/cloud_server.py": {
+      "sha256": "8a4ba1ef1fc5cab5151f5463622cc1f4ebc4622a5c377102cd1ac08fe8dc54d9",
+      "unchangedFromBase": true
+    },
+    "apps/cloud-service/server.py": {
+      "sha256": "4aaf099733be16eb36f4fc1a9f84be49f9a11fe183906c6b7e5fc850028219c0",
+      "unchangedFromBase": true
+    },
+    "apps/cloud-service/snapshot.py": {
+      "sha256": "31552c1a6406157cc483507a66b3d2d8981c5ca7ab7941f4a2250225cabaca17",
+      "unchangedFromBase": true
+    },
+    "apps/cloud-service/common.py": {
+      "sha256": "3e27cf145d05a96b2ae6e1435d66d460edf585bd98de1935fda1764e27face92",
+      "unchangedFromBase": true
+    },
+    "apps/cloud-service/benefits.py": {
+      "sha256": "b9f4d100b05e7a3a4c39dd0bba69dbe557110a3ca006eb8a755692235f2470de",
+      "unchangedFromBase": true
+    },
+    "apps/cloud-service/admin_queries.py": {
+      "sha256": "eb7077abd704dcdf9cfe9f0c435a0471701f4042dc480df82c90ea0e6188bd1c",
+      "unchangedFromBase": true
+    },
+    "apps/cloud-service/passenger_extras.py": {
+      "sha256": "fc6a21d2d05adf859754bddd56467dd1d7376fc9a1a9e57c4c0865c4a34983c9",
+      "unchangedFromBase": true
+    },
+    "apps/cloud-service/order_options.py": {
+      "sha256": "4ec12f73f400cfae665b828b5714501b6e555bdf00eb99c352e306a5f36cb123",
+      "unchangedFromBase": true
+    }
+  },
+  "tests": {
+    "trip-tests.log": {
+      "sha256": "2ec1e110bd0ad0f5c27a4304641a9e8e1b12632cc3a8dfe2ef89d41106c2edb6",
+      "count": 23,
+      "seconds": 1.067,
+      "result": "OK"
+    },
+    "stage-tests.log": {
+      "sha256": "56f511fc87b9c22b2755d22de8107c67f4c1d7f8a02dcc0c9a489c7adbd4452f",
+      "count": 3,
+      "seconds": 0.637,
+      "result": "OK"
+    },
+    "full-suite.log": {
+      "sha256": "88091b1433e75e2da882cdfb889b85685c0de3d02c8c3f6d27408aecc024fac4",
+      "count": 208,
+      "seconds": 57.769,
+      "result": "OK"
+    },
+    "full-suite-initial.log": {
+      "sha256": "09bcf593783770766f666c9e2beef36e20c2f3b8d7221afff8220eeaa477d4a2",
+      "count": 203,
+      "seconds": 54.633,
+      "result": "FAILED (failures=22)"
+    },
+    "coordination-check.log": {
+      "sha256": "7ce5f7cfd6d21aa9328309c70d9835a6b2df1a7997dcedfb8f9cd1ed0159406a",
+      "result": "PASS: compact project records are valid; this is not business acceptance"
+    }
+  },
+  "authorTests": "PASS final 208 tests; initial fixture failures resolved and retained in initial log",
+  "independentAcceptance": "NOT_RUN; coordinator is non-author reviewer",
+  "nativeUiAndDualEmulator": "NOT_RUN by backend; ALERT/REL owners",
+  "deployedReadback": "NOT_RUN; coordinator only; no cloud actions",
+  "notImplemented": [
+    "GPS cryptographic attestation / anti-spoofing",
+    "Vendor push service; existing state polling used",
+    "Real payment/bank transfer; existing simulated money rules retained"
+  ],
+  "scopeLimits": [
+    "Private synthetic orders keep explicitly labelled demo progression, with no real passenger consent",
+    "Pickup GPS is the booking account device for this order, not the called rider device",
+    "Distance is server-calculated WGS84 straight-line, not road navigation distance"
+  ],
+  "failedItems": []
+}
