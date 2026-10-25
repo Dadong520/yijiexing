@@ -1,0 +1,53 @@
+{
+  "reference": "User supplied original order-center screenshot 2026-10-25; no original online service accessed",
+  "originalOrderFilters": [
+    "订单时间范围",
+    "订单类型",
+    "计费模式",
+    "乘客电话",
+    "驾驶员姓名",
+    "驾驶员电话",
+    "订单状态",
+    "取消类型",
+    "车辆号牌",
+    "订单编号",
+    "行政区划",
+    "所属公司",
+    "是否指派"
+  ],
+  "currentBaseline": {
+    "filters": [
+      "JSON text search",
+      "status"
+    ],
+    "pagination": 15,
+    "export": "all rows regardless of current filters (real gap)",
+    "orderColumns": [
+      "id/kind",
+      "origin/destination",
+      "passengerId/driverId",
+      "stage",
+      "fare/paymentStatus",
+      "createdAt"
+    ]
+  },
+  "loginObserved": {
+    "viewport": [
+      1425,
+      687
+    ],
+    "finding": "Inherited light intro background/pct padding combined with new white text/max-width creates unreadable and vertical wrapped text; flex workspace retains old left margin",
+    "evidence": "before/login.png"
+  },
+  "applicableScope": [
+    "Server-backed filters and matching export for shared orders, drivers/vehicles, passengers, payments/withdrawals, support and audit",
+    "Date-filtered operating statistics",
+    "Cancellation and per-round refund records with order linkage"
+  ],
+  "boundaries": [
+    "No full original admin frontend found per baseline inventory; Java request/controller and provided screenshots used",
+    "Existing shared order records only; driver-private demo orders never counted as real shared trip",
+    "Do not fabricate company/dispatch/channel settlement records absent from schema",
+    "Real payment settlement/invoice/taxation needs external configuration, not pretend enabled"
+  ]
+}

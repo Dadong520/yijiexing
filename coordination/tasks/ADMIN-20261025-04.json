@@ -1,0 +1,82 @@
+{
+  "schemaVersion": 1,
+  "id": "ADMIN-20261025-04",
+  "owner": "antigravity",
+  "goal": "修复后台登录可读性/布局冲突，依据用户原后台订单截图和本地Java接口补齐适用模块查询、分页、详情与同筛选导出；新增取消/退款等可由现有持久数据派生报表，独立验收后发布driver-admin。",
+  "baseSha": "e600e6bd15d894afe9fbd85a7b1f57cf3cb4e842",
+  "allow_paths": [
+    "apps/admin-console/",
+    "coordination/evidence/ADMIN-20261025-04/"
+  ],
+  "fileOwnership": {
+    "Gemini via coordinator": "apps/admin-console/web UI/query integration; coordinator applies bounded generated patches and serves tests",
+    "backend": "separate ADMINAPI task unique apps/cloud-service owns query/export projection/API",
+    "frontend": "independent browser and report tests only; no author source edits"
+  },
+  "checks": [
+    "原后台13项订单筛选逐项核对来源；空值不伪造组织/电话叫车/指派数据",
+    "登录页新旧CSS冲突消除，左右可读/1366与窄屏不截断，键盘表单验证",
+    "6类列表及经营报表各用实际服务端过滤，查询/重置/分页/筛选导出一致",
+    "独立浏览器实际UI及接口权限/导出/日期边界/空态失败恢复测试PASS",
+    "保留IAM/IAP与账务数据、无真实生产访问，唯一coordinator发布回读"
+  ],
+  "status": "ACCEPTED_FOR_DEPLOY",
+  "acceptance": "PASS",
+  "tests": [
+    {
+      "name": "JavaScript syntax",
+      "command": "node --check apps/admin-console/web/admin.js",
+      "status": "PASS",
+      "exitCode": 0,
+      "sourceSha": "0d7dfc045a137ee93b354acd669edebf6724af29"
+    },
+    {
+      "name": "Signed IAP HTTP/session/query/export integration",
+      "command": "YIJ_BACKEND_SOURCE=<unique API> python -m unittest discover -s apps/admin-console/backend -p test_iap_browser.py -v",
+      "status": "PASS",
+      "exitCode": 0,
+      "sourceSha": "0d7dfc045a137ee93b354acd669edebf6724af29",
+      "tests": 9
+    },
+    {
+      "name": "Independent actual browser full matrix and final4-line delta",
+      "command": "frontend Chrome+real local SQLite/CAS interaction and downloaded CSV verification; frontend-final/design-qa.json binds inherited fe201d matrix and actual0d fixes",
+      "status": "PASS",
+      "exitCode": 0,
+      "sourceSha": "0d7dfc045a137ee93b354acd669edebf6724af29"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "coordination/evidence/ADMIN-20261025-04/frontend-final/design-qa.json",
+      "sha256": "dfb5c592720072a67784a67080bf926ecb272c2d1f80b0452301f8f4a166cfa0"
+    },
+    {
+      "path": "coordination/evidence/ADMIN-20261025-04/frontend/design-qa.json",
+      "sha256": "21b5fb4672195fd6d3c540c47f5c193768c229cfd004d7b191cbfb96b9282d7e"
+    },
+    {
+      "path": "coordination/evidence/ADMIN-20261025-04/frontend/csv-verification.json",
+      "sha256": "647dbcdd21881d31dbb25766b05bc4173aaec3f3cab1ca6e5c2a0a51b87598bb"
+    },
+    {
+      "path": "coordination/evidence/ADMIN-20261025-04/frontend-final/withdrawal-http-proof.json",
+      "sha256": "89ffd3fe5d3424329a446010a5a0c73dbf496a023ff912f76ed4972750a9f214"
+    },
+    {
+      "path": "coordination/evidence/ADMIN-20261025-04/iap-final-regression.log",
+      "sha256": "5c2fcff6e83dc1086c5c894c25e637813ee73104aceef9a1d3d3b10708bd9dc8"
+    },
+    {
+      "path": "coordination/evidence/ADMIN-20261025-04/final-build-source-manifest.json",
+      "sha256": "49d9c87ce5a6eb9cab84a7aa2117f42839c9f97368d9722de927d1b7995bf6c7"
+    }
+  ],
+  "nextAction": "Merge exact accepted code/records, deploy only driver-admin image, verify IAP/scaling/real-data browser and preserved orders.",
+  "deploy_owner": "coordinator",
+  "releaseReady": true,
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-admin-20261025",
+  "productSha": "0d7dfc045a137ee93b354acd669edebf6724af29",
+  "acceptedSha": "0d7dfc045a137ee93b354acd669edebf6724af29",
+  "reviewer": "frontend independent non-author"
+}

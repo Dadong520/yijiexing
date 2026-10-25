@@ -1,0 +1,174 @@
+- complementary:
+  - generic: 宜
+  - generic: 宜捷行运营管理中心
+  - navigation:
+    - generic: 工作台
+    - button "经营概览":
+      - text: 经营概览
+    - button "经营报表":
+      - text: 经营报表
+    - generic: 业务运营
+    - button "订单管理":
+      - text: 订单管理
+    - button "取消订单记录":
+      - text: 取消订单记录
+    - button "司机与车辆":
+      - text: 司机与车辆
+    - button "乘客管理":
+      - text: 乘客管理
+    - button "模拟账务":
+      - text: 模拟账务
+    - button "模拟退款记录":
+      - text: 模拟退款记录
+    - button "评价投诉反馈":
+      - text: 评价投诉反馈
+    - generic: 配置与治理
+    - button "城市与会员":
+      - text: 城市与会员
+    - button "账号与权限":
+      - text: 账号与权限
+    - button "操作日志":
+      - text: 操作日志
+  - text: 独立云体验环境
+  - generic: 支付 / 退款 / 提现均为模拟
+- banner:
+  - text: 工作空间 /
+  - strong: 司机与车辆
+  - generic: admin · 超级管理员
+  - button "刷新数据"
+  - button "退出"
+- main:
+  - generic: 体验环境 · 本后台与司机、乘客端共用持久化业务数据。所有金额均为模拟账务，不发生真实资金交易。
+  - heading "司机与车辆" [level=1]
+  - paragraph: 共享司机资料、车辆信息与资质审核
+  - button "导出筛选结果"
+  - generic: 搜索
+  - textbox "搜索"
+  - generic: 开始日期 (旧账号表没有持久登记时间，无法提供注册日期筛选。)
+  - textbox "开始日期 (旧账号表没有持久登记时间，无法提供注册日期筛选。)" [disabled]
+  - generic: 结束日期 (旧账号表没有持久登记时间，无法提供注册日期筛选。)
+  - textbox "结束日期 (旧账号表没有持久登记时间，无法提供注册日期筛选。)" [disabled]
+  - generic: 司机账号
+  - textbox "司机账号"
+  - generic: 司机电话
+  - textbox "司机电话"
+  - generic: 行政区划
+  - combobox "行政区划":
+    - option "全部" [selected]
+    - option "武汉市"
+    - option "宜昌市"
+  - generic: 司机等级
+  - combobox "司机等级":
+    - option "全部" [selected]
+    - option "普通权益"
+    - option "体验权益"
+    - option "VIP权益"
+  - generic: 资质状态
+  - combobox "资质状态":
+    - option "全部" [selected]
+    - option "资质通过"
+    - option "资质待审核"
+    - option "资质驳回"
+  - generic: 车型
+  - combobox "车型":
+    - option "全部" [selected]
+    - option "舒适型"
+  - generic: 车牌
+  - textbox "车牌"
+  - button "查询"
+  - button "重置"
+  - combobox:
+    - option "15 条/页"
+    - option "20 条/页" [selected]
+    - option "50 条/页"
+    - option "100 条/页"
+  - generic: 已应用过滤：无
+  - generic: 总匹配数
+  - generic: "2"
+  - generic: 口径：实际accounts账号及持久profile，不使用城市预置司机数量；无登记日期。所有支付、退款、提现为模拟；未接真实收单、银行打款或公司清分。不提供电话叫车、后台指派、超时/有责取消的虚构对应。 (UTC+8，同条件全匹配汇总)
+  - table:
+    - rowgroup:
+      - row "司机 手机 / 城市 车辆 会员 资质 操作":
+        - columnheader "司机"
+        - columnheader "手机 / 城市"
+        - columnheader "车辆"
+        - columnheader "会员"
+        - columnheader "资质"
+        - columnheader "操作"
+    - rowgroup:
+      - row "张司机 D1 13800000001 宜昌市 鄂E·A1001 云端演示演示车辆 体验司机 0 项待审 资料与审核":
+        - cell "张司机 D1":
+          - text: 张司机
+          - generic: D1
+        - cell "13800000001 宜昌市":
+          - text: "13800000001"
+          - generic: 宜昌市
+        - cell "鄂E·A1001 云端演示演示车辆":
+          - text: 鄂E·A1001
+          - generic: 云端演示演示车辆
+        - cell "体验司机"
+        - cell "0 项待审"
+        - cell "资料与审核":
+          - button "资料与审核"
+      - row "李司机 D2 13800000002 武汉市 鄂A·B1002 云端演示演示车辆 体验司机 0 项待审 资料与审核":
+        - cell "李司机 D2":
+          - text: 李司机
+          - generic: D2
+        - cell "13800000002 武汉市":
+          - text: "13800000002"
+          - generic: 武汉市
+        - cell "鄂A·B1002 云端演示演示车辆":
+          - text: 鄂A·B1002
+          - generic: 云端演示演示车辆
+        - cell "体验司机"
+        - cell "0 项待审"
+        - cell "资料与审核":
+          - button "资料与审核"
+  - text: 共
+  - strong: "2"
+  - text: 条记录，第
+  - strong: "1"
+  - text: /
+  - strong: "1"
+  - text: 页
+  - button "上一页" [disabled]
+  - button "下一页" [disabled]
+  - generic: 登录成功 · 点击刷新获取两端最新数据
+- dialog:
+  - heading "司机资料 · 张司机" [level=2]
+  - button "关闭" [active]: ×
+  - term: 司机编号
+  - definition: D1
+  - term: 手机
+  - definition: "13800000001"
+  - term: 城市
+  - definition: 宜昌市
+  - term: 会员等级
+  - definition: 体验司机
+  - term: 模拟钱包
+  - definition: ¥368.00
+  - heading "资质审核" [level=3]
+  - heading "车辆保单 已通过" [level=3]:
+    - text: 车辆保单
+    - generic: 已通过
+  - paragraph
+  - button "查看正面 / 主附件"
+  - button "查看背面附件"
+  - generic "证件资料和审核记录"
+  - heading "驾驶证 已通过" [level=3]:
+    - text: 驾驶证
+    - generic: 已通过
+  - paragraph
+  - button "查看正面 / 主附件"
+  - button "查看背面附件"
+  - generic "证件资料和审核记录"
+  - heading "从业资格证 已通过" [level=3]:
+    - text: 从业资格证
+    - generic: 已通过
+  - paragraph
+  - button "查看正面 / 主附件"
+  - button "查看背面附件"
+  - generic "证件资料和审核记录"
+  - generic "完整资料"
+  - button "关闭"
+- status: 已导出当前已应用条件的全部匹配记录，操作已记入审计

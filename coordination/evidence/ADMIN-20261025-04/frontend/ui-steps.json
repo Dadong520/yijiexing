@@ -1,0 +1,36 @@
+{
+  "steps": [
+    "orders-date",
+    "orders-combined",
+    "orders-page2",
+    "orders-page-size15",
+    "orders-page2-size15",
+    "orders-empty",
+    "orders-reset-page1",
+    "orders-retry-recovered"
+  ],
+  "screenshots": [
+    "01-login-desktop",
+    "02-login-narrow",
+    "03-login-error",
+    "04-overview",
+    "05-orders-date",
+    "06-orders-combined-detail",
+    "07-orders-page2-detail",
+    "08-orders-empty",
+    "09-query-failed",
+    "10-cancellations",
+    "11-refund-detail",
+    "12-driver-detail",
+    "13-passenger-detail",
+    "14-payment-detail",
+    "15-support-detail",
+    "16-statistics-detail",
+    "17-audit-old-detail",
+    "18-viewer-detail",
+    "19-filtered-page2-export"
+  ],
+  "viewerAndAdminLoggedOut": true,
+  "viewportRestored": true,
+  "completedAt": "2026-10-25T13:29:04.234Z"
+}

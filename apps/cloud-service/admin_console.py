@@ -4,6 +4,7 @@ No database connection, web server, credentials or external dependencies here.
 import csv
 import io
 from common import *
+from admin_queries import AdminQueries
 
 READ = {'orders.read','drivers.read','passengers.read','payments.read','support.read','config.read','statistics.read','audit.read'}
 ROLES = {
@@ -202,14 +203,20 @@ class AdminConsole:
         require(row['mime'] in ('image/png','image/jpeg'),'不支持此附件格式',415)
         self.svc.audit('ADMIN:'+user['username'],'certificate.view',None,{'driverId':driver_id,'type':certificate_type,'side':side,'fileId':fid})
         return {'fileId':row['id'],'mimeType':row['mime'],'imageBase64':base64.b64encode(row['content']).decode()}
-    def export(self,user,dataset):
-        self.permit(user,'export');require(dataset in ('orders','drivers','passengers','payments','support','audit'),'不可导出此数据集')
-        self.permit(user,dataset+'.read');rows=self.state(user)[dataset]
-        fields={'orders':['id','passengerId','driverId','stage','fare','paymentStatus','origin','destination','createdAt'],'drivers':['id','mobile','name','city','currentLevel','online'],'passengers':['id','mobile','name','city'],'payments':['orderId','fare','paymentStatus','refundAmount','currentRefundAmount','historicalRefundAmount','refundRecords','paymentMode'],'support':['id','source','ownerId','orderId','status','content','reply'],'audit':['id','actor','action','created','before_value','after_value']}[dataset]
+    def query(self,user,params):
+        return AdminQueries(self,user).select(params)
+    def export(self,user,dataset='orders',params=None):
+        self.permit(user,'export')
+        filters=dict(params or {})
+        filters.setdefault('dataset',dataset)
+        result=AdminQueries(self,user).select(filters,paginate=False)
+        dataset=result['dataset'];rows=result['items']
+        order_fields=['id','passengerId','driverId','stage','fare','paymentStatus','origin','destination','createdAt','passengerMobile','driverName','driverMobile','plate','city','kind','fareSource','cancellationType','cancelledAt']
+        fields={'orders':order_fields,'drivers':['id','mobile','name','city','currentLevel','online','certificateStatus','vehicleType','plate'],'passengers':['id','mobile','name','city'],'payments':['orderId','fare','paymentStatus','refundAmount','currentRefundAmount','historicalRefundAmount','refundRecords','paymentMode','id','recordType','accountId','createdAt','amount','status'],'support':['id','source','ownerId','orderId','status','content','reply','rowId','accountId','createdAt'],'audit':['id','actor','action','created','before_value','after_value'],'cancellations':order_fields+['cancellationStatus'],'refunds':['id','orderId','accountId','driverId','amount','refundedAt','refundSource','roundIndex','paymentMode'],'statistics':['date','orderCount','completedCount','cancelledCount','activeCount','paidFare','refundAmount']}[dataset]
         buf=io.StringIO();writer=csv.writer(buf);writer.writerow(fields)
         def safe(v):
             s=dumps(v) if isinstance(v,(dict,list)) else '' if v is None else str(v)
             return "'"+s if s.lstrip().startswith(('=','+','-','@','\t','\r')) else s
         for row in rows:writer.writerow([safe(row.get(k)) for k in fields])
-        self.svc.audit('ADMIN:'+user['username'],'console.export',None,{'dataset':dataset,'rows':len(rows)})
+        self.svc.audit('ADMIN:'+user['username'],'console.export',None,{'dataset':dataset,'rows':len(rows),'filters':filters})
         return '\ufeff'+buf.getvalue()

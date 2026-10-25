@@ -1,0 +1,13 @@
+{
+  "author": "Gemini generated layout/query helpers/three report pages; coordinator integration and boundary fixes",
+  "fixes": [
+    "Dropped overlapping legacy layout rules; retained compact existing components",
+    "Preserved async row action binding through render on filter/page/reset/retry",
+    "Normalized existing HTML row and generated array-of-cells renderers into table rows",
+    "Kept editable filter draft and explicit error on API failure; prevented failed/inflight export",
+    "Discarded stale request responses before caching; wired schema field labels to real controls",
+    "Preserved tuple modal button API and correct origin/destination fields",
+    "Refund detail retains exact round and explicit shared-order link",
+    "No business writes, permission policy, token storage or admin IAP changes"
+  ]
+}

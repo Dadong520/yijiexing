@@ -1,0 +1,38 @@
+{
+  "task": "ADMINAPI-20261025-01",
+  "owner": "backend",
+  "branch": "codex/admin-query-api-20261025",
+  "productSha": "8a02527d025245381ebca517fcd88508c5e9606d",
+  "authorTests": "PASS",
+  "independentAcceptance": "NOT_RUN; assigned by coordinator to non-author frontend",
+  "deployment": "NOT_RUN; coordinator only",
+  "checks": {
+    "full-suite.log": {
+      "sha256": "423536076469bc819380a0ef187fccad5a87e50c9235dafe9153359475cbad6e",
+      "status": "PASS",
+      "testCount": 185,
+      "durationSeconds": 54.587
+    },
+    "query-suite.log": {
+      "sha256": "8ea0b37f56a0ce08d61c5d063dac7060c5088a69b48564654a30ab1dfcb0e1ca",
+      "status": "PASS",
+      "testCount": 18,
+      "durationSeconds": 0.445
+    },
+    "coordination-check.log": {
+      "sha256": "7ce5f7cfd6d21aa9328309c70d9835a6b2df1a7997dcedfb8f9cd1ed0159406a",
+      "status": "PASS"
+    }
+  },
+  "unpassed": [],
+  "notImplemented": [
+    "共享订单原线上/线下billingMode",
+    "权威公司维度company",
+    "是否后台指派assigned/电话叫车专门业务",
+    "真实支付/银行提现/公司清分",
+    "司机乘客账号登记日期（旧表未保存）",
+    "原超时/有责取消完整语义",
+    "订单代叫联系人完整手机号查询（仅号码掩码，账号手机号可查）"
+  ],
+  "next": "frontend independent review; coordinator integrate UI and API, decide deployment; no autonomous cloud operations"
+}

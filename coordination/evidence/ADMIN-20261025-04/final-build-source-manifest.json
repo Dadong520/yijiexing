@@ -1,0 +1,28 @@
+{
+  "baseImage": "us-west1-docker.pkg.dev/yijiexing-driver-demo-1023/demo/admin-ui@sha256:35726abba61d4ddc4ba49733a726ce81218fac400a212a2f554121cfb6c0a15c",
+  "backendSourceSha": "8a02527d025245381ebca517fcd88508c5e9606d",
+  "frontendSourceSha": "0d7dfc045a137ee93b354acd669edebf6724af29",
+  "scope": "driver-admin only; existing IAP entry, admin role and shared persistent data",
+  "files": {
+    "Dockerfile": "086d7cf53cc63cdf66cefb582d295579460cdb4ac27fa3da26a8149f0d77aa65",
+    "admin.py": "d68a26dbc7441f73dfc79a5a0bf98e60f7558b6386afde374d09636c9a447222",
+    "admin_console.py": "829abdfe5ff5e1ebb80b35dd83f87a39e18bafbe625846dd169fd29a91f699ae",
+    "admin_queries.py": "eb7077abd704dcdf9cfe9f0c435a0471701f4042dc480df82c90ea0e6188bd1c",
+    "benefits.py": "b9f4d100b05e7a3a4c39dd0bba69dbe557110a3ca006eb8a755692235f2470de",
+    "cloud_server.py": "8a4ba1ef1fc5cab5151f5463622cc1f4ebc4622a5c377102cd1ac08fe8dc54d9",
+    "common.py": "3e27cf145d05a96b2ae6e1435d66d460edf585bd98de1935fda1764e27face92",
+    "distribution.py": "303e3b1087f7d9b1278d383b6b386e4f0c0ceb7d9de87c48693895962a4d6084",
+    "domain.py": "ef05f2902e2227c45e6893a2fed03a259d2563e6da951acf33bf7763465443e5",
+    "iap_browser.py": "5e33d4384aeaafc79caf64db95587dbc8cf90a3b9f11a0b1f0ae63b8aa3db42e",
+    "negotiation.py": "0c844c35ee4a79b867d7ffb39945021cf9bb03af03125a37a1c9b12006e668b8",
+    "order_options.py": "4ec12f73f400cfae665b828b5714501b6e555bdf00eb99c352e306a5f36cb123",
+    "passenger.py": "7f11834c6d9cea342b1e474feaadc702247d4d169f898d5e247c98a00a27729b",
+    "passenger_extras.py": "fc6a21d2d05adf859754bddd56467dd1d7376fc9a1a9e57c4c0865c4a34983c9",
+    "seed.py": "64382842f55bd0486028244a758c951293de1f89f6e6ce2a98273867a44b0d7b",
+    "server.py": "4aaf099733be16eb36f4fc1a9f84be49f9a11fe183906c6b7e5fc850028219c0",
+    "snapshot.py": "31552c1a6406157cc483507a66b3d2d8981c5ca7ab7941f4a2250225cabaca17",
+    "static/admin.css": "13905b7f7ce00511efcb328ac9d0d5c11ea40d4355a90f087956ed3288469e4d",
+    "static/admin.html": "36c42ec43c71eaa767b0e820b3fad81fe79845382b1a17c52cdeccebb2d6a5af",
+    "static/admin.js": "9cc93a2ff8f3d5f4f69c91d2a837ad1166a9bb72b01fea70c19c4bc4b1aa5c01"
+  }
+}

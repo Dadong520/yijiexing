@@ -1,0 +1,28 @@
+{
+  "sourceSha": "fe201d921eb9a5eca5be3b51d404dfc49fa4c71a",
+  "status": "FIXED_AND_INDEPENDENT_DELTA_PASS",
+  "findings": [
+    {
+      "id": "ADMIN-WITHDRAWAL-P1-01",
+      "source": "coordinator cross-review",
+      "fix": "wallet.withdrawal.audit payload id=record.withdrawalId||record.id; composite query row ID remains display-only",
+      "scope": "payments UI only; original order/money/server actions unchanged"
+    },
+    {
+      "id": "ADMIN-SUPPORT-P2-01",
+      "source": "frontend actual list/detail comparison",
+      "fix": "Support list associated account uses accountId (plus role-aware label) rather than ownerId, which is order ID for order complaints. Preserve actual reply payload ownerId."
+    },
+    {
+      "id": "ADMIN-LOGOUT-P2-01",
+      "source": "coordinator memory isolation review",
+      "fix": "Explicit logout clears queryViews and pendingRequests to avoid carrying applied/draft account filters across admin identities."
+    },
+    {
+      "id": "ADMIN-EXPORT-COPY-P3-01",
+      "source": "coordinator CSV UX review",
+      "fix": "Export success notice explicitly says monetary values in cents. No CSV schema break."
+    }
+  ],
+  "fixedSha": "0d7dfc045a137ee93b354acd669edebf6724af29"
+}

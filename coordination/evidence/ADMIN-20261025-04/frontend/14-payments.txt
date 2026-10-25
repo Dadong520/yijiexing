@@ -1,0 +1,319 @@
+- complementary:
+  - generic: 宜
+  - generic: 宜捷行运营管理中心
+  - navigation:
+    - generic: 工作台
+    - button "经营概览":
+      - text: 经营概览
+    - button "经营报表":
+      - text: 经营报表
+    - generic: 业务运营
+    - button "订单管理":
+      - text: 订单管理
+    - button "取消订单记录":
+      - text: 取消订单记录
+    - button "司机与车辆":
+      - text: 司机与车辆
+    - button "乘客管理":
+      - text: 乘客管理
+    - button "模拟账务" [active]:
+      - text: 模拟账务
+    - button "模拟退款记录":
+      - text: 模拟退款记录
+    - button "评价投诉反馈":
+      - text: 评价投诉反馈
+    - generic: 配置与治理
+    - button "城市与会员":
+      - text: 城市与会员
+    - button "账号与权限":
+      - text: 账号与权限
+    - button "操作日志":
+      - text: 操作日志
+  - text: 独立云体验环境
+  - generic: 支付 / 退款 / 提现均为模拟
+- banner:
+  - text: 工作空间 /
+  - strong: 模拟账务
+  - generic: admin · 超级管理员
+  - button "刷新数据"
+  - button "退出"
+- main:
+  - generic: 体验环境 · 本后台与司机、乘客端共用持久化业务数据。所有金额均为模拟账务，不发生真实资金交易。
+  - heading "模拟账务" [level=1]
+  - paragraph: 共享订单费用为当前状态台账；无终点订单费用待定，导出保留原始金额分值；不涉及真实资金交易
+  - button "导出筛选结果"
+  - generic: 搜索
+  - textbox "搜索"
+  - generic: 开始日期
+  - textbox "开始日期"
+  - generic: 结束日期
+  - textbox "结束日期"
+  - generic: 记录类型
+  - combobox "记录类型":
+    - option "全部" [selected]
+    - option "订单支付状态"
+    - option "模拟提现申请"
+  - generic: 订单支付状态
+  - combobox "订单支付状态":
+    - option "全部" [selected]
+    - option "支付已取消"
+    - option "模拟支付失败"
+    - option "模拟支付处理中"
+    - option "已模拟退款"
+    - option "模拟支付成功"
+    - option "未支付"
+  - generic: 订单退款状态
+  - combobox "订单退款状态":
+    - option "全部" [selected]
+    - option "存在模拟退款"
+    - option "无退款"
+  - generic: 提现状态
+  - combobox "提现状态":
+    - option "全部" [selected]
+    - option "待审核"
+    - option "已驳回"
+    - option "模拟审核通过·未银行打款"
+  - generic: 订单编号
+  - textbox "订单编号"
+  - generic: 账号
+  - textbox "账号"
+  - button "查询"
+  - button "重置"
+  - combobox:
+    - option "15 条/页"
+    - option "20 条/页" [selected]
+    - option "50 条/页"
+    - option "100 条/页"
+  - generic: 已应用过滤：无
+  - generic: 总匹配数
+  - generic: "36"
+  - generic: 订单数
+  - generic: "34"
+  - generic: 模拟退款
+  - generic: ¥27.00
+  - generic: 模拟提现
+  - generic: ¥7.00
+  - generic: 口径：订单支付状态一订单一行，时间为paidAt或createdAt；另包含持久司机提现记录。订单金额、退款、提现分开汇总，不作为历史收款或公司清分。所有支付、退款、提现为模拟；未接真实收单、银行打款或公司清分。不提供电话叫车、后台指派、超时/有责取消的虚构对应。 (UTC+8，同条件全匹配汇总)
+  - generic: 2 条记录时间缺失或无效，启用日期筛选时将被排除
+  - table:
+    - rowgroup:
+      - row "记录编号 订单 / 司机 类型 金额 状态 时间 操作":
+        - columnheader "记录编号"
+        - columnheader "订单 / 司机"
+        - columnheader "类型"
+        - columnheader "金额"
+        - columnheader "状态"
+        - columnheader "时间"
+        - columnheader "操作"
+    - rowgroup:
+      - row "WITHDRAWAL:D1:W2 D1 模拟提现 ¥4.00 模拟审核通过 2026/10/25 12:00:00 查看记录":
+        - cell "WITHDRAWAL:D1:W2"
+        - cell "D1"
+        - cell "模拟提现"
+        - cell "¥4.00"
+        - cell "模拟审核通过":
+          - generic: 模拟审核通过
+        - cell "2026/10/25 12:00:00"
+        - cell "查看记录":
+          - button "查看记录"
+      - row "E E 订单模拟费用 ¥9.00 未支付 2026/10/25 00:00:00 查看记录":
+        - cell "E"
+        - cell "E"
+        - cell "订单模拟费用"
+        - cell "¥9.00"
+        - cell "未支付":
+          - generic: 未支付
+        - cell "2026/10/25 00:00:00"
+        - cell "查看记录":
+          - button "查看记录"
+      - row "D D 订单模拟费用 ¥20.00 模拟支付成功 2026/10/24 23:59:59 查看记录":
+        - cell "D"
+        - cell "D"
+        - cell "订单模拟费用"
+        - cell "¥20.00"
+        - cell "模拟支付成功":
+          - generic: 模拟支付成功
+        - cell "2026/10/24 23:59:59"
+        - cell "查看记录":
+          - button "查看记录"
+      - row "PAGE-00 PAGE-00 订单模拟费用 ¥10.00 未支付 2026/10/24 23:59:59 查看记录":
+        - cell "PAGE-00"
+        - cell "PAGE-00"
+        - cell "订单模拟费用"
+        - cell "¥10.00"
+        - cell "未支付":
+          - generic: 未支付
+        - cell "2026/10/24 23:59:59"
+        - cell "查看记录":
+          - button "查看记录"
+      - row "PAGE-01 PAGE-01 订单模拟费用 ¥10.01 未支付 2026/10/24 23:59:59 查看记录":
+        - cell "PAGE-01"
+        - cell "PAGE-01"
+        - cell "订单模拟费用"
+        - cell "¥10.01"
+        - cell "未支付":
+          - generic: 未支付
+        - cell "2026/10/24 23:59:59"
+        - cell "查看记录":
+          - button "查看记录"
+      - row "PAGE-02 PAGE-02 订单模拟费用 ¥10.02 未支付 2026/10/24 23:59:59 查看记录":
+        - cell "PAGE-02"
+        - cell "PAGE-02"
+        - cell "订单模拟费用"
+        - cell "¥10.02"
+        - cell "未支付":
+          - generic: 未支付
+        - cell "2026/10/24 23:59:59"
+        - cell "查看记录":
+          - button "查看记录"
+      - row "PAGE-03 PAGE-03 订单模拟费用 ¥10.03 未支付 2026/10/24 23:59:59 查看记录":
+        - cell "PAGE-03"
+        - cell "PAGE-03"
+        - cell "订单模拟费用"
+        - cell "¥10.03"
+        - cell "未支付":
+          - generic: 未支付
+        - cell "2026/10/24 23:59:59"
+        - cell "查看记录":
+          - button "查看记录"
+      - row "PAGE-04 PAGE-04 订单模拟费用 ¥10.04 未支付 2026/10/24 23:59:59 查看记录":
+        - cell "PAGE-04"
+        - cell "PAGE-04"
+        - cell "订单模拟费用"
+        - cell "¥10.04"
+        - cell "未支付":
+          - generic: 未支付
+        - cell "2026/10/24 23:59:59"
+        - cell "查看记录":
+          - button "查看记录"
+      - row "PAGE-05 PAGE-05 订单模拟费用 ¥10.05 未支付 2026/10/24 23:59:59 查看记录":
+        - cell "PAGE-05"
+        - cell "PAGE-05"
+        - cell "订单模拟费用"
+        - cell "¥10.05"
+        - cell "未支付":
+          - generic: 未支付
+        - cell "2026/10/24 23:59:59"
+        - cell "查看记录":
+          - button "查看记录"
+      - row "PAGE-06 PAGE-06 订单模拟费用 ¥10.06 未支付 2026/10/24 23:59:59 查看记录":
+        - cell "PAGE-06"
+        - cell "PAGE-06"
+        - cell "订单模拟费用"
+        - cell "¥10.06"
+        - cell "未支付":
+          - generic: 未支付
+        - cell "2026/10/24 23:59:59"
+        - cell "查看记录":
+          - button "查看记录"
+      - row "PAGE-07 PAGE-07 订单模拟费用 ¥10.07 未支付 2026/10/24 23:59:59 查看记录":
+        - cell "PAGE-07"
+        - cell "PAGE-07"
+        - cell "订单模拟费用"
+        - cell "¥10.07"
+        - cell "未支付":
+          - generic: 未支付
+        - cell "2026/10/24 23:59:59"
+        - cell "查看记录":
+          - button "查看记录"
+      - row "PAGE-08 PAGE-08 订单模拟费用 ¥10.08 未支付 2026/10/24 23:59:59 查看记录":
+        - cell "PAGE-08"
+        - cell "PAGE-08"
+        - cell "订单模拟费用"
+        - cell "¥10.08"
+        - cell "未支付":
+          - generic: 未支付
+        - cell "2026/10/24 23:59:59"
+        - cell "查看记录":
+          - button "查看记录"
+      - row "PAGE-09 PAGE-09 订单模拟费用 ¥10.09 未支付 2026/10/24 23:59:59 查看记录":
+        - cell "PAGE-09"
+        - cell "PAGE-09"
+        - cell "订单模拟费用"
+        - cell "¥10.09"
+        - cell "未支付":
+          - generic: 未支付
+        - cell "2026/10/24 23:59:59"
+        - cell "查看记录":
+          - button "查看记录"
+      - row "PAGE-10 PAGE-10 订单模拟费用 ¥10.10 未支付 2026/10/24 23:59:59 查看记录":
+        - cell "PAGE-10"
+        - cell "PAGE-10"
+        - cell "订单模拟费用"
+        - cell "¥10.10"
+        - cell "未支付":
+          - generic: 未支付
+        - cell "2026/10/24 23:59:59"
+        - cell "查看记录":
+          - button "查看记录"
+      - row "PAGE-11 PAGE-11 订单模拟费用 ¥10.11 未支付 2026/10/24 23:59:59 查看记录":
+        - cell "PAGE-11"
+        - cell "PAGE-11"
+        - cell "订单模拟费用"
+        - cell "¥10.11"
+        - cell "未支付":
+          - generic: 未支付
+        - cell "2026/10/24 23:59:59"
+        - cell "查看记录":
+          - button "查看记录"
+      - row "PAGE-12 PAGE-12 订单模拟费用 ¥10.12 未支付 2026/10/24 23:59:59 查看记录":
+        - cell "PAGE-12"
+        - cell "PAGE-12"
+        - cell "订单模拟费用"
+        - cell "¥10.12"
+        - cell "未支付":
+          - generic: 未支付
+        - cell "2026/10/24 23:59:59"
+        - cell "查看记录":
+          - button "查看记录"
+      - row "PAGE-13 PAGE-13 订单模拟费用 ¥10.13 未支付 2026/10/24 23:59:59 查看记录":
+        - cell "PAGE-13"
+        - cell "PAGE-13"
+        - cell "订单模拟费用"
+        - cell "¥10.13"
+        - cell "未支付":
+          - generic: 未支付
+        - cell "2026/10/24 23:59:59"
+        - cell "查看记录":
+          - button "查看记录"
+      - row "PAGE-14 PAGE-14 订单模拟费用 ¥10.14 未支付 2026/10/24 23:59:59 查看记录":
+        - cell "PAGE-14"
+        - cell "PAGE-14"
+        - cell "订单模拟费用"
+        - cell "¥10.14"
+        - cell "未支付":
+          - generic: 未支付
+        - cell "2026/10/24 23:59:59"
+        - cell "查看记录":
+          - button "查看记录"
+      - row "PAGE-15 PAGE-15 订单模拟费用 ¥10.15 未支付 2026/10/24 23:59:59 查看记录":
+        - cell "PAGE-15"
+        - cell "PAGE-15"
+        - cell "订单模拟费用"
+        - cell "¥10.15"
+        - cell "未支付":
+          - generic: 未支付
+        - cell "2026/10/24 23:59:59"
+        - cell "查看记录":
+          - button "查看记录"
+      - row "PAGE-16 PAGE-16 订单模拟费用 ¥10.16 未支付 2026/10/24 23:59:59 查看记录":
+        - cell "PAGE-16"
+        - cell "PAGE-16"
+        - cell "订单模拟费用"
+        - cell "¥10.16"
+        - cell "未支付":
+          - generic: 未支付
+        - cell "2026/10/24 23:59:59"
+        - cell "查看记录":
+          - button "查看记录"
+  - text: 共
+  - strong: "36"
+  - text: 条记录，第
+  - strong: "1"
+  - text: /
+  - strong: "2"
+  - text: 页
+  - button "上一页" [disabled]
+  - button "下一页"
+  - generic: 登录成功 · 点击刷新获取两端最新数据
+- status: 已导出当前已应用条件的全部匹配记录，操作已记入审计

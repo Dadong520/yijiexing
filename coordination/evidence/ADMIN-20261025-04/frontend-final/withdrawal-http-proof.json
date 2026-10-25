@@ -1,0 +1,18 @@
+{
+  "url": "http://127.0.0.1:8808/api/local/admin/v2/action",
+  "method": "POST",
+  "body": {
+    "action": "wallet.withdrawal.audit",
+    "payload": {
+      "driverId": "D1",
+      "id": "W1",
+      "approved": true,
+      "reason": "本地合成W1独立验收，仅模拟审核不打款",
+      "reply": "本地合成W1独立验收，仅模拟审核不打款",
+      "confirmed": true
+    },
+    "requestId": "2ce55343-4471-48b8-b4d3-3916b03e1723"
+  },
+  "httpStatus": 200,
+  "headersOmitted": true
+}

@@ -1,0 +1,17 @@
+{
+  "endedAt": "2026-10-25T13:35:36.830Z",
+  "loggedOut": true,
+  "viewportReset": true,
+  "networkObservationDisabled": true,
+  "onlyBusinessMutation": "local synthetic W1 PENDING -> SANDBOX_APPROVED",
+  "cloudUntouched": true,
+  "screenshots": [
+    "01-support-account-fixed.jpg",
+    "04-withdrawal-confirm.jpg",
+    "05-withdrawal-approved.jpg",
+    "06-withdrawal-readback.jpg",
+    "07-export-unit-cents.jpg",
+    "08-viewer-new-session.jpg"
+  ],
+  "screenshotCollectionNote": "Capture helper retained original output binding; six new delta images moved byte-for-byte to frontend-final with SHA verification. Baseline19 screenshots/report unchanged; no mixed-version extra images left there."
+}

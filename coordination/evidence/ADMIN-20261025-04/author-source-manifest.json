@@ -1,0 +1,21 @@
+{
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-admin-20261025",
+  "backendProductSha": "8a02527d025245381ebca517fcd88508c5e9606d",
+  "initialLocalSmoke": "Actual Chrome login +34-fixture overview/orders loaded schema, summary and 20-row pagination; independent acceptance still NOT_RUN",
+  "gemini": {
+    "css": "98c25f72-f44a-43a5-8a4f-a546e774a642",
+    "queryHelpers": "f1fb5173-5c4a-41ea-a7e9-e3594da09cff",
+    "reports": "14682b28-246f-42c5-a41d-71ad35f393ea"
+  },
+  "files": {
+    "apps/admin-console/README.md": "ae9f7c1385d198eb545e5b89a2aa14950fb311e6f1f3a21a6af4814caafbfaef",
+    "apps/admin-console/web/admin.html": "36c42ec43c71eaa767b0e820b3fad81fe79845382b1a17c52cdeccebb2d6a5af",
+    "apps/admin-console/web/admin.css": "13905b7f7ce00511efcb328ac9d0d5c11ea40d4355a90f087956ed3288469e4d",
+    "apps/admin-console/web/admin.js": "b049819aec78860084d465162c63f0e9f40efbc4218d7b8762302b0a4fb6feb9",
+    "apps/admin-console/backend/iap_browser.py": "5e33d4384aeaafc79caf64db95587dbc8cf90a3b9f11a0b1f0ae63b8aa3db42e",
+    "apps/admin-console/backend/test_iap_browser.py": "eabc898b7fc205485991d502192438986cf72a69c932801737741d299c009388",
+    "apps/admin-console/ops/prepare_browser_build.py": "4f7bcd0aa3bfc8eabc89dc0915b5421c2db1f236e875625a5408f24431e6f560"
+  },
+  "sourceSha": "fe201d921eb9a5eca5be3b51d404dfc49fa4c71a",
+  "frontendSourceSha": "8eb46ea3038e978166edb82ea3658d8eec7d85f6"
+}

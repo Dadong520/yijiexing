@@ -1,0 +1,108 @@
+- complementary:
+  - generic: 宜
+  - generic: 宜捷行运营管理中心
+  - navigation:
+    - generic: 工作台
+    - button "经营概览":
+      - text: 经营概览
+    - button "经营报表":
+      - text: 经营报表
+    - generic: 业务运营
+    - button "订单管理":
+      - text: 订单管理
+    - button "取消订单记录":
+      - text: 取消订单记录
+    - button "司机与车辆":
+      - text: 司机与车辆
+    - button "乘客管理" [active]:
+      - text: 乘客管理
+    - button "模拟账务":
+      - text: 模拟账务
+    - button "模拟退款记录":
+      - text: 模拟退款记录
+    - button "评价投诉反馈":
+      - text: 评价投诉反馈
+    - generic: 配置与治理
+    - button "城市与会员":
+      - text: 城市与会员
+    - button "账号与权限":
+      - text: 账号与权限
+    - button "操作日志":
+      - text: 操作日志
+  - text: 独立云体验环境
+  - generic: 支付 / 退款 / 提现均为模拟
+- banner:
+  - text: 工作空间 /
+  - strong: 乘客管理
+  - generic: admin · 超级管理员
+  - button "刷新数据"
+  - button "退出"
+- main:
+  - generic: 体验环境 · 本后台与司机、乘客端共用持久化业务数据。所有金额均为模拟账务，不发生真实资金交易。
+  - heading "乘客管理" [level=1]
+  - paragraph: 乘客账号资料及关联共享订单
+  - button "导出筛选结果"
+  - generic: 搜索
+  - textbox "搜索"
+  - generic: 开始日期 (旧账号表没有持久登记时间，无法提供注册日期筛选。)
+  - textbox "开始日期 (旧账号表没有持久登记时间，无法提供注册日期筛选。)" [disabled]
+  - generic: 结束日期 (旧账号表没有持久登记时间，无法提供注册日期筛选。)
+  - textbox "结束日期 (旧账号表没有持久登记时间，无法提供注册日期筛选。)" [disabled]
+  - generic: 乘客账号
+  - textbox "乘客账号"
+  - generic: 账号电话
+  - textbox "账号电话"
+  - generic: 行政区划
+  - combobox "行政区划":
+    - option "全部" [selected]
+    - option "武汉市"
+    - option "宜昌市"
+  - button "查询"
+  - button "重置"
+  - combobox:
+    - option "15 条/页"
+    - option "20 条/页" [selected]
+    - option "50 条/页"
+    - option "100 条/页"
+  - generic: 已应用过滤：无
+  - generic: 总匹配数
+  - generic: "2"
+  - generic: 口径：实际passengers账号及持久profile，不从掩码还原手机号；无登记日期。所有支付、退款、提现为模拟；未接真实收单、银行打款或公司清分。不提供电话叫车、后台指派、超时/有责取消的虚构对应。 (UTC+8，同条件全匹配汇总)
+  - table:
+    - rowgroup:
+      - row "乘客 手机 城市 共享订单 操作":
+        - columnheader "乘客"
+        - columnheader "手机"
+        - columnheader "城市"
+        - columnheader "共享订单"
+        - columnheader "操作"
+    - rowgroup:
+      - row "乘客P1 P1 13800000101 宜昌市 31 查看资料":
+        - cell "乘客P1 P1":
+          - text: 乘客P1
+          - generic: P1
+        - cell "13800000101"
+        - cell "宜昌市"
+        - cell "31"
+        - cell "查看资料":
+          - button "查看资料"
+      - row "乘客P2 P2 13800000102 武汉市 2 查看资料":
+        - cell "乘客P2 P2":
+          - text: 乘客P2
+          - generic: P2
+        - cell "13800000102"
+        - cell "武汉市"
+        - cell "2"
+        - cell "查看资料":
+          - button "查看资料"
+  - text: 共
+  - strong: "2"
+  - text: 条记录，第
+  - strong: "1"
+  - text: /
+  - strong: "1"
+  - text: 页
+  - button "上一页" [disabled]
+  - button "下一页" [disabled]
+  - generic: 登录成功 · 点击刷新获取两端最新数据
+- status: 已导出当前已应用条件的全部匹配记录，操作已记入审计

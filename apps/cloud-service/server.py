@@ -86,12 +86,13 @@ class Handler(BaseHTTPRequestHandler):
                             else:
                                 user=console.authenticate(session)
                                 if path=='/api/local/admin/v2/state' and self.command=='GET':data=console.state(user)
+                                elif path=='/api/local/admin/v2/query' and self.command=='GET':data=console.query(user,parse_qs(u.query,keep_blank_values=True))
                                 elif path=='/api/local/admin/v2/certificate-file' and self.command=='GET':data=console.certificate_file(user,query.get('driverId',[''])[0],query.get('type',[''])[0],query.get('side',['front'])[0])
                                 elif path=='/api/local/admin/v2/action' and self.command=='POST':
                                     result=console.action(user,p.get('action'),p.get('payload',{}),p.get('requestId'));data={'result':result,'state':console.state(user)}
                                 elif path=='/api/local/admin/v2/logout' and self.command=='POST':data=console.logout(session)
                                 elif path=='/api/local/admin/v2/export' and self.command=='GET':
-                                    data=console.export(user,query.get('dataset',['orders'])[0]);svc.db.commit();return self.send(200,data,'text/csv; charset=utf-8')
+                                    data=console.export(user,params=parse_qs(u.query,keep_blank_values=True));svc.db.commit();return self.send(200,data,'text/csv; charset=utf-8')
                                 else:raise ApiError(404,'管理接口不存在')
                         elif path=='/api/local/admin/shutdown' and self.command=='POST':
                             data={'stopping':True,'environment':'LOCAL_ISOLATED_SANDBOX'};stop_after_reply=True

@@ -1,0 +1,177 @@
+- complementary:
+  - generic: 宜
+  - generic: 宜捷行运营管理中心
+  - navigation:
+    - generic: 工作台
+    - button "经营概览":
+      - text: 经营概览
+    - button "经营报表":
+      - text: 经营报表
+    - generic: 业务运营
+    - button "订单管理":
+      - text: 订单管理
+    - button "取消订单记录":
+      - text: 取消订单记录
+    - button "司机与车辆":
+      - text: 司机与车辆
+    - button "乘客管理":
+      - text: 乘客管理
+    - button "模拟账务":
+      - text: 模拟账务
+    - button "模拟退款记录":
+      - text: 模拟退款记录
+    - button "评价投诉反馈":
+      - text: 评价投诉反馈
+    - generic: 配置与治理
+    - button "城市与会员":
+      - text: 城市与会员
+    - button "账号与权限":
+      - text: 账号与权限
+    - button "操作日志":
+      - text: 操作日志
+  - text: 独立云体验环境
+  - generic: 支付 / 退款 / 提现均为模拟
+- banner:
+  - text: 工作空间 /
+  - strong: 模拟账务
+  - generic: admin · 超级管理员
+  - button "刷新数据"
+  - button "退出"
+- main:
+  - generic: 体验环境 · 本后台与司机、乘客端共用持久化业务数据。所有金额均为模拟账务，不发生真实资金交易。
+  - heading "模拟账务" [level=1]
+  - paragraph: 共享订单费用为当前状态台账；无终点订单费用待定，导出保留原始金额分值；不涉及真实资金交易
+  - button "导出筛选结果"
+  - generic: 搜索
+  - textbox "搜索"
+  - generic: 开始日期
+  - textbox "开始日期"
+  - generic: 结束日期
+  - textbox "结束日期"
+  - generic: 记录类型
+  - combobox "记录类型":
+    - option "全部"
+    - option "订单支付状态"
+    - option "模拟提现申请" [selected]
+  - generic: 订单支付状态
+  - combobox "订单支付状态":
+    - option "全部" [selected]
+    - option "支付已取消"
+    - option "模拟支付失败"
+    - option "模拟支付处理中"
+    - option "已模拟退款"
+    - option "模拟支付成功"
+    - option "未支付"
+  - generic: 订单退款状态
+  - combobox "订单退款状态":
+    - option "全部" [selected]
+    - option "存在模拟退款"
+    - option "无退款"
+  - generic: 提现状态
+  - combobox "提现状态":
+    - option "全部" [selected]
+    - option "待审核"
+    - option "已驳回"
+    - option "模拟审核通过·未银行打款"
+  - generic: 订单编号
+  - textbox "订单编号"
+  - generic: 账号
+  - textbox "账号"
+  - button "查询"
+  - button "重置"
+  - combobox:
+    - option "15 条/页"
+    - option "20 条/页" [selected]
+    - option "50 条/页"
+    - option "100 条/页"
+  - text: 已应用过滤：
+  - generic: "记录类型: 模拟提现"
+  - generic: 总匹配数
+  - generic: "2"
+  - generic: 订单数
+  - generic: "0"
+  - generic: 模拟退款
+  - generic: ¥0.00
+  - generic: 模拟提现
+  - generic: ¥7.00
+  - generic: 口径：订单支付状态一订单一行，时间为paidAt或createdAt；另包含持久司机提现记录。订单金额、退款、提现分开汇总，不作为历史收款或公司清分。所有支付、退款、提现为模拟；未接真实收单、银行打款或公司清分。不提供电话叫车、后台指派、超时/有责取消的虚构对应。 (UTC+8，同条件全匹配汇总)
+  - table:
+    - rowgroup:
+      - row "记录编号 订单 / 司机 类型 金额 状态 时间 操作":
+        - columnheader "记录编号"
+        - columnheader "订单 / 司机"
+        - columnheader "类型"
+        - columnheader "金额"
+        - columnheader "状态"
+        - columnheader "时间"
+        - columnheader "操作"
+    - rowgroup:
+      - row "WITHDRAWAL:D1:W2 D1 模拟提现 ¥4.00 模拟审核通过 2026/10/25 12:00:00 查看记录":
+        - cell "WITHDRAWAL:D1:W2"
+        - cell "D1"
+        - cell "模拟提现"
+        - cell "¥4.00"
+        - cell "模拟审核通过":
+          - generic: 模拟审核通过
+        - cell "2026/10/25 12:00:00"
+        - cell "查看记录":
+          - button "查看记录"
+      - row "WITHDRAWAL:D1:W1 D1 模拟提现 ¥3.00 模拟审核通过 2026/10/24 12:00:00 查看记录":
+        - cell "WITHDRAWAL:D1:W1"
+        - cell "D1"
+        - cell "模拟提现"
+        - cell "¥3.00"
+        - cell "模拟审核通过":
+          - generic: 模拟审核通过
+        - cell "2026/10/24 12:00:00"
+        - cell "查看记录":
+          - button "查看记录"
+  - text: 共
+  - strong: "2"
+  - text: 条记录，第
+  - strong: "1"
+  - text: /
+  - strong: "1"
+  - text: 页
+  - button "上一页" [disabled]
+  - button "下一页" [disabled]
+  - generic: 最近同步 2026/10/25 21:34:54 · 点击刷新获取两端最新状态
+- dialog:
+  - heading "模拟账务记录" [level=2]
+  - button "关闭": ×
+  - paragraph: 此记录为独立体验环境中的模拟账务，不发生真实支付、退款或银行打款。
+  - term: 记录编号
+  - definition: WITHDRAWAL:D1:W1
+  - term: 记录类型
+  - definition: 模拟提现
+  - term: 关联订单
+  - definition: —
+  - term: 乘客账号
+  - definition: —
+  - term: 司机账号
+  - definition: 张司机 · D1
+  - term: 订单或提现金额
+  - definition: ¥3.00
+  - term: 当前状态
+  - definition:
+    - generic: 模拟审核通过
+  - term: 累计模拟退款
+  - definition: ¥0.00
+  - term: 当前轮模拟退款
+  - definition: 当前服务未提供分项
+  - term: 历史轮模拟退款
+  - definition: 当前服务未提供分项
+  - term: 支付时间
+  - definition: 未记录
+  - term: 退款时间
+  - definition: 未记录
+  - term: 创建时间
+  - definition: 2026/10/24 12:00:00
+  - term: 审核时间
+  - definition: 2026/10/25 21:34:54
+  - term: 处理意见
+  - definition: 本地合成W1独立验收，仅模拟审核不打款
+  - generic "原始记录（诊断用）" [active]
+  - generic: "{ \"id\": \"WITHDRAWAL:D1:W1\", \"amount\": 300, \"status\": \"SANDBOX_APPROVED\", \"createdAt\": \"2026-10-24T12:00:00+08:00\", \"sandbox\": true, \"statusLabel\": \"云端演示审核通过，未实际银行打款\", \"reply\": \"本地合成W1独立验收，仅模拟审核不打款\", \"auditedAt\": \"2026-10-25T21:34:54+08:00\", \"withdrawalId\": \"W1\", \"recordType\": \"WITHDRAWAL\", \"accountId\": \"D1\", \"driverId\": \"D1\", \"withdrawalStatus\": \"SANDBOX_APPROVED\", \"paymentMode\": \"SIMULATED\" }"
+  - button "关闭"
+- status: 操作已保存，请在两端刷新查看最新结果

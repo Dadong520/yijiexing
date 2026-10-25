@@ -1,0 +1,164 @@
+{
+  "task": "ADMINAPI-20261025-01",
+  "author": "backend",
+  "baseSha": "e600e6bd15d894afe9fbd85a7b1f57cf3cb4e842",
+  "startingHead": "4b61f3d3cfbe363934e448907cecb8a8b644475a",
+  "branch": "codex/admin-query-api-20261025",
+  "sourceHashes": {
+    "apps/cloud-service/admin_console.py": "829abdfe5ff5e1ebb80b35dd83f87a39e18bafbe625846dd169fd29a91f699ae",
+    "apps/cloud-service/admin_queries.py": "eb7077abd704dcdf9cfe9f0c435a0471701f4042dc480df82c90ea0e6188bd1c",
+    "apps/cloud-service/server.py": "4aaf099733be16eb36f4fc1a9f84be49f9a11fe183906c6b7e5fc850028219c0",
+    "apps/cloud-service/tests/test_admin_queries.py": "c0c082d5555506ba932556fd05ee117f69e21aa1875f94692bb704a0606f450f"
+  },
+  "protectedSources": {
+    "apps/cloud-service/cloud_server.py": {
+      "sha256": "8a4ba1ef1fc5cab5151f5463622cc1f4ebc4622a5c377102cd1ac08fe8dc54d9",
+      "unchangedFromStartingHead": true
+    },
+    "apps/cloud-service/domain.py": {
+      "sha256": "ef05f2902e2227c45e6893a2fed03a259d2563e6da951acf33bf7763465443e5",
+      "unchangedFromStartingHead": true
+    },
+    "apps/cloud-service/passenger.py": {
+      "sha256": "7f11834c6d9cea342b1e474feaadc702247d4d169f898d5e247c98a00a27729b",
+      "unchangedFromStartingHead": true
+    },
+    "apps/cloud-service/admin.py": {
+      "sha256": "d68a26dbc7441f73dfc79a5a0bf98e60f7558b6386afde374d09636c9a447222",
+      "unchangedFromStartingHead": true
+    },
+    "apps/cloud-service/snapshot.py": {
+      "sha256": "31552c1a6406157cc483507a66b3d2d8981c5ca7ab7941f4a2250225cabaca17",
+      "unchangedFromStartingHead": true
+    },
+    "apps/cloud-service/negotiation.py": {
+      "sha256": "0c844c35ee4a79b867d7ffb39945021cf9bb03af03125a37a1c9b12006e668b8",
+      "unchangedFromStartingHead": true
+    },
+    "apps/cloud-service/order_options.py": {
+      "sha256": "4ec12f73f400cfae665b828b5714501b6e555bdf00eb99c352e306a5f36cb123",
+      "unchangedFromStartingHead": true
+    },
+    "apps/cloud-service/passenger_extras.py": {
+      "sha256": "fc6a21d2d05adf859754bddd56467dd1d7376fc9a1a9e57c4c0865c4a34983c9",
+      "unchangedFromStartingHead": true
+    }
+  },
+  "originalJava": [
+    {
+      "path": "/Users/dongge/Documents/New project 2/yijiexing-native-v2/backend-source/hsdd/hsdd-ride/hsdd-ride-api/src/main/java/cn/hbzjhs/hsdd/ride/req/HsOrderReq.java",
+      "status": "READ",
+      "sha256": "02a9c20efa4f4c2ee4ee1b00473049edf7d71ec7fbbdac52ac80a419292d274d",
+      "selectedLines": [
+        {
+          "line": 45,
+          "text": "private Integer billingMode;"
+        },
+        {
+          "line": 58,
+          "text": "@Schema(description = \"是否指派单：0-否，1-是\")"
+        },
+        {
+          "line": 59,
+          "text": "private Integer dispatched;"
+        },
+        {
+          "line": 79,
+          "text": "private String contactNumber;"
+        },
+        {
+          "line": 113,
+          "text": "private Long companyId;"
+        },
+        {
+          "line": 146,
+          "text": "@Schema(description = \"取消类型 1乘客取消 2司机取消\")"
+        },
+        {
+          "line": 147,
+          "text": "private Integer cancelType;"
+        },
+        {
+          "line": 156,
+          "text": "private String areaCode;"
+        }
+      ]
+    },
+    {
+      "path": "/Users/dongge/Documents/New project 2/yijiexing-native-v2/backend-source/hsdd/hsdd-ride/hsdd-ride-api/src/main/java/cn/hbzjhs/hsdd/ride/entity/HsOrderEntity.java",
+      "status": "READ",
+      "sha256": "78ac6de9fa4771cb8ed7d371328afd5780a7663902827e3c8965cad17c043cc6",
+      "selectedLines": [
+        {
+          "line": 46,
+          "text": "private Integer billingMode;"
+        },
+        {
+          "line": 76,
+          "text": "private String areaCode;"
+        },
+        {
+          "line": 88,
+          "text": "private String contactNumber;"
+        },
+        {
+          "line": 170,
+          "text": "private Long companyId;"
+        },
+        {
+          "line": 234,
+          "text": "@Schema(description = \"取消类型 1.乘客 2.司机 3.超时 4后台 5乘客有责 6后台有责\")"
+        },
+        {
+          "line": 235,
+          "text": "private Integer cancelType;"
+        },
+        {
+          "line": 290,
+          "text": "@Schema(description = \"是否指派单：0-否，1-是\")"
+        },
+        {
+          "line": 291,
+          "text": "private Integer dispatched;"
+        }
+      ]
+    },
+    {
+      "path": "/Users/dongge/Documents/New project 2/yijiexing-native-v2/backend-source/hsdd/hsdd-ride/hsdd-ride-api/src/main/java/cn/hbzjhs/hsdd/ride/req/HsLedgerQueryRequest.java",
+      "status": "READ",
+      "sha256": "11d8177ee65dc78979a1b491424bbd185bff2294940b783c78d873dc1d0fe2b3",
+      "selectedLines": [
+        {
+          "line": 34,
+          "text": "private Integer billingMode;"
+        },
+        {
+          "line": 76,
+          "text": "private BigDecimal driverAmount;"
+        },
+        {
+          "line": 82,
+          "text": "private BigDecimal taxiCompanyAmount;"
+        },
+        {
+          "line": 88,
+          "text": "private BigDecimal platformAmount;"
+        },
+        {
+          "line": 100,
+          "text": "private Integer entryStatus;"
+        }
+      ]
+    },
+    {
+      "path": "/Users/dongge/Documents/New project 2/yijiexing-native-v2/backend-source/hsdd/hsdd-ride/hsdd-ride-biz/src/main/resources/mapper/HsOrderMapper.xml",
+      "status": "READ",
+      "sha256": "0a404756eea6d5b9899981bea1cc5dee004b46c4eb8cd577de5a6ef860fdcba2",
+      "selectedLines": []
+    }
+  ],
+  "independentAcceptance": "NOT_RUN",
+  "deployment": "NOT_RUN; coordinator only",
+  "liveDataAccess": "NOT_RUN; no original/live database or network environment accessed",
+  "productSha": "8a02527d025245381ebca517fcd88508c5e9606d"
+}

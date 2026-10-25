@@ -1,0 +1,144 @@
+- complementary:
+  - generic: 宜
+  - generic: 宜捷行运营管理中心
+  - navigation:
+    - generic: 工作台
+    - button "经营概览":
+      - text: 经营概览
+    - button "经营报表":
+      - text: 经营报表
+    - generic: 业务运营
+    - button "订单管理":
+      - text: 订单管理
+    - button "取消订单记录":
+      - text: 取消订单记录
+    - button "司机与车辆":
+      - text: 司机与车辆
+    - button "乘客管理":
+      - text: 乘客管理
+    - button "模拟账务":
+      - text: 模拟账务
+    - button "模拟退款记录" [active]:
+      - text: 模拟退款记录
+    - button "评价投诉反馈":
+      - text: 评价投诉反馈
+    - generic: 配置与治理
+    - button "城市与会员":
+      - text: 城市与会员
+    - button "账号与权限":
+      - text: 账号与权限
+    - button "操作日志":
+      - text: 操作日志
+  - text: 独立云体验环境
+  - generic: 支付 / 退款 / 提现均为模拟
+- banner:
+  - text: 工作空间 /
+  - strong: 模拟退款记录
+  - generic: admin · 超级管理员
+  - button "刷新数据"
+  - button "退出"
+- main:
+  - generic: 体验环境 · 本后台与司机、乘客端共用持久化业务数据。所有金额均为模拟账务，不发生真实资金交易。
+  - heading "模拟退款记录" [level=1]
+  - paragraph: 每轮退款独立呈列，系统记账不代表真实资金原路退回
+  - button "导出筛选结果"
+  - generic: 搜索
+  - textbox "搜索"
+  - generic: 开始日期
+  - textbox "开始日期"
+  - generic: 结束日期
+  - textbox "结束日期"
+  - generic: 订单编号
+  - textbox "订单编号"
+  - generic: 乘客账号
+  - textbox "乘客账号"
+  - generic: 司机账号
+  - textbox "司机账号"
+  - generic: 退款轮次来源
+  - combobox "退款轮次来源":
+    - option "全部" [selected]
+    - option "当前轮次"
+    - option "续叫前历史轮次"
+  - button "查询"
+  - button "重置"
+  - combobox:
+    - option "15 条/页"
+    - option "20 条/页" [selected]
+    - option "50 条/页"
+    - option "100 条/页"
+  - generic: 已应用过滤：无
+  - generic: 总匹配数
+  - generic: "3"
+  - generic: 模拟退款
+  - generic: ¥27.00
+  - generic: 口径：每笔共享订单的refundHistory各轮及当前累计模拟退款分别一行；不按金额/时间去重，按退款发生时间筛选。所有支付、退款、提现为模拟；未接真实收单、银行打款或公司清分。不提供电话叫车、后台指派、超时/有责取消的虚构对应。 (UTC+8，同条件全匹配汇总)
+  - table:
+    - rowgroup:
+      - row "记录编号 关联订单 乘客与司机 退款轮次与归属 模拟金额 发生时间 操作":
+        - columnheader "记录编号"
+        - columnheader "关联订单"
+        - columnheader "乘客与司机"
+        - columnheader "退款轮次与归属"
+        - columnheader "模拟金额"
+        - columnheader "发生时间"
+        - columnheader "操作"
+    - rowgroup:
+      - 'row "B:CURRENT B 客: P1 司: D1 第3轮 当前轮 ¥9.00 (模拟) 2026/10/24 16:00:00 方式: SIMULATED 详情"':
+        - cell "B:CURRENT"
+        - cell "B":
+          - generic: B
+        - 'cell "客: P1 司: D1"':
+          - generic: "客: P1"
+          - generic: "司: D1"
+        - cell "第3轮 当前轮":
+          - generic: 第3轮
+          - generic: 当前轮
+        - cell "¥9.00 (模拟)"
+        - 'cell "2026/10/24 16:00:00 方式: SIMULATED"':
+          - generic: 2026/10/24 16:00:00
+          - generic: "方式: SIMULATED"
+        - cell "详情":
+          - button "详情"
+      - 'row "B:HISTORY:0 B 客: P1 司: D2 第1轮 历史轮 ¥9.00 (模拟) 2026/10/24 16:00:00 方式: SIMULATED 详情"':
+        - cell "B:HISTORY:0"
+        - cell "B":
+          - generic: B
+        - 'cell "客: P1 司: D2"':
+          - generic: "客: P1"
+          - generic: "司: D2"
+        - cell "第1轮 历史轮":
+          - generic: 第1轮
+          - generic: 历史轮
+        - cell "¥9.00 (模拟)"
+        - 'cell "2026/10/24 16:00:00 方式: SIMULATED"':
+          - generic: 2026/10/24 16:00:00
+          - generic: "方式: SIMULATED"
+        - cell "详情":
+          - button "详情"
+      - 'row "B:HISTORY:1 B 客: P1 司: D2 第2轮 历史轮 ¥9.00 (模拟) 2026/10/24 16:00:00 方式: SIMULATED 详情"':
+        - cell "B:HISTORY:1"
+        - cell "B":
+          - generic: B
+        - 'cell "客: P1 司: D2"':
+          - generic: "客: P1"
+          - generic: "司: D2"
+        - cell "第2轮 历史轮":
+          - generic: 第2轮
+          - generic: 历史轮
+        - cell "¥9.00 (模拟)"
+        - 'cell "2026/10/24 16:00:00 方式: SIMULATED"':
+          - generic: 2026/10/24 16:00:00
+          - generic: "方式: SIMULATED"
+        - cell "详情":
+          - button "详情"
+  - text: 共
+  - strong: "3"
+  - text: 条记录，第
+  - strong: "1"
+  - text: /
+  - strong: "1"
+  - text: 页
+  - button "上一页" [disabled]
+  - button "下一页" [disabled]
+  - generic: 登录成功 · 点击刷新获取两端最新数据
+- status: 已导出当前已应用条件的全部匹配记录，操作已记入审计
