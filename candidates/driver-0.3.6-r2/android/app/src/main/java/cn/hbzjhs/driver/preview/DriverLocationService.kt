@@ -59,7 +59,7 @@ class DriverLocationService : Service(), LocationListener {
     private var shownOverlayId: String? = null
 
     private fun updateBubble() {
-        val notice = NewOrderAlerts.notices.value.firstOrNull()
+        val notice = NewOrderAlerts.notices.value.lastOrNull()
         val overlayAllowed = floatingEnabled && floatingAllowed && !DriverUiPresence.visible && Settings.canDrawOverlays(this)
         if (overlayAllowed && notice != null && shownOverlayId != notice.id) {
             shownOverlayId = notice.id

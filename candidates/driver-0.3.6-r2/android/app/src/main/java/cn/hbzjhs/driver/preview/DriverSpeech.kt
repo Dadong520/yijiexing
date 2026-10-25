@@ -237,8 +237,12 @@ class NativeOrderAnnouncer(context: Context) {
         }
         // Text notifications are independent of voice permission, audio preference and TTS
         // parameters.
+        fun createdAtMillis(order: JSONObject): Long = runCatching {
+            java.time.OffsetDateTime.parse(order.optString("createdAt")).toInstant().toEpochMilli()
+        }.getOrDefault(0L)
         val newOrders =
-            if (firstOnline) available.take(1) else available.filter { it.optString("id") !in seen }
+            if (firstOnline) listOfNotNull(available.maxByOrNull(::createdAtMillis))
+            else available.filter { it.optString("id") !in seen }.sortedBy(::createdAtMillis)
         seen.addAll(availableIds)
         while (seen.size > 4096) seen.remove(seen.first())
         NewOrderAlerts.retainAvailable(availableIds)
