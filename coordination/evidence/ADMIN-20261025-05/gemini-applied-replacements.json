@@ -1,0 +1,17 @@
+{
+  "replacements": [
+    {
+      "before": "aside .brand {\n  height: 60px;\n  padding: 0 20px;\n  display: flex;\n  align-items: center;\n  gap: 10px;\n  font-size: 17px;\n  font-weight: 700;\n  color: #ffffff;\n  border-bottom: 1px solid rgba(255, 255, 255, 0.08);\n}",
+      "after": "aside .brand {\n  flex-shrink: 0;\n  height: 60px;\n  padding: 0 20px;\n  display: flex;\n  align-items: center;\n  gap: 10px;\n  font-size: 17px;\n  font-weight: 700;\n  color: #ffffff;\n  border-bottom: 1px solid rgba(255, 255, 255, 0.08);\n}"
+    },
+    {
+      "before": "nav#nav {\n  flex: 1;\n  padding: 14px 10px;\n  overflow-y: auto;\n  display: flex;\n  flex-direction: column;\n  gap: 4px;\n}\n\nnav#nav button,\nnav#nav a {\n  all: unset;\n  display: flex;\n  align-items: center;\n  height: 40px;\n  padding: 0 12px;\n  border-radius: 6px;\n  font-size: 14px;\n  font-weight: 500;\n  color: #94a3b8;\n  cursor: pointer;\n  box-sizing: border-box;\n  transition: color 0.15s ease, background 0.15s ease;\n}\n\nnav#nav button:hover,\nnav#nav a:hover {\n  background: rgba(255, 255, 255, 0.06);\n  color: #ffffff;\n}\n\nnav#nav button.active,\nnav#nav a.active,\nnav#nav button[aria-current=\"page\"],\nnav#nav a[aria-current=\"page\"] {\n  background: var(--teal-primary);\n  color: #ffffff;\n  font-weight: 600;\n}\n\naside .asidefoot {\n  padding: 14px 16px;\n  border-top: 1px solid rgba(255, 255, 255, 0.08);\n  font-size: 13px;\n  color: #64748b;\n}",
+      "after": "nav#nav {\n  flex: 1 1 auto;\n  min-height: 0;\n  padding: 14px 10px;\n  overflow-y: auto;\n  display: flex;\n  flex-direction: column;\n  gap: 4px;\n}\n\nnav#nav button,\nnav#nav a {\n  all: unset;\n  display: flex;\n  align-items: center;\n  flex-shrink: 0;\n  height: 40px;\n  padding: 0 12px;\n  border-radius: 6px;\n  font-size: 14px;\n  font-weight: 500;\n  color: #94a3b8;\n  cursor: pointer;\n  box-sizing: border-box;\n  transition: color 0.15s ease, background 0.15s ease;\n}\n\nnav#nav button:focus-visible,\nnav#nav a:focus-visible {\n  outline: 2px solid var(--teal-primary);\n  outline-offset: 1px;\n}\n\nnav#nav button:hover,\nnav#nav a:hover {\n  background: rgba(255, 255, 255, 0.06);\n  color: #ffffff;\n}\n\nnav#nav button.active,\nnav#nav a.active,\nnav#nav button[aria-current=\"page\"],\nnav#nav a[aria-current=\"page\"] {\n  background: var(--teal-primary);\n  color: #ffffff;\n  font-weight: 600;\n}\n\naside .asidefoot {\n  position: static;\n  left: auto;\n  bottom: auto;\n  flex-shrink: 0;\n  padding: 14px 16px;\n  border-top: 1px solid rgba(255, 255, 255, 0.08);\n  font-size: 13px;\n  color: #94a3b8;\n}"
+    },
+    {
+      "before": ".nav-section{padding:16px 12px 8px;color:#b8d4c9;font-size:11px;letter-spacing:.08em}",
+      "after": ".nav-section{flex-shrink:0;padding:16px 12px 8px;color:#b8d4c9;font-size:11px;letter-spacing:.08em}"
+    }
+  ],
+  "reason": "通过更高特异性的 aside .asidefoot 显式覆盖旧全局绝对定位重回 flex 流并禁止挤压；brand 与 asidefoot 设 flex-shrink: 0 避免压缩；nav 补齐 min-height: 0 激活内部纵向滚动；给按钮与 section 补 flex-shrink: 0 确保 40px 完整高度；提亮 footer 文本对比度为 #94a3b8；补充 :focus-visible 焦点轮廓解决 all:unset 导致的键盘不可见问题；不影响 700px 以下媒体查询中已有的 display: none。"
+}

@@ -1,0 +1,11 @@
+{
+  "at": "2026-10-25T23:36:36.210073+08:00",
+  "revision": "driver-admin-domain-7ee63cc",
+  "image": "us-west1-docker.pkg.dev/yijiexing-driver-demo-1023/demo/admin-ui@sha256:a4ce4c7f762775483b3bdd0a9559cfd949d07a4cb9397c376fb79bb27f745125",
+  "iapEnabled": "true",
+  "scaling": {
+    "run.googleapis.com/maxScale": "1",
+    "run.googleapis.com/scalingMode": "automatic"
+  },
+  "envSha256": "13b0933487479b14c2455fc0dae73430f2299e861a904c739d2041809f2286cf"
+}

@@ -1,0 +1,201 @@
+{
+  "schemaVersion": 1,
+  "taskId": "ADMIN-20261025-05",
+  "acceptance": "PASS",
+  "verdict": "PASS_SCOPE",
+  "scope": "非作者本地合成后台侧栏CSS修复独立浏览器验收；不是云发布/接口/全系统验收。",
+  "sourceSha": "7f489c243cb7d93ef6718cee13357ba330083e07",
+  "baselineSha": "531a49f358756e0faf5a5c10b76a3455bac2be35",
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-sidebar-20261025",
+  "sourceFile": "apps/admin-console/web/admin.css",
+  "cssSha256": "6d5be85c66d935f1284b55bd568ade07cd7d8be7a1cf0f5793a49a1c1790dfc5",
+  "servedCssExactMatch": true,
+  "url": "http://127.0.0.1:8808",
+  "browser": "Chrome qa tab1055271278（已退出关闭）；用户在线tab1055271265未操作",
+  "completedAt": "2026-10-25T23:40:35.515285+08:00",
+  "steps": [
+    {
+      "step": 1,
+      "description": "1440x693首页，侧栏滚动到底部",
+      "health": "PASS",
+      "evidence": [
+        "01-1440x693-overview.png",
+        "02-1440x693-nav-bottom.png"
+      ],
+      "result": "nav y60-617.5，footer y617.5-693，无矩形重叠；12按钮均40px，底部3按钮中心hit为对应button。初始视口外按钮被nav裁切是正常滚动，不误报footer覆盖。"
+    },
+    {
+      "step": 2,
+      "description": "城市会员/账号权限/日志真实点击",
+      "health": "PASS",
+      "evidence": [
+        "03-1440x693-cities.png",
+        "04-1440x693-accounts.png",
+        "05-1440x693-logs.png",
+        "page-checks.json"
+      ],
+      "result": "三页标题、菜单状态与内容对应；本地服务显示3城市、2账号、207日志，仅查看未提交配置。500高与390宽也重复实际点击三页并校验标题及表格。"
+    },
+    {
+      "step": 3,
+      "description": "1440x500键盘和滚动访问12菜单",
+      "health": "PASS",
+      "evidence": [
+        "06-1440x500-keyboard-last.png",
+        "keyboard.json"
+      ],
+      "result": "12菜单Tab焦点均可见，按钮40px，2px实线焦点框；浏览器随焦点自动滚动，最后日志Enter成功；nav底424.5等于footer顶。"
+    },
+    {
+      "step": 4,
+      "description": "1440x900高窗口",
+      "health": "PASS",
+      "evidence": [
+        "07-1440x900-tall.png"
+      ],
+      "result": "12菜单均完整40px且中心命中自身；nav底824.5=footer顶。"
+    },
+    {
+      "step": 5,
+      "description": "390x844横向菜单与底部三菜单点击",
+      "health": "PASS_NAV_SCOPE",
+      "evidence": [
+        "09-390x844-stable.png",
+        "10-390x844-nav-end.png",
+        "11-390x844-logs-open.png"
+      ],
+      "result": "导航水平滚动末尾scrollLeft1269.5，底部三按钮中心命中自身，footer隐藏；按钮34px为既有窄屏规则，未将其误称40px。窄屏header文字排版拥挤仍可见，属当前限定侧栏修复外的既有布局风险，未声称全页移动端美观通过。"
+    }
+  ],
+  "measurements": "measurements.json",
+  "keyboard": "keyboard.json",
+  "pageChecks": "page-checks.json",
+  "findings": [],
+  "limitations": [
+    "08-390x844-start.png在viewport切换后立即截图仍为旧桌面缩放画面，已拒绝作为证据；09/10/11稳定真实窄屏截图替代。",
+    "常规Tab循环与可见焦点已实测，不等于完整无障碍合规。",
+    "390宽仅导航限定回归PASS，页头拥挤未在本轮CSS范围解决。",
+    "首次AX字段索引stale未发送输入，改用当前明确DOM字段完成本地登录；没有绕过鉴权。"
+  ],
+  "commands": [
+    {
+      "tool": "cua_repl Chrome",
+      "actual": "documented viewport.set 1440x693/1440x500/1440x900/390x844；截图；真实菜单click；nav滚动；Tab/Return；read-only DOM getBoundingClientRect/elementFromPoint/focus-visible",
+      "result": "PASS，细节见measurements/keyboard/page-checks"
+    },
+    {
+      "tool": "python3 git show + urllib.request /static/admin.css",
+      "result": "served/file/fixed commit bytes完全相同，SHA256 6d5be85c66d935f1284b55bd568ade07cd7d8be7a1cf0f5793a49a1c1790dfc5"
+    }
+  ],
+  "notRun": [
+    "云发布与线上菜单回读",
+    "旧CSS现场复现（root已有独立证据，本轮不回退或注入旧CSS）",
+    "后台185/两App75测试重跑",
+    "订单/资金/账号权限与城市配置写入",
+    "新三端完整业务生命周期",
+    "完整移动页面布局/全部无障碍审查"
+  ],
+  "cleanup": {
+    "viewportReset": true,
+    "localLoggedOut": true,
+    "qaTabClosed": true,
+    "userOnlineTabUntouched": true,
+    "browserOwnership": "RETURNED_TO_COORDINATOR",
+    "status": "IDLE",
+    "adbUsed": false,
+    "productSourceChanged": false,
+    "deployed": false,
+    "agentsSpawned": false
+  },
+  "nextAction": "coordinator合并固定产品源码并唯一发布回读；作者不可自行验收。",
+  "acceptedScreenshots": [
+    "01-1440x693-overview.png",
+    "02-1440x693-nav-bottom.png",
+    "03-1440x693-cities.png",
+    "04-1440x693-accounts.png",
+    "05-1440x693-logs.png",
+    "06-1440x500-keyboard-last.png",
+    "07-1440x900-tall.png",
+    "09-390x844-stable.png",
+    "10-390x844-nav-end.png",
+    "11-390x844-logs-open.png"
+  ],
+  "evidenceManifest": [
+    {
+      "file": "01-1440x693-overview.png",
+      "bytes": 59740,
+      "sha256": "e53d81807b845050faa48cf71ceaf1f518cd874079eefcad362c1bd9b3eeeb84"
+    },
+    {
+      "file": "02-1440x693-nav-bottom.png",
+      "bytes": 59333,
+      "sha256": "01454a958eea5838fcb3a8298fbcfc13f24b9b9ef0834721d3dc7eedd2008ffd"
+    },
+    {
+      "file": "03-1440x693-cities.png",
+      "bytes": 67033,
+      "sha256": "8d19a72129901032bc9502b409416d327c81e013aec2d3a09913220bf18a738c"
+    },
+    {
+      "file": "04-1440x693-accounts.png",
+      "bytes": 63202,
+      "sha256": "9f17333443467a6d3fb2932ea59e2c66ca59648c2ab057da2bf8da6973c0c4e3"
+    },
+    {
+      "file": "05-1440x693-logs.png",
+      "bytes": 58152,
+      "sha256": "7bb8c00cbcef4833545c87da660695f17e7f3f168a8b752a2bb158b3d4d1139c"
+    },
+    {
+      "file": "06-1440x500-keyboard-last.png",
+      "bytes": 41939,
+      "sha256": "061bba629a234b1cc0f4b2c181fb63d0852821b58ef52d78167bb059c6cff88e"
+    },
+    {
+      "file": "07-1440x900-tall.png",
+      "bytes": 71697,
+      "sha256": "b376736df93ea680a88c57daf5e60c0e5c13b7aabe62064260ef6960f000660d"
+    },
+    {
+      "file": "08-390x844-start.png",
+      "bytes": 10314,
+      "sha256": "0381562ddcf0748ad68c1b7651f03ae6d778057222cf838bd292aadcc047890d"
+    },
+    {
+      "file": "09-390x844-stable.png",
+      "bytes": 27459,
+      "sha256": "4ad625339da6f78402d05ef29b548cd727eaa71b06e29969f11faeedbcd55521"
+    },
+    {
+      "file": "10-390x844-nav-end.png",
+      "bytes": 28391,
+      "sha256": "38751f2ae5a20c8fc0e0e38696b340651891434fb86b1c1a3cfe8b8b67867abb"
+    },
+    {
+      "file": "11-390x844-logs-open.png",
+      "bytes": 28318,
+      "sha256": "47efda62495e716dca5a5877f1db94ec9f2214797a2ecebe81979cb2f925d6e0"
+    },
+    {
+      "file": "keyboard.json",
+      "bytes": 3085,
+      "sha256": "c114cbbd142d70c8c3642a18136c286c464bc0c190a33ec7615a157b8eaafc3c"
+    },
+    {
+      "file": "measurements.json",
+      "bytes": 20929,
+      "sha256": "18fe648b07482970df5cb9f89ab4968f3f83db9d3ed4a7f22be58c35083d3c53"
+    },
+    {
+      "file": "page-checks.json",
+      "bytes": 31145,
+      "sha256": "0d756e59cef85acadad8063d69d24395e7c968806ef920265ce0d180610e87e9"
+    },
+    {
+      "file": "shots.json",
+      "bytes": 320,
+      "sha256": "2a9c7e3601795130c635156bb3da8ea78568cbac8ae8bd10e65773504716d056"
+    }
+  ]
+}

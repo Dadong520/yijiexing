@@ -1,0 +1,12 @@
+{
+  "sourceSha": "7f489c243cb7d93ef6718cee13357ba330083e07",
+  "backendSourceSha": "8a02527d025245381ebca517fcd88508c5e9606d",
+  "files": {
+    "apps/admin-console/web/admin.css": "6d5be85c66d935f1284b55bd568ade07cd7d8be7a1cf0f5793a49a1c1790dfc5",
+    "apps/admin-console/web/admin.js": "9cc93a2ff8f3d5f4f69c91d2a837ad1166a9bb72b01fea70c19c4bc4b1aa5c01",
+    "apps/admin-console/web/admin.html": "36c42ec43c71eaa767b0e820b3fad81fe79845382b1a17c52cdeccebb2d6a5af",
+    "apps/admin-console/backend/iap_browser.py": "5e33d4384aeaafc79caf64db95587dbc8cf90a3b9f11a0b1f0ae63b8aa3db42e"
+  },
+  "productDiffOnlyCSS": true,
+  "newBusinessLifecycle": "NOT_RUN_NOT_CHANGED"
+}

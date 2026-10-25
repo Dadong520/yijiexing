@@ -1,0 +1,46 @@
+{
+  "schemaVersion": 1,
+  "id": "ADMIN-20261025-05",
+  "owner": "antigravity",
+  "goal": "修复后台左侧底部体验提示遮挡账号权限/日志菜单及低窗口挤压，保留美观和实际可点击性。",
+  "baseSha": "531a49f358756e0faf5a5c10b76a3455bac2be35",
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-sidebar-20261025",
+  "allow_paths": [
+    "apps/admin-console/web/admin.css",
+    "coordination/evidence/ADMIN-20261025-05/"
+  ],
+  "checks": [
+    "1440x693复现footer遮挡底部两个菜单",
+    "桌面高/矮窗口提示与nav不重叠，菜单保持40px且可滚动到所有项目",
+    "城市会员、账号权限、日志实际点击打开相应内容",
+    "小屏横向菜单、键盘焦点可见且不被遮挡",
+    "只CSS修复，后台接口/IAP/持久订单不变",
+    "不同会话独立验收PASS后coordinator唯一合并发布，并回读资源和在线菜单"
+  ],
+  "status": "ACCEPTED_PENDING_PUBLISH",
+  "acceptance": "PASS",
+  "tests": [
+    {
+      "command": "frontend actual Cua browser localhost:8808: 1440x693/500/900 hit tests and bottom3 actual menu navigation; 500px 12-menu Tab/Enter; 390x844 horizontal nav",
+      "status": "PASS",
+      "exitCode": 0,
+      "sourceSha": "7f489c243cb7d93ef6718cee13357ba330083e07",
+      "scope": "sidebar only; mobile header crowding remains outside this fix"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "coordination/evidence/ADMIN-20261025-05/frontend/design-qa.json",
+      "sha256": "ceaaf6b7ffe9b625a71b79e6cf234fc3549893d99668bec1bc700d74a784d45c"
+    },
+    {
+      "path": "coordination/evidence/ADMIN-20261025-05/source-manifest.json",
+      "sha256": "80322e5abe878ddc47bce5624ccbbb5caa0f23fad82c7f9bd426313ca230524c"
+    }
+  ],
+  "nextAction": "独立PASS，合并后coordinator唯一发布CSS候选镜像，线上点击3菜单回读。",
+  "deploy_owner": "coordinator",
+  "releaseReady": true,
+  "reviewer": "frontend",
+  "acceptedSha": "7f489c243cb7d93ef6718cee13357ba330083e07"
+}

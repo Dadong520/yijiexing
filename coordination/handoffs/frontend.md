@@ -1,13 +1,8 @@
-# frontend NET01独立验收完成 / IDLE
-ACK AGENTS v2。任务NET-20261025-01，非作者审查，sourceRoot /Users/dongge/.codex/tmp/yijiexing-domains-20261025，baseline 1d099fdf5c6ce3054e89e2b7a073e380ae45ac24，产品7ee63cc33d8f08808d24ee1c27477415933a72ab，branch codex/stable-domain-clients-20261025。只两Gradle域名/版本6行；未改产品源、构建、提交、部署、浏览器或派agent。
+# frontend ADMIN05独立验收完成 / IDLE
+任务ADMIN-20261025-05，root委派最多8min，只本地Chrome非作者验收。sourceRoot /Users/dongge/.codex/tmp/yijiexing-sidebar-20261025；base531a49f358756e0faf5a5c10b76a3455bac2be35；fixed7f489c243cb7d93ef6718cee13357ba330083e07，branchcodex/admin-sidebar-20261025。仅CSS16增3删作者Gemini/root应用；本角色未改产品、构建、提交、发布、ADB或派agent。
 
-**PASS_SCOPE**：原AVD5586司机0311/code14、5584乘客1111/code13，install-r实际base.apk SHA/签名/版本/DEX稳定origin一致。原driver03与passenger0102保留；真实首页地图/资料与冷启动正常，passenger刷新订单。司机紧邻升级前仅首页可比，资料只核对升级后已知账号。origin https://yijiexing-demo.hbzjhs.xyz。
-司机APK e935ccb92478e2bc8fa1b9e8abcf8430a68c48be36b02d30905e9c0347926bf0
-乘客APK 8740d21e86484d0187cdcb9c99c03dbf2a8dc8d75488edfaf9f15ffb825c8edb
-签名 9ffec9b342d12909ff288bd73f23ba104893b39120cb24ea83c9734a0d2b758f
+**PASS_SCOPE**：http://127.0.0.1:8808合成真实后端，CSS实服=工作树=固定commit字节。1440x693/500/900 nav/footer矩形相接无重叠，12按钮40px；滚动末尾3菜单elementFromPoint均命中button自身。693/500/390宽实际城市会员/账号权限/日志click内容标题对应，3城市/2账号/207日志只读。500高12Tab焦点全部可见+自动滚动，2px outline，Enter日志成功。390x844水平滚到末尾3菜单命中/点击正常，既有窄屏34px保留。
 
-最后设备操作2026-10-25T22:28:10.865204+08:00，root延长到22:29内完成。两App已force-stop/HOME，原网络1/1/font1.0/1080x2400/420dpi前后相同；未清数据/prefs/token/cache、未重启AVD、未登出或下新订单/资金写。ADB所有权交回coordinator，frontend IDLE，不轮询。
+证据coordination/evidence/ADMIN-20261025-05/frontend/design-qa.json SHA256 ceaaf6b7ffe9b625a71b79e6cf234fc3549893d99668bec1bc700d74a784d45c；REPORT.md含步骤和截图；measurements/keyboard/page-checks存原始限定证据。08切viewport首图仍旧桌面缩放被拒绝，09/10/11稳定窄图替代。所有接受截图保存同字节并已实际查看。窄屏页头拥挤属范围外既有风险，只宣称导航PASS。
 
-证据 coordination/evidence/NET-20261025-01/frontend/design-qa.json SHA256 cc422bbe9bea3ebc2aa7da2b15abd53ed239853a0293ee2e4e70a1376bb9e5b6；REPORT.md。passenger-upgrade PASS，driver-focused安装/原始截图与driver-postcheck PASS。最后driver12资料/13冷启动图已人工查看。早期null-root是取树失败；精确am start-W+20s实际活动截图证实，driver-upgrade失败记录不冒充验收PASS；environment HOME图不作启动证据。乘客最终干净图06，初始升级03有系统通知。主机curl默认TLS health200；Python本机issuer失败未降级SSL；这不是模拟器抓包。完整sha/证据manifest/命令/NOT_RUN在报告。
-
-NOT_RUN：全量9UI/登录同意/弱网重测、真机/横屏/大字体/TalkBack、高德、完整三端订单/金额新生命周期、19单全字段对比、模拟器抓包、后台DNS证书、公开APKGET。逻辑同旧0310/1110仅继承先前边界；55/20测试只读root构建来源未重跑。下一步root独占合并固定源码和发布回读，待合并SHA由root填。
+最后已本地退出、QA tab1055271278关闭、viewport reset；用户线上tab1055271265完全未操作，Chrome所有权交回coordinator，frontend IDLE。无业务配置写。旧CSS复现/root已有证据，本轮不回退；云发布/线上菜单回读、185/75重跑、全系统三端/完整无障碍NOT_RUN。待合并SHA/唯一发布回读由root安排。
