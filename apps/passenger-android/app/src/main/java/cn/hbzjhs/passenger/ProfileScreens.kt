@@ -132,7 +132,7 @@ fun ProfileScreen(
       MenuRow("公告、客服与服务说明", Icons.Default.Info) { navigate("help") }
     }
     Panel("应用设置") {
-      MenuRow("连接设置", Icons.Default.Settings, "独立体验环境") { settings() }
+      MenuRow("连接状态", Icons.Default.Settings, "网络异常时重试") { settings() }
       HorizontalDivider(color = Color(0xFFF3F4F6), thickness = 0.8.dp)
       Note("体验版 ${BuildConfig.VERSION_NAME}")
       Note("与司机端共用订单。支付、退款与发票均为模拟，不产生真实资金或凭证。地址搜索使用设备系统Geocoder；自动定位、道路导航、短信、电话中继及实时人工客服尚未接入；投诉支持后台查看和回复。")
@@ -184,7 +184,7 @@ fun ProfileScreen(
     AlertDialog(
       onDismissRequest = { logout = false },
       title = { Text("退出登录？", fontWeight = FontWeight.Bold, color = Ink) },
-      text = { Text("本机登录凭证将移除，云端订单与资料仍保留。下次可重新获取体验验证码登录。") },
+      text = { Text("本机登录凭证将移除，云端订单与资料仍保留。下次可选择体验账号一键进入。") },
       confirmButton = {
         TextButton(
           onClick = {
@@ -350,7 +350,7 @@ fun HelpScreen(state: JSONObject) {
       Note("紧急情况请使用手机系统电话联系当地紧急服务；本应用不能代替紧急呼叫。")
     }
     Panel("第三方服务配置") {
-      KV("短信", "体验验证码回显，未发送短信")
+      KV("短信", "未接真实短信；体验账号一键进入")
       KV("支付与退款", "模拟，不发生资金变动")
       KV("地图与路线", "坐标连线示意，未接真实导航")
       KV("通知", "前台轮询，未接后台推送")

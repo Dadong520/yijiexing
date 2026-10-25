@@ -53,7 +53,7 @@ private class EncryptedValueVault(context: Context, private val name: String) {
     fun save(value: String) {
         val cipher =
             Cipher.getInstance("AES/GCM/NoPadding").apply { init(Cipher.ENCRYPT_MODE, key()) }
-        prefs
+        check(prefs
             .edit()
             .putString("iv", Base64.encodeToString(cipher.iv, Base64.NO_WRAP))
             .putString(
@@ -63,7 +63,7 @@ private class EncryptedValueVault(context: Context, private val name: String) {
                     Base64.NO_WRAP,
                 ),
             )
-            .apply()
+            .commit()) { "无法保存登录凭证，请检查设备存储后重试" }
     }
 
     fun load(): String =
@@ -167,12 +167,6 @@ object LocalApi {
     ): JSONObject =
         withContext(Dispatchers.IO) {
             val origin = validateCloudEndpoint(baseUrl)
-            if (credentials.demoAccess.isBlank())
-                throw LocalApiException(
-                    403,
-                    "请先在连接设置中输入演示访问码",
-                    JSONObject().put("reason", "DEMO_ACCESS_REQUIRED"),
-                )
             require(
                 path.startsWith("/api/") &&
                     !path.startsWith("//") &&
@@ -189,7 +183,6 @@ object LocalApi {
                 connection.readTimeout = 75000
                 connection.setRequestProperty("Accept", "application/json")
                 connection.setRequestProperty("User-Agent", "YiJieXing-Android-Cloud/0.3.1")
-                connection.setRequestProperty("X-Demo-Access", credentials.demoAccess)
                 if (authenticated && credentials.token.isNotBlank())
                     connection.setRequestProperty("Authorization", "Bearer ${credentials.token}")
                 if (body != null) {
@@ -229,7 +222,6 @@ object LocalApi {
 
 class ConnectedStore(app: Application) : AndroidViewModel(app) {
     private val vault = SessionVault(app)
-    private val accessVault = DemoAccessVault(app)
     private val mutableAccessConfigured = MutableStateFlow(false)
     val accessConfigured = mutableAccessConfigured.asStateFlow()
     private val mutableSessionAvailable = MutableStateFlow(false)
@@ -257,11 +249,12 @@ class ConnectedStore(app: Application) : AndroidViewModel(app) {
         get() = LocalApi.baseUrl
 
     init {
-        LocalApi.demoAccess = accessVault.load()
-        mutableAccessConfigured.value = LocalApi.demoAccess.isNotBlank()
+        // Retain legacy preferences untouched, but never read or transmit their code.
+        LocalApi.demoAccess = ""
+        mutableAccessConfigured.value = true
         LocalApi.token = vault.load()
         mutableSessionAvailable.value = LocalApi.token.isNotBlank()
-        if (LocalApi.token.isNotBlank() && LocalApi.demoAccess.isNotBlank()) refresh()
+        if (LocalApi.token.isNotBlank()) refresh()
         else mutableInitialized.value = true
     }
 
@@ -269,29 +262,18 @@ class ConnectedStore(app: Application) : AndroidViewModel(app) {
         mutableError.value = null
     }
 
-    fun updateDemoAccess(value: String): Boolean =
-        runCatching {
-                val access = validateDemoAccess(value)
-                requests.invalidate()
-                resetRequestStatus()
-                pendingKeys.clear()
-                accessVault.save(access)
-                LocalApi.demoAccess = access
-                mutableAccessConfigured.value = true
-                mutableError.value = null
-                if (LocalApi.token.isNotBlank()) refresh()
-                true
-            }
-            .getOrElse {
-                mutableError.value = it.message ?: "演示访问码保存失败"
-                false
-            }
+    /** Source-compatible no-ops for old UI; access codes are no longer required. */
+    @Suppress("UNUSED_PARAMETER")
+    fun updateDemoAccess(value: String): Boolean {
+        LocalApi.demoAccess = ""
+        mutableAccessConfigured.value = true
+        mutableError.value = null
+        return true
+    }
 
     fun clearDemoAccess() {
-        accessVault.clear()
         LocalApi.demoAccess = ""
-        mutableAccessConfigured.value = false
-        logoutLocal()
+        mutableAccessConfigured.value = true
     }
 
     private fun resetRequestStatus() {
@@ -345,7 +327,7 @@ class ConnectedStore(app: Application) : AndroidViewModel(app) {
                                 is LocalApiException ->
                                     when (e.details.optString("reason")) {
                                         "DEMO_ACCESS_REQUIRED",
-                                        "DEMO_ACCESS_INVALID" -> "演示访问码未设置或已失效，请在连接设置中更新"
+                                        "DEMO_ACCESS_INVALID" -> "体验服务连接失败，请重试连接或重新进入体验"
                                         "DEMO_PAUSED" -> "云端演示服务已暂停，请在电脑上恢复服务后重试"
                                         else -> e.message ?: "请求失败"
                                     }
@@ -358,7 +340,7 @@ class ConnectedStore(app: Application) : AndroidViewModel(app) {
                             e is LocalApiException &&
                                 e.details.optString("reason") in
                                     setOf("DEMO_ACCESS_REQUIRED", "DEMO_ACCESS_INVALID")
-                        val unauthorized = e is LocalApiException && e.status == 401 && !gateFailure
+                        val unauthorized = authenticated && e is LocalApiException && e.status == 401 && !gateFailure
                         val wasConnected = mutableConnected.value
                         if (e !is LocalApiException || gateFailure || e.status == 503)
                             mutableConnected.value = false
@@ -399,6 +381,41 @@ class ConnectedStore(app: Application) : AndroidViewModel(app) {
             val data = LocalApi.request("POST", "/api/auth/code", JSONObject().put("mobile", mobile), false, credentials)
             requests.commitIfCurrent(epoch) { done(data) }
         }
+
+    /** One serialized login operation; never nests the public request/login/refresh jobs. */
+    fun loginExperience(phone: String) {
+        if (mutableLoading.value) {
+            mutableError.value = "上一项操作仍在处理中，请稍候再试"
+            return
+        }
+        requests.invalidate()
+        resetRequestStatus()
+        pendingKeys.clear()
+        launchRequest(authenticated = false) { epoch, credentials ->
+            val mobile = phone.trim()
+            require(Regex("1[0-9]{10}").matches(mobile)) { "请选择有效体验手机号" }
+            val code = LocalApi.request("POST", "/api/auth/code", JSONObject().put("mobile", mobile), false, credentials)
+                .getString("verificationCode")
+            if (!requests.isCurrent(epoch)) return@launchRequest
+            val login = LocalApi.request("POST", "/api/auth/login", JSONObject().put("mobile", mobile).put("code", code), false, credentials)
+            val token = login.getString("token")
+            require(token.isNotBlank()) { "服务未返回有效登录凭证" }
+            if (!requests.isCurrent(epoch)) return@launchRequest
+            val fresh = LocalApi.request("GET", "/api/state", credentials = credentials.copy(token = token))
+            require(fresh.optJSONObject("state") != null && fresh.optJSONObject("profile") != null) { "体验账号资料尚未完整返回，请重试" }
+            val parsed = parseDriverState(fresh.getJSONObject("state"))
+            val freshPayload = JSONObject(fresh.toString())
+            val expectedDriver = login.getJSONObject("profile").getJSONObject("driver").getString("id")
+            require(parsed.loggedIn && fresh.getJSONObject("profile").getJSONObject("driver").getString("id") == expectedDriver) { "体验账号身份尚未正确同步，请重试" }
+            requests.commitIfCurrent(epoch) {
+                vault.save(token)
+                LocalApi.token = token
+                mutableState.value = parsed
+                mutablePayload.value = freshPayload
+                mutableSessionAvailable.value = true
+            }
+        }
+    }
 
     fun login(mobile: String, code: String) {
         requests.invalidate()
@@ -445,7 +462,7 @@ class ConnectedStore(app: Application) : AndroidViewModel(app) {
     }
 
     fun refresh(silent: Boolean = false) {
-        if (refreshing || LocalApi.token.isBlank() || LocalApi.demoAccess.isBlank()) return
+        if (refreshing || LocalApi.token.isBlank()) return
         if (silent && (!automaticRefreshEnabled || android.os.SystemClock.elapsedRealtime() < nextAutomaticRefreshAt)) return
         refreshing = true
         launchRequest(!silent, onFinally = { refreshing = false }) { epoch, credentials ->

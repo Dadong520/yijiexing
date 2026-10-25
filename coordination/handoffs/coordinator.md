@@ -1,2 +1,2 @@
-# 当前收尾 2026-10-25 20:36
-用户要求去除两端访问码。API3422已发布driver-demo-public3422f1cc，14真实HTTPS检查PASS/旧订单金额保留/角色管理边界保留；仅下载文案ecab94fd新镜像已build PASS，frontend非作者静态PASS+9分发测试PASS，准备同服务更新，不触碰admin IAM/IAP。活跃API唯一目录 /Users/dongge/.codex/tmp/yijiexing-api-20261025/apps/cloud-service。App唯一目录/Users/dongge/.codex/tmp/yijiexing-access-20261025，源码eb54e70f，driver0.3.10/pass1.1.10，55/20测试通过，frontend最终安装delta完成正在报告。退出旧提示已修；初次瞬时连接异常重开自动恢复，未证实原因，不伪称点击重试。新APKs未发布，等验收后replace GCS oldgen并公开GET核SHA。20:41结束本轮，CloudRun不自动暂停。
+# coordinator 收尾2026-10-25 20:40
+本轮全部发布且公开回读PASS，司机0310/code13、乘客1110/code12无需访问码，用户覆盖安装后选择账号/说明一键体验。产品eb54，PR15合并8461a4e64113b461ca667851ea1a7fb148d34328；API下载文案ecab，PR14合并526e5994，revdriver-demo-publiccopy-ecab94fd。App/实际API目录、完整hash/证据/当前限制见STATE。后台IAM/IAP原保护、旧单数据/金额保留。首次连接异常重开恢复、原因未定写报告，不隐瞒；无新完整三端交易。本轮不再开发/常驻，Cloud Run不自动暂停。源与截图/部署回读已入协调证据，最终交付记录PR跟进完成即停止。

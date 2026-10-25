@@ -1,0 +1,110 @@
+{
+  "schemaVersion": 1,
+  "task": "ACCESS-20261025-01",
+  "reviewer": "frontend independent non-author",
+  "sourceSha": "eb54e70f27c53aaf569390039349cf3487ff008f",
+  "acceptance": "PASS",
+  "scope": "Final four-string native delta + exact installed APK upgrades and retained-login homes, P2 closure, static download-copy review. No repeated full login matrix; bounded inheritance below. Global release/deployment gate owned by coordinator.",
+  "startedAt": "2026-10-25T20:30:58+08:00",
+  "originalDeviceDeadline": "2026-10-25T20:34:58+08:00",
+  "deviceTestingEndedAt": "2026-10-25T20:34:13.392479+08:00",
+  "releaseOwner": "coordinator",
+  "reviewerEditedProductBuiltOrDeployed": false,
+  "apkBindings": [
+    {
+      "client": "driver",
+      "sourceSha": "eb54e70f27c53aaf569390039349cf3487ff008f",
+      "versionName": "0.3.10-cloud",
+      "versionCode": 13,
+      "packageId": "cn.hbzjhs.dc.driver.cloud",
+      "apkSha256": "95c948f29ba44fdf30904e5e7880ce298d33d67036686be19e0b7da152441042",
+      "installedSha256": "95c948f29ba44fdf30904e5e7880ce298d33d67036686be19e0b7da152441042",
+      "signerSha256": "9ffec9b342d12909ff288bd73f23ba104893b39120cb24ea83c9734a0d2b758f",
+      "signerReadback": "Signer #1 certificate SHA-256 digest: 9ffec9b342d12909ff288bd73f23ba104893b39120cb24ea83c9734a0d2b758f",
+      "installResult": "Performing Streamed Install\nSuccess",
+      "serial": "emulator-5586",
+      "bytes": 56461486
+    },
+    {
+      "client": "passenger",
+      "sourceSha": "eb54e70f27c53aaf569390039349cf3487ff008f",
+      "versionName": "1.1.10-experience",
+      "versionCode": 12,
+      "packageId": "cn.hbzjhs.dc.passenger.cloud",
+      "apkSha256": "c2a640c69e2781ca75d2b0754dc14b2d84c9ed8e30c0f3da06f9879bf84842f9",
+      "installedSha256": "c2a640c69e2781ca75d2b0754dc14b2d84c9ed8e30c0f3da06f9879bf84842f9",
+      "signerSha256": "9ffec9b342d12909ff288bd73f23ba104893b39120cb24ea83c9734a0d2b758f",
+      "signerReadback": "Signer #1 certificate SHA-256 digest: 9ffec9b342d12909ff288bd73f23ba104893b39120cb24ea83c9734a0d2b758f",
+      "installResult": "Performing Streamed Install\nSuccess",
+      "serial": "emulator-5584",
+      "bytes": 54474458
+    }
+  ],
+  "verdict": "PASS_SCOPE",
+  "passed": [
+    "Final install-r, installed base.apk SHA256 and same signer verified on both original AVDs",
+    "Passenger actual logout dialog now says 下次可选择体验账号一键进入; Cancel retained0102; ACCESS-PAX-P2-01 CLOSED",
+    "Driver03 and passenger02 retained login; final actual map homes normal; no new login/consent/code calls",
+    "Exact2e5→eb54 diff only four literal strings in3 files; help SMS/driver errors statically checked, no auth/home/business change",
+    "Unique API distribution.py matches ecab94fd2022d3142eefbedbb63c38641979bece; only2 HTML/color/replacement lines, both role download instructions correctly state select account, agree, enter; no access-code/manual-OTP wording"
+  ],
+  "connectionObservation": {
+    "status": "RECOVERED_CAUSE_UNVERIFIED",
+    "initial": "Driver retained-session startup briefly showed unrecognized cloud response, passenger updating.",
+    "recovery": "Driver re-open automatically refreshed to03/network normal; passenger final re-open also clean. No manual retry button was present or tapped.",
+    "rootContext": "Root says no copy deployment or traffic switch occurred then; cause is unverified, no cold-start/network assertion.",
+    "evidence": [
+      "driver-delta.json",
+      "driver-connection-recovery.json",
+      "passenger-connection-recovery.json",
+      "driver-01-home-retained.png",
+      "driver-02-home-retry-connection.png",
+      "passenger-04-home-final-relaunch.png"
+    ],
+    "manualRetryTapped": false
+  },
+  "inheritance": {
+    "sourceSha": "2e5dd4e7784467f1ee417f9c7ff2144d907e1467",
+    "path": "../frontend/design-qa.json",
+    "sha256": "2ee62e11750e80dbf4bb1f2bd26b97ecc6e07a01cf9b882cb452b44cbb1cb638",
+    "scope": "Prior2e5 main login/consent/menu/single/double-tap/offline recovery/correct role profile/relaunch matrix PASS explicitly inherited after literal-only diff; not repeated on eb54. Prior sole P2 now actually closed.",
+    "apiCopySha": "ecab94fd2022d3142eefbedbb63c38641979bece",
+    "apiAuthBaselineSha": "3422f1ccb9263438533eee8e89890d7296b644be",
+    "apiScope": "Only distribution.py copy changed; prior independent source/8HTTP and root live boundaries not rerun by frontend."
+  },
+  "restore": {
+    "sameAsOriginal": true,
+    "settings": "WiFi/data1/1,font1.0,physical1080x2400/420dpi, no mutations",
+    "accounts": "Driver003/passenger0102 retained; no real logout in delta",
+    "teardown": "Both apps force-stopped/HOME, original AVDs left running, sole device ownership returned",
+    "businessWrites": false,
+    "credentialsPrefsCodesRead": false
+  },
+  "notRun": [
+    "Full no-code login/offline/double-tap matrix repeated on final binary (inherited)",
+    "Actual403/legacy demo/location error notification induction",
+    "Full help UI navigation (literal source checked)",
+    "Live new download HTML/APK public GET publication",
+    "Precise TLS/auth request counts, credential reads",
+    "New order/accept/payment/cancel/complaint or full3-client lifecycle",
+    "Physical phone/large-font/landscape/TalkBack/long-string matrix",
+    "Transient connection failure root cause/availability stress"
+  ],
+  "evidence": {
+    "detail": "design-qa-detail.json",
+    "detailSha256": "a4ab16c3abfca4e7205a292192ab8e7c167c73c4a8afb14ede283d79ccbc6e43",
+    "raw": [
+      "driver-installed.json",
+      "passenger-installed.json",
+      "driver-delta.json",
+      "passenger-delta.json",
+      "driver-connection-recovery.json",
+      "passenger-connection-recovery.json",
+      "static-review.json",
+      "source-delta.txt"
+    ],
+    "screenshotsInspected": 6,
+    "note": "Some initial/driver images have OS/app heads-up overlay; modal text and fresh XML checked. No full visual-layout rerun claimed."
+  },
+  "nextAction": "Coordinator owns merge/release gate and public download readback. Frontend IDLE; no further operations or deployment."
+}

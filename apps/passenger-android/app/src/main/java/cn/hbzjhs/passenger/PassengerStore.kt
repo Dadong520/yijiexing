@@ -87,12 +87,11 @@ object PassengerApi {
     path: String,
     body: JSONObject? = null,
     auth: Boolean = true,
+    tokenOverride: String? = null,
   ): JSONObject {
-    val accessSnapshot = access
-    val tokenSnapshot = token
+    val tokenSnapshot = tokenOverride ?: token
     return withContext(Dispatchers.IO) {
       require(path.startsWith("/api/passenger/") && !path.contains("..") && !path.contains('\\'))
-      if (accessSnapshot.isBlank()) throw ApiError(403, "请先设置独立体验环境访问码", "DEMO_ACCESS_REQUIRED")
       val c = URL(BuildConfig.CLOUD_API_ORIGIN + path).openConnection() as HttpURLConnection
       try {
         c.requestMethod = method
@@ -100,7 +99,6 @@ object PassengerApi {
         c.readTimeout = 75000
         c.instanceFollowRedirects = false
         c.setRequestProperty("Accept", "application/json")
-        c.setRequestProperty("X-Demo-Access", accessSnapshot)
         if (auth) c.setRequestProperty("Authorization", "Bearer $tokenSnapshot")
         if (body != null) {
           c.doOutput = true
@@ -130,7 +128,6 @@ object PassengerApi {
 }
 
 class PassengerStore(app: Application) : AndroidViewModel(app) {
-  private val accessVault = Vault(app, "passenger_demo_access_v1")
   private val tokenVault = Vault(app, "passenger_session_v1")
   private val _state = MutableStateFlow(JSONObject())
   private val _loggedIn = MutableStateFlow(false)
@@ -173,9 +170,10 @@ class PassengerStore(app: Application) : AndroidViewModel(app) {
     }
 
   init {
-    PassengerApi.access = accessVault.load()
+    // Ignore legacy access-code preferences without clearing sessions or user data.
+    PassengerApi.access = ""
     PassengerApi.token = tokenVault.load()
-    _configured.value = PassengerApi.access.isNotBlank()
+    _configured.value = true
     _loggedIn.value = PassengerApi.token.isNotBlank()
   }
 
@@ -191,33 +189,18 @@ class PassengerStore(app: Application) : AndroidViewModel(app) {
     _error.value = value
   }
 
+  /** Compatibility only: the fixed experience service no longer needs an access code. */
+  @Suppress("UNUSED_PARAMETER")
   fun saveAccess(value: String): Boolean {
-    val trimmed = value.trim()
-    if (trimmed.length !in 12..256 || trimmed.any { it.code !in 33..126 }) {
-      _error.value = "访问码须为 12–256 位，请完整粘贴且不要包含空格"
-      return false
-    }
-    return runCatching {
-        sessionGeneration++
-        stateEpoch++
-        accessVault.save(trimmed)
-        PassengerApi.access = trimmed
-        _configured.value = true
-        _error.value = null
-        autoAllowed = true
-        true
-      }
-      .getOrElse {
-        _error.value = "无法保存访问码，请重试"
-        false
-      }
+    PassengerApi.access = ""
+    _configured.value = true
+    _error.value = null
+    return true
   }
 
   fun clearAccess() {
-    accessVault.clear()
     PassengerApi.access = ""
-    _configured.value = false
-    logoutLocal()
+    _configured.value = true
   }
 
   private fun logoutLocal() {
@@ -240,18 +223,19 @@ class PassengerStore(app: Application) : AndroidViewModel(app) {
     _connected.value = true
   }
 
-  private fun run(show: Boolean = true, block: suspend () -> Unit) {
+  private fun run(show: Boolean = true, clearSessionOnUnauthorized: Boolean = true, block: suspend () -> Unit) {
     if (show && _busy.value) {
       _error.value = "上一项操作仍在处理中，请稍候再试；本次操作尚未提交"
       return
     }
     val requestGeneration = sessionGeneration
     val requestEpoch = stateEpoch
+    // Acquire before launch so two taps in the same UI frame cannot start two jobs.
+    if (show) {
+      _busy.value = true
+      _error.value = null
+    }
     viewModelScope.launch {
-      if (show) {
-        _busy.value = true
-        _error.value = null
-      }
       try {
         block()
         if (requestGeneration == sessionGeneration && (show || requestEpoch == stateEpoch)) {
@@ -264,7 +248,7 @@ class PassengerStore(app: Application) : AndroidViewModel(app) {
       } catch (e: Exception) {
         if (requestGeneration != sessionGeneration || (!show && requestEpoch != stateEpoch))
           return@launch
-        if (e is ApiError && e.status == 401) logoutLocal()
+        if (clearSessionOnUnauthorized && e is ApiError && e.status == 401) logoutLocal()
         val gate =
           e is ApiError &&
             e.reason in setOf("DEMO_ACCESS_REQUIRED", "DEMO_ACCESS_INVALID", "DEMO_PAUSED")
@@ -301,6 +285,37 @@ class PassengerStore(app: Application) : AndroidViewModel(app) {
     if (generation != sessionGeneration) return@run
     done(d.optString("verificationCode"))
     _notice.value = "体验验证码已返回；未发送真实短信"
+  }
+
+  /** Full auth chain runs inside one busy operation; it never calls public refresh(). */
+  fun loginExperience(phone: String) {
+    if (_busy.value) {
+      _error.value = "上一项操作仍在处理中，请稍候再试"
+      return
+    }
+    sessionGeneration++
+    stateEpoch++
+    run(clearSessionOnUnauthorized = false) {
+      val generation = sessionGeneration
+      val mobile = phone.trim()
+      requireMobile(mobile)
+      val code = PassengerApi.request("POST", "/api/passenger/auth/code", JSONObject().put("mobile", mobile), false)
+        .getString("verificationCode")
+      if (generation != sessionGeneration) return@run
+      val login = PassengerApi.request("POST", "/api/passenger/auth/login", JSONObject().put("mobile", mobile).put("code", code), false)
+      val token = login.getString("token")
+      require(token.isNotBlank()) { "服务未返回有效登录凭证" }
+      if (generation != sessionGeneration) return@run
+      val fresh = PassengerApi.request("GET", "/api/passenger/state", tokenOverride = token)
+      if (generation != sessionGeneration) return@run
+      val identity = fresh.optJSONObject("passenger")
+      require(identity != null && identity.optString("id").isNotBlank() && identity.optString("mobile") == mobile) { "体验乘客身份尚未正确同步，请重试" }
+      tokenVault.save(token)
+      PassengerApi.token = token
+      _loggedIn.value = true
+      accept(fresh, generation)
+      _notice.value = "已登录独立乘客体验账号；未发送真实短信"
+    }
   }
 
   fun login(mobile: String, code: String) = run {

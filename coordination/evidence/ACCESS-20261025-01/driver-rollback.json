@@ -1,0 +1,14 @@
+{
+  "object": "gs://yijiexing-demo-state-491829048305/distribution/yijiexing-cloud.apk",
+  "beforeGeneration": "1792867973276999",
+  "backup": "gs://yijiexing-demo-state-491829048305/distribution/backups/UI-20261025-03/driver-1792867973276999.apk",
+  "backupGeneration": "1792922906107409",
+  "bytes": 54010889,
+  "serverSideCopy": true,
+  "beforeMetadata": {
+    "sha256": "08732bf8b372e30024711e404e4bf7161a6dc95cf05d4b8094efda895ccda6b7",
+    "source": "55dce79f58a780a1de1ea88c448a774bac03fc9f",
+    "version": "0.3.8-cloud"
+  },
+  "createdAt": "2026-10-25T18:08:28.042064+08:00"
+}

@@ -1,0 +1,263 @@
+{
+  "schemaVersion": 1,
+  "task": "ACCESS-20261025-01",
+  "reviewer": "frontend independent non-author",
+  "sourceSha": "eb54e70f27c53aaf569390039349cf3487ff008f",
+  "acceptance": "PASS",
+  "scope": "Final four-string native delta + exact installed APK upgrades and retained-login homes, P2 closure, static download-copy review. No repeated full login matrix; bounded inheritance below. Global release/deployment gate owned by coordinator.",
+  "startedAt": "2026-10-25T20:30:58+08:00",
+  "originalDeviceDeadline": "2026-10-25T20:34:58+08:00",
+  "deviceTestingEndedAt": "2026-10-25T20:34:13.392479+08:00",
+  "reportCompletedAt": "2026-10-25T20:36:01.382280+08:00",
+  "releaseOwner": "coordinator",
+  "reviewerEditedProductBuiltOrDeployed": false,
+  "apkBindings": [
+    {
+      "client": "driver",
+      "sourceSha": "eb54e70f27c53aaf569390039349cf3487ff008f",
+      "versionName": "0.3.10-cloud",
+      "versionCode": 13,
+      "packageId": "cn.hbzjhs.dc.driver.cloud",
+      "apkSha256": "95c948f29ba44fdf30904e5e7880ce298d33d67036686be19e0b7da152441042",
+      "installedSha256": "95c948f29ba44fdf30904e5e7880ce298d33d67036686be19e0b7da152441042",
+      "signerSha256": "9ffec9b342d12909ff288bd73f23ba104893b39120cb24ea83c9734a0d2b758f",
+      "signerReadback": "Signer #1 certificate SHA-256 digest: 9ffec9b342d12909ff288bd73f23ba104893b39120cb24ea83c9734a0d2b758f",
+      "installResult": "Performing Streamed Install\nSuccess",
+      "serial": "emulator-5586",
+      "bytes": 56461486
+    },
+    {
+      "client": "passenger",
+      "sourceSha": "eb54e70f27c53aaf569390039349cf3487ff008f",
+      "versionName": "1.1.10-experience",
+      "versionCode": 12,
+      "packageId": "cn.hbzjhs.dc.passenger.cloud",
+      "apkSha256": "c2a640c69e2781ca75d2b0754dc14b2d84c9ed8e30c0f3da06f9879bf84842f9",
+      "installedSha256": "c2a640c69e2781ca75d2b0754dc14b2d84c9ed8e30c0f3da06f9879bf84842f9",
+      "signerSha256": "9ffec9b342d12909ff288bd73f23ba104893b39120cb24ea83c9734a0d2b758f",
+      "signerReadback": "Signer #1 certificate SHA-256 digest: 9ffec9b342d12909ff288bd73f23ba104893b39120cb24ea83c9734a0d2b758f",
+      "installResult": "Performing Streamed Install\nSuccess",
+      "serial": "emulator-5584",
+      "bytes": 54474458
+    }
+  ],
+  "checks": [
+    {
+      "check": "Native exact source delta",
+      "result": "PASS",
+      "evidence": [
+        "source-delta.txt",
+        "static-review.json"
+      ],
+      "note": "Only four literal changes in3 files: passenger logout/help SMS; driver legacy error and location service error notification. No auth, home, callbacks, money or business control flow change."
+    },
+    {
+      "check": "Final same-signature install-r with installed bytes readback",
+      "result": "PASS",
+      "evidence": [
+        "driver-installed.json",
+        "passenger-installed.json"
+      ],
+      "note": "Both local APK hashes and device pm-path base.apk bytes equal new expected hashes, apksigner matches prior signer."
+    },
+    {
+      "check": "Final passenger revised logout copy actual UI",
+      "result": "PASS",
+      "evidence": [
+        "passenger-03-logout-copy-fixed.png",
+        "passenger-delta.json"
+      ],
+      "note": "Actual dialog says 下次可选择体验账号一键进入; no 验证码. Pressed Cancel; did not log out or generate another account session."
+    },
+    {
+      "check": "Passenger help SMS and driver two error strings",
+      "result": "PASS_STATIC_SCOPE",
+      "evidence": [
+        "source-delta.txt"
+      ],
+      "note": "Source says 未接真实短信；体验账号一键进入; driver errors give connection/login guidance. Did not induce403/legacy demo errors, notification failures or full help page navigation."
+    },
+    {
+      "check": "Both retained-login final map homes",
+      "result": "PASS_WITH_TRANSIENT_OBSERVATION",
+      "evidence": [
+        "driver-02-home-retry-connection.png",
+        "driver-connection-recovery.json",
+        "passenger-02-profile-retained.png",
+        "passenger-04-home-final-relaunch.png",
+        "passenger-connection-recovery.json"
+      ],
+      "note": "Driver03 and passenger02 sessions retained without new consent/login/auth-code calls. Final driver网络正常/available offers and final passenger map/call CTA clean. First driver refresh had non-JSON response; see observations. Driver image has order heads-up overlay, so identity/connection additionally verified in fresh XML; this is not a repeated full visual layout comparison."
+    },
+    {
+      "check": "Both download instruction HTML sources",
+      "result": "PASS_STATIC_SCOPE",
+      "evidence": [
+        "static-review.json"
+      ],
+      "apiSourceSha": "ecab94fd2022d3142eefbedbb63c38641979bece",
+      "note": "Actual unique API source bytes match commit. Only distribution.py driver HTML literal/color and passenger replacement changed. Both derived HTML strings instruct select correct role account, read/agree and enter; no access-code/manual-OTP wording, admin login and simulated-money boundaries remain. No live public HTML/deployment assertion."
+    },
+    {
+      "check": "Resource state and teardown",
+      "result": "PASS",
+      "evidence": [
+        "driver-delta.json",
+        "passenger-delta.json",
+        "driver-connection-recovery.json",
+        "passenger-connection-recovery.json"
+      ],
+      "note": "Network/font/size not mutated; original/final equal: WiFi/data1/1,font1.0,physical1080x2400/420dpi. Default driver003/passenger0102 login retained. Both apps stopped/HOME after last action, original AVDs left running; operation ownership returned."
+    }
+  ],
+  "findings": [
+    {
+      "id": "ACCESS-PAX-P2-01",
+      "priority": "P2",
+      "status": "CLOSED",
+      "resolution": "Installed final passenger APK actual logout dialog no longer asks for experience verification code. Cancel keeps same account.",
+      "evidence": [
+        "passenger-03-logout-copy-fixed.png",
+        "passenger-03-logout-copy-fixed.xml"
+      ]
+    }
+  ],
+  "openBlockingNativeDeltaFindings": [],
+  "observations": [
+    {
+      "id": "ACCESS-OBS-CONNECTION-01",
+      "status": "RECOVERED_CAUSE_UNVERIFIED",
+      "observed": "First driver startup showed retained-session service connection prompt 云端服务返回了无法识别的响应; passenger initially updating. Reopening driver without logging in automatically refreshed successfully, then passenger final reopen also clean. Root confirms no copy-image deployment/traffic switch at that time; cold start/network cause is only a hypothesis.",
+      "evidence": [
+        "driver-01-home-retained.png",
+        "driver-delta.json",
+        "driver-connection-recovery.json",
+        "passenger-connection-recovery.json"
+      ],
+      "actualRetryButtonTapped": false,
+      "note": "The recovery image filename includes retry-connection but no retry button was present on re-open; no tap was performed. Recovery was automatic refresh on restart, not a tested manual-retry branch. Initial failure preserved; no availability guarantee or recurrence diagnosis claimed."
+    }
+  ],
+  "inheritedFrom": {
+    "sourceSha": "2e5dd4e7784467f1ee417f9c7ff2144d907e1467",
+    "path": "../frontend/design-qa.json",
+    "sha256": "2ee62e11750e80dbf4bb1f2bd26b97ecc6e07a01cf9b882cb452b44cbb1cb638",
+    "originalAcceptance": "PASS_WITH_ONE_P2",
+    "supersession": "Only original open logout-copy P2 is closed by this final package. All passing baseline native auth checks remain explicitly inherited, not rerun on final package.",
+    "checks": [
+      "One-tap no access-code/manual-OTP UI",
+      "Consent disables entry before agreement",
+      "Default03/02 and3-account menu",
+      "Live role identity and actual account refresh",
+      "Offline failed entry and network recovery",
+      "Driver single online entry and passenger actual rapid double-tap outcome",
+      "Process restart retains login",
+      "Driver settings and connection dialogs have no access-code/reset actions"
+    ],
+    "originalApkHashes": {
+      "driver": "673422e7f4a064423640903b310a1b2d24fc33e05d4315ee853159a13040b0a7",
+      "passenger": "6ab82b23cff0d689605cfc2b8702f80349c1c051aec7c6c90f9fc81359f2b599"
+    }
+  },
+  "apiInheritance": {
+    "newCopySha": "ecab94fd2022d3142eefbedbb63c38641979bece",
+    "baselineAuthSha": "3422f1ccb9263438533eee8e89890d7296b644be",
+    "scope": "Static comparison confirms only2 download-copy/color lines changed; prior non-author API source/8HTTP and root live14 boundaries may be inherited by coordinator. Reviewer did not rerun server HTTP/security suite or deploy."
+  },
+  "actualCommands": [
+    "python3 coordination/evidence/ACCESS-20261025-01/frontend-final/run_delta.py",
+    "adb install-r + pm-path base.apk readback SHA256 + apksigner verify --print-certs; fresh uiautomator/screencap via device_ui.py",
+    "Two bounded relaunch-only readbacks after observed transient; both finally force-stop/HOME. No settings/data/network writes."
+  ],
+  "notRun": [
+    "Full no-code login/offline/double-tap matrix repeated on final binary (inherited)",
+    "Actual403/legacy demo/location error notification induction",
+    "Full help UI navigation (literal source checked)",
+    "Live new download HTML/APK public GET publication",
+    "Precise TLS/auth request counts, credential reads",
+    "New order/accept/payment/cancel/complaint or full3-client lifecycle",
+    "Physical phone/large-font/landscape/TalkBack/long-string matrix",
+    "Transient connection failure root cause/availability stress"
+  ],
+  "screenshots": [
+    {
+      "png": "driver-01-home-retained.png",
+      "pngSha256": "e72fc46a2edc650eea701c1d684bdeea314a80a6b9db210d805551daa42e61c1",
+      "xml": "driver-01-home-retained.xml",
+      "xmlSha256": "1c41314481e39f68900ae97df9fb81d9dc16588c304f8c53fc7d649e718b1210",
+      "visuallyInspected": true,
+      "note": "Initial OS heads-up banner overlay where present; specific modal content and final identity still inspectable."
+    },
+    {
+      "png": "driver-02-home-retry-connection.png",
+      "pngSha256": "dbcf0d57068bb73407cb18c944b35175078978edecdaf661722d290334d2578d",
+      "xml": "driver-02-home-retry-connection.xml",
+      "xmlSha256": "fb0aca29f9c2c7a42e699f2123b09c9d9fd8cf4d5ea31240ac65277f53412745",
+      "visuallyInspected": true,
+      "note": "Initial OS heads-up banner overlay where present; specific modal content and final identity still inspectable."
+    },
+    {
+      "png": "passenger-01-home-retained.png",
+      "pngSha256": "261a5decede6d3e822e5b03b5610aca4e43abcef61f130aea5366975abe34304",
+      "xml": "passenger-01-home-retained.xml",
+      "xmlSha256": "c4caad3ced2303ce09e0ff4beb3ffbaa4a7c3b276f3792d9001c80b6fcb580f3",
+      "visuallyInspected": true,
+      "note": "Initial OS heads-up banner overlay where present; specific modal content and final identity still inspectable."
+    },
+    {
+      "png": "passenger-02-profile-retained.png",
+      "pngSha256": "8c4d4bca4f8a2103d851075c24f886638ef826bcc4b0e5aa9949caba3e19faf6",
+      "xml": "passenger-02-profile-retained.xml",
+      "xmlSha256": "8ce9848cc5b0c44c88c031a4d455e4a7e5881222a9d619e79f43e0d9c7daf6de",
+      "visuallyInspected": true,
+      "note": "Initial OS heads-up banner overlay where present; specific modal content and final identity still inspectable."
+    },
+    {
+      "png": "passenger-03-logout-copy-fixed.png",
+      "pngSha256": "4b531b9d5f6358d4963d14f0e5ff2a67811a547098328e9cbe7d60fae752ef6b",
+      "xml": "passenger-03-logout-copy-fixed.xml",
+      "xmlSha256": "61cab14ec575bc8b976508771732d1389bd3c8225111f9cb995e453d4ba79f2d",
+      "visuallyInspected": true,
+      "note": "Initial OS heads-up banner overlay where present; specific modal content and final identity still inspectable."
+    },
+    {
+      "png": "passenger-04-home-final-relaunch.png",
+      "pngSha256": "b8868ab839ec4cda044488fb6033033010c18fe5747b80e2d0774a4969555f9d",
+      "xml": "passenger-04-home-final-relaunch.xml",
+      "xmlSha256": "26255208ca91b9813f105f16a150ee04d9830b7353ac6b412e7464bf5421ee3a",
+      "visuallyInspected": true,
+      "note": "Initial OS heads-up banner overlay where present; specific modal content and final identity still inspectable."
+    }
+  ],
+  "evidence": [
+    {
+      "path": "driver-connection-recovery.json",
+      "sha256": "45aedef6e2bf985dcca8c5e591f15591b97ad99b0c1f08d2c744aa840c04255d"
+    },
+    {
+      "path": "driver-delta.json",
+      "sha256": "11ca8e054db8942ea4eb2fee9d1ee62120fa44e67bee66b3f053d9c84735be12"
+    },
+    {
+      "path": "driver-installed.json",
+      "sha256": "4b56c05ca03709b6d74ee4e6e6f7a97aba9e716b339bad5619414a7023205ebb"
+    },
+    {
+      "path": "passenger-connection-recovery.json",
+      "sha256": "88e648d446a14c31b521eaf1718722af84d618dcd53a8659b7bf0bcda7a63663"
+    },
+    {
+      "path": "passenger-delta.json",
+      "sha256": "6e59767ebfdcb88c25d1b7c7fd0c45d37077baa728a14d836f413182f5752093"
+    },
+    {
+      "path": "passenger-installed.json",
+      "sha256": "656843e5055013d4950d77ecea75298d0b8b4f2dce6123dc1f0d59a277c01c9f"
+    },
+    {
+      "path": "static-review.json",
+      "sha256": "831d589d1af2c17fe55019371ac7b861dc271add7b7df0d8611ad4ae0aa97589"
+    }
+  ],
+  "nextAction": "Coordinator owns exact final accepted SHA/hash gate, merge, deploy and public download readback. Reviewer idle, no further device/API actions."
+}

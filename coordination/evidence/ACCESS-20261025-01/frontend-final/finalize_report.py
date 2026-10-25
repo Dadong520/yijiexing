@@ -1,0 +1,45 @@
+import hashlib,json,datetime
+from pathlib import Path
+P=Path(__file__).resolve().parent
+SOURCE='eb54e70f27c53aaf569390039349cf3487ff008f'
+BASE='2e5dd4e7784467f1ee417f9c7ff2144d907e1467'
+def read(n):return json.loads((P/n).read_text())
+def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
+inst=[read(r+'-installed.json') for r in ['driver','passenger']]
+delta=[read(r+'-delta.json') for r in ['driver','passenger']]
+recovered={r:read(r+'-connection-recovery.json') for r in ['driver','passenger']}
+old=P.parent/'frontend'/'design-qa.json'
+assert sha(old)=='2ee62e11750e80dbf4bb1f2bd26b97ecc6e07a01cf9b882cb452b44cbb1cb638'
+for d in inst:assert d['sourceSha']==SOURCE and d['apkSha256']==d['installedSha256']
+for d in delta:assert d['resourceRestoration']['same'] and d['appStoppedAndHome']
+for d in recovered.values():assert d['retainedLoginHome'] and d['appStoppedAndHome']
+assert recovered['passenger']['connectedClean'] and delta[1]['p2Closed'] and delta[1]['logoutCancelled']
+static=read('static-review.json');assert static['apiSourceSha']=='ecab94fd2022d3142eefbedbb63c38641979bece'
+report={
+ 'schemaVersion':1,'task':'ACCESS-20261025-01','reviewer':'frontend independent non-author','sourceSha':SOURCE,
+ 'acceptance':'PASS','scope':'Final four-string native delta + exact installed APK upgrades and retained-login homes, P2 closure, static download-copy review. No repeated full login matrix; bounded inheritance below. Global release/deployment gate owned by coordinator.',
+ 'startedAt':'2026-10-25T20:30:58+08:00','originalDeviceDeadline':'2026-10-25T20:34:58+08:00','deviceTestingEndedAt':max(d['endedAt'] for d in recovered.values()),'reportCompletedAt':datetime.datetime.now().astimezone().isoformat(),
+ 'releaseOwner':'coordinator','reviewerEditedProductBuiltOrDeployed':False,
+ 'apkBindings':[{k:d[k] for k in ['client','sourceSha','versionName','versionCode','packageId','apkSha256','installedSha256','signerSha256','signerReadback','installResult','serial','bytes']} for d in inst],
+ 'checks':[
+  {'check':'Native exact source delta','result':'PASS','evidence':['source-delta.txt','static-review.json'],'note':'Only four literal changes in3 files: passenger logout/help SMS; driver legacy error and location service error notification. No auth, home, callbacks, money or business control flow change.'},
+  {'check':'Final same-signature install-r with installed bytes readback','result':'PASS','evidence':['driver-installed.json','passenger-installed.json'],'note':'Both local APK hashes and device pm-path base.apk bytes equal new expected hashes, apksigner matches prior signer.'},
+  {'check':'Final passenger revised logout copy actual UI','result':'PASS','evidence':['passenger-03-logout-copy-fixed.png','passenger-delta.json'],'note':'Actual dialog says 下次可选择体验账号一键进入; no 验证码. Pressed Cancel; did not log out or generate another account session.'},
+  {'check':'Passenger help SMS and driver two error strings','result':'PASS_STATIC_SCOPE','evidence':['source-delta.txt'],'note':'Source says 未接真实短信；体验账号一键进入; driver errors give connection/login guidance. Did not induce403/legacy demo errors, notification failures or full help page navigation.'},
+  {'check':'Both retained-login final map homes','result':'PASS_WITH_TRANSIENT_OBSERVATION','evidence':['driver-02-home-retry-connection.png','driver-connection-recovery.json','passenger-02-profile-retained.png','passenger-04-home-final-relaunch.png','passenger-connection-recovery.json'],'note':'Driver03 and passenger02 sessions retained without new consent/login/auth-code calls. Final driver网络正常/available offers and final passenger map/call CTA clean. First driver refresh had non-JSON response; see observations. Driver image has order heads-up overlay, so identity/connection additionally verified in fresh XML; this is not a repeated full visual layout comparison.'},
+  {'check':'Both download instruction HTML sources','result':'PASS_STATIC_SCOPE','evidence':['static-review.json'],'apiSourceSha':'ecab94fd2022d3142eefbedbb63c38641979bece','note':'Actual unique API source bytes match commit. Only distribution.py driver HTML literal/color and passenger replacement changed. Both derived HTML strings instruct select correct role account, read/agree and enter; no access-code/manual-OTP wording, admin login and simulated-money boundaries remain. No live public HTML/deployment assertion.'},
+  {'check':'Resource state and teardown','result':'PASS','evidence':['driver-delta.json','passenger-delta.json','driver-connection-recovery.json','passenger-connection-recovery.json'],'note':'Network/font/size not mutated; original/final equal: WiFi/data1/1,font1.0,physical1080x2400/420dpi. Default driver003/passenger0102 login retained. Both apps stopped/HOME after last action, original AVDs left running; operation ownership returned.'}
+ ],
+ 'findings':[{'id':'ACCESS-PAX-P2-01','priority':'P2','status':'CLOSED','resolution':'Installed final passenger APK actual logout dialog no longer asks for experience verification code. Cancel keeps same account.','evidence':['passenger-03-logout-copy-fixed.png','passenger-03-logout-copy-fixed.xml']}],
+ 'openBlockingNativeDeltaFindings':[],
+ 'observations':[{'id':'ACCESS-OBS-CONNECTION-01','status':'RECOVERED_CAUSE_UNVERIFIED','observed':'First driver startup showed retained-session service connection prompt 云端服务返回了无法识别的响应; passenger initially updating. Reopening driver without logging in automatically refreshed successfully, then passenger final reopen also clean. Root confirms no copy-image deployment/traffic switch at that time; cold start/network cause is only a hypothesis.','evidence':['driver-01-home-retained.png','driver-delta.json','driver-connection-recovery.json','passenger-connection-recovery.json'],'actualRetryButtonTapped':False,'note':'The recovery image filename includes retry-connection but no retry button was present on re-open; no tap was performed. Recovery was automatic refresh on restart, not a tested manual-retry branch. Initial failure preserved; no availability guarantee or recurrence diagnosis claimed.'}],
+ 'inheritedFrom':{'sourceSha':BASE,'path':'../frontend/design-qa.json','sha256':sha(old),'originalAcceptance':'PASS_WITH_ONE_P2','supersession':'Only original open logout-copy P2 is closed by this final package. All passing baseline native auth checks remain explicitly inherited, not rerun on final package.','checks':['One-tap no access-code/manual-OTP UI','Consent disables entry before agreement','Default03/02 and3-account menu','Live role identity and actual account refresh','Offline failed entry and network recovery','Driver single online entry and passenger actual rapid double-tap outcome','Process restart retains login','Driver settings and connection dialogs have no access-code/reset actions'],'originalApkHashes':{'driver':'673422e7f4a064423640903b310a1b2d24fc33e05d4315ee853159a13040b0a7','passenger':'6ab82b23cff0d689605cfc2b8702f80349c1c051aec7c6c90f9fc81359f2b599'}},
+ 'apiInheritance':{'newCopySha':'ecab94fd2022d3142eefbedbb63c38641979bece','baselineAuthSha':'3422f1ccb9263438533eee8e89890d7296b644be','scope':'Static comparison confirms only2 download-copy/color lines changed; prior non-author API source/8HTTP and root live14 boundaries may be inherited by coordinator. Reviewer did not rerun server HTTP/security suite or deploy.'},
+ 'actualCommands':['python3 coordination/evidence/ACCESS-20261025-01/frontend-final/run_delta.py','adb install-r + pm-path base.apk readback SHA256 + apksigner verify --print-certs; fresh uiautomator/screencap via device_ui.py','Two bounded relaunch-only readbacks after observed transient; both finally force-stop/HOME. No settings/data/network writes.'],
+ 'notRun':['Full no-code login/offline/double-tap matrix repeated on final binary (inherited)','Actual403/legacy demo/location error notification induction','Full help UI navigation (literal source checked)','Live new download HTML/APK public GET publication','Precise TLS/auth request counts, credential reads','New order/accept/payment/cancel/complaint or full3-client lifecycle','Physical phone/large-font/landscape/TalkBack/long-string matrix','Transient connection failure root cause/availability stress'],
+ 'screenshots':[{'png':f.name,'pngSha256':sha(f),'xml':f.with_suffix('.xml').name,'xmlSha256':sha(f.with_suffix('.xml')),'visuallyInspected':True,'note':'Initial OS heads-up banner overlay where present; specific modal content and final identity still inspectable.'} for f in sorted(P.glob('*.png'))],
+ 'evidence':[{'path':f.name,'sha256':sha(f)} for f in sorted(P.glob('*.json')) if f.name!='design-qa.json'],
+ 'nextAction':'Coordinator owns exact final accepted SHA/hash gate, merge, deploy and public download readback. Reviewer idle, no further device/API actions.'
+}
+(P/'design-qa.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n')
+print(json.dumps({'acceptance':report['acceptance'],'deviceEndedAt':report['deviceTestingEndedAt'],'reportSha256':sha(P/'design-qa.json'),'screenshots':len(report['screenshots'])},ensure_ascii=False))

@@ -285,7 +285,7 @@ class DriverLocationService : Service(), LocationListener {
                                     setOf("DEMO_ACCESS_REQUIRED", "DEMO_ACCESS_INVALID")
                         ) {
                             PositionBus.mutableStatus.value =
-                                if (e.status == 503) "云端服务已暂停，恢复后请重新开启听单" else "请更新访问码或重新登录"
+                                if (e.status == 503) "云端服务已暂停，恢复后请重新开启听单" else "请返回应用查看连接或登录提示"
                             stopSelf()
                             return@withContext
                         }

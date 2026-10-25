@@ -1,0 +1,58 @@
+{
+  "role": "passenger",
+  "sourceSha": "eb54e70f27c53aaf569390039349cf3487ff008f",
+  "startedAt": "2026-10-25T20:31:36.154328+08:00",
+  "homeTexts": [
+    "Showing a Map created with MapLibre. Scroll by dragging two fingers. Zoom by pinching two fingers.",
+    "Attribution icon. Activate to show attribution dialog.",
+    "起终点预览 · 非实时定位",
+    "回到起终点",
+    "即刻出发",
+    "预约叫车",
+    "司机竞价",
+    "乘车路线",
+    "交换起终点",
+    "从这里出发",
+    "宜昌东站 · 出租车上客区",
+    "目的地",
+    "夷陵广场 · 东侧入口",
+    "确认呼叫 · 即时用车",
+    "宜捷行",
+    "刷新订单",
+    "连接暂未更新，请刷新重试",
+    "重试连接",
+    "正在更新，请稍候…",
+    "出行",
+    "订单",
+    "我的"
+  ],
+  "retainedLoginHome": true,
+  "expectedPassengerIdentity": true,
+  "logoutDialogTexts": [
+    "退出登录？",
+    "本机登录凭证将移除，云端订单与资料仍保留。下次可选择体验账号一键进入。",
+    "取消",
+    "退出"
+  ],
+  "p2Closed": true,
+  "logoutCancelled": true,
+  "resourceRestoration": {
+    "original": {
+      "wmSize": "Physical size: 1080x2400",
+      "wmDensity": "Physical density: 420",
+      "fontScale": "1.0",
+      "wifi": "1",
+      "mobileData": "1"
+    },
+    "final": {
+      "wmSize": "Physical size: 1080x2400",
+      "wmDensity": "Physical density: 420",
+      "fontScale": "1.0",
+      "wifi": "1",
+      "mobileData": "1"
+    },
+    "same": true
+  },
+  "appStoppedAndHome": true,
+  "endedAt": "2026-10-25T20:32:19.115523+08:00"
+}

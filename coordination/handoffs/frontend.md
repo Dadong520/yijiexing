@@ -1,17 +1,17 @@
-# frontend短交接
+# frontend ACCESS最终短交接
 
-ACK v2。UI-20261025-03 最终Android UI delta独立验收 **PASS_SCOPE / IDLE / READY_FOR_COORDINATOR**。只改证据/handoff；没有改产品源码、构建、部署或唤醒额外角色。唯一设备操作权已交还coordinator，不再自行ADB/窗口操作。
+ACK v2。ACCESS-20261025-01最后文字delta独立验收 **PASS_SCOPE / IDLE**，唯一设备操作权已交还coordinator。只改证据/handoff，不产品/构建/commit/部署/额外唤醒。20:30:58开始，原4min至20:34:58；所有设备操作 **20:34:13**结束，未用root后来延长到20:38的时间继续操作。
 
-工作根 `/Users/dongge/.codex/tmp/yijiexing-ui03-integration`；源 **b9bd90a58f01a4e6f09e37366ed8f8b3feaaa51b**。最终报告 `coordination/evidence/UI-20261025-03/after-final/design-qa.json`；截图PNG/XML、source-delta、installed hash、恢复记录在同目录。19:05:21开始，全部设备操作19:10:49完成，未超过19:13:21的8min上限。最后07/08也已逐图确认真实道路、两标记和来源弹窗。
+唯一AUTH根 `/Users/dongge/.codex/tmp/yijiexing-access-20261025`；最终产品 **eb54e70f27c53aaf569390039349cf3487ff008f**。driver0.3.10-cloud/code13已装SHA256 `95c948f29ba44fdf30904e5e7880ce298d33d67036686be19e0b7da152441042`；passenger1.1.10-experience/code12已装SHA256 `c2a640c69e2781ca75d2b0754dc14b2d84c9ed8e30c0f3da06f9879bf84842f9`。两install-r/pm-path base.apk实际bytes SHA与local APK一致，apksigner同旧签名。55/20为root再次构建证据，本人不重跑。
 
-独立install-r和base.apk回读匹配：driver **0.3.9-cloud/code12** SHA256 `52dae8eebe44851be37de1a55df096cbbe07286f5c88b7a3d3a3bf22338bf13f`；passenger **1.1.9-experience/code11** SHA256 `1f86150d465997dcf72052a278c44ffff3601cec4525beecdd985a819f23d7e5`。同签名升级保留原003/0102会话；root55/20测试构建证据继承，本人未重复运行。
+最终报告 `coordination/evidence/ACCESS-20261025-01/frontend-final/design-qa.json` SHA256 **10a80989db4952d7669dbe445ba2eb7fc1f8c57bf7ace50b9559236868c02610**。6PNG/XML全实际看图；installed/delta/connection-recovery/source-delta/static-review齐。**ACCESS-PAX-P2-01 CLOSED**：实际新版退出确认03说“下次可选择体验账号一键进入”，点击取消，未登出。Pax资料02保留0102，后续04真实地图首页和call CTA、无连接更新错误；driver恢复后02图/树为03网络正常及可用offer/待收款2笔共存，无登录再触发。
 
-两P2已关闭：driver正常1080x2400和临时1024x2216/420dpi首抢单CTA完整可见、不用滚动（02/03）；passenger初始fit与实际平移回位两点避开badge/recenter（02/03/04）。两01有系统heads-up横幅，已剔除完整页面验收依据。实际参考对比继承原8499全轮，地图+底部面板层级保持；profile分组行与参考图标网格差异为既有非阻塞设计差异。
+必须保留的观察：初driver01为session仍在的“服务连接提示：云端服务返回了无法识别的响应”，Pax01更新中；root说明当时未部署copy镜像或切流。driver重新打开时已自动刷新恢复成功，**没有实际点击重试按钮**（02文件名含retry仅描述原计划，JSON/报告明确retry未点）。Pax再打开04也clean。driver02有App新单heads-up覆盖头部，身份/网络同时有fresh XML证据，不冒称完整视觉重测。异常原因未确定，不能把冷启动/网络假说当事实；原错误图/JSON保留。已报root，无复现依据不改业务。
 
-关键精确retry已补齐PASS：唯一可逆SDK cache备份 `files/.ui03-map-cache-final-b9-20261025-1909`，原files/mbgl-offline.db 765952B，其他账户文件不读。offline wifi/data0/0显示地图暂未加载和真实重试按钮（05）；**19:10:11实际在离线点击重新加载地图，06进入地图加载中**；随后恢复网络，07真实道路瓦片/两点恢复、08来源为MapLibre/OpenFreeMap/OpenMapTiles/OpenStreetMap。没有第二次在线地图重试tap；云连接重试单独记录，无呼叫提交。`map-retry-final.json`证明originalSdkCacheRestored=true、networkRestored1/1、font1.0。
+源2e5→eb54精确diff只有3文件4段文字：Pax logout和help短信项、driverStore旧DEMO错误提示、LocationService错误通知；auth/Home/数据/业务路径未变，后两异常不人为诱发。2e5全登录矩阵证据限定继承 `frontend/design-qa.json` SHA2562ee62e11750e80dbf4bb1f2bd26b97ecc6e07a01cf9b882cb452b44cbb1cb638：同意门禁/三账号菜单/单击与双击/离线失败恢复/角色资料/重启保留等确实已跑，不假称本包重跑。旧P2仅由本轮实际新版图关闭。
 
-恢复完成：driver临时wm已reset回physical1080x2400；两端font1.0不变；driver网络未改；passenger wifi/data1/1恢复；原SDK DB已rename回原路径。本轮生成DB保留在上述唯一backup/generated/files/mbgl-offline.db，不删除。旧1855备份仍保留，不再动。两App均force-stop/HOME；原两AVD留给root，默认ADB5037正常。无prefs/token读取、pm clear、清数据、切在线、接单/下单/取消/支付/投诉业务写入。
+非作者下载源码review **PASS_STATIC_SCOPE**：唯一API `/Users/dongge/.codex/tmp/yijiexing-api-20261025/apps/cloud-service/distribution.py` 实际bytes与 **ecab94fd2022d3142eefbedbb63c38641979bece**一致，仅该文件2行HTML/颜色及乘客replace变化；实际推导两份HTML均正确角色+勾说明进入，无访问码/手填验证码文字，后台独立登录/模拟收费边界保留。API auth原3422f1ccb9263438533eee8e89890d7296b644be没在本delta改；原源审/8HTTP由root限定继承，不冒称我再次HTTP/部署/公开页回读。
 
-范围边界：精确diff8499→b9仅CoreScreens.kt mapheight和PassengerMap.kt密度/相机padding；原after-unlocked全UI证据可限定继承（订单/个人、确认Return、地址键盘Cancel、48dp抽样、缓存离线、司机地图平移/回位/署名），不假称最终包全套重跑。旧两个P2与retry NOT_RUN被本轮明确证据关闭。**NOT_RUN**：新登录/OTP、真机/横屏/TalkBack/专门大字、外部高德终点、投诉、新真实交易/三端全生命周期、任意超长文本。不是整个业务发布验收。
+恢复：原/最终network1/1、font1.0、physical1080x2400/420dpi逐字段相同，本轮未改这些设置；默认003/0102登录不变，无真实退出、订单/钱包/在线/投诉/支付、无prefs/token/code读取、pm clear或清缓存。双App最后均force-stop/HOME，原5586/5584 AVD仍留root。不要再无任务ADB或轮询。
 
-下一步coordinator读取本报告/PNG，维护task最终acceptedSha和gate并合并UI03源码；按最新派单039/119不单独发布，后续含UI的ACCESS无码版本独立验收后统一发布回读；本人未commit或发布，不进行无变化轮询/自动回信。待合并产品SHA为b9；报告/handoff由root统一收尾提交。
+NOT_RUN：重复全登录矩阵、人工403/DEMO/定位通知触发、帮助整页导航（文字已读源码）、新公开下载HTML/APK发布GET、异常根因/稳定性压力、TLS请求计数、真机大字横屏/TalkBack、新三端交易全流程/高德/投诉。下一步coordinator精确绑定最终SHA/hash/gate，统一合并发布回读；本人IDLE，待明确新任务。
