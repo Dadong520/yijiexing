@@ -17,7 +17,7 @@
     "只CSS修复，后台接口/IAP/持久订单不变",
     "不同会话独立验收PASS后coordinator唯一合并发布，并回读资源和在线菜单"
   ],
-  "status": "ACCEPTED_PENDING_PUBLISH",
+  "status": "DEPLOYED",
   "acceptance": "PASS",
   "tests": [
     {
@@ -36,11 +36,22 @@
     {
       "path": "coordination/evidence/ADMIN-20261025-05/source-manifest.json",
       "sha256": "80322e5abe878ddc47bce5624ccbbb5caa0f23fad82c7f9bd426313ca230524c"
+    },
+    {
+      "path": "coordination/evidence/ADMIN-20261025-05/deployment-readback.json",
+      "sha256": "3443a847a011cd56da83f678e0831b45279189a86f8109823db4f93498a6512f"
+    },
+    {
+      "path": "coordination/evidence/ADMIN-20261025-05/online-menu-readback.json",
+      "sha256": "5da358cec7f3ac7463d2931668729e399ef7015f824ee62ec3dceb6be829b508"
     }
   ],
-  "nextAction": "独立PASS，合并后coordinator唯一发布CSS候选镜像，线上点击3菜单回读。",
+  "nextAction": "本轮完成：固定CSS独立验收与云端三底部菜单真实点击/数据加载PASS。原标签页刷新使用；没有待修侧栏项。移动页头拥挤是既有范围外问题，保留在报告，不声称全站移动布局完成。",
   "deploy_owner": "coordinator",
   "releaseReady": true,
   "reviewer": "frontend",
-  "acceptedSha": "7f489c243cb7d93ef6718cee13357ba330083e07"
+  "acceptedSha": "7f489c243cb7d93ef6718cee13357ba330083e07",
+  "mergedSha": "b96e22d35ccbcaaa4ebef5dde57eac1937a4d7fe",
+  "publishedRevision": "driver-admin-sidebar-7f489c24",
+  "publishedAt": "2026-10-25T23:43:37.247906+08:00"
 }

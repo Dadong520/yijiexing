@@ -1,0 +1,25 @@
+{
+  "status": "PASS",
+  "at": "2026-10-25T23:43:37.247906+08:00",
+  "sourceSha": "7f489c243cb7d93ef6718cee13357ba330083e07",
+  "backendSourceSha": "8a02527d025245381ebca517fcd88508c5e9606d",
+  "mergeSha": "b96e22d35ccbcaaa4ebef5dde57eac1937a4d7fe",
+  "revision": "driver-admin-sidebar-7f489c24",
+  "traffic": [
+    {
+      "percent": 100,
+      "revisionName": "driver-admin-sidebar-7f489c24"
+    }
+  ],
+  "imageDigest": "us-west1-docker.pkg.dev/yijiexing-driver-demo-1023/demo/admin-ui@sha256:f59f1cb5658c0fb1b31c2f95a38f9419ef4259158599a9adf9a5fce55264b733",
+  "url": "https://driver-admin-491829048305.us-west1.run.app/",
+  "iamIAPUnchanged": true,
+  "envSAAndSecretsUnchanged": true,
+  "driverServiceUnchanged": true,
+  "automaticMin0Max1RequestBilling": true,
+  "rollbackRevision": "driver-admin-domain-7ee63cc",
+  "anonymousIAPStatus": 302,
+  "businessDataWrites": false,
+  "onlineMenuReadback": "PASS",
+  "onlineEvidence": "online-menu-readback.json"
+}
