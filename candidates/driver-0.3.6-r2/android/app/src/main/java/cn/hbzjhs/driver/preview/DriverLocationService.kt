@@ -55,8 +55,19 @@ class DriverLocationService : Service(), LocationListener {
     private var bubble: TextView? = null
     private var windows: WindowManager? = null
     private var announcer: NativeOrderAnnouncer? = null
+    private var orderOverlay: NewOrderOverlay? = null
+    private var shownOverlayId: String? = null
 
     private fun updateBubble() {
+        val notice = NewOrderAlerts.notices.value.firstOrNull()
+        val overlayAllowed = floatingEnabled && floatingAllowed && !DriverUiPresence.visible && Settings.canDrawOverlays(this)
+        if (overlayAllowed && notice != null && shownOverlayId != notice.id) {
+            shownOverlayId = notice.id
+            orderOverlay?.show(notice)
+        } else if (!overlayAllowed || notice == null) {
+            orderOverlay?.hide()
+            shownOverlayId = null
+        }
         val shouldShow =
             floatingEnabled &&
                 floatingAllowed &&
@@ -167,6 +178,7 @@ class DriverLocationService : Service(), LocationListener {
     override fun onCreate() {
         super.onCreate()
         announcer = NativeOrderAnnouncer(this)
+        orderOverlay = NewOrderOverlay(this)
         val notifications = getSystemService(NotificationManager::class.java)
         notifications.createNotificationChannel(
             NotificationChannel("driver-location", "接单期间的位置服务", NotificationManager.IMPORTANCE_LOW)
@@ -218,7 +230,7 @@ class DriverLocationService : Service(), LocationListener {
                     manager.requestLocationUpdates(
                         provider,
                         15000L,
-                        15f,
+                        0f,
                         this,
                         Looper.getMainLooper(),
                     )
@@ -370,6 +382,9 @@ class DriverLocationService : Service(), LocationListener {
         bubble = null
         announcer?.close()
         announcer = null
+        orderOverlay?.close()
+        orderOverlay = null
+        NewOrderAlerts.clear()
         scope.cancel()
         PositionBus.mutableStatus.value = "未启动定位"
         super.onDestroy()
