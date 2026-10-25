@@ -217,7 +217,7 @@ fun DriverTripDistanceCard(
                     }
                 }
                 status == "REJECTED" -> {
-                    Text("乘客已拒绝本次$typeLabel确认", fontWeight = FontWeight.Bold, fontSize = 15.sp, color = alertAmber)
+                    Text("乘客已拒绝本次${typeLabel}确认", fontWeight = FontWeight.Bold, fontSize = 15.sp, color = alertAmber)
                     Spacer(modifier = Modifier.height(4.dp))
                     Text("订单维持当前阶段。司机可调整定位或与乘客沟通后，重新移动到位再次申请。", fontSize = 14.sp, color = textDark)
                 }
