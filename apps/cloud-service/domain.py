@@ -87,7 +87,7 @@ class Service(PassengerMixin,BenefitsMixin,AdminMixin):
         profile['ranking']['completed']=st['todayCompleted']
         features=self.features(driver)
         if not features['canRanking']:profile['ranking']={'period':'体验结束或未开放','myRank':None,'completed':None,'entries':[],'restricted':True}
-        return {'state':st,'profile':profile,'benefits':cat,'features':features,'serverTime':stamp(),'environment':{'name':'云端演示隔离沙箱','sandbox':True,'originalSpringBackend':False,'persistence':'SQLite','network':'Google Cloud独立演示服务，不连接原测试环境'}}
+        return {'state':st,'profile':profile,'benefits':cat,'features':features,'tripDistanceRules':self.trip_distance_rules(cat['city']['id']),'serverTime':stamp(),'environment':{'name':'云端演示隔离沙箱','sandbox':True,'originalSpringBackend':False,'persistence':'SQLite','network':'Google Cloud独立演示服务，不连接原测试环境'}}
     def order(self,st,oid):
         o=next((o for o in st['orders'] if o['id']==oid),None);require(o is not None,'订单不存在',404);return o
     def require_driver_certified(self,driver):
@@ -324,9 +324,7 @@ class Service(PassengerMixin,BenefitsMixin,AdminMixin):
                 for o in st['orders']:
                     if o['stage']=='AVAILABLE':o['city']=city['id']
         elif action=='location.report':
-            lat=p.get('latitude');lon=p.get('longitude');acc=p.get('accuracy',0)
-            require(type(lat) in (int,float) and -90<=lat<=90 and type(lon) in (int,float) and -180<=lon<=180,'位置坐标无效')
-            require(type(acc) in (int,float) and 0<=acc<=100000,'定位精度无效');location={'latitude':lat,'longitude':lon,'accuracy':acc,'deviceTime':p.get('time'),'receivedAt':stamp(),'coordinateSystem':'WGS84','source':'DEVICE_GPS'};self.db.execute('UPDATE accounts SET location=? WHERE id=?',(dumps(location),driver));result={'location':location}
+            location=self.trip_location(p);self.db.execute('UPDATE accounts SET location=? WHERE id=?',(dumps(location),driver));result={'location':location}
         elif action=='local.reset':
             require(not self.subscriptions(driver)['history'],'账户已有会员记录，不能清空交易历史',409)
             fresh=initial_state()
