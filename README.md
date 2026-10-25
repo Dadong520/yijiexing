@@ -1,36 +1,33 @@
-# 宜捷行源码备份
+# 宜捷行
 
-此私有仓库保存已经打包或冻结的源码。源码备份、云部署、本地测试与实际三端验收分别记录。
+本仓库保存司机Android、乘客Android、乘客微信小程序、Web管理后台、共享体验后端及对应测试/发布证据。历史冻结目录仅供追溯，不代表当前源码或运行状态。
 
-## 已交付基线
+## 长期项目从这里接手
 
-- `releases/2026-10-24/driver-0.3.5/`：旧版已交付司机源码。
-- `releases/2026-10-24/passenger-native-1.1.5/`：旧版乘客原生源码；原生新增开发已暂停。
-- `releases/2026-10-24/admin-v7/`：旧后台/v7共享后端基线。
-- `SOURCE_BACKUP_MANIFEST.json`：首次备份的333文件与来源包清单，保留不改。
+**先读 [AGENTS.md](AGENTS.md) 与 [START_HERE](coordination/START_HERE.md)。** 项目记忆、预警和换会话方案见[MEMORY_POLICY](coordination/MEMORY_POLICY.md)，新对话可复制[接手指令](coordination/NEW_CHAT_PROMPT.txt)。用户只向coordinator提需求，角色登记见SESSION_REGISTRY.json。禁止把旧副本覆盖中央状态，或每次恢复遍历全部历史。
 
-## 当前本地开发版与候选
+- 当前发布/唯一工作目录/剩余限制：[STATE](coordination/STATE.md)。本机中央`/Users/dongge/Documents/New project 2/coordination`可能比Git检查点更新，先核对。
+- 活跃任务：[BOARD](coordination/BOARD.json)；长期决定：[DECISIONS](coordination/DECISIONS.md)；角色细节：handoffs；契约：contracts。
+- 恢复与提交检查：`python3 tools/check_coordination.py --memory-role <role> --session-id <真实会话ID>`；检查器不测量模型内部上下文，不等于业务验收。
 
-- `candidates/driver-0.3.6-r2/`：最终036-r2本地候选，55项开发方自动化通过，APK未公开；旧r1保留追溯，不能当作最终候选。
-- `candidates/passenger-miniprogram-0.1.0/`：微信小程序开发源、配套冻结v8与脱敏证据。41项开发方本地测试、8页18JS静态检查通过；独立最终增量15项通过。没有AppID，未做微信编译/真机/地图权限验收，未发布微信。
-- `candidates/admin-v8/`：后台修复源码、文档、独立测试及精确冻结v8；完整大截图/运行证据保存在本机交付ZIP。本机8790访问入口已恢复，但当前云暂停，云数据/登录不可用。
-- `candidates/shared-backend-v8/`：原35文件冻结源码不变；STATUS.md补充已部署但现在暂停事实。独立45项本地测试通过。
-- `CANDIDATE_BACKUP_MANIFEST_20261024.json`：本次新增/更新文件的逐项SHA256、Git blob SHA1、来源ZIP与排除说明。
+## 上次发布核验：2026-10-26
 
-003已有私有未付单时实际接到共享A并到WAIT_PAY，欠费乘客再次叫车被拒。A=PORD9dac969cecf1待付款；B=PORDaa584245c6e6尚待接单。A晚付不影响B接驾的完整实机测试未完成，等待用户通知开启云，不标全部验收通过。
+| 项目 | 已核验结果 | 入口 |
+|---|---|---|
+| 司机Android | 0.3.12-cloud / code15 | https://yijiexing-demo.hbzjhs.xyz/download |
+| 乘客Android | 1.1.12-experience / code14 | https://yijiexing-demo.hbzjhs.xyz/download-passenger |
+| Web后台 | HTTPS、Google IAP与原管理账号登录通过 | https://demo-admin.hbzjhs.xyz/ |
+| 体验API | 共享持久数据、自有HTTPS域名 | https://yijiexing-demo.hbzjhs.xyz |
+| 微信小程序 | 开发源58测试及静态检查通过；缺AppID，未微信编译/真机/发布 | candidates/passenger-miniprogram-0.1.0/miniprogram |
 
-## 本地预览和使用
+两APK免演示访问码，保留原签名，可覆盖安装。Android乘客开发已恢复，旧“暂停原生乘客”的描述已被用户后续要求替代。详细版本/哈希与后续发布以STATE和实际回执为准，不把此日期表当实时监控。
 
-小程序目录进入`miniprogram/preview/`，运行启动预览.command或`python3 start_preview.py --open`；只读示例预览在本机8788，不访问云，不是微信运行。开发工具导入及地图账号条件见小程序README。
+当前源码路径：`candidates/driver-0.3.6-r2/android`（目录名历史保留，实际版本看Gradle）、`apps/passenger-android`、`apps/admin-console/web`、`apps/cloud-service`。本机唯一可写后端工作树按STATE指定，不能同时修改重复快照。releases和冻结v8保存原基线，不直接改。
 
-后台先按源码README配置已授权Google Cloud CLI和私人凭据，再运行启动后台.command；本机8790仅转发IAM私有管理服务。仓库不含管理员密码或手机访问码。
+## 已验证的本轮能力与边界
 
-## 云与资源安排
+新版本权限引导、司机前台/后台新单提醒；接客/送达默认300米，超距或定位不可靠须本人乘客同意，后台可配。独立双模拟器与后台同单完成29.26元模拟支付；完整范围、失败/未测项见[验收报告](coordination/evidence/REL-20261025-02/REPORT.md)与[运行/回退说明](coordination/evidence/REL-20261025-02/OPERATIONS.md)。不能把模拟器测试写成所有厂商真机、永久常驻或正式支付已验收。
 
-2026-10-24 02:38两服务已由负责人暂停并读回manual=0，两模拟器App已停止。用户通知验收才恢复；源码、镜像和对象归档无需启动Cloud Run。没有自动部署工作流。保留的数据/镜像仍可能产生少量存储费用。
+独立Google Cloud项目`yijiexing-driver-demo-1023/us-west1`采用Cloud Run自动伸缩、按请求计费、min0/max1；无访问自动缩0，下次请求自动启动，不保活、不自动手工暂停。旧“云已暂停，必须用户通知才恢复”状态已过时。通过适用测试后由coordinator统一发布，保留IAM/IAP、数据和接口；禁止连接原测试/生产。
 
-用户02:39要求所有主会话及子代理最多再工作两小时，04:39绝对停止，完成即停止；本轮只做本地收尾与归档。
-
-## 凭据和外部依赖
-
-不上传.private、密码、云密钥、用户数据库、APK和构建缓存。地图定位/插件权限、合法域名、微信身份、短信、真实支付/发票/推送等外部条件见各组件说明；体验支付/退款/提现/回执均模拟。当前Antigravity无GPT6.1可选，本轮没有伪称其已执行独立验收。
+支付、退款、提现均模拟。地图/短信/微信身份/实名认证/发票/厂商推送缺少真实配置时逐项记NOT_RUN，不用H5预览或模拟回执冒充真实接入。密码、密钥、私有账号库、APK、缓存不入Git；大文件优先直连。

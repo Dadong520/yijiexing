@@ -1,0 +1,120 @@
+{
+  "status": "PASS",
+  "at": "2026-10-26T02:07:31.811044+08:00",
+  "scope": "limited file bootstrap audit, not an actual new model conversation or internal context measurement",
+  "canonicalControlRoot": "/Users/dongge/Documents/New project 2",
+  "fullHistoryRead": false,
+  "roles": {
+    "coordinator": {
+      "files": {
+        "AGENTS.md": {
+          "bytes": 4521,
+          "sha256": "f2f38ba2ecaf276464c96b333ff6ce1591cb1274f10035fb9ef8470d57e03b16"
+        },
+        "coordination/START_HERE.md": {
+          "bytes": 1963,
+          "sha256": "89849ab4d96b356a799b76be630c954985763f979a2d55410026686213e411dd"
+        },
+        "coordination/STATE.md": {
+          "bytes": 5182,
+          "sha256": "ab0eecde356529874eed35a9be78f97dc50fc1381edb456557edf6da5e13198a"
+        },
+        "coordination/BOARD.json": {
+          "bytes": 1636,
+          "sha256": "a9f05c9b2681c6ad3f6c2a67d26e502016c508313ab3bc2046948d4b4419c05a"
+        },
+        "coordination/SESSION_REGISTRY.json": {
+          "bytes": 2641,
+          "sha256": "9a8fb96a6a2c936e7f45d49059f5b5629abeafcf18104511efce88164ed9296e"
+        },
+        "coordination/tasks/MEM-20261026-01.json": {
+          "bytes": 1500,
+          "sha256": "43b4148777620e557e354cc2e3cfe4d3f8585cbe7fc15b2e1772e48356fa9ab7"
+        },
+        "coordination/handoffs/coordinator.md": {
+          "bytes": 1874,
+          "sha256": "9da0093e6db3b8413f1783d5d17ddd07bee51db469bbe599982a9cf435ca8421"
+        }
+      },
+      "normalFileBytes": 19317,
+      "firstProtocolReadAdditionalBytes": 7300,
+      "note": "Only file bytes; excludes system prompt/tool definitions/user message, not token occupancy"
+    },
+    "backend": {
+      "files": {
+        "AGENTS.md": {
+          "bytes": 4521,
+          "sha256": "f2f38ba2ecaf276464c96b333ff6ce1591cb1274f10035fb9ef8470d57e03b16"
+        },
+        "coordination/START_HERE.md": {
+          "bytes": 1963,
+          "sha256": "89849ab4d96b356a799b76be630c954985763f979a2d55410026686213e411dd"
+        },
+        "coordination/STATE.md": {
+          "bytes": 5182,
+          "sha256": "ab0eecde356529874eed35a9be78f97dc50fc1381edb456557edf6da5e13198a"
+        },
+        "coordination/BOARD.json": {
+          "bytes": 1636,
+          "sha256": "a9f05c9b2681c6ad3f6c2a67d26e502016c508313ab3bc2046948d4b4419c05a"
+        },
+        "coordination/SESSION_REGISTRY.json": {
+          "bytes": 2641,
+          "sha256": "9a8fb96a6a2c936e7f45d49059f5b5629abeafcf18104511efce88164ed9296e"
+        },
+        "coordination/tasks/MEM-20261026-01.json": {
+          "bytes": 1500,
+          "sha256": "43b4148777620e557e354cc2e3cfe4d3f8585cbe7fc15b2e1772e48356fa9ab7"
+        },
+        "coordination/handoffs/backend.md": {
+          "bytes": 3662,
+          "sha256": "7f55f06077833c0484b348a1230c1b065e733db53c2ee9dd44b90973e9991eec"
+        }
+      },
+      "normalFileBytes": 21105,
+      "firstProtocolReadAdditionalBytes": 7300,
+      "note": "Only file bytes; excludes system prompt/tool definitions/user message, not token occupancy"
+    },
+    "frontend": {
+      "files": {
+        "AGENTS.md": {
+          "bytes": 4521,
+          "sha256": "f2f38ba2ecaf276464c96b333ff6ce1591cb1274f10035fb9ef8470d57e03b16"
+        },
+        "coordination/START_HERE.md": {
+          "bytes": 1963,
+          "sha256": "89849ab4d96b356a799b76be630c954985763f979a2d55410026686213e411dd"
+        },
+        "coordination/STATE.md": {
+          "bytes": 5182,
+          "sha256": "ab0eecde356529874eed35a9be78f97dc50fc1381edb456557edf6da5e13198a"
+        },
+        "coordination/BOARD.json": {
+          "bytes": 1636,
+          "sha256": "a9f05c9b2681c6ad3f6c2a67d26e502016c508313ab3bc2046948d4b4419c05a"
+        },
+        "coordination/SESSION_REGISTRY.json": {
+          "bytes": 2641,
+          "sha256": "9a8fb96a6a2c936e7f45d49059f5b5629abeafcf18104511efce88164ed9296e"
+        },
+        "coordination/tasks/MEM-20261026-01.json": {
+          "bytes": 1500,
+          "sha256": "43b4148777620e557e354cc2e3cfe4d3f8585cbe7fc15b2e1772e48356fa9ab7"
+        },
+        "coordination/handoffs/frontend.md": {
+          "bytes": 3692,
+          "sha256": "2586e84ad3c612c6403c9fe2d41358e963955e73e22203a515458b3d49db6732"
+        }
+      },
+      "normalFileBytes": 21135,
+      "firstProtocolReadAdditionalBytes": 7300,
+      "note": "Only file bytes; excludes system prompt/tool definitions/user message, not token occupancy"
+    }
+  },
+  "knownFactsPresent": [
+    "last merged release55071ff, no redeploy",
+    "WX missing AppID",
+    "QA overlay unresolved and AVD closed",
+    "current MEM documentation-only task"
+  ]
+}
