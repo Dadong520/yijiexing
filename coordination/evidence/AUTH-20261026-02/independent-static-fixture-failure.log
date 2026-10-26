@@ -1,0 +1,6 @@
+[2026-10-26T09:10:00+08:00] GET / 200
+Traceback (most recent call last):
+  File "/Users/dongge/.codex/tmp/yijiexing-admin-password-20261026/coordination/evidence/AUTH-20261026-02/independent_http.py", line 27, in <module>
+    status,html=req('/');assert status==200 and '使用后台管理账号和密码登录' in html and 'Google 账号' not in html
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError

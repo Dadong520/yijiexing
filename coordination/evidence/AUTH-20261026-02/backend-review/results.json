@@ -1,0 +1,52 @@
+{
+  "task": "AUTH-20261026-02",
+  "owner": "backend",
+  "baseSha": "f565e709cf8bd9e5cd348c5a5bd8a33f5282443c",
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-admin-password-20261026",
+  "branch": "codex/admin-password-only-20261026",
+  "sourceSha": "UNCOMMITTED; coordinator requested no independent commit",
+  "sourceHashes": {
+    "apps/admin-console/backend/iap_browser.py": "06b8e5263f9413e9c58730f5b38c0bcb828468938ecc030985e1211c140ec83e",
+    "apps/admin-console/backend/test_iap_browser.py": "661bb6f02839a746877baca30e34f1bb1839e3534242ca4409a060e52cf28373"
+  },
+  "status": "AUTHOR_TESTS_PASS",
+  "testCommand": "env PYTHONDONTWRITEBYTECODE=1 YIJ_BACKEND_SOURCE=/Users/dongge/.codex/tmp/yijiexing-trip-api-20261025/apps/cloud-service '/Users/dongge/Documents/New project 2/yijiexing-admin-20261023/.private/browser-venv/bin/python' -m unittest discover -s apps/admin-console/backend -p test_iap_browser.py -v",
+  "tests": {
+    "browser-http-tests.log": {
+      "status": "PASS",
+      "count": 18,
+      "seconds": 1.035,
+      "sha256": "2b101005a943a2eb0c57687199ac92dede1b2f68d6bfbfbaa00b4443beca24d4"
+    },
+    "verified-runtime-tests.log": {
+      "status": "PASS",
+      "count": 18,
+      "seconds": 1.732,
+      "sha256": "0cf2e4b419fba0063a70b7bc0dbc19c2d60f05eb1972c26bfae67de6d1f2fb71"
+    }
+  },
+  "existingIapTests": 9,
+  "addedDefaultModeRegressionTests": 1,
+  "passwordModeTests": 8,
+  "coverage": [
+    "anonymous page/static without IAP config or cert verification",
+    "no/forged session and outer secret require401 on state/query/export/action/logout",
+    "correct login/state/query/export/logout invalidation and no secret disclosure",
+    "five wrong passwords persisted then correct password429",
+    "VIEWER cannot mutate or export; actions audited",
+    "Origin absent/evil and Sec-Fetch cross-site/same-site rejected, even authenticated",
+    "legacy/shutdown/driver/passenger routes404",
+    "unknown/empty/lowercase modes503 and startup refuses",
+    "default unset IAP strict; client mode headers ignored; original signed IAP tests pass"
+  ],
+  "sharedBackendRoot": "/Users/dongge/.codex/tmp/yijiexing-trip-api-20261025/apps/cloud-service",
+  "sharedBackendProductSha": "8ec8419d30955c216d7e4fe90451584d2a9622cf",
+  "sharedBackendUnchanged": true,
+  "currentDefault": "IAP",
+  "explicitPasswordMode": "ADMIN_AUTH_MODE=PASSWORD (server environment only)",
+  "otherGuards": "Route whitelist, Origin/Sec-Fetch, server-secret replacement, console sessions/RBAC/audit/login lockout unchanged",
+  "independentAcceptance": "NOT_RUN; coordinator non-author review required",
+  "deployment": "NOT_RUN; coordinator only",
+  "failedItems": [],
+  "notes": "No product commit, cloud, browser, ADB or other model/agent. Initial local Python lacked auth deps; isolated temporary test libraries used; verified again with coordinator-specified existing runtime. No credentials read."
+}
