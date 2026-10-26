@@ -1,0 +1,4 @@
+Creating temporary archive of 21 file(s) totalling 350.6 KiB before compression.
+Uploading tarball of [/Users/dongge/.codex/tmp/yijiexing-auth02-build-c46f88bd] to [gs://yijiexing-driver-demo-1023_cloudbuild/source/1792977389.550478-23383bbd7aaa4b3cac6b4e8cdb7da444.tgz]
+Created [https://cloudbuild.googleapis.com/v1/projects/yijiexing-driver-demo-1023/locations/global/builds/d3a97340-6e4c-4695-bc91-df3bde6519b4].
+Logs are available at [ https://console.cloud.google.com/cloud-build/builds/d3a97340-6e4c-4695-bc91-df3bde6519b4?project=491829048305 ].

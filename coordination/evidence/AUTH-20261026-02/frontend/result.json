@@ -1,0 +1,77 @@
+{
+  "taskId": "AUTH-20261026-02",
+  "reviewer": "frontend",
+  "threadId": "01a167c8-a5eb-77e3-b77e-214927a029da",
+  "sourceSha": "c46f88bd848346196283b90d92977120962ce00c",
+  "mergeShaReportedByCoordinator": "25f8c9e",
+  "liveRevisionReportedByCoordinator": "driver-admin-password-c46f88bd-r3",
+  "acceptance": "NOT_RUN",
+  "scopeVerdict": "PARTIAL_ANONYMOUS_LANDING_ONLY",
+  "completedAt": "2026-10-26T10:14:44.958548+08:00",
+  "browser": "Chrome new tab1055271399",
+  "observation": {
+    "hasGoogleHint": false,
+    "loginHeading": true,
+    "passwordOnlyHint": true,
+    "title": "宜捷行 · 运营管理中心",
+    "url": "https://demo-admin.hbzjhs.xyz/"
+  },
+  "checks": [
+    {
+      "case": "新标签匿名落地账号密码页",
+      "status": "PASS",
+      "actual": "最终URL仍demo-admin自有域名，登录标题及使用后台管理账号和密码提示可见，页面无Google提示；未进行Google登录。"
+    },
+    {
+      "case": "浏览器admin登录后概览",
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "浏览器退出和刷新后需登录",
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "重新登录留展示页",
+      "status": "NOT_RUN"
+    }
+  ],
+  "stoppingReason": "收到coordinator明确限时收尾指令，立即停止扩测；尚未执行登录步骤，不伪称Chrome或锁屏故障。",
+  "coordinatorEvidenceBoundary": "root另会话已报告无Google/cookie HTTP登录200/state200/退出200/旧会话401及24订单保留；本报告不将其冒充frontend浏览器UI实测。",
+  "privacy": {
+    "credentialFileRead": false,
+    "credentialEntered": false,
+    "credentialPrintedOrSaved": false,
+    "sessionOrTokenRead": false,
+    "otherPrivateFilesRead": false,
+    "screenshotContainsPopulatedCredentials": false
+  },
+  "evidence": [
+    {
+      "file": "01-anonymous-login.png",
+      "sha256": "d3b88309a1ac2fda75cc14d8a71484839c8fe645cb606533cca428d681589054",
+      "acceptedVisual": true
+    },
+    {
+      "file": "landing-observation.json",
+      "sha256": "01816e3f5aba4a59376ae0a2ad3d20f766360879432e97b235fb3f793f75b50e"
+    }
+  ],
+  "actions": "Cua新建指定HTTPS标签→观察登录页→read-only DOM校验可见提示→保存同字节截图并查看→关闭该新标签。",
+  "cleanup": {
+    "qaTabClosed": true,
+    "userExistingTabsUntouched": true,
+    "viewportUnchanged": true,
+    "chromeOwnership": "RETURNED_TO_COORDINATOR",
+    "status": "IDLE"
+  },
+  "notRun": [
+    "浏览器成功登录/概览/登出/刷新流程",
+    "run.app浏览器登录",
+    "重新执行18或5HTTP场景",
+    "密码错误/锁定/viewer/CSRF/RBAC矩阵",
+    "ADB/产品业务/部署/账号或订单写入"
+  ],
+  "modifiedProduct": false,
+  "committed": false,
+  "spawnedAgents": false
+}

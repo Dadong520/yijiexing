@@ -1,0 +1,6 @@
+{
+  "status": "ROLLED_BACK",
+  "reason": "IAM roles/members changed",
+  "publicSwitchHadCompleted": true,
+  "oldRevision": "driver-admin-trip-2863623f"
+}

@@ -23,7 +23,7 @@
     "只改driver-admin：关闭IAP并允许HTTPS公开入口，driver-demo/IAM策略/业务数据与min0max1请求计费保留",
     "实际公开匿名200无Google跳转、未登录接口401，实际浏览器原admin登录成功；新镜像固定SHA、回退说明"
   ],
-  "status": "ACCEPTED_FOR_DEPLOY",
+  "status": "DEPLOYED",
   "acceptance": "PASS",
   "tests": [
     {
@@ -57,12 +57,39 @@
     {
       "path": "coordination/evidence/AUTH-20261026-02/independent-http.log",
       "sha256": "04391448c004545b128021a6464ebc68ea9be669e14a545d8b4a2097abc0f8de"
+    },
+    {
+      "path": "coordination/evidence/AUTH-20261026-02/deployment-readback.json",
+      "sha256": "7c83c78ef28f35c58fc196970c933f7eaec11d520b43b81232125e263b82a214"
+    },
+    {
+      "path": "coordination/evidence/AUTH-20261026-02/authenticated-http-readback.json",
+      "sha256": "366113c167f652e2d36d2b921216a1321b3569f27f11b1be1763072a2e421f6f"
+    },
+    {
+      "path": "coordination/evidence/AUTH-20261026-02/data-preservation.json",
+      "sha256": "c49e97d77ac53f6a335a78f002b42597420bf4cb1731757d91a1afc93c6401ca"
+    },
+    {
+      "path": "coordination/evidence/AUTH-20261026-02/frontend/result.json",
+      "sha256": "0eb2362aa57fec72726434a5716f0fd2cda6e27e563fc040a54ccb173b4c2f45"
+    },
+    {
+      "path": "coordination/evidence/AUTH-20261026-02/frontend/01-anonymous-login.png",
+      "sha256": "d3b88309a1ac2fda75cc14d8a71484839c8fe645cb606533cca428d681589054"
     }
   ],
-  "nextAction": "Build fixed source image, merge, deploy only admin under old IAP protection; then public password entry and live/browser acceptance. Post-release checks PENDING, not yet delivered.",
+  "nextAction": "No redeploy or APK needed. Keep accepted password mode; next large task starts new coordinator per memory protocol.",
   "deploy_owner": "coordinator",
   "releaseReady": true,
   "userAuthorization": "2026-10-26用户明确：我要只用后台账号密码登录；取代此前driver-admin IAP保留要求，其他服务不扩大范围。",
   "acceptedSha": "c46f88bd848346196283b90d92977120962ce00c",
-  "reviewer": "coordinator"
+  "reviewer": "coordinator",
+  "acceptanceScope": "Password-only auth/security/API/live HTTPS plus independent anonymous browser landing; full browser click-through NOT_RUN",
+  "mergeSha": "25f8c9eb29f55a3182b5253fed463d66f75e4a55",
+  "revision": "driver-admin-password-c46f88bd-r3",
+  "completedAt": "2026-10-26T10:25:19.431196+08:00",
+  "remaining": [
+    "Independent full browser login/dashboard/logout/refresh click-through NOT_RUN; not a password-API failure"
+  ]
 }

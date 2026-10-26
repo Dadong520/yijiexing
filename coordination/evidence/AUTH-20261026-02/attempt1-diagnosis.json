@@ -1,0 +1,10 @@
+{
+  "status": "DIAGNOSED_AFTER_FINAL_PUBLIC_SNAPSHOT",
+  "initialComparisonWasAfterRollback": true,
+  "initialHypothesisSuperseded": true,
+  "publicPolicyRoles": [],
+  "beforePolicyRoles": [
+    "roles/run.invoker"
+  ],
+  "explanation": "Disabling IAP removed only its obsolete service-agent invoker grant; policy version/etag metadata also changed. Both early attempts restored original protection before retry; final deploy permits only this specific revocation and no other effective policy difference."
+}
