@@ -34,7 +34,7 @@ class BrowserTests(unittest.TestCase):
         self.signer = crypt.ES256Signer.from_string(private, key_id='test-key')
         self.cert_patch = patch.object(iap_browser, 'certificates', return_value={'test-key': public})
         self.cert_patch.start()
-        self.env = patch.dict(os.environ, {'IAP_EXPECTED_AUDIENCE': AUD, 'IAP_ALLOWED_EMAILS': EMAIL, 'ADMIN_BOOTSTRAP_PASSWORD': 'test-password-only-2026'})
+        self.env = patch.dict(os.environ, {'ADMIN_AUTH_MODE':'IAP', 'IAP_EXPECTED_AUDIENCE': AUD, 'IAP_ALLOWED_EMAILS': EMAIL, 'ADMIN_BOOTSTRAP_PASSWORD': 'test-password-only-2026'})
         self.env.start()
         self.temp = tempfile.TemporaryDirectory()
         with patch.object(cloud_server, 'CloudHandler', iap_browser.BrowserHandler):
@@ -68,6 +68,11 @@ class BrowserTests(unittest.TestCase):
     def test_missing_assertion_rejected_even_with_outer_secret(self):
         status,_=self.request('/api/local/admin/v2/state',assertion=False,**{'X-Admin-Token':ADMIN})
         self.assertEqual(status,401);self.assertEqual(self.remote.writes,0)
+
+    def test_unset_mode_is_strict_iap_and_client_mode_header_cannot_select_password(self):
+        os.environ.pop('ADMIN_AUTH_MODE')
+        status,_=self.request('/api/local/admin/v2/state',assertion=False,**{'X-Admin-Auth-Mode':'PASSWORD','ADMIN_AUTH_MODE':'PASSWORD','X-Admin-Token':ADMIN})
+        self.assertEqual(401,status);self.assertEqual(0,self.remote.writes)
 
     def test_signed_assertion_does_not_bypass_console_login(self):
         status,_=self.request('/api/local/admin/v2/state');self.assertEqual(status,401)
@@ -133,6 +138,95 @@ class BrowserTests(unittest.TestCase):
         for action in ('user.save','order.adjustFare'):
             status,_=self.request('/api/local/admin/v2/action',{'action':action,'payload':{},'requestId':'forbidden-'+action},**headers)
             self.assertEqual(status,403)
+
+
+class PasswordBrowserTests(unittest.TestCase):
+    # Reuse only the HTTP fixture, not the IAP test methods. Both suites run.
+    def setUp(self):
+        BrowserTests.setUp(self)
+        os.environ['ADMIN_AUTH_MODE']='PASSWORD'
+        os.environ.pop('IAP_EXPECTED_AUDIENCE',None)
+        os.environ.pop('IAP_ALLOWED_EMAILS',None)
+    tearDown=BrowserTests.tearDown
+    token=BrowserTests.token
+    def request(self,path,body=None,assertion=False,**extra):
+        return BrowserTests.request(self,path,body,assertion=assertion,**extra)
+    def login(self,username='admin',password='test-password-only-2026'):
+        status,value=self.request('/api/local/admin/v2/login',{'username':username,'password':password})
+        self.assertEqual(200,status,value)
+        return value['data']['session']
+
+    def test_anonymous_page_assets_reachable_without_iap_or_secret(self):
+        with patch.object(iap_browser,'verify_identity',side_effect=AssertionError('PASSWORD must not verify IAP')):
+            for path in ('/','/admin','/admin/','/static/admin.js','/static/admin.css'):
+                status,value=self.request(path)
+                self.assertEqual(200,status,path);self.assertNotIn(ADMIN,value)
+        self.assertEqual(0,self.remote.reads);self.assertEqual(0,self.remote.writes)
+
+    def test_all_data_endpoints_require_session_even_with_forged_headers(self):
+        for forged in ({},{'X-Admin-Token':ADMIN},{'X-Admin-Session':'fake-session'},
+                       {'X-Admin-Token':ADMIN,'X-Admin-Session':'fake-session','X-Goog-IAP-JWT-Assertion':'fake'}):
+            for path,body in [('/api/local/admin/v2/state',None),('/api/local/admin/v2/query?dataset=orders',None),
+                              ('/api/local/admin/v2/export?dataset=orders',None),
+                              ('/api/local/admin/v2/action',{'action':'order.cancel','payload':{},'requestId':'unauthorized'}),
+                              ('/api/local/admin/v2/logout',{})]:
+                with self.subTest(path=path,headers=list(forged)):
+                    status,_=self.request(path,body,**forged);self.assertEqual(401,status)
+
+    def test_password_login_state_query_export_logout_and_no_secret_disclosure(self):
+        session=self.login();headers={'X-Admin-Session':session,'X-Admin-Token':'caller-forged'}
+        for path in ('/api/local/admin/v2/state','/api/local/admin/v2/query?dataset=orders','/api/local/admin/v2/export?dataset=orders'):
+            status,value=self.request(path,**headers);self.assertEqual(200,status,value)
+            self.assertNotIn(ADMIN,json.dumps(value));self.assertNotIn('test-password-only-2026',json.dumps(value))
+        status,_=self.request('/api/local/admin/v2/logout',{},**headers);self.assertEqual(200,status)
+        status,_=self.request('/api/local/admin/v2/state',**headers);self.assertEqual(401,status)
+
+    def test_wrong_password_attempts_persist_and_lock_even_correct_password(self):
+        for _ in range(5):
+            status,_=self.request('/api/local/admin/v2/login',{'username':'admin','password':'incorrect'})
+            self.assertEqual(401,status)
+        for password in ('incorrect','test-password-only-2026'):
+            status,_=self.request('/api/local/admin/v2/login',{'username':'admin','password':password})
+            self.assertEqual(429,status)
+        self.assertGreater(self.remote.writes,0)
+
+    def test_viewer_cannot_write_or_export_and_action_is_audited(self):
+        session=self.login();headers={'X-Admin-Session':session}
+        status,value=self.request('/api/local/admin/v2/action',{'action':'user.save','payload':{'username':'reader','password':'test-reader-password','enabled':True,'role':'VIEWER'},'requestId':'password-create-reader'},**headers)
+        self.assertEqual(200,status,value)
+        viewer=self.login('reader','test-reader-password');headers={'X-Admin-Session':viewer}
+        status,state=self.request('/api/local/admin/v2/state',**headers)
+        self.assertEqual(200,status);self.assertEqual([],state['data']['users'])
+        self.assertTrue(any(r['action']=='user.save' for r in state['data']['audit']))
+        for action in ('user.save','order.adjustFare','order.cancel','config.draft'):
+            status,_=self.request('/api/local/admin/v2/action',{'action':action,'payload':{},'requestId':'denied-'+action},**headers)
+            self.assertEqual(403,status)
+        status,_=self.request('/api/local/admin/v2/export?dataset=orders',**headers);self.assertEqual(403,status)
+
+    def test_origin_and_fetch_site_guards_apply_after_login_too(self):
+        session=self.login()
+        before=self.remote.writes
+        for forged in ({'Origin':'https://evil.invalid'},{'Origin':''},{'Sec-Fetch-Site':'cross-site'},{'Sec-Fetch-Site':'same-site'}):
+            for path,body in [('/api/local/admin/v2/login',{'username':'admin','password':'test-password-only-2026'}),
+                              ('/api/local/admin/v2/logout',{}),('/api/local/admin/v2/action',{'action':'order.cancel'})]:
+                status,_=self.request(path,body,**{'X-Admin-Session':session,**forged});self.assertEqual(403,status)
+        self.assertEqual(before,self.remote.writes)
+
+    def test_legacy_shutdown_driver_and_unknown_api_not_exposed(self):
+        for path in ('/api/local/admin/action','/api/local/admin/state','/api/local/admin/shutdown','/api/local/admin/export',
+                     '/api/auth/login','/api/state','/api/action','/api/passenger/state','/static/unknown.js'):
+            status,_=self.request(path,{});self.assertEqual(404,status,path)
+
+    def test_unknown_mode_fails_closed_even_with_valid_console_session(self):
+        session=self.login()
+        for mode in ('','password','UNKNOWN',' PASSWORD '):
+            with self.subTest(mode=mode):
+                os.environ['ADMIN_AUTH_MODE']=mode
+                for path in ('/','/api/local/admin/v2/state'):
+                    status,_=self.request(path,**{'X-Admin-Session':session});self.assertEqual(503,status)
+                with patch.dict(os.environ,{'CLOUD_ROLE':'admin'}), patch.object(cloud_server,'main') as main:
+                    with self.assertRaises(ApiError):iap_browser.main()
+                    main.assert_not_called()
 
 
 if __name__=='__main__': unittest.main()

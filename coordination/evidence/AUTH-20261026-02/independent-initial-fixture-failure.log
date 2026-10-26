@@ -1,0 +1,9 @@
+Traceback (most recent call last):
+  File "/Users/dongge/.codex/tmp/yijiexing-admin-password-20261026/coordination/evidence/AUTH-20261026-02/independent_http.py", line 14, in <module>
+    remote=MemoryCAS();srv=cloud_server.make_cloud_server(remote,folder/'state.sqlite',0,role='admin',admin_token=admin_secret,origin_allowlist=('https://review.invalid',))
+                           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/dongge/.codex/tmp/yijiexing-trip-api-20261025/apps/cloud-service/cloud_server.py", line 246, in make_cloud_server
+    return CloudServer((host, port), coordinator, role, access_code, admin_token, enabled, origin_allowlist, apk_source, passenger_apk_source)
+  File "/Users/dongge/.codex/tmp/yijiexing-trip-api-20261025/apps/cloud-service/cloud_server.py", line 66, in __init__
+    raise ValueError('admin token must contain at least 32 characters')
+ValueError: admin token must contain at least 32 characters

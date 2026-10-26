@@ -1,0 +1,134 @@
+test_browser_viewer_cannot_manage_accounts_or_adjust_fares (test_iap_browser.BrowserTests.test_browser_viewer_cannot_manage_accounts_or_adjust_fares) ... [2026-10-26T09:02:50+08:00] POST /api/local/admin/v2/login 200
+[2026-10-26T09:02:50+08:00] POST /api/local/admin/v2/action 200
+[2026-10-26T09:02:50+08:00] POST /api/local/admin/v2/login 200
+[2026-10-26T09:02:50+08:00] GET /api/local/admin/v2/state 200
+[2026-10-26T09:02:50+08:00] POST /api/local/admin/v2/action 403
+[2026-10-26T09:02:50+08:00] POST /api/local/admin/v2/action 403
+ok
+test_certificate_outage_is_retryable_without_mutation (test_iap_browser.BrowserTests.test_certificate_outage_is_retryable_without_mutation) ... [2026-10-26T09:02:50+08:00] GET /api/local/admin/v2/state 503
+ok
+test_console_login_state_logout_and_no_secret_disclosure (test_iap_browser.BrowserTests.test_console_login_state_logout_and_no_secret_disclosure) ... [2026-10-26T09:02:50+08:00] POST /api/local/admin/v2/login 200
+[2026-10-26T09:02:50+08:00] GET /api/local/admin/v2/state 200
+[2026-10-26T09:02:50+08:00] POST /api/local/admin/v2/logout 200
+[2026-10-26T09:02:50+08:00] GET /api/local/admin/v2/state 401
+ok
+test_cross_origin_and_missing_origin_operations_rejected (test_iap_browser.BrowserTests.test_cross_origin_and_missing_origin_operations_rejected) ... [2026-10-26T09:02:50+08:00] POST /api/local/admin/v2/login 403
+[2026-10-26T09:02:50+08:00] POST /api/local/admin/v2/login 403
+[2026-10-26T09:02:50+08:00] POST /api/local/admin/v2/login 403
+ok
+test_legacy_admin_mutations_and_shutdown_unavailable (test_iap_browser.BrowserTests.test_legacy_admin_mutations_and_shutdown_unavailable) ... [2026-10-26T09:02:50+08:00] POST /api/local/admin/action 404
+[2026-10-26T09:02:50+08:00] POST /api/local/admin/shutdown 404
+[2026-10-26T09:02:50+08:00] POST /api/auth/login 404
+ok
+test_missing_assertion_rejected_even_with_outer_secret (test_iap_browser.BrowserTests.test_missing_assertion_rejected_even_with_outer_secret) ... [2026-10-26T09:02:50+08:00] GET /api/local/admin/v2/state 401
+ok
+test_signed_assertion_does_not_bypass_console_login (test_iap_browser.BrowserTests.test_signed_assertion_does_not_bypass_console_login) ... [2026-10-26T09:02:50+08:00] GET /api/local/admin/v2/state 401
+ok
+test_signed_query_is_session_protected_and_filtered_export_matches (test_iap_browser.BrowserTests.test_signed_query_is_session_protected_and_filtered_export_matches) ... [2026-10-26T09:02:50+08:00] GET /api/local/admin/v2/query 401
+[2026-10-26T09:02:50+08:00] POST /api/local/admin/v2/login 200
+[2026-10-26T09:02:50+08:00] GET /api/local/admin/v2/query 200
+[2026-10-26T09:02:50+08:00] GET /api/local/admin/v2/export 200
+[2026-10-26T09:02:50+08:00] GET /api/local/admin/v2/query 400
+[2026-10-26T09:02:50+08:00] GET /api/local/admin/v2/query 401
+ok
+test_unset_mode_is_strict_iap_and_client_mode_header_cannot_select_password (test_iap_browser.BrowserTests.test_unset_mode_is_strict_iap_and_client_mode_header_cannot_select_password) ... [2026-10-26T09:02:50+08:00] GET /api/local/admin/v2/state 401
+ok
+test_wrong_audience_email_issuer_expired_and_tampered_rejected (test_iap_browser.BrowserTests.test_wrong_audience_email_issuer_expired_and_tampered_rejected) ... [2026-10-26T09:02:50+08:00] GET /api/local/admin/v2/state 403
+[2026-10-26T09:02:50+08:00] GET /api/local/admin/v2/state 403
+[2026-10-26T09:02:50+08:00] GET /api/local/admin/v2/state 403
+[2026-10-26T09:02:50+08:00] GET /api/local/admin/v2/state 403
+[2026-10-26T09:02:50+08:00] GET /api/local/admin/v2/state 403
+[2026-10-26T09:02:50+08:00] GET /api/local/admin/v2/state 403
+[2026-10-26T09:02:50+08:00] GET /api/local/admin/v2/state 403
+ok
+test_all_data_endpoints_require_session_even_with_forged_headers (test_iap_browser.PasswordBrowserTests.test_all_data_endpoints_require_session_even_with_forged_headers) ... [2026-10-26T09:02:50+08:00] GET /api/local/admin/v2/state 401
+[2026-10-26T09:02:50+08:00] GET /api/local/admin/v2/query 401
+[2026-10-26T09:02:50+08:00] GET /api/local/admin/v2/export 401
+[2026-10-26T09:02:50+08:00] POST /api/local/admin/v2/action 401
+[2026-10-26T09:02:50+08:00] POST /api/local/admin/v2/logout 401
+[2026-10-26T09:02:50+08:00] GET /api/local/admin/v2/state 401
+[2026-10-26T09:02:50+08:00] GET /api/local/admin/v2/query 401
+[2026-10-26T09:02:50+08:00] GET /api/local/admin/v2/export 401
+[2026-10-26T09:02:50+08:00] POST /api/local/admin/v2/action 401
+[2026-10-26T09:02:50+08:00] POST /api/local/admin/v2/logout 401
+[2026-10-26T09:02:50+08:00] GET /api/local/admin/v2/state 401
+[2026-10-26T09:02:50+08:00] GET /api/local/admin/v2/query 401
+[2026-10-26T09:02:50+08:00] GET /api/local/admin/v2/export 401
+[2026-10-26T09:02:50+08:00] POST /api/local/admin/v2/action 401
+[2026-10-26T09:02:50+08:00] POST /api/local/admin/v2/logout 401
+[2026-10-26T09:02:51+08:00] GET /api/local/admin/v2/state 401
+[2026-10-26T09:02:51+08:00] GET /api/local/admin/v2/query 401
+[2026-10-26T09:02:51+08:00] GET /api/local/admin/v2/export 401
+[2026-10-26T09:02:51+08:00] POST /api/local/admin/v2/action 401
+[2026-10-26T09:02:51+08:00] POST /api/local/admin/v2/logout 401
+ok
+test_anonymous_page_assets_reachable_without_iap_or_secret (test_iap_browser.PasswordBrowserTests.test_anonymous_page_assets_reachable_without_iap_or_secret) ... [2026-10-26T09:02:51+08:00] GET / 200
+[2026-10-26T09:02:51+08:00] GET /admin 200
+[2026-10-26T09:02:51+08:00] GET /admin/ 200
+[2026-10-26T09:02:51+08:00] GET /static/admin.js 200
+[2026-10-26T09:02:51+08:00] GET /static/admin.css 200
+ok
+test_legacy_shutdown_driver_and_unknown_api_not_exposed (test_iap_browser.PasswordBrowserTests.test_legacy_shutdown_driver_and_unknown_api_not_exposed) ... [2026-10-26T09:02:51+08:00] POST /api/local/admin/action 404
+[2026-10-26T09:02:51+08:00] POST /api/local/admin/state 404
+[2026-10-26T09:02:51+08:00] POST /api/local/admin/shutdown 404
+[2026-10-26T09:02:51+08:00] POST /api/local/admin/export 404
+[2026-10-26T09:02:51+08:00] POST /api/auth/login 404
+[2026-10-26T09:02:51+08:00] POST /api/state 404
+[2026-10-26T09:02:51+08:00] POST /api/action 404
+[2026-10-26T09:02:51+08:00] POST /api/passenger/state 404
+[2026-10-26T09:02:51+08:00] POST /static/unknown.js 404
+ok
+test_origin_and_fetch_site_guards_apply_after_login_too (test_iap_browser.PasswordBrowserTests.test_origin_and_fetch_site_guards_apply_after_login_too) ... [2026-10-26T09:02:51+08:00] POST /api/local/admin/v2/login 200
+[2026-10-26T09:02:51+08:00] POST /api/local/admin/v2/login 403
+[2026-10-26T09:02:51+08:00] POST /api/local/admin/v2/logout 403
+[2026-10-26T09:02:51+08:00] POST /api/local/admin/v2/action 403
+[2026-10-26T09:02:51+08:00] POST /api/local/admin/v2/login 403
+[2026-10-26T09:02:51+08:00] POST /api/local/admin/v2/logout 403
+[2026-10-26T09:02:51+08:00] POST /api/local/admin/v2/action 403
+[2026-10-26T09:02:51+08:00] POST /api/local/admin/v2/login 403
+[2026-10-26T09:02:51+08:00] POST /api/local/admin/v2/logout 403
+[2026-10-26T09:02:51+08:00] POST /api/local/admin/v2/action 403
+[2026-10-26T09:02:51+08:00] POST /api/local/admin/v2/login 403
+[2026-10-26T09:02:51+08:00] POST /api/local/admin/v2/logout 403
+[2026-10-26T09:02:51+08:00] POST /api/local/admin/v2/action 403
+ok
+test_password_login_state_query_export_logout_and_no_secret_disclosure (test_iap_browser.PasswordBrowserTests.test_password_login_state_query_export_logout_and_no_secret_disclosure) ... [2026-10-26T09:02:51+08:00] POST /api/local/admin/v2/login 200
+[2026-10-26T09:02:51+08:00] GET /api/local/admin/v2/state 200
+[2026-10-26T09:02:51+08:00] GET /api/local/admin/v2/query 200
+[2026-10-26T09:02:51+08:00] GET /api/local/admin/v2/export 200
+[2026-10-26T09:02:51+08:00] POST /api/local/admin/v2/logout 200
+[2026-10-26T09:02:51+08:00] GET /api/local/admin/v2/state 401
+ok
+test_unknown_mode_fails_closed_even_with_valid_console_session (test_iap_browser.PasswordBrowserTests.test_unknown_mode_fails_closed_even_with_valid_console_session) ... [2026-10-26T09:02:51+08:00] POST /api/local/admin/v2/login 200
+[2026-10-26T09:02:51+08:00] GET / 503
+[2026-10-26T09:02:51+08:00] GET /api/local/admin/v2/state 503
+[2026-10-26T09:02:51+08:00] GET / 503
+[2026-10-26T09:02:51+08:00] GET /api/local/admin/v2/state 503
+[2026-10-26T09:02:51+08:00] GET / 503
+[2026-10-26T09:02:51+08:00] GET /api/local/admin/v2/state 503
+[2026-10-26T09:02:51+08:00] GET / 503
+[2026-10-26T09:02:51+08:00] GET /api/local/admin/v2/state 503
+ok
+test_viewer_cannot_write_or_export_and_action_is_audited (test_iap_browser.PasswordBrowserTests.test_viewer_cannot_write_or_export_and_action_is_audited) ... [2026-10-26T09:02:51+08:00] POST /api/local/admin/v2/login 200
+[2026-10-26T09:02:51+08:00] POST /api/local/admin/v2/action 200
+[2026-10-26T09:02:51+08:00] POST /api/local/admin/v2/login 200
+[2026-10-26T09:02:51+08:00] GET /api/local/admin/v2/state 200
+[2026-10-26T09:02:51+08:00] POST /api/local/admin/v2/action 403
+[2026-10-26T09:02:51+08:00] POST /api/local/admin/v2/action 403
+[2026-10-26T09:02:51+08:00] POST /api/local/admin/v2/action 403
+[2026-10-26T09:02:51+08:00] POST /api/local/admin/v2/action 403
+[2026-10-26T09:02:51+08:00] GET /api/local/admin/v2/export 403
+ok
+test_wrong_password_attempts_persist_and_lock_even_correct_password (test_iap_browser.PasswordBrowserTests.test_wrong_password_attempts_persist_and_lock_even_correct_password) ... [2026-10-26T09:02:51+08:00] POST /api/local/admin/v2/login 401
+[2026-10-26T09:02:51+08:00] POST /api/local/admin/v2/login 401
+[2026-10-26T09:02:51+08:00] POST /api/local/admin/v2/login 401
+[2026-10-26T09:02:51+08:00] POST /api/local/admin/v2/login 401
+[2026-10-26T09:02:51+08:00] POST /api/local/admin/v2/login 401
+[2026-10-26T09:02:51+08:00] POST /api/local/admin/v2/login 429
+[2026-10-26T09:02:51+08:00] POST /api/local/admin/v2/login 429
+ok
+
+----------------------------------------------------------------------
+Ran 18 tests in 1.035s
+
+OK

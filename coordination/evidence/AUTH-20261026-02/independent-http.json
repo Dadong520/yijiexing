@@ -1,0 +1,20 @@
+{
+  "status": "PASS",
+  "reviewer": "coordinator (non-author server auth mode)",
+  "cases": [
+    "anonymous real login assets, no Google step",
+    "state/query/export/action protected; forged privileges and legacy routes blocked",
+    "same-origin protection retained",
+    "password login, server secret undisclosed, viewer cannot write, logout revokes session",
+    "unknown mode fails closed; default IAP cannot be disabled by caller headers"
+  ],
+  "memoryOnlyFixtures": true,
+  "realCloudWrites": false,
+  "files": {
+    "apps/admin-console/backend/iap_browser.py": "06b8e5263f9413e9c58730f5b38c0bcb828468938ecc030985e1211c140ec83e",
+    "apps/admin-console/web/admin.html": "38e32f1ef3fc7a0c4780fd2ec18d1b4e27fa785837b7dbd227ec638525090040",
+    "apps/admin-console/web/admin.js": "7d52433f006c4c4d7c7297f2800ed5d89e86a521aa6ba084088736606453d28d"
+  },
+  "sourceSha": "c46f88bd848346196283b90d92977120962ce00c",
+  "initialFixtureFailures": "Synthetic token length, static ROOT wiring, and IAP-unconfigured503 expectation corrected; no product changes made to satisfy these fixture fixes."
+}

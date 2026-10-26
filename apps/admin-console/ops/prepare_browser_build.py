@@ -39,7 +39,7 @@ def main():
     shutil.copytree(ADMIN / 'web', args.output / 'static')
     (args.output / 'Dockerfile').write_text('FROM ' + BASE + '\nUSER root\nCOPY --chown=demo:demo *.py /app/\nCOPY --chown=demo:demo static /app/static\nUSER 10001:10001\nCMD ["python", "iap_browser.py"]\n')
     manifest = {'baseImage': BASE, 'backendSourceSha': args.backend_sha, 'frontendSourceSha': args.frontend_sha,
-                'scope': 'driver-admin only; existing IAP entry, admin role and shared persistent data',
+                'scope': 'driver-admin only; explicit server auth mode, console sessions/RBAC and unchanged shared data',
                 'files': {str(f.relative_to(args.output)): hashlib.sha256(f.read_bytes()).hexdigest()
                           for f in sorted(args.output.rglob('*')) if f.is_file()}}
     args.manifest.parent.mkdir(parents=True, exist_ok=True)

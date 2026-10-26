@@ -1,8 +1,8 @@
 """Admin-only browser entry point over the unchanged v8 business service.
 
-Cloud Run IAM/IAP remain enabled. Browser requests must carry a cryptographically
-verified IAP assertion for this service and an explicitly allowed Google user.
-The independent console password, session and role checks still run afterwards.
+Default IAP mode requires a verified assertion and an allowed Google user.
+Explicit server configuration ADMIN_AUTH_MODE=PASSWORD omits that outer check.
+Both modes retain console password/session/RBAC and all browser route/CSRF guards.
 """
 import json
 import os
@@ -19,6 +19,12 @@ CERT_URL = 'https://www.gstatic.com/iap/verify/public_key'
 _certs = None
 _expires = 0
 _cert_lock = threading.Lock()
+
+
+def auth_mode():
+    mode = os.environ.get('ADMIN_AUTH_MODE', 'IAP')
+    require(mode in ('IAP', 'PASSWORD'), '后台登录模式配置无效', 503)
+    return mode
 
 
 def certificates():
@@ -69,10 +75,11 @@ class BrowserHandler(cloud_server.CloudHandler):
         path = urlsplit(self.path).path
         require(path in ('/', '/admin', '/admin/', '/static/admin.js', '/static/admin.css')
                 or path.startswith('/api/local/admin/v2/'), '管理接口不存在', 404)
-        audience = os.environ.get('IAP_EXPECTED_AUDIENCE', '')
-        allowed = frozenset(v.strip().lower() for v in os.environ.get('IAP_ALLOWED_EMAILS', '').split(',') if v.strip())
-        require(bool(audience) and bool(allowed), '后台网页登录尚未配置', 503)
-        verify_identity(self.headers.get('X-Goog-IAP-JWT-Assertion', ''), audience, allowed)
+        if auth_mode() == 'IAP':
+            audience = os.environ.get('IAP_EXPECTED_AUDIENCE', '')
+            allowed = frozenset(v.strip().lower() for v in os.environ.get('IAP_ALLOWED_EMAILS', '').split(',') if v.strip())
+            require(bool(audience) and bool(allowed), '后台网页登录尚未配置', 503)
+            verify_identity(self.headers.get('X-Goog-IAP-JWT-Assertion', ''), audience, allowed)
         if self.command == 'POST':
             origin = self.headers.get('Origin', '')
             require(origin in self.server.origin_allowlist, '拒绝非本站操作，请刷新后台重试', 403)
@@ -87,6 +94,7 @@ class BrowserHandler(cloud_server.CloudHandler):
 def main():
     if os.environ.get('CLOUD_ROLE') != 'admin':
         raise RuntimeError('IAP browser entry point requires CLOUD_ROLE=admin')
+    auth_mode()  # Fail closed at startup, including invalid/empty explicit modes.
     cloud_server.CloudHandler = BrowserHandler
     cloud_server.main()
 

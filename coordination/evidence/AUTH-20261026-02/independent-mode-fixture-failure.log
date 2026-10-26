@@ -1,0 +1,29 @@
+[2026-10-26T09:11:29+08:00] GET / 200
+[2026-10-26T09:11:29+08:00] GET /static/admin.js 200
+[2026-10-26T09:11:29+08:00] GET /api/local/admin/v2/state 401
+[2026-10-26T09:11:29+08:00] GET /api/local/admin/v2/query 401
+[2026-10-26T09:11:29+08:00] GET /api/local/admin/v2/export 401
+[2026-10-26T09:11:29+08:00] POST /api/local/admin/v2/action 401
+[2026-10-26T09:11:29+08:00] GET /api/local/admin/v2/state 401
+[2026-10-26T09:11:29+08:00] GET /api/local/admin/v2/state 401
+[2026-10-26T09:11:29+08:00] GET /api/local/admin/v2/state 401
+[2026-10-26T09:11:29+08:00] GET /api/local/admin/state 404
+[2026-10-26T09:11:29+08:00] GET /api/local/admin/action 404
+[2026-10-26T09:11:29+08:00] GET /api/local/admin/shutdown 404
+[2026-10-26T09:11:29+08:00] GET /api/auth/login 404
+[2026-10-26T09:11:29+08:00] POST /api/local/admin/v2/login 403
+[2026-10-26T09:11:29+08:00] POST /api/local/admin/v2/login 403
+[2026-10-26T09:11:29+08:00] POST /api/local/admin/v2/login 200
+[2026-10-26T09:11:29+08:00] GET /api/local/admin/v2/state 200
+[2026-10-26T09:11:29+08:00] POST /api/local/admin/v2/action 200
+[2026-10-26T09:11:29+08:00] POST /api/local/admin/v2/login 200
+[2026-10-26T09:11:29+08:00] POST /api/local/admin/v2/action 403
+[2026-10-26T09:11:29+08:00] POST /api/local/admin/v2/logout 200
+[2026-10-26T09:11:29+08:00] GET /api/local/admin/v2/state 401
+[2026-10-26T09:11:29+08:00] GET / 503
+[2026-10-26T09:11:29+08:00] GET / 503
+Traceback (most recent call last):
+  File "/Users/dongge/.codex/tmp/yijiexing-admin-password-20261026/coordination/evidence/AUTH-20261026-02/independent_http.py", line 46, in <module>
+    os.environ.pop('ADMIN_AUTH_MODE');status,_=req('/',headers={'X-Admin-Auth-Mode':'PASSWORD'});assert status==401;checks.append('unknown mode fails closed; default IAP cannot be disabled by caller headers')
+                                                                                                        ^^^^^^^^^^^
+AssertionError

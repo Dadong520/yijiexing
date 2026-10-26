@@ -1,0 +1,202 @@
+{
+  "at": "2026-10-26T09:07:05.668813+08:00",
+  "snapshotUri": "gs://yijiexing-demo-state-491829048305/demo/state.sqlite",
+  "independentEnvironmentOnly": true,
+  "accountDataWrittenOrLogged": false,
+  "orders": [
+    {
+      "id": "NEG1bafda5d1f03",
+      "stage": "DONE",
+      "fare": 2600,
+      "paid": true,
+      "paymentStatus": "SUCCESS",
+      "refundAmount": null
+    },
+    {
+      "id": "PORD00d6844fa2c3",
+      "stage": "CANCELLED",
+      "fare": 2926,
+      "paid": false,
+      "paymentStatus": "UNPAID",
+      "refundAmount": null
+    },
+    {
+      "id": "PORD040f9c059534",
+      "stage": "CANCELLED",
+      "fare": 2926,
+      "paid": false,
+      "paymentStatus": "UNPAID",
+      "refundAmount": null
+    },
+    {
+      "id": "PORD04d3caf838a1",
+      "stage": "DONE",
+      "fare": 2500,
+      "paid": true,
+      "paymentStatus": "SUCCESS",
+      "refundAmount": null
+    },
+    {
+      "id": "PORD13dd359e7a99",
+      "stage": "DONE",
+      "fare": 1724,
+      "paid": true,
+      "paymentStatus": "SUCCESS",
+      "refundAmount": null
+    },
+    {
+      "id": "PORD29d6c69f4de0",
+      "stage": "DONE",
+      "fare": 2926,
+      "paid": true,
+      "paymentStatus": "SUCCESS",
+      "refundAmount": null
+    },
+    {
+      "id": "PORD2a42ed9559c3",
+      "stage": "CANCELLED",
+      "fare": 3600,
+      "paid": false,
+      "paymentStatus": "REFUNDED",
+      "refundAmount": 3600
+    },
+    {
+      "id": "PORD2db3ea661d0d",
+      "stage": "DONE",
+      "fare": 1724,
+      "paid": true,
+      "paymentStatus": "SUCCESS",
+      "refundAmount": null
+    },
+    {
+      "id": "PORD3d3f63981be3",
+      "stage": "CANCELLED",
+      "fare": 2926,
+      "paid": false,
+      "paymentStatus": "UNPAID",
+      "refundAmount": null
+    },
+    {
+      "id": "PORD599ce232e019",
+      "stage": "CANCELLED",
+      "fare": 0,
+      "paid": false,
+      "paymentStatus": "UNPAID",
+      "refundAmount": null
+    },
+    {
+      "id": "PORD5b52d7bea9c4",
+      "stage": "CANCELLED",
+      "fare": 3600,
+      "paid": false,
+      "paymentStatus": "REFUNDED",
+      "refundAmount": 3600
+    },
+    {
+      "id": "PORD625b8411bfef",
+      "stage": "DONE",
+      "fare": 2926,
+      "paid": true,
+      "paymentStatus": "SUCCESS",
+      "refundAmount": null
+    },
+    {
+      "id": "PORD6b4bdcb702d8",
+      "stage": "CANCELLED",
+      "fare": 2926,
+      "paid": false,
+      "paymentStatus": "UNPAID",
+      "refundAmount": null
+    },
+    {
+      "id": "PORD72d7b1c4fb5a",
+      "stage": "DONE",
+      "fare": 1230,
+      "paid": true,
+      "paymentStatus": "SUCCESS",
+      "refundAmount": null
+    },
+    {
+      "id": "PORD97596bf0cc68",
+      "stage": "DONE",
+      "fare": 2926,
+      "paid": true,
+      "paymentStatus": "SUCCESS",
+      "refundAmount": null
+    },
+    {
+      "id": "PORD9dac969cecf1",
+      "stage": "WAIT_PAY",
+      "fare": 2926,
+      "paid": false,
+      "paymentStatus": "UNPAID",
+      "refundAmount": null
+    },
+    {
+      "id": "PORDa412e9ed6818",
+      "stage": "CANCELLED",
+      "fare": 2926,
+      "paid": false,
+      "paymentStatus": "UNPAID",
+      "refundAmount": null
+    },
+    {
+      "id": "PORDa5be6365d8b1",
+      "stage": "CANCELLED",
+      "fare": 2926,
+      "paid": false,
+      "paymentStatus": "UNPAID",
+      "refundAmount": null
+    },
+    {
+      "id": "PORDaa584245c6e6",
+      "stage": "CANCELLED",
+      "fare": 2926,
+      "paid": false,
+      "paymentStatus": "UNPAID",
+      "refundAmount": null
+    },
+    {
+      "id": "PORDcecfc8298776",
+      "stage": "CANCELLED",
+      "fare": 2926,
+      "paid": false,
+      "paymentStatus": "UNPAID",
+      "refundAmount": null
+    },
+    {
+      "id": "PORDd65308f36b2d",
+      "stage": "CANCELLED",
+      "fare": 1724,
+      "paid": false,
+      "paymentStatus": "UNPAID",
+      "refundAmount": null
+    },
+    {
+      "id": "PORDdcabe83784eb",
+      "stage": "DONE",
+      "fare": 1724,
+      "paid": true,
+      "paymentStatus": "SUCCESS",
+      "refundAmount": null
+    },
+    {
+      "id": "PORDf4f910a233dc",
+      "stage": "DONE",
+      "fare": 2926,
+      "paid": true,
+      "paymentStatus": "SUCCESS",
+      "refundAmount": null
+    },
+    {
+      "id": "PORDfe4ce3005b17",
+      "stage": "CANCELLED",
+      "fare": 3600,
+      "paid": false,
+      "paymentStatus": "REFUNDED",
+      "refundAmount": 3600
+    }
+  ],
+  "count": 24,
+  "runtimeConfigDigest": "422409fa61c6c6f6099f7b2d2b156dcc13e9af299e027bb51e81da5447d1cc98"
+}

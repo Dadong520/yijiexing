@@ -1,0 +1,68 @@
+{
+  "schemaVersion": 1,
+  "id": "AUTH-20261026-02",
+  "owner": "backend",
+  "goal": "按用户明确最新指令取消后台Google登录，只用现有后台账号密码；保留会话/RBAC/审计/登录限流及共享数据。",
+  "baseSha": "f565e709cf8bd9e5cd348c5a5bd8a33f5282443c",
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-admin-password-20261026",
+  "allow_paths": [
+    "apps/admin-console/",
+    "coordination/",
+    "AGENTS.md",
+    "README.md"
+  ],
+  "fileOwnership": {
+    "backend": "apps/admin-console/backend/iap_browser.py及test_iap_browser.py",
+    "coordinator": "Web登录提示/文档/构建与唯一CloudRun发布",
+    "frontend": "只独立浏览器验收和本任务证据"
+  },
+  "checks": [
+    "默认IAP严格保留，仅显式ADMIN_AUTH_MODE=PASSWORD启用账号模式，未知配置拒绝",
+    "匿名登录页可达，state/query/export/action缺失伪造会话401，无legacy/admin/shutdown绕过",
+    "正确账号登录/退出失效、密码错误/锁定、viewer拒绝写、Origin/跨站检查保留",
+    "只改driver-admin：关闭IAP并允许HTTPS公开入口，driver-demo/IAM策略/业务数据与min0max1请求计费保留",
+    "实际公开匿名200无Google跳转、未登录接口401，实际浏览器原admin登录成功；新镜像固定SHA、回退说明"
+  ],
+  "status": "ACCEPTED_FOR_DEPLOY",
+  "acceptance": "PASS",
+  "tests": [
+    {
+      "command": "env PYTHONDONTWRITEBYTECODE=1 YIJ_BACKEND_SOURCE=/Users/dongge/.codex/tmp/yijiexing-trip-api-20261025/apps/cloud-service '/Users/dongge/Documents/New project 2/yijiexing-admin-20261023/.private/browser-venv/bin/python' -m unittest discover -s apps/admin-console/backend -p test_iap_browser.py -v",
+      "status": "PASS",
+      "exitCode": 0,
+      "sourceSha": "c46f88bd848346196283b90d92977120962ce00c",
+      "count": 18
+    },
+    {
+      "command": "existing browser-venv python coordination/evidence/AUTH-20261026-02/independent_http.py",
+      "status": "PASS",
+      "exitCode": 0,
+      "sourceSha": "c46f88bd848346196283b90d92977120962ce00c",
+      "cases": 5
+    }
+  ],
+  "evidence": [
+    {
+      "path": "coordination/evidence/AUTH-20261026-02/backend-review/results.json",
+      "sha256": "9b538b5ba04fde7d539c47ec03f5baf51a76344479fad201fdeec3994b71f84b"
+    },
+    {
+      "path": "coordination/evidence/AUTH-20261026-02/backend-review/verified-runtime-tests.log",
+      "sha256": "0cf2e4b419fba0063a70b7bc0dbc19c2d60f05eb1972c26bfae67de6d1f2fb71"
+    },
+    {
+      "path": "coordination/evidence/AUTH-20261026-02/independent-http.json",
+      "sha256": "0940d4b8dd927b8a4f9354105fcb1ecb975feeb8992246435ca1c2f3fe118eb8"
+    },
+    {
+      "path": "coordination/evidence/AUTH-20261026-02/independent-http.log",
+      "sha256": "04391448c004545b128021a6464ebc68ea9be669e14a545d8b4a2097abc0f8de"
+    }
+  ],
+  "nextAction": "Build fixed source image, merge, deploy only admin under old IAP protection; then public password entry and live/browser acceptance. Post-release checks PENDING, not yet delivered.",
+  "deploy_owner": "coordinator",
+  "releaseReady": true,
+  "userAuthorization": "2026-10-26用户明确：我要只用后台账号密码登录；取代此前driver-admin IAP保留要求，其他服务不扩大范围。",
+  "acceptedSha": "c46f88bd848346196283b90d92977120962ce00c",
+  "reviewer": "coordinator"
+}
