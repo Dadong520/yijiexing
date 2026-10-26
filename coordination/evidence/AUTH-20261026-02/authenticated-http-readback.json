@@ -1,0 +1,23 @@
+{
+  "status": "PASS",
+  "at": "2026-10-26T09:51:41.102756+08:00",
+  "url": "https://demo-admin.hbzjhs.xyz",
+  "noGoogleTokenOrCookieUsed": true,
+  "redirectsAllowed": false,
+  "tlsVerified": true,
+  "existingAccount": "admin",
+  "role": "SUPER_ADMIN",
+  "orderCount": 24,
+  "previousJointOrder": {
+    "id": "PORDf4f910a233dc",
+    "stage": "DONE",
+    "fare": 2926,
+    "paid": true,
+    "paymentStatus": "SUCCESS"
+  },
+  "passwordLoginStatus": 200,
+  "authenticatedStateStatus": 200,
+  "logoutStatus": 200,
+  "revokedSessionStatus": 401,
+  "credentialsOrSessionWrittenToEvidence": false
+}

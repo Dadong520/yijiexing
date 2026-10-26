@@ -18,3 +18,5 @@ MEM-20261026-01；base/HEAD 55071ffd5b7b214e8d2c81e509cea4fe021385fe；sourceRoo
 ## QA遗留/资源/下一步
 QA-20261026-01：初始有效系统悬浮未授权；收尾UI OFF但重装后AppOps仍allow，包级default/ignore及root后续UIDdefault均未证实恢复，不能写已恢复。App内floating=false；原网络/定位/普通权限和GPS已恢复。两AVD、8808预览及全部CLI均off，依据中央STATE；本轮不调用ADB/Chrome复查，不常驻。WX缺AppID继续NOT_RUN。
 本轮16单测PASS、基本/真实session-id正向PASS，旧/缺ID负例均预期拒绝；ACK已登记gen3，证据绑定047d（frontend-review.json）。无待验代码，交root统一合并；新大任务前建议新frontend对话，由用户明确新开/要求创建、协调者替换角色ID后移交。旧会话不双写/不双指挥，资源归属先交清。长期规则按DECISIONS/START_HERE恢复。
+
+AUTH-20261026-02限定收尾：固定c46f88bd848346196283b90d92977120962ce00c，live password-c46f88bd-r3由root确认。frontend新Chrome匿名落地账号密码页/无Google提示PASS，未读凭据；收到限时停止后完整浏览器登录/概览/退出/刷新均NOT_RUN，不能冒称UI全链PASS。证据新AUTH树frontend/result.json SHA 0eb2362aa57fec72726434a5716f0fd2cda6e27e563fc040a54ccb173b4c2f45。新tab1055271399已关闭，Chrome交root/IDLE，无ADB/业务/部署操作。

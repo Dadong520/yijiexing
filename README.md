@@ -16,7 +16,7 @@
 |---|---|---|
 | 司机Android | 0.3.12-cloud / code15 | https://yijiexing-demo.hbzjhs.xyz/download |
 | 乘客Android | 1.1.12-experience / code14 | https://yijiexing-demo.hbzjhs.xyz/download-passenger |
-| Web后台 | HTTPS、Google IAP与原管理账号登录通过 | https://demo-admin.hbzjhs.xyz/ |
+| Web后台 | 后台账号密码登录；已取消Google前置登录 | https://demo-admin.hbzjhs.xyz/ |
 | 体验API | 共享持久数据、自有HTTPS域名 | https://yijiexing-demo.hbzjhs.xyz |
 | 微信小程序 | 开发源58测试及静态检查通过；缺AppID，未微信编译/真机/发布 | candidates/passenger-miniprogram-0.1.0/miniprogram |
 
@@ -28,6 +28,6 @@
 
 新版本权限引导、司机前台/后台新单提醒；接客/送达默认300米，超距或定位不可靠须本人乘客同意，后台可配。独立双模拟器与后台同单完成29.26元模拟支付；完整范围、失败/未测项见[验收报告](coordination/evidence/REL-20261025-02/REPORT.md)与[运行/回退说明](coordination/evidence/REL-20261025-02/OPERATIONS.md)。不能把模拟器测试写成所有厂商真机、永久常驻或正式支付已验收。
 
-独立Google Cloud项目`yijiexing-driver-demo-1023/us-west1`采用Cloud Run自动伸缩、按请求计费、min0/max1；无访问自动缩0，下次请求自动启动，不保活、不自动手工暂停。旧“云已暂停，必须用户通知才恢复”状态已过时。通过适用测试后由coordinator统一发布，保留IAM/IAP、数据和接口；禁止连接原测试/生产。
+独立Google Cloud项目`yijiexing-driver-demo-1023/us-west1`采用Cloud Run自动伸缩、按请求计费、min0/max1；无访问自动缩0，下次请求自动启动，不保活、不自动手工暂停。旧“云已暂停，必须用户通知才恢复”状态已过时。通过适用测试后由coordinator统一发布，保留后台账号/会话/RBAC/审计、服务间IAM、数据和接口；driver-admin按用户授权取消外层IAP；禁止连接原测试/生产。
 
 支付、退款、提现均模拟。地图/短信/微信身份/实名认证/发票/厂商推送缺少真实配置时逐项记NOT_RUN，不用H5预览或模拟回执冒充真实接入。密码、密钥、私有账号库、APK、缓存不入Git；大文件优先直连。

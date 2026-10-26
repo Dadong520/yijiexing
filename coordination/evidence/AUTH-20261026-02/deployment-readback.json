@@ -1,0 +1,52 @@
+{
+  "status": "PASS",
+  "at": "2026-10-26T09:33:59.785850+08:00",
+  "sourceSha": "c46f88bd848346196283b90d92977120962ce00c",
+  "mergeSha": "25f8c9eb29f55a3182b5253fed463d66f75e4a55",
+  "revision": "driver-admin-password-c46f88bd-r3",
+  "image": "us-west1-docker.pkg.dev/yijiexing-driver-demo-1023/demo/admin-ui@sha256:e51df78b00868abba60d6a1dae267f6b5db48eab366828850c5f9aee510a8109",
+  "traffic": [
+    {
+      "percent": 100,
+      "revisionName": "driver-admin-password-c46f88bd-r3"
+    }
+  ],
+  "authMode": "PASSWORD",
+  "iapEnabled": false,
+  "invokerIamDisabled": true,
+  "nonIapIamBindingsAndAuditConfigUnchanged": true,
+  "iapInvokerGrantMayBeRemovedByCloudRunAsPartOfDisablingIap": true,
+  "previousAttempts": "Protected old revision restored after conservative policy assertions; final comparison permits only removal of obsolete IAP service-agent invoker grant and ignores policy version/etag metadata",
+  "protectedCandidateVerifiedBeforePublicSwitch": true,
+  "allExistingEnvSecretRefsSAUnchangedExceptAuthMode": true,
+  "driverApiSpecAndTrafficUnchanged": true,
+  "automaticMin0Max1RequestBilling": true,
+  "publicChecks": [
+    {
+      "host": "https://demo-admin.hbzjhs.xyz",
+      "anonymousPage": 200,
+      "tlsVerified": true,
+      "noGoogleRedirect": true,
+      "protectedData": {
+        "state": 401,
+        "query?dataset=orders": 401,
+        "export?dataset=orders": 401
+      }
+    },
+    {
+      "host": "https://driver-admin-491829048305.us-west1.run.app",
+      "anonymousPage": 200,
+      "tlsVerified": true,
+      "noGoogleRedirect": true,
+      "protectedData": {
+        "state": 401,
+        "query?dataset=orders": 401,
+        "export?dataset=orders": 401
+      }
+    }
+  ],
+  "rollbackRevision": "driver-admin-trip-2863623f",
+  "rollbackImage": "us-west1-docker.pkg.dev/yijiexing-driver-demo-1023/demo/admin-ui@sha256:264abd84bb07954504fb9efd620f0882e14e94d824b95137908bc6b64fac03c9",
+  "rollbackRequires": "Enable IAP + Invoker IAM check; restore old revision/image and remove ADMIN_AUTH_MODE. Do not alter database.",
+  "postReleaseAuthenticatedBrowser": "Anonymous landing independently PASS; full browser click-through NOT_RUN. Successful no-Google password login/state/logout/revocation independently tested over real HTTPS, see authenticated-http-readback."
+}

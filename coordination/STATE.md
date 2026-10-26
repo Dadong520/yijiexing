@@ -1,26 +1,21 @@
-# 当前检查点：记忆协议v3固化 / 2026-10-26T02:11:38.454082+08:00
+# 当前检查点 2026-10-26T09:57:19.748903+08:00：后台只用账号密码
+协议2026-10-26-v3。中央控制目录 /Users/dongge/Documents/New project 2/coordination；先START_HERE/STATE/BOARD/SESSION/本角色卡，不翻历史。当前三个旧会话仍HANDOFF_RECOMMENDED、上下文UNKNOWN；下一大任务应用户新开总管，显式登记并退休旧ID，不自动创建。
 
-## 下一轮从哪里接手
-本机中央控制目录 /Users/dongge/Documents/New project 2/coordination。先AGENTS→START_HERE→STATE/BOARD/SESSION→本角色卡/当前任务；长期规则按需读DECISIONS。不遍历旧聊天/release/evidence目录；工作树同名文件是快照，不能覆盖中央。
-用户默认只给coordinator指令，SESSION是角色实际会话ID登记。coordinator/backend/frontend均已ACK2026-10-26-v3、HANDOFF_RECOMMENDED，实际上下文占用UNKNOWN/null。三个长会话都建议下一大任务前换新；先由用户新开总协调对话粘贴NEW_CHAT_PROMPT，登记新ID、退休旧ID，然后统一安排角色交接，不能双派/双发布。不自动创建新对话。
+## 最新用户决定与运行状态
+用户明确取消后台Google登录，只有后台账号密码（DECISIONS AUTH-01），替代此前driver-admin保留IAP要求；其他服务不改。
+AUTH-20261026-02 sourceRoot /Users/dongge/.codex/tmp/yijiexing-admin-password-20261026 branch codex/admin-password-only-20261026，固定产品c46f88bd848346196283b90d92977120962ce00c，PR26 merge25f8c9eb29f55a3182b5253fed463d66f75e4a55。
+已发布driver-admin-password-c46f88bd-r3 100%，image e51df78b00868abba60d6a1dae267f6b5db48eab366828850c5f9aee510a8109。服务ADMIN_AUTH_MODE=PASSWORD；IAP=false、Invoker检查关闭；只公开登录页/静态资源，后台数据与操作仍要求session/RBAC/Origin，账户失败限流和审计保留。无其他IAM扩权，SA/secretRefs/其他env不变。CloudRun automatic/min0/max1按请求计费，无保活/手工暂停。
+管理https://demo-admin.hbzjhs.xyz，使用原管理账号密码，无需Google；备用https://driver-admin-491829048305.us-west1.run.app。两地址匿名200无跳转，state/query/export匿名401。原admin无Google/cookie真实TLS登录200→state200→退出200→旧会话401。24笔共享单ID/状态/金额/已付退款不变。18作者+5root非作者HTTP测试通过，frontend独立匿名落地页PASS，完整点击登录/退出/刷新NOT_RUN；实际HTTPS账号登录/退出已PASS，范围看AUTH报告。
+早两次部署已自动回退，原因是云端停用IAP会撤销其专用Invoker grant并更新etag/version；最终只容许这项撤销，其余策略一致。不要重复执行旧部署脚本。回退需先恢复IAP+Invoker检查再旧revision；详AUTH报告。
 
-## 本轮MEM成果（无业务/云部署）
-文档及检查器固定产品SHA 047d82e227824b9038f53f5e73303ae58732fe06，工作树 /Users/dongge/.codex/tmp/yijiexing-memory-20261026，branch codex/project-memory-20261026，PR25 https://github.com/Dadong520/yijiexing/pull/25。Main包含本快照表示已合并；精确merge SHA读PR元数据，中央即时回执见本文件末尾。16单测作者及frontend非作者PASS，正向角色ID/负向旧缺ID通过，backend长期规则复核PASS。证据evidence/MEM-20261026-01，任务已归档。
-资料预算/ACK/角色唯一/退休ID/真实调用ID/旧快照/假遥测声明由检查器检查；没有模型内部遥测，不是不可绕过锁，不常驻监控。每阶段、约40分钟有效工作、压缩/等待/结束补短卡；70/85只是有可靠用量时的项目预防门槛。README已修正旧暂停/未发布描述，中央两个角色卡恢复当前源。Gemini仅在获派任务按GEMINI_CLI入口/本协议运行，本轮没有为协议唤醒Gemini。
+## 已发App/业务（无须重发）
+唯一业务后端/Users/dongge/.codex/tmp/yijiexing-trip-api-20261025/apps/cloud-service产品8ec8419d30955c216d7e4fe90451584d2a9622cf，API driver-demo-distance-8ec100%不变。APIhttps://yijiexing-demo.hbzjhs.xyz，原demo.hbzjhs.xyz演示不动。
+Native源/Users/dongge/.codex/tmp/yijiexing-native-permissions-20261025，产品3e9f6ee943948e1081ec9ab0102eef803d447c8b；driver0312/code15 SHA bce9fcff928b3690525f14a6ae5f3a4e074fc6f9ca9bf491733e4b1609852a85，pass1112/code14 SHA61417866fce94d9176ff74e42718d6ce60fa658064e289bf8e0dccfae10257d8，原签名保留，/download和/download-passenger免访问码。PR23/24原发布证据仍有效，唯独旧报告的“当前后台需Google”已被本轮替代。
+同单PORDf4f910a233dc为DONE/29.26模拟已付；接送300m默认/50..5000可配及超距本人同意仍在。原backend208、driver55/pass20/mini58与限定三端证据不重跑、不扩大为真机/永久保活。
 
-## 当前已发布业务（不要重复发布）
-最近业务PR23 af7ec4ce6c618cf0b984c54a76ba7024751e5e10，发布回执PR24 main55071ffd5b7b214e8d2c81e509cea4fe021385fe。
-唯一业务后端源 /Users/dongge/.codex/tmp/yijiexing-trip-api-20261025/apps/cloud-service，产品8ec8419d30955c216d7e4fe90451584d2a9622cf，live driver-demo-distance-8ec8419d100%，后端208+root独立HTTP5。Web2863623ff932afc9adc1f59caa64e2b3069dbbae，live driver-admin-trip-2863623f100%。
-管理https://demo-admin.hbzjhs.xyz，Google已指定dadonggev587@gmail.com+原admin，TLS/IAP/实际登录及300/300距离规则/同单DONE回读PASS；备用run.app保留。APIhttps://yijiexing-demo.hbzjhs.xyz；原demo.hbzjhs.xyz演示勿改。
-Native源 /Users/dongge/.codex/tmp/yijiexing-native-permissions-20261025 branch codex/permission-alert-native-20261025，产品3e9f6ee943948e1081ec9ab0102eef803d447c8b。driver0312/code15 SHA bce9fcff928b3690525f14a6ae5f3a4e074fc6f9ca9bf491733e4b1609852a85；pass1112/code14 SHA61417866fce94d9176ff74e42718d6ce60fa658064e289bf8e0dccfae10257d8（乘客源d896，最后仅driver变）。两签名9ffec9b342d12909ff288bd73f23ba104893b39120cb24ea83c9734a0d2b758f。下载API域名/download和/download-passenger，免访问码、覆盖保账号；均公开全GET验证。
-同单PORDf4f910a233dc真实模拟器定位11062.102m/300，拒绝仍ARRIVED→本人同意TRIP→旧定位/null送达本人同意WAIT_PAY→模拟29.26 DONE、付款事件1次。55driver/20pass及mini58/静态检查通过，真实原生/后台限定独立验收见REL02与ALERT报告。
+## 剩余/资源
+WX缺AppID，微信编译/真机发布NOT_RUN；QA模拟器overlay原默认恢复未证实，两AVD与8808保持关闭，当前无ADB/CLI运行。frontend已关闭QA页并交还Chrome，全部模型IDLE。无后台AI/自动续跑。当前只收尾AUTH发布回执归档PR，不扩业务；全部凭据不进Git/消息，证据AUTH目录。
+MEM协议已PR25 f565e709cf8bd9e5cd348c5a5bd8a33f5282443c固化，16回归通过；其旧工作树里的“保留后台IAP”已按用户AUTH新决定更新。
 
-## 剩余与资源
-BOARD仅WX缺AppID（微信编译/真机发布NOT_RUN）、QA模拟器overlay恢复未证实；不擅自继续，不把未测项标完成。原生OEM/强杀/主观听音/完整新增弱网/无障碍/空userdata等未测；实际再次接第二shared由HTTP验证而非App，不混称。
-两AVD与本地8808已关闭，Chrome/ADB/CLI无本轮占用，两角色IDLE；无后台AI/定时自动续跑。当前根只收尾文档合并。仅独立GCP yijiexing-driver-demo-1023/us-west1，数据/IAM/IAP保留、automatic/min0/max1请求计费，不保活、不自动手工暂停；禁止原生产/测试。临时目录若缺失，从Git固定SHA恢复，不猜回未提交修改；卡内归属清单优先。
-
-## 最终收尾 2026-10-26T02:14:45.067795+08:00
-MEM协议PR25已合并main，merge SHA f565e709cf8bd9e5cd348c5a5bd8a33f5282443c，project-gate PASS（含16项记忆/发布门禁回归与既有小程序检查）。本轮仅文档/协作工具，无业务部署。coordinator/backend/frontend的真实ID/协议ACK前置均PASS，三者均HANDOFF_RECOMMENDED，实际上下文UNKNOWN；两工作会话已idle，Gemini未唤醒。下一次大开发请先新开总协调对话并粘贴NEW_CHAT_PROMPT，旧会话不再接新大任务；不需复制历史。Git快照是提交时检查点，本中央尾注是合并后即时状态，不能反向用旧副本覆盖。
-
-## 新请求AUTH-20261026-02 2026-10-26T08:57:02.544559+08:00
-用户明确取消driver-admin Google登录，改现有后台账号密码。此明确指令取代此前该服务IAP保留规则；其他服务保护和数据不改。限定登录入口与云配置任务，源/Users/dongge/.codex/tmp/yijiexing-admin-password-20261026，branch codex/admin-password-only-20261026，base f565e70；backend只入口/测试，root Web/文档/唯一部署。memory仍HANDOFF_RECOMMENDED，不扩展业务。完成后更新当前授权与交接，下次大开发换新。
+## 本轮最终交接
+AUTH已完成发布与API安全验收，正在提交最后回执；无需App更新/重新部署。完整独立GUI点击流程明确NOT_RUN，未因超时冒称通过。旧长会话仅保存交接，不再接新大开发；需要用户新开总管按NEW_CHAT_PROMPT接任。无后台AI继续运行。

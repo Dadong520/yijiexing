@@ -1,0 +1,8 @@
+{
+  "status": "DIAGNOSED",
+  "onlyIamEtagChanged": true,
+  "bindingsRolesMembersAndPolicyVersionUnchanged": true,
+  "rollbackVerifiedTraffic": "driver-admin-trip-2863623f 100%",
+  "rollbackVerifiedIapEnabled": true,
+  "retryChanges": "Compare IAM policy semantics ignoring only etag; reuse same accepted product/image with new revision suffix"
+}
