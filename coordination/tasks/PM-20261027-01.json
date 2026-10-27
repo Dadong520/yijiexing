@@ -1,0 +1,58 @@
+{
+  "schemaVersion": 1,
+  "id": "PM-20261027-01",
+  "owner": "coordinator",
+  "goal": "按产品经理两份建议优化司机Android、乘客Android/小程序与后台，并集成适用高德能力；分批实现、非作者验收和发布，不把缺规则/外部服务当完成。",
+  "baseSha": "31cee06f415e51b0dcd8c05dd6f76e2fab311a76",
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-pm-amap-20261027",
+  "branch": "codex/pm-amap-integration-20261027",
+  "allow_paths": [
+    "coordination/tasks/PM-20261027-01.json",
+    "coordination/evidence/PM-20261027-01/",
+    "coordination/handoffs/coordinator.md",
+    "coordination/STATE.md",
+    "coordination/BOARD.json",
+    "coordination/SESSION_REGISTRY.json",
+    "coordination/DECISIONS.md",
+    "coordination/handoffs/antigravity.md",
+    "apps/admin-console/web/admin.js",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/BookingScreens.kt",
+    "candidates/passenger-miniprogram-0.1.0/miniprogram/pages/home/index.js",
+    "candidates/passenger-miniprogram-0.1.0/miniprogram/pages/home/index.wxml",
+    "candidates/passenger-miniprogram-0.1.0/miniprogram/tests/ui-flow.test.js",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/OrderDetail.kt"
+  ],
+  "checks": [
+    "新coordinator显式接任并跑memory-role门禁",
+    "按TRIAGE对照代码，拆子任务唯一allow_paths后才开发",
+    "关键状态/定位坐标/金额由非作者复核",
+    "适用差量测试及真实共享订单验收通过后精确SHA发布回读"
+  ],
+  "status": "ACTIVE_INTEGRATION",
+  "acceptance": "NOT_RUN",
+  "tests": [],
+  "evidence": [],
+  "nextAction": "PMDEST0df8b18非作者限定PASS且未发布；下一阶段PMPOST作者83c7c2a待独立审核/客户端，PMAD后台UI待GUI，PMMAP鉴权阻塞后再统一合并发布",
+  "deploy_owner": "coordinator",
+  "releaseReady": false,
+  "notes": {
+    "sourceDocs": [
+      "/Users/dongge/Downloads/WXWork Files/Caches/Files/2026-10/9d722fb88a744403b1c0956519430f55/修改建议.doc",
+      "/Users/dongge/Downloads/WXWork Files/Caches/Files/2026-10/80073ae372f7ba76b018ba2530c44c87/功能缺失.docx"
+    ],
+    "handoffAuthorSession": "01a168e6-d76c-7ef0-8c87-706cc6e32d57",
+    "userAuthorization": "2026-10-27 request + 继续 + explicit async answer 允许新建并接手（推荐）",
+    "pendingUserQuestion": "双Android包名/SHA1用户已保存；乘客新POI仍1008，未再次索要Key",
+    "productChanges": "PMPA/PMBE/PMRES/PMCL限定PASS；PMAD后端6组PASS/UI待验；PMDEST后端4组+客户端非作者PASS；PMPOST作者待验；PMMAP外部SDK鉴权阻塞",
+    "deployments": "API 0% preview driver-demo-pm-364078b4-qa1 only; stable traffic and APKs unchanged",
+    "coordinatorSession": "01a17cc7-e0a2-7791-bf1d-4611c09bab22",
+    "reservationDecision": {
+      "at": "2026-10-27T18:03:16.151726+08:00",
+      "id": "BIZ-04",
+      "rule": "待出发预约单独保留；即时行程可正常进行；司机明确开始接驾且同一时间只允许一段执行中行程；不自动处罚/保证准时"
+    },
+    "adminUIOwner": "coordinator，现PM集成分支；独立backend PMAD分支写API，frontend非作者验收UI"
+  },
+  "updatedAt": "2026-10-27T23:14:05.364347+08:00",
+  "candidateSha": "0df8b187ac2f68c52fa6d17db846fbb8854b4eda"
+}

@@ -1,0 +1,15 @@
+{
+  "at": "2026-10-27T23:09:37.617143+08:00",
+  "sourceSha": "0df8b187ac2f68c52fa6d17db846fbb8854b4eda",
+  "sourceFiles": {
+    "apps/cloud-service/passenger.py": "d4c7fe303e0a779bf0c1886a22f9f2be0b86b6c0c82e2e6a2dcada02391e313d",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/BookingScreens.kt": "246d72d93d79d978c72c59668c07e69b55e35f37b247ef33bb0871f4183dc88c",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/OrderDetail.kt": "ee30594b735332dabe4830867c6cf1e9b9a55243d7a022417862b83b3603f930",
+    "candidates/passenger-miniprogram-0.1.0/miniprogram/pages/home/index.js": "8301038559725d9681ebb103ca9796ce1ec4666c1a78dd0f525d5150e774d140",
+    "candidates/passenger-miniprogram-0.1.0/miniprogram/pages/home/index.wxml": "1b896d12353056118cbc38631c7d34d31deba1758464eda008f28d53ad181b76"
+  },
+  "backendAuthorSha": "018ca49d7c3b8c7230e6541754729e1a0178ec37",
+  "backendIntegratedSha": "e01a040176e6608041b0a32455a8493ea4633ff5",
+  "published": false,
+  "finalDelta": "0df8b18 string-only removal of obsolete booking guidance; prior Android20+build results apply to code before this string change, final rebuild NOT_RUN"
+}

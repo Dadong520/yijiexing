@@ -1,0 +1,30 @@
+{
+  "candidateSha": "018ca49d7c3b8c7230e6541754729e1a0178ec37",
+  "baseSha": "ea41f17998ad1812f031ac1886fec45895b09f36",
+  "authorRole": "backend",
+  "authorSpecific": {
+    "count": 5,
+    "result": "PASS",
+    "seconds": 2.3,
+    "log": "author-specific.log"
+  },
+  "regression": {
+    "count": 70,
+    "passed": 69,
+    "failed": 1,
+    "log": "author-regression.log"
+  },
+  "failedOriginalTestRecheck": {
+    "count": 1,
+    "result": "PASS",
+    "seconds": 0.03,
+    "log": "time-case-recheck.log"
+  },
+  "independentAcceptance": "NOT_RUN",
+  "deployment": "NOT_RUN",
+  "files": {
+    "apps/cloud-service/passenger.py": "d4c7fe303e0a779bf0c1886a22f9f2be0b86b6c0c82e2e6a2dcada02391e313d",
+    "apps/cloud-service/tests/test_passenger.py": "8f04d9c563f0c82b4921855c050c3a2bc293278e0f79d6fa6d64aee353556087",
+    "apps/cloud-service/tests/test_destination_required.py": "c2447ee75eda5c4c09b2d028b1765101b81de8224d0c0b9c13403abe1a3102a9"
+  }
+}

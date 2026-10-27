@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "id": "PMPA-20261027-01",
+  "owner": "antigravity",
+  "goal": "乘客Android预约信息、全行程地图展示和补充目的地入口优化；不改业务规则",
+  "baseSha": "31cee06f415e51b0dcd8c05dd6f76e2fab311a76",
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-pm-amap-20261027",
+  "branch": "codex/pm-amap-integration-20261027",
+  "allow_paths": [
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/OrderDetail.kt",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/PassengerMap.kt",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/BookingScreens.kt",
+    "coordination/evidence/PM-20261027-01/gemini-passenger/"
+  ],
+  "checks": [
+    "Android编译与现有单元测试",
+    "预约时间在订单卡和详情无需展开可见",
+    "补充目的地是明确主要操作且保留同单更新/金额确认语义",
+    "详情展示真实底图起终点和可用司机上报点，标来源与时间；不能伪称道路导航/实时GPS",
+    "不修改金额、位置权限、支付或超距同意规则"
+  ],
+  "status": "ACCEPTED_SCOPE_AWAITING_INTEGRATION",
+  "acceptance": "PASS",
+  "tests": [
+    {
+      "command": "Gradle offline testDebugUnitTest assembleDebug with external build/cache dirs",
+      "result": "PASS",
+      "log": "coordination/evidence/PM-20261027-01/gemini-passenger/build.log"
+    }
+  ],
+  "evidence": [
+    "coordination/evidence/PM-20261027-01/frontend-review/REVIEW.md"
+  ],
+  "nextAction": "复用该SHA/文件哈希限定验收；待地图新差量、整体集成与部署回读后统一发布",
+  "deploy_owner": "coordinator",
+  "releaseReady": false,
+  "candidateSha": "b792d0dbfab1b35946b58eb97c3773fd28830a3a",
+  "updatedAt": "2026-10-27T20:47:14.594894+08:00",
+  "acceptanceScope": "20tests+build与现有完成单地图GUI PASS，预约/待目的地/真实司机点GUI NOT_RUN"
+}

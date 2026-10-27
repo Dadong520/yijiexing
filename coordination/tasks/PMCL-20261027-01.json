@@ -1,0 +1,48 @@
+{
+  "schemaVersion": 1,
+  "id": "PMCL-20261027-01",
+  "owner": "coordinator",
+  "goal": "两Android与小程序预约入口适配、司机退款入账展示与预约阻断提醒修复",
+  "baseSha": "378feac660e1fdb7a958c48504de6069eb5ef1fb",
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-pm-amap-20261027",
+  "branch": "codex/pm-amap-integration-20261027",
+  "allow_paths": [
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/DriverDomain.kt",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/ConnectedStore.kt",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/CoreScreens.kt",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/UiKit.kt",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/DriverSpeech.kt",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/BookingScreens.kt",
+    "candidates/passenger-miniprogram-0.1.0/miniprogram/pages/home/index.js",
+    "candidates/passenger-miniprogram-0.1.0/miniprogram/pages/home/index.wxml",
+    "candidates/driver-0.3.6-r2/android/app/src/test/java/cn/hbzjhs/driver/preview/ReservationAndIncomeTest.kt",
+    "candidates/passenger-miniprogram-0.1.0/miniprogram/tests/ui-flow.test.js"
+  ],
+  "checks": [
+    "待出发预约单独保留可访问，不阻即时单",
+    "真正执行/PREPAY/BID仍排他，WAIT_PAY乘客保留限制",
+    "司机声音提醒消费逻辑不因待出发预约提前清空",
+    "API结算字段显示退款优先，不改金额公式",
+    "frontend非作者差量复核与构建测试"
+  ],
+  "status": "ACCEPTED_SCOPE_AWAITING_INTEGRATION",
+  "acceptance": "PASS",
+  "tests": [
+    {
+      "result": "PASS driver59/passenger20/mini60 + independent actual shared-flow13",
+      "limit": "actual sound/background/OEM/Android reservation and wallet GUI NOT_RUN"
+    }
+  ],
+  "evidence": [
+    "coordination/evidence/PM-20261027-01/frontend-review/PMCL-REVIEW.json"
+  ],
+  "nextAction": "复用该SHA/文件哈希限定验收；待地图新差量、整体集成与部署回读后统一发布",
+  "deploy_owner": "coordinator",
+  "releaseReady": false,
+  "notes": {
+    "authorFallback": "Gemini FAILED_PRECONDITION User location is not supported for API use, no code; Codex coordinator implements, frontend independent acceptance"
+  },
+  "candidateSha": "ee8b32f6b1b2e48423e6ca1a5947a3971192877c",
+  "updatedAt": "2026-10-27T20:47:14.594894+08:00",
+  "acceptanceScope": "driver59/passenger20/mini60+独立真实数据流13组PASS_SCOPE，实际声音/后台/OEM与Android预约钱包GUI NOT_RUN"
+}
