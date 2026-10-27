@@ -270,6 +270,7 @@ fun ConnectedHome(
     val canAccept = features.optBoolean("canAcceptOrders", false)
     val active = state.activeOrder
     val pendingCollections = state.pendingCollections
+    val waitingReservations = state.waitingReservations
     val available = state.orders.filter { it.stage == Stage.AVAILABLE }.sortedBy { it.isPrivateExample }
     var toolsExpanded by remember { mutableStateOf(false) }
 
@@ -445,6 +446,12 @@ fun ConnectedHome(
                                 }
                             }
                         }
+                    if (waitingReservations.isNotEmpty()) {
+                        item { SectionTitle("待出发预约", "${waitingReservations.size} 笔 · 可继续接即时单") }
+                        items(waitingReservations, key = { "reservation:" + it.id }) { order ->
+                            OrderCard(order, "查看预约 · ${order.scheduledTimeText}") { navigate("detail:${order.id}") }
+                        }
+                    }
                     if (pendingCollections.isNotEmpty())
                         item {
                             Surface(
@@ -843,6 +850,7 @@ fun ConnectedTrip(
                     if (order.destinationPending)
                         Text("目的地待乘客补充 · 费用待定，不是免费。补齐后双方需核对体验报价。", color = Orange, fontSize = 18.sp)
                     DetailRow("预计里程", "${order.mileage} km")
+                    if (order.kind == OrderKind.RESERVED) DetailRow("计划用车时间", order.scheduledTimeText)
                     if (order.remark.isNotBlank())
                         Text("备注：${order.remark}", fontSize = 18.sp, color = Muted)
                     if (order.isActive) {
@@ -864,7 +872,7 @@ fun ConnectedTrip(
             }
             item { DriverTripDistanceCard(order.id, order.stage.name, store) }
             if (order.waypoints.isNotEmpty()) item { TripWaypoints(order, store, onMessage) }
-            if (order.isActive)
+            if (order.stage == Stage.ARRIVED && order.phoneTail.isNotBlank())
                 item {
                     SheetCard {
                         DetailRow("乘客手机尾号", order.phoneTail)
@@ -881,6 +889,7 @@ fun ConnectedTrip(
                         modifier = Modifier.padding(top = 6.dp, bottom = 14.dp),
                     )
                     DetailRow("支付状态", order.paymentStatusLabel)
+                    DetailRow("入账状态", order.incomeLabel)
                     order.refundAmountText?.let { DetailRow("模拟退款金额", it) }
                     MenuRow("wallet", "查看费用明细") { navigate("fees/${order.id}") }
                     if (order.stage in setOf(Stage.DONE, Stage.WAIT_PAY, Stage.CANCELLED))
@@ -1499,7 +1508,7 @@ fun ConnectedOrders(
     selected: Int,
     onSelectedChange: (Int) -> Unit,
 ) {
-    val tabs = listOf("全部", "进行中", "待支付", "已完成", "已取消")
+    val tabs = listOf("全部", "进行中", "待支付", "已完成", "已取消", "待出发预约")
     val rows =
         state.orders.filter {
             it.stage != Stage.AVAILABLE &&
@@ -1508,6 +1517,7 @@ fun ConnectedOrders(
                     2 -> it.stage in setOf(Stage.PREPAY, Stage.WAIT_PAY)
                     3 -> it.stage == Stage.DONE
                     4 -> it.stage == Stage.CANCELLED
+                    5 -> it.isWaitingReservation
                     else -> true
                 }
         }
@@ -1600,6 +1610,19 @@ fun ConnectedWallet(store: ConnectedStore, state: DriverState, navigate: (String
                 MenuRow("card", "我的银行卡") { navigate("bank") }
                 HorizontalDivider(color = Line)
                 MenuRow("shield", "交易密码与钱包安全") { navigate("walletsettings") }
+            }
+        }
+        val settledOrders = state.orders.filter { it.shared && it.stage != Stage.AVAILABLE && it.settlementStatus.isNotBlank() }
+        if (settledOrders.isNotEmpty()) {
+            item { SectionTitle("订单入账状态", "支付与退款均为模拟记账") }
+            items(settledOrders, key = { "settlement:" + it.id }) { order ->
+                SheetCard {
+                    Text(order.origin + " → " + order.destination, fontWeight = FontWeight.SemiBold)
+                    DetailRow("当前状态", order.incomeLabel)
+                    if (order.settlementStatus in setOf("CREDITED", "REVERSED", "REFUNDED", "CLOSED_NO_INCOME"))
+                        DetailRow("本单净收入（模拟）", "¥${money(order.netIncome ?: 0)}")
+                    CoreTextButton(onClick = { navigate("detail:${order.id}") }) { Text("查看订单") }
+                }
             }
         }
         item { SectionTitle("收支明细", "金额和状态以独立服务记录为准") }

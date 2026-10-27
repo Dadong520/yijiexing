@@ -1,22 +1,19 @@
-# frontend 中央交接卡
-ACK: 2026-10-26-v3
-role: frontend | threadId: 01a167c8-a5eb-77e3-b77e-214927a029da
-updatedAt: 2026-10-26T02:10:15.365875+08:00 | checkpointId: MEM-20261026-01 | workflowState: IDLE
-memoryStatus: HANDOFF_RECOMMENDED | contextUsedPercent: null（UNKNOWN）
-measurementSource: not_exposed；不推测压缩次数/百分比，不把运行时长或账号额度当上下文遥测。下一大任务建议换新frontend角色会话：本会话已跨多轮原生/后台验收，历史较长，中央旧ADMIN05卡曾滞后；本次补齐有限入口后适合切换，减少旧状态干扰。仅建议，未经用户明确新开/要求创建不自动换会话。
+# frontend 当前短交接
+ACK 2026-10-26-v3；threadId 01a17cd2-bcf7-7931-a94b-62119cefce48；checkpoint PMDEST-20261027-01；NORMAL；实际context UNKNOWN/not_exposed。coordinator唯一负责人01a17cc7-e0a2-7791-bf1d-4611c09bab22。
+sourceRoot /Users/dongge/.codex/tmp/yijiexing-pm-amap-20261027；branch codex/pm-amap-integration-20261027。只读产品；仅中央evidence/PM-20261027-01/frontend-review及本卡可写。不提交/发布/改控制文件。
 
-## 本轮/唯一归属
-MEM-20261026-01；base/HEAD 55071ffd5b7b214e8d2c81e509cea4fe021385fe；sourceRoot /Users/dongge/.codex/tmp/yijiexing-memory-20261026，branch codex/project-memory-20261026。只写本中央卡及evidence/MEM-20261026-01/frontend-review.json；MEM协议/检查器固定提交，后续证据由coordinator统一归档。当前无新产品任务，不接管STATE/BOARD/SESSION/DECISIONS，不独立提交。MEM检查器固定047d82e227824b9038f53f5e73303ae58732fe06，独立复核完成，无待验代码；root正关闭MEM并合并PR25，合并SHA由其回填。
+## 最新PMDEST
+精确0df8b187ac2f68c52fa6d17db846fbb8854b4eda，含786f2bb客户端必填目的地及最后过时Note字符串删除，root作者。本角色独立PASS：Android/mini新入口无pending开关，所有新请求需完整终点，旧flag/历史repeat不能绕过；历史sameID补填入口保留。定向mini2测试+真实shared.base独立流（三类型/缺目的地/旧flag/repeat/历史update同ID）PASS，复用Android20及mini62，纯字符串删除未重跑整套。证据PMDEST-REVIEW.md/.json及PMDEST-*-flow/targeted日志。新最终包GUI/微信真机NOT_RUN，0云业务写入。
 
-## 已发布固定基线（中央STATE为准）
-原生唯一作者树 /Users/dongge/.codex/tmp/yijiexing-native-permissions-20261025，branch codex/permission-alert-native-20261025，源3e9f6ee943948e1081ec9ab0102eef803d447c8b。driver0.3.12/code15 SHA bce9fcff928b3690525f14a6ae5f3a4e074fc6f9ca9bf491733e4b1609852a85；pass1.1.12/code14 SHA61417866fce94d9176ff74e42718d6ce60fa658064e289bf8e0dccfae10257d8（d896建，最后driver修复不改pass字节）。已覆盖/签名/账号保留核对；root已发布并公开完整GET验证。PR23 merge af7ec4ce6c618cf0b984c54a76ba7024751e5e10；发布回执PR24 merge55071ffd5b7b214e8d2c81e509cea4fe021385fe。当前无待发布，勿重部署。共享后端唯一目录看STATE，不使用旧重复快照。
+## SDK独立阶段未通过
+候选4a7ca4615120a1f624fa2c18fe5ca008e5891c87的两QA包仅0%preview，不作稳定下载。静态已确认swap metadata/manual cancel两P2关闭、司机首次login配置补齐、控制点防identity门禁；源与两SDK包/两QA包4私有值扫描0命中。
+乘客同意前native库未映射、可defer，点击同意后底图可见；初始map10008 INVALID_USER_SCODE及POI1008。用户保存绑定后一次重试被QEMU退出中断UNKNOWN，root允许恢复后一次宜昌东站查询仍1008。司机新安装/首次login/独立同意/底图显示范围PASS，未见auth错误但无成功鉴权回执；两个SDK新PID未含Key日志，内存比对布尔全false仅说明没日志，不能证明角色Key。0新单/不主动改旧35笔/余额。正常成功POI/reverse/公开校准/同存GUI、声音/通知/OEM均NOT_RUN。详PMMAP-GUI-REVIEW.md及MANIFEST.json。
+诊断：首次逐行脱敏遇SDK换行拆分，发现后该文本已覆写移除，后续仅结构化code/type/count；raw仅内存，绝不再存原文。
 
-## 独立验收范围与边界
-权限首引导/稍后/拒绝后系统授权/重进；前台新单Dialog、后台新卡及旧小泡、点卡只查看、队列去重与超时；真实共享即时单11062m/300拒绝不推进→本人同意接客，旧GPS/null送达仍需本人同意，模拟29.26 DONE；root另会话三端金额/单次付款回读。最终provider off→on不重开App恢复GPS有差量PASS。仅声音系统播放/通道路径，未采集音频/主观听音；真机OEM/永久保活、新增弱网/全无障碍/空userdata/原生议价全链未测；未实际再接第二shared，只开private确认后返回。
-证据：ALERT-20261025-01/frontend/design-qa.json SHA ffba9278e65ddddac402f1a2bb3702454c0e5541da24aedb3078859044ac05f1；同目录REPORT.md；REL02/live/order-final-paid.json SHA dc43f175aedc0414f94814bcee7f6e68b9c89a318ba5aae77295e153431adaf7。只按需读，不加载整目录。
+## 资源已交还
+AVD初次swiftshader及gpu off（仍回退Vulkan）出现QEMU线程hang；恢复用仅本次参数-no-snapshot/-feature -Vulkan/软件渲染/1536MB/2cores/低分辨率，完成受控查询。一次SystemUI ANR，未见乘客App ANR/CRASH记录。
+最终乘客原1.1.12重装保留账号；原无司机包，临时QA已卸载。既有AppOps定位模式保留，SDK新增4条拒绝/默认存储审计，未授权限/未reset旧UID ignore。显示密度/旋转/同意还原命令已执行，关闭后未单独读回。PMMAP-resources-final.json确认ADB无设备/QEMU关闭；无常驻任务。
 
-## QA遗留/资源/下一步
-QA-20261026-01：初始有效系统悬浮未授权；收尾UI OFF但重装后AppOps仍allow，包级default/ignore及root后续UIDdefault均未证实恢复，不能写已恢复。App内floating=false；原网络/定位/普通权限和GPS已恢复。两AVD、8808预览及全部CLI均off，依据中央STATE；本轮不调用ADB/Chrome复查，不常驻。WX缺AppID继续NOT_RUN。
-本轮16单测PASS、基本/真实session-id正向PASS，旧/缺ID负例均预期拒绝；ACK已登记gen3，证据绑定047d（frontend-review.json）。无待验代码，交root统一合并；新大任务前建议新frontend对话，由用户明确新开/要求创建、协调者替换角色ID后移交。旧会话不双写/不双指挥，资源归属先交清。长期规则按DECISIONS/START_HERE恢复。
-
-AUTH-20261026-02限定收尾：固定c46f88bd848346196283b90d92977120962ce00c，live password-c46f88bd-r3由root确认。frontend新Chrome匿名落地账号密码页/无Google提示PASS，未读凭据；收到限时停止后完整浏览器登录/概览/退出/刷新均NOT_RUN，不能冒称UI全链PASS。证据新AUTH树frontend/result.json SHA 0eb2362aa57fec72726434a5716f0fd2cda6e27e563fc040a54ccb173b4c2f45。新tab1055271399已关闭，Chrome交root/IDLE，无ADB/业务/部署操作。
+## 早前可复用检查点
+PMPA b792d0d：地图已有DONE单GUI+20test范围PASS，预约/待补/活动点GUI未测。PMCL ee8b32f：司机59/乘客20/mini60+真实shared流13状态PASS，修小程序预约横幅日期；实际新提醒仍NOT_RUN。各短报告在同frontend-review目录，按需读取。
+下一步由root统一整体验收/安排发布或继续SDK疑难；本角色无待修产品、未部署。

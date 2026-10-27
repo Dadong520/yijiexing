@@ -412,6 +412,7 @@ class ConnectedStore(app: Application) : AndroidViewModel(app) {
                 LocalApi.token = token
                 mutableState.value = parsed
                 mutablePayload.value = freshPayload
+                AmapRuntime.configure(fresh.optJSONObject("mapConfig"))
                 mutableSessionAvailable.value = true
             }
         }
@@ -441,6 +442,7 @@ class ConnectedStore(app: Application) : AndroidViewModel(app) {
             mutableSessionAvailable.value = false
             mutableState.value = emptyState()
             mutablePayload.value = JSONObject()
+            AmapRuntime.configure(null)
             pendingKeys.clear()
             resetRequestStatus()
             mutableInitialized.value = true
@@ -529,6 +531,7 @@ class ConnectedStore(app: Application) : AndroidViewModel(app) {
                 if (s != null) {
                     mutableState.value = parseDriverState(s)
                     mutablePayload.value = JSONObject(data.toString())
+                    AmapRuntime.configure(data.optJSONObject("mapConfig"))
                 }
             }
         }
@@ -613,6 +616,10 @@ class ConnectedStore(app: Application) : AndroidViewModel(app) {
                         distance = o.optString("distance", ""),
                         mileage = o.optString("mileage", ""),
                         time = o.optString("time", ""),
+                        scheduledAt = o.optString("scheduledAt", "").takeUnless { it == "null" }.orEmpty(),
+                        settlementStatus = o.optString("settlementStatus", ""),
+                        settlementLabel = o.optString("settlementLabel", ""),
+                        netIncome = if (o.has("netIncome") && !o.isNull("netIncome")) o.optLong("netIncome", -1).takeIf { it >= 0 } else null,
                         stage = Stage.valueOf(o.getString("stage")),
                         remark = o.optString("remark"),
                         phoneTail = o.optString("phoneTail"),

@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "id": "PMRES-20261027-01",
+  "owner": "antigravity",
+  "goal": "按BIZ-04解除待出发预约占用，保持双角色一段执行中行程，兼容现有枚举/金额/距离",
+  "baseSha": "0f417237b7632affd5d70924682e607b721601f5",
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-pm-amap-20261027",
+  "branch": "codex/pm-amap-integration-20261027",
+  "allow_paths": [
+    "apps/cloud-service/domain.py",
+    "apps/cloud-service/passenger.py",
+    "apps/cloud-service/negotiation.py"
+  ],
+  "checks": [
+    "backend CONTRACT-RESERVATION独立验收6组",
+    "未付WAIT_PAY仍挡乘客",
+    "新接即时、选择司机、预付成功、开始预约均双角色事务门禁",
+    "无自动处罚/时间窗，原预约不丢失",
+    "两Android/小程序后续同批适配，未发前不称三端完成"
+  ],
+  "status": "ACCEPTED_SCOPE_AWAITING_INTEGRATION",
+  "acceptance": "PASS",
+  "tests": [],
+  "evidence": [
+    "coordination/evidence/PM-20261027-01/backend-review/ACCEPTANCE-RESERVATION-bda490a0.md"
+  ],
+  "nextAction": "复用该SHA/文件哈希限定验收；待地图新差量、整体集成与部署回读后统一发布",
+  "deploy_owner": "coordinator",
+  "releaseReady": false,
+  "candidateSha": "bda490a0671296292459732a2af13842797de078",
+  "updatedAt": "2026-10-27T20:47:14.594894+08:00",
+  "acceptanceScope": "8组独立HTTP/CAS PASS_SCOPE，含两组并发及欠款/陈旧投影边界"
+}

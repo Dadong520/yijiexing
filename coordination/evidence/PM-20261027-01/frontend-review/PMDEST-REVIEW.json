@@ -1,0 +1,43 @@
+{
+  "sourceSha": "0df8b187ac2f68c52fa6d17db846fbb8854b4eda",
+  "reviewer": "01a17cd2-bcf7-7931-a94b-62119cefce48",
+  "author": "coordinator client change + backend separate author",
+  "updatedAt": "2026-10-27T23:12:49.228688+08:00",
+  "scope": "PMDEST client destination mandatory / historical compatibility",
+  "files": {
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/BookingScreens.kt": "246d72d93d79d978c72c59668c07e69b55e35f37b247ef33bb0871f4183dc88c",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/OrderDetail.kt": "ee30594b735332dabe4830867c6cf1e9b9a55243d7a022417862b83b3603f930",
+    "candidates/passenger-miniprogram-0.1.0/miniprogram/pages/home/index.js": "8301038559725d9681ebb103ca9796ce1ec4666c1a78dd0f525d5150e774d140",
+    "candidates/passenger-miniprogram-0.1.0/miniprogram/pages/home/index.wxml": "1b896d12353056118cbc38631c7d34d31deba1758464eda008f28d53ad181b76",
+    "candidates/passenger-miniprogram-0.1.0/miniprogram/tests/ui-flow.test.js": "a32b6b5ddaee2d28f81f056c4ff54affefbbcd1cea636d13c07b9eef139c6bee"
+  },
+  "acceptance": "PASS",
+  "checks": {
+    "noNewPendingSwitchOrState": "PASS Android BookingScreen+mini home WXML/JS",
+    "destinationAlwaysInCreate": "PASS all3 mini order types and Android static validated coordinates",
+    "obsoleteFlagCannotBypass": "PASS targeted mini tests2 + independent real shared flow",
+    "repeatOldMissingDestination": "PASS blocks new call",
+    "historicalSameIdFill": "PASS mini actual updateDestination→order.update exact-ID payload + Android conditional retained; backend4groups already independent evidence",
+    "staleMarketingRemoved": "PASS0df8b18 only string deletion"
+  },
+  "tests": [
+    {
+      "command": "node --test --test-name-pattern=legacy...|new.calls... tests/ui-flow.test.js",
+      "result": "2 PASS /0 FAIL",
+      "log": "PMDEST-targeted-mini.log"
+    },
+    {
+      "command": "node PMDEST-independent-flow.cjs",
+      "result": "PASS real shared.base flow+all3 types+repeat+legacy sameID update+Android/WXML guards",
+      "log": "PMDEST-independent-flow.log"
+    },
+    {
+      "command": "reuse root Android testDebugUnitTest assembleDebug + mini npm test",
+      "result": "20 and62 PASS; latest only OrderDetail fixed string deletion, no full rerun"
+    }
+  ],
+  "resources": "no devices/browser/server started in this phase; SDK previous phase already restored/closed",
+  "cloudBusinessWrites": 0,
+  "GUI": "NOT_RUN new final PMDEST app; source/VM only",
+  "SDKScope": "separate FAIL, not included in PMDEST PASS"
+}

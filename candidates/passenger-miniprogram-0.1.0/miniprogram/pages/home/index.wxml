@@ -28,6 +28,12 @@
   </view>
 
   <!-- 地图展示区 -->
+  <view wx:for="{{reservations}}" wx:key="id" class="active-order-banner" bindtap="go" data-url="/pages/order-detail/index?id={{item.id}}">
+    <view class="active-info">
+      <text class="active-title">待出发预约 · {{item.scheduledAtText}}</text>
+      <text class="active-sub">预约保留，可继续即时叫车 · 查看详情 ›</text>
+    </view>
+  </view>
   <view class="map-wrap">
     <map class="main-map" latitude="{{mapLat}}" longitude="{{mapLng}}" markers="{{markers}}" scale="13" show-location="{{false}}" />
     <view class="map-hint">📍 地图示意所选地点路线，实际以司机接驾导航为准</view>
@@ -74,7 +80,7 @@
       </view>
 
       <!-- 终点 -->
-      <view wx:if="{{!destinationPending}}" class="point-row">
+      <view class="point-row">
         <view class="point-badge end-badge"></view>
         <view class="point-content">
           <view class="point-name {{destination ? '' : 'placeholder'}}" data-purpose="destination" bindtap="choosePoint">
@@ -84,13 +90,7 @@
         <view class="quick-pick-btn" data-purpose="destination" bindtap="experience">常用点</view>
       </view>
 
-      <!-- 暂不填写目的地开关（仅即时打车） -->
-      <view wx:if="{{kind==='STANDARD'}}" class="sub-option-row">
-        <text class="sub-label">稍后补充目的地（上车后再告诉司机）</text>
-        <switch checked="{{destinationPending}}" bindchange="togglePending" color="#087f73" />
-      </view>
-
-      <view wx:if="{{!destinationPending && waypoints.length < 2}}" class="add-waypoint-row" data-purpose="waypoint" bindtap="experience">
+      <view wx:if="{{waypoints.length < 2}}" class="add-waypoint-row" data-purpose="waypoint" bindtap="experience">
         <text class="add-icon">+</text>
         <text class="add-text">添加途经点（最多2个）</text>
       </view>

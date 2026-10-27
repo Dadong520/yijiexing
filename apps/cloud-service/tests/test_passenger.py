@@ -167,7 +167,13 @@ class PassengerIntegration(unittest.TestCase):
             owned=[x for x in self.request('/api/state',token=token)['state']['orders'] if x['id']==oid and x['stage']=='PICKUP'];owners.extend(owned)
         self.assertEqual(len(owners),1)
     def test_no_destination_pickup_requires_completion_and_confirms_price(self):
-        p,d=self.setup_pair();pt,dtok=p['token'],d['token'];o=self.pa(pt,'order.create',{'kind':'STANDARD','origin':'宜昌东站','originLat':30.6687,'originLng':111.3226,'destinationPending':True})['result']['order'];oid=o['id']
+        p,d=self.setup_pair();pt,dtok=p['token'],d['token'];created=self.create(pt,origin='宜昌东站',destination='历史占位点');oid=created['id']
+        # Imported pre-BIZ06 shape: new API calls must never create this form.
+        with self.driver.request_lock:
+            svc=self.driver.coordinator.begin();o=svc.shared_order(oid)
+            o.update(destination='待补充目的地',destinationLat=o['originLat'],destinationLng=o['originLng'],
+                destinationPending=True,fare=0,estimatedFare=0,fareSource='PENDING_DESTINATION')
+            svc.save_shared(o);svc.db.commit();self.driver.coordinator.finish()
         self.assertEqual(o['fare'],0);self.assertTrue(o['destinationPending']);self.da(dtok,'order.accept',{'id':oid});self.da(dtok,'order.advance',{'id':oid})
         self.da(dtok,'order.advance',{'id':oid,'phoneTail':'0101'},expected=409)
         changed=self.pa(pt,'order.update',{'id':oid,'destination':'万达广场','destinationLat':30.6645,'destinationLng':111.3694})['result']['order'];self.assertGreater(changed['fare'],0)

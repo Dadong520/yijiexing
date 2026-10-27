@@ -1,0 +1,1 @@
+PASS: real shared.base client flow; missing/obsolete flag rejection, 3 full-destination types, legacy repeat blocks, legacy same-ID update, Android/WXML entry guards

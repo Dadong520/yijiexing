@@ -9,8 +9,8 @@ android {
         applicationId = "cn.hbzjhs.dc.driver.cloud"
         minSdk = 26
         targetSdk = 34
-        versionCode = 15
-        versionName = "0.3.12-cloud"
+        versionCode = 16
+        versionName = "0.3.13-cloud"
         buildConfigField("String", "CLOUD_API_ORIGIN", "\"$cloudOrigin\"")
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -31,6 +31,7 @@ dependencies {
     implementation("androidx.compose.material:material-icons-core")
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.8.2")
     implementation("org.maplibre.gl:android-sdk:11.8.0")
+    implementation("com.amap.api:3dmap-location-search:11.2.100_loc11.2.100_sea9.8.1")
     implementation("com.google.zxing:core:3.5.3")
     testImplementation("org.json:json:20240303")
     debugImplementation("androidx.compose.ui:ui-tooling")

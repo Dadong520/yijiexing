@@ -56,11 +56,34 @@ class PassengerMixin(TripDistanceMixin,NegotiationMixin,PassengerOrderOptionsMix
         require(isinstance(oid,str) and 1<=len(oid)<=120,'订单编号无效')
         row=self.db.execute('SELECT payload FROM passenger_orders WHERE id=? AND passenger=?',(oid,pid)).fetchone()
         require(row is not None,'订单不存在或不属于当前乘客',404);return json.loads(row['payload'])
+    def assert_no_trip_conflict(self,driver_id=None,passenger_id=None,exclude_order_id=None):
+        if passenger_id:
+            for r in self.db.execute('SELECT payload FROM passenger_orders WHERE passenger=?',(passenger_id,)):
+                po=json.loads(r['payload'])
+                if exclude_order_id and po.get('id')==exclude_order_id:continue
+                require(not (po.get('stage')=='WAIT_PAY' and not po.get('paid')),
+                    '请先支付已结束行程的欠款后再出发',409,{'reason':'PASSENGER_OUTSTANDING_PAYMENT'})
+                if po.get('kind')=='RESERVED' and po.get('stage') in ('AVAILABLE','RESERVED'):continue
+                if po.get('stage') in ('BID_SENT','PREPAY','PICKUP','ARRIVED','TRIP','WAIT_CONTINUE') or (po.get('kind')!='RESERVED' and po.get('stage')=='AVAILABLE'):
+                    raise ApiError(409,'您/司机/乘客有另一段行程，请先完成')
+        if driver_id:
+            # Shared orders are authoritative in passenger_orders. The account's
+            # projection may still show a trip cancelled by its passenger.
+            shared=[json.loads(r['payload']) for r in self.db.execute('SELECT payload FROM passenger_orders WHERE driver=?',(driver_id,))]
+            a=self.account(driver_id)
+            dst=json.loads(a['state']) if a else {}
+            private=[o for o in dst.get('orders',[]) if not o.get('shared') and not self.shared_order(o.get('id'))]
+            for do in shared+private:
+                if exclude_order_id and do.get('id')==exclude_order_id:continue
+                if do.get('kind')=='RESERVED' and do.get('stage') in ('AVAILABLE','RESERVED'):continue
+                if do.get('stage') in ('BID_SENT','PREPAY','PICKUP','ARRIVED','TRIP'):
+                    raise ApiError(409,'您/司机/乘客有另一段行程，请先完成')
+
     def require_passenger_trip_available(self,pid):
         orders=[json.loads(r['payload']) for r in self.db.execute('SELECT payload FROM passenger_orders WHERE passenger=?',(pid,))]
         require(not any(o['stage']=='WAIT_PAY' and not o.get('paid') for o in orders),
             '请先支付已结束行程的欠款后再叫车',409,{'reason':'PASSENGER_OUTSTANDING_PAYMENT'})
-        require(not any(o['stage'] in UNFINISHED for o in orders),'请先完成或取消当前订单',409)
+        require(not any(o['stage'] in UNFINISHED and not (o.get('kind')=='RESERVED' and o.get('stage') in ('AVAILABLE','RESERVED')) for o in orders),'请先完成或取消当前订单',409)
     def order_fare_version(self,o):
         return o.get('fareVersion',0)
     def validate_fare_confirmation(self,o,p):
@@ -73,15 +96,74 @@ class PassengerMixin(TripDistanceMixin,NegotiationMixin,PassengerOrderOptionsMix
         require(type(p['expectedFare']) is int and p['expectedFare']>=0 and type(p['fareVersion']) is int and p['fareVersion']>=0,'确认金额和费用版本须为非负整数')
         require(p['expectedFare']==o['fare'] and p['fareVersion']==self.order_fare_version(o),
             '订单费用或版本已变化，请刷新并重新确认',409,{'reason':'FARE_CONFIRMATION_STALE'})
-    def driver_result_view(self,result):
+    def project_driver_order(self,driver,order):
+        if not isinstance(order,dict):return order
+        o=clone(order)
+        oid=o.get('id') if isinstance(o.get('id'),str) else None
+        is_shared=bool(o.get('shared') or (oid and self.shared_order(oid)))
+        canonical=self.shared_order(oid) if (oid and is_shared) else None
+        if is_shared:
+            o=self.trip_order_view(o)
+            for key in ('passengerId','bids','complaints'):o.pop(key,None)
+            o.setdefault('fareVersion',self.order_fare_version(canonical or o))
+            if driver and canonical and canonical.get('driverId')==driver and canonical.get('stage')=='ARRIVED':
+                tail=canonical.get('phoneTail')
+                o['phoneTail']=tail if isinstance(tail,str) and re.fullmatch(r'\d{4}',tail) else ''
+            else:
+                o['phoneTail']=''
+            if isinstance(o.get('rider'),dict):
+                r=dict(o['rider'])
+                r.pop('mobile',None);r.pop('phone',None)
+                if 'mobileMasked' in r or 'mobile' in o['rider']:r['mobileMasked']='已隐藏'
+                o['rider']=r
+            o.pop('mobile',None);o.pop('phone',None)
+        ref=canonical if canonical else (o if not is_shared else None)
+        assigned=bool(driver and canonical and canonical.get('driverId')==driver) if is_shared else bool(driver)
+        if ref:
+            fare=ref.get('fare')
+            refund=ref.get('refundAmount',0)
+            valid_amounts=type(fare) is int and fare>=0 and type(refund) is int and refund>=0
+            valid_flags=type(ref.get('credited',False)) is bool and type(ref.get('paid',False)) is bool
+            cur_refund=bool(ref.get('paymentStatus')=='REFUNDED' or (type(refund) is int and refund>0))
+            credited=bool(ref.get('credited'))
+            paid=bool(ref.get('paid'))
+            stage=ref.get('stage')
+            if canonical and canonical.get('driverId') and not assigned:
+                status,label,net='CLOSED_NO_INCOME','未计入当前司机收入',0
+            elif not valid_amounts or not valid_flags:
+                status,label,net='UNKNOWN','入账状态待核对',0
+            elif cur_refund and credited:
+                status,label,net='REVERSED','已退款冲回',0
+            elif cur_refund and not credited:
+                status,label,net='REFUNDED','已退款 · 未入账',0
+            elif credited and not cur_refund:
+                status,label,net='CREDITED','已入账（模拟）',fare if assigned else 0
+            elif stage=='DONE' and paid and not credited:
+                status,label,net='PENDING_CREDIT','待入账（模拟）',0
+            elif stage=='WAIT_PAY' and not paid:
+                status,label,net='WAITING_PAYMENT','待乘客模拟支付',0
+            elif stage in ('CANCELLED','WAIT_CONTINUE') and not credited:
+                status,label,net='CLOSED_NO_INCOME','未计入收入',0
+            else:
+                status,label,net='WAITING_COMPLETION','待行程完成',0
+        else:
+            status,label,net='CLOSED_NO_INCOME','未计入收入',0
+        o['settlementStatus']=status
+        o['settlementLabel']=label
+        o['netIncome']=int(net)
+        o['settlementUpdatedAt']=stamp()
+        return o
+
+    def driver_result_view(self,driver,result=None):
         # Old idempotency rows may contain a pre-fix shared order snapshot.
         # Sanitize the response copy, keeping the driver's own complaint result.
+        # Legacy internal callers have no authenticated identity: default to a
+        # hidden view. HTTP action paths always supply the authenticated driver.
+        if result is None:result,driver=driver,None
         value=clone(result)
         order=value.get('order')
-        if isinstance(order,dict) and (order.get('shared') or self.shared_order(order.get('id'))):
-            order=value['order']=self.trip_order_view(order)
-            for key in ('passengerId','bids','complaints'):order.pop(key,None)
-            order.setdefault('fareVersion',self.order_fare_version(order))
+        if isinstance(order,dict):
+            value['order']=self.project_driver_order(driver,order)
         return value
     def save_shared(self,o,event=None):
         self.refresh_distance_consent(o,persist=False)
@@ -103,18 +185,21 @@ class PassengerMixin(TripDistanceMixin,NegotiationMixin,PassengerOrderOptionsMix
     def passenger_data(self,pid):
         self.expire_passenger_bids()
         profile=self.passenger_profile(pid)
-        orders=[self.passenger_view(json.loads(r['payload'])) for r in self.db.execute('SELECT payload FROM passenger_orders WHERE passenger=? ORDER BY created DESC,rowid DESC',(pid,))]
+        raw_orders=[self.passenger_view(json.loads(r['payload'])) for r in self.db.execute('SELECT payload FROM passenger_orders WHERE passenger=? ORDER BY created DESC,rowid DESC',(pid,))]
+        orders=sorted(raw_orders,key=lambda o: 0 if o.get('stage') in ('PICKUP','ARRIVED','TRIP','PREPAY','BID_SENT') else (1 if o.get('kind')=='RESERVED' and o.get('stage') in ('AVAILABLE','RESERVED') else 2))
         historical=[];seen=set()
         for o in orders:
             for prefix in ('origin','destination'):
                 if prefix=='destination' and o.get('destinationPending'):continue
                 key=(o[prefix],o[prefix+'Lat'],o[prefix+'Lng'])
-                if key not in seen:historical.append({'address':key[0],'latitude':key[1],'longitude':key[2]});seen.add(key)
+                if key not in seen:
+                    historical.append({'address':key[0],'latitude':key[1],'longitude':key[2],
+                        'coordinateMetadata':clone(o.get(prefix+'CoordinateMetadata'))});seen.add(key)
         regions=[]
         from seed import CITIES
         for city in CITIES:
             cfg,_,_=self.effective(city['id']);regions.append({'id':city['id'],'name':city['name'],'enabled':bool(cfg['systemEnabled'])})
-        return {**self.passenger_extra_data(pid),'tripDistanceRules':self.trip_distance_rules(profile['city']),'historicalLocations':historical[:20],'regions':regions,'passenger':{k:v for k,v in profile.items() if k not in ('favorites','feedback')},'orders':orders,'favorites':profile['favorites'],'feedback':profile['feedback'],
+        return {**self.passenger_extra_data(pid),'mapConfig':self.amap_public_config('passenger'),'tripDistanceRules':self.trip_distance_rules(profile['city']),'historicalLocations':historical[:20],'regions':regions,'passenger':{k:v for k,v in profile.items() if k not in ('favorites','feedback')},'orders':orders,'favorites':profile['favorites'],'feedback':profile['feedback'],
             'notices':[{'title':'独立体验环境','content':'双端共享实际创建的订单；短信、支付、退款为模拟。路线仅为坐标示意。后台可查看和回复已保存投诉；实时人工客服、电话中继和推送未配置。'}],
             'features':{'payment':'SIMULATED','sms':'SIMULATED','route':'SCHEMATIC','driverLocation':True,'externalPush':False,'humanSupport':False},
             'environment':{'name':'宜捷行独立云体验环境','sandbox':True,'originalSpringBackend':False,'network':'Google Cloud独立体验服务，不连接原测试环境'},'serverTime':stamp()}
@@ -157,13 +242,12 @@ class PassengerMixin(TripDistanceMixin,NegotiationMixin,PassengerOrderOptionsMix
     def validate_point(self,lat,lng):
         require(type(lat) in (int,float) and math.isfinite(lat) and -90<=lat<=90 and type(lng) in (int,float) and math.isfinite(lng) and -180<=lng<=180,'地图坐标无效')
     def passenger_create_order(self,pid,p):
+        destination_pending=p.get('destinationPending',False);require(isinstance(destination_pending,bool),'无终点标记无效')
+        require(not destination_pending,'请先选择目的地后再叫车')
         profile=self.passenger_profile(pid)
         rider=self.passenger_rider(pid,p['riderId']) if p.get('riderId') else {'id':None,'name':profile['name'],'mobile':profile['mobile']}
         self.require_passenger_trip_available(pid)
         kind=p.get('kind','STANDARD');require(kind in ('STANDARD','RESERVED','BID'),'乘客订单类型无效')
-        destination_pending=p.get('destinationPending',False);require(isinstance(destination_pending,bool),'无终点标记无效')
-        require(not destination_pending or kind=='STANDARD','仅即时订单支持暂不填写目的地')
-        if destination_pending:p={**p,'destination':'待补充目的地','destinationLat':p.get('originLat'),'destinationLng':p.get('originLng')}
         origin=textfield(p.get('origin'),'上车点',2,100);dest=textfield(p.get('destination'),'目的地',2,100)
         require(origin.casefold()!=dest.casefold(),'上车点和目的地不能相同')
         for prefix in ('origin','destination'):self.validate_point(p.get(prefix+'Lat'),p.get(prefix+'Lng'))
@@ -192,6 +276,10 @@ class PassengerMixin(TripDistanceMixin,NegotiationMixin,PassengerOrderOptionsMix
             'remark':textfield(p.get('remark') or '乘客实际创建 · 独立体验订单','备注',1,500),'phoneTail':rider['mobile'][-4:],'rider':{'id':rider['id'],'name':rider['name'],'mobileMasked':rider['mobile'][:3]+'****'+rider['mobile'][-4:]},'paid':False,'credited':False,'paymentStatus':'UNPAID',
             'paymentMode':'SIMULATED','fareSource':'PENDING_DESTINATION' if destination_pending else 'DEMO_ESTIMATE','pickupDistanceSource':'DEMO_DEFAULT','shared':True,'synthetic':False,'createdAt':stamp(),'updatedAt':stamp(),
             'waypoints':normalized,'arrivedWaypoints':[],'bids':[],'evaluation':None,'complaints':[],'expiresAt':stamp(now()+dt.timedelta(minutes=10)) if kind=='BID' else None,'events':[{'type':'PASSENGER_CREATED','at':stamp()}]}
+        for prefix in ('origin','destination'):
+            if prefix=='destination' and destination_pending:continue
+            metadata=self.coordinate_metadata(p.get(prefix+'CoordinateMetadata'),o[prefix+'Lat'],o[prefix+'Lng'])
+            if metadata is not None:o[prefix+'CoordinateMetadata']=metadata
         self.db.execute('INSERT INTO passenger_orders VALUES (?,?,?,?,?)',(o['id'],pid,None,dumps(o),stamp()));return {'order':self.passenger_view(o)}
     def passenger_action(self,pid,action,p,request_id=None):
         self.expire_passenger_bids()
@@ -214,8 +302,9 @@ class PassengerMixin(TripDistanceMixin,NegotiationMixin,PassengerOrderOptionsMix
                 bid=next((b for b in o['bids'] if b['driverId']==p.get('driverId')),None);require(bid is not None,'此司机尚未报价',409)
                 driver=bid['driverId'];require(self.passenger_driver_allowed(pid,driver),'此司机已被屏蔽',403);st=self.sync_shared_orders(driver);projection=self.order(st,o['id'])
                 # Other offers cannot consume this driver's availability after selection.
-                require(not any(x['stage'] in ('PREPAY','RESERVED','PICKUP','ARRIVED','TRIP') and x['id']!=o['id'] for x in st['orders']),'司机已有其他进行中订单',409)
+                require(not any(x['stage'] in ('PREPAY','RESERVED','PICKUP','ARRIVED','TRIP') and not (x.get('kind')=='RESERVED' and x.get('stage') in ('AVAILABLE','RESERVED')) and x['id']!=o['id'] for x in st['orders']),'司机已有其他进行中订单',409)
                 require(st['online'],'司机已下线，请重新选择',409)
+                self.assert_no_trip_conflict(driver_id=driver,passenger_id=pid,exclude_order_id=o['id'])
                 eligibility_state={**st,'orders':[x for x in st['orders'] if x['id']!=o['id']]}
                 self.new_accept(driver,eligibility_state,{**o,'stage':'AVAILABLE'},'bidding')
                 o.update(driverId=driver,fare=bid['amount'],stage='PREPAY');st['todayAccepted']+=1;self.save_state(driver,st)
@@ -227,6 +316,8 @@ class PassengerMixin(TripDistanceMixin,NegotiationMixin,PassengerOrderOptionsMix
                 require(o['stage'] in ('PREPAY','WAIT_PAY'),'当前订单不能支付',409)
                 o['paymentStatus']={'SUCCESS':'SUCCESS','FAILED':'FAILED','PENDING':'PROCESSING','CANCEL':'CANCELLED'}[outcome]
                 if outcome=='SUCCESS':
+                    if o['stage']=='PREPAY':
+                        self.assert_no_trip_conflict(driver_id=o.get('driverId'),passenger_id=pid,exclude_order_id=o['id'])
                     o['paid']=True;o['paidAt']=stamp();o['stage']='PICKUP' if o['stage']=='PREPAY' else 'DONE'
                     if o['kind']=='NEGOTIATED':o.update(negotiationStatus='ACCEPTED',fareConfirmed=True,fareConfirmedAt=stamp())
                     self.shared_credit(o)
@@ -236,11 +327,13 @@ class PassengerMixin(TripDistanceMixin,NegotiationMixin,PassengerOrderOptionsMix
                 if o['paid']:o.update(paid=False,paymentStatus='REFUNDED',refundAmount=o['fare'],refundedAt=stamp(),refundMode='SIMULATED')
             elif action=='order.update':
                 require(o['stage'] in ('AVAILABLE','PREPAY','RESERVED','PICKUP','ARRIVED'),'当前阶段不能修改订单',409)
-                require(set(p)<={'id','remark','destination','destinationLat','destinationLng'},'不支持修改这些订单字段')
+                require(set(p)<={'id','remark','destination','destinationLat','destinationLng','destinationCoordinateMetadata'},'不支持修改这些订单字段')
+                require('destinationCoordinateMetadata' not in p or all(k in p for k in ('destination','destinationLat','destinationLng')),'更新地点来源须同时提供完整目的地')
                 if 'remark' in p:o['remark']=textfield(p['remark'],'备注',1,500)
                 if any(k in p for k in ('destination','destinationLat','destinationLng')):
                     require((o['stage']=='AVAILABLE' and not o['bids']) or (o.get('destinationPending') and o['kind']=='STANDARD' and o['stage'] in ('PICKUP','ARRIVED')),'司机接单或报价后不能改变已约定目的地及估价，请取消后重新下单',409)
                     destination=textfield(p.get('destination'),'目的地',2,100);self.validate_point(p.get('destinationLat'),p.get('destinationLng'))
+                    metadata=self.coordinate_metadata(p.get('destinationCoordinateMetadata'),p['destinationLat'],p['destinationLng'])
                     require(destination.casefold()!=o['origin'].casefold(),'起终点名称不能相同')
                     require(abs(p['destinationLat']-o['originLat'])>1e-7 or abs(p['destinationLng']-o['originLng'])>1e-7,'起终点坐标不能相同')
                     points=[(o['originLat'],o['originLng'])]+[(w['latitude'],w['longitude']) for w in o['waypoints']]+[(p['destinationLat'],p['destinationLng'])]
@@ -250,6 +343,8 @@ class PassengerMixin(TripDistanceMixin,NegotiationMixin,PassengerOrderOptionsMix
                         distance+=12742*math.asin(min(1,math.sqrt(max(0,h))))
                     require(distance<=300,'体验行程须在300公里内');estimate=max(800,int(round((8+max(0,distance*1.3-2)*2.4)*100)))
                     o.update(destination=destination,destinationLat=p['destinationLat'],destinationLng=p['destinationLng'],estimatedFare=estimate,fare=estimate,mileage=f'{distance*1.3:.1f}',destinationPending=False,fareSource='DEMO_ESTIMATE')
+                    if metadata is None:o.pop('destinationCoordinateMetadata',None)
+                    else:o['destinationCoordinateMetadata']=metadata
             elif action=='order.continue':
                 require(o['stage']=='WAIT_CONTINUE','此订单不在等待继续叫车状态',409)
                 decision=p.get('type',1);require(type(decision) is int and decision in (1,2),'继续选择须为1继续或2取消')
@@ -298,7 +393,7 @@ class PassengerMixin(TripDistanceMixin,NegotiationMixin,PassengerOrderOptionsMix
         fp=hashlib.sha256(dumps({'action':action,'payload':p}).encode()).hexdigest()
         if request_id:
             old=self.db.execute('SELECT * FROM actions WHERE driver=? AND request_id=?',(driver,request_id)).fetchone()
-            if old:require(old['request_hash']==fp,'请求标识被其他操作占用',409);return self.driver_result_view(json.loads(old['result']))
+            if old:require(old['request_hash']==fp,'请求标识被其他操作占用',409);return self.driver_result_view(driver,json.loads(old['result']))
         st=self.sync_shared_orders(driver);projected=self.order(st,p.get('id'));o=self.shared_order(p['id']);complaint_result=None
         if action in ('order.accept','order.bid'):
             feature={'BID':'bidding','RESERVED':'reservation'}.get(o['kind'],'instant')
@@ -308,7 +403,10 @@ class PassengerMixin(TripDistanceMixin,NegotiationMixin,PassengerOrderOptionsMix
                 require(o['kind']=='BID','仅竞价订单可以报价');amount=cents(p.get('amount'),'报价')
                 info=self.driver_public(driver);o['bids'].append({'driverId':driver,'name':info['name'],'plate':info['plate'],'vehicleModel':info['vehicleModel'],'amount':amount,'createdAt':stamp()})
             else:
-                require(o['kind']!='BID','竞价订单请报价');o['driverId']=driver;o['stage']='RESERVED' if o['kind']=='RESERVED' else 'PICKUP';st['todayAccepted']+=1
+                require(o['kind']!='BID','竞价订单请报价')
+                if o['kind']!='RESERVED':
+                    self.assert_no_trip_conflict(driver_id=driver,passenger_id=o.get('passengerId'),exclude_order_id=o['id'])
+                o['driverId']=driver;o['stage']='RESERVED' if o['kind']=='RESERVED' else 'PICKUP';st['todayAccepted']+=1
         else:
             require(o.get('driverId')==driver or (action=='order.cancel' and any(b['driverId']==driver for b in o['bids'])),'此订单不属于当前司机',403)
             if action=='order.advance':
@@ -317,6 +415,8 @@ class PassengerMixin(TripDistanceMixin,NegotiationMixin,PassengerOrderOptionsMix
                     require(not o.get('destinationPending'),'请等待乘客补充目的地后再开始行程',409)
                     require(str(p.get('phoneTail',''))==o['phoneTail'],'乘客手机尾号不正确')
                 if stage=='TRIP':require(len(o['arrivedWaypoints'])==len(o['waypoints']),'请先确认全部途经点',409)
+                if stage=='RESERVED':
+                    self.assert_no_trip_conflict(driver_id=driver,passenger_id=o.get('passengerId'),exclude_order_id=o['id'])
                 self.gate_shared_advance(o,p)
             elif action=='order.waypoint':
                 require(o['stage']=='TRIP','仅行程中可确认途经点',409);i=p.get('index');require(type(i) is int and 0<=i<len(o['waypoints']),'途经点序号无效')
@@ -340,7 +440,7 @@ class PassengerMixin(TripDistanceMixin,NegotiationMixin,PassengerOrderOptionsMix
         result={'order':self.order(json.loads(self.account(driver)['state']),o['id'])} if any(x['id']==o['id'] for x in json.loads(self.account(driver)['state'])['orders']) else {'orderId':o['id'],'withdrawn':True}
         if complaint_result is not None:result['complaint']=complaint_result
         if request_id:self.db.execute('INSERT INTO actions VALUES (?,?,?,?)',(driver,request_id,fp,dumps(result)))
-        self.audit('DRIVER:'+driver,action,None,{'id':o['id'],'shared':True});return result
+        self.audit('DRIVER:'+driver,action,None,{'id':o['id'],'shared':True});return self.driver_result_view(driver,result)
     def passenger_route(self,pid,oid):
         o=self.own_passenger_order(pid,oid)
         return {'orderId':oid,'coordinates':[[o['originLng'],o['originLat']]]+[[w['longitude'],w['latitude']] for w in o['waypoints']]+[[o['destinationLng'],o['destinationLat']]],'destinationPending':o.get('destinationPending',False),'source':'synthetic','coordinateSystem':'WGS84','notice':'坐标连线示意，未接实时路径规划，不能替代道路导航'}

@@ -1,0 +1,49 @@
+test_direct_old_app_requests_cannot_create_no_destination_orders (__main__.RequiredDestinationReview.test_direct_old_app_requests_cannot_create_no_destination_orders) ... [2026-10-27T22:11:25+08:00] POST /api/passenger/auth/code 200
+[2026-10-27T22:11:25+08:00] POST /api/passenger/auth/login 200
+[2026-10-27T22:11:25+08:00] POST /api/auth/code 200
+[2026-10-27T22:11:25+08:00] POST /api/auth/login 200
+[2026-10-27T22:11:25+08:00] POST /api/action 200
+[2026-10-27T22:11:25+08:00] POST /api/passenger/action 400
+/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/tempfile.py:484: ResourceWarning: Implicitly cleaning up <HTTPError 400: 'Bad Request'>
+  _warnings.warn(self.warn_message, ResourceWarning)
+[2026-10-27T22:11:25+08:00] POST /api/passenger/action 400
+[2026-10-27T22:11:25+08:00] POST /api/passenger/action 400
+ok
+test_existing_pending_destination_record_can_be_completed_without_recreating (__main__.RequiredDestinationReview.test_existing_pending_destination_record_can_be_completed_without_recreating) ... [2026-10-27T22:11:25+08:00] POST /api/passenger/auth/code 200
+[2026-10-27T22:11:25+08:00] POST /api/passenger/auth/login 200
+[2026-10-27T22:11:25+08:00] POST /api/auth/code 200
+[2026-10-27T22:11:25+08:00] POST /api/auth/login 200
+[2026-10-27T22:11:25+08:00] POST /api/action 200
+[2026-10-27T22:11:25+08:00] POST /api/passenger/action 200
+[2026-10-27T22:11:25+08:00] POST /api/action 200
+[2026-10-27T22:11:25+08:00] GET /api/state 200
+[2026-10-27T22:11:25+08:00] POST /api/action 200
+[2026-10-27T22:11:25+08:00] POST /api/action 409
+/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/tempfile.py:484: ResourceWarning: Implicitly cleaning up <HTTPError 409: 'Conflict'>
+  _warnings.warn(self.warn_message, ResourceWarning)
+[2026-10-27T22:11:25+08:00] POST /api/passenger/action 200
+ok
+test_false_and_absent_are_still_ordinary_complete_orders (__main__.RequiredDestinationReview.test_false_and_absent_are_still_ordinary_complete_orders) ... [2026-10-27T22:11:25+08:00] POST /api/passenger/auth/code 200
+[2026-10-27T22:11:25+08:00] POST /api/passenger/auth/login 200
+[2026-10-27T22:11:26+08:00] POST /api/auth/code 200
+[2026-10-27T22:11:26+08:00] POST /api/auth/login 200
+[2026-10-27T22:11:26+08:00] POST /api/action 200
+[2026-10-27T22:11:26+08:00] POST /api/passenger/action 200
+[2026-10-27T22:11:26+08:00] POST /api/passenger/action 200
+[2026-10-27T22:11:26+08:00] POST /api/passenger/action 200
+ok
+test_invalid_destination_is_not_replaced_by_origin (__main__.RequiredDestinationReview.test_invalid_destination_is_not_replaced_by_origin) ... [2026-10-27T22:11:26+08:00] POST /api/passenger/auth/code 200
+[2026-10-27T22:11:26+08:00] POST /api/passenger/auth/login 200
+[2026-10-27T22:11:26+08:00] POST /api/auth/code 200
+[2026-10-27T22:11:26+08:00] POST /api/auth/login 200
+[2026-10-27T22:11:26+08:00] POST /api/action 200
+[2026-10-27T22:11:26+08:00] POST /api/passenger/action 400
+[2026-10-27T22:11:26+08:00] POST /api/passenger/action 400
+[2026-10-27T22:11:26+08:00] POST /api/passenger/action 400
+[2026-10-27T22:11:26+08:00] POST /api/passenger/action 400
+ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 1.259s
+
+OK

@@ -1,0 +1,61 @@
+{
+  "schemaVersion": 1,
+  "id": "PMMAP-20261027-01",
+  "owner": "coordinator",
+  "goal": "使用私有运行时Android Key接入高德底图/POI/选点，保留WGS84历史与设备GPS边界、公开点校准与非作者复核",
+  "baseSha": "ee8b32f6b1b2e48423e6ca1a5947a3971192877c",
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-pm-amap-20261027",
+  "branch": "codex/pm-amap-integration-20261027",
+  "allow_paths": [
+    "apps/cloud-service/domain.py",
+    "apps/cloud-service/passenger.py",
+    "apps/cloud-service/trip_distance.py",
+    "apps/cloud-service/tests/test_amap_boundary.py",
+    "apps/passenger-android/app/build.gradle.kts",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/AmapSupport.kt",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/PassengerMap.kt",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/AddressSearch.kt",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/PassengerStore.kt",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/BookingScreens.kt",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/OrderDetail.kt",
+    "candidates/driver-0.3.6-r2/android/app/build.gradle.kts",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/AmapSupport.kt",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/NativeMap.kt",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/ConnectedStore.kt"
+  ],
+  "checks": [
+    "Key不入源码/日志/APK，认证state按角色下发，JS安全密钥仅私有",
+    "SDK初始化前用户明确同意，支持拒绝/重试/地图生命周期",
+    "高德POI与地图选点名称/坐标同源，原始GCJ02及归一化WGS84留来源，设备GPS链路不变",
+    "官方SDK公开地标转换残差验证，近阈值保守确认，不混坐标免确认",
+    "两端编译、backend与frontend非作者验收、精确SHA云端回读"
+  ],
+  "status": "EXTERNAL_SDK_AUTH_BLOCKED",
+  "acceptance": "BLOCKED",
+  "tests": [
+    {
+      "result": "PASS: passenger20/driver59 SDK builds; decompressed APK four supplied Keys zero matches; role runtime config in-memory checks match each role"
+    },
+    {
+      "result": "PASS_SCOPE_PREVIEW_ONLY: backend11 groups; frontend fixes source reviewed, actual passenger map10008 and POI1008 persist after user confirmed binding"
+    },
+    {
+      "result": "Driver first-login config/map renders; no authErrLog/fatal observed, NOT equivalent to auth PASS. Actual coordinate/public-point QA and live same-order flow NOT_RUN; 0 new cloud orders"
+    }
+  ],
+  "evidence": [
+    "coordination/evidence/PM-20261027-01/deploy/preview-readback.json",
+    "coordination/evidence/PM-20261027-01/deploy/runtime-key-role-check.json",
+    "coordination/evidence/PM-20261027-01/frontend-review/PMMAP-GUI-REVIEW.md",
+    "coordination/evidence/PM-20261027-01/frontend-review/PMMAP-resources-final.json"
+  ],
+  "nextAction": "用户已确认保存包名/SHA1后乘客新POI仍1008；需定向核实鉴权/实际公开点校准后才允许切流，避免重复盲测",
+  "deploy_owner": "coordinator",
+  "releaseReady": false,
+  "candidateSha": "4a7ca4615120a1f624fa2c18fe5ca008e5891c87",
+  "updatedAt": "2026-10-27T22:54:34.460454+08:00",
+  "notes": {
+    "resourceClosure": "frontend confirmed original passenger APK restored, absent driver removed, AVD closed; original AppOps modes preserved plus4 denied/default operation records, post-restore display/consent readback NOT_RUN",
+    "sourceFixReview": "swap metadata/manual cancel/fresh driver runtime config fixed at4a7ca46, static review closed; successful calibration remains NOT_RUN"
+  }
+}

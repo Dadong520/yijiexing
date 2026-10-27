@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "id": "PMAD-20261027-01",
+  "owner": "backend",
+  "goal": "根据BIZ05为后台缺失模块提供真实可保存的配置草稿与人工记录，不启用资金/积分/处罚计算；沿用RBAC/审计/幂等与共享CAS",
+  "baseSha": "4a7ca4615120a1f624fa2c18fe5ca008e5891c87",
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-admin-drafts-20261027",
+  "branch": "codex/pm-admin-drafts-20261027",
+  "allow_paths": [
+    "apps/cloud-service/operations_drafts.py",
+    "apps/cloud-service/domain.py",
+    "apps/cloud-service/admin_console.py",
+    "apps/cloud-service/tests/test_operations_drafts.py",
+    "coordination/evidence/PM-20261027-01/admin-drafts/",
+    "coordination/handoffs/backend.md"
+  ],
+  "checks": [
+    "32模块catalog逐项标明草稿/实际记录能力/缺规则服务，不伪称生效",
+    "draft CRUD与版本冲突/归档，人工record append/query，字段校验与权限/审计/幂等",
+    "匿名/只读角色不可写，配置数据不可泄司机乘客state",
+    "没有发布/启用入口或隐式扣分/金额/奖励/余额修改",
+    "已有35单与原业务/认证字段不修改，现有数据库兼容",
+    "作者自测后精确提交SHA交coordinator非作者审核，不部署"
+  ],
+  "status": "INDEPENDENT_BACKEND_SCOPE_ACCEPTED_UI_PENDING",
+  "acceptance": "PASS",
+  "tests": [
+    {
+      "command": "python3 coordination/evidence/PM-20261027-01/admin-drafts/independent_coordinator.py",
+      "result": "PASS: 6 nonauthor local HTTP/CAS groups; first fixture used wrong enabled flag and corrected before final run",
+      "evidence": "coordination/evidence/PM-20261027-01/admin-drafts/independent-coordinator-final.log"
+    }
+  ],
+  "evidence": [
+    "coordination/evidence/PM-20261027-01/admin-drafts/independent-coordinator-final.log"
+  ],
+  "nextAction": "已集成后端5432693+3febc4d，根6组HTTP/CAS PASS；root前端786f2bb仍待真实表单GUI和非作者UI验收",
+  "deploy_owner": "coordinator",
+  "releaseReady": false,
+  "candidateSha": "ea41f17998ad1812f031ac1886fec45895b09f36",
+  "acceptanceScope": "coordinator非作者6组真实本地HTTP/CAS PASS，模块草稿/人工记录 API仅；UI/部署NOT_RUN",
+  "updatedAt": "2026-10-27T23:09:37.617143+08:00"
+}

@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "id": "PMBE-20261027-01",
+  "owner": "antigravity",
+  "goal": "PM06结算派生状态与PM10司机出站尾号隐私，保持内部数据/账务规则",
+  "baseSha": "31cee06f415e51b0dcd8c05dd6f76e2fab311a76",
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-pm-amap-20261027",
+  "branch": "codex/pm-amap-integration-20261027",
+  "allow_paths": [
+    "apps/cloud-service/passenger.py",
+    "apps/cloud-service/domain.py",
+    "apps/cloud-service/negotiation.py"
+  ],
+  "checks": [
+    "内部尾号/黑名单/上车核验不变",
+    "新鲜/旧缓存/改派后统一出站隐私",
+    "退款优先结算状态，不改credit余额流水",
+    "backend非作者黑盒验收"
+  ],
+  "status": "ACCEPTED_SCOPE_AWAITING_INTEGRATION",
+  "acceptance": "PASS",
+  "tests": [
+    {
+      "command": "unittest test_driver_projection_privacy.py",
+      "result": "PASS 2"
+    },
+    {
+      "command": "unittest test_negotiation.py",
+      "result": "PASS 13"
+    },
+    {
+      "command": "backend independent candidate 0f417237",
+      "result": "FAIL, repaired in 81378f91 and5667940; final recheck pending"
+    }
+  ],
+  "evidence": [
+    "coordination/evidence/PM-20261027-01/backend-review/ACCEPTANCE-5667940e.md"
+  ],
+  "nextAction": "复用该SHA/文件哈希限定验收；待地图新差量、整体集成与部署回读后统一发布",
+  "deploy_owner": "coordinator",
+  "releaseReady": false,
+  "notes": {
+    "repairOwner": "coordinator",
+    "reason": "Codex处理独立验收揭示的隐私/异常金额/调用签名疑难修复，仍由backend非作者验收"
+  },
+  "candidateSha": "5667940e05457ebfbd19d9245b0791b35e57fcaa",
+  "updatedAt": "2026-10-27T20:47:14.594894+08:00",
+  "acceptanceScope": "15个独立方法/边界合成PASS_SCOPE，仅隐私结算后端"
+}

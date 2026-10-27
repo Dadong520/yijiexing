@@ -8,8 +8,8 @@ android {
         applicationId = "cn.hbzjhs.dc.passenger.cloud"
         minSdk = 26
         targetSdk = 34
-        versionCode = 14
-        versionName = "1.1.12-experience"
+        versionCode = 15
+        versionName = "1.1.13-experience"
         buildConfigField("String", "CLOUD_API_ORIGIN", "\"$cloudOrigin\"")
     }
     buildFeatures { compose = true; buildConfig = true }
@@ -26,6 +26,7 @@ dependencies {
     implementation("androidx.compose.material:material-icons-core")
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.8.2")
     implementation("org.maplibre.gl:android-sdk:11.8.0")
+    implementation("com.amap.api:3dmap-location-search:11.2.100_loc11.2.100_sea9.8.1")
     testImplementation("org.json:json:20240303")
     testImplementation("junit:junit:4.13.2")
 }

@@ -115,6 +115,37 @@ private object RoadCache {
 
 @Composable
 fun NativeMap(
+    modifier: Modifier = Modifier, order: DriverOrder? = null,
+    onPick: ((Double, Double) -> Unit)? = null, heatPoints: List<Pair<Double, Double>> = emptyList(),
+) {
+    val apiKey by AmapRuntime.key.collectAsState()
+    if (apiKey.isBlank()) { NativeMapLegacy(modifier, order, onPick, heatPoints); return }
+    val context = LocalContext.current
+    val position by PositionBus.position.collectAsState()
+    val points = mutableListOf<AmapPlacePoint>()
+    order?.let { o ->
+        points.add(AmapPlacePoint(o.originLat, o.originLng, "上车点"))
+        o.waypoints.forEach { w ->
+            val latitude = w.latitude; val longitude = w.longitude
+            if (latitude != null && longitude != null) points.add(AmapPlacePoint(latitude, longitude, "途经点"))
+        }
+        if (!o.destinationPending) points.add(AmapPlacePoint(o.destinationLat, o.destinationLng, "目的地"))
+    }
+    position?.let { points.add(AmapPlacePoint(it.latitude, it.longitude, "本机上次定位", false)) }
+    heatPoints.forEach { points.add(AmapPlacePoint(it.first, it.second, "订单分布点", false)) }
+    var pickError by remember { mutableStateOf("") }
+    Box(modifier) {
+        AmapCanvas(points, Modifier.fillMaxSize(), onPick?.let { callback -> { latitude, longitude ->
+            runCatching { normalizeAmapPoint(context, latitude, longitude) }
+                .onSuccess { callback(it.latitude, it.longitude); pickError = "" }
+                .onFailure { pickError = "地点转换失败，请重新选择" }
+        } })
+        if (pickError.isNotBlank()) Surface(Modifier.align(Alignment.BottomCenter)) { Text(pickError, Modifier.padding(8.dp)) }
+    }
+}
+
+@Composable
+private fun NativeMapLegacy(
     modifier: Modifier = Modifier,
     order: DriverOrder? = null,
     onPick: ((Double, Double) -> Unit)? = null,

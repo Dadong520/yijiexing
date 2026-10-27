@@ -221,7 +221,10 @@ class NativeOrderAnnouncer(context: Context) {
         val online = state.optBoolean("online")
         val firstOnline = online && !wasOnline
         wasOnline = online
-        val active = orders.any { it.optString("stage") in ACTIVE_STAGES }
+        val active = orders.any {
+            it.optString("stage") in ACTIVE_STAGES &&
+                !(it.optString("kind") == "RESERVED" && it.optString("stage") == "RESERVED")
+        }
         if (!online || !features.optBoolean("canAcceptOrders") || active) {
             remindersEnabled = false
             NewOrderAlerts.clear()

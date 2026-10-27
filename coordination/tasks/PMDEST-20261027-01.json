@@ -1,0 +1,68 @@
+{
+  "schemaVersion": 1,
+  "id": "PMDEST-20261027-01",
+  "owner": "backend",
+  "goal": "按BIZ06取消新增无终点叫车，保留历史待补目的地订单兼容；服务端必须拒绝旧App/直接请求绕过",
+  "baseSha": "ea41f17998ad1812f031ac1886fec45895b09f36",
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-admin-drafts-20261027",
+  "branch": "codex/pm-admin-drafts-20261027",
+  "allow_paths": [
+    "apps/cloud-service/passenger.py",
+    "apps/cloud-service/passenger_extras.py",
+    "apps/cloud-service/tests/test_destination_required.py",
+    "coordination/evidence/PM-20261027-01/destination-required/",
+    "coordination/handoffs/backend.md",
+    "apps/cloud-service/tests/test_passenger.py"
+  ],
+  "checks": [
+    "新destinationPending=true请求400无新订单/幂等副作用",
+    "缺目的地/无效/同起终点仍拒绝",
+    "正常STANDARD/RESERVED/BID创建不变",
+    "注入合法历史待补目的地单仍可order.update补齐/原流程完成",
+    "能力声明不再推荐无终点新单；旧表/旧35笔不改"
+  ],
+  "status": "SCOPED_ACCEPTED_NOT_RELEASED",
+  "acceptance": "PASS",
+  "tests": [
+    {
+      "command": "python3 coordination/evidence/PM-20261027-01/destination-required/independent_coordinator.py",
+      "result": "PASS: 4 nonauthor local HTTP/CAS groups, new rejection/no persistence, ordinary full destination, invalid inputs, legacy same-ID fill",
+      "evidence": "coordination/evidence/PM-20261027-01/destination-required/independent-coordinator.log"
+    },
+    {
+      "command": "npm test (passenger-miniprogram)",
+      "result": "PASS: 62 tests including obsolete flag cannot bypass",
+      "evidence": "coordination/evidence/PM-20261027-01/destination-required/mini-final-tests.log"
+    },
+    {
+      "command": "Gradle passenger testDebugUnitTest assembleDebug, external output/offline",
+      "result": "PASS: 20 tests and build",
+      "evidence": "coordination/evidence/PM-20261027-01/destination-required/passenger-build.log"
+    },
+    {
+      "command": "node coordination/evidence/PM-20261027-01/frontend-review/PMDEST-independent-flow.cjs; node --test --test-name-pattern legacy|new calls ui-flow.test.js",
+      "result": "PASS_NONAUTHOR: real shared.base submit flow across3 kinds, missing destination/old flag rejection, repeated legacy order selection, exact-ID legacy update; Android/WXML static entry guards and removed obsolete guidance. No emulator/WeChat GUI rerun.",
+      "evidence": "coordination/evidence/PM-20261027-01/frontend-review/PMDEST-independent-flow.log"
+    }
+  ],
+  "evidence": [
+    "coordination/evidence/PM-20261027-01/destination-required/independent-coordinator.log",
+    "coordination/evidence/PM-20261027-01/destination-required/integrated-source-manifest.json",
+    "coordination/evidence/PM-20261027-01/frontend-review/PMDEST-independent-flow.log",
+    "coordination/evidence/PM-20261027-01/frontend-review/PMDEST-targeted-mini.log",
+    "coordination/evidence/PM-20261027-01/frontend-review/PMDEST-REVIEW.md",
+    "coordination/evidence/PM-20261027-01/frontend-review/PMDEST-REVIEW.json"
+  ],
+  "nextAction": "代码限定验收完成；与父PM任务统一安排合并和发布，当前SDK鉴权仍阻塞，不宣称线上已取消",
+  "deploy_owner": "coordinator",
+  "releaseReady": false,
+  "notes": {
+    "legacyTestUpdate": "仅将test_no_destination_pickup_requires_completion_and_confirms_price新建无终点前置改显式历史fixture，保留历史补齐/金额确认断言，不skip"
+  },
+  "candidateSha": "0df8b187ac2f68c52fa6d17db846fbb8854b4eda",
+  "backendAuthorSha": "018ca49d7c3b8c7230e6541754729e1a0178ec37",
+  "backendIntegratedSha": "e01a040176e6608041b0a32455a8493ea4633ff5",
+  "updatedAt": "2026-10-27T23:14:05.364347+08:00",
+  "acceptedSha": "0df8b187ac2f68c52fa6d17db846fbb8854b4eda",
+  "acceptanceScope": "backend new-order rejection plus client entry/legacy flow only; actual Android/WeChat GUI and public release NOT_RUN"
+}

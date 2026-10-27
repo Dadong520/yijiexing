@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 1,
+  "id": "RELTEST-20261027-01",
+  "owner": "coordinator",
+  "goal": "按用户明确要求合并并交付可自行测试验收的独立体验版；已知高德1008如实列出，不能用全项目最终验收阻塞测试版",
+  "baseSha": "35aa7bbf3d68d458270e26818f75132c15b77536",
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-pm-amap-20261027",
+  "branch": "codex/pm-amap-integration-20261027",
+  "allow_paths": [
+    "apps/passenger-android/app/build.gradle.kts",
+    "candidates/driver-0.3.6-r2/android/app/build.gradle.kts",
+    "coordination/tasks/RELTEST-20261027-01.json",
+    "coordination/evidence/PM-20261027-01/release-test-20261027/",
+    "coordination/STATE.md",
+    "coordination/BOARD.json",
+    "coordination/SESSION_REGISTRY.json",
+    "coordination/DECISIONS.md",
+    "coordination/handoffs/coordinator.md"
+  ],
+  "checks": [
+    "backend限定兼容复核，保留现有35单/金额规则/预约与欠款门禁",
+    "frontend独立后台草稿/记录UI流程验收，定位SDK仍失败明确列已知问题",
+    "两Android版本号递增、同包名同签名、构建/单测/四私有值扫描通过",
+    "PR project-gate通过并精确合并SHA；仅独立体验项目，IAM/auth/account/env兼容/min0max1",
+    "API/admin部署回读，新两APK上传并HTTPS取回hash/版本/签名一致，给用户直接测试链接"
+  ],
+  "status": "ACTIVE_TEST_RELEASE",
+  "acceptance": "NOT_RUN",
+  "tests": [],
+  "evidence": [],
+  "nextAction": "并行backend/frontend限定复核，root打包/PR/唯一部署，交付用户可访问版本",
+  "deploy_owner": "coordinator",
+  "releaseReady": false,
+  "notes": {
+    "userAuthorization": "本轮直接要求：为什么不合并发布？你不发我怎么测试验收？",
+    "scope": "当前已集成35aa7bb+版本号；PMPOST83未完成独立审核及客户端，明确不在此版",
+    "knownIssues": [
+      "乘客高德POI1008/地图10008，公共点归一化成功校准NOT_RUN",
+      "微信缺AppID，提供源码测试，不能称微信发布完成",
+      "声音/OEM/部分Android GUI待用户与后续测试；支付/退款/认证等按既有演示范围"
+    ]
+  },
+  "updatedAt": "2026-10-27T23:44:48.676252+08:00"
+}

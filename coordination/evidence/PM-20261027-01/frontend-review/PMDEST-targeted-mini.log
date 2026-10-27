@@ -1,0 +1,10 @@
+✔ a legacy no-destination flag cannot bypass the destination selection requirement (3.194625ms)
+✔ new calls always submit a complete destination even if an obsolete flag is present (1.568875ms)
+ℹ tests 2
+ℹ suites 0
+ℹ pass 2
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 85.525833

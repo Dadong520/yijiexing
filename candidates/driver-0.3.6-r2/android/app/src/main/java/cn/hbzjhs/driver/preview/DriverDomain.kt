@@ -69,7 +69,24 @@ data class DriverOrder(
     val pairingStatus: String = "",
     val pairingRequired: Boolean = false,
     val pairingExpiresAt: String = "",
+    val scheduledAt: String = "",
+    val settlementStatus: String = "",
+    val settlementLabel: String = "",
+    val netIncome: Long? = null,
 ) {
+    val isWaitingReservation: Boolean
+        get() = kind == OrderKind.RESERVED && stage == Stage.RESERVED && !participationCancelled
+
+    val scheduledTimeText: String
+        get() {
+            val raw = scheduledAt.ifBlank { if (kind == OrderKind.RESERVED) time else "" }
+            if (raw.isBlank()) return "预约时间未提供"
+            return runCatching {
+                java.time.OffsetDateTime.parse(raw)
+                    .atZoneSameInstant(java.time.ZoneId.of("Asia/Shanghai"))
+                    .format(java.time.format.DateTimeFormatter.ofPattern("MM-dd HH:mm"))
+            }.getOrDefault(raw)
+        }
     val isPrivateExample: Boolean
         get() = synthetic && !shared
 
@@ -100,13 +117,20 @@ data class DriverOrder(
 
     val incomeLabel: String
         get() = when {
+            settlementStatus.isNotBlank() -> settlementLabel.ifBlank { "入账状态待核对" }
+            paymentStatus == "REFUNDED" && credited -> "已退款冲回（模拟）"
             credited -> "本单已入账收入"
             closedWithoutIncome -> "本单未计入收入"
             else -> "预计收入（未入账）"
         }
 
     fun incomeForDisplay(estimatedIncome: Long): Long =
-        if (closedWithoutIncome) 0 else estimatedIncome
+        when {
+            paymentStatus == "REFUNDED" || settlementStatus in setOf("REVERSED", "REFUNDED", "CLOSED_NO_INCOME", "UNKNOWN") -> 0
+            settlementStatus == "CREDITED" -> netIncome?.takeIf { it >= 0 } ?: 0
+            closedWithoutIncome -> 0
+            else -> estimatedIncome
+        }
 
     val participationCancelled: Boolean
         get() = driverParticipationStage == "CANCELLED"
@@ -128,6 +152,7 @@ data class DriverOrder(
     val isActive: Boolean
         get() =
             !participationCancelled &&
+                !isWaitingReservation &&
                 stage in
                     setOf(
                         Stage.BID_SENT,
@@ -173,6 +198,9 @@ data class DriverState(
     // Settlement stays visible after transportation ends without occupying the driver.
     val pendingCollections: List<DriverOrder>
         get() = orders.filter { it.stage == Stage.WAIT_PAY && !it.participationCancelled }
+
+    val waitingReservations: List<DriverOrder>
+        get() = orders.filter { it.isWaitingReservation }
 }
 
 object DriverRules {

@@ -552,6 +552,8 @@ fun OrderCard(order: DriverOrder, action: String? = null, onClick: () -> Unit) {
         }
         Spacer(Modifier.height(8.dp))
         RouteStops(order, compact = true)
+        if (order.kind == OrderKind.RESERVED)
+            Text("计划用车 ${order.scheduledTimeText}", color = Green, fontSize = 14.sp, fontWeight = FontWeight.SemiBold)
         Spacer(Modifier.height(6.dp))
         Text(
             if (order.destinationPending) "目的地待补充"

@@ -209,6 +209,7 @@ class PassengerStore(app: Application) : AndroidViewModel(app) {
     PassengerApi.token = ""
     _loggedIn.value = false
     _state.value = JSONObject()
+    AmapRuntime.configure(null)
     _connected.value = false
     _syncAt.value = ""
     stateEpoch++
@@ -218,6 +219,7 @@ class PassengerStore(app: Application) : AndroidViewModel(app) {
     if (generation != sessionGeneration || PassengerApi.token.isBlank()) return
     if (data.has("passenger")) {
       _state.value = data
+      AmapRuntime.configure(data.optJSONObject("mapConfig"))
       _syncAt.value = java.time.LocalTime.now().withNano(0).toString()
     }
     _connected.value = true
