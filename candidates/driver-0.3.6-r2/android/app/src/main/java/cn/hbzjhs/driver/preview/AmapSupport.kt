@@ -73,6 +73,13 @@ fun amapForward(context: Context, latitude: Double, longitude: Double): LatLng {
  * It never reads a sensor, reports a device fix, or changes the raw GPS stream. */
 fun normalizeAmapPoint(context: Context, rawLatitude: Double, rawLongitude: Double): NormalizedAmapPoint {
     require(rawLatitude.isFinite() && rawLongitude.isFinite() && rawLatitude in -85.0..85.0 && rawLongitude in -180.0..180.0)
+    check(CoordinateConverter.isAMapDataAvailable(rawLatitude, rawLongitude)) { "此地点暂不在地图服务范围，请重新选择" }
+    // A converter can fail by returning its input. Check a public control point
+    // before accepting a zero residual as a successful normalization.
+    val control = amapForward(context, 39.908823, 116.397470)
+    val displacement = FloatArray(1)
+    android.location.Location.distanceBetween(39.908823, 116.397470, control.latitude, control.longitude, displacement)
+    check(displacement[0].isFinite() && displacement[0] in 100f..1500f) { "地图坐标转换暂不可用，请重新加载地图" }
     var latitude = rawLatitude
     var longitude = rawLongitude
     repeat(12) {

@@ -266,6 +266,9 @@ fun BookingScreen(
                     val lng = oLng
                     oLng = dLng
                     dLng = lng
+                    val metadata = oMetadata
+                    oMetadata = dMetadata
+                    dMetadata = metadata
                   },
                 ) {
                   Text("交换起终点", fontSize = 12.sp, color = Teal)
@@ -602,8 +605,8 @@ fun AddressDialog(
     TextButton(onClick={advanced=!advanced}) { Text(if (advanced) "收起手动坐标" else "手动坐标 · 高级设置") }
     if (advanced) {
       Note("请核对名称和WGS84坐标一致；手动填写不会查询地点。")
-      Field(lat, {lat=it; source="手动坐标"; selectedMetadata=null}, "WGS84 纬度", KeyboardType.Decimal)
-      Field(lng, {lng=it; source="手动坐标"; selectedMetadata=null}, "WGS84 经度", KeyboardType.Decimal)
+      Field(lat, {cancelSearch(); lat=it; source="手动坐标"; selectedMetadata=null}, "WGS84 纬度", KeyboardType.Decimal)
+      Field(lng, {cancelSearch(); lng=it; source="手动坐标"; selectedMetadata=null}, "WGS84 经度", KeyboardType.Decimal)
     }
   }
 }

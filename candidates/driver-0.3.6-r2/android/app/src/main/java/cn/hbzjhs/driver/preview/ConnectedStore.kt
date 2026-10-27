@@ -412,6 +412,7 @@ class ConnectedStore(app: Application) : AndroidViewModel(app) {
                 LocalApi.token = token
                 mutableState.value = parsed
                 mutablePayload.value = freshPayload
+                AmapRuntime.configure(fresh.optJSONObject("mapConfig"))
                 mutableSessionAvailable.value = true
             }
         }
