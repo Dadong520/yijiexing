@@ -23,7 +23,6 @@ const page = base({
     remark: '',
     scheduledDate: '',
     scheduledTime: '',
-    destinationPending: false,
     riderId: '',
     riderLabel: '本人',
     mapLat: 30.697,
@@ -47,7 +46,6 @@ const page = base({
   chooseKind(e) {
     this.setData({
       kind: e.currentTarget.dataset.kind,
-      destinationPending: false
     });
   },
 
@@ -113,14 +111,6 @@ const page = base({
     wx.navigateTo({ url: '/pages/places/index?pick=' + this._purpose });
   },
 
-  togglePending(e) {
-    this.setData({
-      destinationPending: e.detail.value,
-      destination: null,
-      waypoints: []
-    });
-    this.drawMap();
-  },
 
   removeWaypoint(e) {
     this.setData({
@@ -146,7 +136,7 @@ const page = base({
     if (!this.data.authenticated) return this.login();
     const d = this.data;
     if (!d.origin) return error(new Error('请选择上车地点'));
-    if (!d.destination && !d.destinationPending) return error(new Error('请选择目的地'));
+    if (!d.destination) return error(new Error('请选择目的地'));
 
     const payload = {
       kind: d.kind,
@@ -158,15 +148,11 @@ const page = base({
       waypoints: d.waypoints
     };
 
-    if (d.destinationPending) {
-      payload.destinationPending = true;
-    } else {
-      Object.assign(payload, {
-        destination: d.destination.name,
-        destinationLat: d.destination.latitude,
-        destinationLng: d.destination.longitude
-      });
-    }
+    Object.assign(payload, {
+      destination: d.destination.name,
+      destinationLat: d.destination.latitude,
+      destinationLng: d.destination.longitude
+    });
 
     if (d.riderId) payload.riderId = d.riderId;
 
@@ -202,7 +188,6 @@ page.onShow = function() {
       origin: repeat.origin,
       destination: repeat.destination,
       waypoints: [],
-      destinationPending: !repeat.destination,
       kind: 'STANDARD'
     });
     this.drawMap();

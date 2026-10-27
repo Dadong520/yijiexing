@@ -922,7 +922,7 @@ function operationDrafts(){
   $('#content').innerHTML=head('业务配置与记录',esc(data.policyLabel||'配置保存为草稿，人工记录不执行扣款、扣分或发奖。'))+
     `<section class="panel"><div class="grid2"><label>业务分类<select id="opsCategory"><option value="">全部分类</option>${categories.map(c=>`<option value="${esc(c)}" ${c===opsCategory?'selected':''}>${esc(c)}</option>`).join('')}</select></label><label>功能模块<select id="opsModule">${available.map(x=>`<option value="${esc(x.id)}" ${x.id===opsModule?'selected':''}>${esc(x.name)}</option>`).join('')}</select></label></div><p class="notice">${esc(module?.notice||'本模块当前提供配置草稿和人工记录；规则确认后再安排生效能力。')}</p><label><input type="checkbox" id="opsArchived" ${opsShowArchived?'checked':''}>显示已归档内容</label></section>`+
     `<section class="panel"><div class="toolbar"><h2>配置草稿 · ${esc(module?.name)}</h2><button id="opsNewDraft" ${can('config.write')?'':'disabled'}>新建草稿</button></div>${drafts.length?table(['名称','适用范围','状态 / 版本','更新时间','操作'],drafts.map(d=>`<tr><td>${esc(d.name)}</td><td>${esc(opsScopeNames[d.scope]||d.scope)} · ${esc(d.target)}</td><td>${opsState(d.status)} · V${esc(d.version)}</td><td>${time(d.updatedAt)}</td><td><button data-ops-draft="${esc(d.id)}">${can('config.write')&&d.status!=='ARCHIVED'?'查看与编辑':'查看'}</button></td></tr>`)):'<div class="empty">暂无配置草稿</div>'}</section>`+
-    `<section class="panel"><div class="toolbar"><h2>人工记录</h2><button id="opsNewRecord" ${can('config.write')?'':'disabled'}>新增记录</button></div><p class="muted">人工记录用于留存处理过程，不代表资金到账、正式开票或处罚执行。</p>${records.length?table(['记录标题','来源 / 状态','发生时间','关联订单','操作'],records.map(r=>`<tr><td>${esc(r.title)}</td><td>人工录入 · ${opsState(r.status)}</td><td>${time(r.occurredAt||r.createdAt)}</td><td>${esc(r.orderId||'未关联')}</td><td><button data-ops-record="${esc(r.id)}">查看记录</button></td></tr>`)):'<div class="empty">暂无人工记录</div>'}</section>`;
+    `<section class="panel"><div class="toolbar"><h2>人工记录</h2><button id="opsNewRecord" ${can('config.write')?'':'disabled'}>新增记录</button></div><p class="muted">人工记录用于留存处理过程，不代表资金到账、正式开票或处罚执行。</p>${records.length?table(['记录标题','来源 / 状态','发生 / 保存时间','关联订单','操作'],records.map(r=>`<tr><td>${esc(r.title)}</td><td>人工录入 · ${opsState(r.status)}</td><td>${r.occurredAt?time(r.occurredAt):'发生时间未填写'}<small>保存于 ${time(r.createdAt)}</small></td><td>${esc(r.orderId||'未关联')}</td><td><button data-ops-record="${esc(r.id)}">查看记录</button></td></tr>`)):'<div class="empty">暂无人工记录</div>'}</section>`;
   $('#opsCategory').onchange=e=>{opsCategory=e.target.value;opsModule='';operationDrafts();};
   $('#opsModule').onchange=e=>{opsModule=e.target.value;operationDrafts();};
   $('#opsArchived').onchange=e=>{opsShowArchived=e.target.checked;operationDrafts();};
@@ -939,18 +939,25 @@ function opsDraftForm(draft){
   }
   const parameters=(draft?.parameters||[]).map(p=>({...p}));
   const requestId=requestUUID();
-  modal(draft?'编辑配置草稿':'新建配置草稿',`<p class="notice">${esc(module.name)} · 仅保存草稿，当前订单、金额、服务分与积分不因此变化。</p><label>草稿名称<input id="opName" maxlength="100" value="${esc(draft?.name||'')}"></label><div class="grid2"><label>适用范围<select id="opScope">${Object.entries(opsScopeNames).map(([id,name])=>`<option value="${id}" ${id===(draft?.scope||'NATIONAL')?'selected':''}>${name}</option>`).join('')}</select></label><label>适用对象 / 区域名称<input id="opTarget" maxlength="100" value="${esc(draft?.target||'全国')}"></label></div><label>规则说明<textarea id="opDescription" maxlength="2000">${esc(draft?.description||'')}</textarea></label><h3>草拟参数</h3><p class="muted">可填写比例、金额、次数或适用条件；参数只作草稿保存。</p><div id="opParameters"></div><button id="opAddParameter">添加参数</button>`,[['返回','',close],...(draft?[['归档草稿','danger',()=>opsArchive('draft',draft)]]:[]),['保存草稿','primary',async()=>{
+  modal(draft?'编辑配置草稿':'新建配置草稿',`<p class="notice">${esc(module.name)} · 仅保存草稿，当前订单、金额、服务分与积分不因此变化。</p><label>草稿名称<input id="opName" maxlength="120" value="${esc(draft?.name||'')}"></label><div class="grid2"><label>适用范围<select id="opScope">${Object.entries(opsScopeNames).map(([id,name])=>`<option value="${id}" ${id===(draft?.scope||'NATIONAL')?'selected':''}>${name}</option>`).join('')}</select></label><label>适用对象 / 区域名称<input id="opTarget" maxlength="120" value="${esc(draft?.target||'CN')}"></label></div><label>规则说明<textarea id="opDescription" maxlength="2000">${esc(draft?.description||'')}</textarea></label><h3>草拟参数</h3><p class="muted">可填写比例、金额、次数或适用条件；参数只作草稿保存。</p><div id="opParameters"></div><button id="opAddParameter">添加参数</button>`,[['返回','',close],...(draft?[['归档草稿','danger',()=>opsArchive('draft',draft)]]:[]),['保存草稿','primary',async()=>{
     const payload={module:module.id,name:$('#opName').value.trim(),scope:$('#opScope').value,target:$('#opTarget').value.trim(),description:$('#opDescription').value.trim(),parameters:parameters.map(p=>({name:p.name.trim(),value:p.value.trim(),unit:p.unit.trim()}))};
     if(!payload.name||!payload.target)throw Error('请填写草稿名称和适用对象');
     if(draft){payload.id=draft.id;payload.expectedVersion=draft.version;}
     await act('ops.draft.save',payload,requestId);close();toast('配置草稿已保存，尚未生效');
   }]]);
+  function renderTarget(){
+    const scope=$('#opScope').value, current=$('#opTarget').value;
+    if(scope==='CUSTOM'){$('#opTarget').outerHTML=`<input id="opTarget" maxlength="120" value="${esc(current)}">`;return;}
+    const choices=scope==='NATIONAL'?[{id:'CN',name:'全国'}]:scope==='CITY'?(state.cities||[]).map(c=>({id:c.id,name:c.name})):(state.configs||[]).filter(c=>c.scope==='region').map(c=>({id:c.target,name:({CENTRAL:'华中大区',SOUTH:'华南大区'})[c.target]||c.name||c.target}));
+    $('#opTarget').outerHTML=`<select id="opTarget">${choices.map(c=>`<option value="${esc(c.id)}" ${c.id===current?'selected':''}>${esc(c.name)}</option>`).join('')}</select>`;
+  }
+  $('#opScope').onchange=renderTarget;renderTarget();
   function renderParameters(){
-    $('#opParameters').innerHTML=parameters.map((p,i)=>`<div class="panel"><div class="grid2"><label>参数名称<input data-op-param="${i}" data-field="name" maxlength="80" value="${esc(p.name)}"></label><label>草拟值<input data-op-param="${i}" data-field="value" maxlength="200" value="${esc(p.value)}"></label></div><label>单位 / 说明<input data-op-param="${i}" data-field="unit" maxlength="80" value="${esc(p.unit)}"></label><button data-op-remove="${i}">移除此参数</button></div>`).join('');
+    $('#opParameters').innerHTML=parameters.map((p,i)=>`<div class="panel"><div class="grid2"><label>参数名称<input data-op-param="${i}" data-field="name" maxlength="80" value="${esc(p.name)}"></label><label>草拟值<input data-op-param="${i}" data-field="value" maxlength="500" value="${esc(p.value)}"></label></div><label>单位 / 说明<input data-op-param="${i}" data-field="unit" maxlength="40" value="${esc(p.unit)}"></label><button data-op-remove="${i}">移除此参数</button></div>`).join('');
     $$('[data-op-param]').forEach(x=>x.oninput=()=>{parameters[Number(x.dataset.opParam)][x.dataset.field]=x.value;});
     $$('[data-op-remove]').forEach(x=>x.onclick=()=>{parameters.splice(Number(x.dataset.opRemove),1);renderParameters();});
   }
-  $('#opAddParameter').onclick=()=>{if(parameters.length>=20){toast('最多保存20个草拟参数');return;}parameters.push({name:'',value:'',unit:''});renderParameters();};
+  $('#opAddParameter').onclick=()=>{if(parameters.length>=40){toast('最多保存40个草拟参数');return;}parameters.push({name:'',value:'',unit:''});renderParameters();};
   renderParameters();
 }
 function opsArchive(kind,item){

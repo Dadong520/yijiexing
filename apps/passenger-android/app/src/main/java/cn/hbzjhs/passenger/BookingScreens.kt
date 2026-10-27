@@ -71,7 +71,6 @@ fun BookingScreen(
   var showWaypoints by rememberSaveable { mutableStateOf(false) }
   var submitting by remember { mutableStateOf(false) }
   var contactId by rememberSaveable { mutableStateOf("") }
-  var destinationPending by rememberSaveable { mutableStateOf(false) }
   val context = LocalContext.current
   val reservations = state.rows("orders").filter { it.text("kind") == "RESERVED" && it.text("stage") in listOf("AVAILABLE", "RESERVED") }
   val active = state.rows("orders").firstOrNull {
@@ -98,15 +97,8 @@ fun BookingScreen(
             "scheduledAt",
             LocalDateTime.parse(date).atZone(ZoneId.systemDefault()).toInstant().toString(),
           )
-        if (destinationPending && kind == "STANDARD") {
-          payload.put("destinationPending", true)
-          payload.remove("destination")
-          payload.remove("destinationLat")
-          payload.remove("destinationLng")
-          payload.remove("destinationCoordinateMetadata")
-        }
         if (contactId.isNotBlank()) payload.put("riderId", contactId)
-        if (showWaypoints && !(destinationPending && kind == "STANDARD")) {
+        if (showWaypoints) {
           val points = JSONArray()
           if (waypointName.isNotBlank())
             points.put(
@@ -134,8 +126,8 @@ fun BookingScreen(
     PassengerMap(
       originLat = oLat,
       originLng = oLng,
-      destinationLat = if (destinationPending && kind == "STANDARD") "" else dLat,
-      destinationLng = if (destinationPending && kind == "STANDARD") "" else dLng,
+      destinationLat = dLat,
+      destinationLng = dLng,
       modifier = Modifier
         .fillMaxWidth()
         .weight(0.43f)
@@ -278,37 +270,15 @@ fun BookingScreen(
               HorizontalDivider(color = Color(0xFFEAECEF), thickness = 0.8.dp)
               AddressRow(
                 "目的地",
-                if (destinationPending && kind == "STANDARD") "稍后补充目的地" else destination,
+                destination,
                 emphasize = true,
               ) {
                 editor = "destination"
               }
             }
           }
-          if (kind == "STANDARD") {
-            Row(
-              Modifier
-                .fillMaxWidth()
-                .toggleable(
-                  value = destinationPending,
-                  role = Role.Checkbox,
-                  onValueChange = { destinationPending = it },
-                )
-                .heightIn(min = 40.dp),
-              verticalAlignment = Alignment.CenterVertically,
-            ) {
-              Checkbox(
-                destinationPending,
-                onCheckedChange = null,
-                colors = CheckboxDefaults.colors(checkedColor = Teal),
-              )
-              Spacer(Modifier.width(8.dp))
-              Text("先叫车，稍后补充目的地", fontSize = 14.sp, color = Ink, modifier = Modifier.weight(1f))
-            }
-          }
           Note(
-            if (destinationPending && kind == "STANDARD") "补充目的地后生成体验估价，费用待定。"
-            else if (kind == "BID") "下单后等待司机报价，选定司机后模拟预付。"
+            if (kind == "BID") "下单后等待司机报价，选定司机后模拟预付。"
             else "下单后生成体验估价，行程结束后模拟支付。"
           )
           ExpandablePanel("更多行程设置与代叫", "乘车人、用车备注、预约时间、途经点", initialExpanded = kind == "RESERVED") {
@@ -381,11 +351,10 @@ fun BookingScreen(
             Field(remark, { remark = it.take(500) }, "用车备注（可选）", lines = 2)
             TextButton(
               onClick = { showWaypoints = !showWaypoints },
-              enabled = !(destinationPending && kind == "STANDARD"),
             ) {
               Text(if (showWaypoints) "收起途经点" else "添加途经点（可选）", color = Teal, fontSize = 13.sp)
             }
-            if (showWaypoints && !(destinationPending && kind == "STANDARD")) {
+            if (showWaypoints) {
               Field(waypointName, { waypointName = it }, "途经点名称")
               Field(waypointLat, { waypointLat = it }, "途经点纬度", KeyboardType.Decimal)
               Field(waypointLng, { waypointLng = it }, "途经点经度", KeyboardType.Decimal)
