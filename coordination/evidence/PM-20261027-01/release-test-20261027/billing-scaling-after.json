@@ -1,0 +1,18 @@
+[
+  {
+    "service": "driver-demo",
+    "templateMin": 0,
+    "templateMax": 1,
+    "serviceMax": "1",
+    "cpuRequestBilling": true,
+    "scalingMode": "automatic"
+  },
+  {
+    "service": "driver-admin",
+    "templateMin": 0,
+    "templateMax": 1,
+    "serviceMax": "1",
+    "cpuRequestBilling": true,
+    "scalingMode": "automatic"
+  }
+]

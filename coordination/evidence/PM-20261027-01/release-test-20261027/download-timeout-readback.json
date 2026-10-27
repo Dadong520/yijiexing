@@ -1,0 +1,23 @@
+{
+  "oldRevision": "driver-demo-pm-54e6d313-test1",
+  "newRevision": "driver-demo-pm-54e6d313-dl900",
+  "timeoutBefore": 300,
+  "timeoutAfter": 900,
+  "reason": "108MB APK downloads must tolerate slow connections",
+  "imageEnvSecretsUnchanged": true,
+  "iamUnchanged": true,
+  "scalingUnchanged": true,
+  "traffic": [
+    {
+      "revisionName": "driver-demo-pm-364078b4-qa1",
+      "tag": "pm-map-qa",
+      "url": "https://pm-map-qa---driver-demo-phfgquzmua-uw.a.run.app"
+    },
+    {
+      "percent": 100,
+      "revisionName": "driver-demo-pm-54e6d313-dl900",
+      "tag": "user-test",
+      "url": "https://user-test---driver-demo-phfgquzmua-uw.a.run.app"
+    }
+  ]
+}

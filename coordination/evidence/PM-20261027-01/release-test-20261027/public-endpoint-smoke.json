@@ -1,0 +1,26 @@
+[
+  {
+    "role": "api",
+    "health": 200,
+    "environment": "CLOUD_ISOLATED_SANDBOX"
+  },
+  {
+    "role": "admin",
+    "health": 200,
+    "environment": "CLOUD_ISOLATED_SANDBOX"
+  },
+  {
+    "role": "admin",
+    "path": "/static/admin.js",
+    "acceptedAssetMatchesHTTPS": true,
+    "sha256": "ecb5b4d5ef04b40ec03ee9a16787319629103d58d086b4f0e8d093ad987b66bd"
+  },
+  {
+    "path": "/download",
+    "status": 200
+  },
+  {
+    "path": "/download-passenger",
+    "status": 200
+  }
+]

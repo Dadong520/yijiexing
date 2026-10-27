@@ -1,0 +1,35 @@
+{
+  "sourceSha": "54e6d3134db821a01554f2d0ed5aefecc381a632",
+  "artifacts": [
+    {
+      "role": "passenger",
+      "path": "/Users/dongge/.codex/tmp/yijiexing-pm-build-20261027/passenger/_app/outputs/apk/debug/app-debug.apk",
+      "package": "cn.hbzjhs.dc.passenger.cloud",
+      "versionName": "1.1.13-experience",
+      "versionCode": 15,
+      "bytes": 107073909,
+      "sha256": "cddfb0556ad0c830080619daa4a6b3b1da98d715c9d97246a71cfed00ff79a61",
+      "certificateSHA256": "9ffec9b342d12909ff288bd73f23ba104893b39120cb24ea83c9734a0d2b758f",
+      "knownPrivateValueHits": 0,
+      "previewOriginHits": 0,
+      "stableOriginPresent": true,
+      "unitTests": 20,
+      "failures": 0
+    },
+    {
+      "role": "driver",
+      "path": "/Users/dongge/.codex/tmp/yijiexing-pm-build-20261027/driver/_app/outputs/apk/debug/app-debug.apk",
+      "package": "cn.hbzjhs.dc.driver.cloud",
+      "versionName": "0.3.13-cloud",
+      "versionCode": 16,
+      "bytes": 108620421,
+      "sha256": "410be14dd48bd6af807b03c7e43942c3eaf527f388019108bd58ece3644c34eb",
+      "certificateSHA256": "9ffec9b342d12909ff288bd73f23ba104893b39120cb24ea83c9734a0d2b758f",
+      "knownPrivateValueHits": 0,
+      "previewOriginHits": 0,
+      "stableOriginPresent": true,
+      "unitTests": 59,
+      "failures": 0
+    }
+  ]
+}

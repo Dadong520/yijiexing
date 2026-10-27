@@ -10,15 +10,19 @@
 - 活跃任务：[BOARD](coordination/BOARD.json)；长期决定：[DECISIONS](coordination/DECISIONS.md)；角色细节：handoffs；契约：contracts。
 - 恢复与提交检查：`python3 tools/check_coordination.py --memory-role <role> --session-id <真实会话ID>`；检查器不测量模型内部上下文，不等于业务验收。
 
-## 上次发布核验：2026-10-26
+## 本次体验版发布核验
 
 | 项目 | 已核验结果 | 入口 |
 |---|---|---|
-| 司机Android | 0.3.12-cloud / code15 | https://yijiexing-demo.hbzjhs.xyz/download |
-| 乘客Android | 1.1.12-experience / code14 | https://yijiexing-demo.hbzjhs.xyz/download-passenger |
+| 司机Android | 0.3.13-cloud / code16 | https://yijiexing-demo.hbzjhs.xyz/download |
+| 乘客Android | 1.1.13-experience / code15 | https://yijiexing-demo.hbzjhs.xyz/download-passenger |
 | Web后台 | 后台账号密码登录；已取消Google前置登录 | https://demo-admin.hbzjhs.xyz/ |
 | 体验API | 共享持久数据、自有HTTPS域名 | https://yijiexing-demo.hbzjhs.xyz |
-| 微信小程序 | 开发源58测试及静态检查通过；缺AppID，未微信编译/真机/发布 | candidates/passenger-miniprogram-0.1.0/miniprogram |
+| 微信小程序 | 开发源62测试及静态检查通过；缺AppID，未微信编译/真机/发布 | candidates/passenger-miniprogram-0.1.0/miniprogram |
+
+本次代码已由[PR28](https://github.com/Dadong520/yijiexing/pull/28)合并主分支并更新独立体验环境。当前网络下自有域名整包下载慢，可使用同服务已完整验证的[司机快速入口](https://user-test---driver-demo-phfgquzmua-uw.a.run.app/download)和[乘客快速入口](https://user-test---driver-demo-phfgquzmua-uw.a.run.app/download-passenger)。两包版本、完整hash、包名、原签名已独立回读核验；35笔旧订单业务字段保留。发布回执见[本版报告](coordination/evidence/PM-20261027-01/release-test-20261027/FINAL-RELEASE-REPORT.md)。
+
+本版用于用户测试验收。高德乘客地点搜索1008/地图10008仍未通过，公共点成功校准未完成；后台32类为可保存草稿与人工记录，不自动启用资金、分账、积分或处罚规则。后续排行/登记电话投影PMPOST未集成，微信发布与真机OEM等仍按STATE记录待办。
 
 两APK免演示访问码，保留原签名，可覆盖安装。Android乘客开发已恢复，旧“暂停原生乘客”的描述已被用户后续要求替代。详细版本/哈希与后续发布以STATE和实际回执为准，不把此日期表当实时监控。
 

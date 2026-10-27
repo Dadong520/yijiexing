@@ -22,7 +22,7 @@
     "已有35单与原业务/认证字段不修改，现有数据库兼容",
     "作者自测后精确提交SHA交coordinator非作者审核，不部署"
   ],
-  "status": "INDEPENDENT_BACKEND_SCOPE_ACCEPTED_UI_PENDING",
+  "status": "SCOPED_RELEASED_FOR_USER_ACCEPTANCE",
   "acceptance": "PASS",
   "tests": [
     {
@@ -34,10 +34,14 @@
   "evidence": [
     "coordination/evidence/PM-20261027-01/admin-drafts/independent-coordinator-final.log"
   ],
-  "nextAction": "已集成后端5432693+3febc4d，根6组HTTP/CAS PASS；root前端786f2bb仍待真实表单GUI和非作者UI验收",
+  "nextAction": "本次范围已发布，收用户验收反馈；整体未完成项见父任务",
   "deploy_owner": "coordinator",
   "releaseReady": false,
   "candidateSha": "ea41f17998ad1812f031ac1886fec45895b09f36",
   "acceptanceScope": "coordinator非作者6组真实本地HTTP/CAS PASS，模块草稿/人工记录 API仅；UI/部署NOT_RUN",
-  "updatedAt": "2026-10-27T23:09:37.617143+08:00"
+  "updatedAt": "2026-10-28T00:36:21.805537+08:00",
+  "notes": {
+    "experienceReleaseSha": "1d04ff7ce64779fe9f9122513dd651f305093b79",
+    "receipt": "https://github.com/Dadong520/yijiexing/pull/28"
+  }
 }

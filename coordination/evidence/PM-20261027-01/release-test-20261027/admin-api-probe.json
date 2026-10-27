@@ -1,0 +1,329 @@
+{
+  "sourceSha": "48d2ef409248bec3b6833b77570650a21d7b260d",
+  "fixture": "real MemoryCAS BrowserHandler PASSWORD localhost only",
+  "checks": [
+    {
+      "module": "announcements",
+      "scope": "NATIONAL",
+      "target": "CN",
+      "draftSaveEditArchive": "PASS",
+      "staleSaveArchive": "409",
+      "recordAddArchive": "PASS",
+      "blankOccurrence": "NULL",
+      "recordRewrite": "403"
+    },
+    {
+      "module": "company_support",
+      "scope": "REGION",
+      "target": "CENTRAL",
+      "draftSaveEditArchive": "PASS",
+      "staleSaveArchive": "409",
+      "recordAddArchive": "PASS",
+      "blankOccurrence": "NULL",
+      "recordRewrite": "403"
+    },
+    {
+      "module": "passenger_features",
+      "scope": "CITY",
+      "target": "420500",
+      "draftSaveEditArchive": "PASS",
+      "staleSaveArchive": "409",
+      "recordAddArchive": "PASS",
+      "blankOccurrence": "NULL",
+      "recordRewrite": "403"
+    },
+    {
+      "module": "heatmap_thresholds",
+      "scope": "CUSTOM",
+      "target": "LOCAL-QA-COMPANY",
+      "draftSaveEditArchive": "PASS",
+      "staleSaveArchive": "409",
+      "recordAddArchive": "PASS",
+      "blankOccurrence": "NULL",
+      "recordRewrite": "403"
+    },
+    {
+      "module": "driver_wallet_entries",
+      "scope": "NATIONAL",
+      "target": "CN",
+      "draftSaveEditArchive": "PASS",
+      "staleSaveArchive": "409",
+      "recordAddArchive": "PASS",
+      "blankOccurrence": "NULL",
+      "recordRewrite": "403"
+    },
+    {
+      "module": "driver_daily_balances",
+      "scope": "REGION",
+      "target": "CENTRAL",
+      "draftSaveEditArchive": "PASS",
+      "staleSaveArchive": "409",
+      "recordAddArchive": "PASS",
+      "blankOccurrence": "NULL",
+      "recordRewrite": "403"
+    },
+    {
+      "module": "qualification_expiry",
+      "scope": "CITY",
+      "target": "420500",
+      "draftSaveEditArchive": "PASS",
+      "staleSaveArchive": "409",
+      "recordAddArchive": "PASS",
+      "blankOccurrence": "NULL",
+      "recordRewrite": "403"
+    },
+    {
+      "module": "taxi_vehicles",
+      "scope": "CUSTOM",
+      "target": "LOCAL-QA-COMPANY",
+      "draftSaveEditArchive": "PASS",
+      "staleSaveArchive": "409",
+      "recordAddArchive": "PASS",
+      "blankOccurrence": "NULL",
+      "recordRewrite": "403"
+    },
+    {
+      "module": "order_splits",
+      "scope": "NATIONAL",
+      "target": "CN",
+      "draftSaveEditArchive": "PASS",
+      "staleSaveArchive": "409",
+      "recordAddArchive": "PASS",
+      "blankOccurrence": "NULL",
+      "recordRewrite": "403"
+    },
+    {
+      "module": "regional_fares",
+      "scope": "REGION",
+      "target": "CENTRAL",
+      "draftSaveEditArchive": "PASS",
+      "staleSaveArchive": "409",
+      "recordAddArchive": "PASS",
+      "blankOccurrence": "NULL",
+      "recordRewrite": "403"
+    },
+    {
+      "module": "company_split_accounts",
+      "scope": "CITY",
+      "target": "420500",
+      "draftSaveEditArchive": "PASS",
+      "staleSaveArchive": "409",
+      "recordAddArchive": "PASS",
+      "blankOccurrence": "NULL",
+      "recordRewrite": "403"
+    },
+    {
+      "module": "company_split_entries",
+      "scope": "CUSTOM",
+      "target": "LOCAL-QA-COMPANY",
+      "draftSaveEditArchive": "PASS",
+      "staleSaveArchive": "409",
+      "recordAddArchive": "PASS",
+      "blankOccurrence": "NULL",
+      "recordRewrite": "403"
+    },
+    {
+      "module": "regional_service_fees",
+      "scope": "NATIONAL",
+      "target": "CN",
+      "draftSaveEditArchive": "PASS",
+      "staleSaveArchive": "409",
+      "recordAddArchive": "PASS",
+      "blankOccurrence": "NULL",
+      "recordRewrite": "403"
+    },
+    {
+      "module": "driver_bid_rules",
+      "scope": "REGION",
+      "target": "CENTRAL",
+      "draftSaveEditArchive": "PASS",
+      "staleSaveArchive": "409",
+      "recordAddArchive": "PASS",
+      "blankOccurrence": "NULL",
+      "recordRewrite": "403"
+    },
+    {
+      "module": "invoice_records",
+      "scope": "CITY",
+      "target": "420500",
+      "draftSaveEditArchive": "PASS",
+      "staleSaveArchive": "409",
+      "recordAddArchive": "PASS",
+      "blankOccurrence": "NULL",
+      "recordRewrite": "403"
+    },
+    {
+      "module": "service_fee_invoices",
+      "scope": "CUSTOM",
+      "target": "LOCAL-QA-COMPANY",
+      "draftSaveEditArchive": "PASS",
+      "staleSaveArchive": "409",
+      "recordAddArchive": "PASS",
+      "blankOccurrence": "NULL",
+      "recordRewrite": "403"
+    },
+    {
+      "module": "invoice_reissues",
+      "scope": "NATIONAL",
+      "target": "CN",
+      "draftSaveEditArchive": "PASS",
+      "staleSaveArchive": "409",
+      "recordAddArchive": "PASS",
+      "blankOccurrence": "NULL",
+      "recordRewrite": "403"
+    },
+    {
+      "module": "service_score_rules",
+      "scope": "REGION",
+      "target": "CENTRAL",
+      "draftSaveEditArchive": "PASS",
+      "staleSaveArchive": "409",
+      "recordAddArchive": "PASS",
+      "blankOccurrence": "NULL",
+      "recordRewrite": "403"
+    },
+    {
+      "module": "service_score_entries",
+      "scope": "CITY",
+      "target": "420500",
+      "draftSaveEditArchive": "PASS",
+      "staleSaveArchive": "409",
+      "recordAddArchive": "PASS",
+      "blankOccurrence": "NULL",
+      "recordRewrite": "403"
+    },
+    {
+      "module": "service_score_statistics",
+      "scope": "CUSTOM",
+      "target": "LOCAL-QA-COMPANY",
+      "draftSaveEditArchive": "PASS",
+      "staleSaveArchive": "409",
+      "recordAddArchive": "PASS",
+      "blankOccurrence": "NULL",
+      "recordRewrite": "403"
+    },
+    {
+      "module": "referral_rules_records",
+      "scope": "NATIONAL",
+      "target": "CN",
+      "draftSaveEditArchive": "PASS",
+      "staleSaveArchive": "409",
+      "recordAddArchive": "PASS",
+      "blankOccurrence": "NULL",
+      "recordRewrite": "403"
+    },
+    {
+      "module": "role_points_rules",
+      "scope": "REGION",
+      "target": "CENTRAL",
+      "draftSaveEditArchive": "PASS",
+      "staleSaveArchive": "409",
+      "recordAddArchive": "PASS",
+      "blankOccurrence": "NULL",
+      "recordRewrite": "403"
+    },
+    {
+      "module": "role_points_entries",
+      "scope": "CITY",
+      "target": "420500",
+      "draftSaveEditArchive": "PASS",
+      "staleSaveArchive": "409",
+      "recordAddArchive": "PASS",
+      "blankOccurrence": "NULL",
+      "recordRewrite": "403"
+    },
+    {
+      "module": "role_points_products",
+      "scope": "CUSTOM",
+      "target": "LOCAL-QA-COMPANY",
+      "draftSaveEditArchive": "PASS",
+      "staleSaveArchive": "409",
+      "recordAddArchive": "PASS",
+      "blankOccurrence": "NULL",
+      "recordRewrite": "403"
+    },
+    {
+      "module": "role_points_redemptions",
+      "scope": "NATIONAL",
+      "target": "CN",
+      "draftSaveEditArchive": "PASS",
+      "staleSaveArchive": "409",
+      "recordAddArchive": "PASS",
+      "blankOccurrence": "NULL",
+      "recordRewrite": "403"
+    },
+    {
+      "module": "points_common_rules",
+      "scope": "REGION",
+      "target": "CENTRAL",
+      "draftSaveEditArchive": "PASS",
+      "staleSaveArchive": "409",
+      "recordAddArchive": "PASS",
+      "blankOccurrence": "NULL",
+      "recordRewrite": "403"
+    },
+    {
+      "module": "coupon_pool",
+      "scope": "CITY",
+      "target": "420500",
+      "draftSaveEditArchive": "PASS",
+      "staleSaveArchive": "409",
+      "recordAddArchive": "PASS",
+      "blankOccurrence": "NULL",
+      "recordRewrite": "403"
+    },
+    {
+      "module": "coupon_creation",
+      "scope": "CUSTOM",
+      "target": "LOCAL-QA-COMPANY",
+      "draftSaveEditArchive": "PASS",
+      "staleSaveArchive": "409",
+      "recordAddArchive": "PASS",
+      "blankOccurrence": "NULL",
+      "recordRewrite": "403"
+    },
+    {
+      "module": "registration_campaigns",
+      "scope": "NATIONAL",
+      "target": "CN",
+      "draftSaveEditArchive": "PASS",
+      "staleSaveArchive": "409",
+      "recordAddArchive": "PASS",
+      "blankOccurrence": "NULL",
+      "recordRewrite": "403"
+    },
+    {
+      "module": "phone_booking",
+      "scope": "REGION",
+      "target": "CENTRAL",
+      "draftSaveEditArchive": "PASS",
+      "staleSaveArchive": "409",
+      "recordAddArchive": "PASS",
+      "blankOccurrence": "NULL",
+      "recordRewrite": "403"
+    },
+    {
+      "module": "proxy_booking",
+      "scope": "CITY",
+      "target": "420500",
+      "draftSaveEditArchive": "PASS",
+      "staleSaveArchive": "409",
+      "recordAddArchive": "PASS",
+      "blankOccurrence": "NULL",
+      "recordRewrite": "403"
+    },
+    {
+      "module": "map_places",
+      "scope": "CUSTOM",
+      "target": "LOCAL-QA-COMPANY",
+      "draftSaveEditArchive": "PASS",
+      "staleSaveArchive": "409",
+      "recordAddArchive": "PASS",
+      "blankOccurrence": "NULL",
+      "recordRewrite": "403"
+    }
+  ],
+  "readonlyWrite": "403",
+  "cloudWrites": 0,
+  "result": "PASS"
+}

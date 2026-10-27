@@ -1,21 +1,12 @@
-# backend 当前交接卡
-协议ACK: 2026-10-26-v3；角色backend；threadId: 01a168e2-22f7-70a2-af7f-4fb6be0ea695。
-updatedAt: 2026-10-26T09:06:17+08:00；当前任务AUTH-20261026-02（限定8分钟）。
-memoryStatus: HANDOFF_RECOMMENDED；contextUsedPercent: null；measurementSource: not_exposed；占比UNKNOWN。有可见压缩摘要且跨多阶段，下一大后端任务建议新对话；本轮仅已授权限定入口修订。无自动新建/常驻。
+# backend 当前短卡
+ACK2026-10-26-v3；真实threadId01a17ccb-1aa7-7773-a300-46743666876d；2026-10-27 23:48+08。memory NORMAL，实际上下文UNKNOWN。唯一coordinator01a17cc7-e0a2-7791-bf1d-4611c09bab22；中央控制文件仅其写。已按START_HERE恢复并门禁PASS。
 
-中央START_HERE/STATE/BOARD/SESSION优先，工作树快照不反向覆盖中央。coordinator唯一派单/登记/合并/部署；作者不验收自己。MEM v3/ACK已就绪，PR25合并f565e709cf8bd9e5cd348c5a5bd8a33f5282443c，真实会话前置PASS。
+当前RELTEST-20261027-01限定非作者合并复核完成：指定集成35aa7bbf3d68d458270e26818f75132c15b77536，实际测试54e6d3134db821a01554f2d0ed5aefecc381a632（后端全字节与35aa相同，仅版本/协调文档不同），集成树/Users/dongge/.codex/tmp/yijiexing-pm-amap-20261027。只读产品，仅写release-test证据及此短卡。结论PASS_SCOPE_TEST_RELEASE，可交用户独立体验；不是三端全部业务完成。
 
-唯一共享业务源：/Users/dongge/.codex/tmp/yijiexing-trip-api-20261025/apps/cloud-service；branch codex/trip-distance-api-20261025；HEAD09be29e519bac864799f4ac752fff811f9e1dbf0，产品8ec8419d30955c216d7e4fe90451584d2a9622cf。PR22合并275ea3eb251998a7e54399a3e0b0d280dde1a554，live driver-demo-distance-8ec8419d100%。本轮只读该源、未修改；旧api树/services/backend/release/frozen不是写源。其未提交STATE/BOARD/旧任务快照属root，保留不动。
+13项本地临时HTTP/SQLite/CAS回归PASS3.282s：预约不阻即时、双角色真实并发只一段执行、欠款挡预约、canonical取消后无误阻、尾号阶段/旧缓存改派、金额付款退款幂等、合成Key角色鉴权/DB不存、历史补目的地、新无终点拒绝、PMAD草稿及记录不改账。测试前后后端hash一致。证据evidence/PM-20261027-01/release-test-20261027/BACKEND-RELEASE-REVIEW.md及backend-results.json、backend-source-binding.json、backend-merge-regression.log。未重跑208。
 
-AUTH唯一入口树：/Users/dongge/.codex/tmp/yijiexing-admin-password-20261026；branch codex/admin-password-only-20261026；HEAD/base f565e709cf8bd9e5cd348c5a5bd8a33f5282443c。backend仅修改apps/admin-console/backend/iap_browser.py、test_iap_browser.py，未提交，固定文件hash见该树coordination/evidence/AUTH-20261026-02/backend-review/results.json。Web/ops/README及协调文件另有root改动，勿覆盖或暂存。
+PMAD ea41和PMDEST018是本角色作者；其实现非作者验收复用coordinator6/4组PASS，本次只验证合并兼容、不作者自验收。此前本角色非作者PMBE5667940e/预约bda490a0/MAP364078b4范围证据仍在PM/backend-review；源同字节详见绑定JSON。
 
-用户最新明确授权：driver-admin仅账号密码，取代该服务旧IAP保留规则；driver-demo/业务数据和其他保护不扩大。显式ADMIN_AUTH_MODE=PASSWORD跳过外层IAP身份校验，默认IAP严格、未知模式503/启动拒绝；不是客户端header选模式。route白名单/v2服务secret/Origin/Sec-Fetch/console session/RBAC/审计/失败限流全部保留。
+限制：高德POI1008/地图10008仍失败，真实SDK公共点校准NOT_RUN，不阻无关功能测试；WX缺AppID，声音/OEM/部分GUI待验。PMAD32类仅草稿/人工记录不生效/不代表真实到账。线上旧35单此次未访问或修改，实际部署前后指纹NOT_RUN由root读回；构建签名下载/IAM/部署回读由root唯一负责。本角色无Key私有文件读取/SDK调用/ADB/Chrome/云端部署；本地测试服务器均退出，无新云单。
 
-实际测试：18 HTTP/SQLite/MemoryCAS PASS（原IAP9+默认严格1+PASSWORD8），协调者提供的现有测试库1.732s；无/伪造session、正确登录退出、5次错误后锁定、viewer拒写、跨站、legacy404、未知模式均测。命令/日志/源码hash在AUTH backend-review。shared8ec源git diff未变；中央memory-role+真实session-id前置PASS，diffcheck PASS。208/75未重复。无作者失败；root非作者审核、浏览器、构建/发布回读NOT_RUN，待合并SHA由root统一提交后给出，禁止本角色单独commit/发布。
-
-已发布历史：Web2863623中文P2差量关闭；live driver-admin-trip-2863623f；域名demo-admin.hbzjhs.xyz此前TLS/302/Google入口及DomainMapping三True PASS_SCOPE，root另有Google/admin签入回读。该历史不代表AUTH已上线：当前去中央STATE确认，勿重部署旧镜像。TRIP/REL/NET证据保留原集成树；AUTH本轮未动云配置。
-
-业务边界：欠款阻乘客新叫车、不阻司机他人单；接送各300m/50..5000继承，位置120s/精度100m仅免确认资格、非防伪GPS，确认180s/幂等；共享议价预付走PICKUP。钱仍模拟。仅独立GCP/min0max1请求计费，无保活/自动暂停；禁止原生产/测试。
-
-未完成：微信AppID与QA模拟器overlay读回异常仍等后续明确任务；真实支付/短信/厂商推送/强杀常驻等未接未证实；Web精确1366/大区发布/本人非空历史/a11y仍原NOT_RUN范围。旧券积分任务不擅自恢复。
-资源：本角色无ADB/Chrome/部署/其他agent占用；测试进程已结束。下一动作：root按AUTH用户新授权做独立复核、统一提交构建部署和回读；本角色不再扩范围，等待具体缺陷单。下一大任务先按MEM建议换角色会话。
+另PMPOST作者成果仍在唯一后端写树/Users/dongge/.codex/tmp/yijiexing-admin-drafts-20261027，branch codex/pm-trip-presentations-20261027，clean HEAD83c7c2a8c3e7cda54f3539e77f11ca6e72cdaab4。68相关作者测试PASS，真实排行/接驾估算/登记电话合同和报告在PM/trip-presentations。未独立验收、未集成，明确不在本次发布。当前本角色IDLE，等待root发布安排，不自行合并部署/唤醒代理。

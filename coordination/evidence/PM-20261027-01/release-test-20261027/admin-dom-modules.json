@@ -1,0 +1,134 @@
+{
+  "sourceSha": "48d2ef409248bec3b6833b77570650a21d7b260d",
+  "modules": [
+    {
+      "module": "announcements",
+      "renderSavedDraftAndRecord": "PASS"
+    },
+    {
+      "module": "company_support",
+      "renderSavedDraftAndRecord": "PASS"
+    },
+    {
+      "module": "passenger_features",
+      "renderSavedDraftAndRecord": "PASS"
+    },
+    {
+      "module": "heatmap_thresholds",
+      "renderSavedDraftAndRecord": "PASS"
+    },
+    {
+      "module": "driver_wallet_entries",
+      "renderSavedDraftAndRecord": "PASS"
+    },
+    {
+      "module": "driver_daily_balances",
+      "renderSavedDraftAndRecord": "PASS"
+    },
+    {
+      "module": "qualification_expiry",
+      "renderSavedDraftAndRecord": "PASS"
+    },
+    {
+      "module": "taxi_vehicles",
+      "renderSavedDraftAndRecord": "PASS"
+    },
+    {
+      "module": "order_splits",
+      "renderSavedDraftAndRecord": "PASS"
+    },
+    {
+      "module": "regional_fares",
+      "renderSavedDraftAndRecord": "PASS"
+    },
+    {
+      "module": "company_split_accounts",
+      "renderSavedDraftAndRecord": "PASS"
+    },
+    {
+      "module": "company_split_entries",
+      "renderSavedDraftAndRecord": "PASS"
+    },
+    {
+      "module": "regional_service_fees",
+      "renderSavedDraftAndRecord": "PASS"
+    },
+    {
+      "module": "driver_bid_rules",
+      "renderSavedDraftAndRecord": "PASS"
+    },
+    {
+      "module": "invoice_records",
+      "renderSavedDraftAndRecord": "PASS"
+    },
+    {
+      "module": "service_fee_invoices",
+      "renderSavedDraftAndRecord": "PASS"
+    },
+    {
+      "module": "invoice_reissues",
+      "renderSavedDraftAndRecord": "PASS"
+    },
+    {
+      "module": "service_score_rules",
+      "renderSavedDraftAndRecord": "PASS"
+    },
+    {
+      "module": "service_score_entries",
+      "renderSavedDraftAndRecord": "PASS"
+    },
+    {
+      "module": "service_score_statistics",
+      "renderSavedDraftAndRecord": "PASS"
+    },
+    {
+      "module": "referral_rules_records",
+      "renderSavedDraftAndRecord": "PASS"
+    },
+    {
+      "module": "role_points_rules",
+      "renderSavedDraftAndRecord": "PASS"
+    },
+    {
+      "module": "role_points_entries",
+      "renderSavedDraftAndRecord": "PASS"
+    },
+    {
+      "module": "role_points_products",
+      "renderSavedDraftAndRecord": "PASS"
+    },
+    {
+      "module": "role_points_redemptions",
+      "renderSavedDraftAndRecord": "PASS"
+    },
+    {
+      "module": "points_common_rules",
+      "renderSavedDraftAndRecord": "PASS"
+    },
+    {
+      "module": "coupon_pool",
+      "renderSavedDraftAndRecord": "PASS"
+    },
+    {
+      "module": "coupon_creation",
+      "renderSavedDraftAndRecord": "PASS"
+    },
+    {
+      "module": "registration_campaigns",
+      "renderSavedDraftAndRecord": "PASS"
+    },
+    {
+      "module": "phone_booking",
+      "renderSavedDraftAndRecord": "PASS"
+    },
+    {
+      "module": "proxy_booking",
+      "renderSavedDraftAndRecord": "PASS"
+    },
+    {
+      "module": "map_places",
+      "renderSavedDraftAndRecord": "PASS"
+    }
+  ],
+  "readonlyAddButtonsDisabled": true
+}

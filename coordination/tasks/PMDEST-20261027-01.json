@@ -21,7 +21,7 @@
     "注入合法历史待补目的地单仍可order.update补齐/原流程完成",
     "能力声明不再推荐无终点新单；旧表/旧35笔不改"
   ],
-  "status": "SCOPED_ACCEPTED_NOT_RELEASED",
+  "status": "SCOPED_RELEASED_FOR_USER_ACCEPTANCE",
   "acceptance": "PASS",
   "tests": [
     {
@@ -53,16 +53,18 @@
     "coordination/evidence/PM-20261027-01/frontend-review/PMDEST-REVIEW.md",
     "coordination/evidence/PM-20261027-01/frontend-review/PMDEST-REVIEW.json"
   ],
-  "nextAction": "代码限定验收完成；与父PM任务统一安排合并和发布，当前SDK鉴权仍阻塞，不宣称线上已取消",
+  "nextAction": "本次范围已发布，收用户验收反馈；整体未完成项见父任务",
   "deploy_owner": "coordinator",
   "releaseReady": false,
   "notes": {
-    "legacyTestUpdate": "仅将test_no_destination_pickup_requires_completion_and_confirms_price新建无终点前置改显式历史fixture，保留历史补齐/金额确认断言，不skip"
+    "legacyTestUpdate": "仅将test_no_destination_pickup_requires_completion_and_confirms_price新建无终点前置改显式历史fixture，保留历史补齐/金额确认断言，不skip",
+    "experienceReleaseSha": "1d04ff7ce64779fe9f9122513dd651f305093b79",
+    "receipt": "https://github.com/Dadong520/yijiexing/pull/28"
   },
   "candidateSha": "0df8b187ac2f68c52fa6d17db846fbb8854b4eda",
   "backendAuthorSha": "018ca49d7c3b8c7230e6541754729e1a0178ec37",
   "backendIntegratedSha": "e01a040176e6608041b0a32455a8493ea4633ff5",
-  "updatedAt": "2026-10-27T23:14:05.364347+08:00",
+  "updatedAt": "2026-10-28T00:36:21.805537+08:00",
   "acceptedSha": "0df8b187ac2f68c52fa6d17db846fbb8854b4eda",
   "acceptanceScope": "backend new-order rejection plus client entry/legacy flow only; actual Android/WeChat GUI and public release NOT_RUN"
 }

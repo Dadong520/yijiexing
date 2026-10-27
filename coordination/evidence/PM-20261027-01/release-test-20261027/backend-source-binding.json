@@ -1,0 +1,45 @@
+{
+  "sha": "35aa7bbf3d68d458270e26818f75132c15b77536",
+  "comparisons": [
+    {
+      "path": "apps/cloud-service/domain.py",
+      "reusedSource": "4a7ca46",
+      "identical": true
+    },
+    {
+      "path": "apps/cloud-service/negotiation.py",
+      "reusedSource": "4a7ca46",
+      "identical": true
+    },
+    {
+      "path": "apps/cloud-service/trip_distance.py",
+      "reusedSource": "4a7ca46",
+      "identical": true
+    },
+    {
+      "path": "apps/cloud-service/server.py",
+      "reusedSource": "4a7ca46",
+      "identical": true
+    },
+    {
+      "path": "apps/cloud-service/passenger.py",
+      "reusedSource": "018ca49",
+      "identical": true
+    },
+    {
+      "path": "apps/cloud-service/admin_console.py",
+      "reusedSource": "018ca49",
+      "identical": true
+    },
+    {
+      "path": "apps/cloud-service/operations_drafts.py",
+      "reusedSource": "018ca49",
+      "identical": true
+    }
+  ],
+  "pmPostTripPresentationsAbsent": true,
+  "currentDiffNames": "",
+  "note": "Equality reuses previously independently reviewed rules; PMAD/PMDEST were accepted by coordinator, this reviewer authored those changes. No production or preview API/DB accessed.",
+  "testedVersionSha": "54e6d3134db821a01554f2d0ed5aefecc381a632",
+  "versionShaBackendIdenticalToBase": true
+}
