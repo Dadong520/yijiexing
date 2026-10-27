@@ -100,13 +100,14 @@ class PassengerMixin(TripDistanceMixin,NegotiationMixin,PassengerOrderOptionsMix
             fare=ref.get('fare')
             refund=ref.get('refundAmount',0)
             valid_amounts=type(fare) is int and fare>=0 and type(refund) is int and refund>=0
+            valid_flags=type(ref.get('credited',False)) is bool and type(ref.get('paid',False)) is bool
             cur_refund=bool(ref.get('paymentStatus')=='REFUNDED' or (type(refund) is int and refund>0))
             credited=bool(ref.get('credited'))
             paid=bool(ref.get('paid'))
             stage=ref.get('stage')
             if canonical and canonical.get('driverId') and not assigned:
                 status,label,net='CLOSED_NO_INCOME','未计入当前司机收入',0
-            elif not valid_amounts:
+            elif not valid_amounts or not valid_flags:
                 status,label,net='UNKNOWN','入账状态待核对',0
             elif cur_refund and credited:
                 status,label,net='REVERSED','已退款冲回',0
