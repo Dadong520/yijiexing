@@ -242,13 +242,12 @@ class PassengerMixin(TripDistanceMixin,NegotiationMixin,PassengerOrderOptionsMix
     def validate_point(self,lat,lng):
         require(type(lat) in (int,float) and math.isfinite(lat) and -90<=lat<=90 and type(lng) in (int,float) and math.isfinite(lng) and -180<=lng<=180,'地图坐标无效')
     def passenger_create_order(self,pid,p):
+        destination_pending=p.get('destinationPending',False);require(isinstance(destination_pending,bool),'无终点标记无效')
+        require(not destination_pending,'请先选择目的地后再叫车')
         profile=self.passenger_profile(pid)
         rider=self.passenger_rider(pid,p['riderId']) if p.get('riderId') else {'id':None,'name':profile['name'],'mobile':profile['mobile']}
         self.require_passenger_trip_available(pid)
         kind=p.get('kind','STANDARD');require(kind in ('STANDARD','RESERVED','BID'),'乘客订单类型无效')
-        destination_pending=p.get('destinationPending',False);require(isinstance(destination_pending,bool),'无终点标记无效')
-        require(not destination_pending or kind=='STANDARD','仅即时订单支持暂不填写目的地')
-        if destination_pending:p={**p,'destination':'待补充目的地','destinationLat':p.get('originLat'),'destinationLng':p.get('originLng')}
         origin=textfield(p.get('origin'),'上车点',2,100);dest=textfield(p.get('destination'),'目的地',2,100)
         require(origin.casefold()!=dest.casefold(),'上车点和目的地不能相同')
         for prefix in ('origin','destination'):self.validate_point(p.get(prefix+'Lat'),p.get(prefix+'Lng'))
