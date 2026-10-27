@@ -68,6 +68,7 @@ class NegotiationMixin:
             require(not o.get('shared') and self.shared_order(oid) is None,'此订单已被其他乘客认领',409)
             require(o['kind']=='NEGOTIATED' and o['stage']=='PREPAY' and not o['paid'],'此议价订单已结束或不可配对',409)
             self.require_negotiation_driver(driver,st,oid)
+            self.assert_no_trip_conflict(driver_id=driver,passenger_id=pid,exclude_order_id=oid)
             require(self.passenger_driver_allowed(pid,driver),'你已屏蔽此司机，不能配对',403)
             profile=self.passenger_profile(pid)
             require(not any(b['phoneTail']==profile['mobile'][-4:] for b in json.loads(a['profile'])['blacklist']),'此司机不可与当前乘客配对',403)

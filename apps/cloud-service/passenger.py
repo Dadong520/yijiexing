@@ -56,11 +56,28 @@ class PassengerMixin(TripDistanceMixin,NegotiationMixin,PassengerOrderOptionsMix
         require(isinstance(oid,str) and 1<=len(oid)<=120,'订单编号无效')
         row=self.db.execute('SELECT payload FROM passenger_orders WHERE id=? AND passenger=?',(oid,pid)).fetchone()
         require(row is not None,'订单不存在或不属于当前乘客',404);return json.loads(row['payload'])
+    def assert_no_trip_conflict(self,driver_id=None,passenger_id=None,exclude_order_id=None):
+        if passenger_id:
+            for r in self.db.execute('SELECT payload FROM passenger_orders WHERE passenger=?',(passenger_id,)):
+                po=json.loads(r['payload'])
+                if exclude_order_id and po.get('id')==exclude_order_id:continue
+                if po.get('kind')=='RESERVED' and po.get('stage') in ('AVAILABLE','RESERVED'):continue
+                if po.get('stage') in ('BID_SENT','PREPAY','PICKUP','ARRIVED','TRIP','WAIT_CONTINUE') or (po.get('kind')!='RESERVED' and po.get('stage')=='AVAILABLE'):
+                    raise ApiError(409,'您/司机/乘客有另一段行程，请先完成')
+        if driver_id:
+            a=self.account(driver_id)
+            dst=json.loads(a['state']) if a else {}
+            for do in dst.get('orders',[]):
+                if exclude_order_id and do.get('id')==exclude_order_id:continue
+                if do.get('kind')=='RESERVED' and do.get('stage') in ('AVAILABLE','RESERVED'):continue
+                if do.get('stage') in ('BID_SENT','PREPAY','PICKUP','ARRIVED','TRIP'):
+                    raise ApiError(409,'您/司机/乘客有另一段行程，请先完成')
+
     def require_passenger_trip_available(self,pid):
         orders=[json.loads(r['payload']) for r in self.db.execute('SELECT payload FROM passenger_orders WHERE passenger=?',(pid,))]
         require(not any(o['stage']=='WAIT_PAY' and not o.get('paid') for o in orders),
             '请先支付已结束行程的欠款后再叫车',409,{'reason':'PASSENGER_OUTSTANDING_PAYMENT'})
-        require(not any(o['stage'] in UNFINISHED for o in orders),'请先完成或取消当前订单',409)
+        require(not any(o['stage'] in UNFINISHED and not (o.get('kind')=='RESERVED' and o.get('stage') in ('AVAILABLE','RESERVED')) for o in orders),'请先完成或取消当前订单',409)
     def order_fare_version(self,o):
         return o.get('fareVersion',0)
     def validate_fare_confirmation(self,o,p):
@@ -162,7 +179,8 @@ class PassengerMixin(TripDistanceMixin,NegotiationMixin,PassengerOrderOptionsMix
     def passenger_data(self,pid):
         self.expire_passenger_bids()
         profile=self.passenger_profile(pid)
-        orders=[self.passenger_view(json.loads(r['payload'])) for r in self.db.execute('SELECT payload FROM passenger_orders WHERE passenger=? ORDER BY created DESC,rowid DESC',(pid,))]
+        raw_orders=[self.passenger_view(json.loads(r['payload'])) for r in self.db.execute('SELECT payload FROM passenger_orders WHERE passenger=? ORDER BY created DESC,rowid DESC',(pid,))]
+        orders=sorted(raw_orders,key=lambda o: 0 if o.get('stage') in ('PICKUP','ARRIVED','TRIP','PREPAY','BID_SENT') else (1 if o.get('kind')=='RESERVED' and o.get('stage') in ('AVAILABLE','RESERVED') else 2))
         historical=[];seen=set()
         for o in orders:
             for prefix in ('origin','destination'):
@@ -273,8 +291,9 @@ class PassengerMixin(TripDistanceMixin,NegotiationMixin,PassengerOrderOptionsMix
                 bid=next((b for b in o['bids'] if b['driverId']==p.get('driverId')),None);require(bid is not None,'此司机尚未报价',409)
                 driver=bid['driverId'];require(self.passenger_driver_allowed(pid,driver),'此司机已被屏蔽',403);st=self.sync_shared_orders(driver);projection=self.order(st,o['id'])
                 # Other offers cannot consume this driver's availability after selection.
-                require(not any(x['stage'] in ('PREPAY','RESERVED','PICKUP','ARRIVED','TRIP') and x['id']!=o['id'] for x in st['orders']),'司机已有其他进行中订单',409)
+                require(not any(x['stage'] in ('PREPAY','RESERVED','PICKUP','ARRIVED','TRIP') and not (x.get('kind')=='RESERVED' and x.get('stage') in ('AVAILABLE','RESERVED')) and x['id']!=o['id'] for x in st['orders']),'司机已有其他进行中订单',409)
                 require(st['online'],'司机已下线，请重新选择',409)
+                self.assert_no_trip_conflict(driver_id=driver,passenger_id=pid,exclude_order_id=o['id'])
                 eligibility_state={**st,'orders':[x for x in st['orders'] if x['id']!=o['id']]}
                 self.new_accept(driver,eligibility_state,{**o,'stage':'AVAILABLE'},'bidding')
                 o.update(driverId=driver,fare=bid['amount'],stage='PREPAY');st['todayAccepted']+=1;self.save_state(driver,st)
@@ -286,6 +305,8 @@ class PassengerMixin(TripDistanceMixin,NegotiationMixin,PassengerOrderOptionsMix
                 require(o['stage'] in ('PREPAY','WAIT_PAY'),'当前订单不能支付',409)
                 o['paymentStatus']={'SUCCESS':'SUCCESS','FAILED':'FAILED','PENDING':'PROCESSING','CANCEL':'CANCELLED'}[outcome]
                 if outcome=='SUCCESS':
+                    if o['stage']=='PREPAY':
+                        self.assert_no_trip_conflict(driver_id=o.get('driverId'),passenger_id=pid,exclude_order_id=o['id'])
                     o['paid']=True;o['paidAt']=stamp();o['stage']='PICKUP' if o['stage']=='PREPAY' else 'DONE'
                     if o['kind']=='NEGOTIATED':o.update(negotiationStatus='ACCEPTED',fareConfirmed=True,fareConfirmedAt=stamp())
                     self.shared_credit(o)
@@ -367,7 +388,10 @@ class PassengerMixin(TripDistanceMixin,NegotiationMixin,PassengerOrderOptionsMix
                 require(o['kind']=='BID','仅竞价订单可以报价');amount=cents(p.get('amount'),'报价')
                 info=self.driver_public(driver);o['bids'].append({'driverId':driver,'name':info['name'],'plate':info['plate'],'vehicleModel':info['vehicleModel'],'amount':amount,'createdAt':stamp()})
             else:
-                require(o['kind']!='BID','竞价订单请报价');o['driverId']=driver;o['stage']='RESERVED' if o['kind']=='RESERVED' else 'PICKUP';st['todayAccepted']+=1
+                require(o['kind']!='BID','竞价订单请报价')
+                if o['kind']!='RESERVED':
+                    self.assert_no_trip_conflict(driver_id=driver,passenger_id=o.get('passengerId'),exclude_order_id=o['id'])
+                o['driverId']=driver;o['stage']='RESERVED' if o['kind']=='RESERVED' else 'PICKUP';st['todayAccepted']+=1
         else:
             require(o.get('driverId')==driver or (action=='order.cancel' and any(b['driverId']==driver for b in o['bids'])),'此订单不属于当前司机',403)
             if action=='order.advance':
@@ -376,6 +400,8 @@ class PassengerMixin(TripDistanceMixin,NegotiationMixin,PassengerOrderOptionsMix
                     require(not o.get('destinationPending'),'请等待乘客补充目的地后再开始行程',409)
                     require(str(p.get('phoneTail',''))==o['phoneTail'],'乘客手机尾号不正确')
                 if stage=='TRIP':require(len(o['arrivedWaypoints'])==len(o['waypoints']),'请先确认全部途经点',409)
+                if stage=='RESERVED':
+                    self.assert_no_trip_conflict(driver_id=driver,passenger_id=o.get('passengerId'),exclude_order_id=o['id'])
                 self.gate_shared_advance(o,p)
             elif action=='order.waypoint':
                 require(o['stage']=='TRIP','仅行程中可确认途经点',409);i=p.get('index');require(type(i) is int and 0<=i<len(o['waypoints']),'途经点序号无效')

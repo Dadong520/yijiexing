@@ -87,7 +87,7 @@ class Service(PassengerMixin,BenefitsMixin,AdminMixin):
         profile['ranking']['completed']=st['todayCompleted']
         features=self.features(driver)
         if not features['canRanking']:profile['ranking']={'period':'体验结束或未开放','myRank':None,'completed':None,'entries':[],'restricted':True}
-        st['orders']=[self.project_driver_order(driver,o) for o in st.get('orders',[])]
+        st['orders']=sorted([self.project_driver_order(driver,o) for o in st.get('orders',[])],key=lambda o: 0 if o.get('stage') in ('PICKUP','ARRIVED','TRIP','PREPAY','BID_SENT') else (1 if o.get('kind')=='RESERVED' and o.get('stage') in ('AVAILABLE','RESERVED') else 2))
         return {'state':st,'profile':profile,'benefits':cat,'features':features,'tripDistanceRules':self.trip_distance_rules(cat['city']['id']),'serverTime':stamp(),'environment':{'name':'云端演示隔离沙箱','sandbox':True,'originalSpringBackend':False,'persistence':'SQLite','network':'Google Cloud独立演示服务，不连接原测试环境'}}
     def order(self,st,oid):
         o=next((o for o in st['orders'] if o['id']==oid),None);require(o is not None,'订单不存在',404);return o
@@ -109,11 +109,15 @@ class Service(PassengerMixin,BenefitsMixin,AdminMixin):
             require(p['expectedStage']==o['stage'],'订单状态已变化，请刷新后重新确认操作',409,{'reason':'ORDER_STAGE_STALE'})
     def require_negotiation_driver(self,driver,st,order_id=None):
         self.check_right(driver,'offlineNegotiation');require(st['online'],'请先上线',409)
-        require(not any(o['stage'] in ACTIVE and o['id']!=order_id for o in st['orders']),'请先完成当前订单',409)
+        require(not any(o['stage'] in ACTIVE and not (o.get('kind')=='RESERVED' and o.get('stage') in ('AVAILABLE','RESERVED')) and o['id']!=order_id for o in st['orders']),'请先完成当前订单',409)
         self.require_driver_certified(driver)
+
+
     def new_accept(self,driver,st,o,key):
-        require(st['online'],'请先上线听单',409);require(not any(o['stage'] in ACTIVE for o in st['orders']),'请先完成进行中订单',409)
+        require(st['online'],'请先上线听单',409);require(not any(x['stage'] in ACTIVE and not (x.get('kind')=='RESERVED' and x.get('stage') in ('AVAILABLE','RESERVED')) for x in st['orders']),'请先完成进行中订单',409)
         require(o['stage']=='AVAILABLE','订单已被处理，请刷新',409)
+        pid=o.get('passengerId') or o.get('passenger')
+        if pid and o.get('kind')!='RESERVED':self.assert_no_trip_conflict(passenger_id=pid,exclude_order_id=o.get('id'))
         catalog=self.check_right(driver,key,o.get('city'))
         level=catalog['subscription']['rightsSnapshot'] if catalog['subscription'] else next(l for l in catalog['levels'] if l['id']=='TRIAL')
         rights={r['key']:r['enabled'] for r in level['rights']}
@@ -230,11 +234,12 @@ class Service(PassengerMixin,BenefitsMixin,AdminMixin):
             result={'order':o}
         elif action=='order.selectBid':
             require(sandbox_actor,'乘客选择请在云端演示沙箱控制台触发，司机不能代替乘客选择',403)
-            o=self.order(st,p.get('id'));require(o['stage']=='BID_SENT','订单不在待选择状态',409);o['stage']='PREPAY';st['todayAccepted']+=1;result={'order':o,'sandbox':True}
+            o=self.order(st,p.get('id'));require(o['stage']=='BID_SENT','订单不在待选择状态',409);self.assert_no_trip_conflict(driver_id=driver,exclude_order_id=o['id']);o['stage']='PREPAY';st['todayAccepted']+=1;result={'order':o,'sandbox':True}
         elif action=='order.advance':
             o=self.order(st,p.get('id'));self.validate_advance_stage(o,p);stage=o['stage'];require(stage in ('RESERVED','PICKUP','ARRIVED','TRIP'),'当前订单无法推进',409)
             if stage=='ARRIVED':require(str(p.get('phoneTail',''))==o['phoneTail'],'乘客手机尾号不正确')
             if stage=='TRIP':require(len(o.get('arrivedWaypoints',[]))>=len(o.get('waypoints',[])),'请先确认所有途经点')
+            if stage=='RESERVED':self.assert_no_trip_conflict(driver_id=driver,exclude_order_id=o['id'])
             o['stage']={'RESERVED':'PICKUP','PICKUP':'ARRIVED','ARRIVED':'TRIP','TRIP':('DONE' if o['paid'] else 'WAIT_PAY')}[stage];o['updatedAt']=stamp();self.credit(driver,st,o);result={'order':o}
         elif action=='order.waypoint':
             o=self.order(st,p.get('id'));require(o['stage']=='TRIP','仅行程中可到达途经点');idx=p.get('index');require(type(idx) is int and 0<=idx<len(o.get('waypoints',[])),'途经点无效')
@@ -246,7 +251,9 @@ class Service(PassengerMixin,BenefitsMixin,AdminMixin):
             if o['paid']:result={'order':o,'idempotent':True}
             else:
                 require(o['stage'] in ('PREPAY','WAIT_PAY'),'当前订单不能支付',409);o['paymentStatus']={'SUCCESS':'SUCCESS','FAILED':'FAILED','CANCEL':'CANCELLED','PENDING':'PROCESSING'}[outcome]
-                if outcome=='SUCCESS':o['paid']=True;o['stage']=('TRIP' if o['kind']=='NEGOTIATED' else 'PICKUP') if o['stage']=='PREPAY' else 'DONE';self.credit(driver,st,o)
+                if outcome=='SUCCESS':
+                    if o['stage']=='PREPAY':self.assert_no_trip_conflict(driver_id=driver,exclude_order_id=o['id'])
+                    o['paid']=True;o['stage']=('TRIP' if o['kind']=='NEGOTIATED' else 'PICKUP') if o['stage']=='PREPAY' else 'DONE';self.credit(driver,st,o)
                 result={'order':o,'sandbox':True}
         elif action=='order.cancel':
             o=self.order(st,p.get('id'));require(o['stage'] in ('AVAILABLE','BID_SENT','RESERVED','PICKUP','ARRIVED','PREPAY'),'当前订单不能取消',409);o['cancelReason']=textfield(p.get('reason','司机取消'),'取消原因',2,200)
