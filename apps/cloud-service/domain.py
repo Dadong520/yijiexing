@@ -87,6 +87,7 @@ class Service(PassengerMixin,BenefitsMixin,AdminMixin):
         profile['ranking']['completed']=st['todayCompleted']
         features=self.features(driver)
         if not features['canRanking']:profile['ranking']={'period':'体验结束或未开放','myRank':None,'completed':None,'entries':[],'restricted':True}
+        st['orders']=[self.project_driver_order(driver,o) for o in st.get('orders',[])]
         return {'state':st,'profile':profile,'benefits':cat,'features':features,'tripDistanceRules':self.trip_distance_rules(cat['city']['id']),'serverTime':stamp(),'environment':{'name':'云端演示隔离沙箱','sandbox':True,'originalSpringBackend':False,'persistence':'SQLite','network':'Google Cloud独立演示服务，不连接原测试环境'}}
     def order(self,st,oid):
         o=next((o for o in st['orders'] if o['id']==oid),None);require(o is not None,'订单不存在',404);return o
@@ -204,7 +205,7 @@ class Service(PassengerMixin,BenefitsMixin,AdminMixin):
         if request_id:
             req=self.db.execute('SELECT * FROM actions WHERE driver=? AND request_id=?',(driver,request_id)).fetchone()
             if req:
-                require(req['request_hash']==fingerprint,'请求标识被其他操作占用',409);return self.driver_result_view(json.loads(req['result']))
+                require(req['request_hash']==fingerprint,'请求标识被其他操作占用',409);return self.driver_result_view(driver,json.loads(req['result']))
         a=self.account(driver);st=json.loads(a['state']);profile=json.loads(a['profile']);result={}
         if action.startswith('benefits.'):
             handlers={'benefits.orders':self.create_member_order,'benefits.pay':self.pay_member,'benefits.renewal':self.renewal,'benefits.invoices':self.invoice}
@@ -340,7 +341,7 @@ class Service(PassengerMixin,BenefitsMixin,AdminMixin):
         self.save_state(driver,st);self.save_profile(driver,profile)
         if request_id:self.db.execute('INSERT INTO actions VALUES (?,?,?,?)',(driver,request_id,fingerprint,dumps(result)))
         if action!='location.report':self.audit('SANDBOX_PROVIDER' if sandbox_actor else 'DRIVER:'+driver,action,None,{'id':p.get('id'),'resultIds':[v.get('id') for v in result.values() if isinstance(v,dict)]})
-        return result
+        return self.driver_result_view(driver,result)
     def route(self,driver,oid):
         self.sync_shared_orders(driver)
         st=json.loads(self.account(driver)['state']);o=self.order(st,oid);a=[o['originLng'],o['originLat']];b=[o['destinationLng'],o['destinationLat']]

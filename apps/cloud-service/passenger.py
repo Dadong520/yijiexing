@@ -73,15 +73,63 @@ class PassengerMixin(TripDistanceMixin,NegotiationMixin,PassengerOrderOptionsMix
         require(type(p['expectedFare']) is int and p['expectedFare']>=0 and type(p['fareVersion']) is int and p['fareVersion']>=0,'确认金额和费用版本须为非负整数')
         require(p['expectedFare']==o['fare'] and p['fareVersion']==self.order_fare_version(o),
             '订单费用或版本已变化，请刷新并重新确认',409,{'reason':'FARE_CONFIRMATION_STALE'})
-    def driver_result_view(self,result):
+    def project_driver_order(self,driver,order):
+        if not isinstance(order,dict):return order
+        o=clone(order)
+        oid=o.get('id')
+        is_shared=bool(o.get('shared') or (oid and self.shared_order(oid)))
+        canonical=self.shared_order(oid) if (oid and is_shared) else None
+        if is_shared:
+            o=self.trip_order_view(o)
+            for key in ('passengerId','bids','complaints'):o.pop(key,None)
+            o.setdefault('fareVersion',self.order_fare_version(canonical or o))
+            if canonical and canonical.get('driverId')==driver and canonical.get('stage')=='ARRIVED':
+                o['phoneTail']=str(canonical.get('phoneTail') or o.get('phoneTail') or '')
+            else:
+                o['phoneTail']=''
+            if isinstance(o.get('rider'),dict):
+                r=dict(o['rider'])
+                r.pop('mobile',None);r.pop('phone',None)
+                if 'mobileMasked' in r or 'mobile' in o['rider']:r['mobileMasked']='已隐藏'
+                o['rider']=r
+            o.pop('mobile',None);o.pop('phone',None)
+        ref=canonical if canonical else (o if not is_shared else None)
+        assigned=bool(canonical and canonical.get('driverId')==driver) if is_shared else True
+        if ref:
+            fare=int(ref.get('fare') or 0)
+            cur_refund=bool(ref.get('paymentStatus')=='REFUNDED' or (ref.get('refundAmount') or 0)>0)
+            credited=bool(ref.get('credited'))
+            paid=bool(ref.get('paid'))
+            stage=ref.get('stage')
+            if cur_refund and credited:
+                status,label,net='REVERSED','已退款冲回',0
+            elif cur_refund and not credited:
+                status,label,net='REFUNDED','已退款 · 未入账',0
+            elif credited and not cur_refund:
+                status,label,net='CREDITED','已入账（模拟）',fare if assigned else 0
+            elif stage=='DONE' and paid and not credited:
+                status,label,net='PENDING_CREDIT','待入账（模拟）',0
+            elif stage=='WAIT_PAY' and not paid:
+                status,label,net='WAITING_PAYMENT','待乘客模拟支付',0
+            elif stage in ('CANCELLED','WAIT_CONTINUE') and not credited:
+                status,label,net='CLOSED_NO_INCOME','未计入收入',0
+            else:
+                status,label,net='WAITING_COMPLETION','待行程完成',0
+        else:
+            status,label,net='CLOSED_NO_INCOME','未计入收入',0
+        o['settlementStatus']=status
+        o['settlementLabel']=label
+        o['netIncome']=int(net)
+        o['settlementUpdatedAt']=stamp()
+        return o
+
+    def driver_result_view(self,driver,result):
         # Old idempotency rows may contain a pre-fix shared order snapshot.
         # Sanitize the response copy, keeping the driver's own complaint result.
         value=clone(result)
         order=value.get('order')
-        if isinstance(order,dict) and (order.get('shared') or self.shared_order(order.get('id'))):
-            order=value['order']=self.trip_order_view(order)
-            for key in ('passengerId','bids','complaints'):order.pop(key,None)
-            order.setdefault('fareVersion',self.order_fare_version(order))
+        if isinstance(order,dict):
+            value['order']=self.project_driver_order(driver,order)
         return value
     def save_shared(self,o,event=None):
         self.refresh_distance_consent(o,persist=False)
@@ -298,7 +346,7 @@ class PassengerMixin(TripDistanceMixin,NegotiationMixin,PassengerOrderOptionsMix
         fp=hashlib.sha256(dumps({'action':action,'payload':p}).encode()).hexdigest()
         if request_id:
             old=self.db.execute('SELECT * FROM actions WHERE driver=? AND request_id=?',(driver,request_id)).fetchone()
-            if old:require(old['request_hash']==fp,'请求标识被其他操作占用',409);return self.driver_result_view(json.loads(old['result']))
+            if old:require(old['request_hash']==fp,'请求标识被其他操作占用',409);return self.driver_result_view(driver,json.loads(old['result']))
         st=self.sync_shared_orders(driver);projected=self.order(st,p.get('id'));o=self.shared_order(p['id']);complaint_result=None
         if action in ('order.accept','order.bid'):
             feature={'BID':'bidding','RESERVED':'reservation'}.get(o['kind'],'instant')
@@ -340,7 +388,7 @@ class PassengerMixin(TripDistanceMixin,NegotiationMixin,PassengerOrderOptionsMix
         result={'order':self.order(json.loads(self.account(driver)['state']),o['id'])} if any(x['id']==o['id'] for x in json.loads(self.account(driver)['state'])['orders']) else {'orderId':o['id'],'withdrawn':True}
         if complaint_result is not None:result['complaint']=complaint_result
         if request_id:self.db.execute('INSERT INTO actions VALUES (?,?,?,?)',(driver,request_id,fp,dumps(result)))
-        self.audit('DRIVER:'+driver,action,None,{'id':o['id'],'shared':True});return result
+        self.audit('DRIVER:'+driver,action,None,{'id':o['id'],'shared':True});return self.driver_result_view(driver,result)
     def passenger_route(self,pid,oid):
         o=self.own_passenger_order(pid,oid)
         return {'orderId':oid,'coordinates':[[o['originLng'],o['originLat']]]+[[w['longitude'],w['latitude']] for w in o['waypoints']]+[[o['destinationLng'],o['destinationLat']]],'destinationPending':o.get('destinationPending',False),'source':'synthetic','coordinateSystem':'WGS84','notice':'坐标连线示意，未接实时路径规划，不能替代道路导航'}
