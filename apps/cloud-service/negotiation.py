@@ -25,7 +25,7 @@ class NegotiationMixin:
         fp=hashlib.sha256(dumps({'action':action,'payload':p}).encode()).hexdigest()
         old=self.db.execute('SELECT * FROM actions WHERE driver=? AND request_id=?',(driver,request_id)).fetchone()
         if old:
-            require(old['request_hash']==fp,'请求标识已被其他操作使用',409);return self.driver_result_view(json.loads(old['result']))
+            require(old['request_hash']==fp,'请求标识已被其他操作使用',409);return self.driver_result_view(driver,json.loads(old['result']))
         oid=p.get('id');require(isinstance(oid,str) and 1<=len(oid)<=120,'订单编号无效')
         if action=='order.pairOffer':
             require(self.shared_order(oid) is None,'此订单已配对，不能重新生成配对码',409)
@@ -49,7 +49,7 @@ class NegotiationMixin:
         else:raise ApiError(404,'未知司机议价配对操作')
         self.db.execute('INSERT INTO actions VALUES (?,?,?,?)',(driver,request_id,fp,dumps(result)))
         self.audit('DRIVER:'+driver,action,None,{'id':oid,'quoteVersion':result.get('order',{}).get('quoteVersion')})
-        return result
+        return self.driver_result_view(driver,result)
 
     def passenger_negotiation_action(self,pid,action,p):
         self._negotiation_init()

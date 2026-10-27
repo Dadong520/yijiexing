@@ -76,15 +76,16 @@ class PassengerMixin(TripDistanceMixin,NegotiationMixin,PassengerOrderOptionsMix
     def project_driver_order(self,driver,order):
         if not isinstance(order,dict):return order
         o=clone(order)
-        oid=o.get('id')
+        oid=o.get('id') if isinstance(o.get('id'),str) else None
         is_shared=bool(o.get('shared') or (oid and self.shared_order(oid)))
         canonical=self.shared_order(oid) if (oid and is_shared) else None
         if is_shared:
             o=self.trip_order_view(o)
             for key in ('passengerId','bids','complaints'):o.pop(key,None)
             o.setdefault('fareVersion',self.order_fare_version(canonical or o))
-            if canonical and canonical.get('driverId')==driver and canonical.get('stage')=='ARRIVED':
-                o['phoneTail']=str(canonical.get('phoneTail') or o.get('phoneTail') or '')
+            if driver and canonical and canonical.get('driverId')==driver and canonical.get('stage')=='ARRIVED':
+                tail=canonical.get('phoneTail')
+                o['phoneTail']=tail if isinstance(tail,str) and re.fullmatch(r'\d{4}',tail) else ''
             else:
                 o['phoneTail']=''
             if isinstance(o.get('rider'),dict):
@@ -94,14 +95,20 @@ class PassengerMixin(TripDistanceMixin,NegotiationMixin,PassengerOrderOptionsMix
                 o['rider']=r
             o.pop('mobile',None);o.pop('phone',None)
         ref=canonical if canonical else (o if not is_shared else None)
-        assigned=bool(canonical and canonical.get('driverId')==driver) if is_shared else True
+        assigned=bool(driver and canonical and canonical.get('driverId')==driver) if is_shared else bool(driver)
         if ref:
-            fare=int(ref.get('fare') or 0)
-            cur_refund=bool(ref.get('paymentStatus')=='REFUNDED' or (ref.get('refundAmount') or 0)>0)
+            fare=ref.get('fare')
+            refund=ref.get('refundAmount',0)
+            valid_amounts=type(fare) is int and fare>=0 and type(refund) is int and refund>=0
+            cur_refund=bool(ref.get('paymentStatus')=='REFUNDED' or (type(refund) is int and refund>0))
             credited=bool(ref.get('credited'))
             paid=bool(ref.get('paid'))
             stage=ref.get('stage')
-            if cur_refund and credited:
+            if canonical and canonical.get('driverId') and not assigned:
+                status,label,net='CLOSED_NO_INCOME','未计入当前司机收入',0
+            elif not valid_amounts:
+                status,label,net='UNKNOWN','入账状态待核对',0
+            elif cur_refund and credited:
                 status,label,net='REVERSED','已退款冲回',0
             elif cur_refund and not credited:
                 status,label,net='REFUNDED','已退款 · 未入账',0
@@ -123,9 +130,12 @@ class PassengerMixin(TripDistanceMixin,NegotiationMixin,PassengerOrderOptionsMix
         o['settlementUpdatedAt']=stamp()
         return o
 
-    def driver_result_view(self,driver,result):
+    def driver_result_view(self,driver,result=None):
         # Old idempotency rows may contain a pre-fix shared order snapshot.
         # Sanitize the response copy, keeping the driver's own complaint result.
+        # Legacy internal callers have no authenticated identity: default to a
+        # hidden view. HTTP action paths always supply the authenticated driver.
+        if result is None:result,driver=driver,None
         value=clone(result)
         order=value.get('order')
         if isinstance(order,dict):
