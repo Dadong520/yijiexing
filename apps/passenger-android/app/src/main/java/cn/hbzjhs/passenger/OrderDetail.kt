@@ -338,7 +338,7 @@ fun OrderDetail(o: JSONObject, store: PassengerStore, busy: Boolean) {
               Text("修改目的地并重新估价")
             }
           }
-        } else Note("司机接单或报价后目的地与估价已锁定，需要变更请取消后重新下单。稍后补充目的地可在接驾前或接驾时直接点击主按钮补充。")
+        } else Note("司机接单或报价后目的地与估价已锁定，需要变更请取消后重新下单。")
       }
     if (stage == "DONE")
       Panel("评价本次行程") {
