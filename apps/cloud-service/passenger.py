@@ -61,13 +61,19 @@ class PassengerMixin(TripDistanceMixin,NegotiationMixin,PassengerOrderOptionsMix
             for r in self.db.execute('SELECT payload FROM passenger_orders WHERE passenger=?',(passenger_id,)):
                 po=json.loads(r['payload'])
                 if exclude_order_id and po.get('id')==exclude_order_id:continue
+                require(not (po.get('stage')=='WAIT_PAY' and not po.get('paid')),
+                    '请先支付已结束行程的欠款后再出发',409,{'reason':'PASSENGER_OUTSTANDING_PAYMENT'})
                 if po.get('kind')=='RESERVED' and po.get('stage') in ('AVAILABLE','RESERVED'):continue
                 if po.get('stage') in ('BID_SENT','PREPAY','PICKUP','ARRIVED','TRIP','WAIT_CONTINUE') or (po.get('kind')!='RESERVED' and po.get('stage')=='AVAILABLE'):
                     raise ApiError(409,'您/司机/乘客有另一段行程，请先完成')
         if driver_id:
+            # Shared orders are authoritative in passenger_orders. The account's
+            # projection may still show a trip cancelled by its passenger.
+            shared=[json.loads(r['payload']) for r in self.db.execute('SELECT payload FROM passenger_orders WHERE driver=?',(driver_id,))]
             a=self.account(driver_id)
             dst=json.loads(a['state']) if a else {}
-            for do in dst.get('orders',[]):
+            private=[o for o in dst.get('orders',[]) if not o.get('shared') and not self.shared_order(o.get('id'))]
+            for do in shared+private:
                 if exclude_order_id and do.get('id')==exclude_order_id:continue
                 if do.get('kind')=='RESERVED' and do.get('stage') in ('AVAILABLE','RESERVED'):continue
                 if do.get('stage') in ('BID_SENT','PREPAY','PICKUP','ARRIVED','TRIP'):
