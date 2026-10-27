@@ -192,12 +192,14 @@ class PassengerMixin(TripDistanceMixin,NegotiationMixin,PassengerOrderOptionsMix
             for prefix in ('origin','destination'):
                 if prefix=='destination' and o.get('destinationPending'):continue
                 key=(o[prefix],o[prefix+'Lat'],o[prefix+'Lng'])
-                if key not in seen:historical.append({'address':key[0],'latitude':key[1],'longitude':key[2]});seen.add(key)
+                if key not in seen:
+                    historical.append({'address':key[0],'latitude':key[1],'longitude':key[2],
+                        'coordinateMetadata':clone(o.get(prefix+'CoordinateMetadata'))});seen.add(key)
         regions=[]
         from seed import CITIES
         for city in CITIES:
             cfg,_,_=self.effective(city['id']);regions.append({'id':city['id'],'name':city['name'],'enabled':bool(cfg['systemEnabled'])})
-        return {**self.passenger_extra_data(pid),'tripDistanceRules':self.trip_distance_rules(profile['city']),'historicalLocations':historical[:20],'regions':regions,'passenger':{k:v for k,v in profile.items() if k not in ('favorites','feedback')},'orders':orders,'favorites':profile['favorites'],'feedback':profile['feedback'],
+        return {**self.passenger_extra_data(pid),'mapConfig':self.amap_public_config('passenger'),'tripDistanceRules':self.trip_distance_rules(profile['city']),'historicalLocations':historical[:20],'regions':regions,'passenger':{k:v for k,v in profile.items() if k not in ('favorites','feedback')},'orders':orders,'favorites':profile['favorites'],'feedback':profile['feedback'],
             'notices':[{'title':'独立体验环境','content':'双端共享实际创建的订单；短信、支付、退款为模拟。路线仅为坐标示意。后台可查看和回复已保存投诉；实时人工客服、电话中继和推送未配置。'}],
             'features':{'payment':'SIMULATED','sms':'SIMULATED','route':'SCHEMATIC','driverLocation':True,'externalPush':False,'humanSupport':False},
             'environment':{'name':'宜捷行独立云体验环境','sandbox':True,'originalSpringBackend':False,'network':'Google Cloud独立体验服务，不连接原测试环境'},'serverTime':stamp()}
@@ -275,6 +277,10 @@ class PassengerMixin(TripDistanceMixin,NegotiationMixin,PassengerOrderOptionsMix
             'remark':textfield(p.get('remark') or '乘客实际创建 · 独立体验订单','备注',1,500),'phoneTail':rider['mobile'][-4:],'rider':{'id':rider['id'],'name':rider['name'],'mobileMasked':rider['mobile'][:3]+'****'+rider['mobile'][-4:]},'paid':False,'credited':False,'paymentStatus':'UNPAID',
             'paymentMode':'SIMULATED','fareSource':'PENDING_DESTINATION' if destination_pending else 'DEMO_ESTIMATE','pickupDistanceSource':'DEMO_DEFAULT','shared':True,'synthetic':False,'createdAt':stamp(),'updatedAt':stamp(),
             'waypoints':normalized,'arrivedWaypoints':[],'bids':[],'evaluation':None,'complaints':[],'expiresAt':stamp(now()+dt.timedelta(minutes=10)) if kind=='BID' else None,'events':[{'type':'PASSENGER_CREATED','at':stamp()}]}
+        for prefix in ('origin','destination'):
+            if prefix=='destination' and destination_pending:continue
+            metadata=self.coordinate_metadata(p.get(prefix+'CoordinateMetadata'),o[prefix+'Lat'],o[prefix+'Lng'])
+            if metadata is not None:o[prefix+'CoordinateMetadata']=metadata
         self.db.execute('INSERT INTO passenger_orders VALUES (?,?,?,?,?)',(o['id'],pid,None,dumps(o),stamp()));return {'order':self.passenger_view(o)}
     def passenger_action(self,pid,action,p,request_id=None):
         self.expire_passenger_bids()
@@ -322,11 +328,13 @@ class PassengerMixin(TripDistanceMixin,NegotiationMixin,PassengerOrderOptionsMix
                 if o['paid']:o.update(paid=False,paymentStatus='REFUNDED',refundAmount=o['fare'],refundedAt=stamp(),refundMode='SIMULATED')
             elif action=='order.update':
                 require(o['stage'] in ('AVAILABLE','PREPAY','RESERVED','PICKUP','ARRIVED'),'当前阶段不能修改订单',409)
-                require(set(p)<={'id','remark','destination','destinationLat','destinationLng'},'不支持修改这些订单字段')
+                require(set(p)<={'id','remark','destination','destinationLat','destinationLng','destinationCoordinateMetadata'},'不支持修改这些订单字段')
+                require('destinationCoordinateMetadata' not in p or all(k in p for k in ('destination','destinationLat','destinationLng')),'更新地点来源须同时提供完整目的地')
                 if 'remark' in p:o['remark']=textfield(p['remark'],'备注',1,500)
                 if any(k in p for k in ('destination','destinationLat','destinationLng')):
                     require((o['stage']=='AVAILABLE' and not o['bids']) or (o.get('destinationPending') and o['kind']=='STANDARD' and o['stage'] in ('PICKUP','ARRIVED')),'司机接单或报价后不能改变已约定目的地及估价，请取消后重新下单',409)
                     destination=textfield(p.get('destination'),'目的地',2,100);self.validate_point(p.get('destinationLat'),p.get('destinationLng'))
+                    metadata=self.coordinate_metadata(p.get('destinationCoordinateMetadata'),p['destinationLat'],p['destinationLng'])
                     require(destination.casefold()!=o['origin'].casefold(),'起终点名称不能相同')
                     require(abs(p['destinationLat']-o['originLat'])>1e-7 or abs(p['destinationLng']-o['originLng'])>1e-7,'起终点坐标不能相同')
                     points=[(o['originLat'],o['originLng'])]+[(w['latitude'],w['longitude']) for w in o['waypoints']]+[(p['destinationLat'],p['destinationLng'])]
@@ -336,6 +344,8 @@ class PassengerMixin(TripDistanceMixin,NegotiationMixin,PassengerOrderOptionsMix
                         distance+=12742*math.asin(min(1,math.sqrt(max(0,h))))
                     require(distance<=300,'体验行程须在300公里内');estimate=max(800,int(round((8+max(0,distance*1.3-2)*2.4)*100)))
                     o.update(destination=destination,destinationLat=p['destinationLat'],destinationLng=p['destinationLng'],estimatedFare=estimate,fare=estimate,mileage=f'{distance*1.3:.1f}',destinationPending=False,fareSource='DEMO_ESTIMATE')
+                    if metadata is None:o.pop('destinationCoordinateMetadata',None)
+                    else:o['destinationCoordinateMetadata']=metadata
             elif action=='order.continue':
                 require(o['stage']=='WAIT_CONTINUE','此订单不在等待继续叫车状态',409)
                 decision=p.get('type',1);require(type(decision) is int and decision in (1,2),'继续选择须为1继续或2取消')

@@ -32,6 +32,28 @@ def distance_meters(a, b):
 
 
 class TripDistanceMixin:
+    def amap_public_config(self, role):
+        # Only the app-scoped Android identifier is returned to authenticated
+        # clients. JS security credentials never enter an app response or DB.
+        key=os.environ.get('AMAP_'+role.upper()+'_ANDROID_KEY','')
+        enabled=bool(re.fullmatch(r'[a-f0-9]{32}',key))
+        return {'provider':'AMAP','enabled':enabled,'androidKey':key if enabled else '',
+                'coordinateSystem':'GCJ02','normalizationMethod':'AMAP_SDK_FORWARD_ITERATIVE_V1'}
+
+    def coordinate_metadata(self, value, latitude, longitude):
+        if value is None:return None
+        require(isinstance(value,dict) and set(value)=={'provider','rawCoordinateSystem','rawLatitude','rawLongitude',
+            'normalizedLatitude','normalizedLongitude','method','sdkVersion','residualMeters'},'地点坐标来源信息无效')
+        require(value['provider']=='AMAP' and value['rawCoordinateSystem']=='GCJ02' and
+            value['method']=='AMAP_SDK_FORWARD_ITERATIVE_V1' and value['sdkVersion']=='11.2.100','地点坐标转换版本无效')
+        self.validate_point(value['rawLatitude'],value['rawLongitude'])
+        self.validate_point(value['normalizedLatitude'],value['normalizedLongitude'])
+        residual=value['residualMeters']
+        require(type(residual) in (int,float) and math.isfinite(residual) and 0<=residual<=0.2,'地点转换未达到可用精度')
+        require(abs(value['normalizedLatitude']-latitude)<=1e-9 and abs(value['normalizedLongitude']-longitude)<=1e-9,
+            '地点名称所绑定的坐标来源已变化')
+        return clone(value)
+
     def trip_distance_rules(self, city):
         cfg, sources, version = self.effective(city)
         configured = cfg.get('tripDistance', {})
@@ -93,6 +115,8 @@ class TripDistanceMixin:
         elif o['stage'] == 'TRIP':
             context.update(destinationLat=o.get('destinationLat'), destinationLng=o.get('destinationLng'),
                            coordinateSystem=o.get('coordinateSystem'), coordinatesSynthetic=bool(o.get('coordinatesSynthetic')))
+            if o.get('destinationCoordinateMetadata'):
+                context['destinationCoordinateMetadata']=clone(o['destinationCoordinateMetadata'])
         return context
 
     def refresh_distance_consent(self, o, persist=True):
@@ -134,12 +158,19 @@ class TripDistanceMixin:
                           'coordinateSystem': 'WGS84', 'source': 'ORDER_DESTINATION'}
         distance = distance_meters(location, target) if valid_driver and valid_target else None
         threshold = rules['pickupMaxMeters' if pickup else 'dropoffMaxMeters']
+        # POI normalization is a selected-place conversion, never device GPS.
+        # Keep a conservative numeric boundary: this is not a GPS accuracy claim.
+        normalization_budget=2 if not pickup and o.get('destinationCoordinateMetadata') else 0
         reason = 'DRIVER_LOCATION_' + driver_reason if not valid_driver else (
             ('PASSENGER_LOCATION_' if pickup else 'DESTINATION_') + target_reason if not valid_target else 'OUTSIDE_DISTANCE')
+        if normalization_budget and distance is not None and threshold-normalization_budget<distance<=threshold:
+            reason='DESTINATION_COORDINATE_BOUNDARY'
         return {'type': 'PICKUP' if pickup else 'DROPOFF', 'distanceMeters': round(distance, 3) if distance is not None else None,
                 'thresholdMeters': threshold, 'reason': reason, 'driverLocation': clone(location),
                 'targetLocation': clone(target), 'rules': rules,
-                'withinDistance': distance is not None and distance <= threshold + 0.000001}
+                'destinationNormalization':clone(o.get('destinationCoordinateMetadata')) if not pickup else None,
+                'normalizationBudgetMeters':normalization_budget,
+                'withinDistance': distance is not None and distance <= threshold-normalization_budget + 0.000001}
 
     def advance_shared_trip(self, o):
         stage = o['stage']

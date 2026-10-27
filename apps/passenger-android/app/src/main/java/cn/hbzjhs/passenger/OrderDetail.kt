@@ -251,7 +251,7 @@ fun OrderDetail(o: JSONObject, store: PassengerStore, busy: Boolean) {
           modifier = Modifier.fillMaxSize(),
         )
       }
-      Note("底图展示 WGS84 起终点与司机最新上报位置；直接连线仅供示意，非真实道路导航。")
+      Note("地图展示起终点与司机最新上报位置；直接连线仅供示意，非真实道路导航。")
       if (hasDriverLoc) {
         Note("司机上报位置：${loc!!.optDouble("latitude")}, ${loc.optDouble("longitude")} · 上报于 ${driverTime.orEmpty()}${if (!driverAccuracy.isNullOrBlank()) " · 精度约 $driverAccuracy" else ""}（单次上报非持续追踪）")
       }
@@ -417,14 +417,16 @@ fun OrderDetail(o: JSONObject, store: PassengerStore, busy: Boolean) {
       o.optDouble("destinationLng").toString(),
       emptyList(),
       { dialog = "" },
-    ) { name, lat, lng ->
+      initialNormalization = o.optJSONObject("destinationCoordinateMetadata"),
+    ) { name, lat, lng, normalization ->
       store.action(
         "order.update",
         JSONObject()
           .put("id", id)
           .put("destination", name)
           .put("destinationLat", coordinate(lat, true))
-          .put("destinationLng", coordinate(lng, false)),
+          .put("destinationLng", coordinate(lng, false))
+          .put("destinationCoordinateMetadata", normalization ?: JSONObject.NULL),
       )
       dialog = ""
     }

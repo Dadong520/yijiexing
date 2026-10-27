@@ -441,6 +441,7 @@ class ConnectedStore(app: Application) : AndroidViewModel(app) {
             mutableSessionAvailable.value = false
             mutableState.value = emptyState()
             mutablePayload.value = JSONObject()
+            AmapRuntime.configure(null)
             pendingKeys.clear()
             resetRequestStatus()
             mutableInitialized.value = true
@@ -529,6 +530,7 @@ class ConnectedStore(app: Application) : AndroidViewModel(app) {
                 if (s != null) {
                     mutableState.value = parseDriverState(s)
                     mutablePayload.value = JSONObject(data.toString())
+                    AmapRuntime.configure(data.optJSONObject("mapConfig"))
                 }
             }
         }

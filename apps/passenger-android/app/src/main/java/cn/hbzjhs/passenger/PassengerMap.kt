@@ -34,9 +34,32 @@ import org.maplibre.geojson.Feature
 import org.maplibre.geojson.FeatureCollection
 import org.maplibre.geojson.Point
 
-/** Selected WGS84 booking points only. This component never reads GPS or changes booking data. */
 @Composable
 fun PassengerMap(
+  originLat: String, originLng: String, destinationLat: String, destinationLng: String,
+  modifier: Modifier = Modifier, driverLat: String? = null, driverLng: String? = null,
+  driverReportedTime: String? = null, driverAccuracy: String? = null,
+) {
+  val apiKey by AmapRuntime.key.collectAsState()
+  if (apiKey.isBlank()) {
+    PassengerMapLegacy(originLat, originLng, destinationLat, destinationLng, modifier,
+      driverLat, driverLng, driverReportedTime, driverAccuracy)
+    return
+  }
+  val points = mutableListOf<AmapPlacePoint>()
+  fun add(lat: String?, lng: String?, title: String, routeStop: Boolean = true) {
+    val a = lat?.toDoubleOrNull(); val b = lng?.toDoubleOrNull()
+    if (a != null && b != null && a.isFinite() && b.isFinite()) points.add(AmapPlacePoint(a, b, title, routeStop))
+  }
+  add(originLat, originLng, "上车点")
+  add(destinationLat, destinationLng, "目的地")
+  add(driverLat, driverLng, "司机上报位置 · ${driverReportedTime.orEmpty()}", false)
+  AmapCanvas(points, modifier)
+}
+
+/** Selected WGS84 booking points only. This component never reads GPS or changes booking data. */
+@Composable
+private fun PassengerMapLegacy(
   originLat: String,
   originLng: String,
   destinationLat: String,

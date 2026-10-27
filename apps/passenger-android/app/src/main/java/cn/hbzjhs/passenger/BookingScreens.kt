@@ -55,6 +55,8 @@ fun BookingScreen(
   var oLng by rememberSaveable { mutableStateOf("111.3674") }
   var dLat by rememberSaveable { mutableStateOf("30.7040") }
   var dLng by rememberSaveable { mutableStateOf("111.2929") }
+  var oMetadata by rememberSaveable { mutableStateOf("") }
+  var dMetadata by rememberSaveable { mutableStateOf("") }
   var remark by rememberSaveable { mutableStateOf("") }
   var date by rememberSaveable {
     mutableStateOf(LocalDateTime.now().plusHours(1).withSecond(0).withNano(0).toString())
@@ -89,6 +91,8 @@ fun BookingScreen(
             .put("destinationLng", coordinate(dLng, false))
             .put("remark", remark.trim())
             .put("city", state.optJSONObject("passenger")?.text("city", "420500") ?: "420500")
+        if (oMetadata.isNotBlank()) payload.put("originCoordinateMetadata", JSONObject(oMetadata))
+        if (dMetadata.isNotBlank()) payload.put("destinationCoordinateMetadata", JSONObject(dMetadata))
         if (kind == "RESERVED")
           payload.put(
             "scheduledAt",
@@ -99,6 +103,7 @@ fun BookingScreen(
           payload.remove("destination")
           payload.remove("destinationLat")
           payload.remove("destinationLng")
+          payload.remove("destinationCoordinateMetadata")
         }
         if (contactId.isNotBlank()) payload.put("riderId", contactId)
         if (showWaypoints && !(destinationPending && kind == "STANDARD")) {
@@ -424,6 +429,8 @@ fun BookingScreen(
                         oLng = recent.optDouble("originLng").toString()
                         dLat = recent.optDouble("destinationLat").toString()
                         dLng = recent.optDouble("destinationLng").toString()
+                        oMetadata = recent.optJSONObject("originCoordinateMetadata")?.toString().orEmpty()
+                        dMetadata = recent.optJSONObject("destinationCoordinateMetadata")?.toString().orEmpty()
                       },
                       shape = RoundedCornerShape(10.dp),
                       contentPadding = PaddingValues(horizontal = 10.dp, vertical = 4.dp),
@@ -465,15 +472,19 @@ fun BookingScreen(
       (state.rows("favorites") +
         state.rows("historicalLocations").map { JSONObject(it.toString()).put("label", "历史地点") }),
       { editor = "" },
-    ) { name, lat, lng ->
+      initialNormalization = (if (editor == "origin") oMetadata else dMetadata).takeIf { it.isNotBlank() }?.let { JSONObject(it) },
+      city = state.optJSONObject("passenger")?.text("cityName").orEmpty(),
+    ) { name, lat, lng, normalization ->
       if (editor == "origin") {
         origin = name
         oLat = lat
         oLng = lng
+        oMetadata = normalization?.toString().orEmpty()
       } else {
         destination = name
         dLat = lat
         dLng = lng
+        dMetadata = normalization?.toString().orEmpty()
       }
       editor = ""
     }
@@ -486,10 +497,14 @@ fun AddressDialog(
   initialLng: String,
   favorites: List<JSONObject>,
   close: () -> Unit,
-  save: (String, String, String) -> Unit,
+  initialNormalization: JSONObject? = null,
+  city: String = "",
+  save: (String, String, String, JSONObject?) -> Unit,
 ) {
   val context = LocalContext.current
   val scope = rememberCoroutineScope()
+  val amapKey by AmapRuntime.key.collectAsState()
+  var searchCity by remember(city) { mutableStateOf(city) }
   var name by remember(initial, initialLat, initialLng) { mutableStateOf(initial) }
   var lat by remember(initial, initialLat, initialLng) { mutableStateOf(initialLat) }
   var lng by remember(initial, initialLat, initialLng) { mutableStateOf(initialLng) }
@@ -499,9 +514,10 @@ fun AddressDialog(
   var searchJob by remember { mutableStateOf<Job?>(null) }
   var results by remember { mutableStateOf<List<SearchedAddress>>(emptyList()) }
   var source by remember { mutableStateOf("已有地点与坐标") }
+  var selectedMetadata by remember(initial, initialLat, initialLng) { mutableStateOf(initialNormalization) }
   fun cancelSearch() { searchJob?.cancel(); searching=false; results=emptyList() }
-  fun selectPlace(n: String, a: String, b: String, from: String) {
-    cancelSearch(); name=n; lat=a; lng=b; source=from; error=""
+  fun selectPlace(n: String, a: String, b: String, from: String, metadata: JSONObject? = null) {
+    cancelSearch(); name=n; lat=a; lng=b; source=from; selectedMetadata=metadata; error=""
   }
   val places =
     (listOf(
@@ -521,29 +537,45 @@ fun AddressDialog(
         require(name.trim().length >= 2) { "请填写地址名称" }
         require(lat.isNotBlank() && lng.isNotBlank()) { "地址文字已修改，请先选择搜索结果、常用地点或填写匹配的坐标" }
         coordinate(lat, true); coordinate(lng, false)
-        save(name.trim(), lat.trim(), lng.trim())
+        save(name.trim(), lat.trim(), lng.trim(), selectedMetadata)
       }.onFailure { error=it.message.orEmpty() }
     },
   ) {
     Field(name, { value ->
       if (value != name) {
-        cancelSearch(); name=value.take(200); lat=""; lng=""; source=""
+        cancelSearch(); name=value.take(200); lat=""; lng=""; source=""; selectedMetadata=null
         error="地址已修改，原坐标已清除；请搜索并选中地点，或填写匹配坐标。"
       }
     }, "地点或详细地址")
-    ActionButton(if (searching) "正在搜索…" else "搜索地址", !searching && name.trim().length >= 2) {
+    if (amapKey.isNotBlank()) {
+      Field(searchCity, { cancelSearch(); searchCity=it.take(40) }, "搜索城市（可选）")
+      val selected = if (lat.toDoubleOrNull()?.isFinite() == true && lng.toDoubleOrNull()?.isFinite() == true)
+        listOf(AmapPlacePoint(lat.toDouble(), lng.toDouble(), name)) else emptyList()
+      AmapCanvas(selected, Modifier.fillMaxWidth().height(240.dp), onPick = { a, b ->
+        cancelSearch(); lat=""; lng=""; selectedMetadata=null; source=""; searching=true; error=""
+        searchJob=scope.launch {
+          try {
+            val result=reverseAmapAddress(context,a,b)
+            selectPlace(result.name,result.latitude.toString(),result.longitude.toString(),"地图选定地点",result.metadata)
+          } catch (e: CancellationException) { throw e }
+          catch (e: Exception) { error=e.message ?: "地图地点解析失败，请重试" }
+          finally { if (isActive) searching=false }
+        }
+      }, notice = "点击地图选点，再核对地址")
+    }
+    ActionButton(if (searching) "正在查询…" else if (amapKey.isNotBlank()) "搜索高德地点" else "搜索地址", !searching && name.trim().length >= 2) {
       val query=name.trim()
       error=""; results=emptyList(); searching=true
       searchJob=scope.launch {
         try {
-          val found=searchSystemAddresses(context, query)
+          val found=searchSystemAddresses(context, query, searchCity)
           if (name.trim()==query) {
             results=found
             if (found.isEmpty()) error="未找到地址，请补充城市和详细名称，或选择常用地点/手动坐标。"
           }
         } catch (e: CancellationException) { throw e }
-        catch (_: Exception) {
-          if (name.trim()==query) error="系统地址搜索暂不可用，请重试，或使用常用地点/手动坐标。"
+        catch (e: Exception) {
+          if (name.trim()==query) error=e.message ?: "地址搜索暂不可用，请重试或在地图选点。"
         } finally { if (isActive) searching=false }
       }
     }
@@ -553,22 +585,25 @@ fun AddressDialog(
     }
     if (error.isNotBlank()) Text(error, color=MaterialTheme.colorScheme.error)
     results.forEach { result ->
-      MenuRow(result.name, Icons.Default.LocationOn, "系统搜索 · 选中后绑定名称和坐标") {
-        selectPlace(result.name, result.latitude.toString(), result.longitude.toString(), "系统搜索结果 · WGS84")
+      MenuRow(result.name, Icons.Default.LocationOn, "选择并在地图核对") {
+        selectPlace(result.name, result.latitude.toString(), result.longitude.toString(), "搜索选定地点", result.metadata)
       }
     }
-    if (source.isNotBlank()) Note("$source：$lat, $lng")
-    Note("搜索由设备系统Geocoder提供，可用性依赖设备服务。请核对地点；未提供自动定位或道路导航。")
+    if (source.isNotBlank()) Note("$source · 请核对名称与地图位置")
+    Note(if (amapKey.isNotBlank()) "使用高德地点搜索与地图选点；请选择具体车站、入口或建筑。" else "地址服务可用性依赖设备服务，请核对地点后使用。")
     Text("常用与体验地点", fontWeight=FontWeight.SemiBold)
     places.forEach { (n, a, b) ->
-      MenuRow(n, Icons.Default.LocationOn) { selectPlace(n,a,b,"常用或体验地点 · WGS84") }
+      MenuRow(n, Icons.Default.LocationOn) {
+        val metadata=favorites.firstOrNull { it.text("address")==n && it.optDouble("latitude")==a.toDoubleOrNull() && it.optDouble("longitude")==b.toDoubleOrNull() }?.optJSONObject("coordinateMetadata")
+        selectPlace(n,a,b,"常用或体验地点",metadata)
+      }
       HorizontalDivider()
     }
     TextButton(onClick={advanced=!advanced}) { Text(if (advanced) "收起手动坐标" else "手动坐标 · 高级设置") }
     if (advanced) {
       Note("请核对名称和WGS84坐标一致；手动填写不会查询地点。")
-      Field(lat, {lat=it; source="手动坐标"}, "WGS84 纬度", KeyboardType.Decimal)
-      Field(lng, {lng=it; source="手动坐标"}, "WGS84 经度", KeyboardType.Decimal)
+      Field(lat, {lat=it; source="手动坐标"; selectedMetadata=null}, "WGS84 纬度", KeyboardType.Decimal)
+      Field(lng, {lng=it; source="手动坐标"; selectedMetadata=null}, "WGS84 经度", KeyboardType.Decimal)
     }
   }
 }

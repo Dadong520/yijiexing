@@ -26,6 +26,7 @@ dependencies {
     implementation("androidx.compose.material:material-icons-core")
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.8.2")
     implementation("org.maplibre.gl:android-sdk:11.8.0")
+    implementation("com.amap.api:3dmap-location-search:11.2.100_loc11.2.100_sea9.8.1")
     testImplementation("org.json:json:20240303")
     testImplementation("junit:junit:4.13.2")
 }

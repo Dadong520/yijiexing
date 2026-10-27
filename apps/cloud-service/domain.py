@@ -88,7 +88,7 @@ class Service(PassengerMixin,BenefitsMixin,AdminMixin):
         features=self.features(driver)
         if not features['canRanking']:profile['ranking']={'period':'体验结束或未开放','myRank':None,'completed':None,'entries':[],'restricted':True}
         st['orders']=sorted([self.project_driver_order(driver,o) for o in st.get('orders',[])],key=lambda o: 0 if o.get('stage') in ('PICKUP','ARRIVED','TRIP','PREPAY','BID_SENT') else (1 if o.get('kind')=='RESERVED' and o.get('stage') in ('AVAILABLE','RESERVED') else 2))
-        return {'state':st,'profile':profile,'benefits':cat,'features':features,'tripDistanceRules':self.trip_distance_rules(cat['city']['id']),'serverTime':stamp(),'environment':{'name':'云端演示隔离沙箱','sandbox':True,'originalSpringBackend':False,'persistence':'SQLite','network':'Google Cloud独立演示服务，不连接原测试环境'}}
+        return {'mapConfig':self.amap_public_config('driver'),'state':st,'profile':profile,'benefits':cat,'features':features,'tripDistanceRules':self.trip_distance_rules(cat['city']['id']),'serverTime':stamp(),'environment':{'name':'云端演示隔离沙箱','sandbox':True,'originalSpringBackend':False,'persistence':'SQLite','network':'Google Cloud独立演示服务，不连接原测试环境'}}
     def order(self,st,oid):
         o=next((o for o in st['orders'] if o['id']==oid),None);require(o is not None,'订单不存在',404);return o
     def require_driver_certified(self,driver):
