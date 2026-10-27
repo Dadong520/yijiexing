@@ -1,10 +1,14 @@
 # 宜捷行当前检查点 2026-10-27T22:55:43.299836+08:00
 协议2026-10-26-v3；中央目录 /Users/dongge/Documents/New project 2/coordination。唯一coordinator 01a17cc7-e0a2-7791-bf1d-4611c09bab22，generation6；旧01a168e6-d76c-7ef0-8c87-706cc6e32d57退休，仅转达信息。根本轮一次可见压缩，已按CHECKPOINT_REQUIRED保存并定向恢复，现NORMAL；上下文遥测UNKNOWN。
 
+## 当前测试交付
+RELTEST-20261027-01：用户明确要求合并发布可供其验收版本。正在并行限定兼容/后台UI复核与两端打包，已知高德1008如实列出；PMPOST未验部分不集成。旧体验版当前仍在线，完成后回读新版本。
+
 ## 当前源码与归属
-父任务PM-20261027-01 ACTIVE_INTEGRATION。集成树/Users/dongge/.codex/tmp/yijiexing-pm-amap-20261027，branch codex/pm-amap-integration-20261027，基线main31cee06f415e51b0dcd8c05dd6f76e2fab311a76；HEAD0df8b187ac2f68c52fa6d17db846fbb8854b4eda，产品clean。
+父任务PM-20261027-01 ACTIVE_INTEGRATION。集成树/Users/dongge/.codex/tmp/yijiexing-pm-amap-20261027，branch codex/pm-amap-integration-20261027，基线main31cee06f415e51b0dcd8c05dd6f76e2fab311a76；HEAD35aa7bb（文档检查点；已验产品SHA 0df8b187ac2f68c52fa6d17db846fbb8854b4eda），产品clean。
+已推送GitHub分支codex/pm-amap-integration-20261027，远程读回35aa7bbf3d68d458270e26818f75132c15b77536一致；main未合并、线上未发布。
 唯一可写后端/Users/dongge/.codex/tmp/yijiexing-admin-drafts-20261027/apps/cloud-service，branch codex/pm-trip-presentations-20261027，backend作者HEAD83c7c2a8c3e7cda54f3539e77f11ca6e72cdaab4。主集成树后端只读已验SHA集成，不能并改副本。司机candidates/driver-0.3.6-r2/android，乘客apps/passenger-android，小程序candidates/passenger-miniprogram-0.1.0；root维护前端和统一集成。旧树/release/frozen不改，不覆盖旧admin-password两份dirty报告。
-backend隔离会话01a17ccb-1aa7-7773-a300-46743666876d闲置待非作者；frontend隔离会话01a17cd2-bcf7-7931-a94b-62119cefce48正在SDK还原和PMDEST独立差量审。旧长角色会话闲置。Gemini地区限制400/0token，IDLE不绕过，不改模型/账号/全局设置。
+backend隔离会话01a17ccb-1aa7-7773-a300-46743666876d闲置待非作者；frontend隔离会话01a17cd2-bcf7-7931-a94b-62119cefce48闲置：SDK还原完毕、PMDEST限定PASS。旧长角色会话闲置。Gemini地区限制400/0token，IDLE不绕过，不改模型/账号/全局设置。
 
 ## 用户最新决定
 BIZ06：取消新增无终点叫车。Android和mini去开关/新建flag，始终要求目的地；服务端拒绝destinationPending=true。保留历史单补填/完成，旧数据不删。PMDEST后端018ca49根4组HTTP/CAS PASS，已集成e01a040；客户端786f2bb mini62/Android20+build PASS，非作者实际shared.base流程及Android/WXML静态入口审PASS_SCOPE，Android/微信GUI未新增运行，未发布。
@@ -17,7 +21,7 @@ PMPA b792d0d：预约时间/补目的地/详情默认地图；20tests/build与�
 PMBE5667940：出站尾号/缓存改派/退款优先结算，非作者15组PASS。PMRESbda490a0：非作者8组HTTP/CAS含真实并发/欠款/陈旧投影PASS。PMCL ee8b32f：driver59/passenger20/mini60，非作者实际数据流13组PASS；真实声音/后台提醒/OEM/部分AndroidGUI NOT_RUN。
 PMAD e9a0a919+ea41f179：根非作者6组HTTP/CAS PASS，已集成5432693+3febc4d；32类仅可配置DRAFT/记录，不称32项完整业务。root admin.js 7ae3093+786f2bb：范围/参数限制/发生时间和fresh订单详情；真实表单GUI及非作者UI NOT_RUN。
 PMPOST83c7c2a：作者68相关测试PASS，排行/直线接驾估算/登记电话投影；根非作者审核、客户端接入均NOT_RUN，未集成。合同/证据trip-presentations/。
-PMMAP4a7ca46：官方11.2.100SDK checksum匹配，两端编译PASS，源码/解压APK四Key0命中，backend11组仅准0%预览。乘客地图10008/POI1008在保存绑定后仍复现；服务器内存核对角色Key均匹配。司机首次登录/地图显示且未见fatal，不等于SDK鉴权PASS。真实公共点校准/同单未做；0新云单。frontend还原与清理进行中，待回执。
+PMMAP4a7ca46：官方11.2.100SDK checksum匹配，两端编译PASS，源码/解压APK四Key0命中，backend11组仅准0%预览。乘客地图10008/POI1008在保存绑定后仍复现；服务器内存核对角色Key均匹配。司机首次登录/地图显示且未见fatal，不等于SDK鉴权PASS。真实公共点校准/同单未做；0新云单。frontend还原/清理已回执，细节见资源段。
 后台矩阵evidence/PM-20261027-01/ADMIN_MODULE_MATRIX.json保留已有/部分/缺规则/缺服务边界。旧DOC图片NOT_REVIEWED，DOCX7图已查。WX缺AppID，微信编译/真机发布NOT_RUN。
 
 ## 线上和预览

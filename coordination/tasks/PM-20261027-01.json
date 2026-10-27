@@ -31,7 +31,9 @@
   "status": "ACTIVE_INTEGRATION",
   "acceptance": "NOT_RUN",
   "tests": [],
-  "evidence": [],
+  "evidence": [
+    "coordination/evidence/PM-20261027-01/repository/push-readback.json"
+  ],
   "nextAction": "PMDEST0df8b18非作者限定PASS且未发布；下一阶段PMPOST作者83c7c2a待独立审核/客户端，PMAD后台UI待GUI，PMMAP鉴权阻塞后再统一合并发布",
   "deploy_owner": "coordinator",
   "releaseReady": false,
@@ -51,8 +53,16 @@
       "id": "BIZ-04",
       "rule": "待出发预约单独保留；即时行程可正常进行；司机明确开始接驾且同一时间只允许一段执行中行程；不自动处罚/保证准时"
     },
-    "adminUIOwner": "coordinator，现PM集成分支；独立backend PMAD分支写API，frontend非作者验收UI"
+    "adminUIOwner": "coordinator，现PM集成分支；独立backend PMAD分支写API，frontend非作者验收UI",
+    "repositoryPush": {
+      "branch": "codex/pm-amap-integration-20261027",
+      "sha": "35aa7bbf3d68d458270e26818f75132c15b77536",
+      "url": "https://github.com/Dadong520/yijiexing/tree/codex/pm-amap-integration-20261027",
+      "status": "PUSHED_REMOTE_VERIFIED",
+      "mainMerged": false,
+      "publicRelease": false
+    }
   },
-  "updatedAt": "2026-10-27T23:14:05.364347+08:00",
+  "updatedAt": "2026-10-27T23:25:18.173095+08:00",
   "candidateSha": "0df8b187ac2f68c52fa6d17db846fbb8854b4eda"
 }

@@ -3,7 +3,7 @@ ACK 2026-10-26-v3；真实会话01a17cc7-e0a2-7791-bf1d-4611c09bab22，generatio
 本轮一次可见压缩后已按START_HERE恢复并重写短卡，现NORMAL。实际上下文遥测UNKNOWN。中央根/Users/dongge/Documents/New project 2/coordination唯一权威；旧coordinator退休，根独占发布。
 
 当前父任务PM-20261027-01；基线main31cee06f415e51b0dcd8c05dd6f76e2fab311a76。
-集成树/Users/dongge/.codex/tmp/yijiexing-pm-amap-20261027，branch codex/pm-amap-integration-20261027，clean HEAD0df8b187ac2f68c52fa6d17db846fbb8854b4eda。后端该树只读集成已验SHA。
+集成树/Users/dongge/.codex/tmp/yijiexing-pm-amap-20261027，branch codex/pm-amap-integration-20261027，clean HEAD35aa7bb（文档检查点；已验产品SHA 0df8b187ac2f68c52fa6d17db846fbb8854b4eda）。后端该树只读集成已验SHA。
 唯一后端写树/Users/dongge/.codex/tmp/yijiexing-admin-drafts-20261027，branch codex/pm-trip-presentations-20261027，作者HEAD83c7c2a8c3e7cda54f3539e77f11ca6e72cdaab4，未集成，backend闲置待根非作者验收。源归属见各任务；不改历史release/frozen/旧dirty报告。
 
 用户最新：BIZ06取消新增无终点叫车，Android/mini入口和flag移除，服务端旧App请求true拒绝；历史待补目的地单保留原ID补齐/完成，不能删旧数据。backend018ca49经根4组HTTP/CAS PASS→集成e01a040；客户端786f2bb mini62PASS、Android20+buildPASS，frontend非作者实际shared.base流程/Android静态入口PASS_SCOPE，无新GUI运行。证据destination-required/。尚未上线。
@@ -18,5 +18,9 @@ API仅0%预览driver-demo-pm-364078b4-qa1(tag pm-map-qa)；URL https://pm-map-qa
 
 线上独立项目yijiexing-driver-demo-1023/us-west1：API yijiexing-demo.hbzjhs.xyz；后台demo-admin.hbzjhs.xyz driver-admin-password-c46f88bd-r3 PASSWORD/no Google/IAP，认证/RBAC/Origin/审计保留。CloudRun automatic/min0/max1请求计费，不保活/自动暂停；禁止原eztrips。已发driver0.3.12/code15、passenger1.1.12/code14仍旧包，本轮未改。最终版本号/合并SHA/发布读回均待办。
 
-资源：Gemini地区限制400零token，IDLE不绕过；不杀用户hub。root无已知运行server/Gradle；frontend有SDK QA清理义务。外部浏览器venv /Users/dongge/.codex/tmp/yijiexing-pm-browser-venv-20261027依赖安装进程已结束，未启server。构建/SDK/APK都在外部tmp，QA APK origin仅preview，勿上传stable。
+资源：Gemini地区限制400零token，IDLE不绕过；不杀用户hub。root无已知运行server/Gradle；frontend SDK QA清理已交回执、当前无设备。外部浏览器venv /Users/dongge/.codex/tmp/yijiexing-pm-browser-venv-20261027依赖安装进程已结束，未启server。构建/SDK/APK都在外部tmp，QA APK origin仅preview，勿上传stable。
 下一动作：PMDEST限定非作者结论已收齐，尚未发布；后续从当前已授权PMPOST/PMAD/PMMAP未完成项继续，不能把本阶段关闭当全项目完成。当前阶段后宜换新协调上下文再开PMPOST/后台大任务，用户未要求创建新对话，不能擅自创建。新接手读START_HERE和本卡即可，不遍历历史。
+
+阶段回执 2026-10-27T23:25:18.173095+08:00：已推送origin/codex/pm-amap-integration-20261027，ls-remote读回35aa7bbf3d68d458270e26818f75132c15b77536一致；main未合并、线上未发布。推送前84个新blob四私有值/高置信凭据0命中，frontend58文本文件清单快审PASS。用户附件《宜捷行ai协同说明.rtf》2049字已逐条读，与中央v3协议一致；其中换会话建议属旧阶段记录，当前唯一总管/新backend/frontend登记继续有效。
+
+测试交付阶段 2026-10-27T23:45:33.903576+08:00：用户明确要求合并发布供其验收，RELTEST-20261027-01 ACTIVE。当前35aa7bb上仅递增乘客1.1.13/code15与司机0.3.13/code16；backend在复核当前集成兼容，frontend独立验后台草稿UI；root唯一打包/PR合并/发布。SDK1008明确已知问题不伪称PASS，PMPOST83保持未集成。乘客构建运行中，source/cache均外部tmp。
