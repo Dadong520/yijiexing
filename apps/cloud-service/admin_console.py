@@ -5,6 +5,7 @@ import csv
 import io
 from common import *
 from admin_queries import AdminQueries
+from operations_drafts import OperationsDrafts, OPS_ACTIONS
 
 READ = {'orders.read','drivers.read','passengers.read','payments.read','support.read','config.read','statistics.read','audit.read'}
 ROLES = {
@@ -33,6 +34,7 @@ class AdminConsole:
         self.svc, self.db = svc, svc.db
         # execute, never executescript: preserve caller's transaction boundary.
         for ddl in SCHEMA:self.db.execute(ddl)
+        self.operation_drafts = OperationsDrafts(svc)
         raw_password = bootstrap_password or os.environ.get('ADMIN_BOOTSTRAP_PASSWORD','')
         if raw_password and not self.db.execute('SELECT 1 FROM console_users LIMIT 1').fetchone():
             password = self.password(raw_password)
@@ -121,17 +123,20 @@ class AdminConsole:
         mapping={'approvals':'config.read','scheduled':'config.read','batches':'config.read','orders':'orders.read','drivers':'drivers.read','passengers':'passengers.read','payments':'payments.read','support':'support.read','configs':'config.read','cities':'config.read','statistics':'statistics.read','audit':'audit.read'}
         for key,permission in mapping.items():
             if permission not in user['permissions']:out[key]=None if key=='statistics' else []
+        out['operationDrafts'] = (self.operation_drafts.state() if 'config.read' in user['permissions'] else
+            {'catalog': [], 'drafts': [], 'records': [], 'policyLabel': '无配置读取权限', 'draftOnly': True})
         if 'users.manage' in user['permissions']:out['users']=[self.user(r) for r in self.db.execute('SELECT * FROM console_users ORDER BY username')]
         return out
     def action(self,user,action,p,request_id):
         require(isinstance(p,dict) and isinstance(action,str),'操作格式错误')
-        self.permit(user,'config.write' if action in CONFIG_ACTIONS else 'users.manage' if action=='user.save' else action)
+        self.permit(user,'config.write' if action in CONFIG_ACTIONS or action in OPS_ACTIONS else 'users.manage' if action=='user.save' else action)
         rid=textfield(request_id,'请求标识',1,120);fp=hashlib.sha256(dumps({'action':action,'payload':p}).encode()).hexdigest()
         old=self.db.execute('SELECT * FROM console_actions WHERE username=? AND request_id=?',(user['username'],rid)).fetchone()
         if old:
             require(old['request_hash']==fp,'请求标识已用于不同操作',409);return json.loads(old['result'])
         actor='ADMIN:'+user['username']
-        if action in ('order.cancel','order.adjustFare','order.refund'):result=self.order_action(action,p,actor)
+        if action in OPS_ACTIONS:result=self.operation_drafts.action(action,p,actor)
+        elif action in ('order.cancel','order.adjustFare','order.refund'):result=self.order_action(action,p,actor)
         elif action=='support.reply':result=self.reply(p,actor)
         elif action=='user.save':result=self.save_user(user,p,actor)
         elif action in CONFIG_ACTIONS or action in ('certificate.audit','wallet.withdrawal.audit'):
@@ -207,6 +212,11 @@ class AdminConsole:
         self.svc.audit('ADMIN:'+user['username'],'certificate.view',None,{'driverId':driver_id,'type':certificate_type,'side':side,'fileId':fid})
         return {'fileId':row['id'],'mimeType':row['mime'],'imageBase64':base64.b64encode(row['content']).decode()}
     def query(self,user,params):
+        dataset = params.get('dataset')
+        if isinstance(dataset, list) and len(dataset) == 1:dataset = dataset[0]
+        if isinstance(dataset, str) and dataset.startswith('ops.'):
+            self.permit(user, 'config.read')
+            return self.operation_drafts.query(params)
         return AdminQueries(self,user).select(params)
     def export(self,user,dataset='orders',params=None):
         self.permit(user,'export')
