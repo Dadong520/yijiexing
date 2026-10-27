@@ -221,6 +221,41 @@ fun OrderDetail(o: JSONObject, store: PassengerStore, busy: Boolean) {
       }
     }
     Panel("行程路线") {
+      if (o.text("scheduledAt").isNotBlank()) {
+        KV("计划用车时间", formatTime(o.text("scheduledAt")))
+      }
+      val loc = driver?.optJSONObject("location")
+      val hasDriverLoc = loc != null && loc.has("latitude") && loc.has("longitude")
+      val driverLat = if (hasDriverLoc) loc!!.optDouble("latitude").toString() else null
+      val driverLng = if (hasDriverLoc) loc!!.optDouble("longitude").toString() else null
+      val driverTime = loc?.text("receivedAt")?.takeIf { it.isNotBlank() }?.let { formatTime(it) }
+      val accuracyVal = loc?.optDouble("accuracy") ?: Double.NaN
+      val driverAccuracy = if (!accuracyVal.isNaN() && accuracyVal > 0) "${accuracyVal.toInt()} 米" else null
+
+      Surface(
+        shape = androidx.compose.foundation.shape.RoundedCornerShape(12.dp),
+        border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFFEDEFF2)),
+        modifier = Modifier
+          .fillMaxWidth()
+          .height(200.dp),
+      ) {
+        PassengerMap(
+          originLat = o.optDouble("originLat").toString(),
+          originLng = o.optDouble("originLng").toString(),
+          destinationLat = if (o.optBoolean("destinationPending")) "" else o.optDouble("destinationLat").toString(),
+          destinationLng = if (o.optBoolean("destinationPending")) "" else o.optDouble("destinationLng").toString(),
+          driverLat = driverLat,
+          driverLng = driverLng,
+          driverReportedTime = driverTime,
+          driverAccuracy = driverAccuracy,
+          modifier = Modifier.fillMaxSize(),
+        )
+      }
+      Note("底图展示 WGS84 起终点与司机最新上报位置；直接连线仅供示意，非真实道路导航。")
+      if (hasDriverLoc) {
+        Note("司机上报位置：${loc!!.optDouble("latitude")}, ${loc.optDouble("longitude")} · 上报于 ${driverTime.orEmpty()}${if (!driverAccuracy.isNullOrBlank()) " · 精度约 $driverAccuracy" else ""}（单次上报非持续追踪）")
+      }
+
       Text("出发  ${o.text("origin")}", fontWeight = FontWeight.Bold)
       o.rows("waypoints").forEachIndexed { index, w ->
         val arrived =
@@ -236,13 +271,19 @@ fun OrderDetail(o: JSONObject, store: PassengerStore, busy: Boolean) {
         if (o.optBoolean("destinationPending")) "到达  目的地待补充" else "到达  ${o.text("destination")}",
         fontWeight = FontWeight.Bold,
       )
+      if (o.optBoolean("destinationPending")) {
+        val canSupply = (stage == "AVAILABLE" && o.rows("bids").isEmpty()) || stage in listOf("PICKUP", "ARRIVED")
+        Spacer(Modifier.height(4.dp))
+        ActionButton("补充目的地并确认体验估价", !busy && canSupply) {
+          dialog = "destination"
+        }
+      }
       TextButton(onClick = { showRoute = !showRoute }) {
-        Text(if (showRoute) "收起路线与乘车信息" else "路线示意与乘车信息")
+        Text(if (showRoute) "收起乘车人与备注信息" else "乘车人与备注信息")
       }
       if (showRoute) {
         RouteDiagram(o)
         Note("坐标连线示意 · 非真实道路导航；不包含实时路况、自动定位或正式地图搜索。")
-        if (o.text("scheduledAt").isNotBlank()) KV("预约时间", formatTime(o.text("scheduledAt")))
         if (o.text("remark").isNotBlank()) KV("乘客备注", o.text("remark"))
         o.optJSONObject("rider")?.let { KV("乘车人", it.text("name")) }
         KV("乘车手机号尾号", o.text("phoneTail"))
@@ -287,11 +328,17 @@ fun OrderDetail(o: JSONObject, store: PassengerStore, busy: Boolean) {
         if (
           (stage == "AVAILABLE" && o.rows("bids").isEmpty()) ||
             (o.optBoolean("destinationPending") && stage in listOf("PICKUP", "ARRIVED"))
-        )
-          TextButton(onClick = { dialog = "destination" }, enabled = !busy) {
-            Text(if (o.optBoolean("destinationPending")) "补充目的地并确认体验估价" else "修改目的地并重新估价")
+        ) {
+          if (o.optBoolean("destinationPending")) {
+            ActionButton("补充目的地并确认体验估价", !busy) {
+              dialog = "destination"
+            }
+          } else {
+            TextButton(onClick = { dialog = "destination" }, enabled = !busy) {
+              Text("修改目的地并重新估价")
+            }
           }
-        else Note("司机接单或报价后目的地与估价已锁定，需要变更请取消后重新下单。")
+        } else Note("司机接单或报价后目的地与估价已锁定，需要变更请取消后重新下单。稍后补充目的地可在接驾前或接驾时直接点击主按钮补充。")
       }
     if (stage == "DONE")
       Panel("评价本次行程") {

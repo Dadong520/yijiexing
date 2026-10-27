@@ -698,7 +698,17 @@ fun OrdersScreen(orders: List<JSONObject>, open: (String) -> Unit) {
               color = Ink,
             )
           }
-          orderPlacedTime(o.text("createdAt"))?.let { Note("下单时间：$it") }
+          if (o.text("scheduledAt").isNotBlank()) {
+            Row(
+              Modifier.fillMaxWidth(),
+              horizontalArrangement = Arrangement.SpaceBetween,
+              verticalAlignment = Alignment.CenterVertically,
+            ) {
+              Text("计划用车时间", color = Teal, fontSize = 13.sp, fontWeight = FontWeight.SemiBold)
+              Text(formatTime(o.text("scheduledAt")), color = Ink, fontSize = 13.sp, fontWeight = FontWeight.Medium)
+            }
+          }
+          orderPlacedTime(o.text("createdAt"))?.let { Note("创建时间：$it") }
           IdentifierButton(o.text("id"))
           if (o.rows("bids").isNotEmpty() && stage == "AVAILABLE") {
             Text(
