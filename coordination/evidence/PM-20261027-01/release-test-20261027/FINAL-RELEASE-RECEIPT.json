@@ -1,0 +1,29 @@
+{
+  "at": "2026-10-28T00:34:30.910261+08:00",
+  "scope": "EXPERIENCE_TEST_RELEASE_FOR_USER_ACCEPTANCE",
+  "codeMergedSha": "1d04ff7ce64779fe9f9122513dd651f305093b79",
+  "pullRequest": "https://github.com/Dadong520/yijiexing/pull/28",
+  "apiRevision": "driver-demo-pm-54e6d313-dl900",
+  "adminRevision": "driver-admin-pm-48d2ef4-test2",
+  "trafficPercent": 100,
+  "driverVersion": "0.3.13-cloud/code16",
+  "passengerVersion": "1.1.13-experience/code15",
+  "downloadFastOrigin": "https://user-test---driver-demo-phfgquzmua-uw.a.run.app",
+  "standardOrigin": "https://yijiexing-demo.hbzjhs.xyz",
+  "adminOrigin": "https://demo-admin.hbzjhs.xyz",
+  "twoFixedAPKsAndIndependentHTTPSVerification": "PASS",
+  "old35OrdersPreserved": true,
+  "old35BusinessFieldsUnchanged": true,
+  "originalSigningRetained": true,
+  "iamEnvSecretsRetained": true,
+  "adminAuth": "PASSWORD",
+  "scaling": "automatic/min0/max1/request billing",
+  "downloadRequestTimeoutSeconds": 900,
+  "knownIssues": [
+    "Passenger Amap POI1008/map10008; successful public point calibration NOT_RUN",
+    "Custom download domain slow on current network; alternate same-service direct HTTPS fully verified",
+    "WeChat AppID missing, no WeChat deployment",
+    "OEM sound/background and some full-device GUI remain to test; PMPOST not included"
+  ],
+  "allProductRequirementsComplete": false
+}

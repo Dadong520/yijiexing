@@ -8,4 +8,4 @@
 
 每阶段及约40分钟有效工作保存短卡；发现压缩后恢复成本增加、重复调查或记忆冲突要提前告诉我换新对话，附完整交接。没有可靠上下文遥测写UNKNOWN，不编造百分比。
 
-仅使用独立Google Cloud体验环境，保留历史数据、接口和按需min0/max1低费用设置，IAM/IAP按DECISIONS最新用户授权执行（当前后台PASSWORD模式，无Google登录）。不得连原生产/测试，凭据不入源码或聊天，大文件优先直连。换会话不等于重部署；未运行明确NOT_RUN；无任务不常驻工作。请从最新状态继续收尾已授权PM-20261027-01及其子任务，不自行扩大开发范围。最新用户BIZ06取消新增无终点叫车，产品集成0df8b187ac2f68c52fa6d17db846fbb8854b4eda，尚未发布；以中央PMDEST任务/短卡的最新非作者结论为准。高德乘客POI在用户保存包名/SHA1后仍1008，不重复索要Key或把底图显示称鉴权成功。PMPOST后端作者83c7c2a待非作者，客户端尚未接入；PMAD后端已验、后台UI待GUI。SDK QA资源已还原关闭。不要重做已绑定SHA的全套测试，不把作者自测或0%预览称正式完成。
+仅使用独立Google Cloud体验环境，保留历史数据、接口和按需min0/max1低费用设置，IAM/IAP按DECISIONS最新用户授权执行（当前后台PASSWORD模式，无Google登录）。不得连原生产/测试，凭据不入源码或聊天，大文件优先直连。换会话不等于重部署；未运行明确NOT_RUN；无任务不常驻工作。本次已交付体验版：PR28合并main 1d04ff7ce64779fe9f9122513dd651f305093b79，API/admin100%，司机0.3.13/code16、乘客1.1.13/code15及备用HTTPS整包回读PASS。原域名整包在本网络慢，快链为同服务user-test---driver-demo-phfgquzmua-uw.a.run.app的/download和/download-passenger。查中央最新STATE/RELTEST/RELREC实际回执，不能重复发布旧版或误说未合并。后续按用户反馈和父PM剩余项继续：高德1008/10008未过、公共点NOT_RUN；PMPOST83作者待非作者和客户端，未集成；微信缺AppID和OEM等未完成。先确认原根停止派单，勿擅扩范围或遍历旧聊天。

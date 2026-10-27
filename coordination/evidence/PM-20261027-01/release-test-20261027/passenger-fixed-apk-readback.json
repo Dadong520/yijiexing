@@ -1,0 +1,9 @@
+{
+  "role": "passenger",
+  "fixedObject": "distribution/yijiexing-passenger.apk",
+  "oldGeneration": "1792949900790511",
+  "newGeneration": "1793117996048546",
+  "sha256": "cddfb0556ad0c830080619daa4a6b3b1da98d715c9d97246a71cfed00ff79a61",
+  "oldObjectArchived": true,
+  "HTTPSURL": "https://yijiexing-demo.hbzjhs.xyz/download-passenger.apk"
+}

@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "protocolVersion": "2026-10-26-v3",
   "canonicalControlRoot": "/Users/dongge/Documents/New project 2",
-  "updatedAt": "2026-10-27T23:44:48.676252+08:00",
+  "updatedAt": "2026-10-28T00:36:21.805537+08:00",
   "generation": 6,
   "activeCoordinatorRole": "coordinator",
   "retiredCoordinatorThreadIds": [
@@ -20,9 +20,9 @@
       "measurementSource": "not_exposed",
       "measurementAt": null,
       "ackVersion": "2026-10-26-v3",
-      "checkpointId": "RELTEST-20261027-01",
+      "checkpointId": "RELREC-20261027-01",
       "handoffPath": "coordination/handoffs/coordinator.md",
-      "workflowState": "ACTIVE_TEST_RELEASE"
+      "workflowState": "RECEIPT_SYNC"
     },
     "backend": {
       "threadId": "01a17ccb-1aa7-7773-a300-46743666876d",
@@ -36,7 +36,7 @@
       "ackVersion": "2026-10-26-v3",
       "checkpointId": "RELTEST-20261027-01",
       "handoffPath": "coordination/handoffs/backend.md",
-      "workflowState": "REVIEW_TEST_RELEASE",
+      "workflowState": "IDLE",
       "execution": "isolated collaboration subagent backend_review"
     },
     "frontend": {
@@ -51,7 +51,7 @@
       "ackVersion": "2026-10-26-v3",
       "checkpointId": "RELTEST-20261027-01",
       "handoffPath": "coordination/handoffs/frontend.md",
-      "workflowState": "REVIEW_ADMIN_UI_TEST_RELEASE",
+      "workflowState": "IDLE",
       "execution": "isolated collaboration subagent frontend_review"
     },
     "antigravity": {

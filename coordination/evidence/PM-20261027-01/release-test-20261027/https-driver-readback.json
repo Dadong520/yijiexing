@@ -1,0 +1,40 @@
+{
+  "role": "driver",
+  "url": "https://user-test---driver-demo-phfgquzmua-uw.a.run.app/download.apk",
+  "readbackTimeUTC": "2026-10-27T16:28:49.154207+00:00",
+  "mergedSourceSha": "1d04ff7ce64779fe9f9122513dd651f305093b79",
+  "apkBuildSourceSha": "54e6d3134db821a01554f2d0ed5aefecc381a632",
+  "actual": {
+    "package": "cn.hbzjhs.dc.driver.cloud",
+    "versionCode": 16,
+    "versionName": "0.3.13-cloud",
+    "bytes": 108620421,
+    "sha256": "410be14dd48bd6af807b03c7e43942c3eaf527f388019108bd58ece3644c34eb",
+    "certificateSHA256": "9ffec9b342d12909ff288bd73f23ba104893b39120cb24ea83c9734a0d2b758f"
+  },
+  "matchesApkProof": {
+    "package": true,
+    "versionCode": true,
+    "versionName": true,
+    "bytes": true,
+    "sha256": true,
+    "certificateSHA256": true
+  },
+  "apksignerVerify": "PASS",
+  "network": "authorized alternate HTTPS direct complete",
+  "cloudWrites": 0,
+  "emulatorStarted": false,
+  "result": "PASS",
+  "officialUrl": "https://yijiexing-demo.hbzjhs.xyz/download.apk",
+  "fixedObjectGeneration": "1793118437324382",
+  "downloadAttempts": [
+    {
+      "route": "authorized_alternate_direct",
+      "http": 200,
+      "exit": 0,
+      "bytes": 108620421,
+      "seconds": 11.823458
+    }
+  ],
+  "officialUrlFullDownload": "NOT_RUN: known slow route, same fixed object per coordinator"
+}

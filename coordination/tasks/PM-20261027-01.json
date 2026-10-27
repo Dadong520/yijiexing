@@ -28,13 +28,13 @@
     "关键状态/定位坐标/金额由非作者复核",
     "适用差量测试及真实共享订单验收通过后精确SHA发布回读"
   ],
-  "status": "ACTIVE_INTEGRATION",
+  "status": "EXPERIENCE_RELEASE_DELIVERED_REMAINING_FOLLOWUPS",
   "acceptance": "NOT_RUN",
   "tests": [],
   "evidence": [
     "coordination/evidence/PM-20261027-01/repository/push-readback.json"
   ],
-  "nextAction": "PMDEST0df8b18非作者限定PASS且未发布；下一阶段PMPOST作者83c7c2a待独立审核/客户端，PMAD后台UI待GUI，PMMAP鉴权阻塞后再统一合并发布",
+  "nextAction": "用户测试本版；后续高德鉴权/公共点、PMPOST独立审核及客户端、微信AppID和设备/OEM",
   "deploy_owner": "coordinator",
   "releaseReady": false,
   "notes": {
@@ -46,7 +46,7 @@
     "userAuthorization": "2026-10-27 request + 继续 + explicit async answer 允许新建并接手（推荐）",
     "pendingUserQuestion": "双Android包名/SHA1用户已保存；乘客新POI仍1008，未再次索要Key",
     "productChanges": "PMPA/PMBE/PMRES/PMCL限定PASS；PMAD后端6组PASS/UI待验；PMDEST后端4组+客户端非作者PASS；PMPOST作者待验；PMMAP外部SDK鉴权阻塞",
-    "deployments": "API 0% preview driver-demo-pm-364078b4-qa1 only; stable traffic and APKs unchanged",
+    "deployments": "API/admin100%及双新版APK已发布，备用HTTPS完整回读PASS，PR28 main1d04ff7",
     "coordinatorSession": "01a17cc7-e0a2-7791-bf1d-4611c09bab22",
     "reservationDecision": {
       "at": "2026-10-27T18:03:16.151726+08:00",
@@ -59,10 +59,10 @@
       "sha": "35aa7bbf3d68d458270e26818f75132c15b77536",
       "url": "https://github.com/Dadong520/yijiexing/tree/codex/pm-amap-integration-20261027",
       "status": "PUSHED_REMOTE_VERIFIED",
-      "mainMerged": false,
-      "publicRelease": false
+      "mainMerged": true,
+      "publicRelease": "EXPERIENCE_TEST_RELEASE"
     }
   },
-  "updatedAt": "2026-10-27T23:25:18.173095+08:00",
+  "updatedAt": "2026-10-28T00:36:21.805537+08:00",
   "candidateSha": "0df8b187ac2f68c52fa6d17db846fbb8854b4eda"
 }

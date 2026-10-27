@@ -1,0 +1,11 @@
+{
+  "mergedSha": "1d04ff7ce64779fe9f9122513dd651f305093b79",
+  "reviewedHeadSha": "48d2ef409248bec3b6833b77570650a21d7b260d",
+  "treeEqual": true,
+  "apiAndAndroidBuiltSha": "54e6d3134db821a01554f2d0ed5aefecc381a632",
+  "apiAndAndroidDirectoriesUnchangedToMerged": true,
+  "adminFrontendBuildAndReviewSha": "48d2ef409248bec3b6833b77570650a21d7b260d",
+  "pullRequest": "https://github.com/Dadong520/yijiexing/pull/28",
+  "projectGate": "SUCCESS at48d2ef4; GitHub Actions40536384308",
+  "time": "2026-10-28T00:14:15.501065+08:00"
+}

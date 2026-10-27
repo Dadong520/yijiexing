@@ -1,0 +1,9 @@
+{
+  "role": "driver",
+  "fixedObject": "distribution/yijiexing-cloud.apk",
+  "oldGeneration": "1792949858881200",
+  "newGeneration": "1793118437324382",
+  "sha256": "410be14dd48bd6af807b03c7e43942c3eaf527f388019108bd58ece3644c34eb",
+  "oldObjectArchived": true,
+  "HTTPSURL": "https://yijiexing-demo.hbzjhs.xyz/download.apk"
+}

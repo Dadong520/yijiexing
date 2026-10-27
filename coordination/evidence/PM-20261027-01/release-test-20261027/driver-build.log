@@ -1,0 +1,71 @@
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/8.7/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
+> Task :app:checkKotlinGradlePluginConfigurationErrors
+> Task :app:preBuild UP-TO-DATE
+> Task :app:preDebugBuild UP-TO-DATE
+> Task :app:generateDebugBuildConfig
+> Task :app:checkDebugAarMetadata UP-TO-DATE
+> Task :app:generateDebugResValues UP-TO-DATE
+> Task :app:mapDebugSourceSetPaths UP-TO-DATE
+> Task :app:generateDebugResources UP-TO-DATE
+> Task :app:mergeDebugResources UP-TO-DATE
+> Task :app:packageDebugResources UP-TO-DATE
+> Task :app:parseDebugLocalResources UP-TO-DATE
+> Task :app:createDebugCompatibleScreenManifests
+> Task :app:extractDeepLinksDebug UP-TO-DATE
+> Task :app:processDebugMainManifest
+> Task :app:processDebugManifest
+> Task :app:processDebugManifestForPackage
+> Task :app:processDebugResources
+> Task :app:compileDebugKotlin
+w: file:///Users/dongge/.codex/tmp/yijiexing-pm-amap-20261027/candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/BusinessCommunity.kt:311:53 Parameter 'profile' is never used
+w: file:///Users/dongge/.codex/tmp/yijiexing-pm-amap-20261027/candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/BusinessCommunity.kt:378:5 Parameter 'onMessage' is never used
+w: file:///Users/dongge/.codex/tmp/yijiexing-pm-amap-20261027/candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/CoreScreens.kt:1560:21 Parameter 'store' is never used
+w: file:///Users/dongge/.codex/tmp/yijiexing-pm-amap-20261027/candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/DriverLocationService.kt:286:43 Unsafe use of a nullable receiver of type JSONObject?
+w: file:///Users/dongge/.codex/tmp/yijiexing-pm-amap-20261027/candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/DriverPermissions.kt:131:9 Parameter 'results' is never used, could be renamed to _
+w: file:///Users/dongge/.codex/tmp/yijiexing-pm-amap-20261027/candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/DriverPermissions.kt:149:9 Variable 'lightGreen' is never used
+w: file:///Users/dongge/.codex/tmp/yijiexing-pm-amap-20261027/candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/MembershipCatalogScreens.kt:90:51 Unnecessary non-null assertion (!!) on a non-null receiver of type JSONObject
+w: file:///Users/dongge/.codex/tmp/yijiexing-pm-amap-20261027/candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/MembershipCatalogScreens.kt:114:21 'LinearProgressIndicator(Float, Modifier = ..., Color = ..., Color = ..., StrokeCap = ...): Unit' is deprecated. Use the overload that takes `progress` as a lambda
+w: file:///Users/dongge/.codex/tmp/yijiexing-pm-amap-20261027/candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/MembershipUi.kt:290:30 Unsafe use of a nullable receiver of type Any?
+w: file:///Users/dongge/.codex/tmp/yijiexing-pm-amap-20261027/candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/UiKit.kt:85:43 'List: ImageVector' is deprecated. Use the AutoMirrored version at Icons.AutoMirrored.Outlined.List
+w: file:///Users/dongge/.codex/tmp/yijiexing-pm-amap-20261027/candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/UiKit.kt:87:34 'ArrowBack: ImageVector' is deprecated. Use the AutoMirrored version at Icons.AutoMirrored.Outlined.ArrowBack
+w: file:///Users/dongge/.codex/tmp/yijiexing-pm-amap-20261027/candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/UiKit.kt:88:35 'KeyboardArrowRight: ImageVector' is deprecated. Use the AutoMirrored version at Icons.AutoMirrored.Outlined.KeyboardArrowRight
+
+> Task :app:javaPreCompileDebug UP-TO-DATE
+> Task :app:compileDebugJavaWithJavac
+> Task :app:bundleDebugClassesToRuntimeJar
+> Task :app:bundleDebugClassesToCompileJar
+> Task :app:compileDebugUnitTestKotlin
+> Task :app:preDebugUnitTestBuild UP-TO-DATE
+> Task :app:javaPreCompileDebugUnitTest UP-TO-DATE
+> Task :app:compileDebugUnitTestJavaWithJavac NO-SOURCE
+> Task :app:processDebugJavaRes UP-TO-DATE
+> Task :app:processDebugUnitTestJavaRes UP-TO-DATE
+> Task :app:testDebugUnitTest
+> Task :app:mergeDebugNativeDebugMetadata NO-SOURCE
+> Task :app:mergeDebugShaders UP-TO-DATE
+> Task :app:compileDebugShaders NO-SOURCE
+> Task :app:generateDebugAssets UP-TO-DATE
+> Task :app:mergeDebugAssets UP-TO-DATE
+> Task :app:compressDebugAssets UP-TO-DATE
+> Task :app:desugarDebugFileDependencies UP-TO-DATE
+> Task :app:dexBuilderDebug
+> Task :app:mergeDebugGlobalSynthetics UP-TO-DATE
+> Task :app:mergeDebugJavaResource UP-TO-DATE
+> Task :app:checkDebugDuplicateClasses UP-TO-DATE
+> Task :app:mergeDebugStartupProfile UP-TO-DATE
+> Task :app:mergeExtDexDebug UP-TO-DATE
+> Task :app:mergeLibDexDebug UP-TO-DATE
+> Task :app:mergeProjectDexDebug
+> Task :app:mergeDebugJniLibFolders UP-TO-DATE
+> Task :app:mergeDebugNativeLibs UP-TO-DATE
+> Task :app:stripDebugDebugSymbols UP-TO-DATE
+> Task :app:validateSigningDebug UP-TO-DATE
+> Task :app:writeDebugAppMetadata UP-TO-DATE
+> Task :app:writeDebugSigningConfigVersions UP-TO-DATE
+> Task :app:packageDebug
+> Task :app:createDebugApkListingFileRedirect
+> Task :app:assembleDebug
+
+BUILD SUCCESSFUL in 56s
+45 actionable tasks: 17 executed, 28 up-to-date

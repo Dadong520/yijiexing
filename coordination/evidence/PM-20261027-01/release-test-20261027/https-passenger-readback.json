@@ -1,0 +1,54 @@
+{
+  "role": "passenger",
+  "url": "https://user-test---driver-demo-phfgquzmua-uw.a.run.app/download-passenger.apk",
+  "readbackTimeUTC": "2026-10-27T16:27:17.752296+00:00",
+  "mergedSourceSha": "1d04ff7ce64779fe9f9122513dd651f305093b79",
+  "apkBuildSourceSha": "54e6d3134db821a01554f2d0ed5aefecc381a632",
+  "actual": {
+    "package": "cn.hbzjhs.dc.passenger.cloud",
+    "versionCode": 15,
+    "versionName": "1.1.13-experience",
+    "bytes": 107073909,
+    "sha256": "cddfb0556ad0c830080619daa4a6b3b1da98d715c9d97246a71cfed00ff79a61",
+    "certificateSHA256": "9ffec9b342d12909ff288bd73f23ba104893b39120cb24ea83c9734a0d2b758f"
+  },
+  "matchesApkProof": {
+    "package": true,
+    "versionCode": true,
+    "versionName": true,
+    "bytes": true,
+    "sha256": true,
+    "certificateSHA256": true
+  },
+  "apksignerVerify": "PASS",
+  "network": "alternate authorized HTTPS direct complete",
+  "cloudWrites": 0,
+  "emulatorStarted": false,
+  "result": "PASS",
+  "officialUrl": "https://yijiexing-demo.hbzjhs.xyz/download-passenger.apk",
+  "fixedObjectGeneration": "1793117996048546",
+  "downloadAttempts": [
+    {
+      "route": "official_direct",
+      "http": 200,
+      "exit": 28,
+      "bytes": 3114928,
+      "seconds": 25.00253
+    },
+    {
+      "route": "official_proxy1082",
+      "http": 200,
+      "exit": 28,
+      "bytes": 20574199,
+      "seconds": 300.005593
+    },
+    {
+      "route": "authorized_alternate_direct",
+      "http": 200,
+      "exit": 0,
+      "bytes": 107073909,
+      "seconds": 11.731555
+    }
+  ],
+  "officialUrlFullDownload": "NOT_COMPLETED"
+}

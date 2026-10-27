@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "id": "RELREC-20261027-01",
+  "owner": "coordinator",
+  "goal": "将本次已合并/发布的实际版本、限制、回读及测试交付记录保存Git main，避免中央状态与仓库检查点长期不一致",
+  "baseSha": "1d04ff7ce64779fe9f9122513dd651f305093b79",
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-pm-amap-20261027",
+  "branch": "codex/experience-release-receipt-20261027",
+  "allow_paths": [
+    "README.md",
+    "coordination/STATE.md",
+    "coordination/BOARD.json",
+    "coordination/SESSION_REGISTRY.json",
+    "coordination/DECISIONS.md",
+    "coordination/NEW_CHAT_PROMPT.txt",
+    "coordination/handoffs/coordinator.md",
+    "coordination/handoffs/backend.md",
+    "coordination/handoffs/frontend.md",
+    "coordination/tasks/",
+    "coordination/evidence/PM-20261027-01/release-test-20261027/"
+  ],
+  "checks": [
+    "只写真实发布/测试回执与限制，不改产品逻辑",
+    "精确代码merge1d04ff7/镜像/APK与HTTPS回读相匹配",
+    "中央结构检查与PR gate通过，凭据/APK/数据库不入Git"
+  ],
+  "status": "VERIFIED_RECEIPT",
+  "acceptance": "PASS",
+  "tests": [
+    {
+      "command": "python3 tools/check_coordination.py --memory-role coordinator --session-id 01a17cc7-e0a2-7791-bf1d-4611c09bab22",
+      "status": "PASS",
+      "exitCode": 0
+    },
+    {
+      "command": "backend nonauthor receipt correlation and12 referenced evidence SHA256 verification",
+      "status": "PASS",
+      "exitCode": 0
+    }
+  ],
+  "evidence": [
+    "coordination/evidence/PM-20261027-01/release-test-20261027/FINAL-RELEASE-RECEIPT.json"
+  ],
+  "nextAction": "后续按用户验收反馈处理；文档仅保存本次真实发布回执，不触发重复部署",
+  "deploy_owner": "coordinator",
+  "releaseReady": false,
+  "updatedAt": "2026-10-28T00:20:03.395214+08:00",
+  "reviewer": "backend_review"
+}
