@@ -71,7 +71,10 @@ fun BookingScreen(
   var contactId by rememberSaveable { mutableStateOf("") }
   var destinationPending by rememberSaveable { mutableStateOf(false) }
   val context = LocalContext.current
-  val active = state.rows("orders").firstOrNull { it.text("stage") !in listOf("DONE", "CANCELLED") }
+  val reservations = state.rows("orders").filter { it.text("kind") == "RESERVED" && it.text("stage") in listOf("AVAILABLE", "RESERVED") }
+  val active = state.rows("orders").firstOrNull {
+    it.text("stage") !in listOf("DONE", "CANCELLED") && it !in reservations
+  }
   val submitOrder: () -> Unit = {
     runCatching {
         require(origin.trim().length >= 2 && destination.trim().length >= 2) { "请填写完整起点和终点" }
@@ -150,6 +153,11 @@ fun BookingScreen(
             .padding(horizontal = 16.dp, vertical = 12.dp),
           verticalArrangement = Arrangement.spacedBy(10.dp),
         ) {
+          reservations.forEach { reservation ->
+            OutlinedButton(onClick = { openOrder(reservation.text("id")) }, modifier = Modifier.fillMaxWidth()) {
+              Text("待出发预约 · ${formatTime(reservation.text("scheduledAt"))} · 查看")
+            }
+          }
           if (active != null) {
             Surface(
               shape = RoundedCornerShape(12.dp),

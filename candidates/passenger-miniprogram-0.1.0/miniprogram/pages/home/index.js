@@ -38,7 +38,8 @@ const page = base({
   syncState(s) {
     this.setData({
       riderOptions: [{ id: '', name: '本人' }].concat(s.riders || []),
-      active: (s.orders || []).find(o => !['DONE', 'CANCELLED'].includes(o.stage)) || null
+      active: (s.orders || []).find(o => !['DONE', 'CANCELLED'].includes(o.stage) && !(o.kind === 'RESERVED' && ['AVAILABLE', 'RESERVED'].includes(o.stage))) || null,
+      reservations: (s.orders || []).filter(o => o.kind === 'RESERVED' && ['AVAILABLE', 'RESERVED'].includes(o.stage))
     });
     this.updateMatchedCoupon();
   },
