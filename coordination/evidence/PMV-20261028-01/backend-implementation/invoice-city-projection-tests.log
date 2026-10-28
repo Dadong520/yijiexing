@@ -1,0 +1,250 @@
+test_ack_failed_cas_and_lost_response_retry (test_live_operations.LiveOperationsTests.test_ack_failed_cas_and_lost_response_retry) ... [2026-10-28T13:28:04+08:00] POST /api/local/admin/v2/login 200
+[2026-10-28T13:28:04+08:00] POST /api/passenger/auth/code 200
+[2026-10-28T13:28:04+08:00] POST /api/passenger/auth/login 200
+[2026-10-28T13:28:04+08:00] POST /api/local/admin/v2/action 200
+[2026-10-28T13:28:04+08:00] POST /api/local/admin/v2/action 200
+[2026-10-28T13:28:04+08:00] cloud persistence unavailable: SnapshotUnavailable
+[2026-10-28T13:28:04+08:00] POST /api/passenger/action 503
+[2026-10-28T13:28:04+08:00] GET /api/passenger/state 200
+[2026-10-28T13:28:04+08:00] cloud persistence unavailable: SnapshotUnavailable
+[2026-10-28T13:28:04+08:00] POST /api/passenger/action 503
+[2026-10-28T13:28:04+08:00] POST /api/passenger/action 200
+[2026-10-28T13:28:04+08:00] GET /api/passenger/state 200
+ok
+test_admin_rbac_validation_versions_and_finance_unchanged (test_live_operations.LiveOperationsTests.test_admin_rbac_validation_versions_and_finance_unchanged) ... [2026-10-28T13:28:04+08:00] POST /api/local/admin/v2/login 200
+[2026-10-28T13:28:04+08:00] POST /api/auth/code 200
+[2026-10-28T13:28:04+08:00] POST /api/auth/login 200
+[2026-10-28T13:28:04+08:00] GET /api/state 200
+[2026-10-28T13:28:04+08:00] POST /api/local/admin/v2/action 200
+[2026-10-28T13:28:04+08:00] POST /api/local/admin/v2/action 400
+[2026-10-28T13:28:04+08:00] POST /api/local/admin/v2/action 409
+[2026-10-28T13:28:04+08:00] POST /api/local/admin/v2/action 400
+[2026-10-28T13:28:04+08:00] POST /api/local/admin/v2/action 400
+[2026-10-28T13:28:04+08:00] POST /api/local/admin/v2/action 400
+[2026-10-28T13:28:04+08:00] POST /api/local/admin/v2/action 400
+[2026-10-28T13:28:04+08:00] POST /api/local/admin/v2/action 404
+[2026-10-28T13:28:04+08:00] POST /api/local/admin/v2/action 200
+[2026-10-28T13:28:04+08:00] POST /api/local/admin/v2/login 200
+[2026-10-28T13:28:04+08:00] POST /api/local/admin/v2/action 403
+[2026-10-28T13:28:04+08:00] POST /api/local/admin/v2/action 200
+[2026-10-28T13:28:04+08:00] POST /api/local/admin/v2/login 200
+[2026-10-28T13:28:04+08:00] POST /api/local/admin/v2/action 403
+[2026-10-28T13:28:04+08:00] POST /api/local/admin/v2/action 200
+[2026-10-28T13:28:04+08:00] POST /api/local/admin/v2/login 200
+[2026-10-28T13:28:04+08:00] POST /api/local/admin/v2/action 403
+[2026-10-28T13:28:04+08:00] POST /api/local/admin/v2/action 200
+[2026-10-28T13:28:04+08:00] POST /api/local/admin/v2/login 200
+[2026-10-28T13:28:04+08:00] POST /api/local/admin/v2/action 200
+[2026-10-28T13:28:04+08:00] GET /api/state 200
+[2026-10-28T13:28:04+08:00] GET /api/local/admin/v2/state 200
+ok
+test_all_order_kind_gates_and_historical_cancel_survives_close (test_live_operations.LiveOperationsTests.test_all_order_kind_gates_and_historical_cancel_survives_close) ... [2026-10-28T13:28:04+08:00] POST /api/local/admin/v2/login 200
+[2026-10-28T13:28:04+08:00] POST /api/passenger/auth/code 200
+[2026-10-28T13:28:04+08:00] POST /api/passenger/auth/login 200
+[2026-10-28T13:28:04+08:00] POST /api/passenger/action 200
+[2026-10-28T13:28:04+08:00] POST /api/local/admin/v2/action 200
+[2026-10-28T13:28:04+08:00] POST /api/local/admin/v2/action 200
+[2026-10-28T13:28:04+08:00] GET /api/passenger/state 200
+[2026-10-28T13:28:04+08:00] POST /api/passenger/action 200
+[2026-10-28T13:28:04+08:00] POST /api/passenger/action 403
+[2026-10-28T13:28:04+08:00] POST /api/passenger/action 403
+[2026-10-28T13:28:04+08:00] POST /api/passenger/action 403
+ok
+test_announcement_audience_region_publish_edit_and_withdraw (test_live_operations.LiveOperationsTests.test_announcement_audience_region_publish_edit_and_withdraw) ... [2026-10-28T13:28:04+08:00] POST /api/local/admin/v2/login 200
+[2026-10-28T13:28:04+08:00] POST /api/passenger/auth/code 200
+[2026-10-28T13:28:04+08:00] POST /api/passenger/auth/login 200
+[2026-10-28T13:28:04+08:00] POST /api/local/admin/v2/action 200
+[2026-10-28T13:28:04+08:00] POST /api/local/admin/v2/action 200
+[2026-10-28T13:28:04+08:00] GET /api/passenger/state 200
+[2026-10-28T13:28:04+08:00] POST /api/local/admin/v2/action 200
+[2026-10-28T13:28:04+08:00] GET /api/passenger/state 200
+[2026-10-28T13:28:04+08:00] POST /api/local/admin/v2/action 200
+[2026-10-28T13:28:04+08:00] POST /api/passenger/action 409
+[2026-10-28T13:28:04+08:00] POST /api/passenger/action 200
+[2026-10-28T13:28:04+08:00] GET /api/passenger/state 200
+[2026-10-28T13:28:04+08:00] POST /api/passenger/action 403
+[2026-10-28T13:28:04+08:00] POST /api/passenger/action 200
+[2026-10-28T13:28:04+08:00] POST /api/local/admin/v2/action 200
+[2026-10-28T13:28:04+08:00] GET /api/passenger/state 200
+[2026-10-28T13:28:04+08:00] POST /api/passenger/action 409
+ok
+test_announcement_read_is_non_consuming_and_once_per_user_version (test_live_operations.LiveOperationsTests.test_announcement_read_is_non_consuming_and_once_per_user_version) ... [2026-10-28T13:28:05+08:00] POST /api/local/admin/v2/login 200
+[2026-10-28T13:28:05+08:00] POST /api/passenger/auth/code 200
+[2026-10-28T13:28:05+08:00] POST /api/passenger/auth/login 200
+[2026-10-28T13:28:05+08:00] POST /api/passenger/auth/code 200
+[2026-10-28T13:28:05+08:00] POST /api/passenger/auth/login 200
+[2026-10-28T13:28:05+08:00] POST /api/local/admin/v2/action 200
+[2026-10-28T13:28:05+08:00] POST /api/local/admin/v2/action 200
+[2026-10-28T13:28:05+08:00] GET /api/passenger/state 200
+[2026-10-28T13:28:05+08:00] GET /api/passenger/state 200
+[2026-10-28T13:28:05+08:00] GET /api/passenger/state 200
+[2026-10-28T13:28:05+08:00] POST /api/passenger/action 200
+[2026-10-28T13:28:05+08:00] POST /api/passenger/action 200
+[2026-10-28T13:28:05+08:00] POST /api/passenger/action 200
+[2026-10-28T13:28:05+08:00] POST /api/passenger/action 200
+[2026-10-28T13:28:05+08:00] GET /api/passenger/state 200
+[2026-10-28T13:28:05+08:00] GET /api/passenger/state 200
+ok
+test_announcement_start_inclusive_end_exclusive_and_bad_inputs (test_live_operations.LiveOperationsTests.test_announcement_start_inclusive_end_exclusive_and_bad_inputs) ... [2026-10-28T13:28:05+08:00] POST /api/local/admin/v2/login 200
+[2026-10-28T13:28:05+08:00] POST /api/passenger/auth/code 200
+[2026-10-28T13:28:05+08:00] POST /api/passenger/auth/login 200
+[2026-10-28T13:28:05+08:00] POST /api/local/admin/v2/action 200
+[2026-10-28T13:28:05+08:00] POST /api/local/admin/v2/action 200
+[2026-10-28T13:28:05+08:00] GET /api/passenger/state 200
+[2026-10-28T13:28:05+08:00] GET /api/passenger/state 200
+[2026-10-28T13:28:05+08:00] GET /api/passenger/state 200
+[2026-10-28T13:28:05+08:00] POST /api/passenger/action 409
+[2026-10-28T13:28:05+08:00] POST /api/local/admin/v2/action 400
+[2026-10-28T13:28:05+08:00] POST /api/local/admin/v2/action 400
+[2026-10-28T13:28:05+08:00] POST /api/local/admin/v2/action 400
+[2026-10-28T13:28:05+08:00] POST /api/local/admin/v2/action 400
+[2026-10-28T13:28:05+08:00] GET /api/passenger/state 400
+[2026-10-28T13:28:05+08:00] POST /api/passenger/action 400
+ok
+test_closed_feature_blocks_recall_but_keeps_decline_recall (test_live_operations.LiveOperationsTests.test_closed_feature_blocks_recall_but_keeps_decline_recall) ... [2026-10-28T13:28:05+08:00] POST /api/local/admin/v2/login 200
+[2026-10-28T13:28:05+08:00] POST /api/passenger/auth/code 200
+[2026-10-28T13:28:05+08:00] POST /api/passenger/auth/login 200
+[2026-10-28T13:28:05+08:00] POST /api/auth/code 200
+[2026-10-28T13:28:05+08:00] POST /api/auth/login 200
+[2026-10-28T13:28:05+08:00] POST /api/action 200
+[2026-10-28T13:28:05+08:00] POST /api/passenger/action 200
+[2026-10-28T13:28:05+08:00] POST /api/action 200
+[2026-10-28T13:28:05+08:00] POST /api/action 200
+[2026-10-28T13:28:05+08:00] POST /api/local/admin/v2/action 200
+[2026-10-28T13:28:05+08:00] POST /api/local/admin/v2/action 200
+[2026-10-28T13:28:05+08:00] POST /api/passenger/action 403
+[2026-10-28T13:28:05+08:00] POST /api/passenger/action 200
+ok
+test_company_explicit_binding_public_selection_and_restart (test_live_operations.LiveOperationsTests.test_company_explicit_binding_public_selection_and_restart) ... [2026-10-28T13:28:05+08:00] POST /api/local/admin/v2/login 200
+[2026-10-28T13:28:05+08:00] POST /api/passenger/auth/code 200
+[2026-10-28T13:28:05+08:00] POST /api/passenger/auth/login 200
+[2026-10-28T13:28:05+08:00] POST /api/passenger/auth/code 200
+[2026-10-28T13:28:05+08:00] POST /api/passenger/auth/login 200
+[2026-10-28T13:28:05+08:00] POST /api/auth/code 200
+[2026-10-28T13:28:05+08:00] POST /api/auth/login 200
+[2026-10-28T13:28:05+08:00] GET /api/passenger/state 200
+[2026-10-28T13:28:05+08:00] POST /api/local/admin/v2/action 200
+[2026-10-28T13:28:05+08:00] POST /api/passenger/action 200
+[2026-10-28T13:28:05+08:00] GET /api/passenger/state 200
+[2026-10-28T13:28:05+08:00] POST /api/local/admin/v2/action 200
+[2026-10-28T13:28:05+08:00] GET /api/state 200
+[2026-10-28T13:28:05+08:00] GET /api/passenger/state 200
+[2026-10-28T13:28:05+08:00] POST /api/local/admin/v2/action 200
+[2026-10-28T13:28:05+08:00] GET /api/passenger/state 200
+[2026-10-28T13:28:05+08:00] GET /api/passenger/state 200
+[2026-10-28T13:28:05+08:00] POST /api/passenger/action 404
+[2026-10-28T13:28:05+08:00] POST /api/passenger/action 404
+ok
+test_feature_drafts_inheritance_publish_and_api_enforcement (test_live_operations.LiveOperationsTests.test_feature_drafts_inheritance_publish_and_api_enforcement) ... [2026-10-28T13:28:05+08:00] POST /api/local/admin/v2/login 200
+[2026-10-28T13:28:06+08:00] POST /api/passenger/auth/code 200
+[2026-10-28T13:28:06+08:00] POST /api/passenger/auth/login 200
+[2026-10-28T13:28:06+08:00] POST /api/local/admin/v2/action 200
+[2026-10-28T13:28:06+08:00] GET /api/passenger/state 200
+[2026-10-28T13:28:06+08:00] POST /api/local/admin/v2/action 200
+[2026-10-28T13:28:06+08:00] POST /api/passenger/action 403
+[2026-10-28T13:28:06+08:00] POST /api/local/admin/v2/action 200
+[2026-10-28T13:28:06+08:00] POST /api/local/admin/v2/action 200
+[2026-10-28T13:28:06+08:00] GET /api/passenger/state 200
+[2026-10-28T13:28:06+08:00] POST /api/local/admin/v2/action 200
+[2026-10-28T13:28:06+08:00] POST /api/local/admin/v2/action 200
+[2026-10-28T13:28:06+08:00] GET /api/passenger/state 200
+[2026-10-28T13:28:06+08:00] POST /api/passenger/action 400
+[2026-10-28T13:28:06+08:00] GET /api/passenger/state 200
+ok
+test_invoice_new_apply_gate_but_existing_receipt_still_readable (test_live_operations.LiveOperationsTests.test_invoice_new_apply_gate_but_existing_receipt_still_readable) ... [2026-10-28T13:28:06+08:00] POST /api/local/admin/v2/login 200
+[2026-10-28T13:28:06+08:00] POST /api/passenger/auth/code 200
+[2026-10-28T13:28:06+08:00] POST /api/passenger/auth/login 200
+[2026-10-28T13:28:06+08:00] POST /api/passenger/action 200
+[2026-10-28T13:28:06+08:00] POST /api/passenger/action 200
+[2026-10-28T13:28:06+08:00] POST /api/local/admin/v2/action 200
+[2026-10-28T13:28:06+08:00] POST /api/local/admin/v2/action 200
+[2026-10-28T13:28:06+08:00] POST /api/passenger/action 403
+[2026-10-28T13:28:06+08:00] POST /api/local/admin/v2/action 200
+[2026-10-28T13:28:06+08:00] POST /api/local/admin/v2/action 200
+[2026-10-28T13:28:06+08:00] POST /api/passenger/action 200
+[2026-10-28T13:28:06+08:00] POST /api/local/admin/v2/action 200
+[2026-10-28T13:28:06+08:00] POST /api/local/admin/v2/action 200
+[2026-10-28T13:28:06+08:00] POST /api/passenger/action 200
+ok
+test_invoice_order_city_projection_survives_profile_city_switch_and_existing_receipt (test_live_operations.LiveOperationsTests.test_invoice_order_city_projection_survives_profile_city_switch_and_existing_receipt) ... [2026-10-28T13:28:06+08:00] POST /api/local/admin/v2/login 200
+[2026-10-28T13:28:06+08:00] POST /api/passenger/auth/code 200
+[2026-10-28T13:28:06+08:00] POST /api/passenger/auth/login 200
+[2026-10-28T13:28:06+08:00] POST /api/passenger/action 200
+[2026-10-28T13:28:06+08:00] POST /api/passenger/action 200
+[2026-10-28T13:28:06+08:00] POST /api/local/admin/v2/action 200
+[2026-10-28T13:28:06+08:00] POST /api/local/admin/v2/action 200
+[2026-10-28T13:28:06+08:00] POST /api/local/admin/v2/action 200
+[2026-10-28T13:28:06+08:00] POST /api/local/admin/v2/action 200
+[2026-10-28T13:28:06+08:00] GET /api/passenger/state 200
+[2026-10-28T13:28:06+08:00] POST /api/passenger/action 200
+[2026-10-28T13:28:06+08:00] POST /api/passenger/action 403
+[2026-10-28T13:28:06+08:00] POST /api/passenger/action 200
+[2026-10-28T13:28:06+08:00] POST /api/passenger/action 200
+[2026-10-28T13:28:06+08:00] GET /api/passenger/state 200
+[2026-10-28T13:28:06+08:00] POST /api/local/admin/v2/action 200
+[2026-10-28T13:28:06+08:00] POST /api/local/admin/v2/action 200
+[2026-10-28T13:28:06+08:00] POST /api/local/admin/v2/action 200
+[2026-10-28T13:28:06+08:00] POST /api/local/admin/v2/action 200
+[2026-10-28T13:28:06+08:00] GET /api/passenger/state 200
+[2026-10-28T13:28:06+08:00] POST /api/passenger/action 200
+[2026-10-28T13:28:06+08:00] POST /api/passenger/action 200
+ok
+test_new_order_company_frozen_and_other_passenger_order_is_private (test_live_operations.LiveOperationsTests.test_new_order_company_frozen_and_other_passenger_order_is_private) ... [2026-10-28T13:28:06+08:00] POST /api/local/admin/v2/login 200
+[2026-10-28T13:28:06+08:00] POST /api/passenger/auth/code 200
+[2026-10-28T13:28:06+08:00] POST /api/passenger/auth/login 200
+[2026-10-28T13:28:06+08:00] POST /api/passenger/auth/code 200
+[2026-10-28T13:28:06+08:00] POST /api/passenger/auth/login 200
+[2026-10-28T13:28:06+08:00] POST /api/auth/code 200
+[2026-10-28T13:28:06+08:00] POST /api/auth/login 200
+[2026-10-28T13:28:06+08:00] POST /api/local/admin/v2/action 200
+[2026-10-28T13:28:06+08:00] POST /api/local/admin/v2/action 200
+[2026-10-28T13:28:06+08:00] POST /api/local/admin/v2/action 200
+[2026-10-28T13:28:06+08:00] POST /api/action 200
+[2026-10-28T13:28:06+08:00] POST /api/passenger/action 200
+[2026-10-28T13:28:06+08:00] POST /api/action 200
+[2026-10-28T13:28:06+08:00] POST /api/local/admin/v2/action 200
+[2026-10-28T13:28:06+08:00] GET /api/passenger/state 200
+[2026-10-28T13:28:06+08:00] GET /api/passenger/orders/PORDb94ee2d0d7f9/fees 404
+[2026-10-28T13:28:06+08:00] GET /api/passenger/state 200
+ok
+test_published_version_concurrency_and_cas_failure (test_live_operations.LiveOperationsTests.test_published_version_concurrency_and_cas_failure) ... [2026-10-28T13:28:06+08:00] POST /api/local/admin/v2/login 200
+[2026-10-28T13:28:06+08:00] POST /api/local/admin/v2/action 200
+[2026-10-28T13:28:06+08:00] POST /api/local/admin/v2/action 200
+[2026-10-28T13:28:06+08:00] POST /api/local/admin/v2/action 409
+[2026-10-28T13:28:06+08:00] POST /api/local/admin/v2/action 200
+[2026-10-28T13:28:06+08:00] cloud persistence unavailable: SnapshotConflict
+[2026-10-28T13:28:06+08:00] POST /api/local/admin/v2/action 503
+[2026-10-28T13:28:06+08:00] GET /api/local/admin/v2/state 200
+ok
+test_review_file_selects_pending_and_keeps_active_attachment (test_live_operations.LiveOperationsTests.test_review_file_selects_pending_and_keeps_active_attachment) ... [2026-10-28T13:28:06+08:00] POST /api/local/admin/v2/login 200
+[2026-10-28T13:28:07+08:00] POST /api/auth/code 200
+[2026-10-28T13:28:07+08:00] POST /api/auth/login 200
+[2026-10-28T13:28:07+08:00] POST /api/action 200
+[2026-10-28T13:28:07+08:00] GET /api/local/admin/v2/certificate-file 404
+[2026-10-28T13:28:07+08:00] GET /api/local/admin/v2/certificate-file 200
+[2026-10-28T13:28:07+08:00] POST /api/local/admin/v2/action 200
+[2026-10-28T13:28:07+08:00] GET /api/local/admin/v2/certificate-file 200
+ok
+test_two_client_ack_and_parallel_requests_have_one_first_display (test_live_operations.LiveOperationsTests.test_two_client_ack_and_parallel_requests_have_one_first_display) ... [2026-10-28T13:28:07+08:00] POST /api/local/admin/v2/login 200
+[2026-10-28T13:28:07+08:00] POST /api/passenger/auth/code 200
+[2026-10-28T13:28:07+08:00] POST /api/passenger/auth/login 200
+[2026-10-28T13:28:07+08:00] POST /api/local/admin/v2/action 200
+[2026-10-28T13:28:07+08:00] POST /api/local/admin/v2/action 200
+[2026-10-28T13:28:07+08:00] POST /api/passenger/action 200
+[2026-10-28T13:28:07+08:00] POST /api/passenger/action 200
+ok
+test_two_instances_ack_cas_loser_retry_never_displays_again (test_live_operations.LiveOperationsTests.test_two_instances_ack_cas_loser_retry_never_displays_again) ... [2026-10-28T13:28:07+08:00] POST /api/local/admin/v2/login 200
+[2026-10-28T13:28:07+08:00] POST /api/passenger/auth/code 200
+[2026-10-28T13:28:07+08:00] POST /api/passenger/auth/login 200
+[2026-10-28T13:28:07+08:00] POST /api/local/admin/v2/action 200
+[2026-10-28T13:28:07+08:00] POST /api/local/admin/v2/action 200
+[2026-10-28T13:28:07+08:00] POST /api/passenger/action 200
+[2026-10-28T13:28:07+08:00] cloud persistence unavailable: SnapshotConflict
+[2026-10-28T13:28:07+08:00] POST /api/passenger/action 503
+[2026-10-28T13:28:07+08:00] POST /api/passenger/action 200
+ok
+
+----------------------------------------------------------------------
+Ran 16 tests in 3.420s
+
+OK

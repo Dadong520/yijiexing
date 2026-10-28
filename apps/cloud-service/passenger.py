@@ -178,6 +178,9 @@ class PassengerMixin(TripDistanceMixin,NegotiationMixin,PassengerOrderOptionsMix
         self.refresh_distance_consent(o)
         value=self.trip_order_view(o);value.pop('passengerId',None)
         value['company']=self.operations.company_view(o.get('companyId'),'ORDER')
+        invoice_rules=self.operations.effective_features(o['city'])
+        value['invoiceApplicationEnabled']=invoice_rules['features']['invoice']
+        value['invoiceApplicationRulesVersion']=invoice_rules['version']
         value.setdefault('fareVersion',self.order_fare_version(o))
         value['driver']=self.driver_public(o['driverId']) if o.get('driverId') else None
         if value['driver']:

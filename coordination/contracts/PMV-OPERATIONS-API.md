@@ -49,6 +49,8 @@ content `{title,content,scope:NATIONAL|REGION|CITY,target,audiences:[MINIPROGRAM
 
 乘客state.operations.passengerFeatures `{city,features:{instant,reservation,bidding,invoice},sources:{每项:{scope,target,version}},version:<层级版本串>}`，全国→大区→城市逐字段继承。GET依本人profile.city；乘客切城市后重新读state。新订单按服务端验证后的订单city门禁STANDARD→instant、RESERVED→reservation、BID→bidding，拒绝403带reason=PASSENGER_FEATURE_DISABLED/feature/city。不得用客户端按钮决定权限。新模拟invoice.apply按本人订单city门禁；已存在发票重复读/幂等返回不被新关闭阻断。关闭不阻历史查询、旧单接驾/行程/付款/取消/已创建竞价选择；旧单继续叫车视新叫车需重新校验。非法城市仍拒绝，不能冒用区县。
 
+**v1.3 跨地区开票投影补丁**：每个passenger_view返回的订单增加 `invoiceApplicationEnabled:boolean` 与 `invoiceApplicationRulesVersion:string`，严格按该订单已保存的city及当前已发布的区域invoice规则计算，与新invoice.apply门禁同源，不按乘客当前profile.city计算。布尔只表示地区功能许可，客户端仍需检查原有DONE/paid等申请条件；已开回执及历史列表始终可读，不因该布尔false隐藏已存在回执。新申请按钮逐订单使用此布尔，旧后端缺字段可兼容回退当前地区规则；全局新入口继续按operations.passengerFeatures当前地区展示。字段是实时只读投影，不写回订单、费用或发票，规则发布后版本串随订单city生效层变化。
+
 ## 4 三证：60天、待审核保留旧证
 
 保留profile.certificates各项的现有type/name/status/validFrom/validUntil/fileId等，顶层为正在使用的有效材料，增加 `version:int`（legacy初始0）、`pending:null|{submissionId,validFrom,validUntil,fileId,backFileId,submittedAt,status:PENDING}`、`reviewStatus:NONE|PENDING|REJECTED|APPROVED`、`daysRemaining:int|null,validity:VALID|EXPIRING|EXPIRED|NOT_EFFECTIVE|LONG_TERM|UNKNOWN,canUpdate:boolean,reminder:boolean`。

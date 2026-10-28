@@ -270,3 +270,38 @@ class LiveOperationsTests(unittest.TestCase):
         finally:self.remote.barrier=None
         self.assertEqual(sorted(statuses),[200,503])
         self.assertEqual(len(self.request('state',session=s)['operations']['companies']),2)
+
+    def test_invoice_order_city_projection_survives_profile_city_switch_and_existing_receipt(self):
+        s=self.login()['session'];p=self.user()
+        def completed(city):
+            order=self.pa(p['token'],'order.create',self.order_payload(city=city))['result']['order']
+            def finish(svc):
+                current=svc.shared_order(order['id']);current.update(stage='DONE',paid=True);svc.save_shared(current)
+            self.mutate(finish)
+            return order['id']
+        a,b=completed('420500'),completed('420100')
+        a_rules=self.features(s,{'invoice':False},'CITY','420500')
+        b_rules=self.features(s,{'invoice':True},'CITY','420100')
+        before=self.mutate(lambda svc:[tuple(r) for r in svc.db.execute('SELECT * FROM passenger_orders ORDER BY id')])
+        state=self.ps(p['token']);orders={o['id']:o for o in state['orders']}
+        self.assertFalse(state['operations']['passengerFeatures']['features']['invoice'])
+        self.assertIs(orders[a]['invoiceApplicationEnabled'],False)
+        self.assertIs(orders[b]['invoiceApplicationEnabled'],True)
+        self.assertIn('CITY:420500:',orders[a]['invoiceApplicationRulesVersion'])
+        self.assertIn('CITY:420100:',orders[b]['invoiceApplicationRulesVersion'])
+        self.assertNotEqual(orders[a]['invoiceApplicationRulesVersion'],orders[b]['invoiceApplicationRulesVersion'])
+        self.assertEqual(before,self.mutate(lambda svc:[tuple(r) for r in svc.db.execute('SELECT * FROM passenger_orders ORDER BY id')]))
+        title=self.pa(p['token'],'invoice.title.save',{'type':'PERSONAL','title':'跨城合成抬头'})['result']['invoiceTitle']
+        self.pa(p['token'],'invoice.apply',{'orderId':a,'titleId':title['id']},expected=403)
+        receipt=self.pa(p['token'],'invoice.apply',{'orderId':b,'titleId':title['id']})['result']['invoice']
+        self.pa(p['token'],'profile.update',{'city':'420100'})
+        state=self.ps(p['token']);orders={o['id']:o for o in state['orders']}
+        self.assertTrue(state['operations']['passengerFeatures']['features']['invoice'])
+        self.assertFalse(orders[a]['invoiceApplicationEnabled']);self.assertTrue(orders[b]['invoiceApplicationEnabled'])
+        self.features(s,{'invoice':True},'CITY','420500',a_rules['version'])
+        self.features(s,{'invoice':False},'CITY','420100',b_rules['version'])
+        state=self.ps(p['token']);orders={o['id']:o for o in state['orders']}
+        self.assertFalse(state['operations']['passengerFeatures']['features']['invoice'])
+        self.assertTrue(orders[a]['invoiceApplicationEnabled']);self.assertFalse(orders[b]['invoiceApplicationEnabled'])
+        self.assertEqual(self.pa(p['token'],'invoice.apply',{'orderId':b,'titleId':title['id']})['result']['invoice'],receipt)
+        self.assertEqual(self.pa(p['token'],'invoice.apply',{'orderId':a,'titleId':title['id']})['result']['invoice']['orderId'],a)

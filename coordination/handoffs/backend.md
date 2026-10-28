@@ -12,3 +12,7 @@ Gemini本轮独占已结束：内置agy默认新context/90s，无模型覆盖/�
 
 证据中央evidence/PMV-20261028-01/backend-implementation/{REPORT.md,results.json,source-binding.json,full-suite-contract-aligned.log}。BIZ07单次扣差额/余分平台已确认，仅配置模拟，本任务没启真实钱/奖励/开票/签约/群通知。BIZ08/09按上述实现。GUI/双模拟器/真机/微信/线上数据/发布/冻结SHA非作者验收NOT_RUN；高德1008/10008仍按STATE，不在本轮修复。
 资源：所有作者临时HTTP/SQLite测试已退出，无ADB/Chrome/云发布/Gemini后台占用，不保活/不自动暂停。根预置dirty STATE/BOARD/DECISIONS/SESSION仍原样保留，不一起暂存。下一步总管收代码/前端并独立验收、统一合并发布；backend IDLE等待具体缺陷，勿重跑旧全套或擅自部署。
+
+最终证据/待合并HEAD 52340760c1218c42f998ca56f07f9045f8bb20ea；产品树与0d9a32c62d1b3f3cb968ddf8b5863a158df0b434完全相同。中央task指最终HEAD，Git内task保存产品冻结SHA；无需为自引用SHA再提交。backend现IDLE。
+
+增量 2026-10-28T13:29:51+08:00：root发现开票profile城市/订单城市UI与API口径差异，已按同一任务补passenger_view.invoiceApplicationEnabled与invoiceApplicationRulesVersion，只读按order.city当前发布配置；契约v1.3已中央同步。16运营专项PASS/3.420s，A/B相反开关、切城市、开关反转、历史回执仍读和canonical订单未写回均覆盖；未重复全套，原251仅绑定0d9a32c基线。无金额或发票变更，无新Gemini/部署。最新补丁SHA待本轮提交写入中央task，root独立验收/前端集成待做。

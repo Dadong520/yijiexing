@@ -42,3 +42,9 @@ GUI、双模拟器、真机、微信编译/发布、线上旧订单指纹/发布
 不提供物理弹窗送达保证；旧日期缺失只能提示补全，legacy原兼容门禁未自动收紧；旧订单历史公司未知保持未知。以上均在契约明确。所有本地测试服务器由测试tearDown关闭，Gemini精确上下文已停止，无后台续跑。
 
 产品冻结提交：`0d9a32c62d1b3f3cb968ddf8b5863a158df0b434`，49文件源码哈希测试后回读一致；后续证据提交不改该产品树。
+
+## v1.3 增量：跨地区订单开票标记
+
+总管发现当前profile城市入口不能代表历史订单city门禁。本补丁只在passenger_view增加invoiceApplicationEnabled及invoiceApplicationRulesVersion，直接复用订单city的effective_features；新申请仍由原invoice.apply再次校验，不改金额/发票数据。布尔表示地区功能许可，原DONE/paid资格仍由客户端/服务端原逻辑判断；历史回执不受布尔关闭影响。契约已同步v1.3。
+
+实际运营HTTP/SQLite/CAS专项16项PASS/3.420s，包含A/B开关相反、乘客切城市、两城开关反转、API一致、历史模拟回执仍可读、原始passenger_orders读前后相等。证据invoice-city-projection-{result.json,tests.log}。原251项全套仅绑定0d9a32c产品基线，本小补丁未重复全套，未声称252全套通过。补丁源文件哈希见独立JSON，精确提交SHA见中央本任务与短卡；冻结SHA非作者及GUI仍NOT_RUN。
