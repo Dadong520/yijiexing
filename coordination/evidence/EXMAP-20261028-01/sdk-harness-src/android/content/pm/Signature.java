@@ -1,0 +1,1 @@
+package android.content.pm;public class Signature{private byte[] data;public Signature(byte[] d){data=d;}public byte[] toByteArray(){return data;}}

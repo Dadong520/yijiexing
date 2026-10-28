@@ -1,0 +1,59 @@
+{
+  "at": "2026-10-28T23:40:55.765606+08:00",
+  "task": "ASTRA-20261028-01",
+  "coordinatorThreadId": "01a17cc7-e0a2-7791-bf1d-4611c09bab22",
+  "expert": {
+    "threadId": "01a1830f-d94b-7933-9c22-2c3898e54186",
+    "title": "宜捷行｜疑难攻坚（Astra）",
+    "model": "gpt-6-astra",
+    "thinking": "xhigh",
+    "creation": "ACTUALLY_CREATED_AND_ACKED",
+    "activationPolicy": "explicit_blocker_dispatch_only",
+    "currentState": "IDLE_AFTER_DIAGNOSIS",
+    "mayCoordinateMergeDeploy": false
+  },
+  "setupAcceptance": "PASS",
+  "optionalExpertGuard": {
+    "authorTests": 23,
+    "independentReviewer": "backend",
+    "independentTests": 23,
+    "acceptance": "PASS",
+    "report": "coordination/evidence/ASTRA-20261028-01/review/GUARD_REVIEW.json"
+  },
+  "amapDiagnosis": {
+    "author": "expert",
+    "nonAuthorReviewer": "frontend",
+    "review": "PASS_WITH_STATED_LIMITS",
+    "passenger": {
+      "httpStatus": 200,
+      "infocode": "10008"
+    },
+    "driver": {
+      "httpStatus": 200,
+      "infocode": "10000",
+      "returnedPoiCount": 1
+    },
+    "independentReproduction": "Same role differential, two public read-only requests",
+    "scope": "Pinned unmodified SDK request generation in JVM with synthetic Android Context and published public signer; Python TLS transport",
+    "limits": [
+      "Sample scode formula cross-check is not independent verification of final request body signature",
+      "Not actual Android device SDK/map success",
+      "Saved console record association and backend credential freshness not newly proven"
+    ],
+    "mapFixAcceptance": "NOT_RUN_UNRESOLVED",
+    "productPatchJustified": false,
+    "report": "coordination/evidence/EXMAP-20261028-01/DIAGNOSIS.md",
+    "reviewReport": "coordination/evidence/EXMAPV-20261028-01/REVIEW.json"
+  },
+  "externalBlocker": {
+    "console": "LOGIN_REQUIRED",
+    "userDecision": "Temporarily do not log in; retain diagnosis",
+    "furtherConsoleAction": "NONE",
+    "nextStepWhenAuthorized": "Read exact current passenger Key record and saved binding before choosing a credential/configuration remedy"
+  },
+  "productChanges": false,
+  "deploymentPerformed": false,
+  "businessWrites": 0,
+  "keysInSourceOrApkAdded": false,
+  "pendingMergeSha": null
+}

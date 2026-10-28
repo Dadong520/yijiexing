@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "id": "EXMAPV-20261028-01",
+  "owner": "frontend",
+  "goal": "非作者复核Astra高德Key诊断的请求生成、证书身份、正对照与结论边界；禁止把合成Android Context称设备SDK成功",
+  "baseSha": "713fcfb57117741b056e8197d609e3e20f365937",
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-pm-amap-20261027",
+  "branch": "codex/astra-escalation-20261028",
+  "allow_paths": [
+    "coordination/tasks/EXMAPV-20261028-01.json",
+    "coordination/handoffs/frontend.md",
+    "coordination/evidence/EXMAPV-20261028-01/"
+  ],
+  "checks": [
+    "读取中央协议/本任务/自身卡并以真实ID通过前置；root共享树仅只读，勿动产品或其他角色文件",
+    "定向审DIAGNOSIS/source-binding/published-certificate-check/sdk-generated-request-results以及build/probe/Java桩源码；查5项assert是否有独立意义、JAR证书与角色绑定、网络TLS验证、脱敏是否正确",
+    "如无阻碍可独立执行build_sdk_harness.py与probe_sdk_request.py一次；先审脚本，将证据输出重定向到自己目录，不能覆盖expert证据；仅公开POI，两角色各一次，不改源或高德控制台、不GUI/ADB/云/真实订单",
+    "四私有值仅在内存读取，raw SDK stdout含请求第二行不能打印/落盘；公开证书/APK外置，只留布尔hash/code",
+    "列出证实/推断/NOT_RUN及阻塞项；诊断可PASS不代表地图修复验收；结束IDLE，不自派更多代理"
+  ],
+  "status": "DIAGNOSIS_REVIEW_COMPLETE_IDLE",
+  "acceptance": "PASS",
+  "tests": [
+    {
+      "command": "python3 tools/check_coordination.py --memory-role frontend --session-id 01a182c6-c475-7110-bbae-0deafe6d2385",
+      "status": "PASS",
+      "exitCode": 0
+    },
+    {
+      "command": "In-memory reviewed build_sdk_harness.py and probe_sdk_request.py; disposable runtime, own evidence target; passenger+driver once each",
+      "status": "PASS",
+      "exitCode": 0,
+      "scope": "diagnostic reproduction only; map repair NOT_RUN"
+    },
+    {
+      "command": "Six source file SHA256/base byte comparisons; public DER digest; exact private-value scan of own evidence",
+      "status": "PASS",
+      "exitCode": 0
+    }
+  ],
+  "evidence": [
+    {
+      "path": "coordination/evidence/EXMAPV-20261028-01/REVIEW.json",
+      "sha256": "1b736c4d0067da3d1765a8bc7900fa6d679106134d879b6ea656e6c6a1e0334e"
+    },
+    {
+      "path": "coordination/evidence/EXMAPV-20261028-01/build-result.json",
+      "sha256": "a2a9dd30eef6c70c113c2be4bdf42b4220d5f105a3b0b6b5f5965cd657f26d2e"
+    },
+    {
+      "path": "coordination/evidence/EXMAPV-20261028-01/sdk-generated-request-results.json",
+      "sha256": "d4bfc38b461646f9c91558564697b47ba4450ac388816f04cab4e342111b7596"
+    },
+    {
+      "path": "coordination/evidence/EXMAPV-20261028-01/secret-scan.json",
+      "sha256": "e81c815f055e6fa501f8037f40cd1d481f98ab434d25b987fa9308ab32c49230"
+    },
+    {
+      "path": "coordination/evidence/EXMAPV-20261028-01/source-recheck.json",
+      "sha256": "65baf075d56fd1412f935fcc01b0edf486a565f798bdd0e8a61158ab33fa2860"
+    }
+  ],
+  "nextAction": "IDLE; root handles exact saved console record; real Android map fix NOT_RUN",
+  "deploy_owner": "coordinator",
+  "releaseReady": false,
+  "updatedAt": "2026-10-28T23:38:31.958274+08:00",
+  "reviewer": "frontend",
+  "acceptedSha": "713fcfb57117741b056e8197d609e3e20f365937",
+  "diagnosticOnly": true,
+  "pendingMergeSha": null
+}

@@ -1,0 +1,32 @@
+[
+  {
+    "path": "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/AmapSupport.kt",
+    "matchesRecordedSha256": true,
+    "matchesBase": true
+  },
+  {
+    "path": "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/AddressSearch.kt",
+    "matchesRecordedSha256": true,
+    "matchesBase": true
+  },
+  {
+    "path": "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/PassengerStore.kt",
+    "matchesRecordedSha256": true,
+    "matchesBase": true
+  },
+  {
+    "path": "apps/passenger-android/app/build.gradle.kts",
+    "matchesRecordedSha256": true,
+    "matchesBase": true
+  },
+  {
+    "path": "apps/passenger-android/app/src/main/AndroidManifest.xml",
+    "matchesRecordedSha256": true,
+    "matchesBase": true
+  },
+  {
+    "path": "apps/cloud-service/trip_distance.py",
+    "matchesRecordedSha256": true,
+    "matchesBase": true
+  }
+]

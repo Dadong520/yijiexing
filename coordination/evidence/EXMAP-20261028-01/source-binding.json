@@ -1,0 +1,36 @@
+{
+  "taskBase": "713fcfb57117741b056e8197d609e3e20f365937",
+  "files": [
+    {
+      "path": "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/AmapSupport.kt",
+      "sha256": "07b653d6f7b292995c02d1246b4bee995bd781797ab9d6306f886282701a84df",
+      "matchesTaskBase": true
+    },
+    {
+      "path": "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/AddressSearch.kt",
+      "sha256": "9726d804e4524362c83f11aaeef90c229875b4a3d969440deb78daf78af9458e",
+      "matchesTaskBase": true
+    },
+    {
+      "path": "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/PassengerStore.kt",
+      "sha256": "7ae21e5ced12bcecb4d0074c1a267fbbf9cf25838fd75e587e5cae73dfe83b81",
+      "matchesTaskBase": true
+    },
+    {
+      "path": "apps/passenger-android/app/build.gradle.kts",
+      "sha256": "51074052a963f9ee5c40ed07028a7fd86c6ec127ddc41c41dacaccbfc2c20d4a",
+      "matchesTaskBase": true
+    },
+    {
+      "path": "apps/passenger-android/app/src/main/AndroidManifest.xml",
+      "sha256": "e6a0e5c9e0128a6754a8c1fa808d30edbb90e6063c25a6d1e17ca645277a916d",
+      "matchesTaskBase": true
+    },
+    {
+      "path": "apps/cloud-service/trip_distance.py",
+      "sha256": "c192c69ddcea8a9a528c89dba661b053409fecacffc4d0738cea4fe736023b91",
+      "matchesTaskBase": true
+    }
+  ],
+  "sharedProductFilesWrittenByExpert": []
+}

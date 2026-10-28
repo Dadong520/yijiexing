@@ -1,0 +1,65 @@
+{
+  "taskId": "EXMAPV-20261028-01",
+  "reviewerThreadId": "01a182c6-c475-7110-bbae-0deafe6d2385",
+  "authorThreadId": "01a1830f-d94b-7933-9c22-2c3898e54186",
+  "protocol": "2026-10-26-v3",
+  "at": "2026-10-28T23:38:31.958274+08:00",
+  "diagnosticReview": "PASS_WITH_STATED_LIMITS",
+  "mapFixAcceptance": "NOT_RUN",
+  "productPatchJustified": false,
+  "baseline": {
+    "sha": "713fcfb57117741b056e8197d609e3e20f365937",
+    "branch": "codex/astra-escalation-20261028",
+    "sharedDirtyFiles": "root coordination/tool changes observed; no product files written by reviewer",
+    "sourceFileChecks": "6/6 exact task-base and recorded hash matches"
+  },
+  "proven": [
+    "Independent compile: 8 Java sources, exit0, no diagnostics; exact SDK JAR SHA256 verified",
+    "Public DER SHA256 equals published signer receipt and SHA1 equals expected released identity",
+    "Both roles each one independently generated SDK request, five checks true and entity Key matches; passenger HTTP200/status0/10008, driver HTTP200/status1/10000/1 POI",
+    "Probe uses TLS default verification with system CA and direct ProxyHandler; secrets sent in HTTPS POST body, not CLI argv; raw Java stdout captured only in memory",
+    "Review output uses whitelisted fields; no raw request persisted; temporary independent classes deleted"
+  ],
+  "assertionMeaning": {
+    "mapKeyMatches": "Actual MapsInitializer -> AppInfo read equals input; search setter follows same shared AppInfo. Confirms storage visibility, not independent key stores or Android lifecycle.",
+    "searchKeyMatches": "Actual ServiceSettings setter -> same AppInfo read equals input; valid narrow check.",
+    "identityMatches": "Actual SDK identity equals SHA1(cert):package from synthetic PackageManager; actual release platform identity not exercised.",
+    "scodeMatches": "SDK scode compared against separate Java MD5 formula for sample key/output params; meaningful algorithm cross-check, NOT direct independent verification of final handler entity scode.",
+    "entityPresent": "Only nonempty body. Wrapper additionally checks entity key equality; does not independently check every request parameter. Positive driver network control increases diagnostic confidence."
+  },
+  "limitations": [
+    "Android Context and PackageManager are synthetic; driver uses passenger public cert under stated shared signing identity; no independent current driver APK extraction this round",
+    "Published APK extraction/aapt/apksigner results cross-checked against saved release receipt; full APK re-download/signature verification NOT_RUN this round",
+    "Unmodified SDK JAR digest matches pinned expert value; no independent remote artifact provenance verification",
+    "Python sends request, not SDK transport; X-INFO omitted equally; cannot claim complete Android SDK equivalence",
+    "Current actual app outbound key/identity/timing, map GL and map-specific authentication NOT_RUN",
+    "Console exact saved Key record association, backend credential selection freshness and service-side configuration remain unresolved; root console check separate",
+    "No product lifecycle patch justified by this diagnostic alone; it does not prove app has no additional issues"
+  ],
+  "executionIsolation": {
+    "sourceScriptsEdited": false,
+    "inMemoryChanges": [
+      "root redirected to disposable temporary runtime",
+      "build source path kept at original reviewed Java files",
+      "probe __file__ redirected to own evidence to prevent expert result overwrite"
+    ],
+    "networkRequests": 2,
+    "expertOutputOverwritten": false,
+    "gui": false,
+    "adb": false,
+    "cloudWrites": false
+  },
+  "evidence": [
+    "build-result.json",
+    "source-recheck.json",
+    "sdk-generated-request-results.json"
+  ],
+  "originalInputsSha256": {
+    "build_sdk_harness.py": "1ed404a7188e981aa13c302743565d4830927e4eb5170eab512ab5b44c792654",
+    "probe_sdk_request.py": "52f21bfbf15a08eb4ddafc5bc7234455cf3deccd2c8ea8d9e73948b55855ed1d",
+    "SdkProbe.java": "c3494a1fdea3f1497a8d470714967ff27b47af0f6e6b473c090f3167e3388079",
+    "DIAGNOSIS.md": "631255a3c612f6e3ebbb1337126dab00aad5aefa259975ea70eb761b429f8806"
+  },
+  "nextAction": "Root complete exact console record verification; frontend IDLE pending explicit task",
+  "pendingMergeSha": null
+}

@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updated": "2026-10-28T22:20:31.238161+08:00",
+  "updated": "2026-10-28T23:40:55.765606+08:00",
   "coordinator": "coordinator",
   "activeTaskIds": [
     "WX-20261025-01",
@@ -37,7 +37,11 @@
     "ROLLNB-20261028-01",
     "ROLLNF-20261028-01",
     "AUTO-20261028-01",
-    "AUTOA-20261028-01"
+    "AUTOA-20261028-01",
+    "ASTRA-20261028-01",
+    "EXMAP-20261028-01",
+    "ASTRAV-20261028-01",
+    "EXMAPV-20261028-01"
   ],
   "releaseOwner": "coordinator",
   "policy": "作者提交→自测→独立验收→协调者合并→部署回读；无业务验收PASS不发布",
@@ -66,12 +70,13 @@
     "coordination/archive/2026-10-26/AUTH-20261026-02.json"
   ],
   "memoryProtocolVersion": "2026-10-26-v3",
-  "currentStage": "AUTONOMY_INSTALLED_ACKED_INDEPENDENT_PASS",
+  "currentStage": "ASTRA_SETUP_COMPLETE_AMAP_EXTERNAL_BLOCKER_USER_DEFERRED",
   "roleAssignments": {
-    "coordinator": "AUTO governance-only merge and final receipt",
-    "backend": "IDLE; AUTOA independent13 checks PASS",
-    "frontend": "Gen2 IDLE awaiting explicit task",
-    "antigravity": "PMVG: completed announcement validator candidate + coordinator11 checks; idle, no product integration"
+    "coordinator": "Persist reviewed governance/diagnosis then IDLE; no console login now per user",
+    "backend": "IDLE ASTRAV guard PASS",
+    "frontend": "IDLE EXMAPV diagnosis review PASS_WITH_STATED_LIMITS",
+    "antigravity": "PMVG: completed announcement validator candidate + coordinator11 checks; idle, no product integration",
+    "expert": "IDLE EXMAP delivered; only explicit hard blocker dispatch"
   },
   "collaborationDecision": "GOV-04 active: visible independent backend/frontend chats; Gemini actual availability to be verified"
 }

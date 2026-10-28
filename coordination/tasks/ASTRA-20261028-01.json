@@ -1,0 +1,46 @@
+{
+  "schemaVersion": 1,
+  "id": "ASTRA-20261028-01",
+  "owner": "coordinator",
+  "goal": "新增仅堵点唤醒的Astra极高专家会话，真实派发高德1008/10008排查并组织独立验收",
+  "baseSha": "713fcfb57117741b056e8197d609e3e20f365937",
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-pm-amap-20261027",
+  "branch": "codex/astra-escalation-20261028",
+  "allow_paths": [
+    "coordination/",
+    "tools/check_coordination.py",
+    "tools/test_check_coordination.py"
+  ],
+  "checks": [
+    "新会话gpt-6-astra/xhigh，仅当前专家例外；原三核心Codex保持GPT6.1，root唯一协调/发布",
+    "专家非fork，先真实ID/ACK再登记和角色门禁；仅明确难题/堵点派单，完成即IDLE，无轮询/后台常驻",
+    "当前高德任务不重索已确认Key/包名SHA1，明确失败根因及可重现证据，不拿MapLibre或错误包名测试冒充SDK成功",
+    "源码归属唯一，权限/数据/坐标和隔离项目边界不变；产品改动另定任务和非作者验收后root发布"
+  ],
+  "status": "SETUP_COMPLETE_DIAGNOSIS_REVIEWED_EXTERNAL_BLOCKED",
+  "acceptance": "BLOCKED",
+  "tests": [
+    {
+      "command": "python3 -m unittest discover -s tools -p test_check_coordination.py -v",
+      "exitCode": 0,
+      "result": "23/23 PASS; independent backend repeats PASS"
+    },
+    {
+      "command": "frontend EXMAPV independent compile/request reproduction",
+      "result": "PASS_WITH_STATED_LIMITS; passenger10008, driver10000/1POI; deviceSDK NOT_RUN"
+    }
+  ],
+  "evidence": [
+    "coordination/evidence/ASTRA-20261028-01/CREATION_AND_DISPATCH.json",
+    "coordination/evidence/ASTRA-20261028-01/review/GUARD_REVIEW.json",
+    "coordination/evidence/ASTRA-20261028-01/CONSOLE_ACCESS_CHECK.json",
+    "coordination/evidence/EXMAPV-20261028-01/REVIEW.json",
+    "coordination/evidence/ASTRA-20261028-01/INTAKE_AND_DIAGNOSIS_RECEIPT.json"
+  ],
+  "nextAction": "Commit/merge reviewed expert guard and diagnostic evidence; then IDLE. User elected no login now; actual map repair awaits saved exact console record access",
+  "deploy_owner": "coordinator",
+  "releaseReady": false,
+  "updatedAt": "2026-10-28T23:40:55.765606+08:00",
+  "setupAcceptance": "PASS",
+  "diagnosticAcceptance": "PASS_WITH_STATED_LIMITS"
+}

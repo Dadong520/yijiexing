@@ -1,0 +1,13 @@
+{
+  "at": "2026-10-28T23:39:09.890326+08:00",
+  "action": "Official AMap console read-only entry in existing Chrome profile",
+  "result": "LOGIN_REQUIRED",
+  "observed": "Official lbs.amap.com/dev/ redirects to official homepage with login fields and slider; no authenticated console record read",
+  "credentialEntry": false,
+  "captchaPerformed": false,
+  "agreementAccepted": false,
+  "consoleChanges": false,
+  "userDecision": "Temporarily do not log in; preserve diagnosis results",
+  "nextAction": "No further console access; preserve external blocker until user explicitly supplies logged-in access or new evidence",
+  "rawCredentialsCaptured": false
+}

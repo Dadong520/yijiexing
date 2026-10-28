@@ -1,0 +1,14 @@
+{
+  "createdAt": "2026-10-28T23:16:30.387539+08:00",
+  "threadId": "01a1830f-d94b-7933-9c22-2c3898e54186",
+  "title": "宜捷行｜疑难攻坚（Astra）",
+  "requestedAndToolAcceptedModel": "gpt-6-astra",
+  "requestedAndToolAcceptedThinking": "xhigh",
+  "authorization": "2026-10-28 user explicitly requested new Astra expert, 极高, blocker-only idle policy; initial test Amap key issue",
+  "initialAck": "2026-10-26-v3 / actualID / source713 and known SDK failure reproduced historically; no fresh pass claimed",
+  "coordinatorUnchanged": true,
+  "coreRoleModelsUnchanged": true,
+  "task": "EXMAP-20261028-01",
+  "activationPolicy": "explicit_blocker_dispatch_only",
+  "status": "DISPATCHED_ACTUAL_DIAGNOSIS"
+}

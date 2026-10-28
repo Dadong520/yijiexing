@@ -1,0 +1,19 @@
+{
+  "scope": "Original setting images OCR, raw text held only in subprocess pipe/memory; no image or key copied",
+  "images": [
+    {
+      "file": "企业微信截图_17931501089874.png",
+      "error": "REFERENCED_FILE_NOT_FOUND",
+      "exitCode": -5,
+      "sourceExists": false,
+      "note": "Prior evidence source path no longer exists; OCR cannot verify Key-to-settings association."
+    },
+    {
+      "file": "企业微信截图_17931500955135.png",
+      "error": "REFERENCED_FILE_NOT_FOUND",
+      "exitCode": -5,
+      "sourceExists": false,
+      "note": "Prior evidence source path no longer exists; OCR cannot verify Key-to-settings association."
+    }
+  ]
+}

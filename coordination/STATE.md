@@ -1,31 +1,24 @@
-# 宜捷行当前检查点 2026-10-28T22:22:44.418957+08:00
-协议2026-10-26-v3，中央/Users/dongge/Documents/New project 2/coordination唯一权威。coordinator01a17cc7-e0a2-7791-bf1d-4611c09bab22/generation6独占派单合并发布，旧总管退休。context UNKNOWN/not_exposed；PUI恢复检查点明确。
+# 宜捷行当前检查点 2026-10-28T23:15:21.996364+08:00
+中央/Users/dongge/Documents/New project 2/coordination唯一权威，协议2026-10-26-v3。唯一coordinator01a17cc7-e0a2-7791-bf1d-4611c09bab22/generation6负责拆单、合并、发布；context UNKNOWN/not_exposed。
 
-## 当前线上已更新（PUI发布回读完成）
-产品PR32已合并main a542f6640681956f330e91bc67ecf2f62cfcbda8，产品目录与已审7d6相同。乘客1.1.15-experience/code17，司机保持0.3.14-cloud/code17，原签名可覆盖安装。API driver-demo-pui-7d6dc60-test1/admin driver-admin-pui-7d6dc60-test1均100%，user-test同新revision。仅独立项目yijiexing-driver-demo-1023/us-west1，禁止原eztrips测试/生产。
-APIhttps://yijiexing-demo.hbzjhs.xyz；后台https://demo-admin.hbzjhs.xyz/原PASSWORD账号，无Google/IAP前置；真实登录页源码同字节/未登录state401。快链https://user-test---driver-demo-phfgquzmua-uw.a.run.app/download（司机）及/download-passenger（乘客）；新版乘客整包直连8.25秒/hash/包名/版本/原证书PASS。旧乘客包已归档再代次保护提升，司机对象未改。原自有域名同路径保留。
-CloudRun automatic/min0/max1/请求CPU计费/API900秒，ENV/secret/SA/IAM/安全与伸缩注解逐项相同，无保活/自动暂停。发布前后39旧订单全部存储字段一致，无新增；root云业务POST0。私有备份/Key/APK不进Git。真实回执evidence/PUI-20261028-01/release/FINAL-RELEASE-RECEIPT.json；前版PMV回执保留不改。
+## 线上与源码
+当前main713fcfb57117741b056e8197d609e3e20f365937（PR35自主交付约定）；PR34角色接替6ff/PR33发布回执5096，产品源7d6/PR32合并a542。乘客1.1.15-experience/code17、司机0.3.14-cloud/code17已发布，原体验签名可覆盖安装。API driver-demo-pui-7d6dc60-test1、admin driver-admin-pui-7d6dc60-test1均100%，user-test同版本。
+API https://yijiexing-demo.hbzjhs.xyz；后台 https://demo-admin.hbzjhs.xyz/ 原PASSWORD账号，无Google/IAP前置；真实登录页同字节/未登录state401。快链https://user-test---driver-demo-phfgquzmua-uw.a.run.app/download（司机）及/download-passenger（乘客）；乘客整包/hash/包名/版本/原签名回读PASS。旧乘客包归档后代次保护提升，司机对象未改。自有域名同下载路径保留。
+发布前后39旧订单全部字段一致，无新增/root云业务POST0。ENV/secret/SA/IAM/API900秒及CloudRun automatic/min0/max1/请求CPU计费保持，无保活/自动暂停。仅独立项目yijiexing-driver-demo-1023/us-west1，禁止原eztrips测试/生产。Key/私有账户/DB/APK/cache外置不进Git。真实回执evidence/PUI-20261028-01/release/FINAL-RELEASE-RECEIPT.json。
+根源码/Users/dongge/.codex/tmp/yijiexing-pm-amap-20261027，当前branch codex/astra-escalation-20261028/base713，仅root协调/门禁改动；其他旧pui/pmv树/PMPOST只读保留，不同时写重复快照。产品新补丁必须root另给唯一分支/allow_paths。
 
-## 本轮PUI独立验收PASS，已发布
-用户UI设计-乘客端.docx 13图/3文字；首版联系页+电话，不做IM；三类持久默认已确认。Android完成预约状态栏/整页更多设置保草稿/详情路线与首屏金额取消/理由选择/筛选顺序及紧凑卡片/个人中心分组/地址乘车人抬头空态默认/安全联系人/回执紧凑展开/投诉正文回复优先。默认仅新草稿建议，不覆盖GPS/已填/历史，不自动叫车开票；司机掩码不可拨，中继未接，公司客服确认后ACTION_DIAL。
-固定产品7d6dc6014906c80be87b39f4433ec494ae067098，根树/Users/dongge/.codex/tmp/yijiexing-pm-amap-20261027/branch codex/autonomy-mode-20261028（本轮仅协调记录）。backend作者8c9/59、frontend d02/d06与Q1修正f3已集成；root乘客版本1.1.15-experience/code17，司机不动。PR32已合并发布，见上方实际回执。
-非作者root默认HTTP6组、兼容13组、运营7组；后端组件哈希与7d6完全相同，实际执行旧SHA保留。root31Android单测/QA与正式构建PASS；mini74在d02执行、组件等同。真实隔离模拟器13组页面交互/长内容/空态通过，取消理由实际提交、3默认保存、系统拨号页未拨出；Q1金额取消需下滑已f3修正并87截图首屏复验。backend PUIA独立审root版本/包名/原HTTPS/原证书/4配置Key精确解压扫描0通过，未自验本人defaults。evidence/PUI-20261028-01/{NATIVE_REVIEW,SOURCE_BINDING,APK_PROOF,INDEPENDENT_ACCEPTANCE}与packaging-review。PUIR精确SHA门禁PASS。正式APKhash798fbb0f9fc6796190ddaa36eb8f71f7081d196d0785867782da442d38996379；APK/DB/Key外置不进Git。
-发布前已从权威GCS原子读备份39单/quick_checkOK，0600外置；初次固定代次404因实时替换，后改同一媒体响应generation+MD5绑定成功。无root云业务POST/新增单；发布后严格比较旧业务字段，定位实时并发单独说明，不假定旧38数。
+## 已完成与业务规则
+PUI13图与三类默认项已发：预约状态/整页设置保草稿/详情首屏金额取消与路线/固定理由+其他/四订单筛选/紧凑资料空态/安全联系人/回执展开/投诉正文回复。root非作者HTTP6+兼容13+运营7、Android31/双构建、真实隔离原生13组、mini74组件等同；backend独立包装审PASS，Q1首屏已f3/87截图复验。NATIVE_REVIEW/SOURCE_BINDING/APK_PROOF留实际执行SHA，不称全量真实业务完成。
+默认仅新草稿/新申请建议，不覆盖GPS/已填/历史、不自动叫车开票；司机掩码不可拨，公司配置电话确认ACTION_DIAL，无IM。BIZ04预约待出发不占即时，明确出发双角色单执行/欠款门禁，无自动处罚保证准时；BIZ05历史32类仅草稿人工记录；BIZ06新单目的地必填旧单同ID补填；BIZ07差额可抽佣仅扣一次/余分平台，模拟；BIZ08三证60天提醒、审核通过替换，旧有效待审可接/过期阻新单在途可完；BIZ09每用户每发布公告版本只弹一次可关。已确认勿重问。
+后台平台运维→公告管理/公司与客服电话/乘客端功能配置；司机管理→资质到期提醒；配置与治理→历史草稿与人工记录。PUI无新后台菜单。
+地图乘客1008/10008仍未过；控制台双包名/原SHA1已核一致，角色state下发Key相符，不重索Key；原版SDK字节码/JVM合成Context生成请求，Key/身份/请求生成检查通过（scode为样例参数比对，非最终body独立校验）仍乘客10008，司机10000+1POI；真实Android设备成功NOT_RUN。PUI uireview包名/无Key/DNS隔离不是该问题证据。微信缺AppID未编译真机发布；支付退款提现发票模拟；无中继/IM/录音警方联动；OEM未验。2.0余项及PMPOST83c7仅候选未集成。
 
-## 业务与已知限制
-BIZ04预约待出发不占即时，明确出发且双角色单执行中/保留欠款门禁，不自动处罚或承诺准时。BIZ05历史32类仅配置草稿/人工记录。BIZ06新单目的地必填/拒旧flag，旧单同ID补填。BIZ07差额仅可抽佣扣一次/余分平台，仅模拟。BIZ08三证60天提醒，新证审核通过解除；旧有效待审可接，过期阻新增在途可完。BIZ09每用户每公告发布版本只弹一次可关。用户均确认勿重问。
-后台平台运维→公告管理/公司与客服电话/乘客端功能配置；司机管理→资质到期提醒。原32类在配置与治理→历史草稿与人工记录。PUI无新后台导航模块，只增乘客默认数据接口。
-高德1008/10008最后未通过，控制台绑定/双包名/原证书已核一致，不重索Key；Key仅运行时下发，JS安全码不下发。PUI地图本地DNS隔离，未证明真实SDK成功。微信缺AppID，源码74不等于微信编译/真机/发布；支付退款提现发票模拟；未接IM/电话中继/录音警方联动。OEM实机NOT_RUN，文档2.0余项/PMPOST未完成未集成，不能称三端真实全业务完成。
+## 协作与本轮Astra
+核心backend01a182c6-c058-76e1-9584-38abfe813799、frontend01a182c6-c475-7110-bbae-0deafe6d2385均二代可见独立chat/GPT6.1。旧两角色STOPPED且归档，最终卡archive/2026-10-28/role-rollover，PR34已合并。Gemini PUI两精确context已结束，lease释放，用户模型不改。普通任务继续既有分工。
+用户本轮明确新增疑难专家01a1830f-d94b-7933-9c22-2c3898e54186「宜捷行｜疑难攻坚（Astra）」，真实创建gpt-6-astra/xhigh（极高），首阶段真实ID/协议/基线ACK已收。GOV06仅对此expert例外，核心模型不变。专家只在root明确派难题堵点时工作，平时IDLE、不自醒/不派代理/不合并发布，不做第二协调者。
+ASTRA-20261028-01根任务；EXMAP-20261028-01当前只诊断乘客map10008/POI1008，记录允许路径与私有外置测试。原模拟器点按授权随PUI结束，不借用真机/旧UI授权。先无GUI代码/API复现，Key/安全码/SDK原始日志不进聊天源码APK，外置0600；确需新UI权限由root处理。根tools/check_coordination新增可选expert门禁，核心四角色保持原规则；23门禁测试PASS（原16+7新），backend ASTRAV独立复核PASS。专家结果需根组织非作者复核，真SDK未过仍NOT_RUN/FAIL，不拿容器显示当成功。
 
-## 协作与资源
-本轮用户授权评估旧角色记忆并创建接任会话。前端已有HANDOFF_RECOMMENDED；后端无已证实失忆，发布完成边界预防性交接；上下文真实百分比均UNKNOWN，不以年龄/卡片大小冒充占用。旧两会话已完成STOPPED交接、撤销派单并归档保留历史。
-GOV04仍为可见独立Codex+Gemini。新backend01a182c6-c058-76e1-9584-38abfe813799「宜捷行｜后端与业务规则（二代）」；新frontend01a182c6-c475-7110-bbae-0deafe6d2385「宜捷行｜司机端与前端验收（二代）」，均GPT-6.1-sol空白新会话，非fork。旧最终短卡存archive/2026-10-28/role-rollover，评估与真实映射在evidence/ROLL-20261028-01。
-两新会话真实ID/协议/已发布版本ACK、最终role检查和短卡均已root独立核准PASS，现在IDLE等明确任务。交接元数据两项小问题已作者纠正并复核；不代表新会话记忆百分比可测。当前无产品任务。root独占派单/合并发布，当前root分支codex/autonomy-mode-20261028仅协调记录。旧pui-backend、pui-clients/pmv树及PMPOST均保留只读；以后具体任务从main分配唯一写树/分支/allow_paths。不得因换会话重新部署或重跑全套。Gemini两PUI短context已SUCCESS/hash核准、lease释放，用户现有模型不改，等具体任务才运行。
-用户授权ADB仅本次隔离emulator5582；localhostTLS/合成数据，不碰真机。模拟器调试中断后显式端口恢复，失败中间帧不作为PASS。GUI结束已停止fixture/emulator；没有后台常驻/自动化。当前发布与回读全部完成，回执PR33已合并main 5096cb6729e9ef911fac19a281d31db4010ef542，仅文档且产品目录无差量；无再次发布。等待用户体验反馈后定向处理，不自行常驻。
+## AUTO授权
+AUTO已PR35实装/ACK/独立13检查/CI77合并713，原coordinator唯一，用户只体验发布后验证反馈，root完成内部闭环；规则AUTONOMY_POLICY/CONFIG、START_HERE/GOV05，最终回执evidence/AUTO-20261028-01/AUTONOMY_ACTIVE_RECEIPT.json。空闲等反馈，无新守护/调度/bridge；只关键未决产品选择或外部授权才汇总问。当前高德即用户新派堵点，不自动扩其他余项。
 
-当前Git main（含角色接替登记）6ff9068da7914267323258867afcea937beea683；PR32产品合并a542、PR33回执合并5096；无需重复部署。
-
-角色接替PR34已CI通过并合并6ff9068da7914267323258867afcea937beea683，仅协调资料，产品目录与5096一致；新backend/frontend均IDLE，旧两会话归档保留，root不变。
-
-## AUTO自主交付已接入，治理合并待完成
-用户本轮授权保留原root唯一协调者，用户仅体验发布后验证反馈。AUTO-20261028-01基线6ff9068，branch codex/autonomy-mode-20261028仅coordination。中央/工作树AUTONOMY_POLICY与CONFIG已实装，干运行/错误身份拒绝/apply/双root与ACK哈希通过。原始AUTONOMY_INSTALL.json保留PENDING安装阶段；COORDINATOR_ACK.json为root真实ID/generation6/ACTIVE确认。backend二代AUTOA非作者13检查PASS，结构检查PASS，未改产品/模型全局/云，未重发1.1.15。当前ACTIVE/WAITING_FOR_USER_FEEDBACK仅代表反馈触发约定，不代表守护/调度或关机运行；codex_bridge不运行不安装。后续root自行拆单、协同开发、非作者验收、精确SHA门禁、合并及既有授权体验发布回读，发布后等反馈；只在关键产品选择或外部授权确需时汇总提问。规则入口START_HERE/GOV05；本轮完成治理PR后等待反馈，不启动旧产品待办。
+EXMAP专家诊断已交付后IDLE；frontend EXMAPV独立复现同结果/诊断复核PASS_WITH_STATED_LIMITS。root浏览器实查高德未登录，用户明确暂不登录、先保留诊断结果；不继续账户操作，待具体Key记录已保存绑定外部核查。无产品补丁/部署，地图未修复。证据ASTRA/CONSOLE_ACCESS_CHECK、EXMAP/DIAGNOSIS。

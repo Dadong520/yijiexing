@@ -1,0 +1,13 @@
+{
+  "apkSha256": "798fbb0f9fc6796190ddaa36eb8f71f7081d196d0785867782da442d38996379",
+  "apkBytes": 107139449,
+  "apksignerVerify": 0,
+  "certificateCount": 1,
+  "certificateSha1MatchesPriorIdentity": true,
+  "certificateDerSha256": "9ffec9b342d12909ff288bd73f23ba104893b39120cb24ea83c9734a0d2b758f",
+  "privateSigningMaterialRead": false,
+  "package": "cn.hbzjhs.dc.passenger.cloud",
+  "versionCode": "17",
+  "versionName": "1.1.15-experience",
+  "aaptExitCode": 0
+}
