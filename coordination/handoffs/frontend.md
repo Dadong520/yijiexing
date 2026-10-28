@@ -1,16 +1,16 @@
 # frontend 当前短交接
-ACK 2026-10-26-v3；threadId 01a167c8-a5eb-77e3-b77e-214927a029da；checkpoint PMVA-20261028-01；HANDOFF_RECOMMENDED；context UNKNOWN/not_exposed。更新 2026-10-28T13:47:52.671492+08:00。
-唯一coordinator 01a17cc7-e0a2-7791-bf1d-4611c09bab22/generation6，GOV-04独立可见会话。
+ACK 2026-10-26-v3；threadId 01a167c8-a5eb-77e3-b77e-214927a029da；checkpoint PUIU-20261028-01；HANDOFF_RECOMMENDED；context UNK2026-10-28T19:58:26.149329+08:00N/not_exposed。更新 2026-10-28T19:58:26.149329+08:00。
+唯一coordinator01a17cc7-e0a2-7791-bf1d-4611c09bab22/generation6；不是coordinator，不部署。
 
-## 最新PMVA完成，仅root打包/回执非作者复核
-固定root源树 /Users/dongge/.codex/tmp/yijiexing-pm-amap-20261027；branch codex/operations-v2-integration-20261028；HEAD 817ed22bce503620d692e097a5f8ea996edf5fb2，前后clean且未改源码。只写本PMVA任务、artifact-review和本卡，不提交/部署/改中央控制文件。
-从APK_PROOF独立读两外置整包，重算hash/size；aapt与apksigner均exit0，乘客cn.hbzjhs.dc.passenger.cloud 1.1.14-experience/code16、司机cn.hbzjhs.dc.driver.cloud 0.3.14-cloud/code17。两证书SHA2569ffec9b342d12909ff288bd73f23ba104893b39120cb24ea83c9734a0d2b758f原签名一致。组件目录树driver d5afe915/ passenger770781cc与817完整相同。
-固定817回执HTTP7/backend13无fail/error，重算所有列明文件hash并与817git对象/当前文件一致；DOM8记录为实际BrowserHandler+CUA，web770完整树与817一致，早期backend83f8944及后续变化界限保留，不假冒本角色重跑测试/GUI。
-证据中央coordination/evidence/PMV-20261028-01/artifact-review/REPORT.md及result.json（整包/身份/证书/组件树/回执hash/数量）。PMVA acceptance PASS仅打包身份/版本/回执绑定；本人为PMVU前端作者，不自验前端业务，root实际非作者HTTP/DOM验收另管。
+## PUIU作者交付
+sourceRoot /Users/dongge/.codex/tmp/yijiexing-pui-clients-20261028；branch codex/passenger-ui-clients-20261028；base8e2d655bd58d33241d79d6da3ad82f29cdec7894；产品SHA d02f616f1dd69a4f54d73c86d18873fd9c905a70。16文件，仅乘客Android main/test与mini订单联系页JS/WXML/tests限定例外；不改版本/backend/admin/driver。源码已提交，待root非作者验收/集成。证据提交随后。
+13图对应预约状态条/整页设置同草稿/路线前置/取消理由/全部优先列表/个人快捷分层/常用地址、乘车人、抬头、安全、回执、投诉紧凑层级已接。联系页只masked不可拨，已有真实CONFIGURED公司电话确认ACTION_DIAL；mini假中继提示定点修正，无IM。
+PUI-01/合同 PUI-DEFAULTS-API v1：顶层defaults三ID+本人列表验证，defaults.set kind/id|null、save boolean；保存失败编辑保留。地址只置顶建议不覆盖起终点，rider/title仅新草稿/申请首次预选，后续改默认不覆盖现有选择，删除回空/本人，账号key隔离；依旧显式提交riderId/titleId，无旧result覆盖state。
+PUIF逐张原图映射已接收，证据frontend-review，不重做；本轮报告evidence/PUI-20261028-01/client/REPORT.md与result.json逐图接线/命令/hash/未测。
 
-## 旧PMVU实现检查点（已由root集成）
-唯一clients树 /Users/dongge/.codex/tmp/yijiexing-pmv-clients-20261028，codex/operations-v2-clients-20261028；base c3c876e，提交序列df9f47b→b450524→519123c→87aaffcd97d518cbbefec2effa250ea76059073e。30产品文件，root预置dirty协调快照未混入。正式4菜单/公告回执/公司电话/地区入口/三证60天，跟进忙回调/概览pending/逐单开票v1.3。作者旧实测driver63、passenger最新24、mini72、admin4，最新补丁仅编译无新APK；细节client-implementation/REPORT.md/result。不可把作者测试当独立验收。
-
-## NOT_RUN / 下一步 / 资源
-PMVA未安装/开设备/浏览器/服务/云端，不读私有Key账号，不重复Key扫描；SDK真实鉴权、微信编译真机、云端发布/下载回读、本角色前端业务自验NOT_RUN。既有高德1008/10008、微信AppID、AppOps恢复读回缺口按STATE保留。
-当前IDLE，无新进程/fixture/tab/设备，无产品待合并SHA；root统一发布并回读。长会话后续大任务建议换新frontend短会话；占用UNKNOWN，不编造遥测，不自行创建/后台常驻。
+## 已测与未测
+最终 android-build-03 exit0：31单测0失败+assemble SUCCESS；mini-tests-02 exit0：74/74；git diff--check/中央memory-role真实ID与提交前协调结构gate PASS。build01因中断未完成，build02/03完整SUCCESS。测试文件初次cwd错误未写入，绝对路径纠正后有效测试通过。
+APK外置 /Users/dongge/.codex/tmp/yijiexing-pui-build-20261028/passenger/_app/outputs/apk/debug/app-debug.apk，仅作者debug产物，不用户发布；大小/hash见result。
+作者GUI/实际设备默认项端到端/拨号/Amap/微信编译真机发布/云部署 NOT_RUN。root持设备/浏览器/云资源。独立acceptance NOT_RUN，不称体验版已更新；线上仍STATE旧1.1.14/0.3.14。旧高德1008/10008/微信AppID缺口、支付退款发票模拟保留。
+Gemini两context 9b453ce4-da83-43a3-88d5-5e0caa287476、9cada792-824e-4702-a2f0-1ca27d03b098 均90s SUCCESS/DONE，无工具/模型/全局改动，候选接入并通过最终build。恢复ps核无AGY；可释放lease，无常驻进程。原始stream留中央/hash在summary，最终摘要/候选已归证据。
+下一步root PUIR集成backend后非作者HTTP/原生视觉验收，重点返回草稿、默认删除换账号、取消其他输入、公司确认、投诉附件、逐单跨城invoice；问题定点返回作者，未通过不发布。此长会话阶段后建议换新frontend（不自行创建）。

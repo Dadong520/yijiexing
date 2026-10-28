@@ -1,0 +1,58 @@
+{
+  "schemaVersion": 1,
+  "id": "PUIU-20261028-01",
+  "owner": "frontend",
+  "goal": "按13张原图与意见改造Android乘客端全部涉及页面，接默认项契约；联系页/电话入口真实边界；Gemini承担主要展示组件候选",
+  "baseSha": "8e2d655bd58d33241d79d6da3ad82f29cdec7894",
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-pui-clients-20261028",
+  "branch": "codex/passenger-ui-clients-20261028",
+  "allow_paths": [
+    "apps/passenger-android/app/src/main/",
+    "apps/passenger-android/app/src/test/",
+    "coordination/tasks/PUIU-20261028-01.json",
+    "coordination/evidence/PUI-20261028-01/client/",
+    "coordination/handoffs/frontend.md",
+    "candidates/passenger-miniprogram-0.1.0/miniprogram/pages/order-detail/index.js",
+    "candidates/passenger-miniprogram-0.1.0/miniprogram/pages/order-detail/index.wxml",
+    "candidates/passenger-miniprogram-0.1.0/miniprogram/tests/"
+  ],
+  "checks": [
+    "完成PUIF映射后以此树开始，Android为13图主范围；不写司机/mini/后台/后端/版本gradle，不做新的营销/真实发票承诺，不恢复无终点功能",
+    "预约提示做明确状态栏与独立查看操作；更多设置移真正子页面/整页，返回保留草稿、主屏保留预约时间等必要摘要；卡片层级与少量辅助色、触控/字号与长文不溢出",
+    "订单详情路线优先，ID等合并次要元信息，金额/取消可见但不巨幅；不得破坏报价版本/锁价、欠款门禁、300m/尾号等原有关键动作；取消固定理由+其他输入，送原reason合同，输入条件/幂等保留；列表顺序全部/进行中/已完成/已取消且卡片紧凑",
+    "新增订单内联系页/可发现入口：服务端仅mobileMasked，电话中继未接；不推断/硬编码/曝光完整司机或乘客手机号。可以确认后调用公司客服电话ACTION_DIAL，未配置/司机不可拨明确状态，不虚构接通/聊天",
+    "个人中心区分身份/出行快捷/安全/帮助等；常用地址、乘车人、抬头紧凑卡片及空状态，加号放标题次操作。与backend固定defaults契约绑定显示/设置/保存与新建首次建议，默认变更不覆盖用户正在填的草稿；本人乘车默认卡用真实当前账号投影",
+    "安全联系人适用紧凑层级，保留本机账号隔离及110需本人拨出/未接录音警方边界；回执选订单改可读卡片/选择器并保留逐单invoice门禁；历史回执紧凑行与展开详情/ID次操作；投诉正文/原因/回复优先，订单ID折叠，不隐藏内容/附件",
+    "Gemini CLI本任务frontend独占，沿用户现有模型；/Applications/Gemini.app/Contents/Helpers/agy 短输入/明确90s或120s单位/新context，不改全局不跳权限。优先分块展示组件/取消理由/卡片辅助代码生成，自己集成自测；超时停止精确ID并记录，不与桌面同上下文并发。关键数据规则仍backend+root复核",
+    "实际单测/assemble、无Android设备GUI标NOT_RUN；Gemini结果与每块context/停止和自测路径写证据。所有作者自测由root非作者验收，暂不部署/不改版本，APK外置。",
+    "PUIF发现mini联系按钮声称正在通过隐私号连接但无中继：本轮仅定点修正此入口真实能力/文案及适用回归，不扩展mini整体UI或声称微信发布；这是上文mini不改的唯一限定例外。"
+  ],
+  "status": "AUTHOR_COMPLETE_AWAITING_INDEPENDENT_REVIEW",
+  "acceptance": "NOT_RUN",
+  "tests": [
+    {
+      "command": "Android testDebugUnitTest + assembleDebug (exact invocation in REPORT.md)",
+      "result": "PASS:31 tests/0 failures, assemble SUCCESS",
+      "evidence": "coordination/evidence/PUI-20261028-01/client/android-build-03.log"
+    },
+    {
+      "command": "node --test tests/*.test.js (mini cwd)",
+      "result": "PASS:74/74",
+      "evidence": "coordination/evidence/PUI-20261028-01/client/mini-tests-02.log"
+    },
+    {
+      "command": "git diff --check; python3 tools/check_coordination.py; central memory-role gate",
+      "result": "PASS_STRUCTURAL_NOT_BUSINESS_ACCEPTANCE"
+    }
+  ],
+  "evidence": [
+    "coordination/evidence/PUI-20261028-01/client/REPORT.md",
+    "coordination/evidence/PUI-20261028-01/client/result.json"
+  ],
+  "nextAction": "Coordinator PUIR independent native GUI/HTTP integration review; no deploy by frontend",
+  "deploy_owner": "coordinator",
+  "releaseReady": false,
+  "updatedAt": "2026-10-28T19:58:26.149329+08:00",
+  "productSha": "d02f616f1dd69a4f54d73c86d18873fd9c905a70",
+  "pendingMergeSha": "d02f616f1dd69a4f54d73c86d18873fd9c905a70"
+}

@@ -1,0 +1,20 @@
+{
+  "task": "PUIU-20261028-01",
+  "block": "stateless presentation cards",
+  "conversationId": "9b453ce4-da83-43a3-88d5-5e0caa287476",
+  "status": "SUCCESS",
+  "agentResponseDone": true,
+  "events": {
+    "init": 1,
+    "step_update": 298,
+    "result": 1
+  },
+  "timeout": "90s",
+  "newContext": true,
+  "modelOverride": false,
+  "toolsRequestedByPrompt": false,
+  "resultFile": "gemini-cards-01.kt",
+  "integrationTest": "PASS_ANDROID_BUILD_03_UNIT31",
+  "rawStreamSha256": "f44bfa595baf3d057c9bc55297f2939437253399e6d10b15a3016459fd943bcf",
+  "liveCli": "NONE_AFTER_DONE_AND_PROCESS_CHECK"
+}

@@ -1,0 +1,143 @@
+{
+  "task": "PUIU-20261028-01",
+  "owner": "frontend",
+  "sessionId": "01a167c8-a5eb-77e3-b77e-214927a029da",
+  "createdAt": "2026-10-28T19:58:26.149329+08:00",
+  "baseSha": "8e2d655bd58d33241d79d6da3ad82f29cdec7894",
+  "productSha": "d02f616f1dd69a4f54d73c86d18873fd9c905a70",
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-pui-clients-20261028",
+  "branch": "codex/passenger-ui-clients-20261028",
+  "authorTests": {
+    "android": {
+      "unit": {
+        "tests": 31,
+        "failures": 0,
+        "errors": 0,
+        "cases": [
+          "moneyUsesExactIntegerCents",
+          "onlyPassengerIdentitiesAreAccepted",
+          "importantTerminalAndPaymentStatesAreExplicit",
+          "coordinatesRejectNonFiniteAndOutOfRange",
+          "everySimulationOutcomeCarriesTheConfirmedQuote",
+          "disputedOrStartedOrderCannotBeConfirmedFromOldDialog",
+          "confirmationLocksBothAmountAndVersion",
+          "acceptsOnlyExactInvitationCodeOrOwnDeepLink",
+          "everyOrdinaryOutcomeCarriesFrozenOrderAmountAndDefaultVersion",
+          "oldOrderConfirmationNeverTargetsAnotherOrderOrANonPayableState",
+          "restoredOldAmountStillInvalidatesTheOldDialogThroughItsVersion",
+          "oldDialogCannotPayAChangedAmountEvenBeforeTheVersionChanges",
+          "summaryShowsChineseKindAndPlacedTimeInsteadOfInternalIdentifier",
+          "invalidOrMissingTimeNeverLeaksRawMetadataIntoTitle",
+          "allFirstFiltersKeepDebtAndReservationsInProgress",
+          "cancellationRequiresAnExplicitSupportedChoiceOrBoundedOtherText",
+          "deletedSelectionFallsBackWithoutChoosingTheNextDefault",
+          "currentTopLevelReferenceWinsOverStaleRowFlags",
+          "initialSuggestionCannotOverwriteUserChoiceOrSelfOnRefresh",
+          "removedOrOtherAccountReferencesAreNeverSelected",
+          "oldStateDoesNotTurnTheFirstRecordIntoADefault",
+          "stableAccountIdentitySeparatesDifferentPassengersAndDifferentActions",
+          "uncertainCommitThen401And403SurviveStorageRebuildAndAccountRelogin",
+          "currentTokenLegacyRecordMigratesWithoutInventingAKeyForAnUnavailableOldToken",
+          "storageFailuresBlockTransportAndPreserveAnAcknowledgedButUnclearedRequest",
+          "unselectedBidKeepsEstimateDistinctFromActualDriverQuotes",
+          "assignedBidUsesSelectedQuoteEvenWhenLegacyFareSourceRemainsEstimate",
+          "legacyStateKeepsOriginalFunctionsWithoutInventingConfig",
+          "featureRefreshImmediatelyChangesAllowedNewKinds",
+          "legacyInvoiceFlagFallsBackOnlyWhenAbsentAndDoesNotTrustMalformedValues",
+          "orderInvoiceFlagOverridesTheCurrentProfileCityInBothDirections"
+        ]
+      },
+      "assemble": "PASS",
+      "log": "android-build-03.log",
+      "priorAttempts": {
+        "android-build-01.log": "INTERRUPTED_AFTER_COMPILE_AND_UNIT_NO_COMPLETE_ASSEMBLE",
+        "android-build-02.log": "PASS_UNIT31_AND_ASSEMBLE"
+      }
+    },
+    "mini": {
+      "tests": 74,
+      "pass": 74,
+      "fail": 0,
+      "log": "mini-tests-02.log",
+      "initialTestFileWrite": "Wrong working directory prevented test file creation; corrected with absolute paths before mini-tests-02 and final Android build"
+    },
+    "gitDiffCheck": "PASS",
+    "coordination": "PASS_NOT_BUSINESS_ACCEPTANCE"
+  },
+  "independentAcceptance": "NOT_RUN_AUTHOR_ROLE",
+  "deployed": false,
+  "versionsChanged": false,
+  "notRun": [
+    "Android native GUI/keyboard/back/process restoration on device",
+    "Default setting/new booking/new invoice end-to-end with backend on real device",
+    "WeChat compile/real device/publish (AppID missing)",
+    "Real driver relay/text chat (not configured)",
+    "Real system phone dial or external Amap UI",
+    "Cloud deployment/release readback"
+  ],
+  "gemini": [
+    {
+      "task": "PUIU-20261028-01",
+      "block": "stateless presentation cards",
+      "conversationId": "9b453ce4-da83-43a3-88d5-5e0caa287476",
+      "status": "SUCCESS",
+      "agentResponseDone": true,
+      "events": {
+        "init": 1,
+        "step_update": 298,
+        "result": 1
+      },
+      "timeout": "90s",
+      "newContext": true,
+      "modelOverride": false,
+      "toolsRequestedByPrompt": false,
+      "resultFile": "gemini-cards-01.kt",
+      "integrationTest": "PASS_ANDROID_BUILD_03_UNIT31",
+      "rawStreamSha256": "f44bfa595baf3d057c9bc55297f2939437253399e6d10b15a3016459fd943bcf",
+      "liveCli": "NONE_AFTER_DONE_AND_PROCESS_CHECK"
+    },
+    {
+      "task": "PUIU-20261028-01",
+      "block": "full-page and cancel selection",
+      "conversationId": "9cada792-824e-4702-a2f0-1ca27d03b098",
+      "status": "SUCCESS",
+      "agentResponseDone": true,
+      "timeout": "90s",
+      "newContext": true,
+      "modelOverride": false,
+      "events": {
+        "init": 1,
+        "step_update": 197,
+        "result": 1
+      },
+      "integrationTest": "PASS_ANDROID_BUILD_03_UNIT31",
+      "rawStreamSha256": "f3d2bb86d25bfc77041e8f842af8dc226d1f0390e91bf2f67be4f8e1f66044b1",
+      "liveCli": "NONE_AFTER_DONE_AND_PROCESS_CHECK"
+    }
+  ],
+  "productFilesSha256": {
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/BookingScreens.kt": "23a0f289a44e918c7ccfc3acda20614226520cd33302d2235e2f5a583ddc2487",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/ExtraScreens.kt": "d6fd5ae3e08593fcca034980df75fae48a475924ce5cb1cc881052a381a80d59",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/MainActivity.kt": "52210ecc4086293c10b15ecb5fc7d4734e77eec3614bb93045afe06cf6f2d00b",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/OrderDetail.kt": "6cad1507a47c8758756b759e500fc3f528d7ec82d9f1e93a5f854b42fe5f95a5",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/ParityScreens.kt": "112bbb3718b59b8e103a8a7c2e038bc6988912604909cc683f808e4b4cbcd301",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/PassengerCards.kt": "87fe2ae57df6746fad30c3203d95f929aac3e3cab356263bb7cb29efd72cdd00",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/PassengerContactPage.kt": "38f7b33dd4a944c6daa4ffb72844bfecd85feacce20e96b11ce9a34caa67fe95",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/PassengerDefaults.kt": "5046c6441f2688547c6524042d88ad98360eb3ba34a75e6694afc3bd80bd3f71",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/PassengerPages.kt": "e920a167791d4d095b94c7adde605cc4b6f765b5ff5da90572307a857d369837",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/PassengerUiRules.kt": "666a60a9c576154795ceed8dde04c221ef688216e1be208c6a3229596079014b",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/ProfileScreens.kt": "143003118834816dc60f9b45f4d08621ecf4532c9547796e06833db69194ef16",
+    "apps/passenger-android/app/src/test/java/cn/hbzjhs/passenger/PassengerDefaultsTest.kt": "e6132f0f25533b2f52242f73e9637554d82522cd57ecb278e739b19721e1dfd4",
+    "apps/passenger-android/app/src/test/java/cn/hbzjhs/passenger/PassengerUiRulesTest.kt": "fded3838b2665f4c155c6ed6ce29388303a2324359c12fdce8b48656d320c9d9",
+    "candidates/passenger-miniprogram-0.1.0/miniprogram/pages/order-detail/index.js": "abfc7b602a594400dcb2327174caffc7380c4cbb098a7a35fe9b31c606a68602",
+    "candidates/passenger-miniprogram-0.1.0/miniprogram/pages/order-detail/index.wxml": "baf68e4b66a5ba140e3ae5fde67320657b8fc97dfc817226d20535335ff6eb79",
+    "candidates/passenger-miniprogram-0.1.0/miniprogram/tests/order-contact.test.js": "34eb39eb8dafe6665830c74b7900ac88294a808a2e06e8c664c47683a48e90aa"
+  },
+  "apk": {
+    "path": "/Users/dongge/.codex/tmp/yijiexing-pui-build-20261028/passenger/_app/outputs/apk/debug/app-debug.apk",
+    "sha256": "050ea6a33c168baa234dc5f3e791534baf1108f3c8412f90f847a1838a5ed1c7",
+    "bytes": 107623935,
+    "distribution": "AUTHOR_DEBUG_BUILD_EXTERNAL_ONLY_NOT_A_USER_RELEASE"
+  },
+  "logNormalization": "Repository Android log copies trim line-end whitespace only; original tool logs retained in central evidence"
+}
