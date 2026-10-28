@@ -4,6 +4,7 @@ import androidx.compose.ui.graphics.Color
 
 // CCUI-20261029-01 shared visual tokens; presentation only.
 val GreenStrong = Color(0xFF005F56)
+val ControlOutline = Color(0xFF71818C)
 val Sky = Color(0xFF0369A1)
 val SkySoft = Color(0xFFE0F2FE)
 val Warm = Color(0xFFB45309)

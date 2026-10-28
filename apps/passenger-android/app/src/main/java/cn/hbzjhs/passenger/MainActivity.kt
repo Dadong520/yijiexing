@@ -404,7 +404,7 @@ fun Field(
     shape = RoundedCornerShape(12.dp),
     colors = OutlinedTextFieldDefaults.colors(
       focusedBorderColor = Teal,
-      unfocusedBorderColor = Color(0xFFE2E4E9),
+      unfocusedBorderColor = ControlOutline,
       focusedLabelColor = Teal,
       unfocusedLabelColor = Muted,
       focusedContainerColor = Color(0xFFFBFBFC),
@@ -624,7 +624,7 @@ fun PassengerVisualTheme(content: @Composable () -> Unit) {
     onSurface = Ink,
     surfaceVariant = Color(0xFFEEF3F4),
     onSurfaceVariant = Muted,
-    outline = Line,
+    outline = ControlOutline,
     outlineVariant = Line,
   )
   MaterialTheme(
