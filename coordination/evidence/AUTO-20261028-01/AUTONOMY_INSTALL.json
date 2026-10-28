@@ -1,0 +1,13 @@
+{
+  "taskId": "AUTO-20261028-01",
+  "ownerThreadId": "01a17cc7-e0a2-7791-bf1d-4611c09bab22",
+  "installedAt": "2026-10-28T14:15:07.651825+00:00",
+  "status": "POLICY_INSTALLED_PENDING_COORDINATOR_ACK",
+  "files": {
+    "/Users/dongge/Documents/New project 2/coordination/AUTONOMY_POLICY.md": "d560c502743125dea5f381871b2060ce1c6aee959631013499dc7d05d1c99baa",
+    "/Users/dongge/Documents/New project 2/coordination/AUTONOMY_CONFIG.json": "135e993f662e7630a3cc4bf40397712687875c7c390cb732f40ba8d628fd895a",
+    "/Users/dongge/.codex/tmp/yijiexing-pm-amap-20261027/coordination/AUTONOMY_POLICY.md": "d560c502743125dea5f381871b2060ce1c6aee959631013499dc7d05d1c99baa",
+    "/Users/dongge/.codex/tmp/yijiexing-pm-amap-20261027/coordination/AUTONOMY_CONFIG.json": "135e993f662e7630a3cc4bf40397712687875c7c390cb732f40ba8d628fd895a"
+  },
+  "note": "仅安装约定；未启动服务、派单、发布或替换协调者。"
+}

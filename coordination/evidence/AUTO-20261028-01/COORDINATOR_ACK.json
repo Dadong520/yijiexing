@@ -1,0 +1,25 @@
+{
+  "taskId": "AUTO-20261028-01",
+  "status": "ACTIVE_COORDINATOR_ACKNOWLEDGED_PENDING_INDEPENDENT_REVIEW",
+  "ownerThreadId": "01a17cc7-e0a2-7791-bf1d-4611c09bab22",
+  "registryGeneration": 6,
+  "actualSourceBase": "6ff9068da7914267323258867afcea937beea683",
+  "acknowledgedAt": "2026-10-28T22:15:59.924446+08:00",
+  "rawInstallerStatusRemains": "POLICY_INSTALLED_PENDING_COORDINATOR_ACK (historical install stage)",
+  "rawReceiptSHA256": "2c10c21420172e1643e9bbf12ee712b91c81c345037096b5fa83772183b55733",
+  "installedInitialHashes": {
+    "/Users/dongge/Documents/New project 2/coordination/AUTONOMY_POLICY.md": "d560c502743125dea5f381871b2060ce1c6aee959631013499dc7d05d1c99baa",
+    "/Users/dongge/Documents/New project 2/coordination/AUTONOMY_CONFIG.json": "135e993f662e7630a3cc4bf40397712687875c7c390cb732f40ba8d628fd895a",
+    "/Users/dongge/.codex/tmp/yijiexing-pm-amap-20261027/coordination/AUTONOMY_POLICY.md": "d560c502743125dea5f381871b2060ce1c6aee959631013499dc7d05d1c99baa",
+    "/Users/dongge/.codex/tmp/yijiexing-pm-amap-20261027/coordination/AUTONOMY_CONFIG.json": "135e993f662e7630a3cc4bf40397712687875c7c390cb732f40ba8d628fd895a"
+  },
+  "currentHashes": {
+    "/Users/dongge/Documents/New project 2/coordination/AUTONOMY_POLICY.md": "d560c502743125dea5f381871b2060ce1c6aee959631013499dc7d05d1c99baa",
+    "/Users/dongge/Documents/New project 2/coordination/AUTONOMY_CONFIG.json": "4ed47e2c38ab18f625b311450b00204214dd14020d3ab541b2cace77615c363f",
+    "/Users/dongge/.codex/tmp/yijiexing-pm-amap-20261027/coordination/AUTONOMY_POLICY.md": "d560c502743125dea5f381871b2060ce1c6aee959631013499dc7d05d1c99baa",
+    "/Users/dongge/.codex/tmp/yijiexing-pm-amap-20261027/coordination/AUTONOMY_CONFIG.json": "4ed47e2c38ab18f625b311450b00204214dd14020d3ab541b2cace77615c363f"
+  },
+  "ackChanges": "CONFIG activation/runtimeState/trigger/coordinatorAck only; policy bytes unchanged",
+  "executionMode": "Feedback-triggered current chat; idle waits, no extra daemon/scheduler/bridge",
+  "businessDeploymentRequired": false
+}

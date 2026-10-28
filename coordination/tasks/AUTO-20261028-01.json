@@ -1,0 +1,67 @@
+{
+  "schemaVersion": 1,
+  "id": "AUTO-20261028-01",
+  "owner": "coordinator",
+  "goal": "沿用原协调者，启用用户只在体验发布后验证与反馈的长期自主交付模式",
+  "baseSha": "6ff9068da7914267323258867afcea937beea683",
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-pm-amap-20261027",
+  "branch": "codex/autonomy-mode-20261028",
+  "allow_paths": [
+    "coordination/"
+  ],
+  "checks": [
+    "原协调者真实ID与中央登记一致，保留唯一指挥链；先完成或妥善交接正在进行的ROLL任务",
+    "接入任务使用最新完整基线与独立分支；不得覆盖其他会话未提交成果",
+    "安装AUTONOMY_POLICY与CONFIG并在中央入口、决定和本人短卡记录ACK",
+    "继续使用独立非作者验收、准确SHA门禁及既有体验发布流程",
+    "用户只在原协调会话反馈，不转发子任务，不操作常规测试合并发布",
+    "已有发布5096无需重复部署；本任务无产品改动，只安装协作约定",
+    "运行项目结构检查，独立复核本次约定与安装证据；报告真实接入状态"
+  ],
+  "status": "ACCEPTED_PENDING_GOVERNANCE_MERGE",
+  "acceptance": "PASS",
+  "tests": [
+    {
+      "command": "python3 tools/check_coordination.py --memory-role coordinator --session-id actual coordinator ID (central + source)",
+      "status": "PASS",
+      "exitCode": 0
+    },
+    {
+      "command": "install_autonomy.py --control-root ... --source-root ... --session-id actual ID --task-id AUTO-20261028-01 (dry-run then --apply)",
+      "status": "PASS",
+      "exitCode": 0
+    },
+    {
+      "command": "dry-run with invalid artificial session ID",
+      "status": "PASS_EXPECTED_REJECTION",
+      "exitCode": 1,
+      "noTargetsCreated": true
+    },
+    {
+      "command": "Initial installed receipt SHA256 check, ACK current hash check and dual-root equality",
+      "status": "PASS",
+      "exitCode": 0
+    },
+    {
+      "command": "AUTOA independent static + final 13 checks",
+      "status": "PASS",
+      "exitCode": 0
+    }
+  ],
+  "evidence": [
+    "coordination/evidence/AUTO-20261028-01/INTAKE.json",
+    "coordination/evidence/AUTO-20261028-01/AUTONOMY_INSTALL.json",
+    "coordination/evidence/AUTO-20261028-01/COORDINATOR_ACK.json",
+    "coordination/evidence/AUTO-20261028-01/AUTHOR_CHECK.json",
+    "coordination/evidence/AUTO-20261028-01/review/FINAL_REVIEW.json"
+  ],
+  "nextAction": "Commit and merge governance-only AUTO changes; no product deployment; then final ACTIVE receipt and wait for feedback",
+  "deploy_owner": "coordinator",
+  "releaseReady": false,
+  "businessDeploymentRequired": false,
+  "updatedAt": "2026-10-28T22:20:31.238161+08:00",
+  "authorThreadId": "01a17cc7-e0a2-7791-bf1d-4611c09bab22",
+  "userAuthorization": "本轮用户直接授权执行本机接入指令，保留本会话为唯一协调者；用户仅体验发布后验证反馈",
+  "reviewer": "backend independent reviewer",
+  "reviewerThreadId": "01a182c6-c058-76e1-9584-38abfe813799"
+}

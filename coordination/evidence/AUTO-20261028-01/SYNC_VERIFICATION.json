@@ -1,0 +1,55 @@
+{
+  "files": [
+    {
+      "path": "coordination/evidence/AUTO-20261028-01/INSTALL_APPLY.log",
+      "sha256": "8170381f70ec828c1e72635425631131b423d8a13749cfccc333f285937372a9"
+    },
+    {
+      "path": "coordination/evidence/AUTO-20261028-01/NEGATIVE_ID_CHECK.json",
+      "sha256": "49f600a8b52c6d9ddff2887380226f0acbd680dfed30c8153e13f6e96da304fa"
+    },
+    {
+      "path": "coordination/evidence/AUTO-20261028-01/BEFORE_INSTALL.json",
+      "sha256": "4587916837d3bcece047847b5a58bab8b19c5cbb1f34ebd89f9c7892d12e51f7"
+    },
+    {
+      "path": "coordination/evidence/AUTO-20261028-01/install_autonomy.reviewed.py",
+      "sha256": "8003f86d4674e2d4b600d23f4b2181071a377d9937260765298956572728fcaa"
+    },
+    {
+      "path": "coordination/evidence/AUTO-20261028-01/INSTALLED_PENDING_ACK_VERIFIED.json",
+      "sha256": "0fa7dcaba5c9a3e80cfc1c60524587463e50867e5b82f0404e636588acd8600a"
+    },
+    {
+      "path": "coordination/evidence/AUTO-20261028-01/INSTALL_DRY_RUN.log",
+      "sha256": "cc404335c8d379c462e2391d527f3acf4a973a01130da18e918a391a5874c8b4"
+    },
+    {
+      "path": "coordination/evidence/AUTO-20261028-01/COORDINATOR_ACK.json",
+      "sha256": "d8d8dd035373719dcc6539c8ef30e3d7752c0c3fc6c51fac34b9210830b62a39"
+    },
+    {
+      "path": "coordination/evidence/AUTO-20261028-01/INTAKE.json",
+      "sha256": "473f062bb076d4b3848d8bfa1fa667e49d04ce742b303b3b512afe0985524d62"
+    },
+    {
+      "path": "coordination/evidence/AUTO-20261028-01/AUTHOR_CHECK.json",
+      "sha256": "79e8399d256dc303943db3ebe099988897392fcaea1ef2c4cd735a33923d6d0f"
+    },
+    {
+      "path": "coordination/evidence/AUTO-20261028-01/AUTONOMY_INSTALL.json",
+      "sha256": "2c10c21420172e1643e9bbf12ee712b91c81c345037096b5fa83772183b55733"
+    },
+    {
+      "path": "coordination/evidence/AUTO-20261028-01/review/FINAL_REVIEW.json",
+      "sha256": "827e247665abdfe598efd8093e60c8124ddc69e46eac0886335af64b42d0ee93"
+    },
+    {
+      "path": "coordination/evidence/AUTO-20261028-01/review/PRELIMINARY_REVIEW.json",
+      "sha256": "21b170cf5bfeae9ea452f51db8f3418347323b212e39fc493ac88d67f74b7d12"
+    }
+  ],
+  "allAtExpectedSourcePaths": true,
+  "correctedGeneratedDuplicatePathCopies": 12,
+  "unrelatedFilesTouched": false
+}

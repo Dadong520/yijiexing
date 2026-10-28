@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "protocolVersion": "2026-10-26-v3",
   "canonicalControlRoot": "/Users/dongge/Documents/New project 2",
-  "updatedAt": "2026-10-28T21:58:02.510362+08:00",
+  "updatedAt": "2026-10-28T22:20:31.238161+08:00",
   "generation": 6,
   "activeCoordinatorRole": "coordinator",
   "retiredCoordinatorThreadIds": [
@@ -15,14 +15,14 @@
       "title": "宜捷行｜产品建议与高德集成总协调",
       "model": "gpt-6.1-sol",
       "memoryStatus": "NORMAL",
-      "reason": "PUI与发布回执已合并main5096，检查点明确、无常驻进程；真实上下文遥测UNKNOWN",
+      "reason": "两角色已全新接任/旧会话归档/PR34合并，当前检查点明确；上下文遥测UNKNOWN",
       "contextUsedPercent": null,
       "measurementSource": "not_exposed",
       "measurementAt": null,
       "ackVersion": "2026-10-26-v3",
-      "checkpointId": "ROLL-20261028-01",
+      "checkpointId": "AUTO-20261028-01",
       "handoffPath": "coordination/handoffs/coordinator.md",
-      "workflowState": "ROLLOVER_ACCEPTED_COORDINATION_COMMIT"
+      "workflowState": "AUTONOMY_ACKED_GOVERNANCE_MERGE"
     },
     "backend": {
       "threadId": "01a182c6-c058-76e1-9584-38abfe813799",
@@ -34,9 +34,9 @@
       "measurementSource": "not_exposed",
       "measurementAt": null,
       "ackVersion": "2026-10-26-v3",
-      "checkpointId": "ROLLNB-20261028-01",
+      "checkpointId": "AUTOA-20261028-01",
       "handoffPath": "coordination/handoffs/backend.md",
-      "workflowState": "IDLE_AWAIT_ROOT_TASK",
+      "workflowState": "IDLE_AUTOA_REVIEW_DONE",
       "execution": "visible independent Codex thread",
       "roleGeneration": 2
     },

@@ -1,0 +1,7 @@
+{
+  "status": "PASS_INITIAL_INSTALL",
+  "originalReceiptSHA256": "2c10c21420172e1643e9bbf12ee712b91c81c345037096b5fa83772183b55733",
+  "fourInstalledFilesHashMatchReceipt": true,
+  "rawInstallReceiptPreserved": true,
+  "noDaemonOrProductOperationsInInstaller": true
+}
