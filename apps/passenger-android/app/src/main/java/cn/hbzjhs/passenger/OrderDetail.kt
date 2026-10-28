@@ -9,6 +9,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
@@ -74,6 +75,26 @@ fun OrderDetail(o: JSONObject, store: PassengerStore, busy: Boolean) {
     Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
       IdentifierButton(id, "订单信息")
       TextButton(onClick = { contactPage = true }) { Text("联系与帮助") }
+    }
+    Row(
+      Modifier.fillMaxWidth().heightIn(min = 48.dp),
+      verticalAlignment = Alignment.CenterVertically,
+      horizontalArrangement = Arrangement.spacedBy(8.dp),
+    ) {
+      Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
+        Text(
+          if (o.optBoolean("destinationPending")) "费用待定（并非免费）"
+          else "${orderFarePresentation(o).label} ¥${money(o.optLong("fare"))}",
+          fontSize = 18.sp,
+          fontWeight = FontWeight.Bold,
+          color = Ink,
+        )
+        Note("${paymentName(o.text("paymentStatus", if (o.optBoolean("paid")) "SUCCESS" else "UNPAID"))} · 支付和退款均为模拟")
+      }
+      if (cancellable) TextButton(
+        onClick = { cancelChoice = "行程计划有变"; cancelOther = ""; dialog = "cancel" },
+        enabled = !busy,
+      ) { Text("取消订单") }
     }
     Panel("行程路线") {
       if (o.text("scheduledAt").isNotBlank()) {
@@ -267,7 +288,6 @@ fun OrderDetail(o: JSONObject, store: PassengerStore, busy: Boolean) {
       )
       if (o.optLong("refundAmount") > 0) KV("模拟退款金额", "¥${money(o.optLong("refundAmount"))}")
       Note("体验计价 · 支付和退款均为模拟")
-      if (cancellable) TextButton(onClick = { cancelChoice = "行程计划有变"; cancelOther = ""; dialog = "cancel" }, enabled = !busy) { Text("取消订单") }
       TextButton(
         onClick = { store.query("/api/passenger/orders/$id/fees") { fees = it } },
         enabled = !busy,
