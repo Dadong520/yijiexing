@@ -1,0 +1,16 @@
+{
+  "pr": "https://github.com/Dadong520/yijiexing/pull/30",
+  "headSha": "ec666c5478bc382c15a2a68090405250be515616",
+  "mergeSha": "7402b117d55bd4d0f1404a5ae2ff0c1cf2e8e0a5",
+  "sameEntireTreeAsReviewedHead": true,
+  "acceptedProductSha": "817ed22bce503620d692e097a5f8ea996edf5fb2",
+  "sameProductComponentTrees": true,
+  "components": [
+    "apps/cloud-service",
+    "apps/admin-console/web",
+    "apps/admin-console/backend",
+    "apps/passenger-android",
+    "candidates/driver-0.3.6-r2/android",
+    "candidates/passenger-miniprogram-0.1.0/miniprogram"
+  ]
+}

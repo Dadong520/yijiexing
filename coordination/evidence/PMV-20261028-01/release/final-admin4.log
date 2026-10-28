@@ -1,0 +1,12 @@
+✔ admin announcement time input keeps UTC+8 independent of host timezone (6.65525ms)
+✔ admin announcement form rejects overflowing or incomplete dates (0.579541ms)
+✔ review and compatibility pending images never receive an active-material label (0.282833ms)
+✔ overview counts active replacement and legacy pending once per certificate and clears after review (3.806666ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 4
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 103.25975

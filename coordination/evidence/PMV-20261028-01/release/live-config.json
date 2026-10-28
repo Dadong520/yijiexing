@@ -1,0 +1,28 @@
+{
+  "api": {
+    "ready": "True",
+    "image": "us-west1-docker.pkg.dev/yijiexing-driver-demo-1023/demo/driver-cloud@sha256:d074a2d4dec29113b767803395de94e0c7953a716c9abb3b38383f0ac1763bbe",
+    "revision": "driver-demo-pmv-817ed22-test1",
+    "trafficPercent": 100,
+    "userTestTag": "driver-demo-pmv-817ed22-test1",
+    "runtimeSpecExceptImageUnchanged": true,
+    "scalingAndBillingAnnotationsUnchanged": true,
+    "iamBindingsUnchanged": true,
+    "serviceAnnotationDriftExcludingOperationalMetadata": [],
+    "scalingModeBefore": "automatic",
+    "scalingModeAfter": "automatic"
+  },
+  "admin": {
+    "ready": "True",
+    "image": "us-west1-docker.pkg.dev/yijiexing-driver-demo-1023/demo/admin-ui@sha256:cbc43c3f1d64c9dc42c428c5aecdcd99a25eb2963c9e17d0b061a9f45e1d9224",
+    "revision": "driver-admin-pmv-817ed22-test1",
+    "trafficPercent": 100,
+    "userTestTag": "driver-admin-pmv-817ed22-test1",
+    "runtimeSpecExceptImageUnchanged": true,
+    "scalingAndBillingAnnotationsUnchanged": true,
+    "iamBindingsUnchanged": true,
+    "serviceAnnotationDriftExcludingOperationalMetadata": [],
+    "scalingModeBefore": "automatic",
+    "scalingModeAfter": "automatic"
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "generation": "1793166946585031",
+  "bytes": 3506176,
+  "sha256": "87768ce64d8dfc7cf2f8b988de30205b57fd062e668043f96133e354638eb90c",
+  "integrity": "ok",
+  "beforeOrderCount": 38,
+  "afterOrderCount": 38,
+  "missingOldOrders": 0,
+  "changedOldOrderRows": 1,
+  "newOrdersSinceBackup": 0,
+  "allPreexistingOrderRowsEqual": false,
+  "coordinatorCreatedCloudOrders": 0,
+  "scope": "Read-only authoritative GCS snapshot comparison; IDs/payloads remain private",
+  "transportEvents": [],
+  "businessFieldsUnchanged": true,
+  "allowedConcurrentDifferences": [
+    "passengerLocation.deviceTime",
+    "passengerLocation.latitude",
+    "passengerLocation.longitude",
+    "passengerLocation.receivedAt",
+    "updatedAt"
+  ],
+  "newPassengerIdempotencyRows": 31,
+  "newDriverIdempotencyRows": 6,
+  "interpretation": "Concurrent client location updates observed: only one order location/device/received timestamps and updatedAt changed. All other stored columns/payload fields, including all order IDs/stages/money, equal. Root issued no cloud business POST.",
+  "result": "PASS_BUSINESS_DATA_PRESERVATION_WITH_OBSERVED_LIVE_LOCATION_UPDATES"
+}

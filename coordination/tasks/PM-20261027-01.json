@@ -65,8 +65,9 @@
     "userVerificationScope": "coordination/evidence/PM-20261027-01/USER_VERIFICATION_SCOPE.json",
     "adminAccessFeedback": "2026-10-28 user Chrome ERR_TUNNEL_CONNECTION_FAILED; same original tab reload restored login UI, direct/proxy health200, no auth/proxy/IAM/service changes; evidence/admin-network-20261028/RESOLUTION.json",
     "collaborationPreference": "GOV04 active: visible backend/frontend plus per-task GeminiCLI, root unique dispatch/acceptance/release",
-    "feedback2Intake": "Download copy read,28 requirement groups reviewed; first4 live operations independently accepted817 and currently release preparation under PMVR"
+    "feedback2Intake": "下载副本已读28组，首批4项PMVR独立验收并PR30 main7402b11合并发布；新版两APK整包回读PASS，余项后续分批",
+    "latestFollowupRelease": "coordination/evidence/PMV-20261028-01/release/FINAL-RELEASE-RECEIPT.json"
   },
-  "updatedAt": "2026-10-28T13:51:12.291097+08:00",
+  "updatedAt": "2026-10-28T14:04:40.792683+08:00",
   "candidateSha": "0df8b187ac2f68c52fa6d17db846fbb8854b4eda"
 }

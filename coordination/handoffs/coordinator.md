@@ -2,8 +2,9 @@
 ACK2026-10-26-v3；真实会话01a17cc7-e0a2-7791-bf1d-4611c09bab22/generation6；当前PMVR-20261028-01。context UNKNOWN/not_exposed；本次可见压缩已按START_HERE定向恢复，NORMAL。中央coordination唯一权威；旧总管退休，root唯一发布。
 
 ## 当前发布与隔离
-线上仍旧司机0.3.13/code16、乘客1.1.13/code15；PR28 main1d04ff7、PR29 mainc3c876e。仅yijiexing-driver-demo-1023/us-west1，禁原环境。API/admin旧revision/digest与入口见STATE；本次fresh私有pmvr-before-{api,admin}.json及IAM已读，旧流量100%未变。保留PASSWORD原账号、IAM/ENV/secret/SA、automatic/min0max1/请求CPU计费、API900秒，不保活。发布前重新备份当前共享SQLite，不假定仍35单。
-高德1008/10008仍FAIL；用户设置与APK身份一致勿重索Key；真实SDK同单NOT_RUN。微信缺AppID未编译/真机/发布；无真实支付、分账、积分到账、正式发票。32类旧草稿仍草稿。
+PR30 main7402b117d55bd4d0f1404a5ae2ff0c1cf2e8e0a5，全部产品组件同817。API/admin新版pmv-817ed22-test1均100%，镜像/API d074a2d4…1763bbe、admin cbc43c3f…e1d9224，user-test快链同新revision。司机0.3.14/code17、乘客1.1.14/code16已固定对象提升/旧包归档；两完整HTTPS下载/hash/身份/原签名回读PASS。最终回执PMV/release/FINAL-RELEASE-RECEIPT.json。
+仅yijiexing-driver-demo-1023/us-west1，禁原环境。保留PASSWORD原账号、IAM/ENV/secret/SA、automatic/min0max1/请求CPU计费/API900秒。不保活/自动暂停。38旧单均保留，一单仅客户端定位/updatedAt更新，其余订单字段一致，根云业务POST/新建订单0；严格初次整行差异保留。离线克隆27旧表无修改，仅2新运营表。
+高德1008/10008最后未成功验收；用户设置与APK身份一致勿重索Key；真实SDK同单NOT_RUN。微信缺AppID未编译/真机/发布，新AndroidGUI/实际拨号/部分OEM本轮未测。全部支付/退款/提现/发票仍模拟，资金分账/积分未启用，32历史类草稿。
 
 ## 源码与角色
 root /Users/dongge/.codex/tmp/yijiexing-pm-amap-20261027，branch codex/operations-v2-integration-20261028，basec3c876e，产品HEAD817ed22bce503620d692e097a5f8ea996edf5fb2，clean。PMVO0d9+523/33fa/f1、PMVUdf9+b450/519+87已全cherry；不要重复。
@@ -19,4 +20,5 @@ Q1驳回更新、Q2待审图标签、Q3总览计数、Q4跨城invoice、Q5公告
 新APK均build/原签名/aapt/Key4模式0PASS；APK_PROOF.json及PMVA artifact-review/result.json独立打包复核PASS。乘客1.1.14-experience/code16 hash3130dd4e…20de48，107529637字节，源770组件同817，24单测；司机0.3.14-cloud/code17 hashb2166efa…a6445f，108636805字节，源d5组件同817，63单测。build路径外部pmv-release-build-20261028/{passenger,driver}/_app/outputs/apk/debug/app-debug.apk。mini72/admin4 frozen日志PASS。无需重复全套。
 
 ## 下一步/资源
-PMVR验收PASS/releaseReadytrue待中央exact gate。尚无本轮PR、未上传/部署。新stage外部pmv-release-stage-20261028，root准备API继承旧runtime镜像946602…/admin prepare_browser_build helper按817校验。先备份当前snapshot/旧APK，再候选上传（大文件先direct后代理）、cloudbuild异步精确镜像→no-traffic健康→PR合并→切100%及user-test快链→旧单字段比较/新版整包HTTPS hash回读。私有/Key/账号/DB/APK/cache绝不进Git。所有最新回执写PMV/release/。部署后单独docs回执提交。无常驻、无自动化。
+源817已PR30合并7402b11，根branch HEAD ec666c5，后续仅发布回执docs。中央PMV/release含构建/无流量健康/配置/IAM保持、liveHTTP/登录截图、数据前后对比、APK提升/整包回读及回退说明。source817无需重复全套测试。接着选择中央控制文件/本轮证据同步根树，README更新已发；check/凭据扫描→docs PR附任务并合并→用户验收入口。不得把Git快照反盖中央。
+外部stage /Users/dongge/.codex/tmp/yijiexing-pmv-release-stage-20261028；上传/提升/整包回读已完成exit0，块文件清除；上传会话URL/token/原始manifest/SQLite/APK均私有仓库外。fixture/构建/临时IAB均退出，原Chrome未动；Gemini已停，无设备/自动化/后台常驻。后续用户反馈再定向处理，不自行常驻或全量扩做28组。

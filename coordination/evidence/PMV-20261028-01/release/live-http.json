@@ -1,0 +1,100 @@
+[
+  {
+    "role": "api",
+    "url": "https://yijiexing-demo.hbzjhs.xyz/health",
+    "expected": 200,
+    "attempts": [
+      {
+        "transport": "direct",
+        "exitCode": 0,
+        "httpStatus": 200
+      }
+    ],
+    "PASS": true
+  },
+  {
+    "role": "admin",
+    "url": "https://demo-admin.hbzjhs.xyz/health",
+    "expected": 200,
+    "attempts": [
+      {
+        "transport": "direct",
+        "exitCode": 0,
+        "httpStatus": 200
+      }
+    ],
+    "PASS": true
+  },
+  {
+    "role": "admin",
+    "url": "https://demo-admin.hbzjhs.xyz/",
+    "expected": 200,
+    "attempts": [
+      {
+        "transport": "direct",
+        "exitCode": 0,
+        "httpStatus": 200
+      }
+    ],
+    "PASS": true
+  },
+  {
+    "role": "admin",
+    "url": "https://demo-admin.hbzjhs.xyz/static/admin.js",
+    "expected": 200,
+    "attempts": [
+      {
+        "transport": "direct",
+        "exitCode": 16,
+        "httpStatus": 0
+      },
+      {
+        "transport": "proxy",
+        "exitCode": 0,
+        "httpStatus": 200
+      }
+    ],
+    "PASS": true,
+    "sourceBytesMatch": true,
+    "sha256": "0078a67dae300998a96f4731e05fbc4c67dc8200168a8679788cbff01164384b"
+  },
+  {
+    "role": "admin",
+    "url": "https://demo-admin.hbzjhs.xyz/api/local/admin/v2/state",
+    "expected": 401,
+    "attempts": [
+      {
+        "transport": "direct",
+        "exitCode": 0,
+        "httpStatus": 401
+      }
+    ],
+    "PASS": true
+  },
+  {
+    "role": "driver",
+    "url": "https://user-test---driver-demo-phfgquzmua-uw.a.run.app/download",
+    "expected": 200,
+    "attempts": [
+      {
+        "transport": "direct",
+        "exitCode": 0,
+        "httpStatus": 200
+      }
+    ],
+    "PASS": true
+  },
+  {
+    "role": "passenger",
+    "url": "https://user-test---driver-demo-phfgquzmua-uw.a.run.app/download-passenger",
+    "expected": 200,
+    "attempts": [
+      {
+        "transport": "direct",
+        "exitCode": 0,
+        "httpStatus": 200
+      }
+    ],
+    "PASS": true
+  }
+]
