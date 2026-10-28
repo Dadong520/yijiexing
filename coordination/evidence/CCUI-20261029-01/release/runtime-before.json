@@ -1,0 +1,53 @@
+{
+  "project": "yijiexing-driver-demo-1023",
+  "region": "us-west1",
+  "services": {
+    "api": {
+      "revision": "driver-demo-pui-7d6dc60-test1",
+      "image": "us-west1-docker.pkg.dev/yijiexing-driver-demo-1023/demo/driver-cloud@sha256:d50f63b71ac68c3d7197835fbbd7ae90811463a46ea2b5ca0cde091c1d8079eb",
+      "traffic": [
+        {
+          "revisionName": "driver-demo-pm-364078b4-qa1",
+          "percent": null,
+          "tag": "pm-map-qa"
+        },
+        {
+          "revisionName": "driver-demo-pmv-817ed22-test1",
+          "percent": null,
+          "tag": "pmv-qa"
+        },
+        {
+          "revisionName": "driver-demo-pui-7d6dc60-test1",
+          "percent": 100,
+          "tag": "pui-qa"
+        },
+        {
+          "revisionName": "driver-demo-pui-7d6dc60-test1",
+          "percent": null,
+          "tag": "user-test"
+        }
+      ]
+    },
+    "admin": {
+      "revision": "driver-admin-pui-7d6dc60-test1",
+      "image": "us-west1-docker.pkg.dev/yijiexing-driver-demo-1023/demo/admin-ui@sha256:9a8909e3abaee81f59a2c905688816c0468342e365be26cfac282da5cd6b2128",
+      "traffic": [
+        {
+          "revisionName": "driver-admin-pmv-817ed22-test1",
+          "percent": null,
+          "tag": "pmv-qa"
+        },
+        {
+          "revisionName": "driver-admin-pui-7d6dc60-test1",
+          "percent": 100,
+          "tag": "pui-qa"
+        },
+        {
+          "revisionName": "driver-admin-pui-7d6dc60-test1",
+          "percent": null,
+          "tag": "user-test"
+        }
+      ]
+    }
+  }
+}

@@ -74,14 +74,14 @@
     "coordination/archive/2026-10-26/AUTH-20261026-02.json"
   ],
   "memoryProtocolVersion": "2026-10-26-v3",
-  "currentStage": "CLAUDE_CODE_INTAKE_UI_REFRESH",
+  "currentStage": "CLAUDE_UI_ACCEPTED_INTEGRATION_CI",
   "roleAssignments": {
-    "coordinator": "CC intake and UI scope/review/release",
+    "coordinator": "CCUI CI/merge/release source107e226",
     "backend": "IDLE CCG independent guard PASS",
-    "frontend": "CCUIV build+native independent review ad674",
+    "frontend": "IDLE CCUIV final11bef independent PASS",
     "antigravity": "PAUSED_BY_USER_20261029; no new Gemini dispatch",
     "expert": "IDLE EXMAP delivered; only explicit hard blocker dispatch",
-    "claude": "CCUI CSS-only phase3; native source frozen ad674"
+    "claude": "IDLE actual Desktop session open"
   },
   "collaborationDecision": "GOV07 user Claude Code main implementation; Gemini temporarily paused; visible Codex role reviews and root unique release"
 }

@@ -1,0 +1,26 @@
+{
+  "passenger": {
+    "tests": 31,
+    "failures": 0,
+    "errors": 0,
+    "apk": "/Users/dongge/.codex/tmp/yijiexing-ccui-build-20261029/source/apps/passenger-android/app/build/outputs/apk/debug/app-debug.apk",
+    "sha256": "e84cad145a5524344f91fef471c4483b6b4ccef1286018d16ecd34d1c41dcf21",
+    "bytes": 107139449,
+    "aaptExit": 0,
+    "apksignerExit": 0,
+    "privateValuesAbsent": true,
+    "originalHttpsPresent": true
+  },
+  "driver": {
+    "tests": 63,
+    "failures": 0,
+    "errors": 0,
+    "apk": "/Users/dongge/.codex/tmp/yijiexing-ccui-build-20261029/source/candidates/driver-0.3.6-r2/android/app/build/outputs/apk/debug/app-debug.apk",
+    "sha256": "2453d4ea47ee2bedee03baadfaa4cafb45fe9b077c9695586d64a1ad2d13d085",
+    "bytes": 108636805,
+    "aaptExit": 0,
+    "apksignerExit": 0,
+    "privateValuesAbsent": true,
+    "originalHttpsPresent": true
+  }
+}

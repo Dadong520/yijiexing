@@ -1,0 +1,18 @@
+[
+  {
+    "role": "admin",
+    "buildId": "f7cd4086-f033-4fff-8a70-c12dc3344d54",
+    "status": "QUEUED",
+    "tag": "us-west1-docker.pkg.dev/yijiexing-driver-demo-1023/demo/admin-ui:ccui-107e226",
+    "sourceSha": "107e226d1d23fc6d7ef5dab75229962bd38306d8",
+    "region": "us-west1"
+  },
+  {
+    "role": "api",
+    "buildId": "e2319edd-01bb-462a-95be-d83a7cb5caf5",
+    "status": "QUEUED",
+    "tag": "us-west1-docker.pkg.dev/yijiexing-driver-demo-1023/demo/driver-cloud:ccui-107e226",
+    "sourceSha": "107e226d1d23fc6d7ef5dab75229962bd38306d8",
+    "region": "us-west1"
+  }
+]

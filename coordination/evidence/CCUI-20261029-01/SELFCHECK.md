@@ -1,6 +1,15 @@
 # CCUI-20261029-01 作者自查（claude，session 413b9b2c-f346-4a81-8891-87bc3c962394）
 工具仅Read/Glob/Grep/Edit/Write，无Bash。编译/单测/截图/对比度工具全部NOT_RUN，由root实跑。未提交、未部署、未启动代理、未改中央控制文件。
 
+## 阶段4（危险操作语义；只改OrderDetail.kt、UiComponents.kt）
+- UiComponents.kt：PassengerModal新增可选参数`confirmColor: Color = Teal`（放在content前，其他调用默认值不变）。确认按钮另外明确了禁用态颜色：底Line、字Muted，所有弹窗禁用时都呈灰色。
+- OrderDetail.kt：
+  - 顶部“取消订单”TextButton：字色Danger，禁用时Muted 60%。
+  - “不再用车 · 取消订单”OutlinedButton：字色Danger、边框DangerLine，忙碌/禁用时边框Line、字色Muted 60%。
+  - 取消/评价/投诉共用弹窗：只加`confirmColor = if (dialog == "cancel") Danger else Teal`，评价和投诉仍是青绿。
+- 没改：onClick/onConfirm事件体、enabled条件、store.action和payload、取消理由与校验、文案、金额、路由。
+- 风险：编译NOT_RUN。OutlinedButton的border表达式读取`busy`（原本已在作用域内）。所有PassengerModal的确认按钮禁用态从M3默认改成Line/Muted，属于全局可见变化，需截图确认。
+
 ## 阶段1（共用主题）
 - 司机 DriverPalette.kt（新增）、UiKit.kt：token调值、NativeTheme补语义色、MenuRow模块分色、BID Pill暖橙底。
 - 乘客 PassengerPalette.kt（新增）、MainActivity.kt：token调值、主题secondary=Sky/tertiary=Warm/error=Danger/outline=Line。

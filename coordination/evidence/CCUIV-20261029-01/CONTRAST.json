@@ -1,0 +1,52 @@
+{
+  "Teal": {
+    "onWhite": 5.303,
+    "onSoft": 4.666
+  },
+  "Ink": {
+    "onWhite": 17.348,
+    "onSoft": 15.944
+  },
+  "Muted": {
+    "onWhite": 6.982,
+    "onSoft": 6.417
+  },
+  "Sky": {
+    "onWhite": 5.934,
+    "onSoft": 5.171
+  },
+  "Warm": {
+    "onWhite": 5.022,
+    "onSoft": 4.621
+  },
+  "Violet": {
+    "onWhite": 7.105,
+    "onSoft": 6.108
+  },
+  "Success": {
+    "onWhite": 5.385,
+    "onSoft": 4.742
+  },
+  "Danger": {
+    "onWhite": 6.574,
+    "onSoft": 5.749
+  },
+  "Chevron": {
+    "onWhite": 2.432,
+    "onSoft": 2.235
+  },
+  "Line": {
+    "onWhite": 1.279,
+    "onSoft": 1.176
+  },
+  "ControlOutlineFinal": {
+    "onWhite": 4.022,
+    "onPage": 3.697,
+    "onSurfaceVariant": 3.594
+  },
+  "ChevronFinal": {
+    "onWhite": 4.022,
+    "onPage": 3.697,
+    "onSurfaceVariant": 3.594
+  }
+}

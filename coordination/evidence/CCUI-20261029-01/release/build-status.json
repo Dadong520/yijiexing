@@ -1,0 +1,34 @@
+[
+  {
+    "role": "admin",
+    "buildId": "f7cd4086-f033-4fff-8a70-c12dc3344d54",
+    "status": "SUCCESS",
+    "images": [
+      {
+        "artifactRegistryPackage": "projects/yijiexing-driver-demo-1023/locations/us-west1/repositories/demo/packages/admin-ui/versions/sha256:3c5f5fc4e57c0b2b6ef204d808a44baac53fa974fda38935aecbc45ac2d3f00f",
+        "digest": "sha256:3c5f5fc4e57c0b2b6ef204d808a44baac53fa974fda38935aecbc45ac2d3f00f",
+        "name": "us-west1-docker.pkg.dev/yijiexing-driver-demo-1023/demo/admin-ui:ccui-107e226",
+        "pushTiming": {
+          "endTime": "2026-10-28T17:51:11.469038294Z",
+          "startTime": "2026-10-28T17:51:09.857301317Z"
+        }
+      }
+    ]
+  },
+  {
+    "role": "api",
+    "buildId": "e2319edd-01bb-462a-95be-d83a7cb5caf5",
+    "status": "SUCCESS",
+    "images": [
+      {
+        "artifactRegistryPackage": "projects/yijiexing-driver-demo-1023/locations/us-west1/repositories/demo/packages/driver-cloud/versions/sha256:2c5109fc89cf72fb082ecbc9140dec99b2ec0ada09c0597b18d683a4ff74be57",
+        "digest": "sha256:2c5109fc89cf72fb082ecbc9140dec99b2ec0ada09c0597b18d683a4ff74be57",
+        "name": "us-west1-docker.pkg.dev/yijiexing-driver-demo-1023/demo/driver-cloud:ccui-107e226",
+        "pushTiming": {
+          "endTime": "2026-10-28T17:51:16.235450378Z",
+          "startTime": "2026-10-28T17:51:14.697981107Z"
+        }
+      }
+    ]
+  }
+]

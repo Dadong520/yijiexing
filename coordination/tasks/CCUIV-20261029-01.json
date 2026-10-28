@@ -17,36 +17,71 @@
     "Human explicitly authorized this current CCUI isolated emulator install/click/input/screenshot via Android official tools; see CCUI/ANDROID_UI_AUTHORIZATION.json. Never personal device/shared live emulator. Fresh read-only isolated AVD at free port; synthetic local fixtures only. No cloud business POST. Targeted old PUI NATIVE_REVIEW fixture/setup reuse allowed, no delivery traversal.",
     "Capture actual current passenger profile + order detail first (user wants two images), home/settings/orders/error; driver home/profile/member/business/error representatives. Keep simulated labels and unresolved AMap limits. If QA network/identity overlay needed, record exact source delta and separately bind original shipping APK. QA APK is not shipping artifact.",
     "Review diff business expressions unchanged, semantic status/danger/disabled/selected/module variety, numeric contrast normal4.5/large3/interactive3, long Chinese readability, original draft/default/cancel/four order filters/account isolation applicable same-byte tests. No redundant full backend rerun.",
-    "Compact REVIEW.json with candidate SHA/actual commands/results/screenshots/hashes/remaining blockers. Root CCUI/previews are static HTML transcreation, not native acceptance. Report fixable issues; root routes author fixes. No deploy."
+    "Compact REVIEW.json with candidate SHA/actual commands/results/screenshots/hashes/remaining blockers. Root CCUI/previews are static HTML transcreation, not native acceptance. Report fixable issues; root routes author fixes. No deploy.",
+    "Final9c819ec adds only two passenger UI color expressions vs ad674 plusCSS0c3. Rebuild passenger incrementally, recheck cancellation entry/confirm and disabled state. Driver source byte-equal: inherit exact previous artifact via hash binding, no redundant driver build.",
+    "Final11bef0e root follow-up adds ControlOutline #71818C to both palettes, uses it for Material outline and passenger unfocused field/chevrons; Line retained only decorative. Incremental both Android builds and unchecked-switch/field/chevron/cancel native review required; non-author frontend reviews root patch. No further candidate edits pending."
   ],
-  "status": "CANDIDATE_BUILD_NATIVE_REVIEW_ASSIGNED",
-  "acceptance": "NOT_RUN",
+  "status": "FINAL_ANDROID_REVIEW_PASS_IDLE",
+  "acceptance": "PASS",
   "tests": [
     {
-      "command": "python3 tools/check_coordination.py --memory-role frontend --session-id 01a182c6-c475-7110-bbae-0deafe6d2385",
-      "status": "PASS",
-      "exitCode": 0
-    },
-    {
-      "command": "Targeted read-only source/theme/build entry inspection plus three existing PUI screenshots",
+      "command": "JAVA_HOME=/opt/homebrew/opt/openjdk@17/libexec/openjdk.jdk/Contents/Home ANDROID_HOME=/opt/homebrew/share/android-commandlinetools bash ./gradlew -I /Users/dongge/.codex/tmp/yijiexing-ccui-build-20261029/offline.init.gradle --offline --no-daemon testDebugUnitTest assembleDebug",
       "status": "PASS",
       "exitCode": 0,
-      "scope": "preparation only; no candidate acceptance"
+      "sourceSha": "11bef0e3b26b04f14b31b2ef752c4aa1097ab49d"
+    },
+    {
+      "command": "Same offline Gradle command in driver cwd",
+      "status": "PASS",
+      "exitCode": 0,
+      "sourceSha": "11bef0e3b26b04f14b31b2ef752c4aa1097ab49d"
+    },
+    {
+      "command": "Same two Gradle projects with respective external QA init scripts; assembleDebug",
+      "status": "PASS",
+      "exitCode": 0,
+      "sourceSha": "11bef0e3b26b04f14b31b2ef752c4aa1097ab49d"
+    },
+    {
+      "command": "Actual emulator5586 native representative UI + Q1/Q2 replay, numeric contrast and final APK packaging checks",
+      "status": "PASS",
+      "exitCode": 0,
+      "sourceSha": "11bef0e3b26b04f14b31b2ef752c4aa1097ab49d"
     }
   ],
   "evidence": [
     {
-      "path": "coordination/evidence/CCUIV-20261029-01/PREPARATION.json",
-      "sha256": "a1435d6071ebbec9c7a4408c50db2c640526b63cd44553f397f21649c1a7e8d6"
+      "path": "coordination/evidence/CCUIV-20261029-01/REVIEW.json",
+      "sha256": "7f5378942b9e1b9d85e916b244619e27fe465e2f1df6abf7378e8386641ac98d"
+    },
+    {
+      "path": "coordination/evidence/CCUIV-20261029-01/FINAL_SOURCE_BINDING.json",
+      "sha256": "bccdd928af164e49f907e469889f824fe4e055a975ad0c3b8f6dc8aa68747d00"
+    },
+    {
+      "path": "coordination/evidence/CCUIV-20261029-01/FINAL_BUILD_PROOF.json",
+      "sha256": "6326b6e5cdfcf246ea16ff816aed4011bd37a1cb85b3bc63679bdca63e5e41ea"
+    },
+    {
+      "path": "coordination/evidence/CCUIV-20261029-01/FINAL_SCREENSHOTS.json",
+      "sha256": "9227ba4e517c2eda1a2f6996aea124f242bf6c9278bfa0100cf4674a5f922b9f"
+    },
+    {
+      "path": "coordination/evidence/CCUIV-20261029-01/CONTRAST.json",
+      "sha256": "8d883476400e0dc16a6a605c75844129c7552a7887ba44d3c01a01467f54d28a"
     }
   ],
-  "nextAction": "Build and independently review exact candidate; return two native screenshot paths early then final report",
+  "nextAction": "IDLE; root combines admin/mini results, exact-SHA gate and any release decision",
   "deploy_owner": "coordinator",
   "releaseReady": false,
-  "updatedAt": "2026-10-29T01:37:11.655348+08:00",
-  "candidateSha": "ad674105e18e4aee9246b847a5aae00840ef862b",
+  "updatedAt": "2026-10-29T01:53:10.539858+08:00",
+  "candidateSha": "11bef0e3b26b04f14b31b2ef752c4aa1097ab49d",
   "externalAllowedRoots": [
     "/Users/dongge/.codex/tmp/yijiexing-ccui-build-20261029/",
     "/Users/dongge/.codex/tmp/yijiexing-ccui-native-20261029/"
-  ]
+  ],
+  "acceptedSha": "11bef0e3b26b04f14b31b2ef752c4aa1097ab49d",
+  "reviewer": "frontend",
+  "pendingMergeSha": "11bef0e3b26b04f14b31b2ef752c4aa1097ab49d",
+  "scope": "Both Android builds/packaging, presentation-only source review and isolated native representative scenes; admin/mini final acceptance remains root responsibility. No deployment."
 }

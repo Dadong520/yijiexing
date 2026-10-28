@@ -1,0 +1,111 @@
+{
+  "taskId": "CCUIV-20261029-01",
+  "reviewer": "frontend",
+  "threadId": "01a182c6-c475-7110-bbae-0deafe6d2385",
+  "at": "2026-10-29T01:47:10.124903+08:00",
+  "sourceSha": "ad674105e18e4aee9246b847a5aae00840ef862b",
+  "status": "FAIL_NEEDS_SCOPED_VISUAL_FIX",
+  "builds": {
+    "passenger": {
+      "tests": 31,
+      "failures": 0,
+      "errors": 0,
+      "apk": "/Users/dongge/.codex/tmp/yijiexing-ccui-build-20261029/source/apps/passenger-android/app/build/outputs/apk/debug/app-debug.apk",
+      "sha256": "e84cad145a5524344f91fef471c4483b6b4ccef1286018d16ecd34d1c41dcf21",
+      "bytes": 107139449,
+      "aaptExit": 0,
+      "apksignerExit": 0,
+      "privateValuesAbsent": true,
+      "originalHttpsPresent": true
+    },
+    "driver": {
+      "tests": 63,
+      "failures": 0,
+      "errors": 0,
+      "apk": "/Users/dongge/.codex/tmp/yijiexing-ccui-build-20261029/source/candidates/driver-0.3.6-r2/android/app/build/outputs/apk/debug/app-debug.apk",
+      "sha256": "2453d4ea47ee2bedee03baadfaa4cafb45fe9b077c9695586d64a1ad2d13d085",
+      "bytes": 108636805,
+      "aaptExit": 0,
+      "apksignerExit": 0,
+      "privateValuesAbsent": true,
+      "originalHttpsPresent": true
+    }
+  },
+  "buildCommands": {
+    "passenger": "JAVA_HOME=<JDK17> ANDROID_HOME=<SDK> ./gradlew --offline --no-daemon -I offline.init.gradle testDebugUnitTest assembleDebug",
+    "driver": "same with bash gradlew (tracked driver wrapper lacks executable bit; initial exit126, rerun through bash succeeds)"
+  },
+  "sourceIsolation": "Exact git archive of committed candidate to external build source; no product files changed in author tree",
+  "sourceReview": "Android diff limited to palette/color/border/icon/shape theme rendering plus root version metadata; no events/payload/state/API/business expression changes observed. Store/domain/rules/manifests same bytes at original candidate. Later CSS-only root commit not yet accepted here.",
+  "packaging": "Original IDs passenger1.1.16/code18, driver0.3.15/code18; aapt/apksigner exit0; both public signer SHA256 9ffec9b342d12909ff288bd73f23ba104893b39120cb24ea83c9734a0d2b758f matches prior release. Four private config values absent from DEX, original HTTPS present. Final patched candidate package proof pending.",
+  "qaOverlay": {
+    "passenger": "applicationId .uireview; BuildConfig origin https://10.0.2.2:64310; debug-only manifest/local certificate trust; no product source change",
+    "driver": "applicationId .uireview; BuildConfig origin https://localhost; debug-only cert trust; adb reverse443->64311 after emulator adbd root; no shipping endpoint relaxation",
+    "fixture": "Fresh MemoryCAS/SQLite synthetic scenarios, current candidate server bytes. Passenger and driver isolated fixture processes. No cloud business requests. No private service Key in fixture. DNS127 prevents public map tiles.",
+    "device": "fresh CCUI_20261029 read-only AVD, emulator-5586 only, no other devices listed; current human authorization",
+    "QAErrorsRetained": [
+      "driver manifest trust overlay merge failed, fixed external DriverManifest tools:replace only",
+      "driver endpoint rejects explicit port by design; QA moved to localhost443 reverse; initial unprivileged reverse Permission denied, isolated emulator adbd root supports reverse443"
+    ],
+    "shippingApkDifferentFromQA": true
+  },
+  "checksPassed": [
+    "Passenger profile colored modules and grouped cards; long Chinese labels readable",
+    "Passenger detail first-screen amount/cancel/simulation notices and route dominant",
+    "Four filters all/done/cancelled/active actual UI; reason dialog choices and dismiss, no cancellation POST submitted this round",
+    "Passenger map error/retry text retained; no actual map auth claim",
+    "Driver home/profile/member/business-score/wallet/settings; sandbox/qualification/simulation notices visible",
+    "Driver settings OS font1.3 top portion remains readable, no full all-screen large-font proof",
+    "Driver business offline error banner inspected after local fixture stop; existing data persists under error",
+    "Major accent/text pairs >=4.5; exact numeric CONTRAST.json"
+  ],
+  "findings": [
+    {
+      "id": "CCUIV-Q1",
+      "priority": "P2",
+      "path": "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/OrderDetail.kt",
+      "line": 94,
+      "problem": "Cancellation entry remains primary teal, confirmation uses generic primary button; destructive semantics not differentiated",
+      "evidence": "native-ui/passenger-order-detail.png and passenger-cancel-dialog.png",
+      "state": "ROOT_AUTHOR_FIX_DISPATCHED_AWAIT_SHA"
+    },
+    {
+      "id": "CCUIV-Q2",
+      "priority": "P2",
+      "path": "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/UiKit.kt",
+      "line": 68,
+      "problem": "outline=Line (#DCE5E8) and surfaceVariant near-white produce off-state enabled switches with ~1.279:1 contrast on white; visible in driver settings large-font toggle and floating-entry toggle; interactive outline target3 not met",
+      "evidence": "native-ui/driver-settings.png",
+      "suggestedFix": "Keep pale Line for decorative borders but set theme outline / enabled unchecked switch border+thumb to a darker semantic control color >=3:1; do not change onCheckedChange or enabled logic",
+      "state": "OPEN"
+    }
+  ],
+  "notRun": [
+    "Final revised SHA build/native validation",
+    "Full end-to-end default/account isolation/cancellation submission: reused unchanged source unit and prior acceptance, not newly replayed",
+    "Actual map SDK auth/tiles, OEM devices",
+    "WeChat runtime/publish",
+    "Admin browser final review (root owner)",
+    "Real payments/invoices/phone/IM"
+  ],
+  "evidenceScreenshots": {
+    "coordination/evidence/CCUIV-20261029-01/native-ui/passenger-profile.png": "5b555da645b81591e64b69eb13bccfa26903399411541470a758c199e3698720",
+    "coordination/evidence/CCUIV-20261029-01/native-ui/passenger-order-detail.png": "7da26b87d04cd2c4cff8f7cebfa257a0ca063bb3771264b7abf754949d26b725",
+    "coordination/evidence/CCUIV-20261029-01/native-ui/passenger-cancel-dialog.png": "a604810dad0b996af82bc84b94df0967a7f2d549620ad043bf5ae96a8886ef32",
+    "coordination/evidence/CCUIV-20261029-01/native-ui/passenger-filter-active.png": "fee2d39f66635f9bb76e470ee4c14309036ccee4fe0efe58bb2dacf440442cf6",
+    "coordination/evidence/CCUIV-20261029-01/native-ui/passenger-filter-done.png": "5b8310fcb00c9bbe3be414a77c3339aaa5fdc1f9c7e5ecd114f1109c3d2d9422",
+    "coordination/evidence/CCUIV-20261029-01/native-ui/passenger-filter-cancelled.png": "944ed2e98841b4184ebfbf39916570f2d923794e24e5f7c48c0615561ef39e5e",
+    "coordination/evidence/CCUIV-20261029-01/native-ui/passenger-profile-lower.png": "ae647ab4949544c85d22511cfbe13e8f10633a05735c0068630072ea57aff867",
+    "coordination/evidence/CCUIV-20261029-01/native-ui/passenger-settings.png": "3e029e96973a7692cd36081156c16a0451b2795a006483d696165f289c07b10c",
+    "coordination/evidence/CCUIV-20261029-01/native-ui/driver-home.png": "0ad961079ae9c9448f96afcd9ddcb71d44c92af63f2b560e9cc5a091d0452f41",
+    "coordination/evidence/CCUIV-20261029-01/native-ui/driver-profile.png": "fdd2fffb0215c05d9b605a1a31c3641b494cdf1130df91ffa6539a4703633aaf",
+    "coordination/evidence/CCUIV-20261029-01/native-ui/driver-member.png": "6ffce1f83a4db33d4782f7f6451b850c87ae6f09dd13646323e26374b25b46f5",
+    "coordination/evidence/CCUIV-20261029-01/native-ui/driver-business-score.png": "89e7fe862b6c3039a0941cdc06eedc0ff1cb8cb9afc1d162b9725b4c639820a0",
+    "coordination/evidence/CCUIV-20261029-01/native-ui/driver-wallet.png": "f6f43517b792ccf84f86f57b91137168111cd924b0312b667b53ed0479e441c7",
+    "coordination/evidence/CCUIV-20261029-01/native-ui/driver-settings.png": "7f89417e5b832024339ddcc6ada718d4b4fd85b7748f2b59c5110e02fce0969d",
+    "coordination/evidence/CCUIV-20261029-01/native-ui/driver-settings-large-font.png": "cce4403f16de0ff18dc9e924dd474e3b761e4580d712b34a958f6e9a8d6dfc16",
+    "coordination/evidence/CCUIV-20261029-01/native-ui/driver-business-error-final.png": "7aa29a1868ac6b8191f3ec661cba7b924e5a9756b258271a5cb4f85f53449ee8"
+  },
+  "resources": "Passenger fixture and isolated emulator temporarily retained for exact patch replay; driver fixture stopped for error check. No cloud resource ownership.",
+  "nextAction": "Root routes Q2, sends final scoped candidate SHA; frontend incremental rebuild/replay affected Android only; then cleanup"
+}

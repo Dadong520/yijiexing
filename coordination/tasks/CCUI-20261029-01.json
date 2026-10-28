@@ -4,8 +4,6 @@
   "owner": "claude",
   "goal": "优化乘客Android、司机Android、配套小程序和后台的配色/视觉层次；先提交设计token及页面覆盖清单",
   "baseSha": "62942d103ed946057de28f29262ea196ad46ca73",
-  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-claude-ui-20261029",
-  "branch": "codex/claude-ui-20261029",
   "allow_paths": [
     "coordination/tasks/CCUI-20261029-01.json",
     "coordination/handoffs/claude.md",
@@ -52,32 +50,82 @@
     "apps/passenger-android/app/build.gradle.kts",
     "candidates/driver-0.3.6-r2/android/app/build.gradle.kts"
   ],
-  "checks": [
-    "按中央协议与任务唯一归属执行；root唯一协调合并发布；不读历史聊天或私有账户库",
-    "UI色彩/布局改动保留现有业务、权限、模拟标识与错误态；不触及高德Key待核问题",
-    "作者自测和非作者验收分开；未运行NOT_RUN；无业务验收PASS不发布",
-    "当前青绿主色延续，加入天蓝/暖橙/少量紫为不同模块图标/浅底层次；语义色成功/警告/错误与业务状态一致，正常文字对比度目标4.5:1，不把所有页面随机上色",
-    "先定token和覆盖清单再实施；全端有实际可见提升：页面背景/导航/主按钮/卡片/图标/状态/输入焦点；仅cosmetic不改数据绑定/请求/状态推进/路由与默认规则",
-    "若文件含UI和业务只允许改颜色/字体/shape/spacing等呈现表达式；不动permission/store/Api/baseUrl/version/build/manifests/支付金额/高德初始化；两admin CSS基线结构不同，保留各自结构与入口，只要求品牌/状态palette一致，不整份覆盖",
-    "tools无Bash，不能运行测试需如实NOT_RUN，由root实跑；不要修改工具/AGENTS/CLAUDE.md/中央控制，不自提交或创建新代理",
-    "Only root updates Android version metadata for this UI release: passenger1.1.16/code18, driver0.3.15/code18; author is idle and still cannot change any build/dependency/network setting.",
-    "Phase3 restrict edits to two existing admin.css only: make new sky/warm/violet tokens used for module/navigation/stat presentation and semantic status/focus/danger; secondary text >=4.5 contrast; preserve CSS structure/JS/HTML/behavior. Android and mini frozen to review ad674, no edits there."
-  ],
-  "status": "PHASE3_ADMIN_CSS_REFINEMENT",
-  "acceptance": "NOT_RUN",
-  "tests": [
-    "compile/unit/screenshot/contrast: NOT_RUN (no Bash; root to run)"
-  ],
-  "evidence": [
-    "coordination/evidence/CCUI-20261029-01/TOKENS_AND_COVERAGE.md",
-    "coordination/evidence/CCUI-20261029-01/SELFCHECK.md"
-  ],
-  "nextAction": "Claude CSS-only follow-up: actually use module/semantic accents and readable secondary text; Android ad674 frozen to frontend",
-  "deploy_owner": "coordinator",
-  "releaseReady": false,
-  "updatedAt": "2026-10-29T01:36:22.422440+08:00",
   "sessionId": "413b9b2c-f346-4a81-8891-87bc3c962394",
   "model": "claude-opus-5-5",
   "thinking": "medium",
-  "authorSha": "4a0a60fbae9ed57fa85f4a5b50a353dbbf3d7c24"
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-pm-amap-20261027",
+  "branch": "codex/claude-intake-20261029",
+  "authorSourceRoot": "/Users/dongge/.codex/tmp/yijiexing-claude-ui-20261029",
+  "authorSha": "11bef0e3b26b04f14b31b2ef752c4aa1097ab49d",
+  "acceptedSha": "107e226d1d23fc6d7ef5dab75229962bd38306d8",
+  "reviewer": "frontend",
+  "status": "INDEPENDENT_ACCEPTANCE_PASS_WAIT_PUBLISH_PREREQUISITES",
+  "acceptance": "PASS",
+  "checks": [
+    "Visual presentation only; no business/auth/Key/API/request/state/default/amount changes. Root final control-outline patch independently reviewed by frontend.",
+    "Static HTML previews are not runtime proof; current human allowed isolated AVD, actual final native screenshots/overlay and shipping artifacts distinguished.",
+    "All-screen/OEM/AMap auth/WeChat runtime not claimed; BIZ04–09 and simulated payment/phone limits unchanged."
+  ],
+  "tests": [
+    {
+      "command": "Exact subtree binding11bef to107e226; independent Android source/native review and two fixes closed",
+      "status": "PASS",
+      "exitCode": 0,
+      "sourceSha": "107e226d1d23fc6d7ef5dab75229962bd38306d8"
+    },
+    {
+      "command": "Both Android offline testDebugUnitTest assembleDebug; passenger31 driver63 zero failures; original IDs/signer/version18, APK private value0",
+      "status": "PASS",
+      "exitCode": 0,
+      "sourceSha": "107e226d1d23fc6d7ef5dab75229962bd38306d8"
+    },
+    {
+      "command": "Mini npm test74 and npm run check10pages25JS; tested behavior sources byte-equal",
+      "status": "PASS",
+      "exitCode": 0,
+      "sourceSha": "107e226d1d23fc6d7ef5dab75229962bd38306d8"
+    },
+    {
+      "command": "Admin operations node tests4; actual admin browser synthetic fixture desktop/mobile no errors/overflow; finalCSS same bytes",
+      "status": "PASS",
+      "exitCode": 0,
+      "sourceSha": "107e226d1d23fc6d7ef5dab75229962bd38306d8"
+    },
+    {
+      "command": "Independent CCG 27 coordination tests/hash binding; no core role or release gate weakening",
+      "status": "PASS",
+      "exitCode": 0,
+      "sourceSha": "107e226d1d23fc6d7ef5dab75229962bd38306d8"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "coordination/evidence/CCUIV-20261029-01/REVIEW.json",
+      "sha256": "7f5378942b9e1b9d85e916b244619e27fe465e2f1df6abf7378e8386641ac98d"
+    },
+    {
+      "path": "coordination/evidence/CCUIV-20261029-01/FINAL_BUILD_PROOF.json",
+      "sha256": "6326b6e5cdfcf246ea16ff816aed4011bd37a1cb85b3bc63679bdca63e5e41ea"
+    },
+    {
+      "path": "coordination/evidence/CCUIV-20261029-01/FINAL_SOURCE_BINDING.json",
+      "sha256": "bccdd928af164e49f907e469889f824fe4e055a975ad0c3b8f6dc8aa68747d00"
+    },
+    {
+      "path": "coordination/evidence/CCUI-20261029-01/INTEGRATION_BINDING.json",
+      "sha256": "a2e75161b0bcd38ece7b99696e2c1159643e4c9e562351e384ceafbafbfc0cfb"
+    },
+    {
+      "path": "coordination/evidence/CCUI-20261029-01/ROOT_TESTS.json",
+      "sha256": "86ef46ad29d31281caab8917b0fe9e53442d3e58faeec9930a210296e1b9f730"
+    },
+    {
+      "path": "coordination/evidence/CCUI-20261029-01/web-review/REVIEW.json",
+      "sha256": "59d0d4e8c6c865a9e217398189b64e4c2e5ff41ed5e99f259fba62953c638a2b"
+    }
+  ],
+  "nextAction": "Complete candidate APK upload; CI and merge, fresh backup, exact-SHA release gate then independent experience publish/readback",
+  "deploy_owner": "coordinator",
+  "releaseReady": false,
+  "updatedAt": "2026-10-29T01:54:48.318956+08:00"
 }

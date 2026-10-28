@@ -16,3 +16,5 @@ CCG backend独立27/27门禁测/actualID gate PASS，evidence/CCG-20261029-01/RE
 根先审diff/实编译双Android与mini/admin相关测试；冻结candidate后唤醒frontend非作者审与对比度/语义/源码行为验证。当前CCUIV无GUI/ADB权限；旧PUI隔离模拟器授权仅旧run，不能借用。新候选具体后如需新隔离模拟器交互，由root单次明确询问；可先headless web验。
 CLI已停，后续可用官方TTY --desktop --resume精确ID送入桌面；先验证实际输出再声称可见。无Codex新chat创建。普通--desktop重定向先前被拒是非TTY原因。
 构建外置新目录，不覆盖旧作者/产物；真实发布须版本/原签名/Key不入APK、非作者PASS、精确SHA、独立体验发布读回/数据保留。旧release脚本常量指旧产物，不能盲跑。待合并SHA NONE。
+
+2026-10-29本轮用户已明确允许隔离模拟器Android官方工具安装/点击/截图，证据CCUI/ANDROID_UI_AUTHORIZATION.json。原生由frontend执行，已有ad674双构建及真实图片；root Web headless真实页面+本地合成API0脚本错/无横溢已验。Claude4阶段结束，C final9c819ec含取消危险红；R集成38e64d7待验收未发布。官方TTY --desktop --resume真实ID已输出Opening session并exit0，桌面UI未检查，不再并发CLI。最新独审发现driver uncheckedSwitch Line轮廓1.28:1需root小修，作者桌面已打开，root限定修颜色token/outline后frontend重新精确构建复验；不自验收。

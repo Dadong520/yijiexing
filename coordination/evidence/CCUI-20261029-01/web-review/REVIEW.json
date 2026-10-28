@@ -1,0 +1,68 @@
+{
+  "sourceSha": "0c3e05d16dce32a3deaebdd3f9840599a57a22a4",
+  "scope": "actual admin.html/admin.js/admin.css served at loopback; synthetic local auth/state only",
+  "sourceHashes": {
+    "admin.html": "38e32f1ef3fc7a0c4780fd2ec18d1b4e27fa785837b7dbd227ec638525090040",
+    "admin.js": "0078a67dae300998a96f4731e05fbc4c67dc8200168a8679788cbff01164384b",
+    "admin.css": "bfc8a39faced0f44ddc356379cce9295ad260927fc0f5acb315dd39d812fa193"
+  },
+  "styles": {
+    "body": "rgb(242, 246, 247)",
+    "muted": "rgb(75, 91, 107)",
+    "stats": [
+      "rgb(0, 121, 110)",
+      "rgb(3, 105, 161)",
+      "rgb(180, 83, 9)",
+      "rgb(109, 40, 217)"
+    ],
+    "navIcons": [
+      "rgb(196, 181, 253)",
+      "rgb(196, 181, 253)",
+      "rgb(196, 181, 253)",
+      "rgb(253, 186, 116)",
+      "rgb(255, 255, 255)",
+      "rgb(125, 211, 252)",
+      "rgb(94, 234, 212)",
+      "rgb(94, 234, 212)"
+    ],
+    "horizontalOverflow": false
+  },
+  "mobile": {
+    "horizontalOverflow": false,
+    "loginWidth": 358,
+    "passwordType": "password"
+  },
+  "scriptErrors": [],
+  "requests": [
+    {
+      "method": "GET",
+      "path": "/"
+    },
+    {
+      "method": "GET",
+      "path": "/static/admin.css"
+    },
+    {
+      "method": "GET",
+      "path": "/static/admin.js"
+    },
+    {
+      "method": "POST",
+      "path": "/api/local/admin/v2/login"
+    },
+    {
+      "method": "GET",
+      "path": "/api/local/admin/v2/state"
+    },
+    {
+      "method": "POST",
+      "path": "/api/local/admin/v2/logout"
+    }
+  ],
+  "realCloudRequests": 0,
+  "limits": [
+    "Visual fixture API is not real authentication/backend acceptance",
+    "Admin logic source byte-identical to baseline; CSS review only",
+    "Native review belongs to frontend"
+  ]
+}

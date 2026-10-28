@@ -1,0 +1,10 @@
+[
+  {
+    "role": "passenger",
+    "candidateObject": "distribution/candidates/20261029-ccui-107e226/passenger.apk",
+    "generation": "1793210041851112",
+    "sha256": "221e8ae0071fa55c76b7c25bcb52f8e9bc936920b8ef0480c9824d3cf570d6d2",
+    "bytes": 107139449,
+    "status": "CANDIDATE_ONLY_NOT_PUBLISHED"
+  }
+]
