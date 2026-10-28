@@ -172,6 +172,7 @@ fun PassengerModal(
   confirmEnabled: Boolean = true,
   onConfirm: () -> Unit,
   dismissLabel: String = "取消",
+  confirmColor: Color = Teal,
   content: @Composable ColumnScope.() -> Unit,
 ) {
   Dialog(
@@ -227,8 +228,10 @@ fun PassengerModal(
               modifier = Modifier.weight(0.6f).heightIn(min = 48.dp),
               shape = RoundedCornerShape(12.dp),
               colors = ButtonDefaults.buttonColors(
-                containerColor = Teal,
+                containerColor = confirmColor,
                 contentColor = Color.White,
+                disabledContainerColor = Line,
+                disabledContentColor = Muted,
               ),
             ) {
               Text(confirmLabel, fontSize = 15.sp, fontWeight = FontWeight.SemiBold)
