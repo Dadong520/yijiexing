@@ -1,0 +1,69 @@
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/8.7/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
+> Task :app:checkKotlinGradlePluginConfigurationErrors
+> Task :app:preBuild UP-TO-DATE
+> Task :app:preDebugBuild UP-TO-DATE
+> Task :app:generateDebugBuildConfig UP-TO-DATE
+> Task :app:checkDebugAarMetadata UP-TO-DATE
+> Task :app:generateDebugResValues UP-TO-DATE
+> Task :app:mapDebugSourceSetPaths UP-TO-DATE
+> Task :app:generateDebugResources UP-TO-DATE
+> Task :app:mergeDebugResources UP-TO-DATE
+> Task :app:packageDebugResources UP-TO-DATE
+> Task :app:parseDebugLocalResources UP-TO-DATE
+> Task :app:createDebugCompatibleScreenManifests UP-TO-DATE
+> Task :app:extractDeepLinksDebug UP-TO-DATE
+> Task :app:processDebugMainManifest UP-TO-DATE
+> Task :app:processDebugManifest UP-TO-DATE
+> Task :app:processDebugManifestForPackage UP-TO-DATE
+> Task :app:processDebugResources UP-TO-DATE
+
+> Task :app:compileDebugKotlin
+w: file:///Users/dongge/.codex/tmp/yijiexing-pui-clients-20261028/apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/BookingScreens.kt:213:56 'Send: ImageVector' is deprecated. Use the AutoMirrored version at Icons.AutoMirrored.Filled.Send
+w: file:///Users/dongge/.codex/tmp/yijiexing-pui-clients-20261028/apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/MainActivity.kt:115:7 Variable 'syncAt' is never used
+w: file:///Users/dongge/.codex/tmp/yijiexing-pui-clients-20261028/apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/MainActivity.kt:470:43 Parameter 'configured' is never used
+w: file:///Users/dongge/.codex/tmp/yijiexing-pui-clients-20261028/apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/MainActivity.kt:498:40 Parameter 'configured' is never used
+w: file:///Users/dongge/.codex/tmp/yijiexing-pui-clients-20261028/apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/PassengerPermissions.kt:133:26 This declaration overrides deprecated member but not marked as deprecated itself. Please add @Deprecated annotation or suppress. See https://youtrack.jetbrains.com/issue/KT-47902 for details
+w: file:///Users/dongge/.codex/tmp/yijiexing-pui-clients-20261028/apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/PassengerTripDistance.kt:301:17 Variable 'lastReportedTime' is assigned but never accessed
+w: file:///Users/dongge/.codex/tmp/yijiexing-pui-clients-20261028/apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/PassengerTripDistance.kt:302:17 Variable 'lastReportedOrderId' is assigned but never accessed
+w: file:///Users/dongge/.codex/tmp/yijiexing-pui-clients-20261028/apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/PassengerTripDistance.kt:333:29 The value 'pos.time' assigned to 'var lastReportedTime: Long defined in cn.hbzjhs.passenger.PassengerTripLocationReporter.`<anonymous>`.`<anonymous>`' is never used
+w: file:///Users/dongge/.codex/tmp/yijiexing-pui-clients-20261028/apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/PassengerTripDistance.kt:334:29 The value 'activeOrderId' assigned to 'var lastReportedOrderId: String defined in cn.hbzjhs.passenger.PassengerTripLocationReporter.`<anonymous>`.`<anonymous>`' is never used
+
+> Task :app:javaPreCompileDebug UP-TO-DATE
+> Task :app:compileDebugJavaWithJavac UP-TO-DATE
+> Task :app:bundleDebugClassesToRuntimeJar
+> Task :app:bundleDebugClassesToCompileJar
+> Task :app:compileDebugUnitTestKotlin
+> Task :app:preDebugUnitTestBuild UP-TO-DATE
+> Task :app:javaPreCompileDebugUnitTest UP-TO-DATE
+> Task :app:compileDebugUnitTestJavaWithJavac NO-SOURCE
+> Task :app:processDebugJavaRes UP-TO-DATE
+> Task :app:processDebugUnitTestJavaRes UP-TO-DATE
+> Task :app:testDebugUnitTest
+> Task :app:mergeDebugNativeDebugMetadata NO-SOURCE
+> Task :app:mergeDebugShaders UP-TO-DATE
+> Task :app:compileDebugShaders NO-SOURCE
+> Task :app:generateDebugAssets UP-TO-DATE
+> Task :app:mergeDebugAssets UP-TO-DATE
+> Task :app:compressDebugAssets UP-TO-DATE
+> Task :app:desugarDebugFileDependencies UP-TO-DATE
+> Task :app:dexBuilderDebug
+> Task :app:mergeDebugGlobalSynthetics UP-TO-DATE
+> Task :app:mergeDebugJavaResource UP-TO-DATE
+> Task :app:checkDebugDuplicateClasses UP-TO-DATE
+> Task :app:mergeDebugStartupProfile UP-TO-DATE
+> Task :app:mergeExtDexDebug UP-TO-DATE
+> Task :app:mergeLibDexDebug UP-TO-DATE
+> Task :app:mergeProjectDexDebug
+> Task :app:mergeDebugJniLibFolders UP-TO-DATE
+> Task :app:mergeDebugNativeLibs UP-TO-DATE
+> Task :app:stripDebugDebugSymbols UP-TO-DATE
+> Task :app:validateSigningDebug UP-TO-DATE
+> Task :app:writeDebugAppMetadata UP-TO-DATE
+> Task :app:writeDebugSigningConfigVersions UP-TO-DATE
+> Task :app:packageDebug
+> Task :app:createDebugApkListingFileRedirect UP-TO-DATE
+> Task :app:assembleDebug
+
+BUILD SUCCESSFUL in 38s
+45 actionable tasks: 9 executed, 36 up-to-date

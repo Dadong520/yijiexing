@@ -1,0 +1,89 @@
+{
+  "schemaVersion": 1,
+  "id": "PUIR-20261028-01",
+  "owner": "coordinator",
+  "goal": "集成精确PUIB/PUIU提交、非作者HTTP/原生视觉验收，乘客新版本构建与独立体验版合并发布回读",
+  "baseSha": "8e2d655bd58d33241d79d6da3ad82f29cdec7894",
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-pm-amap-20261027",
+  "branch": "codex/passenger-ui-intake-20261028",
+  "allow_paths": [
+    "coordination/",
+    "README.md",
+    "apps/passenger-android/app/build.gradle.kts"
+  ],
+  "checks": [
+    "依据PUI/ACCEPTANCE_PLAN对作者精确SHA非作者验收，原生UI实际截图与新默认业务均需覆盖，不自称微信真实链路",
+    "版本候选乘客1.1.15/code17，司机0.3.14不动；Key不进包/原签名/HTTPS整包回读",
+    "仅独立体验环境，先备份最新数据，不假定仍38；保护现有ENV/IAM/automatic/min0max1请求计费及数据。root唯一deploy_owner"
+  ],
+  "status": "INDEPENDENT_ACCEPTANCE_PASS_READY_TO_MERGE",
+  "acceptance": "PASS",
+  "tests": [
+    {
+      "command": "python3 independent_defaults_probe.py:6 groups; exact backend hashes equal accepted SHA (SOURCE_BINDING)",
+      "status": "PASS",
+      "exitCode": 0,
+      "sourceSha": "7d6dc6014906c80be87b39f4433ec494ae067098"
+    },
+    {
+      "command": "python3 compatibility_probe.py:13 groups + independent_operations_regression.py:7; exact backend hashes equal accepted SHA",
+      "status": "PASS",
+      "exitCode": 0,
+      "sourceSha": "7d6dc6014906c80be87b39f4433ec494ae067098"
+    },
+    {
+      "command": "Gradle QA testDebugUnitTest31 + assembleDebug and original shipping assembleDebug at7d6; logs and XML verified",
+      "status": "PASS",
+      "exitCode": 0,
+      "sourceSha": "7d6dc6014906c80be87b39f4433ec494ae067098"
+    },
+    {
+      "command": "Actual isolated ADB UI actions/screenshots per NATIVE_REVIEW.json; changed detail recaptured at7d6",
+      "status": "PASS",
+      "exitCode": 0,
+      "sourceSha": "7d6dc6014906c80be87b39f4433ec494ae067098"
+    },
+    {
+      "command": "mini node --test tests/*.test.js:74, author d02 exact component tree equal accepted SHA",
+      "status": "PASS",
+      "exitCode": 0,
+      "sourceSha": "7d6dc6014906c80be87b39f4433ec494ae067098"
+    },
+    {
+      "command": "PUIA independent source/version/signature/HTTPS/4 configured Key zero scan",
+      "status": "PASS",
+      "exitCode": 0,
+      "sourceSha": "7d6dc6014906c80be87b39f4433ec494ae067098"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "coordination/evidence/PUI-20261028-01/NATIVE_REVIEW.json",
+      "sha256": "1db61ce5c3db9ff188294e5c12b9dcb9f0ebf62301b9075bb090fd04698b79dc"
+    },
+    {
+      "path": "coordination/evidence/PUI-20261028-01/SOURCE_BINDING.json",
+      "sha256": "b687ab4807df1584b05872503c4d137d62cbe6bc2e74e89f84fe10d16574fc18"
+    },
+    {
+      "path": "coordination/evidence/PUI-20261028-01/APK_PROOF.json",
+      "sha256": "a70af98e1ba71303d6e167f0b1716bf72ebaee7c9ceccde003c0310eb65e0e39"
+    },
+    {
+      "path": "coordination/evidence/PUI-20261028-01/packaging-review/results.json",
+      "sha256": "efc8b4d4d2a9ae9496941f4b77be8adf43c27046553a20c1280aa21d8c9a4960"
+    },
+    {
+      "path": "coordination/evidence/PUI-20261028-01/release/data-before.json",
+      "sha256": "ee23c9a40b6507063d818bb0266026d5884660c498b99cc71f394917add1b4c7"
+    }
+  ],
+  "nextAction": "Commit evidence/check gate; PR/CI merge, then root only independent environment image/APK rollout/readback",
+  "deploy_owner": "coordinator",
+  "releaseReady": true,
+  "updatedAt": "2026-10-28T21:14:47.321381+08:00",
+  "currentIntegrationSha": "7d6dc6014906c80be87b39f4433ec494ae067098",
+  "backendAuthorSha": "8c9db0a4deee34db0ba00366251ee059256d9b67",
+  "acceptedSha": "7d6dc6014906c80be87b39f4433ec494ae067098",
+  "reviewer": "backend PUIA for root packaging; coordinator non-author for PUIB/PUIU"
+}

@@ -1,0 +1,23 @@
+{
+  "sourceSha": "7d6dc6014906c80be87b39f4433ec494ae067098",
+  "parentSha": "a207e4f335662ddb5a2afa191d85948f54031775",
+  "checks": {
+    "renderOnlyDeltaReconstructsParentExactly": true,
+    "summaryBeforeRoute": true,
+    "cancellationStillOpensOriginalDialog": true,
+    "busyGuardRetained": true,
+    "feeLabelUsesExistingHelper": true,
+    "amountUsesOriginalFareCents": true,
+    "simulationNoticeVisibleInSummary": true
+  },
+  "unchangedBusinessSourceSHA256": {
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/OrderFarePresentation.kt": "807e08ea6813ea1ab53c8ae25df2161d60b605f0018ccff50079427bffb512eb",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/PaymentConfirmation.kt": "68e7e9c66a634dff188c2490770a09495e19c121634155f6f4c50298dc1088e4",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/Negotiation.kt": "d96e137af11de3cda1c5b6387bd911923a840448720c1121d89714792dfe3bf5",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/PassengerUiRules.kt": "666a60a9c576154795ceed8dde04c221ef688216e1be208c6a3229596079014b"
+  },
+  "driverDirectoryUnchangedFromMain8e": true,
+  "review": "PASS_SOURCE_SCOPE",
+  "ownDefaultsBusiness": "NOT_REVIEWED_BY_AUTHOR",
+  "gui": "NOT_RUN"
+}

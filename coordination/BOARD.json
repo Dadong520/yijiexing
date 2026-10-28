@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updated": "2026-10-28T14:04:07.949249+08:00",
+  "updated": "2026-10-28T21:14:47.321381+08:00",
   "coordinator": "coordinator",
   "activeTaskIds": [
     "WX-20261025-01",
@@ -23,7 +23,13 @@
     "PMVO-20261028-01",
     "PMVU-20261028-01",
     "PMVR-20261028-01",
-    "PMVA-20261028-01"
+    "PMVA-20261028-01",
+    "PUI-20261028-01",
+    "PUIF-20261028-01",
+    "PUIB-20261028-01",
+    "PUIU-20261028-01",
+    "PUIR-20261028-01",
+    "PUIA-20261028-01"
   ],
   "releaseOwner": "coordinator",
   "policy": "作者提交→自测→独立验收→协调者合并→部署回读；无业务验收PASS不发布",
@@ -52,11 +58,11 @@
     "coordination/archive/2026-10-26/AUTH-20261026-02.json"
   ],
   "memoryProtocolVersion": "2026-10-26-v3",
-  "currentStage": "PMVR_RELEASED_RECEIPT_COMMIT",
+  "currentStage": "PUI_INDEPENDENT_PASS_READY_TO_MERGE_RELEASE",
   "roleAssignments": {
-    "coordinator": "PMVR: first batch merged7402b11, API/admin and both APKs live/readback PASS; receipt docs then user acceptance",
-    "backend": "IDLE: final product f1f9128; root integrated817 +7/13 independent PASS",
-    "frontend": "IDLE: PMVA scoped packaging review PASS",
+    "coordinator": "PUIR: root native fixture/HTTP review prep; no product author file edits",
+    "backend": "PUIA: read-only root version/package + frontend fee summary review, not own defaults acceptance",
+    "frontend": "PUIF map then PUIU: Android13-screen UI, owns GeminiCLI; root no concurrent AGY",
     "antigravity": "PMVG: completed announcement validator candidate + coordinator11 checks; idle, no product integration"
   },
   "collaborationDecision": "GOV-04 active: visible independent backend/frontend chats; Gemini actual availability to be verified"

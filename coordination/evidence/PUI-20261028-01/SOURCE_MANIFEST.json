@@ -1,0 +1,62 @@
+{
+  "sourcePath": "/Users/dongge/Downloads/UI设计-乘客端.docx",
+  "bytes": 891567,
+  "sha256": "f95baea0b299883954aa86aa3ebd817d53444a4e384c7ee80d677d230ea3a2cc",
+  "media": [
+    {
+      "name": "word/media/image1.png",
+      "bytes": 61995
+    },
+    {
+      "name": "word/media/image10.png",
+      "bytes": 90524
+    },
+    {
+      "name": "word/media/image11.png",
+      "bytes": 104176
+    },
+    {
+      "name": "word/media/image12.png",
+      "bytes": 83179
+    },
+    {
+      "name": "word/media/image13.png",
+      "bytes": 79252
+    },
+    {
+      "name": "word/media/image2.png",
+      "bytes": 57901
+    },
+    {
+      "name": "word/media/image3.png",
+      "bytes": 78507
+    },
+    {
+      "name": "word/media/image4.png",
+      "bytes": 58631
+    },
+    {
+      "name": "word/media/image5.png",
+      "bytes": 79924
+    },
+    {
+      "name": "word/media/image6.png",
+      "bytes": 68022
+    },
+    {
+      "name": "word/media/image7.png",
+      "bytes": 42186
+    },
+    {
+      "name": "word/media/image8.png",
+      "bytes": 34896
+    },
+    {
+      "name": "word/media/image9.png",
+      "bytes": 37261
+    }
+  ],
+  "contentRead": true,
+  "protectedCacheRead": "PermissionError errno1; user supplied Downloads copy",
+  "sourceCopyOutsideRepository": "/Users/dongge/.codex/tmp/yijiexing-passenger-ui-intake-20261028/source.docx"
+}

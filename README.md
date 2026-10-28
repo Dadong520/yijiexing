@@ -10,6 +10,10 @@
 - 活跃任务：[BOARD](coordination/BOARD.json)；长期决定：[DECISIONS](coordination/DECISIONS.md)；角色细节：handoffs；契约：contracts。
 - 恢复与提交检查：`python3 tools/check_coordination.py --memory-role <role> --session-id <真实会话ID>`；检查器不测量模型内部上下文，不等于业务验收。
 
+## 乘客端UI候选（已验收，待本轮发布）
+
+固定产品7d6dc6014906c80be87b39f4433ec494ae067098已完成13图涉及页面改造与三类持久默认项，候选乘客1.1.15-experience/code17，司机不变。详情首屏金额取消、整页行程设置保草稿、紧凑列表/空态、联系帮助页、回执和投诉层级均经隔离模拟器复核；本地数据为合成场景。默认HTTP6组、兼容13组、运营7组、Android31与构建、mini74组件等同、独立版本/签名/Key0检查通过，见[本轮独立验收](coordination/evidence/PUI-20261028-01/INDEPENDENT_ACCEPTANCE.md)。本节候选尚未代表线上版本，实际发布以新release回执为准。
+
 ## 修改意见2.0 首批体验版
 
 | 项目 | 已发布与核验 | 入口 |

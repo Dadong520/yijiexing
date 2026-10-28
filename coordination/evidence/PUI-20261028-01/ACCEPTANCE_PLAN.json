@@ -1,0 +1,20 @@
+{
+  "baseSha": "8e2d655bd58d33241d79d6da3ad82f29cdec7894",
+  "reviewer": "coordinator non-author for frontend/backend source; independent frontend reviews root packaging",
+  "planned": [
+    "Defaults real HTTP+SQLite restart/account isolation/invalid and other-account IDs/idempotent repeat/update retain/delete clear/no historic order mutation",
+    "New booking draft initial defaults only; edits/selected GPS/origin/destination preserved on settings return/default change; no auto request",
+    "Cancellation predefined reason and other input -> original reasonAPI with duplicate-request/allowed stages unchanged; terminal filters correct sort/tally",
+    "Contact screen correct assigned driver and company, masked driver phone never dialed, absent support disabled, confirm only ACTION_DIAL no auto call",
+    "Actual native UI review of home/settings, order route/fare/cancel, filters/cards, profile, favorites/riders/titles/defaults, safety, receipts, complaints incl long/empty content",
+    "Passenger unit+assemble, source tree fixed artifact version/signature/Key0 and full HTTPS readback; old compatible shared API tests as applicable"
+  ],
+  "status": "NOT_RUN; author implementation pending",
+  "deploymentOwner": "coordinator only; known issue experience project allowed after relevant PASS",
+  "existingBoundaries": [
+    "BIZ04-09 retained",
+    "Same source credential runtime; actual Amap success NOT_RUN",
+    "mini style/runtime outside Android screenshot scope",
+    "No current cloud data fixture writes"
+  ]
+}

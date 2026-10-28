@@ -292,7 +292,7 @@ fun PassengerApp(
           "coupons", "points", "invite", "safety" -> PassengerExtrasScreen(page, state.optJSONObject("passenger")?.text("id").orEmpty())
           "favorites" -> FavoritesScreen(state, store)
           "feedback" -> FeedbackScreen(state, store)
-          "complaints" -> ComplaintsScreen(state)
+          "complaints" -> ComplaintsScreen(state, store)
           "help" -> HelpScreen(state, store)
           else -> ExtraScreen(page, state, store)
         }

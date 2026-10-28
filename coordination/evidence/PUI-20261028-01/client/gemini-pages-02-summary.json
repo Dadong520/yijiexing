@@ -1,0 +1,18 @@
+{
+  "task": "PUIU-20261028-01",
+  "block": "full-page and cancel selection",
+  "conversationId": "9cada792-824e-4702-a2f0-1ca27d03b098",
+  "status": "SUCCESS",
+  "agentResponseDone": true,
+  "timeout": "90s",
+  "newContext": true,
+  "modelOverride": false,
+  "events": {
+    "init": 1,
+    "step_update": 197,
+    "result": 1
+  },
+  "integrationTest": "PASS_ANDROID_BUILD_03_UNIT31",
+  "rawStreamSha256": "f3d2bb86d25bfc77041e8f842af8dc226d1f0390e91bf2f67be4f8e1f66044b1",
+  "liveCli": "NONE_AFTER_DONE_AND_PROCESS_CHECK"
+}

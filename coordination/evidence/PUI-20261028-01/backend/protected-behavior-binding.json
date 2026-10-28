@@ -1,0 +1,18 @@
+{
+  "driver_public": {
+    "unchanged": true,
+    "sha256": "99b5a50dc22956e6d549f5a86980888e1bcc181679b6d52a46dc85b76ce8684f"
+  },
+  "passenger_create_order": {
+    "unchanged": true,
+    "sha256": "ae03b2d2b98f5fe87b1dcd432c4f1bc761e62e56f4067d465f9ed38b1e98c8dd"
+  },
+  "passenger_view": {
+    "unchanged": true,
+    "sha256": "d1104593a36ab9e6a42fa00fc059f342f859a957d8af1163ba9f137765ae0af6"
+  },
+  "invoice.apply": {
+    "unchanged": true,
+    "sha256": "59008a39081bc31fdd34abe95dc8f20b133786849fc63697d99eba1c6d3e333c"
+  }
+}

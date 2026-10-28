@@ -1,0 +1,43 @@
+{
+  "acceptedSourceSha": "7d6dc6014906c80be87b39f4433ec494ae067098",
+  "checks": [
+    {
+      "evidence": "DEFAULTS_HTTP_RESULT.json",
+      "executedSha": "a6054fa52b44dd7fbc16daa30e1c64257db71038",
+      "sourceSha": "7d6dc6014906c80be87b39f4433ec494ae067098",
+      "allRecordedBackendHashesEqual": true,
+      "testsRun": 6
+    },
+    {
+      "evidence": "backend-results.json",
+      "executedSha": "a207e4f335662ddb5a2afa191d85948f54031775",
+      "sourceSha": "7d6dc6014906c80be87b39f4433ec494ae067098",
+      "allRecordedBackendHashesEqual": true,
+      "testsRun": 13
+    },
+    {
+      "evidence": "OPERATIONS_HTTP_RESULT.json",
+      "executedSha": "a207e4f335662ddb5a2afa191d85948f54031775",
+      "sourceSha": "7d6dc6014906c80be87b39f4433ec494ae067098",
+      "allRecordedBackendHashesEqual": true,
+      "testsRun": 7
+    },
+    {
+      "component": "candidates/passenger-miniprogram-0.1.0/miniprogram",
+      "executedSha": "d02f616f1dd69a4f54d73c86d18873fd9c905a70",
+      "sourceSha": "7d6dc6014906c80be87b39f4433ec494ae067098",
+      "gitTreeEqual": true,
+      "tests": 74
+    },
+    {
+      "earlierNativeSha": "a207e4f335662ddb5a2afa191d85948f54031775",
+      "sourceSha": "7d6dc6014906c80be87b39f4433ec494ae067098",
+      "onlyChangedNativeFile": [
+        "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/OrderDetail.kt"
+      ],
+      "changedDetailRechecked": "native-ui/87-detail-summary.png",
+      "allOtherNativeFilesEqual": true
+    }
+  ],
+  "note": "Historical tests remain bound to their actual execution SHA; exact component equality revalidated, not claimed rerun."
+}

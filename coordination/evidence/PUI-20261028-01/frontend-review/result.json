@@ -1,0 +1,156 @@
+{
+  "task": "PUIF-20261028-01",
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-pm-amap-20261027",
+  "sourceSha": "8e2d655bd58d33241d79d6da3ad82f29cdec7894",
+  "baseSha": "8e2d655bd58d33241d79d6da3ad82f29cdec7894",
+  "sourceTree": "882ccd932e7ca0d565ad521511f7e8ecb9fe85d7",
+  "sourceClean": true,
+  "review": "READ_ONLY_MAPPING_COMPLETE",
+  "businessAcceptance": "NOT_RUN",
+  "documentSha256": "f95baea0b299883954aa86aa3ebd817d53444a4e384c7ee80d677d230ea3a2cc",
+  "paragraphsReviewed": 3,
+  "imagesReviewedIndividually": 13,
+  "images": [
+    {
+      "image": 1,
+      "path": "/Users/dongge/.codex/tmp/yijiexing-passenger-ui-intake-20261028/word/media/image1.png",
+      "sha256": "5a8b15c35ccfb7efeab263c3d002dff5aad6821a6af622aae27e0d96cfe5fa64",
+      "width": 523,
+      "height": 930,
+      "originalIndividuallyViewed": true,
+      "observedPage": "首页预约条",
+      "visualObservation": "细长描边胶囊与按钮相似；预约状态和继续即时叫车的关系不突出。"
+    },
+    {
+      "image": 2,
+      "path": "/Users/dongge/.codex/tmp/yijiexing-passenger-ui-intake-20261028/word/media/image2.png",
+      "sha256": "0d3a610b7680efa3f477e42a84666b25d2b86daa096674cafa0a483025b99ac2",
+      "width": 523,
+      "height": 930,
+      "originalIndividuallyViewed": true,
+      "observedPage": "更多设置展开",
+      "visualObservation": "备注等嵌在长首页表单，红框标出其占位；可转独立设置页但必须保留草稿。"
+    },
+    {
+      "image": 3,
+      "path": "/Users/dongge/.codex/tmp/yijiexing-passenger-ui-intake-20261028/word/media/image3.png",
+      "sha256": "15f207f6d599f05efd19a7e2823a06e42da1ac1f5d86a73e6521daa9eae1d3fc",
+      "width": 523,
+      "height": 930,
+      "originalIndividuallyViewed": true,
+      "observedPage": "订单详情上半屏",
+      "visualObservation": "订单编号独立大区、费用大卡先于路线；路线地图到下方才出现。"
+    },
+    {
+      "image": 4,
+      "path": "/Users/dongge/.codex/tmp/yijiexing-passenger-ui-intake-20261028/word/media/image4.png",
+      "sha256": "ee9723930ffaf848e79b5971b7d63001753fa7659ec37be694960621c38aa9e2",
+      "width": 523,
+      "height": 930,
+      "originalIndividuallyViewed": true,
+      "observedPage": "取消弹窗",
+      "visualObservation": "只有一个取消原因输入框和提交，尚无固定理由选择。"
+    },
+    {
+      "image": 5,
+      "path": "/Users/dongge/.codex/tmp/yijiexing-passenger-ui-intake-20261028/word/media/image5.png",
+      "sha256": "5c3096d417b8803cd265c771bfdacccec884216ad41af65ecf38fc3af00fab7f",
+      "width": 523,
+      "height": 930,
+      "originalIndividuallyViewed": true,
+      "observedPage": "订单列表",
+      "visualObservation": "进行中/已完成/已取消/全部顺序；卡片时间、编号、金额分散且留白较多。"
+    },
+    {
+      "image": 6,
+      "path": "/Users/dongge/.codex/tmp/yijiexing-passenger-ui-intake-20261028/word/media/image6.png",
+      "sha256": "43a6668a7db97dc42c82e9c1600a1267097b8b22e6536278bc49f0890dda0af6",
+      "width": 523,
+      "height": 930,
+      "originalIndividuallyViewed": true,
+      "observedPage": "个人中心",
+      "visualObservation": "用户信息卡+多个同样大分组列表，类别样式区别不足。"
+    },
+    {
+      "image": 7,
+      "path": "/Users/dongge/.codex/tmp/yijiexing-passenger-ui-intake-20261028/word/media/image7.png",
+      "sha256": "c871f8db5eec9cf658a3488d473d62799baba13f7d5dc55c9cfe495396208b54",
+      "width": 523,
+      "height": 930,
+      "originalIndividuallyViewed": true,
+      "observedPage": "常用地址",
+      "visualObservation": "顶部整宽主按钮，地址卡空白多且公开坐标占视觉；没有默认标记。"
+    },
+    {
+      "image": 8,
+      "path": "/Users/dongge/.codex/tmp/yijiexing-passenger-ui-intake-20261028/word/media/image8.png",
+      "sha256": "6deb9e6b2eaf463301303f104c123dbfbdfa75e72f2f892ce7e79f6df43c143f",
+      "width": 523,
+      "height": 930,
+      "originalIndividuallyViewed": true,
+      "observedPage": "乘车人",
+      "visualObservation": "大添加按钮和疏松姓名/手机号卡；图中仅一条资料，不能据此推断空态逻辑缺失。"
+    },
+    {
+      "image": 9,
+      "path": "/Users/dongge/.codex/tmp/yijiexing-passenger-ui-intake-20261028/word/media/image9.png",
+      "sha256": "9f661a055164d1dcd48928984547341384c5eddd75b0bc52add2dee8847ab920",
+      "width": 523,
+      "height": 930,
+      "originalIndividuallyViewed": true,
+      "observedPage": "发票抬头空态",
+      "visualObservation": "图中已有“暂无抬头”空态，添加按钮突出；不是完全没有缺省页面。"
+    },
+    {
+      "image": 10,
+      "path": "/Users/dongge/.codex/tmp/yijiexing-passenger-ui-intake-20261028/word/media/image10.png",
+      "sha256": "b23ba826e65415702c1dfcb0da590e124d58bb555e0ee687468bfe6914858fe2",
+      "width": 523,
+      "height": 930,
+      "originalIndividuallyViewed": true,
+      "observedPage": "安全联系人",
+      "visualObservation": "功能说明大卡+3位联系人同卡分割；已达3/3添加disabled，无默认联系人标记。"
+    },
+    {
+      "image": 11,
+      "path": "/Users/dongge/.codex/tmp/yijiexing-passenger-ui-intake-20261028/word/media/image11.png",
+      "sha256": "b6d012130b9e958697881b4432a0ed9584f156ff4d002f839fd133fb495b8cb3",
+      "width": 523,
+      "height": 930,
+      "originalIndividuallyViewed": true,
+      "observedPage": "回执申请选单",
+      "visualObservation": "多行FilterChip文本像代码块，订单选择与抬头并列；需明确选中反馈。"
+    },
+    {
+      "image": 12,
+      "path": "/Users/dongge/.codex/tmp/yijiexing-passenger-ui-intake-20261028/word/media/image12.png",
+      "sha256": "b2cb391f4f73bf14e601026adb65c8ed9290402847a1eb6f9be8ce1015aa4cc3",
+      "width": 523,
+      "height": 930,
+      "originalIndividuallyViewed": true,
+      "observedPage": "回执记录",
+      "visualObservation": "每条记录占大卡，大号编号入口/重复说明/空白挤压；两条已占满一屏。"
+    },
+    {
+      "image": 13,
+      "path": "/Users/dongge/.codex/tmp/yijiexing-passenger-ui-intake-20261028/word/media/image13.png",
+      "sha256": "c4c816a9e59dfabe0112a950cc5192534944d9202a347c6812cf50002c125f8f",
+      "width": 523,
+      "height": 930,
+      "originalIndividuallyViewed": true,
+      "observedPage": "投诉列表",
+      "visualObservation": "“服务问题”和编号入口较突出；正文UI paired complaint review /11111实际可见，主要是层级问题。"
+    }
+  ],
+  "numbering": "Explicit1-4,7-15; missing5/6; cancellation reasons are unnumbered, not assigned5or6",
+  "notRun": [
+    "device GUI/interaction",
+    "unit/integration/build",
+    "WeChat runtime",
+    "cloud/services",
+    "product edits/deploy"
+  ],
+  "createdAt": "2026-10-28T19:20:33.230678+08:00",
+  "reportSha256": "af5e452cbc35b4c5a2fd006c4799830e8197fef1645a67ea5c287d36de19a0d5",
+  "subsequentScope": "PUIU Android implementation; user confirmed persisted defaults and contact page/phone only, no text chat"
+}

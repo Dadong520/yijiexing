@@ -1,0 +1,11 @@
+{
+  "source": "atomic current GCS media response; generation and MD5 bound to same response headers",
+  "generation": "1793192949242522",
+  "bytes": 4341760,
+  "sha256": "406a87ca19ca104483fc4de526a5b1d0e13d1ff0a73bc2a2c9eeecdb029bd07a",
+  "integrity": "ok",
+  "orderCount": 39,
+  "backupMode": "0600 outside repository",
+  "previousPinnedAttempt": "404 due live replacement; original failure retained; backup request is read-only",
+  "transportEvents": []
+}

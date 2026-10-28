@@ -1,0 +1,57 @@
+{
+  "taskId": "PUIB-20261028-01",
+  "authorThreadId": "01a168e2-22f7-70a2-af7f-4fb6be0ea695",
+  "updatedAt": "2026-10-28T19:35:49+08:00",
+  "baseSha": "8e2d655bd58d33241d79d6da3ad82f29cdec7894",
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-pui-backend-20261028",
+  "branch": "codex/passenger-ui-backend-20261028",
+  "productCommitSha": "8c9db0a4deee34db0ba00366251ee059256d9b67",
+  "productGitTree": "f66576beb90a2c7c54beca04fb7a4b922d79d4cf",
+  "authorAcceptance": "PASS",
+  "independentAcceptance": "NOT_RUN",
+  "releaseReady": false,
+  "testCommand": "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=apps/cloud-service python3 -m unittest discover -s apps/cloud-service/tests -v",
+  "testsRun": 267,
+  "seconds": 78.729,
+  "exitCode": 0,
+  "defaultsTests": {
+    "count": 13,
+    "seconds": 3.209,
+    "status": "PASS"
+  },
+  "sourceFilesBound": 50,
+  "postTestSourceUnchanged": true,
+  "contract": "coordination/contracts/PUI-DEFAULTS-API.md v1",
+  "implemented": [
+    "explicit three single defaults per account",
+    "strict flags/owned references/delete cleanup",
+    "state projection with defaults first and isDefault",
+    "existing SQLite/snapshot CAS/idempotent persistence"
+  ],
+  "protectedBehavior": [
+    "driver_public unchanged",
+    "passenger_view unchanged",
+    "passenger_create_order unchanged/no implicit default rider",
+    "invoice.apply unchanged/explicit titleId",
+    "historical order and invoice snapshots invariant"
+  ],
+  "contactAdvice": "Configured order/current company supportPhone only, clearly label company; driver mobileMasked remains non-dialable, no full registration number or fake relay/chat added",
+  "gemini": "NOT_CALLED:frontend owns CLI lease",
+  "notRun": [
+    "Android/mini client integration and GUI",
+    "real dialer calls",
+    "real device/WeChat compile or publish",
+    "cloud/live data/provider access",
+    "frozen-SHA independent acceptance",
+    "deployment"
+  ],
+  "nextAction": "Coordinator independent review + frontend integrate using fixed contract; no author deployment.",
+  "evidence": {
+    "source-binding.json": "e69f986f3607759441bc910152d4a5c3e4f0a6d0bd13cb8d6b3f30f5448df2fb",
+    "defaults-tests-initial.log": "c34b5b246679aa7f1909c4274127828f762bb54a6ec15e0605f036088543b861",
+    "full-suite.log": "e5bb30030fdfd14851e37bb58e877973d7ff313f86bca87164dae476fe792371",
+    "REPORT.md": "8da510fbbf61efad23dd73ec9117f0a6ed5003f40c4b43b4b21e7fde2760c04a",
+    "protected-behavior-binding.json": "b9a2c6bd9c3961d0993e157dff0ed65056c2214ee0d5d8305e4b4c8e50601217",
+    "product-commit.txt": "b87362a37b5da4b9205e172060065270788fc7a5b65eddba8531cab00bfbc5d1"
+  }
+}

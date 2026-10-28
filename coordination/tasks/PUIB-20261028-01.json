@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "id": "PUIB-20261028-01",
+  "owner": "backend",
+  "goal": "实现账号范围默认常用地址/乘车人/抬头持久化与投影，审核联系页号码边界，不绕过司机脱敏",
+  "baseSha": "8e2d655bd58d33241d79d6da3ad82f29cdec7894",
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-pui-backend-20261028",
+  "branch": "codex/passenger-ui-backend-20261028",
+  "allow_paths": [
+    "apps/cloud-service/",
+    "coordination/tasks/PUIB-20261028-01.json",
+    "coordination/contracts/PUI-DEFAULTS-API.md",
+    "coordination/evidence/PUI-20261028-01/backend/",
+    "coordination/handoffs/backend.md"
+  ],
+  "checks": [
+    "先在中央contracts/PUI-DEFAULTS-API.md固定action/state契约，通知root后才由root转前端；沿现有认证与幂等/CAS，不自造真实电话中继或暴露完整司机手机号",
+    "用户已确认需要可保存默认项；默认项显式设置、同类最多一个；校验引用属该账号且存在，跨账号/坏ID失败零副作用；编辑保留默认、删除默认清除并用本人/未设置安全回退；历史快照/进行中订单绝不改",
+    "三类默认账号范围SQLite/GCS持久化与重启/双账号隔离；默认地址建议置顶/选址默认项但不覆盖GPS/已填起终点；默认乘车人仅新建草稿初次选择，默认抬头仅新申请初次，不自动叫车或开票；旧客户端与无默认旧数据兼容",
+    "针对保存/编辑/删除/重复rid/越权/重启+适用回归测试；不改金额/预约/目的地/费用确认/电话隐私；源码唯一后端切此树，旧pmv-backend只读。暂不部署。"
+  ],
+  "status": "INDEPENDENT_REVIEW_PASS_AWAIT_MERGE_RELEASE",
+  "acceptance": "PASS",
+  "tests": [
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=apps/cloud-service python3 -m unittest discover -s apps/cloud-service/tests -p test_passenger_defaults.py -v",
+      "result": "PASS:13 tests/3.209s"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=apps/cloud-service python3 -m unittest discover -s apps/cloud-service/tests -v",
+      "result": "PASS:267 tests/78.729s, exit0; author only"
+    },
+    {
+      "command": "git diff --check",
+      "result": "PASS"
+    }
+  ],
+  "evidence": [
+    "coordination/contracts/PUI-DEFAULTS-API.md",
+    "coordination/evidence/PUI-20261028-01/backend/REPORT.md",
+    "coordination/evidence/PUI-20261028-01/backend/results.json",
+    "coordination/evidence/PUI-20261028-01/backend/source-binding.json"
+  ],
+  "nextAction": "Coordinator bind independent backend review and frontend integration to frozen SHA, then uniquely merge/publish; backend does not deploy.",
+  "deploy_owner": "coordinator",
+  "releaseReady": false,
+  "updatedAt": "2026-10-28T21:14:47.321381+08:00",
+  "authorAcceptance": "PASS",
+  "productCommitSha": "8c9db0a4deee34db0ba00366251ee059256d9b67",
+  "pendingMergeSha": "59a9384460baac272f5288d04da3b56fc9e5d862",
+  "evidenceCommitSha": "59a9384460baac272f5288d04da3b56fc9e5d862",
+  "independentEvidence": "coordination/evidence/PUI-20261028-01/NATIVE_REVIEW.json and SOURCE_BINDING.json; root non-author HTTP/UI"
+}

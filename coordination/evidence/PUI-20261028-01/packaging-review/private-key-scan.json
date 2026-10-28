@@ -1,0 +1,32 @@
+{
+  "apkSha256": "798fbb0f9fc6796190ddaa36eb8f71f7081d196d0785867782da442d38996379",
+  "method": "In-memory configured exact values, all decompressed APK members including DEX; UTF-8/UTF-16LE/UTF-16BE",
+  "configuredFieldCount": 4,
+  "apkMemberCount": 425,
+  "counts": {
+    "webJsKey": {
+      "utf-8": 0,
+      "utf-16le": 0,
+      "utf-16be": 0
+    },
+    "webJsSecurityCode": {
+      "utf-8": 0,
+      "utf-16le": 0,
+      "utf-16be": 0
+    },
+    "passengerAndroidKey": {
+      "utf-8": 0,
+      "utf-16le": 0,
+      "utf-16be": 0
+    },
+    "driverAndroidKey": {
+      "utf-8": 0,
+      "utf-16le": 0,
+      "utf-16be": 0
+    }
+  },
+  "totalMatches": 0,
+  "privateSourceCopied": false,
+  "privateValuesOutput": false,
+  "status": "PASS"
+}

@@ -8,6 +8,8 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
@@ -31,6 +33,9 @@ fun OrderDetail(o: JSONObject, store: PassengerStore, busy: Boolean) {
   var content by remember(id) { mutableStateOf("") }
   var rating by remember(id) { mutableStateOf(5) }
   var reason by remember { mutableStateOf("行程计划有变") }
+  var cancelChoice by rememberSaveable(id) { mutableStateOf("行程计划有变") }
+  var cancelOther by rememberSaveable(id) { mutableStateOf("") }
+  var contactPage by rememberSaveable(id) { mutableStateOf(false) }
   var fees by
     remember(id, o.optLong("fare"), o.optBoolean("paid")) { mutableStateOf<JSONObject?>(null) }
   var sortLow by remember { mutableStateOf(true) }
@@ -66,9 +71,100 @@ fun OrderDetail(o: JSONObject, store: PassengerStore, busy: Boolean) {
     stage in
       listOf("AVAILABLE", "BID_SENT", "PREPAY", "RESERVED", "PICKUP", "ARRIVED", "WAIT_CONTINUE")
   PageColumn {
-    PassengerCompanyPhone(o.optJSONObject("company"))
     SectionTitle(stageName(stage), orderSummary(o))
-    IdentifierButton(id)
+    Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
+      IdentifierButton(id, "订单信息")
+      TextButton(onClick = { contactPage = true }) { Text("联系与帮助") }
+    }
+    Row(
+      Modifier.fillMaxWidth().heightIn(min = 48.dp),
+      verticalAlignment = Alignment.CenterVertically,
+      horizontalArrangement = Arrangement.spacedBy(8.dp),
+    ) {
+      Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
+        Text(
+          if (o.optBoolean("destinationPending")) "费用待定（并非免费）"
+          else "${orderFarePresentation(o).label} ¥${money(o.optLong("fare"))}",
+          fontSize = 18.sp,
+          fontWeight = FontWeight.Bold,
+          color = Ink,
+        )
+        Note("${paymentName(o.text("paymentStatus", if (o.optBoolean("paid")) "SUCCESS" else "UNPAID"))} · 支付和退款均为模拟")
+      }
+      if (cancellable) TextButton(
+        onClick = { cancelChoice = "行程计划有变"; cancelOther = ""; dialog = "cancel" },
+        enabled = !busy,
+      ) { Text("取消订单") }
+    }
+    Panel("行程路线") {
+      if (o.text("scheduledAt").isNotBlank()) {
+        KV("计划用车时间", formatTime(o.text("scheduledAt")))
+      }
+      val loc = driver?.optJSONObject("location")
+      val hasDriverLoc = loc != null && loc.has("latitude") && loc.has("longitude")
+      val driverLat = if (hasDriverLoc) loc!!.optDouble("latitude").toString() else null
+      val driverLng = if (hasDriverLoc) loc!!.optDouble("longitude").toString() else null
+      val driverTime = loc?.text("receivedAt")?.takeIf { it.isNotBlank() }?.let { formatTime(it) }
+      val accuracyVal = loc?.optDouble("accuracy") ?: Double.NaN
+      val driverAccuracy = if (!accuracyVal.isNaN() && accuracyVal > 0) "${accuracyVal.toInt()} 米" else null
+
+      Surface(
+        shape = androidx.compose.foundation.shape.RoundedCornerShape(12.dp),
+        border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFFEDEFF2)),
+        modifier = Modifier
+          .fillMaxWidth()
+          .height(200.dp),
+      ) {
+        PassengerMap(
+          originLat = o.optDouble("originLat").toString(),
+          originLng = o.optDouble("originLng").toString(),
+          destinationLat = if (o.optBoolean("destinationPending")) "" else o.optDouble("destinationLat").toString(),
+          destinationLng = if (o.optBoolean("destinationPending")) "" else o.optDouble("destinationLng").toString(),
+          driverLat = driverLat,
+          driverLng = driverLng,
+          driverReportedTime = driverTime,
+          driverAccuracy = driverAccuracy,
+          modifier = Modifier.fillMaxSize(),
+        )
+      }
+      Note("地图展示起终点与司机最新上报位置；直接连线仅供示意，非真实道路导航。")
+      if (hasDriverLoc) {
+        Note("司机上报位置：${loc!!.optDouble("latitude")}, ${loc.optDouble("longitude")} · 上报于 ${driverTime.orEmpty()}${if (!driverAccuracy.isNullOrBlank()) " · 精度约 $driverAccuracy" else ""}（单次上报非持续追踪）")
+      }
+
+      Text("出发  ${o.text("origin")}", fontWeight = FontWeight.Bold)
+      o.rows("waypoints").forEachIndexed { index, w ->
+        val arrived =
+          o.optJSONArray("arrivedWaypoints")?.let { a ->
+            (0 until a.length()).any { a.optInt(it) == index }
+          } == true
+        Text(
+          "途经 ${index+1}  ${w.text("name",w.text("waypointName"))}  ${if(arrived)"✓ 已到达" else "待到达"}",
+          color = Muted,
+        )
+      }
+      Text(
+        if (o.optBoolean("destinationPending")) "到达  目的地待补充" else "到达  ${o.text("destination")}",
+        fontWeight = FontWeight.Bold,
+      )
+      if (o.optBoolean("destinationPending")) {
+        val canSupply = (stage == "AVAILABLE" && o.rows("bids").isEmpty()) || stage in listOf("PICKUP", "ARRIVED")
+        Spacer(Modifier.height(4.dp))
+        ActionButton("补充目的地并确认体验估价", !busy && canSupply) {
+          dialog = "destination"
+        }
+      }
+      TextButton(onClick = { showRoute = !showRoute }) {
+        Text(if (showRoute) "收起乘车人与备注信息" else "乘车人与备注信息")
+      }
+      if (showRoute) {
+        RouteDiagram(o)
+        Note("坐标连线示意 · 非真实道路导航；不包含实时路况、自动定位或正式地图搜索。")
+        if (o.text("remark").isNotBlank()) KV("乘客备注", o.text("remark"))
+        o.optJSONObject("rider")?.let { KV("乘车人", it.text("name")) }
+        KV("乘车手机号尾号", o.text("phoneTail"))
+      }
+    }
     PassengerTripDistanceCard(o, store, busy)
     Panel {
       Text(
@@ -180,8 +276,8 @@ fun OrderDetail(o: JSONObject, store: PassengerStore, busy: Boolean) {
       Note(farePresentation.label)
       Text(
         if (o.optBoolean("destinationPending")) "费用待定（并非免费）" else "¥${money(o.optLong("fare"))}",
-        fontSize = 28.sp,
-        lineHeight = 36.sp,
+        fontSize = 22.sp,
+        lineHeight = 28.sp,
         fontWeight = FontWeight.Bold,
         color = Ink,
       )
@@ -191,7 +287,7 @@ fun OrderDetail(o: JSONObject, store: PassengerStore, busy: Boolean) {
         paymentName(o.text("paymentStatus", if (o.optBoolean("paid")) "SUCCESS" else "UNPAID")),
       )
       if (o.optLong("refundAmount") > 0) KV("模拟退款金额", "¥${money(o.optLong("refundAmount"))}")
-      Note("金额为独立环境体验计价，不作为真实营运价格或付款凭证。所有支付、退款均明确为模拟。")
+      Note("体验计价 · 支付和退款均为模拟")
       TextButton(
         onClick = { store.query("/api/passenger/orders/$id/fees") { fees = it } },
         enabled = !busy,
@@ -221,75 +317,6 @@ fun OrderDetail(o: JSONObject, store: PassengerStore, busy: Boolean) {
           }
       }
     }
-    Panel("行程路线") {
-      if (o.text("scheduledAt").isNotBlank()) {
-        KV("计划用车时间", formatTime(o.text("scheduledAt")))
-      }
-      val loc = driver?.optJSONObject("location")
-      val hasDriverLoc = loc != null && loc.has("latitude") && loc.has("longitude")
-      val driverLat = if (hasDriverLoc) loc!!.optDouble("latitude").toString() else null
-      val driverLng = if (hasDriverLoc) loc!!.optDouble("longitude").toString() else null
-      val driverTime = loc?.text("receivedAt")?.takeIf { it.isNotBlank() }?.let { formatTime(it) }
-      val accuracyVal = loc?.optDouble("accuracy") ?: Double.NaN
-      val driverAccuracy = if (!accuracyVal.isNaN() && accuracyVal > 0) "${accuracyVal.toInt()} 米" else null
-
-      Surface(
-        shape = androidx.compose.foundation.shape.RoundedCornerShape(12.dp),
-        border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFFEDEFF2)),
-        modifier = Modifier
-          .fillMaxWidth()
-          .height(200.dp),
-      ) {
-        PassengerMap(
-          originLat = o.optDouble("originLat").toString(),
-          originLng = o.optDouble("originLng").toString(),
-          destinationLat = if (o.optBoolean("destinationPending")) "" else o.optDouble("destinationLat").toString(),
-          destinationLng = if (o.optBoolean("destinationPending")) "" else o.optDouble("destinationLng").toString(),
-          driverLat = driverLat,
-          driverLng = driverLng,
-          driverReportedTime = driverTime,
-          driverAccuracy = driverAccuracy,
-          modifier = Modifier.fillMaxSize(),
-        )
-      }
-      Note("地图展示起终点与司机最新上报位置；直接连线仅供示意，非真实道路导航。")
-      if (hasDriverLoc) {
-        Note("司机上报位置：${loc!!.optDouble("latitude")}, ${loc.optDouble("longitude")} · 上报于 ${driverTime.orEmpty()}${if (!driverAccuracy.isNullOrBlank()) " · 精度约 $driverAccuracy" else ""}（单次上报非持续追踪）")
-      }
-
-      Text("出发  ${o.text("origin")}", fontWeight = FontWeight.Bold)
-      o.rows("waypoints").forEachIndexed { index, w ->
-        val arrived =
-          o.optJSONArray("arrivedWaypoints")?.let { a ->
-            (0 until a.length()).any { a.optInt(it) == index }
-          } == true
-        Text(
-          "途经 ${index+1}  ${w.text("name",w.text("waypointName"))}  ${if(arrived)"✓ 已到达" else "待到达"}",
-          color = Muted,
-        )
-      }
-      Text(
-        if (o.optBoolean("destinationPending")) "到达  目的地待补充" else "到达  ${o.text("destination")}",
-        fontWeight = FontWeight.Bold,
-      )
-      if (o.optBoolean("destinationPending")) {
-        val canSupply = (stage == "AVAILABLE" && o.rows("bids").isEmpty()) || stage in listOf("PICKUP", "ARRIVED")
-        Spacer(Modifier.height(4.dp))
-        ActionButton("补充目的地并确认体验估价", !busy && canSupply) {
-          dialog = "destination"
-        }
-      }
-      TextButton(onClick = { showRoute = !showRoute }) {
-        Text(if (showRoute) "收起乘车人与备注信息" else "乘车人与备注信息")
-      }
-      if (showRoute) {
-        RouteDiagram(o)
-        Note("坐标连线示意 · 非真实道路导航；不包含实时路况、自动定位或正式地图搜索。")
-        if (o.text("remark").isNotBlank()) KV("乘客备注", o.text("remark"))
-        o.optJSONObject("rider")?.let { KV("乘车人", it.text("name")) }
-        KV("乘车手机号尾号", o.text("phoneTail"))
-      }
-    }
     if (driver != null)
       Panel("司机与车辆") {
         TextButton(onClick = { driverCard = true }) { Text("查看司机服务卡") }
@@ -300,22 +327,13 @@ fun OrderDetail(o: JSONObject, store: PassengerStore, busy: Boolean) {
           KV("最新位置", "${loc.optDouble("latitude")}, ${loc.optDouble("longitude")}")
           Note("上报于 ${formatTime(loc.text("receivedAt"))}；仅展示司机端上报，不代表实时持续定位。")
         }
-        Note("未配置真实电话中继，无法在本体验版直接联系司机。")
+        TextButton(onClick = { contactPage = true }) { Text("联系司机 / 公司客服") }
+        Note("司机电话中继尚未配置；可在联系页查看当前可用服务。")
         if (stage in listOf("DONE", "CANCELLED", "WAIT_PAY"))
           TextButton(onClick = { dialog = "block" }, enabled = !busy) { Text("以后不再匹配此司机") }
       }
     if (cancellable)
-      Panel("行程管理") {
-        OutlinedButton(
-          onClick = {
-            reason = "行程计划有变"
-            dialog = "cancel"
-          },
-          enabled = !busy,
-          modifier = Modifier.fillMaxWidth(),
-        ) {
-          Text("取消本次订单")
-        }
+      ExpandablePanel("其他行程操作", "备注、目的地和取消说明") {
         Note(if (o.optBoolean("paid")) "取消后云端记录模拟退款，不产生实际资金转账。" else "出发前可取消；开始行程后不允许直接取消。")
         TextButton(
           onClick = {
@@ -552,6 +570,8 @@ fun OrderDetail(o: JSONObject, store: PassengerStore, busy: Boolean) {
         Text("报价版本或状态已更新，请关闭后重新核对。", color = MaterialTheme.colorScheme.error)
       Note("异议提交后暂停付款，等待原司机重新报价；也可取消此订单。")
     }
+  if (contactPage) PassengerContactPage(o, { contactPage = false },
+    onComplaint = if (stage in listOf("DONE","CANCELLED","WAIT_PAY")) ({ contactPage=false; content=""; reason="服务问题"; dialog="complaint" }) else null)
   if (dialog in listOf("cancel", "evaluate", "complaint"))
     PassengerModal(
       title =
@@ -562,12 +582,12 @@ fun OrderDetail(o: JSONObject, store: PassengerStore, busy: Boolean) {
       confirmEnabled =
         !busy &&
           (dialog != "complaint" || content.trim().length >= 5) &&
-          (dialog == "evaluate" || reason.trim().length >= 2),
+          (if(dialog == "cancel") PassengerUiRules.cancellationReason(cancelChoice,cancelOther) != null else dialog == "evaluate" || reason.trim().length >= 2),
       onConfirm = {
         val action = dialog
         val p = JSONObject().put("id", id)
         when (action) {
-          "cancel" -> p.put("reason", reason)
+          "cancel" -> p.put("reason", PassengerUiRules.cancellationReason(cancelChoice,cancelOther) ?: return@PassengerModal)
           "evaluate" -> p.put("rating", rating).put("content", content)
           "complaint" -> p.put("reason", reason).put("content", content)
         }
@@ -597,7 +617,10 @@ fun OrderDetail(o: JSONObject, store: PassengerStore, busy: Boolean) {
             }
           }
         }
-      } else Field(reason, { reason = it }, if (dialog == "cancel") "取消原因" else "投诉类别 / 原因")
+      } else if (dialog == "cancel") {
+        PassengerCancelChoices(PassengerUiRules.cancellationReasons,cancelChoice,cancelOther,{cancelChoice=it},{cancelOther=it})
+        Note("仅提交取消原因；是否可取消及模拟退款结果由服务端判断。")
+      } else Field(reason, { reason = it }, "投诉类别 / 原因")
       if (dialog != "cancel")
         Field(
           content,

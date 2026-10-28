@@ -3,14 +3,27 @@ import json
 import re
 from common import ApiError, clone, dumps, require, stamp, textfield, uid
 
+DEFAULT_KINDS = {'FAVORITE': ('favoriteId', 'favorites'),
+                 'RIDER': ('riderId', 'riders'),
+                 'INVOICE_TITLE': ('invoiceTitleId', 'invoiceTitles')}
+
 
 class PassengerExtrasMixin:
     def _passenger_extra_store(self, pid):
-        self.passenger_profile(pid)  # Authentication/identity must exist first.
+        profile = self.passenger_profile(pid)  # Never accept a client owner ID.
         self.db.execute('CREATE TABLE IF NOT EXISTS passenger_extras(pid TEXT PRIMARY KEY,payload TEXT NOT NULL)')
         row = self.db.execute('SELECT payload FROM passenger_extras WHERE pid=?', (pid,)).fetchone()
         data = json.loads(row['payload']) if row else {'riders': [], 'invoiceTitles': [], 'invoices': []}
         data.setdefault('blockedDrivers', [])
+        # Legacy/no-default/dangling references project safely without read-time
+        # mutation, automatic selection or guessing from arbitrary row flags.
+        raw = data.get('defaults') if isinstance(data.get('defaults'), dict) else {}
+        defaults = {}
+        for kind, (key, collection) in DEFAULT_KINDS.items():
+            items = profile.get('favorites', []) if kind == 'FAVORITE' else data[collection]
+            value = raw.get(key)
+            defaults[key] = value if isinstance(value, str) and any(r['id'] == value for r in items) else None
+        data['defaults'] = defaults
         return data
 
     def _save_passenger_extras(self, pid, data):
@@ -25,8 +38,50 @@ class PassengerExtrasMixin:
     def passenger_rider(self, pid, rider_id):
         return clone(self._owned_extra(self._passenger_extra_store(pid)['riders'], rider_id, '乘车人'))
 
+    @staticmethod
+    def validate_default_flag(p):
+        if 'isDefault' in p:
+            require(type(p['isDefault']) is bool, 'isDefault须为布尔值')
+
+    @staticmethod
+    def apply_default_flag(data, kind, record_id, p):
+        # Caller has already validated/created this passenger's own record.
+        key = DEFAULT_KINDS[kind][0]
+        if p.get('isDefault') is True:
+            data['defaults'][key] = record_id
+        elif p.get('isDefault') is False and data['defaults'][key] == record_id:
+            data['defaults'][key] = None
+        return data['defaults'][key] == record_id
+
+    @staticmethod
+    def clear_default_reference(data, kind, record_id):
+        key = DEFAULT_KINDS[kind][0]
+        if data['defaults'][key] == record_id:
+            data['defaults'][key] = None
+
+    @staticmethod
+    def project_default_rows(items, default_id):
+        # Only the projected list is reordered; stored records and snapshots are unchanged.
+        rows = [{**clone(r), 'isDefault': r['id'] == default_id} for r in items]
+        return sorted(rows, key=lambda r: not r['isDefault'])
+
+    def set_passenger_default(self, pid, data, p):
+        require(set(p) == {'kind', 'id'}, '默认设置须且仅含kind与id')
+        kind, record_id = p['kind'], p['id']
+        require(isinstance(kind, str) and kind in DEFAULT_KINDS, '默认项类别无效')
+        key, collection = DEFAULT_KINDS[kind]
+        if record_id is not None:
+            require(isinstance(record_id, str) and re.fullmatch(r'[A-Za-z0-9][A-Za-z0-9_.:-]{0,119}', record_id), '默认项编号无效')
+            items = self.passenger_profile(pid).get('favorites', []) if kind == 'FAVORITE' else data[collection]
+            self._owned_extra(items, record_id, '默认项')
+        data['defaults'][key] = record_id
+        return {'defaults': clone(data['defaults'])}
+
     def passenger_extra_data(self, pid):
         data = clone(self._passenger_extra_store(pid))
+        for kind in ('RIDER', 'INVOICE_TITLE'):
+            key, collection = DEFAULT_KINDS[kind]
+            data[collection] = self.project_default_rows(data[collection], data['defaults'][key])
         # A capability describes the independently configured experience, not an
         # assertion that a real external provider has been integrated.
         data['support'] = {
@@ -56,7 +111,11 @@ class PassengerExtrasMixin:
     def passenger_extra_action(self, pid, action, p):
         require(isinstance(p, dict), '操作参数须为对象')
         data = self._passenger_extra_store(pid)
-        if action == 'rider.save':
+        if action in ('rider.save', 'invoice.title.save'):
+            self.validate_default_flag(p)
+        if action == 'defaults.set':
+            result = self.set_passenger_default(pid, data, p)
+        elif action == 'rider.save':
             name = textfield(p.get('name'), '乘车人姓名', 1, 30)
             mobile = p.get('mobile')
             require(isinstance(mobile, str) and bool(re.fullmatch(r'1\d{10}', mobile)), '乘车人手机号须为11位数字')
@@ -69,9 +128,10 @@ class PassengerExtrasMixin:
                 row = {'id': uid('R'), 'createdAt': stamp()}; rows.append(row)
             require(not any(r['id'] != row['id'] and r['mobile'] == mobile for r in rows), '此手机号的乘车人已存在', 409)
             row.update(name=name, mobile=mobile, updatedAt=stamp())
-            result = {'rider': clone(row)}
+            result = {'rider': {**clone(row), 'isDefault': self.apply_default_flag(data, 'RIDER', row['id'], p)}}
         elif action == 'rider.remove':
             row = self._owned_extra(data['riders'], p.get('id'), '乘车人')
+            self.clear_default_reference(data, 'RIDER', row['id'])
             data['riders'].remove(row); result = {'removed': row['id']}
         elif action == 'invoice.title.save':
             kind = p.get('type', 'PERSONAL'); require(kind in ('PERSONAL', 'COMPANY'), '抬头类型无效')
@@ -90,9 +150,10 @@ class PassengerExtrasMixin:
                 require(len(rows) < 20, '最多保存20个发票抬头', 409)
                 row = {'id': uid('IT'), 'createdAt': stamp()}; rows.append(row)
             row.update(type=kind, title=title, taxNumber=tax.upper(), email=email, updatedAt=stamp())
-            result = {'invoiceTitle': clone(row)}
+            result = {'invoiceTitle': {**clone(row), 'isDefault': self.apply_default_flag(data, 'INVOICE_TITLE', row['id'], p)}}
         elif action == 'invoice.title.remove':
             row = self._owned_extra(data['invoiceTitles'], p.get('id'), '发票抬头')
+            self.clear_default_reference(data, 'INVOICE_TITLE', row['id'])
             data['invoiceTitles'].remove(row); result = {'removed': row['id']}
         elif action == 'invoice.apply':
             order = self.own_passenger_order(pid, p.get('orderId'))

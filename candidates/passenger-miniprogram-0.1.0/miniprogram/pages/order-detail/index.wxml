@@ -84,7 +84,7 @@
         <view class="plate-box">{{order.driver.plate}}</view>
       </view>
       <view class="driver-actions">
-        <view class="action-btn" bindtap="callDriverMock">📞 模拟联系</view>
+        <view class="action-btn" bindtap="callDriverMock">📞 联系与帮助</view>
         <view class="action-btn" bindtap="openDriverCard">🪪 服务卡</view>
         <view class="action-btn" bindtap="openSafetyPanel">🛡️ 安全守护</view>
       </view>
