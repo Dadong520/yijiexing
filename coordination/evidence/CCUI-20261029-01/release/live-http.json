@@ -1,0 +1,54 @@
+{
+  "sourceSha": "107e226d1d23fc6d7ef5dab75229962bd38306d8",
+  "requests": [
+    {
+      "url": "https://yijiexing-demo.hbzjhs.xyz/health",
+      "expectedHttp": 200,
+      "http": 200,
+      "curlExit": 0,
+      "sourceBytesEqual": null,
+      "PASS": true
+    },
+    {
+      "url": "https://demo-admin.hbzjhs.xyz/",
+      "expectedHttp": 200,
+      "http": 200,
+      "curlExit": 0,
+      "sourceBytesEqual": true,
+      "PASS": true
+    },
+    {
+      "url": "https://demo-admin.hbzjhs.xyz/static/admin.css",
+      "expectedHttp": 200,
+      "http": 200,
+      "curlExit": 0,
+      "sourceBytesEqual": true,
+      "PASS": true
+    },
+    {
+      "url": "https://demo-admin.hbzjhs.xyz/api/local/admin/v2/state",
+      "expectedHttp": 401,
+      "http": 401,
+      "curlExit": 0,
+      "sourceBytesEqual": null,
+      "PASS": true
+    },
+    {
+      "url": "https://user-test---driver-demo-phfgquzmua-uw.a.run.app/download-passenger",
+      "expectedHttp": 200,
+      "http": 200,
+      "curlExit": 0,
+      "sourceBytesEqual": null,
+      "PASS": true
+    },
+    {
+      "url": "https://user-test---driver-admin-phfgquzmua-uw.a.run.app/",
+      "expectedHttp": 200,
+      "http": 200,
+      "curlExit": 0,
+      "sourceBytesEqual": true,
+      "PASS": true
+    }
+  ],
+  "cloudBusinessPosts": 0
+}

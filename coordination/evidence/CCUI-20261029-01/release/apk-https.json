@@ -1,0 +1,42 @@
+[
+  {
+    "role": "passenger",
+    "url": "https://user-test---driver-demo-phfgquzmua-uw.a.run.app/download-passenger.apk",
+    "attempts": [
+      {
+        "transport": "direct",
+        "curlExit": 0,
+        "http": 200
+      }
+    ],
+    "bytes": 107139449,
+    "sha256": "221e8ae0071fa55c76b7c25bcb52f8e9bc936920b8ef0480c9824d3cf570d6d2",
+    "package": "cn.hbzjhs.dc.passenger.cloud",
+    "versionName": "1.1.16-experience",
+    "versionCode": 18,
+    "signerSha256": "9ffec9b342d12909ff288bd73f23ba104893b39120cb24ea83c9734a0d2b758f",
+    "aaptAndApksignerExit": 0,
+    "sameBytesAsIndependentlyReviewedBuild": true,
+    "PASS": true
+  },
+  {
+    "role": "driver",
+    "url": "https://user-test---driver-demo-phfgquzmua-uw.a.run.app/download.apk",
+    "attempts": [
+      {
+        "transport": "direct",
+        "curlExit": 0,
+        "http": 200
+      }
+    ],
+    "bytes": 108636805,
+    "sha256": "35edbc42da985cc62d22c3f36b48c4d886e8d39fd914607a5448e66e79081c08",
+    "package": "cn.hbzjhs.dc.driver.cloud",
+    "versionName": "0.3.15-cloud",
+    "versionCode": 18,
+    "signerSha256": "9ffec9b342d12909ff288bd73f23ba104893b39120cb24ea83c9734a0d2b758f",
+    "aaptAndApksignerExit": 0,
+    "sameBytesAsIndependentlyReviewedBuild": true,
+    "PASS": true
+  }
+]

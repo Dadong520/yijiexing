@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updated": "2026-10-29T01:40:26.942973+08:00",
+  "updated": "2026-10-29T02:14:53.503854+08:00",
   "coordinator": "coordinator",
   "activeTaskIds": [
     "WX-20261025-01",
@@ -45,7 +45,8 @@
     "CC-20261029-01",
     "CCUI-20261029-01",
     "CCUIV-20261029-01",
-    "CCG-20261029-01"
+    "CCG-20261029-01",
+    "CCREC-20261029-01"
   ],
   "releaseOwner": "coordinator",
   "policy": "作者提交→自测→独立验收→协调者合并→部署回读；无业务验收PASS不发布",
@@ -74,14 +75,14 @@
     "coordination/archive/2026-10-26/AUTH-20261026-02.json"
   ],
   "memoryProtocolVersion": "2026-10-26-v3",
-  "currentStage": "CLAUDE_UI_ACCEPTED_INTEGRATION_CI",
+  "currentStage": "CCUI_RELEASED_RECEIPT_SYNC",
   "roleAssignments": {
-    "coordinator": "CCUI CI/merge/release source107e226",
-    "backend": "IDLE CCG independent guard PASS",
-    "frontend": "IDLE CCUIV final11bef independent PASS",
+    "coordinator": "CCREC final receipt sync thenIDLE",
+    "backend": "IDLE CCG PASS",
+    "frontend": "IDLE CCUIV finalPASS",
     "antigravity": "PAUSED_BY_USER_20261029; no new Gemini dispatch",
     "expert": "IDLE EXMAP delivered; only explicit hard blocker dispatch",
-    "claude": "IDLE actual Desktop session open"
+    "claude": "IDLE desktop session opened; root_dispatch_only"
   },
   "collaborationDecision": "GOV07 user Claude Code main implementation; Gemini temporarily paused; visible Codex role reviews and root unique release"
 }

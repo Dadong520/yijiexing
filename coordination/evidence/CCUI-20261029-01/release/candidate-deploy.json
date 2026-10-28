@@ -1,0 +1,20 @@
+[
+  {
+    "role": "api",
+    "revision": "driver-demo-ccui-107e226-test1",
+    "url": "https://ccui-qa---driver-demo-phfgquzmua-uw.a.run.app",
+    "image": "us-west1-docker.pkg.dev/yijiexing-driver-demo-1023/demo/driver-cloud@sha256:2c5109fc89cf72fb082ecbc9140dec99b2ec0ada09c0597b18d683a4ff74be57",
+    "runtimeSpecExceptImageUnchanged": true,
+    "trafficStillOnOldRevision": true,
+    "status": "READY_TAGGED_NOT_PROMOTED"
+  },
+  {
+    "role": "admin",
+    "revision": "driver-admin-ccui-107e226-test1",
+    "url": "https://ccui-qa---driver-admin-phfgquzmua-uw.a.run.app",
+    "image": "us-west1-docker.pkg.dev/yijiexing-driver-demo-1023/demo/admin-ui@sha256:3c5f5fc4e57c0b2b6ef204d808a44baac53fa974fda38935aecbc45ac2d3f00f",
+    "runtimeSpecExceptImageUnchanged": true,
+    "trafficStillOnOldRevision": true,
+    "status": "READY_TAGGED_NOT_PROMOTED"
+  }
+]

@@ -1,0 +1,15 @@
+{
+  "source": "current authoritative GCS snapshot, response-bound generation/MD5",
+  "generation": "1793194323199516",
+  "bytes": 4345856,
+  "sha256": "83cdfeb412ab950f50e39ace96edbb43fe597d78faa854f2f18fea76a63231ad",
+  "integrity": "ok",
+  "beforeOrderCount": 39,
+  "afterOrderCount": 39,
+  "oldOrdersMissing": 0,
+  "oldOrdersFieldsChanged": 0,
+  "newOrders": 0,
+  "cloudBusinessPostsByCoordinator": 0,
+  "backupAndReadbackOutsideRepository0600": true,
+  "PASS": true
+}
