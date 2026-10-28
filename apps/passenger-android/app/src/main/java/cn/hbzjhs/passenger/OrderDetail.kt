@@ -66,6 +66,7 @@ fun OrderDetail(o: JSONObject, store: PassengerStore, busy: Boolean) {
     stage in
       listOf("AVAILABLE", "BID_SENT", "PREPAY", "RESERVED", "PICKUP", "ARRIVED", "WAIT_CONTINUE")
   PageColumn {
+    PassengerCompanyPhone(o.optJSONObject("company"))
     SectionTitle(stageName(stage), orderSummary(o))
     IdentifierButton(id)
     PassengerTripDistanceCard(o, store, busy)

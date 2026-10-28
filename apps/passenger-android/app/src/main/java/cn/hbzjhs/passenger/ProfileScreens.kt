@@ -111,7 +111,7 @@ fun ProfileScreen(
       HorizontalDivider(color = Color(0xFFF3F4F6), thickness = 0.8.dp)
       MenuRow("发票抬头", Icons.AutoMirrored.Filled.List) { navigate("invoiceTitles") }
       HorizontalDivider(color = Color(0xFFF3F4F6), thickness = 0.8.dp)
-      MenuRow("模拟发票申请与记录", Icons.AutoMirrored.Filled.List, "体验记录，不是正式发票") { navigate("invoices") }
+      MenuRow(if (PassengerOperations.enabled(state,"invoice")) "模拟发票申请与记录" else "历史模拟发票记录", Icons.AutoMirrored.Filled.List, if (PassengerOperations.enabled(state,"invoice")) "体验记录，不是正式发票" else "本地区已关闭新申请") { navigate("invoices") }
     }
     Panel("功能体验") {
       MenuRow("我的卡券 · 演示", Icons.Default.Info, "0张 · 不参与订单抵扣") { navigate("coupons") }
@@ -331,7 +331,7 @@ fun ComplaintsScreen(state: JSONObject) {
 }
 
 @Composable
-fun HelpScreen(state: JSONObject) {
+fun HelpScreen(state: JSONObject, store: PassengerStore) {
   val support = state.optJSONObject("support") ?: JSONObject()
   PageColumn {
     SectionTitle("公告与服务说明", "所有体验边界均在此说明。")
@@ -345,6 +345,7 @@ fun HelpScreen(state: JSONObject) {
         )
       }
     }
+    PassengerCompanySelector(state, store)
     Panel("客服与紧急协助") {
       Note("后台工作人员可以查看和回复已保存的投诉与反馈，回复会在乘客端记录中同步展示；实时人工客服、电话中继和后台推送尚未配置。")
       Note("紧急情况请使用手机系统电话联系当地紧急服务；本应用不能代替紧急呼叫。")

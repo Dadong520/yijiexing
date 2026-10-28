@@ -19,7 +19,7 @@ fun ExtraScreen(page: String, state: JSONObject, store: PassengerStore) {
     "invoiceTitles" -> InvoiceTitlesScreen(state, store)
     "invoices" -> InvoicesScreen(state, store)
     "blocked" -> BlockedScreen(state, store)
-    else -> HelpScreen(state)
+    else -> HelpScreen(state, store)
   }
 }
 
@@ -169,7 +169,7 @@ fun InvoicesScreen(state: JSONObject, store: PassengerStore) {
     }
   PageColumn {
     SectionTitle("发票与模拟回执", "模拟回执不可用于报销，不是真实税务发票。")
-    Panel("申请模拟回执") {
+    if (PassengerOperations.enabled(state,"invoice")) Panel("申请模拟回执") {
       if (available.isEmpty()) Note("暂无可申请订单。已完成且模拟支付成功的订单可以申请，每单仅一次。")
       available.forEach { o ->
         FilterChip(
@@ -195,6 +195,7 @@ fun InvoicesScreen(state: JSONObject, store: PassengerStore) {
         confirm = true
       }
     }
+    if (!PassengerOperations.enabled(state,"invoice")) Note("当前服务地区已关闭新的模拟开票申请，历史回执仍可查看。")
     Text("申请记录", fontWeight = FontWeight.Bold)
     if (invoices.isEmpty()) EmptyCard("暂无模拟回执", "生成后可查看云端保存的订单与抬头快照。")
     invoices.reversed().forEach { i ->
@@ -209,7 +210,7 @@ fun InvoicesScreen(state: JSONObject, store: PassengerStore) {
       }
     }
   }
-  if (confirm)
+  if (confirm && PassengerOperations.enabled(state,"invoice"))
     AlertDialog(
       onDismissRequest = { confirm = false },
       title = { Text("确认生成模拟回执") },

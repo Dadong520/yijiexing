@@ -92,7 +92,10 @@ object PassengerApi {
     val tokenSnapshot = tokenOverride ?: token
     return withContext(Dispatchers.IO) {
       require(path.startsWith("/api/passenger/") && !path.contains("..") && !path.contains('\\'))
-      val c = URL(BuildConfig.CLOUD_API_ORIGIN + path).openConnection() as HttpURLConnection
+      val wirePath = if (path == "/api/passenger/state") path + "?client=PASSENGER_ANDROID" else path
+      val wireBody = if (body != null && path in setOf("/api/passenger/auth/login", "/api/passenger/action"))
+        JSONObject(body.toString()).put("client", "PASSENGER_ANDROID") else body
+      val c = URL(BuildConfig.CLOUD_API_ORIGIN + wirePath).openConnection() as HttpURLConnection
       try {
         c.requestMethod = method
         c.connectTimeout = 20000
@@ -100,10 +103,10 @@ object PassengerApi {
         c.instanceFollowRedirects = false
         c.setRequestProperty("Accept", "application/json")
         if (auth) c.setRequestProperty("Authorization", "Bearer $tokenSnapshot")
-        if (body != null) {
+        if (wireBody != null) {
           c.doOutput = true
           c.setRequestProperty("Content-Type", "application/json; charset=utf-8")
-          c.outputStream.use { it.write(body.toString().toByteArray(Charsets.UTF_8)) }
+          c.outputStream.use { it.write(wireBody.toString().toByteArray(Charsets.UTF_8)) }
         }
         val status = c.responseCode
         val raw =
@@ -405,6 +408,26 @@ class PassengerStore(app: Application) : AndroidViewModel(app) {
       if (generation == sessionGeneration) {
         done(data.optJSONObject("result") ?: JSONObject())
         _notice.value = "操作已保存到云端"
+      }
+    }
+  }
+
+  fun claimAnnouncement(row: JSONObject, onResult: (Boolean) -> Unit, onFailure: (String) -> Unit) {
+    val generation=sessionGeneration
+    val account=_state.value.optJSONObject("passenger")?.text("id").orEmpty()
+    run {
+      if(generation!=sessionGeneration) return@run
+      stateEpoch++ // A prior silent state read must not overwrite the receipt response.
+      try {
+        require(account.isNotBlank()) { "请先登录后查看公告" }
+        val data=submitJournaledAction(account,"ops.announcement.ack",JSONObject()
+          .put("id",row.text("id")).put("version",row.getInt("version")).put("client","PASSENGER_ANDROID"))
+        accept(data,generation)
+        if(generation==sessionGeneration) onResult(data.optJSONObject("result")?.optBoolean("firstDisplay",false)==true)
+      } catch(e: Exception) {
+        if(e is CancellationException) throw e
+        if(generation==sessionGeneration) onFailure(e.message ?: "公告暂未读取完成")
+        throw e
       }
     }
   }

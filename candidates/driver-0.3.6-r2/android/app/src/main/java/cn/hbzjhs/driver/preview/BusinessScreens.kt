@@ -175,17 +175,8 @@ private fun bCertificateTitle(type: String) =
         else -> type
     }
 
-private fun bCanEditCertificate(cert: JSONObject): Boolean {
-    if (cert.length() == 0) return true
-    val status = cert.bText("status", fallback = "").uppercase()
-    if (status in setOf("PENDING", "SUBMITTED", "3")) return false
-    if (status in setOf("APPROVED", "VALID", "1")) {
-        val until = cert.bText("validUntil", fallback = "")
-        return runCatching { !LocalDate.parse(until).isAfter(LocalDate.now().plusDays(30)) }
-            .getOrDefault(false)
-    }
-    return true
-}
+private fun bCanEditCertificate(cert: JSONObject, today: LocalDate): Boolean =
+    CertificateDueStatus.canUpdate(cert, today)
 
 @Composable
 private fun BusinessCertificates(
@@ -213,7 +204,11 @@ private fun BusinessCertificates(
                 Spacer(Modifier.height(12.dp))
                 DetailRow("生效日期", cert.bText("validFrom"))
                 val until = cert.bText("validUntil")
-                DetailRow("有效期限", if (until == "LONG_TERM") "长期有效" else until)
+                DetailRow("当前有效期限", if (until == "LONG_TERM") "长期有效" else until)
+                DriverCertificateStatus(cert)
+                cert.optJSONObject("pending")?.let { pending ->
+                    BusinessHint("新材料待审核：${pending.optString("validFrom")} 至 ${pending.optString("validUntil")}。旧证仍在有效期内可继续接单，过期将暂停新增接单。在途订单可完成。")
+                }
                 if (cert.optString("submittedAt").isNotBlank())
                     DetailRow("提交时间", cert.bText("submittedAt"))
                 if (cert.bText("rejectionReason", "reply", fallback = "").isNotBlank())
@@ -222,7 +217,7 @@ private fun BusinessCertificates(
                         color = Orange,
                         fontSize = 16.sp,
                     )
-                if (bCanEditCertificate(cert))
+                if (bCanEditCertificate(cert, CertificateDueStatus.today(store.payload.value.optString("serverTime"))))
                     PrimaryButton("更新并提交审核") { navigate("qualification/$type") }
                 else
                     BusinessOutlinedButton(
@@ -245,7 +240,7 @@ private fun BusinessDateField(
     onChange: (String) -> Unit,
 ) {
     val context = LocalContext.current
-    val date = runCatching { LocalDate.parse(value) }.getOrDefault(LocalDate.now())
+    val date = runCatching { LocalDate.parse(value) }.getOrDefault(CertificateDueStatus.today())
     BusinessOutlinedButton(
         onClick = {
             DatePickerDialog(
@@ -276,17 +271,18 @@ private fun BusinessCertificateEdit(
 ) {
     val cert =
         profile.bList("certificates").firstOrNull { it.bText("type") == type } ?: JSONObject()
-    val editable = bCanEditCertificate(cert)
+    val editVersion = remember(type) { cert.optInt("version", 0) }
+    val editable = bCanEditCertificate(cert, CertificateDueStatus.today(store.payload.value.optString("serverTime")))
     val busy by store.loading.collectAsState()
     var start by
         rememberSaveable(type) {
-            mutableStateOf(cert.bText("validFrom", fallback = LocalDate.now().toString()))
+            mutableStateOf(cert.bText("validFrom", fallback = CertificateDueStatus.today().toString()))
         }
     var end by
         rememberSaveable(type) {
             mutableStateOf(
                 cert
-                    .bText("validUntil", fallback = LocalDate.now().plusYears(1).toString())
+                    .bText("validUntil", fallback = CertificateDueStatus.today().plusYears(1).toString())
                     .takeUnless { it == "LONG_TERM" } ?: ""
             )
         }
@@ -313,6 +309,12 @@ private fun BusinessCertificateEdit(
         item {
             SheetCard {
                 Pill(bStatus(cert.bText("status", fallback = "")))
+                DriverCertificateStatus(cert)
+                cert.optJSONObject("pending")?.let { pending ->
+                    BusinessHint("新材料待审核：${pending.optString("validFrom")} 至 ${pending.optString("validUntil")}。通过后才替换当前材料。")
+                    BusinessTextButton(onClick = { showSaved(pending.optString("fileId"), "待审新材料") }) { Text("查看待审新材料") }
+                    if (type == "license") BusinessTextButton(onClick = { showSaved(pending.optString("backFileId"), "待审背面") }) { Text("查看待审背面") }
+                }
                 Spacer(Modifier.height(12.dp))
                 if (editable) {
                     BusinessImageSelector(
@@ -377,29 +379,30 @@ private fun BusinessCertificateEdit(
                                 image.isBlank() -> "请上传证件图片"
                                 type == "license" && backImage.isBlank() -> "驾驶证须上传正反两面"
                                 start.isBlank() || (!longTerm && end.isBlank()) -> "请选择完整有效期"
-                                start > LocalDate.now().toString() -> "有效起始日期不能晚于今天"
+                                start > CertificateDueStatus.today().toString() -> "有效起始日期不能晚于今天"
                                 !longTerm && end <= start -> "结束日期须晚于开始日期"
-                                !longTerm && end <= LocalDate.now().toString() -> "结束日期须晚于今天"
+                                !longTerm && end <= CertificateDueStatus.today().toString() -> "结束日期须晚于今天"
                                 else -> ""
                             }
                         if (validation.isBlank()) confirm = true
                     }
                 else
                     BusinessHint(
-                        if (cert.optString("status") == "PENDING") "已提交，请等待审核；演示管理台可处理此申请。"
-                        else "资料仍在有效期内，到期前 30 天可更新。"
+                        if (cert.optJSONObject("pending") != null || cert.optString("status") == "PENDING") "新材料已提交，等待审核；有效旧证继续使用，审核通过后才替换。"
+                        else "资料仍在有效期内，到期前 60 天可更新。"
                     )
             }
         }
         item { BusinessHint("图片经本机压缩后上传；沙箱不调用真实身份核验。审核结果来自演示管理台，提交不会自动通过。") }
     }
     if (confirm)
-        BusinessConfirm("确认提交资料", "将所选图片及有效期提交到独立演示服务，状态变为待审核。", "提交", { confirm = false }) {
+        BusinessConfirm("确认提交资料", "提交新材料等待审核；旧证在有效期内继续可用，审核通过后才替换。", "提交", { confirm = false }) {
             confirm = false
             store.perform(
                 "certificate.submit",
                 bJson(
                     "type" to type,
+                    "expectedVersion" to editVersion,
                     "validFrom" to start,
                     "validUntil" to if (longTerm) "LONG_TERM" else end,
                     "imageBase64" to image,

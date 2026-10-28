@@ -394,9 +394,8 @@ internal fun BusinessHelp(
                     "服务时间",
                     support.bText("serviceHours", "workingHours", fallback = "演示管理台处理"),
                 )
-                if (support.bText("phone", fallback = "").isNotBlank())
-                    DetailRow("沙箱客服", support.bText("phone"))
-                BusinessHint("此隔离服务通过反馈工单处理，不会呼叫真实客服。")
+                DriverCompanyContact(store)
+                BusinessHint("公司电话由后台维护；反馈工单会保存，实时聊天及电话中继未接入。")
                 Spacer(Modifier.height(14.dp))
                 PrimaryButton("提交问题或查看回复") { navigate("feedback") }
                 MenuRow("card", "提现和银行卡") { navigate("bank") }

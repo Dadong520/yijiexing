@@ -42,16 +42,16 @@
   <!-- 下单核心卡片 -->
   <view class="booking-card">
     <!-- 用车类型 Tabs -->
-    <view class="kind-tabs">
-      <view class="tab-item {{kind==='STANDARD'?'active':''}}" data-kind="STANDARD" bindtap="chooseKind">
+    <view class="notice" wx:if="{{availableKinds.length===0}}">当前地区暂无开放的叫车类型，历史行程仍可查看。</view><view class="kind-tabs">
+      <view wx:if="{{state.passengerFeatureSwitches.instant !== false}}" class="tab-item {{kind==='STANDARD'?'active':''}}" data-kind="STANDARD" bindtap="chooseKind">
         <text class="tab-icon">🚗</text>
         <text class="tab-name">现在叫车</text>
       </view>
-      <view class="tab-item {{kind==='RESERVED'?'active':''}}" data-kind="RESERVED" bindtap="chooseKind">
+      <view wx:if="{{state.passengerFeatureSwitches.reservation !== false}}" class="tab-item {{kind==='RESERVED'?'active':''}}" data-kind="RESERVED" bindtap="chooseKind">
         <text class="tab-icon">⏰</text>
         <text class="tab-name">预约用车</text>
       </view>
-      <view class="tab-item {{kind==='BID'?'active':''}}" data-kind="BID" bindtap="chooseKind">
+      <view wx:if="{{state.passengerFeatureSwitches.bidding !== false}}" class="tab-item {{kind==='BID'?'active':''}}" data-kind="BID" bindtap="chooseKind">
         <text class="tab-icon">⚡</text>
         <text class="tab-name">司机竞价</text>
       </view>
@@ -150,7 +150,7 @@
     </view>
 
     <!-- 底部确认呼叫按钮 -->
-    <button class="call-car-btn" bindtap="submit" disabled="{{busy || !!active}}">
+    <button class="call-car-btn" bindtap="submit" disabled="{{busy || !!active || (authenticated && availableKinds.length===0)}}">
       {{authenticated ? (kind==='BID' ? '发起竞价呼叫' : '立即呼叫用车') : '登录后呼叫用车'}}
     </button>
     <view class="disclaimer-tip">金额由宜捷行体验服务估算；竞价须选择司机报价。请勿用于真实交通运营。</view>

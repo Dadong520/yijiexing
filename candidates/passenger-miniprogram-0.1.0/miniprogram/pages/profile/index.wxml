@@ -58,7 +58,7 @@
     </view>
     <view class="grid-item" bindtap="go" data-url="/pages/settings/index?section=invoices">
       <view class="grid-icon">🧾</view>
-      <text class="grid-label">发票中心</text>
+      <text class="grid-label">{{state.passengerFeatureSwitches.invoice===false ? '历史发票记录' : '发票中心'}}</text>
     </view>
   </view>
 
@@ -82,10 +82,10 @@
     <view class="menu-row" bindtap="onOpenInvite">
       <view class="menu-left">
         <text class="menu-icon">🎁</text>
-        <text class="menu-title">分享拉新得好礼</text>
+        <text class="menu-title">邀请功能演示</text>
       </view>
       <view class="menu-right-badge">
-        <text class="reward-tag">首单立得¥20券</text>
+        <text class="reward-tag">奖励暂未启用</text>
         <text class="menu-arrow">›</text>
       </view>
     </view>
@@ -139,7 +139,7 @@
   <view class="invite-card">
     <view class="invite-banner">
       <view class="invite-title">邀请好友 · 共享好礼</view>
-      <view class="invite-sub">每成功邀请1位好友完成首单，立享¥20专享乘车券</view>
+      <view class="invite-sub">邀请功能演示，暂未接入服务端奖励，不发放乘车券或积分</view>
     </view>
     <view class="invite-body">
       <!-- 模拟拉新二维码海报 -->

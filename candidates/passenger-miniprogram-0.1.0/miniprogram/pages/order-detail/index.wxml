@@ -12,6 +12,7 @@
   </view>
 
   <block wx:if="{{order}}">
+    <view class="card"><view class="subtitle">订单公司客服</view><view>{{order.company.name}}</view><view>{{order.company.supportPhone || order.company.statusText}}</view><button wx:if="{{order.company.supportPhone}}" bindtap="callOrderCompany">联系公司客服</button></view>
     <!-- 顶部状态指示横幅与安全守护浮标 -->
     <view class="status-banner">
       <view class="status-meta">

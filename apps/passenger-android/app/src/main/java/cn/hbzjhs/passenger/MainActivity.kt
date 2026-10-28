@@ -293,11 +293,12 @@ fun PassengerApp(
           "favorites" -> FavoritesScreen(state, store)
           "feedback" -> FeedbackScreen(state, store)
           "complaints" -> ComplaintsScreen(state)
-          "help" -> HelpScreen(state)
+          "help" -> HelpScreen(state, store)
           else -> ExtraScreen(page, state, store)
         }
     }
   }
+  PassengerAnnouncements(state, store, logged)
   if (settings) SettingsDialog(store, configured) { settings = false }
 }
 
