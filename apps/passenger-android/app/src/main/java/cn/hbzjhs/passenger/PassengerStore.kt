@@ -413,10 +413,18 @@ class PassengerStore(app: Application) : AndroidViewModel(app) {
   }
 
   fun claimAnnouncement(row: JSONObject, onResult: (Boolean) -> Unit, onFailure: (String) -> Unit) {
+    // No suspension between this check and run's synchronous busy acquisition.
+    if (_busy.value) {
+      onFailure("其他操作正在处理，公告尚未领取，请稍后重试")
+      return
+    }
     val generation=sessionGeneration
     val account=_state.value.optJSONObject("passenger")?.text("id").orEmpty()
     run {
-      if(generation!=sessionGeneration) return@run
+      if(generation!=sessionGeneration) {
+        onFailure("会话已切换，公告尚未领取，请重试")
+        return@run
+      }
       stateEpoch++ // A prior silent state read must not overwrite the receipt response.
       try {
         require(account.isNotBlank()) { "请先登录后查看公告" }
