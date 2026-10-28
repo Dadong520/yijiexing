@@ -1,0 +1,28 @@
+{
+  "taskId": "PMVO-20261028-01",
+  "change": "preserve optional approval note",
+  "baseSha": "33fa8e3102c61b9190f3fa7d49281ad8274f79c5",
+  "authorThreadId": "01a168e2-22f7-70a2-af7f-4fb6be0ea695",
+  "updatedAt": "2026-10-28T13:36:31+08:00",
+  "behavior": "approved reason omitted/empty or trimmed 0..500 characters stored in auditRecords and audit log; approved rejectionReason/reply remain empty; rejected reason still required 2..500",
+  "testCommand": "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=apps/cloud-service python3 -m unittest discover -s apps/cloud-service/tests -p test_qualification_replacement.py -v",
+  "testsRun": 11,
+  "seconds": 1.93,
+  "exitCode": 0,
+  "coverage": [
+    "approval note retained in auditRecords and audit after_value, survives restart",
+    "approval empty and omitted remain compatible",
+    "non-string/null/bool/array/object and over500 rejected",
+    "rejection empty/one character rejected",
+    "active/replacement lifecycle regressions retained"
+  ],
+  "sourceSHA256": {
+    "apps/cloud-service/qualifications.py": "98b016f16b052729a560498d320525ba19fe01cbd1d35eb552a878abbb5b5571",
+    "apps/cloud-service/tests/test_qualification_replacement.py": "c3fc023a67a16bb30a958b535ed2759b0e2e04a1707234f1e4a6ed3ce8de830a"
+  },
+  "contractSHA256": "088fa85361ea021175b46bf077ba9b13ec8d57ba411d3b22cdf339b62e93be9c",
+  "logSHA256": "408de43c1d774d61a5544172112a819c460a2eb13bfdf49b604dc5ae5b23f6fd",
+  "fullSuite": "NOT_REPEATED: requested narrow audit metadata fix; previous251 baseline remains separately bound",
+  "independentReview": "NOT_RUN_FOR_PATCH_SHA",
+  "deployment": "NOT_RUN"
+}

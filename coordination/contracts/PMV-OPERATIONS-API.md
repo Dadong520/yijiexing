@@ -59,7 +59,7 @@ content `{title,content,scope:NATIONAL|REGION|CITY,target,audiences:[MINIPROGRAM
 
 `certificate.submit` 原payload增加可选expectedVersion（新客户端必传），仍 `{type,validFrom,validUntil,imageBase64,backImageBase64?}`。图片校验与原规则不变，保单不支持长期。新证只进pending，版本+1；有效旧证顶层及资质APPROVED不变。无有效旧证仍不能新增接单；旧证审核中到期，则实时阻新增，在途可完成。
 
-管理 `certificate.audit` 保留 `{driverId,type,approved,reason?}`；新pending必须补 `{expectedVersion,submissionId}`，陈旧候选409；旧legacy顶层PENDING兼容旧审核。通过则同事务用pending替换顶层材料、清pending、版本+1，按全部当前证件状态计算资质；驳回清pending、保留旧材料和旧有效状态、reviewStatus=REJECTED，保存完整审核链，不自动通过。
+管理 `certificate.audit` 保留 `{driverId,type,approved,reason?}`；v1.4澄清：通过时reason可省略或为空字符串，严格字符串、去首尾空白后0..500字，保存auditRecords.reason及审计日志；通过后的rejectionReason/reply仍清空，不显示为驳回说明。驳回reason仍必填且2..500字；新pending必须补 `{expectedVersion,submissionId}`，陈旧候选409；旧legacy顶层PENDING兼容旧审核。通过则同事务用pending替换顶层材料、清pending、版本+1，按全部当前证件状态计算资质；驳回清pending、保留旧材料和旧有效状态、reviewStatus=REJECTED，保存完整审核链，不自动通过。
 
 管理state.operations.qualificationAlerts为三证提醒/过期/未知日期的只读列表，每项含driverId,type,version,validUntil,daysRemaining,validity,pending/reviewStatus；司机同字段随certificates返回。GET `/api/local/admin/v2/certificate-file` 增加 `source=REVIEW|ACTIVE`，缺省REVIEW（有pending则读pending，无则原active）；响应source也固定为REVIEW（待审材料）或ACTIVE（当前材料），返回submissionId以便审核绑定（v1.2字段对齐），不暴露他人附件。服务端新增接单/报价选择/预约出发/议价认领均保留实时证件校验；driver.online也检查，过期不能上线新增，但允许已有在途完成/下线。公司签约资金门禁本轮不启用。
 

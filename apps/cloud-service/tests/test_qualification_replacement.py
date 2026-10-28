@@ -124,3 +124,33 @@ class QualificationReplacementTests(PolicyCase):
         reply=self.da(d['token'],'certificate.submit',body,rid='lost-cert')
         self.assertEqual(reply['result']['certificate']['version'],1)
         self.assertEqual(self.cert(d)['version'],1)
+
+    def test_approval_note_persists_without_becoming_rejection_message(self):
+        p,d=self.setup_pair();c=self.submit(d)['result']['certificate']
+        for reason in (None,123,True,{},[],'字'*501):
+            self.audit(d,c,True,reason=reason,expected=400)
+        for reason in ('','字'):
+            self.audit(d,c,False,reason=reason,expected=400)
+        self.audit(d,c,True,reason='  已核对原件，准予通过  ')
+        approved=self.cert(d)
+        self.assertEqual(approved['auditRecords'][-1]['reason'],'已核对原件，准予通过')
+        self.assertEqual(approved['rejectionReason'],'');self.assertEqual(approved['reply'],'')
+        event=self.mutate_fixture(lambda svc:json.loads(svc.db.execute(
+            "SELECT after_value FROM audits WHERE action='certificate.audit' ORDER BY id DESC LIMIT 1").fetchone()[0]))
+        self.assertIs(event['approved'],True);self.assertEqual(event['reason'],'已核对原件，准予通过')
+        restored=self.request('/api/state',token=d['token'],server=self.start())['profile']['certificates'][0]
+        self.assertEqual(restored['auditRecords'][-1]['reason'],'已核对原件，准予通过')
+
+    def test_approval_empty_or_omitted_note_remains_compatible(self):
+        p,d=self.setup_pair();self.admin=self.start('admin')
+        for omit in (True,False):
+            self.change(d,validUntil=(now().date()+dt.timedelta(days=60)).isoformat())
+            c=self.submit(d,version=self.cert(d)['version'])['result']['certificate']
+            payload={'driverId':d['profile']['driver']['id'],'type':'insurance','approved':True,
+                'expectedVersion':c['version'],'submissionId':c['pending']['submissionId']}
+            if not omit:payload['reason']=''
+            self.request('/api/local/admin/action',{'action':'certificate.audit','payload':payload},
+                server=self.admin,admin=True)
+            approved=self.cert(d)
+            self.assertEqual(approved['auditRecords'][-1]['reason'],'')
+            self.assertEqual(approved['rejectionReason'],'');self.assertEqual(approved['reply'],'')

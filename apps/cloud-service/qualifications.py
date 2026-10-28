@@ -104,7 +104,9 @@ class QualificationsMixin:
             candidate = clone(cert)  # Old snapshots retain their existing pending audit path.
         approved = p.get('approved')
         require(type(approved) is bool, '审核结果无效')
-        reason = '' if approved else textfield(p.get('reason'), '退回原因', 2, 500)
+        reason = (textfield(p.get('reason', ''), '审核说明', 0, 500) if approved else
+                  textfield(p.get('reason'), '退回原因', 2, 500))
+        rejection = '' if approved else reason
         before = clone(cert)
         if approved:
             self.certificate_dates(cert['type'], candidate)
@@ -115,12 +117,13 @@ class QualificationsMixin:
             cert.update(status='REJECTED', statusCode=4)
         at = stamp()
         cert.update(pending=None, version=cert.get('version', 0) + 1,
-            reviewStatus='APPROVED' if approved else 'REJECTED', rejectionReason=reason,
-            reply=reason, auditedAt=at, auditedBy=actor)
+            reviewStatus='APPROVED' if approved else 'REJECTED', rejectionReason=rejection,
+            reply=rejection, auditedAt=at, auditedBy=actor)
         cert.setdefault('auditRecords', []).append({'actor': actor, 'approved': approved,
             'reason': reason, 'at': at, 'submission': clone(candidate)})
         profile['driver']['certificationStatus'] = ('APPROVED' if all(
             c.get('status') == 'APPROVED' for c in profile['certificates']) else 'PENDING')
         self.save_profile(driver, profile)
-        self.audit(actor, 'certificate.audit', before, {'driverId': driver, 'certificate': cert})
+        self.audit(actor, 'certificate.audit', before,
+                   {'driverId': driver, 'approved': approved, 'reason': reason, 'certificate': cert})
         return {'certificate': self.certificate_view(cert)}

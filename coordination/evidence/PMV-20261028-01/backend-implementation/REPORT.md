@@ -48,3 +48,9 @@ GUI、双模拟器、真机、微信编译/发布、线上旧订单指纹/发布
 总管发现当前profile城市入口不能代表历史订单city门禁。本补丁只在passenger_view增加invoiceApplicationEnabled及invoiceApplicationRulesVersion，直接复用订单city的effective_features；新申请仍由原invoice.apply再次校验，不改金额/发票数据。布尔表示地区功能许可，原DONE/paid资格仍由客户端/服务端原逻辑判断；历史回执不受布尔关闭影响。契约已同步v1.3。
 
 实际运营HTTP/SQLite/CAS专项16项PASS/3.420s，包含A/B开关相反、乘客切城市、两城开关反转、API一致、历史模拟回执仍可读、原始passenger_orders读前后相等。证据invoice-city-projection-{result.json,tests.log}。原251项全套仅绑定0d9a32c产品基线，本小补丁未重复全套，未声称252全套通过。补丁源文件哈希见独立JSON，精确提交SHA见中央本任务与短卡；冻结SHA非作者及GUI仍NOT_RUN。
+
+## v1.4 增量：通过审核说明不丢弃
+
+通过时可选reason按严格字符串、去首尾空白后0..500字校验，保存auditRecords.reason和audit日志显式reason/approved；rejectionReason/reply在通过时仍清空。驳回继续必填2..500字。未更改审核权限、日期、材料替换、公司、费用或发票。契约同步v1.4。
+
+11项证件定向HTTP/SQLite/CAS回归PASS/1.930s：非空说明保存并跨重启留存、通过时空/省略兼容、非字符串/超长400、驳回空或一字400及原审核生命周期。日志approval-note-tests.log，文件SHA/基线见approval-note-result.json。未重复无关251项，也未宣称新的冻结SHA已独立验收或上线。
