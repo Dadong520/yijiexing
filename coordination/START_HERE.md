@@ -11,6 +11,9 @@
 6. `python3 tools/check_coordination.py --memory-role <role> --session-id <真实会话ID>`。工作树是旧协议时先从中央读取当前协议；只能在自己允许的文件范围内同步，不能改他人工作树。
 7. 先回三行：已读检查点与基线 / 未完成项及已知限制 / 下一动作与唯一文件归属。不把“已部署”误当“仍待发布”。
 
+## 自主交付入口
+用户反馈触发的执行约定见`AUTONOMY_POLICY.md`与`AUTONOMY_CONFIG.json`。唯一coordinator完成拆单、开发协同、非作者验收、准确SHA门禁、合并、独立体验发布回读；发布后等反馈，不新增常驻服务。原始安装回执与后续ACK分阶段保留，不能把PENDING安装状态当运行证明。
+
 ## 去哪里找
 - 当前事实/已上线版本/唯一后端目录：STATE.md。
 - 活跃工作：BOARD.json→tasks/<id>.json；完成任务：archive（按需查一个）。

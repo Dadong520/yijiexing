@@ -1,0 +1,13 @@
+{
+  "status": "PASS_AUTHOR_SCOPE_ONLY",
+  "coordinatorUnchanged": true,
+  "samePolicyAndActiveConfigBothRoots": true,
+  "originalInstallReceiptPreserved": true,
+  "ackHashesVerified": true,
+  "mode": "feedback-driven current chat; waiting for feedback",
+  "daemonInstalled": false,
+  "newCoordinator": false,
+  "productDiff": 0,
+  "productDeployment": "NOT_RUN_NOT_NEEDED",
+  "businessTests": "NOT_RUN_NOT_NEEDED"
+}

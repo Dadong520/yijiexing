@@ -8,6 +8,7 @@
 | GOV-02 | Codex保持GPT-6.1；Gemini沿用用户选择模型与已验证CLI入口，不改全局设置 | 用户模型要求；GEMINI_CLI.md |
 | GOV-03 | Gemini优先主要实现/常规自测；backend管关键规则，frontend独立原生/前端验收；作者不验收自己 | AGENTS 2/4/7 |
 | GOV-04 | 2026-10-28用户要求后续继续用独立Codex会话和Gemini/反重力协同。后端/前端默认复用侧栏可见独立会话；本会话子代理不作默认替代。总管报告会话名、任务与状态并统一收结果/发布；Gemini实际受限须明示 | 用户本轮明确指令；evidence/PM-20261027-01/COLLABORATION_PREFERENCE_20261028.json |
+| GOV-05 | 2026-10-28用户明确启用反馈驱动自主交付：保留原coordinator唯一指挥/发布，用户仅体验发布后验证反馈；root自行拆单派单、开发、自测、非作者验收、精确SHA集成合并与既有授权体验发布回读。仅关键产品选择/外部授权无法推断时汇总问一次；空闲等反馈，无新守护/定时服务，不重复部署已完成版，不扩大本轮产品范围 | 本轮用户直接指令及本机接入包；AUTONOMY_POLICY.md、AUTONOMY_CONFIG.json、evidence/AUTO-20261028-01/COORDINATOR_ACK.json；补充GOV01–04与ENV02 |
 | ENV-01 | 只用独立体验项目yijiexing-driver-demo-1023/us-west1；保留数据、服务间IAM与API兼容；后台登录按AUTH-01 | 用户原环境隔离要求；实际回执REL-20261025-02 |
 | ENV-02 | 通过适用验收可自主部署，coordinator唯一发布；CloudRun自动/min0/max1/请求计费，不保活、不自动手工暂停 | 用户解除逐次审批；部署回执；旧README“云暂停”已过时 |
 | ENV-03 | 大文件优先直连，失败才代理；私有账户/密钥/密码/APK/缓存不进Git和消息 | 用户流量要求；AGENTS10 |

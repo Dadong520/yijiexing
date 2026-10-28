@@ -1,0 +1,14 @@
+{
+  "time": "2026-10-28T22:12:56.015081+08:00",
+  "instructionSource": "/Users/dongge/Documents/deepseek-harness/default-workspace/yijiexing-automation/接入原协调者.txt",
+  "scope": "Candidate material read only; codex_bridge.py neither read nor run; no product deployment",
+  "sourceHashes": {
+    "接入原协调者.txt": "d802c42a2573f897826c0c88f073e410d13c87a70c835d63ceb6909d6503bd90",
+    "AUTONOMY_POLICY.md": "d560c502743125dea5f381871b2060ce1c6aee959631013499dc7d05d1c99baa",
+    "AUTO-20261028-01.draft.json": "d05828e15fd9f1c384441144fe6ed88ff2c33271388460ae2bc97f7d43c21728",
+    "install_autonomy.py": "8003f86d4674e2d4b600d23f4b2181071a377d9937260765298956572728fcaa"
+  },
+  "resolvedBaseSha": "6ff9068da7914267323258867afcea937beea683",
+  "rollStatus": "COMPLETE_MERGED_PR34",
+  "coordinatorThreadId": "01a17cc7-e0a2-7791-bf1d-4611c09bab22"
+}

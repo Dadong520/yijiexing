@@ -13,3 +13,5 @@
 最新已交付为PUI乘客端UI：产品PR32合并main a542f6640681956f330e91bc67ecf2f62cfcbda8，产品源码7d6dc6014906c80be87b39f4433ec494ae067098；乘客1.1.15-experience/code17，司机保持0.3.14-cloud/code17。API/admin pui-7d6dc60-test1各100%，user-test同版本；乘客完整HTTPS/hash/包名/版本/原签名回读通过，39旧单全部存储字段一致。发布回执coordination/evidence/PUI-20261028-01/release/FINAL-RELEASE-RECEIPT.json；回执归档PR33是否已合并先看中央STATE。快链https://user-test---driver-demo-phfgquzmua-uw.a.run.app/download（司机）及/download-passenger（乘客）。当前已发布不再等部署，原PMV与PR28/29只历史。
 
 本轮完成13图页面和三类持久默认项；联系页只公司客服确认打开拨号页，司机中继/IM未接；支付退款发票模拟。高德1008/10008仍未过，不重新索Key；微信缺AppID/OEM实机未验；2.0剩余项/PMPOST未集成。root/不同会话独立验收详见NATIVE_REVIEW/SOURCE_BINDING/packaging-review，不重复全套。frontend已建议阶段后换新对话，只有用户明确新开才移交；旧pmv工作树dirty控制快照只读，不覆盖。Gemini两PUI短context精确SUCCESS与hash已核，lease释放。隔离fixture/emulator、构建上传均停止，没有后台自动化。后续按用户体验反馈定向处理，不擅扩范围。
+
+当前已启用反馈驱动自主交付，接任先读AUTONOMY_POLICY.md/CONFIG及ACK。用户只提供体验反馈，root完成内部闭环至体验发布回读；空闲等待，不新增守护/轮询/第二协调者。原始安装PENDING回执是历史阶段，实际激活看后续ACK与CONFIG。

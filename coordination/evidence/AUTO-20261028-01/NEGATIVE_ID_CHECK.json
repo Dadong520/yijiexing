@@ -1,0 +1,7 @@
+{
+  "commandScope": "Dry-run invalid artificial sessionID, no registered identity impersonated",
+  "exitCode": 1,
+  "result": "EXPECTED_REJECTION",
+  "allFiveTargetsStillAbsent": true,
+  "output": "NOT_APPLIED: 只能由当前真实登记的原协调者安装；不能抄用他人会话 ID\n"
+}

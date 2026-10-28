@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "mode": "feedback_driven_autonomous_delivery",
+  "activation": "ACTIVE",
+  "ownerThreadId": "01a17cc7-e0a2-7791-bf1d-4611c09bab22",
+  "registryGeneration": 6,
+  "runtime": "existing_chatgpt_coordinator",
+  "feedbackEntry": "原 ChatGPT 协调会话",
+  "controlRoot": "/Users/dongge/Documents/New project 2",
+  "previewProject": "yijiexing-driver-demo-1023",
+  "previewRegion": "us-west1",
+  "pauseAfterEachRelease": true,
+  "backgroundServiceInstalled": false,
+  "newCoordinatorCreated": false,
+  "authorization": "用户只在体验发布后验证与反馈；沿用原协调者和既有发布授权",
+  "policy": "coordination/AUTONOMY_POLICY.md",
+  "trigger": "user_feedback_in_original_coordinator_chat",
+  "runtimeState": "WAITING_FOR_USER_FEEDBACK",
+  "coordinatorAck": {
+    "threadId": "01a17cc7-e0a2-7791-bf1d-4611c09bab22",
+    "taskId": "AUTO-20261028-01",
+    "acknowledgedAt": "2026-10-28T22:15:59.924446+08:00",
+    "protocolVersion": "2026-10-26-v3",
+    "policySha256": "d560c502743125dea5f381871b2060ce1c6aee959631013499dc7d05d1c99baa",
+    "installReceipt": "coordination/evidence/AUTO-20261028-01/AUTONOMY_INSTALL.json",
+    "meaning": "Workflow policy active; not proof of a running daemon or scheduled job"
+  }
+}

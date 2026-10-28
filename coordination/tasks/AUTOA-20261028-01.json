@@ -1,0 +1,48 @@
+{
+  "schemaVersion": 1,
+  "id": "AUTOA-20261028-01",
+  "owner": "backend",
+  "goal": "非作者只读独立复核AUTO安装器/约定与实际安装ACK，不改产品或中央控制",
+  "baseSha": "6ff9068da7914267323258867afcea937beea683",
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-pm-amap-20261027",
+  "branch": "codex/autonomy-mode-20261028",
+  "allow_paths": [
+    "coordination/tasks/AUTOA-20261028-01.json",
+    "coordination/handoffs/backend.md",
+    "coordination/evidence/AUTO-20261028-01/review/"
+  ],
+  "checks": [
+    "先读中央START_HERE/STATE/本人短卡与本任务，以本会话真实ID自检",
+    "只读审核外部AUTONOMY_POLICY/install_autonomy.py及root干运行证据：唯一协调者/有效任务/分支/allow_paths/不覆盖旧文件，不执行codex_bridge、不建新协调者/守护服务、不改模型全局",
+    "root完成安装和ACK后独立核对中央/工作树文件hash及owner/generation/runtime/反馈触发/已有门禁和部署边界，原始INSTALL与ACK阶段准确区分",
+    "仅提交本任务报告和短卡，不提交Git/改产品/中央文件，不启动AGY/代理/云/ADB/全套业务测试，不自动跨会话回信"
+  ],
+  "status": "COMPLETED",
+  "acceptance": "PASS",
+  "tests": [
+    {
+      "command": "python3 tools/check_coordination.py --memory-role backend --session-id 01a182c6-c058-76e1-9584-38abfe813799",
+      "exitCode": 0,
+      "result": "PASS; NORMAL; context UNKNOWN"
+    },
+    {
+      "command": "Read-only policy/installer review + SHA256 + source Git metadata",
+      "exitCode": 0,
+      "result": "Static PASS; hashes match INTAKE/reviewed copy; final install/ACK review NOT_RUN"
+    },
+    {
+      "command": "Read-only independent install receipt/ACK hash-chain reconstruction, dual-root equality, registry/runtime and Git scope checks",
+      "exitCode": 0,
+      "result": "PASS; all 13 checks; business NOT_RUN_NOT_NEEDED"
+    }
+  ],
+  "evidence": [
+    "coordination/evidence/AUTO-20261028-01/review/PRELIMINARY_REVIEW.json",
+    "coordination/evidence/AUTO-20261028-01/review/FINAL_REVIEW.json"
+  ],
+  "nextAction": "Root governance-only integration; backend IDLE; no business deployment",
+  "deploy_owner": "coordinator",
+  "releaseReady": false,
+  "updatedAt": "2026-10-28T22:17:36+08:00",
+  "businessChecks": "NOT_RUN_NOT_NEEDED"
+}
