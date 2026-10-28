@@ -1,0 +1,54 @@
+{
+  "artifacts": {
+    "images": [
+      "us-west1-docker.pkg.dev/yijiexing-driver-demo-1023/demo/driver-cloud:pui-7d6dc60"
+    ]
+  },
+  "createTime": "2026-10-28T13:19:14.266514751Z",
+  "id": "03757f88-fde4-42b9-a9d2-5a78deb839fb",
+  "images": [
+    "us-west1-docker.pkg.dev/yijiexing-driver-demo-1023/demo/driver-cloud:pui-7d6dc60"
+  ],
+  "logUrl": "https://console.cloud.google.com/cloud-build/builds;region=us-west1/03757f88-fde4-42b9-a9d2-5a78deb839fb?project=491829048305",
+  "logsBucket": "gs://491829048305.cloudbuild-logs.googleusercontent.com",
+  "name": "projects/491829048305/locations/us-west1/builds/03757f88-fde4-42b9-a9d2-5a78deb839fb",
+  "options": {
+    "logging": "LEGACY",
+    "pool": {},
+    "workerRelease": "legacy"
+  },
+  "projectId": "yijiexing-driver-demo-1023",
+  "queueTtl": "3600s",
+  "serviceAccount": "projects/yijiexing-driver-demo-1023/serviceAccounts/491829048305-compute@developer.gserviceaccount.com",
+  "source": {
+    "storageSource": {
+      "bucket": "yijiexing-driver-demo-1023_cloudbuild",
+      "generation": "1793193539891220",
+      "object": "source/1793193510.766191-be76ad823645456190e5a8cb6ed884e9.tgz"
+    }
+  },
+  "sourceProvenance": {
+    "resolvedStorageSource": {
+      "bucket": "yijiexing-driver-demo-1023_cloudbuild",
+      "generation": "1793193539891220",
+      "object": "source/1793193510.766191-be76ad823645456190e5a8cb6ed884e9.tgz"
+    }
+  },
+  "status": "QUEUED",
+  "steps": [
+    {
+      "args": [
+        "docker",
+        "build",
+        "--network",
+        "cloudbuild",
+        "--no-cache",
+        "-t",
+        "us-west1-docker.pkg.dev/yijiexing-driver-demo-1023/demo/driver-cloud:pui-7d6dc60",
+        "."
+      ],
+      "name": "gcr.io/cloud-builders/gcb-internal"
+    }
+  ],
+  "timeout": "3600s"
+}

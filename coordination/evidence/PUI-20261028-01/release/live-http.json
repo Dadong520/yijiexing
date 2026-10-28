@@ -1,0 +1,48 @@
+[
+  {
+    "url": "https://yijiexing-demo.hbzjhs.xyz/health",
+    "expectedHttp": 200,
+    "http": 200,
+    "curlExit": 0,
+    "sourceBytesEqual": null,
+    "PASS": true
+  },
+  {
+    "url": "https://demo-admin.hbzjhs.xyz/",
+    "expectedHttp": 200,
+    "http": 200,
+    "curlExit": 0,
+    "sourceBytesEqual": true,
+    "PASS": true
+  },
+  {
+    "url": "https://demo-admin.hbzjhs.xyz/api/local/admin/v2/state",
+    "expectedHttp": 401,
+    "http": 401,
+    "curlExit": 0,
+    "sourceBytesEqual": null,
+    "PASS": true
+  },
+  {
+    "url": "https://user-test---driver-demo-phfgquzmua-uw.a.run.app/download-passenger",
+    "expectedHttp": 200,
+    "http": 200,
+    "curlExit": 0,
+    "sourceBytesEqual": null,
+    "PASS": true
+  },
+  {
+    "url": "https://user-test---driver-admin-phfgquzmua-uw.a.run.app/",
+    "expectedHttp": 200,
+    "http": 200,
+    "curlExit": 0,
+    "sourceBytesEqual": true,
+    "PASS": true
+  },
+  {
+    "driverFixedApkSha256Unchanged": true,
+    "sha256": "b2166efab8b8f7ba2a0a7ff1a51237699eeb9d7000f5c8301546279b54a6445f",
+    "version": "0.3.14-cloud/code17",
+    "method": "existing full HTTPS verification PMV + current object metadata; no repeated driver transfer"
+  }
+]

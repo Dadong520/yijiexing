@@ -8,4 +8,8 @@
 
 每阶段及约40分钟有效工作保存短卡；发现压缩后恢复成本增加、重复调查或记忆冲突要提前告诉我换新对话，附完整交接。没有可靠上下文遥测写UNKNOWN，不编造百分比。
 
-仅使用独立Google Cloud体验环境，保留历史数据、接口和按需min0/max1低费用设置，IAM/IAP按DECISIONS最新用户授权执行（当前后台PASSWORD模式，无Google登录）。不得连原生产/测试，凭据不入源码或聊天，大文件优先直连。换会话不等于重部署；未运行明确NOT_RUN；无任务不常驻工作。本次已交付体验版：PR28合并main 1d04ff7ce64779fe9f9122513dd651f305093b79，API/admin100%，司机0.3.13/code16、乘客1.1.13/code15及备用HTTPS整包回读PASS。原域名整包在本网络慢，快链为同服务user-test---driver-demo-phfgquzmua-uw.a.run.app的/download和/download-passenger。查中央最新STATE/RELTEST/RELREC实际回执，不能重复发布旧版或误说未合并。后续按用户反馈和父PM剩余项继续：高德1008/10008未过、公共点NOT_RUN；PMPOST83作者待非作者和客户端，未集成；微信缺AppID和OEM等未完成。先确认原根停止派单，勿擅扩范围或遍历旧聊天。
+仅使用独立Google Cloud体验环境yijiexing-driver-demo-1023/us-west1。保留数据、接口、ENV/secret/服务账号/IAM及automatic/min0/max1请求CPU计费，不保活、不自动暂停；当前后台PASSWORD原账号，无Google/IAP前置。禁止原生产/测试，凭据/私有账号库/DB/APK/cache不进源码或聊天，大文件优先直连。无任务不常驻，不因换会话重部署。
+
+最新已交付为PUI乘客端UI：产品PR32合并main a542f6640681956f330e91bc67ecf2f62cfcbda8，产品源码7d6dc6014906c80be87b39f4433ec494ae067098；乘客1.1.15-experience/code17，司机保持0.3.14-cloud/code17。API/admin pui-7d6dc60-test1各100%，user-test同版本；乘客完整HTTPS/hash/包名/版本/原签名回读通过，39旧单全部存储字段一致。发布回执coordination/evidence/PUI-20261028-01/release/FINAL-RELEASE-RECEIPT.json；回执归档PR33是否已合并先看中央STATE。快链https://user-test---driver-demo-phfgquzmua-uw.a.run.app/download（司机）及/download-passenger（乘客）。当前已发布不再等部署，原PMV与PR28/29只历史。
+
+本轮完成13图页面和三类持久默认项；联系页只公司客服确认打开拨号页，司机中继/IM未接；支付退款发票模拟。高德1008/10008仍未过，不重新索Key；微信缺AppID/OEM实机未验；2.0剩余项/PMPOST未集成。root/不同会话独立验收详见NATIVE_REVIEW/SOURCE_BINDING/packaging-review，不重复全套。frontend已建议阶段后换新对话，只有用户明确新开才移交；旧pmv工作树dirty控制快照只读，不覆盖。Gemini两PUI短context精确SUCCESS与hash已核，lease释放。隔离fixture/emulator、构建上传均停止，没有后台自动化。后续按用户体验反馈定向处理，不擅扩范围。

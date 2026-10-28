@@ -1,0 +1,36 @@
+{
+  "api": {
+    "ready": "True",
+    "revision": "driver-demo-pui-7d6dc60-test1",
+    "image": "us-west1-docker.pkg.dev/yijiexing-driver-demo-1023/demo/driver-cloud@sha256:d50f63b71ac68c3d7197835fbbd7ae90811463a46ea2b5ca0cde091c1d8079eb",
+    "trafficPercent": 100,
+    "userTestTag": "driver-demo-pui-7d6dc60-test1",
+    "runtimeSpecExceptImageUnchanged": true,
+    "scalingAndBillingAnnotationsUnchanged": true,
+    "iamBindingsUnchanged": true,
+    "serviceAnnotationDriftExcludingOperationalMetadata": [],
+    "scalingModeBefore": "automatic",
+    "scalingModeAfter": "automatic",
+    "minScale": "0",
+    "maxScale": "1",
+    "requestCpuBilling": "true",
+    "readback": "full private snapshots retained outside repository; no values emitted"
+  },
+  "admin": {
+    "ready": "True",
+    "revision": "driver-admin-pui-7d6dc60-test1",
+    "image": "us-west1-docker.pkg.dev/yijiexing-driver-demo-1023/demo/admin-ui@sha256:9a8909e3abaee81f59a2c905688816c0468342e365be26cfac282da5cd6b2128",
+    "trafficPercent": 100,
+    "userTestTag": "driver-admin-pui-7d6dc60-test1",
+    "runtimeSpecExceptImageUnchanged": true,
+    "scalingAndBillingAnnotationsUnchanged": true,
+    "iamBindingsUnchanged": true,
+    "serviceAnnotationDriftExcludingOperationalMetadata": [],
+    "scalingModeBefore": "automatic",
+    "scalingModeAfter": "automatic",
+    "minScale": "0",
+    "maxScale": "1",
+    "requestCpuBilling": "true",
+    "readback": "full private snapshots retained outside repository; no values emitted"
+  }
+}

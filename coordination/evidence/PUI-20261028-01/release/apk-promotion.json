@@ -1,0 +1,16 @@
+[
+  {
+    "role": "passenger",
+    "fixedObject": "distribution/yijiexing-passenger.apk",
+    "newGeneration": "1793194027052599",
+    "sha256": "798fbb0f9fc6796190ddaa36eb8f71f7081d196d0785867782da442d38996379",
+    "bytes": 107139449,
+    "archiveObject": "distribution/archive/20261028-before-pui7d6/passenger.apk",
+    "archiveGeneration": "1793194024639991",
+    "oldGeneration": "1793167199083550",
+    "oldBytes": 107529637,
+    "sourceGenerationPinned": true,
+    "destinationGenerationPreconditionUsed": true,
+    "status": "PROMOTED_ARCHIVE_VERIFIED"
+  }
+]

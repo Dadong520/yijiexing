@@ -14,13 +14,15 @@
     "以完整main8e2d655为当前基线，Android乘客1.1.14/code16；mini72通过但缺AppID未微信发布",
     "必须核全部13图及3段文字，读图不能只读提取文本；说明未跑设备GUI和服务能力边界"
   ],
-  "status": "INDEPENDENT_REVIEW_PASS_AWAIT_MERGE_RELEASE",
+  "status": "COMPLETE_RELEASED",
   "acceptance": "PASS",
   "tests": [],
   "evidence": [],
-  "nextAction": "Read design plus current source, return compact report and page map; implementation separate unique allow_paths",
+  "nextAction": "已发布回读；等待用户体验反馈。地图/微信/OEM未测边界保持。",
   "deploy_owner": "coordinator",
   "releaseReady": false,
-  "updatedAt": "2026-10-28T21:14:47.321381+08:00",
-  "independentEvidence": "coordination/evidence/PUI-20261028-01/NATIVE_REVIEW.json and SOURCE_BINDING.json; root non-author HTTP/UI"
+  "updatedAt": "2026-10-28T21:32:14.765550+08:00",
+  "independentEvidence": "coordination/evidence/PUI-20261028-01/NATIVE_REVIEW.json and SOURCE_BINDING.json; root non-author HTTP/UI",
+  "mainMergeSha": "a542f6640681956f330e91bc67ecf2f62cfcbda8",
+  "releaseReceipt": "coordination/evidence/PUI-20261028-01/release/FINAL-RELEASE-RECEIPT.json"
 }

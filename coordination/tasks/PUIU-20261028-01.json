@@ -27,7 +27,7 @@
     "实际单测/assemble、无Android设备GUI标NOT_RUN；Gemini结果与每块context/停止和自测路径写证据。所有作者自测由root非作者验收，暂不部署/不改版本，APK外置。",
     "PUIF发现mini联系按钮声称正在通过隐私号连接但无中继：本轮仅定点修正此入口真实能力/文案及适用回归，不扩展mini整体UI或声称微信发布；这是上文mini不改的唯一限定例外。"
   ],
-  "status": "INDEPENDENT_REVIEW_PASS_AWAIT_MERGE_RELEASE",
+  "status": "COMPLETE_RELEASED",
   "acceptance": "PASS",
   "tests": [
     {
@@ -54,13 +54,15 @@
     "coordination/evidence/PUI-20261028-01/client/REPORT.md",
     "coordination/evidence/PUI-20261028-01/client/result.json"
   ],
-  "nextAction": "Coordinator rebuild and independently recheck amount/cancellation on first native screen; frontend idle",
+  "nextAction": "已发布回读；等待用户体验反馈。地图/微信/OEM未测边界保持。",
   "deploy_owner": "coordinator",
   "releaseReady": false,
-  "updatedAt": "2026-10-28T21:14:47.321381+08:00",
+  "updatedAt": "2026-10-28T21:32:14.765550+08:00",
   "productSha": "f3c487885e3c1f5dd8de9b02409e7503ef4d0229",
   "pendingMergeSha": "f3c487885e3c1f5dd8de9b02409e7503ef4d0229",
   "evidenceSha": "d06e407a14cbb2dcb4c0fa2d0bb0116e7ce101dc",
   "latestPatchEvidence": "coordination/evidence/PUI-20261028-01/client/fee-summary-patch.json",
-  "independentEvidence": "coordination/evidence/PUI-20261028-01/NATIVE_REVIEW.json and SOURCE_BINDING.json; root non-author HTTP/UI"
+  "independentEvidence": "coordination/evidence/PUI-20261028-01/NATIVE_REVIEW.json and SOURCE_BINDING.json; root non-author HTTP/UI",
+  "mainMergeSha": "a542f6640681956f330e91bc67ecf2f62cfcbda8",
+  "releaseReceipt": "coordination/evidence/PUI-20261028-01/release/FINAL-RELEASE-RECEIPT.json"
 }

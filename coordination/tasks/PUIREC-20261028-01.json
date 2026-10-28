@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "id": "PUIREC-20261028-01",
+  "owner": "coordinator",
+  "goal": "只归档PUI已实际完成的发布回执与当前版本，无产品更改或重复部署",
+  "baseSha": "a542f6640681956f330e91bc67ecf2f62cfcbda8",
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-pm-amap-20261027",
+  "branch": "codex/passenger-ui-release-receipt-20261028",
+  "allow_paths": [
+    "coordination/",
+    "README.md"
+  ],
+  "checks": [
+    "回执绑定实际PR32主分支SHA、完整HTTPS/hash/包名/原证书、runtime与IAM保持、39旧单字段全等；产品目录零差量",
+    "结构检查/CI后合并回执，无再次发布"
+  ],
+  "status": "RECEIPT_READY_TO_COMMIT",
+  "acceptance": "PASS",
+  "tests": [
+    {
+      "command": "runtime/HTTPS/data/live HTTP actual readback",
+      "result": "PASS referenced FINAL-RELEASE-RECEIPT.json"
+    }
+  ],
+  "evidence": [
+    "coordination/evidence/PUI-20261028-01/release/FINAL-RELEASE-RECEIPT.json"
+  ],
+  "nextAction": "Commit receipt PR, CI and merge; no product redeploy",
+  "deploy_owner": "coordinator",
+  "releaseReady": false,
+  "updatedAt": "2026-10-28T21:32:14.765550+08:00"
+}

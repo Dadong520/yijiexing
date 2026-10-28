@@ -10,23 +10,23 @@
 - 活跃任务：[BOARD](coordination/BOARD.json)；长期决定：[DECISIONS](coordination/DECISIONS.md)；角色细节：handoffs；契约：contracts。
 - 恢复与提交检查：`python3 tools/check_coordination.py --memory-role <role> --session-id <真实会话ID>`；检查器不测量模型内部上下文，不等于业务验收。
 
-## 乘客端UI候选（已验收，待本轮发布）
+## 乘客端UI体验版（已发布）
 
-固定产品7d6dc6014906c80be87b39f4433ec494ae067098已完成13图涉及页面改造与三类持久默认项，候选乘客1.1.15-experience/code17，司机不变。详情首屏金额取消、整页行程设置保草稿、紧凑列表/空态、联系帮助页、回执和投诉层级均经隔离模拟器复核；本地数据为合成场景。默认HTTP6组、兼容13组、运营7组、Android31与构建、mini74组件等同、独立版本/签名/Key0检查通过，见[本轮独立验收](coordination/evidence/PUI-20261028-01/INDEPENDENT_ACCEPTANCE.md)。本节候选尚未代表线上版本，实际发布以新release回执为准。
+固定产品7d6dc6014906c80be87b39f4433ec494ae067098已完成13图涉及页面改造与三类持久默认项，乘客1.1.15-experience/code17，司机不变。详情首屏金额取消、整页行程设置保草稿、紧凑列表/空态、联系帮助页、回执和投诉层级均经隔离模拟器复核；本地数据为合成场景。默认HTTP6组、兼容13组、运营7组、Android31与构建、mini74组件等同、独立版本/签名/Key0检查通过，见[本轮独立验收](coordination/evidence/PUI-20261028-01/INDEPENDENT_ACCEPTANCE.md)。[PR32](https://github.com/Dadong520/yijiexing/pull/32)已合并主分支a542f6640681956f330e91bc67ecf2f62cfcbda8；API/后台新版100%，乘客固定APK已更新并完成HTTPS整包、原签名回读。发布前后39旧单全部存储字段一致，实际部署与边界见[本轮发布回执](coordination/evidence/PUI-20261028-01/release/FINAL-RELEASE-REPORT.md)。
 
-## 修改意见2.0 首批体验版
+## 当前入口与修改意见2.0首批能力
 
 | 项目 | 已发布与核验 | 入口 |
 |---|---|---|
 | 司机Android | 0.3.14-cloud / code17，原签名 | [司机快速入口](https://user-test---driver-demo-phfgquzmua-uw.a.run.app/download) |
-| 乘客Android | 1.1.14-experience / code16，原签名 | [乘客快速入口](https://user-test---driver-demo-phfgquzmua-uw.a.run.app/download-passenger) |
+| 乘客Android | 1.1.15-experience / code17，原签名 | [乘客快速入口](https://user-test---driver-demo-phfgquzmua-uw.a.run.app/download-passenger) |
 | Web后台 | 继续使用原账号密码 | https://demo-admin.hbzjhs.xyz/ |
 | 体验API | 同一持久数据与HTTPS域名 | https://yijiexing-demo.hbzjhs.xyz |
-| 微信小程序 | 源码72测试通过；缺AppID，未微信编译/真机/发布 | candidates/passenger-miniprogram-0.1.0/miniprogram |
+| 微信小程序 | 源码74测试通过；缺AppID，未微信编译/真机/发布 | candidates/passenger-miniprogram-0.1.0/miniprogram |
 
 首批完成公司与客服电话、公告草稿发布撤回、地区乘客功能发布开关和三证提前60天提醒/新证审核替换。后台位置：**平台运维→公告管理、公司与客服电话、乘客端功能配置；司机管理→资质到期提醒**。原32类保留在**配置与治理→历史草稿与人工记录**。
 
-固定产品817ed22已独立验收：7组新HTTP/13组兼容、真实隔离后台DOM、Android24/63和构建、mini72/admin4；frontend独立复核root包签名/版本/hash及源码绑定。见[独立验收](coordination/evidence/PMV-20261028-01/INDEPENDENT_ACCEPTANCE.md)。[PR30](https://github.com/Dadong520/yijiexing/pull/30)已合并主分支7402b117d55bd4d0f1404a5ae2ff0c1cf2e8e0a5，后台/API新版均100%流量，两固定APK已更新、旧包已归档；真实HTTPS整包下载/hash/包名/版本/原签名均回读通过。当前38笔旧单保留，一笔实时定位并发刷新，其余订单字段一致。见[实际发布回执](coordination/evidence/PMV-20261028-01/release/FINAL-RELEASE-REPORT.md)，部署细节与限制见[STATE](coordination/STATE.md)。旧版发布记录保留PR28/PR29。
+固定产品817ed22已独立验收：7组新HTTP/13组兼容、真实隔离后台DOM、Android24/63和构建、mini72/admin4；frontend独立复核root包签名/版本/hash及源码绑定。见[独立验收](coordination/evidence/PMV-20261028-01/INDEPENDENT_ACCEPTANCE.md)。[PR30](https://github.com/Dadong520/yijiexing/pull/30)已合并主分支7402b117d55bd4d0f1404a5ae2ff0c1cf2e8e0a5，后台/API新版均100%流量，两固定APK已更新、旧包已归档；真实HTTPS整包下载/hash/包名/版本/原签名均回读通过。该批发布时38笔旧单保留，一笔实时定位并发刷新，其余订单字段一致。见[实际发布回执](coordination/evidence/PMV-20261028-01/release/FINAL-RELEASE-REPORT.md)，部署细节与限制见[STATE](coordination/STATE.md)。旧版发布记录保留PR28/PR29。
 
 高德乘客搜索1008/地图10008仍FAIL；微信真机、部分设备GUI未测。支付、退款、提现、发票均模拟；新分账仅确认模拟口径，不执行真实资金或积分。文档28组剩余需求后续分批，PMPOST未集成。两APK沿用原签名支持覆盖安装，不把本版称全项目最终验收。
 
