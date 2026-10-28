@@ -1,0 +1,29 @@
+{
+  "task": "PUIU-20261028-01",
+  "trigger": "PUIR independent screenshots07/17: amount/cancellation required scrolling",
+  "patchSha": "f3c487885e3c1f5dd8de9b02409e7503ef4d0229",
+  "parentSha": "d06e407a14cbb2dcb4c0fa2d0bb0116e7ce101dc",
+  "changedProductFiles": [
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/OrderDetail.kt"
+  ],
+  "fileSha256": "faf8430c8e44afcfa8d636a80d90d092dcb7e4b8620feadbb87cd64f37632f68",
+  "behavior": "Compact amount + payment status + existing cancel entry immediately before first route card. Same cancellable/busy guard and original cancel modal. Lower duplicate cancel removed. No PaymentSnapshot/QuoteSnapshot, amount, gate, request or version changes.",
+  "tests": [
+    {
+      "command": "JAVA_HOME=/opt/homebrew/opt/openjdk@17/libexec/openjdk.jdk/Contents/Home ANDROID_HOME=/opt/homebrew/share/android-commandlinetools bash gradlew --offline --no-daemon --max-workers=1 -Dorg.gradle.jvmargs=-Xmx1536m -Pkotlin.compiler.execution.strategy=in-process -I /Users/dongge/.codex/tmp/yijiexing-pui-build-20261028/passenger.init.gradle :app:compileDebugKotlin",
+      "cwd": "/Users/dongge/.codex/tmp/yijiexing-pui-clients-20261028/apps/passenger-android",
+      "exitCode": 0,
+      "result": "BUILD SUCCESSFUL in 36s",
+      "log": "android-compile-04-fee-summary.log"
+    },
+    {
+      "command": "git diff --check; central memory gate; python3 tools/check_coordination.py",
+      "result": "PASS_STRUCTURAL_NOT_BUSINESS_ACCEPTANCE"
+    }
+  ],
+  "fullTests": "NOT_RERUN_LAYOUT_ONLY; preceding d02 Android31 and mini74 unchanged rule coverage remains historical baseline, no claim tested new UI",
+  "assemble": "NOT_RUN_PATCH; root requested unified rebuild",
+  "nativeGUI": "NOT_RUN_AUTHOR; root will independently recheck first screen",
+  "deployment": "NOT_RUN",
+  "createdAt": "2026-10-28T20:42:31.357927+08:00"
+}

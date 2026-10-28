@@ -1,0 +1,5 @@
+{
+  "initialFailure": "Probe edited second rider using first rider mobile; server correctly409 duplicate mobile",
+  "correction": "Use second rider existing mobile for default-preservation edit; no product patch",
+  "sourceUnchanged": true
+}

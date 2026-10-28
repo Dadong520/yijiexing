@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "id": "PUIA-20261028-01",
+  "owner": "backend",
+  "goal": "独立只读复核root乘客版本包装及frontend首屏修正；不验收自己编写的defaults业务，不发布",
+  "baseSha": "7d6dc6014906c80be87b39f4433ec494ae067098",
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-pm-amap-20261027",
+  "branch": "codex/passenger-ui-intake-20261028",
+  "allow_paths": [
+    "coordination/tasks/PUIA-20261028-01.json",
+    "coordination/evidence/PUI-20261028-01/packaging-review/",
+    "coordination/handoffs/backend.md"
+  ],
+  "checks": [
+    "只读产品源码：OrderDetail f3摘要修正只移动展示和原cancel入口，报价/状态/门禁未变；版本1.1.15-experience/code17，司机不变。",
+    "待root通知正式APK完成后核包名cn.hbzjhs.dc.passenger.cloud、原HTTPS、原证书SHA1 D0:6F:0A:9E:AC:9D:FD:DC:08:30:B9:8A:F0:6E:2F:68:B6:D2:02:46及无QA包ID/测试证书；独立hash和私有Key0扫描只报告计数。APK外部pui-release-build-20261028/passenger/_app/outputs/apk/debug/app-debug.apk，未通知前不可把旧a207包算新7d6。",
+    "不重复全套backend测试，自己的defaults业务由root已有HTTP独立验收；不操作ADB/云/分支/产品。证据绑定完整SHA+APKhash，NOT_RUN明确。"
+  ],
+  "status": "COMPLETED_PASS_SCOPE",
+  "acceptance": "PASS",
+  "tests": [
+    {
+      "command": "Source rendering delta reverse reconstruction + original logic/hash comparison",
+      "result": "PASS: source-only; business unchanged; driver source unchanged"
+    },
+    {
+      "command": "aapt badging/xmltree + apksigner verify + apkanalyzer BuildConfig",
+      "result": "PASS: cn.hbzjhs.dc.passenger.cloud/17/1.1.15, original certificate, production HTTPS; debug experience package"
+    },
+    {
+      "command": "Configured exact-value scan all decompressed APK members (3 encodings)",
+      "result": "PASS: 4 fields, total0, no private values output or copied"
+    }
+  ],
+  "evidence": [
+    "coordination/evidence/PUI-20261028-01/packaging-review/REPORT.md",
+    "coordination/evidence/PUI-20261028-01/packaging-review/results.json",
+    "coordination/evidence/PUI-20261028-01/packaging-review/package-review.json",
+    "coordination/evidence/PUI-20261028-01/packaging-review/private-key-scan.json"
+  ],
+  "nextAction": "Coordinator accept this narrow scope, bind final artifact and combine other independent evidence for merge/release.",
+  "deploy_owner": "coordinator",
+  "releaseReady": false,
+  "updatedAt": "2026-10-28T21:06:10+08:00",
+  "acceptedSha": "7d6dc6014906c80be87b39f4433ec494ae067098",
+  "apkSHA256": "798fbb0f9fc6796190ddaa36eb8f71f7081d196d0785867782da442d38996379"
+}

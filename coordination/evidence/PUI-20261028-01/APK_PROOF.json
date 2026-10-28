@@ -1,0 +1,15 @@
+{
+  "sourceSha": "7d6dc6014906c80be87b39f4433ec494ae067098",
+  "passenger": {
+    "path": "/Users/dongge/.codex/tmp/yijiexing-pui-release-build-20261028/passenger/_app/outputs/apk/debug/app-debug.apk",
+    "bytes": 107139449,
+    "sha256": "798fbb0f9fc6796190ddaa36eb8f71f7081d196d0785867782da442d38996379",
+    "package": "cn.hbzjhs.dc.passenger.cloud",
+    "versionName": "1.1.15-experience",
+    "versionCode": 17,
+    "signerSHA1": "d06f0a9eac9dfddc0830b98af06e2f68b6d20246",
+    "signerSHA256": "9ffec9b342d12909ff288bd73f23ba104893b39120cb24ea83c9734a0d2b758f",
+    "independentReviewer": "backend PUIA",
+    "configuredKeyMatches": 0
+  }
+}

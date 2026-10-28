@@ -1,0 +1,17 @@
+{
+  "contexts": [
+    {
+      "context": "9b453ce4-da83-43a3-88d5-5e0caa287476",
+      "result": "SUCCESS",
+      "streamHashVerified": true,
+      "modelOverride": false
+    },
+    {
+      "context": "9cada792-824e-4702-a2f0-1ca27d03b098",
+      "result": "SUCCESS",
+      "streamHashVerified": true,
+      "modelOverride": false
+    }
+  ],
+  "verification": "root exact result events and hashes; no AGY invoked by root"
+}

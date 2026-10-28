@@ -1,0 +1,28 @@
+test_defaults_never_rewrite_order_or_receipt_snapshots (independent_defaults_probe.DefaultReview.test_defaults_never_rewrite_order_or_receipt_snapshots) ... [2026-10-28T19:53:18+08:00] POST /api/local/admin/v2/login 200
+[2026-10-28T19:53:18+08:00] POST /api/passenger/auth/code 200
+[2026-10-28T19:53:18+08:00] POST /api/passenger/auth/login 200
+[2026-10-28T19:53:18+08:00] POST /api/passenger/action 200
+[2026-10-28T19:53:18+08:00] POST /api/passenger/action 200
+[2026-10-28T19:53:18+08:00] POST /api/passenger/action 200
+[2026-10-28T19:53:18+08:00] POST /api/passenger/action 200
+[2026-10-28T19:53:18+08:00] POST /api/passenger/action 200
+[2026-10-28T19:53:18+08:00] POST /api/passenger/action 200
+[2026-10-28T19:53:18+08:00] POST /api/passenger/action 200
+[2026-10-28T19:53:18+08:00] POST /api/passenger/action 200
+[2026-10-28T19:53:18+08:00] POST /api/passenger/action 200
+[2026-10-28T19:53:18+08:00] POST /api/passenger/action 200
+[2026-10-28T19:53:18+08:00] GET /api/passenger/state 200
+[2026-10-28T19:53:18+08:00] POST /api/passenger/action 200
+[2026-10-28T19:53:18+08:00] POST /api/passenger/action 200
+[2026-10-28T19:53:18+08:00] POST /api/passenger/action 200
+[2026-10-28T19:53:18+08:00] POST /api/passenger/action 200
+[2026-10-28T19:53:18+08:00] POST /api/passenger/action 200
+[2026-10-28T19:53:18+08:00] POST /api/passenger/action 200
+[2026-10-28T19:53:18+08:00] POST /api/passenger/action 200
+[2026-10-28T19:53:18+08:00] GET /api/passenger/state 200
+ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.295s
+
+OK

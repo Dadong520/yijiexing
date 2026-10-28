@@ -1,0 +1,40 @@
+{
+  "taskId": "PUIA-20261028-01",
+  "reviewerThreadId": "01a168e2-22f7-70a2-af7f-4fb6be0ea695",
+  "updatedAt": "2026-10-28T21:06:10+08:00",
+  "sourceSha": "7d6dc6014906c80be87b39f4433ec494ae067098",
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-pm-amap-20261027",
+  "branch": "codex/passenger-ui-intake-20261028",
+  "acceptance": "PASS_SOURCE_PACKAGE_SCOPE",
+  "findings": [],
+  "ownDefaults": "NOT_REVIEWED_BY_AUTHOR",
+  "sourceChecks": "PASS",
+  "apkIdentitySignatureOrigin": "PASS",
+  "configuredPrivateKeyScan": "PASS_ZERO_MATCHES",
+  "apkSHA256": "798fbb0f9fc6796190ddaa36eb8f71f7081d196d0785867782da442d38996379",
+  "sourceSHA256": {
+    "apps/passenger-android/app/build.gradle.kts": "51074052a963f9ee5c40ed07028a7fd86c6ec127ddc41c41dacaccbfc2c20d4a",
+    "apps/passenger-android/app/src/main/AndroidManifest.xml": "e6a0e5c9e0128a6754a8c1fa808d30edbb90e6063c25a6d1e17ca645277a916d",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/OrderDetail.kt": "faf8430c8e44afcfa8d636a80d90d092dcb7e4b8620feadbb87cd64f37632f68"
+  },
+  "sourceUnchangedAfterReview": true,
+  "notRun": [
+    "device/emulator GUI and screenshots",
+    "APK install/actual phone calls",
+    "AMap network authentication",
+    "WeChat compilation",
+    "online download and deployment",
+    "own defaults independent acceptance"
+  ],
+  "nextAction": "Coordinator accept this narrow scope, bind final artifact and combine other independent evidence for merge/release.",
+  "evidence": {
+    "apksigner.log": "658e6fdd6ca6ca3318fd723cdde63bed5a350ef7cda7fc23db5f40773053c797",
+    "buildconfig-dex.log": "1b990faec50eae9f258c70be8356a3c0371fbae4da5ddc104626473ccf445de4",
+    "REPORT.md": "25c9bef4d1e91ec70d05c505b0360e8bb5f6501c68471e9310ec29ae50c017c4",
+    "package-review.json": "91c72cbaf354c781a42d838359527e0126988020d86ef55fb1a817c954d627d9",
+    "source-review.json": "103841edf8d7e2749b8228881ca0c5493d9c80f54047c05e0751844ab023636d",
+    "manifest-tree.log": "57d0f0703d1a2ecce32d79adbd2b07c04ae58bbfc5f8959d309e852775704f5e",
+    "aapt-badging.log": "4ee06e6b3ca10fcbe5c5e2547d9f59b5cc09f693c176fe535aa18949e3f81b7a",
+    "private-key-scan.json": "c93dbcd3d51ad7d1de62fdeb2cb43c3374900ca1fb053851cdfddee30372b54a"
+  }
+}

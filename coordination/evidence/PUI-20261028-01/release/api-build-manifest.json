@@ -1,0 +1,31 @@
+{
+  "acceptedProductSourceSha": "7d6dc6014906c80be87b39f4433ec494ae067098",
+  "baseImage": "us-west1-docker.pkg.dev/yijiexing-driver-demo-1023/demo/driver-cloud@sha256:d074a2d4dec29113b767803395de94e0c7953a716c9abb3b38383f0ac1763bbe",
+  "files": {
+    "Dockerfile": "7b31fdef37017bd9b9d6e780f6494ceb55cdd5a1aa1206978a59220a3424f3a5",
+    "admin.py": "c4d257d4e6224f498a0f24768722eef9eda44c0747b9bc696a763681fe12af99",
+    "admin_console.py": "419eb1d2bf7886e12e30f913691d5870de14a31a5cde8da7197e65f990783214",
+    "admin_queries.py": "eb7077abd704dcdf9cfe9f0c435a0471701f4042dc480df82c90ea0e6188bd1c",
+    "benefits.py": "b9f4d100b05e7a3a4c39dd0bba69dbe557110a3ca006eb8a755692235f2470de",
+    "cloud_server.py": "8a4ba1ef1fc5cab5151f5463622cc1f4ebc4622a5c377102cd1ac08fe8dc54d9",
+    "common.py": "3e27cf145d05a96b2ae6e1435d66d460edf585bd98de1935fda1764e27face92",
+    "distribution.py": "303e3b1087f7d9b1278d383b6b386e4f0c0ceb7d9de87c48693895962a4d6084",
+    "domain.py": "e65911cae2673be94a90e7d81095cde8eb7cd418556d363bb01abd1627439868",
+    "live_operations.py": "78603cea7af9fc75cd8a07be75e45af87023e2175ba29d7110830f8ab5274dc3",
+    "negotiation.py": "3221dd09c04c9a2345260f5b8230aaf8893d64679596bf4c93da6d9aaba90df2",
+    "operations_drafts.py": "fdc760167021a769e4c535f9829cbbba7d1d31f3861c63d61f55d207fc2c7691",
+    "order_options.py": "4ec12f73f400cfae665b828b5714501b6e555bdf00eb99c352e306a5f36cb123",
+    "passenger.py": "ee716bb0451f45645f741a421fcec211c535651536498a97c2d1485ba7760b34",
+    "passenger_extras.py": "9c55874e6fac4ce875c3fd7315f90867ec126fdfec538d4de9571728c98036e8",
+    "qualifications.py": "98b016f16b052729a560498d320525ba19fe01cbd1d35eb552a878abbb5b5571",
+    "seed.py": "8488012f02b36b32f26cf1b2d96c403cc9523622e01f95fb084e7d624d85a23a",
+    "server.py": "78b96cbf3d2d551e9de6f6d06e290e2a803db68ce5b756a0674f1b55fde0998c",
+    "snapshot.py": "31552c1a6406157cc483507a66b3d2d8981c5ca7ab7941f4a2250225cabaca17",
+    "static/admin.css": "de41a30e4b75abbac164764070b76b81cd098716a573bce13f8537b220ab2045",
+    "static/admin.html": "386cb5544b3f3dfe89c461bef4d04471d514e63252a8c06a3a84644be4f3ae13",
+    "static/admin.js": "18fefe0b162a28ae7272c76a94e992c3bcfc6c5654503cadf25d0e5fc5684a17",
+    "static/sample.jpg": "94c65c68e2e11465bef264f86c5abd882e5967b5fc609ae6b99bafda9c1c6718",
+    "static/sandbox-certificate-sample.png": "d0c6e7af6edb96b1b2931b3f763ec51bf31d3eeca9222bf5cfc60b7c971e3186",
+    "trip_distance.py": "c192c69ddcea8a9a528c89dba661b053409fecacffc4d0738cea4fe736023b91"
+  }
+}

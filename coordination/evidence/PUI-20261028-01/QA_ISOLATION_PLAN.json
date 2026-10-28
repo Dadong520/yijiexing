@@ -1,0 +1,15 @@
+{
+  "scope": "Native UI review only, synthetic localhost data; shipping APK uses original HTTPS and app ID",
+  "baseSourceSha": "8e2d655bd58d33241d79d6da3ad82f29cdec7894",
+  "qaApplicationId": "cn.hbzjhs.dc.passenger.uireview",
+  "api": "HTTPS 10.0.2.2:64300 -> Mac loopback real handler + SQLite/MemoryCAS",
+  "tls": "QA-only certificate pinned via debug-only network config for10.0.2.2; no system CA install, no SSL validation bypass, production source/config untouched",
+  "sourceEquivalenceRequired": "All Kotlin/native resources same source commit, only external QA BuildConfig/app ID/debug manifest/network resource differ; explicitly not shipping artifact identity or successful Amap authentication proof",
+  "device": "emulator5582, existing Local_Review AVD read-only overlay/no snapshot load/save; original userdata unchanged; existing devices at intake0",
+  "cloudWrites": "NONE; no real shared orders/keys/accounts copied to fixture",
+  "status": "PREPARING; not tested yet",
+  "interfaceTool": "ADB specific serial emulator-5582 for taps/input/screenshots",
+  "userAuthorization": "Explicit async answer2026-10-28: 允许，仅本次隔离模拟器（推荐）",
+  "cuAResult": "Native emulator process not registered as accessible app; full SDK process path getApp returnedInvalid app",
+  "productionTlsUnchanged": true
+}

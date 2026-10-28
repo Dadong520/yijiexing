@@ -1,0 +1,87 @@
+{
+  "sourceSha256": "f95baea0b299883954aa86aa3ebd817d53444a4e384c7ee80d677d230ea3a2cc",
+  "scope": "Android passenger native UI in all13 supplied screenshots; no mini UI claim",
+  "imageReview": "Root inspected contact sheets of all13; frontend to inspect every original. Number5/6 absent in source, do not invent.",
+  "requirements": [
+    {
+      "sourceNumber": 1,
+      "goal": "预约提示状态栏",
+      "images": "image1"
+    },
+    {
+      "sourceNumber": 2,
+      "goal": "更多设置独立子页面",
+      "images": "image2"
+    },
+    {
+      "sourceNumber": 3,
+      "goal": "全局卡片与辅助色层级",
+      "images": "image1-image13"
+    },
+    {
+      "sourceNumber": 4,
+      "goal": "订单详情路线优先/费用ID紧凑",
+      "images": "image3"
+    },
+    {
+      "sourceNumber": "未编号",
+      "goal": "取消固定理由与其他",
+      "images": "image4"
+    },
+    {
+      "sourceNumber": 7,
+      "goal": "订单筛选全部/进行中/已完成/已取消",
+      "images": "image5"
+    },
+    {
+      "sourceNumber": 8,
+      "goal": "订单卡片紧凑排版",
+      "images": "image5"
+    },
+    {
+      "sourceNumber": 9,
+      "goal": "司机联系页入口/电话真实边界",
+      "images": "image3"
+    },
+    {
+      "sourceNumber": 10,
+      "goal": "个人中心分组区分样式",
+      "images": "image6"
+    },
+    {
+      "sourceNumber": 11,
+      "goal": "常用地址紧凑/添加弱化/默认项/空状态",
+      "images": "image7"
+    },
+    {
+      "sourceNumber": 12,
+      "goal": "乘车人/抬头/安全联系人等紧凑卡与空状态",
+      "images": "image8-image10"
+    },
+    {
+      "sourceNumber": 13,
+      "goal": "模拟回执订单选择可读卡片",
+      "images": "image11"
+    },
+    {
+      "sourceNumber": 14,
+      "goal": "回执记录紧凑行/展开详情",
+      "images": "image12"
+    },
+    {
+      "sourceNumber": 15,
+      "goal": "投诉内容原因回复优先/编号次要",
+      "images": "image13"
+    }
+  ],
+  "userConfirmed": [
+    "Contact page/telephone first, no text chat",
+    "Persist default favorite/rider/invoice title"
+  ],
+  "privacy": "Existing masked driver phone remains masked; company support can open dialer on explicit confirmation, no relay claim",
+  "notInScope": [
+    "Resolve Amap authentication",
+    "Real IM/phone relay/payment/invoice provider",
+    "WeChat UI release without AppID"
+  ]
+}

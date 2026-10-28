@@ -1,0 +1,143 @@
+{
+  "sourceSha": "7d6dc6014906c80be87b39f4433ec494ae067098",
+  "reviewer": "coordinator non-author of backend/frontend source",
+  "status": "PASS_SCOPED_NATIVE_UI",
+  "fixture": "HTTPS local real server SQLite/CAS; synthetic scenes, not cloud data or full transition proof",
+  "device": "isolated read-only emulator-5582; user expressly allowed ADB taps/input/screenshot",
+  "qaIdentity": "cn.hbzjhs.dc.passenger.uireview; local HTTPS certificate only in external debug QA overlay",
+  "shippingArtifact": "Independent PUIA validates original cloud identity/origin/signing; QA artifact not uploaded",
+  "unitFinal": {
+    "tests": 31,
+    "failures": 0,
+    "errors": 0
+  },
+  "checks": [
+    {
+      "scene": "预约状态栏与独立查看",
+      "status": "PASS",
+      "screenshot": "native-ui/06-login-status.png"
+    },
+    {
+      "scene": "联系页司机掩码、公司客服确认ACTION_DIAL且未拨出",
+      "status": "PASS",
+      "screenshot": "native-ui/08-contact.png"
+    },
+    {
+      "scene": "取消固定理由/其他长度与实际提交",
+      "status": "PASS",
+      "screenshot": "native-ui/23-cancel-submitted.png"
+    },
+    {
+      "scene": "筛选全部进行中完成取消/紧凑卡片",
+      "status": "PASS",
+      "screenshot": "native-ui/25-filter-active.png"
+    },
+    {
+      "scene": "个人中心分组",
+      "status": "PASS",
+      "screenshot": "native-ui/28-profile.png"
+    },
+    {
+      "scene": "三类默认项真实保存/重排",
+      "status": "PASS",
+      "screenshot": "native-ui/36-title-default-changed.png"
+    },
+    {
+      "scene": "回执选择/明确模拟与实际生成",
+      "status": "PASS",
+      "screenshot": "native-ui/41-invoice-created.png"
+    },
+    {
+      "scene": "投诉正文回复优先、关联订单折叠",
+      "status": "PASS",
+      "screenshot": "native-ui/43-complaints.png"
+    },
+    {
+      "scene": "空列表与本人账号真实投影",
+      "status": "PASS",
+      "screenshot": "native-ui/66-empty-riders.png"
+    },
+    {
+      "scene": "安全联系人本机保存及账号隔离",
+      "status": "PASS",
+      "screenshot": "native-ui/101-safety-account-isolated.png"
+    },
+    {
+      "scene": "详情金额取消首屏且路线为主要卡片/Q1修正",
+      "status": "PASS",
+      "screenshot": "native-ui/87-detail-summary.png"
+    },
+    {
+      "scene": "更多设置整页、本人选择与备注返回保留",
+      "status": "PASS",
+      "screenshot": "native-ui/98-draft-retained.png"
+    },
+    {
+      "scene": "回执记录展开明细/ID次级",
+      "status": "PASS",
+      "screenshot": "native-ui/105-invoice-detail.png"
+    }
+  ],
+  "knownTestEnvironmentFailure": "Earlier reboot ADB transport failed/no successful scene accepted; explicit console/ADB ports5582/5583 restored. Intermediate launch snapshots may be stale; selected final captures checked. No product network change.",
+  "notRun": [
+    "actual AMap auth/maps; QA DNS prevents real map tiles",
+    "OEM physical devices",
+    "WeChat runtime/publish",
+    "outbound phone call; only ACTION_DIAL UI inspected",
+    "real payment/tax invoice/IM/phone relay"
+  ],
+  "evidence": {
+    "native-ui/06-login-status.png": "a963898e5bb6dde518e1b9075efe0dfbf0de443a50ad8e8aa99291d7c225b9c5",
+    "native-ui/06-login-status.xml": "8c9ead6d7ed60f17d4b997aaa8195ca43ba43caf0b959e63854cc59a0e5465aa",
+    "native-ui/08-contact.png": "f6ee0bcd6d4df9340d67aaef3fd78695933a427e207ec59f3c3addeff150a5f0",
+    "native-ui/08-contact.xml": "5f28302be8a35289a8afc372c9608a9fe28185d10b6379c0b2ea819e8a4acf5f",
+    "native-ui/10-dialer.png": "e8f00ed61152427abbbeaef3b3f213b6d466ff751db53a34aa040070ae399b1d",
+    "native-ui/10-dialer.xml": "9775e9642dc019f10f6058a352d2758c7eb2536730db93658341c619995328f5",
+    "native-ui/18-cancel-options.png": "b4f48cd745a3a9f7522ca686cb0c494a846ddddf4a5acce32c8c71f4fe1812a8",
+    "native-ui/18-cancel-options.xml": "654e0b6772f7cf1e95fc81e597284fc7222919c3dec8b0363c1c4f9d0f6ab3b0",
+    "native-ui/21-cancel-typed.png": "104356fde68036212fde967c759daf55870675c0ab555fb61164372286052ec3",
+    "native-ui/21-cancel-typed.xml": "b11e24c3f09e6484557136b9c5613f37d6da47c14620f6b36fbce9b77fb1ccd2",
+    "native-ui/23-cancel-submitted.png": "2731f7a1a04d0147692375d918c4025cdf8378012fbb8a0cc468c06cafed8edf",
+    "native-ui/23-cancel-submitted.xml": "61722b2ad813017ed56170e163dc2a6e1ef120218e48a14678ac01df4cb63df7",
+    "native-ui/25-filter-active.png": "a9671f47c49332719a530bd4707c002eb8747c63f2c69fcef1fb7e6c88241c40",
+    "native-ui/25-filter-active.xml": "ec3f052c1b3dee1c1552f5752627f4484aaeda1eeaefd97c9c7b808cc34b1db7",
+    "native-ui/26-filter-done.png": "7ec3b0b80b248c69b8511f75b4f95b42df3f09d67aa158a560d8067489d65ad1",
+    "native-ui/26-filter-done.xml": "1ec71c6e3ac917dcec399f8f8c707676f5744a2ac04f8a15fe2258c268fbebc5",
+    "native-ui/27-filter-cancelled.png": "2d7d804c982d7d54a0b5c826aa4c7f6773e2403ed2ccd6ff7c9cc545b4d6dcd9",
+    "native-ui/27-filter-cancelled.xml": "3411d9dac4a30d99430ef15998de79b17ba07e16111076f8631bebc0ab301c04",
+    "native-ui/28-profile.png": "4ec0e8226658f21f6563da9cad6c75cddbc98c7daf873b4808bf03d204f9f81e",
+    "native-ui/28-profile.xml": "53b86e0545336b5add03e19c8aa49c95d25fbb95d491a07f7bd35ccb77791d95",
+    "native-ui/30-favorite-default-changed.png": "b3028e8f3f6b960f8e69176a40457dde3105233ed71d5ddc4ab54addaf9bbd78",
+    "native-ui/30-favorite-default-changed.xml": "bb0f52de09a8e1cb09022d1648e7ae139cfd2a9282297b59f0f9f92f832db5fc",
+    "native-ui/33-rider-default-changed.png": "f601a3b660dccec1a3662a99eae0b061061fa538f2deb758bf55820da934ae0d",
+    "native-ui/33-rider-default-changed.xml": "1a857625f37a809ee5ef5fa01b3b0edff2e715e61ddbc70b4a91a41f7827b05f",
+    "native-ui/36-title-default-changed.png": "ddfa890470c6e6393006fe78e18500c817c84ba447d7067659aaabc5292d7bc4",
+    "native-ui/36-title-default-changed.xml": "97a4ad2a699defb46f05faeb65de7073a414e16269f23da62cef44d048c7c846",
+    "native-ui/38-invoices.png": "f555117888ec30bba712d65b1d40411c8a65f4bcee98f0f17e899a951f60b966",
+    "native-ui/38-invoices.xml": "764618c4fad1320645551678d9409ff140f3fd4a1d385d2e4336250de9b79132",
+    "native-ui/41-invoice-created.png": "c684dceffc10b565b8f1534ea573d43240fecbb3c8eb6fb512932032ced6ccdc",
+    "native-ui/41-invoice-created.xml": "849ad36f08c068eabc01159f0777ab9ad631508157bd1bf5820574ba6d851e95",
+    "native-ui/43-complaints.png": "d2a601009be65b61b05db3d9281b8440b679bb3706d7f0f54b253c0fc7b78676",
+    "native-ui/43-complaints.xml": "a92fd78677b7f97d1ecaced5784b7d2dca20c2efc20666ec2fda759b9024f0f5",
+    "native-ui/64-empty-favorites.png": "d2125ddc7746a9dabfb7f9a43cfda1f6dc9c5340b77c41b78dcaca11efdae66c",
+    "native-ui/64-empty-favorites.xml": "3257d149723bf367587210357081d5865c89e2ca5d4d7a65826ec70cde67c539",
+    "native-ui/66-empty-riders.png": "ccdc7d86adc5546214c5d87b1d05ad36d93a09257a9c24c06b3d02573f96ce22",
+    "native-ui/66-empty-riders.xml": "675d7104aac29fef9720bb174cbf53985db872c836b174e3c063925a5244f483",
+    "native-ui/68-empty-titles.png": "7782abc0a60a7716060630cf281b225897717500ec42a8ae986071c5c55aa049",
+    "native-ui/68-empty-titles.xml": "9a652ee2cf7b7fb34db5e4f7b57598b981fa0aedaf90d8f976733955b9044eab",
+    "native-ui/70-empty-safety.png": "9efe76cd533665071e94786ca64e00bd53fe37f463fb7505c508ba1f5e9628ca",
+    "native-ui/70-empty-safety.xml": "038517b8b90f9aa7126377fac42503c63e6251d651023fd020077378f44e0c7b",
+    "native-ui/77-safety-saved.png": "ba149718c372492108e1b19f55d0abfc130117f8f1001e79f9ef9de266f5b511",
+    "native-ui/77-safety-saved.xml": "0005b3d6ab3661b9f8ef6bf5db18a0f27ccfd87273dc98e2d7ad1eef1466c5be",
+    "native-ui/87-detail-summary.png": "c7b57570bba2c0bd4a8875f080ac101c12ce4aad4110745517f1c138437ac195",
+    "native-ui/87-detail-summary.xml": "05116f3430a6fd7f9a90828aab9b4fd480b99c2e65faa3b0c583e727981c57e3",
+    "native-ui/92-options.png": "15713dc7cfc409d78c95b64e06845926097f378ba7d9f40b1018ebb56d81acc5",
+    "native-ui/92-options.xml": "64cf2b5dc22c620292d1abcb0dc476b41903c822263ec48895e9996a4b3d4c5b",
+    "native-ui/98-draft-retained.png": "29993b3adbfd0dbb96fe7c686e49333b4ff4caf94885c6b55c46c54d8d6e920f",
+    "native-ui/98-draft-retained.xml": "1687d6739ac4464d821d0eab5fba1ff3f6b15c79cd3e6b743fec253494ee375d",
+    "native-ui/101-safety-account-isolated.png": "6b98352959ad364ab1ba001d6d9c5c1908a28d9e94cae737e8c2f5196b70dc56",
+    "native-ui/101-safety-account-isolated.xml": "038517b8b90f9aa7126377fac42503c63e6251d651023fd020077378f44e0c7b",
+    "native-ui/105-invoice-detail.png": "5badb7090e8c44773b92979dd33f9fb6dc8be2982f369b550327768d6f35b1e7",
+    "native-ui/105-invoice-detail.xml": "eb939785b24646d65a0c4ee68e04093333f4dceba6fbb537bf0ea0c3c995abbc"
+  }
+}

@@ -27,8 +27,8 @@
     "实际单测/assemble、无Android设备GUI标NOT_RUN；Gemini结果与每块context/停止和自测路径写证据。所有作者自测由root非作者验收，暂不部署/不改版本，APK外置。",
     "PUIF发现mini联系按钮声称正在通过隐私号连接但无中继：本轮仅定点修正此入口真实能力/文案及适用回归，不扩展mini整体UI或声称微信发布；这是上文mini不改的唯一限定例外。"
   ],
-  "status": "AUTHOR_COMPLETE_AWAITING_INDEPENDENT_REVIEW",
-  "acceptance": "NOT_RUN",
+  "status": "INDEPENDENT_REVIEW_PASS_AWAIT_MERGE_RELEASE",
+  "acceptance": "PASS",
   "tests": [
     {
       "command": "Android testDebugUnitTest + assembleDebug (exact invocation in REPORT.md)",
@@ -43,16 +43,24 @@
     {
       "command": "git diff --check; python3 tools/check_coordination.py; central memory-role gate",
       "result": "PASS_STRUCTURAL_NOT_BUSINESS_ACCEPTANCE"
+    },
+    {
+      "command": ":app:compileDebugKotlin (full command in fee-summary-patch.json)",
+      "result": "PASS: exit0 BUILD SUCCESSFUL in36s; patch full suite/assemble NOT_RUN by design",
+      "evidence": "coordination/evidence/PUI-20261028-01/client/android-compile-04-fee-summary.log"
     }
   ],
   "evidence": [
     "coordination/evidence/PUI-20261028-01/client/REPORT.md",
     "coordination/evidence/PUI-20261028-01/client/result.json"
   ],
-  "nextAction": "Coordinator PUIR independent native GUI/HTTP integration review; no deploy by frontend",
+  "nextAction": "Coordinator rebuild and independently recheck amount/cancellation on first native screen; frontend idle",
   "deploy_owner": "coordinator",
   "releaseReady": false,
-  "updatedAt": "2026-10-28T19:58:26.149329+08:00",
-  "productSha": "d02f616f1dd69a4f54d73c86d18873fd9c905a70",
-  "pendingMergeSha": "d02f616f1dd69a4f54d73c86d18873fd9c905a70"
+  "updatedAt": "2026-10-28T21:14:47.321381+08:00",
+  "productSha": "f3c487885e3c1f5dd8de9b02409e7503ef4d0229",
+  "pendingMergeSha": "f3c487885e3c1f5dd8de9b02409e7503ef4d0229",
+  "evidenceSha": "d06e407a14cbb2dcb4c0fa2d0bb0116e7ce101dc",
+  "latestPatchEvidence": "coordination/evidence/PUI-20261028-01/client/fee-summary-patch.json",
+  "independentEvidence": "coordination/evidence/PUI-20261028-01/NATIVE_REVIEW.json and SOURCE_BINDING.json; root non-author HTTP/UI"
 }

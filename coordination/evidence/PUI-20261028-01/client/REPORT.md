@@ -49,3 +49,9 @@
 
 Android GUI/键盘返回与旋转恢复、真实设备拨号、三类默认项与新建业务实际端到端、WeChat编译/真机/发布、Amap外部导航、云发布均 NOT_RUN（本角色未操作设备/云）。Amap既有1008/10008、微信缺AppID、支付退款与发票为模拟等边界不改称成功。
 下一步 root 取精确产品SHA+backend实现后按PUIR做非作者HTTP/实际原生视觉检查，重点整页返回保留、首个默认不覆盖后续选择、删除/换账号、取消其他输入、联系不可拨/公司确认、投诉附件与跨城逐单回执门禁。问题返回作者定点修正；未通过前不发布。
+
+## PUIR首屏定点补丁（2026-10-28）
+
+root独立TLSfixture原生截图07-order-detail/17-detail-fees显示：原route首卡正确，但金额位于首屏底，取消需下滑。仅改OrderDetail一文件21增/1删，提交 `f3c487885e3c1f5dd8de9b02409e7503ef4d0229`（父d06e407）。状态/编号下、route首个主卡之前新增紧凑金额/支付状态/取消行；沿用原orderFarePresentation、destinationPending非免费显示和cancellable/busy判断，重用原cancel模态，移除下方重复入口。PaymentSnapshot/QuoteSnapshot、金额计算、锁价/阶段门禁与请求均未改。
+
+增量 `:app:compileDebugKotlin` exit0/36s SUCCESS（其余参数与前述Android命令相同），证据android-compile-04-fee-summary.log与fee-summary-patch.json。diff-check/中央真实ID与提交前结构gate PASS。不为布局变动重跑无变化全套；本补丁assemble/作者GUI均NOT_RUN，由root统一重建并复验首屏。此前result.json的debug APK仍绑定旧d02，不冒充本补丁安装包。未改版本/未部署。
