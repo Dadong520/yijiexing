@@ -543,7 +543,7 @@ function overview() {
         return (
           sum +
           ((d && d.certificates) || []).filter(function (c) {
-            return c && c.status === 'PENDING';
+            return c && (c.status === 'PENDING' || !!c.pending);
           }).length
         );
       }, 0)

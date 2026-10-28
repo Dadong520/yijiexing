@@ -20,3 +20,18 @@ test('review and compatibility pending images never receive an active-material l
   assert.equal(imageLabel({source:'ACTIVE'}),'当前有效材料');
   assert.equal(imageLabel({}),'材料来源未确认');
 });
+
+const pendingCountSource=source.slice(source.indexOf('var pendingCertsCount ='),source.indexOf('var pendingSupportCount ='));
+function pendingCount(drivers){return vm.runInNewContext(pendingCountSource+'\npendingCertsCount;', {drivers,driversLoaded:drivers!==null});}
+test('overview counts active replacement and legacy pending once per certificate and clears after review',()=>{
+  const driver={certificates:[
+    {type:'insurance',status:'APPROVED',pending:{submissionId:'new-1'}},
+    {type:'license',status:'PENDING',pending:null},
+    {type:'qualification',status:'PENDING',pending:{submissionId:'new-2'}}
+  ]};
+  assert.equal(pendingCount([driver]),3);
+  driver.certificates.forEach(c=>{c.status='APPROVED';c.pending=null;});
+  assert.equal(pendingCount([driver]),0);
+  assert.equal(pendingCount([{},null,{certificates:[null,{status:'APPROVED',pending:null}]}]),0);
+  assert.equal(pendingCount(null),'—');
+});
