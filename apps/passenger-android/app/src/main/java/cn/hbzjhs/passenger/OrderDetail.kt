@@ -94,6 +94,7 @@ fun OrderDetail(o: JSONObject, store: PassengerStore, busy: Boolean) {
       if (cancellable) TextButton(
         onClick = { cancelChoice = "行程计划有变"; cancelOther = ""; dialog = "cancel" },
         enabled = !busy,
+        colors = ButtonDefaults.textButtonColors(contentColor = Danger, disabledContentColor = Muted.copy(alpha = 0.6f)),
       ) { Text("取消订单") }
     }
     Panel("行程路线") {
@@ -196,6 +197,8 @@ fun OrderDetail(o: JSONObject, store: PassengerStore, busy: Boolean) {
           onClick = { store.action("order.continue", JSONObject().put("id", id).put("type", 2)) },
           enabled = !busy,
           modifier = Modifier.fillMaxWidth(),
+          colors = ButtonDefaults.outlinedButtonColors(contentColor = Danger, disabledContentColor = Muted.copy(alpha = 0.6f)),
+          border = androidx.compose.foundation.BorderStroke(1.dp, if (!busy) DangerLine else Line),
         ) {
           Text("不再用车 · 取消订单")
         }
@@ -579,6 +582,7 @@ fun OrderDetail(o: JSONObject, store: PassengerStore, busy: Boolean) {
       onDismiss = { dialog = "" },
       confirmLabel = "确认提交",
       dismissLabel = "返回",
+      confirmColor = if (dialog == "cancel") Danger else Teal,
       confirmEnabled =
         !busy &&
           (dialog != "complaint" || content.trim().length >= 5) &&
