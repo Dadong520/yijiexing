@@ -1,0 +1,48 @@
+{
+  "schemaVersion": 1,
+  "id": "ROLLF-20261028-01",
+  "owner": "frontend",
+  "goal": "旧角色仅收口退休交接，不再接开发/测试/发布",
+  "baseSha": "5096cb6729e9ef911fac19a281d31db4010ef542",
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-pui-clients-20261028",
+  "branch": "codex/passenger-ui-clients-20261028",
+  "allow_paths": [
+    "coordination/handoffs/frontend.md",
+    "coordination/tasks/ROLLF-20261028-01.json",
+    "coordination/evidence/ROLL-20261028-01/frontend-retirement.json"
+  ],
+  "checks": [
+    "先读中央STATE/当前任务/本角色卡并用真实session自检；不遍历旧聊天",
+    "核本角色源HEAD/status、剩余未提交、资源/未集成内容，最新发布以中央STATE为准",
+    "写本角色最终短卡和retirement.json，明确STOPPED_NO_NEW_DISPATCH；不重跑全套/不改产品/不切分支/不提交或发布",
+    "完成后只final给root，不自动跨会话往返"
+  ],
+  "status": "STOPPED_NO_NEW_DISPATCH",
+  "acceptance": "PASS",
+  "tests": [
+    {
+      "command": "python3 tools/check_coordination.py --memory-role frontend --session-id 01a167c8-a5eb-77e3-b77e-214927a029da",
+      "cwd": "/Users/dongge/Documents/New project 2",
+      "result": "PASS_STRUCTURAL_NOT_PRODUCT_ACCEPTANCE"
+    },
+    {
+      "command": "git status --porcelain=v1; git branch --show-current; git rev-parse HEAD; scoped git diff HEAD main5096",
+      "result": "CLEAN / expected branch+HEAD / no owned product difference"
+    },
+    {
+      "command": "read saved release receipt and two Gemini result summaries; targeted ps scan",
+      "result": "READ_ONLY_COMPLETE_NO_OWN_MATCHING_PROCESSES"
+    }
+  ],
+  "evidence": [
+    "coordination/evidence/ROLL-20261028-01/frontend-retirement.json",
+    "coordination/handoffs/frontend.md"
+  ],
+  "nextAction": "Coordinator registers successor, revokes old role and archives chat; old frontend accepts no new dispatch",
+  "deploy_owner": "coordinator",
+  "releaseReady": false,
+  "updatedAt": "2026-10-28T21:48:10.814728+08:00",
+  "actualSourceHead": "f3c487885e3c1f5dd8de9b02409e7503ef4d0229",
+  "pendingMergeSha": null,
+  "acceptanceScope": "RETIREMENT_HANDOFF_ONLY_NOT_NEW_PRODUCT_ACCEPTANCE"
+}

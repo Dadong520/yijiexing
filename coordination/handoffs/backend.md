@@ -1,11 +1,17 @@
-# backend 当前短卡
-ACK2026-10-26-v3；真实threadId01a168e2-22f7-70a2-af7f-4fb6be0ea695；updatedAt 2026-10-28T21:06:10+08:00。memory NORMAL，context UNKNOWN/null/not_exposed。唯一coordinator01a17cc7-e0a2-7791-bf1d-4611c09bab22/generation6，中央STATE/BOARD/SESSION/DECISIONS与合并发布仅其维护。
+# backend 二代接任短卡
+协议ACK2026-10-26-v3；角色backend；真实threadId 01a182c6-c058-76e1-9584-38abfe813799；更新时间 2026-10-28T21:53:34+08:00。
+当前任务ROLLNB-20261028-01接任检查已完成，状态IDLE，无产品开发任务。唯一coordinator/合并发布负责人01a17cc7-e0a2-7791-bf1d-4611c09bab22。context UNKNOWN/not_exposed，memory NORMAL；不得用额度替代上下文遥测。
 
-当前PUIA-20261028-01只读复核完成，PASS_SOURCE_PACKAGE_SCOPE，IDLE。已按START_HERE读取中央检查点/本任务/SESSION并真实ID门禁PASS。读源/Users/dongge/.codex/tmp/yijiexing-pm-amap-20261027，branch codex/passenger-ui-intake-20261028，精确7d6dc6014906c80be87b39f4433ec494ae067098；开始clean，结束产品与该SHA无差量。allow只本任务、evidence/PUI-20261028-01/packaging-review/和此卡；未改产品/云/ADB/分支，不验收本人defaults。
+## 基线与已发布事实
+中央coordination为权威，旧退休卡已归档archive/2026-10-28/role-rollover/backend-final.md。
+STATE记录当前main（含PR33回执）5096cb6729e9ef911fac19a281d31db4010ef542；PR32产品合并a542f6640681956f330e91bc67ecf2f62cfcbda8，已审产品7d6dc6014906c80be87b39f4433ec494ae067098。
+只读核根源码/Users/dongge/.codex/tmp/yijiexing-pm-amap-20261027：branch codex/session-rollover-20261028，HEAD 5096cb6729e9ef911fac19a281d31db4010ef542，git status空。分别独立rev-parse复核：本地main=ff9f5a787fede48bb2ac1035c38d45ff543323b2；origin/main=5096cb6729e9ef911fac19a281d31db4010ef542。初次多引用git show合并显示相同提交，未分别解析便误记origin/main也为ff9；本次已纠正，未fetch/切分支/更新引用。
+乘客1.1.15-experience/code17、司机0.3.14-cloud/code17已发布；API/admin pui-7d6dc60-test1均100%。无需重复部署，无待合并产品SHA。仅独立体验项目yijiexing-driver-demo-1023/us-west1；禁止原测试/生产。automatic/min0/max1/请求计费、不保活不自动暂停。
 
-frontend f3差量只在地图卡前加费用/模拟支付摘要并移动原取消按钮；删除新增Row/Alignment import、放回原按钮后逐字节重构父a207完全相同。原cancellable/busy/取消弹窗/提交和OrderFarePresentation/PaymentConfirmation/Negotiation/PassengerUiRules未变；参考估价/选定报价仍原语义。源码顺序PASS不冒称任意设备首屏像素GUI验收。root版本6c52仅乘客1.1.15/code17，司机目录相对main8e完全不变。
-正式APK只在root明确完成后读取，外部/Users/dongge/.codex/tmp/yijiexing-pui-release-build-20261028/passenger/_app/outputs/apk/debug/app-debug.apk。独立hash798fbb0f9fc6796190ddaa36eb8f71f7081d196d0785867782da442d38996379/107139449B；包名cn.hbzjhs.dc.passenger.cloud，code17/1.1.15，min26/target34；apksigner v2单签验证，原SHA1d06f0a9eac9dfddc0830b98af06e2f68b6d20246和SHA2569ffec9b342d12909ff288bd73f23ba104893b39120cb24ea83c9734a0d2b758f。原体验证书DN Android Debug/包debuggable如实记录，不宣称生产release签名。BuildConfig反汇编原HTTPS/包名通过，cleartext=false，已知QA包/QA地址标记0，新摘要标记2，ZIP CRC通过。
+## 已确认规则与遗留
+三默认仅建议新草稿，不覆盖GPS/已填/历史，不自动叫车开票。司机掩码不可拨，公司客服确认后系统拨号。BIZ04预约待出发不占即时/双角色单执行中/保留欠款门禁；BIZ05历史32类仅草稿人工记录；BIZ06新单目的地必填旧单同ID补填；BIZ07差额可抽佣仅扣一次余分平台且模拟；BIZ08三证60天提醒与审核替换/过期门禁；BIZ09每用户每发布版本公告一次可关。详细规则后续按DECISIONS/contracts定向读取，不重问已确认项。
+高德1008/10008未过，不重索Key，运行时下发且JS安全码不下发；微信缺AppID；支付退款提现发票模拟；IM/中继/录音警方联动未接；OEM真机NOT_RUN；文档2.0余项及PMPOST未完成未集成，不能称三端真实全业务完成。
 
-私有Key源路径曾待root确认（不是Key丢失/重索）；root随后提供现有4字段配置，只在内存精确比对APK全部解压成员，UTF8/UTF16LE/UTF16BE各项0，总0。私有值/配置原文未输出或复制Git，不读账号库/不访问云。系统Java登记未找到后用现有HomebrewOpenJDK17，未安装/改全局；_app为build输出非源码副本，未伪称有复制源文件。
-证据中央evidence/PUI-20261028-01/packaging-review/{REPORT.md,results.json,source-review.json,package-review.json,private-key-scan.json,aapt-badging.log,manifest-tree.log,apksigner.log,buildconfig-dex.log}。任务acceptedSha完整7d6，独立scope结论可由root统一收取。GUI/安装/真机/拨号/高德鉴权/微信编译/在线下载/云发布NOT_RUN；本人defaults业务NOT_REVIEWED_BY_AUTHOR（root已6组独立HTTP，不冒充本角色独验）。
-旧PUIB作者8c9/59与267测试证据留原backend目录，旧PMV已发1.1.14/0.3.14事实按STATE。当前PUI新包仅完成本scope包装复核，部署由root。无ADB/Chrome/Gemini/测试服务或云资源占用，无后台常驻/保活/自动暂停。下一步等root具体缺陷，不自行重跑/发布/跨会话自动回信。
+## 验证、归属与下一步
+真实ID memory-role前后检查PASS（结构检查，非业务验收）。已读PUI release/FINAL-RELEASE-RECEIPT.json、INDEPENDENT_ACCEPTANCE.md并核SOURCE_BINDING/APK_PROOF/NATIVE_REVIEW入口及JSON有效。仅复用既有证据，本轮业务测试/云端回读NOT_RUN。
+唯一写入：本短卡、tasks/ROLLNB-20261028-01.json、coordination/evidence/ROLL-20261028-01/backend-successor.json；未改产品/控制文件，未提交/发布，无自有运行资源或常驻任务。旧作者树只读；新写树与分支须root后续明确派定。待合并SHA无；接任记录由root验收整理。下一步IDLE，仅收到root具体任务后工作；不自动跨会话回信。

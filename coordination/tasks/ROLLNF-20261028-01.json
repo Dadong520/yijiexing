@@ -1,0 +1,77 @@
+{
+  "schemaVersion": 1,
+  "id": "ROLLNF-20261028-01",
+  "owner": "frontend",
+  "goal": "新独立空白会话接任角色，仅恢复短交接并验证真实身份/当前已发布基线，不启动产品工作",
+  "baseSha": "5096cb6729e9ef911fac19a281d31db4010ef542",
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-pm-amap-20261027",
+  "branch": "codex/session-rollover-20261028",
+  "allow_paths": [
+    "coordination/handoffs/frontend.md",
+    "coordination/tasks/ROLLNF-20261028-01.json",
+    "coordination/evidence/ROLL-20261028-01/frontend-successor.json"
+  ],
+  "checks": [
+    "第一阶段只读中央START_HERE/MEMORY_POLICY/STATE/本任务和旧最终短卡，final返回真实threadID及ACK2026-10-26-v3；不改文件，未注册不做memory-role检查",
+    "root收到ACK并登记后第二阶段：按真实session运行memory-role检查，替换本角色短卡并保存successor.json；不改中央控制文件",
+    "只读核主源码main5096/当前HEAD与branch，理解乘客1.1.15/code17、司机0.3.14/code17已发/无待发代码；检查既有证据而不重跑全套",
+    "不修改产品/不切分支/不提交发布/不调用Gemini或其他代理/不操作模拟器/不读取凭据。后续必须等待root明确新任务与唯一文件归属，原作者树保存只读",
+    "只final反馈，不自动跨会话回信；当前完毕后IDLE，只有root发具体任务再工作"
+  ],
+  "status": "COMPLETE_INDEPENDENTLY_ACCEPTED",
+  "acceptance": "PASS",
+  "tests": [
+    {
+      "command": "python3 tools/check_coordination.py --memory-role frontend --session-id 01a182c6-c475-7110-bbae-0deafe6d2385",
+      "cwd": "/Users/dongge/Documents/New project 2",
+      "exitCode": 0,
+      "status": "PASS",
+      "phase": "before_write"
+    },
+    {
+      "command": "git status --short; git branch --show-current; git rev-parse HEAD; git rev-parse main; git rev-parse origin/main; git diff --name-only 5096cb6729e9ef911fac19a281d31db4010ef542 HEAD",
+      "exitCode": 0,
+      "status": "PASS",
+      "scope": "read-only source inspection; local main ref lag recorded"
+    },
+    {
+      "command": "python3 tools/check_coordination.py --memory-role frontend --session-id 01a182c6-c475-7110-bbae-0deafe6d2385",
+      "cwd": "/Users/dongge/Documents/New project 2",
+      "exitCode": 0,
+      "status": "PASS",
+      "phase": "after_write"
+    },
+    {
+      "command": "python3 tools/check_coordination.py --memory-role frontend --session-id 01a182c6-c475-7110-bbae-0deafe6d2385",
+      "cwd": "/Users/dongge/Documents/New project 2",
+      "exitCode": 1,
+      "status": "FAIL",
+      "phase": "previous_final_check",
+      "output": "FAIL: ROLLNB-20261028-01 invalid acceptance",
+      "scope": "Transient shared backend task record; frontend did not modify backend files"
+    },
+    {
+      "command": "python3 tools/check_coordination.py --memory-role frontend --session-id 01a182c6-c475-7110-bbae-0deafe6d2385",
+      "cwd": "/Users/dongge/Documents/New project 2",
+      "exitCode": 0,
+      "status": "PASS",
+      "phase": "final_recheck_after_root_confirmed_shared_record_fix",
+      "checkedAt": "2026-10-28T21:55:46.890562+08:00",
+      "output": "PASS: compact project records are valid; this is not business acceptance\nMEMORY: frontend NORMAL; context=UNKNOWN (no model telemetry)"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "coordination/evidence/ROLL-20261028-01/frontend-successor.json",
+      "sha256": "80c044558915639698404fe23ee05dc10d174109d3d54f0b1ea3ba25cf47f3f8"
+    }
+  ],
+  "nextAction": "IDLE; wait for explicit root task/unique file ownership",
+  "deploy_owner": "coordinator",
+  "releaseReady": false,
+  "updatedAt": "2026-10-28T21:58:02.510362+08:00",
+  "candidateThreadId": "01a182c6-c475-7110-bbae-0deafe6d2385",
+  "authorResult": "PASS",
+  "pendingMergeSha": null,
+  "reviewer": "coordinator"
+}

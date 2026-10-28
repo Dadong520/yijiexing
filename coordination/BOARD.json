@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updated": "2026-10-28T21:32:14.765550+08:00",
+  "updated": "2026-10-28T21:58:02.510362+08:00",
   "coordinator": "coordinator",
   "activeTaskIds": [
     "WX-20261025-01",
@@ -30,7 +30,12 @@
     "PUIU-20261028-01",
     "PUIR-20261028-01",
     "PUIA-20261028-01",
-    "PUIREC-20261028-01"
+    "PUIREC-20261028-01",
+    "ROLL-20261028-01",
+    "ROLLB-20261028-01",
+    "ROLLF-20261028-01",
+    "ROLLNB-20261028-01",
+    "ROLLNF-20261028-01"
   ],
   "releaseOwner": "coordinator",
   "policy": "作者提交→自测→独立验收→协调者合并→部署回读；无业务验收PASS不发布",
@@ -59,11 +64,11 @@
     "coordination/archive/2026-10-26/AUTH-20261026-02.json"
   ],
   "memoryProtocolVersion": "2026-10-26-v3",
-  "currentStage": "PUI_RELEASED_RECEIPT_ARCHIVE",
+  "currentStage": "ROLE_ROLLOVER_ACCEPTED_COORDINATION_MERGE",
   "roleAssignments": {
-    "coordinator": "PUI released; receipt archive only",
-    "backend": "IDLE PUIA review PASS",
-    "frontend": "IDLE PUIU complete; HANDOFF_RECOMMENDED before new large task",
+    "coordinator": "ROLL: coordination-only merge; no product/deploy",
+    "backend": "Gen2 IDLE awaiting explicit task",
+    "frontend": "Gen2 IDLE awaiting explicit task",
     "antigravity": "PMVG: completed announcement validator candidate + coordinator11 checks; idle, no product integration"
   },
   "collaborationDecision": "GOV-04 active: visible independent backend/frontend chats; Gemini actual availability to be verified"
