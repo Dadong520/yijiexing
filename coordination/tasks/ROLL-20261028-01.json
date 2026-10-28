@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "id": "ROLL-20261028-01",
+  "owner": "coordinator",
+  "goal": "评估并完成两角色旧会话退休与新会话接任，只更新协调记录不改产品",
+  "baseSha": "5096cb6729e9ef911fac19a281d31db4010ef542",
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-pm-amap-20261027",
+  "branch": "codex/session-rollover-20261028",
+  "allow_paths": [
+    "coordination/"
+  ],
+  "checks": [
+    "实际记忆遥测UNKNOWN，不编造占用或依据会话年龄断言失忆",
+    "先冻结旧派单/保存作者交接和未提交资源，再创建空白本地独立会话，登记真实ID后角色自检ACK",
+    "两新角色各只改本角色卡/指定证据；后端与前端唯一归属保持，根会话独占发布",
+    "验证新角色理解已发布5096/1.1.15/0.3.14及已知未过项，旧会话保留归档可恢复"
+  ],
+  "status": "ROLES_REPLACED_ACCEPTED_PENDING_COORDINATION_MERGE",
+  "acceptance": "PASS",
+  "tests": [
+    {
+      "command": "independent compare role registry/trueID ACK/old STOPPED/current versions/final role gate evidence",
+      "status": "PASS",
+      "exitCode": 0
+    },
+    {
+      "command": "python3 tools/check_coordination.py --memory-role coordinator --session-id actual rootID",
+      "status": "PASS",
+      "exitCode": 0
+    }
+  ],
+  "evidence": [
+    "coordination/evidence/ROLL-20261028-01/ASSESSMENT.json",
+    "coordination/evidence/ROLL-20261028-01/INDEPENDENT_ACCEPTANCE.json"
+  ],
+  "nextAction": "Commit coordination-only snapshot, PR/CI merge, no deploy",
+  "deploy_owner": "coordinator",
+  "releaseReady": false,
+  "updatedAt": "2026-10-28T21:58:02.510362+08:00",
+  "reviewer": "coordinator non-author of role cards"
+}

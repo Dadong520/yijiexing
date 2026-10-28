@@ -1,0 +1,46 @@
+{
+  "schemaVersion": 1,
+  "id": "ROLLB-20261028-01",
+  "owner": "backend",
+  "goal": "旧角色仅收口退休交接，不再接开发/测试/发布",
+  "baseSha": "5096cb6729e9ef911fac19a281d31db4010ef542",
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-pui-backend-20261028",
+  "branch": "codex/passenger-ui-backend-20261028",
+  "allow_paths": [
+    "coordination/handoffs/backend.md",
+    "coordination/tasks/ROLLB-20261028-01.json",
+    "coordination/evidence/ROLL-20261028-01/backend-retirement.json"
+  ],
+  "checks": [
+    "先读中央STATE/当前任务/本角色卡并用真实session自检；不遍历旧聊天",
+    "核本角色源HEAD/status、剩余未提交、资源/未集成内容，最新发布以中央STATE为准",
+    "写本角色最终短卡和retirement.json，明确STOPPED_NO_NEW_DISPATCH；不重跑全套/不改产品/不切分支/不提交或发布",
+    "完成后只final给root，不自动跨会话往返"
+  ],
+  "status": "STOPPED_NO_NEW_DISPATCH",
+  "acceptance": "PASS",
+  "tests": [
+    {
+      "command": "python3 tools/check_coordination.py --memory-role backend --session-id 01a168e2-22f7-70a2-af7f-4fb6be0ea695",
+      "result": "PASS: registered real session/structural gate"
+    },
+    {
+      "command": "git HEAD/branch/status and backend tree comparison against main5096",
+      "result": "PASS: current source clean and released backend tree identical; PMPOST clean and unintegrated"
+    },
+    {
+      "command": "Bounded own-task/source process metadata survey (no argv output)",
+      "result": "0 matching owned-runtime processes; no other chat resources touched"
+    }
+  ],
+  "evidence": [
+    "coordination/handoffs/backend.md",
+    "coordination/evidence/ROLL-20261028-01/backend-retirement.json"
+  ],
+  "nextAction": "Coordinator revoke old active backend registration, archive this chat and register a new backend explicitly. This chat does not accept further dispatch.",
+  "deploy_owner": "coordinator",
+  "releaseReady": false,
+  "updatedAt": "2026-10-28T21:49:08+08:00",
+  "acceptanceScope": "Final retirement handoff only, no product/business rerun or release acceptance",
+  "pendingMergeSha": null
+}

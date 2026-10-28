@@ -1,0 +1,50 @@
+{
+  "schemaVersion": 1,
+  "id": "ROLLNB-20261028-01",
+  "owner": "backend",
+  "goal": "新独立空白会话接任角色，仅恢复短交接并验证真实身份/当前已发布基线，不启动产品工作",
+  "baseSha": "5096cb6729e9ef911fac19a281d31db4010ef542",
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-pm-amap-20261027",
+  "branch": "codex/session-rollover-20261028",
+  "allow_paths": [
+    "coordination/handoffs/backend.md",
+    "coordination/tasks/ROLLNB-20261028-01.json",
+    "coordination/evidence/ROLL-20261028-01/backend-successor.json"
+  ],
+  "checks": [
+    "第一阶段只读中央START_HERE/MEMORY_POLICY/STATE/本任务和旧最终短卡，final返回真实threadID及ACK2026-10-26-v3；不改文件，未注册不做memory-role检查",
+    "root收到ACK并登记后第二阶段：按真实session运行memory-role检查，替换本角色短卡并保存successor.json；不改中央控制文件",
+    "只读核主源码main5096/当前HEAD与branch，理解乘客1.1.15/code17、司机0.3.14/code17已发/无待发代码；检查既有证据而不重跑全套",
+    "不修改产品/不切分支/不提交发布/不调用Gemini或其他代理/不操作模拟器/不读取凭据。后续必须等待root明确新任务与唯一文件归属，原作者树保存只读",
+    "只final反馈，不自动跨会话回信；当前完毕后IDLE，只有root发具体任务再工作"
+  ],
+  "status": "COMPLETE_INDEPENDENTLY_ACCEPTED",
+  "acceptance": "PASS",
+  "tests": [
+    {
+      "command": "python3 tools/check_coordination.py --memory-role backend --session-id 01a182c6-c058-76e1-9584-38abfe813799",
+      "exitCode": 0,
+      "result": "PASS before update; final verification recorded in successor evidence"
+    },
+    {
+      "command": "Read-only git branch/HEAD/main/origin/main/status; existing PUI evidence inspection",
+      "result": "PASS; source HEAD5096 clean; independent rev-parse correction: local main ff9f, origin/main5096; initial misrecord explained in successor evidence"
+    },
+    {
+      "command": "Business tests and live deployment readback",
+      "result": "NOT_RUN; outside rollover scope"
+    }
+  ],
+  "evidence": [
+    "coordination/evidence/ROLL-20261028-01/backend-successor.json",
+    "coordination/handoffs/backend.md"
+  ],
+  "nextAction": "IDLE; wait for explicit root task/unique file ownership",
+  "deploy_owner": "coordinator",
+  "releaseReady": false,
+  "updatedAt": "2026-10-28T21:58:02.510362+08:00",
+  "candidateThreadId": "01a182c6-c058-76e1-9584-38abfe813799",
+  "pendingMergeSha": null,
+  "independentReview": "PENDING_ROOT_REVIEW",
+  "reviewer": "coordinator"
+}

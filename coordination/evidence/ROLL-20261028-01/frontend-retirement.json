@@ -1,0 +1,116 @@
+{
+  "schemaVersion": 1,
+  "taskId": "ROLLF-20261028-01",
+  "role": "frontend",
+  "threadId": "01a167c8-a5eb-77e3-b77e-214927a029da",
+  "protocolVersion": "2026-10-26-v3",
+  "recordedAt": "2026-10-28T21:48:10.814728+08:00",
+  "status": "STOPPED_NO_NEW_DISPATCH",
+  "reason": "User authorized coordinator role rollover; frontend long-session HANDOFF_RECOMMENDED previously recorded. No assertion of memory loss or fabricated context percentage.",
+  "memory": {
+    "status": "HANDOFF_RECOMMENDED",
+    "contextUsedPercent": null,
+    "measurementSource": "not_exposed",
+    "selfCheck": "PASS_WITH_REAL_SESSION_ID"
+  },
+  "source": {
+    "root": "/Users/dongge/.codex/tmp/yijiexing-pui-clients-20261028",
+    "branch": "codex/passenger-ui-clients-20261028",
+    "head": "f3c487885e3c1f5dd8de9b02409e7503ef4d0229",
+    "statusPorcelain": "",
+    "clean": true,
+    "historicalAuthorBranch": true,
+    "latestMain": "5096cb6729e9ef911fac19a281d31db4010ef542",
+    "mainProductMergeSha": "a542f6640681956f330e91bc67ecf2f62cfcbda8",
+    "publishedProductSourceSha": "7d6dc6014906c80be87b39f4433ec494ae067098",
+    "ownedProductScopeCompared": [
+      "apps/passenger-android/app/src/main",
+      "apps/passenger-android/app/src/test",
+      "candidates/passenger-miniprogram-0.1.0/miniprogram/pages/order-detail/index.js",
+      "candidates/passenger-miniprogram-0.1.0/miniprogram/pages/order-detail/index.wxml",
+      "candidates/passenger-miniprogram-0.1.0/miniprogram/tests"
+    ],
+    "ownedProductDiffAgainstLatestMain": "",
+    "uncommittedProductFiles": [],
+    "unintegratedProductChanges": [],
+    "pendingMergeSha": null,
+    "authorCommitsIntegrated": [
+      "d02f616f1dd69a4f54d73c86d18873fd9c905a70",
+      "d06e407a14cbb2dcb4c0fa2d0bb0116e7ce101dc",
+      "f3c487885e3c1f5dd8de9b02409e7503ef4d0229"
+    ],
+    "successorBase": "Use current central STATE and main5096, not this historical author branch or its older Gradle version. No branch switch/reset performed."
+  },
+  "published": {
+    "passenger": "1.1.15-experience/code17",
+    "driver": "0.3.14-cloud/code17",
+    "productPR": 32,
+    "receiptPR": 33,
+    "state": "RELEASE_AND_READBACK_COMPLETE_NO_REDEPLOY_REQUIRED",
+    "sourceOfClaim": "Central STATE + saved final release receipt; no live cloud recheck performed in retirement task",
+    "receiptPath": "coordination/evidence/PUI-20261028-01/release/FINAL-RELEASE-RECEIPT.json",
+    "receiptSha256": "e4dc57f790d82b2b2220192289f98424b92ca38c9cef9d06689c4c408f11b33e"
+  },
+  "resources": {
+    "ownMatchingProcesses": [],
+    "processScope": "Read-only ps scan for unique pui-clients/build paths or exact two Gemini context IDs, excluding inspecting shell/Python. First decoding attempt failed on unrelated non-UTF8 process text; retry with replacement decoding succeeded. Not a system-wide monitoring guarantee.",
+    "gemini": [
+      {
+        "conversationId": "9b453ce4-da83-43a3-88d5-5e0caa287476",
+        "result": "SUCCESS/DONE"
+      },
+      {
+        "conversationId": "9cada792-824e-4702-a2f0-1ca27d03b098",
+        "result": "SUCCESS/DONE"
+      }
+    ],
+    "geminiLease": "RELEASED_ROOT_VERIFIED_SUCCESS in registry; no invocation this task",
+    "frontendOwnsDeviceBrowserCloud": false,
+    "rootReceiptCleanup": "fixture/emulator STOPPED, build/upload COMPLETED, persistent automation NONE",
+    "externalBuildArtifacts": "Historical author debug output outside Git remains; not a current signed release or pending work. No cache/artifact deletion in retirement."
+  },
+  "checksThisTask": [
+    {
+      "command": "python3 tools/check_coordination.py --memory-role frontend --session-id 01a167c8-a5eb-77e3-b77e-214927a029da",
+      "cwd": "/Users/dongge/Documents/New project 2",
+      "result": "PASS_STRUCTURAL_NOT_PRODUCT_ACCEPTANCE"
+    },
+    {
+      "command": "git status --porcelain=v1; git branch --show-current; git rev-parse HEAD; scoped git diff HEAD main5096",
+      "result": "CLEAN / expected branch+HEAD / no owned product difference"
+    },
+    {
+      "command": "read saved release receipt and two Gemini result summaries; targeted ps scan",
+      "result": "READ_ONLY_COMPLETE_NO_OWN_MATCHING_PROCESSES"
+    }
+  ],
+  "notRunByDesign": [
+    "new product changes",
+    "branch switch/reset",
+    "git commit or push",
+    "full test rerun",
+    "APK rebuild",
+    "cloud deployment or business request",
+    "Gemini invocation",
+    "subagent launch",
+    "browser or Android operation"
+  ],
+  "knownLimits": [
+    "Amap last POI1008/map10008 unresolved; PUI DNS-isolated map did not prove actual SDK success; console/package/certificate already verified, do not ask keys again.",
+    "WeChat AppID missing: mini74 source tests are not WeChat compile/device/publish.",
+    "Payments/refunds/withdrawals/invoices simulated.",
+    "No IM/driver telephone relay/recording/police linkage; masked driver phone cannot dial, configured company phone needs user confirmation.",
+    "OEM physical-device scenarios NOT_RUN.",
+    "Remaining requirements2.0 and PMPOST are not fully implemented/integrated."
+  ],
+  "successorEntry": [
+    "coordination/START_HERE.md",
+    "coordination/STATE.md",
+    "coordination/BOARD.json",
+    "coordination/SESSION_REGISTRY.json",
+    "coordination/handoffs/frontend.md",
+    "coordination/contracts/PUI-DEFAULTS-API.md"
+  ],
+  "handoffDisposition": "No new frontend dispatch accepted by this old thread. Coordinator alone registers successor, revokes active role, and archives old chat; no cross-thread auto-reply or automatic delegation.",
+  "recordValidationAdjustment": "First final record used a custom acceptance label rejected by schema; corrected to supported PASS with explicit retirement-only acceptanceScope. No product or test result changed."
+}

@@ -1,0 +1,125 @@
+{
+  "observations": {
+    "currentSource": {
+      "path": "/Users/dongge/.codex/tmp/yijiexing-pui-backend-20261028",
+      "head": {
+        "exitCode": 0,
+        "output": "59a9384460baac272f5288d04da3b56fc9e5d862"
+      },
+      "branch": {
+        "exitCode": 0,
+        "output": "codex/passenger-ui-backend-20261028"
+      },
+      "status": {
+        "exitCode": 0,
+        "output": ""
+      },
+      "backendTree": {
+        "exitCode": 0,
+        "output": "f66576beb90a2c7c54beca04fb7a4b922d79d4cf"
+      },
+      "releasedMainBackendTree": {
+        "exitCode": 0,
+        "output": "f66576beb90a2c7c54beca04fb7a4b922d79d4cf"
+      },
+      "diffAgainstReleasedMain": {
+        "exitCode": 0,
+        "output": ""
+      }
+    },
+    "knownUnintegratedCandidate": {
+      "path": "/Users/dongge/.codex/tmp/yijiexing-admin-drafts-20261027",
+      "exists": true,
+      "head": {
+        "exitCode": 0,
+        "output": "83c7c2a8c3e7cda54f3539e77f11ca6e72cdaab4"
+      },
+      "branch": {
+        "exitCode": 0,
+        "output": "codex/pm-trip-presentations-20261027"
+      },
+      "status": {
+        "exitCode": 0,
+        "output": ""
+      }
+    },
+    "boundedOwnResourceSurvey": {
+      "matchingProcesses": [],
+      "argvOutput": false,
+      "noOtherChatDevicesInspected": true
+    }
+  },
+  "taskId": "ROLLB-20261028-01",
+  "role": "backend",
+  "retiringThreadId": "01a168e2-22f7-70a2-af7f-4fb6be0ea695",
+  "coordinatorThreadId": "01a17cc7-e0a2-7791-bf1d-4611c09bab22",
+  "updatedAt": "2026-10-28T21:49:08+08:00",
+  "status": "STOPPED_NO_NEW_DISPATCH",
+  "handoffAcceptance": "PASS_HANDOFF_ONLY",
+  "retirementReason": "USER_AUTHORIZED_PREVENTIVE_HANDOFF_AT_COMPLETED_RELEASE_BOUNDARY",
+  "memoryTelemetry": {
+    "contextUsedPercent": null,
+    "measurementSource": "not_exposed",
+    "context": "UNKNOWN",
+    "registeredMemoryStatusAtIntake": "NORMAL",
+    "confirmedMemoryFailureClaimed": false
+  },
+  "publishedState": {
+    "basis": "central coordination/STATE.md read this turn, not a fresh cloud query",
+    "mainSha": "5096cb6729e9ef911fac19a281d31db4010ef542",
+    "productMergePR32": "a542f6640681956f330e91bc67ecf2f62cfcbda8",
+    "productSha": "7d6dc6014906c80be87b39f4433ec494ae067098",
+    "receiptMergePR33": "5096cb6729e9ef911fac19a281d31db4010ef542",
+    "passengerVersion": "1.1.15-experience",
+    "passengerVersionCode": 17,
+    "driverVersion": "0.3.14-cloud",
+    "driverVersionCode": 17,
+    "apiRevision": "driver-demo-pui-7d6dc60-test1",
+    "adminRevision": "driver-admin-pui-7d6dc60-test1",
+    "deployedAndReadbackComplete": true,
+    "needsRepublish": false
+  },
+  "uncommittedProductPaths": [],
+  "handoffArtifactsCommitted": false,
+  "unintegratedWork": [
+    {
+      "task": "PMPOST-20261027-01",
+      "sha": "83c7c2a8c3e7cda54f3539e77f11ca6e72cdaab4",
+      "status": "AUTHOR_CANDIDATE_ONLY_NOT_IN_RELEASE",
+      "worktreeClean": true,
+      "priorAuthorTests": "68, historical evidence only, not rerun",
+      "nextAction": "Preserve read-only; no merge without new task and independent review"
+    }
+  ],
+  "knownLimitations": [
+    "AMap POI1008/map10008 last unsuccessful; no successful real SDK joint trip claim; do not re-request keys",
+    "WeChat AppID missing, source tests do not mean WeChat compilation/device/publish",
+    "Payments/refunds/withdrawals/invoices are simulated",
+    "IM/phone relay/recording/police integration not connected; driver masked number not dialable",
+    "OEM physical-device validation NOT_RUN; document2.0 remaining batches and PMPOST not complete/integrated"
+  ],
+  "resourceOwnership": {
+    "ownActiveProcessesMatched": 0,
+    "adbOrEmulatorOwned": false,
+    "browserTabsOwned": false,
+    "geminiCliOwned": false,
+    "localTestServersOwned": false,
+    "automationCreated": false,
+    "otherChatResourcesTouched": false
+  },
+  "actionsNotPerformed": [
+    "product edits",
+    "branch checkout/reset",
+    "commit",
+    "full test rerun",
+    "cloud/deployment/live data access",
+    "ADB/emulator actions",
+    "Gemini calls",
+    "agent/thread creation",
+    "cross-thread messaging"
+  ],
+  "nextAction": "Coordinator revoke old active backend registration, archive this chat and register a new backend explicitly. This chat does not accept further dispatch.",
+  "evidencePolicy": "No private credentials, account libraries, APK/DB/cache or long chat history copied.",
+  "handoffPath": "coordination/handoffs/backend.md",
+  "handoffSHA256": "3b8d464dc223d71089ad449c9ca186779ab7b7ae5df10e1853995b49f6cd0b52"
+}
