@@ -78,6 +78,8 @@ class NegotiationMixin:
                 estimatedFare=amount,fareSource='DRIVER_NEGOTIATED',fareConfirmed=False,destinationPending=False,negotiationStatus='OFFERED',quoteVersion=1,
                 quoteHistory=[{'version':1,'amount':amount,'createdAt':stamp(),'actor':'DRIVER'}],priceDisputes=[],bids=[],evaluation=None,complaints=[],
                 waypoints=o.get('waypoints',[]),arrivedWaypoints=o.get('arrivedWaypoints',[]),events=[{'type':'PASSENGER_NEGOTIATION_CLAIMED','at':stamp()}],updatedAt=stamp())
+            o.update(companyId=None,companyAssignmentRecorded=False)
+            self.operations.capture_order_company(o)
             self.db.execute('INSERT INTO passenger_orders VALUES (?,?,?,?,?)',(oid,pid,driver,dumps(o),o['createdAt']))
             st['orders']=[x for x in st['orders'] if x['id']!=oid];self.save_state(driver,st)
             self.db.execute("UPDATE negotiation_offers SET status='CLAIMED',passenger=? WHERE code_hash=? AND status='ACTIVE'",(pid,hashed))

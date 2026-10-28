@@ -40,7 +40,7 @@ class PassengerMixin(TripDistanceMixin,NegotiationMixin,PassengerOrderOptionsMix
             self.db.execute('INSERT INTO passengers VALUES (?,?,?)',(pid,mobile,dumps(profile)))
         token=secrets.token_urlsafe(32)
         self.db.execute('INSERT INTO passenger_sessions VALUES (?,?,?)',(token,pid,stamp(now()+dt.timedelta(days=7))))
-        result=self.passenger_data(pid);result['token']=token;return result
+        result=self.passenger_data(pid,p.get('client','MINIPROGRAM'));result['token']=token;return result
     def passenger_authenticate(self,token):
         row=self.db.execute('SELECT * FROM passenger_sessions WHERE token=?',(token,)).fetchone()
         require(row is not None and parse_time(row['expires'])>now(),'乘客会话已失效，请重新登录',401)
@@ -166,6 +166,7 @@ class PassengerMixin(TripDistanceMixin,NegotiationMixin,PassengerOrderOptionsMix
             value['order']=self.project_driver_order(driver,order)
         return value
     def save_shared(self,o,event=None):
+        self.operations.capture_order_company(o)
         self.refresh_distance_consent(o,persist=False)
         o['updatedAt']=stamp()
         if event:o['events'].append({'type':event,'at':stamp()})
@@ -176,13 +177,14 @@ class PassengerMixin(TripDistanceMixin,NegotiationMixin,PassengerOrderOptionsMix
     def passenger_view(self,o):
         self.refresh_distance_consent(o)
         value=self.trip_order_view(o);value.pop('passengerId',None)
+        value['company']=self.operations.company_view(o.get('companyId'),'ORDER')
         value.setdefault('fareVersion',self.order_fare_version(o))
         value['driver']=self.driver_public(o['driverId']) if o.get('driverId') else None
         if value['driver']:
             # Location is available only during this passenger's active trip.
             a=self.account(o['driverId']);value['driver']['location']=json.loads(a['location']) if a['location'] and o['stage'] in ('PREPAY','RESERVED','PICKUP','ARRIVED','TRIP') else None
         return value
-    def passenger_data(self,pid):
+    def passenger_data(self,pid,client='MINIPROGRAM'):
         self.expire_passenger_bids()
         profile=self.passenger_profile(pid)
         raw_orders=[self.passenger_view(json.loads(r['payload'])) for r in self.db.execute('SELECT payload FROM passenger_orders WHERE passenger=? ORDER BY created DESC,rowid DESC',(pid,))]
@@ -199,7 +201,7 @@ class PassengerMixin(TripDistanceMixin,NegotiationMixin,PassengerOrderOptionsMix
         from seed import CITIES
         for city in CITIES:
             cfg,_,_=self.effective(city['id']);regions.append({'id':city['id'],'name':city['name'],'enabled':bool(cfg['systemEnabled'])})
-        return {**self.passenger_extra_data(pid),'mapConfig':self.amap_public_config('passenger'),'tripDistanceRules':self.trip_distance_rules(profile['city']),'historicalLocations':historical[:20],'regions':regions,'passenger':{k:v for k,v in profile.items() if k not in ('favorites','feedback')},'orders':orders,'favorites':profile['favorites'],'feedback':profile['feedback'],
+        return {'operations':self.operations.passenger_state(pid,client,orders),**self.passenger_extra_data(pid),'mapConfig':self.amap_public_config('passenger'),'tripDistanceRules':self.trip_distance_rules(profile['city']),'historicalLocations':historical[:20],'regions':regions,'passenger':{k:v for k,v in profile.items() if k not in ('favorites','feedback')},'orders':orders,'favorites':profile['favorites'],'feedback':profile['feedback'],
             'notices':[{'title':'独立体验环境','content':'双端共享实际创建的订单；短信、支付、退款为模拟。路线仅为坐标示意。后台可查看和回复已保存投诉；实时人工客服、电话中继和推送未配置。'}],
             'features':{'payment':'SIMULATED','sms':'SIMULATED','route':'SCHEMATIC','driverLocation':True,'externalPush':False,'humanSupport':False},
             'environment':{'name':'宜捷行独立云体验环境','sandbox':True,'originalSpringBackend':False,'network':'Google Cloud独立体验服务，不连接原测试环境'},'serverTime':stamp()}
@@ -220,7 +222,8 @@ class PassengerMixin(TripDistanceMixin,NegotiationMixin,PassengerOrderOptionsMix
         for row in self.db.execute('SELECT payload FROM passenger_orders ORDER BY created DESC,rowid DESC'):
             o=json.loads(row['payload']);self.refresh_distance_consent(o);assigned=o.get('driverId');bid=next((b for b in o['bids'] if b['driverId']==driver),None)
             if assigned==driver or (not assigned and o['stage']=='AVAILABLE' and o['city']==city and self.passenger_driver_allowed(o['passengerId'],driver)):
-                value=self.trip_order_view(o);value.pop('passengerId',None);value.pop('bids',None);value.pop('complaints',None)
+                value=self.trip_order_view(o);value.pop('passengerId',None)
+                value['company']=self.operations.company_view(o.get('companyId'),'ORDER');value.pop('bids',None);value.pop('complaints',None)
                 value.setdefault('fareVersion',self.order_fare_version(o))
                 if bid and not assigned:value['stage']='BID_SENT';value['fare']=bid['amount'];value['bidAt']=bid['createdAt']
                 # Keep the shipped driver's Stage.valueOf parser compatible while
@@ -254,6 +257,7 @@ class PassengerMixin(TripDistanceMixin,NegotiationMixin,PassengerOrderOptionsMix
         require(destination_pending or abs(p['originLat']-p['destinationLat'])>1e-7 or abs(p['originLng']-p['destinationLng'])>1e-7,'起终点坐标不能相同')
         city=self.city(p.get('city',profile['city']))['id'];scheduled=p.get('scheduledAt')
         cfg,_,_=self.effective(city);require(cfg['systemEnabled'],'此区域暂停乘客下单',403)
+        self.operations.require_feature(city,{'STANDARD':'instant','RESERVED':'reservation','BID':'bidding'}[kind])
         if kind=='RESERVED':require(now()+dt.timedelta(minutes=15)<=parse_time(scheduled)<=now()+dt.timedelta(days=30),'预约时间须在15分钟后至30天内')
         waypoints=p.get('waypoints',[]);require(isinstance(waypoints,list) and len(waypoints)<=2,'最多支持两个途经点')
         require(not destination_pending or not waypoints,'无终点订单暂不支持途经点')
@@ -270,7 +274,7 @@ class PassengerMixin(TripDistanceMixin,NegotiationMixin,PassengerOrderOptionsMix
         require(distance<=300,'体验行程须在300公里范围内')
         estimate=max(800,int(round((8+max(0,distance*1.3-2)*2.4)*100)))
         if destination_pending:estimate=0
-        o={'id':uid('PORD'),'passengerId':pid,'driverId':None,'kind':kind,'origin':origin,'destination':dest,'city':city,'stage':'AVAILABLE','fare':estimate,'estimatedFare':estimate,'destinationPending':destination_pending,'fareConfirmed':False,
+        o={'id':uid('PORD'),'companyId':None,'companyAssignmentRecorded':False,'passengerId':pid,'driverId':None,'kind':kind,'origin':origin,'destination':dest,'city':city,'stage':'AVAILABLE','fare':estimate,'estimatedFare':estimate,'destinationPending':destination_pending,'fareConfirmed':False,
             'originLat':p['originLat'],'originLng':p['originLng'],'destinationLat':p['destinationLat'],'destinationLng':p['destinationLng'],'coordinateSystem':'WGS84','coordinatesSynthetic':False,
             'distance':'1.0','mileage':f'{distance*1.3:.1f}','time':scheduled if kind=='RESERVED' else '现在','scheduledAt':scheduled if kind=='RESERVED' else None,
             'remark':textfield(p.get('remark') or '乘客实际创建 · 独立体验订单','备注',1,500),'phoneTail':rider['mobile'][-4:],'rider':{'id':rider['id'],'name':rider['name'],'mobileMasked':rider['mobile'][:3]+'****'+rider['mobile'][-4:]},'paid':False,'credited':False,'paymentStatus':'UNPAID',
@@ -288,9 +292,13 @@ class PassengerMixin(TripDistanceMixin,NegotiationMixin,PassengerOrderOptionsMix
         fp=hashlib.sha256(dumps({'action':action,'payload':p}).encode()).hexdigest()
         old=self.db.execute('SELECT * FROM passenger_actions WHERE passenger=? AND request_id=?',(pid,request_id)).fetchone()
         if old:
-            require(old['request_hash']==fp,'请求标识已被其他操作使用',409);return json.loads(old['result'])
+            require(old['request_hash']==fp,'请求标识已被其他操作使用',409)
+            if action=='ops.announcement.ack':return {**self.operations.ack(pid,p),'firstDisplay':False}
+            return json.loads(old['result'])
         profile=self.passenger_profile(pid);result={}
-        if action=='order.create':result=self.passenger_create_order(pid,p)
+        if action=='ops.announcement.ack':result=self.operations.ack(pid,p)
+        elif action=='ops.company.select':result=self.operations.select_company(pid,p)
+        elif action=='order.create':result=self.passenger_create_order(pid,p)
         elif action=='order.distanceConsent':result=self.passenger_distance_consent(pid,p)
         elif action=='location.report':result=self.passenger_report_location(pid,p)
         elif action in ('negotiation.claim','negotiation.dispute'):result=self.passenger_negotiation_action(pid,action,p)
@@ -350,6 +358,7 @@ class PassengerMixin(TripDistanceMixin,NegotiationMixin,PassengerOrderOptionsMix
                 decision=p.get('type',1);require(type(decision) is int and decision in (1,2),'继续选择须为1继续或2取消')
                 if decision==2:o.update(stage='CANCELLED',cancelledBy='PASSENGER',cancelReason='乘客取消继续叫车')
                 else:
+                    self.operations.require_feature(o['city'],{'STANDARD':'instant','RESERVED':'reservation','BID':'bidding'}.get(o['kind'],'instant'))
                     o.setdefault('previousDrivers',[]).append(o.get('driverId'))
                     if o.get('refundAmount'):o.setdefault('refundHistory',[]).append({'amount':o.pop('refundAmount'),'at':o.pop('refundedAt',None),'driverId':o.get('driverId'),'mode':'SIMULATED'})
                     o.pop('paidAt',None);o.pop('refundMode',None)
@@ -416,6 +425,7 @@ class PassengerMixin(TripDistanceMixin,NegotiationMixin,PassengerOrderOptionsMix
                     require(str(p.get('phoneTail',''))==o['phoneTail'],'乘客手机尾号不正确')
                 if stage=='TRIP':require(len(o['arrivedWaypoints'])==len(o['waypoints']),'请先确认全部途经点',409)
                 if stage=='RESERVED':
+                    self.require_driver_certified(driver)
                     self.assert_no_trip_conflict(driver_id=driver,passenger_id=o.get('passengerId'),exclude_order_id=o['id'])
                 self.gate_shared_advance(o,p)
             elif action=='order.waypoint':

@@ -101,6 +101,7 @@ class PassengerExtrasMixin:
             if existing:
                 require(existing['titleId'] == p.get('titleId'), '此订单已申请模拟回执，不能重复开具到不同抬头', 409)
                 return {'invoice': clone(existing)}
+            self.operations.require_feature(order['city'], 'invoice')
             title = self._owned_extra(data['invoiceTitles'], p.get('titleId'), '发票抬头')
             row = {'id': uid('SI'), 'orderId': order['id'], 'titleId': title['id'],
                    'title': title['title'], 'titleSnapshot': clone(title), 'amount': order['fare'],

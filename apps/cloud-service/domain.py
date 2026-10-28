@@ -2,6 +2,8 @@ from common import *
 from seed import *
 from benefits import BenefitsMixin
 from admin import AdminMixin
+from qualifications import QualificationsMixin
+from live_operations import LiveOperations
 from passenger import PassengerMixin
 import sqlite3, threading
 
@@ -21,7 +23,7 @@ CREATE TABLE IF NOT EXISTS files(id TEXT PRIMARY KEY,driver TEXT,mime TEXT,conte
 CREATE TABLE IF NOT EXISTS actions(driver TEXT,request_id TEXT,request_hash TEXT,result TEXT,PRIMARY KEY(driver,request_id));
 '''
 ACTIVE={'BID_SENT','PREPAY','RESERVED','PICKUP','ARRIVED','TRIP'}
-class Service(PassengerMixin,BenefitsMixin,AdminMixin):
+class Service(QualificationsMixin,PassengerMixin,BenefitsMixin,AdminMixin):
     def __init__(self,db_path):
         self.lock=threading.RLock();self.db=sqlite3.connect(str(db_path),check_same_thread=False);self.db.row_factory=sqlite3.Row
         self.db.execute('PRAGMA journal_mode=WAL');self.db.execute('PRAGMA foreign_keys=ON');self.db.executescript(SCHEMA);self.init_passenger()
@@ -31,6 +33,7 @@ class Service(PassengerMixin,BenefitsMixin,AdminMixin):
             for c in CITIES:
                 p={'levels':{'NORMAL':{'price':19900,'firstYearPrice':16900,'upgradePrice':12900,'params':{'nearbyKm':2.5,'mapQuota':{'type':'ORDERS','freeOrders':200,'freeAmount':0,'overagePrice':30},'offlineNegotiation':False}},'VIP':{'price':32800,'params':{'offlineNegotiation':False}},'TRIAL':{'params':{'offlineNegotiation':False}}}} if c['id']=='420500' else {}
                 self.db.execute('INSERT INTO configs VALUES (?,?,?,?,?,?,?)',('city',c['id'],dumps(p),None,1,1,stamp()))
+        self.operations=LiveOperations(self)
         self.db.commit()
     def close(self):self.db.close()
     def account(self,driver):
@@ -88,7 +91,8 @@ class Service(PassengerMixin,BenefitsMixin,AdminMixin):
         features=self.features(driver)
         if not features['canRanking']:profile['ranking']={'period':'体验结束或未开放','myRank':None,'completed':None,'entries':[],'restricted':True}
         st['orders']=sorted([self.project_driver_order(driver,o) for o in st.get('orders',[])],key=lambda o: 0 if o.get('stage') in ('PICKUP','ARRIVED','TRIP','PREPAY','BID_SENT') else (1 if o.get('kind')=='RESERVED' and o.get('stage') in ('AVAILABLE','RESERVED') else 2))
-        return {'mapConfig':self.amap_public_config('driver'),'state':st,'profile':profile,'benefits':cat,'features':features,'tripDistanceRules':self.trip_distance_rules(cat['city']['id']),'serverTime':stamp(),'environment':{'name':'云端演示隔离沙箱','sandbox':True,'originalSpringBackend':False,'persistence':'SQLite','network':'Google Cloud独立演示服务，不连接原测试环境'}}
+        profile=self.qualifications_profile(profile)
+        return {'operations':self.operations.driver_state(driver),'mapConfig':self.amap_public_config('driver'),'state':st,'profile':profile,'benefits':cat,'features':features,'tripDistanceRules':self.trip_distance_rules(cat['city']['id']),'serverTime':stamp(),'environment':{'name':'云端演示隔离沙箱','sandbox':True,'originalSpringBackend':False,'persistence':'SQLite','network':'Google Cloud独立演示服务，不连接原测试环境'}}
     def order(self,st,oid):
         o=next((o for o in st['orders'] if o['id']==oid),None);require(o is not None,'订单不存在',404);return o
     def require_driver_certified(self,driver):
@@ -153,12 +157,7 @@ class Service(PassengerMixin,BenefitsMixin,AdminMixin):
         if not images and p.get('imageBase64'):images=[p['imageBase64']]
         return [self.save_image(driver,img) for img in images]
     def certificate_audit(self,p,actor):
-        driver=p.get('driverId');a=self.account(driver);profile=json.loads(a['profile']);cert=next((c for c in profile['certificates'] if c['type']==p.get('type')),None)
-        require(cert is not None and cert['status']=='PENDING','资质不在待审核状态',409);approved=p.get('approved');require(isinstance(approved,bool),'审核结果无效')
-        if not approved:textfield(p.get('reason'),'退回原因',2,500)
-        cert.update(status='APPROVED' if approved else 'REJECTED',statusCode=1 if approved else 4,rejectionReason='' if approved else p['reason'],reply='' if approved else p['reason'],auditedAt=stamp(),auditedBy=actor)
-        cert.setdefault('auditRecords',[]).append({'actor':actor,'approved':approved,'reason':p.get('reason',''),'at':stamp()})
-        profile['driver']['certificationStatus']='APPROVED' if all(c['status']=='APPROVED' for c in profile['certificates']) else 'PENDING';self.save_profile(driver,profile);self.audit(actor,'certificate.audit',None,{'driverId':driver,'type':cert['type'],'approved':approved});return {'certificate':cert}
+        return self.audit_qualification(p,actor)
     def sandbox_event(self,p,actor):
         driver=p.get('driverId');self.account(driver);event=p.get('event');oid=p.get('orderId')
         if event=='BID_SELECTED':result=self.action(driver,'order.selectBid',{'id':oid},sandbox_actor=True)
@@ -217,6 +216,7 @@ class Service(PassengerMixin,BenefitsMixin,AdminMixin):
         if action=='driver.online':
             value=p.get('online');require(isinstance(value,bool),'上线状态无效')
             if value:
+                self.require_driver_certified(driver)
                 catalog=self.catalog(driver);require(catalog['canAccept'],'体验结束或当前城市等级未开放新增接单，请查看会员权益',403,{'trial':catalog['trial']})
                 level=catalog['subscription']['rightsSnapshot'] if catalog['subscription'] else next(l for l in catalog['levels'] if l['id']=='TRIAL')
                 require(any(r['enabled'] and r['key'] in ('instant','reservation','dispatch','bidding','offlineNegotiation') for r in level['rights']),'当前等级未开放任何接单类型',403)
@@ -239,7 +239,9 @@ class Service(PassengerMixin,BenefitsMixin,AdminMixin):
             o=self.order(st,p.get('id'));self.validate_advance_stage(o,p);stage=o['stage'];require(stage in ('RESERVED','PICKUP','ARRIVED','TRIP'),'当前订单无法推进',409)
             if stage=='ARRIVED':require(str(p.get('phoneTail',''))==o['phoneTail'],'乘客手机尾号不正确')
             if stage=='TRIP':require(len(o.get('arrivedWaypoints',[]))>=len(o.get('waypoints',[])),'请先确认所有途经点')
-            if stage=='RESERVED':self.assert_no_trip_conflict(driver_id=driver,exclude_order_id=o['id'])
+            if stage=='RESERVED':
+                self.require_driver_certified(driver)
+                self.assert_no_trip_conflict(driver_id=driver,exclude_order_id=o['id'])
             o['stage']={'RESERVED':'PICKUP','PICKUP':'ARRIVED','ARRIVED':'TRIP','TRIP':('DONE' if o['paid'] else 'WAIT_PAY')}[stage];o['updatedAt']=stamp();self.credit(driver,st,o);result={'order':o}
         elif action=='order.waypoint':
             o=self.order(st,p.get('id'));require(o['stage']=='TRIP','仅行程中可到达途经点');idx=p.get('index');require(type(idx) is int and 0<=idx<len(o.get('waypoints',[])),'途经点无效')
@@ -297,21 +299,7 @@ class Service(PassengerMixin,BenefitsMixin,AdminMixin):
                 profile['bankCards'].remove(b)
                 if b['isDefault'] and profile['bankCards']:profile['bankCards'][0]['isDefault']=True
         elif action=='certificate.submit':
-            typ=p.get('type');cert=next((c for c in profile['certificates'] if c['type']==typ),None);require(cert is not None,'证件类型无效')
-            require(cert['status']!='PENDING','资质审核中，不能重复提交',409)
-            if cert['status']=='APPROVED':require(cert['validUntil']!='LONG_TERM' and dt.date.fromisoformat(cert['validUntil'])<=now().date()+dt.timedelta(days=30),'未到临期更新窗口，当前证件仅支持查看',409)
-            vf=p.get('validFrom');vu=p.get('validUntil');
-            try: start=dt.date.fromisoformat(vf)
-            except (ValueError,TypeError):raise ApiError(400,'请输入有效起始日期')
-            require(start<=now().date(),'有效起始日期不能晚于今天')
-            if vu=='LONG_TERM':require(typ!='insurance','保单不能设置长期')
-            else:
-                try:end=dt.date.fromisoformat(vu)
-                except (ValueError,TypeError):raise ApiError(400,'请输入有效到期日期')
-                require(end>start and end>now().date(),'证件到期日须晚于起始日与今天')
-            file=self.save_image(driver,p.get('imageBase64'));back=self.save_image(driver,p.get('backImageBase64')) if typ=='license' else None
-            cert.update(validFrom=vf,validUntil=vu,fileId=file,imageId=file,backFileId=back,status='PENDING',statusCode=3,submittedAt=stamp(),rejectionReason='',reply='')
-            profile['driver']['certificationStatus']='PENDING';result={'certificate':cert,'fileId':file,'backFileId':back}
+            result=self.submit_qualification(driver,profile,p)
         elif action=='blacklist.add':
             tail=str(p.get('phoneTail',''));require(bool(re.fullmatch(r'\d{4}',tail)),'请输入4位演示乘客尾号');require(not any(b['phoneTail']==tail for b in profile['blacklist']),'该乘客已在黑名单',409)
             b={'id':uid('BL'),'phoneTail':tail,'reason':textfield(p.get('reason'),'原因',2,200),'createdAt':stamp()};profile['blacklist'].append(b);result={'blacklist':b}
