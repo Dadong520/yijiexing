@@ -1,0 +1,79 @@
+test_bid_selection_and_negotiation_claim_recheck_newly_expired_dates (test_certificate_dates.CertificateDateTests.test_bid_selection_and_negotiation_claim_recheck_newly_expired_dates) ... [2026-10-28T12:57:47+08:00] POST /api/passenger/auth/code 200
+[2026-10-28T12:57:48+08:00] POST /api/passenger/auth/login 200
+[2026-10-28T12:57:48+08:00] POST /api/auth/code 200
+[2026-10-28T12:57:48+08:00] POST /api/auth/login 200
+[2026-10-28T12:57:48+08:00] POST /api/action 200
+[2026-10-28T12:57:48+08:00] POST /api/passenger/action 200
+[2026-10-28T12:57:48+08:00] POST /api/action 200
+[2026-10-28T12:57:48+08:00] POST /api/passenger/action 403
+/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/tempfile.py:484: ResourceWarning: Implicitly cleaning up <HTTPError 403: 'Forbidden'>
+  _warnings.warn(self.warn_message, ResourceWarning)
+[2026-10-28T12:57:48+08:00] POST /api/passenger/action 200
+[2026-10-28T12:57:48+08:00] POST /api/action 200
+[2026-10-28T12:57:48+08:00] POST /api/action 200
+[2026-10-28T12:57:48+08:00] POST /api/passenger/action 403
+[2026-10-28T12:57:48+08:00] POST /api/passenger/action 200
+ok
+test_expired_or_future_dates_block_private_shared_and_negotiation (test_certificate_dates.CertificateDateTests.test_expired_or_future_dates_block_private_shared_and_negotiation) ... [2026-10-28T12:57:48+08:00] POST /api/passenger/auth/code 200
+[2026-10-28T12:57:48+08:00] POST /api/passenger/auth/login 200
+[2026-10-28T12:57:48+08:00] POST /api/auth/code 200
+[2026-10-28T12:57:48+08:00] POST /api/auth/login 200
+[2026-10-28T12:57:48+08:00] POST /api/action 200
+[2026-10-28T12:57:48+08:00] POST /api/passenger/action 200
+[2026-10-28T12:57:48+08:00] POST /api/action 403
+[2026-10-28T12:57:48+08:00] POST /api/action 403
+[2026-10-28T12:57:48+08:00] POST /api/action 403
+[2026-10-28T12:57:48+08:00] POST /api/action 403
+[2026-10-28T12:57:48+08:00] POST /api/action 403
+[2026-10-28T12:57:48+08:00] POST /api/action 403
+[2026-10-28T12:57:48+08:00] GET /api/passenger/state 200
+ok
+test_expiry_does_not_block_existing_trip_late_payment_or_offline (test_certificate_dates.CertificateDateTests.test_expiry_does_not_block_existing_trip_late_payment_or_offline) ... [2026-10-28T12:57:48+08:00] POST /api/passenger/auth/code 200
+[2026-10-28T12:57:48+08:00] POST /api/passenger/auth/login 200
+[2026-10-28T12:57:48+08:00] POST /api/auth/code 200
+[2026-10-28T12:57:48+08:00] POST /api/auth/login 200
+[2026-10-28T12:57:48+08:00] POST /api/action 200
+[2026-10-28T12:57:48+08:00] POST /api/passenger/action 200
+[2026-10-28T12:57:48+08:00] POST /api/action 200
+[2026-10-28T12:57:48+08:00] GET /api/state 200
+[2026-10-28T12:57:48+08:00] POST /api/action 200
+[2026-10-28T12:57:48+08:00] GET /api/state 200
+[2026-10-28T12:57:48+08:00] GET /api/passenger/state 200
+[2026-10-28T12:57:48+08:00] POST /api/passenger/action 200
+[2026-10-28T12:57:48+08:00] POST /api/action 200
+[2026-10-28T12:57:48+08:00] POST /api/action 200
+[2026-10-28T12:57:48+08:00] GET /api/state 200
+[2026-10-28T12:57:48+08:00] POST /api/action 200
+[2026-10-28T12:57:48+08:00] POST /api/action 200
+[2026-10-28T12:57:48+08:00] GET /api/passenger/state 200
+[2026-10-28T12:57:48+08:00] POST /api/action 200
+[2026-10-28T12:57:48+08:00] POST /api/passenger/action 200
+[2026-10-28T12:57:48+08:00] GET /api/passenger/state 200
+[2026-10-28T12:57:48+08:00] GET /api/state 200
+ok
+test_inclusive_today_and_legacy_missing_or_invalid_dates_remain_compatible (test_certificate_dates.CertificateDateTests.test_inclusive_today_and_legacy_missing_or_invalid_dates_remain_compatible) ... [2026-10-28T12:57:48+08:00] POST /api/passenger/auth/code 200
+[2026-10-28T12:57:48+08:00] POST /api/passenger/auth/login 200
+[2026-10-28T12:57:48+08:00] POST /api/auth/code 200
+[2026-10-28T12:57:48+08:00] POST /api/auth/login 200
+[2026-10-28T12:57:48+08:00] POST /api/action 200
+[2026-10-28T12:57:48+08:00] POST /api/passenger/action 200
+[2026-10-28T12:57:48+08:00] POST /api/action 200
+[2026-10-28T12:57:48+08:00] POST /api/passenger/action 200
+[2026-10-28T12:57:48+08:00] POST /api/passenger/action 200
+[2026-10-28T12:57:48+08:00] POST /api/action 200
+[2026-10-28T12:57:48+08:00] POST /api/passenger/action 200
+[2026-10-28T12:57:48+08:00] POST /api/passenger/action 200
+[2026-10-28T12:57:48+08:00] POST /api/action 200
+[2026-10-28T12:57:48+08:00] POST /api/passenger/action 200
+[2026-10-28T12:57:48+08:00] POST /api/passenger/action 200
+[2026-10-28T12:57:48+08:00] POST /api/action 200
+[2026-10-28T12:57:48+08:00] POST /api/passenger/action 200
+[2026-10-28T12:57:48+08:00] POST /api/passenger/action 200
+[2026-10-28T12:57:48+08:00] POST /api/action 200
+[2026-10-28T12:57:48+08:00] POST /api/passenger/action 200
+ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.737s
+
+OK
