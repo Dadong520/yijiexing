@@ -69,7 +69,7 @@ internal fun ColumnScope.MembershipCenterScreen(
                     }
                 }
                 Spacer(Modifier.height(12.dp))
-                Pill(if (active) "会员生效中" else mStatus(trial.mText("status")), Green, Color(0xFFD8F2E9))
+                Pill(if (active) "会员生效中" else mStatus(trial.mText("status")), Green, Pale)
                 Spacer(Modifier.height(22.dp))
                 if (active) {
                     Row(Modifier.fillMaxWidth()) {

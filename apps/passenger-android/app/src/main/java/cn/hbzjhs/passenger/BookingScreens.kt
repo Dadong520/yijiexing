@@ -150,7 +150,7 @@ private fun PassengerBookingDraft(state: JSONObject, store: PassengerStore, busy
       shape = RoundedCornerShape(topStart = 24.dp, topEnd = 24.dp),
       color = Color.White,
       shadowElevation = 8.dp,
-      border = BorderStroke(1.dp, Color(0xFFEDEFF2)),
+      border = BorderStroke(1.dp, Line),
       modifier = Modifier
         .fillMaxWidth()
         .weight(0.57f),
@@ -169,8 +169,8 @@ private fun PassengerBookingDraft(state: JSONObject, store: PassengerStore, busy
           if (active != null) {
             Surface(
               shape = RoundedCornerShape(12.dp),
-              color = Color(0xFFF0FDF4),
-              border = BorderStroke(1.dp, Color(0xFFDCFCE7)),
+              color = SuccessSoft,
+              border = BorderStroke(1.dp, Success.copy(alpha = 0.25f)),
               modifier = Modifier.fillMaxWidth().clickable { openOrder(active.text("id")) },
             ) {
               Row(
@@ -218,8 +218,8 @@ private fun PassengerBookingDraft(state: JSONObject, store: PassengerStore, busy
               Surface(
                 onClick = { kind = mode },
                 shape = RoundedCornerShape(12.dp),
-                color = if (selected) Teal else Color(0xFFF6F8FA),
-                border = BorderStroke(1.dp, if (selected) Teal else Color(0xFFEDEFF2)),
+                color = if (selected) Teal else Paper,
+                border = BorderStroke(1.dp, if (selected) Teal else Line),
                 modifier = Modifier.weight(1f).heightIn(min = 48.dp),
               ) {
                 Row(
@@ -245,9 +245,9 @@ private fun PassengerBookingDraft(state: JSONObject, store: PassengerStore, busy
             }
           }
           Card(
-            colors = CardDefaults.cardColors(containerColor = Color(0xFFF9FAFB)),
+            colors = CardDefaults.cardColors(containerColor = Paper),
             shape = RoundedCornerShape(16.dp),
-            border = BorderStroke(1.dp, Color(0xFFEDEFF2)),
+            border = BorderStroke(1.dp, Line),
             modifier = Modifier.fillMaxWidth(),
           ) {
             Column(Modifier.padding(horizontal = 14.dp, vertical = 8.dp)) {
@@ -278,7 +278,7 @@ private fun PassengerBookingDraft(state: JSONObject, store: PassengerStore, busy
                 }
               }
               AddressRow("从这里出发", origin) { editor = "origin" }
-              HorizontalDivider(color = Color(0xFFEAECEF), thickness = 0.8.dp)
+              HorizontalDivider(color = DividerTone, thickness = 0.8.dp)
               AddressRow(
                 "目的地",
                 destination,
@@ -303,7 +303,7 @@ private fun PassengerBookingDraft(state: JSONObject, store: PassengerStore, busy
         Surface(
           color = Color.White,
           shadowElevation = 8.dp,
-          border = BorderStroke(1.dp, Color(0xFFF1F3F5)),
+          border = BorderStroke(1.dp, DividerTone),
           modifier = Modifier.fillMaxWidth(),
         ) {
           Box(Modifier.padding(horizontal = 16.dp, vertical = 10.dp)) {
@@ -395,23 +395,23 @@ private fun PassengerBookingDraft(state: JSONObject, store: PassengerStore, busy
               Field(waypointName, { waypointName = it }, "途经点名称")
               Field(waypointLat, { waypointLat = it }, "途经点纬度", KeyboardType.Decimal)
               Field(waypointLng, { waypointLng = it }, "途经点经度", KeyboardType.Decimal)
-              HorizontalDivider(color = Color(0xFFF3F4F6), thickness = 0.8.dp)
+              HorizontalDivider(color = DividerTone, thickness = 0.8.dp)
               Text("第二途经点（可选）", fontWeight = FontWeight.SemiBold, fontSize = 14.sp, color = Ink)
               Field(waypointName2, { waypointName2 = it }, "第二途经点名称")
               Field(waypointLat2, { waypointLat2 = it }, "第二途经点纬度", KeyboardType.Decimal)
               Field(waypointLng2, { waypointLng2 = it }, "第二途经点经度", KeyboardType.Decimal)
               Note("最多 2 个途经点，按顺序经过。司机到达后确认，乘客可在订单查看进度。")
             }
-            HorizontalDivider(color = Color(0xFFF1F3F5), thickness = 0.8.dp)
+            HorizontalDivider(color = DividerTone, thickness = 0.8.dp)
             MenuRow("线下议价", Icons.Default.Info, "与现场司机配对，核对报价") { showOptions = false; onNegotiation() }
             state
               .rows("orders")
               .firstOrNull { it.text("stage") in listOf("DONE", "CANCELLED") }
               ?.let { recent ->
                 Card(
-                  colors = CardDefaults.cardColors(containerColor = Color(0xFFF9FAFB)),
+                  colors = CardDefaults.cardColors(containerColor = Paper),
                   shape = RoundedCornerShape(12.dp),
-                  border = BorderStroke(1.dp, Color(0xFFEDEFF2)),
+                  border = BorderStroke(1.dp, Line),
                   modifier = Modifier.fillMaxWidth(),
                 ) {
                   Row(
@@ -627,7 +627,7 @@ fun OrdersScreen(orders: List<JSONObject>, open: (String) -> Unit) {
           border = FilterChipDefaults.filterChipBorder(
             enabled = true,
             selected = selected,
-            borderColor = if (selected) Teal else Color(0xFFE5E7EB),
+            borderColor = if (selected) Teal else Line,
             selectedBorderColor = Teal,
           ),
           shape = RoundedCornerShape(10.dp),

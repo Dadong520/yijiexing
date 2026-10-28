@@ -5,16 +5,26 @@
 
 /* Gemini ADMIN-20261025-04 single layout */
 :root {
-  --teal-primary: #0d9488;
-  --teal-hover: #0f766e;
-  --teal-active: #115e59;
+  --teal-primary: #00796e;
+  --teal-hover: #005f56;
+  --teal-active: #004d46;
   --blue: var(--teal-primary);
-  --color-muted: #526371;
-  --bg-deep: #102b23;
+  --color-muted: #4b5b6b;
+  --bg-deep: #0e2f2a;
   --bg-intro: #0a3327;
-  --bg-light: #f4f7f6;
-  --text-main: #0f172a;
-  --border-light: #e2e8f0;
+  --bg-light: #f2f6f7;
+  --text-main: #0f1b2a;
+  --border-light: #dce5e8;
+  --sky: #0369a1;
+  --sky-soft: #e0f2fe;
+  --warm: #b45309;
+  --warm-soft: #fff4e5;
+  --violet: #6d28d9;
+  --violet-soft: #f1ebfe;
+  --success: #1b7a3e;
+  --success-soft: #e6f4ea;
+  --danger: #b42318;
+  --danger-soft: #fdecea;
   --font-stack: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
 }
 
