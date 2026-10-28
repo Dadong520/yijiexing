@@ -1,6 +1,6 @@
 .coupons-page {
   min-height: 100vh;
-  background-color: #f5f9f8;
+  background-color: #f2f6f7;
   padding: 24rpx;
   box-sizing: border-box;
 }
@@ -15,17 +15,17 @@
   align-items: center;
   gap: 16rpx;
   box-shadow: 0 2rpx 10rpx rgba(8, 127, 115, 0.05);
-  border: 1rpx solid #e2ebe9;
+  border: 1rpx solid #dce5e8;
 }
 
 .claim-input {
   flex: 1;
   font-size: 26rpx;
-  color: #1a2d2a;
+  color: #0f1b2a;
 }
 
 .claim-btn {
-  background: #087f73;
+  background: #00796e;
   color: #ffffff;
   font-size: 24rpx;
   font-weight: 600;
@@ -48,13 +48,13 @@
   text-align: center;
   padding: 16rpx 0;
   font-size: 26rpx;
-  color: #647774;
+  color: #4b5b6b;
   border-radius: 12rpx;
   transition: all 0.2s ease;
 }
 
 .tab.active {
-  background-color: #087f73;
+  background-color: #00796e;
   color: #ffffff;
   font-weight: 600;
 }
@@ -72,7 +72,7 @@
   overflow: hidden;
   box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.04);
   position: relative;
-  border: 1rpx solid #e2ebe9;
+  border: 1rpx solid #dce5e8;
 }
 
 .coupon-card.disabled {
@@ -82,7 +82,7 @@
 
 .coupon-left {
   width: 200rpx;
-  background: linear-gradient(135deg, #087f73 0%, #0ca798 100%);
+  background: linear-gradient(135deg, #b45309 0%, #d97706 100%);
   color: #ffffff;
   display: flex;
   flex-direction: column;
@@ -130,12 +130,12 @@
 .coupon-title {
   font-size: 28rpx;
   font-weight: 600;
-  color: #1a2d2a;
+  color: #0f1b2a;
 }
 
 .coupon-desc {
   font-size: 22rpx;
-  color: #647774;
+  color: #4b5b6b;
   margin-top: 6rpx;
 }
 
@@ -148,14 +148,14 @@
 
 .rule-chip {
   font-size: 18rpx;
-  color: #087f73;
-  background: #e6f5f3;
+  color: #b45309;
+  background: #fff4e5;
   padding: 2rpx 8rpx;
   border-radius: 6rpx;
 }
 
 .rule-chip-tip {
-  color: #647774;
+  color: #4b5b6b;
   background: #f2f6f5;
 }
 
@@ -168,11 +168,11 @@
 
 .coupon-expire {
   font-size: 20rpx;
-  color: #92a4a1;
+  color: #5b6b7a;
 }
 
 .use-btn {
-  background-color: #087f73;
+  background-color: #00796e;
   color: #ffffff;
   font-size: 22rpx;
   padding: 6rpx 20rpx;
@@ -182,16 +182,16 @@
 
 .used-tag {
   font-size: 20rpx;
-  color: #92a4a1;
+  color: #5b6b7a;
   padding: 4rpx 12rpx;
-  background: #f0f4f3;
+  background: #e6edef;
   border-radius: 6rpx;
 }
 
 .empty-tip {
   text-align: center;
   padding: 80rpx 0;
-  color: #92a4a1;
+  color: #5b6b7a;
   font-size: 28rpx;
   display: flex;
   flex-direction: column;

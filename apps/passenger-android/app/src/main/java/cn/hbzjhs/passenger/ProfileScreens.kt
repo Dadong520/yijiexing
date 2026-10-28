@@ -47,14 +47,14 @@ fun ProfileScreen(
     Card(
       colors = CardDefaults.cardColors(containerColor = Color.White),
       shape = RoundedCornerShape(20.dp),
-      border = BorderStroke(1.dp, Color(0xFFEDEFF2)),
+      border = BorderStroke(1.dp, Line),
       elevation = CardDefaults.cardElevation(defaultElevation = 1.dp),
       modifier = Modifier.fillMaxWidth(),
     ) {
       Box(
         Modifier
           .fillMaxWidth()
-          .background(Color(0xFFF0FAF8))
+          .background(BrandSoft)
           .padding(18.dp)
       ) {
         Row(
@@ -64,7 +64,7 @@ fun ProfileScreen(
           Box(
             modifier = Modifier
               .size(56.dp)
-              .background(Color(0xFFD6F0EB), CircleShape),
+              .background(Color.White, CircleShape),
             contentAlignment = Alignment.Center,
           ) {
             Icon(
@@ -81,7 +81,7 @@ fun ProfileScreen(
               Surface(
                 color = Color.White,
                 shape = RoundedCornerShape(4.dp),
-                border = BorderStroke(0.5.dp, Color(0xFFBCE3DC)),
+                border = BorderStroke(0.5.dp, Teal.copy(alpha = 0.4f)),
               ) {
                 Text(
                   p.text("cityName", "宜昌"),
@@ -107,9 +107,10 @@ fun ProfileScreen(
     PassengerSectionHeader("出行资料")
     Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
       listOf("常用地址" to "favorites", "乘车人" to "riders", "发票抬头" to "invoiceTitles").forEach { (label, page) ->
-        Card(onClick = { navigate(page) }, colors = CardDefaults.cardColors(containerColor = Color(0xFFEAF5F3)), shape = RoundedCornerShape(14.dp), modifier = Modifier.weight(1f)) {
+        val (tileTint, tileSoft) = when (page) { "favorites" -> Sky to SkySoft; "riders" -> Teal to BrandSoft; else -> Warm to WarmSoft }
+        Card(onClick = { navigate(page) }, colors = CardDefaults.cardColors(containerColor = tileSoft), shape = RoundedCornerShape(14.dp), border = BorderStroke(1.dp, tileTint.copy(alpha = 0.18f)), modifier = Modifier.weight(1f)) {
           Column(Modifier.fillMaxWidth().padding(horizontal = 8.dp, vertical = 18.dp), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(8.dp)) {
-            Icon(if (page == "favorites") Icons.Default.Place else if (page == "riders") Icons.Default.Person else Icons.AutoMirrored.Filled.List, null, tint = Teal)
+            Icon(if (page == "favorites") Icons.Default.Place else if (page == "riders") Icons.Default.Person else Icons.AutoMirrored.Filled.List, null, tint = tileTint)
             Text(label, color = Ink, fontSize = 14.sp, fontWeight = FontWeight.Medium)
           }
         }
@@ -121,23 +122,23 @@ fun ProfileScreen(
     }
     ExpandablePanel("更多体验", "卡券、积分与邀请 · 未接营销账务") {
       MenuRow("我的卡券 · 演示", Icons.Default.Info, "0张 · 不参与订单抵扣") { navigate("coupons") }
-      HorizontalDivider(color = Color(0xFFF3F4F6), thickness = 0.8.dp)
+      HorizontalDivider(color = DividerTone, thickness = 0.8.dp)
       MenuRow("积分 · 演示", Icons.Default.Info, "0分 · 未接营销账务") { navigate("points") }
-      HorizontalDivider(color = Color(0xFFF3F4F6), thickness = 0.8.dp)
+      HorizontalDivider(color = DividerTone, thickness = 0.8.dp)
       MenuRow("邀请体验 · 演示", Icons.Default.Person, "无实际奖励或拉新绑定") { navigate("invite") }
     }
     Panel("帮助与反馈") {
       MenuRow("我的投诉", Icons.Default.Email) { navigate("complaints") }
-      HorizontalDivider(color = Color(0xFFF3F4F6), thickness = 0.8.dp)
+      HorizontalDivider(color = DividerTone, thickness = 0.8.dp)
       MenuRow("意见反馈与记录", Icons.Default.Email) { navigate("feedback") }
-      HorizontalDivider(color = Color(0xFFF3F4F6), thickness = 0.8.dp)
+      HorizontalDivider(color = DividerTone, thickness = 0.8.dp)
       MenuRow("已屏蔽司机", Icons.Default.Lock) { navigate("blocked") }
-      HorizontalDivider(color = Color(0xFFF3F4F6), thickness = 0.8.dp)
+      HorizontalDivider(color = DividerTone, thickness = 0.8.dp)
       MenuRow("公告、客服与服务说明", Icons.Default.Info) { navigate("help") }
     }
     ExpandablePanel("应用与连接", "版本与功能范围") {
       MenuRow("连接状态", Icons.Default.Settings, "网络异常时重试") { settings() }
-      HorizontalDivider(color = Color(0xFFF3F4F6), thickness = 0.8.dp)
+      HorizontalDivider(color = DividerTone, thickness = 0.8.dp)
       Note("体验版 ${BuildConfig.VERSION_NAME}")
       Note("与司机端共用订单。支付、退款与发票均为模拟，不产生真实资金或凭证。地址搜索使用设备系统Geocoder；自动定位、道路导航、短信、电话中继及实时人工客服尚未接入；投诉支持后台查看和回复。")
     }
@@ -146,9 +147,9 @@ fun ProfileScreen(
       modifier = Modifier.fillMaxWidth().heightIn(min = 52.dp),
       shape = RoundedCornerShape(14.dp),
       colors = ButtonDefaults.outlinedButtonColors(
-        contentColor = Color(0xFFDC2626),
+        contentColor = Danger,
       ),
-      border = BorderStroke(1.dp, Color(0xFFFCA5A5)),
+      border = BorderStroke(1.dp, DangerLine),
     ) {
       Text("退出当前账号", fontSize = 15.sp, fontWeight = FontWeight.Medium)
     }
@@ -196,7 +197,7 @@ fun ProfileScreen(
             logout = false
           }
         ) {
-          Text("退出", color = Color(0xFFDC2626), fontWeight = FontWeight.Bold)
+          Text("退出", color = Danger, fontWeight = FontWeight.Bold)
         }
       },
       dismissButton = {
