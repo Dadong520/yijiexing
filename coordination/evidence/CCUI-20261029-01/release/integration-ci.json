@@ -1,0 +1,15 @@
+{
+  "pullRequest": "https://github.com/Dadong520/yijiexing/pull/37",
+  "headSha": "f946d87b799c686b08bcc08ddda81eae38211ece",
+  "productSha": "107e226d1d23fc6d7ef5dab75229962bd38306d8",
+  "CI": {
+    "name": "project-gate",
+    "status": "COMPLETED",
+    "conclusion": "SUCCESS",
+    "url": "https://github.com/Dadong520/yijiexing/actions/runs/40740502358/job/123000483449"
+  },
+  "authorBranchUploaded": "codex/claude-ui-20261029",
+  "authorFinalSha": "11bef0e3b26b04f14b31b2ef752c4aa1097ab49d",
+  "mergeSha": "8eebffa772223c57da6e96bc7b9126ebc59f816a",
+  "state": "MERGED"
+}

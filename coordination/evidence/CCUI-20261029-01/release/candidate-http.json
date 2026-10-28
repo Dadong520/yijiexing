@@ -1,0 +1,38 @@
+{
+  "sourceSha": "107e226d1d23fc6d7ef5dab75229962bd38306d8",
+  "requests": [
+    {
+      "url": "https://ccui-qa---driver-demo-phfgquzmua-uw.a.run.app/health",
+      "expectedHttp": 200,
+      "http": 200,
+      "curlExit": 0,
+      "sourceBytesEqual": null,
+      "PASS": true
+    },
+    {
+      "url": "https://ccui-qa---driver-admin-phfgquzmua-uw.a.run.app/",
+      "expectedHttp": 200,
+      "http": 200,
+      "curlExit": 0,
+      "sourceBytesEqual": true,
+      "PASS": true
+    },
+    {
+      "url": "https://ccui-qa---driver-admin-phfgquzmua-uw.a.run.app/static/admin.css",
+      "expectedHttp": 200,
+      "http": 200,
+      "curlExit": 0,
+      "sourceBytesEqual": true,
+      "PASS": true
+    },
+    {
+      "url": "https://ccui-qa---driver-admin-phfgquzmua-uw.a.run.app/api/local/admin/v2/state",
+      "expectedHttp": 401,
+      "http": 401,
+      "curlExit": 0,
+      "sourceBytesEqual": null,
+      "PASS": true
+    }
+  ],
+  "cloudBusinessPosts": 0
+}

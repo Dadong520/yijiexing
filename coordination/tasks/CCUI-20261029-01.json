@@ -59,7 +59,7 @@
   "authorSha": "11bef0e3b26b04f14b31b2ef752c4aa1097ab49d",
   "acceptedSha": "107e226d1d23fc6d7ef5dab75229962bd38306d8",
   "reviewer": "frontend",
-  "status": "INDEPENDENT_ACCEPTANCE_PASS_WAIT_PUBLISH_PREREQUISITES",
+  "status": "RELEASED_AND_READBACK_PASS",
   "acceptance": "PASS",
   "checks": [
     "Visual presentation only; no business/auth/Key/API/request/state/default/amount changes. Root final control-outline patch independently reviewed by frontend.",
@@ -124,8 +124,9 @@
       "sha256": "59d0d4e8c6c865a9e217398189b64e4c2e5ff41ed5e99f259fba62953c638a2b"
     }
   ],
-  "nextAction": "Complete candidate APK upload; CI and merge, fresh backup, exact-SHA release gate then independent experience publish/readback",
+  "nextAction": "IDLE wait user feedback; no automatic new scope",
   "deploy_owner": "coordinator",
-  "releaseReady": false,
-  "updatedAt": "2026-10-29T01:54:48.318956+08:00"
+  "releaseReady": true,
+  "updatedAt": "2026-10-29T02:14:53.503854+08:00",
+  "mergeSha": "8eebffa772223c57da6e96bc7b9126ebc59f816a"
 }

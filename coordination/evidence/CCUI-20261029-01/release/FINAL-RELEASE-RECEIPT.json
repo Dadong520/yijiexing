@@ -1,0 +1,232 @@
+{
+  "timestamp": "2026-10-29T02:14:53.503854+08:00",
+  "scope": "Claude Code接替主力开发、首轮全端共享配色升级；双Android及后台/API已发布，小程序仅源码验证",
+  "project": "yijiexing-driver-demo-1023",
+  "region": "us-west1",
+  "productSha": "107e226d1d23fc6d7ef5dab75229962bd38306d8",
+  "mainMergeSha": "8eebffa772223c57da6e96bc7b9126ebc59f816a",
+  "pullRequest": "https://github.com/Dadong520/yijiexing/pull/37",
+  "authorSourceSha": "11bef0e3b26b04f14b31b2ef752c4aa1097ab49d",
+  "sourceBinding": "Five product subtrees byte-identical; INTEGRATION_BINDING.json",
+  "CI": {
+    "name": "project-gate",
+    "status": "COMPLETED",
+    "conclusion": "SUCCESS",
+    "url": "https://github.com/Dadong520/yijiexing/actions/runs/40740502358/job/123000483449"
+  },
+  "collaboration": {
+    "soleCoordinator": "01a17cc7-e0a2-7791-bf1d-4611c09bab22",
+    "claudeActualSession": "413b9b2c-f346-4a81-8891-87bc3c962394",
+    "model": "claude-opus-5-5",
+    "effort": "medium",
+    "officialCli": "2.1.304",
+    "authentication": "claude.ai Pro verified; credentials not read/copied",
+    "desktop": "Official TTY --desktop --resume output Opening session, exit0; Desktop UI inspection NOT_RUN",
+    "gemini": "PAUSED_BY_USER; no model/global settings changed",
+    "astra": "IDLE only explicit blocker dispatch"
+  },
+  "tests": {
+    "passengerUnit": 31,
+    "driverUnit": 63,
+    "miniUnit": 74,
+    "adminUnit": 4,
+    "coordinationUnit": 27,
+    "nativeIndependent": "PASS_SCOPED_ANDROID_VISUAL, frontend actual separate chat",
+    "web": "Actual admin source/browser with local synthetic API, no JS errors/desktop-mobile overflow",
+    "allScreenExhaustive": "NOT_RUN"
+  },
+  "services": {
+    "api": {
+      "ready": "True",
+      "revision": "driver-demo-ccui-107e226-test1",
+      "image": "us-west1-docker.pkg.dev/yijiexing-driver-demo-1023/demo/driver-cloud@sha256:2c5109fc89cf72fb082ecbc9140dec99b2ec0ada09c0597b18d683a4ff74be57",
+      "trafficPercent": 100,
+      "userTestTag": "driver-demo-ccui-107e226-test1",
+      "runtimeSpecExceptImageUnchanged": true,
+      "scalingAndBillingAnnotationsUnchanged": true,
+      "iamBindingsUnchanged": true,
+      "serviceAnnotationDriftExcludingOperationalMetadata": [],
+      "scalingModeBefore": "automatic",
+      "scalingModeAfter": "automatic",
+      "minScale": "0",
+      "maxScale": "1",
+      "requestCpuBilling": "true",
+      "readback": "private full snapshots retained outside Git"
+    },
+    "admin": {
+      "ready": "True",
+      "revision": "driver-admin-ccui-107e226-test1",
+      "image": "us-west1-docker.pkg.dev/yijiexing-driver-demo-1023/demo/admin-ui@sha256:3c5f5fc4e57c0b2b6ef204d808a44baac53fa974fda38935aecbc45ac2d3f00f",
+      "trafficPercent": 100,
+      "userTestTag": "driver-admin-ccui-107e226-test1",
+      "runtimeSpecExceptImageUnchanged": true,
+      "scalingAndBillingAnnotationsUnchanged": true,
+      "iamBindingsUnchanged": true,
+      "serviceAnnotationDriftExcludingOperationalMetadata": [],
+      "scalingModeBefore": "automatic",
+      "scalingModeAfter": "automatic",
+      "minScale": "0",
+      "maxScale": "1",
+      "requestCpuBilling": "true",
+      "readback": "private full snapshots retained outside Git"
+    }
+  },
+  "apkHttps": [
+    {
+      "role": "passenger",
+      "url": "https://user-test---driver-demo-phfgquzmua-uw.a.run.app/download-passenger.apk",
+      "attempts": [
+        {
+          "transport": "direct",
+          "curlExit": 0,
+          "http": 200
+        }
+      ],
+      "bytes": 107139449,
+      "sha256": "221e8ae0071fa55c76b7c25bcb52f8e9bc936920b8ef0480c9824d3cf570d6d2",
+      "package": "cn.hbzjhs.dc.passenger.cloud",
+      "versionName": "1.1.16-experience",
+      "versionCode": 18,
+      "signerSha256": "9ffec9b342d12909ff288bd73f23ba104893b39120cb24ea83c9734a0d2b758f",
+      "aaptAndApksignerExit": 0,
+      "sameBytesAsIndependentlyReviewedBuild": true,
+      "PASS": true
+    },
+    {
+      "role": "driver",
+      "url": "https://user-test---driver-demo-phfgquzmua-uw.a.run.app/download.apk",
+      "attempts": [
+        {
+          "transport": "direct",
+          "curlExit": 0,
+          "http": 200
+        }
+      ],
+      "bytes": 108636805,
+      "sha256": "35edbc42da985cc62d22c3f36b48c4d886e8d39fd914607a5448e66e79081c08",
+      "package": "cn.hbzjhs.dc.driver.cloud",
+      "versionName": "0.3.15-cloud",
+      "versionCode": 18,
+      "signerSha256": "9ffec9b342d12909ff288bd73f23ba104893b39120cb24ea83c9734a0d2b758f",
+      "aaptAndApksignerExit": 0,
+      "sameBytesAsIndependentlyReviewedBuild": true,
+      "PASS": true
+    }
+  ],
+  "apkPromotion": [
+    {
+      "role": "passenger",
+      "fixedObject": "distribution/yijiexing-passenger.apk",
+      "archiveObject": "distribution/archive/20261029-before-ccui-107e226/passenger.apk",
+      "archivedGeneration": "1793210581634409",
+      "previousFixedGeneration": "1793194027052599",
+      "newFixedGeneration": "1793210585383239",
+      "bytes": 107139449,
+      "sha256": "221e8ae0071fa55c76b7c25bcb52f8e9bc936920b8ef0480c9824d3cf570d6d2",
+      "generationPreconditions": true,
+      "oldArchiveVerified": true
+    },
+    {
+      "role": "driver",
+      "fixedObject": "distribution/yijiexing-cloud.apk",
+      "archiveObject": "distribution/archive/20261029-before-ccui-107e226/driver.apk",
+      "archivedGeneration": "1793210587782202",
+      "previousFixedGeneration": "1793167387345592",
+      "newFixedGeneration": "1793210590060389",
+      "bytes": 108636805,
+      "sha256": "35edbc42da985cc62d22c3f36b48c4d886e8d39fd914607a5448e66e79081c08",
+      "generationPreconditions": true,
+      "oldArchiveVerified": true
+    }
+  ],
+  "dataPreservation": {
+    "source": "current authoritative GCS snapshot, response-bound generation/MD5",
+    "generation": "1793194323199516",
+    "bytes": 4345856,
+    "sha256": "83cdfeb412ab950f50e39ace96edbb43fe597d78faa854f2f18fea76a63231ad",
+    "integrity": "ok",
+    "beforeOrderCount": 39,
+    "afterOrderCount": 39,
+    "oldOrdersMissing": 0,
+    "oldOrdersFieldsChanged": 0,
+    "newOrders": 0,
+    "cloudBusinessPostsByCoordinator": 0,
+    "backupAndReadbackOutsideRepository0600": true,
+    "PASS": true
+  },
+  "liveHttp": {
+    "sourceSha": "107e226d1d23fc6d7ef5dab75229962bd38306d8",
+    "requests": [
+      {
+        "url": "https://yijiexing-demo.hbzjhs.xyz/health",
+        "expectedHttp": 200,
+        "http": 200,
+        "curlExit": 0,
+        "sourceBytesEqual": null,
+        "PASS": true
+      },
+      {
+        "url": "https://demo-admin.hbzjhs.xyz/",
+        "expectedHttp": 200,
+        "http": 200,
+        "curlExit": 0,
+        "sourceBytesEqual": true,
+        "PASS": true
+      },
+      {
+        "url": "https://demo-admin.hbzjhs.xyz/static/admin.css",
+        "expectedHttp": 200,
+        "http": 200,
+        "curlExit": 0,
+        "sourceBytesEqual": true,
+        "PASS": true
+      },
+      {
+        "url": "https://demo-admin.hbzjhs.xyz/api/local/admin/v2/state",
+        "expectedHttp": 401,
+        "http": 401,
+        "curlExit": 0,
+        "sourceBytesEqual": null,
+        "PASS": true
+      },
+      {
+        "url": "https://user-test---driver-demo-phfgquzmua-uw.a.run.app/download-passenger",
+        "expectedHttp": 200,
+        "http": 200,
+        "curlExit": 0,
+        "sourceBytesEqual": null,
+        "PASS": true
+      },
+      {
+        "url": "https://user-test---driver-admin-phfgquzmua-uw.a.run.app/",
+        "expectedHttp": 200,
+        "http": 200,
+        "curlExit": 0,
+        "sourceBytesEqual": true,
+        "PASS": true
+      }
+    ],
+    "cloudBusinessPosts": 0
+  },
+  "cleanup": {
+    "isolatedEmulatorAndFixture": "Frontend stopped AVD/processes, removed reverse ports",
+    "headlessBrowser": "Closed",
+    "geminiDispatch": "Paused",
+    "backgroundDaemonCreated": false,
+    "roles": "IDLE after receipt completion"
+  },
+  "limits": [
+    "AMap passenger10008/1008 diagnosis preserved; user deferred console login; not repaired",
+    "QA screenshots use local synthetic data and explicit test network/identity overlay, separate from original signed shipping APK",
+    "WeChat lacksAppID, compile/runtime/publish NOT_RUN",
+    "OEM physical devices/all-screen-font exhaustive NOT_RUN",
+    "Payments/refunds/withdrawals/invoices simulated; no real IM/relay/recording/police integration",
+    "UI-only scope preserves BIZ04–09 business/default rules"
+  ],
+  "setupCorrections": [
+    "Admin staging tool required absolute backend source path; corrected before build",
+    "gcloud update-traffic JSON is a traffic-row list; script parse corrected by actual service resource readback; both100% verified",
+    "SDK tools located under Homebrew Android SDK; corrected before HTTPS APK signing inspection",
+    "Raw Gradle stdout trailing whitespace preserved verbatim; source diff whitespace check excludes raw .log artifacts"
+  ]
+}

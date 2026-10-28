@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "id": "CCREC-20261029-01",
+  "owner": "coordinator",
+  "goal": "固化已发布Claude接入/UI体验版本真实回执和当前入口",
+  "baseSha": "8eebffa772223c57da6e96bc7b9126ebc59f816a",
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-pm-amap-20261027",
+  "branch": "codex/claude-ui-release-receipt-20261029",
+  "allow_paths": [
+    "coordination/",
+    "README.md"
+  ],
+  "checks": [
+    "Documentation/receipt only; actual runtime and APK source remain107e226",
+    "Do not rerun unchanged product tests or republish; preserve exact release evidence and current limits"
+  ],
+  "status": "RECEIPT_READY_FOR_COMMIT",
+  "acceptance": "PASS",
+  "tests": [
+    {
+      "command": "Current release receipt consistency, source107 binding, actual HTTPS and runtime/data preservation readbacks",
+      "status": "PASS",
+      "exitCode": 0
+    }
+  ],
+  "evidence": [
+    "coordination/evidence/CCUI-20261029-01/release/FINAL-RELEASE-RECEIPT.json"
+  ],
+  "nextAction": "Commit/CI/merge receipt thenIDLE",
+  "deploy_owner": "coordinator",
+  "releaseReady": false,
+  "updatedAt": "2026-10-29T02:14:53.503854+08:00"
+}
