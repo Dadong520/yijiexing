@@ -1,0 +1,74 @@
+{
+  "at": "2026-10-28T23:37:20.282665+08:00",
+  "scope": "Exact SDK Query/Handler/signing bytecode plus released APK certificate; mocked Android Context/PackageManager; request transmitted by Python HTTPS, X-INFO omitted equally",
+  "sdkSha256": "ac3ebaafa350784474178e9dfe0cc5083d4f616f52d410e223aed792ce9d6e52",
+  "androidDeviceSdkSuccess": "NOT_RUN",
+  "privateSigningMaterialRead": false,
+  "rawRequestPersisted": false,
+  "cases": [
+    {
+      "role": "passenger",
+      "package": "cn.hbzjhs.dc.passenger.cloud",
+      "keySha256": "5ff8a7e6c840c80e13cd703309cfdc114fa2082b7dc160e06ae9cd6f5ca44aeb",
+      "sdkChecks": {
+        "mapKeyMatches": true,
+        "searchKeyMatches": true,
+        "identityMatches": true,
+        "scodeMatches": true,
+        "entityPresent": true
+      },
+      "entityKeyMatches": true,
+      "entityFieldNames": [
+        "children",
+        "city",
+        "citylimit",
+        "extensions",
+        "key",
+        "keywords",
+        "offset",
+        "output",
+        "page",
+        "scode",
+        "ts"
+      ],
+      "sdkStdErrBytes": 0,
+      "httpStatus": 200,
+      "serverDate": "Wed, 28 Oct 2026 15:37:19 GMT",
+      "status": "0",
+      "infocode": "10008",
+      "returnedPoiCount": null
+    },
+    {
+      "role": "driver",
+      "package": "cn.hbzjhs.dc.driver.cloud",
+      "keySha256": "1ea1a9e5131ab7f3702a1f904b65f9813c3abdf6917e137d9eee1df8e0d518da",
+      "sdkChecks": {
+        "mapKeyMatches": true,
+        "searchKeyMatches": true,
+        "identityMatches": true,
+        "scodeMatches": true,
+        "entityPresent": true
+      },
+      "entityKeyMatches": true,
+      "entityFieldNames": [
+        "children",
+        "city",
+        "citylimit",
+        "extensions",
+        "key",
+        "keywords",
+        "offset",
+        "output",
+        "page",
+        "scode",
+        "ts"
+      ],
+      "sdkStdErrBytes": 0,
+      "httpStatus": 200,
+      "serverDate": "Wed, 28 Oct 2026 15:37:20 GMT",
+      "status": "1",
+      "infocode": "10000",
+      "returnedPoiCount": 1
+    }
+  ]
+}

@@ -143,6 +143,73 @@ class MemorySafetyTests(unittest.TestCase):
         p.unlink()
         self.assertIn('memory: missing START_HERE.md', check_memory(self.root))
 
+    def add_expert(self):
+        expert = copy.deepcopy(self.registry['sessions']['backend'])
+        expert.update(threadId='expert-thread', model='gpt-6-astra', thinking='xhigh',
+                      activationPolicy='explicit_blocker_dispatch_only',
+                      authorizationDecisionId='GOV-06',
+                      handoffPath='coordination/handoffs/expert.md')
+        self.registry['sessions']['expert'] = expert
+        (self.root/'coordination/handoffs/expert.md').write_text(self.version)
+        self.save()
+        return expert
+
+    def test_expert_is_optional_but_unknown_or_unregistered_caller_is_rejected(self):
+        self.assertEqual(check(self.root), [])
+        self.assertTrue(any('missing role expert' in e for e in
+                            check_memory(self.root, 'expert', 'unregistered')))
+        self.assertTrue(any('unknown role' in e for e in check_memory(self.root, 'invented', 'x')))
+
+    def test_registered_expert_needs_own_actual_identity(self):
+        self.add_expert()
+        self.assertEqual(check(self.root, memory_role='expert', session_id='expert-thread'), [])
+        self.assertTrue(any('actual caller' in e for e in
+                            check_memory(self.root, 'expert', 'coordinator-thread')))
+        self.assertIn('UNKNOWN', memory_summary(self.root, 'expert'))
+
+    def test_expert_model_exception_does_not_change_core_models(self):
+        expert = self.add_expert()
+        for field, value in [('model', 'gpt-6.1-sol'), ('thinking', 'high')]:
+            original = expert[field]
+            expert[field] = value
+            self.save()
+            self.assertTrue(any('Astra/xhigh' in e for e in check_memory(self.root)))
+            expert[field] = original
+        self.registry['sessions']['backend']['model'] = 'gpt-6-astra'
+        self.save()
+        self.assertTrue(any('GPT-6.1 preference' in e for e in check_memory(self.root)))
+
+    def test_expert_cannot_duplicate_an_active_identity(self):
+        expert = self.add_expert()
+        expert['threadId'] = 'coordinator-thread'
+        self.save()
+        self.assertIn('memory: duplicate active thread id', check_memory(self.root))
+
+    def test_expert_dispatch_and_authorization_policy_required(self):
+        expert = self.add_expert()
+        expert.update(activationPolicy='always_running', authorizationDecisionId=None)
+        self.save()
+        errors = check_memory(self.root)
+        self.assertTrue(any('explicit blocker' in e for e in errors))
+        self.assertTrue(any('GOV-06' in e for e in errors))
+
+    def test_expert_handoff_required_and_ack_are_enforced(self):
+        expert = self.add_expert()
+        expert['memoryStatus'] = 'HANDOFF_REQUIRED'
+        self.save()
+        self.assertEqual(check(self.root, memory_role='coordinator', session_id='coordinator-thread'), [])
+        self.assertTrue(any('handoff required' in e for e in
+                            check_memory(self.root, 'expert', 'expert-thread')))
+        expert.update(memoryStatus='NORMAL', ackVersion=None)
+        self.save()
+        self.assertTrue(any('acknowledge current protocol' in e for e in
+                            check_memory(self.root, 'expert', 'expert-thread')))
+
+    def test_expert_short_card_budget_is_enforced(self):
+        self.add_expert()
+        (self.root/'coordination/handoffs/expert.md').write_text(self.version + 'x' * 6144)
+        self.assertTrue(any('expert handoff exceeds' in e for e in check_memory(self.root)))
+
     def test_exact_sha_release_gate_remains_effective(self):
         c = self.root/'coordination'
         proof = c/'proof.json'

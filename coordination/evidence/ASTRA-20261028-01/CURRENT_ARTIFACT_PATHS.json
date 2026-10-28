@@ -1,0 +1,10 @@
+{
+  "at": "2026-10-28T23:26:57.432367+08:00",
+  "scope": "Targeted current attachment/APK existence only",
+  "originalConsoleScreenshots": "NOT_FOUND at all three originally supplied exact paths; no relevant image backup in exact known evidence/private-amap directory",
+  "signedPassengerApk": "/Users/dongge/.codex/tmp/yijiexing-pui-release-build-20261028/passenger/_app/outputs/apk/debug/app-debug.apk",
+  "httpsReadbackCopy": "/Users/dongge/.codex/tmp/yijiexing-pui-release-stage-20261028/https-passenger.apk",
+  "bytes": 107139449,
+  "providedToExpert": true,
+  "broadHistoryOrAccountLibraryScan": false
+}

@@ -1,0 +1,32 @@
+{
+  "at": "2026-10-28T23:19:54.992555+08:00",
+  "scope": "Two public-place read-only requests to AMap; no application backend, GUI or ADB",
+  "cases": [
+    {
+      "role": "passenger",
+      "package": "cn.hbzjhs.dc.passenger.cloud",
+      "keySha256": "5ff8a7e6c840c80e13cd703309cfdc114fa2082b7dc160e06ae9cd6f5ca44aeb",
+      "mode": "direct_https_sdk_formula_synthetic_identity",
+      "androidSdkExecuted": false,
+      "httpStatus": 200,
+      "serverDate": "Wed, 28 Oct 2026 15:19:55 GMT",
+      "status": "0",
+      "infocode": "10008",
+      "returnedPoiCount": null,
+      "result": "AUTH_NOT_ACCEPTED"
+    },
+    {
+      "role": "driver",
+      "package": "cn.hbzjhs.dc.driver.cloud",
+      "keySha256": "1ea1a9e5131ab7f3702a1f904b65f9813c3abdf6917e137d9eee1df8e0d518da",
+      "mode": "direct_https_sdk_formula_synthetic_identity",
+      "androidSdkExecuted": false,
+      "httpStatus": 200,
+      "serverDate": "Wed, 28 Oct 2026 15:19:55 GMT",
+      "status": "1",
+      "infocode": "10000",
+      "returnedPoiCount": 1,
+      "result": "AUTH_ACCEPTED"
+    }
+  ]
+}

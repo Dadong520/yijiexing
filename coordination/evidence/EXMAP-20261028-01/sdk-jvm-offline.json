@@ -1,0 +1,24 @@
+{
+  "at": "2026-10-28T23:27:14.640744+08:00",
+  "sdkSha256": "ac3ebaafa350784474178e9dfe0cc5083d4f616f52d410e223aed792ce9d6e52",
+  "mode": "Unmodified AMap SDK classes executing in desktop JVM; mocked Android context/package-manager; synthetic certificate and dummy Key",
+  "androidDeviceSdkSuccess": "NOT_RUN",
+  "sdkInvocations": [
+    "MapsInitializer.setApiKey",
+    "ServiceSettings.setApiKey",
+    "AppInfo.g(Context)",
+    "ClientInfo.a(Context,ts,params)",
+    "PoiSearch.Query",
+    "PoiSearchKeywordsHandler.getEntityBytes"
+  ],
+  "checks": {
+    "mapKeyMatches": true,
+    "searchKeyMatches": true,
+    "identityMatches": true,
+    "scodeMatches": true,
+    "entityPresent": true
+  },
+  "stderrBytes": 0,
+  "exitCode": 0,
+  "rawRequestPersisted": false
+}

@@ -1,0 +1,86 @@
+{
+  "schemaVersion": 1,
+  "id": "EXMAP-20261028-01",
+  "owner": "expert",
+  "goal": "Astra首轮难题测试：定位并解决高德乘客map10008/POI1008鉴权问题",
+  "baseSha": "713fcfb57117741b056e8197d609e3e20f365937",
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-pm-amap-20261027",
+  "branch": "codex/astra-escalation-20261028",
+  "allow_paths": [
+    "coordination/tasks/EXMAP-20261028-01.json",
+    "coordination/handoffs/expert.md",
+    "coordination/evidence/EXMAP-20261028-01/"
+  ],
+  "checks": [
+    "先真实ID/ACK只读接入；root注册并补齐expert门禁后再正式排查；不冒用coordinator/backend ID",
+    "只定向读PMMAP指定证据、当前AmapSupport/Map/AddressSearch/运行时下发代码与官方高德文档，已有设置图绑定和APK身份已核一致，勿重复索Key",
+    "当前源main713，乘客1.1.15/code17、司机0.3.14/code17已发；PUI的uireview不同包名/无Key/隔离DNS截图不是实际SDK鉴权失败证据",
+    "首阶段仅诊断与外置可复现测试工具，不改共享产品/工具/中央控制/云配置；若需产品补丁先把最小文件范围交root定专用任务/分支，不自合并发布",
+    "可按需仅内存读取既有private/yijiexing/amap-20261027.json，私有Key/安全码/完整认证日志不进聊天/源码/Git/APK；留hash/错误码/脱敏证据，任何原始日志外置private0600",
+    "无真机或原测试/生产权限；旧PUI模拟器点按授权已随该次验收结束，不冒用。先无GUI/API/代码测试，确需UI操作再由root按工具规则处理",
+    "结论必须分清根因已证实/推断/真实SDK成功NOT_RUN，不能用网络可达或地图容器出现当PASS；完成本次或转外部阻塞后即IDLE不自醒"
+  ],
+  "status": "DIAGNOSIS_COMPLETE_EXTERNAL_CHECK_PENDING",
+  "acceptance": "BLOCKED",
+  "tests": [
+    {
+      "command": "python3 tools/check_coordination.py --memory-role expert --session-id \"$CODEX_THREAD_ID\"",
+      "result": "PASS: true ID/ACK; not business acceptance"
+    },
+    {
+      "command": "apksigner verify --print-certs-pem <current published readback APK>; aapt dump badging <same APK>",
+      "result": "PASS: exact released APK SHA256/package/version/signing certificate, only public certificate extracted"
+    },
+    {
+      "command": "python3 coordination/evidence/EXMAP-20261028-01/probe_binding.py",
+      "result": "PASS_DIAGNOSIS: passenger10008 vs driver10000+1POI, TLS verified/system CA; initial default-CA2 attempts separately TRANSPORT_ERROR"
+    },
+    {
+      "command": "probe_binding.probe with 3 bounded own-app identity controls",
+      "result": "All3 returned10008; no arbitrary identity enumeration"
+    },
+    {
+      "command": "python3 coordination/evidence/EXMAP-20261028-01/build_sdk_harness.py",
+      "result": "PASS javac exit0/8 sources; unmodified exact SDK digest verified"
+    },
+    {
+      "command": "python3 coordination/evidence/EXMAP-20261028-01/probe_sdk_request.py",
+      "result": "Actual SDK generated request: all5 identity/key/signature checks true and body Key matches, passenger10008 vs driver10000+1POI; synthetic Android Context, actual public certificate, no device SDK PASS"
+    },
+    {
+      "command": "compare_settings_ocr.py source-path checks",
+      "result": "NOT_RUN original images NOT_FOUND; coordinator confirmed no retained backup; prior confirmed bindings not invalidated"
+    },
+    {
+      "command": "Task evidence/external-root exact four-value scan",
+      "result": "PASS 81 files; zero secret matches; zero evidence APK/cache"
+    }
+  ],
+  "evidence": [
+    "coordination/evidence/EXMAP-20261028-01/DIAGNOSIS.md",
+    "coordination/evidence/EXMAP-20261028-01/source-binding.json",
+    "coordination/evidence/EXMAP-20261028-01/published-certificate-check.json",
+    "coordination/evidence/EXMAP-20261028-01/binding-probe-system-trust.json",
+    "coordination/evidence/EXMAP-20261028-01/binding-probe-controls.json",
+    "coordination/evidence/EXMAP-20261028-01/sdk-jvm-offline.json",
+    "coordination/evidence/EXMAP-20261028-01/sdk-generated-request-results.json",
+    "coordination/evidence/EXMAP-20261028-01/settings-ocr-comparison.json",
+    "coordination/evidence/EXMAP-20261028-01/secret-scan.json"
+  ],
+  "nextAction": "Coordinator read-only verifies exact passenger Key record and saved binding; expert IDLE until explicit new evidence/task. No justified product patch yet; actual Android SDK success NOT_RUN.",
+  "deploy_owner": "coordinator",
+  "releaseReady": false,
+  "updatedAt": "2026-10-28T23:32:48.051039+08:00",
+  "expertThreadId": "01a1830f-d94b-7933-9c22-2c3898e54186",
+  "model": "gpt-6-astra",
+  "thinking": "xhigh",
+  "externalTestRoot": "/Users/dongge/.codex/tmp/yijiexing-astra-amap-20261028",
+  "candidateSha": null,
+  "diagnosis": {
+    "proven": "Current supplied passenger Key is rejected10008 under confirmed released identity even with unmodified SDK-generated scode; driver positive control succeeds10000",
+    "unresolved": "Exact saved console record/Key-to-settings association; device map/POI success NOT_RUN",
+    "minimalProductPatchPaths": [],
+    "externalActionsPerformed": false,
+    "mergeSha": null
+  }
+}

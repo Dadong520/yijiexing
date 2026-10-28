@@ -10,6 +10,7 @@ import sys
 
 
 ROLES = ('coordinator', 'backend', 'frontend', 'antigravity')
+OPTIONAL_ROLES = ('expert',)
 MEMORY_STATES = {'UNKNOWN', 'NORMAL', 'CHECKPOINT_REQUIRED',
                  'HANDOFF_RECOMMENDED', 'HANDOFF_REQUIRED'}
 
@@ -17,6 +18,8 @@ MEMORY_STATES = {'UNKNOWN', 'NORMAL', 'CHECKPOINT_REQUIRED',
 def check_memory(root, role=None, session_id=None):
     """Validate declared checkpoints; never infer or query model context usage."""
     errors = []
+    if role is not None and role not in ROLES + OPTIONAL_ROLES:
+        errors.append('memory: unknown role')
     budgets = {'START_HERE.md': 4096, 'MEMORY_POLICY.md': 10240,
                'DECISIONS.md': 8192, 'NEW_CHAT_PROMPT.txt': 4096,
                'SESSION_REGISTRY.json': 6144, 'BOARD.json': 8192}
@@ -49,7 +52,8 @@ def check_memory(root, role=None, session_id=None):
     sessions = registry.get('sessions')
     if not isinstance(sessions, dict): return errors + ['memory: sessions must be an object']
     seen = set()
-    for name in ROLES:
+    active_roles = ROLES + (('expert',) if 'expert' in sessions or role == 'expert' else ())
+    for name in active_roles:
         session = sessions.get(name)
         if not isinstance(session, dict):
             errors.append('memory: missing role ' + name); continue
@@ -60,7 +64,14 @@ def check_memory(root, role=None, session_id=None):
             if not isinstance(thread, str): errors.append('memory: invalid thread id for ' + name)
             elif thread in seen: errors.append('memory: duplicate active thread id')
             else: seen.add(thread)
-        if name != 'antigravity' and not str(session.get('model', '')).startswith('gpt-6.1'):
+        if name == 'expert':
+            if session.get('model') != 'gpt-6-astra' or session.get('thinking') != 'xhigh':
+                errors.append('memory: expert must match user-approved Astra/xhigh')
+            if session.get('activationPolicy') != 'explicit_blocker_dispatch_only':
+                errors.append('memory: expert requires explicit blocker dispatch policy')
+            if session.get('authorizationDecisionId') != 'GOV-06':
+                errors.append('memory: expert requires recorded user model exception GOV-06')
+        elif name != 'antigravity' and not str(session.get('model', '')).startswith('gpt-6.1'):
             errors.append('memory: declared Codex model must match GPT-6.1 preference')
         if session.get('memoryStatus') not in MEMORY_STATES:
             errors.append('memory: invalid status for ' + name)
@@ -88,6 +99,8 @@ def check_memory(root, role=None, session_id=None):
             card = root / expected
             if not card.is_file() or version not in card.read_text():
                 errors.append('memory: ACK not reflected in role handoff for ' + name)
+            if name == 'expert' and card.is_file() and card.stat().st_size > 6144:
+                errors.append('memory: expert handoff exceeds 6KB')
         if role == name:
             if name != 'antigravity' and (not session_id or session_id != thread):
                 errors.append('memory: actual caller session id must match active registered role')
@@ -192,7 +205,7 @@ def main():
     parser.add_argument('--root',type=Path,default=Path(__file__).resolve().parents[1])
     parser.add_argument('--release-task')
     parser.add_argument('--sha')
-    parser.add_argument('--memory-role', choices=ROLES,
+    parser.add_argument('--memory-role', choices=ROLES + OPTIONAL_ROLES,
                         help='local preflight; validates role ACK and handoff status, not model telemetry')
     parser.add_argument('--session-id', help='actual caller thread id; do not copy another role id')
     args=parser.parse_args()
