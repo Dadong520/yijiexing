@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updated": "2026-10-28T23:40:55.765606+08:00",
+  "updated": "2026-10-29T01:40:26.942973+08:00",
   "coordinator": "coordinator",
   "activeTaskIds": [
     "WX-20261025-01",
@@ -41,7 +41,11 @@
     "ASTRA-20261028-01",
     "EXMAP-20261028-01",
     "ASTRAV-20261028-01",
-    "EXMAPV-20261028-01"
+    "EXMAPV-20261028-01",
+    "CC-20261029-01",
+    "CCUI-20261029-01",
+    "CCUIV-20261029-01",
+    "CCG-20261029-01"
   ],
   "releaseOwner": "coordinator",
   "policy": "作者提交→自测→独立验收→协调者合并→部署回读；无业务验收PASS不发布",
@@ -70,13 +74,14 @@
     "coordination/archive/2026-10-26/AUTH-20261026-02.json"
   ],
   "memoryProtocolVersion": "2026-10-26-v3",
-  "currentStage": "ASTRA_SETUP_COMPLETE_AMAP_EXTERNAL_BLOCKER_USER_DEFERRED",
+  "currentStage": "CLAUDE_UI_ACCEPTED_INTEGRATION_CI",
   "roleAssignments": {
-    "coordinator": "Persist reviewed governance/diagnosis then IDLE; no console login now per user",
-    "backend": "IDLE ASTRAV guard PASS",
-    "frontend": "IDLE EXMAPV diagnosis review PASS_WITH_STATED_LIMITS",
-    "antigravity": "PMVG: completed announcement validator candidate + coordinator11 checks; idle, no product integration",
-    "expert": "IDLE EXMAP delivered; only explicit hard blocker dispatch"
+    "coordinator": "CCUI CI/merge/release source107e226",
+    "backend": "IDLE CCG independent guard PASS",
+    "frontend": "IDLE CCUIV final11bef independent PASS",
+    "antigravity": "PAUSED_BY_USER_20261029; no new Gemini dispatch",
+    "expert": "IDLE EXMAP delivered; only explicit hard blocker dispatch",
+    "claude": "IDLE actual Desktop session open"
   },
-  "collaborationDecision": "GOV-04 active: visible independent backend/frontend chats; Gemini actual availability to be verified"
+  "collaborationDecision": "GOV07 user Claude Code main implementation; Gemini temporarily paused; visible Codex role reviews and root unique release"
 }

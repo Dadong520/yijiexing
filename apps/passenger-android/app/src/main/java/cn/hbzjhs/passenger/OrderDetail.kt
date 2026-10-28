@@ -94,6 +94,7 @@ fun OrderDetail(o: JSONObject, store: PassengerStore, busy: Boolean) {
       if (cancellable) TextButton(
         onClick = { cancelChoice = "行程计划有变"; cancelOther = ""; dialog = "cancel" },
         enabled = !busy,
+        colors = ButtonDefaults.textButtonColors(contentColor = Danger, disabledContentColor = Muted.copy(alpha = 0.6f)),
       ) { Text("取消订单") }
     }
     Panel("行程路线") {
@@ -110,7 +111,7 @@ fun OrderDetail(o: JSONObject, store: PassengerStore, busy: Boolean) {
 
       Surface(
         shape = androidx.compose.foundation.shape.RoundedCornerShape(12.dp),
-        border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFFEDEFF2)),
+        border = androidx.compose.foundation.BorderStroke(1.dp, Line),
         modifier = Modifier
           .fillMaxWidth()
           .height(200.dp),
@@ -196,6 +197,8 @@ fun OrderDetail(o: JSONObject, store: PassengerStore, busy: Boolean) {
           onClick = { store.action("order.continue", JSONObject().put("id", id).put("type", 2)) },
           enabled = !busy,
           modifier = Modifier.fillMaxWidth(),
+          colors = ButtonDefaults.outlinedButtonColors(contentColor = Danger, disabledContentColor = Muted.copy(alpha = 0.6f)),
+          border = androidx.compose.foundation.BorderStroke(1.dp, if (!busy) DangerLine else Line),
         ) {
           Text("不再用车 · 取消订单")
         }
@@ -579,6 +582,7 @@ fun OrderDetail(o: JSONObject, store: PassengerStore, busy: Boolean) {
       onDismiss = { dialog = "" },
       confirmLabel = "确认提交",
       dismissLabel = "返回",
+      confirmColor = if (dialog == "cancel") Danger else Teal,
       confirmEnabled =
         !busy &&
           (dialog != "complaint" || content.trim().length >= 5) &&
@@ -659,14 +663,14 @@ fun RouteDiagram(o: JSONObject) {
       route.zipWithNext().forEach { (a, b) -> drawLine(Color(0xFFB7DAD5), a, b, 8f) }
       route.forEachIndexed { index, p ->
         drawCircle(
-          if (index == 0) Teal else if (index == route.lastIndex) Color(0xFFDA9E3B) else Muted,
+          if (index == 0) Teal else if (index == route.lastIndex) Warm else Muted,
           if (index == 0 || index == route.lastIndex) 12f else 7f,
           p,
         )
       }
       car
         ?.takeIf { it.first.isFinite() && it.second.isFinite() }
-        ?.let { drawCircle(Color(0xFF3D6977), 9f, position(it)) }
+        ?.let { drawCircle(Sky, 9f, position(it)) }
     } else if (all.size == 1) drawCircle(Teal, 12f, Offset(size.width / 2, size.height / 2))
   }
   FlowRow(

@@ -1,0 +1,28 @@
+{
+  "at": "2026-10-29T01:13:48.766892+08:00",
+  "engine": "/Users/dongge/Library/Application Support/Claude/claude-code/2.1.304/6bbba6adc37f/claude.app/Contents/MacOS/claude",
+  "version": "2.1.304",
+  "authStatus": "LOGGED_IN_CLAUDE_AI_PRO",
+  "actualSessionCreated": true,
+  "productAuthoredByClaude": false,
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-claude-ui-20261029",
+  "branch": "codex/claude-ui-20261029",
+  "baseSha": "62942d103ed946057de28f29262ea196ad46ca73",
+  "gemini": "PAUSED_BY_USER_NO_ACTIVE_DISPATCH",
+  "credentialsCopied": false,
+  "loginProcessActive": false,
+  "nextAction": "Formal source-scoped implementation dispatch",
+  "authVerifiedAt": "2026-10-29T01:15:45.685439+08:00",
+  "sessionId": "413b9b2c-f346-4a81-8891-87bc3c962394",
+  "model": "claude-opus-5-5",
+  "effort": "medium",
+  "ack": "2026-10-26-v3 / claude / root actualID / task / limits",
+  "intakeLimit": "initial argv prompt parsing was ambiguous; corrected formal dispatch uses -- before prompt; git metadata outside working folder read denied and not bypassed",
+  "desktopResume": {
+    "command": "official bundled claude --desktop --resume 413b9b2c-f346-4a81-8891-87bc3c962394 with real TTY",
+    "output": "Opening session 413b9b2c-f346-4a81-8891-87bc3c962394 in Claude Desktop",
+    "status": "OFFICIAL_DESKTOP_OPEN_REQUEST_SENT",
+    "desktopUiInspection": "NOT_RUN_NO_CUA_TOOLS",
+    "noConcurrentTaskAuthoring": true
+  }
+}

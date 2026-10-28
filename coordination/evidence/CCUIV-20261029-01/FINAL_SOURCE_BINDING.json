@@ -1,0 +1,15 @@
+{
+  "sha": "11bef0e3b26b04f14b31b2ef752c4aa1097ab49d",
+  "checks": {
+    "driver": {
+      "trackedFiles": 64,
+      "mismatches": [],
+      "treeHash": "318fe92e2b3cc78696e5bbe7ebdbeb9d214c4959"
+    },
+    "passenger": {
+      "trackedFiles": 100,
+      "mismatches": [],
+      "treeHash": "2f5b9d21f87198e648db6eecb3a984446c9f4848"
+    }
+  }
+}

@@ -52,10 +52,10 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import kotlinx.coroutines.delay
 
-val Teal = Color(0xFF007F76)
-val Ink = Color(0xFF111827)
-val Muted = Color(0xFF6B7280)
-val Paper = Color(0xFFF6F8FA)
+val Teal = Color(0xFF00796E)
+val Ink = Color(0xFF0F1B2A)
+val Muted = Color(0xFF4B5B6B)
+val Paper = Color(0xFFF2F6F7)
 val Amber = Color(0xFFF59E0B)
 
 class MainActivity : ComponentActivity() {
@@ -404,7 +404,7 @@ fun Field(
     shape = RoundedCornerShape(12.dp),
     colors = OutlinedTextFieldDefaults.colors(
       focusedBorderColor = Teal,
-      unfocusedBorderColor = Color(0xFFE2E4E9),
+      unfocusedBorderColor = ControlOutline,
       focusedLabelColor = Teal,
       unfocusedLabelColor = Muted,
       focusedContainerColor = Color(0xFFFBFBFC),
@@ -607,20 +607,25 @@ fun PassengerVisualTheme(content: @Composable () -> Unit) {
   val colorScheme = lightColorScheme(
     primary = Teal,
     onPrimary = Color.White,
-    primaryContainer = Color(0xFFE0F4F2),
-    onPrimaryContainer = Color(0xFF004D47),
-    secondary = Ink,
+    primaryContainer = BrandSoft,
+    onPrimaryContainer = BrandStrong,
+    secondary = Sky,
     onSecondary = Color.White,
-    secondaryContainer = Color(0xFFF1F3F5),
+    secondaryContainer = SkySoft,
     onSecondaryContainer = Ink,
+    tertiary = Warm,
+    tertiaryContainer = WarmSoft,
+    error = Danger,
+    errorContainer = DangerSoft,
     background = Paper,
     onBackground = Ink,
     surface = Color.White,
     surfaceTint = Color.White,
     onSurface = Ink,
-    surfaceVariant = Color(0xFFF1F3F5),
+    surfaceVariant = Color(0xFFEEF3F4),
     onSurfaceVariant = Muted,
-    outline = Color(0xFFE5E7EB),
+    outline = ControlOutline,
+    outlineVariant = Line,
   )
   MaterialTheme(
     colorScheme = colorScheme,

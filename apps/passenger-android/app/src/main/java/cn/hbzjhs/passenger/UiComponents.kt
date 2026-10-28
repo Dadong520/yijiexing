@@ -48,16 +48,17 @@ fun MenuRow(title: String, icon: ImageVector, subtitle: String? = null, onClick:
     verticalAlignment = Alignment.CenterVertically,
     horizontalArrangement = Arrangement.spacedBy(14.dp),
   ) {
+    val (accent, accentSoft) = iconAccent(icon)
     Box(
       modifier = Modifier
         .size(36.dp)
-        .background(Color(0xFFEBF7F5), RoundedCornerShape(10.dp)),
+        .background(accentSoft, RoundedCornerShape(10.dp)),
       contentAlignment = Alignment.Center,
     ) {
       Icon(
         icon,
         contentDescription = null,
-        tint = Teal,
+        tint = accent,
         modifier = Modifier.size(20.dp),
       )
     }
@@ -74,7 +75,7 @@ fun MenuRow(title: String, icon: ImageVector, subtitle: String? = null, onClick:
     Icon(
       Icons.AutoMirrored.Filled.KeyboardArrowRight,
       contentDescription = null,
-      tint = Color(0xFFC4C8D0),
+      tint = Chevron,
       modifier = Modifier.size(20.dp),
     )
   }
@@ -91,7 +92,7 @@ fun ExpandablePanel(
   Card(
     colors = CardDefaults.cardColors(containerColor = Color.White),
     shape = RoundedCornerShape(18.dp),
-    border = BorderStroke(1.dp, Color(0xFFEDEFF2)),
+    border = BorderStroke(1.dp, Line),
     elevation = CardDefaults.cardElevation(defaultElevation = 1.dp),
     modifier = Modifier.fillMaxWidth(),
   ) {
@@ -118,7 +119,7 @@ fun ExpandablePanel(
         )
       }
       if (expanded) {
-        HorizontalDivider(color = Color(0xFFF1F3F5), thickness = 0.8.dp)
+        HorizontalDivider(color = DividerTone, thickness = 0.8.dp)
         content()
       }
     }
@@ -157,7 +158,7 @@ fun AddressRow(label: String, address: String, emphasize: Boolean = false, onCli
     Icon(
       Icons.AutoMirrored.Filled.KeyboardArrowRight,
       contentDescription = null,
-      tint = Color(0xFFC4C8D0),
+      tint = Chevron,
       modifier = Modifier.size(20.dp),
     )
   }
@@ -171,6 +172,7 @@ fun PassengerModal(
   confirmEnabled: Boolean = true,
   onConfirm: () -> Unit,
   dismissLabel: String = "取消",
+  confirmColor: Color = Teal,
   content: @Composable ColumnScope.() -> Unit,
 ) {
   Dialog(
@@ -212,7 +214,7 @@ fun PassengerModal(
             verticalArrangement = Arrangement.spacedBy(12.dp),
             content = content,
           )
-          HorizontalDivider(color = Color(0xFFF1F3F5), thickness = 0.8.dp)
+          HorizontalDivider(color = DividerTone, thickness = 0.8.dp)
           Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(10.dp)) {
             TextButton(
               onClick = onDismiss,
@@ -226,8 +228,10 @@ fun PassengerModal(
               modifier = Modifier.weight(0.6f).heightIn(min = 48.dp),
               shape = RoundedCornerShape(12.dp),
               colors = ButtonDefaults.buttonColors(
-                containerColor = Teal,
+                containerColor = confirmColor,
                 contentColor = Color.White,
+                disabledContainerColor = Line,
+                disabledContentColor = Muted,
               ),
             ) {
               Text(confirmLabel, fontSize = 15.sp, fontWeight = FontWeight.SemiBold)

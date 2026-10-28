@@ -1,6 +1,6 @@
 .home-container {
   min-height: 100vh;
-  background-color: #f5f9f8;
+  background-color: #f2f6f7;
   padding-bottom: 60rpx;
   box-sizing: border-box;
 }
@@ -16,13 +16,13 @@
 .brand-title {
   font-size: 38rpx;
   font-weight: 800;
-  color: #087f73;
+  color: #00796e;
   letter-spacing: 2rpx;
 }
 
 .brand-city {
   font-size: 22rpx;
-  color: #647774;
+  color: #4b5b6b;
   margin-top: 4rpx;
 }
 
@@ -30,8 +30,8 @@
   display: flex;
   align-items: center;
   gap: 8rpx;
-  background: #e6f5f3;
-  color: #087f73;
+  background: #e0f2fe;
+  color: #0369a1;
   padding: 10rpx 24rpx;
   border-radius: 30rpx;
   font-size: 24rpx;
@@ -40,7 +40,7 @@
 
 /* 进行中订单胶囊条 */
 .active-order-banner {
-  background: linear-gradient(135deg, #087f73 0%, #0ca798 100%);
+  background: linear-gradient(135deg, #00796e 0%, #0f9488 100%);
   color: #ffffff;
   padding: 20rpx 28rpx;
   display: flex;
@@ -90,7 +90,7 @@
 
 .map-hint {
   font-size: 20rpx;
-  color: #92a4a1;
+  color: #5b6b7a;
   text-align: center;
   padding: 8rpx 0;
   background: #f0f5f4;
@@ -105,13 +105,13 @@
   box-shadow: 0 8rpx 28rpx rgba(0, 0, 0, 0.08);
   position: relative;
   z-index: 10;
-  border: 1rpx solid #e2ebe9;
+  border: 1rpx solid #dce5e8;
 }
 
 /* 类型 Tabs */
 .kind-tabs {
   display: flex;
-  background: #f5f9f8;
+  background: #f2f6f7;
   border-radius: 18rpx;
   padding: 6rpx;
   margin-bottom: 24rpx;
@@ -126,13 +126,13 @@
   padding: 16rpx 0;
   border-radius: 14rpx;
   font-size: 26rpx;
-  color: #647774;
+  color: #4b5b6b;
   transition: all 0.2s ease;
 }
 
 .tab-item.active {
   background: #ffffff;
-  color: #087f73;
+  color: #00796e;
   font-weight: 700;
   box-shadow: 0 4rpx 12rpx rgba(8, 127, 115, 0.12);
 }
@@ -143,7 +143,7 @@
 
 /* 路线输入区 */
 .route-panel {
-  border-bottom: 1rpx solid #f0f4f3;
+  border-bottom: 1rpx solid #e6edef;
   padding-bottom: 20rpx;
   margin-bottom: 20rpx;
 }
@@ -168,15 +168,15 @@
 }
 
 .start-badge {
-  background: #087f73;
+  background: #00796e;
 }
 
 .via-badge {
-  background: #f2994a;
+  background: #0369a1;
 }
 
 .end-badge {
-  background: #eb5757;
+  background: #b45309;
 }
 
 .point-content {
@@ -199,15 +199,15 @@
 
 .quick-pick-btn {
   font-size: 22rpx;
-  color: #087f73;
-  background: #e6f5f3;
+  color: #00796e;
+  background: #e3f4f1;
   padding: 6rpx 16rpx;
   border-radius: 20rpx;
 }
 
 .remove-btn {
   font-size: 22rpx;
-  color: #d93025;
+  color: #b42318;
   padding: 6rpx 16rpx;
 }
 
@@ -220,7 +220,7 @@
 
 .sub-label {
   font-size: 24rpx;
-  color: #647774;
+  color: #4b5b6b;
 }
 
 .add-waypoint-row {
@@ -229,7 +229,7 @@
   justify-content: center;
   gap: 8rpx;
   padding: 12rpx 0;
-  color: #087f73;
+  color: #00796e;
   font-size: 24rpx;
   font-weight: 500;
 }
@@ -253,13 +253,13 @@
 .field-title {
   font-size: 26rpx;
   font-weight: 600;
-  color: #1a2d2a;
+  color: #0f1b2a;
 }
 
 .field-sub-val {
   font-size: 24rpx;
   font-weight: 600;
-  color: #087f73;
+  color: #00796e;
 }
 
 .priority-options {
@@ -275,13 +275,13 @@
   padding: 12rpx 0;
   border-radius: 12rpx;
   font-size: 24rpx;
-  color: #647774;
+  color: #4b5b6b;
 }
 
 .priority-chip.selected {
-  background: #e6f5f3;
-  border-color: #087f73;
-  color: #087f73;
+  background: #e3f4f1;
+  border-color: #00796e;
+  color: #00796e;
   font-weight: 700;
 }
 
@@ -300,8 +300,8 @@
 
 .discount-pill {
   font-size: 24rpx;
-  color: #d93025;
-  background: #fce8e6;
+  color: #b42318;
+  background: #fdecea;
   padding: 4rpx 14rpx;
   border-radius: 20rpx;
   font-weight: 600;
@@ -309,7 +309,7 @@
 
 .coupon-placeholder {
   font-size: 24rpx;
-  color: #92a4a1;
+  color: #5b6b7a;
 }
 
 /* 乘车人与留言 */
@@ -317,17 +317,17 @@
   display: flex;
   justify-content: space-between;
   padding: 6rpx 0 14rpx;
-  border-bottom: 1rpx solid #f0f4f3;
+  border-bottom: 1rpx solid #e6edef;
 }
 
 .rider-title {
   font-size: 26rpx;
-  color: #647774;
+  color: #4b5b6b;
 }
 
 .rider-name {
   font-size: 26rpx;
-  color: #087f73;
+  color: #00796e;
   font-weight: 600;
 }
 
@@ -337,11 +337,11 @@
 
 .remark-input {
   font-size: 26rpx;
-  color: #1a2d2a;
+  color: #0f1b2a;
 }
 
 .call-car-btn {
-  background: linear-gradient(135deg, #087f73 0%, #0ca798 100%);
+  background: linear-gradient(135deg, #00796e 0%, #0f9488 100%);
   color: #ffffff;
   font-size: 32rpx;
   font-weight: 700;
@@ -359,7 +359,7 @@
 
 .disclaimer-tip {
   font-size: 20rpx;
-  color: #92a4a1;
+  color: #5b6b7a;
   text-align: center;
   margin-top: 16rpx;
 }
@@ -385,5 +385,5 @@
 
 .field-tip {
   font-size: 20rpx;
-  color: #92a4a1;
+  color: #5b6b7a;
 }

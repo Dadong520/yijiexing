@@ -1,0 +1,14 @@
+{
+  "reviewedAuthorSourceSha": "11bef0e3b26b04f14b31b2ef752c4aa1097ab49d",
+  "acceptedIntegratedSourceSha": "107e226d1d23fc6d7ef5dab75229962bd38306d8",
+  "productSubtreesByteIdentical": true,
+  "gitTrees": {
+    "apps/passenger-android": "2f5b9d21f87198e648db6eecb3a984446c9f4848",
+    "candidates/driver-0.3.6-r2/android": "318fe92e2b3cc78696e5bbe7ebdbeb9d214c4959",
+    "candidates/passenger-miniprogram-0.1.0/miniprogram": "8375c6385b4233eef0c36d498c8f389f0769cc0e",
+    "apps/admin-console": "86b2ac8af994108b88bf298c8eba725b31fe4a5a",
+    "apps/cloud-service": "033e173314e7339e46c2c78c178b870039609fa9"
+  },
+  "backendPythonAuthAdminLogicChanged": [],
+  "testReuse": "Frontend31+63/both APK builds and native UI at11bef; root74 mini/4 admin tests had identical tested JS/business source; final root web CSS matches0c3 exact hash. Guard27 independent CCG hashes unchanged. No tests represented as real OEM/AMap/WeChat success."
+}

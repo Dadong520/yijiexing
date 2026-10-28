@@ -10,7 +10,7 @@ import sys
 
 
 ROLES = ('coordinator', 'backend', 'frontend', 'antigravity')
-OPTIONAL_ROLES = ('expert',)
+OPTIONAL_ROLES = ('expert', 'claude')
 MEMORY_STATES = {'UNKNOWN', 'NORMAL', 'CHECKPOINT_REQUIRED',
                  'HANDOFF_RECOMMENDED', 'HANDOFF_REQUIRED'}
 
@@ -52,7 +52,7 @@ def check_memory(root, role=None, session_id=None):
     sessions = registry.get('sessions')
     if not isinstance(sessions, dict): return errors + ['memory: sessions must be an object']
     seen = set()
-    active_roles = ROLES + (('expert',) if 'expert' in sessions or role == 'expert' else ())
+    active_roles = ROLES + tuple(name for name in OPTIONAL_ROLES if name in sessions or role == name)
     for name in active_roles:
         session = sessions.get(name)
         if not isinstance(session, dict):
@@ -71,6 +71,13 @@ def check_memory(root, role=None, session_id=None):
                 errors.append('memory: expert requires explicit blocker dispatch policy')
             if session.get('authorizationDecisionId') != 'GOV-06':
                 errors.append('memory: expert requires recorded user model exception GOV-06')
+        elif name == 'claude':
+            if not str(session.get('model', '')).startswith('claude-'):
+                errors.append('memory: claude requires observed Claude model')
+            if (session.get('authorizationDecisionId') != 'GOV-07'
+                    or session.get('activationPolicy') != 'root_dispatch_only'
+                    or session.get('execution') != 'official_bundled_cli'):
+                errors.append('memory: claude requires authorized task-scoped official CLI execution')
         elif name != 'antigravity' and not str(session.get('model', '')).startswith('gpt-6.1'):
             errors.append('memory: declared Codex model must match GPT-6.1 preference')
         if session.get('memoryStatus') not in MEMORY_STATES:
@@ -99,8 +106,8 @@ def check_memory(root, role=None, session_id=None):
             card = root / expected
             if not card.is_file() or version not in card.read_text():
                 errors.append('memory: ACK not reflected in role handoff for ' + name)
-            if name == 'expert' and card.is_file() and card.stat().st_size > 6144:
-                errors.append('memory: expert handoff exceeds 6KB')
+            if name in OPTIONAL_ROLES and card.is_file() and card.stat().st_size > 6144:
+                errors.append('memory: ' + name + ' handoff exceeds 6KB')
         if role == name:
             if name != 'antigravity' and (not session_id or session_id != thread):
                 errors.append('memory: actual caller session id must match active registered role')

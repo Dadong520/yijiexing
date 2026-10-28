@@ -1,0 +1,29 @@
+{
+  "type": "ROOT_CANDIDATE_DIFF_SCOPE_CHECK",
+  "baseSha": "62942d103ed946057de28f29262ea196ad46ca73",
+  "fileCount": 18,
+  "files": [
+    "apps/admin-console/web/admin.css",
+    "apps/cloud-service/static/admin.css",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/BookingScreens.kt",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/MainActivity.kt",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/OrderDetail.kt",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/ProfileScreens.kt",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/UiComponents.kt",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/BusinessKit.kt",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/MembershipCatalogScreens.kt",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/UiKit.kt",
+    "candidates/passenger-miniprogram-0.1.0/miniprogram/pages/coupons/index.wxss",
+    "candidates/passenger-miniprogram-0.1.0/miniprogram/pages/home/index.wxss",
+    "candidates/passenger-miniprogram-0.1.0/miniprogram/pages/order-detail/index.wxss",
+    "candidates/passenger-miniprogram-0.1.0/miniprogram/pages/profile/index.wxss",
+    "candidates/passenger-miniprogram-0.1.0/miniprogram/pages/safety/index.wxss",
+    "candidates/passenger-miniprogram-0.1.0/miniprogram/pages/shared.wxss",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/PassengerPalette.kt",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/DriverPalette.kt"
+  ],
+  "outOfScopeProductFiles": [],
+  "privateExactValueHits": 0,
+  "notYetBuilt": true,
+  "notReleaseAcceptance": true
+}

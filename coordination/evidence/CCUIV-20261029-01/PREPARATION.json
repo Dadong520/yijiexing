@@ -1,0 +1,119 @@
+{
+  "taskId": "CCUIV-20261029-01",
+  "reviewerThreadId": "01a182c6-c475-7110-bbae-0deafe6d2385",
+  "at": "2026-10-29T01:18:27.217507+08:00",
+  "state": "PREPARATION_COMPLETE_IDLE",
+  "candidateAcceptance": "NOT_RUN",
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-claude-ui-20261029",
+  "branch": "codex/claude-ui-20261029",
+  "HEAD": "62942d103ed946057de28f29262ea196ad46ca73",
+  "initialStatus": [
+    "?? CLAUDE.md (author/root-owned; untouched)"
+  ],
+  "entrypoints": {
+    "driver": {
+      "root": "candidates/driver-0.3.6-r2/android",
+      "applicationId": "cn.hbzjhs.dc.driver.cloud",
+      "version": "0.3.14-cloud",
+      "ui": "app/src/main/java/cn/hbzjhs/driver/preview/",
+      "theme": "UiKit.kt NativeTheme + Green/Ink/Muted/Pale/Page/Line/Orange",
+      "coverage": [
+        "CoreScreens.kt: login/home/profile/trip/bid/negotiation/settings/orders/wallet/heat/notifications",
+        "BusinessScreens/BusinessFinance/BusinessCommunity",
+        "MembershipUi/Catalog/Checkout/Payment/Subscriptions/Invoice",
+        "DriverPermissions/NewOrderAlerts/DriverTripDistance: separate hard-coded palette",
+        "NativeMap/AmapSupport: retain error state and attribution"
+      ],
+      "buildLater": "JAVA_HOME=/opt/homebrew/opt/openjdk@17/libexec/openjdk.jdk/Contents/Home ./gradlew --offline --no-daemon testDebugUnitTest assembleDebug",
+      "caution": "Folder name and local README describe historical 0.3.6 hold; current Gradle+central STATE authoritative. Do not edit releases/r1."
+    },
+    "passenger": {
+      "root": "apps/passenger-android",
+      "theme": "app/src/main/java/cn/hbzjhs/passenger/MainActivity.kt PassengerVisualTheme; Teal/Ink/Muted/Paper/Amber and inline colors",
+      "coverage": [
+        "login/home with map + reservation + trip mode",
+        "order filters/detail first-screen price and cancellation/reason",
+        "trip options draft retention, address picker",
+        "profile/grouped favorites/riders/invoice titles defaults",
+        "invoice receipt expanded/collapsed, complaint/reply, safety/contact",
+        "map loading/error, permissions, settings/negotiation/coupons"
+      ],
+      "buildLater": "JAVA_HOME=/opt/homebrew/opt/openjdk@17/libexec/openjdk.jdk/Contents/Home ./gradlew --offline --no-daemon testDebugUnitTest assembleDebug"
+    },
+    "mini": {
+      "root": "candidates/passenger-miniprogram-0.1.0/miniprogram",
+      "theme": "app.wxss -> pages/shared.wxss; app.json window/tabBar; page-specific wxss",
+      "pages": [
+        "home",
+        "orders",
+        "profile",
+        "order-detail",
+        "login",
+        "places",
+        "settings",
+        "negotiation",
+        "coupons",
+        "safety"
+      ],
+      "checksLater": [
+        "npm test",
+        "npm run check"
+      ],
+      "preview": "preview/build.py local HTML preview only; not WeChat compile/device proof",
+      "caution": "Missing AppID; WeChat real build/device/publication NOT_RUN"
+    },
+    "admin": {
+      "root": "apps/admin-console/web",
+      "entry": [
+        "admin.html",
+        "admin.js",
+        "admin.css"
+      ],
+      "theme": "admin.css layered :root declarations and many hard-coded original blue/teal/status colors; cascade review required",
+      "coverage": [
+        "login/sidebar/dashboard/stat cards/table/filter/dialog/toast",
+        "drivers/qualification expiry/reminders",
+        "orders/detail/actions/finance simulation",
+        "announcements/company customer phone/passenger config",
+        "legacy draft/manual-record modules"
+      ],
+      "checksLater": [
+        "node --test apps/admin-console/web/operations.test.js"
+      ],
+      "build": "apps/admin-console/ops/prepare_browser_build.py requires exact accepted backend/frontend SHA and fresh output; packages web into static",
+      "caution": "apps/cloud-service/static/admin.css is separate copy; determine serving path before propagating change, do not assume synchronized."
+    }
+  },
+  "viewedScreenshots": [
+    "coordination/evidence/PUI-20261028-01/native-ui/90-home.png",
+    "coordination/evidence/PUI-20261028-01/native-ui/87-detail-summary.png",
+    "coordination/evidence/PUI-20261028-01/native-ui/102-profile.png"
+  ],
+  "visualObservations": [
+    "Three prior passenger screenshots show many white/pale gray cards and teal text/icons/links; primary/secondary action hierarchy is weak in several places",
+    "Order detail cancellation shares teal with normal links; must become clearly destructive through semantics and text, not color alone",
+    "Profile groups already exist and must remain; differentiation can use restrained accents and surface hierarchy without equal visual weight for every tile",
+    "Home reservation amber and active-trip green already encode distinct states; preserve status meaning and avoid color-only distinction",
+    "Screenshots use synthetic isolated fixtures and missing map tiles; not actual SDK success evidence"
+  ],
+  "acceptancePlan": [
+    "Freeze candidate SHA and source-to-APK/browser binding first; restrict diff to root-approved visual paths; reject business/API/key/auth changes",
+    "Review shared tokens plus every inline hard-coded accent/white text/surface pair, including dialogs, tabs, pressed/focus/disabled/loading/empty/error/success/warning/danger states",
+    "Calculate candidate normal-text contrast >=4.5:1, large-text >=3:1, interactive boundaries/focus >=3:1 where needed; actual measurements NOT_RUN until candidate",
+    "Compare matched pages at same viewport/data; typography, grouping, primary action prominence, long Chinese text, small-screen/large-font clipping and scrolling",
+    "Retain first-screen price/cancel; fixed cancel reasons, four order filters, three defaults and account isolation; do not auto-book/invoice or dial masked number",
+    "Driver reservation/instant concurrency, debt guard, qualification warnings and fee/finance state remain semantically unchanged; affected business review by backend",
+    "Keep simulated payment/invoice and unconnected map/IM/relay notices visible; no new success claims",
+    "Build/test only after root precise SHA continuation; GUI/ADB requires current authorization, not old PUI permission"
+  ],
+  "notRun": [
+    "product edits",
+    "builds/tests beyond coordination gate",
+    "candidate visual/contrast validation",
+    "GUI/ADB",
+    "deployment",
+    "Gemini/AGY/agents"
+  ],
+  "nextAction": "IDLE awaiting root explicit candidate SHA and review dispatch",
+  "pendingMergeSha": null
+}

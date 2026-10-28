@@ -210,6 +210,58 @@ class MemorySafetyTests(unittest.TestCase):
         (self.root/'coordination/handoffs/expert.md').write_text(self.version + 'x' * 6144)
         self.assertTrue(any('expert handoff exceeds' in e for e in check_memory(self.root)))
 
+    def add_claude(self):
+        session = copy.deepcopy(self.registry['sessions']['backend'])
+        session.update(threadId='claude-session', model='claude-opus-5-5',
+                       execution='official_bundled_cli', activationPolicy='root_dispatch_only',
+                       authorizationDecisionId='GOV-07', handoffPath='coordination/handoffs/claude.md')
+        self.registry['sessions']['claude'] = session
+        (self.root/'coordination/handoffs/claude.md').write_text(self.version)
+        self.save()
+        return session
+
+    def test_claude_is_optional_and_needs_its_actual_cli_session_id(self):
+        self.assertEqual(check(self.root), [])
+        self.assertTrue(any('missing role claude' in e for e in check_memory(self.root, 'claude', 'x')))
+        self.add_claude()
+        self.assertEqual(check_memory(self.root, 'claude', 'claude-session'), [])
+        self.assertTrue(any('actual caller' in e for e in check_memory(self.root, 'claude', 'coordinator-thread')))
+
+    def test_claude_does_not_expand_core_model_or_duplicate_identity(self):
+        session = self.add_claude()
+        session['threadId'] = 'backend-thread'
+        self.save()
+        self.assertIn('memory: duplicate active thread id', check_memory(self.root))
+        session['threadId'] = 'claude-session'
+        self.registry['sessions']['frontend']['model'] = 'claude-opus-5-5'
+        self.save()
+        self.assertTrue(any('GPT-6.1 preference' in e for e in check_memory(self.root)))
+
+    def test_claude_authorization_model_and_dispatch_required(self):
+        session = self.add_claude()
+        for field, value in [('model', 'gpt-6.1-sol'), ('execution', 'unverified'),
+                             ('activationPolicy', 'always_running'), ('authorizationDecisionId', None)]:
+            original = session[field]
+            session[field] = value
+            self.save()
+            self.assertTrue(check_memory(self.root))
+            session[field] = original
+        self.save()
+        self.assertEqual(check_memory(self.root), [])
+
+    def test_claude_handoff_ack_and_budget_remain_enforced(self):
+        session = self.add_claude()
+        session['memoryStatus'] = 'HANDOFF_REQUIRED'
+        self.save()
+        self.assertTrue(any('handoff required' in e for e in check_memory(self.root, 'claude', 'claude-session')))
+        session.update(memoryStatus='NORMAL', ackVersion=None)
+        self.save()
+        self.assertTrue(any('acknowledge current protocol' in e for e in check_memory(self.root, 'claude', 'claude-session')))
+        session['ackVersion'] = self.version
+        self.save()
+        (self.root/'coordination/handoffs/claude.md').write_text(self.version + 'x'*6144)
+        self.assertTrue(any('claude handoff exceeds' in e for e in check_memory(self.root)))
+
     def test_exact_sha_release_gate_remains_effective(self):
         c = self.root/'coordination'
         proof = c/'proof.json'

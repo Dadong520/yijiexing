@@ -33,13 +33,13 @@ import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
-val Green = Color(0xFF007F76)
-val Ink = Color(0xFF111827)
-val Muted = Color(0xFF6B7280)
-val Pale = Color(0xFFE6F5F4)
-val Page = Color(0xFFF5F7FA)
-val Line = Color(0xFFE5E7EB)
-val Orange = Color(0xFFA65A0A)
+val Green = Color(0xFF00796E)
+val Ink = Color(0xFF0F1B2A)
+val Muted = Color(0xFF4B5B6B)
+val Pale = Color(0xFFE3F4F1)
+val Page = Color(0xFFF2F6F7)
+val Line = Color(0xFFDCE5E8)
+val Orange = Color(0xFFB45309)
 
 @Composable
 fun NativeTheme(large: Boolean = false, content: @Composable () -> Unit) {
@@ -55,11 +55,19 @@ fun NativeTheme(large: Boolean = false, content: @Composable () -> Unit) {
                     background = Page,
                     surface = Color.White,
                     onSurface = Ink,
-                    secondary = Green,
+                    primaryContainer = Pale,
+                    onPrimaryContainer = GreenStrong,
+                    secondary = Sky,
                     secondaryContainer = Pale,
-                    onSecondaryContainer = Ink,
-                    outline = Line,
-                    surfaceVariant = Pale,
+                    onSecondaryContainer = GreenStrong,
+                    tertiary = Warm,
+                    tertiaryContainer = WarmSoft,
+                    error = Danger,
+                    errorContainer = DangerSoft,
+                    onBackground = Ink,
+                    outline = ControlOutline,
+                    outlineVariant = Line,
+                    surfaceVariant = Page,
                     onSurfaceVariant = Muted,
                 ),
             typography =
@@ -451,14 +459,15 @@ fun MenuRow(icon: String, title: String, description: String = "", onClick: () -
             .padding(vertical = 6.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
+        val (tint, soft) = moduleAccent(icon)
         Box(
             modifier = Modifier
                 .size(34.dp)
-                .clip(RoundedCornerShape(8.dp))
-                .background(Pale),
+                .clip(RoundedCornerShape(10.dp))
+                .background(soft),
             contentAlignment = Alignment.Center
         ) {
-            Glyph(icon, Green, Modifier.size(18.dp))
+            Glyph(icon, tint, Modifier.size(18.dp))
         }
         Column(
             modifier = Modifier
@@ -533,7 +542,7 @@ fun OrderCard(order: DriverOrder, action: String? = null, onClick: () -> Unit) {
                 Pill(
                     order.kind.title,
                     if (order.kind == OrderKind.BID) Orange else Green,
-                    if (order.kind == OrderKind.BID) Color(0xFFFEF3C7) else Pale
+                    if (order.kind == OrderKind.BID) WarmSoft else Pale
                 )
                 Text(
                     if (order.stage == Stage.AVAILABLE) "距您 ${order.distance} km" else order.stage.title,

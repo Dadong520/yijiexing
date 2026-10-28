@@ -117,10 +117,10 @@ internal fun BusinessPage(
             ) {
                 if (!error.isNullOrBlank())
                     item {
-                        Surface(color = Color(0xFFFFEDE9), shape = RoundedCornerShape(12.dp)) {
+                        Surface(color = DangerSoft, shape = RoundedCornerShape(12.dp)) {
                             Text(
                                 error ?: "请求未成功",
-                                color = Color(0xFFAA3A29),
+                                color = Danger,
                                 fontSize = 16.sp,
                                 modifier = Modifier.padding(14.dp),
                             )

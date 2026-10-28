@@ -1,0 +1,41 @@
+{
+  "sourceSha": "ad674105e18e4aee9246b847a5aae00840ef862b",
+  "tests": [
+    {
+      "command": "npm test",
+      "cwd": "candidates/passenger-miniprogram-0.1.0/miniprogram",
+      "exitCode": 0,
+      "pass": 74,
+      "fail": 0
+    },
+    {
+      "command": "npm run check",
+      "exitCode": 0,
+      "pages": 10,
+      "parsedJavaScript": 25,
+      "configuration": "PASS",
+      "wechatCompilation": "NOT_RUN_REQUIRES_DEVELOPER_TOOLS",
+      "appId": "NOT_CONFIGURED"
+    },
+    {
+      "command": "node --test apps/admin-console/web/operations.test.js",
+      "exitCode": 0,
+      "pass": 4,
+      "fail": 0
+    }
+  ],
+  "setupCorrections": [
+    {
+      "command": "npm test from candidate parent without package.json",
+      "exitCode": 254,
+      "reason": "Wrong working directory, corrected to miniprogram; no product failure"
+    },
+    {
+      "command": "Read admin index.html",
+      "exitCode": 2,
+      "reason": "Actual entry is admin.html; corrected"
+    }
+  ],
+  "cloudBusinessPosts": 0,
+  "native": "Owned by independent frontend; do not duplicate"
+}

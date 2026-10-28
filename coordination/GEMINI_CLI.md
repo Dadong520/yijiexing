@@ -1,3 +1,5 @@
+2026-10-29用户最新决定：Gemini/反重力暂时下线停派，Claude Code接替主要实现；以下为保留的历史入口，未经用户恢复或新的明确调度不运行。当前无在途CLI任务。
+
 # Gemini任务执行入口（2026-10-25纠正）
 
 本项目今后固定使用 `/Applications/Gemini.app/Contents/Helpers/agy`，即当前Gemini应用内置CLI；不依赖PATH中的agy，也不改全局软链接或卸载任何组件。
