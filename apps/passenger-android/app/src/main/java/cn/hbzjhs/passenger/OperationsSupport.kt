@@ -18,6 +18,9 @@ import org.json.JSONObject
 internal object PassengerOperations {
   fun enabled(state: JSONObject, key: String): Boolean =
     state.optJSONObject("operations")?.optJSONObject("passengerFeatures")?.optJSONObject("features")?.opt(key) as? Boolean ?: true
+  fun invoiceEnabled(state: JSONObject, order: JSONObject): Boolean =
+    if (order.has("invoiceApplicationEnabled")) order.opt("invoiceApplicationEnabled") as? Boolean ?: false
+    else enabled(state, "invoice")
   fun kindEnabled(state: JSONObject, kind: String): Boolean = when(kind) {
     "STANDARD" -> enabled(state, "instant")
     "RESERVED" -> enabled(state, "reservation")

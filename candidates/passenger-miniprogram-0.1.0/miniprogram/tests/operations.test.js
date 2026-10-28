@@ -41,3 +41,11 @@ test('transport declares the exact mini client for login, state, and action',asy
   assert.equal(calls[1].data.client,'MINIPROGRAM');assert.equal(calls[2].data.client,'MINIPROGRAM');
   assert.equal(calls[2].data.payload.version,1);
 });
+test('per-order invoice permission overrides current region, with legacy-only fallback',()=>{
+  const closed={operations:{passengerFeatures:{features:{invoice:false}}}},open={operations:{passengerFeatures:{features:{invoice:true}}}};
+  assert.equal(ops.invoiceEnabled(closed,{city:'A',invoiceApplicationEnabled:true}),true);
+  assert.equal(ops.invoiceEnabled(open,{city:'A',invoiceApplicationEnabled:false}),false);
+  assert.equal(ops.invoiceEnabled(closed,{}),false);assert.equal(ops.invoiceEnabled(open,{}),true);
+  assert.equal(ops.invoiceEnabled(open,{invoiceApplicationEnabled:'true'}),false);
+  assert.equal(ops.invoiceEnabled(open,{invoiceApplicationEnabled:null}),false);
+});

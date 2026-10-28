@@ -165,12 +165,17 @@ fun InvoicesScreen(state: JSONObject, store: PassengerStore) {
     state.rows("orders").filter { o ->
       o.text("stage") == "DONE" &&
         o.optBoolean("paid") &&
-        invoices.none { it.text("orderId") == o.text("id") }
+        invoices.none { it.text("orderId") == o.text("id") } &&
+        PassengerOperations.invoiceEnabled(state, o)
     }
+  val selectedEligible = available.any { it.text("id") == orderId }
+  LaunchedEffect(available.map { it.text("id") }) {
+    if (!selectedEligible) { orderId = ""; confirm = false }
+  }
   PageColumn {
     SectionTitle("发票与模拟回执", "模拟回执不可用于报销，不是真实税务发票。")
-    if (PassengerOperations.enabled(state,"invoice")) Panel("申请模拟回执") {
-      if (available.isEmpty()) Note("暂无可申请订单。已完成且模拟支付成功的订单可以申请，每单仅一次。")
+    if (PassengerOperations.enabled(state,"invoice") || available.isNotEmpty()) Panel("申请模拟回执") {
+      if (available.isEmpty()) Note("暂无可申请订单。资格按每单服务地区判断；已完成且模拟支付成功的可申请订单，每单仅一次。")
       available.forEach { o ->
         FilterChip(
           orderId == o.text("id"),
@@ -191,11 +196,11 @@ fun InvoicesScreen(state: JSONObject, store: PassengerStore) {
           label = { Text(t.text("title")) },
         )
       }
-      ActionButton("生成模拟回执", orderId.isNotBlank() && titleId.isNotBlank() && !busy) {
+      ActionButton("生成模拟回执", selectedEligible && titleId.isNotBlank() && !busy) {
         confirm = true
       }
     }
-    if (!PassengerOperations.enabled(state,"invoice")) Note("当前服务地区已关闭新的模拟开票申请，历史回执仍可查看。")
+    if (!PassengerOperations.enabled(state,"invoice")) Note("当前地区未开放新的开票服务；历史订单按各自服务地区判断申请资格，历史回执始终可查。")
     Text("申请记录", fontWeight = FontWeight.Bold)
     if (invoices.isEmpty()) EmptyCard("暂无模拟回执", "生成后可查看云端保存的订单与抬头快照。")
     invoices.reversed().forEach { i ->
@@ -210,13 +215,14 @@ fun InvoicesScreen(state: JSONObject, store: PassengerStore) {
       }
     }
   }
-  if (confirm && PassengerOperations.enabled(state,"invoice"))
+  if (confirm && selectedEligible)
     AlertDialog(
       onDismissRequest = { confirm = false },
       title = { Text("确认生成模拟回执") },
       text = { Text("将使用所选抬头保存云端模拟申请，不会开具真实税务发票，也不会发送邮件。") },
       confirmButton = {
         TextButton(
+          enabled = !busy && selectedEligible,
           onClick = {
             store.action(
               "invoice.apply",

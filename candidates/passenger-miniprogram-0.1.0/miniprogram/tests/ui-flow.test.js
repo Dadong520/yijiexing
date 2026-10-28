@@ -25,3 +25,12 @@ test('a refreshed regional closure removes new kinds and refuses direct new-call
   page.data.kind='STANDARD';page.data.origin={name:'起点',latitude:30.1,longitude:111.1};page.data.destination={name:'终点',latitude:30.2,longitude:111.2};let calls=0;page.act=async()=>{calls++;};await page.submit();assert.equal(calls,0);assert.match(errors[0],/未开放/);
   state.operations.passengerFeatures.features.reservation=true;page.syncState(state);assert.equal(page.data.kind,'RESERVED');
 });
+test('invoice page follows the order flag after switching region and refuses a disabled order handler',async()=>{
+  const state={passenger:{city:'B'},operations:{passengerFeatures:{features:{invoice:false}}},orders:[{id:'A-DONE',city:'A',stage:'DONE',paid:true,invoiceApplicationEnabled:true}],invoices:[]};
+  const {page,errors}=load('settings',{store:{snapshot:()=>({data:state})}});page.data.state=state;page.data.titleId='TITLE';page.syncState(state);
+  assert.equal(page.data.eligibleOrders.length,1);
+  let count=0;page.act=async(name,payload)=>{count++;assert.equal(name,'invoice.apply');assert.equal(payload.orderId,'A-DONE');};
+  await page.apply({currentTarget:{dataset:{id:'A-DONE'}}});assert.equal(count,1);
+  state.operations.passengerFeatures.features.invoice=true;state.orders[0].invoiceApplicationEnabled=false;page.syncState(state);assert.equal(page.data.eligibleOrders.length,0);
+  await page.apply({currentTarget:{dataset:{id:'A-DONE'}}});assert.equal(count,1);assert.match(errors[0],/此订单服务地区/);
+});
