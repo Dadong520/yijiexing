@@ -28,7 +28,7 @@
     "金额公式分单位、折扣手续费、精度与舍入必须非作者审核，不自动激活新扣费分账",
     "明确独立backend/frontend派单及Gemini实际执行结果；无真实群发/真实资金动作"
   ],
-  "status": "FIRST_BATCH_ACCEPTED_RELEASE_PREP",
+  "status": "FIRST_BATCH_RELEASED_RECEIPT_READY",
   "acceptance": "NOT_RUN",
   "tests": [
     {
@@ -46,10 +46,10 @@
     "coordination/evidence/PMV-20261028-01/COORDINATOR_FORMULA_QUESTION.json",
     "coordination/evidence/PMV-20261028-01/gemini/coordinator-independent-check.json"
   ],
-  "nextAction": "PMVR exact817 accepted with independent root source review and frontend package review; merge and release/readback; remaining document groups stay later",
+  "nextAction": "Commit final receipt and hand user exact new menu/download entry; remaining document groups later, no background automation",
   "deploy_owner": "coordinator",
   "releaseReady": false,
-  "updatedAt": "2026-10-28T13:51:12.291097+08:00",
+  "updatedAt": "2026-10-28T14:04:07.949249+08:00",
   "notes": {
     "formulaDecision": "BIZ-07 user confirmed single delta deduction and residual cents to platform; simulation/config only, no real money",
     "requirementGroups": 28,
@@ -61,5 +61,7 @@
     ],
     "currentIntegrationTask": "PMVR817 acceptancePASS; previous b77/c3 review evidence retained"
   },
-  "reviewBaseSha": "b77e8f7af03bd2a8af535de34bd13d5acd0a387a"
+  "reviewBaseSha": "b77e8f7af03bd2a8af535de34bd13d5acd0a387a",
+  "mergeSha": "7402b117d55bd4d0f1404a5ae2ff0c1cf2e8e0a5",
+  "releaseReceipt": "coordination/evidence/PMV-20261028-01/release/FINAL-RELEASE-RECEIPT.json"
 }

@@ -1,0 +1,13 @@
+{
+  "sourceSha": "817ed22bce503620d692e097a5f8ea996edf5fb2",
+  "scope": "Offline cloned current authoritative snapshot; constructor only; zero cloud writes",
+  "existingTables": 27,
+  "changedExistingTables": [],
+  "newTableNames": [
+    "live_announcement_acks",
+    "live_operations"
+  ],
+  "ordersPreserved": true,
+  "orderCount": 38,
+  "PASS": true
+}

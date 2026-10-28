@@ -1,0 +1,20 @@
+[
+  {
+    "role": "passenger",
+    "candidateObject": "distribution/candidates/20261028-817ed22/passenger.apk",
+    "generation": "1793167057865255",
+    "sha256": "3130dd4e7ec7aa8e90f89f93d2b6979f1ec7569afe0db2a8d6e654a32720de48",
+    "bytes": 107529637,
+    "transport": "direct_first_then_existing_proxy_if_failed",
+    "status": "UPLOADED_CANDIDATE_ONLY"
+  },
+  {
+    "role": "driver",
+    "candidateObject": "distribution/candidates/20261028-817ed22/driver.apk",
+    "generation": "1793167344420822",
+    "sha256": "b2166efab8b8f7ba2a0a7ff1a51237699eeb9d7000f5c8301546279b54a6445f",
+    "bytes": 108636805,
+    "transport": "direct_first_then_existing_proxy_if_failed",
+    "status": "UPLOADED_CANDIDATE_ONLY"
+  }
+]

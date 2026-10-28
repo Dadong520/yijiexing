@@ -19,7 +19,7 @@
     "后台真实DOM菜单/草稿发布版本/403/409，双Android构建原证书/Key0扫描/HTTPS下载回读；mini测试通过，无AppID微信真机NOT_RUN",
     "仅独立体验项目yijiexing-driver-demo-1023/us-west1，保留已有共享订单及账号，PASS后才唯一coordinator发布；PASSWORD/IAM/env/自动min0max1请求计费不漂移；不是三端所有业务最终完成"
   ],
-  "status": "ACCEPTANCE_PASS_RELEASE_PREPARATION",
+  "status": "FIRST_BATCH_RELEASED_RECEIPT_READY",
   "acceptance": "PASS",
   "tests": [
     {
@@ -81,11 +81,13 @@
       "sha256": "782f298354f2122391bf5f31c8ac93a5f19f235c3e4f7cedb2e0747c64c4daf5"
     }
   ],
-  "nextAction": "Backup current private snapshot, build exact source images, push/merge reviewed PR, deploy image-only preserving configuration; read back data, APKs and source hashes",
+  "nextAction": "Commit final receipt and hand user exact new menu/download entry; remaining document groups later, no background automation",
   "deploy_owner": "coordinator",
   "releaseReady": true,
-  "updatedAt": "2026-10-28T13:49:25.646916+08:00",
+  "updatedAt": "2026-10-28T14:04:07.949249+08:00",
   "acceptedSha": "817ed22bce503620d692e097a5f8ea996edf5fb2",
   "reviewer": "frontend",
-  "acceptanceScope": "Root non-author PMVO/PMVU HTTP7+compat13+real adminDOM; frontend non-author root package/version/signature/hash review only. Not native/WeChat final runtime or real finance."
+  "acceptanceScope": "Root non-author PMVO/PMVU HTTP7+compat13+real adminDOM; frontend non-author root package/version/signature/hash review only. Not native/WeChat final runtime or real finance.",
+  "mergeSha": "7402b117d55bd4d0f1404a5ae2ff0c1cf2e8e0a5",
+  "releaseReceipt": "coordination/evidence/PMV-20261028-01/release/FINAL-RELEASE-RECEIPT.json"
 }

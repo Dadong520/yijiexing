@@ -1,0 +1,30 @@
+[
+  {
+    "role": "passenger",
+    "fixedObject": "distribution/yijiexing-passenger.apk",
+    "newGeneration": "1793167199083550",
+    "sha256": "3130dd4e7ec7aa8e90f89f93d2b6979f1ec7569afe0db2a8d6e654a32720de48",
+    "bytes": 107529637,
+    "archiveObject": "distribution/archive/20261028-before-pmv817/passenger.apk",
+    "archiveGeneration": "1793167197375026",
+    "oldGeneration": "1793117996048546",
+    "oldBytes": 107073909,
+    "sourceGenerationPinned": true,
+    "destinationGenerationPreconditionUsed": true,
+    "status": "PROMOTED_ARCHIVE_VERIFIED"
+  },
+  {
+    "role": "driver",
+    "fixedObject": "distribution/yijiexing-cloud.apk",
+    "newGeneration": "1793167387345592",
+    "sha256": "b2166efab8b8f7ba2a0a7ff1a51237699eeb9d7000f5c8301546279b54a6445f",
+    "bytes": 108636805,
+    "archiveObject": "distribution/archive/20261028-before-pmv817/driver.apk",
+    "archiveGeneration": "1793167385439194",
+    "oldGeneration": "1793118437324382",
+    "oldBytes": 108620421,
+    "sourceGenerationPinned": true,
+    "destinationGenerationPreconditionUsed": true,
+    "status": "PROMOTED_ARCHIVE_VERIFIED"
+  }
+]

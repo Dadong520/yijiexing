@@ -1,0 +1,191 @@
+{
+  "timestamp": "2026-10-28T14:04:07.949249+08:00",
+  "scope": "修改意见2.0首批独立体验发布；不是28组全量或三端真实业务最终完成",
+  "releaseOwnerThread": "01a17cc7-e0a2-7791-bf1d-4611c09bab22",
+  "project": "yijiexing-driver-demo-1023",
+  "region": "us-west1",
+  "productSourceSha": "817ed22bce503620d692e097a5f8ea996edf5fb2",
+  "mainMergeSha": "7402b117d55bd4d0f1404a5ae2ff0c1cf2e8e0a5",
+  "pullRequest": "https://github.com/Dadong520/yijiexing/pull/30",
+  "mergedProductComponentsEquivalent": true,
+  "services": {
+    "api": {
+      "ready": "True",
+      "image": "us-west1-docker.pkg.dev/yijiexing-driver-demo-1023/demo/driver-cloud@sha256:d074a2d4dec29113b767803395de94e0c7953a716c9abb3b38383f0ac1763bbe",
+      "revision": "driver-demo-pmv-817ed22-test1",
+      "trafficPercent": 100,
+      "userTestTag": "driver-demo-pmv-817ed22-test1",
+      "runtimeSpecExceptImageUnchanged": true,
+      "scalingAndBillingAnnotationsUnchanged": true,
+      "iamBindingsUnchanged": true,
+      "serviceAnnotationDriftExcludingOperationalMetadata": [],
+      "scalingModeBefore": "automatic",
+      "scalingModeAfter": "automatic"
+    },
+    "admin": {
+      "ready": "True",
+      "image": "us-west1-docker.pkg.dev/yijiexing-driver-demo-1023/demo/admin-ui@sha256:cbc43c3f1d64c9dc42c428c5aecdcd99a25eb2963c9e17d0b061a9f45e1d9224",
+      "revision": "driver-admin-pmv-817ed22-test1",
+      "trafficPercent": 100,
+      "userTestTag": "driver-admin-pmv-817ed22-test1",
+      "runtimeSpecExceptImageUnchanged": true,
+      "scalingAndBillingAnnotationsUnchanged": true,
+      "iamBindingsUnchanged": true,
+      "serviceAnnotationDriftExcludingOperationalMetadata": [],
+      "scalingModeBefore": "automatic",
+      "scalingModeAfter": "automatic"
+    }
+  },
+  "apkHttps": [
+    {
+      "role": "passenger",
+      "url": "https://user-test---driver-demo-phfgquzmua-uw.a.run.app/download-passenger.apk",
+      "attempts": [
+        {
+          "transport": "direct",
+          "curlExit": 0,
+          "httpStatus": 200,
+          "seconds": 11.15,
+          "bytes": 107529637,
+          "expectedBytes": 107529637,
+          "completeHashMatches": true
+        }
+      ],
+      "bytes": 107529637,
+      "sha256": "3130dd4e7ec7aa8e90f89f93d2b6979f1ec7569afe0db2a8d6e654a32720de48",
+      "package": "cn.hbzjhs.dc.passenger.cloud",
+      "versionName": "1.1.14-experience",
+      "versionCode": 16,
+      "signerSha256": "9ffec9b342d12909ff288bd73f23ba104893b39120cb24ea83c9734a0d2b758f",
+      "aaptAndApksignerExit": 0,
+      "sameBytesAsReviewedBuild": true,
+      "deviceInstallOrSDKAuthentication": "NOT_RUN",
+      "PASS": true
+    },
+    {
+      "role": "driver",
+      "url": "https://user-test---driver-demo-phfgquzmua-uw.a.run.app/download.apk",
+      "attempts": [
+        {
+          "transport": "direct",
+          "curlExit": 0,
+          "httpStatus": 200,
+          "seconds": 10.69,
+          "bytes": 108636805,
+          "expectedBytes": 108636805,
+          "completeHashMatches": true
+        }
+      ],
+      "bytes": 108636805,
+      "sha256": "b2166efab8b8f7ba2a0a7ff1a51237699eeb9d7000f5c8301546279b54a6445f",
+      "package": "cn.hbzjhs.dc.driver.cloud",
+      "versionName": "0.3.14-cloud",
+      "versionCode": 17,
+      "signerSha256": "9ffec9b342d12909ff288bd73f23ba104893b39120cb24ea83c9734a0d2b758f",
+      "aaptAndApksignerExit": 0,
+      "sameBytesAsReviewedBuild": true,
+      "deviceInstallOrSDKAuthentication": "NOT_RUN",
+      "PASS": true
+    }
+  ],
+  "apkPromotion": [
+    {
+      "role": "passenger",
+      "fixedObject": "distribution/yijiexing-passenger.apk",
+      "newGeneration": "1793167199083550",
+      "sha256": "3130dd4e7ec7aa8e90f89f93d2b6979f1ec7569afe0db2a8d6e654a32720de48",
+      "bytes": 107529637,
+      "archiveObject": "distribution/archive/20261028-before-pmv817/passenger.apk",
+      "archiveGeneration": "1793167197375026",
+      "oldGeneration": "1793117996048546",
+      "oldBytes": 107073909,
+      "sourceGenerationPinned": true,
+      "destinationGenerationPreconditionUsed": true,
+      "status": "PROMOTED_ARCHIVE_VERIFIED"
+    },
+    {
+      "role": "driver",
+      "fixedObject": "distribution/yijiexing-cloud.apk",
+      "newGeneration": "1793167387345592",
+      "sha256": "b2166efab8b8f7ba2a0a7ff1a51237699eeb9d7000f5c8301546279b54a6445f",
+      "bytes": 108636805,
+      "archiveObject": "distribution/archive/20261028-before-pmv817/driver.apk",
+      "archiveGeneration": "1793167385439194",
+      "oldGeneration": "1793118437324382",
+      "oldBytes": 108620421,
+      "sourceGenerationPinned": true,
+      "destinationGenerationPreconditionUsed": true,
+      "status": "PROMOTED_ARCHIVE_VERIFIED"
+    }
+  ],
+  "dataPreservation": {
+    "generation": "1793166946585031",
+    "bytes": 3506176,
+    "sha256": "87768ce64d8dfc7cf2f8b988de30205b57fd062e668043f96133e354638eb90c",
+    "integrity": "ok",
+    "beforeOrderCount": 38,
+    "afterOrderCount": 38,
+    "missingOldOrders": 0,
+    "changedOldOrderRows": 1,
+    "newOrdersSinceBackup": 0,
+    "allPreexistingOrderRowsEqual": false,
+    "coordinatorCreatedCloudOrders": 0,
+    "scope": "Read-only authoritative GCS snapshot comparison; IDs/payloads remain private",
+    "transportEvents": [],
+    "businessFieldsUnchanged": true,
+    "allowedConcurrentDifferences": [
+      "passengerLocation.deviceTime",
+      "passengerLocation.latitude",
+      "passengerLocation.longitude",
+      "passengerLocation.receivedAt",
+      "updatedAt"
+    ],
+    "newPassengerIdempotencyRows": 31,
+    "newDriverIdempotencyRows": 6,
+    "interpretation": "Concurrent client location updates observed: only one order location/device/received timestamps and updatedAt changed. All other stored columns/payload fields, including all order IDs/stages/money, equal. Root issued no cloud business POST.",
+    "result": "PASS_BUSINESS_DATA_PRESERVATION_WITH_OBSERVED_LIVE_LOCATION_UPDATES"
+  },
+  "offlineCurrentSnapshotMigration": {
+    "sourceSha": "817ed22bce503620d692e097a5f8ea996edf5fb2",
+    "scope": "Offline cloned current authoritative snapshot; constructor only; zero cloud writes",
+    "existingTables": 27,
+    "changedExistingTables": [],
+    "newTableNames": [
+      "live_announcement_acks",
+      "live_operations"
+    ],
+    "ordersPreserved": true,
+    "orderCount": 38,
+    "PASS": true
+  },
+  "verification": {
+    "nonAuthorHttpGroups": 7,
+    "nonAuthorCompatibilityTests": 13,
+    "realIsolatedAdminDomChecks": 8,
+    "passengerUnitTests": 24,
+    "driverUnitTests": 63,
+    "miniTests": 72,
+    "adminTests": 4,
+    "apkBuildAaptOriginalSignatureHashAndKeyPatternScan": "PASS",
+    "independentRootPackageReview": "PMVA PASS_SCOPE; frontend did not self-accept frontend business",
+    "privateCredentialValuesCommitted": false,
+    "productDiffWhitespaceCheck": "PASS; original source text/raw logs preserve source whitespace separately",
+    "projectGatePr30": "SUCCESS"
+  },
+  "knownLimitations": [
+    "高德1008/10008最后观测未通过，未完成成功SDK同单校准；本轮不声称解决",
+    "微信缺AppID，微信编译/真机/发布NOT_RUN；mini源码测试通过",
+    "Android新版设备GUI/OEM提醒/实际拨号本轮NOT_RUN",
+    "支付退款提现及发票仍模拟；BIZ07仅模拟配置口径，不自动真结算/发分/发奖",
+    "文档28组其余需求分批；PMPOST83c7未独立验收未集成"
+  ],
+  "resourceCleanup": {
+    "uploadProcess": "completed exit0; chunk files removed",
+    "localFixture": "stopped exit0",
+    "agentIabTabs": "closed",
+    "androidBuildProcesses": "completed",
+    "gemini": "exact PMVO context STOPPED; idle",
+    "backgroundAutomation": "NONE"
+  },
+  "result": "PASS_SCOPED_EXPERIENCE_RELEASE_AND_READBACK"
+}

@@ -12,7 +12,7 @@
 
 ## 修改意见2.0 首批体验版
 
-| 项目 | 本次构建与核验 | 入口 |
+| 项目 | 已发布与核验 | 入口 |
 |---|---|---|
 | 司机Android | 0.3.14-cloud / code17，原签名 | [司机快速入口](https://user-test---driver-demo-phfgquzmua-uw.a.run.app/download) |
 | 乘客Android | 1.1.14-experience / code16，原签名 | [乘客快速入口](https://user-test---driver-demo-phfgquzmua-uw.a.run.app/download-passenger) |
@@ -22,7 +22,7 @@
 
 首批完成公司与客服电话、公告草稿发布撤回、地区乘客功能发布开关和三证提前60天提醒/新证审核替换。后台位置：**平台运维→公告管理、公司与客服电话、乘客端功能配置；司机管理→资质到期提醒**。原32类保留在**配置与治理→历史草稿与人工记录**。
 
-固定产品817ed22已独立验收：7组新HTTP/13组兼容、真实隔离后台DOM、Android24/63和构建、mini72/admin4；frontend独立复核root包签名/版本/hash及源码绑定。见[独立验收](coordination/evidence/PMV-20261028-01/INDEPENDENT_ACCEPTANCE.md)。本提交时新版正进入合并发布准备，实际线上切换与完整下载回读以[STATE](coordination/STATE.md)和release回执为准，不能仅凭构建通过认定已发布。旧版发布记录见PR28/PR29。
+固定产品817ed22已独立验收：7组新HTTP/13组兼容、真实隔离后台DOM、Android24/63和构建、mini72/admin4；frontend独立复核root包签名/版本/hash及源码绑定。见[独立验收](coordination/evidence/PMV-20261028-01/INDEPENDENT_ACCEPTANCE.md)。[PR30](https://github.com/Dadong520/yijiexing/pull/30)已合并主分支7402b117d55bd4d0f1404a5ae2ff0c1cf2e8e0a5，后台/API新版均100%流量，两固定APK已更新、旧包已归档；真实HTTPS整包下载/hash/包名/版本/原签名均回读通过。当前38笔旧单保留，一笔实时定位并发刷新，其余订单字段一致。见[实际发布回执](coordination/evidence/PMV-20261028-01/release/FINAL-RELEASE-REPORT.md)，部署细节与限制见[STATE](coordination/STATE.md)。旧版发布记录保留PR28/PR29。
 
 高德乘客搜索1008/地图10008仍FAIL；微信真机、部分设备GUI未测。支付、退款、提现、发票均模拟；新分账仅确认模拟口径，不执行真实资金或积分。文档28组剩余需求后续分批，PMPOST未集成。两APK沿用原签名支持覆盖安装，不把本版称全项目最终验收。
 

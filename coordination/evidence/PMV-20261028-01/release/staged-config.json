@@ -1,0 +1,18 @@
+{
+  "api": {
+    "runtimeSpecExceptImageUnchanged": true,
+    "templateAnnotationsUnchanged": true,
+    "securityAnnotationsUnchanged": true,
+    "newRevision": "driver-demo-pmv-817ed22-test1",
+    "ready": "True",
+    "oldTrafficPreserved": true
+  },
+  "admin": {
+    "runtimeSpecExceptImageUnchanged": true,
+    "templateAnnotationsUnchanged": true,
+    "securityAnnotationsUnchanged": true,
+    "newRevision": "driver-admin-pmv-817ed22-test1",
+    "ready": "True",
+    "oldTrafficPreserved": true
+  }
+}

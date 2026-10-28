@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updated": "2026-10-28T13:49:25.646916+08:00",
+  "updated": "2026-10-28T14:04:07.949249+08:00",
   "coordinator": "coordinator",
   "activeTaskIds": [
     "WX-20261025-01",
@@ -52,9 +52,9 @@
     "coordination/archive/2026-10-26/AUTH-20261026-02.json"
   ],
   "memoryProtocolVersion": "2026-10-26-v3",
-  "currentStage": "PMVR_ACCEPTANCE_PASS_PREPARE_CLOUD",
+  "currentStage": "PMVR_RELEASED_RECEIPT_COMMIT",
   "roleAssignments": {
-    "coordinator": "PMVR: accepted817 + scoped package review PASS; only coordinator builds/backs up/publishes independent experience",
+    "coordinator": "PMVR: first batch merged7402b11, API/admin and both APKs live/readback PASS; receipt docs then user acceptance",
     "backend": "IDLE: final product f1f9128; root integrated817 +7/13 independent PASS",
     "frontend": "IDLE: PMVA scoped packaging review PASS",
     "antigravity": "PMVG: completed announcement validator candidate + coordinator11 checks; idle, no product integration"

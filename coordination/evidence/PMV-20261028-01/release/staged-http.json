@@ -1,0 +1,44 @@
+[
+  {
+    "role": "api",
+    "path": "/health",
+    "status": 200,
+    "expected": 200,
+    "exitCode": 0,
+    "PASS": true
+  },
+  {
+    "role": "admin",
+    "path": "/health",
+    "status": 200,
+    "expected": 200,
+    "exitCode": 0,
+    "PASS": true
+  },
+  {
+    "role": "admin",
+    "path": "/",
+    "status": 200,
+    "expected": 200,
+    "exitCode": 0,
+    "PASS": true
+  },
+  {
+    "role": "admin",
+    "path": "/static/admin.js",
+    "status": 200,
+    "expected": 200,
+    "exitCode": 0,
+    "PASS": true,
+    "sourceBytesMatch": true,
+    "sha256": "0078a67dae300998a96f4731e05fbc4c67dc8200168a8679788cbff01164384b"
+  },
+  {
+    "role": "admin",
+    "path": "/api/local/admin/v2/state",
+    "status": 401,
+    "expected": 401,
+    "exitCode": 0,
+    "PASS": true
+  }
+]

@@ -1,0 +1,15 @@
+{
+  "generation": "1793166946585031",
+  "bytes": 3506176,
+  "sha256": "87768ce64d8dfc7cf2f8b988de30205b57fd062e668043f96133e354638eb90c",
+  "integrity": "ok",
+  "beforeOrderCount": 38,
+  "afterOrderCount": 38,
+  "missingOldOrders": 0,
+  "changedOldOrderRows": 1,
+  "newOrdersSinceBackup": 0,
+  "allPreexistingOrderRowsEqual": false,
+  "coordinatorCreatedCloudOrders": 0,
+  "scope": "Read-only authoritative GCS snapshot comparison; IDs/payloads remain private",
+  "transportEvents": []
+}
