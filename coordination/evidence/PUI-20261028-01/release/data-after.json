@@ -1,0 +1,19 @@
+{
+  "generation": "1793193883009858",
+  "bytes": 4341760,
+  "sha256": "6ab3bdb32c3d931ca7a62253c5d9f8eacc8db8ee1310649136a1ad7599ce5baa",
+  "integrity": "ok",
+  "beforeOrderCount": 39,
+  "afterOrderCount": 39,
+  "missingOldOrders": 0,
+  "newOrdersSinceBackup": 0,
+  "changedOldOrderRows": 0,
+  "actualDifferences": [],
+  "unexpectedNonLocationChanges": [],
+  "allOldBusinessFieldsEqualExceptExplicitConcurrentLocationPaths": true,
+  "strictAllOldRowsByteEquivalent": true,
+  "coordinatorCreatedCloudOrders": 0,
+  "coordinatorCloudBusinessPOST": 0,
+  "scope": "Atomic GCS snapshot response MD5/generation checked; IDs/payload values remain private",
+  "transportEvents": []
+}

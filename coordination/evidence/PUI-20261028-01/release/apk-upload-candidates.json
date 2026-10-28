@@ -1,0 +1,11 @@
+[
+  {
+    "role": "passenger",
+    "candidateObject": "distribution/candidates/20261028-pui-7d6dc60/passenger.apk",
+    "generation": "1793193954733215",
+    "sha256": "798fbb0f9fc6796190ddaa36eb8f71f7081d196d0785867782da442d38996379",
+    "bytes": 107139449,
+    "transport": "direct_first_then_existing_proxy_if_failed",
+    "status": "UPLOADED_CANDIDATE_ONLY"
+  }
+]

@@ -1,0 +1,5 @@
+{
+  "initial": "Harness requested nonexistent /api/admin/state and got404; product unchanged",
+  "correctEndpoint": "/api/local/admin/v2/state from admin.js/iap_browser guard",
+  "next": "Repeat bounded read-only smoke with correct route; real unauth state expected401"
+}

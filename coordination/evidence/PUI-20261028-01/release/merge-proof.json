@@ -1,0 +1,35 @@
+{
+  "pr": 32,
+  "head": "238db00308b6b15227136f0d566ede17144d1521",
+  "mergeSha": "a542f6640681956f330e91bc67ecf2f62cfcbda8",
+  "acceptedProductSha": "7d6dc6014906c80be87b39f4433ec494ae067098",
+  "ciRun": 40695293290,
+  "ciConclusion": "success",
+  "componentTrees": {
+    "apps/cloud-service": {
+      "accepted": "f66576beb90a2c7c54beca04fb7a4b922d79d4cf",
+      "merged": "f66576beb90a2c7c54beca04fb7a4b922d79d4cf",
+      "equal": true
+    },
+    "apps/passenger-android": {
+      "accepted": "b7145045647bda15591597e53f3a06724e68dc2f",
+      "merged": "b7145045647bda15591597e53f3a06724e68dc2f",
+      "equal": true
+    },
+    "apps/admin-console": {
+      "accepted": "5dcf95d1842029b98581518810ff09332f30644d",
+      "merged": "5dcf95d1842029b98581518810ff09332f30644d",
+      "equal": true
+    },
+    "candidates/passenger-miniprogram-0.1.0/miniprogram": {
+      "accepted": "67f15f36224fa4e196fe18299c58b501518d8b96",
+      "merged": "67f15f36224fa4e196fe18299c58b501518d8b96",
+      "equal": true
+    },
+    "candidates/driver-0.3.6-r2/android": {
+      "accepted": "b22619e0f4da41f06ab605bd35a1991f997978af",
+      "merged": "b22619e0f4da41f06ab605bd35a1991f997978af",
+      "equal": true
+    }
+  }
+}

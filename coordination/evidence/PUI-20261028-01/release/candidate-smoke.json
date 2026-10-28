@@ -1,0 +1,43 @@
+{
+  "api": {
+    "revision": "driver-demo-pui-7d6dc60-test1",
+    "tagUrl": "https://pui-qa---driver-demo-phfgquzmua-uw.a.run.app",
+    "runtimeSpecExceptImageUnchanged": true,
+    "smoke": [
+      {
+        "path": "/health",
+        "httpStatus": 200,
+        "sourceBytesEqual": null
+      }
+    ],
+    "beforeTrafficStillRetained": true
+  },
+  "admin": {
+    "revision": "driver-admin-pui-7d6dc60-test1",
+    "tagUrl": "https://pui-qa---driver-admin-phfgquzmua-uw.a.run.app",
+    "runtimeSpecExceptImageUnchanged": true,
+    "smoke": [
+      {
+        "path": "/",
+        "httpStatus": 200,
+        "sourceBytesEqual": true
+      },
+      {
+        "path": "/static/admin.js",
+        "httpStatus": 200,
+        "sourceBytesEqual": true
+      },
+      {
+        "path": "/static/admin.css",
+        "httpStatus": 200,
+        "sourceBytesEqual": true
+      },
+      {
+        "path": "/api/local/admin/v2/state",
+        "httpStatus": 401,
+        "sourceBytesEqual": null
+      }
+    ],
+    "beforeTrafficStillRetained": true
+  }
+}

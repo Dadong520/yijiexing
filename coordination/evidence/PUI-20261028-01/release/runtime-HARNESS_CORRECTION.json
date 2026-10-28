@@ -1,0 +1,5 @@
+{
+  "initial": "update-traffic --format=json returns traffic list, not full service object; type check failed before any configuration comparison",
+  "correction": "Read full after service describe snapshots then rerun same immutable runtime checks",
+  "productOrConfigChangedToFixHarness": false
+}

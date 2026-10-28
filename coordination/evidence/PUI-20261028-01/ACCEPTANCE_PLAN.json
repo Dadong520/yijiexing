@@ -9,7 +9,7 @@
     "Actual native UI review of home/settings, order route/fare/cancel, filters/cards, profile, favorites/riders/titles/defaults, safety, receipts, complaints incl long/empty content",
     "Passenger unit+assemble, source tree fixed artifact version/signature/Key0 and full HTTPS readback; old compatible shared API tests as applicable"
   ],
-  "status": "NOT_RUN; author implementation pending",
+  "status": "COMPLETE_SCOPED_PASS; source binding/native/independent package + release receipt",
   "deploymentOwner": "coordinator only; known issue experience project allowed after relevant PASS",
   "existingBoundaries": [
     "BIZ04-09 retained",

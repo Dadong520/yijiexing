@@ -1,0 +1,177 @@
+{
+  "timestamp": "2026-10-28T21:32:14.765550+08:00",
+  "scope": "UI设计乘客端13图及三类持久默认资料，独立体验发布；不代表原2.0全量或三端真实业务",
+  "releaseOwnerThread": "01a17cc7-e0a2-7791-bf1d-4611c09bab22",
+  "project": "yijiexing-driver-demo-1023",
+  "region": "us-west1",
+  "productSourceSha": "7d6dc6014906c80be87b39f4433ec494ae067098",
+  "mainMergeSha": "a542f6640681956f330e91bc67ecf2f62cfcbda8",
+  "pullRequest": "https://github.com/Dadong520/yijiexing/pull/32",
+  "mergedProductComponentsEquivalent": true,
+  "ciRun": 40695293290,
+  "ciConclusion": "success",
+  "services": {
+    "api": {
+      "ready": "True",
+      "revision": "driver-demo-pui-7d6dc60-test1",
+      "image": "us-west1-docker.pkg.dev/yijiexing-driver-demo-1023/demo/driver-cloud@sha256:d50f63b71ac68c3d7197835fbbd7ae90811463a46ea2b5ca0cde091c1d8079eb",
+      "trafficPercent": 100,
+      "userTestTag": "driver-demo-pui-7d6dc60-test1",
+      "runtimeSpecExceptImageUnchanged": true,
+      "scalingAndBillingAnnotationsUnchanged": true,
+      "iamBindingsUnchanged": true,
+      "serviceAnnotationDriftExcludingOperationalMetadata": [],
+      "scalingModeBefore": "automatic",
+      "scalingModeAfter": "automatic",
+      "minScale": "0",
+      "maxScale": "1",
+      "requestCpuBilling": "true",
+      "readback": "full private snapshots retained outside repository; no values emitted"
+    },
+    "admin": {
+      "ready": "True",
+      "revision": "driver-admin-pui-7d6dc60-test1",
+      "image": "us-west1-docker.pkg.dev/yijiexing-driver-demo-1023/demo/admin-ui@sha256:9a8909e3abaee81f59a2c905688816c0468342e365be26cfac282da5cd6b2128",
+      "trafficPercent": 100,
+      "userTestTag": "driver-admin-pui-7d6dc60-test1",
+      "runtimeSpecExceptImageUnchanged": true,
+      "scalingAndBillingAnnotationsUnchanged": true,
+      "iamBindingsUnchanged": true,
+      "serviceAnnotationDriftExcludingOperationalMetadata": [],
+      "scalingModeBefore": "automatic",
+      "scalingModeAfter": "automatic",
+      "minScale": "0",
+      "maxScale": "1",
+      "requestCpuBilling": "true",
+      "readback": "full private snapshots retained outside repository; no values emitted"
+    }
+  },
+  "apkHttps": [
+    {
+      "role": "passenger",
+      "url": "https://user-test---driver-demo-phfgquzmua-uw.a.run.app/download-passenger.apk",
+      "attempts": [
+        {
+          "transport": "direct",
+          "curlExit": 0,
+          "httpStatus": 200,
+          "seconds": 8.25,
+          "bytes": 107139449,
+          "expectedBytes": 107139449,
+          "completeHashMatches": true
+        }
+      ],
+      "bytes": 107139449,
+      "sha256": "798fbb0f9fc6796190ddaa36eb8f71f7081d196d0785867782da442d38996379",
+      "package": "cn.hbzjhs.dc.passenger.cloud",
+      "versionName": "1.1.15-experience",
+      "versionCode": 17,
+      "signerSha256": "9ffec9b342d12909ff288bd73f23ba104893b39120cb24ea83c9734a0d2b758f",
+      "aaptAndApksignerExit": 0,
+      "sameBytesAsReviewedBuild": true,
+      "deviceInstallOrSDKAuthentication": "NOT_RUN",
+      "PASS": true
+    }
+  ],
+  "apkPromotion": [
+    {
+      "role": "passenger",
+      "fixedObject": "distribution/yijiexing-passenger.apk",
+      "newGeneration": "1793194027052599",
+      "sha256": "798fbb0f9fc6796190ddaa36eb8f71f7081d196d0785867782da442d38996379",
+      "bytes": 107139449,
+      "archiveObject": "distribution/archive/20261028-before-pui7d6/passenger.apk",
+      "archiveGeneration": "1793194024639991",
+      "oldGeneration": "1793167199083550",
+      "oldBytes": 107529637,
+      "sourceGenerationPinned": true,
+      "destinationGenerationPreconditionUsed": true,
+      "status": "PROMOTED_ARCHIVE_VERIFIED"
+    }
+  ],
+  "dataPreservation": {
+    "generation": "1793193883009858",
+    "bytes": 4341760,
+    "sha256": "6ab3bdb32c3d931ca7a62253c5d9f8eacc8db8ee1310649136a1ad7599ce5baa",
+    "integrity": "ok",
+    "beforeOrderCount": 39,
+    "afterOrderCount": 39,
+    "missingOldOrders": 0,
+    "newOrdersSinceBackup": 0,
+    "changedOldOrderRows": 0,
+    "actualDifferences": [],
+    "unexpectedNonLocationChanges": [],
+    "allOldBusinessFieldsEqualExceptExplicitConcurrentLocationPaths": true,
+    "strictAllOldRowsByteEquivalent": true,
+    "coordinatorCreatedCloudOrders": 0,
+    "coordinatorCloudBusinessPOST": 0,
+    "scope": "Atomic GCS snapshot response MD5/generation checked; IDs/payload values remain private",
+    "transportEvents": []
+  },
+  "liveHttp": [
+    {
+      "url": "https://yijiexing-demo.hbzjhs.xyz/health",
+      "expectedHttp": 200,
+      "http": 200,
+      "curlExit": 0,
+      "sourceBytesEqual": null,
+      "PASS": true
+    },
+    {
+      "url": "https://demo-admin.hbzjhs.xyz/",
+      "expectedHttp": 200,
+      "http": 200,
+      "curlExit": 0,
+      "sourceBytesEqual": true,
+      "PASS": true
+    },
+    {
+      "url": "https://demo-admin.hbzjhs.xyz/api/local/admin/v2/state",
+      "expectedHttp": 401,
+      "http": 401,
+      "curlExit": 0,
+      "sourceBytesEqual": null,
+      "PASS": true
+    },
+    {
+      "url": "https://user-test---driver-demo-phfgquzmua-uw.a.run.app/download-passenger",
+      "expectedHttp": 200,
+      "http": 200,
+      "curlExit": 0,
+      "sourceBytesEqual": null,
+      "PASS": true
+    },
+    {
+      "url": "https://user-test---driver-admin-phfgquzmua-uw.a.run.app/",
+      "expectedHttp": 200,
+      "http": 200,
+      "curlExit": 0,
+      "sourceBytesEqual": true,
+      "PASS": true
+    },
+    {
+      "driverFixedApkSha256Unchanged": true,
+      "sha256": "b2166efab8b8f7ba2a0a7ff1a51237699eeb9d7000f5c8301546279b54a6445f",
+      "version": "0.3.14-cloud/code17",
+      "method": "existing full HTTPS verification PMV + current object metadata; no repeated driver transfer"
+    }
+  ],
+  "driverVersionUnchanged": "0.3.14-cloud/code17",
+  "passengerVersion": "1.1.15-experience/code17",
+  "independentSourceReview": "root non-author of backend/frontend; exact component binding in SOURCE_BINDING",
+  "independentPackagingReview": "backend PUIA reviewed root version/package/signature/origin/4 Key zero, did not self-accept defaults",
+  "nativeReview": "real isolated emulator GUI, synthetic local data; changed first-screen summary retested after patch",
+  "limits": [
+    "Amap1008/10008 still not passed; QA no actual map tiles",
+    "WeChat AppID missing; no WeChat build/device/publish",
+    "Payments/refunds/invoices simulated",
+    "Driver phone relay and IM unconnected; only company phone ACTION_DIAL confirmation, no actual outgoing call",
+    "OEM physical-device GUI not covered"
+  ],
+  "cleanup": {
+    "localFixtureAndEmulator": "STOPPED",
+    "buildAndUploadProcesses": "COMPLETED",
+    "persistentAutomation": "NONE",
+    "cloudPolicy": "automatic/min0/max1/request billing, no keepalive/no automatic pause"
+  }
+}

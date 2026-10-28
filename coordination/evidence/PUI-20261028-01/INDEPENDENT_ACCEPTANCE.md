@@ -1,5 +1,7 @@
 # PUI乘客端独立验收
 
+发布补记：PR32已合并a542f6640681956f330e91bc67ecf2f62cfcbda8，已发布回读。以下验收阶段记录保留当时状态，最终线上事实以release/FINAL-RELEASE-RECEIPT.json为准。
+
 精确产品SHA 7d6dc6014906c80be87b39f4433ec494ae067098，范围为UI设计13图意见、三类持久默认项及限定mini联系文案。root非作者HTTP6+兼容13+运营7通过，后端组件哈希保持一致；原生真实隔离模拟器按13组页面/交互验收通过。发现Q1首屏金额取消需滚动，已由frontend f3修正并在87截图复验。
 
 最终Android31测试与QA/原包构建成功，正式乘客1.1.15-experience/code17。backend独立PUIA核root版本/包名/原HTTPS/原体验签名/Key0通过，未自验自己defaults代码。旧测试实际执行SHA保留，按SOURCE_BINDING组件等同性复用。
