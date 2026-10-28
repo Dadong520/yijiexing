@@ -48,6 +48,13 @@ fun BookingScreen(
   onNegotiation: () -> Unit,
   openOrder: (String) -> Unit,
 ) {
+  val owner = state.optJSONObject("passenger")?.text("id").orEmpty()
+  key(owner) { PassengerBookingDraft(state, store, busy, onNegotiation, openOrder) }
+}
+
+@OptIn(ExperimentalLayoutApi::class)
+@Composable
+private fun PassengerBookingDraft(state: JSONObject, store: PassengerStore, busy: Boolean, onNegotiation: () -> Unit, openOrder: (String) -> Unit) {
   var kind by rememberSaveable { mutableStateOf("STANDARD") }
   var origin by rememberSaveable { mutableStateOf("宜昌东站 · 出租车上客区") }
   var destination by rememberSaveable { mutableStateOf("夷陵广场 · 东侧入口") }
@@ -69,8 +76,11 @@ fun BookingScreen(
   var waypointLng2 by rememberSaveable { mutableStateOf("") }
   var editor by remember { mutableStateOf("") }
   var showWaypoints by rememberSaveable { mutableStateOf(false) }
+  var showOptions by rememberSaveable { mutableStateOf(false) }
   var submitting by remember { mutableStateOf(false) }
-  var contactId by rememberSaveable { mutableStateOf("") }
+  val riderIds = state.rows("riders").map { it.text("id") }.toSet()
+  var contactId by rememberSaveable { mutableStateOf(PassengerDefaults.draftSelection("", false, PassengerDefaults.id(state, "RIDER"), riderIds)) }
+  LaunchedEffect(riderIds) { contactId = PassengerDefaults.draftSelection(contactId, true, "", riderIds) }
   val context = LocalContext.current
   val reservations = state.rows("orders").filter { it.text("kind") == "RESERVED" && it.text("stage") in listOf("AVAILABLE", "RESERVED") }
   val active = state.rows("orders").firstOrNull {
@@ -154,9 +164,7 @@ fun BookingScreen(
           verticalArrangement = Arrangement.spacedBy(10.dp),
         ) {
           reservations.forEach { reservation ->
-            OutlinedButton(onClick = { openOrder(reservation.text("id")) }, modifier = Modifier.fillMaxWidth()) {
-              Text("待出发预约 · ${formatTime(reservation.text("scheduledAt"))} · 查看")
-            }
+            PassengerReservationNotice(formatTime(reservation.text("scheduledAt"))) { openOrder(reservation.text("id")) }
           }
           if (active != null) {
             Surface(
@@ -285,7 +293,32 @@ fun BookingScreen(
             if (kind == "BID") "下单后等待司机报价，选定司机后模拟预付。"
             else "下单后生成体验估价，行程结束后模拟支付。"
           )
-          ExpandablePanel("更多行程设置与代叫", "乘车人、用车备注、预约时间、途经点", initialExpanded = kind == "RESERVED") {
+          if (kind == "RESERVED") Note("预约出发：${date.replace('T', ' ')}")
+          Panel {
+            MenuRow("更多行程设置", Icons.Default.Settings, "${if(contactId.isBlank()) "本人乘车" else "已选择乘车人"} · 备注${if(remark.isBlank()) "未填写" else "已填写"} · ${if(showWaypoints) "含途经点" else "无途经点"}") { showOptions = true }
+          }
+
+          Spacer(Modifier.height(4.dp))
+        }
+        Surface(
+          color = Color.White,
+          shadowElevation = 8.dp,
+          border = BorderStroke(1.dp, Color(0xFFF1F3F5)),
+          modifier = Modifier.fillMaxWidth(),
+        ) {
+          Box(Modifier.padding(horizontal = 16.dp, vertical = 10.dp)) {
+            ActionButton(
+              if (active != null) "查看当前行程" else if (enabledKinds.isEmpty()) "当前地区暂无开放叫车" else "确认呼叫 · ${kindName(kind)}",
+              !busy && !submitting && (active != null || enabledKinds.isNotEmpty()),
+            ) {
+              if (active != null) openOrder(active.text("id")) else submitOrder()
+            }
+          }
+        }
+      }
+    }
+  }
+  if (showOptions) PassengerFullPage("行程设置与代叫", { showOptions = false }) {
             if (kind == "RESERVED") {
               Text("预约时间：${date.replace('T', ' ')}", color = Ink, fontWeight = FontWeight.Medium, fontSize = 14.sp)
               OutlinedButton(
@@ -342,7 +375,7 @@ fun BookingScreen(
                   FilterChip(
                     selected = cSelected,
                     onClick = { contactId = c.text("id") },
-                    label = { Text("${c.text("name")} · ${c.text("mobile").takeLast(4)}", fontSize = 13.sp) },
+                    label = { Text("${c.text("name")} · ${c.text("mobile").takeLast(4)}${if (PassengerDefaults.id(state, "RIDER") == c.text("id")) " · 默认" else ""}", fontSize = 13.sp) },
                     colors = FilterChipDefaults.filterChipColors(
                       selectedContainerColor = Teal,
                       selectedLabelColor = Color.White,
@@ -370,7 +403,7 @@ fun BookingScreen(
               Note("最多 2 个途经点，按顺序经过。司机到达后确认，乘客可在订单查看进度。")
             }
             HorizontalDivider(color = Color(0xFFF1F3F5), thickness = 0.8.dp)
-            MenuRow("线下议价", Icons.Default.Info, "与现场司机配对，核对报价") { onNegotiation() }
+            MenuRow("线下议价", Icons.Default.Info, "与现场司机配对，核对报价") { showOptions = false; onNegotiation() }
             state
               .rows("orders")
               .firstOrNull { it.text("stage") in listOf("DONE", "CANCELLED") }
@@ -419,26 +452,6 @@ fun BookingScreen(
             ExpandablePanel("地点选择说明", "系统搜索与坐标提示", initialExpanded = false) {
               Note("可使用设备系统搜索、常用地点或手动WGS84坐标；系统搜索可用性取决于设备，未提供自动定位或道路导航。")
             }
-          }
-          Spacer(Modifier.height(4.dp))
-        }
-        Surface(
-          color = Color.White,
-          shadowElevation = 8.dp,
-          border = BorderStroke(1.dp, Color(0xFFF1F3F5)),
-          modifier = Modifier.fillMaxWidth(),
-        ) {
-          Box(Modifier.padding(horizontal = 16.dp, vertical = 10.dp)) {
-            ActionButton(
-              if (active != null) "查看当前行程" else if (enabledKinds.isEmpty()) "当前地区暂无开放叫车" else "确认呼叫 · ${kindName(kind)}",
-              !busy && !submitting && (active != null || enabledKinds.isNotEmpty()),
-            ) {
-              if (active != null) openOrder(active.text("id")) else submitOrder()
-            }
-          }
-        }
-      }
-    }
   }
   if (editor.isNotBlank())
     AddressDialog(
@@ -496,13 +509,13 @@ fun AddressDialog(
     cancelSearch(); name=n; lat=a; lng=b; source=from; selectedMetadata=metadata; error=""
   }
   val places =
-    (listOf(
+    (favorites.map {
+        Triple(it.text("address"), it.optDouble("latitude").toString(), it.optDouble("longitude").toString())
+      } + listOf(
         Triple("宜昌东站 · 出租车上客区", "30.6648", "111.3674"),
         Triple("夷陵广场 · 东侧入口", "30.7040", "111.2929"),
         Triple("三峡游客中心", "30.6778", "111.2944"),
-      ) + favorites.map {
-        Triple(it.text("address"), it.optDouble("latitude").toString(), it.optDouble("longitude").toString())
-      }).distinctBy { (n, a, b) -> Triple(n, a.toDoubleOrNull(), b.toDoubleOrNull()) }
+      )).distinctBy { (n, a, b) -> Triple(n, a.toDoubleOrNull(), b.toDoubleOrNull()) }
   PassengerModal(
     title = "选择地点",
     onDismiss = close,
@@ -569,7 +582,7 @@ fun AddressDialog(
     Note(if (amapKey.isNotBlank()) "使用高德地点搜索与地图选点；请选择具体车站、入口或建筑。" else "地址服务可用性依赖设备服务，请核对地点后使用。")
     Text("常用与体验地点", fontWeight=FontWeight.SemiBold)
     places.forEach { (n, a, b) ->
-      MenuRow(n, Icons.Default.LocationOn) {
+      MenuRow(n, Icons.Default.LocationOn, if (favorites.any { it.text("address") == n && it.optBoolean("isDefault") }) "默认常用地址 · 点击选择" else "点击选择") {
         val metadata=favorites.firstOrNull { it.text("address")==n && it.optDouble("latitude")==a.toDoubleOrNull() && it.optDouble("longitude")==b.toDoubleOrNull() }?.optJSONObject("coordinateMetadata")
         selectPlace(n,a,b,"常用或体验地点",metadata)
       }
@@ -591,23 +604,15 @@ fun Modifier.verticalScrollCompat(): Modifier =
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun OrdersScreen(orders: List<JSONObject>, open: (String) -> Unit) {
-  var filter by rememberSaveable { mutableStateOf("进行中") }
-  val filtered =
-    orders.filter {
-      when (filter) {
-        "进行中" -> it.text("stage") !in listOf("DONE", "CANCELLED")
-        "已完成" -> it.text("stage") == "DONE"
-        "已取消" -> it.text("stage") == "CANCELLED"
-        else -> true
-      }
-    }
+  var filter by rememberSaveable { mutableStateOf("全部") }
+  val filtered = orders.filter { PassengerUiRules.matchesOrderFilter(it.text("stage"), filter) }
   PageColumn {
     SectionTitle("我的订单", "出行与预约记录")
     FlowRow(
       horizontalArrangement = Arrangement.spacedBy(8.dp),
       verticalArrangement = Arrangement.spacedBy(6.dp),
     ) {
-      listOf("进行中", "已完成", "已取消", "全部").forEach { f ->
+      PassengerUiRules.orderFilters.forEach { f ->
         val selected = filter == f
         FilterChip(
           selected = selected,
@@ -633,113 +638,19 @@ fun OrdersScreen(orders: List<JSONObject>, open: (String) -> Unit) {
       EmptyCard("暂无${filter}订单", "在“出行”页面呼叫用车，订单状态会在这里实时更新。")
     }
     filtered.forEach { o ->
-      val stage = o.text("stage")
-      val isCancelled = stage == "CANCELLED"
-      val isDone = stage == "DONE"
-      val statusColor = when {
-        isCancelled -> Muted
-        isDone -> Ink
-        else -> Teal
-      }
-      Card(
-        onClick = { open(o.text("id")) },
-        colors = CardDefaults.cardColors(containerColor = Color.White),
-        shape = RoundedCornerShape(18.dp),
-        border = BorderStroke(1.dp, Color(0xFFEDEFF2)),
-        elevation = CardDefaults.cardElevation(defaultElevation = 1.dp),
-        modifier = Modifier.fillMaxWidth(),
-      ) {
-        Column(Modifier.padding(18.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
-          Row(
-            Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically,
-          ) {
-            Surface(
-              color = Color(0xFFF3F4F6),
-              shape = RoundedCornerShape(6.dp),
-            ) {
-              Text(
-                kindName(o.text("kind")),
-                fontWeight = FontWeight.SemiBold,
-                fontSize = 12.sp,
-                color = Ink,
-                modifier = Modifier.padding(horizontal = 8.dp, vertical = 3.dp),
-              )
-            }
-            Text(
-              stageName(stage),
-              color = statusColor,
-              fontWeight = FontWeight.Bold,
-              fontSize = 14.sp,
-            )
-          }
-          Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
-            Row(
-              horizontalArrangement = Arrangement.spacedBy(10.dp),
-              verticalAlignment = Alignment.CenterVertically,
-            ) {
-              Box(Modifier.size(8.dp).background(Teal, CircleShape))
-              Text(
-                o.text("origin"),
-                fontSize = 16.sp,
-                fontWeight = FontWeight.Medium,
-                color = Ink,
-                lineHeight = 22.sp,
-              )
-            }
-            Row(
-              horizontalArrangement = Arrangement.spacedBy(10.dp),
-              verticalAlignment = Alignment.CenterVertically,
-            ) {
-              Box(Modifier.size(8.dp).background(Amber, CircleShape))
-              Text(
-                o.text("destination"),
-                fontSize = 16.sp,
-                fontWeight = FontWeight.Medium,
-                color = Ink,
-                lineHeight = 22.sp,
-              )
-            }
-          }
-          HorizontalDivider(color = Color(0xFFF3F4F6), thickness = 0.8.dp)
-          Row(
-            Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically,
-          ) {
-            Text("体验费用", color = Muted, fontSize = 13.sp)
-            Text(
-              if (o.optBoolean("destinationPending")) "目的地待补充 · 费用待定"
-              else "¥${money(o.optLong("fare"))}",
-              fontSize = 16.sp,
-              fontWeight = FontWeight.Bold,
-              color = Ink,
-            )
-          }
-          if (o.text("scheduledAt").isNotBlank()) {
-            Row(
-              Modifier.fillMaxWidth(),
-              horizontalArrangement = Arrangement.SpaceBetween,
-              verticalAlignment = Alignment.CenterVertically,
-            ) {
-              Text("计划用车时间", color = Teal, fontSize = 13.sp, fontWeight = FontWeight.SemiBold)
-              Text(formatTime(o.text("scheduledAt")), color = Ink, fontSize = 13.sp, fontWeight = FontWeight.Medium)
-            }
-          }
-          orderPlacedTime(o.text("createdAt"))?.let { Note("创建时间：$it") }
-          IdentifierButton(o.text("id"))
-          if (o.rows("bids").isNotEmpty() && stage == "AVAILABLE") {
-            Text(
-              "${o.rows("bids").size} 位司机已报价 · 点击选择",
-              color = Teal,
-              fontWeight = FontWeight.Medium,
-              fontSize = 13.sp,
-            )
-          }
+      Panel {
+        Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
+          Text(kindName(o.text("kind")), color = Muted, fontSize = 13.sp)
+          Text(stageName(o.text("stage")), color = if (o.text("stage") == "CANCELLED") Muted else Teal, fontWeight = FontWeight.SemiBold)
         }
+        PassengerCompactRecord(
+          title = o.text("origin"),
+          subtitle = "到 ${o.text("destination")}\n${formatTime(o.text("createdAt"))}",
+          onClick = { open(o.text("id")) },
+          trailing = { Text(if(o.optBoolean("destinationPending")) "待定" else "¥${money(o.optLong("fare"))}", fontWeight = FontWeight.Bold) },
+        )
+        if (o.text("scheduledAt").isNotBlank()) Note("预约 ${formatTime(o.text("scheduledAt"))}")
       }
     }
   }
 }
-

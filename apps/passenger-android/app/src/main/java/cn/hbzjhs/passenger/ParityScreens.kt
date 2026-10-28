@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
@@ -60,25 +61,33 @@ private fun SafetyCenter(owner: String) {
       .onFailure { error = "未找到可用拨号应用，请手动拨号" }
   }
   PageColumn {
-    SectionTitle("安全中心")
-    Panel("功能范围") {
-      Note("安全联系人仅保存在本机当前乘客账号下，不跨设备同步、不自动联系或上传。卸载应用会删除本机记录。")
-      Note("录音保护、短信自动发送、警方专网及警务定位联动均未接入。紧急情况请由本人拨打当地报警电话。")
-      OutlinedButton(onClick = { dial("110") }, modifier = Modifier.fillMaxWidth().heightIn(min = 56.dp)) { Text("打开110拨号界面（需本人拨出）") }
+    SectionTitle("安全中心", "联系人仅保存在本机当前账号，不跨设备同步。")
+    Panel {
+      Text("紧急协助", color = Ink, fontWeight = FontWeight.SemiBold)
+      Note("紧急情况请本人拨打当地报警电话；应用不会自动报警。")
+      OutlinedButton(onClick = { dial("110") }, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) { Text("打开 110 拨号界面") }
     }
-    Panel("安全联系人 · ${contacts.size}/3") {
-      if (contacts.isEmpty()) Note("暂无联系人，请按需添加。")
-      contacts.forEach { contact ->
-        Text(contact.name); Note(contact.phone)
-        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-          TextButton(onClick = { editId=contact.id; name=contact.name; phone=contact.phone; error=""; editing=true }) { Text("编辑") }
-          TextButton(onClick = { deleting=contact }) { Text("删除") }
-          TextButton(onClick = { dial(contact.phone) }) { Text("打开拨号") }
+    PassengerSectionHeader("安全联系人 · ${contacts.size}/3", if (contacts.size < 3) "＋ 添加" else null) { editId=null; name=""; phone=""; error=""; editing=true }
+    if (contacts.isEmpty()) EmptyCard("暂无安全联系人", "按需添加，保存后可手动打开拨号。")
+    contacts.forEach { contact ->
+      Panel {
+        Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
+          Column(Modifier.weight(1f)) {
+            Text(contact.name, color = Ink, fontWeight = FontWeight.SemiBold)
+            Note(contact.phone)
+          }
+          TextButton(onClick = { dial(contact.phone) }) { Text("拨号") }
         }
-        HorizontalDivider()
+        Row {
+          TextButton(onClick = { editId=contact.id; name=contact.name; phone=contact.phone; error=""; editing=true }) { Text("编辑") }
+          TextButton(onClick = { deleting=contact }) { Text("删除", color = Muted) }
+        }
       }
-      ActionButton("添加安全联系人", contacts.size < 3) { editId=null; name=""; phone=""; error=""; editing=true }
-      if (error.isNotBlank() && !editing) Text(error, color = MaterialTheme.colorScheme.error)
+    }
+    if (error.isNotBlank() && !editing) Text(error, color = MaterialTheme.colorScheme.error)
+    ExpandablePanel("安全功能说明", "录音、自动短信与警方联动未接入") {
+      Note("联系人不会被自动联系或上传；卸载应用会删除本机记录。")
+      Note("录音保护、短信自动发送、警方专网及警务定位联动均未接入。拨号界面打开后，仍需本人确认拨出。")
     }
   }
   if (editing) PassengerModal(title="安全联系人", onDismiss={editing=false}, confirmLabel="保存到本机", onConfirm={

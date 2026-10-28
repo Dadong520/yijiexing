@@ -77,7 +77,7 @@ fun ProfileScreen(
           Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(3.dp)) {
             Text(p.text("name", "体验乘客"), fontSize = 20.sp, fontWeight = FontWeight.Bold, color = Ink)
             Row(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalAlignment = Alignment.CenterVertically) {
-              Note(p.text("mobile"))
+              Text(p.text("mobile"), color = Muted, fontSize = 13.sp, modifier = Modifier.weight(1f), maxLines = 1, overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis)
               Surface(
                 color = Color.White,
                 shape = RoundedCornerShape(4.dp),
@@ -85,7 +85,7 @@ fun ProfileScreen(
               ) {
                 Text(
                   p.text("cityName", "宜昌"),
-                  fontSize = 11.sp,
+                  fontSize = 12.sp,
                   color = Teal,
                   fontWeight = FontWeight.Medium,
                   modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp),
@@ -104,23 +104,27 @@ fun ProfileScreen(
         }
       }
     }
-    Panel("出行服务") {
-      MenuRow("常用地址", Icons.Default.Place) { navigate("favorites") }
-      HorizontalDivider(color = Color(0xFFF3F4F6), thickness = 0.8.dp)
-      MenuRow("乘车人管理", Icons.Default.Person) { navigate("riders") }
-      HorizontalDivider(color = Color(0xFFF3F4F6), thickness = 0.8.dp)
-      MenuRow("发票抬头", Icons.AutoMirrored.Filled.List) { navigate("invoiceTitles") }
-      HorizontalDivider(color = Color(0xFFF3F4F6), thickness = 0.8.dp)
-      MenuRow(if (PassengerOperations.enabled(state,"invoice")) "模拟发票申请与记录" else "历史模拟发票记录", Icons.AutoMirrored.Filled.List, if (PassengerOperations.enabled(state,"invoice")) "体验记录，不是正式发票" else "本地区已关闭新申请") { navigate("invoices") }
+    PassengerSectionHeader("出行资料")
+    Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+      listOf("常用地址" to "favorites", "乘车人" to "riders", "发票抬头" to "invoiceTitles").forEach { (label, page) ->
+        Card(onClick = { navigate(page) }, colors = CardDefaults.cardColors(containerColor = Color(0xFFEAF5F3)), shape = RoundedCornerShape(14.dp), modifier = Modifier.weight(1f)) {
+          Column(Modifier.fillMaxWidth().padding(horizontal = 8.dp, vertical = 18.dp), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(8.dp)) {
+            Icon(if (page == "favorites") Icons.Default.Place else if (page == "riders") Icons.Default.Person else Icons.AutoMirrored.Filled.List, null, tint = Teal)
+            Text(label, color = Ink, fontSize = 14.sp, fontWeight = FontWeight.Medium)
+          }
+        }
+      }
     }
-    Panel("功能体验") {
+    Panel {
+      MenuRow(if (PassengerOperations.enabled(state,"invoice")) "模拟发票与回执" else "历史模拟回执", Icons.AutoMirrored.Filled.List, "查看申请与记录 · 不可报销") { navigate("invoices") }
+      MenuRow("安全中心与联系人", Icons.Default.Lock, "当前账号本机保存") { navigate("safety") }
+    }
+    ExpandablePanel("更多体验", "卡券、积分与邀请 · 未接营销账务") {
       MenuRow("我的卡券 · 演示", Icons.Default.Info, "0张 · 不参与订单抵扣") { navigate("coupons") }
       HorizontalDivider(color = Color(0xFFF3F4F6), thickness = 0.8.dp)
       MenuRow("积分 · 演示", Icons.Default.Info, "0分 · 未接营销账务") { navigate("points") }
       HorizontalDivider(color = Color(0xFFF3F4F6), thickness = 0.8.dp)
       MenuRow("邀请体验 · 演示", Icons.Default.Person, "无实际奖励或拉新绑定") { navigate("invite") }
-      HorizontalDivider(color = Color(0xFFF3F4F6), thickness = 0.8.dp)
-      MenuRow("安全中心与联系人", Icons.Default.Lock, "当前账号本机保存") { navigate("safety") }
     }
     Panel("帮助与反馈") {
       MenuRow("我的投诉", Icons.Default.Email) { navigate("complaints") }
@@ -131,7 +135,7 @@ fun ProfileScreen(
       HorizontalDivider(color = Color(0xFFF3F4F6), thickness = 0.8.dp)
       MenuRow("公告、客服与服务说明", Icons.Default.Info) { navigate("help") }
     }
-    Panel("应用设置") {
+    ExpandablePanel("应用与连接", "版本与功能范围") {
       MenuRow("连接状态", Icons.Default.Settings, "网络异常时重试") { settings() }
       HorizontalDivider(color = Color(0xFFF3F4F6), thickness = 0.8.dp)
       Note("体验版 ${BuildConfig.VERSION_NAME}")
@@ -209,18 +213,14 @@ fun FavoritesScreen(state: JSONObject, store: PassengerStore) {
   var edit by remember { mutableStateOf<JSONObject?>(null) }
   var remove by remember { mutableStateOf<JSONObject?>(null) }
   PageColumn {
-    SectionTitle("常用地址", "最多保存 20 个地点，可用于下单选点。")
-    ActionButton("添加常用地址") { edit = JSONObject() }
+    PassengerSectionHeader("常用地址", "＋ 添加") { edit = JSONObject() }
+    Note("默认地点在选址时优先显示，仍需自行确认上车点和目的地。")
     if (state.rows("favorites").isEmpty()) EmptyCard("尚未保存常用地址", "添加家、公司或经常出行的地点，下次下单直接选择。")
     state.rows("favorites").forEach { f ->
-      Panel(f.text("label")) {
-        Text(f.text("address"))
-        Note("WGS84 · ${f.optDouble("latitude")}, ${f.optDouble("longitude")}")
-        Row {
-          TextButton(onClick = { edit = f }) { Text("编辑") }
-          TextButton(onClick = { remove = f }) { Text("删除") }
-        }
-      }
+      val isDefault = PassengerDefaults.id(state, "FAVORITE") == f.text("id")
+      PassengerManagedRecord(f.text("label"), f.text("address"), isDefault, busy,
+        onEdit = { edit = f }, onRemove = { remove = f },
+        onDefault = { PassengerDefaults.set(store, "FAVORITE", if (isDefault) null else f.text("id")) })
     }
   }
   edit?.let { f ->
@@ -235,6 +235,7 @@ fun FavoritesScreen(state: JSONObject, store: PassengerStore) {
         mutableStateOf(if (f.has("longitude")) f.optDouble("longitude").toString() else "")
       }
     var error by remember { mutableStateOf("") }
+    var isDefault by remember(f) { mutableStateOf(PassengerDefaults.id(state, "FAVORITE") == f.text("id") && f.text("id").isNotBlank()) }
     AlertDialog(
       onDismissRequest = { edit = null },
       title = { Text("保存常用地址") },
@@ -247,6 +248,7 @@ fun FavoritesScreen(state: JSONObject, store: PassengerStore) {
           Field(address, { address = it.take(100) }, "地址名称")
           Field(lat, { lat = it }, "WGS84 纬度", KeyboardType.Decimal)
           Field(lng, { lng = it }, "WGS84 经度", KeyboardType.Decimal)
+          PassengerDefaultCheck(isDefault, "设为默认常用地址") { isDefault = it }
           if (error.isNotBlank()) Text(error, color = MaterialTheme.colorScheme.error)
         }
       },
@@ -258,13 +260,13 @@ fun FavoritesScreen(state: JSONObject, store: PassengerStore) {
                 require(label.trim().isNotBlank() && address.trim().length >= 2) { "请填写标签与地址" }
                 val payload =
                   JSONObject()
+                    .put("isDefault", isDefault)
                     .put("label", label.trim())
                     .put("address", address.trim())
                     .put("latitude", coordinate(lat, true))
                     .put("longitude", coordinate(lng, false))
                 if (f.has("id")) payload.put("id", f.text("id"))
-                store.action("favorite.save", payload)
-                edit = null
+                store.action("favorite.save", payload) { edit = null }
               }
               .onFailure { error = it.message.orEmpty() }
           },
@@ -312,19 +314,26 @@ fun FeedbackScreen(state: JSONObject, store: PassengerStore) {
 }
 
 @Composable
-fun ComplaintsScreen(state: JSONObject) {
+fun ComplaintsScreen(state: JSONObject, store: PassengerStore) {
   PageColumn {
     SectionTitle("我的投诉", "可在已完成、待支付或已取消订单中提交投诉。")
     val rows = state.rows("orders").flatMap { o -> o.rows("complaints").map { c -> o to c } }
     if (rows.isEmpty()) EmptyCard("暂无投诉记录", "进入订单详情提交问题，云端保存处理状态。")
     rows.reversed().forEach { (o, c) ->
-      Panel(c.text("reason", "订单投诉")) {
-        Note(orderSummary(o))
-        IdentifierButton(o.text("id"))
-        Text(c.text("content"))
-        KV("处理状态", supportStatus(c.text("status")))
-        Note(c.text("reply").ifBlank { "暂无回复，后台回复后会同步显示在这里。" })
+      Panel {
+        Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
+          Text(c.text("reason", "订单投诉"), color = Ink, fontWeight = FontWeight.SemiBold, modifier = Modifier.weight(1f))
+          Text(supportStatus(c.text("status")), color = Teal)
+        }
+        Text(c.text("content").ifBlank { "未提供投诉正文" }, color = Ink)
+        c.rows("attachments").forEach { ComplaintImage(it, store) }
+        Text(c.text("reply").takeIf { it.isNotBlank() }?.let { "处理回复：$it" } ?: "暂无回复，后台回复后会在这里显示。", color = Muted)
         Note(formatTime(c.text("createdAt")))
+        ExpandablePanel("关联行程", "${o.text("origin")} → ${o.text("destination")}") {
+          Note(orderSummary(o))
+          IdentifierButton(o.text("id"))
+          IdentifierButton(c.text("id"), "投诉编号")
+        }
       }
     }
   }

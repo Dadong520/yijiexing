@@ -120,14 +120,19 @@ const page = base({
   },
 
   callDriverMock() {
-    const driver = this.data.order && this.data.order.driver;
-    const name = driver ? driver.name : '司机';
-    const mobile = driver ? driver.mobileMasked : '138****0003';
+    const order = this.data.order || {};
+    const company = order.company;
+    const companyAvailable = company && company.status === 'CONFIGURED' &&
+      typeof company.supportPhone === 'string' && company.supportPhone.trim();
     wx.showModal({
-      title: '模拟安全虚拟通话',
-      content: `正在通过宜捷行隐私号连接司机【${name}】(${mobile})。`,
-      showCancel: false,
-      confirmText: '挂断'
+      title: '联系与帮助',
+      content: '司机电话中继尚未配置，脱敏号码不可拨打。当前不提供文字聊天。' +
+        (companyAvailable ? '如需协助，可前往公司客服电话入口，由您确认拨号。' : '本订单公司客服电话尚未配置。'),
+      showCancel: !!companyAvailable,
+      confirmText: companyAvailable ? '公司客服' : '知道了',
+      success: (res) => {
+        if (res.confirm && companyAvailable) this.callOrderCompany();
+      }
     });
   },
 
