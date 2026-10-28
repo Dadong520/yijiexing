@@ -1,0 +1,44 @@
+{
+  "integrationSha": "817ed22bce503620d692e097a5f8ea996edf5fb2",
+  "scope": "Build + package/signature/credential scan; not device GUI or successful SDK authentication",
+  "passenger": {
+    "path": "/Users/dongge/.codex/tmp/yijiexing-pmv-release-build-20261028/passenger/_app/outputs/apk/debug/app-debug.apk",
+    "bytes": 107529637,
+    "sha256": "3130dd4e7ec7aa8e90f89f93d2b6979f1ec7569afe0db2a8d6e654a32720de48",
+    "package": "cn.hbzjhs.dc.passenger.cloud",
+    "versionName": "1.1.14-experience",
+    "versionCode": 16,
+    "signerSha256": "9ffec9b342d12909ff288bd73f23ba104893b39120cb24ea83c9734a0d2b758f",
+    "signerSha1": "D0:6F:0A:9E:AC:9D:FD:DC:08:30:B9:8A:F0:6E:2F:68:B6:D2:02:46",
+    "privateCredentialPatternCounts": {
+      "webJsKey": 0,
+      "webJsSecurityCode": 0,
+      "passengerAndroidKey": 0,
+      "driverAndroidKey": 0
+    },
+    "componentSourceCommit": "770781cc5c5d5ac58e046db7c70e7389c995f6b2",
+    "sameComponentTreeAsIntegration": true,
+    "unitTests": 24,
+    "unitFailures": 0
+  },
+  "driver": {
+    "path": "/Users/dongge/.codex/tmp/yijiexing-pmv-release-build-20261028/driver/_app/outputs/apk/debug/app-debug.apk",
+    "bytes": 108636805,
+    "sha256": "b2166efab8b8f7ba2a0a7ff1a51237699eeb9d7000f5c8301546279b54a6445f",
+    "package": "cn.hbzjhs.dc.driver.cloud",
+    "versionName": "0.3.14-cloud",
+    "versionCode": 17,
+    "signerSha256": "9ffec9b342d12909ff288bd73f23ba104893b39120cb24ea83c9734a0d2b758f",
+    "signerSha1": "D0:6F:0A:9E:AC:9D:FD:DC:08:30:B9:8A:F0:6E:2F:68:B6:D2:02:46",
+    "privateCredentialPatternCounts": {
+      "webJsKey": 0,
+      "webJsSecurityCode": 0,
+      "passengerAndroidKey": 0,
+      "driverAndroidKey": 0
+    },
+    "componentSourceCommit": "d5afe915eab8d0ad3cfc638a26740954eb86acf0",
+    "sameComponentTreeAsIntegration": true,
+    "unitTests": 63,
+    "unitFailures": 0
+  }
+}

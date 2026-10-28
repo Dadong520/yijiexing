@@ -1,0 +1,144 @@
+{
+  "task": "PMVU-20261028-01",
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-pmv-clients-20261028",
+  "branch": "codex/operations-v2-clients-20261028",
+  "baseSha": "c3c876ef3359f8bc4bb306f515637e1fc72ca621",
+  "sourceSha": "87aaffcd97d518cbbefec2effa250ea76059073e",
+  "authorTests": "PASS",
+  "businessAcceptance": "NOT_RUN",
+  "driverUnit": {
+    "tests": 63,
+    "failures": 0,
+    "assembleDebug": "PASS",
+    "testedSourceSha": "df9f47b96f0e38afd53c88587fc9046a35b14bf5"
+  },
+  "passengerUnit": {
+    "tests": 24,
+    "failures": 0,
+    "compileDebugKotlin": "PASS",
+    "assembleDebug": "NOT_RUN_FOR_THIS_PATCH",
+    "previousAssembleDebug": "PASS at df9f47b",
+    "testedSourceSha": "87aaffcd97d518cbbefec2effa250ea76059073e",
+    "log": "invoice-order-passenger-build.log"
+  },
+  "mini": {
+    "tests": 72,
+    "failures": 0,
+    "testedSourceSha": "87aaffcd97d518cbbefec2effa250ea76059073e",
+    "log": "invoice-order-mini-tests.log"
+  },
+  "admin": {
+    "tests": 4,
+    "failures": 0,
+    "syntax": "PASS",
+    "testedSourceSha": "519123c1b6e2712f5a71602d875bf653189c107b",
+    "log": "overview-pending-tests.log"
+  },
+  "contractSha256": "a2e4f63bff490dfcfd25c84e16abd899ec4f63195913887c357831fa5b73905a",
+  "notRun": [
+    "new ops actual HTTP/CAS integration",
+    "GUI/emulators",
+    "WeChat build/runtime/physical device",
+    "independent review",
+    "release/signing/version",
+    "cloud deployment"
+  ],
+  "deployed": false,
+  "updatedAt": "2026-10-28T13:30:24.270809+08:00",
+  "coordinationGate": "PASS before product commit; root card size fixed by coordinator",
+  "pendingMergeSha": "87aaffcd97d518cbbefec2effa250ea76059073e",
+  "authorTestCounts": {
+    "driver": {
+      "tests": 63,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "passenger": {
+      "tests": 24,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  },
+  "sourceHashes": {
+    "apps/admin-console/web/admin.js": "0078a67dae300998a96f4731e05fbc4c67dc8200168a8679788cbff01164384b",
+    "apps/admin-console/web/operations.test.js": "6adbb4c40c113cd961cde2b4e8d599f2548087a01d4ba3314a680271346f4e60",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/BookingScreens.kt": "da3ceb161d477538bdc7f3fc7756c15eb0fc5506a0f14fa8506f2b62db505655",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/ExtraScreens.kt": "cdd49376773b00b07caeb30ac0a8a40973bd2614bf97a7bf12f48576c0a2caa9",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/MainActivity.kt": "bcdb1695a6f23e218251ffeca2945ad4fccbb83cd099adf5da82d7659081ffb8",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/OperationsSupport.kt": "def22f466b397897b19be81393431aa3b4266577a9c547d9e074f58c29525c8f",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/OrderDetail.kt": "a1e8067c7f78a753ff028ccc7015660867e271792d9e49942d3812adb6cd70c1",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/PassengerStore.kt": "7ae21e5ced12bcecb4d0074c1a267fbbf9cf25838fd75e587e5cae73dfe83b81",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/ProfileScreens.kt": "3ea8c893a4925d457f263322f685b95c7a889b88f870939c79e51a5106d03c5e",
+    "apps/passenger-android/app/src/test/java/cn/hbzjhs/passenger/PassengerOperationsTest.kt": "25a153c486fcd63689beb5824a15d08bc34cb36953ce86c52d113349affab9b4",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/BusinessCommunity.kt": "dfba634c6180bdf51d8d76a1591cff05f7350ff037934525b0b9e93fb44c3376",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/BusinessScreens.kt": "5bd3f6ff7f87caea64b618fe8669bd392705941f225e5758b401f4a4b1c298a3",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/CertificateDueStatus.kt": "cfb050de75ab9f8c933813a23e1681db121d7f6e30a878ae46fc77701dc1f033",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/CoreScreens.kt": "79fc576675d88049cc4223ec0d3b883354055dc7efeaf209705453cd91fe45be",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/OperationsSupport.kt": "b106e3d1a2de1c9864c2eef738edb5b831e2508166fc551195d948ce7807e819",
+    "candidates/driver-0.3.6-r2/android/app/src/test/java/cn/hbzjhs/driver/preview/CertificateDueStatusTest.kt": "3c29b17a585bdc97d96f8a18a53314659d511726e7718f0c3130abdc5e69b2bb",
+    "candidates/passenger-miniprogram-0.1.0/miniprogram/lib/api.js": "7e9646fb5a2089ace6af560be43b0cb503e3ed8f518c826949ee34934eca1831",
+    "candidates/passenger-miniprogram-0.1.0/miniprogram/lib/operations.js": "805bbd6928b8b856926c184e2b835686ba3e2c2e354bb100c7dfa15e945315fd",
+    "candidates/passenger-miniprogram-0.1.0/miniprogram/pages/home/index.js": "c3fc662f9207e10ea54a3943382ddeca1f9fb9c4ea337bc1e872f9aaa617ba24",
+    "candidates/passenger-miniprogram-0.1.0/miniprogram/pages/home/index.wxml": "f74305e44bd420351a570e07f001f0cb674f6d860b0095e1a4f50c6bb0485f93",
+    "candidates/passenger-miniprogram-0.1.0/miniprogram/pages/order-detail/index.js": "2ee15feb098a103d566494aec16b5c682d4db19cd579b14c0412968e32950d9c",
+    "candidates/passenger-miniprogram-0.1.0/miniprogram/pages/order-detail/index.wxml": "c31ee1ca62054d5ad0632a8ec6ce101e3d708cc9646e7a2ddcb5b5291c8edb37",
+    "candidates/passenger-miniprogram-0.1.0/miniprogram/pages/profile/index.wxml": "26c61b689eb35ce3e3fa6fada3d89c802016bc6e44161c5700808203574ea14f",
+    "candidates/passenger-miniprogram-0.1.0/miniprogram/pages/settings/index.js": "d046c348c8fb7daed8f7016c10ba02342c33cc8309e9b2305d17567d1ebe8a16",
+    "candidates/passenger-miniprogram-0.1.0/miniprogram/pages/settings/index.wxml": "98837f6684c80afcfe32a0f3bf006783f40aa3258637241c113f675eb78ff0fc",
+    "candidates/passenger-miniprogram-0.1.0/miniprogram/pages/shared.js": "01a197188d36833b33cde5d526f3954e80889dcd5b65308fea18c1d2699032f1",
+    "candidates/passenger-miniprogram-0.1.0/miniprogram/tests/integration-v8.test.js": "859496110d84352b08e7f6a2e76b02941288a36736d997adc6b520aa301c74d7",
+    "candidates/passenger-miniprogram-0.1.0/miniprogram/tests/operations.test.js": "1ebea067f49279515c94b116e53e79138d65a3592972233fd8c0b7af9b40cd91",
+    "candidates/passenger-miniprogram-0.1.0/miniprogram/tests/regression-ag-20261025.test.js": "a9ff64e50533f70b633f12e6352a77cfe755ed67520d521d690ac2208b9bb868",
+    "candidates/passenger-miniprogram-0.1.0/miniprogram/tests/ui-flow.test.js": "8375e80ba2c01233a459442c6a569cb1016980e8e2c875b11e542c943aa819ac"
+  },
+  "releaseReady": false,
+  "versions": {
+    "driver": "0.3.13-cloud/code16 unchanged",
+    "passenger": "1.1.13-experience/code15 unchanged",
+    "note": "coordinator will set final versions/sign/build; local debug builds only"
+  },
+  "reportSha256": "a6a78fdfcc4ec2e1088f54e7373f6bade163cf3e3defed36326e5d2f2143fac3",
+  "commitSequence": [
+    "df9f47b96f0e38afd53c88587fc9046a35b14bf5",
+    "b450524c249009af1c1adc2332538a8b88e1be68",
+    "519123c1b6e2712f5a71602d875bf653189c107b",
+    "87aaffcd97d518cbbefec2effa250ea76059073e"
+  ],
+  "followup": {
+    "reason": "unaccepted announcement claim callback",
+    "sourceSha": "b450524c249009af1c1adc2332538a8b88e1be68",
+    "staticReview": "PASS",
+    "compileDebugKotlin": "PASS",
+    "runtimeGui": "NOT_RUN",
+    "unrelatedRetest": "NOT_RUN per coordinator scope"
+  },
+  "overviewPendingFix": {
+    "sourceSha": "519123c1b6e2712f5a71602d875bf653189c107b",
+    "rule": "legacy PENDING OR pending candidate, once per certificate",
+    "cases": [
+      "APPROVED+pending",
+      "PENDING+null",
+      "PENDING+pending counts once",
+      "APPROVED+null after review gives zero",
+      "empty/missing/unloaded"
+    ],
+    "test": "PASS",
+    "runtimeDOM": "NOT_RUN in author thread; coordinator will verify",
+    "androidMiniRetest": "NOT_RUN; not affected"
+  },
+  "invoiceOrderPatch": {
+    "sourceSha": "87aaffcd97d518cbbefec2effa250ea76059073e",
+    "contract": "v1.3 invoiceApplicationEnabled:boolean",
+    "fallback": "only absent field uses profile-region legacy rule",
+    "cases": [
+      "profile closed/order true allow",
+      "profile open/order false reject",
+      "missing boolean fallback",
+      "malformed field fails closed",
+      "history receipts retained"
+    ],
+    "runtimeIntegration": "NOT_RUN by author"
+  }
+}

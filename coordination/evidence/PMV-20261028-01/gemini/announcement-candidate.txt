@@ -1,0 +1,152 @@
+### 任务 PMVG-20261028-01 纯函数候选代码
+
+#### 1. 纯函数实现 (`validate_announcement`)
+
+```python
+from datetime import datetime, timezone, timedelta
+
+# 定义固定时区 UTC+8
+UTC8 = timezone(timedelta(hours=8))
+
+# 文本长度限制常量
+MAX_TITLE_LENGTH = 50
+MAX_CONTENT_LENGTH = 1000
+
+def _parse_utc8_datetime(dt_val) -> datetime:
+    """
+    辅助解析时间：支持 datetime 实例或常见时间字符串（ISO-8601 或 YYYY-MM-DD HH:MM:SS）
+    若无时区信息则默认视作 UTC+8；有时区信息则换算至 UTC+8。
+    """
+    if isinstance(dt_val, datetime):
+        dt = dt_val
+    elif isinstance(dt_val, str):
+        val = dt_val.strip()
+        # 兼容 'YYYY-MM-DD HH:MM:SS' 格式转为 ISO 格式
+        if " " in val and "T" not in val:
+            val = val.replace(" ", "T", 1)
+        dt = datetime.fromisoformat(val)
+    else:
+        raise TypeError("时间字段必须为 ISO 格式字符串或 datetime 对象")
+
+    if dt.tzinfo is None:
+        dt = dt.replace(tzinfo=UTC8)
+    else:
+        dt = dt.astimezone(UTC8)
+    return dt
+
+def validate_announcement(payload: dict) -> tuple[bool, str | None]:
+    """
+    验证小程序后台公告配置 payload
+    
+    验证规则：
+    1. 必须为字典，且必须包含 title, content, start_time, end_time。
+    2. title 与 content 经去除首尾空格后必须非空，且长度分别在 1~50 与 1~1000 字符内。
+    3. start_time 与 end_time 必须能解析为有效 UTC+8 时间。
+    4. 结束时间必须严格晚于开始时间 (end_time > start_time)。
+    
+    返回：
+    (True, None) 表示校验通过；
+    (False, "错误信息") 表示校验失败。
+    """
+    if not isinstance(payload, dict):
+        return False, "Payload 必须为字典对象"
+
+    required_fields = ["title", "content", "start_time", "end_time"]
+    for field in required_fields:
+        if field not in payload or payload[field] is None:
+            return False, f"缺少必填字段: {field}"
+
+    # 1. 校验标题
+    title = payload["title"]
+    if not isinstance(title, str):
+        return False, "title 必须为字符串"
+    title_clean = title.strip()
+    if not title_clean:
+        return False, "title 不能为空或仅包含空白字符"
+    if len(title_clean) > MAX_TITLE_LENGTH:
+        return False, f"title 长度不能超过 {MAX_TITLE_LENGTH} 字符（当前: {len(title_clean)}）"
+
+    # 2. 校验正文
+    content = payload["content"]
+    if not isinstance(content, str):
+        return False, "content 必须为字符串"
+    content_clean = content.strip()
+    if not content_clean:
+        return False, "content 不能为空或仅包含空白字符"
+    if len(content_clean) > MAX_CONTENT_LENGTH:
+        return False, f"content 长度不能超过 {MAX_CONTENT_LENGTH} 字符（当前: {len(content_clean)}）"
+
+    # 3. 解析时间（UTC+8）
+    try:
+        start_dt = _parse_utc8_datetime(payload["start_time"])
+    except Exception as e:
+        return False, f"start_time 解析失败: {str(e)}"
+
+    try:
+        end_dt = _parse_utc8_datetime(payload["end_time"])
+    except Exception as e:
+        return False, f"end_time 解析失败: {str(e)}"
+
+    # 4. 时间顺序比较（结束时间必须大于开始时间）
+    if end_dt <= start_dt:
+        return False, "结束时间 (end_time) 必须晚于开始时间 (start_time)"
+
+    return True, None
+```
+
+---
+
+#### 2. 4 个边界测试用例
+
+```python
+def run_boundary_tests():
+    # 用例 1: 正常边界合法用例（标题 50 字上限、正文边界、合法 UTC+8 字符串时间，end > start）
+    valid_payload = {
+        "title": "A" * 50,
+        "content": "系统升级维护公告，请各位司机及乘客注意安排行程。",
+        "start_time": "2026-10-28 12:00:00",
+        "end_time": "2026-10-28 12:00:01"  # 仅多 1 秒，严格满足 end > start
+    }
+    is_valid, err = validate_announcement(valid_payload)
+    assert is_valid is True and err is None, f"用例 1 失败: {err}"
+
+    # 用例 2: 文本边界超限用例（标题超过 50 字符，或内容全空白字符）
+    title_too_long_payload = {
+        "title": "B" * 51,
+        "content": "   ",  # 全空格无效正文
+        "start_time": "2026-10-28 12:00:00+08:00",
+        "end_time": "2026-10-29 12:00:00+08:00"
+    }
+    is_valid, err = validate_announcement(title_too_long_payload)
+    assert is_valid is False and "title 长度不能超过" in err, f"用例 2 预期被拦截但通过: {err}"
+
+    # 用例 3: 时间反转/相等临界用例（end_time 等于或早于 start_time）
+    equal_time_payload = {
+        "title": "服务调整",
+        "content": "部分网点营运时间微调通知。",
+        "start_time": "2026-10-28 18:00:00",
+        "end_time": "2026-10-28 18:00:00"  # 结束时间等于开始时间
+    }
+    is_valid, err = validate_announcement(equal_time_payload)
+    assert is_valid is False and "必须晚于开始时间" in err, f"用例 3 预期被拦截但通过: {err}"
+
+    # 用例 4: 缺少必填字段与非法时间格式边界用例
+    invalid_time_payload = {
+        "title": "紧急通知",
+        "content": "请尽快完成证件更新",
+        # 缺少 end_time 必填字段，且 start_time 为非法时间字符串
+        "start_time": "2026-13-45 99:99:99"
+    }
+    is_valid, err = validate_announcement(invalid_time_payload)
+    assert is_valid is False and "缺少必填字段: end_time" in err, f"用例 4 预期拦截失败: {err}"
+
+    print("4个边界用例全部执行通过。")
+
+if __name__ == "__main__":
+    run_boundary_tests()
+```
+
+---
+
+> [!IMPORTANT]
+> **此为候选代码，未通过独立验收不得称已实现。**

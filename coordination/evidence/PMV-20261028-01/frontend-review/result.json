@@ -1,0 +1,41 @@
+{
+  "task": "PMVF-20261028-01",
+  "reviewerThreadId": "01a167c8-a5eb-77e3-b77e-214927a029da",
+  "updatedAt": "2026-10-28T12:11:11.611231+08:00",
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-pm-amap-20261027",
+  "sourceSha": "b77e8f7af03bd2a8af535de34bd13d5acd0a387a",
+  "catalogCount": 32,
+  "review": "PASS_SCOPE_READ_ONLY",
+  "businessAcceptance": "NOT_RUN",
+  "firstBatch": [
+    "announcements",
+    "company_support",
+    "passenger_features",
+    "qualification_expiry"
+  ],
+  "notRun": [
+    "unit/integration",
+    "GUI/ADB/emulators",
+    "browser",
+    "cloud",
+    "WeChat build/runtime"
+  ],
+  "productChanges": false,
+  "pendingMergeSha": null,
+  "deployed": false,
+  "contextUsedPercent": null,
+  "measurementSource": "not_exposed",
+  "sourceHashes": {
+    "apps/cloud-service/operations_drafts.py": "fdc760167021a769e4c535f9829cbbba7d1d31f3861c63d61f55d207fc2c7691",
+    "apps/admin-console/web/admin.js": "ecb5b4d5ef04b40ec03ee9a16787319629103d58d086b4f0e8d093ad987b66bd",
+    "apps/cloud-service/domain.py": "ca592656f8841eb01d20cec885d2c962fd7ea6be72c8738bd9c26581f21c9ce0",
+    "apps/cloud-service/passenger.py": "d4c7fe303e0a779bf0c1886a22f9f2be0b86b6c0c82e2e6a2dcada02391e313d",
+    "apps/cloud-service/server.py": "4aaf099733be16eb36f4fc1a9f84be49f9a11fe183906c6b7e5fc850028219c0",
+    "apps/cloud-service/passenger_extras.py": "fc6a21d2d05adf859754bddd56467dd1d7376fc9a1a9e57c4c0865c4a34983c9",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/BusinessScreens.kt": "3e2555742e6351ccbd4b1352d21b611e79bf9d0255e38f92911876566fbd3b8e",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/CoreScreens.kt": "baa40329020109da76f637911e004bdaec90cc96c8cebc67804c311a4f3eda06",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/ProfileScreens.kt": "d6a255cf9847c933914c5a97391e672a3a88bb4659d19519d9e550deb6c7b1f0"
+  },
+  "sourceTextSha256": "97af2825102c42f855558124c6b01304590ccbb1b02f6fc54b4b663b8c7bf3e2",
+  "reportSha256": "4982760079792b0db32f761a0b0d4e86ef84a91477ea8a72235637310c9141e2"
+}

@@ -1,0 +1,75 @@
+{
+  "schemaVersion": 1,
+  "id": "PMVO-20261028-01",
+  "owner": "backend",
+  "goal": "实现首批运营真实持久化接口：公司与客服电话/司机公司归属、公告草稿发布撤回与登录弹窗回执、地区乘客入口发布及服务端门禁、BIZ08三证60天提醒/有效旧证审核中可用/通过替换。Gemini优先生成主要模块候选，backend负责集成和规则自测。",
+  "baseSha": "c3c876ef3359f8bc4bb306f515637e1fc72ca621",
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-pmv-backend-20261028",
+  "branch": "codex/operations-v2-backend-20261028",
+  "allow_paths": [
+    "apps/cloud-service/",
+    "coordination/tasks/PMVO-20261028-01.json",
+    "coordination/contracts/PMV-OPERATIONS-API.md",
+    "coordination/evidence/PMV-20261028-01/backend-implementation/",
+    "coordination/handoffs/backend.md"
+  ],
+  "checks": [
+    "前10分钟给中央contracts/PMV-OPERATIONS-API.md明确state/action/字段/权限/时间/版本及两端API，发布前contract不得隐式漂移，写好后在自己短卡注明，由root通知frontend；不直接跨会话发消息",
+    "公告按BIZ09每用户/每版本登录后有效期内弹一次，可关闭；只读取state不能消耗展示次数，跨账户不串，开始/结束边界、撤回、旧版本/重复ack处理；默认小程序，可配置乘客Android受众，不自动广播司机/离线渠道",
+    "公司有持久ID/名称/客服电话/启用状态及显式司机companyId关联；不把organization演示字符串作权威映射。司机读所属公司，乘客优先订单公司/当前选公司，有状态未配置，电话不伪造；保护跨公司身份范围",
+    "地区入口先明确全国/大区/城市可配置继承与未配置兼容旧功能（即时/预约/竞价/模拟开票），只发布版本影响新操作，服务端校验不可仅隐藏UI；关闭不影响历史查询/在途完成，未知地区不冒用区县",
+    "BIZ08证件UTC+8日期剩61/60/59/0/-1、长期/缺失日期，提醒与司机可更新一致；审核待批保留有效旧证及正在使用的有效期，提交不自动审核，新证通过原子替换，驳回旧有效仍可用，已过期阻新单/旧行程完成；避免原先提交总PENDING全锁",
+    "Gemini实际由backend独占本轮CLI，不与root/frontend并发：已验证/Applications/Gemini.app/Contents/Helpers/agy，本次可用26秒SUCCESS（不沿用旧地区阻塞）；新任务短输入、90s等明确单位、默认新context，优先无工具生成候选；不指定模型/改全局/跳权限。只在任务证据写结果/精确conversation_id，超时核对结束",
+    "结构化业务执行与旧32类DRAFT/记录分离，未经发布草稿不生效，不自动迁移自由文本为正式规则；RBAC/409审计覆盖；针对CAS并发/双角色/重启持久化/API现状适用测试，暂不部署",
+    "保留当前共享订单、认证、角色权限、Origin/限流/审计/幂等/CAS及旧数据迁移兼容；不改真实金额、发分或资金服务；不访问原环境",
+    "仅任务唯一文件归属，一任务一分支；提交前跑中央check_coordination.py --memory-role对应角色 --session-id真实ID；作者测试不等于独立验收，root统一合并发布"
+  ],
+  "status": "INDEPENDENT_ACCEPTANCE_PASS_INTEGRATED",
+  "acceptance": "PASS",
+  "tests": [
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=apps/cloud-service python3 -m unittest discover -s apps/cloud-service/tests -v",
+      "result": "PASS: 251 tests in 63.922s, exit 0; author only",
+      "evidence": "coordination/evidence/PMV-20261028-01/backend-implementation/full-suite-contract-aligned.log"
+    },
+    {
+      "command": "git diff --check -- apps/cloud-service",
+      "result": "PASS"
+    },
+    {
+      "command": "python3 tools/check_coordination.py --memory-role backend --session-id 01a168e2-22f7-70a2-af7f-4fb6be0ea695",
+      "result": "PASS: structural, not independent business acceptance"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=apps/cloud-service python3 -m unittest discover -s apps/cloud-service/tests -p test_live_operations.py -v",
+      "result": "PASS: 16 tests in 3.420s for invoice city projection patch; full 251 remains baseline only",
+      "evidence": "coordination/evidence/PMV-20261028-01/backend-implementation/invoice-city-projection-tests.log"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=apps/cloud-service python3 -m unittest discover -s apps/cloud-service/tests -p test_qualification_replacement.py -v",
+      "result": "PASS: 11 tests in 1.930s, approval note metadata delta only",
+      "evidence": "coordination/evidence/PMV-20261028-01/backend-implementation/approval-note-tests.log"
+    }
+  ],
+  "evidence": [
+    "coordination/contracts/PMV-OPERATIONS-API.md",
+    "coordination/evidence/PMV-20261028-01/backend-implementation/REPORT.md",
+    "coordination/evidence/PMV-20261028-01/backend-implementation/results.json",
+    "coordination/evidence/PMV-20261028-01/backend-implementation/source-binding.json",
+    "coordination/evidence/PMV-20261028-01/backend-implementation/invoice-city-projection-result.json",
+    "coordination/evidence/PMV-20261028-01/backend-implementation/approval-note-result.json"
+  ],
+  "nextAction": "Integrated and independently accepted by coordinator; PMVR owns release/readback",
+  "deploy_owner": "coordinator",
+  "releaseReady": false,
+  "updatedAt": "2026-10-28T13:49:25.646916+08:00",
+  "pendingMergeSha": "f1f9128aa34c9269f407178b963ca990f83de7a3",
+  "authorAcceptance": "PASS",
+  "authorThreadId": "01a168e2-22f7-70a2-af7f-4fb6be0ea695",
+  "productCommitSha": "f1f9128aa34c9269f407178b963ca990f83de7a3",
+  "evidenceCommitSha": "52340760c1218c42f998ca56f07f9045f8bb20ea",
+  "invoiceCityPatchSha": "33fa8e3102c61b9190f3fa7d49281ad8274f79c5",
+  "approvalNotePatchSha": "f1f9128aa34c9269f407178b963ca990f83de7a3",
+  "acceptedSha": "817ed22bce503620d692e097a5f8ea996edf5fb2",
+  "reviewer": "coordinator"
+}

@@ -46,6 +46,10 @@ const page = base({
     this.setData({ id: q.id || '' });
   },
 
+  async callOrderCompany() {
+    try { await require('../../lib/operations').dialCompany(wx,this.data.order&&this.data.order.company); }
+    catch(e) { error(e); }
+  },
   syncState(s) {
     const raw = (s.orders || []).find(o => o.id === this.data.id);
     if (!raw) {
@@ -53,6 +57,7 @@ const page = base({
       return;
     }
     const o = decorate(raw);
+    o.company=require('../../lib/operations').companyView(raw.company);
     const dc = raw.distanceConsent;
     o.distanceConsent = dc ? Object.assign({}, dc, {
       active: dc.status === 'PENDING' && dc.expectedStage === raw.stage && Date.parse(dc.expiresAt) > Date.now(),

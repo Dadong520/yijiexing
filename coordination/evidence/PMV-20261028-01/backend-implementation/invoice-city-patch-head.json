@@ -1,0 +1,6 @@
+{
+  "patchSha": "33fa8e3102c61b9190f3fa7d49281ad8274f79c5",
+  "baseSha": "52340760c1218c42f998ca56f07f9045f8bb20ea",
+  "tests": "16 PASS, 3.420s",
+  "sourceBinding": "invoice-city-projection-result.json"
+}

@@ -1,0 +1,41 @@
+{
+  "taskId": "PMVB-20261028-01",
+  "reviewerThreadId": "01a168e2-22f7-70a2-af7f-4fb6be0ea695",
+  "updatedAt": "2026-10-28T12:18:30+08:00",
+  "reviewStatus": "PASS_READ_ONLY_REVIEW_WITH_BUSINESS_BLOCKERS",
+  "documentFormulaStatus": "FAIL_COUNTEREXAMPLES",
+  "candidateStatus": "BIZ07_USER_CONFIRMED_SINGLE_DEDUCTION_PLATFORM_RESIDUAL_SIMULATION_ONLY",
+  "sourceHead": "b77e8f7af03bd2a8af535de34bd13d5acd0a387a",
+  "receiptMain": "c3c876ef3359f8bc4bb306f515637e1fc72ca621",
+  "productTreeMatchesReceipt": true,
+  "sourceUnchangedAtEnd": true,
+  "sourceFilesChecked": 45,
+  "testCommand": "PYTHONDONTWRITEBYTECODE=1 python3 coordination/evidence/PMV-20261028-01/backend-review/formula_check.py",
+  "exitCode": 0,
+  "syntheticCases": 10,
+  "documentCounterexamples": 8,
+  "zeroDeltaControls": 2,
+  "additionalChecks": [
+    "per-fee versus combined rounding at payment 0.67 yuan",
+    "one-fen 50/50 rounding ambiguity",
+    "coordinator 100/40/0/1/50% example: document shortfall 0.30 yuan"
+  ],
+  "productTests": "NOT_RUN",
+  "cloudAccess": "NOT_RUN",
+  "liveDataAccess": "NOT_RUN",
+  "realPaymentAndBank": "NOT_RUN",
+  "groupMessages": "NOT_RUN",
+  "deployment": "NOT_RUN",
+  "releaseReady": false,
+  "pendingMergeSha": null,
+  "nextAction": "Coordinator combine remaining fee/subsidy/gate questions and frontend review; do not repeat approved single-deduction question. Issue unique product task before implementation.",
+  "evidence": {
+    "source-binding.json": "78c10438a3262b1f5b3ce1b53606d2bccc589a38dbf9aca35e3ed6b566965514",
+    "REPORT.md": "89dc037218eb9adc7835bb0457e32790fb545d4d63927c00bee21d3eb2995c4a",
+    "formula-check.log": "d1be1503912f20460f45aaea1526183c4d0a3a62d01a9ea4e0b02011093895bb",
+    "formula_check.py": "9a36f8279210390fb6991a4d1273fa7c28a3303f49db27bc1c083e79cf623b1f",
+    "FORMULA-CASES.json": "70fb5b6a6e44c6a36037ef0c51f1a3a812a75c7ea1a36eedeaf7164adff86190"
+  },
+  "decision": "BIZ-07",
+  "coordinationGateInitialAttempt": "FAIL: task acceptance enum invalid; corrected to PASS for review scope only, releaseReady false."
+}

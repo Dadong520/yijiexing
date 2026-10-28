@@ -1,0 +1,63 @@
+{
+  "at": "2026-10-28T13:36:37.984935+08:00",
+  "scope": "Actual CUA DOM + real BrowserHandler PASSWORD + SQLite/MemoryCAS; all synthetic localhost data",
+  "url": "http://127.0.0.1:63990",
+  "browserTab": "IAB tab1 pmvTab",
+  "backendLoadedSource": "83f89443bdea79ba071edc6a446df2fe845460b6",
+  "webFinalSource": "770781cc5c5d5ac58e046db7c70e7389c995f6b2",
+  "checks": [
+    {
+      "case": "new sidebar four modules + legacy drafts visible",
+      "result": "PASS"
+    },
+    {
+      "case": "company save v1 + explicit driver binding v1 + refresh readback",
+      "result": "PASS"
+    },
+    {
+      "case": "announcement draft v1, published v2, withdrawn v3; audiences both; title HTML remains literal text",
+      "result": "PASS"
+    },
+    {
+      "case": "city feature draft unpub v1 then published v2, fields retain inheritance",
+      "result": "PASS"
+    },
+    {
+      "case": "VIEWER buttons disabled, no new/edit/publish",
+      "result": "PASS"
+    },
+    {
+      "case": "pending insurance shows old and new dates, preview clearly pending material",
+      "result": "PASS"
+    },
+    {
+      "case": "overview pending count1; approve exact pending material; expiry alert gone and pending count0",
+      "result": "PASS"
+    },
+    {
+      "case": "concurrent company update to v2, old form rejects with visible conflict and latest row retained",
+      "result": "PASS"
+    }
+  ],
+  "artifacts": [
+    "admin-company-dom.txt",
+    "admin-announcement-draft-dom.txt",
+    "admin-announcement-published-dom.txt",
+    "admin-announcement-withdrawn-dom.txt",
+    "admin-features-draft-dom.txt",
+    "admin-features-published-dom.txt",
+    "admin-readonly-dom.txt",
+    "admin-pending-count-before-dom.txt",
+    "admin-expiry-after-approval-dom.txt",
+    "admin-pending-count-after-dom.txt",
+    "admin-stale-form-dom.txt",
+    "admin-pending-material.png",
+    "admin-announcement-published.png",
+    "admin-readonly.png"
+  ],
+  "limitations": [
+    "Android device UI and WeChat runtime not run here.",
+    "Late backend invoice projection/approval-note changes require final HTTP binding; admin UI functions tested are unaffected except explicitly checked web pending count patch."
+  ],
+  "resources": "Closed IAB own tab; fixture session87844 exited0 via stop control; original Chrome tab untouched"
+}

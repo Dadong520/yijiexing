@@ -1,0 +1,46 @@
+Browser tab: 1, Title: "宜捷行 · 运营管理中心", URL: "http://127.0.0.1:63990/".
+1 AXWebArea 宜捷行 · 运营管理中心, URL: 127.0.0.1:63990/
+	2 container app
+		3 container
+			4 text 宜 宜捷行 运营管理中心
+			5 container nav
+				6 text 平台运维
+				7 button 公告管理
+				8 button 公司与客服电话
+				9 button 乘客端功能配置
+				10 text 司机管理
+				11 button 资质到期提醒
+				12 text 工作台
+				13 button 经营概览
+				14 button 经营报表
+				15 text 业务运营
+				16 button 订单管理
+				17 button 取消订单记录
+				18 button 司机与车辆
+				19 button 乘客管理
+				20 button 模拟账务
+				21 button 模拟退款记录
+				22 button 评价投诉反馈
+				23 text 配置与治理
+				24 button 城市与会员
+				25 button 历史草稿与人工记录
+				26 button 账号与权限
+				27 button 操作日志
+			28 text  独立云体验环境 支付 / 退款 / 提现均为模拟
+		29 container
+			30 text 工作空间  /
+			31 text 资质到期提醒
+			32 text admin · 超级管理员
+			33 button 刷新数据, ID: refreshBtn
+			34 button 退出, ID: logoutBtn
+		35 container
+			36 text 体验环境 · 本后台与司机、乘客端共用持久化业务数据。所有金额均为模拟账务，不发生真实资金交易。
+			37 container content
+				38 heading 资质到期提醒, Value: 1
+					39 text 资质到期提醒
+				40 text 按服务端北京时间日期 2026-10-28 计算。提前60天提醒；待审有效旧证继续用，审核通过才替换，过期阻新单且在途可完成。
+				41 text 当前没有60天内到期、过期或有效期待补全的证件。
+			42 text 最近同步 2026/10/28 13:34:37 · 点击刷新获取两端最新状态
+	43 text 审核结果已保存，请刷新司机端查看
+
+The focused UI element is 1 AXWebArea 宜捷行 · 运营管理中心, URL: 127.0.0.1:63990/

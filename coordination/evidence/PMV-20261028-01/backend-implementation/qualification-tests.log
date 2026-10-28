@@ -1,0 +1,137 @@
+test_60_day_update_window_and_61_day_rejection (test_qualification_replacement.QualificationReplacementTests.test_60_day_update_window_and_61_day_rejection) ... [2026-10-28T13:01:02+08:00] POST /api/passenger/auth/code 200
+[2026-10-28T13:01:02+08:00] POST /api/passenger/auth/login 200
+[2026-10-28T13:01:02+08:00] POST /api/auth/code 200
+[2026-10-28T13:01:02+08:00] POST /api/auth/login 200
+[2026-10-28T13:01:02+08:00] POST /api/action 200
+[2026-10-28T13:01:02+08:00] POST /api/action 409
+/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/tempfile.py:484: ResourceWarning: Implicitly cleaning up <HTTPError 409: 'Conflict'>
+  _warnings.warn(self.warn_message, ResourceWarning)
+[2026-10-28T13:01:02+08:00] POST /api/action 200
+[2026-10-28T13:01:02+08:00] POST /api/action 409
+ok
+test_61_60_59_zero_minus_one_long_term_unknown_server_flags (test_qualification_replacement.QualificationReplacementTests.test_61_60_59_zero_minus_one_long_term_unknown_server_flags) ... [2026-10-28T13:01:02+08:00] POST /api/passenger/auth/code 200
+[2026-10-28T13:01:02+08:00] POST /api/passenger/auth/login 200
+[2026-10-28T13:01:02+08:00] POST /api/auth/code 200
+[2026-10-28T13:01:02+08:00] POST /api/auth/login 200
+[2026-10-28T13:01:02+08:00] POST /api/action 200
+[2026-10-28T13:01:02+08:00] GET /api/state 200
+[2026-10-28T13:01:02+08:00] GET /api/state 200
+[2026-10-28T13:01:02+08:00] GET /api/state 200
+[2026-10-28T13:01:02+08:00] GET /api/state 200
+[2026-10-28T13:01:02+08:00] GET /api/state 200
+[2026-10-28T13:01:02+08:00] GET /api/state 200
+[2026-10-28T13:01:02+08:00] GET /api/state 200
+ok
+test_expired_reserved_departure_rechecks_certificate (test_qualification_replacement.QualificationReplacementTests.test_expired_reserved_departure_rechecks_certificate) ... [2026-10-28T13:01:02+08:00] POST /api/passenger/auth/code 200
+[2026-10-28T13:01:02+08:00] POST /api/passenger/auth/login 200
+[2026-10-28T13:01:02+08:00] POST /api/auth/code 200
+[2026-10-28T13:01:02+08:00] POST /api/auth/login 200
+[2026-10-28T13:01:02+08:00] POST /api/action 200
+[2026-10-28T13:01:02+08:00] POST /api/passenger/action 200
+[2026-10-28T13:01:02+08:00] POST /api/action 200
+[2026-10-28T13:01:02+08:00] POST /api/action 403
+/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/tempfile.py:484: ResourceWarning: Implicitly cleaning up <HTTPError 403: 'Forbidden'>
+  _warnings.warn(self.warn_message, ResourceWarning)
+[2026-10-28T13:01:02+08:00] GET /api/passenger/state 200
+ok
+test_expiry_during_review_blocks_new_but_inflight_and_late_payment_finish (test_qualification_replacement.QualificationReplacementTests.test_expiry_during_review_blocks_new_but_inflight_and_late_payment_finish) ... [2026-10-28T13:01:02+08:00] POST /api/passenger/auth/code 200
+[2026-10-28T13:01:02+08:00] POST /api/passenger/auth/login 200
+[2026-10-28T13:01:02+08:00] POST /api/auth/code 200
+[2026-10-28T13:01:02+08:00] POST /api/auth/login 200
+[2026-10-28T13:01:02+08:00] POST /api/action 200
+[2026-10-28T13:01:02+08:00] POST /api/passenger/action 200
+[2026-10-28T13:01:02+08:00] POST /api/action 200
+[2026-10-28T13:01:02+08:00] POST /api/action 200
+[2026-10-28T13:01:02+08:00] GET /api/state 200
+[2026-10-28T13:01:02+08:00] POST /api/action 200
+[2026-10-28T13:01:02+08:00] GET /api/state 200
+[2026-10-28T13:01:02+08:00] GET /api/passenger/state 200
+[2026-10-28T13:01:02+08:00] POST /api/passenger/action 200
+[2026-10-28T13:01:02+08:00] POST /api/action 200
+[2026-10-28T13:01:02+08:00] POST /api/action 200
+[2026-10-28T13:01:02+08:00] GET /api/state 200
+[2026-10-28T13:01:02+08:00] POST /api/action 200
+[2026-10-28T13:01:02+08:00] POST /api/action 200
+[2026-10-28T13:01:02+08:00] GET /api/passenger/state 200
+[2026-10-28T13:01:02+08:00] POST /api/action 200
+[2026-10-28T13:01:02+08:00] POST /api/action 403
+[2026-10-28T13:01:02+08:00] POST /api/passenger/action 200
+[2026-10-28T13:01:02+08:00] GET /api/state 200
+[2026-10-28T13:01:02+08:00] POST /api/local/admin/action 200
+[2026-10-28T13:01:02+08:00] POST /api/action 200
+[2026-10-28T13:01:02+08:00] GET /api/state 200
+ok
+test_failed_storage_does_not_publish_candidate_and_lost_ack_is_once (test_qualification_replacement.QualificationReplacementTests.test_failed_storage_does_not_publish_candidate_and_lost_ack_is_once) ... [2026-10-28T13:01:02+08:00] POST /api/passenger/auth/code 200
+[2026-10-28T13:01:02+08:00] POST /api/passenger/auth/login 200
+[2026-10-28T13:01:02+08:00] POST /api/auth/code 200
+[2026-10-28T13:01:02+08:00] POST /api/auth/login 200
+[2026-10-28T13:01:02+08:00] POST /api/action 200
+[2026-10-28T13:01:02+08:00] cloud persistence unavailable: SnapshotUnavailable
+[2026-10-28T13:01:02+08:00] POST /api/action 503
+/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/tempfile.py:484: ResourceWarning: Implicitly cleaning up <HTTPError 503: 'Service Unavailable'>
+  _warnings.warn(self.warn_message, ResourceWarning)
+[2026-10-28T13:01:02+08:00] GET /api/state 200
+[2026-10-28T13:01:02+08:00] cloud persistence unavailable: SnapshotUnavailable
+[2026-10-28T13:01:02+08:00] POST /api/action 503
+[2026-10-28T13:01:02+08:00] POST /api/action 200
+[2026-10-28T13:01:02+08:00] GET /api/state 200
+ok
+test_legacy_pending_approval_preserves_audit_compatibility (test_qualification_replacement.QualificationReplacementTests.test_legacy_pending_approval_preserves_audit_compatibility) ... [2026-10-28T13:01:02+08:00] POST /api/passenger/auth/code 200
+[2026-10-28T13:01:02+08:00] POST /api/passenger/auth/login 200
+[2026-10-28T13:01:02+08:00] POST /api/auth/code 200
+[2026-10-28T13:01:02+08:00] POST /api/auth/login 200
+[2026-10-28T13:01:02+08:00] POST /api/action 200
+[2026-10-28T13:01:02+08:00] GET /api/state 200
+[2026-10-28T13:01:02+08:00] POST /api/local/admin/action 200
+[2026-10-28T13:01:02+08:00] GET /api/state 200
+ok
+test_legacy_pending_reject_can_resubmit_even_long_or_far_expiry (test_qualification_replacement.QualificationReplacementTests.test_legacy_pending_reject_can_resubmit_even_long_or_far_expiry) ... [2026-10-28T13:01:03+08:00] POST /api/passenger/auth/code 200
+[2026-10-28T13:01:03+08:00] POST /api/passenger/auth/login 200
+[2026-10-28T13:01:03+08:00] POST /api/auth/code 200
+[2026-10-28T13:01:03+08:00] POST /api/auth/login 200
+[2026-10-28T13:01:03+08:00] POST /api/action 200
+[2026-10-28T13:01:03+08:00] GET /api/state 200
+[2026-10-28T13:01:03+08:00] POST /api/local/admin/action 200
+[2026-10-28T13:01:03+08:00] GET /api/state 200
+[2026-10-28T13:01:03+08:00] GET /api/state 200
+[2026-10-28T13:01:03+08:00] POST /api/action 403
+[2026-10-28T13:01:03+08:00] GET /api/state 200
+[2026-10-28T13:01:03+08:00] POST /api/action 200
+[2026-10-28T13:01:03+08:00] POST /api/local/admin/action 200
+[2026-10-28T13:01:03+08:00] GET /api/state 200
+[2026-10-28T13:01:03+08:00] POST /api/action 200
+ok
+test_utc8_expiry_day_boundary_is_inclusive (test_qualification_replacement.QualificationReplacementTests.test_utc8_expiry_day_boundary_is_inclusive) ... [2026-10-28T13:01:03+08:00] POST /api/passenger/auth/code 200
+[2026-10-28T13:01:03+08:00] POST /api/passenger/auth/login 200
+[2026-10-28T13:01:03+08:00] POST /api/auth/code 200
+[2026-10-28T13:01:03+08:00] POST /api/auth/login 200
+[2026-10-28T13:01:03+08:00] POST /api/action 200
+[2026-10-28T13:01:03+08:00] GET /api/state 200
+[2026-10-28T13:01:03+08:00] GET /api/state 200
+ok
+test_valid_active_survives_reject_then_approval_atomically_replaces (test_qualification_replacement.QualificationReplacementTests.test_valid_active_survives_reject_then_approval_atomically_replaces) ... [2026-10-28T13:01:03+08:00] POST /api/passenger/auth/code 200
+[2026-10-28T13:01:03+08:00] POST /api/passenger/auth/login 200
+[2026-10-28T13:01:03+08:00] POST /api/auth/code 200
+[2026-10-28T13:01:03+08:00] POST /api/auth/login 200
+[2026-10-28T13:01:03+08:00] POST /api/action 200
+[2026-10-28T13:01:03+08:00] GET /api/state 200
+[2026-10-28T13:01:03+08:00] POST /api/action 200
+[2026-10-28T13:01:03+08:00] POST /api/passenger/action 200
+[2026-10-28T13:01:03+08:00] POST /api/action 200
+[2026-10-28T13:01:03+08:00] POST /api/passenger/action 200
+[2026-10-28T13:01:03+08:00] POST /api/local/admin/action 200
+[2026-10-28T13:01:03+08:00] GET /api/state 200
+[2026-10-28T13:01:03+08:00] POST /api/action 409
+[2026-10-28T13:01:03+08:00] POST /api/action 200
+[2026-10-28T13:01:03+08:00] POST /api/local/admin/action 409
+[2026-10-28T13:01:03+08:00] POST /api/local/admin/action 409
+[2026-10-28T13:01:03+08:00] POST /api/local/admin/action 200
+[2026-10-28T13:01:03+08:00] GET /api/state 200
+[2026-10-28T13:01:03+08:00] POST /api/local/admin/action 409
+[2026-10-28T13:01:03+08:00] GET /api/state 200
+ok
+
+----------------------------------------------------------------------
+Ran 9 tests in 1.590s
+
+OK

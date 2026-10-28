@@ -277,6 +277,7 @@ fun ConnectedHome(
     BoxWithConstraints(Modifier.fillMaxSize().background(Page)) {
         val mapHeight = minOf(maxHeight * 0.36f, maxHeight - 500.dp).coerceAtLeast(200.dp)
         Column(Modifier.fillMaxSize()) {
+            DriverQualificationBanner(payload, navigate)
             Box(Modifier.fillMaxWidth().height(mapHeight)) {
                 NativeMap(Modifier.fillMaxSize(), order = active)
                 Surface(

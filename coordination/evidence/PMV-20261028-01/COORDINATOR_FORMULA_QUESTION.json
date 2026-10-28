@@ -1,0 +1,22 @@
+{
+  "assumptions": "Synthetic values and rates quoted from user document only, not real provider fee verification",
+  "fare": "100",
+  "serviceFee": "40",
+  "coupon": "0",
+  "mapFee": "1",
+  "platformRatio": "0.5",
+  "paid": "140",
+  "netDistributable": "138.9500",
+  "deltaFee": "0.3000",
+  "driver": "98.2500",
+  "company": "19.85000",
+  "literalPlatform": "20.55000",
+  "literalTotal": "138.65000",
+  "literalGap": "0.30000",
+  "proposedPlatform": "20.85000",
+  "proposedTotal": "138.95000",
+  "proposalStatus": "USER_CONFIRMED_SINGLE_DEDUCTION_SIMULATION_ONLY",
+  "confirmedAt": "2026-10-28T12:14:40.455043+08:00",
+  "userAnswer": "采用单次扣除口径（推荐）",
+  "decisionId": "BIZ-07"
+}

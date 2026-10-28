@@ -1,0 +1,293 @@
+test_ack_failed_cas_and_lost_response_retry (test_live_operations.LiveOperationsTests.test_ack_failed_cas_and_lost_response_retry) ... [2026-10-28T13:00:28+08:00] POST /api/local/admin/v2/login 200
+[2026-10-28T13:00:28+08:00] POST /api/passenger/auth/code 200
+[2026-10-28T13:00:29+08:00] POST /api/passenger/auth/login 200
+[2026-10-28T13:00:29+08:00] POST /api/local/admin/v2/action 200
+[2026-10-28T13:00:29+08:00] POST /api/local/admin/v2/action 200
+[2026-10-28T13:00:29+08:00] cloud persistence unavailable: SnapshotUnavailable
+[2026-10-28T13:00:29+08:00] POST /api/passenger/action 503
+[2026-10-28T13:00:29+08:00] GET /api/passenger/state 200
+[2026-10-28T13:00:29+08:00] cloud persistence unavailable: SnapshotUnavailable
+[2026-10-28T13:00:29+08:00] POST /api/passenger/action 503
+[2026-10-28T13:00:29+08:00] POST /api/passenger/action 200
+[2026-10-28T13:00:29+08:00] GET /api/passenger/state 200
+ok
+test_admin_rbac_validation_versions_and_finance_unchanged (test_live_operations.LiveOperationsTests.test_admin_rbac_validation_versions_and_finance_unchanged) ... [2026-10-28T13:00:29+08:00] POST /api/local/admin/v2/login 200
+[2026-10-28T13:00:29+08:00] POST /api/auth/code 200
+[2026-10-28T13:00:29+08:00] POST /api/auth/login 200
+[2026-10-28T13:00:29+08:00] GET /api/state 200
+[2026-10-28T13:00:29+08:00] POST /api/local/admin/v2/action 200
+[2026-10-28T13:00:29+08:00] POST /api/local/admin/v2/action 400
+[2026-10-28T13:00:29+08:00] POST /api/local/admin/v2/action 409
+[2026-10-28T13:00:29+08:00] POST /api/local/admin/v2/action 400
+[2026-10-28T13:00:29+08:00] POST /api/local/admin/v2/action 400
+[2026-10-28T13:00:29+08:00] POST /api/local/admin/v2/action 400
+[2026-10-28T13:00:29+08:00] POST /api/local/admin/v2/action 400
+[2026-10-28T13:00:29+08:00] POST /api/local/admin/v2/action 404
+[2026-10-28T13:00:29+08:00] POST /api/local/admin/v2/action 200
+[2026-10-28T13:00:29+08:00] POST /api/local/admin/v2/login 200
+[2026-10-28T13:00:29+08:00] POST /api/local/admin/v2/action 403
+[2026-10-28T13:00:29+08:00] POST /api/local/admin/v2/action 200
+[2026-10-28T13:00:29+08:00] POST /api/local/admin/v2/login 200
+[2026-10-28T13:00:29+08:00] POST /api/local/admin/v2/action 403
+[2026-10-28T13:00:29+08:00] POST /api/local/admin/v2/action 200
+[2026-10-28T13:00:29+08:00] POST /api/local/admin/v2/login 200
+[2026-10-28T13:00:29+08:00] POST /api/local/admin/v2/action 403
+[2026-10-28T13:00:29+08:00] POST /api/local/admin/v2/action 200
+[2026-10-28T13:00:29+08:00] POST /api/local/admin/v2/login 200
+[2026-10-28T13:00:29+08:00] POST /api/local/admin/v2/action 200
+[2026-10-28T13:00:29+08:00] GET /api/state 200
+[2026-10-28T13:00:29+08:00] GET /api/local/admin/v2/state 200
+ok
+test_all_order_kind_gates_and_historical_cancel_survives_close (test_live_operations.LiveOperationsTests.test_all_order_kind_gates_and_historical_cancel_survives_close) ... [2026-10-28T13:00:29+08:00] POST /api/local/admin/v2/login 200
+[2026-10-28T13:00:29+08:00] POST /api/passenger/auth/code 200
+[2026-10-28T13:00:29+08:00] POST /api/passenger/auth/login 200
+[2026-10-28T13:00:29+08:00] POST /api/passenger/action 200
+[2026-10-28T13:00:29+08:00] POST /api/local/admin/v2/action 200
+[2026-10-28T13:00:29+08:00] POST /api/local/admin/v2/action 200
+[2026-10-28T13:00:29+08:00] GET /api/passenger/state 200
+[2026-10-28T13:00:29+08:00] POST /api/passenger/action 200
+[2026-10-28T13:00:29+08:00] POST /api/passenger/action 403
+[2026-10-28T13:00:29+08:00] POST /api/passenger/action 403
+[2026-10-28T13:00:29+08:00] POST /api/passenger/action 403
+ok
+test_announcement_audience_region_publish_edit_and_withdraw (test_live_operations.LiveOperationsTests.test_announcement_audience_region_publish_edit_and_withdraw) ... [2026-10-28T13:00:29+08:00] POST /api/local/admin/v2/login 200
+[2026-10-28T13:00:29+08:00] POST /api/passenger/auth/code 200
+[2026-10-28T13:00:29+08:00] POST /api/passenger/auth/login 200
+[2026-10-28T13:00:29+08:00] POST /api/local/admin/v2/action 200
+[2026-10-28T13:00:29+08:00] POST /api/local/admin/v2/action 200
+[2026-10-28T13:00:29+08:00] GET /api/passenger/state 200
+[2026-10-28T13:00:29+08:00] POST /api/local/admin/v2/action 200
+[2026-10-28T13:00:29+08:00] GET /api/passenger/state 200
+[2026-10-28T13:00:29+08:00] POST /api/local/admin/v2/action 200
+[2026-10-28T13:00:29+08:00] POST /api/passenger/action 409
+[2026-10-28T13:00:29+08:00] POST /api/passenger/action 200
+[2026-10-28T13:00:29+08:00] GET /api/passenger/state 200
+[2026-10-28T13:00:29+08:00] POST /api/passenger/action 403
+[2026-10-28T13:00:29+08:00] POST /api/passenger/action 200
+[2026-10-28T13:00:29+08:00] POST /api/local/admin/v2/action 200
+[2026-10-28T13:00:29+08:00] GET /api/passenger/state 200
+[2026-10-28T13:00:29+08:00] POST /api/passenger/action 409
+ok
+test_announcement_read_is_non_consuming_and_once_per_user_version (test_live_operations.LiveOperationsTests.test_announcement_read_is_non_consuming_and_once_per_user_version) ... [2026-10-28T13:00:29+08:00] POST /api/local/admin/v2/login 200
+[2026-10-28T13:00:29+08:00] POST /api/passenger/auth/code 200
+[2026-10-28T13:00:29+08:00] POST /api/passenger/auth/login 200
+[2026-10-28T13:00:30+08:00] POST /api/passenger/auth/code 200
+[2026-10-28T13:00:30+08:00] POST /api/passenger/auth/login 200
+[2026-10-28T13:00:30+08:00] POST /api/local/admin/v2/action 200
+[2026-10-28T13:00:30+08:00] POST /api/local/admin/v2/action 200
+[2026-10-28T13:00:30+08:00] GET /api/passenger/state 200
+[2026-10-28T13:00:30+08:00] GET /api/passenger/state 200
+[2026-10-28T13:00:30+08:00] GET /api/passenger/state 200
+[2026-10-28T13:00:30+08:00] POST /api/passenger/action 200
+[2026-10-28T13:00:30+08:00] POST /api/passenger/action 200
+[2026-10-28T13:00:30+08:00] POST /api/passenger/action 200
+[2026-10-28T13:00:30+08:00] POST /api/passenger/action 200
+[2026-10-28T13:00:30+08:00] GET /api/passenger/state 200
+[2026-10-28T13:00:30+08:00] GET /api/passenger/state 200
+ok
+test_announcement_start_inclusive_end_exclusive_and_bad_inputs (test_live_operations.LiveOperationsTests.test_announcement_start_inclusive_end_exclusive_and_bad_inputs) ... [2026-10-28T13:00:30+08:00] POST /api/local/admin/v2/login 200
+[2026-10-28T13:00:30+08:00] POST /api/passenger/auth/code 200
+[2026-10-28T13:00:30+08:00] POST /api/passenger/auth/login 200
+[2026-10-28T13:00:30+08:00] POST /api/local/admin/v2/action 200
+[2026-10-28T13:00:30+08:00] POST /api/local/admin/v2/action 200
+[2026-10-28T13:00:30+08:00] GET /api/passenger/state 200
+[2026-10-28T13:00:30+08:00] GET /api/passenger/state 200
+[2026-10-28T13:00:30+08:00] GET /api/passenger/state 200
+[2026-10-28T13:00:30+08:00] POST /api/passenger/action 409
+[2026-10-28T13:00:30+08:00] POST /api/local/admin/v2/action 400
+[2026-10-28T13:00:30+08:00] POST /api/local/admin/v2/action 400
+[2026-10-28T13:00:30+08:00] POST /api/local/admin/v2/action 400
+[2026-10-28T13:00:30+08:00] POST /api/local/admin/v2/action 400
+[2026-10-28T13:00:30+08:00] GET /api/passenger/state 400
+[2026-10-28T13:00:30+08:00] POST /api/passenger/action 400
+ok
+test_company_explicit_binding_public_selection_and_restart (test_live_operations.LiveOperationsTests.test_company_explicit_binding_public_selection_and_restart) ... [2026-10-28T13:00:30+08:00] POST /api/local/admin/v2/login 200
+[2026-10-28T13:00:30+08:00] POST /api/passenger/auth/code 200
+[2026-10-28T13:00:30+08:00] POST /api/passenger/auth/login 200
+[2026-10-28T13:00:30+08:00] POST /api/passenger/auth/code 200
+[2026-10-28T13:00:30+08:00] POST /api/passenger/auth/login 200
+[2026-10-28T13:00:30+08:00] POST /api/auth/code 200
+[2026-10-28T13:00:30+08:00] POST /api/auth/login 200
+[2026-10-28T13:00:30+08:00] GET /api/passenger/state 200
+[2026-10-28T13:00:30+08:00] POST /api/local/admin/v2/action 200
+[2026-10-28T13:00:30+08:00] POST /api/passenger/action 200
+[2026-10-28T13:00:30+08:00] GET /api/passenger/state 200
+[2026-10-28T13:00:30+08:00] POST /api/local/admin/v2/action 200
+[2026-10-28T13:00:30+08:00] GET /api/state 200
+[2026-10-28T13:00:30+08:00] GET /api/passenger/state 200
+[2026-10-28T13:00:30+08:00] POST /api/local/admin/v2/action 200
+[2026-10-28T13:00:30+08:00] GET /api/passenger/state 200
+[2026-10-28T13:00:30+08:00] GET /api/passenger/state 200
+[2026-10-28T13:00:30+08:00] POST /api/passenger/action 404
+[2026-10-28T13:00:30+08:00] POST /api/passenger/action 404
+ok
+test_feature_drafts_inheritance_publish_and_api_enforcement (test_live_operations.LiveOperationsTests.test_feature_drafts_inheritance_publish_and_api_enforcement) ... [2026-10-28T13:00:30+08:00] POST /api/local/admin/v2/login 200
+[2026-10-28T13:00:30+08:00] POST /api/passenger/auth/code 200
+[2026-10-28T13:00:30+08:00] POST /api/passenger/auth/login 200
+[2026-10-28T13:00:30+08:00] POST /api/local/admin/v2/action 200
+[2026-10-28T13:00:30+08:00] GET /api/passenger/state 200
+[2026-10-28T13:00:30+08:00] POST /api/local/admin/v2/action 200
+[2026-10-28T13:00:30+08:00] POST /api/passenger/action 403
+[2026-10-28T13:00:30+08:00] POST /api/local/admin/v2/action 200
+[2026-10-28T13:00:30+08:00] POST /api/local/admin/v2/action 200
+[2026-10-28T13:00:30+08:00] GET /api/passenger/state 200
+[2026-10-28T13:00:30+08:00] POST /api/local/admin/v2/action 200
+[2026-10-28T13:00:30+08:00] POST /api/local/admin/v2/action 200
+[2026-10-28T13:00:30+08:00] GET /api/passenger/state 200
+[2026-10-28T13:00:30+08:00] POST /api/passenger/action 400
+[2026-10-28T13:00:30+08:00] GET /api/passenger/state 200
+ok
+test_invoice_new_apply_gate_but_existing_receipt_still_readable (test_live_operations.LiveOperationsTests.test_invoice_new_apply_gate_but_existing_receipt_still_readable) ... [2026-10-28T13:00:30+08:00] POST /api/local/admin/v2/login 200
+[2026-10-28T13:00:30+08:00] POST /api/passenger/auth/code 200
+[2026-10-28T13:00:30+08:00] POST /api/passenger/auth/login 200
+[2026-10-28T13:00:30+08:00] POST /api/passenger/action 200
+[2026-10-28T13:00:30+08:00] POST /api/passenger/action 200
+[2026-10-28T13:00:30+08:00] POST /api/local/admin/v2/action 200
+[2026-10-28T13:00:30+08:00] POST /api/local/admin/v2/action 200
+[2026-10-28T13:00:30+08:00] POST /api/passenger/action 403
+[2026-10-28T13:00:30+08:00] POST /api/local/admin/v2/action 200
+[2026-10-28T13:00:30+08:00] POST /api/local/admin/v2/action 200
+[2026-10-28T13:00:30+08:00] POST /api/passenger/action 200
+[2026-10-28T13:00:30+08:00] POST /api/local/admin/v2/action 200
+[2026-10-28T13:00:30+08:00] POST /api/local/admin/v2/action 200
+[2026-10-28T13:00:30+08:00] POST /api/passenger/action 200
+ok
+test_new_order_company_frozen_and_other_passenger_order_is_private (test_live_operations.LiveOperationsTests.test_new_order_company_frozen_and_other_passenger_order_is_private) ... [2026-10-28T13:00:31+08:00] POST /api/local/admin/v2/login 200
+[2026-10-28T13:00:31+08:00] POST /api/passenger/auth/code 200
+[2026-10-28T13:00:31+08:00] POST /api/passenger/auth/login 200
+[2026-10-28T13:00:31+08:00] POST /api/passenger/auth/code 200
+[2026-10-28T13:00:31+08:00] POST /api/passenger/auth/login 200
+[2026-10-28T13:00:31+08:00] POST /api/auth/code 200
+[2026-10-28T13:00:31+08:00] POST /api/auth/login 200
+[2026-10-28T13:00:31+08:00] POST /api/local/admin/v2/action 200
+[2026-10-28T13:00:31+08:00] POST /api/local/admin/v2/action 200
+[2026-10-28T13:00:31+08:00] POST /api/local/admin/v2/action 200
+[2026-10-28T13:00:31+08:00] POST /api/action 200
+[2026-10-28T13:00:31+08:00] POST /api/passenger/action 200
+[2026-10-28T13:00:31+08:00] POST /api/action 200
+[2026-10-28T13:00:31+08:00] POST /api/local/admin/v2/action 200
+[2026-10-28T13:00:31+08:00] GET /api/passenger/state 200
+[2026-10-28T13:00:31+08:00] GET /api/passenger/orders/PORDe69431f4469e/fees 404
+[2026-10-28T13:00:31+08:00] GET /api/passenger/state 200
+ok
+test_published_version_concurrency_and_cas_failure (test_live_operations.LiveOperationsTests.test_published_version_concurrency_and_cas_failure) ... [2026-10-28T13:00:31+08:00] POST /api/local/admin/v2/login 200
+[2026-10-28T13:00:31+08:00] POST /api/local/admin/v2/action 200
+[2026-10-28T13:00:31+08:00] POST /api/local/admin/v2/action 200
+[2026-10-28T13:00:31+08:00] POST /api/local/admin/v2/action 409
+[2026-10-28T13:00:31+08:00] POST /api/local/admin/v2/action 200
+[2026-10-28T13:00:31+08:00] cloud persistence unavailable: SnapshotConflict
+[2026-10-28T13:00:31+08:00] POST /api/local/admin/v2/action 503
+[2026-10-28T13:00:31+08:00] GET /api/local/admin/v2/state 200
+ok
+test_two_client_ack_and_parallel_requests_have_one_first_display (test_live_operations.LiveOperationsTests.test_two_client_ack_and_parallel_requests_have_one_first_display) ... [2026-10-28T13:00:31+08:00] POST /api/local/admin/v2/login 200
+[2026-10-28T13:00:31+08:00] POST /api/passenger/auth/code 200
+[2026-10-28T13:00:31+08:00] POST /api/passenger/auth/login 200
+[2026-10-28T13:00:31+08:00] POST /api/local/admin/v2/action 200
+[2026-10-28T13:00:31+08:00] POST /api/local/admin/v2/action 200
+[2026-10-28T13:00:31+08:00] POST /api/passenger/action 200
+[2026-10-28T13:00:31+08:00] POST /api/passenger/action 200
+ok
+test_cas_failure_and_lost_ack_retry_no_duplicate (test_operations_drafts.OperationsDraftTests.test_cas_failure_and_lost_ack_retry_no_duplicate) ... [2026-10-28T13:00:32+08:00] POST /api/local/admin/v2/login 200
+[2026-10-28T13:00:32+08:00] cloud persistence unavailable: SnapshotUnavailable
+[2026-10-28T13:00:32+08:00] POST /api/local/admin/v2/action 503
+[2026-10-28T13:00:32+08:00] GET /api/local/admin/v2/state 200
+[2026-10-28T13:00:32+08:00] cloud persistence unavailable: SnapshotUnavailable
+[2026-10-28T13:00:32+08:00] POST /api/local/admin/v2/action 503
+[2026-10-28T13:00:32+08:00] POST /api/local/admin/v2/action 200
+[2026-10-28T13:00:32+08:00] GET /api/local/admin/v2/state 200
+ok
+test_catalog_is_32_and_initial_lists_are_empty (test_operations_drafts.OperationsDraftTests.test_catalog_is_32_and_initial_lists_are_empty) ... [2026-10-28T13:00:32+08:00] POST /api/local/admin/v2/login 200
+[2026-10-28T13:00:32+08:00] GET /api/local/admin/v2/state 200
+ok
+test_concurrent_updates_allow_one_version_writer (test_operations_drafts.OperationsDraftTests.test_concurrent_updates_allow_one_version_writer) ... [2026-10-28T13:00:32+08:00] POST /api/local/admin/v2/login 200
+[2026-10-28T13:00:32+08:00] POST /api/local/admin/v2/action 200
+[2026-10-28T13:00:32+08:00] POST /api/local/admin/v2/action 200
+[2026-10-28T13:00:32+08:00] POST /api/local/admin/v2/action 409
+[2026-10-28T13:00:32+08:00] GET /api/local/admin/v2/state 200
+ok
+test_draft_lifecycle_versions_persistence_and_no_business_change (test_operations_drafts.OperationsDraftTests.test_draft_lifecycle_versions_persistence_and_no_business_change) ... [2026-10-28T13:00:32+08:00] POST /api/local/admin/v2/login 200
+[2026-10-28T13:00:32+08:00] POST /api/local/admin/v2/action 200
+[2026-10-28T13:00:32+08:00] POST /api/local/admin/v2/action 200
+[2026-10-28T13:00:32+08:00] POST /api/local/admin/v2/action 409
+[2026-10-28T13:00:32+08:00] POST /api/local/admin/v2/action 400
+[2026-10-28T13:00:32+08:00] POST /api/local/admin/v2/action 200
+[2026-10-28T13:00:32+08:00] POST /api/local/admin/v2/action 409
+[2026-10-28T13:00:32+08:00] GET /api/local/admin/v2/state 200
+ok
+test_driver_and_passenger_state_do_not_include_manual_admin_notes (test_operations_drafts.OperationsDraftTests.test_driver_and_passenger_state_do_not_include_manual_admin_notes) ... [2026-10-28T13:00:32+08:00] POST /api/local/admin/v2/login 200
+[2026-10-28T13:00:32+08:00] POST /api/local/admin/v2/action 200
+[2026-10-28T13:00:32+08:00] POST /api/auth/code 200
+[2026-10-28T13:00:32+08:00] POST /api/auth/login 200
+[2026-10-28T13:00:32+08:00] GET /api/state 200
+[2026-10-28T13:00:32+08:00] POST /api/passenger/auth/code 200
+[2026-10-28T13:00:32+08:00] POST /api/passenger/auth/login 200
+[2026-10-28T13:00:32+08:00] GET /api/passenger/state 200
+ok
+test_idempotent_write_one_row_one_audit_and_fingerprint (test_operations_drafts.OperationsDraftTests.test_idempotent_write_one_row_one_audit_and_fingerprint) ... [2026-10-28T13:00:32+08:00] POST /api/local/admin/v2/login 200
+[2026-10-28T13:00:32+08:00] POST /api/local/admin/v2/action 200
+[2026-10-28T13:00:32+08:00] POST /api/local/admin/v2/action 200
+[2026-10-28T13:00:32+08:00] POST /api/local/admin/v2/action 409
+[2026-10-28T13:00:32+08:00] GET /api/local/admin/v2/state 200
+ok
+test_invalid_fields_types_scopes_and_no_execution_routes (test_operations_drafts.OperationsDraftTests.test_invalid_fields_types_scopes_and_no_execution_routes) ... [2026-10-28T13:00:32+08:00] POST /api/local/admin/v2/login 200
+[2026-10-28T13:00:32+08:00] POST /api/local/admin/v2/action 400
+[2026-10-28T13:00:32+08:00] POST /api/local/admin/v2/action 400
+[2026-10-28T13:00:32+08:00] POST /api/local/admin/v2/action 400
+[2026-10-28T13:00:32+08:00] POST /api/local/admin/v2/action 400
+[2026-10-28T13:00:32+08:00] POST /api/local/admin/v2/action 400
+[2026-10-28T13:00:32+08:00] POST /api/local/admin/v2/action 400
+[2026-10-28T13:00:32+08:00] POST /api/local/admin/v2/action 400
+[2026-10-28T13:00:32+08:00] POST /api/local/admin/v2/action 400
+[2026-10-28T13:00:32+08:00] POST /api/local/admin/v2/action 400
+[2026-10-28T13:00:32+08:00] POST /api/local/admin/v2/action 400
+[2026-10-28T13:00:32+08:00] POST /api/local/admin/v2/action 400
+[2026-10-28T13:00:32+08:00] POST /api/local/admin/v2/action 403
+[2026-10-28T13:00:32+08:00] GET /api/local/admin/v2/state 200
+ok
+test_manual_record_links_query_and_archive_without_ledger_change (test_operations_drafts.OperationsDraftTests.test_manual_record_links_query_and_archive_without_ledger_change) ... [2026-10-28T13:00:32+08:00] POST /api/local/admin/v2/login 200
+[2026-10-28T13:00:32+08:00] POST /api/local/admin/v2/action 200
+[2026-10-28T13:00:32+08:00] POST /api/local/admin/v2/action 200
+[2026-10-28T13:00:32+08:00] POST /api/local/admin/v2/action 403
+[2026-10-28T13:00:32+08:00] POST /api/local/admin/v2/action 404
+[2026-10-28T13:00:32+08:00] POST /api/local/admin/v2/action 404
+[2026-10-28T13:00:32+08:00] POST /api/local/admin/v2/action 400
+[2026-10-28T13:00:32+08:00] GET /api/local/admin/v2/query 200
+[2026-10-28T13:00:32+08:00] POST /api/local/admin/v2/action 200
+[2026-10-28T13:00:32+08:00] GET /api/local/admin/v2/state 200
+ok
+test_query_filter_pagination_and_bad_queries (test_operations_drafts.OperationsDraftTests.test_query_filter_pagination_and_bad_queries) ... [2026-10-28T13:00:32+08:00] POST /api/local/admin/v2/login 200
+[2026-10-28T13:00:32+08:00] POST /api/local/admin/v2/action 200
+[2026-10-28T13:00:32+08:00] POST /api/local/admin/v2/action 200
+[2026-10-28T13:00:32+08:00] POST /api/local/admin/v2/action 200
+[2026-10-28T13:00:32+08:00] GET /api/local/admin/v2/query 200
+[2026-10-28T13:00:32+08:00] GET /api/local/admin/v2/query 400
+[2026-10-28T13:00:32+08:00] GET /api/local/admin/v2/query 400
+[2026-10-28T13:00:32+08:00] GET /api/local/admin/v2/query 400
+[2026-10-28T13:00:32+08:00] GET /api/local/admin/v2/query 400
+[2026-10-28T13:00:32+08:00] GET /api/local/admin/v2/query 400
+ok
+test_rbac_no_anonymous_or_public_driver_access (test_operations_drafts.OperationsDraftTests.test_rbac_no_anonymous_or_public_driver_access) ... [2026-10-28T13:00:33+08:00] POST /api/local/admin/v2/action 401
+[2026-10-28T13:00:33+08:00] POST /api/local/admin/v2/login 200
+[2026-10-28T13:00:33+08:00] POST /api/local/admin/v2/action 200
+[2026-10-28T13:00:33+08:00] POST /api/local/admin/v2/login 200
+[2026-10-28T13:00:33+08:00] GET /api/local/admin/v2/state 200
+[2026-10-28T13:00:33+08:00] POST /api/local/admin/v2/action 403
+[2026-10-28T13:00:33+08:00] POST /api/local/admin/v2/action 200
+[2026-10-28T13:00:33+08:00] POST /api/local/admin/v2/login 200
+[2026-10-28T13:00:33+08:00] GET /api/local/admin/v2/state 200
+[2026-10-28T13:00:33+08:00] POST /api/local/admin/v2/action 403
+[2026-10-28T13:00:33+08:00] POST /api/local/admin/v2/action 200
+[2026-10-28T13:00:33+08:00] POST /api/local/admin/v2/login 200
+[2026-10-28T13:00:33+08:00] GET /api/local/admin/v2/state 200
+[2026-10-28T13:00:33+08:00] POST /api/local/admin/v2/action 403
+[2026-10-28T13:00:33+08:00] POST /api/local/admin/v2/action 200
+[2026-10-28T13:00:33+08:00] POST /api/local/admin/v2/login 200
+[2026-10-28T13:00:33+08:00] GET /api/local/admin/v2/state 200
+[2026-10-28T13:00:33+08:00] POST /api/local/admin/v2/action 200
+[2026-10-28T13:00:33+08:00] GET /api/local/admin/v2/query 404
+ok
+
+----------------------------------------------------------------------
+Ran 22 tests in 4.489s
+
+OK

@@ -10,21 +10,21 @@
 - 活跃任务：[BOARD](coordination/BOARD.json)；长期决定：[DECISIONS](coordination/DECISIONS.md)；角色细节：handoffs；契约：contracts。
 - 恢复与提交检查：`python3 tools/check_coordination.py --memory-role <role> --session-id <真实会话ID>`；检查器不测量模型内部上下文，不等于业务验收。
 
-## 本次体验版发布核验
+## 修改意见2.0 首批体验版
 
-| 项目 | 已核验结果 | 入口 |
+| 项目 | 本次构建与核验 | 入口 |
 |---|---|---|
-| 司机Android | 0.3.13-cloud / code16 | https://yijiexing-demo.hbzjhs.xyz/download |
-| 乘客Android | 1.1.13-experience / code15 | https://yijiexing-demo.hbzjhs.xyz/download-passenger |
-| Web后台 | 后台账号密码登录；已取消Google前置登录 | https://demo-admin.hbzjhs.xyz/ |
-| 体验API | 共享持久数据、自有HTTPS域名 | https://yijiexing-demo.hbzjhs.xyz |
-| 微信小程序 | 开发源62测试及静态检查通过；缺AppID，未微信编译/真机/发布 | candidates/passenger-miniprogram-0.1.0/miniprogram |
+| 司机Android | 0.3.14-cloud / code17，原签名 | [司机快速入口](https://user-test---driver-demo-phfgquzmua-uw.a.run.app/download) |
+| 乘客Android | 1.1.14-experience / code16，原签名 | [乘客快速入口](https://user-test---driver-demo-phfgquzmua-uw.a.run.app/download-passenger) |
+| Web后台 | 继续使用原账号密码 | https://demo-admin.hbzjhs.xyz/ |
+| 体验API | 同一持久数据与HTTPS域名 | https://yijiexing-demo.hbzjhs.xyz |
+| 微信小程序 | 源码72测试通过；缺AppID，未微信编译/真机/发布 | candidates/passenger-miniprogram-0.1.0/miniprogram |
 
-本次代码已由[PR28](https://github.com/Dadong520/yijiexing/pull/28)合并主分支并更新独立体验环境。当前网络下自有域名整包下载慢，可使用同服务已完整验证的[司机快速入口](https://user-test---driver-demo-phfgquzmua-uw.a.run.app/download)和[乘客快速入口](https://user-test---driver-demo-phfgquzmua-uw.a.run.app/download-passenger)。两包版本、完整hash、包名、原签名已独立回读核验；35笔旧订单业务字段保留。发布回执见[本版报告](coordination/evidence/PM-20261027-01/release-test-20261027/FINAL-RELEASE-REPORT.md)。
+首批完成公司与客服电话、公告草稿发布撤回、地区乘客功能发布开关和三证提前60天提醒/新证审核替换。后台位置：**平台运维→公告管理、公司与客服电话、乘客端功能配置；司机管理→资质到期提醒**。原32类保留在**配置与治理→历史草稿与人工记录**。
 
-本版用于用户测试验收。高德乘客地点搜索1008/地图10008仍未通过，公共点成功校准未完成；后台32类为可保存草稿与人工记录，不自动启用资金、分账、积分或处罚规则。后续排行/登记电话投影PMPOST未集成，微信发布与真机OEM等仍按STATE记录待办。
+固定产品817ed22已独立验收：7组新HTTP/13组兼容、真实隔离后台DOM、Android24/63和构建、mini72/admin4；frontend独立复核root包签名/版本/hash及源码绑定。见[独立验收](coordination/evidence/PMV-20261028-01/INDEPENDENT_ACCEPTANCE.md)。本提交时新版正进入合并发布准备，实际线上切换与完整下载回读以[STATE](coordination/STATE.md)和release回执为准，不能仅凭构建通过认定已发布。旧版发布记录见PR28/PR29。
 
-两APK免演示访问码，保留原签名，可覆盖安装。Android乘客开发已恢复，旧“暂停原生乘客”的描述已被用户后续要求替代。详细版本/哈希与后续发布以STATE和实际回执为准，不把此日期表当实时监控。
+高德乘客搜索1008/地图10008仍FAIL；微信真机、部分设备GUI未测。支付、退款、提现、发票均模拟；新分账仅确认模拟口径，不执行真实资金或积分。文档28组剩余需求后续分批，PMPOST未集成。两APK沿用原签名支持覆盖安装，不把本版称全项目最终验收。
 
 当前源码路径：`candidates/driver-0.3.6-r2/android`（目录名历史保留，实际版本看Gradle）、`apps/passenger-android`、`apps/admin-console/web`、`apps/cloud-service`。本机唯一可写后端工作树按STATE指定，不能同时修改重复快照。releases和冻结v8保存原基线，不直接改。
 

@@ -1,0 +1,6 @@
+{
+  "patchSha": "f1f9128aa34c9269f407178b963ca990f83de7a3",
+  "baseSha": "33fa8e3102c61b9190f3fa7d49281ad8274f79c5",
+  "tests": "11 PASS, 1.930s",
+  "sourceBinding": "approval-note-result.json"
+}

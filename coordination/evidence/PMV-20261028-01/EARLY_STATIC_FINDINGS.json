@@ -1,0 +1,23 @@
+{
+  "at": "2026-10-28T13:07:26.696712+08:00",
+  "scope": "coordinator non-author integration review before final commit",
+  "findings": [
+    {
+      "id": "Q1",
+      "issue": "REJECTED material validUntil long term/>60 days: API permits re-submit but certificate_view.canUpdate false would hide UI correction",
+      "owner": "backend",
+      "status": "author reports fixed; final independent regression pending"
+    },
+    {
+      "id": "Q2",
+      "issue": "certificate-file pending response source PENDING vs frontend only recognizes REVIEW -> wrong active-material label",
+      "owners": [
+        "backend",
+        "frontend"
+      ],
+      "requestedFix": "Normalize API response REVIEW/ACTIVE + compatibility in UI; prove submissionId and preview label",
+      "status": "sent to both owners; exact-SHA independent check pending"
+    }
+  ],
+  "next": "Do not publish until both closed; root added API source+submissionId assertion to independent probe"
+}

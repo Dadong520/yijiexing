@@ -1,0 +1,38 @@
+Browser tab: 1, Title: "宜捷行 · 运营管理中心", URL: "http://127.0.0.1:63990/".
+The following is a diff from the previous accessibility tree with ~ and + representing changed and added elements, respectively. Removed elements are summarized by ID range.
+Removed element IDs: 102-103, 109-142
++			144 text 公告管理
++			145 text reader · 只读观察员
++				146 heading 公告管理, Value: 1
++					147 text 公告管理
++				148 text 正式公告与历史草稿分开管理。有效期为北京时间，开始时间包含、结束时间不包含。
++				149 button (disabled) 新建公告, ID: newAnnouncement
++				150 text 每个用户每个已发布版本只展示一次，可关闭。只在登录后应用内读取；没有外部订阅或离线推送。
++				151 table
++					152 row
++						153 cell
++							154 text 标题 / 地区
++						155 cell
++							156 text 发布状态 / 版本
++						157 cell
++							158 text 有效期
++						159 cell
++							160 text 受众
++						161 cell
++							162 text 操作
++					163 row
++						164 cell
++							165 text 本地验收公告 <b>纯文本</b>
++							166 text 全国 · CN
++						167 cell
++							168 text 已撤回 · V3
++						169 cell
++							170 text 2026/10/28 00:00:00
++							171 text 2026/10/29 23:59:00
++						172 cell
++							173 text 乘客小程序、乘客安卓
++						174 cell
++							175 button 查看内容
++							176 button (disabled) 发布当前草稿
++							177 button (disabled) 撤回
+The focused UI element is 78 button 公告管理

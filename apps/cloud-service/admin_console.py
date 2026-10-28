@@ -6,6 +6,7 @@ import io
 from common import *
 from admin_queries import AdminQueries
 from operations_drafts import OperationsDrafts, OPS_ACTIONS
+from live_operations import LIVE_OPS_ACTIONS
 
 READ = {'orders.read','drivers.read','passengers.read','payments.read','support.read','config.read','statistics.read','audit.read'}
 ROLES = {
@@ -125,17 +126,20 @@ class AdminConsole:
             if permission not in user['permissions']:out[key]=None if key=='statistics' else []
         out['operationDrafts'] = (self.operation_drafts.state() if 'config.read' in user['permissions'] else
             {'catalog': [], 'drafts': [], 'records': [], 'policyLabel': '无配置读取权限', 'draftOnly': True})
+        out['operations'] = self.svc.operations.state() if 'config.read' in user['permissions'] else {}
+        out['operations']['qualificationAlerts'] = self.svc.qualification_alerts() if 'drivers.read' in user['permissions'] else []
         if 'users.manage' in user['permissions']:out['users']=[self.user(r) for r in self.db.execute('SELECT * FROM console_users ORDER BY username')]
         return out
     def action(self,user,action,p,request_id):
         require(isinstance(p,dict) and isinstance(action,str),'操作格式错误')
-        self.permit(user,'config.write' if action in CONFIG_ACTIONS or action in OPS_ACTIONS else 'users.manage' if action=='user.save' else action)
+        self.permit(user,'config.write' if action in CONFIG_ACTIONS or action in OPS_ACTIONS or action in LIVE_OPS_ACTIONS else 'users.manage' if action=='user.save' else action)
         rid=textfield(request_id,'请求标识',1,120);fp=hashlib.sha256(dumps({'action':action,'payload':p}).encode()).hexdigest()
         old=self.db.execute('SELECT * FROM console_actions WHERE username=? AND request_id=?',(user['username'],rid)).fetchone()
         if old:
             require(old['request_hash']==fp,'请求标识已用于不同操作',409);return json.loads(old['result'])
         actor='ADMIN:'+user['username']
-        if action in OPS_ACTIONS:result=self.operation_drafts.action(action,p,actor)
+        if action in LIVE_OPS_ACTIONS:result=self.svc.operations.admin_action(action,p,actor)
+        elif action in OPS_ACTIONS:result=self.operation_drafts.action(action,p,actor)
         elif action in ('order.cancel','order.adjustFare','order.refund'):result=self.order_action(action,p,actor)
         elif action=='support.reply':result=self.reply(p,actor)
         elif action=='user.save':result=self.save_user(user,p,actor)
@@ -198,19 +202,22 @@ class AdminConsole:
         self.db.execute('INSERT OR REPLACE INTO console_users VALUES (?,?,?,?,?)',(username,hashed,role,int(enabled),old['created'] if old else stamp()))
         self.db.execute('DELETE FROM console_sessions WHERE username=?',(username,))
         result={'username':username,'role':role,'enabled':enabled};self.svc.audit(actor,'user.save',self.user(old) if old else None,result);return {'user':result}
-    def certificate_file(self,user,driver_id,certificate_type,side='front'):
+    def certificate_file(self,user,driver_id,certificate_type,side='front',source='REVIEW'):
         self.permit(user,'drivers.read')
         require(side in ('front','back'),'附件面别无效')
         profile=json.loads(self.svc.account(driver_id)['profile'])
         cert=next((c for c in profile.get('certificates',[]) if c['type']==certificate_type),None)
         require(cert is not None,'资质类型不存在',404)
-        fid=cert.get('fileId' if side=='front' else 'backFileId')
+        require(source in ('REVIEW','ACTIVE'),'附件来源无效')
+        candidate=cert.get('pending') if source=='REVIEW' else None
+        selected=candidate or cert
+        fid=selected.get('fileId' if side=='front' else 'backFileId')
         require(bool(fid),'此资质尚未上传'+('正面' if side=='front' else '背面')+'附件',404)
         row=self.db.execute('SELECT id,mime,content FROM files WHERE id=? AND driver=?',(fid,driver_id)).fetchone()
         require(row is not None,'资质附件不存在或归属不匹配',404)
         require(row['mime'] in ('image/png','image/jpeg'),'不支持此附件格式',415)
         self.svc.audit('ADMIN:'+user['username'],'certificate.view',None,{'driverId':driver_id,'type':certificate_type,'side':side,'fileId':fid})
-        return {'fileId':row['id'],'mimeType':row['mime'],'imageBase64':base64.b64encode(row['content']).decode()}
+        return {'fileId':row['id'],'mimeType':row['mime'],'imageBase64':base64.b64encode(row['content']).decode(),'source':'REVIEW' if candidate else 'ACTIVE','submissionId':candidate['submissionId'] if candidate else None}
     def query(self,user,params):
         dataset = params.get('dataset')
         if isinstance(dataset, list) and len(dataset) == 1:dataset = dataset[0]

@@ -1,0 +1,28 @@
+{
+  "taskId": "PMVO-20261028-01",
+  "change": "invoice per-order city read-only projection",
+  "baseSha": "52340760c1218c42f998ca56f07f9045f8bb20ea",
+  "authorThreadId": "01a168e2-22f7-70a2-af7f-4fb6be0ea695",
+  "updatedAt": "2026-10-28T13:29:51+08:00",
+  "fields": [
+    "invoiceApplicationEnabled:boolean",
+    "invoiceApplicationRulesVersion:string"
+  ],
+  "ruleSource": "order.city current published effective passenger invoice feature; not current profile.city",
+  "amountsAndHistoricalReceipts": "unchanged",
+  "canonicalOrderProjectionWrite": "none, asserted before/after raw passenger_orders equality",
+  "testCommand": "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=apps/cloud-service python3 -m unittest discover -s apps/cloud-service/tests -p test_live_operations.py -v",
+  "testsRun": 16,
+  "seconds": 3.42,
+  "exitCode": 0,
+  "newCase": "A/B cities have opposite invoice toggles, profile changes cities, switches reverse, API follows order city, existing receipt survives close",
+  "sourceSHA256": {
+    "apps/cloud-service/passenger.py": "06682fd60cef1199e0d1539cfe5169a0c9206173229a516a5d3e8135569f8b1d",
+    "apps/cloud-service/tests/test_live_operations.py": "011f012ec91548cc419c10faa21855a48eb1793ffe7c985c58993071b345e700"
+  },
+  "contractSHA256": "a2e4f63bff490dfcfd25c84e16abd899ec4f63195913887c357831fa5b73905a",
+  "logSHA256": "c0b892b4b5dacf3eaed423dd87a97c1e1e882111423943733588b6203300edbd",
+  "fullSuiteForThisPatch": "NOT_REPEATED: narrow read-only delta; prior 251 full suite bound to 0d9a32c62d1b3f3cb968ddf8b5863a158df0b434 retained",
+  "independentReview": "NOT_RUN_FOR_PATCH_SHA",
+  "deployment": "NOT_RUN"
+}

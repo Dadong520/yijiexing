@@ -40,6 +40,9 @@ const page = base({
       active: (s.orders || []).find(o => !['DONE', 'CANCELLED'].includes(o.stage) && !(o.kind === 'RESERVED' && ['AVAILABLE', 'RESERVED'].includes(o.stage))) || null,
       reservations: (s.orders || []).filter(o => o.kind === 'RESERVED' && ['AVAILABLE', 'RESERVED'].includes(o.stage)).map(shared.decorate)
     });
+    const operations=require('../../lib/operations');
+    const kinds=['STANDARD','RESERVED','BID'].filter(k=>operations.kindEnabled(s,k));
+    this.setData({availableKinds:kinds,kind:kinds.includes(this.data.kind)?this.data.kind:(kinds[0]||'')});
     this.updateMatchedCoupon();
   },
 
@@ -135,6 +138,7 @@ const page = base({
   async submit() {
     if (!this.data.authenticated) return this.login();
     const d = this.data;
+    if (!require('../../lib/operations').kindEnabled(d.state,d.kind)) return error(new Error('当前地区未开放此叫车类型，请刷新后选择'));
     if (!d.origin) return error(new Error('请选择上车地点'));
     if (!d.destination) return error(new Error('请选择目的地'));
 

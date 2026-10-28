@@ -76,8 +76,11 @@ fun BookingScreen(
   val active = state.rows("orders").firstOrNull {
     it.text("stage") !in listOf("DONE", "CANCELLED") && it !in reservations
   }
+  val enabledKinds = listOf("STANDARD", "RESERVED", "BID").filter { PassengerOperations.kindEnabled(state,it) }
+  LaunchedEffect(enabledKinds) { if (kind !in enabledKinds) kind = enabledKinds.firstOrNull().orEmpty() }
   val submitOrder: () -> Unit = {
     runCatching {
+        require(PassengerOperations.kindEnabled(state,kind)) { "当前地区未开放此叫车类型，请刷新后选择。" }
         require(origin.trim().length >= 2 && destination.trim().length >= 2) { "请填写完整起点和终点" }
         val payload =
           JSONObject()
@@ -202,7 +205,7 @@ fun BookingScreen(
               Triple("STANDARD", "即刻出发", Icons.Default.Send),
               Triple("RESERVED", "预约叫车", Icons.Default.DateRange),
               Triple("BID", "司机竞价", Icons.Default.Person),
-            ).forEach { (mode, label, icon) ->
+            ).filter { PassengerOperations.kindEnabled(state,it.first) }.forEach { (mode, label, icon) ->
               val selected = kind == mode
               Surface(
                 onClick = { kind = mode },
@@ -277,6 +280,7 @@ fun BookingScreen(
               }
             }
           }
+          if (enabledKinds.isEmpty()) Note("当前服务地区暂无开放的叫车类型，历史行程仍可查看。")
           Note(
             if (kind == "BID") "下单后等待司机报价，选定司机后模拟预付。"
             else "下单后生成体验估价，行程结束后模拟支付。"
@@ -426,8 +430,8 @@ fun BookingScreen(
         ) {
           Box(Modifier.padding(horizontal = 16.dp, vertical = 10.dp)) {
             ActionButton(
-              if (active != null) "查看当前行程" else "确认呼叫 · ${kindName(kind)}",
-              !busy && !submitting,
+              if (active != null) "查看当前行程" else if (enabledKinds.isEmpty()) "当前地区暂无开放叫车" else "确认呼叫 · ${kindName(kind)}",
+              !busy && !submitting && (active != null || enabledKinds.isNotEmpty()),
             ) {
               if (active != null) openOrder(active.text("id")) else submitOrder()
             }

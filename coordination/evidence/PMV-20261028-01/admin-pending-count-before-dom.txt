@@ -1,0 +1,117 @@
+Browser tab: 1, Title: "宜捷行 · 运营管理中心", URL: "http://127.0.0.1:63990/".
+1 AXWebArea 宜捷行 · 运营管理中心, URL: 127.0.0.1:63990/
+	2 container app
+		3 container
+			4 text 宜 宜捷行 运营管理中心
+			5 container nav
+				6 text 平台运维
+				7 button 公告管理
+				8 button 公司与客服电话
+				9 button 乘客端功能配置
+				10 text 司机管理
+				11 button 资质到期提醒
+				12 text 工作台
+				13 button 经营概览
+				14 button 经营报表
+				15 text 业务运营
+				16 button 订单管理
+				17 button 取消订单记录
+				18 button 司机与车辆
+				19 button 乘客管理
+				20 button 模拟账务
+				21 button 模拟退款记录
+				22 button 评价投诉反馈
+				23 text 配置与治理
+				24 button 城市与会员
+				25 button 历史草稿与人工记录
+				26 button 账号与权限
+				27 button 操作日志
+			28 text  独立云体验环境 支付 / 退款 / 提现均为模拟
+		29 container
+			30 text 工作空间  /
+			31 text 经营概览
+			32 text admin · 超级管理员
+			33 button 刷新数据, ID: refreshBtn
+			34 button 退出, ID: logoutBtn
+		35 container
+			36 text 体验环境 · 本后台与司机、乘客端共用持久化业务数据。所有金额均为模拟账务，不发生真实资金交易。
+			37 container content
+				38 heading 运营工作台, Value: 1
+					39 text 运营工作台
+				40 text 全量共享订单与两端业务实时运营大盘
+				41 text 共享订单总数
+				42 text 1
+				43 text 全部时间 · 持久化共享订单
+				44 text 已完成:
+				45 text 0
+				46 text · 取消:
+				47 text 0
+				48 text 运输中行程
+				49 text 0
+				50 text 运输中 (PICKUP / ARRIVED / TRIP)
+				51 text 在途运力实时履约中
+				52 text 待收款订单
+				53 text 0
+				54 text 行程结束待结算 (WAIT_PAY)
+				55 text 两端订单待账务确认
+				56 text 已完成模拟实收
+				57 text ¥0.00
+				58 text 已完成模拟实收（不是总账净额）
+				59 text 已完成 (DONE) 且已付款 (paid) 合计
+				60 container
+					61 heading 订单状态分布, Value: 3
+						62 text 订单状态分布
+					63 text 生命周期分布 待接单 1  (100.0%)
+				64 container
+					65 heading 待办事项与服务概况, Value: 3
+						66 text 待办事项与服务概况
+					67 text 协同提醒
+					68 definition list
+						69 container 待审核证件
+							70 text 待审核证件
+						71 text 1 项
+						72 container 待处理反馈
+							73 text 待处理反馈
+						74 text 0 条
+						75 container 注册司机
+							76 text 注册司机
+						77 text 1 人
+						78 container 注册乘客
+							79 text 注册乘客
+						80 text 1 人
+					81 text 快捷只读导航
+					82 button 订单中心 →, ID: btnGoOrders
+					83 button 司机管理 →, ID: btnGoDrivers
+					84 button 投诉反馈 →, ID: btnGoSupport
+					85 button 模拟账务 →, ID: btnGoPayments
+					86 text 统计口径：全部时间共享订单，不计旧合成演示订单。模拟账务为体验记录，不能作为真实营收。
+				87 container
+					88 heading 最新共享订单, Value: 3
+						89 text 最新共享订单
+					90 text 按创建时间倒序（前 5 单）
+					91 table
+						92 row
+							93 cell
+								94 text 订单编号
+							95 cell
+								96 text 行程路线
+							97 cell
+								98 text 订单状态
+							99 cell
+								100 text 费用
+							101 cell
+								102 text 创建时间
+						103 row
+							104 cell
+								105 text PORDf234d47f85ca
+							106 cell
+								107 text 本地验收起点  →  本地验收终点
+							108 cell
+								109 text 待接单
+							110 cell
+								111 text ¥17.24
+							112 cell
+								113 text 2026/10/28 13:17:43
+			114 text 登录成功 · 点击刷新获取两端最新数据
+
+The focused UI element is 1 AXWebArea 宜捷行 · 运营管理中心, URL: 127.0.0.1:63990/

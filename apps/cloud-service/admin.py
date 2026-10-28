@@ -73,7 +73,7 @@ class AdminMixin:
             datasets[table]=[json.loads(r['payload']) for r in self.db.execute(f'SELECT payload FROM {table} ORDER BY created DESC')]
         drivers=[]
         for a in self.db.execute('SELECT * FROM accounts ORDER BY id'):
-            profile=json.loads(a['profile']);cat=self.catalog(a['id']);st=json.loads(a['state'])
+            profile=self.qualifications_profile(json.loads(a['profile']));cat=self.catalog(a['id']);st=json.loads(a['state'])
             drivers.append({'id':a['id'],'mobile':a['mobile'],'name':profile['driver']['name'],'city':profile['driver']['city'],'trial':cat['trial'],'currentLevel':cat['currentLevel'],'certificates':profile['certificates'],'feedback':profile['feedback'],'complaints':profile.get('complaints',[]),'orders':st['orders'],'online':st['online'],'balance':st['balance'],'wallet':profile['wallet'],'subscription':cat['subscription']})
         datasets.update(configs=configs,cities=cities,drivers=drivers,audit=[dict(r) for r in self.db.execute('SELECT * FROM audits ORDER BY id DESC LIMIT 200')],serverTime=stamp(),sandbox=True,policies=['退款与转级按待确认规则生成待处理任务，不结束原权益，不执行资金操作。','云端演示审批强制申请人/两名审批人不同；角色仅为云端演示演练身份，不连接现网组织权限。','首年折扣与升级差价仅保留配置，服务端不自动使用。'])
         return datasets

@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "id": "PMVB-20261028-01",
+  "owner": "backend",
+  "goal": "只读审查修改意见2.0的后端数据与金额规则，对照当前发布源码，核实分账公式是否自洽及可先实施范围",
+  "baseSha": "b77e8f7af03bd2a8af535de34bd13d5acd0a387a",
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-pm-amap-20261027",
+  "branch": "codex/experience-release-receipt-20261027",
+  "allow_paths": [
+    "coordination/tasks/PMVB-20261028-01.json",
+    "coordination/evidence/PMV-20261028-01/backend-review/",
+    "coordination/handoffs/backend.md"
+  ],
+  "checks": [
+    "读SOURCE_TEXT，定向核当前API源与运营草稿catalog，不读旧历史/私有凭据/线上数据",
+    "用合成数值验证支付/手续费/分账恒等式；列歧义并给最少用户问题，不启用真实资金/公司上线门禁",
+    "逐项后端缺口/具体文件/真实外部依赖/建议第一批，保存报告；不修改产品/提交/发布"
+  ],
+  "status": "COMPLETED_READ_ONLY_REVIEW",
+  "acceptance": "PASS",
+  "tests": [
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 python3 coordination/evidence/PMV-20261028-01/backend-review/formula_check.py",
+      "exitCode": 0,
+      "result": "10 candidate closures / 8 document counterexamples / 2 controls; original formula FAIL"
+    }
+  ],
+  "evidence": [
+    "coordination/evidence/PMV-20261028-01/backend-review/REPORT.md",
+    "coordination/evidence/PMV-20261028-01/backend-review/results.json",
+    "coordination/evidence/PMV-20261028-01/backend-review/FORMULA-CASES.json",
+    "coordination/evidence/PMV-20261028-01/backend-review/source-binding.json"
+  ],
+  "nextAction": "Coordinator collect report; implement BIZ-07 only in separately assigned configuration/simulation task. Other fee/subsidy/gate details remain open.",
+  "deploy_owner": "coordinator",
+  "releaseReady": false,
+  "updatedAt": "2026-10-28T12:18:30+08:00",
+  "reviewerThreadId": "01a168e2-22f7-70a2-af7f-4fb6be0ea695",
+  "pendingMergeSha": null,
+  "acceptanceScope": "Read-only review completed; original formula failed and BIZ-07 confirmed correction for simulation. No product or real-money release acceptance.",
+  "decisionId": "BIZ-07"
+}

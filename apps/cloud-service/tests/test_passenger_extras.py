@@ -8,17 +8,21 @@ import unittest
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1]))
 from common import ApiError, require
 from passenger_extras import PassengerExtrasMixin
+from benefits import BenefitsMixin
+from live_operations import LiveOperations
 
 
-class ExtrasService(PassengerExtrasMixin):
+class ExtrasService(PassengerExtrasMixin, BenefitsMixin):
     def __init__(self, path):
         self.db = sqlite3.connect(path)
         self.db.row_factory = sqlite3.Row
+        self.operations = LiveOperations(self)
         self.orders = {
             'O1': {'id': 'O1', 'passengerId': 'P1', 'stage': 'DONE', 'paid': True, 'fare': 1234},
             'O2': {'id': 'O2', 'passengerId': 'P2', 'stage': 'DONE', 'paid': True, 'fare': 2045},
             'O3': {'id': 'O3', 'passengerId': 'P1', 'stage': 'WAIT_PAY', 'paid': False, 'fare': 2200},
         }
+        for order in self.orders.values():order['city'] = '420500'
     def passenger_profile(self, pid):
         require(pid in ('P1', 'P2'), 'unknown passenger', 401)
         return {'id': pid}

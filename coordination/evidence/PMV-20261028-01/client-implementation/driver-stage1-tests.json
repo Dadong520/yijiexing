@@ -1,0 +1,10 @@
+{
+  "task": "PMVU-20261028-01",
+  "phase": "pre-contract-date-window",
+  "tests": 62,
+  "failures": 0,
+  "errors": 0,
+  "assembleDebug": "PASS",
+  "scope": "author local tests, not independent business acceptance",
+  "updatedAt": "2026-10-28T12:51:14.171204+08:00"
+}

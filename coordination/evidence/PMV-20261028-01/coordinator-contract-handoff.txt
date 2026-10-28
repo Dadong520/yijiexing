@@ -1,0 +1,26 @@
+# coordinator 当前短卡
+ACK2026-10-26-v3；真实ID01a17cc7-e0a2-7791-bf1d-4611c09bab22/generation6。中央coordination唯一权威，旧总管01a168e6退休；context UNKNOWN，最近可见压缩已按START_HERE定向恢复，当前NORMAL。长期规则DECISIONS，当前任务PMV-20261028-01。
+
+## 已发布基线（勿重发旧版）
+PR28 main1d04ff7ce64779fe9f9122513dd651f305093b79与48d2ef4树相同；API/Android构建54e6d313相关目录同字节。PR29回执合并mainc3c876ef3359f8bc4bb306f515637e1fc72ca621，无产品差量。
+仅独立项目yijiexing-driver-demo-1023/us-west1。API driver-demo-pm-54e6d313-dl900100%，admin driver-admin-pm-48d2ef4-test2100%。PASSWORD原账号，无Google/IAP；session/RBAC/Origin/审计/限流保留。automatic/min0/max1请求计费，不保活/自动暂停。ENV/secret/SA/IAM不变；35旧单ID/业务字段保留，root新增0。回执evidence/PM-20261027-01/release-test-20261027/FINAL-RELEASE-RECEIPT.json。
+司机0.3.13-cloud/code16、乘客1.1.13-experience/code15，原签名。两包独立HTTPS完整hash/版本/签名通过；自有域名整包慢，快链同API服务https://user-test---driver-demo-phfgquzmua-uw.a.run.app/download及/download-passenger。后台https://demo-admin.hbzjhs.xyz/，Chrome代理隧道错误reload已恢复，未改代理/认证/服务。
+
+## 源码与业务限制
+root树/Users/dongge/.codex/tmp/yijiexing-pm-amap-20261027，当前已复用此root树开codex/operations-v2-integration-20261028/mainc3c876e（PMVR，尚未cherry-pick作者新代码）。此前审读b77精确绑定保留证据。新代码分别在作者独立树/分支，不覆盖。
+唯一可写后端已切pmv-backend-20261028/apps/cloud-service，PMVO branch codex/operations-v2-backend-20261028/base c3c876e；旧admin-drafts/PMPOST83c7c2a clean保留只读，未审未集成。frontend唯一代码树pmv-clients-20261028，branch codex/operations-v2-clients-20261028/base c3c876e。
+已发PMPA/PMBE/PMRES/PMCL/PMAD/PMDEST限定验收；BIZ04预约与即时并存、明确出发单段执行；BIZ05后台32类仅草稿/人工记录，不自动动账/积分；BIZ06新单必填终点、历史原ID补填。支付退款提现均模拟。
+高德SDK11.2.100已接，Key仅私有运行时角色下发，源码/APK四Key0。用户双设置图包名/SHA1与发布APK独立匹配；乘客1008/10008仍未解，公共点与真实同单NOT_RUN，司机底图不是鉴权PASS。PMMAP为SDK_AUTH_DIAGNOSIS_PENDING，勿重索Key。微信缺AppID、OEM声音/部分GUI未验。
+
+## PMV当前阶段（2026-10-28）
+用户修改意见2.0.doc的企业微信缓存路径曾OS拒绝；下载副本已可读。SOURCE_TEXT/manifest及28组需求清单在evidence/PMV-20261028-01，不把文档内群通知等当即时外发授权。
+GOV04要求独立可见会话+Gemini协作。backend现任01a168e2-22f7-70a2-af7f-4fb6be0ea695，PMVB已审完（15分钟）；frontend现任01a167c8-a5eb-77e3-b77e-214927a029da，PMVF已审完（8.5分钟），root已收报告。原内部backend_review/frontend_review不再派任务。根仍唯一发布。
+frontend明确32入口仍通用草稿；缺公告/公司电话/地区入口闭环，证件30天需60天，热力仍合成点。建议首批运营闭环和三证提醒；本轮尚未改产品/部署，业务运行验收NOT_RUN。
+PMVG Gemini内置agy新context1dde7226-8e36-42e9-93a6-bfcd963e9a71，26.073秒SUCCESS/1turn，未指定模型/改设置；地区限制这次未复现。公告纯校验候选root非作者11用例PASS，仅候选未产品集成，当前idle。证据gemini/result.json与coordinator-independent-check.json；90s参数需单位。
+BIZ07用户已明确答采用单次差额费扣除：可抽佣S−δ，平台M+可抽佣×比例不再重复扣δ，分币余数归平台；仅配置/模拟，不启用真实资金。F100/S40/C0/M1/各50例：原138.65 vs净138.95，修正138.95。证据COORDINATOR_FORMULA_QUESTION.json；手续费计算基数/分币舍入实现仍需明示审核。后端报告如待确认以此新答复优先。
+
+## 下一动作与资源
+用户已确认BIZ08（60天提醒/可更新、审核通过解除、待审旧有效仍可接/过期阻新增/在途可完成）和BIZ09（登录公告每用户每版本一次可关闭）。首批PMVO后端与PMVU各端实现已正式拆单，各自独立分支/目录，任务文件给精确归属。中央contracts/PMV-OPERATIONS-API.md v1已交付并由root读审/通知frontend绑定；PMVO Gemini较大生成超时，root已对比原init与stop同4528dabc-8ed2-4cc7-97c5-1ad0e531506e且STOPPED，CLI现idle不自动重试，backend继续Codex实现。v1关键：ops.company.save/driverCompany.set/company.select；ops.announcement.save/publish/withdraw和ack.firstDisplay，重复requestId不得重弹；ops.passengerFeatures.save/publish；证件active顶层+pending/version/canUpdate，审核expectedVersion+submissionId。后端/前端作者自测后root非作者验证、统一合并部署，别未验就称已发。
+剩余热力/账务/营销等后批，金融/税务/真实群通知未接不伪造。现无设备/上传/部署常驻；Gemini PMVG小候选完成；PMVO大候选超时但同ID4528dabc已STOPPED，证据backend-implementation/gemini-{stream,stop}.ndjson。主旧源clean无代码改；新源仅分支准备。上下文UNKNOWN，阶段卡已压缩到限额，旧前卡evidence/PMV-20261028-01/coordinator-prior-handoff.txt按需查。两独立实现已运行/合同已转。root已写独立HTTP探针independent_operations_probe.py并早跑5组：3组核心PASS、并发CAS503按同rid重试唯一firstDisplay通过、证件完整待审/驳回/过期/真实共享在途DONE/批准通过。早期源未冻结不算最终验收；EARLY_HTTP_FOLLOWUP.json。前端62单测/build当前阶段PASS，完整接线后待回归。backend继续作者测试，root待精确SHA后集成/验收/发布。
+
+集成早审Q1：驳回且长期/>60天canUpdate不一致已回backend，作者说修；Q2：pending图片API source=PENDING但UI只识REVIEW导致标签错，已派两边统一REVIEW/ACTIVE+兼容，独立脚本已加source/submissionId断言。EARLY_STATIC_FINDINGS.json。Q2未关闭前不发；最后精确SHA HTTP+DOM仍待执行。

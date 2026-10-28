@@ -1,0 +1,453 @@
+{
+  "at": "2026-10-28T12:07:29.287173+08:00",
+  "groupCount": 28,
+  "requirements": [
+    {
+      "requirementId": "V01",
+      "sourceHeading": "平台运维-小程序公告",
+      "classification": "OPERATIONAL_CONFIGURATION_AND_CLIENT_INTEGRATION",
+      "reviewStatus": "REVIEWED_SOURCE_GAP_CONFIRMED",
+      "existingCatalogId": "announcements",
+      "existingDraftOnly": true,
+      "implementationStatus": "ASSIGNED_IN_PROGRESS",
+      "evidence": [
+        "frontend-review/REPORT.md",
+        "backend-review/REPORT.md"
+      ],
+      "phase": "FIRST_BATCH",
+      "assignedTasks": [
+        "PMVO-20261028-01",
+        "PMVU-20261028-01"
+      ]
+    },
+    {
+      "requirementId": "V02",
+      "sourceHeading": "平台运维-出租车公司客服电话维护",
+      "classification": "OPERATIONAL_CONFIGURATION_AND_CLIENT_INTEGRATION",
+      "reviewStatus": "REVIEWED_SOURCE_GAP_CONFIRMED",
+      "existingCatalogId": "company_support",
+      "existingDraftOnly": true,
+      "implementationStatus": "ASSIGNED_IN_PROGRESS",
+      "evidence": [
+        "frontend-review/REPORT.md",
+        "backend-review/REPORT.md"
+      ],
+      "phase": "FIRST_BATCH",
+      "assignedTasks": [
+        "PMVO-20261028-01",
+        "PMVU-20261028-01"
+      ]
+    },
+    {
+      "requirementId": "V03",
+      "sourceHeading": "平台运维-乘客端功能配置",
+      "classification": "OPERATIONAL_CONFIGURATION_AND_CLIENT_INTEGRATION",
+      "reviewStatus": "REVIEWED_SOURCE_GAP_CONFIRMED",
+      "existingCatalogId": "passenger_features",
+      "existingDraftOnly": true,
+      "implementationStatus": "ASSIGNED_IN_PROGRESS",
+      "evidence": [
+        "frontend-review/REPORT.md",
+        "backend-review/REPORT.md"
+      ],
+      "phase": "FIRST_BATCH",
+      "assignedTasks": [
+        "PMVO-20261028-01",
+        "PMVU-20261028-01"
+      ]
+    },
+    {
+      "requirementId": "V04",
+      "sourceHeading": "平台运维-热力图阀值设置",
+      "classification": "DATA_PROJECTION_AND_MAP_DEPENDENCY",
+      "reviewStatus": "REVIEWED_SOURCE_GAP_CONFIRMED",
+      "existingCatalogId": "heatmap_thresholds",
+      "existingDraftOnly": true,
+      "implementationStatus": "NOT_IMPLEMENTED_V2",
+      "evidence": [
+        "frontend-review/REPORT.md",
+        "backend-review/REPORT.md"
+      ],
+      "phase": "REAL_HEATMAP_AND_SDK_FOLLOWUP",
+      "dependency": "Current source returns synthetic fixed points; real aggregation/window/position TTL and map auth require separate acceptance"
+    },
+    {
+      "requirementId": "V05",
+      "sourceHeading": "司机管理-司机钱包明细",
+      "classification": "FINANCIAL_DATA_SOURCE_AND_PROVIDER_DEPENDENCY",
+      "reviewStatus": "REVIEWED_SOURCE_GAP_CONFIRMED",
+      "existingCatalogId": "driver_wallet_entries",
+      "existingDraftOnly": true,
+      "implementationStatus": "NOT_IMPLEMENTED_V2",
+      "evidence": [
+        "frontend-review/REPORT.md",
+        "backend-review/REPORT.md"
+      ],
+      "phase": "REAL_MODEL_AND_READ_ONLY_PROJECTIONS",
+      "dependency": "Separate explicit simulation fields from unavailable provider/historical data"
+    },
+    {
+      "requirementId": "V06",
+      "sourceHeading": "司机管理-司机每日余额统计",
+      "classification": "HISTORICAL_SNAPSHOT_DATA_REQUIREMENT",
+      "reviewStatus": "REVIEWED_SOURCE_GAP_CONFIRMED",
+      "existingCatalogId": "driver_daily_balances",
+      "existingDraftOnly": true,
+      "implementationStatus": "NOT_IMPLEMENTED_V2",
+      "evidence": [
+        "frontend-review/REPORT.md",
+        "backend-review/REPORT.md"
+      ],
+      "phase": "REAL_MODEL_AND_READ_ONLY_PROJECTIONS",
+      "dependency": "Separate explicit simulation fields from unavailable provider/historical data"
+    },
+    {
+      "requirementId": "V07",
+      "sourceHeading": "司机管理-资质到期提醒",
+      "classification": "DATE_BASED_REMINDER_AND_RESTRICTION_POLICY",
+      "reviewStatus": "REVIEWED_SOURCE_GAP_CONFIRMED",
+      "existingCatalogId": "qualification_expiry",
+      "existingDraftOnly": true,
+      "implementationStatus": "ASSIGNED_IN_PROGRESS",
+      "evidence": [
+        "frontend-review/REPORT.md",
+        "backend-review/REPORT.md"
+      ],
+      "phase": "FIRST_BATCH",
+      "assignedTasks": [
+        "PMVO-20261028-01",
+        "PMVU-20261028-01"
+      ]
+    },
+    {
+      "requirementId": "V08",
+      "sourceHeading": "车辆管理-出租车车辆管理",
+      "classification": "REAL_ENTITY_CRUD_AND_SCOPE_PERMISSIONS",
+      "reviewStatus": "REVIEWED_SOURCE_GAP_CONFIRMED",
+      "existingCatalogId": "taxi_vehicles",
+      "existingDraftOnly": true,
+      "implementationStatus": "NOT_IMPLEMENTED_V2",
+      "evidence": [
+        "frontend-review/REPORT.md",
+        "backend-review/REPORT.md"
+      ],
+      "phase": "REAL_MODEL_AND_READ_ONLY_PROJECTIONS",
+      "dependency": "Separate explicit simulation fields from unavailable provider/historical data"
+    },
+    {
+      "requirementId": "V09",
+      "sourceHeading": "订单管理-订单分账记录",
+      "classification": "FINANCIAL_OR_INCENTIVE_RULES_AND_EXTERNAL_DEPENDENCIES",
+      "reviewStatus": "REVIEWED_SOURCE_GAP_CONFIRMED",
+      "existingCatalogId": "order_splits",
+      "existingDraftOnly": true,
+      "implementationStatus": "NOT_IMPLEMENTED_V2",
+      "evidence": [
+        "frontend-review/REPORT.md",
+        "backend-review/REPORT.md"
+      ],
+      "phase": "STRUCTURED_RULES_AND_SIMULATION",
+      "dependency": "BIZ07 adopted; provider fee rounding/subsidy events and pricing edge cases must be stated before money execution"
+    },
+    {
+      "requirementId": "V10",
+      "sourceHeading": "结算与分账管理-区域运价管理（规则实例如下：许可调整配置）",
+      "classification": "FINANCIAL_OR_INCENTIVE_RULES_AND_EXTERNAL_DEPENDENCIES",
+      "reviewStatus": "REVIEWED_SOURCE_GAP_CONFIRMED",
+      "existingCatalogId": "regional_fares",
+      "existingDraftOnly": true,
+      "implementationStatus": "NOT_IMPLEMENTED_V2",
+      "evidence": [
+        "frontend-review/REPORT.md",
+        "backend-review/REPORT.md"
+      ],
+      "phase": "STRUCTURED_RULES_AND_SIMULATION",
+      "dependency": "BIZ07 adopted; provider fee rounding/subsidy events and pricing edge cases must be stated before money execution"
+    },
+    {
+      "requirementId": "V11",
+      "sourceHeading": "结算与分账管理-公司分账账户管理",
+      "classification": "FINANCIAL_OR_INCENTIVE_RULES_AND_EXTERNAL_DEPENDENCIES",
+      "reviewStatus": "REVIEWED_SOURCE_GAP_CONFIRMED",
+      "existingCatalogId": "company_split_accounts",
+      "existingDraftOnly": true,
+      "implementationStatus": "NOT_IMPLEMENTED_V2",
+      "evidence": [
+        "frontend-review/REPORT.md",
+        "backend-review/REPORT.md"
+      ],
+      "phase": "PROVIDER_DEPENDENT_WORKFLOW",
+      "dependency": "Real payment/account/withdrawal/invoice services remain NOT_CONNECTED; records not proof of real results"
+    },
+    {
+      "requirementId": "V12",
+      "sourceHeading": "结算与分账管理-公司分账账户明细",
+      "classification": "FINANCIAL_OR_INCENTIVE_RULES_AND_EXTERNAL_DEPENDENCIES",
+      "reviewStatus": "REVIEWED_SOURCE_GAP_CONFIRMED",
+      "existingCatalogId": "company_split_entries",
+      "existingDraftOnly": true,
+      "implementationStatus": "NOT_IMPLEMENTED_V2",
+      "evidence": [
+        "frontend-review/REPORT.md",
+        "backend-review/REPORT.md"
+      ],
+      "phase": "PROVIDER_DEPENDENT_WORKFLOW",
+      "dependency": "Real payment/account/withdrawal/invoice services remain NOT_CONNECTED; records not proof of real results"
+    },
+    {
+      "requirementId": "V13",
+      "sourceHeading": "结算与分账管理-区域服务费管理",
+      "classification": "FINANCIAL_OR_INCENTIVE_RULES_AND_EXTERNAL_DEPENDENCIES",
+      "reviewStatus": "REVIEWED_SOURCE_GAP_CONFIRMED",
+      "existingCatalogId": "regional_service_fees",
+      "existingDraftOnly": true,
+      "implementationStatus": "NOT_IMPLEMENTED_V2",
+      "evidence": [
+        "frontend-review/REPORT.md",
+        "backend-review/REPORT.md"
+      ],
+      "phase": "STRUCTURED_RULES_AND_SIMULATION",
+      "dependency": "BIZ07 adopted; provider fee rounding/subsidy events and pricing edge cases must be stated before money execution"
+    },
+    {
+      "requirementId": "V14",
+      "sourceHeading": "开票管理-开票记录",
+      "classification": "FINANCIAL_OR_INCENTIVE_RULES_AND_EXTERNAL_DEPENDENCIES",
+      "reviewStatus": "REVIEWED_SOURCE_GAP_CONFIRMED",
+      "existingCatalogId": "invoice_records",
+      "existingDraftOnly": true,
+      "implementationStatus": "NOT_IMPLEMENTED_V2",
+      "evidence": [
+        "frontend-review/REPORT.md",
+        "backend-review/REPORT.md"
+      ],
+      "phase": "PROVIDER_DEPENDENT_WORKFLOW",
+      "dependency": "Real payment/account/withdrawal/invoice services remain NOT_CONNECTED; records not proof of real results"
+    },
+    {
+      "requirementId": "V15",
+      "sourceHeading": "开票管理-技术服务费开票",
+      "classification": "FINANCIAL_OR_INCENTIVE_RULES_AND_EXTERNAL_DEPENDENCIES",
+      "reviewStatus": "REVIEWED_SOURCE_GAP_CONFIRMED",
+      "existingCatalogId": "service_fee_invoices",
+      "existingDraftOnly": true,
+      "implementationStatus": "NOT_IMPLEMENTED_V2",
+      "evidence": [
+        "frontend-review/REPORT.md",
+        "backend-review/REPORT.md"
+      ],
+      "phase": "PROVIDER_DEPENDENT_WORKFLOW",
+      "dependency": "Real payment/account/withdrawal/invoice services remain NOT_CONNECTED; records not proof of real results"
+    },
+    {
+      "requirementId": "V16",
+      "sourceHeading": "开票管理-发票重开申请",
+      "classification": "FINANCIAL_OR_INCENTIVE_RULES_AND_EXTERNAL_DEPENDENCIES",
+      "reviewStatus": "REVIEWED_SOURCE_GAP_CONFIRMED",
+      "existingCatalogId": "invoice_reissues",
+      "existingDraftOnly": true,
+      "implementationStatus": "NOT_IMPLEMENTED_V2",
+      "evidence": [
+        "frontend-review/REPORT.md",
+        "backend-review/REPORT.md"
+      ],
+      "phase": "PROVIDER_DEPENDENT_WORKFLOW",
+      "dependency": "Real payment/account/withdrawal/invoice services remain NOT_CONNECTED; records not proof of real results"
+    },
+    {
+      "requirementId": "V17",
+      "sourceHeading": "司机服务分管理-服务分规则配置",
+      "classification": "FINANCIAL_OR_INCENTIVE_RULES_AND_EXTERNAL_DEPENDENCIES",
+      "reviewStatus": "REVIEWED_SOURCE_GAP_CONFIRMED",
+      "existingCatalogId": "service_score_rules",
+      "existingDraftOnly": true,
+      "implementationStatus": "NOT_IMPLEMENTED_V2",
+      "evidence": [
+        "frontend-review/REPORT.md",
+        "backend-review/REPORT.md"
+      ],
+      "phase": "INCENTIVE_LEDGER_AND_STATE_MACHINES",
+      "dependency": "Requires configurable rule values, immutable events/idempotency/inventory or coupon funding; no invented real award"
+    },
+    {
+      "requirementId": "V18",
+      "sourceHeading": "司机服务分管理-服务分明细记录",
+      "classification": "FINANCIAL_OR_INCENTIVE_RULES_AND_EXTERNAL_DEPENDENCIES",
+      "reviewStatus": "REVIEWED_SOURCE_GAP_CONFIRMED",
+      "existingCatalogId": "service_score_entries",
+      "existingDraftOnly": true,
+      "implementationStatus": "NOT_IMPLEMENTED_V2",
+      "evidence": [
+        "frontend-review/REPORT.md",
+        "backend-review/REPORT.md"
+      ],
+      "phase": "INCENTIVE_LEDGER_AND_STATE_MACHINES",
+      "dependency": "Requires configurable rule values, immutable events/idempotency/inventory or coupon funding; no invented real award"
+    },
+    {
+      "requirementId": "V19",
+      "sourceHeading": "司机服务分管理-司机服务分统计",
+      "classification": "FINANCIAL_OR_INCENTIVE_RULES_AND_EXTERNAL_DEPENDENCIES",
+      "reviewStatus": "REVIEWED_SOURCE_GAP_CONFIRMED",
+      "existingCatalogId": "service_score_statistics",
+      "existingDraftOnly": true,
+      "implementationStatus": "NOT_IMPLEMENTED_V2",
+      "evidence": [
+        "frontend-review/REPORT.md",
+        "backend-review/REPORT.md"
+      ],
+      "phase": "INCENTIVE_LEDGER_AND_STATE_MACHINES",
+      "dependency": "Requires configurable rule values, immutable events/idempotency/inventory or coupon funding; no invented real award"
+    },
+    {
+      "requirementId": "V20",
+      "sourceHeading": "营销管理-拉新活动-拉新规则配置",
+      "classification": "FINANCIAL_OR_INCENTIVE_RULES_AND_EXTERNAL_DEPENDENCIES",
+      "reviewStatus": "REVIEWED_SOURCE_GAP_CONFIRMED",
+      "existingCatalogId": "referral_rules_records",
+      "existingDraftOnly": true,
+      "implementationStatus": "NOT_IMPLEMENTED_V2",
+      "evidence": [
+        "frontend-review/REPORT.md",
+        "backend-review/REPORT.md"
+      ],
+      "phase": "INCENTIVE_LEDGER_AND_STATE_MACHINES",
+      "dependency": "Requires configurable rule values, immutable events/idempotency/inventory or coupon funding; no invented real award"
+    },
+    {
+      "requirementId": "V21",
+      "sourceHeading": "营销管理-拉新活动-乘客/司机拉新记录",
+      "classification": "FINANCIAL_OR_INCENTIVE_RULES_AND_EXTERNAL_DEPENDENCIES",
+      "reviewStatus": "REVIEWED_SOURCE_GAP_CONFIRMED",
+      "existingCatalogId": "referral_rules_records",
+      "existingDraftOnly": true,
+      "implementationStatus": "NOT_IMPLEMENTED_V2",
+      "evidence": [
+        "frontend-review/REPORT.md",
+        "backend-review/REPORT.md"
+      ],
+      "phase": "INCENTIVE_LEDGER_AND_STATE_MACHINES",
+      "dependency": "Requires configurable rule values, immutable events/idempotency/inventory or coupon funding; no invented real award"
+    },
+    {
+      "requirementId": "V22",
+      "sourceHeading": "营销管理-积分商城-司机/乘客积分规则配置",
+      "classification": "FINANCIAL_OR_INCENTIVE_RULES_AND_EXTERNAL_DEPENDENCIES",
+      "reviewStatus": "REVIEWED_SOURCE_GAP_CONFIRMED",
+      "existingCatalogId": "role_points_rules",
+      "existingDraftOnly": true,
+      "implementationStatus": "NOT_IMPLEMENTED_V2",
+      "evidence": [
+        "frontend-review/REPORT.md",
+        "backend-review/REPORT.md"
+      ],
+      "phase": "INCENTIVE_LEDGER_AND_STATE_MACHINES",
+      "dependency": "Requires configurable rule values, immutable events/idempotency/inventory or coupon funding; no invented real award"
+    },
+    {
+      "requirementId": "V23",
+      "sourceHeading": "营销管理-积分商城-司机/乘客积分明细统计",
+      "classification": "FINANCIAL_OR_INCENTIVE_RULES_AND_EXTERNAL_DEPENDENCIES",
+      "reviewStatus": "REVIEWED_SOURCE_GAP_CONFIRMED",
+      "existingCatalogId": "role_points_entries",
+      "existingDraftOnly": true,
+      "implementationStatus": "NOT_IMPLEMENTED_V2",
+      "evidence": [
+        "frontend-review/REPORT.md",
+        "backend-review/REPORT.md"
+      ],
+      "phase": "INCENTIVE_LEDGER_AND_STATE_MACHINES",
+      "dependency": "Requires configurable rule values, immutable events/idempotency/inventory or coupon funding; no invented real award"
+    },
+    {
+      "requirementId": "V24",
+      "sourceHeading": "营销管理-积分商城-司机/乘客积分商城商品管理",
+      "classification": "FINANCIAL_OR_INCENTIVE_RULES_AND_EXTERNAL_DEPENDENCIES",
+      "reviewStatus": "REVIEWED_SOURCE_GAP_CONFIRMED",
+      "existingCatalogId": "role_points_products",
+      "existingDraftOnly": true,
+      "implementationStatus": "NOT_IMPLEMENTED_V2",
+      "evidence": [
+        "frontend-review/REPORT.md",
+        "backend-review/REPORT.md"
+      ],
+      "phase": "INCENTIVE_LEDGER_AND_STATE_MACHINES",
+      "dependency": "Requires configurable rule values, immutable events/idempotency/inventory or coupon funding; no invented real award"
+    },
+    {
+      "requirementId": "V25",
+      "sourceHeading": "营销管理-积分商城-司机/乘客积分商品兑换记录",
+      "classification": "FINANCIAL_OR_INCENTIVE_RULES_AND_EXTERNAL_DEPENDENCIES",
+      "reviewStatus": "REVIEWED_SOURCE_GAP_CONFIRMED",
+      "existingCatalogId": "role_points_redemptions",
+      "existingDraftOnly": true,
+      "implementationStatus": "NOT_IMPLEMENTED_V2",
+      "evidence": [
+        "frontend-review/REPORT.md",
+        "backend-review/REPORT.md"
+      ],
+      "phase": "INCENTIVE_LEDGER_AND_STATE_MACHINES",
+      "dependency": "Requires configurable rule values, immutable events/idempotency/inventory or coupon funding; no invented real award"
+    },
+    {
+      "requirementId": "V26",
+      "sourceHeading": "营销管理-优惠券资金池",
+      "classification": "FINANCIAL_OR_INCENTIVE_RULES_AND_EXTERNAL_DEPENDENCIES",
+      "reviewStatus": "REVIEWED_SOURCE_GAP_CONFIRMED",
+      "existingCatalogId": "coupon_pool",
+      "existingDraftOnly": true,
+      "implementationStatus": "NOT_IMPLEMENTED_V2",
+      "evidence": [
+        "frontend-review/REPORT.md",
+        "backend-review/REPORT.md"
+      ],
+      "phase": "INCENTIVE_LEDGER_AND_STATE_MACHINES",
+      "dependency": "Requires configurable rule values, immutable events/idempotency/inventory or coupon funding; no invented real award"
+    },
+    {
+      "requirementId": "V27",
+      "sourceHeading": "营销管理-优惠券管理-制作优惠券",
+      "classification": "FINANCIAL_OR_INCENTIVE_RULES_AND_EXTERNAL_DEPENDENCIES",
+      "reviewStatus": "REVIEWED_SOURCE_GAP_CONFIRMED",
+      "existingCatalogId": "coupon_creation",
+      "existingDraftOnly": true,
+      "implementationStatus": "NOT_IMPLEMENTED_V2",
+      "evidence": [
+        "frontend-review/REPORT.md",
+        "backend-review/REPORT.md"
+      ],
+      "phase": "INCENTIVE_LEDGER_AND_STATE_MACHINES",
+      "dependency": "Requires configurable rule values, immutable events/idempotency/inventory or coupon funding; no invented real award"
+    },
+    {
+      "requirementId": "V28",
+      "sourceHeading": "营销管理-营销活动-新用户注册",
+      "classification": "FINANCIAL_OR_INCENTIVE_RULES_AND_EXTERNAL_DEPENDENCIES",
+      "reviewStatus": "REVIEWED_SOURCE_GAP_CONFIRMED",
+      "existingCatalogId": "registration_campaigns",
+      "existingDraftOnly": true,
+      "implementationStatus": "NOT_IMPLEMENTED_V2",
+      "evidence": [
+        "frontend-review/REPORT.md",
+        "backend-review/REPORT.md"
+      ],
+      "phase": "INCENTIVE_LEDGER_AND_STATE_MACHINES",
+      "dependency": "Requires configurable rule values, immutable events/idempotency/inventory or coupon funding; no invented real award"
+    }
+  ],
+  "priorDecisions": [
+    "GOV-04",
+    "BIZ-05",
+    "DEMO-01"
+  ],
+  "documentStatus": "Product requirements under review; financial parameters are specification input, not authorization to move real money or send group messages.",
+  "images": "macOS RTFD extraction produced TXT.rtf only, no image assets; visual pagination NOT_REVIEWED.",
+  "updatedAt": "2026-10-28T12:24:57.303214+08:00",
+  "confirmedRules": {
+    "BIZ-07": "single delta deduction, residual cents to platform; config/simulation only",
+    "BIZ-08": "60-day reminders/update; approved replacement; valid old certificate remains valid while review pending; expired blocks new orders; existing trip can finish",
+    "BIZ-09": "on login valid announcements; once per user/version; dismissible"
+  },
+  "reviewScope": "28 source requirement groups mapped to existing 32-category generic drafts; quantity is not functional completion",
+  "currentDeliveryStatus": "FIRST_BATCH_IMPLEMENTING_NOT_DEPLOYED"
+}

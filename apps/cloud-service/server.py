@@ -64,10 +64,10 @@ class Handler(BaseHTTPRequestHandler):
                     elif path=='/api/passenger/auth/login' and self.command=='POST':data=svc.passenger_login(p)
                     elif path.startswith('/api/passenger/'):
                         auth=self.headers.get('Authorization','');require(auth.startswith('Bearer '),'请先登录乘客账户',401);token=auth[7:];passenger=svc.passenger_authenticate(token)
-                        if path=='/api/passenger/state' and self.command=='GET':data=svc.passenger_data(passenger)
+                        if path=='/api/passenger/state' and self.command=='GET':data=svc.passenger_data(passenger,p.get('client',query.get('client',['MINIPROGRAM'])[0]))
                         elif path=='/api/passenger/auth/logout' and self.command=='POST':svc.db.execute('DELETE FROM passenger_sessions WHERE token=?',(token,));data={'loggedOut':True}
                         elif path=='/api/passenger/action' and self.command=='POST':
-                            result=svc.passenger_action(passenger,p.get('action'),p.get('payload',{}),p.get('requestId'));data=svc.passenger_data(passenger);data['result']=result
+                            result=svc.passenger_action(passenger,p.get('action'),p.get('payload',{}),p.get('requestId'));data=svc.passenger_data(passenger,p.get('client',query.get('client',['MINIPROGRAM'])[0]));data['result']=result
                         elif re.fullmatch(r'/api/passenger/orders/[^/]+/(route|fees)',path) and self.command=='GET':
                             oid=path.split('/')[4];data=svc.passenger_route(passenger,oid) if path.endswith('/route') else svc.passenger_fees(passenger,oid)
                         elif re.fullmatch(r'/api/passenger/files/[^/]+',path) and self.command=='GET':
@@ -87,7 +87,7 @@ class Handler(BaseHTTPRequestHandler):
                                 user=console.authenticate(session)
                                 if path=='/api/local/admin/v2/state' and self.command=='GET':data=console.state(user)
                                 elif path=='/api/local/admin/v2/query' and self.command=='GET':data=console.query(user,parse_qs(u.query,keep_blank_values=True))
-                                elif path=='/api/local/admin/v2/certificate-file' and self.command=='GET':data=console.certificate_file(user,query.get('driverId',[''])[0],query.get('type',[''])[0],query.get('side',['front'])[0])
+                                elif path=='/api/local/admin/v2/certificate-file' and self.command=='GET':data=console.certificate_file(user,query.get('driverId',[''])[0],query.get('type',[''])[0],query.get('side',['front'])[0],query.get('source',['REVIEW'])[0])
                                 elif path=='/api/local/admin/v2/action' and self.command=='POST':
                                     result=console.action(user,p.get('action'),p.get('payload',{}),p.get('requestId'));data={'result':result,'state':console.state(user)}
                                 elif path=='/api/local/admin/v2/logout' and self.command=='POST':data=console.logout(session)

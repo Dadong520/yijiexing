@@ -1,0 +1,93 @@
+Browser tab: 1, Title: "宜捷行 · 运营管理中心", URL: "http://127.0.0.1:63990/".
+0 AXWebArea 宜捷行 · 运营管理中心, URL: 127.0.0.1:63990/
+	1 container app
+		2 container
+			3 text 宜 宜捷行 运营管理中心
+			4 container nav
+				5 text 平台运维
+				6 button 公告管理
+				7 button 公司与客服电话
+				8 button 乘客端功能配置
+				9 text 司机管理
+				10 button 资质到期提醒
+				11 text 工作台
+				12 button 经营概览
+				13 button 经营报表
+				14 text 业务运营
+				15 button 订单管理
+				16 button 取消订单记录
+				17 button 司机与车辆
+				18 button 乘客管理
+				19 button 模拟账务
+				20 button 模拟退款记录
+				21 button 评价投诉反馈
+				22 text 配置与治理
+				23 button 城市与会员
+				24 button 历史草稿与人工记录
+				25 button 账号与权限
+				26 button 操作日志
+			27 text  独立云体验环境 支付 / 退款 / 提现均为模拟
+		28 container
+			29 text 工作空间  /
+			30 text 公司与客服电话
+			31 text admin · 超级管理员
+			32 button 刷新数据, ID: refreshBtn
+			33 button 退出, ID: logoutBtn
+		34 container
+			35 text 体验环境 · 本后台与司机、乘客端共用持久化业务数据。所有金额均为模拟账务，不发生真实资金交易。
+			36 container content
+				37 heading 公司与客服电话, Value: 1
+					38 text 公司与客服电话
+				39 text 明确维护公司与司机归属；组织名称不会自动映射公司，配置不代表资金账户签约。
+				40 button 新增公司, ID: newCompany
+				41 container
+					42 heading 公司名册, Value: 2
+						43 text 公司名册
+					44 table
+						45 row
+							46 cell
+								47 text 公司
+							48 cell
+								49 text 客服电话
+							50 cell
+								51 text 状态 / 版本
+							52 cell
+								53 text 操作
+						54 row
+							55 cell
+								56 text 本地验收公司
+								57 text COMP346d9e6b741e
+							58 cell
+								59 text 010-00000001
+							60 cell
+								61 text 启用 · V1
+							62 cell
+								63 button 编辑
+				64 container
+					65 heading 司机公司归属, Value: 2
+						66 text 司机公司归属
+					67 text 变更只影响后续新单，不改写历史订单公司；可解除绑定。
+					68 table
+						69 row
+							70 cell
+								71 text 司机
+							72 cell
+								73 text 当前公司
+							74 cell
+								75 text 绑定版本
+							76 cell
+								77 text 操作
+						78 row
+							79 cell
+								80 text 本地验收司机
+								81 text LOCAL-D1
+							82 cell
+								83 text 本地验收公司
+							84 cell
+								85 text 1
+							86 cell
+								87 button 设置归属
+			88 text 最近同步 2026/10/28 13:22:41 · 点击刷新获取两端最新状态
+	89 text 司机公司归属已保存
+
+The focused UI element is 0 AXWebArea 宜捷行 · 运营管理中心, URL: 127.0.0.1:63990/

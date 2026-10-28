@@ -66,6 +66,7 @@ function loadPage(name, { store = {}, wx = {}, picker = {} } = {}) {
       if (p.includes('safety')) return safety;
       if (p.includes('coupons')) return coupons;
       if (p.includes('points')) return points;
+      if (p.includes('operations')) return require('../lib/operations');
       return picker;
     },
     Page: p => { page = p; },

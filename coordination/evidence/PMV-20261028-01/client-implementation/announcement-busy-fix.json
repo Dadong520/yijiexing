@@ -1,0 +1,11 @@
+{
+  "task": "PMVU-20261028-01",
+  "followup": "announcement busy admission callback",
+  "baseSha": "df9f47b96f0e38afd53c88587fc9046a35b14bf5",
+  "staticReview": "PASS: busy precheck before run calls onFailure synchronously; UI onFailure resets claiming; run busy guard/acquisition retained; stale generation branch also releases callback",
+  "compileDebugKotlin": "PASS",
+  "runtimeUiTest": "NOT_RUN",
+  "scope": "one passenger store file, no backend changes or unrelated retest",
+  "updatedAt": "2026-10-28T13:13:23.989479+08:00",
+  "sourceSha": "b450524c249009af1c1adc2332538a8b88e1be68"
+}

@@ -1,0 +1,91 @@
+{
+  "schemaVersion": 1,
+  "id": "PMVR-20261028-01",
+  "owner": "coordinator",
+  "goal": "首批PMVO/PMVU精确SHA集成、非作者验收、版本构建与独立体验版发布回读；保留已知高德/微信边界",
+  "baseSha": "c3c876ef3359f8bc4bb306f515637e1fc72ca621",
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-pm-amap-20261027",
+  "branch": "codex/operations-v2-integration-20261028",
+  "allow_paths": [
+    "apps/passenger-android/app/build.gradle.kts",
+    "candidates/driver-0.3.6-r2/android/app/build.gradle.kts",
+    "README.md",
+    "coordination/",
+    "apps/admin-console/ops/"
+  ],
+  "checks": [
+    "等待作者精确SHA与适用自测通过后集成；后端/前端源文件修复回派作者，不覆盖未提交文件",
+    "根非作者真实HTTP/SQLite/CAS：公告去重/地区门禁/公司归属/三证有效旧证审核及过期/在途；适用旧预约/欠款/尾号/幂等结算/目的地兼容",
+    "后台真实DOM菜单/草稿发布版本/403/409，双Android构建原证书/Key0扫描/HTTPS下载回读；mini测试通过，无AppID微信真机NOT_RUN",
+    "仅独立体验项目yijiexing-driver-demo-1023/us-west1，保留已有共享订单及账号，PASS后才唯一coordinator发布；PASSWORD/IAM/env/自动min0max1请求计费不漂移；不是三端所有业务最终完成"
+  ],
+  "status": "ACCEPTANCE_PASS_RELEASE_PREPARATION",
+  "acceptance": "PASS",
+  "tests": [
+    {
+      "command": "root independent_operations_probe.py (7 HTTP/SQLite/CAS groups)",
+      "status": "PASS",
+      "exitCode": 0,
+      "sourceSha": "817ed22bce503620d692e097a5f8ea996edf5fb2"
+    },
+    {
+      "command": "root independent_compatibility_probe.py (13 selected regression tests)",
+      "status": "PASS",
+      "exitCode": 0,
+      "sourceSha": "817ed22bce503620d692e097a5f8ea996edf5fb2"
+    },
+    {
+      "command": "real CUA + BrowserHandler admin DOM, unchanged web tree817, late backend delta final HTTP covered",
+      "status": "PASS",
+      "exitCode": 0,
+      "sourceSha": "817ed22bce503620d692e097a5f8ea996edf5fb2"
+    },
+    {
+      "command": "root Android Gradle passenger24/driver63 + assemble; aapt/apksigner/Key-pattern streaming scan",
+      "status": "PASS",
+      "exitCode": 0,
+      "sourceSha": "817ed22bce503620d692e097a5f8ea996edf5fb2"
+    },
+    {
+      "command": "node mini72/admin4; final source component binding",
+      "status": "PASS",
+      "exitCode": 0,
+      "sourceSha": "817ed22bce503620d692e097a5f8ea996edf5fb2"
+    },
+    {
+      "command": "frontend PMVA independent hashes/aapt/apksigner/component-tree and receipt binding",
+      "status": "PASS",
+      "exitCode": 0,
+      "sourceSha": "817ed22bce503620d692e097a5f8ea996edf5fb2"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "coordination/evidence/PMV-20261028-01/FINAL_INDEPENDENT_HTTP.json",
+      "sha256": "5ed1ed82ef8f1fba0375074be7bf1e60e67321e52ece1871081e34633e9a0752"
+    },
+    {
+      "path": "coordination/evidence/PMV-20261028-01/backend-results.json",
+      "sha256": "2613622343d422f10ace3f6f6682e94c85ba061e015e7f8e6baad3913381064a"
+    },
+    {
+      "path": "coordination/evidence/PMV-20261028-01/ADMIN_DOM_REVIEW.json",
+      "sha256": "068fc2cbb47273dc8049fb9d941dd301fa5806d776f1cea3e11f269e7b72c296"
+    },
+    {
+      "path": "coordination/evidence/PMV-20261028-01/APK_PROOF.json",
+      "sha256": "aee35b1cd894fb9209fdc1c0db5e463ae555f6e3d69c7dafda3bd1a066a4e176"
+    },
+    {
+      "path": "coordination/evidence/PMV-20261028-01/artifact-review/result.json",
+      "sha256": "782f298354f2122391bf5f31c8ac93a5f19f235c3e4f7cedb2e0747c64c4daf5"
+    }
+  ],
+  "nextAction": "Backup current private snapshot, build exact source images, push/merge reviewed PR, deploy image-only preserving configuration; read back data, APKs and source hashes",
+  "deploy_owner": "coordinator",
+  "releaseReady": true,
+  "updatedAt": "2026-10-28T13:49:25.646916+08:00",
+  "acceptedSha": "817ed22bce503620d692e097a5f8ea996edf5fb2",
+  "reviewer": "frontend",
+  "acceptanceScope": "Root non-author PMVO/PMVU HTTP7+compat13+real adminDOM; frontend non-author root package/version/signature/hash review only. Not native/WeChat final runtime or real finance."
+}
