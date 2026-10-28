@@ -1,0 +1,65 @@
+{
+  "schemaVersion": 1,
+  "id": "PMV-20261028-01",
+  "owner": "coordinator",
+  "goal": "审读修改意见2.0并对照已发布体验版形成逐项缺口、规则歧义和分批实施任务；遵守GOV-04独立会话+Gemini协作",
+  "baseSha": "b77e8f7af03bd2a8af535de34bd13d5acd0a387a",
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-pm-amap-20261027",
+  "branch": "codex/operations-v2-integration-20261028",
+  "allow_paths": [
+    "coordination/tasks/PMV-20261028-01.json",
+    "coordination/tasks/PMVB-20261028-01.json",
+    "coordination/tasks/PMVF-20261028-01.json",
+    "coordination/evidence/PMV-20261028-01/",
+    "coordination/STATE.md",
+    "coordination/BOARD.json",
+    "coordination/SESSION_REGISTRY.json",
+    "coordination/DECISIONS.md",
+    "coordination/handoffs/coordinator.md",
+    "coordination/handoffs/antigravity.md",
+    "coordination/tasks/PMVO-20261028-01.json",
+    "coordination/tasks/PMVU-20261028-01.json",
+    "coordination/tasks/PMVR-20261028-01.json",
+    "coordination/tasks/PMVA-20261028-01.json",
+    "coordination/tasks/PMVG-20261028-01.json"
+  ],
+  "checks": [
+    "源码/发布基线不混，原32类草稿不是已实现业务；逐项区分现有/缺失/规则未明确/外部服务未接",
+    "金额公式分单位、折扣手续费、精度与舍入必须非作者审核，不自动激活新扣费分账",
+    "明确独立backend/frontend派单及Gemini实际执行结果；无真实群发/真实资金动作"
+  ],
+  "status": "FIRST_BATCH_ACCEPTED_RELEASE_PREP",
+  "acceptance": "NOT_RUN",
+  "tests": [
+    {
+      "result": "READ_ONLY_REVIEW_COMPLETE: backend10 synthetic closures/8 original counterexamples/2 controls, static file binding; frontend32 catalog/actual consumer review; business runtime NOT_RUN"
+    },
+    {
+      "result": "PASS_SCOPE: Gemini announcement pure validator candidate independently11 boundary cases, not integrated"
+    }
+  ],
+  "evidence": [
+    "coordination/evidence/PMV-20261028-01/SOURCE_MANIFEST.json",
+    "coordination/evidence/PMV-20261028-01/DOCUMENT_REQUIREMENTS.json",
+    "coordination/evidence/PMV-20261028-01/backend-review/REPORT.md",
+    "coordination/evidence/PMV-20261028-01/frontend-review/REPORT.md",
+    "coordination/evidence/PMV-20261028-01/COORDINATOR_FORMULA_QUESTION.json",
+    "coordination/evidence/PMV-20261028-01/gemini/coordinator-independent-check.json"
+  ],
+  "nextAction": "PMVR exact817 accepted with independent root source review and frontend package review; merge and release/readback; remaining document groups stay later",
+  "deploy_owner": "coordinator",
+  "releaseReady": false,
+  "updatedAt": "2026-10-28T13:51:12.291097+08:00",
+  "notes": {
+    "formulaDecision": "BIZ-07 user confirmed single delta deduction and residual cents to platform; simulation/config only, no real money",
+    "requirementGroups": 28,
+    "collaboration": "Visible backend/frontend completed and idle; Gemini small candidate succeeded, larger task stopped/no usable code; root unique release owner",
+    "confirmedDecisions": [
+      "BIZ-07",
+      "BIZ-08",
+      "BIZ-09"
+    ],
+    "currentIntegrationTask": "PMVR817 acceptancePASS; previous b77/c3 review evidence retained"
+  },
+  "reviewBaseSha": "b77e8f7af03bd2a8af535de34bd13d5acd0a387a"
+}

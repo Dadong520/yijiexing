@@ -19,3 +19,4 @@ Gemini本轮独占已结束：内置agy默认新context/90s，无模型覆盖/�
 最新投影补丁/待合并HEAD 33fa8e3102c61b9190f3fa7d49281ad8274f79c5，取代5234076作为本任务最新待合并点；当前backend IDLE，无服务占用。
 
 增量 2026-10-28T13:36:31+08:00：root发现通过说明被丢弃，已保留可选reason到auditRecords及audit显式reason/approved；通过清空rejectionReason/reply，驳回仍必填2..500字，通过说明严格字符串0..500字（空/省略兼容）。11证件专项PASS/1.930s，非空留存/重启、空省略、坏类型/超长400、驳回最短2字均覆盖。契约v1.4，未重跑无关251；金额/发票无变，root最终非作者reason断言待做。补丁SHA见本轮中央task，backend随后IDLE。
+最新通过说明补丁/待合并HEAD f1f9128aa34c9269f407178b963ca990f83de7a3，取代33fa8e3为本任务最新待合并点；无后台服务占用。

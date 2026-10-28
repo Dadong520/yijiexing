@@ -1,0 +1,46 @@
+{
+  "schemaVersion": 1,
+  "id": "PMVF-20261028-01",
+  "owner": "frontend",
+  "goal": "只读核对修改意见2.0的后台导航及司乘端联动缺口，给出确定改动和可验收第一批",
+  "baseSha": "b77e8f7af03bd2a8af535de34bd13d5acd0a387a",
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-pm-amap-20261027",
+  "branch": "codex/experience-release-receipt-20261027",
+  "allow_paths": [
+    "coordination/tasks/PMVF-20261028-01.json",
+    "coordination/evidence/PMV-20261028-01/frontend-review/",
+    "coordination/handoffs/frontend.md"
+  ],
+  "checks": [
+    "按SOURCE_TEXT逐项核32模块草稿现状和客户端缺口，区分真实数据/模拟/缺服务",
+    "重点公告有效期弹窗、公司客服电话、地区功能入口、热力图无阈值/订单60分钟/上线司机定位、证件60天提醒更新解除、钱包和车辆/开票/积分展示",
+    "给出精确相关文件和第一批实现/真实测试场景；不修改产品/启动设备/调用云端/提交/发布"
+  ],
+  "status": "READ_ONLY_REVIEW_COMPLETE",
+  "acceptance": "NOT_RUN",
+  "tests": [
+    {
+      "command": "python3 tools/check_coordination.py --memory-role frontend --session-id 01a167c8-a5eb-77e3-b77e-214927a029da",
+      "result": "PASS; CHECKPOINT_REQUIRED/UNKNOWN prior to card refresh"
+    },
+    {
+      "command": "git status --short --branch; git rev-parse HEAD; Python AST CATALOG; targeted rg/sed",
+      "result": "PASS: clean product at fixed b77e8f7; 32 draft entries verified; static review only"
+    },
+    {
+      "command": "central check_coordination.py after task/card update",
+      "result": "首次拒绝自定义acceptance=PASS_SCOPE；已改合法NOT_RUN，静态审查结论独立记reviewResult；见最终门禁读回"
+    }
+  ],
+  "evidence": [
+    "coordination/evidence/PMV-20261028-01/frontend-review/REPORT.md",
+    "coordination/evidence/PMV-20261028-01/frontend-review/result.json"
+  ],
+  "nextAction": "coordinator合并两角色只读结论后派唯一实施任务；建议先公告/公司电话/地区入口/资质60天；业务测试NOT_RUN",
+  "deploy_owner": "coordinator",
+  "releaseReady": false,
+  "updatedAt": "2026-10-28T12:11:40.056698+08:00",
+  "pendingMergeSha": null,
+  "reviewResult": "PASS_SCOPE_READ_ONLY",
+  "acceptanceScope": "2.0业务运行验收未执行；源码需求核对已完成，不是发布门禁PASS"
+}

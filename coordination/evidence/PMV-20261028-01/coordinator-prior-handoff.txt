@@ -1,0 +1,26 @@
+# coordinator 当前短卡
+ACK 2026-10-26-v3；真实会话01a17cc7-e0a2-7791-bf1d-4611c09bab22/generation6；2026-10-28T00:36:21.805537+08:00。此前一次可见压缩已按START_HERE恢复，实际遥测UNKNOWN。中央唯一权威，旧总管退休。
+RELTEST-20261027-01已DELIVERED_FOR_USER_ACCEPTANCE；用户明确要求测试版交付，DLV01不以全项目最终验收阻塞。PR28 merge 1d04ff7ce64779fe9f9122513dd651f305093b79与48d2ef4树相等；54e6d313 API/Android目录同字节。backend合并13、frontend真实DOM/32草稿模块HTTP、Android20/59+build/四Key0/同签名、两包HTTPS独立完整回读均限定PASS。高德1008/10008仍FAIL、公共点NOT_RUN，不称全项目完成。
+已发API driver-demo-pm-54e6d313-dl900100%，admin driver-admin-pm-48d2ef4-test2100%。同独立项目yijiexing-driver-demo-1023/us-west1，ENV/secret/SA/IAM和PASSWORD无Google/IAP不变，automatic/min0/max1请求计费无保活。API仅下载超时300→900，同镜像业务代码。稳定health200，后台/static/admin.js与48已验字节一致。
+司机0.3.13-cloud/code16、乘客1.1.13-experience/code15固定对象已更新、旧包archive，9ffec9证书一致。自有域名整包慢；同服务快链https://user-test---driver-demo-phfgquzmua-uw.a.run.app/download 与/download-passenger两包均约12秒完整下载，hash/bytes/包名/版本/签名与构建相同。35旧单发布前后ID和业务字段完全保留，root新增0。
+root树/Users/dongge/.codex/tmp/yijiexing-pm-amap-20261027，当前仅回执branch codex/experience-release-receipt-20261027，base merge1d04ff7；RELREC已由PR29合并，实际版本/回执已保存。产品不再改，不重复旧feature分支发布。唯一后端写树/Users/dongge/.codex/tmp/yijiexing-admin-drafts-20261027，branch PMPOST作者83c7c2a未集成，根非作者+客户端待办；勿并改副本。BIZ04/05/06见DECISIONS；32类只草稿/记录，资金等不自动生效；微信/OEM/部分GUI未全测。
+回执central evidence/PM-20261027-01/release-test-20261027/FINAL-RELEASE-RECEIPT.json、HTTPS-APK-READBACK.md等。private仅/Users/dongge/.codex/private/yijiexing，DB/Key/manifest/账号不打印；APK/缓存仓库外。旧35基线指纹6eeda7c…、orders-after0变化。Gemini地区限制0token仍idle不绕过。
+资源：root上传/部署均结束，无AVD；frontend无设备/fixture/tab/下载进程。没有自动化/后台常驻。最后RELREC已PR29合并main c3c876ef3359f8bc4bb306f515637e1fc72ca621，fetch/产品目录无差异/clean已回读。当前root文档分支HEADb77e8f7，main为c3c876e；实际产品仍PR28合并1d04ff7，无需重复部署。用户已获两快链和后台入口，后续按验收反馈继续，不自行扩任务或遍历历史。
+
+本轮用户要核实事项汇总，已分当前真机验收/可选外部协助/后续规则，不重问已确认Android绑定与BIZ04/05/06。范围JSON在PM evidence/USER_VERIFICATION_SCOPE.json；只提供清单，无部署/代码/规则变更。
+
+后台访问反馈：用户Chrome报ERR_TUNNEL_CONNECTION_FAILED，root同原域名reload后实际登录页恢复，AX+截图确认；custom direct/proxy health200，backend独立根页200/state401。未输入凭据、未登录，没改代理/账号/IAM/部署。备用run.app本网络超时，不另给此备用。证据admin-network-20261028/RESOLUTION.json。
+
+2026-10-28恢复：本轮出现可见压缩，已按START_HERE定向恢复PMMAP，不重跑已验发布。用户新传双Android设置图，正核对当前发布包身份及官方错误码；frontend只读复核包签名，无设备/新发布。context UNKNOWN。
+
+高德设置核对2026-10-28：用户双Android设置图平台/包名/发布调试SHA1均匹配当前发布APK，frontend独立aapt/apksigner/hash通过；同证书故相同SHA1正常。协议框未勾选只说明截图编辑态，不推翻用户已保存。evidence/PM-20261027-01/key-settings-review-20261028/。未改Key/代码/云端，1008/10008仍未解，改标SDK_AUTH_DIAGNOSIS_PENDING避免先归咎外部。恢复结束NORMAL，context UNKNOWN。
+
+GOV-04（2026-10-28用户最新）：以后常规协作恢复侧栏可见的独立后端/前端Codex会话+Gemini/反重力，内部子代理不默认替代。优先候选backend01a168e2-22f7-70a2-af7f-4fb6be0ea695、frontend01a167c8-a5eb-77e3-b77e-214927a029da；下一具体任务前按中央入口交接、更新唯一角色登记，不直接沿用旧源码记忆。本轮只记偏好，未派开发/新建会话/启动Gemini；下次派单明确告诉用户会话名、任务与状态。证据COLLABORATION_PREFERENCE_20261028.json。
+
+修改意见2.0接收2026-10-28：用户仅附doc文件，企业微信Library/Containers缓存路径被OS拒绝（file/textutil均无权限），尚未读取正文，未派单/改代码/发布。等待用户另存下载或项目目录后提供可读文件；继续按GOV-04独立会话+Gemini协作。evidence/PM-20261027-01/PM2_DOCUMENT_INTAKE_20261028.json。
+
+PMV-20261028-01当前阶段：下载副本可读，正文已提取evidence/PMV-20261028-01/SOURCE_TEXT.txt。恢复可见独立backend01a168e2/PM2BE、frontend01a167c8/PM2FE，仅写各自报告/短卡，不写产品。登记已切换，旧内部代理不再派单。root树clean HEADb77e8f7/mainc3c876e；产品仍旧发布。下一步收规则/缺口审查并试Gemini短任务，再拆唯一代码路径。不自动执行文档中群通知/真实资金；金融公式和规则需审核。
+
+PMVG已完成：内置agy独立conversation1dde7226-8e36-42e9-93a6-bfcd963e9a71，26秒SUCCESS/1turn，未指定模型。公告纯校验候选root非作者11用例PASS，仅代码候选未产品集成；Gemini当前idle，不再误称地区必阻。PMVB/PMVF独立会话仍读审报告，已发现文档差额重复扣不平账、现有热力合成点和证件30天vs要求60天，等待报告收口。
+
+BIZ-07用户已答采用单次扣除：δ仅在可抽佣S−δ扣一次，平台不再重复扣，分币余数归平台；仅配置/模拟不启用真实资金。具体F100/S40/C0/M1/各50算例，字面138.65 vs净138.95，修正后138.95；证据COORDINATOR_FORMULA_QUESTION.json已更新确认。后端审读报告如写待确认已被此最新答复取代，手续费分币舍入仍须明确审核。

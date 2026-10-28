@@ -1,0 +1,89 @@
+{
+  "task": "PMVA-20261028-01",
+  "sourceSha": "817ed22bce503620d692e097a5f8ea996edf5fb2",
+  "scope": "Independent root package/version/signature/hash and receipt binding only; frontend source business independently reviewed by coordinator",
+  "startedAt": "2026-10-28T13:46:17.574029+08:00",
+  "artifacts": {
+    "passenger": {
+      "sha256": "3130dd4e7ec7aa8e90f89f93d2b6979f1ec7569afe0db2a8d6e654a32720de48",
+      "bytes": 107529637,
+      "package": "cn.hbzjhs.dc.passenger.cloud",
+      "versionName": "1.1.14-experience",
+      "versionCode": 16,
+      "aaptExit": 0,
+      "apksignerExit": 0,
+      "signerSha256": "9ffec9b342d12909ff288bd73f23ba104893b39120cb24ea83c9734a0d2b758f",
+      "signerSha1": "d06f0a9eac9dfddc0830b98af06e2f68b6d20246",
+      "originalSignerMatch": true,
+      "componentSourceCommit": "770781cc5c5d5ac58e046db7c70e7389c995f6b2",
+      "componentPath": "apps/passenger-android",
+      "componentTree": "875615c9bcea13c6b20607a0274de1a739438f51",
+      "sameComponentTreeAsIntegration": true,
+      "readOnly": true
+    },
+    "driver": {
+      "sha256": "b2166efab8b8f7ba2a0a7ff1a51237699eeb9d7000f5c8301546279b54a6445f",
+      "bytes": 108636805,
+      "package": "cn.hbzjhs.dc.driver.cloud",
+      "versionName": "0.3.14-cloud",
+      "versionCode": 17,
+      "aaptExit": 0,
+      "apksignerExit": 0,
+      "signerSha256": "9ffec9b342d12909ff288bd73f23ba104893b39120cb24ea83c9734a0d2b758f",
+      "signerSha1": "d06f0a9eac9dfddc0830b98af06e2f68b6d20246",
+      "originalSignerMatch": true,
+      "componentSourceCommit": "d5afe915eab8d0ad3cfc638a26740954eb86acf0",
+      "componentPath": "candidates/driver-0.3.6-r2/android",
+      "componentTree": "b22619e0f4da41f06ab605bd35a1991f997978af",
+      "sameComponentTreeAsIntegration": true,
+      "readOnly": true
+    }
+  },
+  "receiptReviews": {
+    "FINAL_INDEPENDENT_HTTP.json": {
+      "testedSha": "817ed22bce503620d692e097a5f8ea996edf5fb2",
+      "testsRun": 7,
+      "reportedNoFailures": true,
+      "reportedSourceUnchanged": true,
+      "sourceHashesRechecked": 19,
+      "allHashesMatchFixedCommitAndCurrentFiles": true,
+      "sha256": "5ed1ed82ef8f1fba0375074be7bf1e60e67321e52ece1871081e34633e9a0752",
+      "testNotRerunByReviewer": true
+    },
+    "backend-results.json": {
+      "testedSha": "817ed22bce503620d692e097a5f8ea996edf5fb2",
+      "testsRun": 13,
+      "reportedNoFailures": true,
+      "reportedSourceUnchanged": true,
+      "sourceHashesRechecked": 41,
+      "allHashesMatchFixedCommitAndCurrentFiles": true,
+      "sha256": "2613622343d422f10ace3f6f6682e94c85ba061e015e7f8e6baad3913381064a",
+      "testNotRerunByReviewer": true
+    },
+    "ADMIN_DOM_REVIEW.json": {
+      "checksReported": 8,
+      "allReportedPass": true,
+      "reportedScope": "Actual CUA DOM + real BrowserHandler PASSWORD + SQLite/MemoryCAS; all synthetic localhost data",
+      "webFinalSource": "770781cc5c5d5ac58e046db7c70e7389c995f6b2",
+      "sameWebTreeAsFinal": true,
+      "backendLoadedSource": "83f89443bdea79ba071edc6a446df2fe845460b6",
+      "limitationsPreserved": [
+        "Android device UI and WeChat runtime not run here.",
+        "Late backend invoice projection/approval-note changes require final HTTP binding; admin UI functions tested are unaffected except explicitly checked web pending count patch."
+      ],
+      "reviewerDidNotRepeatGui": true,
+      "sha256": "068fc2cbb47273dc8049fb9d941dd301fa5806d776f1cea3e11f269e7b72c296"
+    }
+  },
+  "notRun": [
+    "device install/UI",
+    "WeChat runtime",
+    "cloud/network deployment",
+    "repeat Key scans",
+    "frontend business self-acceptance"
+  ],
+  "result": "PASS_SCOPE",
+  "sourceUnchangedDuringReview": true,
+  "finishedAt": "2026-10-28T13:46:20.152620+08:00",
+  "reportSha256": "438447096704fa2c07a43c461edfc94d3b9d7d5c012c29ffe0cf2b8168f24026"
+}

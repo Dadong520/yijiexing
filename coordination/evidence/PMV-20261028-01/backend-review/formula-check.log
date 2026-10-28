@@ -1,0 +1,7 @@
+PASS: 10 candidate closures, 8 document counterexamples, 2 zero-delta controls, fee-rounding difference.
+NO_COUPON delta=0.08 doc_total=109.09 gateway=109.17 residual=-0.08
+SMALL_COUPON delta=0.04 doc_total=109.17 gateway=109.21 residual=-0.04
+LARGE_COUPON delta=-0.07 doc_total=109.39 gateway=109.32 residual=0.07
+ZERO_DELTA_CONTROL delta=0.00 doc_total=109.25 gateway=109.25 residual=0.00
+COORDINATOR_100_40_0_1_50_50 delta=0.30 doc_total=138.65 gateway=138.95 residual=-0.30
+Product binding PASS; no product execution or cloud/data access.

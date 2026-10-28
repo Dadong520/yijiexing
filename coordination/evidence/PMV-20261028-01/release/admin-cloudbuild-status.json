@@ -1,0 +1,17 @@
+{
+  "id": "47827277-d22c-43ac-8612-265a43753343",
+  "results": {
+    "images": [
+      {
+        "artifactRegistryPackage": "projects/yijiexing-driver-demo-1023/locations/us-west1/repositories/demo/packages/admin-ui/versions/sha256:cbc43c3f1d64c9dc42c428c5aecdcd99a25eb2963c9e17d0b061a9f45e1d9224",
+        "digest": "sha256:cbc43c3f1d64c9dc42c428c5aecdcd99a25eb2963c9e17d0b061a9f45e1d9224",
+        "name": "us-west1-docker.pkg.dev/yijiexing-driver-demo-1023/demo/admin-ui:pmv-817ed22",
+        "pushTiming": {
+          "endTime": "2026-10-28T05:50:22.360549964Z",
+          "startTime": "2026-10-28T05:50:20.562941958Z"
+        }
+      }
+    ]
+  },
+  "status": "SUCCESS"
+}

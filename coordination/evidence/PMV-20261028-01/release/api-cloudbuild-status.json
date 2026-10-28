@@ -1,0 +1,17 @@
+{
+  "id": "ddb1c9d4-4e2e-4547-921b-317f75707e63",
+  "results": {
+    "images": [
+      {
+        "artifactRegistryPackage": "projects/yijiexing-driver-demo-1023/locations/us-west1/repositories/demo/packages/driver-cloud/versions/sha256:d074a2d4dec29113b767803395de94e0c7953a716c9abb3b38383f0ac1763bbe",
+        "digest": "sha256:d074a2d4dec29113b767803395de94e0c7953a716c9abb3b38383f0ac1763bbe",
+        "name": "us-west1-docker.pkg.dev/yijiexing-driver-demo-1023/demo/driver-cloud:pmv-817ed22",
+        "pushTiming": {
+          "endTime": "2026-10-28T05:50:18.124281306Z",
+          "startTime": "2026-10-28T05:50:16.652914791Z"
+        }
+      }
+    ]
+  },
+  "status": "SUCCESS"
+}

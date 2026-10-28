@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "id": "PMVG-20261028-01",
+  "owner": "antigravity",
+  "goal": "为修改意见2.0的公告配置生成无外部动作的纯校验函数候选；检查当前Gemini实际可用性",
+  "baseSha": "b77e8f7af03bd2a8af535de34bd13d5acd0a387a",
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-pm-amap-20261027",
+  "branch": "codex/experience-release-receipt-20261027",
+  "allow_paths": [
+    "coordination/evidence/PMV-20261028-01/gemini/",
+    "coordination/handoffs/antigravity.md"
+  ],
+  "checks": [
+    "只用文字输出，不调用文件/命令工具，不改账户/模型/全局设置；短输入、新独立上下文、90秒时限",
+    "真实记录conversation_id与结果，失败不称已实现；作者输出须Codex独立复核"
+  ],
+  "status": "CANDIDATE_GENERATED_AND_INDEPENDENTLY_CHECKED",
+  "acceptance": "PASS",
+  "tests": [
+    {
+      "result": "PASS_SCOPE: 11 independent pure-validator boundary checks; no product integration",
+      "evidence": "coordination/evidence/PMV-20261028-01/gemini/coordinator-independent-check.json"
+    }
+  ],
+  "evidence": [
+    "coordination/evidence/PMV-20261028-01/gemini/result.json"
+  ],
+  "nextAction": "No continuing Gemini turn; candidate only, API/clients integration awaits scoped implementation task",
+  "deploy_owner": "coordinator",
+  "releaseReady": false,
+  "updatedAt": "2026-10-28T12:05:43.289848+08:00",
+  "conversationId": "1dde7226-8e36-42e9-93a6-bfcd963e9a71"
+}

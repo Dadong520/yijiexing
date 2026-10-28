@@ -45,7 +45,7 @@
     "handoffAuthorSession": "01a168e6-d76c-7ef0-8c87-706cc6e32d57",
     "userAuthorization": "2026-10-27 request + 继续 + explicit async answer 允许新建并接手（推荐）",
     "pendingUserQuestion": "双Android包名/SHA1用户已保存；乘客新POI仍1008，未再次索要Key",
-    "productChanges": "PMPA/PMBE/PMRES/PMCL限定PASS；PMAD后端6组PASS/UI待验；PMDEST后端4组+客户端非作者PASS；PMPOST作者待验；PMMAP外部SDK鉴权阻塞",
+    "productChanges": "PMPA/PMBE/PMRES/PMCL限定PASS；PMAD后端+真实UI已验并发布；PMDEST已验并发布；PMPOST未集成；PMMAP已知鉴权失败随测试版明示",
     "deployments": "API/admin100%及双新版APK已发布，备用HTTPS完整回读PASS，PR28 main1d04ff7",
     "coordinatorSession": "01a17cc7-e0a2-7791-bf1d-4611c09bab22",
     "reservationDecision": {
@@ -61,8 +61,12 @@
       "status": "PUSHED_REMOTE_VERIFIED",
       "mainMerged": true,
       "publicRelease": "EXPERIENCE_TEST_RELEASE"
-    }
+    },
+    "userVerificationScope": "coordination/evidence/PM-20261027-01/USER_VERIFICATION_SCOPE.json",
+    "adminAccessFeedback": "2026-10-28 user Chrome ERR_TUNNEL_CONNECTION_FAILED; same original tab reload restored login UI, direct/proxy health200, no auth/proxy/IAM/service changes; evidence/admin-network-20261028/RESOLUTION.json",
+    "collaborationPreference": "GOV04 active: visible backend/frontend plus per-task GeminiCLI, root unique dispatch/acceptance/release",
+    "feedback2Intake": "Download copy read,28 requirement groups reviewed; first4 live operations independently accepted817 and currently release preparation under PMVR"
   },
-  "updatedAt": "2026-10-28T00:36:21.805537+08:00",
+  "updatedAt": "2026-10-28T13:51:12.291097+08:00",
   "candidateSha": "0df8b187ac2f68c52fa6d17db846fbb8854b4eda"
 }

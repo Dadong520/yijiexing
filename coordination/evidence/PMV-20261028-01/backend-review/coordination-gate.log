@@ -1,0 +1,2 @@
+PASS: compact project records are valid; this is not business acceptance
+MEMORY: backend CHECKPOINT_REQUIRED; context=UNKNOWN (no model telemetry)

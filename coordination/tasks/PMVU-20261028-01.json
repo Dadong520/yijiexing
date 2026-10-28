@@ -1,0 +1,84 @@
+{
+  "schemaVersion": 1,
+  "id": "PMVU-20261028-01",
+  "owner": "frontend",
+  "goal": "实现首批后台实际菜单/表单与司乘客户端：公告、公司客服、地区入口、60天三证提醒及审核联动；按backend固定合同集成，不写后端。",
+  "baseSha": "c3c876ef3359f8bc4bb306f515637e1fc72ca621",
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-pmv-clients-20261028",
+  "branch": "codex/operations-v2-clients-20261028",
+  "allow_paths": [
+    "apps/admin-console/web/",
+    "apps/passenger-android/app/src/main/",
+    "apps/passenger-android/app/src/test/",
+    "candidates/driver-0.3.6-r2/android/app/src/main/",
+    "candidates/driver-0.3.6-r2/android/app/src/test/",
+    "candidates/passenger-miniprogram-0.1.0/miniprogram/",
+    "coordination/tasks/PMVU-20261028-01.json",
+    "coordination/evidence/PMV-20261028-01/client-implementation/",
+    "coordination/handoffs/frontend.md"
+  ],
+  "checks": [
+    "后台独立admin-console/web实际导航新增可见业务入口（公告管理、公司与客服电话、乘客端功能配置、资质到期提醒），保留原32类草稿历史，不用自由JSON参数冒充可用业务表单；明确草稿/发布/撤回、有效期、版本冲突与权限",
+    "BIZ09小程序登录后读取有效公告，每用户每版本弹一次，可关闭；使用后台合同回执跨账户/重试去重，state静默刷新不能提前耗次数；Android乘客如合同支持明确受众可同规则；不冒称微信订阅/系统离线推送",
+    "公司客服电话按明确公司/订单归属显示，缺失不填假号码，点击由用户确认系统拨号；Android双端/小程序按合同一致；客户端不自行以车队字符串推公司ID",
+    "地区即时/预约/竞价/模拟开票开关：首页/个人中心入口与新请求一致，刷新/切服务区/重登一致；历史单/发票查询保留。driver权益不是乘客开关，未配置兼容旧有",
+    "BIZ08三证提前60天提醒/可更新，审核中显示待审但有效旧证继续使用；通过才解除相关提醒/限制，过期阻新单但可完成在途。服务端权威，不以本地隐藏当解除；日期边界/状态文案一致",
+    "第一阶段可先核客户端状态模型/导航布局并准备边界场景；backend前10分钟会写中央contracts/PMV-OPERATIONS-API.md，root通知后绑定接口，不自造action名称。Gemini CLI当前backend独占，frontend本阶段不并发调用",
+    "适用Android单测/编译及mini既有测试，后台真实DOM/API留给root非作者；不写版本/构建gradle由root统一、APK外置、不得打印Key。无AppID微信运行NOT_RUN如实报告，发现缺口不伪称发布",
+    "保留当前共享订单、认证、角色权限、Origin/限流/审计/幂等/CAS及旧数据迁移兼容；不改真实金额、发分或资金服务；不访问原环境",
+    "仅任务唯一文件归属，一任务一分支；提交前跑中央check_coordination.py --memory-role对应角色 --session-id真实ID；作者测试不等于独立验收，root统一合并发布"
+  ],
+  "status": "INDEPENDENT_ACCEPTANCE_PASS_INTEGRATED",
+  "acceptance": "PASS",
+  "tests": [
+    {
+      "command": "external driver Gradle :app:testDebugUnitTest :app:assembleDebug --offline --no-daemon --max-workers=1",
+      "result": "63 PASS; assembleDebug PASS"
+    },
+    {
+      "command": "external passenger Gradle :app:testDebugUnitTest :app:assembleDebug --offline --no-daemon --max-workers=1",
+      "result": "22 PASS; assembleDebug PASS"
+    },
+    {
+      "command": "node --test tests/*.test.js (mini)",
+      "result": "70 PASS; legacy local HTTP integration included; new ops HTTP NOT_RUN"
+    },
+    {
+      "command": "node --test apps/admin-console/web/operations.test.js; node --check admin.js; git diff --check",
+      "result": "3 PASS; syntax/diff PASS; REVIEW/PENDING label compatibility tested"
+    },
+    {
+      "command": "python3 tools/check_coordination.py --root CENTRAL --memory-role frontend --session-id 01a167c8-a5eb-77e3-b77e-214927a029da",
+      "result": "PASS immediately before product-only commit; earlier root-card size rejection resolved by root"
+    },
+    {
+      "command": "passenger announcement busy callback static path check and external :app:compileDebugKotlin --offline --no-daemon --max-workers=1",
+      "result": "PASS at b450524; old 63/22/70/3 tests/build from df9f47b reused, no unrelated rerun; runtime GUI NOT_RUN"
+    },
+    {
+      "command": "node --test apps/admin-console/web/operations.test.js; node --check admin.js; git diff --check; coordination real frontend gate",
+      "result": "4 PASS at519123c; actual pendingCount expression new/legacy/both-once/after-review0/empty/unloaded. DOM by root NOT_RUN here; no Android/mini rerun"
+    },
+    {
+      "command": "passenger :app:testDebugUnitTest :app:compileDebugKotlin; node --test mini/tests/*.test.js; diff and central frontend gate",
+      "result": "24 unit + compile PASS; mini72 PASS at87aaffc. Per-order true overrides closed profile and false overrides open profile; absent fallback; no APK/driver/admin rerun. Actual new HTTP/GUI NOT_RUN here"
+    }
+  ],
+  "evidence": [
+    "coordination/evidence/PMV-20261028-01/client-implementation/REPORT.md",
+    "coordination/evidence/PMV-20261028-01/client-implementation/result.json"
+  ],
+  "nextAction": "Integrated and independently accepted by coordinator; PMVR owns release/readback",
+  "deploy_owner": "coordinator",
+  "releaseReady": false,
+  "updatedAt": "2026-10-28T13:49:25.646916+08:00",
+  "pendingMergeSha": "87aaffcd97d518cbbefec2effa250ea76059073e",
+  "commitSequence": [
+    "df9f47b96f0e38afd53c88587fc9046a35b14bf5",
+    "b450524c249009af1c1adc2332538a8b88e1be68",
+    "519123c1b6e2712f5a71602d875bf653189c107b",
+    "87aaffcd97d518cbbefec2effa250ea76059073e"
+  ],
+  "acceptedSha": "817ed22bce503620d692e097a5f8ea996edf5fb2",
+  "reviewer": "coordinator"
+}

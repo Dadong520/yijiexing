@@ -1,0 +1,46 @@
+{
+  "schemaVersion": 1,
+  "id": "PMVA-20261028-01",
+  "owner": "frontend",
+  "goal": "非作者复核coordinator新版本打包与集成回执，只核包身份/签名/整包hash/组件树绑定；不自验自己前端业务源码",
+  "baseSha": "817ed22bce503620d692e097a5f8ea996edf5fb2",
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-pm-amap-20261027",
+  "branch": "codex/operations-v2-integration-20261028",
+  "allow_paths": [
+    "coordination/tasks/PMVA-20261028-01.json",
+    "coordination/evidence/PMV-20261028-01/artifact-review/",
+    "coordination/handoffs/frontend.md"
+  ],
+  "checks": [
+    "读APK_PROOF.json并独立算两APK hash、aapt版本/包名、apksigner原签名；乘客1.1.14/code16、司机0.3.14/code17；root集成817的组件树与构建源d5/770按目录一致",
+    "确认root FINAL_INDEPENDENT_HTTP 7和backend-results13为817、无fail/source未改；ADMIN_DOM_REVIEW为真实隔离BrowserHandler/GUI，源码所测范围边界明确，不自称自验前端实现",
+    "不读私有Key/账号，不起设备/服务/云调/提交/发布，不重复rootKey0扫描；只给短结论、证据、NOT_RUN"
+  ],
+  "status": "COMPLETED_READ_ONLY_ARTIFACT_REVIEW",
+  "acceptance": "PASS",
+  "tests": [
+    {
+      "command": "stream SHA256/size on both paths from APK_PROOF.json; SDK34 aapt dump badging and apksigner verify --print-certs",
+      "result": "PASS both hashes/sizes/packages/versions/original public signer match; exit0"
+    },
+    {
+      "command": "git component tree comparisons d5(driver)/770(passenger) to817; status/HEAD before-after",
+      "result": "PASS complete component trees equal, clean source unchanged"
+    },
+    {
+      "command": "read FINAL_INDEPENDENT_HTTP7/backend-results13 and rehash source files + fixed git objects; read ADMIN_DOM_REVIEW and compare770 web tree to817",
+      "result": "PASS receipts bind817 and no failures; all mapped hashes match; DOM8 recorded PASS/web tree equal; tests/GUI not repeated by reviewer"
+    }
+  ],
+  "evidence": [
+    "coordination/evidence/PMV-20261028-01/artifact-review/REPORT.md",
+    "coordination/evidence/PMV-20261028-01/artifact-review/result.json"
+  ],
+  "nextAction": "coordinator receive scoped packaging review and arrange release/readback; frontend IDLE",
+  "deploy_owner": "coordinator",
+  "releaseReady": false,
+  "updatedAt": "2026-10-28T13:47:52.671492+08:00",
+  "acceptanceScope": "ROOT_PACKAGE_AND_RECEIPT_BINDING_ONLY_NOT_FRONTEND_BUSINESS_SELF_ACCEPTANCE",
+  "acceptedSha": "817ed22bce503620d692e097a5f8ea996edf5fb2",
+  "pendingMergeSha": null
+}

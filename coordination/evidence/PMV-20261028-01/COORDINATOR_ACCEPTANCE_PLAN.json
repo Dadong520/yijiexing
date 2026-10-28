@@ -1,0 +1,40 @@
+{
+  "scope": "Planned independent acceptance, not yet run; adapt endpoint names only after fixed contract",
+  "businessStatus": "NOT_RUN",
+  "cases": {
+    "announcements": [
+      "Reading passenger state repeatedly must not consume display eligibility.",
+      "Only logged-in intended audience/current region can see a published version during [start,end).",
+      "First explicit display/receipt flow wins across repeated requests and two sessions; new version can display once again.",
+      "Withdrawn/expired/nonpublished versions cannot newly claim; account switching cannot reuse another account receipt.",
+      "Viewer/config-read-only cannot publish; stale expectedVersion returns409 without partial publish."
+    ],
+    "companySupport": [
+      "Two distinct companies retain durable IDs; explicit driver mapping governs support number, never a display-string match.",
+      "Passenger order owner sees that order company support; unrelated passenger cannot use an order ID to access private data.",
+      "Missing/disabled/unassigned company returns explicit unavailable state; phone must not be invented.",
+      "Phone update survives service restart; historical order/company association does not silently change on driver reassignment."
+    ],
+    "passengerFeatures": [
+      "Nation/region/city inheritance is deterministic and unpublished edits never affect users.",
+      "Switches gate creation APIs as well as UI; direct API cannot bypass hidden entry.",
+      "Disabling new booking/invoice does not delete or prevent viewing existing records or finishing an active trip.",
+      "Unconfigured/unknown eligible region uses explicit documented compatibility behavior; client refresh/region switch/relogin agree."
+    ],
+    "qualifications": [
+      "For each of insurance/license/professional certificate, test61/60/59/0/-1days relative UTC+8 plus LONG_TERM/unknown.",
+      "Approved old certificate remains usable during renewal pending while unexpired; submission must not globally lock otherwise eligible driver.",
+      "Old certificate expiring during review blocks each new-accept/quote/negotiated-claim/departure path; loaded trip still finishes.",
+      "Reject pending renewal preserves old valid version; approve atomically promotes new validity/images and clears relevant reminder only.",
+      "Refreshing or replaying old cached responses cannot autoapprove or resurrect expired eligibility.",
+      "Cross-driver identity/unauthorized audit cannot replace certificates."
+    ],
+    "regression": [
+      "Waiting reservation stays separate from immediate; dual-role executing conflict remains enforced.",
+      "Finished unpaid trip blocks that passenger new call; old pending-destination records keep same ID.",
+      "Canonical ARRIVED-only tail/contact privacy and idempotent settlement/refund remain unchanged.",
+      "New operation config changes no balance/payment/withdrawal/score/points/coupon records; current sandbox labels retained."
+    ]
+  },
+  "deployment": "Only coordinator after exact-SHA checks; independent experience project, preserve existing35-order baseline and accounts"
+}

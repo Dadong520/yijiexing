@@ -1,0 +1,13 @@
+# 修改意见2.0 首批独立验收
+
+产品固定817ed22bce503620d692e097a5f8ea996edf5fb2；作者backend/front与coordinator独立。首批为公司客服电话/司机公司关联、公告发布回执、地区乘客开关及服务端门禁、三证60天提醒与有效旧证替换审核。用户BIZ07/08/09已确认。
+
+coordinator在真实localhost HTTP、SQLite和共享MemoryCAS上完成7组新业务和13组兼容回归；FINAL_INDEPENDENT_HTTP.json与backend-results.json均绑定817并确认文件未改。真实BrowserHandler PASSWORD模式与CUA DOM复核8项后台场景，ADMIN_DOM_REVIEW.json明确各源码版本和晚期delta；web树与817一致，晚期跨城发票投影/审核说明由最终HTTP覆盖。所有页面和流程数据均为隔离合成数据，未写共享云订单。
+
+发现并由作者修复后再次检查的缺口：驳回更新入口、待审附件来源标签、总览待审计数、逐订单城市开票标志、公告请求busy释放、通过审核说明留审计。真实DOM截图/冲突与权限证据保留。
+
+root统一升级Android版本并外置构建；乘客24、司机63单测及两APK构建通过，mini72和admin4通过。两APK身份、原签名、整包hash、四个私有地图凭据模式零匹配，见APK_PROOF.json。frontend独立PMVA只复核root打包和回执绑定（artifact-review/result.json），不自验自己前端业务。所有组件树与817一致。
+
+范围限制：Android新GUI/微信真机运行NOT_RUN；微信缺AppID未发布。高德鉴权1008/10008尚未解决，本版不以司机底图成功冒充完整SDK验收。支付、退款、提现、发票仍模拟；分账费率只确认模拟口径，未真实扣款、发分或发奖。文档28组中其余功能不作为首批已实现。之前PMPOST未独立验收，未集成。
+
+结论：上述首批适用源码、实际后台DOM和打包范围PASS，可按DLV01发布独立体验项目进行用户验收；全项目三端真实业务最终验收未完成。当前发布事实以release回执为准。

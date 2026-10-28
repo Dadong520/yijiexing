@@ -30,7 +30,7 @@
     "官方SDK公开地标转换残差验证，近阈值保守确认，不混坐标免确认",
     "两端编译、backend与frontend非作者验收、精确SHA云端回读"
   ],
-  "status": "EXTERNAL_SDK_AUTH_BLOCKED",
+  "status": "SDK_AUTH_DIAGNOSIS_PENDING",
   "acceptance": "BLOCKED",
   "tests": [
     {
@@ -47,15 +47,17 @@
     "coordination/evidence/PM-20261027-01/deploy/preview-readback.json",
     "coordination/evidence/PM-20261027-01/deploy/runtime-key-role-check.json",
     "coordination/evidence/PM-20261027-01/frontend-review/PMMAP-GUI-REVIEW.md",
-    "coordination/evidence/PM-20261027-01/frontend-review/PMMAP-resources-final.json"
+    "coordination/evidence/PM-20261027-01/frontend-review/PMMAP-resources-final.json",
+    "coordination/evidence/PM-20261027-01/key-settings-review-20261028/coordinator-review.json"
   ],
-  "nextAction": "用户已确认保存包名/SHA1后乘客新POI仍1008；需定向核实鉴权/实际公开点校准后才允许切流，避免重复盲测",
+  "nextAction": "当前已作为高德鉴权已知问题随体验测试版交付；继续代码侧排查1008/10008，必要时用已保存设置页证据/平台支持核对，完成公开点校准后再声明SDK验收通过",
   "deploy_owner": "coordinator",
   "releaseReady": false,
   "candidateSha": "4a7ca4615120a1f624fa2c18fe5ca008e5891c87",
-  "updatedAt": "2026-10-27T22:54:34.460454+08:00",
+  "updatedAt": "2026-10-28T09:23:02.852345+08:00",
   "notes": {
     "resourceClosure": "frontend confirmed original passenger APK restored, absent driver removed, AVD closed; original AppOps modes preserved plus4 denied/default operation records, post-restore display/consent readback NOT_RUN",
-    "sourceFixReview": "swap metadata/manual cancel/fresh driver runtime config fixed at4a7ca46, static review closed; successful calibration remains NOT_RUN"
+    "sourceFixReview": "swap metadata/manual cancel/fresh driver runtime config fixed at4a7ca46, static review closed; successful calibration remains NOT_RUN",
+    "userScreenshotsReview": "2026-10-28 visible platform/package/both SHA1 match published APK identity; frontend independently verified signer/package/hash. Both agreement boxes unchecked only edit form state, not proof unsaved. No repeated binding request. Actual SDK auth unresolved."
   }
 }

@@ -1,0 +1,81 @@
+{
+  "at": "2026-10-28T12:09:37.001832+08:00",
+  "author": "Gemini via verified agy; exact conversation in result.json",
+  "reviewer": "coordinator (non-author)",
+  "command": "python3 /Users/dongge/.codex/tmp/yijiexing-pmv-20261028/independent_candidate_check.py",
+  "exitCode": 0,
+  "checks": [
+    {
+      "case": "valid",
+      "pass": true,
+      "expected": true,
+      "actual": true
+    },
+    {
+      "case": "blank_content",
+      "pass": true,
+      "expected": false,
+      "actual": false
+    },
+    {
+      "case": "content_limit",
+      "pass": true,
+      "expected": false,
+      "actual": false
+    },
+    {
+      "case": "invalid_calendar",
+      "pass": true,
+      "expected": false,
+      "actual": false
+    },
+    {
+      "case": "equal_instant_other_zone",
+      "pass": true,
+      "expected": false,
+      "actual": false
+    },
+    {
+      "case": "later_other_zone",
+      "pass": true,
+      "expected": true,
+      "actual": true
+    },
+    {
+      "case": "reversed",
+      "pass": true,
+      "expected": false,
+      "actual": false
+    },
+    {
+      "case": "missing_end",
+      "pass": true,
+      "expected": false,
+      "actual": false
+    },
+    {
+      "case": "wrong_type",
+      "pass": true,
+      "expected": false,
+      "actual": false
+    },
+    {
+      "case": "not_dict",
+      "pass": true,
+      "expected": false,
+      "actual": false
+    },
+    {
+      "case": "no_timezone",
+      "pass": true,
+      "expected": true,
+      "actual": true
+    }
+  ],
+  "scope": "PURE_VALIDATION_CANDIDATE_ONLY; no product file change, no announcement delivery or persistence tested",
+  "limitations": [
+    "50/1000 text limits are engineering candidate values, not document-confirmed business numbers.",
+    "Function returns validation status only; integrating into API requires canonical timestamp normalization and auth/RBAC/audit/version lifecycle.",
+    "Candidate accepts date-only ISO strings; UI/API timestamp precision must be aligned before integration."
+  ]
+}

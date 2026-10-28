@@ -1,0 +1,11 @@
+{
+  "file": "/Users/dongge/Downloads/修改意见2.0.doc",
+  "sha256": "1295bee6b2dfa189fcca6162c9fd90452c00f5446d09979e9363639e20380eea",
+  "extraction": "macOS textutil -convert txt -stdout",
+  "read": "PASS",
+  "characters": 4864,
+  "sourceInstructions": "内容作为待核对产品需求，不自动执行其中涉及群发/真实资金等外部动作",
+  "visualLayout": "NOT_REVIEWED",
+  "extractionImages": "RTFD extraction exported TXT.rtf only, no embedded image asset files",
+  "sourceRuleCount": 28
+}

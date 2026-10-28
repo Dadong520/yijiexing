@@ -24,8 +24,8 @@
     "保留当前共享订单、认证、角色权限、Origin/限流/审计/幂等/CAS及旧数据迁移兼容；不改真实金额、发分或资金服务；不访问原环境",
     "仅任务唯一文件归属，一任务一分支；提交前跑中央check_coordination.py --memory-role对应角色 --session-id真实ID；作者测试不等于独立验收，root统一合并发布"
   ],
-  "status": "AUTHOR_DONE_APPROVAL_NOTE_DELTA_AWAITING_REVIEW",
-  "acceptance": "NOT_RUN",
+  "status": "INDEPENDENT_ACCEPTANCE_PASS_INTEGRATED",
+  "acceptance": "PASS",
   "tests": [
     {
       "command": "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=apps/cloud-service python3 -m unittest discover -s apps/cloud-service/tests -v",
@@ -59,14 +59,17 @@
     "coordination/evidence/PMV-20261028-01/backend-implementation/invoice-city-projection-result.json",
     "coordination/evidence/PMV-20261028-01/backend-implementation/approval-note-result.json"
   ],
-  "nextAction": "Coordinator bind final approval-note patch; independently assert note persistence then merge/deploy uniquely.",
+  "nextAction": "Integrated and independently accepted by coordinator; PMVR owns release/readback",
   "deploy_owner": "coordinator",
   "releaseReady": false,
-  "updatedAt": "2026-10-28T13:36:31+08:00",
-  "pendingMergeSha": "33fa8e3102c61b9190f3fa7d49281ad8274f79c5",
+  "updatedAt": "2026-10-28T13:49:25.646916+08:00",
+  "pendingMergeSha": "f1f9128aa34c9269f407178b963ca990f83de7a3",
   "authorAcceptance": "PASS",
   "authorThreadId": "01a168e2-22f7-70a2-af7f-4fb6be0ea695",
-  "productCommitSha": "33fa8e3102c61b9190f3fa7d49281ad8274f79c5",
+  "productCommitSha": "f1f9128aa34c9269f407178b963ca990f83de7a3",
   "evidenceCommitSha": "52340760c1218c42f998ca56f07f9045f8bb20ea",
-  "invoiceCityPatchSha": "33fa8e3102c61b9190f3fa7d49281ad8274f79c5"
+  "invoiceCityPatchSha": "33fa8e3102c61b9190f3fa7d49281ad8274f79c5",
+  "approvalNotePatchSha": "f1f9128aa34c9269f407178b963ca990f83de7a3",
+  "acceptedSha": "817ed22bce503620d692e097a5f8ea996edf5fb2",
+  "reviewer": "coordinator"
 }

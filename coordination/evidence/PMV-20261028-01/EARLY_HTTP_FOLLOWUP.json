@@ -1,0 +1,20 @@
+{
+  "at": "2026-10-28T13:03:06.909009+08:00",
+  "scope": "EARLY_NONAUTHOR_ONLY_NOT_FROZEN_SHA_ACCEPTANCE",
+  "initial": "3/4 PASS; losing concurrent CAS writer returned expected retryable503",
+  "correction": "Harness follows existing CAS protocol with one bounded retry, preserving exact requestId; no product change for this observation",
+  "followups": [
+    {
+      "command": "YIJ_PMV_SOURCE=<backend task tree> PYTHONDONTWRITEBYTECODE=1 python3 -m unittest independent_operations_probe.IndependentOperations.test_two_instances_only_one_announcement_claim -v",
+      "exitCode": 0,
+      "result": "PASS: one firstDisplay true and one false after bounded conflict retry"
+    },
+    {
+      "command": "... python3 -m unittest independent_operations_probe.IndependentOperations.test_valid_old_certificate_pending_rejected_expired_then_approved -v",
+      "exitCode": 0,
+      "result": "PASS: real shared trip with GPS, active old while review pending, reject/resubmit, expired blocks new online but trip finishes and payment DONE, approved replacement clears reminder"
+    }
+  ],
+  "sourceFreeze": "NOT_YET_COMMITTED; final exact-SHA binding required",
+  "resources": "all probe fixture servers and temporary databases closed; no cloud data/credentials used"
+}

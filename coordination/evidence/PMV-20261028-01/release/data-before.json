@@ -1,0 +1,10 @@
+{
+  "source": "private GCS authoritative snapshot",
+  "generation": "1793166631026549",
+  "bytes": 3436544,
+  "sha256": "7e5b060da084c83c20a3b27cb9837eb569e6289c39f3dc9030db9ee96aebe23e",
+  "integrity": "ok",
+  "orderCount": 38,
+  "backupMode": "0600 outside repository",
+  "transportEvents": []
+}
