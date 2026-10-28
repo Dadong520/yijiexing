@@ -204,7 +204,9 @@ class PassengerMixin(TripDistanceMixin,NegotiationMixin,PassengerOrderOptionsMix
         from seed import CITIES
         for city in CITIES:
             cfg,_,_=self.effective(city['id']);regions.append({'id':city['id'],'name':city['name'],'enabled':bool(cfg['systemEnabled'])})
-        return {'operations':self.operations.passenger_state(pid,client,orders),**self.passenger_extra_data(pid),'mapConfig':self.amap_public_config('passenger'),'tripDistanceRules':self.trip_distance_rules(profile['city']),'historicalLocations':historical[:20],'regions':regions,'passenger':{k:v for k,v in profile.items() if k not in ('favorites','feedback')},'orders':orders,'favorites':profile['favorites'],'feedback':profile['feedback'],
+        extras=self.passenger_extra_data(pid)
+        favorites=self.project_default_rows(profile['favorites'],extras['defaults']['favoriteId'])
+        return {'operations':self.operations.passenger_state(pid,client,orders),**extras,'mapConfig':self.amap_public_config('passenger'),'tripDistanceRules':self.trip_distance_rules(profile['city']),'historicalLocations':historical[:20],'regions':regions,'passenger':{k:v for k,v in profile.items() if k not in ('favorites','feedback')},'orders':orders,'favorites':favorites,'feedback':profile['feedback'],
             'notices':[{'title':'独立体验环境','content':'双端共享实际创建的订单；短信、支付、退款为模拟。路线仅为坐标示意。后台可查看和回复已保存投诉；实时人工客服、电话中继和推送未配置。'}],
             'features':{'payment':'SIMULATED','sms':'SIMULATED','route':'SCHEMATIC','driverLocation':True,'externalPush':False,'humanSupport':False},
             'environment':{'name':'宜捷行独立云体验环境','sandbox':True,'originalSpringBackend':False,'network':'Google Cloud独立体验服务，不连接原测试环境'},'serverTime':stamp()}
@@ -385,13 +387,22 @@ class PassengerMixin(TripDistanceMixin,NegotiationMixin,PassengerOrderOptionsMix
                 require(not any(o['stage'] in UNFINISHED for o in self.passenger_data(pid)['orders']),'进行中订单结束后才能更换城市',409)
                 city=self.city(p['city']);profile.update(city=city['id'],cityName=city['name'])
         elif action=='favorite.save':
+            self.validate_default_flag(p)
             old=next((x for x in profile['favorites'] if x['id']==p.get('id')),None)
             if p.get('id'):require(old is not None,'常用地址不存在',404)
             require(old or len(profile['favorites'])<20,'最多保存20个常用地址')
             self.validate_point(p.get('latitude'),p.get('longitude'));f={'id':old['id'] if old else uid('FAV'),'label':textfield(p.get('label'),'地址名称',1,30),'address':textfield(p.get('address'),'地址',2,100),'latitude':p['latitude'],'longitude':p['longitude']}
-            profile['favorites']=[x for x in profile['favorites'] if x['id']!=f['id']]+[f];result={'favorite':f}
+            profile['favorites']=[x for x in profile['favorites'] if x['id']!=f['id']]+[f]
+            extras=self._passenger_extra_store(pid)
+            is_default=self.apply_default_flag(extras,'FAVORITE',f['id'],p)
+            self._save_passenger_extras(pid,extras)
+            result={'favorite':{**clone(f),'isDefault':is_default}}
         elif action=='favorite.remove':
-            require(any(x['id']==p.get('id') for x in profile['favorites']),'常用地址不存在',404);profile['favorites']=[x for x in profile['favorites'] if x['id']!=p['id']]
+            require(any(x['id']==p.get('id') for x in profile['favorites']),'常用地址不存在',404)
+            profile['favorites']=[x for x in profile['favorites'] if x['id']!=p['id']]
+            extras=self._passenger_extra_store(pid)
+            self.clear_default_reference(extras,'FAVORITE',p['id'])
+            self._save_passenger_extras(pid,extras)
         elif action=='feedback.submit':
             f={'id':uid('PF'),'content':textfield(p.get('content'),'反馈内容',5,2000),'status':'PENDING','reply':'','createdAt':stamp()};profile['feedback'].insert(0,f);result={'feedback':f}
         else:result=self.passenger_extra_action(pid,action,p)
