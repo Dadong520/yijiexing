@@ -1,0 +1,41 @@
+{
+  "type": "STATIC_HTML_COLOR_PREVIEW_NOT_ANDROID_SCREENSHOT",
+  "author": "root rendering of actual Claude UI color changes",
+  "sourceTree": "/Users/dongge/.codex/tmp/yijiexing-claude-ui-20261029/apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger",
+  "tokens": {
+    "Teal": "#00796E",
+    "Ink": "#0F1B2A",
+    "Muted": "#4B5B6B",
+    "Paper": "#F2F6F7",
+    "Amber": "#F59E0B",
+    "BrandStrong": "#005F56",
+    "BrandSoft": "#E3F4F1",
+    "Line": "#DCE5E8",
+    "DividerTone": "#E6EDEF",
+    "Chevron": "#9AA8B4",
+    "Sky": "#0369A1",
+    "SkySoft": "#E0F2FE",
+    "Warm": "#B45309",
+    "WarmSoft": "#FFF4E5",
+    "Violet": "#6D28D9",
+    "VioletSoft": "#F1EBFE",
+    "Success": "#1B7A3E",
+    "SuccessSoft": "#E6F4EA",
+    "Danger": "#B42318",
+    "DangerSoft": "#FDECEA",
+    "DangerLine": "#F3C5C0"
+  },
+  "sourceHashes": {
+    "MainActivity.kt": "0bc1ca7a87b11ebbd93e4450ec3c0cb0bfae984aadd200b3a086d988604624b6",
+    "PassengerPalette.kt": "3fac76512938797693535de882a3a3bf08cff189c9beda7a743cb66886fd0912",
+    "ProfileScreens.kt": "172488a80cee341063f49ecfe6cdff96761c01e1e8332f252a98d79df08daea9",
+    "UiComponents.kt": "70aaaea0ce08bfb8652fc8d100e2065a4bafc51cae1ee8eb2eaaa8d6bea60dfc",
+    "OrderDetail.kt": "1bda08def11f20a7d10602fa9191432f0ee25faf4a36393994a1f15779b2037e"
+  },
+  "limits": [
+    "HTML transcreation: not exact native layout/font fidelity",
+    "Synthetic example account/order; no network/business calls",
+    "Map placeholder explicitly marked; no claim AMap works",
+    "Not release acceptance evidence"
+  ]
+}

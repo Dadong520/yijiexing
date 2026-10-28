@@ -1,13 +1,18 @@
 # coordinator 当前短卡
-ACK2026-10-26-v3；真实会话01a17cc7-e0a2-7791-bf1d-4611c09bab22/generation6；当前ASTRA-20261028-01/EXMAP。memory NORMAL，context UNKNOWN/not_exposed。中央coordination唯一权威，root唯一拆单/派单/合并/发布负责人。
+ACK2026-10-26-v3；真实会话01a17cc7-e0a2-7791-bf1d-4611c09bab22/generation6。root唯一协调/合并/发布；context UNKNOWN/not_exposed。2026-10-29可见压缩已按START_HERE定向恢复，未借旧授权。
 
-## 已发布与限制
-AUTO安装基线6ff9068da7914267323258867afcea937beea683（PR34角色接替），产品源7d6/PR32 a542/发布回执PR33 5096。乘客1.1.15/code17、司机0.3.14/code17已发，API/admin pui-7d6dc60-test1均100%，user-test同步。完整HTTPS/hash/原体验签名、39旧单全字段一致通过；无待补发代码。仅独立yijiexing-driver-demo-1023/us-west1；ENV/secret/SA/IAM/automatic/min0max1/请求CPU计费/API900秒保持，不保活/自动暂停，不碰原测试/生产。
-PUI13图/三默认/详情首屏Q1已验收；详PUI/NATIVE_REVIEW、SOURCE_BINDING、APK_PROOF及release/FINAL-RELEASE-RECEIPT。默认仅新草稿建议、不覆盖GPS/已填/历史；司机masked不可拨，公司客服确认ACTION_DIAL，无IM。BIZ04–09按STATE勿重问。地图1008/10008仍未过不索Key；微信缺AppID/OEM未验；支付退款提现发票模拟；中继/录音警方联动未接；2.0余项/PMPOST83仅候选未集成。Key/账号库/DB/APK/cache外置。
+## 线上/基线
+main62942d103ed946057de28f29262ea196ad46ca73 PR36/CI79；产品7d6dc6014906c80be87b39f4433ec494ae067098，乘客1.1.15/code17、司机0.3.14/code17；API/admin pui-7d6dc60-test1均100%。发布证据PUI/release/FINAL-RELEASE-RECEIPT.json。仅独立yijiexing-driver-demo-1023/us-west1；不碰原测试生产，CloudRun automatic/min0max1/requestCPU/API900/ENV/secret/SA/IAM保持；root云业务POST0，旧39单曾全字段一致。
+预约/草稿/默认/三证/公告/模拟分账等BIZ04–09按STATE已确认不重问。地图乘客10008/1008未修，EXMAP与EXMAPV独立复现；用户明确暂不登录高德，保留诊断。支付退款发票模拟，无中继IM录音警方；mini缺AppID未真机发布。私有Key/账号/DB/APK/cache外置。
 
-## 当前工作与接续
-源main713fcfb57117741b056e8197d609e3e20f365937；root树/Users/dongge/.codex/tmp/yijiexing-pm-amap-20261027，branch codex/astra-escalation-20261028。工具/协调未提交root所有；产品无改动。AUTO实装ACTIVE已PR35/CI77，无bridge/守护，反馈触发，原root唯一。二代backend01a182c6-c058-76e1-9584-38abfe813799、frontend01a182c6-c475-7110-bbae-0deafe6d2385；旧角色已归档停派，AGY两context结束，无当前任务。
-用户新增疑难专家01a1830f-d94b-7933-9c22-2c3898e54186/gpt-6-astra/xhigh，真实ACK与可选expert门禁已实装。GOV06只expert模型例外，核心GPT6.1不变；仅root明确堵点唤醒，完成IDLE不自醒/合并/发布。ASTRAV backend23门禁测及独审PASS，确切工具hash见ASTRA/review/GUARD_REVIEW.json。
-EXMAP expert诊断完成现IDLE：发布回读APK/公钥证书/包名确认，原版SDK JAR(ac3e...)在JVM合成Android Context、真实公开证书生成完整POI请求。Key/身份/scode/body检查通过（scode仅样例参数比对）；乘客10008、司机10000+1POI，与独立算法一致。服务端拒绝当前乘客Key+发布身份可复现；真实设备SDK成功NOT_RUN，非修复PASS。无产品补丁理由，allow_paths空，未GUI/ADB/云业务写。截图路径NOT_FOUND且无指定备份，不重复索Key/绑定。
-当前：frontend EXMAPV独立编译/两角色各一次请求同结果，诊断复核PASS_WITH_STATED_LIMITS，设备修复NOT_RUN。root实查Chrome高德未登录，用户明确暂不登录先保留诊断；不继续账户操作。待未来已登录访问核具体Key记录与已保存值。现有Key私有文件仅内存，SDK原始请求不打印/落盘，证据hash/布尔/码。证书与APK精确路径在ASTRA/CURRENT_ARTIFACT_PATHS.json。
-本次可见压缩已保存检查点，START_HERE/STATE/任务/角色卡定向恢复，memory NORMAL/contextUNKNOWN；无源码/发布或授权冲突。下一步控制台+EXMAPV结果→精确结论/修正→必要独审；root选择本任务协调与已审工具入Git，产品无改不重复部署。待合并SHA无。
+## 本轮接入与实现
+用户要求Claude Code接替Gemini重难实现，先全UI色彩优化；Gemini已PAUSED_BY_USER，无当前agy；Astra IDLE按需。核心二代backend01a182c6-c058-76e1-9584-38abfe813799、frontend01a182c6-c475-7110-bbae-0deafe6d2385，核心GPT6.1不改。GOV07/AGENTS/CLAUDE入口已实装。
+Claude官方bundle2.1.304 auth loggedIn:true/claude.ai/pro；真实会话413b9b2c-f346-4a81-8891-87bc3c962394，实际claude-opus-5-5/medium。两轮实施均exit0，当前CLI空闲。外置私有输出/Users/dongge/.codex/tmp/yijiexing-claude-intake-20261029；不读原始凭据。首轮argv多值--add-dir吞prompt已通过--+stdinDEVNULL修正，未绕过Read权限；无Bash，作者所有测试NOT_RUN。
+root树/Users/dongge/.codex/tmp/yijiexing-pm-amap-20261027/branch codex/claude-intake-20261029，HEAD629，工具/治理/证据root所有；CC任务。Claude独立git worktree /Users/dongge/.codex/tmp/yijiexing-claude-ui-20261029/branch codex/claude-ui-20261029，HEAD629，CCUI限定UI路径，未提交。AGENTS/CLAUDE.md为root文件。两adminCSS基线不同必须各自保结构，只同步palette。
+实际phase2已完成：双Android全局token/模块图标及资料卡分色/危险色，mini共用+5页颜色，admin双CSS。作者coverage与SELFCHECK已中央，未编译/截图/量测对比度；WXML/JS/nav内联15处旧色未授权未改。禁止将共享主题变化称全页截图验收。
+CCG backend独立27/27门禁测/actualID gate PASS，evidence/CCG-20261029-01/REVIEW.json含hash，backend已IDLE。frontend仅CCUIV准备已完成IDLE，待root明确精确candidate SHA/source/artifact再独立审。当前未产品构建/合并/发布，releaseReady false。
+
+## 下一步/资源
+根先审diff/实编译双Android与mini/admin相关测试；冻结candidate后唤醒frontend非作者审与对比度/语义/源码行为验证。当前CCUIV无GUI/ADB权限；旧PUI隔离模拟器授权仅旧run，不能借用。新候选具体后如需新隔离模拟器交互，由root单次明确询问；可先headless web验。
+CLI已停，后续可用官方TTY --desktop --resume精确ID送入桌面；先验证实际输出再声称可见。无Codex新chat创建。普通--desktop重定向先前被拒是非TTY原因。
+构建外置新目录，不覆盖旧作者/产物；真实发布须版本/原签名/Key不入APK、非作者PASS、精确SHA、独立体验发布读回/数据保留。旧release脚本常量指旧产物，不能盲跑。待合并SHA NONE。

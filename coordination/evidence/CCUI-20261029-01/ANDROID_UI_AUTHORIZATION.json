@@ -1,0 +1,12 @@
+{
+  "timestamp": "2026-10-29T01:36:22.422440+08:00",
+  "source": "Human reply to request_user_input_async call_1e87fb4ff7ef4f63be971abefb6ad45d",
+  "answer": "允许，仅本轮隔离模拟器",
+  "scope": "CCUI-20261029-01 isolated emulator only: install new builds, clicks/input/screenshots via Android official tools, synthetic local test data only",
+  "exclusions": [
+    "personal real devices",
+    "other shared emulator sessions",
+    "production/test cloud business writes",
+    "other future runs"
+  ]
+}

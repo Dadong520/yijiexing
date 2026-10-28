@@ -1,0 +1,56 @@
+{
+  "schemaVersion": 1,
+  "id": "CC-20261029-01",
+  "owner": "coordinator",
+  "goal": "接入用户Claude Code替代Gemini为主要实现者，组织全端UI色彩升级与独立验收发布",
+  "baseSha": "62942d103ed946057de28f29262ea196ad46ca73",
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-pm-amap-20261027",
+  "branch": "codex/claude-intake-20261029",
+  "allow_paths": [
+    "coordination/",
+    "tools/check_coordination.py",
+    "tools/test_check_coordination.py",
+    "AGENTS.md",
+    "CLAUDE.md"
+  ],
+  "checks": [
+    "按中央协议与任务唯一归属执行；root唯一协调合并发布；不读历史聊天或私有账户库",
+    "UI色彩/布局改动保留现有业务、权限、模拟标识与错误态；不触及高德Key待核问题",
+    "作者自测和非作者验收分开；未运行NOT_RUN；无业务验收PASS不发布"
+  ],
+  "status": "CLAUDE_AUTHOR_PHASE2_COMPLETE_ROOT_REVIEW",
+  "acceptance": "NOT_RUN",
+  "tests": [
+    {
+      "command": "bundled Claude --version",
+      "result": "2.1.304 verified executable"
+    },
+    {
+      "command": "bundled Claude auth status",
+      "result": "loggedIn false, authMethod none; desktop login not copied"
+    },
+    {
+      "command": "bundled Claude --desktop under redirected exec",
+      "result": "Rejected noninteractive output; no session created"
+    },
+    {
+      "command": "bundled Claude auth login --claudeai",
+      "result": "Official OAuth page opened; manual code-to-terminal flow. Coordinator waiting process canceled so user can complete independent own-terminal flow; no code/token handled"
+    },
+    {
+      "command": "bundled Claude auth status after browser authorization",
+      "result": "loggedIn true; authMethod claude.ai; subscriptionType pro"
+    },
+    {
+      "command": "Official Claude print-mode init and exact-session phase1/phase2",
+      "result": "actual session413b9b2c-f346-4a81-8891-87bc3c962394, claude-opus-5-5/medium, both exit0, author tests NOT_RUN"
+    }
+  ],
+  "evidence": [
+    "coordination/evidence/CC-20261029-01/INTAKE_STATUS.json"
+  ],
+  "nextAction": "Review visual-only diff, build exact candidate, independent review then experience release",
+  "deploy_owner": "coordinator",
+  "releaseReady": false,
+  "updatedAt": "2026-10-29T01:30:34.472916+08:00"
+}

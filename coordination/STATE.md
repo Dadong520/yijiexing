@@ -2,10 +2,10 @@
 中央/Users/dongge/Documents/New project 2/coordination唯一权威，协议2026-10-26-v3。唯一coordinator01a17cc7-e0a2-7791-bf1d-4611c09bab22/generation6负责拆单、合并、发布；context UNKNOWN/not_exposed。
 
 ## 线上与源码
-当前main713fcfb57117741b056e8197d609e3e20f365937（PR35自主交付约定）；PR34角色接替6ff/PR33发布回执5096，产品源7d6/PR32合并a542。乘客1.1.15-experience/code17、司机0.3.14-cloud/code17已发布，原体验签名可覆盖安装。API driver-demo-pui-7d6dc60-test1、admin driver-admin-pui-7d6dc60-test1均100%，user-test同版本。
+当前main62942d103ed946057de28f29262ea196ad46ca73（PR36 Astra专家/门禁/脱敏诊断证据，CI79 PASS）；前main713fcfb（PR35自主交付约定）；PR34角色接替6ff/PR33发布回执5096，产品源7d6/PR32合并a542。乘客1.1.15-experience/code17、司机0.3.14-cloud/code17已发布，原体验签名可覆盖安装。API driver-demo-pui-7d6dc60-test1、admin driver-admin-pui-7d6dc60-test1均100%，user-test同版本。
 API https://yijiexing-demo.hbzjhs.xyz；后台 https://demo-admin.hbzjhs.xyz/ 原PASSWORD账号，无Google/IAP前置；真实登录页同字节/未登录state401。快链https://user-test---driver-demo-phfgquzmua-uw.a.run.app/download（司机）及/download-passenger（乘客）；乘客整包/hash/包名/版本/原签名回读PASS。旧乘客包归档后代次保护提升，司机对象未改。自有域名同下载路径保留。
 发布前后39旧订单全部字段一致，无新增/root云业务POST0。ENV/secret/SA/IAM/API900秒及CloudRun automatic/min0/max1/请求CPU计费保持，无保活/自动暂停。仅独立项目yijiexing-driver-demo-1023/us-west1，禁止原eztrips测试/生产。Key/私有账户/DB/APK/cache外置不进Git。真实回执evidence/PUI-20261028-01/release/FINAL-RELEASE-RECEIPT.json。
-根源码/Users/dongge/.codex/tmp/yijiexing-pm-amap-20261027，当前branch codex/astra-escalation-20261028/base713，仅root协调/门禁改动；其他旧pui/pmv树/PMPOST只读保留，不同时写重复快照。产品新补丁必须root另给唯一分支/allow_paths。
+根源码/Users/dongge/.codex/tmp/yijiexing-pm-amap-20261027，当前branch codex/claude-intake-20261029，HEAD62942d1已合并，仅root协调/门禁/诊断证据改动；其他旧pui/pmv树/PMPOST只读保留，不同时写重复快照。产品新补丁必须root另给唯一分支/allow_paths。
 
 ## 已完成与业务规则
 PUI13图与三类默认项已发：预约状态/整页设置保草稿/详情首屏金额取消与路线/固定理由+其他/四订单筛选/紧凑资料空态/安全联系人/回执展开/投诉正文回复。root非作者HTTP6+兼容13+运营7、Android31/双构建、真实隔离原生13组、mini74组件等同；backend独立包装审PASS，Q1首屏已f3/87截图复验。NATIVE_REVIEW/SOURCE_BINDING/APK_PROOF留实际执行SHA，不称全量真实业务完成。
@@ -22,3 +22,8 @@ ASTRA-20261028-01根任务；EXMAP-20261028-01当前只诊断乘客map10008/POI1
 AUTO已PR35实装/ACK/独立13检查/CI77合并713，原coordinator唯一，用户只体验发布后验证反馈，root完成内部闭环；规则AUTONOMY_POLICY/CONFIG、START_HERE/GOV05，最终回执evidence/AUTO-20261028-01/AUTONOMY_ACTIVE_RECEIPT.json。空闲等反馈，无新守护/调度/bridge；只关键未决产品选择或外部授权才汇总问。当前高德即用户新派堵点，不自动扩其他余项。
 
 EXMAP专家诊断已交付后IDLE；frontend EXMAPV独立复现同结果/诊断复核PASS_WITH_STATED_LIMITS。root浏览器实查高德未登录，用户明确暂不登录、先保留诊断结果；不继续账户操作，待具体Key记录已保存绑定外部核查。无产品补丁/部署，地图未修复。证据ASTRA/CONSOLE_ACCESS_CHECK、EXMAP/DIAGNOSIS。
+
+本轮PR36已合并62942d103ed946057de28f29262ea196ad46ca73，head f2064d6，CI79/project-gate通过。专家实际创建/独立复核与诊断已入仓；无产品变更，不重复部署。所有角色IDLE，按用户暂不登录决定保留外部堵点。最终中央回执evidence/ASTRA-20261028-01/INTAKE_AND_DIAGNOSIS_RECEIPT.json。
+
+## 2026-10-29 Claude接替/UI进行中
+用户明确Claude Code替代Gemini主力实现；Gemini PAUSED_BY_USER无在途任务，Astra按需IDLE。官方bundled CLI2.1.304已claude.ai/Pro登录，真实session413b9b2c-f346-4a81-8891-87bc3c962394/claude-opus-5-5/medium已ACK。独立树/Users/dongge/.codex/tmp/yijiexing-claude-ui-20261029，branch codex/claude-ui-20261029，base62942d1；CCUI两阶段作者修改已完成，未编译/未提交/未发布。覆盖双Android主题模块色、mini共用及5页样式、两admin独立CSS。待root检查/实际构建/独立验收；原地图外部堵点不改。新可选claude门禁27测与backend CCG独审PASS。详情当前CC/CCUI/CCUIV/CCG任务及证据。

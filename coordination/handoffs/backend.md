@@ -1,15 +1,12 @@
-# backend 二代当前短卡
-ACK2026-10-26-v3；真实ID01a182c6-c058-76e1-9584-38abfe813799；更新时间2026-10-28T23:16:38+08:00。context UNKNOWN/not_exposed，memory NORMAL。唯一root01a17cc7-e0a2-7791-bf1d-4611c09bab22/generation6派单合并发布。
+# backend 二代短卡
+ACK2026-10-26-v3；真实ID01a182c6-c058-76e1-9584-38abfe813799；更新时间2026-10-29T01:21:38+08:00。context UNKNOWN/not_exposed；NORMAL。root01a17cc7-e0a2-7791-bf1d-4611c09bab22/generation6唯一协调合并发布。
+当前CCG-20261029-01门禁独审PASS，IDLE。根源码/Users/dongge/.codex/tmp/yijiexing-pm-amap-20261027，branch codex/claude-intake-20261029，HEAD/base62942d103ed946057de28f29262ea196ad46ca73。root工具/控制资料改动不属本人；只写本卡、CCG任务及evidence/CCG-20261029-01/。未改工具/产品/引用，无提交发布/自有后台资源。
 
-## 当前阶段与基线
-ASTRAV-20261028-01本阶段仅可选expert身份门禁独立审核PASS，IDLE。根源码/Users/dongge/.codex/tmp/yijiexing-pm-amap-20261027；branch codex/astra-escalation-20261028，实际HEAD/base713fcfb57117741b056e8197d609e3e20f365937。根树有root协调资料及两门禁工具改动，非本人所有，不修改/覆盖。本人仅写本卡、tasks/ASTRAV-20261028-01.json及evidence/ASTRA-20261028-01/review/。无产品修改/引用修改/提交/发布/自有后台资源。
+## 当前结论
+只读AGENTS/CLAUDE_CODE/中央registry/BOARD/GOV07和CC/INTAKE_STATUS。新版两工具与AGENTS中央/根树同字节，准确hash见evidence/CCG-20261029-01/REVIEW.json。独立27/27测试PASS，root新版工具对中央真实本人ID检查PASS；结束中央自检PASS。
+原三核心GPT6.1、expert Astra/xhigh与准确SHA/非作者/证据发布门禁不弱化。claude可选，CLI真session/ACK/去重/HANDOFF_REQUIRED/6KB/GOV07/root_dispatch_only/official_bundled_cli纳入检查。实际公开init记录官方2.1.304、Pro、session413b9b2c-f346-4a81-8891-87bc3c962394、claude-opus-5-5/medium与登记一致。未读私有原始日志或凭据；不声称内部模型遥测。门禁只约束claude-*家族，精确Opus/medium按任务与实际回执核定。
+用户最新约定Claude接替主要重难实现/自测，Gemini暂停停派且保留设置；root唯一派单合并发布。本人关键数据/金额独立复核职责不变。无阻塞项，业务/UI/云/ADB/CLI执行NOT_RUN_NOT_NEEDED。待合并SHA由root安排。
 
-## 独审结果
-只读root工具diff、中央登记/GOV06/BOARD/STATE和既有guard日志。独立运行python3 -m unittest discover -s tools -p test_check_coordination.py -v：23/23 PASS（原16+新7）；使用root新版工具指向中央，以本人真实ID自检PASS；root工作树结构检查PASS。
-四核心角色原规则、核心三Codex GPT6.1、原发布准确SHA/独立作者/证据门禁未削弱。expert可选，登记或调用时检查Astra/xhigh、GOV06、明确堵点策略；身份/ACK/去重/HANDOFF_REQUIRED与上下文声明规则复用；ACK卡6KB。本机实际expert01a1830f-d94b-7933-9c22-2c3898e54186与核心不重复。门禁只核声明与传入ID，不是内部模型/上下文遥测，也不替代root对实际堵点派单的判断。
-证据evidence/ASTRA-20261028-01/review/GUARD_REVIEW.json记录准确工具hash。无阻塞项。业务/云/ADB/AGY均NOT_RUN_NOT_NEEDED；高德研究不在本阶段。
-
-## 发布事实、限制与下一步
-乘客1.1.15-experience/code17、司机0.3.14-cloud/code17仍已发布，无需重复部署。AUTO已PR35合并713，仅反馈触发当前chat，无守护/调度/bridge。关键已确认BIZ04–09/三默认建议不覆盖GPS已填历史不变；详细规则后续按DECISIONS/contracts定向读取。
-高德1008/10008仍未过，不重索Key；微信缺AppID；资金发票模拟；IM/电话中继/录音警方联动未接，OEM真机未验，PMPOST/文档2.0余项未集成。仅独立体验项目automatic/min0max1请求计费；root唯一发布。
-下一步root处理本次门禁合并；本角色IDLE。后续高德非作者验证需root明确另派范围，不自行研究、不跨会话回信、不轮询。待合并产品SHA无，工具hash绑定见报告。
+## 发布与已知边界
+产品仍乘客1.1.15-experience/code17、司机0.3.14-cloud/code17已发，无本任务重复部署。高德1008/10008未修；EXMAP诊断有限，用户暂不登录控制台，真Android成功NOT_RUN。微信缺AppID、资金发票模拟、IM/中继/录音警方联动未接，OEM未验、PMPOST余项未集成。BIZ04–09及三默认仅草稿建议保留，后续按DECISIONS/contracts定向读。
+仅独立体验项目automatic/min0max1请求计费，无保活暂停。下一步IDLE等root具体任务，不自行唤醒Claude/Gemini/代理，不自动跨会话回信或轮询。

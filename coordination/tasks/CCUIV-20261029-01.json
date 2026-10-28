@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "id": "CCUIV-20261029-01",
+  "owner": "frontend",
+  "goal": "非作者验收Claude全端视觉升级，先准备当前页面与构建验收清单，作者完成后按精确SHA复核",
+  "baseSha": "62942d103ed946057de28f29262ea196ad46ca73",
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-claude-ui-20261029",
+  "branch": "codex/claude-ui-20261029",
+  "allow_paths": [
+    "coordination/tasks/CCUIV-20261029-01.json",
+    "coordination/handoffs/frontend.md",
+    "coordination/evidence/CCUIV-20261029-01/"
+  ],
+  "checks": [
+    "Root explicit continuation: candidate ad674105e18e4aee9246b847a5aae00840ef862b in Claude exclusive source; UI4a0a60f + root version metadata. Check trueID/central protocol. Non-author review only; no product edits/commit/deploy/agents/Gemini.",
+    "Build both Android once from exact committed candidate into fresh /Users/dongge/.codex/tmp/yijiexing-ccui-build-20261029. Existing offline caches/JDK17/SDK allowed. testDebugUnitTest assembleDebug; hashes/test counts/package/version/cert/BaseURL/private-Key-absence proof. Shipping packages original IDs; passenger1.1.16/code18, driver0.3.15/code18. No QA identity uploaded.",
+    "Human explicitly authorized this current CCUI isolated emulator install/click/input/screenshot via Android official tools; see CCUI/ANDROID_UI_AUTHORIZATION.json. Never personal device/shared live emulator. Fresh read-only isolated AVD at free port; synthetic local fixtures only. No cloud business POST. Targeted old PUI NATIVE_REVIEW fixture/setup reuse allowed, no delivery traversal.",
+    "Capture actual current passenger profile + order detail first (user wants two images), home/settings/orders/error; driver home/profile/member/business/error representatives. Keep simulated labels and unresolved AMap limits. If QA network/identity overlay needed, record exact source delta and separately bind original shipping APK. QA APK is not shipping artifact.",
+    "Review diff business expressions unchanged, semantic status/danger/disabled/selected/module variety, numeric contrast normal4.5/large3/interactive3, long Chinese readability, original draft/default/cancel/four order filters/account isolation applicable same-byte tests. No redundant full backend rerun.",
+    "Compact REVIEW.json with candidate SHA/actual commands/results/screenshots/hashes/remaining blockers. Root CCUI/previews are static HTML transcreation, not native acceptance. Report fixable issues; root routes author fixes. No deploy."
+  ],
+  "status": "CANDIDATE_BUILD_NATIVE_REVIEW_ASSIGNED",
+  "acceptance": "NOT_RUN",
+  "tests": [
+    {
+      "command": "python3 tools/check_coordination.py --memory-role frontend --session-id 01a182c6-c475-7110-bbae-0deafe6d2385",
+      "status": "PASS",
+      "exitCode": 0
+    },
+    {
+      "command": "Targeted read-only source/theme/build entry inspection plus three existing PUI screenshots",
+      "status": "PASS",
+      "exitCode": 0,
+      "scope": "preparation only; no candidate acceptance"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "coordination/evidence/CCUIV-20261029-01/PREPARATION.json",
+      "sha256": "a1435d6071ebbec9c7a4408c50db2c640526b63cd44553f397f21649c1a7e8d6"
+    }
+  ],
+  "nextAction": "Build and independently review exact candidate; return two native screenshot paths early then final report",
+  "deploy_owner": "coordinator",
+  "releaseReady": false,
+  "updatedAt": "2026-10-29T01:37:11.655348+08:00",
+  "candidateSha": "ad674105e18e4aee9246b847a5aae00840ef862b",
+  "externalAllowedRoots": [
+    "/Users/dongge/.codex/tmp/yijiexing-ccui-build-20261029/",
+    "/Users/dongge/.codex/tmp/yijiexing-ccui-native-20261029/"
+  ]
+}
