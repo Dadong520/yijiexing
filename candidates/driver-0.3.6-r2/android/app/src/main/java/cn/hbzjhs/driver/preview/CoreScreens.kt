@@ -696,7 +696,7 @@ fun ConnectedProfile(
         item { MembershipIdentityCard(store, navigate) }
         item {
             SheetCard {
-                Text("经营统计（含演示数据）", fontSize = 15.sp, fontWeight = FontWeight.Bold, color = Ink)
+                Text("运营明细（累计） · 含演示数据", fontSize = 15.sp, fontWeight = FontWeight.Bold, color = Ink)
                 Row(
                     Modifier.fillMaxWidth().padding(top = Gap.M),
                     horizontalArrangement = Arrangement.SpaceAround
