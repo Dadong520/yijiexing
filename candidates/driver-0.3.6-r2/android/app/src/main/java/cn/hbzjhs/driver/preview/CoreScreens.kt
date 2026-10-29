@@ -15,6 +15,7 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -271,7 +272,16 @@ fun ConnectedHome(
     val active = state.activeOrder
     val pendingCollections = state.pendingCollections
     val waitingReservations = state.waitingReservations
-    val available = state.orders.filter { it.stage == Stage.AVAILABLE }.sortedBy { it.isPrivateExample }
+    val allAvailable = state.orders.filter { it.stage == Stage.AVAILABLE }.sortedBy { it.isPrivateExample }
+    val availableKinds = OrderKind.values().filter { kind -> allAvailable.any { it.kind == kind } }
+    var kindFilter by rememberSaveable { mutableStateOf<String?>(null) }
+    // A filter only applies while its kind is still present and there is more than one kind to pick from;
+    // otherwise it is cleared so a stale, invisible filter can never hide every order.
+    val selectedKind = availableKinds.takeIf { it.size > 1 }?.firstOrNull { it.name == kindFilter }
+    LaunchedEffect(selectedKind, kindFilter) {
+        if (kindFilter != null && selectedKind == null) kindFilter = null
+    }
+    val available = if (selectedKind == null) allAvailable else allAvailable.filter { it.kind == selectedKind }
     var toolsExpanded by remember { mutableStateOf(false) }
 
     BoxWithConstraints(Modifier.fillMaxSize().background(Page)) {
@@ -479,13 +489,37 @@ fun ConnectedHome(
                             }
                         }
                     if (active == null && canAccept && state.online) {
-                        item { SectionTitle("附近订单", "实时路单", "接单设置") { navigate("settings") } }
+                        item { SectionTitle("订单大厅", "附近实时订单 ${allAvailable.size} 笔", "接单设置") { navigate("settings") } }
+                        if (availableKinds.size > 1)
+                            item {
+                                Row(
+                                    Modifier.fillMaxWidth().horizontalScroll(rememberScrollState()),
+                                    horizontalArrangement = Arrangement.spacedBy(Gap.S),
+                                ) {
+                                    FilterChip(
+                                        selected = selectedKind == null,
+                                        onClick = { kindFilter = null },
+                                        label = { Text("全部 ${allAvailable.size}", fontSize = 13.sp) },
+                                        modifier = Modifier.heightIn(min = 48.dp),
+                                    )
+                                    availableKinds.forEach { kind ->
+                                        FilterChip(
+                                            selected = selectedKind == kind,
+                                            onClick = { kindFilter = kind.name },
+                                            label = { Text("${kind.title} ${allAvailable.count { it.kind == kind }}", fontSize = 13.sp) },
+                                            modifier = Modifier.heightIn(min = 48.dp),
+                                        )
+                                    }
+                                }
+                            }
                         if (available.isEmpty())
                             item {
-                                SheetCard {
-                                    Text("当前暂无可接订单", fontSize = 15.sp, color = Muted)
-                                    CoreTextButton(onClick = { store.refresh() }) { Text("刷新订单", fontSize = 14.sp) }
-                                }
+                                EmptyState(
+                                    "orders",
+                                    "当前暂无可接订单",
+                                    "保持听单，新订单会语音播报并弹出提示",
+                                    "刷新订单",
+                                ) { store.refresh() }
                             }
                         items(available, key = { it.id }) {
                             order -> OrderCard(order, if (order.kind == OrderKind.BID) "参与竞价" else "立即抢单") {
@@ -580,8 +614,6 @@ fun ConnectedHome(
                             }
                         }
                     }
-                    item { SheetCard { StatsRow(state) } }
-                    item { MembershipSummaryCard(store, navigate) }
                     item {
                         Text(
                             "体验环境 · 业务数据仅供模拟展示",
@@ -660,16 +692,22 @@ fun ConnectedProfile(
                 }
             }
         }
+        // Membership identity is the highlighted card; orders and wallet stay in the bottom bar.
+        item { MembershipIdentityCard(store, navigate) }
         item {
             SheetCard {
-                Text("运营明细（累计）", fontSize = 15.sp, fontWeight = FontWeight.Bold, color = Ink)
+                Text("经营统计（含演示数据）", fontSize = 15.sp, fontWeight = FontWeight.Bold, color = Ink)
                 Row(
-                    Modifier.fillMaxWidth().padding(top = 10.dp),
+                    Modifier.fillMaxWidth().padding(top = Gap.M),
                     horizontalArrangement = Arrangement.SpaceAround
                 ) {
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
                         Text(if (state.online) "出车中" else "休息中", fontSize = 17.sp, fontWeight = FontWeight.Bold, color = if (state.online) Green else Muted)
                         Text("在线状态", fontSize = 12.sp, color = Muted, modifier = Modifier.padding(top = 2.dp))
+                    }
+                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                        Text("¥${money(state.todayIncome)}", fontSize = 18.sp, fontWeight = FontWeight.Bold, color = Warm)
+                        Text("累计收入", fontSize = 12.sp, color = Muted, modifier = Modifier.padding(top = 2.dp))
                     }
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
                         Text("${state.todayAccepted}", fontSize = 18.sp, fontWeight = FontWeight.Bold, color = Ink)
@@ -682,15 +720,22 @@ fun ConnectedProfile(
                 }
             }
         }
-        item { MembershipSummaryCard(store, navigate) }
         item {
             SheetCard {
-                Text("营运中心", fontSize = 13.sp, fontWeight = FontWeight.SemiBold, color = Muted, modifier = Modifier.padding(bottom = 2.dp))
-                MenuRow("orders", "我的订单", onClick = onOrders)
-                HorizontalDivider(color = Line)
-                MenuRow("wallet", "我的钱包", "¥ ${money(state.balance)}", onWallet)
+                Text("出车与资料", fontSize = 13.sp, fontWeight = FontWeight.SemiBold, color = Muted, modifier = Modifier.padding(bottom = 2.dp))
+                MenuRow("profile", "司机与车辆资料") { navigate("driver") }
                 HorizontalDivider(color = Line)
                 MenuRow("shield", "资质证件") { navigate("qualification") }
+                HorizontalDivider(color = Line)
+                MenuRow("settings", "接单设置", "播报、悬浮入口、接单距离") { navigate("settings") }
+            }
+        }
+        item {
+            SheetCard {
+                Text("账户安全", fontSize = 13.sp, fontWeight = FontWeight.SemiBold, color = Muted, modifier = Modifier.padding(bottom = 2.dp))
+                MenuRow("card", "我的银行卡", "演示卡，不产生真实银行交易") { navigate("bank") }
+                HorizontalDivider(color = Line)
+                MenuRow("shield", "交易密码与钱包安全") { navigate("walletsettings") }
             }
         }
         item {
@@ -1545,10 +1590,12 @@ fun ConnectedOrders(
         ) {
             if (rows.isEmpty())
                 item {
-                    SheetCard {
-                        Text("暂无${if(selected==0)"" else tabs[selected]}订单", color = Muted)
-                        CoreTextButton(onClick = { navigate("home") }) { Text("返回听单") }
-                    }
+                    EmptyState(
+                        "orders",
+                        "暂无${if(selected==0)"" else tabs[selected]}订单",
+                        "接单后的行程、待支付与历史记录都会显示在这里",
+                        if (selected != 0) "查看全部订单" else null,
+                    ) { onSelectedChange(0) }
                 }
             items(rows, key = { it.id }) { order ->
                 OrderCard(order) { navigate("detail:${order.id}") }
@@ -1607,10 +1654,19 @@ fun ConnectedWallet(store: ConnectedStore, state: DriverState, navigate: (String
             }
         }
         item {
-            SheetCard {
-                MenuRow("card", "我的银行卡") { navigate("bank") }
-                HorizontalDivider(color = Line)
-                MenuRow("shield", "交易密码与钱包安全") { navigate("walletsettings") }
+            Row(
+                Modifier.fillMaxWidth().clip(RoundedCornerShape(10.dp)).background(SkySoft).clickable { navigate("bank") }.padding(Gap.M),
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                Glyph("card", Sky, Modifier.size(18.dp))
+                Text(
+                    "银行卡与交易密码已移至「我的 › 账户安全」",
+                    color = Ink,
+                    fontSize = 13.sp,
+                    modifier = Modifier.weight(1f).padding(start = Gap.S),
+                )
+                Text("银行卡", color = Sky, fontSize = 13.sp, fontWeight = FontWeight.Bold)
+                Glyph("right", Sky, Modifier.size(16.dp))
             }
         }
         val settledOrders = state.orders.filter { it.shared && it.stage != Stage.AVAILABLE && it.settlementStatus.isNotBlank() }
@@ -1627,28 +1683,46 @@ fun ConnectedWallet(store: ConnectedStore, state: DriverState, navigate: (String
             }
         }
         item { SectionTitle("收支明细", "金额和状态以独立服务记录为准") }
-        if (state.entries.isEmpty()) item { SheetCard { Text("暂无收支记录", color = Muted) } }
+        if (state.entries.isEmpty())
+            item {
+                EmptyState("wallet", "暂无收支记录", "完成订单并由服务端入账后，流水会显示在这里", "查看提现记录") {
+                    navigate("withdrawals")
+                }
+            }
         else
             item {
                 SheetCard {
                     state.entries.forEachIndexed { i, e ->
-                        Column(Modifier.fillMaxWidth().padding(vertical = 16.dp)) {
-                            Text(e.title, fontSize = 20.sp, fontWeight = FontWeight.SemiBold)
-                            Text(
-                                (if (e.amount >= 0) "+" else "−") +
-                                    money(kotlin.math.abs(e.amount)),
-                                fontSize = 28.sp,
-                                fontWeight = FontWeight.Bold,
-                                color = if (e.amount >= 0) Green else Ink,
-                                modifier = Modifier.padding(top = 8.dp),
-                            )
-                            if (e.note.isNotBlank())
+                        val income = e.amount >= 0
+                        Row(Modifier.fillMaxWidth().padding(vertical = Gap.M), verticalAlignment = Alignment.CenterVertically) {
+                            Box(
+                                Modifier.size(36.dp).clip(CircleShape).background(if (income) SuccessSoft else WarmSoft),
+                                contentAlignment = Alignment.Center,
+                            ) {
+                                Glyph(if (income) "plus" else "wallet", if (income) Success else Warm, Modifier.size(18.dp))
+                            }
+                            Column(Modifier.weight(1f).padding(horizontal = Gap.M)) {
+                                Text(e.title, fontSize = 16.sp, fontWeight = FontWeight.SemiBold, color = Ink)
                                 Text(
-                                    "记录说明：${e.note}",
-                                    fontSize = 16.sp,
-                                    color = Muted,
-                                    modifier = Modifier.padding(top = 8.dp),
+                                    if (income) "入账" else "支出",
+                                    fontSize = 12.sp,
+                                    color = if (income) Success else Warm,
+                                    fontWeight = FontWeight.Medium,
                                 )
+                                if (e.note.isNotBlank())
+                                    Text(
+                                        "记录说明：${e.note}",
+                                        fontSize = 13.sp,
+                                        color = Muted,
+                                        modifier = Modifier.padding(top = 2.dp),
+                                    )
+                            }
+                            Text(
+                                (if (income) "+" else "−") + money(kotlin.math.abs(e.amount)),
+                                fontSize = 20.sp,
+                                fontWeight = FontWeight.Bold,
+                                color = if (income) Success else Ink,
+                            )
                         }
                         if (i < state.entries.lastIndex) HorizontalDivider(color = Line)
                     }
@@ -1728,7 +1802,7 @@ fun ConnectedNotifications(store: ConnectedStore, onBack: () -> Unit, navigate: 
             verticalArrangement = Arrangement.spacedBy(12.dp),
         ) {
             if (rows == null || rows.length() == 0)
-                item { SheetCard { Text("暂无消息", color = Muted) } }
+                item { EmptyState("bell", "暂无消息", "订单与平台通知会显示在这里", "刷新") { reload() } }
             items(rows?.length() ?: 0) { index ->
                 val row = rows!!.getJSONObject(index)
                 SheetCard {

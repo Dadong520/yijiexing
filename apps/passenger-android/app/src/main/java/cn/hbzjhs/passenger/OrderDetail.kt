@@ -6,6 +6,8 @@ import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -22,7 +24,7 @@ import org.json.JSONObject
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun OrderDetail(o: JSONObject, store: PassengerStore, busy: Boolean) {
+fun OrderDetail(o: JSONObject, store: PassengerStore, busy: Boolean, onHome: () -> Unit = {}) {
   val id = o.text("id")
   val stage = o.text("stage")
   val driver = o.optJSONObject("driver")
@@ -91,11 +93,17 @@ fun OrderDetail(o: JSONObject, store: PassengerStore, busy: Boolean) {
         )
         Note("${paymentName(o.text("paymentStatus", if (o.optBoolean("paid")) "SUCCESS" else "UNPAID"))} · 支付和退款均为模拟")
       }
-      if (cancellable) TextButton(
-        onClick = { cancelChoice = "行程计划有变"; cancelOther = ""; dialog = "cancel" },
-        enabled = !busy,
-        colors = ButtonDefaults.textButtonColors(contentColor = Danger, disabledContentColor = Muted.copy(alpha = 0.6f)),
-      ) { Text("取消订单") }
+    }
+    if (cancellable) OutlinedButton(
+      onClick = { cancelChoice = "行程计划有变"; cancelOther = ""; dialog = "cancel" },
+      enabled = !busy,
+      modifier = Modifier.fillMaxWidth().heightIn(min = 52.dp),
+      shape = androidx.compose.foundation.shape.RoundedCornerShape(14.dp),
+      border = androidx.compose.foundation.BorderStroke(1.5.dp, if (busy) Line else Danger),
+      colors = ButtonDefaults.outlinedButtonColors(containerColor = DangerSoft, contentColor = Danger, disabledContentColor = Muted.copy(alpha = 0.6f)),
+    ) {
+      Icon(Icons.Default.Close, contentDescription = null, modifier = Modifier.size(18.dp))
+      Text(if (stage == "AVAILABLE") "取消订单（等待接单中）" else "取消订单", fontSize = 16.sp, fontWeight = FontWeight.Bold, modifier = Modifier.padding(start = 6.dp))
     }
     Panel("行程路线") {
       if (o.text("scheduledAt").isNotBlank()) {
@@ -595,7 +603,9 @@ fun OrderDetail(o: JSONObject, store: PassengerStore, busy: Boolean) {
           "evaluate" -> p.put("rating", rating).put("content", content)
           "complaint" -> p.put("reason", reason).put("content", content)
         }
-        store.action("order.$action", p)
+        // done runs only after the service accepted the action; failures stay on this page.
+        if (action == "cancel") store.action("order.cancel", p) { onHome() }
+        else store.action("order.$action", p)
         dialog = ""
       },
     ) {

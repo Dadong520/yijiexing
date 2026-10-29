@@ -434,10 +434,10 @@ private fun PassengerBookingDraft(state: JSONObject, store: PassengerStore, busy
                       onClick = {
                         origin = recent.text("origin")
                         destination = recent.text("destination")
-                        oLat = recent.optDouble("originLat").toString()
-                        oLng = recent.optDouble("originLng").toString()
-                        dLat = recent.optDouble("destinationLat").toString()
-                        dLng = recent.optDouble("destinationLng").toString()
+                        oLat = recent.coordText("originLat")
+                        oLng = recent.coordText("originLng")
+                        dLat = recent.coordText("destinationLat")
+                        dLng = recent.coordText("destinationLng")
                         oMetadata = recent.optJSONObject("originCoordinateMetadata")?.toString().orEmpty()
                         dMetadata = recent.optJSONObject("destinationCoordinateMetadata")?.toString().orEmpty()
                       },
@@ -509,25 +509,38 @@ fun AddressDialog(
     cancelSearch(); name=n; lat=a; lng=b; source=from; selectedMetadata=metadata; error=""
   }
   val places =
-    (favorites.map {
-        Triple(it.text("address"), it.optDouble("latitude").toString(), it.optDouble("longitude").toString())
+    (favorites.filter { it.text("address").isNotBlank() }.map {
+        Triple(it.text("address"), it.coordText("latitude"), it.coordText("longitude"))
       } + listOf(
         Triple("宜昌东站 · 出租车上客区", "30.6648", "111.3674"),
         Triple("夷陵广场 · 东侧入口", "30.7040", "111.2929"),
         Triple("三峡游客中心", "30.6778", "111.2944"),
       )).distinctBy { (n, a, b) -> Triple(n, a.toDoubleOrNull(), b.toDoubleOrNull()) }
-  PassengerModal(
-    title = "选择地点",
-    onDismiss = close,
-    confirmLabel = "使用此地点",
-    confirmEnabled = !searching,
-    onConfirm = {
-      runCatching {
-        require(name.trim().length >= 2) { "请填写地址名称" }
-        require(lat.isNotBlank() && lng.isNotBlank()) { "地址文字已修改，请先选择搜索结果、常用地点或填写匹配的坐标" }
-        coordinate(lat, true); coordinate(lng, false)
-        save(name.trim(), lat.trim(), lng.trim(), selectedMetadata)
-      }.onFailure { error=it.message.orEmpty() }
+  val historyKeys =
+    favorites.filter { it.text("label") == "历史地点" }
+      .map { Triple(it.text("address"), it.coordText("latitude").toDoubleOrNull(), it.coordText("longitude").toDoubleOrNull()) }.toSet()
+  // Full-screen picker: title back and system back both call close() without touching the draft.
+  PassengerFullPage(
+    "选择地点",
+    close,
+    bottom = {
+      if (name.isNotBlank())
+        Text(
+          "已选：${name.trim()}" + if (lat.isBlank() || lng.isBlank()) "（未确认坐标）" else "",
+          color = Ink,
+          fontSize = 14.sp,
+          maxLines = 2,
+          overflow = TextOverflow.Ellipsis,
+        )
+      if (error.isNotBlank()) Text(error, color=MaterialTheme.colorScheme.error, fontSize = 13.sp, maxLines = 3, overflow = TextOverflow.Ellipsis)
+      ActionButton("使用此地点", !searching) {
+        runCatching {
+          require(name.trim().length >= 2) { "请填写地址名称" }
+          require(lat.isNotBlank() && lng.isNotBlank()) { "地址文字已修改，请先选择搜索结果、常用地点或填写匹配的坐标" }
+          coordinate(lat, true); coordinate(lng, false)
+          save(name.trim(), lat.trim(), lng.trim(), selectedMetadata)
+        }.onFailure { error=it.message.orEmpty() }
+      }
     },
   ) {
     Field(name, { value ->
@@ -552,7 +565,7 @@ fun AddressDialog(
         }
       }, notice = "点击地图选点，再核对地址")
     }
-    ActionButton(if (searching) "正在查询…" else if (amapKey.isNotBlank()) "搜索高德地点" else "搜索地址", !searching && name.trim().length >= 2) {
+    SecondaryButton(if (searching) "正在查询…" else if (amapKey.isNotBlank()) "搜索高德地点" else "搜索地址", !searching && name.trim().length >= 2) {
       val query=name.trim()
       error=""; results=emptyList(); searching=true
       searchJob=scope.launch {
@@ -572,7 +585,6 @@ fun AddressDialog(
       LinearProgressIndicator(Modifier.fillMaxWidth())
       TextButton(onClick={cancelSearch()}) { Text("取消搜索，改用常用或手动地点") }
     }
-    if (error.isNotBlank()) Text(error, color=MaterialTheme.colorScheme.error)
     results.forEach { result ->
       MenuRow(result.name, Icons.Default.LocationOn, "选择并在地图核对") {
         selectPlace(result.name, result.latitude.toString(), result.longitude.toString(), "搜索选定地点", result.metadata)
@@ -580,13 +592,29 @@ fun AddressDialog(
     }
     if (source.isNotBlank()) Note("$source · 请核对名称与地图位置")
     Note(if (amapKey.isNotBlank()) "使用高德地点搜索与地图选点；请选择具体车站、入口或建筑。" else "地址服务可用性依赖设备服务，请核对地点后使用。")
-    Text("常用与体验地点", fontWeight=FontWeight.SemiBold)
-    places.forEach { (n, a, b) ->
-      MenuRow(n, Icons.Default.LocationOn, if (favorites.any { it.text("address") == n && it.optBoolean("isDefault") }) "默认常用地址 · 点击选择" else "点击选择") {
-        val metadata=favorites.firstOrNull { it.text("address")==n && it.optDouble("latitude")==a.toDoubleOrNull() && it.optDouble("longitude")==b.toDoubleOrNull() }?.optJSONObject("coordinateMetadata")
-        selectPlace(n,a,b,"常用或体验地点",metadata)
+    val (historyPlaces, commonPlaces) =
+      places.partition { (n, a, b) -> Triple(n, a.toDoubleOrNull(), b.toDoubleOrNull()) in historyKeys }
+    listOf("收藏与常用地点" to commonPlaces, "历史地点" to historyPlaces).forEach { (section, rows) ->
+      if (rows.isNotEmpty()) {
+        Text("$section · ${rows.size}", fontWeight=FontWeight.SemiBold, color = Ink)
+        rows.forEach { (n, a, b) ->
+          val hasPoint = a.isNotBlank() && b.isNotBlank()
+          val subtitle =
+            if (!hasPoint) "未提供坐标 · 选中后请搜索或地图选点"
+            else if (favorites.any { it.text("address") == n && it.optBoolean("isDefault") }) "默认常用地址 · 点击选择" else "点击选择"
+          MenuRow(n, if (section == "历史地点") Icons.Default.Refresh else Icons.Default.LocationOn, subtitle) {
+            if (!hasPoint) {
+              // Only the name is reused; never fill an unknown point as 0 or NaN.
+              cancelSearch(); name=n; lat=""; lng=""; source=""; selectedMetadata=null
+              error="该地点未提供坐标，请搜索并选中地点或在地图选点。"
+            } else {
+              val metadata=favorites.firstOrNull { it.text("address")==n && it.optDouble("latitude")==a.toDoubleOrNull() && it.optDouble("longitude")==b.toDoubleOrNull() }?.optJSONObject("coordinateMetadata")
+              selectPlace(n,a,b,if (section == "历史地点") "历史地点" else "常用或体验地点",metadata)
+            }
+          }
+          HorizontalDivider()
+        }
       }
-      HorizontalDivider()
     }
     TextButton(onClick={advanced=!advanced}) { Text(if (advanced) "收起手动坐标" else "手动坐标 · 高级设置") }
     if (advanced) {

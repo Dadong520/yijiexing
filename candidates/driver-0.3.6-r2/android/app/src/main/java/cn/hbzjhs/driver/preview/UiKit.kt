@@ -544,12 +544,14 @@ fun OrderCard(order: DriverOrder, action: String? = null, onClick: () -> Unit) {
                     if (order.kind == OrderKind.BID) Orange else Green,
                     if (order.kind == OrderKind.BID) WarmSoft else Pale
                 )
-                Text(
-                    if (order.stage == Stage.AVAILABLE) "距您 ${order.distance} km" else order.stage.title,
-                    color = Green,
-                    fontSize = 13.sp,
-                    fontWeight = FontWeight.Bold
-                )
+                if (order.stage == Stage.AVAILABLE)
+                    Text(
+                        "距乘客 ${kmOrMissing(order.distance)}",
+                        color = Green,
+                        fontSize = 13.sp,
+                        fontWeight = FontWeight.Bold
+                    )
+                else StageBadge(order)
             }
             Text(
                 if (order.destinationPending) "费用待定" else "¥${money(order.fare)}",
@@ -566,14 +568,21 @@ fun OrderCard(order: DriverOrder, action: String? = null, onClick: () -> Unit) {
         Spacer(Modifier.height(6.dp))
         Text(
             if (order.destinationPending) "目的地待补充"
-            else if (order.kind == OrderKind.BID && order.stage == Stage.AVAILABLE) "参考报价 · 约 ${order.mileage} km"
-            else "预估里程 · 约 ${order.mileage} km",
+            else if (order.kind == OrderKind.BID && order.stage == Stage.AVAILABLE) "参考报价 · 预估行程 ${kmOrMissing(order.mileage)}"
+            else "预估行程 · ${kmOrMissing(order.mileage)}",
             color = Muted,
             fontSize = 12.sp,
             lineHeight = 16.sp
         )
         Spacer(Modifier.height(10.dp))
-        PrimaryButton(action ?: "查看详情", onClick = onClick)
+        if (action == null && order.stage != Stage.AVAILABLE)
+            OutlinedButton(
+                onClick = onClick,
+                modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp),
+                shape = RoundedCornerShape(10.dp),
+                border = BorderStroke(1.dp, Green),
+            ) { Text("查看详情", color = Green, fontSize = 15.sp, fontWeight = FontWeight.SemiBold) }
+        else PrimaryButton(action ?: "查看详情", onClick = onClick)
     }
 }
 

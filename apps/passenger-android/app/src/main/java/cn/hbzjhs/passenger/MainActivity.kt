@@ -149,8 +149,11 @@ fun PassengerApp(
     }
   }
   BackHandler(selected.isNotEmpty() || page !in listOf("home", "orders", "profile")) {
-    if (selected.isNotEmpty()) selected = ""
-    else page = if (page == "negotiation") "home" else "profile"
+    // Order detail always returns to home for quick rebooking; inner sub-pages are dialogs and close first.
+    if (selected.isNotEmpty()) {
+      selected = ""
+      page = "home"
+    } else page = if (page == "negotiation") "home" else "profile"
   }
   val snack = remember { SnackbarHostState() }
   LaunchedEffect(notice) {
@@ -171,9 +174,11 @@ fun PassengerApp(
           if (selected.isNotEmpty() || page !in listOf("home", "orders", "profile"))
             IconButton(
               onClick = {
+                val fromDetail = selected.isNotEmpty()
                 selected = ""
                 page =
-                  if (page in listOf("home", "orders", "profile")) page
+                  if (fromDetail) "home"
+                  else if (page in listOf("home", "orders", "profile")) page
                   else if (page == "negotiation") "home" else "profile"
               }
             ) {
@@ -269,23 +274,27 @@ fun PassengerApp(
         if (order == null)
           PageColumn {
             EmptyCard("订单正在同步", "请刷新重试，或返回订单列表")
-            ActionButton("返回订单列表") {
+            SecondaryButton("返回订单列表") {
               selected = ""
               page = "orders"
             }
           }
-        else OrderDetail(order, store, busy)
+        else OrderDetail(order, store, busy) {
+          // Called only from a successful cancellation callback.
+          selected = ""
+          page = "home"
+        }
       } else
         when (page) {
           "home" ->
             BookingScreen(state, store, busy, onNegotiation = { page = "negotiation" }) {
               selected = it
-              page = "orders"
+              page = "home"
             }
           "negotiation" ->
             NegotiationClaimScreen(store, incomingCode, consumed) {
               selected = it
-              page = "orders"
+              page = "home"
             }
           "orders" -> OrdersScreen(state.rows("orders")) { selected = it }
           "profile" -> ProfileScreen(state, store, settings = { settings = true }) { page = it }
@@ -308,8 +317,8 @@ fun PageColumn(content: @Composable ColumnScope.() -> Unit) {
     Modifier
       .fillMaxSize()
       .verticalScroll(rememberScrollState())
-      .padding(horizontal = 16.dp, vertical = 14.dp),
-    verticalArrangement = Arrangement.spacedBy(14.dp),
+      .padding(horizontal = Gap.L, vertical = Gap.L),
+    verticalArrangement = Arrangement.spacedBy(Gap.M),
     content = content,
   )
 }
@@ -324,8 +333,8 @@ fun Panel(title: String? = null, content: @Composable ColumnScope.() -> Unit) {
     modifier = Modifier.fillMaxWidth(),
   ) {
     Column(
-      Modifier.padding(horizontal = 18.dp, vertical = 16.dp),
-      verticalArrangement = Arrangement.spacedBy(8.dp),
+      Modifier.padding(horizontal = Gap.L, vertical = Gap.L),
+      verticalArrangement = Arrangement.spacedBy(Gap.S),
     ) {
       title?.let {
         Text(
@@ -420,10 +429,11 @@ fun Field(
 fun EmptyCard(title: String, desc: String) {
   Panel {
     Column(
-      Modifier.fillMaxWidth().padding(vertical = 12.dp),
+      Modifier.fillMaxWidth().padding(vertical = Gap.M),
       horizontalAlignment = Alignment.CenterHorizontally,
-      verticalArrangement = Arrangement.spacedBy(8.dp),
+      verticalArrangement = Arrangement.spacedBy(Gap.S),
     ) {
+      EmptyIllustration(emptyIcon(title))
       Text(
         title,
         fontWeight = FontWeight.SemiBold,

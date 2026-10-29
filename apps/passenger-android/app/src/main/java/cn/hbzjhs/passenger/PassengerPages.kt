@@ -18,6 +18,7 @@ import androidx.compose.ui.window.DialogProperties
 fun PassengerFullPage(
     title: String,
     onBack: () -> Unit,
+    bottom: (@Composable ColumnScope.() -> Unit)? = null,
     content: @Composable ColumnScope.() -> Unit
 ) {
     Dialog(
@@ -45,7 +46,8 @@ fun PassengerFullPage(
                         text = title,
                         style = MaterialTheme.typography.titleMedium,
                         color = Ink,
-                        modifier = Modifier.padding(start = 8.dp)
+                        maxLines = 2,
+                        modifier = Modifier.weight(1f).padding(start = 8.dp)
                     )
                 }
                 HorizontalDivider()
@@ -56,6 +58,14 @@ fun PassengerFullPage(
                     verticalArrangement = Arrangement.spacedBy(12.dp),
                     content = content
                 )
+                if (bottom != null) {
+                    HorizontalDivider()
+                    Column(
+                        modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 12.dp),
+                        verticalArrangement = Arrangement.spacedBy(8.dp),
+                        content = bottom
+                    )
+                }
             }
         }
     }

@@ -120,7 +120,8 @@ fun ProfileScreen(
       MenuRow(if (PassengerOperations.enabled(state,"invoice")) "模拟发票与回执" else "历史模拟回执", Icons.AutoMirrored.Filled.List, "查看申请与记录 · 不可报销") { navigate("invoices") }
       MenuRow("安全中心与联系人", Icons.Default.Lock, "当前账号本机保存") { navigate("safety") }
     }
-    ExpandablePanel("更多体验", "卡券、积分与邀请 · 未接营销账务") {
+    Panel("更多体验") {
+      Note("卡券、积分与邀请 · 未接营销账务")
       MenuRow("我的卡券 · 演示", Icons.Default.Info, "0张 · 不参与订单抵扣") { navigate("coupons") }
       HorizontalDivider(color = DividerTone, thickness = 0.8.dp)
       MenuRow("积分 · 演示", Icons.Default.Info, "0分 · 未接营销账务") { navigate("points") }
@@ -136,7 +137,7 @@ fun ProfileScreen(
       HorizontalDivider(color = DividerTone, thickness = 0.8.dp)
       MenuRow("公告、客服与服务说明", Icons.Default.Info) { navigate("help") }
     }
-    ExpandablePanel("应用与连接", "版本与功能范围") {
+    Panel("应用与连接") {
       MenuRow("连接状态", Icons.Default.Settings, "网络异常时重试") { settings() }
       HorizontalDivider(color = DividerTone, thickness = 0.8.dp)
       Note("体验版 ${BuildConfig.VERSION_NAME}")

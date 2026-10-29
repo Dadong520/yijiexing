@@ -166,15 +166,23 @@ internal fun BusinessHint(text: String) {
 }
 
 @Composable
-internal fun BusinessEmpty(text: String) {
-    SheetCard {
-        Text(
-            text,
-            color = Muted,
-            modifier = Modifier.fillMaxWidth().padding(vertical = 18.dp),
-            fontSize = 18.sp,
-        )
-    }
+internal fun BusinessEmpty(
+    text: String,
+    icon: String = businessEmptyIcon(text),
+    actionLabel: String? = null,
+    onAction: (() -> Unit)? = null,
+) {
+    EmptyState(icon, text, "", actionLabel, onAction)
+}
+
+private fun businessEmptyIcon(text: String): String = when {
+    "积分" in text -> "gift"
+    "拉新" in text -> "gift"
+    "评分" in text || "排行" in text -> "chart"
+    "提现" in text || "银行" in text -> "wallet"
+    "投诉" in text || "反馈" in text || "帮助" in text -> "support"
+    "黑名单" in text -> "shield"
+    else -> "doc"
 }
 
 @Composable

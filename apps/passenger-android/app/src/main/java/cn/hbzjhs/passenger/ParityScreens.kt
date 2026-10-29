@@ -33,7 +33,7 @@ fun PassengerExtrasScreen(page: String, owner: String) {
       if (page == "points") Note("暂无积分变动。预付成功不视作完单，不在本机发放完单积分。")
       if (page == "invite") {
         Note("尚无服务端邀请码或真实拉新绑定，不承诺注册送券或首单奖励。")
-        ActionButton("复制体验说明") {
+        SecondaryButton("复制体验说明") {
           runCatching {
             val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
             clipboard.setPrimaryClip(ClipData.newPlainText("宜捷行体验说明", "邀请了解宜捷行独立体验版：邀请、积分和卡券目前仅作功能演示，无注册奖励、无实际抵扣或拉新绑定。"))

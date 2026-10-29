@@ -252,7 +252,7 @@ private fun ConnectedApp(store: ConnectedStore, state: DriverState) {
             navigate("detail:$id")
         }
     }
-    if (!guideShowing && state.loggedIn) NewOrderDialog { id ->
+    if (!guideShowing && state.loggedIn) NewOrderDialog(state.orders) { id ->
         NewOrderAlerts.dismiss(id)
         store.refresh()
         navigate("detail:$id")

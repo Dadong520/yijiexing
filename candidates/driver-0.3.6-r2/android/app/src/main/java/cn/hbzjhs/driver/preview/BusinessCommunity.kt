@@ -146,7 +146,7 @@ internal fun BusinessPoints(store: ConnectedStore, profile: JSONObject, onBack: 
                 }
             }
         }
-        if (filtered.isEmpty()) item { BusinessEmpty("本月暂无积分记录") }
+        if (filtered.isEmpty()) item { BusinessEmpty("本月暂无积分记录", actionLabel = "刷新") { store.refresh() } }
         items(filtered) { entry -> BusinessLedgerRow(entry, "积分变动") }
         item { BusinessHint("奖励规则属于沙箱演练配置，不代表正式平台发放承诺。") }
     }
@@ -173,7 +173,7 @@ internal fun BusinessServiceScore(store: ConnectedStore, profile: JSONObject, on
             }
         }
         item { SectionTitle("评分变动记录") }
-        if (entries.isEmpty()) item { BusinessEmpty("暂无评分变动") }
+        if (entries.isEmpty()) item { BusinessEmpty("暂无评分变动", actionLabel = "刷新") { store.refresh() } }
         items(entries) { entry -> BusinessLedgerRow(entry, "服务分变动") }
     }
 }
@@ -273,7 +273,7 @@ internal fun BusinessReferral(
             }
         }
         item { SectionTitle("拉新记录") }
-        if (records.isEmpty()) item { BusinessEmpty("暂无拉新记录") }
+        if (records.isEmpty()) item { BusinessEmpty("暂无拉新记录", actionLabel = "刷新") { store.refresh() } }
         items(records) { record ->
             SheetCard {
                 DetailRow(
