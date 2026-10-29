@@ -2,7 +2,7 @@
 中央 /Users/dongge/Documents/New project 2/coordination 唯一权威，协议2026-10-26-v3。唯一coordinator01a17cc7-e0a2-7791-bf1d-4611c09bab22/generation6统一派单、验收、合并和发布；context UNKNOWN/not_exposed。
 
 ## 目前线上基线
-Git main最新a720d76e9f822dcfc860c4f324993c18f3c7b6e0（PR39新UI已合并发布；回执文档待UIOREC同步）；已发布产品107e226d1d23fc6d7ef5dab75229962bd38306d8/PR37合并8eebffa772223c57da6e96bc7b9126ebc59f816a。当前已发布乘客1.1.17-experience/code19、司机0.3.16-cloud/code19；原CCUI版18为历史。
+Git main最新a720d76e9f822dcfc860c4f324993c18f3c7b6e0（PR39新UI已合并发布；回执文档待UIOREC同步）；当前原生产品源137e41534f823c538fe62ff10820f491e0e55074；后端/后台保留107e226d1d23fc6d7ef5dab75229962bd38306d8/PR37基线。当前已发布乘客1.1.17-experience/code19、司机0.3.16-cloud/code19；原CCUI版18为历史。
 API https://yijiexing-demo.hbzjhs.xyz，revision driver-demo-ccui-107e226-test1；后台 https://demo-admin.hbzjhs.xyz/，revision driver-admin-ccui-107e226-test1，均100%，user-test同版。后台原账号密码，无Google/IAP前置。
 安装快链 https://user-test---driver-demo-phfgquzmua-uw.a.run.app/download（司机）与/download-passenger（乘客），对应.apk整包，实际版本以回读为准。CCUI发布时HTTPS/hash/原签名和39旧单全部字段一致，证据CCUI-20261029-01/release/FINAL-RELEASE-RECEIPT.json。后来用户新增单，本轮fresh42单备份和回读全部字段一致，不复用旧39结论。
 仅独立项目yijiexing-driver-demo-1023/us-west1；禁止原测试/生产。CloudRun automatic/min0/max1/请求CPU计费、API900秒，保留ENV/secret/SA/IAM/RBAC/Origin，不保活、不自动暂停。私有Key/账户/DB/APK/cache/rawCLI外置0600。
@@ -25,3 +25,5 @@ BIZ04预约待出发不占即时，明确开始接驾后双角色同一时刻单
 ## 角色和恢复
 角色精确ID见SESSION_REGISTRY：backend01a182c6-c058-76e1-9584-38abfe813799、frontend01a182c6-c475-7110-bbae-0deafe6d2385均GPT6.1/当前IDLE PASS；expert01a1830f-d94b-7933-9c22-2c3898e54186 Astra/xhigh按GOV06仅堵点，当前IDLE；Gemini PAUSED_BY_USER，无在途任务，保留设置。Claude按GOV07及CLAUDE_CODE.md，root唯一发布。
 AUTO已PR35实装/独审ACK。根会话完成本轮闭环后等用户体验反馈，不新建守护/bridge/保活，不自动回信循环。中央控制文件只能root写；各角色只写自身卡/任务/证据；工作树仅提交快照，不反向覆盖中央。此前CCREC已PR38完成。
+
+当前源码工作树/Users/dongge/.codex/tmp/yijiexing-ui-optimization-worktree-20261029（UIOREC文档分支）；共享后端下一次获派修改时仅此树apps/cloud-service可写，旧pm-amap树仅历史，不并发改重复快照。当前后端无改动或待发补丁。

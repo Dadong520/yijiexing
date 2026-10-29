@@ -15,7 +15,7 @@
     "UIO both full HTTPS APK/version19/original signer/hash readbacks PASS;42 old orders all fields preserved;runtime/IAM/traffic unchanged",
     "No redundant product tests or deployment; exact-head CI then receipt merge"
   ],
-  "status": "RECEIPT_READY_FOR_COMMIT",
+  "status": "RECEIPT_CI_PENDING",
   "acceptance": "PASS",
   "tests": [
     {
@@ -31,5 +31,6 @@
   "pendingMergeSha": null,
   "deploy_owner": "coordinator",
   "releaseReady": false,
-  "updatedAt": "2026-10-29T11:35:45.538412+00:00"
+  "updatedAt": "2026-10-29T11:35:45.538412+00:00",
+  "pullRequest": "https://github.com/Dadong520/yijiexing/pull/40"
 }
