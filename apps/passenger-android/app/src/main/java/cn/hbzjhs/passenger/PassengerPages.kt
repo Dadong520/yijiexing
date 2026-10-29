@@ -21,6 +21,7 @@ fun PassengerFullPage(
     bottom: (@Composable ColumnScope.() -> Unit)? = null,
     content: @Composable ColumnScope.() -> Unit
 ) {
+    PassengerModalSlot()
     Dialog(
         onDismissRequest = onBack,
         properties = DialogProperties(usePlatformDefaultWidth = false)

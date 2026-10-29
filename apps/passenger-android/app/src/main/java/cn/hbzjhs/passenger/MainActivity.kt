@@ -118,6 +118,8 @@ fun PassengerApp(
   var settings by remember { mutableStateOf(false) }
   var showPermissionGuide by rememberSaveable { mutableStateOf(false) }
   PassengerPermissions(showPermissionGuide) { showPermissionGuide = false }
+  PassengerModalSlot(showPermissionGuide)
+  PassengerModalSlot(settings)
   PassengerTripLocationReporter(state, logged, store)
   val lifecycle = LocalLifecycleOwner.current
   LaunchedEffect(logged, incomingCode) {

@@ -286,8 +286,9 @@ fun ConnectedHome(
 
     BoxWithConstraints(Modifier.fillMaxSize().background(Page)) {
         // The identity bar sits above the map (never on top of it), and the order sheet keeps
-        // at least 360dp so the map stays fully visible on small screens.
-        val mapHeight = minOf(maxHeight * 0.42f, maxHeight - 420.dp).coerceAtLeast(200.dp)
+        // at least ~360dp below the bars so hall/in-trip actions stay reachable on small screens and
+        // with large text; the map gives way first (down to 150dp) instead of squeezing the sheet.
+        val mapHeight = minOf(maxHeight * 0.46f, maxHeight - 420.dp).coerceAtLeast(150.dp)
         Column(Modifier.fillMaxSize()) {
             DriverQualificationBanner(payload, navigate)
             Surface(
@@ -298,7 +299,7 @@ fun ConnectedHome(
                 Row(
                     Modifier
                         .fillMaxWidth()
-                        .height(56.dp)
+                        .heightIn(min = 56.dp)
                         .padding(horizontal = 12.dp),
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.SpaceBetween
@@ -968,7 +969,7 @@ fun ConnectedTrip(
                                 val current = store.state.value.orders.find { it.id == order.id }
                                 if (current?.mayAdvanceFrom(order.stage) == true) {
                                     store.perform("order.advance", JSONObject().put("id", order.id).put("expectedStage", order.stage.name)) {
-                                        navigateForNewLeg(context, store, order.id, onMessage)
+                                        navigateForNewLeg(context, store, order.id, order.stage, onMessage)
                                     }
                                 } else {
                                     onMessage("订单状态已更新，请刷新后再操作")
@@ -1043,7 +1044,7 @@ fun ConnectedTrip(
                             onFailure = { verifyError = it },
                         ) {
                             verify = false
-                            navigateForNewLeg(context, store, order.id, onMessage)
+                            navigateForNewLeg(context, store, order.id, Stage.ARRIVED, onMessage)
                         }
                     }
                 ) {

@@ -398,10 +398,65 @@ fun openExternalNavigation(context: Context, order: DriverOrder, onError: (Strin
         .show()
 }
 
-/** Right after accept / start-pickup / passenger boarded, jump straight into navigation for the new leg. */
-fun navigateForNewLeg(context: Context, store: ConnectedStore, orderId: String, onError: (String) -> Unit) {
+internal fun driverAccount(payload: JSONObject): String =
+    payload.optJSONObject("profile")?.optJSONObject("driver")?.optString("id").orEmpty()
+
+/**
+ * Right after accept / start-pickup / passenger boarded, jump into navigation for the new leg.
+ * [before] is the stage the request was sent from; nothing opens unless the refreshed order really
+ * moved into a new PICKUP or TRIP leg (a distance request that leaves TRIP unchanged never opens).
+ */
+fun navigateForNewLeg(context: Context, store: ConnectedStore, orderId: String, before: Stage, onError: (String) -> Unit) {
     val order = store.state.value.orders.find { it.id == orderId } ?: return
-    if (order.stage == Stage.PICKUP || order.stage == Stage.TRIP) openExternalNavigation(context, order, onError)
+    if (AutoNavigationMemory.claim(context, driverAccount(store.payload.value), order.id, before, order.stage))
+        openExternalNavigation(context, order, onError)
+}
+
+/**
+ * Persisted UI memory of legs that already opened navigation automatically, so a restart or a
+ * re-entered screen never opens the same leg again. Holds only driver id | order id | leg name.
+ */
+private object AutoNavigationMemory {
+    private const val PREFS = "driver_auto_navigation_v1"
+    private const val KEY = "legs"
+
+    @Synchronized
+    fun claim(context: Context, account: String, orderId: String, before: Stage?, after: Stage?): Boolean {
+        val prefs = context.applicationContext.getSharedPreferences(PREFS, Context.MODE_PRIVATE)
+        val memory = prefs.getString(KEY, "").orEmpty().split('\n').filter { it.isNotBlank() }
+        val updated = NavigationAutoRules.claim(memory, account, orderId, before, after) ?: return false
+        prefs.edit().putString(KEY, updated.joinToString("\n")).apply()
+        return true
+    }
+}
+
+/**
+ * Covers the leg started on the passenger's side: after the passenger agrees to the boarding
+ * distance request, a refresh moves the order ARRIVED -> TRIP. The baseline is the first completed,
+ * connected sync of the current account (never the empty start state); later usable snapshots are
+ * compared against the previous usable one, and persisted memory blocks repeats after restarts.
+ */
+@Composable
+fun AutoNavigationObserver(store: ConnectedStore, onError: (String) -> Unit) {
+    val context = LocalContext.current
+    val state by store.state.collectAsState()
+    val payload by store.payload.collectAsState()
+    val initialized by store.initialized.collectAsState()
+    val connected by store.connected.collectAsState()
+    val account = driverAccount(payload)
+    // Not snapshot state: updated only inside the effect, so it never drives recomposition.
+    val baseline = remember(account) { arrayOfNulls<Map<String, Stage>>(1) }
+    LaunchedEffect(account, state, initialized, connected) {
+        if (!NavigationAutoRules.snapshotUsable(state.loggedIn, initialized, connected, account)) return@LaunchedEffect
+        val current = state.orders.associate { it.id to it.stage }
+        val boarded = NavigationAutoRules.boardedSince(baseline[0], current)
+        baseline[0] = current
+        boarded.forEach { id ->
+            val order = state.orders.firstOrNull { it.id == id } ?: return@forEach
+            if (AutoNavigationMemory.claim(context, account, id, Stage.ARRIVED, order.stage))
+                openExternalNavigation(context, order, onError)
+        }
+    }
 }
 
 internal fun amapNavigationIntent(target: NavigationTarget): Intent =

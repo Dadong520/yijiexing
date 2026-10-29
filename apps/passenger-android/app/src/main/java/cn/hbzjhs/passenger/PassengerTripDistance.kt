@@ -222,6 +222,8 @@ fun PassengerTripDistanceCard(
         }
     }
 
+    // While this in-order distance dialog is open, the app-wide distance popup stays hidden.
+    PassengerModalSlot(showConfirmDialog)
     if (showConfirmDialog) {
         Dialog(onDismissRequest = { showConfirmDialog = false }) {
             Card(

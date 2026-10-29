@@ -34,6 +34,7 @@ fun IdentifierButton(value: String, label: String = "订单编号") {
   var visible by remember(value) { mutableStateOf(false) }
   val context = LocalContext.current
   TextButton(onClick = { visible = true }) { Text("查看$label") }
+  PassengerModalSlot(visible)
   if (visible)
     AlertDialog(
       onDismissRequest = { visible = false },

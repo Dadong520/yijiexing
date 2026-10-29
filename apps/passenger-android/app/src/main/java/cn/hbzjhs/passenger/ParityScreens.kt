@@ -99,6 +99,7 @@ private fun SafetyCenter(owner: String) {
     if (error.isNotBlank()) Text(error, color=MaterialTheme.colorScheme.error)
   }
   deleting?.let { contact ->
+    PassengerModalSlot()
     AlertDialog(onDismissRequest={deleting=null}, title={Text("删除安全联系人？")}, text={Text(contact.name)}, confirmButton={TextButton(onClick={
       runCatching { local.remove(owner, contacts, contact.id); contacts=local.contacts(owner) }
         .onSuccess { deleting=null }.onFailure { error=it.message ?: "删除失败"; deleting=null }

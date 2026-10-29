@@ -186,6 +186,7 @@ fun ProfileScreen(
       }
       Note("区域开通范围由云端控制；存在进行中的订单时不能切换城市。地点坐标需自行选择到对应城市。")
     }
+  PassengerModalSlot(logout)
   if (logout)
     AlertDialog(
       onDismissRequest = { logout = false },
@@ -238,6 +239,7 @@ fun FavoritesScreen(state: JSONObject, store: PassengerStore) {
       }
     var error by remember { mutableStateOf("") }
     var isDefault by remember(f) { mutableStateOf(PassengerDefaults.id(state, "FAVORITE") == f.text("id") && f.text("id").isNotBlank()) }
+    PassengerModalSlot()
     AlertDialog(
       onDismissRequest = { edit = null },
       title = { Text("保存常用地址") },
@@ -400,6 +402,7 @@ fun HelpScreen(state: JSONObject, store: PassengerStore) {
 
 @Composable
 fun DeleteDialog(title: String, close: () -> Unit, remove: () -> Unit) {
+  PassengerModalSlot()
   AlertDialog(
     onDismissRequest = close,
     title = { Text(title) },

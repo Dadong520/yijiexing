@@ -258,6 +258,7 @@ private fun ConnectedApp(store: ConnectedStore, state: DriverState) {
         navigate("detail:$id")
     }
     val route = stack.last()
+    AutoNavigationObserver(store, ::message)
     Box(Modifier.fillMaxSize().background(Page), contentAlignment = Alignment.TopCenter) {
         Scaffold(
             Modifier.fillMaxSize().widthIn(max = 650.dp),
@@ -325,7 +326,7 @@ private fun ConnectedApp(store: ConnectedStore, state: DriverState) {
                                                             if (stack.last() == "root" && tab == 0)
                                                                 navigate("detail:${order.id}")
                                                             audio(R.raw.success_order)
-                                                            navigateForNewLeg(context, store, order.id, ::message)
+                                                            navigateForNewLeg(context, store, order.id, order.stage, ::message)
                                                         }
                                                     }
                                         }

@@ -43,6 +43,7 @@ fun PassengerCompanyPhone(company: JSONObject?) {
     if (status == "CONFIGURED" && phone.isNotBlank()) ActionButton("联系公司客服") { confirm = true }
     if(error.isNotBlank()) Text(error, color=MaterialTheme.colorScheme.error)
   }
+  PassengerModalSlot(confirm)
   if(confirm) AlertDialog(onDismissRequest={confirm=false},title={Text("打开系统拨号？")},text={Text("$phone\n进入系统拨号界面后，由您决定是否拨出。")},
     confirmButton={TextButton(onClick={confirm=false;runCatching { context.startActivity(Intent(Intent.ACTION_DIAL,Uri.fromParts("tel",phone,null))) }.onFailure { error="无法打开拨号应用，请手动拨号。" }}){Text("打开拨号")}},
     dismissButton={TextButton(onClick={confirm=false}){Text("取消")}})
@@ -74,10 +75,13 @@ fun PassengerAnnouncements(state: JSONObject, store: PassengerStore, logged: Boo
   val candidates=state.optJSONObject("operations")?.rows("announcements").orEmpty()
   val candidate=candidates.firstOrNull()
   val candidateKey=candidate?.let { it.text("id")+":"+it.optInt("version") }.orEmpty()
-  LaunchedEffect(owner,logged,candidateKey,busy,showing,failed,pausedKey) {
-    if(logged&&owner.isNotBlank()&&candidate!=null&&!busy&&!claiming&&showing==null&&!failed&&candidateKey!=pausedKey) {
+  // Waits (without claiming) while another dialog/full page is open, so the once-per-version claim is never spent on a hidden popup.
+  val slot=PassengerModalSlot(claiming||showing!=null||(failed&&candidate!=null))
+  val blocked=PassengerModalCoordinator.othersOpen(slot)
+  LaunchedEffect(owner,logged,candidateKey,busy,showing,failed,pausedKey,blocked) {
+    if(logged&&owner.isNotBlank()&&candidate!=null&&!busy&&!claiming&&showing==null&&!failed&&candidateKey!=pausedKey&&!blocked) {
       lifecycle.lifecycle.repeatOnLifecycle(Lifecycle.State.RESUMED) {
-        if(!claiming&&showing==null&&!failed&&candidateKey!=pausedKey) {
+        if(!claiming&&showing==null&&!failed&&candidateKey!=pausedKey&&!PassengerModalCoordinator.othersOpen(slot)) {
           claiming=true
           val captured=JSONObject(candidate.toString())
           store.claimAnnouncement(captured, onResult={ first ->
