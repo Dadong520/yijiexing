@@ -1,0 +1,64 @@
+{
+  "sourceSha": "f7c9cee87e7c709b09f49e0d069b355c5cdfcf13",
+  "parentSha": "2ba5b79f1113b0de9ec105a2733fc8a4a9e9ffe0",
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-cloud-navigation-review-20261029",
+  "externalRoot": "/Users/dongge/.codex/tmp/yijiexing-navf-repair-f7c9-20261029",
+  "roles": {
+    "passenger": {
+      "sourceSha": "f7c9cee87e7c709b09f49e0d069b355c5cdfcf13",
+      "buildSha": "f7c9cee87e7c709b09f49e0d069b355c5cdfcf13",
+      "inheritedBuild": false,
+      "sameFinalSourceTree": true,
+      "sourceTree": "a53f8a00654ca126d5ea7e18b6f2b23f7ae2d5e0",
+      "sourceTrackedFiles": 107,
+      "sourceMismatches": [],
+      "command": "JAVA_HOME=/opt/homebrew/opt/openjdk@17/libexec/openjdk.jdk/Contents/Home ANDROID_HOME=/opt/homebrew/share/android-commandlinetools bash gradlew --offline --no-daemon --max-workers=2 -I /Users/dongge/.codex/tmp/yijiexing-navf-repair-f7c9-20261029/scripts/offline.init.gradle testDebugUnitTest assembleDebug",
+      "cwd": "/Users/dongge/.codex/tmp/yijiexing-navf-repair-f7c9-20261029/source/apps/passenger-android",
+      "exitCode": 0,
+      "status": "PASS",
+      "tests": 54,
+      "failures": 0,
+      "errors": 0,
+      "newTestClassCounts": {
+        "PassengerPickupDefaultsTest": 12,
+        "PassengerConfirmPromptRulesTest": 11
+      },
+      "apk": "/Users/dongge/.codex/tmp/yijiexing-navf-repair-f7c9-20261029/source/apps/passenger-android/app/build/outputs/apk/debug/app-debug.apk",
+      "bytes": 107188601,
+      "sha256": "a4c114b3b507e245d025ad5bd0ba0367054436ac88c7849698fb96e61e5ec954",
+      "packageVersionLine": "package: name='cn.hbzjhs.dc.passenger.cloud' versionCode='19' versionName='1.1.17-experience' platformBuildVersionName='14' platformBuildVersionCode='34' compileSdkVersion='34' compileSdkVersionCodename='14'",
+      "aaptExit": 0,
+      "apksignerExit": 0,
+      "sameOriginalSigner": true,
+      "log": "coordination/evidence/NAVF-20261029-01/passenger-f7c9-build.log"
+    },
+    "driver": {
+      "sourceSha": "f7c9cee87e7c709b09f49e0d069b355c5cdfcf13",
+      "command": "JAVA_HOME=/opt/homebrew/opt/openjdk@17/libexec/openjdk.jdk/Contents/Home ANDROID_HOME=/opt/homebrew/share/android-commandlinetools bash gradlew --offline --no-daemon --max-workers=2 -I /Users/dongge/.codex/tmp/yijiexing-navf-repair-2ba5-20261029/scripts/offline.init.gradle testDebugUnitTest assembleDebug",
+      "cwd": "/Users/dongge/.codex/tmp/yijiexing-navf-repair-2ba5-20261029/source/candidates/driver-0.3.6-r2/android",
+      "exitCode": 0,
+      "status": "PASS",
+      "tests": 77,
+      "failures": 0,
+      "errors": 0,
+      "newTestClasses": {
+        "cn.hbzjhs.driver.preview.NavigationAutoRulesTest": 7
+      },
+      "sourceTrackedFiles": 68,
+      "sourceMismatches": [],
+      "sourceTree": "2b96fc0bd1e9a41a338e1126b62455093563c5d2",
+      "apk": "/Users/dongge/.codex/tmp/yijiexing-navf-repair-2ba5-20261029/source/candidates/driver-0.3.6-r2/android/app/build/outputs/apk/debug/app-debug.apk",
+      "bytes": 108669573,
+      "sha256": "e2ab3afbb47e8b2d1d17eed9b761b03b39c7c9329eae28c729bede2a2280e25b",
+      "packageVersionLine": "package: name='cn.hbzjhs.dc.driver.cloud' versionCode='19' versionName='0.3.16-cloud' platformBuildVersionName='14' platformBuildVersionCode='34' compileSdkVersion='34' compileSdkVersionCodename='14'",
+      "aaptExit": 0,
+      "apksignerExit": 0,
+      "sameOriginalSigner": true,
+      "log": "coordination/evidence/NAVF-20261029-01/driver-2ba5-build.log",
+      "buildSha": "2ba5b79f1113b0de9ec105a2733fc8a4a9e9ffe0",
+      "inheritedBuild": true,
+      "sameFinalSourceTree": true
+    }
+  },
+  "gui": "NOT_RUN; no ADB/AVD/fixture invoked; new batch authorization pending"
+}

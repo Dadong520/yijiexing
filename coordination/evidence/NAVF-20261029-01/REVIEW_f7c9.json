@@ -1,0 +1,85 @@
+{
+  "taskId": "NAVF-20261029-01",
+  "at": "2026-10-29T22:22:30.270165+08:00",
+  "reviewer": "frontend 01a182c6-c475-7110-bbae-0deafe6d2385 non-author",
+  "sourceSha": "f7c9cee87e7c709b09f49e0d069b355c5cdfcf13",
+  "parentSha": "2ba5b79f1113b0de9ec105a2733fc8a4a9e9ffe0",
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-cloud-navigation-review-20261029",
+  "branch": "codex/cloud-navigation-review-20261029",
+  "sourceStatus": "clean precise frozen HEAD/parent; nine passenger files only in delta; driver full subtree unchanged",
+  "acceptance": "PASS",
+  "scope": "OFFLINE_SOURCE_AND_BUILD_ONLY; no full native/visual acceptance or release approval",
+  "openBlockingFindings": [],
+  "closedFindings": [
+    {
+      "id": "NAVF-R1",
+      "status": "CLOSED_STATIC_AND_UNIT",
+      "evidence": [
+        "PassengerModalCoordinator ranks PAGE0/ANNOUNCEMENT1/PROMPT2, slots based on business/show state rather than visibility, no own-token blocking.",
+        "OperationsSupport both showing and failed dialogs draw only !hidden; async callback preserves captured copy in showing while a higher rank page is open; held/claiming prevents another ack. After page closes rank0 releases, announcement draws; after announcement closes prompt can draw.",
+        "Permission slot now uses actual shouldShow=forceOpen||!seenGuide inside PassengerPermissions; old forced-only registration removed.",
+        "No source wait cycle: a pending prompt may delay a new unclaimed announcement, but stays visible without any actual page/held announcement and can be dismissed/settled. A claimed announcement ignores lower-ranked prompt, so cannot wait mutually. Nested passenger pages/confirm dialogs rank0 remain intentionally caller-controlled.",
+        "Added actual rank/claim helper tests executed; no Compose window/timing evidence claimed."
+      ]
+    },
+    {
+      "id": "NAVF-R2",
+      "status": "CLOSED_STATIC_AND_UNIT",
+      "evidence": [
+        "PassengerAddressLookup.debounced takes gate.next before wait, checks gate+stillWanted after wait before begin/fetch, after fetch/error before publish, and gate before end.",
+        "BookingScreens calls this real helper with delay400 and actual searchSystemAddresses; manual coords/same-name selection/map/cancel/close invalidate the same gate. Existing cancel/new typing prevents late request or results/error/progress updates.",
+        "Same-query retry still changes retryTick; no implicit address selection added.",
+        "Five new runBlocking tests execute the real helper with controlled wait/fetch actions (no wall-clock400ms/real provider): cancellation during wait/text change/newer request, in-flight success/error invalidation, same-query retry after failure/cancel."
+      ]
+    }
+  ],
+  "rankAndCoverageConclusion": "No new blocking overlay/deadlock source path found in this delta. Existing PageColumn root OrderDetail and inline distance confirmation remain reachable as in2ba; driver/GPS fixes unchanged by file/tree proof. GUI verification remains required separately.",
+  "biz09Residual": {
+    "classification": "KNOWN_DELIVERY_LIMIT_NOT_A_NEW_SERVER_OR_ACCOUNT_ISOLATION_RULE",
+    "facts": [
+      "Store remains byte-identical to830 baseline: ack is sent before callback/dialog rendering, callback discarded on session generation switch; original showing is remember(owner) and not a durable per-account queue. Preexisting implementation already could consume ack without visible display on account switch or process death between ack and render.",
+      "New code holds an acked announcement behind a page while same account remains; this fixes same-account overlay/loss but extends the ack-to-visible interval. Switching account during this interval discards the held copy and it will not automatically be delivered again to the old account.",
+      "No new cross-account leak, repeated ack or backend BIZ09 change was introduced. This review does not certify at-least-once visible delivery across accounts/restarts, nor a durable cross-account queue.",
+      "Within this bounded UI repair the remaining ack-before-render delivery limit is documented, not treated as an additional product edit. If the required contract is guaranteed eventual display after switching back, this candidate does not meet that stronger guarantee; root must track a separate delivery-protocol/persistent-queue change before making that claim."
+    ],
+    "sourceReferences": [
+      "OperationsSupport.kt remember(owner)/showing and claimAnnouncement callback",
+      "PassengerStore.kt:415-439 unchanged against830",
+      "PassengerModalCoordinator.kt rank and mayClaimAnnouncement"
+    ]
+  },
+  "builds": {
+    "proof": "BUILD_PROOF_f7c9.json",
+    "passenger": {
+      "actualBuildSha": "f7c9cee87e7c709b09f49e0d069b355c5cdfcf13",
+      "tests": 54,
+      "failures": 0,
+      "errors": 0,
+      "buildExit": 0,
+      "duration": "33s",
+      "ConfirmPromptRulesTest": 11,
+      "PickupDefaultsTest": 12,
+      "compiler": "compileDebugKotlin/testDebugUnitTest/assembleDebug exit0; warnings only"
+    },
+    "driver": {
+      "actualBuildSha": "2ba5b79f1113b0de9ec105a2733fc8a4a9e9ffe0",
+      "inheritedBuild": true,
+      "tests": 77,
+      "failures": 0,
+      "errors": 0,
+      "sameFullSourceTree": true,
+      "sourceTree": "2b96fc0bd1e9a41a338e1126b62455093563c5d2",
+      "binding": "68 tracked source files in original2ba export compared byte-for-byte against f7; no rerun or re-export/build claim"
+    },
+    "package": "Original app IDs/certificate/code19 retained. These are unpublished candidate artifacts, not current online19 artifact hashes."
+  },
+  "notRun": [
+    "Current batch AVD/ADB/install/click/screenshots/GUI; no new authorization received",
+    "Small-screen/large-font map height and wallet layout, actual modal timing/announcement visibility",
+    "Real GPS/AMap/search/reverse/OEM/external navigation app",
+    "Backend/cloud business POST, merge or publication"
+  ],
+  "resources": "Passenger bounded Gradle27783 exited0. No emulator/fixture/ADB/port-forward started. External source/APK/logs retained /Users/dongge/.codex/tmp/yijiexing-navf-repair-f7c9-20261029; driver prior2ba artifact retained, no private material put in repo.",
+  "nextAction": "Frontend IDLE. Root combines source/build and backend review; GUI native acceptance remains pending current authorization, source/build PASS is not release approval.",
+  "releaseReady": false
+}

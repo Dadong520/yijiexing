@@ -1,0 +1,15 @@
+{
+  "sourceSha": "2ba5b79f1113b0de9ec105a2733fc8a4a9e9ffe0",
+  "businessSource": "PASS",
+  "passengerTests": 47,
+  "driverTests": 77,
+  "buildBoth": "PASS",
+  "frontendSource": "FAIL",
+  "openFindings": [
+    "NAVF-R1",
+    "NAVF-R2"
+  ],
+  "next": "Claude c334 phase3 in progress; then exact delta source/build review",
+  "gui": "NOT_RUN current-batch permission pending",
+  "releaseReady": false
+}

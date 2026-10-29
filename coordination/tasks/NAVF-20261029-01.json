@@ -1,0 +1,156 @@
+{
+  "schemaVersion": 1,
+  "id": "NAVF-20261029-01",
+  "owner": "frontend",
+  "goal": "独立离线构建与源码交互审查云端候选；设备待本批授权",
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-cloud-navigation-review-20261029",
+  "branch": "codex/cloud-navigation-review-20261029",
+  "baseSha": "830aa80883d27cd6e518e12e249efc8695129284",
+  "candidateSha": "f7c9cee87e7c709b09f49e0d069b355c5cdfcf13",
+  "allow_paths": [
+    "coordination/tasks/NAVF-20261029-01.json",
+    "coordination/handoffs/frontend.md",
+    "coordination/evidence/NAVF-20261029-01/"
+  ],
+  "checks": [
+    "Exact current frozen SHA export to fresh external source; reuse SDK/JDK/offline init only; inherit only byte-identical complete source subtree evidence",
+    "Run both unit/build once and report actual commands/proof; no product edits or cloud business writes",
+    "Review shared UI regression: hall map height/small screens/largefont, wallet collapse, prompt modal ordering, GPS/search coroutine state and navigation intents",
+    "Current phase no AVD launch/install/click until root supplies fresh authorization; do not borrow prior UIO permit",
+    "Report concrete findings and build status; actual provider/OEM not claimed; no agents/deploy"
+  ],
+  "status": "SOURCE_BUILD_PASS_GUI_NOT_RUN",
+  "acceptance": "PASS",
+  "tests": [
+    {
+      "command": "Real frontend memory-role/session gate",
+      "status": "PASS",
+      "exitCode": 0
+    },
+    {
+      "command": "Both exact55d2 exports: bash gradlew --offline --no-daemon --max-workers=2 -I <externalRoot>/scripts/offline.init.gradle testDebugUnitTest assembleDebug",
+      "status": "PASS",
+      "passengerTests": 31,
+      "driverTests": 70,
+      "failures": 0,
+      "errors": 0,
+      "exitCodes": [
+        0,
+        0
+      ]
+    },
+    {
+      "command": "Source interaction review of modal/search/GPS/navigation/wallet/map height",
+      "status": "FAIL",
+      "findings": [
+        "NAVF-F1",
+        "NAVF-F2",
+        "NAVF-F3",
+        "NAVF-F4"
+      ]
+    },
+    {
+      "command": "AVD/GUI",
+      "status": "NOT_RUN",
+      "reason": "Fresh batch authorization pending"
+    },
+    {
+      "command": "Exact2ba5 fresh export: dual offline testDebugUnitTest assembleDebug max-workers2",
+      "status": "PASS",
+      "passengerTests": 47,
+      "driverTests": 77,
+      "failures": 0,
+      "errors": 0,
+      "newTestClasses": 3,
+      "exitCodes": [
+        0,
+        0
+      ],
+      "proof": "coordination/evidence/NAVF-20261029-01/BUILD_PROOF_2ba5.json"
+    },
+    {
+      "command": "Repaired source review original4 findings + observer restart/account/leg dedupe",
+      "status": "FAIL",
+      "closed": [
+        "NAVF-F2",
+        "NAVF-F3"
+      ],
+      "open": [
+        "NAVF-R1",
+        "NAVF-R2"
+      ]
+    },
+    {
+      "command": "Current batch AVD/GUI",
+      "status": "NOT_RUN",
+      "reason": "Fresh authorization pending"
+    },
+    {
+      "command": "Exactf7 passenger offline testDebugUnitTest assembleDebug; actual compile/test/package",
+      "status": "PASS",
+      "tests": 54,
+      "failures": 0,
+      "errors": 0,
+      "exitCode": 0,
+      "proof": "coordination/evidence/NAVF-20261029-01/BUILD_PROOF_f7c9.json"
+    },
+    {
+      "command": "Driver full subtree f7=2ba and68 tracked files byte-bound; inherit77/build from2ba without rerun",
+      "status": "PASS_INHERITED"
+    },
+    {
+      "command": "R1/R2 ranks/actual render/permission/debounce helper focused review",
+      "status": "PASS",
+      "closed": [
+        "NAVF-R1",
+        "NAVF-R2"
+      ],
+      "limit": "BIZ09 ack-before-render account-switch delivery not durably guaranteed; see REVIEW_f7c9"
+    },
+    {
+      "command": "Current batch native GUI",
+      "status": "NOT_RUN",
+      "reason": "Fresh authorization pending"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "coordination/evidence/NAVF-20261029-01/REVIEW.json",
+      "sha256": "9f038b604d4c2483a933358a76d3b449721976af87cad813723c563fbfed2dab"
+    },
+    {
+      "path": "coordination/evidence/NAVF-20261029-01/FINDINGS.json",
+      "sha256": "f090be955f47bf480fa6a2218cda387626e493b42a45658031a74d6295f8d7aa"
+    },
+    {
+      "path": "coordination/evidence/NAVF-20261029-01/BUILD_PROOF.json",
+      "sha256": "da3511055f8744a4dc3aff2cdba7b05eacb6580b1307be724ba5b2c593abc972"
+    },
+    {
+      "path": "coordination/evidence/NAVF-20261029-01/REVIEW_2ba5.json",
+      "sha256": "52d3b2c7c4f41ca8738ed590fa2135e81a4ed5095aa34abc5c781d780b448040"
+    },
+    {
+      "path": "coordination/evidence/NAVF-20261029-01/FINDINGS_2ba5.json",
+      "sha256": "74d0771b4d27471308fdf646268fe18378e63eb86b8a648c00c533a3c5b187ab"
+    },
+    {
+      "path": "coordination/evidence/NAVF-20261029-01/BUILD_PROOF_2ba5.json",
+      "sha256": "42586208486a14d6cfa604d656290c54c105eca1400502696900a8a9042378f6"
+    },
+    {
+      "path": "coordination/evidence/NAVF-20261029-01/REVIEW_f7c9.json",
+      "sha256": "68b05efb1466f2af5c9e27de210f6ae32f2aee2c9b6a9fa2694cc68d9b19bfc0"
+    },
+    {
+      "path": "coordination/evidence/NAVF-20261029-01/BUILD_PROOF_f7c9.json",
+      "sha256": "985bdba6b20dcebb2f78c54d8d5623cca2b06333a7eb8e3cf65e9381d8cfbf4f"
+    }
+  ],
+  "nextAction": "Frontend IDLE. Root combines source/build and backend review; GUI native acceptance remains pending current authorization, source/build PASS is not release approval.",
+  "pendingMergeSha": "f7c9cee87e7c709b09f49e0d069b355c5cdfcf13",
+  "deploy_owner": "coordinator",
+  "releaseReady": false,
+  "updatedAt": "2026-10-29T22:22:30.270165+08:00",
+  "acceptanceScope": "OFFLINE_SOURCE_AND_BUILD_ONLY"
+}

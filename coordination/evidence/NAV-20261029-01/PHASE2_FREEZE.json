@@ -1,0 +1,32 @@
+{
+  "sha": "2ba5b79f1113b0de9ec105a2733fc8a4a9e9ffe0",
+  "parent": "55d2d8782a5c041b415c497c66d6576500048e3d",
+  "files": [
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/BookingScreens.kt",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/ExtraScreens.kt",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/MainActivity.kt",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/OperationsSupport.kt",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/OrderDetail.kt",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/OrderIdentity.kt",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/ParityScreens.kt",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/PassengerConfirmPrompts.kt",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/PassengerPages.kt",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/PassengerTripDistance.kt",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/ProfileScreens.kt",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/UiComponents.kt",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/CoreScreens.kt",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/MainActivity.kt",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/NativeMap.kt",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/PassengerConfirmPromptRules.kt",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/PassengerModalCoordinator.kt",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/PassengerPickupDefaults.kt",
+    "apps/passenger-android/app/src/test/java/cn/hbzjhs/passenger/PassengerConfirmPromptRulesTest.kt",
+    "apps/passenger-android/app/src/test/java/cn/hbzjhs/passenger/PassengerPickupDefaultsTest.kt",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/NavigationAutoRules.kt",
+    "candidates/driver-0.3.6-r2/android/app/src/test/java/cn/hbzjhs/driver/preview/NavigationAutoRulesTest.kt"
+  ],
+  "outsideAllowPaths": [],
+  "privateValuesHits": 0,
+  "authorTests": "NOT_RUN",
+  "releaseReady": false
+}

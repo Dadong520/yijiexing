@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updated": "2026-10-29T11:35:45.538412+00:00",
+  "updated": "2026-10-29T14:23:48.954428+00:00",
   "coordinator": "coordinator",
   "activeTaskIds": [
     "WX-20261025-01",
@@ -50,7 +50,10 @@
     "UIO-20261029-01",
     "UIOV-20261029-01",
     "UIOB-20261029-01",
-    "UIOREC-20261029-01"
+    "UIOREC-20261029-01",
+    "NAV-20261029-01",
+    "NAVB-20261029-01",
+    "NAVF-20261029-01"
   ],
   "releaseOwner": "coordinator",
   "policy": "作者提交→自测→独立验收→协调者合并→部署回读；无业务验收PASS不发布",
@@ -79,14 +82,14 @@
     "coordination/archive/2026-10-26/AUTH-20261026-02.json"
   ],
   "memoryProtocolVersion": "2026-10-26-v3",
-  "currentStage": "UIO_RELEASED_RECEIPT_SYNC",
+  "currentStage": "NAV_SOURCE_BUILD_PASS_WAIT_NATIVE_ACCEPTANCE",
   "roleAssignments": {
-    "coordinator": "UIOREC receipt/README sync; UIO actual release/readbacks PASS, then IDLE",
-    "backend": "IDLE UIOB final137 PASS",
-    "frontend": "IDLE UIOV final137 PASS; isolated resources cleaned",
+    "coordinator": "NAV f7 source/build PASS, draft integration; GUI permission pending, online19 unchanged",
+    "backend": "IDLE NAVB f7 source PASS with BIZ09 delivery boundary",
+    "frontend": "IDLE NAVF f7 source/build PASS54+77; GUI NOT_RUN",
     "antigravity": "PAUSED_BY_USER_20261029; no new Gemini dispatch",
     "expert": "IDLE; configuration verified, SDK auth recovered; user deferred actual device test",
-    "claude": "IDLE four stages complete; final137 accepted"
+    "claude": "IDLE c334 phase3 complete, no running author CLI"
   },
   "collaborationDecision": "GOV07 user Claude Code main implementation; Gemini temporarily paused; visible Codex role reviews and root unique release"
 }

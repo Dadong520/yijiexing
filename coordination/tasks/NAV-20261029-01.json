@@ -1,0 +1,84 @@
+{
+  "schemaVersion": 1,
+  "id": "NAV-20261029-01",
+  "owner": "claude",
+  "goal": "修复Claude云端导航/全局确认/默认定位候选的独立审查问题，再由Codex验收后接入体验版",
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-cloud-navigation-review-20261029",
+  "branch": "codex/cloud-navigation-review-20261029",
+  "baseSha": "830aa80883d27cd6e518e12e249efc8695129284",
+  "candidateSha": "f7c9cee87e7c709b09f49e0d069b355c5cdfcf13",
+  "allow_paths": [
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/BookingScreens.kt",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/MainActivity.kt",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/PassengerConfirmPrompts.kt",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/PassengerConfirmPromptRules.kt",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/PassengerPickupDefaults.kt",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/PassengerPages.kt",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/UiComponents.kt",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/OperationsSupport.kt",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/OrderDetail.kt",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/CoreScreens.kt",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/MainActivity.kt",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/NativeMap.kt",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/NavigationAutoRules.kt",
+    "apps/passenger-android/app/src/test/java/cn/hbzjhs/passenger/PassengerConfirmPromptRulesTest.kt",
+    "apps/passenger-android/app/src/test/java/cn/hbzjhs/passenger/PassengerPickupDefaultsTest.kt",
+    "candidates/driver-0.3.6-r2/android/app/src/test/java/cn/hbzjhs/driver/preview/NavigationAutoRulesTest.kt",
+    "coordination/",
+    "apps/passenger-android/app/build.gradle.kts",
+    "candidates/driver-0.3.6-r2/android/app/build.gradle.kts",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/PassengerModalCoordinator.kt",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/ProfileScreens.kt",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/ExtraScreens.kt",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/ParityScreens.kt",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/OrderIdentity.kt",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/PassengerTripDistance.kt",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/PassengerContactPage.kt",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/PassengerPermissions.kt"
+  ],
+  "checks": [
+    "Validate exact frozen SHA, explicit allowed product helpers/tests; protected Store/backend/contracts unchanged",
+    "No merge or publication until non-author business/native acceptance and exact source evidence",
+    "Preserve original cloud data/identity/runtime boundaries; no real payments, inferred consent, or silent destination selection"
+  ],
+  "status": "WAIT_NATIVE_ACCEPTANCE",
+  "acceptance": "NOT_RUN",
+  "tests": [
+    {
+      "check": "non-author NAVB business source",
+      "status": "PASS",
+      "sha": "f7c9cee87e7c709b09f49e0d069b355c5cdfcf13"
+    },
+    {
+      "check": "non-author NAVF exact source/build/unit",
+      "status": "PASS",
+      "sha": "f7c9cee87e7c709b09f49e0d069b355c5cdfcf13",
+      "passengerTests": 54,
+      "driverTests": 77,
+      "driverInheritedFrom": "2ba5b79f1113b0de9ec105a2733fc8a4a9e9ffe0",
+      "driverFullSubtreeIdentical": true
+    },
+    {
+      "check": "current-batch GUI",
+      "status": "NOT_RUN",
+      "reason": "Pending fresh user answer; prior UIO permission was round-limited"
+    }
+  ],
+  "evidence": [
+    "coordination/evidence/NAV-20261029-01/PHASE3_FREEZE.json",
+    "coordination/evidence/NAVB-20261029-01/REVIEW_f7c9cee.json",
+    "coordination/evidence/NAVF-20261029-01/REVIEW_f7c9.json",
+    "coordination/evidence/NAVF-20261029-01/BUILD_PROOF_f7c9.json"
+  ],
+  "nextAction": "Push reviewed candidate and draft PR; native/visual acceptance pending current-batch permission, then version20 and release gates",
+  "pendingMergeSha": "f7c9cee87e7c709b09f49e0d069b355c5cdfcf13",
+  "deploy_owner": "coordinator",
+  "releaseReady": false,
+  "updatedAt": "2026-10-29T14:23:48.954428+00:00",
+  "fileOwnership": "Claude: presentation/coordinate/navigation helpers+tests only; coordinator exclusively coordination and build.gradle version constants. No Store/backend/domain/manifest/NavigationContract/permissions/key changes. Claude may update only its own central short card; no other control files.",
+  "sessionId": "c3342ddb-6fe0-44b6-8311-00c329e73178",
+  "model": "claude-opus-5-5",
+  "effort": "medium",
+  "sourceBuildAcceptance": "PASS",
+  "nativeAcceptance": "NOT_RUN"
+}

@@ -1,0 +1,40 @@
+{
+  "taskId": "NAVB-20261029-01",
+  "candidateSha": "f7c9cee87e7c709b09f49e0d069b355c5cdfcf13",
+  "previousAcceptedSha": "2ba5b79f1113b0de9ec105a2733fc8a4a9e9ffe0",
+  "reviewedAt": "2026-10-29T22:21:03+08:00",
+  "reviewerThreadId": "01a182c6-c058-76e1-9584-38abfe813799",
+  "acceptance": "PASS",
+  "scope": "Announcement/BIZ09 and modal rank/account delta source review; previous nonchanged semantic findings inherited",
+  "protectedObjectEquality": {
+    "apps/cloud-service": true,
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/": true,
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/PassengerStore.kt": true,
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/PassengerConfirmPromptRules.kt": true
+  },
+  "conclusions": [
+    "Original ops.announcement.ack path, passenger/version unique receipt and Store generation callback guards unchanged. No extra claim from held showing row.",
+    "Announcement stores showing/claiming/failed/paused by remember(owner), no cross-account display. Claim waits for no other modal; held success/failure dialog hides only behind PAGE rank, remains queued within same owner.",
+    "Rank PAGE0/ANNOUNCEMENT1/PROMPT2 introduces no cyclic wait: before claim, pending order prompt is shown and announcement waits; after claim announcement has higher display priority and order prompt waits. Self excluded from block calculation.",
+    "Permission guide uses real show condition registration; does not alter permission semantics.",
+    "Prior five issues remain closed: rules/Store/driver/backends exact same objects, prompt distance submit flow changed only rank; GPS quality core checks unchanged with address debounce helper delta owned by frontend review."
+  ],
+  "knownBoundary": {
+    "classification": "EXISTING_CLAIM_BEFORE_DISPLAY_GAP_WITH_NEW_LONGER_HOLD_WINDOW",
+    "scenario": "A claims version V; before actual display, user opens PAGE then switches A->B. Held A showing copy resets; backend ack persists so A may not receive V again. B never receives A row.",
+    "baselineEvidence": "830 OperationsSupport also claims server ack before showing; remember(owner) drops showing across account changes; original Store discards result when session generation changed. Server live_announcement_acks PK(passenger,announcement,version) inserted before firstDisplay callback.",
+    "deltaImpact": "New PAGE-based holding increases interval between claim and display; it does not create the original nontransactional claim/display gap. No durable per-owner pending display queue added.",
+    "blockingAssessment": "Not blocking current BIZ09 at-most-once/user/version semantics, with explicit limitation. Do not claim guaranteed display/exactly-once delivery. If required later, add separately scoped per-owner pending-display recovery or claim/display protocol, not remove account guard or blindly re-ack."
+  },
+  "tests": [
+    {
+      "command": "Exact2ba5..f7c9 source and protected Git object comparisons; compare830 announcement + Store/server receipt chain",
+      "exitCode": 0,
+      "result": "PASS_WITH_STATED_LIMITS; no full test rerun"
+    }
+  ],
+  "notRun": [
+    "No UI/Gradle/cloud POST/merge/deploy; device modal/account scenes remain frontend/root gate"
+  ],
+  "nextAction": "Root combine frontend regression/GUI gates; backend IDLE; live code19 unchanged"
+}

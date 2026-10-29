@@ -1,0 +1,9 @@
+{
+  "localSessionRequested": "c3342ddb-6fe0-44b6-8311-00c329e73178",
+  "cloudSessionId": "UNKNOWN",
+  "baseCandidate": "55d2d8782a5c041b415c497c66d6576500048e3d",
+  "reason": "NAVB5 findings/NAVF4 with overlap; builds31/70PASS but semantic reviewFAIL",
+  "authorTools": "Read/Glob/Grep/Edit/Write; no Bash",
+  "guiPermit": "PENDING_ASYNC",
+  "publishedCode": 19
+}

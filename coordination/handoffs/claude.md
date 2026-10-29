@@ -1,13 +1,10 @@
 # claude 当前短卡
-协议2026-10-26-v3；session 413b9b2c-f346-4a81-8891-87bc3c962394，claude-opus-5-5/medium。root 01a17cc7-e0a2-7791-bf1d-4611c09bab22唯一协调/验收/合并发布。context UNKNOWN。
-任务CCUI-20261029-01；source /Users/dongge/.codex/tmp/yijiexing-claude-ui-20261029，branch codex/claude-ui-20261029，base 62942d1。状态AUTHOR_PHASE4_DANGER_DONE_NEEDS_ROOT_REVIEW：阶段4只改OrderDetail.kt和UiComponents.kt。两个取消入口和取消确认按钮改用Danger；PassengerModal新增可选confirmColor（默认Teal），确认按钮禁用态明确为Line/Muted。事件、业务、文案未改。未提交、未部署；测试全部NOT_RUN。
-详见evidence/CCUI-20261029-01/SELFCHECK.md的阶段4小节（阶段3见PHASE3_ADMIN_CSS.md）。
-下一步：等root编译、截图和非作者复核；有退回就在同一session修。
-
-## 2026-10-29 云端会话（用户直接指令，非root派单）
-用户在claude.ai/code云端会话直接提出4项，分支claude/driver-passenger-map-navigation-ui-g9h0sr，base 830aa80。未合并、未发布、未改STATE/BOARD/REGISTRY/DECISIONS，需root派单/非作者复核后再决定是否纳入。
-1 司机：接单成功、出发接驾、核验上车后自动调起现有外部导航（NavigationContract不变）；行程页底部常驻“导航去上车点/目的地”。
-2 乘客：新增PassengerConfirmPrompts全局弹窗（距离核验可直接同意/拒绝；报价选择、预付、续叫、补目的地、待支付→去处理/稍后）。
-3 乘客：起点默认手机定位（WGS84，高德可用时逆地理取名），手动改过不再覆盖；地址框输入400ms防抖自动搜索，去掉“搜索高德地点”按钮。
-4 司机：听单页身份栏移到地图上方不再遮挡，地图加高；钱包余额卡压缩，入账状态与收支明细默认3条可展开。
-测试：容器无Android SDK（dl.google.com被代理拒绝），assemble/testDebugUnitTest全部NOT_RUN；仅做括号平衡与人工diff复核。真机/AVD未验。
+协议ACK：2026-10-26-v3（已读中央START_HERE.md、MEMORY_POLICY.md、tasks/NAV-20261029-01.json）。角色claude；实际session c3342ddb-6fe0-44b6-8311-00c329e73178（取自task），claude-opus-5-5/medium；context UNKNOWN（无可靠遥测）；memoryStatus NORMAL。更新2026-10-29。Codex root唯一协调/验收/合并发布。
+任务NAV-20261029-01；source /Users/dongge/.codex/tmp/yijiexing-cloud-navigation-review-20261029，branch codex/cloud-navigation-review-20261029。阶段1/2已由root提交为2ba5b79f1113b0de9ec105a2733fc8a4a9e9ffe0（frontend构建+单测47/77 PASS，后台5问题PASS）。
+当前结论：阶段3（NAVF-R1/R2）作者修复完成；2ba5之上工作树未提交；作者编译/测试/GUI全部NOT_RUN；等Codex编译与非作者复核。未合并、未发布。未改driver/Store/domain/backend/NavigationContract/manifest/key/Gradle/版本。
+阶段3改动（仅乘客）：
+- R1 PassengerModalCoordinator：slot加rank（页面0<公告1<确认2），outranked()与mayClaimAnnouncement()。OperationsSupport公告：claim前须无任何他模态；已领取的captured保存在showing（按owner remember）直到关闭，仅在无页面级模态时绘制（showing/failed对话框都复核），不丢弃不重复claim；自身slot不参与判断，无循环。确认弹窗rank2，被公告/页面遮挡时等待。PassengerPermissions按实际shouldShow=forceOpen||!seenGuide注册slot（仅UI）；MainActivity删除只按forceOpen的注册。BIZ09与服务端claim未变。
+- R2 PassengerPickupDefaults新增PassengerAddressLookup.debounced：等待前取gate token，等待后/结果/错误/finally均校验；BookingScreens文字搜索effect改用它。手动坐标、同名常用选择、地图、取消、关闭均invalidate→等待中旧查询不发请求。同query重试保留。
+- 测试：PassengerPickupDefaultsTest用runBlocking跑真实debounced控制流（等待中手动/改字/新查询、在途作废、失败后重试）；PassengerConfirmPromptRulesTest加rank互斥与claim一次规则。
+残余：账号切换时已领取未显示的公告随旧owner丢弃（不串号，但该版本对旧账号不再弹）；GUI NOT_RUN。
+下一步：root编译+单测+非作者复核；退回在同一session修。

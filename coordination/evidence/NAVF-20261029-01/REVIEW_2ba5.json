@@ -1,0 +1,117 @@
+{
+  "taskId": "NAVF-20261029-01",
+  "at": "2026-10-29T22:14:57.602129+08:00",
+  "reviewer": "frontend 01a182c6-c475-7110-bbae-0deafe6d2385 non-author",
+  "sourceSha": "2ba5b79f1113b0de9ec105a2733fc8a4a9e9ffe0",
+  "parentSha": "55d2d8782a5c041b415c497c66d6576500048e3d",
+  "baseSha": "830aa80883d27cd6e518e12e249efc8695129284",
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-cloud-navigation-review-20261029",
+  "branch": "codex/cloud-navigation-review-20261029",
+  "sourceStatus": "clean exact HEAD/parent verified; independent fresh git archive",
+  "acceptance": "FAIL",
+  "buildStatus": "PASS",
+  "findings": [
+    {
+      "id": "NAVF-R1",
+      "original": "NAVF-F1",
+      "priority": "P2",
+      "status": "OPEN_PARTIAL_REPAIR",
+      "title": "公告请求回调与实际Dialog仍未受modal互斥约束",
+      "file": "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/OperationsSupport.kt",
+      "line": 87,
+      "lines": [
+        79,
+        84,
+        87,
+        95,
+        100
+      ],
+      "trigger": "无其他模态时启动公告claim，在响应回来前打开地址/设置/其他子页Dialog；或公告已显示时打开新的子模态。",
+      "evidence": "blocked只限制claim前置条件。claimAnnouncement在PassengerStore.run/ViewModel作用域内发送ack，LaunchedEffect因blocked取消不会取消它；回调仍直接showing=captured或failed=true。实际showing/failed AlertDialog没有blocked判断。",
+      "impact": "公告可压在新开的子界面上/被子界面遮住；服务端BIZ09 firstDisplay已消费，修复未达成不叠层和可靠展示目标。",
+      "repair": "单一可抢占/排队modal owner或在投递/显示阶段重新协调；已领取的captured公告需保留到可见时，不丢弃、不再重复ack。",
+      "additionalGap": "权限初次自动引导也未注册：MainActivity仅PassengerModalSlot(showPermissionGuide)，但PassengerPermissions实际shouldShow=forceOpen||!seenGuide。应由实际shouldShow注册。",
+      "validation": "STATIC_CONFIRMED; root定向疑点核实；GUI NOT_RUN"
+    },
+    {
+      "id": "NAVF-R2",
+      "original": "NAVF-F4",
+      "priority": "P2",
+      "status": "OPEN_DEBOUNCE_GAP",
+      "title": "400ms等待中的文字搜索没有捕获取消代次，手动操作后仍可启动",
+      "file": "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/BookingScreens.kt",
+      "line": 636,
+      "lines": [
+        568,
+        570,
+        633,
+        636,
+        637,
+        639,
+        697,
+        698
+      ],
+      "trigger": "输入查询后400ms内修改高级手动坐标；或点击名称恰好等于当前查询的常用地点，保持name/typedQuery不变。",
+      "evidence": "cancelSearch只invalidate gate/取消地图searchJob，typedQuery和retryTick不变。LaunchedEffect在delay前没捕获gate token，delay后只比name/typedQuery，再cancelSearch和gate.next重新取得归属；已被手动操作废弃的等待任务仍启动网络请求、置searching并发布结果/错误。",
+      "impact": "手动/常用选择后又出现旧搜索与进度，可能暂时禁用使用此地点；“手动填写不会查询地点”不成立。已运行请求的迟到写入被gate解决，等待阶段仍漏。",
+      "repair": "把400ms等待也纳入job/generation，等待前捕获token并在等待后验证；或在所有手动/选择路径清空typedQuery并取消整个effect。原有同query retry保留。",
+      "validation": "STATIC_CONFIRMED asynchronous control-flow; GUI/provider NOT_RUN"
+    }
+  ],
+  "originalFindings": {
+    "NAVF-F1": "PARTIAL: slot bookkeeping added and child dialogs registered; async announcements and actual initial permission guide gap remain NAVF-R1",
+    "NAVF-F2": "CLOSED_STATIC: error/cancel same-name retry uses typedQuery=name.trim + retryTick; 400ms auto remains; no automatic result selection",
+    "NAVF-F3": "CLOSED_STATIC_AND_UNIT: whole position key; 0<accuracy<=100, age[-30s,120s], finite/range; newer materially better fresh fix or expired applied replaced; originTouched/manual/history/swap preserved; reverse result owner/current store identity+generation+fix checked",
+    "NAVF-F4": "PARTIAL: in-flight results/error/finally and map requests gated; map action clears typedQuery; manual/selection pending400ms not cancelled NAVF-R2"
+  },
+  "driverNavigationReview": {
+    "status": "PASS_STATIC_AND_UNIT",
+    "details": [
+      "AutoNavigationObserver establishes first completed connected account snapshot as baseline; initial/restart TRIP snapshot causes no launch. remember(account) isolates baseline.",
+      "Only AVAILABLE/RESERVED->PICKUP or ARRIVED->TRIP claim; repeated TRIP->TRIP/request awaiting consent does not launch.",
+      "Direct success callbacks run after store state accepted; observer covers passenger-side boarding consent ARRIVED->TRIP on refresh. Persisted bounded account|order|leg memory deduplicates callback/observer/retries/restarts.",
+      "Existing manual navigation remains; actual external app intent launch and OEM behavior NOT_RUN."
+    ]
+  },
+  "orderDetailDistanceReachability": {
+    "status": "PASS_STATIC",
+    "details": "Root OrderDetail uses PageColumn, not PassengerFullPage and not an always-active modal slot. PassengerTripDistanceCard remains at OrderDetail:177, its current pending consent buttons open own Dialog and slot is true only while showConfirmDialog. Global popup hidden while contact/address/child confirm page open by design; after close resumes. No source path found that blocks root detail distance actions permanently.",
+    "gui": "NOT_RUN"
+  },
+  "layoutWallet": {
+    "status": "NOT_RUN_GUI",
+    "details": "map minimum lowered200->150dp and identity heightIn(min56) now can grow; formula still uses pre-banner total height, so literal360dp minimum not guaranteed (H600, map180, identity>=56 =>364 before banner). Need actual smallscreen/largefont tests. Wallet collapse code unchanged from55; prior static logic applies, native layout still NOT_RUN."
+  },
+  "tests": {
+    "passenger": {
+      "tests": 47,
+      "failures": 0,
+      "errors": 0,
+      "duration": "42s",
+      "newClassCounts": {
+        "PassengerConfirmPromptRulesTest": 9,
+        "PassengerPickupDefaultsTest": 7
+      }
+    },
+    "driver": {
+      "tests": 77,
+      "failures": 0,
+      "errors": 0,
+      "duration": "51s",
+      "newClassCounts": {
+        "NavigationAutoRulesTest": 7
+      }
+    },
+    "proof": "BUILD_PROOF_2ba5.json",
+    "compiler": "Actual compileDebugKotlin/unit/assemble completed exit0 both; warnings only, no compile errors. Author NOT_RUN not trusted as proof.",
+    "coverageLimit": "Pure rule tests do not exercise actual Compose modal delivery or coroutine debounce cancellation window."
+  },
+  "notRun": [
+    "AVD launch/install/ADB/GUI screenshots: new batch permission still pending, old UIO permit not used",
+    "Real GPS/AMap POI/reverse/external navigation/OEM",
+    "Backend/cloud business POST, product edits, merge and publication"
+  ],
+  "resources": "Only two bounded Gradle sessions79005/13923 exited0; no fixture/emulator/ADB/reverse started. APK/cache external /Users/dongge/.codex/tmp/yijiexing-navf-repair-2ba5-20261029.",
+  "nextAction": "IDLE; root routes NAVF-R1/R2 to Claude and sends repaired frozen SHA; no direct reviewer product edits; device checks wait fresh authorization.",
+  "releaseReady": false
+}
