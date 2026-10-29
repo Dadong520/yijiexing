@@ -111,11 +111,31 @@ fun StageBadge(order: DriverOrder) {
     }
 }
 
-/** Shows a numeric km text only when the server supplied one. */
-fun kmOrMissing(raw: String): String {
-    val value = raw.trim().removeSuffix("km").removeSuffix("公里").trim()
-    return if (value.isBlank() || value == "null" || value == "—" || value == "-") "未提供" else "$value km"
+private val plainDistance = Regex("""\d+(\.\d+)?""")
+private val distanceUnit = Regex("""\s*(km|公里)$""", RegexOption.IGNORE_CASE)
+
+/**
+ * Shows "<n> km" only for a finite, non-negative plain number supplied by the server (0 is a valid
+ * known distance). An existing km/公里 suffix is not repeated. Pending text keeps "待确认"; blank,
+ * placeholders, NaN/Infinity, negatives and other non-numeric text show "未提供", never a made-up km.
+ */
+fun kmOrMissing(raw: String?): String {
+    val text = raw?.trim().orEmpty()
+    if (text.contains("待确认")) return "待确认"
+    val value = text.replace(distanceUnit, "").trim()
+    if (!plainDistance.matches(value)) return "未提供"
+    val number = value.toDoubleOrNull() ?: return "未提供"
+    return if (number.isFinite() && number >= 0.0) "$value km" else "未提供"
 }
+
+/**
+ * Source note for the new-order prompt. Private demo orders and shared sandbox orders stay distinct;
+ * both state that the fare is simulated, and shared orders state the pickup distance is a
+ * server-side sandbox estimate rather than live measurement.
+ */
+fun newOrderSourceNote(isPrivateExample: Boolean): String =
+    if (isPrivateExample) "演示订单 · 未关联乘客 App · 金额为模拟"
+    else "共享沙箱订单 · 距乘客为服务端沙箱估算，非实时测距 · 金额为模拟"
 
 /** Driver membership identity card: shows only server-supplied level, expiry and rights. */
 @Composable

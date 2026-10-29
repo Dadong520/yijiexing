@@ -197,8 +197,8 @@ fun NewOrderDialog(
                         }
                     }
                 }
-                if (detail?.isPrivateExample == true)
-                    Text("演示订单 · 金额为模拟", fontSize = 12.sp, color = Warm, modifier = Modifier.padding(top = 6.dp))
+                if (detail != null)
+                    Text(newOrderSourceNote(detail.isPrivateExample), fontSize = 12.sp, lineHeight = 16.sp, color = Warm, modifier = Modifier.padding(top = 6.dp))
 
                 Spacer(modifier = Modifier.height(16.dp))
 
