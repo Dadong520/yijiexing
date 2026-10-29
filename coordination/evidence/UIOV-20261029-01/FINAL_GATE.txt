@@ -1,0 +1,4 @@
+python3 tools/check_coordination.py --memory-role frontend --session-id 01a182c6-c475-7110-bbae-0deafe6d2385
+exit0
+PASS: compact project records are valid; this is not business acceptance
+MEMORY: frontend NORMAL; context=UNKNOWN (no model telemetry)

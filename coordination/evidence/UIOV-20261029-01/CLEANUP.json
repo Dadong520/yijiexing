@@ -1,0 +1,10 @@
+{
+  "status": "PASS",
+  "fixtureSessions": "54930 passenger and17130 driver exited0 after scoped stop files",
+  "emulatorSession": "28700 exited0 after emulator5584 emu kill",
+  "reverse": "emulator5584 tcp443 reverse removed exit0 before kill",
+  "devices": "adb devices empty",
+  "ports": "lsof64320/64321/5584 no listeners exit1 expected",
+  "externalFiles": "Retained only for reproducibility; no running work or automation",
+  "at": "2026-10-29T19:07:11.383412+08:00"
+}

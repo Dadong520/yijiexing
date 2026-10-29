@@ -93,6 +93,7 @@ object NewOrderAlerts {
 
 @Composable
 fun NewOrderDialog(
+    orders: List<DriverOrder> = emptyList(),
     onOpen: (String) -> Unit
 ) {
     val noticeList by NewOrderAlerts.notices.collectAsState()
@@ -100,6 +101,8 @@ fun NewOrderDialog(
 
     val first = noticeList.first()
     val remainingCount = noticeList.size - 1
+    // Display-only lookup of the already-synced order; alert trigger and dedupe are unchanged.
+    val detail = orders.firstOrNull { it.id == first.id }
 
     val primaryGreen = Color(0xFF00796B)
     val textDark = Color(0xFF212121)
@@ -169,7 +172,35 @@ fun NewOrderDialog(
                     )
                 }
 
-                Spacer(modifier = Modifier.height(18.dp))
+                Spacer(modifier = Modifier.height(12.dp))
+
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .background(Pale, RoundedCornerShape(10.dp))
+                        .padding(vertical = 10.dp),
+                    horizontalArrangement = Arrangement.SpaceEvenly
+                ) {
+                    val fareText = when {
+                        detail == null -> "未提供"
+                        detail.destinationPending -> "费用待定"
+                        else -> "¥${money(detail.fare)}"
+                    }
+                    listOf(
+                        "订单金额" to fareText,
+                        "预估行程" to (detail?.let { kmOrMissing(it.mileage) } ?: "未提供"),
+                        "距乘客" to (detail?.let { kmOrMissing(it.distance) } ?: "未提供"),
+                    ).forEach { (label, value) ->
+                        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                            Text(value, fontSize = 16.sp, fontWeight = FontWeight.Bold, color = if (label == "订单金额") Warm else textDark)
+                            Text(label, fontSize = 12.sp, color = textGrey)
+                        }
+                    }
+                }
+                if (detail != null)
+                    Text(newOrderSourceNote(detail.isPrivateExample), fontSize = 12.sp, lineHeight = 16.sp, color = Warm, modifier = Modifier.padding(top = 6.dp))
+
+                Spacer(modifier = Modifier.height(16.dp))
 
                 Row(
                     modifier = Modifier.fillMaxWidth(),

@@ -1,0 +1,16 @@
+[
+  {
+    "command": "npm test",
+    "exitCode": 0,
+    "status": "PASS",
+    "sourceSha": "137e41534f823c538fe62ff10820f491e0e55074",
+    "evidence": "/Users/dongge/Documents/New project 2/coordination/evidence/UIO-20261029-01/mini-regression.log"
+  },
+  {
+    "command": "npm run check",
+    "exitCode": 0,
+    "status": "PASS",
+    "sourceSha": "137e41534f823c538fe62ff10820f491e0e55074",
+    "evidence": "/Users/dongge/Documents/New project 2/coordination/evidence/UIO-20261029-01/mini-config-check.log"
+  }
+]

@@ -1,0 +1,198 @@
+{
+  "taskId": "UIOV-20261029-01",
+  "at": "2026-10-29T19:07:11.383412+08:00",
+  "reviewer": "frontend 01a182c6-c475-7110-bbae-0deafe6d2385, non-author",
+  "protocol": "2026-10-26-v3",
+  "sourceSha": "137e41534f823c538fe62ff10820f491e0e55074",
+  "baseSha": "53028032fd2aa4e33136bbd77c3b89f654d13846",
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-ui-optimization-worktree-20261029",
+  "branch": "codex/ui-optimization-20261029",
+  "sourceStatus": "clean; HEAD exact137; product source read only",
+  "acceptance": "PASS",
+  "scope": "Scoped Android UI/interaction/package review of 11 requirements; backend business acceptance/root publication separate. Actual AMap provider success excluded explicitly.",
+  "openBlockingFindings": [],
+  "matrix": [
+    {
+      "id": "G1",
+      "status": "PASS",
+      "observed": "Actual native semantic icons, price/stage emphasis, spacing and button hierarchy. Long Chinese routes wrap. Passenger address and driver member/profile font1.3 remain scrollable and usable; key controls visible. Representative visual inspection, not exhaustive accessibility certification.",
+      "screens": [
+        "p39-large-address",
+        "p40-large-history",
+        "d20-shared-notice-settled",
+        "d69-ledger-empty",
+        "d72-score-empty",
+        "d76-large-profile-top"
+      ]
+    },
+    {
+      "id": "D1",
+      "status": "PASS",
+      "observed": "All five available kind filters STANDARD/RESERVED/PHONE/BID/NEGOTIATED select matching rows; disappeared kind resets and restored kinds remain reachable. Active PICKUP hides hall; waiting reservation retains hall; canAccept=false hides hall. No membership/stat block in hall. Synthetic local /api/state projections, not acceptance transition proof.",
+      "screens": [
+        "d09-hall",
+        "d10-filter-standard",
+        "d11-filter-reserved",
+        "d12-filter-phone",
+        "d14-filter-bid",
+        "d15-filter-negotiated",
+        "d16-kind-removed-recovery",
+        "d18-kind-restored-all",
+        "d24-active-gate",
+        "d26-reservation-with-hall",
+        "d27-cannot-accept-gate"
+      ]
+    },
+    {
+      "id": "D2",
+      "status": "PASS",
+      "observed": "Real foreground alert: cents12345 -> ¥123.45, trip13.7km, pickup2.4km. Edge scene ¥0.00, trip待确认 and NaN pickup未提供; already-unit3.2km has one unit, numeric0 displays0km. Shared sandbox explicitly labels server estimate/non-realtime/simulated amount. Private demo explicitly unassociated passenger. No GPS or real distance measurement claimed.",
+      "screens": [
+        "d08-known-notice-settled",
+        "d20-shared-notice-settled",
+        "d22-zero-unit-notice",
+        "d23-zero-unit-hall"
+      ]
+    },
+    {
+      "id": "D3",
+      "status": "PASS",
+      "observed": "All and active/completed filters; prominent textual 进行中·接驾中/已完成 badges and amounts. Final137 completed filter contains done rows only. Empty selection recovery returns All.",
+      "screens": [
+        "d41-orders-all-stages",
+        "d43-active-stage",
+        "d80-orders",
+        "d81-completed-filter",
+        "d29-orders-empty",
+        "d30-empty-action-restores-all"
+      ]
+    },
+    {
+      "id": "D4",
+      "status": "PASS",
+      "observed": "Wallet keeps balance/income/withdrawal/ledger/order credit states. Removed full bank/password shortcut cards; compact migration hint plus bank link remains. Both functions reachable in profile; no bank/password mutation executed.",
+      "screens": [
+        "d32-wallet-migrated",
+        "d69-ledger-empty",
+        "d35-bank-migrated-entry",
+        "d37-password-migrated-entry"
+      ]
+    },
+    {
+      "id": "D5",
+      "status": "PASS",
+      "observed": "Profile has 出车与资料/账户安全/平台服务 and accessible relocated functions; no duplicate 我的订单/我的钱包 menu. Bottom nav retained. Final cumulative title is 运营明细（累计）·含演示数据.",
+      "screens": [
+        "d34-profile-account-security",
+        "d52-final-profile",
+        "d76-large-profile-top"
+      ]
+    },
+    {
+      "id": "D6",
+      "status": "PASS",
+      "observed": "Trial state shows actual local trial days/order quota. Separate synthetic active membership projection displays supplied level/end date/status/rights. 管理会员 and 开通记录 navigate successfully. Membership purchase API remains trial fixture; no paid membership or funds lifecycle claim.",
+      "screens": [
+        "d31-profile",
+        "d46-member-active-synthetic",
+        "d52-final-profile",
+        "d53-member-manage",
+        "d55-member-records"
+      ]
+    },
+    {
+      "id": "D7",
+      "status": "PASS",
+      "observed": "Semantic empty states visible for orders, ledger, service-score, invite and membership records. All-orders recovery and score refresh executed. Ledger action visible; not clicked. Empty lists not populated with fake records by product.",
+      "screens": [
+        "d29-orders-empty",
+        "d30-empty-action-restores-all",
+        "d39-referral-empty",
+        "d55-member-records",
+        "d69-ledger-empty",
+        "d72-score-empty",
+        "d73-score-refresh"
+      ]
+    },
+    {
+      "id": "P1",
+      "status": "PASS_SCOPED",
+      "observed": "Full-screen selector/back/search/selected confirmation area; favorites and13 supplied histories scroll. Choosing then system-back leaves draft unchanged; explicit confirm writes chosen history. Original30.66/111.32 preserved; missing coordinates stay empty, confirm blocked, toolbar back preserves previous confirmed location. Map entry/source retained; provider/map/POI success NOT_RUN in isolated credential-free QA.",
+      "screens": [
+        "p24-address-fullscreen",
+        "p25-unsaved-selection",
+        "p26-systemback-no-draft-write",
+        "p28-history-scroll",
+        "p30-history-confirmed-home",
+        "p34-history-coordinates",
+        "p35-history-unknown",
+        "p36-unknown-coordinate-blocked",
+        "p37-toolbarback-draft-preserved",
+        "p39-large-address"
+      ]
+    },
+    {
+      "id": "P2",
+      "status": "PASS",
+      "observed": "Visible red cancel and confirmation. Local409 rejection leaves original detail/error/retry; subsequent real local backend order.cancel succeeds and returns home, instant order removed and reservation retained. Toolbar/system back from detail returns home; contact child system-back returns detail. No cloud business POST.",
+      "screens": [
+        "p08-detail-from-orders",
+        "p09-contact-child",
+        "p10-child-systemback",
+        "p11-toolbar-back-home",
+        "p13-system-back-home",
+        "p15-cancel-dialog",
+        "p16-cancel-fail",
+        "p19-success-settled"
+      ],
+      "events": "passenger-cancel-events.jsonl"
+    },
+    {
+      "id": "P3",
+      "status": "PASS",
+      "observed": "More functions and connection modules directly expanded; coupon/points/invite/connection/version and simulation notices remain reachable by scrolling.",
+      "screens": [
+        "p20-profile-expanded",
+        "p21-profile-expanded-more",
+        "p22-profile-expanded-connection"
+      ]
+    }
+  ],
+  "builds": {
+    "proof": "FINAL_BUILD_PROOF.json",
+    "sourceBinding": "SOURCE_BINDING.json",
+    "qaProvenance": "QA_BUILD_PROVENANCE.json",
+    "command": "JAVA_HOME=JDK17 ANDROID_HOME=officialSDK bash gradlew --offline --no-daemon -I <externalRoot>/scripts/offline.init.gradle testDebugUnitTest assembleDebug",
+    "passenger": "PASS31/0/0; built f828, entire101-file subtree identical to137, preserved artifact/test result, no fake final rerun",
+    "driver": "PASS70/0/0 at137; original APK build41s; QA build35s",
+    "initial": "f828 driver63 tests then05670 tests; retained earlier proofs/build logs",
+    "packaging": "Both code19/original package IDs and original signer; HTTPS embedded; all uncompressed entries scanned against4 private values, zero matches. APK/cache/private data external only."
+  },
+  "nativeProvenance": {
+    "index": "FINAL_SCREENSHOTS.json",
+    "capturedPairs": 57,
+    "tool": "Official SDK adb/uiAutomator/screencap on isolated Android34 ARM AVD emulator5584 only",
+    "fixture": "Exported committed cloud-service code + local MemoryCAS seven-order synthetic seed. UI fields/empty/member scenes projected only on local state. Cancellation success uses local actual backend action; one failure intentionally injected. HTTPS local CA only in QA variant. No personal devices/cloud business writes.",
+    "inheritance": "Passenger subtree same f828->137. Driver056->137 only caption text CoreScreens line699; final title/profile captured137; previous distance/layout evidence remains byte-equivalent except caption. Final137 order/empty/member screens also captured.",
+    "failedCapturePolicy": "ADB255 during root/screenshot concurrency recovered serially. Ambiguous text matches and stale navigation frames excluded, never counted as product PASS. See screenshot index exclusions."
+  },
+  "notRun": [
+    "Real AMap base map, POI/search/geocoder provider success and actual device/OEM behavior",
+    "Real paid membership, money transfer, bank/password changes, order acceptance/execution business transitions",
+    "Notification background/system tray behavior; foreground alert only",
+    "Cloud business POST, merge, publication, three-end completion"
+  ],
+  "cleanup": {
+    "status": "PASS",
+    "fixtureSessions": "54930 passenger and17130 driver exited0 after scoped stop files",
+    "emulatorSession": "28700 exited0 after emulator5584 emu kill",
+    "reverse": "emulator5584 tcp443 reverse removed exit0 before kill",
+    "devices": "adb devices empty",
+    "ports": "lsof64320/64321/5584 no listeners exit1 expected",
+    "externalFiles": "Retained only for reproducibility; no running work or automation"
+  },
+  "memory": "One visible compaction: checkpoint saved, START_HERE recovery and real-ID gate PASS; context UNKNOWN/no telemetry; no new large task.",
+  "nextAction": "Frontend IDLE. Root validates combined backend/native evidence, integrates exact candidate then owns release/readback. No commit/deploy by reviewer.",
+  "pendingMergeSha": "137e41534f823c538fe62ff10820f491e0e55074",
+  "releaseReady": false
+}

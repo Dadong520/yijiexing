@@ -1,0 +1,24 @@
+{
+  "source": "Authenticated official AMap console visible DOM; user logged in personally",
+  "application": "测试",
+  "keyName": "测试用 乘客端",
+  "passengerKeyFullSha256MatchesRuntime": true,
+  "driverKeyFullSha256MatchesRuntime": true,
+  "package": "cn.hbzjhs.dc.passenger.cloud",
+  "packageMatchesReleased": true,
+  "savedReleaseSha1": "DO:6F:0A:9E:AC:9D:FD:DC:08:30:B9:8A:F0:6E:2F:68:B6:D2:02:46",
+  "savedDebugSha1": "DO:6F:0A:9E:AC:9D:FD:DC:08:30:B9:8A:F0:6E:2F:68:B6:D2:02:46",
+  "expectedSha1": "D0:6F:0A:9E:AC:9D:FD:DC:08:30:B9:8A:F0:6E:2F:68:B6:D2:02:46",
+  "actualFirstPairCodepoints": [
+    68,
+    79
+  ],
+  "expectedFirstPairCodepoints": [
+    68,
+    48
+  ],
+  "finding": "Both saved SHA1 fields contain capital letter O instead of digit zero in the first pair. Exact Key record and package match.",
+  "externalMutationByAgent": false,
+  "afterCorrectionAuthentication": "NOT_RUN",
+  "priorScreenshotConclusion": "Prior visual assessment reported match; current exact DOM reveals O/0 discrepancy, superseding that assessment."
+}

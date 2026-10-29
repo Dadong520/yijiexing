@@ -1,0 +1,2 @@
+{"at": "2026-10-29T18:44:42+08:00", "kind": "passengerAction", "action": "order.cancel", "result": "INJECTED_REJECTION"}
+{"at": "2026-10-29T18:44:56+08:00", "kind": "passengerAction", "action": "order.cancel", "result": "SERVER_SUCCESS"}

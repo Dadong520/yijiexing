@@ -1,0 +1,100 @@
+{
+  "schemaVersion": 1,
+  "id": "UIOV-20261029-01",
+  "owner": "frontend",
+  "goal": "非作者独立验收UIO司机/乘客原生交互和视觉需求，复用旧隔离设施但绑定本轮精确源码",
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-ui-optimization-worktree-20261029",
+  "branch": "codex/ui-optimization-20261029",
+  "baseSha": "53028032fd2aa4e33136bbd77c3b89f654d13846",
+  "allow_paths": [
+    "coordination/tasks/UIOV-20261029-01.json",
+    "coordination/handoffs/frontend.md",
+    "coordination/evidence/UIOV-20261029-01/"
+  ],
+  "checks": [
+    "Preparation phase: read UIO task and old CCUIV targeted FINAL_BUILD_PROOF/FINAL_SCREENSHOTS/REVIEW fixtures only; external fresh source/build/AVD, do not copy dirty author tree or build until root supplies frozen SHA",
+    "Human authorizes Android official tools only this round isolated AVD; see UIO/ANDROID_UI_AUTHORIZATION.json; no personal device, cloud business POST, or shared live emulator",
+    "After frozen SHA supplied: both offline Gradle testDebugUnitTest assembleDebug; exact versions/original package+signature+HTTPS and private-value scan; byte binding proof",
+    "Actual UI: driver hall all kind filters, active/pending reservation gates, new order fields known/unknown, orders prominent stages, wallet removed bank/password shortcuts still accessible in profile, profile no duplicate bottomnav, membership/empty lists",
+    "Passenger full-screen address/back/history/map selection no unintended draft writes, cancellation success home/failure stays/order detail systemback home/contact child sensible, expanded modules, long text/largefont/contrast",
+    "Author cannot independently accept own code; report compact PASS/FAIL exact SHA, paths, commands, observed evidence; no product edits/deploy or agents"
+  ],
+  "status": "REVIEW_COMPLETE",
+  "acceptance": "PASS",
+  "tests": [
+    {
+      "command": "python3 tools/check_coordination.py --memory-role frontend --session-id 01a182c6-c475-7110-bbae-0deafe6d2385",
+      "status": "FAIL_THEN_PASS",
+      "note": "Initial task missing evidence required field; added own-task evidence=[] then gate PASS",
+      "finalExitCode": 0
+    },
+    {
+      "command": "avdmanager create avd with ANDROID_AVD_HOME=<externalRoot>/avds; Android34 google_apis arm64-v8a; no emulator boot",
+      "exitCode": 0,
+      "status": "PASS"
+    },
+    {
+      "command": "ast.parse four prepared Python scripts without import/execute/product build",
+      "exitCode": 0,
+      "status": "PASS"
+    },
+    {
+      "command": "Both Gradle offline testDebugUnitTest assembleDebug; passenger source tree identical f828->137, driver rebuilt137",
+      "status": "PASS",
+      "passengerTests": 31,
+      "driverTests": 70,
+      "failures": 0,
+      "errors": 0,
+      "evidence": "coordination/evidence/UIOV-20261029-01/FINAL_BUILD_PROOF.json"
+    },
+    {
+      "command": "Official SDK isolated native taps/input/screenshots, local HTTPS fixtures; 11 requirement matrix",
+      "status": "PASS_SCOPED",
+      "evidence": "coordination/evidence/UIOV-20261029-01/REVIEW.json"
+    },
+    {
+      "command": "aapt/apksigner/all APK entries private exact-value scan/source byte binding",
+      "status": "PASS"
+    },
+    {
+      "command": "Stop fixtures, remove emulator reverse, kill scoped AVD; adb devices and listeners readback",
+      "status": "PASS"
+    }
+  ],
+  "nextAction": "IDLE; coordinator combines backend PASS and this scoped native review, merges/releases/readbacks; maps/provider success remains NOT_RUN",
+  "pendingMergeSha": "137e41534f823c538fe62ff10820f491e0e55074",
+  "deploy_owner": "coordinator",
+  "releaseReady": false,
+  "evidence": [
+    {
+      "path": "coordination/evidence/UIOV-20261029-01/READY.json",
+      "sha256": "46288ab8ed4976858a2c0c034a8959df4b5b6409b05cf556259bce066b7ac432"
+    },
+    {
+      "path": "coordination/evidence/UIOV-20261029-01/REVIEW.json",
+      "sha256": "3069aeb2ad5bef494a83074dc24c99f8c1318b0c86f2045adb74595a6f4c4013"
+    },
+    {
+      "path": "coordination/evidence/UIOV-20261029-01/FINAL_BUILD_PROOF.json",
+      "sha256": "b3c043984cf591dfdefd74a129d38569f6bb95ad3a345485f1236ff57f56f413"
+    },
+    {
+      "path": "coordination/evidence/UIOV-20261029-01/SOURCE_BINDING.json",
+      "sha256": "d0dca3f7ecd67c5c8ed062908ebd78e09d08e4672d2b591ea1566db76571c591"
+    },
+    {
+      "path": "coordination/evidence/UIOV-20261029-01/FINAL_SCREENSHOTS.json",
+      "sha256": "5fcea8c1f216ce2b05c07e811b7f304fe24184d0292424ecf3665a34b2df538b"
+    },
+    {
+      "path": "coordination/evidence/UIOV-20261029-01/QA_BUILD_PROVENANCE.json",
+      "sha256": "86fd8a2ba00922f7e9747e6f5ea7b800fa36f43cbd3bb80ffe9e2a219db8b47a"
+    },
+    {
+      "path": "coordination/evidence/UIOV-20261029-01/CLEANUP.json",
+      "sha256": "00e54374db7811315405021463ac948777479ce697504319151ef680d3c74bcf"
+    }
+  ],
+  "updatedAt": "2026-10-29T19:07:11.383412+08:00",
+  "candidateSha": "137e41534f823c538fe62ff10820f491e0e55074"
+}

@@ -1,0 +1,72 @@
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/8.7/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
+> Task :app:checkKotlinGradlePluginConfigurationErrors
+> Task :app:preBuild UP-TO-DATE
+> Task :app:preDebugBuild UP-TO-DATE
+> Task :app:generateDebugBuildConfig
+> Task :app:generateDebugResValues
+> Task :app:checkDebugAarMetadata
+> Task :app:mapDebugSourceSetPaths
+> Task :app:generateDebugResources
+> Task :app:packageDebugResources
+> Task :app:createDebugCompatibleScreenManifests
+> Task :app:extractDeepLinksDebug
+> Task :app:parseDebugLocalResources
+> Task :app:mergeDebugResources
+> Task :app:processDebugMainManifest
+> Task :app:processDebugManifest
+> Task :app:preDebugUnitTestBuild UP-TO-DATE
+> Task :app:javaPreCompileDebug
+> Task :app:javaPreCompileDebugUnitTest
+> Task :app:mergeDebugNativeDebugMetadata NO-SOURCE
+> Task :app:mergeDebugShaders
+> Task :app:compileDebugShaders NO-SOURCE
+> Task :app:generateDebugAssets UP-TO-DATE
+> Task :app:mergeDebugAssets
+> Task :app:processDebugManifestForPackage
+> Task :app:compressDebugAssets
+> Task :app:desugarDebugFileDependencies
+> Task :app:mergeDebugStartupProfile
+> Task :app:mergeDebugJniLibFolders
+> Task :app:checkDebugDuplicateClasses
+> Task :app:validateSigningDebug
+> Task :app:writeDebugAppMetadata
+> Task :app:mergeLibDexDebug
+> Task :app:writeDebugSigningConfigVersions
+> Task :app:mergeDebugNativeLibs
+> Task :app:processDebugResources
+
+> Task :app:stripDebugDebugSymbols
+Unable to strip the following libraries, packaging them as they are: libAMapSDK_MAP_v11_2_100.so, libapssdk.so, libmaplibre.so.
+
+> Task :app:mergeExtDexDebug
+
+> Task :app:compileDebugKotlin
+w: file:///Users/dongge/.codex/tmp/yijiexing-uiov-20261029/source/apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/BookingScreens.kt:213:56 'Send: ImageVector' is deprecated. Use the AutoMirrored version at Icons.AutoMirrored.Filled.Send
+w: file:///Users/dongge/.codex/tmp/yijiexing-uiov-20261029/source/apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/MainActivity.kt:115:7 Variable 'syncAt' is never used
+w: file:///Users/dongge/.codex/tmp/yijiexing-uiov-20261029/source/apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/MainActivity.kt:480:43 Parameter 'configured' is never used
+w: file:///Users/dongge/.codex/tmp/yijiexing-uiov-20261029/source/apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/MainActivity.kt:508:40 Parameter 'configured' is never used
+w: file:///Users/dongge/.codex/tmp/yijiexing-uiov-20261029/source/apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/PassengerPermissions.kt:133:26 This declaration overrides deprecated member but not marked as deprecated itself. Please add @Deprecated annotation or suppress. See https://youtrack.jetbrains.com/issue/KT-47902 for details
+w: file:///Users/dongge/.codex/tmp/yijiexing-uiov-20261029/source/apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/PassengerTripDistance.kt:301:17 Variable 'lastReportedTime' is assigned but never accessed
+w: file:///Users/dongge/.codex/tmp/yijiexing-uiov-20261029/source/apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/PassengerTripDistance.kt:302:17 Variable 'lastReportedOrderId' is assigned but never accessed
+w: file:///Users/dongge/.codex/tmp/yijiexing-uiov-20261029/source/apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/PassengerTripDistance.kt:333:29 The value 'pos.time' assigned to 'var lastReportedTime: Long defined in cn.hbzjhs.passenger.PassengerTripLocationReporter.`<anonymous>`.`<anonymous>`' is never used
+w: file:///Users/dongge/.codex/tmp/yijiexing-uiov-20261029/source/apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/PassengerTripDistance.kt:334:29 The value 'activeOrderId' assigned to 'var lastReportedOrderId: String defined in cn.hbzjhs.passenger.PassengerTripLocationReporter.`<anonymous>`.`<anonymous>`' is never used
+
+> Task :app:compileDebugJavaWithJavac
+> Task :app:processDebugJavaRes
+> Task :app:bundleDebugClassesToRuntimeJar
+> Task :app:bundleDebugClassesToCompileJar
+> Task :app:dexBuilderDebug
+> Task :app:mergeDebugGlobalSynthetics
+> Task :app:mergeProjectDexDebug
+> Task :app:mergeDebugJavaResource
+> Task :app:compileDebugUnitTestKotlin
+> Task :app:compileDebugUnitTestJavaWithJavac NO-SOURCE
+> Task :app:processDebugUnitTestJavaRes
+> Task :app:testDebugUnitTest
+> Task :app:packageDebug
+> Task :app:createDebugApkListingFileRedirect
+> Task :app:assembleDebug
+
+BUILD SUCCESSFUL in 47s
+45 actionable tasks: 45 executed
