@@ -1,0 +1,6 @@
+{
+  "userReply": "允许，仅本轮隔离模拟器",
+  "scope": "UIO-20261029-01 only; Android official tools isolated AVD install/click/input/screenshot",
+  "personalDevices": false,
+  "cloudBusinessWrites": false
+}

@@ -1,0 +1,140 @@
+{
+  "schemaVersion": 1,
+  "id": "UIO-20261029-01",
+  "owner": "claude",
+  "goal": "依据用户UI设计.docx完成司机/乘客原生交互与视觉优化，由Codex非作者审查并发布体验",
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-ui-optimization-worktree-20261029",
+  "branch": "codex/ui-optimization-20261029",
+  "baseSha": "53028032fd2aa4e33136bbd77c3b89f654d13846",
+  "allow_paths": [
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/CoreScreens.kt",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/MainActivity.kt",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/UiKit.kt",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/DriverPalette.kt",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/BusinessScreens.kt",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/BusinessKit.kt",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/BusinessFinance.kt",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/BusinessCommunity.kt",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/BusinessSupport.kt",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/MembershipEntry.kt",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/MembershipUi.kt",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/MembershipCatalogScreens.kt",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/NewOrderAlerts.kt",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/UIOComponents.kt",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/MainActivity.kt",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/BookingScreens.kt",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/OrderDetail.kt",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/ProfileScreens.kt",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/PassengerPages.kt",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/PassengerCards.kt",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/UiComponents.kt",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/PassengerPalette.kt",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/ExtraScreens.kt",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/ParityScreens.kt",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/UIOComponents.kt",
+    "apps/passenger-android/app/build.gradle.kts",
+    "candidates/driver-0.3.6-r2/android/app/build.gradle.kts",
+    "candidates/driver-0.3.6-r2/android/app/src/test/java/cn/hbzjhs/driver/preview/UIODistancePresentationTest.kt",
+    "coordination/",
+    "README.md"
+  ],
+  "requirements": [
+    "G1",
+    "D1",
+    "D2",
+    "D3",
+    "D4",
+    "D5",
+    "D6",
+    "D7",
+    "P1",
+    "P2",
+    "P3"
+  ],
+  "sessionId": "b23ffb33-b639-4295-8369-4925bdab9d87",
+  "model": "claude-opus-5-5",
+  "effort": "medium",
+  "status": "ACCEPTED_READY_FOR_INTEGRATION",
+  "acceptance": "PASS",
+  "tests": [
+    {
+      "command": "Non-author native offline Gradle testDebugUnitTest assembleDebug: passenger31 inherited identical final subtree; driver70 final137",
+      "status": "PASS",
+      "exitCode": 0,
+      "sourceSha": "137e41534f823c538fe62ff10820f491e0e55074"
+    },
+    {
+      "command": "Non-author isolated AVD UI/interaction/package review; 57 capture pairs; external AMap provider excluded",
+      "status": "PASS",
+      "exitCode": 0,
+      "sourceSha": "137e41534f823c538fe62ff10820f491e0e55074"
+    },
+    {
+      "command": "Backend non-author exact-SHA source/call-chain business semantics review; UIOB01/02 closed",
+      "status": "PASS",
+      "exitCode": 0,
+      "sourceSha": "137e41534f823c538fe62ff10820f491e0e55074"
+    },
+    {
+      "command": "npm test (74) and npm run check (10pages/25JS); no WeChat compile",
+      "status": "PASS",
+      "exitCode": 0,
+      "sourceSha": "137e41534f823c538fe62ff10820f491e0e55074"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "coordination/evidence/UIOV-20261029-01/REVIEW.json",
+      "sha256": "3069aeb2ad5bef494a83074dc24c99f8c1318b0c86f2045adb74595a6f4c4013"
+    },
+    {
+      "path": "coordination/evidence/UIOV-20261029-01/FINAL_BUILD_PROOF.json",
+      "sha256": "b3c043984cf591dfdefd74a129d38569f6bb95ad3a345485f1236ff57f56f413"
+    },
+    {
+      "path": "coordination/evidence/UIOV-20261029-01/SOURCE_BINDING.json",
+      "sha256": "d0dca3f7ecd67c5c8ed062908ebd78e09d08e4672d2b591ea1566db76571c591"
+    },
+    {
+      "path": "coordination/evidence/UIOB-20261029-01/FINAL_REVIEW.json",
+      "sha256": "c830a756e373533cbb951850115e064abadc71c007ff11677ee6a40f71edc0e6"
+    },
+    {
+      "path": "coordination/evidence/UIO-20261029-01/CI_REPAIR_LOCAL_CHECKS.json",
+      "sha256": "b847c8e03ee71d7f329f6758258ff3896764ede47039bf05d3cf43a195cc0da1"
+    }
+  ],
+  "nextAction": "Sync scoped governance/evidence, exact-head CI and PR39 merge; APK-only release + full readbacks",
+  "pendingMergeSha": "137e41534f823c538fe62ff10820f491e0e55074",
+  "deploy_owner": "coordinator",
+  "releaseReady": true,
+  "updatedAt": "2026-10-29T10:39:38.465234+00:00",
+  "restrictions": [
+    "No Store/domain/network/backend/manifest/build config/keys/coordination edits; root owns git/versions/control",
+    "No financial/execution rules change; use existing fields/callbacks only; unavailable data honest",
+    "No agent spawning or publication; author tests NOT_RUN if tool unavailable"
+  ],
+  "checks": [
+    "Both native unit tests and offline builds pass",
+    "Non-author review exact frozen SHA; cancellation only after success and source binding",
+    "Isolated AVD authorized this round: full-screen address/back/cancellation/driver hall/profile/wallet/states/empty layouts",
+    "Original app IDs/certificate/endpoints; no keys in APK/source; preserve all cloud data/runtime/IAM/scaling on release"
+  ],
+  "userAutonomy": "User leaving; full authorized development/review/isolated AVD/merge/experience release; see REQUIREMENTS.json.",
+  "actualAuthorSessionId": "b23ffb33-b639-4295-8369-4925bdab9d87",
+  "actualModel": "claude-opus-5-5",
+  "executionProcess": "official CLI external run_claude.py; root unified session89938; 900sec bounded; raw logs0600",
+  "coordinatorOnlyPaths": [
+    "apps/passenger-android/app/build.gradle.kts",
+    "candidates/driver-0.3.6-r2/android/app/build.gradle.kts",
+    "coordination/",
+    "README.md"
+  ],
+  "fileOwnership": "All UI implementation files: Claude only. Two build.gradle.kts version constants and coordination/README integration: coordinator only; Claude must not edit version/build config.",
+  "candidateSha": "137e41534f823c538fe62ff10820f491e0e55074",
+  "pullRequest": "https://github.com/Dadong520/yijiexing/pull/39",
+  "requirementsRef": "coordination/evidence/UIO-20261029-01/REQUIREMENTS.json",
+  "acceptedSha": "137e41534f823c538fe62ff10820f491e0e55074",
+  "reviewer": "frontend",
+  "businessReviewer": "backend"
+}

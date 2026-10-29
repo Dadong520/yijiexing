@@ -1,0 +1,55 @@
+{
+  "schemaVersion": 1,
+  "id": "UIOB-20261029-01",
+  "owner": "backend",
+  "goal": "非作者复核UIO展示与导航不改变订单/金额/资质/预约语义",
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-ui-optimization-worktree-20261029",
+  "branch": "codex/ui-optimization-20261029",
+  "baseSha": "53028032fd2aa4e33136bbd77c3b89f654d13846",
+  "allow_paths": [
+    "coordination/tasks/UIOB-20261029-01.json",
+    "coordination/handoffs/backend.md",
+    "coordination/evidence/UIOB-20261029-01/"
+  ],
+  "checks": [
+    "Only review after root supplies exact frozen SHA; no dirty-tree review accepted as final",
+    "Review cancellation callback navigation only on success, session isolation preserved, failed action no home nav; systemback must not perform cancellation",
+    "Review driver new-order cents formatting/distance provenance/unknown values/private-demo vs shared sandbox labelling; monetary rules/actual notifications trigger and dedupe unchanged",
+    "Review hall filtering preserves active/pending reservation/payment recovery and respects canAccept/certificate/one executing gates; no trigger behavior mutation",
+    "Verify Store/domain/backend/permissions/manifest/network/key sources byte-identical to base; profile wallet/member links preserve existing capabilities and simulated labels",
+    "Do not rerun broad unchanged backend tests or duplicate frontend Gradle; targeted evidence or unit tests if actual business concern requires. No product edits/deploy/agent spawning"
+  ],
+  "status": "BUSINESS_SEMANTICS_PASS_IDLE",
+  "acceptance": "PASS",
+  "tests": [
+    {
+      "command": "Exact Git source comparison and read-only semantic call-chain review",
+      "exitCode": 0,
+      "result": "Protected sources unchanged; two display semantics findings; no duplicate builds"
+    },
+    {
+      "command": "git exact-object three-file delta and protected source equality; source and added JUnit review",
+      "exitCode": 0,
+      "result": "PASS; unchanged protected sources and no new action/notification/gate mutations"
+    },
+    {
+      "command": "Exact 05654b8..137e415 Git diff and CoreScreens single-string replacement equality",
+      "exitCode": 0,
+      "result": "PASS; one cumulative/demo title string only; tests not repeated"
+    }
+  ],
+  "nextAction": "Root combines frontend build/runtime acceptance and exact-SHA release gates; backend IDLE",
+  "pendingMergeSha": "137e41534f823c538fe62ff10820f491e0e55074",
+  "deploy_owner": "coordinator",
+  "releaseReady": false,
+  "evidence": [
+    "coordination/evidence/UIOB-20261029-01/REVIEW.json",
+    "coordination/evidence/UIOB-20261029-01/SOURCE_CHECKS.json",
+    "coordination/evidence/UIOB-20261029-01/FINAL_REVIEW.json",
+    "coordination/evidence/UIOB-20261029-01/FINAL_REVIEW_05654b8.json"
+  ],
+  "candidateSha": "137e41534f823c538fe62ff10820f491e0e55074",
+  "updatedAt": "2026-10-29T18:54:43+08:00",
+  "acceptedSha": "137e41534f823c538fe62ff10820f491e0e55074",
+  "reviewer": "backend"
+}

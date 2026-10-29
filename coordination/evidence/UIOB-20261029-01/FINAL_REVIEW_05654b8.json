@@ -1,0 +1,48 @@
+{
+  "taskId": "UIOB-20261029-01",
+  "reviewerThreadId": "01a182c6-c058-76e1-9584-38abfe813799",
+  "reviewedAt": "2026-10-29T18:47:50+08:00",
+  "candidateSha": "05654b8b48861b09340cd2b6e53d7240e8b55a43",
+  "baseSha": "53028032fd2aa4e33136bbd77c3b89f654d13846",
+  "previousCandidateSha": "f8283ae7f0c78800158e7a65e2a223169764ffa4",
+  "acceptance": "PASS",
+  "scope": "Business semantics independent delta re-review; frontend build/runtime gates separate",
+  "historicalFailurePreserved": "REVIEW.json + SOURCE_CHECKS.json unchanged",
+  "changedFiles": [
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/NewOrderAlerts.kt",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/UIOComponents.kt",
+    "candidates/driver-0.3.6-r2/android/app/src/test/java/cn/hbzjhs/driver/preview/UIODistancePresentationTest.kt"
+  ],
+  "protectedObjectsUnchangedFromReviewedCandidate": {
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/PassengerStore.kt": true,
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/ConnectedStore.kt": true,
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/DriverDomain.kt": true,
+    "apps/cloud-service": true
+  },
+  "findingsClosed": [
+    {
+      "id": "UIOB-01",
+      "result": "PASS",
+      "evidence": "Plain numeric regex plus finite/nonnegative check; zero retained; 待确认 returned without km; missing/nonfinite/negative/non-numeric rejected; existing km/公里 normalized. Focused 7-method JUnit covers requested cases, reviewed only; execution by frontend."
+    },
+    {
+      "id": "UIOB-02",
+      "result": "PASS",
+      "evidence": "NewOrderDialog renders newOrderSourceNote for every available detail. Shared sandbox explicitly labels service sandbox estimate/non-live measurement/simulated fare; private demo remains distinct. Missing detail displays no numeric metrics and no misleading source assertion."
+    }
+  ],
+  "previousPassedSemanticsRemainValid": true,
+  "remainingFindings": [],
+  "tests": [
+    {
+      "command": "git exact-object three-file delta and protected source equality; source and added JUnit review",
+      "exitCode": 0,
+      "result": "PASS; unchanged protected sources and no new action/notification/gate mutations"
+    }
+  ],
+  "notRun": [
+    "No duplicate Gradle/JUnit execution; frontend owns test/build evidence",
+    "No device/cloud/deploy actions by reviewer"
+  ],
+  "nextAction": "Root combines frontend build/runtime acceptance and exact-SHA release gates; backend IDLE"
+}

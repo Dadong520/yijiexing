@@ -1,0 +1,9 @@
+{
+  "files": [
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/NewOrderAlerts.kt",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/UIOComponents.kt",
+    "candidates/driver-0.3.6-r2/android/app/src/test/java/cn/hbzjhs/driver/preview/UIODistancePresentationTest.kt"
+  ],
+  "privateValuesChecked": 4,
+  "exactMatches": 0
+}

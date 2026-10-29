@@ -1,0 +1,55 @@
+{
+  "taskId": "UIO-20261029-01",
+  "requirements": [
+    {
+      "id": "G1",
+      "scope": "复用青绿+蓝橙紫配色，增加有语义图标/缺省插画，统一8/12/16/24间距与按钮主次；无新增外部素材依赖"
+    },
+    {
+      "id": "D1",
+      "scope": "司机首页订单大厅：移走经营统计/会员等非接单内容到个人中心；保留出车/资质/在途提示、地图与接单门禁；按现有订单种类提供筛选，订单多时可滚动"
+    },
+    {
+      "id": "D2",
+      "scope": "发现新订单提示展示现有真实金额、预估行程、距乘客距离；未知明确未提供，不补编数值；不得改提示触发/去重/接单规则"
+    },
+    {
+      "id": "D3",
+      "scope": "司机我的订单突出待进行/已完成等状态颜色和文字，不仅用颜色；保留所有订单可访问"
+    },
+    {
+      "id": "D4",
+      "scope": "钱包突出余额/流水/入账，银行卡和交易密码迁移到个人中心适当分组；保留入口与原功能"
+    },
+    {
+      "id": "D5",
+      "scope": "个人中心按出车/资料、账户安全、平台服务整理，去掉与底部导航重复的我的订单/钱包；保留其他入口，不丢功能"
+    },
+    {
+      "id": "D6",
+      "scope": "会员身份卡重点展示当前等级/有效期/权益及管理入口，不编造权益/优惠或自动售卖"
+    },
+    {
+      "id": "D7",
+      "scope": "订单/流水/服务分/拉新等空列表有语义图标、简短说明和可用操作，不能虚构数据"
+    },
+    {
+      "id": "P1",
+      "scope": "选择地址改为全屏独立选择界面，有标题返回、搜索、地图选点、可滚动历史/收藏，保留真实经纬度、旧地址保护、默认项和高德路径"
+    },
+    {
+      "id": "P2",
+      "scope": "待接单取消按钮明显；取消只有服务端成功后自动回首页，失败仍原页提示且不丢单；订单详情返回首页以便再下单，系统返回一致，子页联系/费用返回仍合理"
+    },
+    {
+      "id": "P3",
+      "scope": "个人中心更多体验及应用连接等功能模块直接展开，保留实际能力/模拟标签与全部入口"
+    }
+  ],
+  "userAutonomy": "User leaving; finish implementation, independent Codex review, isolated AVD authorized, merge and independent experience release autonomously for next-day acceptance; no repeated routine permission questions.",
+  "restrictions": [
+    "No Store/domain/network/backend/manifest/build config/keys/coordination edits; root owns git/versions/control",
+    "No financial/execution rules change; use existing fields/callbacks only; unavailable data honest",
+    "No agent spawning or publication; author tests NOT_RUN if tool unavailable"
+  ]
+}

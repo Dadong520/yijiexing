@@ -1,0 +1,487 @@
+project-gate	Mini program regression	﻿2026-10-29T10:49:49.7352584Z ##[group]Run npm test && npm run check
+project-gate	Mini program regression	2026-10-29T10:49:49.7352967Z [36;1mnpm test && npm run check[0m
+project-gate	Mini program regression	2026-10-29T10:49:49.7369839Z shell: /usr/bin/bash -e {0}
+project-gate	Mini program regression	2026-10-29T10:49:49.7370349Z env:
+project-gate	Mini program regression	2026-10-29T10:49:49.7370628Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.15/x64
+project-gate	Mini program regression	2026-10-29T10:49:49.7370979Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib/pkgconfig
+project-gate	Mini program regression	2026-10-29T10:49:49.7371382Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+project-gate	Mini program regression	2026-10-29T10:49:49.7371751Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+project-gate	Mini program regression	2026-10-29T10:49:49.7372090Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+project-gate	Mini program regression	2026-10-29T10:49:49.7372417Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib
+project-gate	Mini program regression	2026-10-29T10:49:49.7372687Z ##[endgroup]
+project-gate	Mini program regression	2026-10-29T10:49:49.9671454Z 
+project-gate	Mini program regression	2026-10-29T10:49:49.9678702Z > yijiexing-passenger-miniprogram@0.1.0 test
+project-gate	Mini program regression	2026-10-29T10:49:49.9679320Z > node --test tests/*.test.js
+project-gate	Mini program regression	2026-10-29T10:49:49.9679506Z 
+project-gate	Mini program regression	2026-10-29T10:49:50.0541475Z TAP version 13
+project-gate	Mini program regression	2026-10-29T10:49:50.0888862Z # Subtest: coupons: calculates amount and percent discounts correctly
+project-gate	Mini program regression	2026-10-29T10:49:50.0931329Z ok 1 - coupons: calculates amount and percent discounts correctly
+project-gate	Mini program regression	2026-10-29T10:49:50.0981282Z   ---
+project-gate	Mini program regression	2026-10-29T10:49:50.0992594Z   duration_ms: 1.045009
+project-gate	Mini program regression	2026-10-29T10:49:50.1022567Z   type: 'test'
+project-gate	Mini program regression	2026-10-29T10:49:50.1056344Z   ...
+project-gate	Mini program regression	2026-10-29T10:49:50.1111513Z # Subtest: coupons: rule \#3 tips cannot contribute to min spend threshold
+project-gate	Mini program regression	2026-10-29T10:49:50.1141601Z ok 2 - coupons: rule \#3 tips cannot contribute to min spend threshold
+project-gate	Mini program regression	2026-10-29T10:49:50.1165009Z   ---
+project-gate	Mini program regression	2026-10-29T10:49:50.1191117Z   duration_ms: 0.1974
+project-gate	Mini program regression	2026-10-29T10:49:50.1220953Z   type: 'test'
+project-gate	Mini program regression	2026-10-29T10:49:50.1236865Z   ...
+project-gate	Mini program regression	2026-10-29T10:49:50.1261735Z # Subtest: coupons: rule \#4 & \#5 lifecycle - freeze, release, and consume
+project-gate	Mini program regression	2026-10-29T10:49:50.1291169Z ok 3 - coupons: rule \#4 & \#5 lifecycle - freeze, release, and consume
+project-gate	Mini program regression	2026-10-29T10:49:50.1320688Z   ---
+project-gate	Mini program regression	2026-10-29T10:49:50.1321441Z   duration_ms: 0.578376
+project-gate	Mini program regression	2026-10-29T10:49:50.1350898Z   type: 'test'
+project-gate	Mini program regression	2026-10-29T10:49:50.1351409Z   ...
+project-gate	Mini program regression	2026-10-29T10:49:50.1351943Z # Subtest: coupons: exclusions for bidding orders and claim code
+project-gate	Mini program regression	2026-10-29T10:49:50.1352577Z ok 4 - coupons: exclusions for bidding orders and claim code
+project-gate	Mini program regression	2026-10-29T10:49:50.1353109Z   ---
+project-gate	Mini program regression	2026-10-29T10:49:50.1353422Z   duration_ms: 1.408601
+project-gate	Mini program regression	2026-10-29T10:49:50.1353777Z   type: 'test'
+project-gate	Mini program regression	2026-10-29T10:49:50.1354124Z   ...
+project-gate	Mini program regression	2026-10-29T10:49:50.1354629Z # Subtest: coupons: findBestCoupon selects highest discount
+project-gate	Mini program regression	2026-10-29T10:49:50.1355248Z ok 5 - coupons: findBestCoupon selects highest discount
+project-gate	Mini program regression	2026-10-29T10:49:50.1355665Z   ---
+project-gate	Mini program regression	2026-10-29T10:49:50.1355971Z   duration_ms: 0.360867
+project-gate	Mini program regression	2026-10-29T10:49:50.1356328Z   type: 'test'
+project-gate	Mini program regression	2026-10-29T10:49:50.1356753Z   ...
+project-gate	Mini program regression	2026-10-29T10:49:50.1357285Z # Subtest: safety: emergency contacts CRUD and message generator
+project-gate	Mini program regression	2026-10-29T10:49:50.1357889Z ok 6 - safety: emergency contacts CRUD and message generator
+project-gate	Mini program regression	2026-10-29T10:49:50.1358326Z   ---
+project-gate	Mini program regression	2026-10-29T10:49:50.1358643Z   duration_ms: 0.384341
+project-gate	Mini program regression	2026-10-29T10:49:50.1358986Z   type: 'test'
+project-gate	Mini program regression	2026-10-29T10:49:50.1359353Z   ...
+project-gate	Mini program regression	2026-10-29T10:49:50.1359799Z # Subtest: extras: options and format utilities conform to cents
+project-gate	Mini program regression	2026-10-29T10:49:50.1360645Z ok 7 - extras: options and format utilities conform to cents
+project-gate	Mini program regression	2026-10-29T10:49:50.1361126Z   ---
+project-gate	Mini program regression	2026-10-29T10:49:50.1361428Z   duration_ms: 0.181532
+project-gate	Mini program regression	2026-10-29T10:49:50.1362210Z   type: 'test'
+project-gate	Mini program regression	2026-10-29T10:49:50.1362599Z   ...
+project-gate	Mini program regression	2026-10-29T10:49:50.1363556Z # Subtest: 旧GET和旧401不覆盖新快照或新登录
+project-gate	Mini program regression	2026-10-29T10:49:50.1364176Z ok 8 - 旧GET和旧401不覆盖新快照或新登录
+project-gate	Mini program regression	2026-10-29T10:49:50.1364778Z   ---
+project-gate	Mini program regression	2026-10-29T10:49:50.1365182Z   duration_ms: 2.759514
+project-gate	Mini program regression	2026-10-29T10:49:50.1365499Z   type: 'test'
+project-gate	Mini program regression	2026-10-29T10:49:50.1365819Z   ...
+project-gate	Mini program regression	2026-10-29T10:49:50.1366533Z # Subtest: 不确定结果持久恢复同一id及payload，会话隔离
+project-gate	Mini program regression	2026-10-29T10:49:50.1367095Z ok 9 - 不确定结果持久恢复同一id及payload，会话隔离
+project-gate	Mini program regression	2026-10-29T10:49:50.1367695Z   ---
+project-gate	Mini program regression	2026-10-29T10:49:50.1368262Z   duration_ms: 1.221997
+project-gate	Mini program regression	2026-10-29T10:49:50.1368912Z   type: 'test'
+project-gate	Mini program regression	2026-10-29T10:49:50.1369452Z   ...
+project-gate	Mini program regression	2026-10-29T10:49:50.1370804Z # Subtest: ABA费用确认保持冻结版本并交由服务端拒绝
+project-gate	Mini program regression	2026-10-29T10:49:50.1371418Z ok 10 - ABA费用确认保持冻结版本并交由服务端拒绝
+project-gate	Mini program regression	2026-10-29T10:49:50.1371873Z   ---
+project-gate	Mini program regression	2026-10-29T10:49:50.1372518Z   duration_ms: 0.512301
+project-gate	Mini program regression	2026-10-29T10:49:50.1372990Z   type: 'test'
+project-gate	Mini program regression	2026-10-29T10:49:50.1373429Z   ...
+project-gate	Mini program regression	2026-10-29T10:49:50.1374092Z # Subtest: 接口路径及域名限制且不将秘密放入URL或匿名Authorization
+project-gate	Mini program regression	2026-10-29T10:49:50.1374765Z ok 11 - 接口路径及域名限制且不将秘密放入URL或匿名Authorization
+project-gate	Mini program regression	2026-10-29T10:49:50.1375846Z   ---
+project-gate	Mini program regression	2026-10-29T10:49:50.1376270Z   duration_ms: 0.706777
+project-gate	Mini program regression	2026-10-29T10:49:50.1376756Z   type: 'test'
+project-gate	Mini program regression	2026-10-29T10:49:50.1377258Z   ...
+project-gate	Mini program regression	2026-10-29T10:49:50.1377942Z # Subtest: 宜昌坐标往返、境外不变、缺失拒绝
+project-gate	Mini program regression	2026-10-29T10:49:50.1378535Z ok 12 - 宜昌坐标往返、境外不变、缺失拒绝
+project-gate	Mini program regression	2026-10-29T10:49:50.1378975Z   ---
+project-gate	Mini program regression	2026-10-29T10:49:50.1379396Z   duration_ms: 0.637637
+project-gate	Mini program regression	2026-10-29T10:49:50.1380076Z   type: 'test'
+project-gate	Mini program regression	2026-10-29T10:49:50.1380559Z   ...
+project-gate	Mini program regression	2026-10-29T10:49:50.1381088Z # Subtest: 整数分解析
+project-gate	Mini program regression	2026-10-29T10:49:50.1381543Z ok 13 - 整数分解析
+project-gate	Mini program regression	2026-10-29T10:49:50.1381955Z   ---
+project-gate	Mini program regression	2026-10-29T10:49:50.1382530Z   duration_ms: 0.309458
+project-gate	Mini program regression	2026-10-29T10:49:50.1382936Z   type: 'test'
+project-gate	Mini program regression	2026-10-29T10:49:50.1383382Z   ...
+project-gate	Mini program regression	2026-10-29T10:49:50.1383908Z # Subtest: 跨会话旧操作成功响应不得覆盖新乘客
+project-gate	Mini program regression	2026-10-29T10:49:50.1384444Z ok 14 - 跨会话旧操作成功响应不得覆盖新乘客
+project-gate	Mini program regression	2026-10-29T10:49:50.1384944Z   ---
+project-gate	Mini program regression	2026-10-29T10:49:50.1385325Z   duration_ms: 0.458202
+project-gate	Mini program regression	2026-10-29T10:49:50.1385809Z   type: 'test'
+project-gate	Mini program regression	2026-10-29T10:49:50.1386209Z   ...
+project-gate	Mini program regression	2026-10-29T10:49:50.1386804Z # Subtest: 新GET进行中收到旧401不得清除会话
+project-gate	Mini program regression	2026-10-29T10:49:50.1387399Z ok 15 - 新GET进行中收到旧401不得清除会话
+project-gate	Mini program regression	2026-10-29T10:49:50.1387810Z   ---
+project-gate	Mini program regression	2026-10-29T10:49:50.1388272Z   duration_ms: 0.277869
+project-gate	Mini program regression	2026-10-29T10:49:50.1388693Z   type: 'test'
+project-gate	Mini program regression	2026-10-29T10:49:50.1389103Z   ...
+project-gate	Mini program regression	2026-10-29T10:49:50.5950188Z # Subtest: 真实冻结v8 HTTP与小程序store完整契约
+project-gate	Mini program regression	2026-10-29T10:49:50.5951407Z     # Subtest: STANDARD代叫、途经点、欠费阻新单但司机可接其他乘客
+project-gate	Mini program regression	2026-10-29T10:49:50.5952002Z     ok 1 - STANDARD代叫、途经点、欠费阻新单但司机可接其他乘客
+project-gate	Mini program regression	2026-10-29T10:49:50.5952431Z       ---
+project-gate	Mini program regression	2026-10-29T10:49:50.5952783Z       duration_ms: 123.783551
+project-gate	Mini program regression	2026-10-29T10:49:50.5953559Z       type: 'test'
+project-gate	Mini program regression	2026-10-29T10:49:50.5953955Z       ...
+project-gate	Mini program regression	2026-10-29T10:49:50.6259716Z     # Subtest: RESERVED预约接受后推进并模拟支付
+project-gate	Mini program regression	2026-10-29T10:49:50.6260820Z     ok 2 - RESERVED预约接受后推进并模拟支付
+project-gate	Mini program regression	2026-10-29T10:49:50.6261241Z       ---
+project-gate	Mini program regression	2026-10-29T10:49:50.6261588Z       duration_ms: 31.10707
+project-gate	Mini program regression	2026-10-29T10:49:50.6262001Z       type: 'test'
+project-gate	Mini program regression	2026-10-29T10:49:50.6262309Z       ...
+project-gate	Mini program regression	2026-10-29T10:49:50.6594359Z     # Subtest: BID报价、选择司机、预付、完成
+project-gate	Mini program regression	2026-10-29T10:49:50.6595148Z     ok 3 - BID报价、选择司机、预付、完成
+project-gate	Mini program regression	2026-10-29T10:49:50.6595592Z       ---
+project-gate	Mini program regression	2026-10-29T10:49:50.6596007Z       duration_ms: 33.551669
+project-gate	Mini program regression	2026-10-29T10:49:50.6596484Z       type: 'test'
+project-gate	Mini program regression	2026-10-29T10:49:50.6596862Z       ...
+project-gate	Mini program regression	2026-10-29T10:49:50.6881241Z     # Subtest: NEG配对、价格异议、重新报价与冻结版本支付
+project-gate	Mini program regression	2026-10-29T10:49:50.6882315Z     ok 4 - NEG配对、价格异议、重新报价与冻结版本支付
+project-gate	Mini program regression	2026-10-29T10:49:50.6882909Z       ---
+project-gate	Mini program regression	2026-10-29T10:49:50.6883401Z       duration_ms: 28.34668
+project-gate	Mini program regression	2026-10-29T10:49:50.6883932Z       type: 'test'
+project-gate	Mini program regression	2026-10-29T10:49:50.6884367Z       ...
+project-gate	Mini program regression	2026-10-29T10:49:50.7128832Z     # Subtest: 评价、投诉、常用地址、发票抬头与模拟回执持久化shape
+project-gate	Mini program regression	2026-10-29T10:49:50.7130442Z     ok 5 - 评价、投诉、常用地址、发票抬头与模拟回执持久化shape
+project-gate	Mini program regression	2026-10-29T10:49:50.7131390Z       ---
+project-gate	Mini program regression	2026-10-29T10:49:50.7132048Z       duration_ms: 22.001101
+project-gate	Mini program regression	2026-10-29T10:49:50.7133201Z       type: 'test'
+project-gate	Mini program regression	2026-10-29T10:49:50.7133710Z       ...
+project-gate	Mini program regression	2026-10-29T10:49:50.7399236Z     # Subtest: 直接加载当前页面处理器并将实际payload送入真实HTTP
+project-gate	Mini program regression	2026-10-29T10:49:50.7400799Z     ok 6 - 直接加载当前页面处理器并将实际payload送入真实HTTP
+project-gate	Mini program regression	2026-10-29T10:49:50.7401584Z       ---
+project-gate	Mini program regression	2026-10-29T10:49:50.7402500Z       duration_ms: 29.424958
+project-gate	Mini program regression	2026-10-29T10:49:50.7402949Z       type: 'test'
+project-gate	Mini program regression	2026-10-29T10:49:50.7403181Z       ...
+project-gate	Mini program regression	2026-10-29T10:49:50.7426240Z     1..6
+project-gate	Mini program regression	2026-10-29T10:49:50.7427250Z ok 16 - 真实冻结v8 HTTP与小程序store完整契约
+project-gate	Mini program regression	2026-10-29T10:49:50.7427821Z   ---
+project-gate	Mini program regression	2026-10-29T10:49:50.7428381Z   duration_ms: 655.476324
+project-gate	Mini program regression	2026-10-29T10:49:50.7429192Z   type: 'test'
+project-gate	Mini program regression	2026-10-29T10:49:50.7429663Z   ...
+project-gate	Mini program regression	2026-10-29T10:49:51.2665477Z # Subtest: native selection and cancellation are separate; invalid coordinates rejected
+project-gate	Mini program regression	2026-10-29T10:49:51.2666327Z ok 17 - native selection and cancellation are separate; invalid coordinates rejected
+project-gate	Mini program regression	2026-10-29T10:49:51.2667198Z   ---
+project-gate	Mini program regression	2026-10-29T10:49:51.2667430Z   duration_ms: 1.314464
+project-gate	Mini program regression	2026-10-29T10:49:51.2667692Z   type: 'test'
+project-gate	Mini program regression	2026-10-29T10:49:51.2667899Z   ...
+project-gate	Mini program regression	2026-10-29T10:49:51.2668271Z # Subtest: plugin clears stale point before open, consumes exactly once and clears cancellation
+project-gate	Mini program regression	2026-10-29T10:49:51.2668919Z ok 18 - plugin clears stale point before open, consumes exactly once and clears cancellation
+project-gate	Mini program regression	2026-10-29T10:49:51.2669397Z   ---
+project-gate	Mini program regression	2026-10-29T10:49:51.2669774Z   duration_ms: 0.83497
+project-gate	Mini program regression	2026-10-29T10:49:51.2670324Z   type: 'test'
+project-gate	Mini program regression	2026-10-29T10:49:51.2670798Z   ...
+project-gate	Mini program regression	2026-10-29T10:49:51.2671381Z # Subtest: plugin failure releases selection and missing key prevents navigation
+project-gate	Mini program regression	2026-10-29T10:49:51.2671971Z ok 19 - plugin failure releases selection and missing key prevents navigation
+project-gate	Mini program regression	2026-10-29T10:49:51.2672409Z   ---
+project-gate	Mini program regression	2026-10-29T10:49:51.2672756Z   duration_ms: 0.449982
+project-gate	Mini program regression	2026-10-29T10:49:51.2673176Z   type: 'test'
+project-gate	Mini program regression	2026-10-29T10:49:51.2673525Z   ...
+project-gate	Mini program regression	2026-10-29T10:49:51.2674057Z # Subtest: legacy feature defaults, published closure, and unknown kinds remain distinct
+project-gate	Mini program regression	2026-10-29T10:49:51.2674712Z ok 20 - legacy feature defaults, published closure, and unknown kinds remain distinct
+project-gate	Mini program regression	2026-10-29T10:49:51.2675174Z   ---
+project-gate	Mini program regression	2026-10-29T10:49:51.2675541Z   duration_ms: 0.930515
+project-gate	Mini program regression	2026-10-29T10:49:51.2675908Z   type: 'test'
+project-gate	Mini program regression	2026-10-29T10:49:51.2676213Z   ...
+project-gate	Mini program regression	2026-10-29T10:49:51.2676732Z # Subtest: silent or hidden state reads do not claim an announcement
+project-gate	Mini program regression	2026-10-29T10:49:51.2677344Z ok 21 - silent or hidden state reads do not claim an announcement
+project-gate	Mini program regression	2026-10-29T10:49:51.2677761Z   ---
+project-gate	Mini program regression	2026-10-29T10:49:51.2678102Z   duration_ms: 0.243339
+project-gate	Mini program regression	2026-10-29T10:49:51.2678422Z   type: 'test'
+project-gate	Mini program regression	2026-10-29T10:49:51.2678911Z   ...
+project-gate	Mini program regression	2026-10-29T10:49:51.2679394Z # Subtest: claim firstDisplay only, one in-flight across repeated subscriptions
+project-gate	Mini program regression	2026-10-29T10:49:51.2680215Z ok 22 - claim firstDisplay only, one in-flight across repeated subscriptions
+project-gate	Mini program regression	2026-10-29T10:49:51.2680933Z   ---
+project-gate	Mini program regression	2026-10-29T10:49:51.2681247Z   duration_ms: 0.853475
+project-gate	Mini program regression	2026-10-29T10:49:51.2681656Z   type: 'test'
+project-gate	Mini program regression	2026-10-29T10:49:51.2681986Z   ...
+project-gate	Mini program regression	2026-10-29T10:49:51.2682515Z # Subtest: a response from the previous account cannot open a modal for the new account
+project-gate	Mini program regression	2026-10-29T10:49:51.2683116Z ok 23 - a response from the previous account cannot open a modal for the new account
+project-gate	Mini program regression	2026-10-29T10:49:51.2683608Z   ---
+project-gate	Mini program regression	2026-10-29T10:49:51.2684119Z   duration_ms: 0.258657
+project-gate	Mini program regression	2026-10-29T10:49:51.2684589Z   type: 'test'
+project-gate	Mini program regression	2026-10-29T10:49:51.2684990Z   ...
+project-gate	Mini program regression	2026-10-29T10:49:51.2685602Z # Subtest: unconfigured or disabled company never creates a dialable number
+project-gate	Mini program regression	2026-10-29T10:49:51.2686234Z ok 24 - unconfigured or disabled company never creates a dialable number
+project-gate	Mini program regression	2026-10-29T10:49:51.2686680Z   ---
+project-gate	Mini program regression	2026-10-29T10:49:51.2686946Z   duration_ms: 1.741601
+project-gate	Mini program regression	2026-10-29T10:49:51.2687238Z   type: 'test'
+project-gate	Mini program regression	2026-10-29T10:49:51.2687502Z   ...
+project-gate	Mini program regression	2026-10-29T10:49:51.2687803Z # Subtest: company phone opens only after user confirmation
+project-gate	Mini program regression	2026-10-29T10:49:51.2688230Z ok 25 - company phone opens only after user confirmation
+project-gate	Mini program regression	2026-10-29T10:49:51.2688503Z   ---
+project-gate	Mini program regression	2026-10-29T10:49:51.2688777Z   duration_ms: 0.324907
+project-gate	Mini program regression	2026-10-29T10:49:51.2689063Z   type: 'test'
+project-gate	Mini program regression	2026-10-29T10:49:51.2689711Z   ...
+project-gate	Mini program regression	2026-10-29T10:49:51.2690240Z # Subtest: transport declares the exact mini client for login, state, and action
+project-gate	Mini program regression	2026-10-29T10:49:51.2690697Z ok 26 - transport declares the exact mini client for login, state, and action
+project-gate	Mini program regression	2026-10-29T10:49:51.2691030Z   ---
+project-gate	Mini program regression	2026-10-29T10:49:51.2691231Z   duration_ms: 1.238014
+project-gate	Mini program regression	2026-10-29T10:49:51.2691464Z   type: 'test'
+project-gate	Mini program regression	2026-10-29T10:49:51.2691698Z   ...
+project-gate	Mini program regression	2026-10-29T10:49:51.2692062Z # Subtest: per-order invoice permission overrides current region, with legacy-only fallback
+project-gate	Mini program regression	2026-10-29T10:49:51.2692591Z ok 27 - per-order invoice permission overrides current region, with legacy-only fallback
+project-gate	Mini program regression	2026-10-29T10:49:51.2692925Z   ---
+project-gate	Mini program regression	2026-10-29T10:49:51.2693139Z   duration_ms: 0.191357
+project-gate	Mini program regression	2026-10-29T10:49:51.2693355Z   type: 'test'
+project-gate	Mini program regression	2026-10-29T10:49:51.2693605Z   ...
+project-gate	Mini program regression	2026-10-29T10:49:51.2694161Z # Subtest: contact explains unavailable relay without fake number or connected state
+project-gate	Mini program regression	2026-10-29T10:49:51.2694623Z ok 28 - contact explains unavailable relay without fake number or connected state
+project-gate	Mini program regression	2026-10-29T10:49:51.2694952Z   ---
+project-gate	Mini program regression	2026-10-29T10:49:51.2695154Z   duration_ms: 4.991797
+project-gate	Mini program regression	2026-10-29T10:49:51.2695402Z   type: 'test'
+project-gate	Mini program regression	2026-10-29T10:49:51.2695630Z   ...
+project-gate	Mini program regression	2026-10-29T10:49:51.2695966Z # Subtest: company is a separate explicitly selected help route, never a driver dial
+project-gate	Mini program regression	2026-10-29T10:49:51.2696431Z ok 29 - company is a separate explicitly selected help route, never a driver dial
+project-gate	Mini program regression	2026-10-29T10:49:51.2696739Z   ---
+project-gate	Mini program regression	2026-10-29T10:49:51.2696927Z   duration_ms: 0.95642
+project-gate	Mini program regression	2026-10-29T10:49:51.2697216Z   type: 'test'
+project-gate	Mini program regression	2026-10-29T10:49:51.2697415Z   ...
+project-gate	Mini program regression	2026-10-29T10:49:51.2697704Z # Subtest: points: load points initial data and tier rules
+project-gate	Mini program regression	2026-10-29T10:49:51.2698049Z ok 30 - points: load points initial data and tier rules
+project-gate	Mini program regression	2026-10-29T10:49:51.2698299Z   ---
+project-gate	Mini program regression	2026-10-29T10:49:51.2698576Z   duration_ms: 0.615606
+project-gate	Mini program regression	2026-10-29T10:49:51.2698801Z   type: 'test'
+project-gate	Mini program regression	2026-10-29T10:49:51.2699014Z   ...
+project-gate	Mini program regression	2026-10-29T10:49:51.2699298Z # Subtest: points: award points for referral and order complete
+project-gate	Mini program regression	2026-10-29T10:49:51.2699671Z ok 31 - points: award points for referral and order complete
+project-gate	Mini program regression	2026-10-29T10:49:51.2700130Z   ---
+project-gate	Mini program regression	2026-10-29T10:49:51.2700423Z   duration_ms: 0.360514
+project-gate	Mini program regression	2026-10-29T10:49:51.2700723Z   type: 'test'
+project-gate	Mini program regression	2026-10-29T10:49:51.2701003Z   ...
+project-gate	Mini program regression	2026-10-29T10:49:51.2701786Z # Subtest: v8显示枚举全部映射中文且模拟支付边界明确
+project-gate	Mini program regression	2026-10-29T10:49:51.2702187Z ok 32 - v8显示枚举全部映射中文且模拟支付边界明确
+project-gate	Mini program regression	2026-10-29T10:49:51.2702524Z   ---
+project-gate	Mini program regression	2026-10-29T10:49:51.2702855Z   duration_ms: 0.797892
+project-gate	Mini program regression	2026-10-29T10:49:51.2703182Z   type: 'test'
+project-gate	Mini program regression	2026-10-29T10:49:51.2703555Z   ...
+project-gate	Mini program regression	2026-10-29T10:49:51.2704004Z # Subtest: 未知缺失和原型字段不泄露原始代码
+project-gate	Mini program regression	2026-10-29T10:49:51.2704395Z ok 33 - 未知缺失和原型字段不泄露原始代码
+project-gate	Mini program regression	2026-10-29T10:49:51.2704743Z   ---
+project-gate	Mini program regression	2026-10-29T10:49:51.2705071Z   duration_ms: 0.273681
+project-gate	Mini program regression	2026-10-29T10:49:51.2705440Z   type: 'test'
+project-gate	Mini program regression	2026-10-29T10:49:51.2705941Z   ...
+project-gate	Mini program regression	2026-10-29T10:49:51.2706462Z # Subtest: 时间固定北京时间、跨日和缺失有明确文案
+project-gate	Mini program regression	2026-10-29T10:49:51.2706813Z ok 34 - 时间固定北京时间、跨日和缺失有明确文案
+project-gate	Mini program regression	2026-10-29T10:49:51.2707039Z   ---
+project-gate	Mini program regression	2026-10-29T10:49:51.2707307Z   duration_ms: 0.506869
+project-gate	Mini program regression	2026-10-29T10:49:51.2707521Z   type: 'test'
+project-gate	Mini program regression	2026-10-29T10:49:51.2707805Z   ...
+project-gate	Mini program regression	2026-10-29T10:49:51.2708220Z # Subtest: 金额函数原有整数分行为保持
+project-gate	Mini program regression	2026-10-29T10:49:51.2708618Z ok 35 - 金额函数原有整数分行为保持
+project-gate	Mini program regression	2026-10-29T10:49:51.2708990Z   ---
+project-gate	Mini program regression	2026-10-29T10:49:51.2709329Z   duration_ms: 0.30204
+project-gate	Mini program regression	2026-10-29T10:49:51.2709680Z   type: 'test'
+project-gate	Mini program regression	2026-10-29T10:49:51.2710109Z   ...
+project-gate	Mini program regression	2026-10-29T10:49:51.2710683Z # Subtest: profile keeps base subscription, follows stable account owner, and clears demo display on logout
+project-gate	Mini program regression	2026-10-29T10:49:51.2711577Z ok 36 - profile keeps base subscription, follows stable account owner, and clears demo display on logout
+project-gate	Mini program regression	2026-10-29T10:49:51.2712262Z   ---
+project-gate	Mini program regression	2026-10-29T10:49:51.2712573Z   duration_ms: 7.845568
+project-gate	Mini program regression	2026-10-29T10:49:51.2712913Z   type: 'test'
+project-gate	Mini program regression	2026-10-29T10:49:51.2713256Z   ...
+project-gate	Mini program regression	2026-10-29T10:49:51.2713889Z # Subtest: copied invitation explains inactive rewards and does not promise registration credit
+project-gate	Mini program regression	2026-10-29T10:49:51.2714812Z ok 37 - copied invitation explains inactive rewards and does not promise registration credit
+project-gate	Mini program regression	2026-10-29T10:49:51.2715313Z   ---
+project-gate	Mini program regression	2026-10-29T10:49:51.2715646Z   duration_ms: 1.625917
+project-gate	Mini program regression	2026-10-29T10:49:51.2716051Z   type: 'test'
+project-gate	Mini program regression	2026-10-29T10:49:51.2716372Z   ...
+project-gate	Mini program regression	2026-10-29T10:49:51.2716992Z # Subtest: AG-20261025-01 回归: order-detail WAIT_CONTINUE 支持同单继续与放弃
+project-gate	Mini program regression	2026-10-29T10:49:51.2717641Z ok 38 - AG-20261025-01 回归: order-detail WAIT_CONTINUE 支持同单继续与放弃
+project-gate	Mini program regression	2026-10-29T10:49:51.2718119Z   ---
+project-gate	Mini program regression	2026-10-29T10:49:51.2718538Z   duration_ms: 2.537358
+project-gate	Mini program regression	2026-10-29T10:49:51.2718898Z   type: 'test'
+project-gate	Mini program regression	2026-10-29T10:49:51.2719240Z   ...
+project-gate	Mini program regression	2026-10-29T10:49:51.2719837Z # Subtest: AG-20261025-01 回归: 取消订单严格校验服务端结果，无券不兜底退券
+project-gate	Mini program regression	2026-10-29T10:49:51.2720576Z ok 39 - AG-20261025-01 回归: 取消订单严格校验服务端结果，无券不兜底退券
+project-gate	Mini program regression	2026-10-29T10:49:51.2720882Z   ---
+project-gate	Mini program regression	2026-10-29T10:49:51.2721086Z   duration_ms: 1.994853
+project-gate	Mini program regression	2026-10-29T10:49:51.2721286Z   type: 'test'
+project-gate	Mini program regression	2026-10-29T10:49:51.2721547Z   ...
+project-gate	Mini program regression	2026-10-29T10:49:51.2721972Z # Subtest: AG-20261025-01 回归: pay() 仅执行契约支付，有效 spy 验证不触发本地账务与积分
+project-gate	Mini program regression	2026-10-29T10:49:51.2722401Z ok 40 - AG-20261025-01 回归: pay() 仅执行契约支付，有效 spy 验证不触发本地账务与积分
+project-gate	Mini program regression	2026-10-29T10:49:51.2722667Z   ---
+project-gate	Mini program regression	2026-10-29T10:49:51.2722854Z   duration_ms: 0.721292
+project-gate	Mini program regression	2026-10-29T10:49:51.2723086Z   type: 'test'
+project-gate	Mini program regression	2026-10-29T10:49:51.2723306Z   ...
+project-gate	Mini program regression	2026-10-29T10:49:51.2723681Z # Subtest: AG-20261025-01 回归: 页面级 A/B 账号切换与未登录检查，未登录绝不读历史
+project-gate	Mini program regression	2026-10-29T10:49:51.2724056Z ok 41 - AG-20261025-01 回归: 页面级 A/B 账号切换与未登录检查，未登录绝不读历史
+project-gate	Mini program regression	2026-10-29T10:49:51.2724305Z   ---
+project-gate	Mini program regression	2026-10-29T10:49:51.2724529Z   duration_ms: 2.536291
+project-gate	Mini program regression	2026-10-29T10:49:51.2724756Z   type: 'test'
+project-gate	Mini program regression	2026-10-29T10:49:51.2724991Z   ...
+project-gate	Mini program regression	2026-10-29T10:49:51.2725364Z # Subtest: AG-20261025-01 回归: safety 开关禁用虚假开启反馈，卡券页与司机卡去除硬编码企业及三证保证
+project-gate	Mini program regression	2026-10-29T10:49:51.2725780Z ok 42 - AG-20261025-01 回归: safety 开关禁用虚假开启反馈，卡券页与司机卡去除硬编码企业及三证保证
+project-gate	Mini program regression	2026-10-29T10:49:51.2726085Z   ---
+project-gate	Mini program regression	2026-10-29T10:49:51.2726302Z   duration_ms: 3.648138
+project-gate	Mini program regression	2026-10-29T10:49:51.2726642Z   type: 'test'
+project-gate	Mini program regression	2026-10-29T10:49:51.2726890Z   ...
+project-gate	Mini program regression	2026-10-29T10:49:51.2727222Z # Subtest: AG-20261025-01 回归: 司机端 CoreScreens.kt 采用累计口径并读取动态企业组织
+project-gate	Mini program regression	2026-10-29T10:49:51.2727695Z not ok 43 - AG-20261025-01 回归: 司机端 CoreScreens.kt 采用累计口径并读取动态企业组织
+project-gate	Mini program regression	2026-10-29T10:49:51.2727981Z   ---
+project-gate	Mini program regression	2026-10-29T10:49:51.2728185Z   duration_ms: 2.031269
+project-gate	Mini program regression	2026-10-29T10:49:51.2728445Z   type: 'test'
+project-gate	Mini program regression	2026-10-29T10:49:51.2728943Z   location: '/home/runner/work/yijiexing/yijiexing/candidates/passenger-miniprogram-0.1.0/miniprogram/tests/regression-ag-20261025.test.js:355:1'
+project-gate	Mini program regression	2026-10-29T10:49:51.2729639Z   failureType: 'testCodeFailure'
+project-gate	Mini program regression	2026-10-29T10:49:51.2730205Z   error: '标题必须为累计运营明细'
+project-gate	Mini program regression	2026-10-29T10:49:51.2730504Z   code: 'ERR_ASSERTION'
+project-gate	Mini program regression	2026-10-29T10:49:51.2730885Z   name: 'AssertionError'
+project-gate	Mini program regression	2026-10-29T10:49:51.2731186Z   expected: true
+project-gate	Mini program regression	2026-10-29T10:49:51.2731532Z   actual: false
+project-gate	Mini program regression	2026-10-29T10:49:51.2731799Z   operator: '=='
+project-gate	Mini program regression	2026-10-29T10:49:51.2732094Z   stack: |-
+project-gate	Mini program regression	2026-10-29T10:49:51.2732731Z     TestContext.<anonymous> (/home/runner/work/yijiexing/yijiexing/candidates/passenger-miniprogram-0.1.0/miniprogram/tests/regression-ag-20261025.test.js:364:10)
+project-gate	Mini program regression	2026-10-29T10:49:51.2733466Z     Test.runInAsyncScope (node:async_hooks:214:14)
+project-gate	Mini program regression	2026-10-29T10:49:51.2734002Z     Test.run (node:internal/test_runner/test:1047:25)
+project-gate	Mini program regression	2026-10-29T10:49:51.2734477Z     Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+project-gate	Mini program regression	2026-10-29T10:49:51.2734984Z     Test.postRun (node:internal/test_runner/test:1173:19)
+project-gate	Mini program regression	2026-10-29T10:49:51.2735459Z     Test.run (node:internal/test_runner/test:1101:12)
+project-gate	Mini program regression	2026-10-29T10:49:51.2736002Z     async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+project-gate	Mini program regression	2026-10-29T10:49:51.2736470Z   ...
+project-gate	Mini program regression	2026-10-29T10:49:51.2736980Z # Subtest: malformed committed HTTP success retains exact mutation on restart; details follow frozen envelope
+project-gate	Mini program regression	2026-10-29T10:49:51.2737669Z ok 44 - malformed committed HTTP success retains exact mutation on restart; details follow frozen envelope
+project-gate	Mini program regression	2026-10-29T10:49:51.2738136Z   ---
+project-gate	Mini program regression	2026-10-29T10:49:51.2738455Z   duration_ms: 30.891726
+project-gate	Mini program regression	2026-10-29T10:49:51.2738744Z   type: 'test'
+project-gate	Mini program regression	2026-10-29T10:49:51.2739003Z   ...
+project-gate	Mini program regression	2026-10-29T10:49:51.2740256Z # Subtest: success without data and proxy error are uncertain; valid business rejection is definite
+project-gate	Mini program regression	2026-10-29T10:49:51.2740996Z ok 45 - success without data and proxy error are uncertain; valid business rejection is definite
+project-gate	Mini program regression	2026-10-29T10:49:51.2741395Z   ---
+project-gate	Mini program regression	2026-10-29T10:49:51.2741633Z   duration_ms: 0.400903
+project-gate	Mini program regression	2026-10-29T10:49:51.2741860Z   type: 'test'
+project-gate	Mini program regression	2026-10-29T10:49:51.2742069Z   ...
+project-gate	Mini program regression	2026-10-29T10:49:51.2742379Z # Subtest: failed login persists removal of old token before response
+project-gate	Mini program regression	2026-10-29T10:49:51.2742802Z ok 46 - failed login persists removal of old token before response
+project-gate	Mini program regression	2026-10-29T10:49:51.2743112Z   ---
+project-gate	Mini program regression	2026-10-29T10:49:51.2743312Z   duration_ms: 0.309866
+project-gate	Mini program regression	2026-10-29T10:49:51.2743528Z   type: 'test'
+project-gate	Mini program regression	2026-10-29T10:49:51.2743734Z   ...
+project-gate	Mini program regression	2026-10-29T10:49:51.2744052Z # Subtest: storage failure before dispatch sends nothing and can recover
+project-gate	Mini program regression	2026-10-29T10:49:51.2744500Z ok 47 - storage failure before dispatch sends nothing and can recover
+project-gate	Mini program regression	2026-10-29T10:49:51.2744794Z   ---
+project-gate	Mini program regression	2026-10-29T10:49:51.2744992Z   duration_ms: 0.391365
+project-gate	Mini program regression	2026-10-29T10:49:51.2745217Z   type: 'test'
+project-gate	Mini program regression	2026-10-29T10:49:51.2745433Z   ...
+project-gate	Mini program regression	2026-10-29T10:49:51.2745838Z # Subtest: storage failure after server success keeps original pending and permits same-id replay
+project-gate	Mini program regression	2026-10-29T10:49:51.2746393Z ok 48 - storage failure after server success keeps original pending and permits same-id replay
+project-gate	Mini program regression	2026-10-29T10:49:51.2746734Z   ---
+project-gate	Mini program regression	2026-10-29T10:49:51.2746958Z   duration_ms: 0.469303
+project-gate	Mini program regression	2026-10-29T10:49:51.2747173Z   type: 'test'
+project-gate	Mini program regression	2026-10-29T10:49:51.2747381Z   ...
+project-gate	Mini program regression	2026-10-29T10:49:51.2747764Z # Subtest: refresh during action waits; pre-action GET cannot overwrite committed snapshot
+project-gate	Mini program regression	2026-10-29T10:49:51.2748242Z ok 49 - refresh during action waits; pre-action GET cannot overwrite committed snapshot
+project-gate	Mini program regression	2026-10-29T10:49:51.2748593Z   ---
+project-gate	Mini program regression	2026-10-29T10:49:51.2748791Z   duration_ms: 0.430642
+project-gate	Mini program regression	2026-10-29T10:49:51.2749225Z   type: 'test'
+project-gate	Mini program regression	2026-10-29T10:49:51.2749465Z   ...
+project-gate	Mini program regression	2026-10-29T10:49:51.2749843Z # Subtest: logout attempts server revocation despite storage error and removes stale persisted token
+project-gate	Mini program regression	2026-10-29T10:49:51.2750781Z ok 50 - logout attempts server revocation despite storage error and removes stale persisted token
+project-gate	Mini program regression	2026-10-29T10:49:51.2751264Z   ---
+project-gate	Mini program regression	2026-10-29T10:49:51.2751525Z   duration_ms: 0.37039
+project-gate	Mini program regression	2026-10-29T10:49:51.2751817Z   type: 'test'
+project-gate	Mini program regression	2026-10-29T10:49:51.2752025Z   ...
+project-gate	Mini program regression	2026-10-29T10:49:51.2752368Z # Subtest: new session action not blocked or released by old session mutation
+project-gate	Mini program regression	2026-10-29T10:49:51.2752789Z ok 51 - new session action not blocked or released by old session mutation
+project-gate	Mini program regression	2026-10-29T10:49:51.2753100Z   ---
+project-gate	Mini program regression	2026-10-29T10:49:51.2753301Z   duration_ms: 0.590865
+project-gate	Mini program regression	2026-10-29T10:49:51.2753559Z   type: 'test'
+project-gate	Mini program regression	2026-10-29T10:49:51.2753770Z   ...
+project-gate	Mini program regression	2026-10-29T10:49:51.2754137Z # Subtest: NEG and legacy version confirmations preserve contract values and reject invalid amounts
+project-gate	Mini program regression	2026-10-29T10:49:51.2754670Z ok 52 - NEG and legacy version confirmations preserve contract values and reject invalid amounts
+project-gate	Mini program regression	2026-10-29T10:49:51.2755017Z   ---
+project-gate	Mini program regression	2026-10-29T10:49:51.2755271Z   duration_ms: 0.716
+project-gate	Mini program regression	2026-10-29T10:49:51.2755499Z   type: 'test'
+project-gate	Mini program regression	2026-10-29T10:49:51.2755703Z   ...
+project-gate	Mini program regression	2026-10-29T10:49:51.2756065Z # Subtest: coordinates reject world bounds and preserve supported external boundary points
+project-gate	Mini program regression	2026-10-29T10:49:51.2756603Z ok 53 - coordinates reject world bounds and preserve supported external boundary points
+project-gate	Mini program regression	2026-10-29T10:49:51.2756981Z   ---
+project-gate	Mini program regression	2026-10-29T10:49:51.2757188Z   duration_ms: 0.880058
+project-gate	Mini program regression	2026-10-29T10:49:51.2757406Z   type: 'test'
+project-gate	Mini program regression	2026-10-29T10:49:51.2757624Z   ...
+project-gate	Mini program regression	2026-10-29T10:49:51.2757942Z # Subtest: login success cannot expose an unpersisted authenticated session
+project-gate	Mini program regression	2026-10-29T10:49:51.2758357Z ok 54 - login success cannot expose an unpersisted authenticated session
+project-gate	Mini program regression	2026-10-29T10:49:51.2758700Z   ---
+project-gate	Mini program regression	2026-10-29T10:49:51.2758895Z   duration_ms: 0.300418
+project-gate	Mini program regression	2026-10-29T10:49:51.2759127Z   type: 'test'
+project-gate	Mini program regression	2026-10-29T10:49:51.2759327Z   ...
+project-gate	Mini program regression	2026-10-29T10:49:51.2759761Z # Subtest: payment freezes amount and rejects a changed quote after confirmation
+project-gate	Mini program regression	2026-10-29T10:49:51.2760418Z ok 55 - payment freezes amount and rejects a changed quote after confirmation
+project-gate	Mini program regression	2026-10-29T10:49:51.2760757Z   ---
+project-gate	Mini program regression	2026-10-29T10:49:51.2760976Z   duration_ms: 2.619048
+project-gate	Mini program regression	2026-10-29T10:49:51.2761212Z   type: 'test'
+project-gate	Mini program regression	2026-10-29T10:49:51.2761400Z   ...
+project-gate	Mini program regression	2026-10-29T10:49:51.2761751Z # Subtest: payment preserves frozen id, amount and version in the submitted request
+project-gate	Mini program regression	2026-10-29T10:49:51.2762236Z ok 56 - payment preserves frozen id, amount and version in the submitted request
+project-gate	Mini program regression	2026-10-29T10:49:51.2762550Z   ---
+project-gate	Mini program regression	2026-10-29T10:49:51.2762766Z   duration_ms: 1.017795
+project-gate	Mini program regression	2026-10-29T10:49:51.2762973Z   type: 'test'
+project-gate	Mini program regression	2026-10-29T10:49:51.2763194Z   ...
+project-gate	Mini program regression	2026-10-29T10:49:51.2763580Z # Subtest: negotiation accepts pair URI and stops malformed code before claiming
+project-gate	Mini program regression	2026-10-29T10:49:51.2764074Z ok 57 - negotiation accepts pair URI and stops malformed code before claiming
+project-gate	Mini program regression	2026-10-29T10:49:51.2764401Z   ---
+project-gate	Mini program regression	2026-10-29T10:49:51.2764607Z   duration_ms: 1.02218
+project-gate	Mini program regression	2026-10-29T10:49:51.2764846Z   type: 'test'
+project-gate	Mini program regression	2026-10-29T10:49:51.2765060Z   ...
+project-gate	Mini program regression	2026-10-29T10:49:51.2765504Z # Subtest: home never asks for location before a user picks and preserves WGS84 points
+project-gate	Mini program regression	2026-10-29T10:49:51.2766002Z ok 58 - home never asks for location before a user picks and preserves WGS84 points
+project-gate	Mini program regression	2026-10-29T10:49:51.2766344Z   ---
+project-gate	Mini program regression	2026-10-29T10:49:51.2766623Z   duration_ms: 1.223337
+project-gate	Mini program regression	2026-10-29T10:49:51.2766845Z   type: 'test'
+project-gate	Mini program regression	2026-10-29T10:49:51.2767044Z   ...
+project-gate	Mini program regression	2026-10-29T10:49:51.2767387Z # Subtest: every page script parses and WXML tags are balanced
+project-gate	Mini program regression	2026-10-29T10:49:51.2767766Z ok 59 - every page script parses and WXML tags are balanced
+project-gate	Mini program regression	2026-10-29T10:49:51.2768092Z   ---
+project-gate	Mini program regression	2026-10-29T10:49:51.2768294Z   duration_ms: 3.897171
+project-gate	Mini program regression	2026-10-29T10:49:51.2768509Z   type: 'test'
+project-gate	Mini program regression	2026-10-29T10:49:51.2768766Z   ...
+project-gate	Mini program regression	2026-10-29T10:49:51.2769028Z # Subtest: removing a waypoint redraws markers immediately
+project-gate	Mini program regression	2026-10-29T10:49:51.2769394Z ok 60 - removing a waypoint redraws markers immediately
+project-gate	Mini program regression	2026-10-29T10:49:51.2769749Z   ---
+project-gate	Mini program regression	2026-10-29T10:49:51.2770098Z   duration_ms: 0.940313
+project-gate	Mini program regression	2026-10-29T10:49:51.2770367Z   type: 'test'
+project-gate	Mini program regression	2026-10-29T10:49:51.2770600Z   ...
+project-gate	Mini program regression	2026-10-29T10:49:51.2771096Z # Subtest: bad plugin result is shown as an error without crashing onShow
+project-gate	Mini program regression	2026-10-29T10:49:51.2771507Z ok 61 - bad plugin result is shown as an error without crashing onShow
+project-gate	Mini program regression	2026-10-29T10:49:51.2771834Z   ---
+project-gate	Mini program regression	2026-10-29T10:49:51.2772047Z   duration_ms: 3.67754
+project-gate	Mini program regression	2026-10-29T10:49:51.2772283Z   type: 'test'
+project-gate	Mini program regression	2026-10-29T10:49:51.2772508Z   ...
+project-gate	Mini program regression	2026-10-29T10:49:51.2772863Z # Subtest: display decorators keep business enums but expose Chinese text and Beijing times
+project-gate	Mini program regression	2026-10-29T10:49:51.2773368Z ok 62 - display decorators keep business enums but expose Chinese text and Beijing times
+project-gate	Mini program regression	2026-10-29T10:49:51.2773709Z   ---
+project-gate	Mini program regression	2026-10-29T10:49:51.2773922Z   duration_ms: 3.223816
+project-gate	Mini program regression	2026-10-29T10:49:51.2774171Z   type: 'test'
+project-gate	Mini program regression	2026-10-29T10:49:51.2774374Z   ...
+project-gate	Mini program regression	2026-10-29T10:49:51.2774739Z # Subtest: waiting reservations remain accessible while immediate booking is available
+project-gate	Mini program regression	2026-10-29T10:49:51.2775228Z ok 63 - waiting reservations remain accessible while immediate booking is available
+project-gate	Mini program regression	2026-10-29T10:49:51.2775565Z   ---
+project-gate	Mini program regression	2026-10-29T10:49:51.2775780Z   duration_ms: 1.157452
+project-gate	Mini program regression	2026-10-29T10:49:51.2776090Z   type: 'test'
+project-gate	Mini program regression	2026-10-29T10:49:51.2776359Z   ...
+project-gate	Mini program regression	2026-10-29T10:49:51.2776723Z # Subtest: ordinary pending orders and unpaid completed trips still block a new call
+project-gate	Mini program regression	2026-10-29T10:49:51.2777318Z ok 64 - ordinary pending orders and unpaid completed trips still block a new call
+project-gate	Mini program regression	2026-10-29T10:49:51.2777753Z   ---
+project-gate	Mini program regression	2026-10-29T10:49:51.2778026Z   duration_ms: 0.976516
+project-gate	Mini program regression	2026-10-29T10:49:51.2778247Z   type: 'test'
+project-gate	Mini program regression	2026-10-29T10:49:51.2778540Z   ...
+project-gate	Mini program regression	2026-10-29T10:49:51.2778915Z # Subtest: a legacy no-destination flag cannot bypass the destination selection requirement
+project-gate	Mini program regression	2026-10-29T10:49:51.2779444Z ok 65 - a legacy no-destination flag cannot bypass the destination selection requirement
+project-gate	Mini program regression	2026-10-29T10:49:51.2779792Z   ---
+project-gate	Mini program regression	2026-10-29T10:49:51.2780152Z   duration_ms: 0.845283
+project-gate	Mini program regression	2026-10-29T10:49:51.2780483Z   type: 'test'
+project-gate	Mini program regression	2026-10-29T10:49:51.2780683Z   ...
+project-gate	Mini program regression	2026-10-29T10:49:51.2781053Z # Subtest: new calls always submit a complete destination even if an obsolete flag is present
+project-gate	Mini program regression	2026-10-29T10:49:51.2781585Z ok 66 - new calls always submit a complete destination even if an obsolete flag is present
+project-gate	Mini program regression	2026-10-29T10:49:51.2781911Z   ---
+project-gate	Mini program regression	2026-10-29T10:49:51.2782121Z   duration_ms: 0.736854
+project-gate	Mini program regression	2026-10-29T10:49:51.2782340Z   type: 'test'
+project-gate	Mini program regression	2026-10-29T10:49:51.2782546Z   ...
+project-gate	Mini program regression	2026-10-29T10:49:51.2782913Z # Subtest: a refreshed regional closure removes new kinds and refuses direct new-call handler
+project-gate	Mini program regression	2026-10-29T10:49:51.2783430Z ok 67 - a refreshed regional closure removes new kinds and refuses direct new-call handler
+project-gate	Mini program regression	2026-10-29T10:49:51.2783766Z   ---
+project-gate	Mini program regression	2026-10-29T10:49:51.2783963Z   duration_ms: 0.762142
+project-gate	Mini program regression	2026-10-29T10:49:51.2784185Z   type: 'test'
+project-gate	Mini program regression	2026-10-29T10:49:51.2784403Z   ...
+project-gate	Mini program regression	2026-10-29T10:49:51.2784814Z # Subtest: invoice page follows the order flag after switching region and refuses a disabled order handler
+project-gate	Mini program regression	2026-10-29T10:49:51.2785383Z ok 68 - invoice page follows the order flag after switching region and refuses a disabled order handler
+project-gate	Mini program regression	2026-10-29T10:49:51.2785736Z   ---
+project-gate	Mini program regression	2026-10-29T10:49:51.2785943Z   duration_ms: 0.944054
+project-gate	Mini program regression	2026-10-29T10:49:51.2786175Z   type: 'test'
+project-gate	Mini program regression	2026-10-29T10:49:51.2786410Z   ...
+project-gate	Mini program regression	2026-10-29T10:49:51.2786604Z 1..68
+project-gate	Mini program regression	2026-10-29T10:49:51.2786796Z # tests 74
+project-gate	Mini program regression	2026-10-29T10:49:51.2787028Z # suites 0
+project-gate	Mini program regression	2026-10-29T10:49:51.2787225Z # pass 73
+project-gate	Mini program regression	2026-10-29T10:49:51.2787408Z # fail 1
+project-gate	Mini program regression	2026-10-29T10:49:51.2787660Z # cancelled 0
+project-gate	Mini program regression	2026-10-29T10:49:51.2787867Z # skipped 0
+project-gate	Mini program regression	2026-10-29T10:49:51.2788103Z # todo 0
+project-gate	Mini program regression	2026-10-29T10:49:51.2788315Z # duration_ms 1230.204857
+project-gate	Mini program regression	2026-10-29T10:49:51.2833455Z ##[error]Process completed with exit code 1.

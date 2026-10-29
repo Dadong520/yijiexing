@@ -1,0 +1,80 @@
+{
+  "project": "yijiexing-driver-demo-1023",
+  "region": "us-west1",
+  "releaseType": "native fixed APK objects only; no CloudRun mutations planned",
+  "services": [
+    {
+      "role": "api",
+      "service": "driver-demo",
+      "revision": "driver-demo-ccui-107e226-test1",
+      "traffic": [
+        {
+          "percent": 100,
+          "revisionName": "driver-demo-ccui-107e226-test1",
+          "tag": "ccui-qa",
+          "url": "https://ccui-qa---driver-demo-phfgquzmua-uw.a.run.app"
+        },
+        {
+          "revisionName": "driver-demo-pm-364078b4-qa1",
+          "tag": "pm-map-qa",
+          "url": "https://pm-map-qa---driver-demo-phfgquzmua-uw.a.run.app"
+        },
+        {
+          "revisionName": "driver-demo-pmv-817ed22-test1",
+          "tag": "pmv-qa",
+          "url": "https://pmv-qa---driver-demo-phfgquzmua-uw.a.run.app"
+        },
+        {
+          "revisionName": "driver-demo-pui-7d6dc60-test1",
+          "tag": "pui-qa",
+          "url": "https://pui-qa---driver-demo-phfgquzmua-uw.a.run.app"
+        },
+        {
+          "revisionName": "driver-demo-ccui-107e226-test1",
+          "tag": "user-test",
+          "url": "https://user-test---driver-demo-phfgquzmua-uw.a.run.app"
+        }
+      ],
+      "containerImage": "us-west1-docker.pkg.dev/yijiexing-driver-demo-1023/demo/driver-cloud@sha256:2c5109fc89cf72fb082ecbc9140dec99b2ec0ada09c0597b18d683a4ff74be57",
+      "min": "0",
+      "max": "1",
+      "cpuThrottling": "true",
+      "specSha256": "79797fbc866398e9ec765971561753c0bf53ab8259921d905e69bf90c902de2c",
+      "iamSha256": "b889d91193cb50738ff8418eec83691d89bb38b6cdccd1177014744749747b51"
+    },
+    {
+      "role": "admin",
+      "service": "driver-admin",
+      "revision": "driver-admin-ccui-107e226-test1",
+      "traffic": [
+        {
+          "percent": 100,
+          "revisionName": "driver-admin-ccui-107e226-test1",
+          "tag": "ccui-qa",
+          "url": "https://ccui-qa---driver-admin-phfgquzmua-uw.a.run.app"
+        },
+        {
+          "revisionName": "driver-admin-pmv-817ed22-test1",
+          "tag": "pmv-qa",
+          "url": "https://pmv-qa---driver-admin-phfgquzmua-uw.a.run.app"
+        },
+        {
+          "revisionName": "driver-admin-pui-7d6dc60-test1",
+          "tag": "pui-qa",
+          "url": "https://pui-qa---driver-admin-phfgquzmua-uw.a.run.app"
+        },
+        {
+          "revisionName": "driver-admin-ccui-107e226-test1",
+          "tag": "user-test",
+          "url": "https://user-test---driver-admin-phfgquzmua-uw.a.run.app"
+        }
+      ],
+      "containerImage": "us-west1-docker.pkg.dev/yijiexing-driver-demo-1023/demo/admin-ui@sha256:3c5f5fc4e57c0b2b6ef204d808a44baac53fa974fda38935aecbc45ac2d3f00f",
+      "min": "0",
+      "max": "1",
+      "cpuThrottling": "true",
+      "specSha256": "f0916cdf3de957bb202685fb140aff15fc3b96dfd1cbef9a635beac01e54fc53",
+      "iamSha256": "c91e2cbf77eab7c6f3dc5e59b150a22997e52c1cd655eebef45a6953bbce8fce"
+    }
+  ]
+}

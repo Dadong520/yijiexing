@@ -20,7 +20,7 @@
     "无真机或原测试/生产权限；旧PUI模拟器点按授权已随该次验收结束，不冒用。先无GUI/API/代码测试，确需UI操作再由root按工具规则处理",
     "结论必须分清根因已证实/推断/真实SDK成功NOT_RUN，不能用网络可达或地图容器出现当PASS；完成本次或转外部阻塞后即IDLE不自醒"
   ],
-  "status": "DIAGNOSIS_COMPLETE_EXTERNAL_CHECK_PENDING",
+  "status": "CONFIGURATION_VERIFIED_DEVICE_TEST_DEFERRED_BY_USER",
   "acceptance": "BLOCKED",
   "tests": [
     {
@@ -54,6 +54,10 @@
     {
       "command": "Task evidence/external-root exact four-value scan",
       "result": "PASS 81 files; zero secret matches; zero evidence APK/cache"
+    },
+    {
+      "command": "In-memory execution of probe_sdk_request.py with output filename sdk-after-binding-correction.json; original result preserved",
+      "result": "PASS SDK-auth recheck: passenger HTTP200/status1/10000/1POI, driver same; all identity checks true. Actual Android NOT_RUN."
     }
   ],
   "evidence": [
@@ -65,22 +69,35 @@
     "coordination/evidence/EXMAP-20261028-01/sdk-jvm-offline.json",
     "coordination/evidence/EXMAP-20261028-01/sdk-generated-request-results.json",
     "coordination/evidence/EXMAP-20261028-01/settings-ocr-comparison.json",
-    "coordination/evidence/EXMAP-20261028-01/secret-scan.json"
+    "coordination/evidence/EXMAP-20261028-01/secret-scan.json",
+    "coordination/evidence/EXMAP-20261028-01/console-binding-typo.json",
+    "coordination/evidence/EXMAP-20261028-01/console-binding-corrected.json",
+    "coordination/evidence/EXMAP-20261028-01/sdk-after-binding-correction.json"
   ],
-  "nextAction": "Coordinator read-only verifies exact passenger Key record and saved binding; expert IDLE until explicit new evidence/task. No justified product patch yet; actual Android SDK success NOT_RUN.",
+  "nextAction": "User explicitly deferred phone testing: 我晚一点再测试，你先配置好就行了. Configuration saved and SDK auth recheck PASS. End this round; no background polling. Resume actual passenger map/POI validation when user returns; root owns independent acceptance.",
   "deploy_owner": "coordinator",
   "releaseReady": false,
-  "updatedAt": "2026-10-28T23:32:48.051039+08:00",
+  "updatedAt": "2026-10-27T20:19:27.182936+08:00",
   "expertThreadId": "01a1830f-d94b-7933-9c22-2c3898e54186",
   "model": "gpt-6-astra",
   "thinking": "xhigh",
   "externalTestRoot": "/Users/dongge/.codex/tmp/yijiexing-astra-amap-20261028",
   "candidateSha": null,
   "diagnosis": {
-    "proven": "Current supplied passenger Key is rejected10008 under confirmed released identity even with unmodified SDK-generated scode; driver positive control succeeds10000",
-    "unresolved": "Exact saved console record/Key-to-settings association; device map/POI success NOT_RUN",
+    "proven": "Exact passenger console record had DO (letter O) in both SHA1 fields. User corrected to D0 (digit zero); saved values now match certificate. Same SDK request changed passenger10008 to10000 with1POI; driver remains10000 with1POI.",
+    "unresolved": "User actual passenger App map rendering and POI search pending; post-fix independent review pending. Synthetic JVM SDK request is not device acceptance.",
     "minimalProductPatchPaths": [],
     "externalActionsPerformed": false,
     "mergeSha": null
-  }
+  },
+  "resumeCheckpoint": {
+    "authorization": "Direct user instruction in expert chat: 现在继续解决乘客端app无法使用地图的问题，我来配合你检查",
+    "currentPublishedPassenger": "1.1.16-experience/code18",
+    "currentSourceHead": "f8955de824be0108cf550c35a22a21b549083e92",
+    "currentSourceBranch": "codex/claude-ui-release-receipt-20261029",
+    "priorDiagnosticEvidencePreserved": true,
+    "independentReview": "EXMAPV acceptance PASS diagnostic only",
+    "browser": "IAB tab1 official AMap login, marked handoff"
+  },
+  "userDeviceTestDeferred": true
 }

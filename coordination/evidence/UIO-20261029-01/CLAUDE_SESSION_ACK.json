@@ -1,0 +1,10 @@
+{
+  "actualInit": {
+    "session_id": "b23ffb33-b639-4295-8369-4925bdab9d87",
+    "model": "claude-opus-5-5",
+    "permissionMode": "acceptEdits"
+  },
+  "newTaskContext": true,
+  "previousDesktopContextResumed": false,
+  "authorTools": "Read/Glob/Grep/Edit/Write; Bash unavailable; tests NOT_RUN"
+}

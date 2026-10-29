@@ -1,0 +1,19 @@
+{
+  "checks": {
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/PassengerStore.kt": true,
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/ConnectedStore.kt": true,
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/DriverDomain.kt": true,
+    "backendTreeIdentical": true,
+    "notificationTriggerObjectIdentical": true,
+    "only16ListedUIFilesChanged": true,
+    "manifestNetworkPermissionKeyFilesUnchanged": true
+  },
+  "allPassed": true,
+  "distanceExpressionExamples": {
+    "待确认": "待确认 km",
+    "NaN": "NaN km",
+    "1.0": "1.0 km",
+    "": "未提供"
+  },
+  "method": "Read exact Kotlin expression branches; examples are source-level evaluation, no Android execution"
+}

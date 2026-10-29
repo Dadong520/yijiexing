@@ -1,0 +1,21 @@
+{
+  "status": "WAIT_FINAL_NATIVE_ACCEPTANCE",
+  "productSourceSha": "137e41534f823c538fe62ff10820f491e0e55074",
+  "pullRequest": "https://github.com/Dadong520/yijiexing/pull/39",
+  "productMerged": false,
+  "apkObjectsPublished": false,
+  "versions": {
+    "passenger": {
+      "name": "1.1.17-experience",
+      "code": 19
+    },
+    "driver": {
+      "name": "0.3.16-cloud",
+      "code": 19
+    }
+  },
+  "finalNativeAcceptance": "NOT_RUN_PENDING_REPORT",
+  "publicApkReadback": "NOT_RUN",
+  "cloudRunMutationPlanned": false,
+  "releaseOwner": "coordinator"
+}

@@ -1,0 +1,19 @@
+{
+  "at": "2026-10-27T20:19:27.182936+08:00",
+  "event": "After user reported 已提交; browser reopened exact passenger settings",
+  "app": "测试",
+  "keyName": "测试用 乘客端",
+  "package": "cn.hbzjhs.dc.passenger.cloud",
+  "releaseSha1": "D0:6F:0A:9E:AC:9D:FD:DC:08:30:B9:8A:F0:6E:2F:68:B6:D2:02:46",
+  "debugSha1": "D0:6F:0A:9E:AC:9D:FD:DC:08:30:B9:8A:F0:6E:2F:68:B6:D2:02:46",
+  "bothMatchPublishedCertificate": true,
+  "firstPairCodepoints": [
+    68,
+    48
+  ],
+  "userPerformedSubmission": true,
+  "agentMutatedConfiguration": false,
+  "sdkEvidence": "sdk-after-binding-correction.json",
+  "deviceMapAndPoi": "AWAIT_USER_TEST",
+  "timestampNote": "Local clock at and HTTP serverDate differ; retained verbatim, do not infer chronology from clock alone."
+}

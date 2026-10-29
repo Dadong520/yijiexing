@@ -1,0 +1,43 @@
+{
+  "sourceSha": "05654b8b48861b09340cd2b6e53d7240e8b55a43",
+  "roles": {
+    "passenger": {
+      "apk": "/Users/dongge/.codex/tmp/yijiexing-uiov-20261029/source/apps/passenger-android/app/build/outputs/apk/debug/app-debug.apk",
+      "sha256": "6affbc2e47db6257337b50942360d8ba3558fb25079238807b395f225d0c7ac2",
+      "bytes": 107155833,
+      "tests": 31,
+      "failures": 0,
+      "errors": 0,
+      "aaptExit": 0,
+      "packageVersionLine": "package: name='cn.hbzjhs.dc.passenger.cloud' versionCode='19' versionName='1.1.17-experience' platformBuildVersionName='14' platformBuildVersionCode='34' compileSdkVersion='34' compileSdkVersionCodename='14'",
+      "apksignerExit": 0,
+      "samePriorSigner": true,
+      "privateExactMatches": 0,
+      "uncompressedEntriesScanned": 425,
+      "originalHttpsPresent": true,
+      "buildSha": "f8283ae7f0c78800158e7a65e2a223169764ffa4",
+      "sameFinalSourceTree": true,
+      "sourceTree": "40259af5a1ed7b55a64b203fabcccfa5285c9057",
+      "inheritedBuild": true
+    },
+    "driver": {
+      "apk": "/Users/dongge/.codex/tmp/yijiexing-uiov-20261029/source/candidates/driver-0.3.6-r2/android/app/build/outputs/apk/debug/app-debug.apk",
+      "sha256": "64ce8e9aa1e272f26eeb7ca4237b80232adbd119a374460c03c41e27f782ee4e",
+      "bytes": 108653189,
+      "tests": 70,
+      "failures": 0,
+      "errors": 0,
+      "aaptExit": 0,
+      "packageVersionLine": "package: name='cn.hbzjhs.dc.driver.cloud' versionCode='19' versionName='0.3.16-cloud' platformBuildVersionName='14' platformBuildVersionCode='34' compileSdkVersion='34' compileSdkVersionCodename='14'",
+      "apksignerExit": 0,
+      "samePriorSigner": true,
+      "privateExactMatches": 0,
+      "uncompressedEntriesScanned": 433,
+      "originalHttpsPresent": true,
+      "buildSha": "05654b8b48861b09340cd2b6e53d7240e8b55a43",
+      "sameFinalSourceTree": true,
+      "sourceTree": "e4b72aef2655b77bbc78531bdd8f69af16fbadc3",
+      "inheritedBuild": false
+    }
+  }
+}

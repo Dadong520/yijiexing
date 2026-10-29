@@ -1,0 +1,31 @@
+{
+  "finalSha": "137e41534f823c538fe62ff10820f491e0e55074",
+  "roles": {
+    "passenger": {
+      "sourceSha": "f8283ae7f0c78800158e7a65e2a223169764ffa4",
+      "sameFinalSourceTree": true,
+      "apk": "/Users/dongge/.codex/tmp/yijiexing-uiov-20261029/build/qa-passenger/_app/outputs/apk/debug/app-debug.apk",
+      "sha256": "e2ede4a71d2f4b6f0399acf2de2ed30f2199f0a7ab2b8bb7d48a0196b2e03a19",
+      "publicationArtifact": false,
+      "differences": [
+        "QA applicationId",
+        "local HTTPS endpoint",
+        "debug local CA manifest/resources"
+      ],
+      "productKotlinEdits": false
+    },
+    "driver": {
+      "sourceSha": "137e41534f823c538fe62ff10820f491e0e55074",
+      "sameFinalSourceTree": true,
+      "apk": "/Users/dongge/.codex/tmp/yijiexing-uiov-20261029/build/qa-driver/_app/outputs/apk/debug/app-debug.apk",
+      "sha256": "66d62aadbceffe84e1823d70f5f33f17caf39d7b8d6809a6f027cc467e409ff7",
+      "publicationArtifact": false,
+      "differences": [
+        "QA applicationId",
+        "local HTTPS endpoint",
+        "debug local CA manifest/resources"
+      ],
+      "productKotlinEdits": false
+    }
+  }
+}

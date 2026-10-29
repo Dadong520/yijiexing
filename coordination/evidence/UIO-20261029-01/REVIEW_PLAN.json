@@ -1,0 +1,22 @@
+{
+  "sourceBaseSha": "53028032fd2aa4e33136bbd77c3b89f654d13846",
+  "mode": "INTENDED_NOT_RUN",
+  "verificationOwner": "Codex non-author roles",
+  "nativeUnitTests": "Frontend owns both projects once exact SHA frozen; root does not duplicate",
+  "businessReview": [
+    "Cancellation done callback only after successful server action; failed/stale session stays and retains retry",
+    "Driver queue filters cannot hide available active/reservation/pending-payment order recovery; no client bypass of canAccept/cert/one-executing rules",
+    "New-order price is integer cents or correct existing representation; zero and missing not confused; known distance source/unknown label; notifications dedupe unchanged",
+    "Address selection uses original coordinate metadata and draft write only on confirm; systemback dismisses address child not cancels current ride",
+    "Unchanged Store/domain/backend/auth/network/permissions/manifest/Keys; no real funds flows introduced"
+  ],
+  "uiReview": [
+    "Driver hall scroll/type filters/empty lists/active order and waiting reservation",
+    "Driver profile membership prominence and all relocated bank/password/tools reachable; no duplicate MyOrders/MyWallet",
+    "Full-screen passenger address search and history scrolling; back/dismiss preservation",
+    "Passenger waiting-state red cancel + confirmation disabled guards + success home and failure remains",
+    "Passenger home back navigation from order detail versus contact/fee child",
+    "Unfolded passenger functions and semantic icons/spacing/contrast/largefont representative"
+  ],
+  "releasePlan": "Native APK-only scoped update if backend/admin byte-identical: passenger1.1.17-experience/code19, driver0.3.16-cloud/code19 after versions set by root; preserve original package/signature/HTTPS. Existing API/admin runtime and IAM unchanged; upload fixed GCS APK objects with generations+archives; full public HTTPS version/hash/cert readback. No unnecessary backend/admin redeploy."
+}

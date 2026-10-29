@@ -1,0 +1,35 @@
+{
+  "sourceSha": "f8283ae7f0c78800158e7a65e2a223169764ffa4",
+  "roles": {
+    "passenger": {
+      "apk": "/Users/dongge/.codex/tmp/yijiexing-uiov-20261029/source/apps/passenger-android/app/build/outputs/apk/debug/app-debug.apk",
+      "sha256": "6affbc2e47db6257337b50942360d8ba3558fb25079238807b395f225d0c7ac2",
+      "bytes": 107155833,
+      "tests": 31,
+      "failures": 0,
+      "errors": 0,
+      "aaptExit": 0,
+      "packageVersionLine": "package: name='cn.hbzjhs.dc.passenger.cloud' versionCode='19' versionName='1.1.17-experience' platformBuildVersionName='14' platformBuildVersionCode='34' compileSdkVersion='34' compileSdkVersionCodename='14'",
+      "apksignerExit": 0,
+      "samePriorSigner": true,
+      "privateExactMatches": 0,
+      "uncompressedEntriesScanned": 425,
+      "originalHttpsPresent": true
+    },
+    "driver": {
+      "apk": "/Users/dongge/.codex/tmp/yijiexing-uiov-20261029/source/candidates/driver-0.3.6-r2/android/app/build/outputs/apk/debug/app-debug.apk",
+      "sha256": "2e1cf67f632fc11ee382a0364eaca0596ab3b86690d70249243f30521ce28775",
+      "bytes": 108653189,
+      "tests": 63,
+      "failures": 0,
+      "errors": 0,
+      "aaptExit": 0,
+      "packageVersionLine": "package: name='cn.hbzjhs.dc.driver.cloud' versionCode='19' versionName='0.3.16-cloud' platformBuildVersionName='14' platformBuildVersionCode='34' compileSdkVersion='34' compileSdkVersionCodename='14'",
+      "apksignerExit": 0,
+      "samePriorSigner": true,
+      "privateExactMatches": 0,
+      "uncompressedEntriesScanned": 433,
+      "originalHttpsPresent": true
+    }
+  }
+}
