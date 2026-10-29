@@ -325,6 +325,7 @@ private fun ConnectedApp(store: ConnectedStore, state: DriverState) {
                                                             if (stack.last() == "root" && tab == 0)
                                                                 navigate("detail:${order.id}")
                                                             audio(R.raw.success_order)
+                                                            navigateForNewLeg(context, store, order.id, ::message)
                                                         }
                                                     }
                                         }

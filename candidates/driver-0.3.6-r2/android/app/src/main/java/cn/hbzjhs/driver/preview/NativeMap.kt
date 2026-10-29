@@ -398,6 +398,12 @@ fun openExternalNavigation(context: Context, order: DriverOrder, onError: (Strin
         .show()
 }
 
+/** Right after accept / start-pickup / passenger boarded, jump straight into navigation for the new leg. */
+fun navigateForNewLeg(context: Context, store: ConnectedStore, orderId: String, onError: (String) -> Unit) {
+    val order = store.state.value.orders.find { it.id == orderId } ?: return
+    if (order.stage == Stage.PICKUP || order.stage == Stage.TRIP) openExternalNavigation(context, order, onError)
+}
+
 internal fun amapNavigationIntent(target: NavigationTarget): Intent =
     Intent(Intent.ACTION_VIEW, Uri.parse(NavigationContract.amapUri(target)))
         .addCategory(Intent.CATEGORY_DEFAULT)

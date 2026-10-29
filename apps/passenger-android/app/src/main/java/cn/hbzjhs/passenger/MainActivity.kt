@@ -308,6 +308,10 @@ fun PassengerApp(
     }
   }
   PassengerAnnouncements(state, store, logged)
+  PassengerConfirmPrompts(state, store, logged, busy, openOrderId = selected) {
+    selected = it
+    page = "home"
+  }
   if (settings) SettingsDialog(store, configured) { settings = false }
 }
 

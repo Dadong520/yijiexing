@@ -285,64 +285,62 @@ fun ConnectedHome(
     var toolsExpanded by remember { mutableStateOf(false) }
 
     BoxWithConstraints(Modifier.fillMaxSize().background(Page)) {
-        val mapHeight = minOf(maxHeight * 0.36f, maxHeight - 500.dp).coerceAtLeast(200.dp)
+        // The identity bar sits above the map (never on top of it), and the order sheet keeps
+        // at least 360dp so the map stays fully visible on small screens.
+        val mapHeight = minOf(maxHeight * 0.42f, maxHeight - 420.dp).coerceAtLeast(200.dp)
         Column(Modifier.fillMaxSize()) {
             DriverQualificationBanner(payload, navigate)
-            Box(Modifier.fillMaxWidth().height(mapHeight)) {
-                NativeMap(Modifier.fillMaxSize(), order = active)
-                Surface(
-                    modifier = Modifier
+            Surface(
+                modifier = Modifier.fillMaxWidth(),
+                color = Color.White,
+                shadowElevation = 1.dp
+            ) {
+                Row(
+                    Modifier
                         .fillMaxWidth()
-                        .padding(horizontal = 12.dp, vertical = 8.dp),
-                    color = Color.White.copy(alpha = 0.95f),
-                    shape = RoundedCornerShape(12.dp),
-                    border = BorderStroke(1.dp, Line.copy(alpha = 0.6f)),
-                    shadowElevation = 2.dp
+                        .height(56.dp)
+                        .padding(horizontal = 12.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween
                 ) {
                     Row(
-                        Modifier
-                            .fillMaxWidth()
-                            .height(52.dp)
-                            .padding(horizontal = 12.dp),
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.SpaceBetween
+                        Modifier.clickable { navigate("driver") },
+                        verticalAlignment = Alignment.CenterVertically
                     ) {
-                        Row(
-                            Modifier.clickable { navigate("driver") },
-                            verticalAlignment = Alignment.CenterVertically
+                        Box(
+                            Modifier.size(36.dp)
+                                .clip(CircleShape)
+                                .background(Pale),
+                            contentAlignment = Alignment.Center,
                         ) {
-                            Box(
-                                Modifier.size(36.dp)
-                                    .clip(CircleShape)
-                                    .background(Pale),
-                                contentAlignment = Alignment.Center,
-                            ) {
-                                Glyph("profile", Ink, Modifier.size(20.dp))
-                            }
-                            Column(Modifier.padding(start = 8.dp)) {
-                                Row(verticalAlignment = Alignment.CenterVertically) {
-                                    Text("宜捷行·司机", fontSize = 15.sp, fontWeight = FontWeight.Bold, color = Ink)
-                                    Spacer(Modifier.width(6.dp))
-                                    Pill(profile.optString("cityName", "宜昌市"))
-                                }
-                                Text(
-                                    profile.optString("name", "司机"),
-                                    fontSize = 12.sp,
-                                    color = Muted,
-                                )
-                            }
+                            Glyph("profile", Ink, Modifier.size(20.dp))
                         }
-                        Row(verticalAlignment = Alignment.CenterVertically) {
-                            Pill(if (online) "网络正常" else "离线", if (online) Green else Orange)
-                            IconButton(
-                                onClick = { navigate("notifications") },
-                                modifier = Modifier.size(48.dp).semantics { contentDescription = "消息通知" },
-                            ) {
-                                Glyph("bell", Ink, Modifier.size(22.dp))
+                        Column(Modifier.padding(start = 8.dp)) {
+                            Row(verticalAlignment = Alignment.CenterVertically) {
+                                Text("宜捷行·司机", fontSize = 15.sp, fontWeight = FontWeight.Bold, color = Ink)
+                                Spacer(Modifier.width(6.dp))
+                                Pill(profile.optString("cityName", "宜昌市"))
                             }
+                            Text(
+                                profile.optString("name", "司机"),
+                                fontSize = 12.sp,
+                                color = Muted,
+                            )
+                        }
+                    }
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Pill(if (online) "网络正常" else "离线", if (online) Green else Orange)
+                        IconButton(
+                            onClick = { navigate("notifications") },
+                            modifier = Modifier.size(48.dp).semantics { contentDescription = "消息通知" },
+                        ) {
+                            Glyph("bell", Ink, Modifier.size(22.dp))
                         }
                     }
                 }
+            }
+            Box(Modifier.fillMaxWidth().height(mapHeight)) {
+                NativeMap(Modifier.fillMaxSize(), order = active)
             }
             Surface(
                 modifier = Modifier.fillMaxWidth().weight(1f),
@@ -899,21 +897,6 @@ fun ConnectedTrip(
                     if (order.kind == OrderKind.RESERVED) DetailRow("计划用车时间", order.scheduledTimeText)
                     if (order.remark.isNotBlank())
                         Text("备注：${order.remark}", fontSize = 18.sp, color = Muted)
-                    if (order.isActive) {
-                        Spacer(Modifier.height(14.dp))
-                        OutlinedButton(
-                            onClick = { openExternalNavigation(context, order, onMessage) },
-                            modifier = Modifier.fillMaxWidth().heightIn(min = 64.dp),
-                            shape = RoundedCornerShape(12.dp),
-                        ) {
-                            Glyph("navigation", modifier = Modifier.size(18.dp))
-                            Text(
-                                "打开导航",
-                                fontSize = 20.sp,
-                                modifier = Modifier.padding(start = 7.dp),
-                            )
-                        }
-                    }
                 }
             }
             item { DriverTripDistanceCard(order.id, order.stage.name, store) }
@@ -945,6 +928,25 @@ fun ConnectedTrip(
         }
         Surface(color = Color.White, shadowElevation = 3.dp) {
             Column(Modifier.padding(16.dp)) {
+                val navTarget = if (order.isActive) order.navigationTarget() else null
+                if (navTarget != null) {
+                    OutlinedButton(
+                        onClick = { openExternalNavigation(context, order, onMessage) },
+                        modifier = Modifier.fillMaxWidth().heightIn(min = 56.dp),
+                        shape = RoundedCornerShape(12.dp),
+                        border = BorderStroke(1.5.dp, Green),
+                    ) {
+                        Glyph("navigation", modifier = Modifier.size(18.dp))
+                        Text(
+                            "导航去${navTarget.stop.title}",
+                            fontSize = 20.sp,
+                            color = Green,
+                            fontWeight = FontWeight.SemiBold,
+                            modifier = Modifier.padding(start = 7.dp),
+                        )
+                    }
+                    Spacer(Modifier.height(10.dp))
+                }
                 PrimaryButton(
                     action,
                     enabled = !tripBusy && !hasPendingWaypoints && !distancePending,
@@ -965,7 +967,9 @@ fun ConnectedTrip(
                             Stage.TRIP -> {
                                 val current = store.state.value.orders.find { it.id == order.id }
                                 if (current?.mayAdvanceFrom(order.stage) == true) {
-                                    store.perform("order.advance", JSONObject().put("id", order.id).put("expectedStage", order.stage.name))
+                                    store.perform("order.advance", JSONObject().put("id", order.id).put("expectedStage", order.stage.name)) {
+                                        navigateForNewLeg(context, store, order.id, onMessage)
+                                    }
                                 } else {
                                     onMessage("订单状态已更新，请刷新后再操作")
                                     store.refresh()
@@ -1039,6 +1043,7 @@ fun ConnectedTrip(
                             onFailure = { verifyError = it },
                         ) {
                             verify = false
+                            navigateForNewLeg(context, store, order.id, onMessage)
                         }
                     }
                 ) {
@@ -1604,43 +1609,46 @@ fun ConnectedOrders(
     }
 }
 
+private const val WALLET_PREVIEW_ROWS = 3
+
 @Composable
 fun ConnectedWallet(store: ConnectedStore, state: DriverState, navigate: (String) -> Unit) {
+    var settlementExpanded by rememberSaveable { mutableStateOf(false) }
+    var entriesExpanded by rememberSaveable { mutableStateOf(false) }
     LazyColumn(
         contentPadding = PaddingValues(18.dp),
         verticalArrangement = Arrangement.spacedBy(15.dp),
     ) {
         item { PageHeader("我的钱包", action = "提现记录", onAction = { navigate("withdrawals") }) }
         item {
-            Surface(color = Green, shape = RoundedCornerShape(22.dp)) {
-                Column(Modifier.fillMaxWidth().padding(24.dp)) {
-                    Text("可提现余额（元）", color = Color.White, fontSize = 18.sp)
-                    Text(
-                        "体验账户",
-                        color = Color.White,
-                        fontSize = 16.sp,
-                        modifier = Modifier.padding(top = 8.dp),
-                    )
-                    Text(
-                        money(state.balance),
-                        fontSize = 36.sp,
-                        fontWeight = FontWeight.Bold,
-                        color = Color.White,
-                        modifier = Modifier.padding(top = 16.dp),
-                    )
-                    Spacer(Modifier.height(20.dp))
-                    Text("累计收入", color = Color.White, fontSize = 16.sp)
-                    Text(
-                        "¥ ${money(state.todayIncome)}",
-                        color = Color.White,
-                        fontSize = 28.sp,
-                        fontWeight = FontWeight.Bold,
-                        modifier = Modifier.padding(top = 5.dp),
-                    )
-                    Spacer(Modifier.height(18.dp))
+            Surface(color = Green, shape = RoundedCornerShape(18.dp)) {
+                Column(Modifier.fillMaxWidth().padding(horizontal = 20.dp, vertical = 18.dp)) {
+                    Row(verticalAlignment = Alignment.Bottom) {
+                        Column(Modifier.weight(1f)) {
+                            Text("可提现余额（元）· 体验账户", color = Color.White, fontSize = 14.sp)
+                            Text(
+                                money(state.balance),
+                                fontSize = 32.sp,
+                                fontWeight = FontWeight.Bold,
+                                color = Color.White,
+                                modifier = Modifier.padding(top = 6.dp),
+                            )
+                        }
+                        Column(horizontalAlignment = Alignment.End) {
+                            Text("累计收入", color = Color.White, fontSize = 14.sp)
+                            Text(
+                                "¥ ${money(state.todayIncome)}",
+                                color = Color.White,
+                                fontSize = 20.sp,
+                                fontWeight = FontWeight.Bold,
+                                modifier = Modifier.padding(top = 6.dp),
+                            )
+                        }
+                    }
+                    Spacer(Modifier.height(14.dp))
                     Button(
                         onClick = { navigate("withdraw") },
-                        modifier = Modifier.fillMaxWidth().heightIn(min = 64.dp),
+                        modifier = Modifier.fillMaxWidth().heightIn(min = 52.dp),
                         colors =
                             ButtonDefaults.buttonColors(
                                 containerColor = Color.White,
@@ -1648,7 +1656,7 @@ fun ConnectedWallet(store: ConnectedStore, state: DriverState, navigate: (String
                             ),
                         shape = RoundedCornerShape(12.dp),
                     ) {
-                        Text("申请提现", fontSize = 20.sp, fontWeight = FontWeight.SemiBold)
+                        Text("申请提现", fontSize = 18.sp, fontWeight = FontWeight.SemiBold)
                     }
                 }
             }
@@ -1671,14 +1679,43 @@ fun ConnectedWallet(store: ConnectedStore, state: DriverState, navigate: (String
         }
         val settledOrders = state.orders.filter { it.shared && it.stage != Stage.AVAILABLE && it.settlementStatus.isNotBlank() }
         if (settledOrders.isNotEmpty()) {
-            item { SectionTitle("订单入账状态", "支付与退款均为模拟记账") }
-            items(settledOrders, key = { "settlement:" + it.id }) { order ->
+            // Only the latest few rows are shown by default so the list never grows without bound.
+            val shownSettled = if (settlementExpanded) settledOrders else settledOrders.take(WALLET_PREVIEW_ROWS)
+            item { SectionTitle("订单入账状态", "共 ${settledOrders.size} 笔 · 支付与退款均为模拟记账") }
+            item {
                 SheetCard {
-                    Text(order.origin + " → " + order.destination, fontWeight = FontWeight.SemiBold)
-                    DetailRow("当前状态", order.incomeLabel)
-                    if (order.settlementStatus in setOf("CREDITED", "REVERSED", "REFUNDED", "CLOSED_NO_INCOME"))
-                        DetailRow("本单净收入（模拟）", "¥${money(order.netIncome ?: 0)}")
-                    CoreTextButton(onClick = { navigate("detail:${order.id}") }) { Text("查看订单") }
+                    shownSettled.forEachIndexed { i, order ->
+                        Row(
+                            Modifier.fillMaxWidth().heightIn(min = 56.dp).clickable { navigate("detail:${order.id}") }.padding(vertical = Gap.S),
+                            verticalAlignment = Alignment.CenterVertically,
+                        ) {
+                            Column(Modifier.weight(1f)) {
+                                Text(
+                                    order.origin + " → " + order.destination,
+                                    fontSize = 15.sp,
+                                    fontWeight = FontWeight.SemiBold,
+                                    color = Ink,
+                                    maxLines = 1,
+                                    overflow = TextOverflow.Ellipsis,
+                                )
+                                Text(order.incomeLabel, fontSize = 13.sp, color = Muted, modifier = Modifier.padding(top = 2.dp))
+                            }
+                            if (order.settlementStatus in setOf("CREDITED", "REVERSED", "REFUNDED", "CLOSED_NO_INCOME"))
+                                Text(
+                                    "¥${money(order.netIncome ?: 0)}",
+                                    fontSize = 16.sp,
+                                    fontWeight = FontWeight.Bold,
+                                    color = Ink,
+                                    modifier = Modifier.padding(horizontal = Gap.S),
+                                )
+                            Glyph("right", Muted, Modifier.size(16.dp))
+                        }
+                        if (i < shownSettled.lastIndex) HorizontalDivider(color = Line)
+                    }
+                    if (settledOrders.size > WALLET_PREVIEW_ROWS)
+                        CoreTextButton(onClick = { settlementExpanded = !settlementExpanded }, modifier = Modifier.fillMaxWidth()) {
+                            Text(if (settlementExpanded) "收起" else "展开全部 ${settledOrders.size} 笔", color = Green, fontSize = 14.sp)
+                        }
                 }
             }
         }
@@ -1691,8 +1728,9 @@ fun ConnectedWallet(store: ConnectedStore, state: DriverState, navigate: (String
             }
         else
             item {
+                val shownEntries = if (entriesExpanded) state.entries else state.entries.take(WALLET_PREVIEW_ROWS)
                 SheetCard {
-                    state.entries.forEachIndexed { i, e ->
+                    shownEntries.forEachIndexed { i, e ->
                         val income = e.amount >= 0
                         Row(Modifier.fillMaxWidth().padding(vertical = Gap.M), verticalAlignment = Alignment.CenterVertically) {
                             Box(
@@ -1724,8 +1762,12 @@ fun ConnectedWallet(store: ConnectedStore, state: DriverState, navigate: (String
                                 color = if (income) Success else Ink,
                             )
                         }
-                        if (i < state.entries.lastIndex) HorizontalDivider(color = Line)
+                        if (i < shownEntries.lastIndex) HorizontalDivider(color = Line)
                     }
+                    if (state.entries.size > WALLET_PREVIEW_ROWS)
+                        CoreTextButton(onClick = { entriesExpanded = !entriesExpanded }, modifier = Modifier.fillMaxWidth()) {
+                            Text(if (entriesExpanded) "收起" else "展开全部 ${state.entries.size} 条", color = Green, fontSize = 14.sp)
+                        }
                 }
             }
         item { Text("演示账户资金用于联调，不产生真实银行交易。", color = Muted, fontSize = 16.sp) }
