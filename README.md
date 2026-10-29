@@ -10,7 +10,17 @@
 - 活跃任务：[BOARD](coordination/BOARD.json)；长期决定：[DECISIONS](coordination/DECISIONS.md)；角色细节：handoffs；契约：contracts。
 - 恢复与提交检查：`python3 tools/check_coordination.py --memory-role <role> --session-id <真实会话ID>`；检查器不测量模型内部上下文，不等于业务验收。
 
-## 首轮配色升级与Claude Code接入（已发布）
+## 本轮UI交互优化（已发布）
+
+[PR39](https://github.com/Dadong520/yijiexing/pull/39)已合并并发布，产品源137e41534f823c538fe62ff10820f491e0e55074，合并SHA a720d76e9f822dcfc860c4f324993c18f3c7b6e0。乘客1.1.17-experience/code19、司机0.3.16-cloud/code19，原包名/原体验签名。Claude Code完成主要实现，Codex分别做原生与业务语义独立审查。
+
+司机首页整理为可筛选订单大厅，突出状态、新单金额与已知/未知距离及沙箱估算来源；钱包与个人中心重新分组，会员卡更醒目，补齐语义图标和空状态。乘客全屏选址可滚动历史，返回不改草稿，取消成功才回首页、失败留详情，详情返回统一首页，个人中心功能直接展开。
+
+非作者原生31/70项单测、双构建和57组截图通过；乘客完整源码子树同最终版继承已验收构建，司机按最终SHA重建。mini74及10页25JS检查、准确PR head CI通过，原包名/版本19/原签名/HTTPS/hash及私有值零匹配通过。两公开HTTPS整包与独立验收包完全一致，42笔旧订单全部字段一致。此次仅更新固定APK对象，API/admin完整配置、IAM、revision与traffic未改；仍automatic/min0/max1/既有请求计费。
+
+实际地图provider/手机OEM与真实资金未在本轮验证；隔离原生QA使用合成数据，未宣称三端真实业务全通过。见[实际发布报告](coordination/evidence/UIO-20261029-01/release/FINAL-RELEASE-REPORT.md)、[完整回执](coordination/evidence/UIO-20261029-01/release/FINAL-RELEASE-RECEIPT.json)和[原生独立验收](coordination/evidence/UIOV-20261029-01/REVIEW.json)。
+
+## 首轮配色升级与Claude Code接入（历史发布）
 
 产品107e226d1d23fc6d7ef5dab75229962bd38306d8已通过[PR37](https://github.com/Dadong520/yijiexing/pull/37)合并并发布。乘客1.1.16-experience/code18、司机0.3.15-cloud/code18，原包名/原体验签名。保留青绿品牌，加入蓝/暖橙/紫模块层次，统一危险操作与状态色，增强文字和交互轮廓对比度。后台与双Android已更新；小程序共享样式已改，仍缺AppID未微信发布。
 
@@ -26,8 +36,8 @@ Claude Code已真实接入并完成主力实现，Gemini按用户决定暂时停
 
 | 项目 | 已发布与核验 | 入口 |
 |---|---|---|
-| 司机Android | 0.3.15-cloud / code18，原签名 | [司机快速入口](https://user-test---driver-demo-phfgquzmua-uw.a.run.app/download) |
-| 乘客Android | 1.1.16-experience / code18，原签名 | [乘客快速入口](https://user-test---driver-demo-phfgquzmua-uw.a.run.app/download-passenger) |
+| 司机Android | 0.3.16-cloud / code19，原签名 | [司机快速入口](https://user-test---driver-demo-phfgquzmua-uw.a.run.app/download) |
+| 乘客Android | 1.1.17-experience / code19，原签名 | [乘客快速入口](https://user-test---driver-demo-phfgquzmua-uw.a.run.app/download-passenger) |
 | Web后台 | 继续使用原账号密码 | https://demo-admin.hbzjhs.xyz/ |
 | 体验API | 同一持久数据与HTTPS域名 | https://yijiexing-demo.hbzjhs.xyz |
 | 微信小程序 | 源码74测试通过；缺AppID，未微信编译/真机/发布 | candidates/passenger-miniprogram-0.1.0/miniprogram |
@@ -36,7 +46,7 @@ Claude Code已真实接入并完成主力实现，Gemini按用户决定暂时停
 
 固定产品817ed22已独立验收：7组新HTTP/13组兼容、真实隔离后台DOM、Android24/63和构建、mini72/admin4；frontend独立复核root包签名/版本/hash及源码绑定。见[独立验收](coordination/evidence/PMV-20261028-01/INDEPENDENT_ACCEPTANCE.md)。[PR30](https://github.com/Dadong520/yijiexing/pull/30)已合并主分支7402b117d55bd4d0f1404a5ae2ff0c1cf2e8e0a5，后台/API新版均100%流量，两固定APK已更新、旧包已归档；真实HTTPS整包下载/hash/包名/版本/原签名均回读通过。该批发布时38笔旧单保留，一笔实时定位并发刷新，其余订单字段一致。见[实际发布回执](coordination/evidence/PMV-20261028-01/release/FINAL-RELEASE-REPORT.md)，部署细节与限制见[STATE](coordination/STATE.md)。旧版发布记录保留PR28/PR29。
 
-高德乘客搜索1008/地图10008仍FAIL；微信真机、部分设备GUI未测。支付、退款、提现、发票均模拟；新分账仅确认模拟口径，不执行真实资金或积分。文档28组剩余需求后续分批，PMPOST未集成。两APK沿用原签名支持覆盖安装，不把本版称全项目最终验收。
+高德控制台乘客SHA1字母O/数字0笔误已由用户修正，原SDK生成请求从10008恢复10000/1POI；实际手机底图与地点搜索仍待用户验证，本轮无凭据隔离QA不作真实地图成功证据。微信真机、部分设备GUI未测。支付、退款、提现、发票均模拟；新分账仅确认模拟口径，不执行真实资金或积分。文档28组剩余需求后续分批，PMPOST未集成。两APK沿用原签名支持覆盖安装，不把本版称全项目最终验收。
 
 当前源码路径：`candidates/driver-0.3.6-r2/android`（目录名历史保留，实际版本看Gradle）、`apps/passenger-android`、`apps/admin-console/web`、`apps/cloud-service`。本机唯一可写后端工作树按STATE指定，不能同时修改重复快照。releases和冻结v8保存原基线，不直接改。
 

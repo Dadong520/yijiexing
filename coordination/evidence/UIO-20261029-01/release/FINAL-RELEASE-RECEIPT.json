@@ -1,0 +1,180 @@
+{
+  "schemaVersion": 1,
+  "taskId": "UIO-20261029-01",
+  "at": "2026-10-29T11:32:53.941538+00:00",
+  "status": "RELEASED_AND_READBACK_PASS",
+  "scope": "Scoped driver/passenger native UI and navigation; not complete three-end real business acceptance",
+  "productSourceSha": "137e41534f823c538fe62ff10820f491e0e55074",
+  "pullRequest": "https://github.com/Dadong520/yijiexing/pull/39",
+  "integrationHeadSha": "b7f39271e360afc9036af38534f6485840faad98",
+  "mergeSha": "a720d76e9f822dcfc860c4f324993c18f3c7b6e0",
+  "ci": [
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-10-29T11:13:14Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/Dadong520/yijiexing/actions/runs/40863647646/job/123412834649",
+      "name": "project-gate",
+      "startedAt": "2026-10-29T11:13:03Z",
+      "status": "COMPLETED",
+      "workflowName": "project-gate"
+    }
+  ],
+  "author": {
+    "role": "Claude Code",
+    "sessionId": "b23ffb33-b639-4295-8369-4925bdab9d87",
+    "model": "claude-opus-5-5",
+    "effort": "medium",
+    "implementationPhasesExit": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "authorTests": "NOT_RUN; independent Codex executed"
+  },
+  "independentReview": {
+    "frontend": "PASS final137; passenger31/driver70 unit tests and offline builds;57 native capture pairs",
+    "backend": "PASS final137; both distance findings fixed and independently closed",
+    "mini": "74 tests/config10pages25JS PASS; no WeChat compile",
+    "passengerBuildInheritance": "f828 source subtree identical to final137; build reused with exact source-tree binding"
+  },
+  "project": "yijiexing-driver-demo-1023",
+  "region": "us-west1",
+  "releaseMode": "Fixed GCS APK objects only; no CloudRun deployment",
+  "apk": [
+    {
+      "role": "passenger",
+      "url": "https://user-test---driver-demo-phfgquzmua-uw.a.run.app/download-passenger.apk",
+      "attempts": [
+        {
+          "transport": "direct",
+          "curlExit": 0,
+          "http": 200
+        }
+      ],
+      "bytes": 107155833,
+      "sha256": "6affbc2e47db6257337b50942360d8ba3558fb25079238807b395f225d0c7ac2",
+      "package": "cn.hbzjhs.dc.passenger.cloud",
+      "versionName": "1.1.17-experience",
+      "versionCode": 19,
+      "signerSha256": "9ffec9b342d12909ff288bd73f23ba104893b39120cb24ea83c9734a0d2b758f",
+      "aaptAndApksignerExit": 0,
+      "sameBytesAsIndependentlyReviewedBuild": true,
+      "PASS": true
+    },
+    {
+      "role": "driver",
+      "url": "https://user-test---driver-demo-phfgquzmua-uw.a.run.app/download.apk",
+      "attempts": [
+        {
+          "transport": "direct",
+          "curlExit": 0,
+          "http": 200
+        }
+      ],
+      "bytes": 108653189,
+      "sha256": "0ec7553ee589477cc26ac52fad906fe967985113fbb6a988611ce807bd7842d1",
+      "package": "cn.hbzjhs.dc.driver.cloud",
+      "versionName": "0.3.16-cloud",
+      "versionCode": 19,
+      "signerSha256": "9ffec9b342d12909ff288bd73f23ba104893b39120cb24ea83c9734a0d2b758f",
+      "aaptAndApksignerExit": 0,
+      "sameBytesAsIndependentlyReviewedBuild": true,
+      "PASS": true
+    }
+  ],
+  "distribution": [
+    {
+      "role": "passenger",
+      "fixedObject": "distribution/yijiexing-passenger.apk",
+      "archiveObject": "distribution/archive/before-20261029-uio-137e415/passenger.apk",
+      "archivedGeneration": "1793273136043732",
+      "previousFixedGeneration": "1793210585383239",
+      "newFixedGeneration": "1793273140856608",
+      "bytes": 107155833,
+      "sha256": "6affbc2e47db6257337b50942360d8ba3558fb25079238807b395f225d0c7ac2",
+      "generationPreconditions": true,
+      "oldArchiveVerified": true
+    },
+    {
+      "role": "driver",
+      "fixedObject": "distribution/yijiexing-cloud.apk",
+      "archiveObject": "distribution/archive/before-20261029-uio-137e415/driver.apk",
+      "archivedGeneration": "1793273146542168",
+      "previousFixedGeneration": "1793210590060389",
+      "newFixedGeneration": "1793273151311395",
+      "bytes": 108653189,
+      "sha256": "0ec7553ee589477cc26ac52fad906fe967985113fbb6a988611ce807bd7842d1",
+      "generationPreconditions": true,
+      "oldArchiveVerified": true
+    }
+  ],
+  "data": {
+    "source": "current authoritative GCS snapshot, response-bound generation/MD5",
+    "generation": "1793271975039754",
+    "bytes": 7409664,
+    "sha256": "dd31f6f76b19645f4cad062392ee126d61662b7a0c95dd1e6d73534f7913d411",
+    "integrity": "ok",
+    "beforeOrderCount": 42,
+    "afterOrderCount": 42,
+    "oldOrdersMissing": 0,
+    "oldOrdersFieldsChanged": 0,
+    "newOrders": 0,
+    "cloudBusinessPostsByCoordinator": 0,
+    "backupAndReadbackOutsideRepository0600": true,
+    "PASS": true
+  },
+  "runtime": {
+    "project": "yijiexing-driver-demo-1023",
+    "region": "us-west1",
+    "cloudRunMutationsByCoordinator": 0,
+    "services": [
+      {
+        "role": "api",
+        "service": "driver-demo",
+        "revision": "driver-demo-ccui-107e226-test1",
+        "checks": {
+          "fullSpecUnchanged": true,
+          "serviceAnnotationsUnchanged": true,
+          "iamPolicyUnchanged": true,
+          "readyRevisionUnchanged": true,
+          "trafficUnchanged": true
+        },
+        "minScale": "0",
+        "maxScale": "1",
+        "timeoutSeconds": 900,
+        "specSha256": "79797fbc866398e9ec765971561753c0bf53ab8259921d905e69bf90c902de2c",
+        "iamSha256": "b889d91193cb50738ff8418eec83691d89bb38b6cdccd1177014744749747b51",
+        "PASS": true
+      },
+      {
+        "role": "admin",
+        "service": "driver-admin",
+        "revision": "driver-admin-ccui-107e226-test1",
+        "checks": {
+          "fullSpecUnchanged": true,
+          "serviceAnnotationsUnchanged": true,
+          "iamPolicyUnchanged": true,
+          "readyRevisionUnchanged": true,
+          "trafficUnchanged": true
+        },
+        "minScale": "0",
+        "maxScale": "1",
+        "timeoutSeconds": 300,
+        "specSha256": "f0916cdf3de957bb202685fb140aff15fc3b96dfd1cbef9a635beac01e54fc53",
+        "iamSha256": "c91e2cbf77eab7c6f3dc5e59b150a22997e52c1cd655eebef45a6953bbce8fce",
+        "PASS": true
+      }
+    ],
+    "allPreserved": true
+  },
+  "cloudBusinessPostsByCoordinator": 0,
+  "knownLimits": [
+    "Native QA used isolated Android34 emulator and local synthetic data; original shipping APKs separately verified",
+    "Real AMap provider/map/search and OEM phone behavior NOT_RUN in this UI round; earlier SHA1 correction produced SDK-generated request10000/1POI, user deferred phone verification",
+    "Payments/refunds/withdrawals/invoices remain simulated; no real bank/password mutations or money lifecycle tested",
+    "Foreground new-order dialog checked; background/system overlay not revalidated",
+    "WeChat lacks AppID and remains uncompiled/unpublished"
+  ]
+}

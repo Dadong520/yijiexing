@@ -1,0 +1,20 @@
+{
+  "headRefOid": "b7f39271e360afc9036af38534f6485840faad98",
+  "mergeCommit": {
+    "oid": "a720d76e9f822dcfc860c4f324993c18f3c7b6e0"
+  },
+  "state": "MERGED",
+  "statusCheckRollup": [
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-10-29T11:13:14Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/Dadong520/yijiexing/actions/runs/40863647646/job/123412834649",
+      "name": "project-gate",
+      "startedAt": "2026-10-29T11:13:03Z",
+      "status": "COMPLETED",
+      "workflowName": "project-gate"
+    }
+  ],
+  "url": "https://github.com/Dadong520/yijiexing/pull/39"
+}

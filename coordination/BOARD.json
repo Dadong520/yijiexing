@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updated": "2026-10-29T10:39:38.465234+00:00",
+  "updated": "2026-10-29T11:35:45.538412+00:00",
   "coordinator": "coordinator",
   "activeTaskIds": [
     "WX-20261025-01",
@@ -49,7 +49,8 @@
     "CCREC-20261029-01",
     "UIO-20261029-01",
     "UIOV-20261029-01",
-    "UIOB-20261029-01"
+    "UIOB-20261029-01",
+    "UIOREC-20261029-01"
   ],
   "releaseOwner": "coordinator",
   "policy": "作者提交→自测→独立验收→协调者合并→部署回读；无业务验收PASS不发布",
@@ -78,9 +79,9 @@
     "coordination/archive/2026-10-26/AUTH-20261026-02.json"
   ],
   "memoryProtocolVersion": "2026-10-26-v3",
-  "currentStage": "UIO_ACCEPTED_INTEGRATION_CI",
+  "currentStage": "UIO_RELEASED_RECEIPT_SYNC",
   "roleAssignments": {
-    "coordinator": "UIO exact-SHA integration/PR39 CI then APK release",
+    "coordinator": "UIOREC receipt/README sync; UIO actual release/readbacks PASS, then IDLE",
     "backend": "IDLE UIOB final137 PASS",
     "frontend": "IDLE UIOV final137 PASS; isolated resources cleaned",
     "antigravity": "PAUSED_BY_USER_20261029; no new Gemini dispatch",

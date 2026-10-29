@@ -1,0 +1,37 @@
+{
+  "testedSha": "137e41534f823c538fe62ff10820f491e0e55074",
+  "integratedHeadSha": "b7f39271e360afc9036af38534f6485840faad98",
+  "productTrees": [
+    {
+      "path": "apps/passenger-android",
+      "testedTree": "40259af5a1ed7b55a64b203fabcccfa5285c9057",
+      "integratedTree": "40259af5a1ed7b55a64b203fabcccfa5285c9057",
+      "equal": true
+    },
+    {
+      "path": "candidates/driver-0.3.6-r2/android",
+      "testedTree": "0e0b1e8b9f87e63cc1db9b52972dcf31a492b9b1",
+      "integratedTree": "0e0b1e8b9f87e63cc1db9b52972dcf31a492b9b1",
+      "equal": true
+    },
+    {
+      "path": "apps/cloud-service",
+      "testedTree": "033e173314e7339e46c2c78c178b870039609fa9",
+      "integratedTree": "033e173314e7339e46c2c78c178b870039609fa9",
+      "equal": true
+    },
+    {
+      "path": "apps/admin-console",
+      "testedTree": "86b2ac8af994108b88bf298c8eba725b31fe4a5a",
+      "integratedTree": "86b2ac8af994108b88bf298c8eba725b31fe4a5a",
+      "equal": true
+    },
+    {
+      "path": "candidates/passenger-miniprogram-0.1.0",
+      "testedTree": "5236b65283b5bb80939c223aa2abfc3f6534253a",
+      "integratedTree": "5236b65283b5bb80939c223aa2abfc3f6534253a",
+      "equal": true
+    }
+  ],
+  "unchangedProductSource": true
+}

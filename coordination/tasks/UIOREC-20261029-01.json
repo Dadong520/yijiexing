@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "id": "UIOREC-20261029-01",
+  "owner": "coordinator",
+  "goal": "固化UIO已发布真实回执、版本入口与当前接续状态；不再部署",
+  "baseSha": "a720d76e9f822dcfc860c4f324993c18f3c7b6e0",
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-ui-optimization-worktree-20261029",
+  "branch": "codex/ui-optimization-receipt-20261029",
+  "allow_paths": [
+    "coordination/",
+    "README.md"
+  ],
+  "checks": [
+    "Docs/receipt only; five product subtrees identical to accepted137 and mergeda720",
+    "UIO both full HTTPS APK/version19/original signer/hash readbacks PASS;42 old orders all fields preserved;runtime/IAM/traffic unchanged",
+    "No redundant product tests or deployment; exact-head CI then receipt merge"
+  ],
+  "status": "RECEIPT_CI_PENDING",
+  "acceptance": "PASS",
+  "tests": [
+    {
+      "command": "Actual release receipt consistency and product tree binding checks",
+      "status": "PASS",
+      "exitCode": 0
+    }
+  ],
+  "evidence": [
+    "coordination/evidence/UIO-20261029-01/release/FINAL-RELEASE-RECEIPT.json"
+  ],
+  "nextAction": "Commit scoped receipt/README; exact-head CI/merge then IDLE user acceptance",
+  "pendingMergeSha": null,
+  "deploy_owner": "coordinator",
+  "releaseReady": false,
+  "updatedAt": "2026-10-29T11:35:45.538412+00:00",
+  "pullRequest": "https://github.com/Dadong520/yijiexing/pull/40"
+}
