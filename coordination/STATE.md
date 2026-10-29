@@ -2,19 +2,19 @@
 中央 /Users/dongge/Documents/New project 2/coordination 唯一权威，协议2026-10-26-v3。唯一coordinator01a17cc7-e0a2-7791-bf1d-4611c09bab22/generation6统一派单、验收、合并和发布；context UNKNOWN/not_exposed。
 
 ## 目前线上基线
-Git main53028032fd2aa4e33136bbd77c3b89f654d13846（PR38回执）；已发布产品107e226d1d23fc6d7ef5dab75229962bd38306d8/PR37合并8eebffa772223c57da6e96bc7b9126ebc59f816a。乘客1.1.16-experience/code18、司机0.3.15-cloud/code18。
+Git main最新a720d76e9f822dcfc860c4f324993c18f3c7b6e0（PR39新UI已合并发布；回执文档待UIOREC同步）；已发布产品107e226d1d23fc6d7ef5dab75229962bd38306d8/PR37合并8eebffa772223c57da6e96bc7b9126ebc59f816a。当前已发布乘客1.1.17-experience/code19、司机0.3.16-cloud/code19；原CCUI版18为历史。
 API https://yijiexing-demo.hbzjhs.xyz，revision driver-demo-ccui-107e226-test1；后台 https://demo-admin.hbzjhs.xyz/，revision driver-admin-ccui-107e226-test1，均100%，user-test同版。后台原账号密码，无Google/IAP前置。
-安装快链 https://user-test---driver-demo-phfgquzmua-uw.a.run.app/download（司机）与/download-passenger（乘客），对应.apk整包，实际版本以回读为准。CCUI发布时HTTPS/hash/原签名和39旧单全部字段一致，证据CCUI-20261029-01/release/FINAL-RELEASE-RECEIPT.json。后来用户新增单，最新可见41单，本轮发布必须fresh备份再读回，不复用旧39结论。
+安装快链 https://user-test---driver-demo-phfgquzmua-uw.a.run.app/download（司机）与/download-passenger（乘客），对应.apk整包，实际版本以回读为准。CCUI发布时HTTPS/hash/原签名和39旧单全部字段一致，证据CCUI-20261029-01/release/FINAL-RELEASE-RECEIPT.json。后来用户新增单，本轮fresh42单备份和回读全部字段一致，不复用旧39结论。
 仅独立项目yijiexing-driver-demo-1023/us-west1；禁止原测试/生产。CloudRun automatic/min0/max1/请求CPU计费、API900秒，保留ENV/secret/SA/IAM/RBAC/Origin，不保活、不自动暂停。私有Key/账户/DB/APK/cache/rawCLI外置0600。
 
-## 当前UIO：独立验收PASS，待合并和体验发布
+## 当前UIO：已发布并完整回读通过
 用户新UI设计.docx要求继续优化，尽量Claude实现、Codex审查；用户已离开，要求自主完成、明天体验，不因常规确认停。当前UIO-20261029-01，11项详见任务与evidence/UIO-20261029-01/REQUIREMENTS.json。
-产品树 /Users/dongge/.codex/tmp/yijiexing-ui-optimization-worktree-20261029，branch codex/ui-optimization-20261029，base5302803，最终已验收137e41534f823c538fe62ff10820f491e0e55074。候选乘客1.1.17-experience/code19、司机0.3.16-cloud/code19尚未发布。PR39已draft附聊天，初推056，最终代码137及治理证据待push→准确head CI→合并。
+产品树 /Users/dongge/.codex/tmp/yijiexing-ui-optimization-worktree-20261029，branch codex/ui-optimization-20261029，base5302803，最终已验收137e41534f823c538fe62ff10820f491e0e55074。乘客1.1.17-experience/code19、司机0.3.16-cloud/code19已发布，公开HTTPS整包/原ID/原签名/hash匹配验收包。PR39已附聊天，准确head b7f39271e360afc9036af38534f6485840faad98的CI40863647646 SUCCESS，合并a720d76e9f822dcfc860c4f324993c18f3c7b6e0；五产品子树与已验收137完全相同。
 Claude官方bundled CLI2.1.304已claude.ai/Pro；本次新独立session b23ffb33-b639-4295-8369-4925bdab9d87/init claude-opus-5-5/medium，4阶段exit0现IDLE。旧首轮413b9历史Desktop上下文不混用。原始输出外置yijiexing-ui-optimization-20261029，脱敏AUTHOR_PHASE1..4入证据。无Bash作者测试NOT_RUN；不绕权限或改全局设置。
 实现：司机首页订单大厅及类型筛选/失效筛选复原、新单金额和已知未知距离/服务端沙箱来源、醒目订单状态、钱包个人中心分组迁移、会员身份渐变卡、语义空态；乘客整页地址选择与可滚动历史/坐标与草稿保护、取消成功才回首页/失败留详情、详情返回统一home、功能直接展开、共用图标/按钮层级/间距。无Store/domain/backend/网络/权限/包名/签名/Key改动；root仅版本与治理。
 Codex frontend UIOV最终137独立PASS：乘客31（完整子树同f828继承）、司机70最终构建/测试，原ID/签名/版本19/HTTPS/4私有值零命中；本轮获准新隔离AVD emulator5584/本地合成数据实际57截图，取消成功失败、详情与子页返回、地址/历史/草稿、类型过滤与在途预约门禁、会员/账户安全迁移/空态、大字体代表场景实查。原生QA覆盖与真实发包分别证明，真实地图provider及OEM/真实资金未验。AVD/fixture/端口已清理，reviewer IDLE。
 Codex backend UIOB最终137 PASS：未知距离误加km、共享沙箱距离来源两项P2均已由Claude修正复核；原FAIL保留。取消成功回调/跨账户、资质与单执行、预约即时并存、金额单位/通知去重不变。初版CI40860616334失败仅累计标题旧回归，Claude真正恢复“运营明细（累计） · 含演示数据”后root在137跑mini74与10页25JS检查PASS，微信编译未跑。证据UIOV/REVIEW、FINAL_BUILD_PROOF、SOURCE_BINDING、UIOB/FINAL_REVIEW、UIO/CI_REPAIR_LOCAL_CHECKS。
-UIO精确SHA门禁已PASS，releaseReady true表示验收/发布前提已齐，不表示已上线。下一步选择本轮治理证据提交，准确PR head CI通过后合并。计划仅GCS固定APK更新，无需再部署API/admin。外置release helpers /Users/dongge/.codex/tmp/yijiexing-uio-release-stage-20261029；runtime-before已保存，两服务仍CCUI。待fresh DB备份→保护上传/归档/提升→公开HTTPS整包/版本/签名/hash→DB全字段与runtime/IAM不变回读→最终回执与README入库。
+UIO精确SHA门禁已PASS，releaseReady true表示验收/发布前提已齐，不表示已上线。源码与验收证据已入库。两固定包已generation保护归档/提升，HTTPS整包回读PASS；fresh42旧单全部字段一致，前后快照同代次/hash，root云业务POST0；完整spec/注解/IAM/revision/traffic均不变。实际回执UIO/release/FINAL-RELEASE-RECEIPT.json。计划仅GCS固定APK更新，无需再部署API/admin。外置release helpers /Users/dongge/.codex/tmp/yijiexing-uio-release-stage-20261029；runtime-before已保存，两服务仍CCUI。本轮这些发布步骤已全部完成；当前仅UIOREC回执/README入库，完成后IDLE，不重建或重复发布。
 
 ## 已确认业务与边界
 BIZ04预约待出发不占即时，明确开始接驾后双角色同一时刻单执行/欠款门禁；无自动处罚或保证预约准时。BIZ05历史32类只可配置草稿与人工记录。BIZ06新单目的地必填，旧单同ID补填。BIZ07差额只扣一次/余分平台，仅模拟测算。BIZ08三证提前60天提醒，审核通过替换；旧证有效待审可接、过期禁新单、在途可完成。BIZ09公告每用户每发布版本弹一次可关。勿重问。

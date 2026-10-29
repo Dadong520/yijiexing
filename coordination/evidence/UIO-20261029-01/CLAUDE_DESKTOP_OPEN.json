@@ -1,0 +1,9 @@
+{
+  "sessionId": "b23ffb33-b639-4295-8369-4925bdab9d87",
+  "officialCommand": "claude --desktop --resume exact task session",
+  "exitCode": 0,
+  "observedOutput": "Opening session b23ffb33-b639-4295-8369-4925bdab9d87 in Claude Desktop",
+  "desktopUiDirectInspection": "NOT_RUN",
+  "authorProcessRunning": false,
+  "rule": "No concurrent CLI use of this Desktop session"
+}

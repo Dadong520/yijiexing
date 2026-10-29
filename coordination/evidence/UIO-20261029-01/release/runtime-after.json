@@ -1,0 +1,44 @@
+{
+  "project": "yijiexing-driver-demo-1023",
+  "region": "us-west1",
+  "cloudRunMutationsByCoordinator": 0,
+  "services": [
+    {
+      "role": "api",
+      "service": "driver-demo",
+      "revision": "driver-demo-ccui-107e226-test1",
+      "checks": {
+        "fullSpecUnchanged": true,
+        "serviceAnnotationsUnchanged": true,
+        "iamPolicyUnchanged": true,
+        "readyRevisionUnchanged": true,
+        "trafficUnchanged": true
+      },
+      "minScale": "0",
+      "maxScale": "1",
+      "timeoutSeconds": 900,
+      "specSha256": "79797fbc866398e9ec765971561753c0bf53ab8259921d905e69bf90c902de2c",
+      "iamSha256": "b889d91193cb50738ff8418eec83691d89bb38b6cdccd1177014744749747b51",
+      "PASS": true
+    },
+    {
+      "role": "admin",
+      "service": "driver-admin",
+      "revision": "driver-admin-ccui-107e226-test1",
+      "checks": {
+        "fullSpecUnchanged": true,
+        "serviceAnnotationsUnchanged": true,
+        "iamPolicyUnchanged": true,
+        "readyRevisionUnchanged": true,
+        "trafficUnchanged": true
+      },
+      "minScale": "0",
+      "maxScale": "1",
+      "timeoutSeconds": 300,
+      "specSha256": "f0916cdf3de957bb202685fb140aff15fc3b96dfd1cbef9a635beac01e54fc53",
+      "iamSha256": "c91e2cbf77eab7c6f3dc5e59b150a22997e52c1cd655eebef45a6953bbce8fce",
+      "PASS": true
+    }
+  ],
+  "allPreserved": true
+}

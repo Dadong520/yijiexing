@@ -1,21 +1,21 @@
 # coordinator 当前短卡
-ACK2026-10-26-v3；真实ID01a17cc7-e0a2-7791-bf1d-4611c09bab22/generation6，唯一协调/合并/发布。当前UIO-20261029-01；context UNKNOWN/not_exposed，无可靠百分比。
+协议2026-10-26-v3；ACK；真实ID01a17cc7-e0a2-7791-bf1d-4611c09bab22/generation6；唯一协调/合并/发布。context UNKNOWN/not_exposed。当前UIOREC-20261029-01，仅发布回执/README同步。
 
-## 当前目标与用户授权
-用户上传UI设计.docx，要求继续优化，尽量Claude实现、Codex独审；随后明确离开、自行完成、明天验收，不因常规确认停。已有自主合并/独立体验发布授权。本轮Android官方调试工具仅隔离模拟器安装/点击/截图授权已收，UIO/ANDROID_UI_AUTHORIZATION.json；不借上轮，不碰个人设备/云业务POST。Gemini暂停，Astra仅堵点现IDLE。
-文档11项见UIO/REQUIREMENTS.json和task；司机订单大厅/类型筛选/新单真实金额与估算来源/订单状态/钱包个人分类/会员/空态；乘客全屏地址/历史/坐标保护/取消成功和详情返回首页/功能直接展开。UIO主任务、UIOV frontend、UIOB backend各自唯一文件归属。
+## 已完成且已发布
+用户UI设计.docx要求Claude主实现、Codex审查；离开前授权自行完成、明天体验，常规不再询问；本轮隔离AVD官方工具授权已收。全部11项UIO详见UIO/REQUIREMENTS.json。
+产品源137e41534f823c538fe62ff10820f491e0e55074，PR39准确head b7f39271e360afc9036af38534f6485840faad98/CI40863647646 SUCCESS，合并a720d76e9f822dcfc860c4f324993c18f3c7b6e0。五产品子树同验收137，INTEGRATION_BINDING.json。
+乘客1.1.17-experience/code19，107155833字节，sha2566affbc2e47db6257337b50942360d8ba3558fb25079238807b395f225d0c7ac2；司机0.3.16-cloud/code19，108653189字节，sha2560ec7553ee589477cc26ac52fad906fe967985113fbb6a988611ce807bd7842d1。原包名/原Signer9ffec9…b758f，两个公开HTTPS整包/version/hash/cert匹配非作者验收包，旧包已保护归档。安装快链仍STATE的/download和/download-passenger。
+仅独立yijiexing-driver-demo-1023/us-west1；本轮仅固定GCS APK提升，无CloudRun部署。API/admin仍driver-demo-ccui-107e226-test1/driver-admin-ccui-107e226-test1 100%和user-test同版，完整spec/注解/ENV/secret/SA/IAM/traffic/revision不变，min0/max1/原请求计费/API900保持。fresh42旧订单全存储字段一致，0丢失/0修改/0新单，前后generation1793271975039754及DBsha dd31f6…d411一致；root云业务POST0。
+实际最终回执coordination/evidence/UIO-20261029-01/release/FINAL-RELEASE-RECEIPT.json及REPORT.md。upload1214、promotion/HTTPS/data31459、runtime39404均已exit0，不重跑。私有配置/DB/resumableURLs/APK均外置0600；外置release stage yijiexing-uio-release-stage-20261029保留仅复现，无后台进程。
 
-## 当前源码、作者与审查
-唯一产品树 /Users/dongge/.codex/tmp/yijiexing-ui-optimization-worktree-20261029，branch codex/ui-optimization-20261029，base53028032fd2aa4e33136bbd77c3b89f654d13846，当前冻结137e41534f823c538fe62ff10820f491e0e55074，git clean。作者仅UI，root仅版本常量（乘客1.1.17-experience/司机0.3.16-cloud，code19）及治理。17产品文件（含7项JUnit纯距离用例）。无Store/domain/backend/网络/权限/包名/签名/Key改动。
-官方Claude CLI2.1.304已claude.ai/Pro；新实际session b23ffb33-b639-4295-8369-4925bdab9d87，init claude-opus-5-5/medium。4阶段exit0，现停止；不用旧Desktop413b9会话。续只该b23精确ID。raw输出0600外置 /Users/dongge/.codex/tmp/yijiexing-ui-optimization-20261029；AUTHOR_PHASE1..4.md为脱敏报告；作者无Bash，作者测试NOT_RUN。
-候选f828初版双原生31/63单测与构建PASS；frontend UIOV外置yijiexing-uiov-20261029在跑获准隔离AVD：取消失败留详情/成功才home/顶栏与系统详情返回home/联系子页返回已实测过。新最终137只driver差量，乘客完整树同f828，可复用字节绑定，不伪称重跑。等frontend最终准确SHA REVIEW/FINAL_BUILD_PROOF和截图。
-backend对f828发现UIOB01未知距离加km、02共享沙箱距离缺来源，Claude3阶段修；05654b8已backend FINAL_REVIEW PASS。137比056仅统计标题一行恢复“运营明细（累计） · 含演示数据”，backend正补最终137绑定，不重复Gradle。原FAIL需保留历史。
-PR39 https://github.com/Dadong520/yijiexing/pull/39 已创建draft并附聊天，远程HEAD05654b8，137目前只本地，后续连治理证据一起push。初版CI40860616334 FAIL仅mini跨原生回归要求累计标题；Claude第4阶段真正UI文案修正，未改测试；root在137本地mini74全PASS+10页25JS配置PASS，日志UIO/CI_REPAIR_LOCAL_CHECKS.json。微信编译/AppID仍NOT_RUN。
+## 作者与独立审查
+官方Claude CLI2.1.304登录Pro，实际新session b23ffb33-b639-4295-8369-4925bdab9d87/init claude-opus-5-5/medium，4阶段exit0，作者测试NOT_RUN无Bash。作者主要实现全部UI，root仅版本与治理；后续修复只精确resume，不同旧Desktop413b9混跑。raw JSONL0600外置yijiexing-ui-optimization-20261029，AUTHOR_PHASE1..4.md为脱敏记录。官方--desktop --resume新ID已输出Opening session并exit0；已请求桌面打开，未直接观察桌面标题，不与Desktop并发CLI。
+frontend UIOV最终137 PASS：乘客31/司机70原生单测、双构建、57截图，原ID/证书/19版本/HTTPS/4私有值0。乘客完整子树同f828复用构建，driver最终137重建；原生QA与发包分别证明。实际取消失败留页/成功home、顶栏系统返回/联系子页、全屏地址/历史/缺坐标/草稿、大字体、driver筛选种类消失复原/在途预约门禁/会员/钱包和个人中心迁移/空态已查。AVD5584、fixture及reverse清理，role IDLE。
+backend UIOB最终137 PASS，未知距离加km/沙箱估算缺来源两P2由Claude修并关闭；原FAIL与056 PASS保留。CI初版因累计标题约束失败，Claude只修真实UI标题为运营明细（累计）·含演示数据，未弱化测试；root在137本地mini74+10页25JS配置PASS，最终CI通过。无重复宽后端测试。
 
-## 发布准备与下一步
-先等frontend最后实际UI/driver新测试构建及backend最终绑定，通过才UIO acceptance/releaseReady，精确SHA门禁（tests sourceSha/evidence path+sha256）。再选取中央治理/任务/角色卡/本轮证据同步工作树，私有值扫描0，提交push→准确PR head CI PASS→转ready合并。不要把raw logs/账号库/DB/APK/cache入Git。
-仅独立 yijiexing-driver-demo-1023/us-west1。现有API driver-demo-ccui-107e226-test1/admin driver-admin-ccui-107e226-test1仍100%；runtime/ENV/IAM/SA/secret/automatic/min0max1/请求计费/API900保持。本次原生APK-only，无需重新部署API/admin。
-外置 /Users/dongge/.codex/tmp/yijiexing-uio-release-stage-20261029 已准备transfer.py/promote_apks.py/readback_apks.py/data_after.py，py_compile过，尚未云写；release-binding.json当前source137/releaseId20261029-uio-137e415。私有uior-before-api/admin及IAM已只读取回0600，脱敏UIO/release/runtime-before.json。
-合并且全部门禁通过后：fresh DB备份→generation保护上传candidate→归档旧固定包→保护提升固定包→两个公开HTTPS整包hash/19版本/原证书回读→DB全字段与runtime/IAM不变回读→最终回执/README同步。旧固定乘客hash221e8ae…70d6d2、司机35edbc…81c08（完整值release-binding），原Signer SHA2569ffec9…b758f。安装入口仍STATE快链。不要直接运行旧CCUI release脚本（旧版本/hash/对象），不要重复云服务发布。
-已发布基线仍PR37产品107e226/PR38 main5302803，乘客18/司机18，之前39旧单保存；当前线上用户后来已有41单，本轮必须fresh备份读回，不能复用39旧结论。
-地图EXMAP：用户SHA1 DO→D0已修，SDK请求乘客10000/1POI；用户晚点测手机，expert IDLE，实际设备底图未验。新UI QA隔离map不作鉴权成功。金额支付/退款/发票仍模拟，无IM/录音/警方联动；BIZ04–09既定规则不重问/不改。
+## 当前源码和剩余唯一动作
+工作树/Users/dongge/.codex/tmp/yijiexing-ui-optimization-worktree-20261029，已切新branch codex/ui-optimization-receipt-20261029，base/HEAD a720d76e9f822dcfc860c4f324993c18f3c7b6e0。UIO feature分支已合并。当前任务UIOREC仅coordination/和README；即将选择本轮回执+中央最新状态同步，README当前版本表改19、首轮改历史、地图文案纠正。运行门禁/私有值扫描/确认五产品树不变，commit/push→创建PR40并attach→准确head CI→合并→中央main/任务COMPLETE，各角色IDLE。不要为最终自引用mergeSHA再开循环PR，不要再构建/发布产品。
+
+## 范围与边界
+真实地图provider/OEM手机仍未本轮QA验证；EXMAP用户修SHA1 DO→D0后原SDK生成请求已10000/1POI，用户晚点测手机，expert IDLE；QA合成数据/无Key截图不当真实鉴权。微信缺AppID未编译发布；支付退款提现发票模拟，无IM中继/录音/警方。BIZ04–09既定规则仍STATE，勿重问。前后台通知仅本轮前台新单弹窗，未复验系统悬浮。未称三端真实业务全完成。
+核心Codex保持GPT6.1，Astra仅堵点，Gemini暂停，所有实现/审查角色现IDLE，无新常驻/保活/自动回信。用户只等明天实际体验反馈。
