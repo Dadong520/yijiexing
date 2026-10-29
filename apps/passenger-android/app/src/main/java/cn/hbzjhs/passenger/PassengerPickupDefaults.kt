@@ -56,6 +56,47 @@ object PassengerPickupDefaults {
 }
 
 /**
+ * The whole text-search flow of the address editor, including the debounce wait. Ownership is taken
+ * from the gate *before* waiting, so any manual coordinate, place selection, map pick, cancel or
+ * closing the editor (all of which invalidate the gate) also retires a search that is still waiting:
+ * it then never starts a request, shows progress, or writes results/errors.
+ */
+object PassengerAddressLookup {
+  const val DEBOUNCE_MS = 400L
+
+  /** Returns true only when this run published a result or an error. */
+  suspend fun <T> debounced(
+    gate: PassengerLookupGate,
+    stillWanted: () -> Boolean,
+    wait: suspend () -> Unit,
+    begin: () -> Unit,
+    fetch: suspend () -> T,
+    publish: (T) -> Unit,
+    fail: (Exception) -> Unit,
+    end: () -> Unit,
+  ): Boolean {
+    val token = gate.next()
+    wait()
+    if (!gate.isCurrent(token) || !stillWanted()) return false
+    begin()
+    try {
+      val found = fetch()
+      if (!gate.isCurrent(token) || !stillWanted()) return false
+      publish(found)
+      return true
+    } catch (e: kotlin.coroutines.cancellation.CancellationException) {
+      throw e
+    } catch (e: Exception) {
+      if (!gate.isCurrent(token) || !stillWanted()) return false
+      fail(e)
+      return true
+    } finally {
+      if (gate.isCurrent(token)) end()
+    }
+  }
+}
+
+/**
  * Ownership for address lookups in one editor: text search, map reverse lookup and every manual
  * change share it, so only the newest request may write results, errors or progress.
  */

@@ -75,15 +75,20 @@ fun PassengerAnnouncements(state: JSONObject, store: PassengerStore, logged: Boo
   val candidates=state.optJSONObject("operations")?.rows("announcements").orEmpty()
   val candidate=candidates.firstOrNull()
   val candidateKey=candidate?.let { it.text("id")+":"+it.optInt("version") }.orEmpty()
-  // Waits (without claiming) while another dialog/full page is open, so the once-per-version claim is never spent on a hidden popup.
-  val slot=PassengerModalSlot(claiming||showing!=null||(failed&&candidate!=null))
+  // A claim waits while anything else is open. Once claimed, the announcement is held in `showing`
+  // (per account) until the passenger closes it; it is only drawn while no passenger-opened dialog or
+  // page is open, so a modal opened while the claim was in flight is never covered, and the held copy
+  // is neither dropped nor claimed again. The slot never depends on the coordinator, so no loop.
+  val slot=PassengerModalSlot(claiming||showing!=null||(failed&&candidate!=null), PassengerModalCoordinator.RANK_ANNOUNCEMENT)
   val blocked=PassengerModalCoordinator.othersOpen(slot)
+  val hidden=PassengerModalCoordinator.outranked(slot, PassengerModalCoordinator.RANK_ANNOUNCEMENT)
+  val ready=logged&&owner.isNotBlank()&&candidate!=null&&!busy
   LaunchedEffect(owner,logged,candidateKey,busy,showing,failed,pausedKey,blocked) {
-    if(logged&&owner.isNotBlank()&&candidate!=null&&!busy&&!claiming&&showing==null&&!failed&&candidateKey!=pausedKey&&!blocked) {
+    if(PassengerModalCoordinator.mayClaimAnnouncement(ready,claiming,showing!=null,failed,candidateKey==pausedKey,blocked)) {
       lifecycle.lifecycle.repeatOnLifecycle(Lifecycle.State.RESUMED) {
-        if(!claiming&&showing==null&&!failed&&candidateKey!=pausedKey&&!PassengerModalCoordinator.othersOpen(slot)) {
+        if(PassengerModalCoordinator.mayClaimAnnouncement(true,claiming,showing!=null,failed,candidateKey==pausedKey,PassengerModalCoordinator.othersOpen(slot))) {
           claiming=true
-          val captured=JSONObject(candidate.toString())
+          val captured=JSONObject(candidate!!.toString())
           store.claimAnnouncement(captured, onResult={ first ->
             claiming=false
             if(first) showing=captured
@@ -92,12 +97,12 @@ fun PassengerAnnouncements(state: JSONObject, store: PassengerStore, logged: Boo
       }
     }
   }
-  showing?.let { row ->
+  if(!hidden) showing?.let { row ->
     AlertDialog(onDismissRequest={showing=null},title={Text(row.text("title"))},
       text={Text(row.text("content"),modifier=Modifier.verticalScroll(rememberScrollState()))},
       confirmButton={TextButton(onClick={showing=null}){Text("知道了")}})
   }
-  if(failed&&candidate!=null) AlertDialog(onDismissRequest={failed=false;pausedKey=candidateKey},title={Text("公告暂未读取完成")},
+  if(!hidden&&failed&&candidate!=null) AlertDialog(onDismissRequest={failed=false;pausedKey=candidateKey},title={Text("公告暂未读取完成")},
     text={Text("请检查网络后重试。公告通过服务端回执去重，不会重复消耗展示次数。")},
     confirmButton={TextButton(onClick={failed=false;store.refresh()}){Text("重试")}},dismissButton={TextButton(onClick={failed=false;pausedKey=candidateKey}){Text("稍后")}})
 }

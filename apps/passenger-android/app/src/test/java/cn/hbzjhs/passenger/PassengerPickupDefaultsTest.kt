@@ -1,5 +1,6 @@
 package cn.hbzjhs.passenger
 
+import kotlinx.coroutines.runBlocking
 import org.junit.Assert.*
 import org.junit.Test
 
@@ -73,6 +74,69 @@ class PassengerPickupDefaultsTest {
     assertEquals(f, PickupFix.parse(f.token()))
     assertNull(PickupFix.parse(""))
     assertNull(PickupFix.parse("1,2,x,4"))
+  }
+
+  /** Runs the real debounced flow; [duringWait]/[duringFetch] simulate passenger actions at those moments. */
+  private class Run(val gate: PassengerLookupGate = PassengerLookupGate()) {
+    val log = mutableListOf<String>()
+    var wanted = true
+    fun go(duringWait: () -> Unit = {}, duringFetch: () -> Unit = {}, failWith: Exception? = null): Boolean = runBlocking {
+      PassengerAddressLookup.debounced(
+        gate,
+        stillWanted = { wanted },
+        wait = { log += "wait"; duringWait() },
+        begin = { log += "begin" },
+        fetch = { log += "fetch"; duringFetch(); failWith?.let { throw it }; listOf("A") },
+        publish = { log += "publish" },
+        fail = { log += "fail" },
+        end = { log += "end" },
+      )
+    }
+  }
+
+  @Test
+  fun waitingSearchIsRetiredByManualActionBeforeAnyRequest() {
+    // Manual coordinates / same-name favorite / map pick / cancel / close all call gate.invalidate().
+    val r = Run()
+    assertFalse(r.go(duringWait = { r.gate.invalidate() }))
+    assertEquals(listOf("wait"), r.log)
+  }
+
+  @Test
+  fun waitingSearchStopsWhenTextChanged() {
+    val r = Run()
+    assertFalse(r.go(duringWait = { r.wanted = false }))
+    assertEquals(listOf("wait"), r.log)
+  }
+
+  @Test
+  fun inFlightSearchCannotWriteAfterManualAction() {
+    val r = Run()
+    assertFalse(r.go(duringFetch = { r.gate.invalidate() }))
+    assertEquals(listOf("wait", "begin", "fetch"), r.log)
+    val f = Run()
+    assertFalse(f.go(duringFetch = { f.gate.invalidate() }, failWith = IllegalStateException("x")))
+    assertEquals(listOf("wait", "begin", "fetch"), f.log)
+  }
+
+  @Test
+  fun newerSearchTakesOverOlderOne() {
+    val r = Run()
+    // A newer run (e.g. retry) takes the gate while the older one waits.
+    assertFalse(r.go(duringWait = { r.gate.next() }))
+    assertEquals(listOf("wait"), r.log)
+  }
+
+  @Test
+  fun sameQueryRetryWorksAfterFailureOrCancel() {
+    val gate = PassengerLookupGate()
+    val failed = Run(gate)
+    assertTrue(failed.go(failWith = IllegalStateException("offline")))
+    assertEquals(listOf("wait", "begin", "fetch", "fail", "end"), failed.log)
+    gate.invalidate() // cancel
+    val retry = Run(gate)
+    assertTrue(retry.go())
+    assertEquals(listOf("wait", "begin", "fetch", "publish", "end"), retry.log)
   }
 
   @Test

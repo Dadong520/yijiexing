@@ -117,8 +117,8 @@ fun PassengerApp(
   var selected by rememberSaveable { mutableStateOf("") }
   var settings by remember { mutableStateOf(false) }
   var showPermissionGuide by rememberSaveable { mutableStateOf(false) }
+  // The guide registers its own modal slot from its real show condition (forced or first run).
   PassengerPermissions(showPermissionGuide) { showPermissionGuide = false }
-  PassengerModalSlot(showPermissionGuide)
   PassengerModalSlot(settings)
   PassengerTripLocationReporter(state, logged, store)
   val lifecycle = LocalLifecycleOwner.current

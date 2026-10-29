@@ -112,7 +112,7 @@ private fun AccountConfirmPrompts(
   val prompts = state.rows("orders").mapNotNull { it.confirmPrompt(account, now) }
   val prompt = PassengerConfirmPromptRules.pick(prompts, { it.key }, { it.orderId }, { it.consent != null }, settled.toSet(), openOrderId)
   // A pending prompt holds its slot so an announcement does not claim underneath it.
-  val slot = PassengerModalSlot(prompt != null)
+  val slot = PassengerModalSlot(prompt != null, PassengerModalCoordinator.RANK_PROMPT)
   // PassengerStore.run sets busy synchronously before launching and clears it in finally, after
   // done(). So once busy is false again, a request that never reached done() (network/server
   // error, session switch) failed; keep the popup and show why so it can be retried.

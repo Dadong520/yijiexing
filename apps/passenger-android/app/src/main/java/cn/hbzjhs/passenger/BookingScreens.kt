@@ -633,22 +633,22 @@ fun AddressDialog(
     LaunchedEffect(typedQuery, searchCity, retryTick) {
       val query=typedQuery
       if (query.length < 2 || name.trim()!=query) return@LaunchedEffect
-      delay(400)
-      if (name.trim()!=query || typedQuery!=query) return@LaunchedEffect
-      // Takes ownership: an earlier map lookup or search can no longer write results, errors or progress.
-      cancelSearch()
-      val token=gate.next()
-      error=""; searching=true
-      try {
-        val found=searchSystemAddresses(context, query, searchCity)
-        if (gate.isCurrent(token) && name.trim()==query) {
+      val city=searchCity
+      // Ownership is taken before the 400ms wait: manual coordinates, any selection (even one with the
+      // same name), map pick, cancel or closing invalidate the gate and retire this run while it waits.
+      PassengerAddressLookup.debounced(
+        gate,
+        stillWanted = { name.trim()==query && typedQuery==query },
+        wait = { delay(PassengerAddressLookup.DEBOUNCE_MS) },
+        begin = { searchJob?.cancel(); searchJob=null; error=""; results=emptyList(); searching=true },
+        fetch = { searchSystemAddresses(context, query, city) },
+        publish = { found ->
           results=found
           if (found.isEmpty()) error="未找到地址，请补充城市和详细名称，或选择常用地点/手动坐标。"
-        }
-      } catch (e: CancellationException) { throw e }
-      catch (e: Exception) {
-        if (gate.isCurrent(token) && name.trim()==query) error=e.message ?: "地址搜索暂不可用，请重试或在地图选点。"
-      } finally { if (gate.isCurrent(token)) searching=false }
+        },
+        fail = { e -> error=e.message ?: "地址搜索暂不可用，请重试或在地图选点。" },
+        end = { searching=false },
+      )
     }
     if (!searching && results.isEmpty() && name.isNotBlank() && (lat.isBlank() || lng.isBlank()) && error.isBlank())
       Note(if (name.trim().length < 2) "再输入几个字即可自动搜索" else if (typedQuery.isBlank()) "已取消搜索，可重新搜索或改用常用、地图、手动地点" else "请从搜索结果中选择具体地点")

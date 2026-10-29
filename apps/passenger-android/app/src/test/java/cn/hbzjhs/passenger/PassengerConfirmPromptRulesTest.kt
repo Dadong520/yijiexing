@@ -105,6 +105,40 @@ class PassengerConfirmPromptRulesTest {
   }
 
   @Test
+  fun heldAnnouncementWaitsForNewPageWithoutDeadlockingPrompt() {
+    val page = Any()
+    val announcement = Any()
+    val prompt = Any()
+    val c = PassengerModalCoordinator
+    // Claim was in flight, then the passenger opened the address page: the held announcement hides.
+    c.mark(announcement, true, c.RANK_ANNOUNCEMENT)
+    c.mark(page, true, c.RANK_PAGE)
+    assertTrue(c.outranked(announcement, c.RANK_ANNOUNCEMENT))
+    c.mark(prompt, true, c.RANK_PROMPT)
+    // Its own slot and a lower-ranked prompt never hide it; the prompt waits for both.
+    c.mark(page, false)
+    assertFalse(c.outranked(announcement, c.RANK_ANNOUNCEMENT))
+    assertTrue(c.othersOpen(prompt))
+    // Announcement closed: the prompt shows.
+    c.mark(announcement, false)
+    assertFalse(c.othersOpen(prompt))
+    c.mark(prompt, false)
+  }
+
+  @Test
+  fun announcementIsClaimedOnceAndNeverUnderAnotherModal() {
+    val c = PassengerModalCoordinator
+    assertTrue(c.mayClaimAnnouncement(ready = true, claiming = false, held = false, failed = false, paused = false, othersOpen = false))
+    assertFalse(c.mayClaimAnnouncement(true, claiming = true, held = false, failed = false, paused = false, othersOpen = false))
+    // Already claimed and held (e.g. hidden by a page): no second claim.
+    assertFalse(c.mayClaimAnnouncement(true, false, held = true, failed = false, paused = false, othersOpen = false))
+    assertFalse(c.mayClaimAnnouncement(true, false, false, failed = true, paused = false, othersOpen = false))
+    assertFalse(c.mayClaimAnnouncement(true, false, false, false, paused = true, othersOpen = false))
+    assertFalse(c.mayClaimAnnouncement(true, false, false, false, false, othersOpen = true))
+    assertFalse(c.mayClaimAnnouncement(ready = false, claiming = false, held = false, failed = false, paused = false, othersOpen = false))
+  }
+
+  @Test
   fun keysAreScopedByAccountAndOrder() {
     assertNotEquals(PassengerConfirmPromptRules.key("p1", "A", "pay"), PassengerConfirmPromptRules.key("p2", "A", "pay"))
     assertNotEquals(PassengerConfirmPromptRules.key("p1", "A", "pay"), PassengerConfirmPromptRules.key("p1", "B", "pay"))
