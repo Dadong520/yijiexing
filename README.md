@@ -10,7 +10,17 @@
 - 活跃任务：[BOARD](coordination/BOARD.json)；长期决定：[DECISIONS](coordination/DECISIONS.md)；角色细节：handoffs；契约：contracts。
 - 恢复与提交检查：`python3 tools/check_coordination.py --memory-role <role> --session-id <真实会话ID>`；检查器不测量模型内部上下文，不等于业务验收。
 
-## 本轮UI交互优化（已发布）
+## 本轮导航、定位和确认交互（版本20已发布）
+
+[PR41](https://github.com/Dadong520/yijiexing/pull/41)已合并并实际发布，产品源6ab66bdcd20b43dfd314917881342dcdcc165a9e，合并SHA3fdd19cb5bcb89ef19999e9fd7c2dac7571323f8。乘客1.1.18-experience/code20、司机0.3.17-cloud/code20，原包名/原签名支持覆盖安装。Claude Code负责实现与修复，Codex独立完成业务、原生及发布数据复核。
+
+司机在真实进入接驾或行程阶段后自动打开现有外部导航，保留手动入口；乘客确认按账号/订单/请求隔离，失败能重试、点击时重验状态与有效期。定位默认起点尊重权限与手动选择，地址400ms搜索可取消并重试；公告/权限引导/内外确认框按优先级显示。司机身份栏位于地图上方，钱包列表默认3条可展开。
+
+独立验收包括791基线7组/65原生截图，以及最终两条说明文字的6ab差量重建/2页面截图；原65图片保留原SHA。54/77项已实际执行的单测按源码对象一致或明确文案差异复用，不冒称重跑。两个公开HTTPS整包的大小、哈希、版本和原签名匹配独立验收包。44笔旧订单全保留：43笔全字段一致，1笔仅正常并发定位及更新时间变化，经独立定位回执/时间/源路径核验；严格全字段相等的初始FAIL保留，未覆盖新数据。API/admin完整配置、IAM、revision、traffic不变，仅固定GCS安装包提升，automatic/min0/max1/请求计费保持。
+
+本地联测使用合成订单、mockGPS和实际Android Intent接收器；真实高德/逆地理成功、真实地图应用/OEM及真实资金未验。公告既有先领取后显示机制仍不能保证跨账号/进程重启后的持久补弹。见[实际完整发布回执](coordination/evidence/NAV-20261029-01/release/FINAL-RELEASE-RECEIPT.json)、[原生验收](coordination/evidence/NAVF-20261029-01/FINAL_REVIEW.json)、[文案差量](coordination/evidence/NAVF-20261029-01/COPY_DELTA_REVIEW.json)与[并发定位复核](coordination/evidence/NAVD-20261030-01/REVIEW.json)。
+
+## 上一轮UI交互优化（历史发布）
 
 [PR39](https://github.com/Dadong520/yijiexing/pull/39)已合并并发布，产品源137e41534f823c538fe62ff10820f491e0e55074，合并SHA a720d76e9f822dcfc860c4f324993c18f3c7b6e0。乘客1.1.17-experience/code19、司机0.3.16-cloud/code19，原包名/原体验签名。Claude Code完成主要实现，Codex分别做原生与业务语义独立审查。
 
@@ -36,8 +46,8 @@ Claude Code已真实接入并完成主力实现，Gemini按用户决定暂时停
 
 | 项目 | 已发布与核验 | 入口 |
 |---|---|---|
-| 司机Android | 0.3.16-cloud / code19，原签名 | [司机快速入口](https://user-test---driver-demo-phfgquzmua-uw.a.run.app/download) |
-| 乘客Android | 1.1.17-experience / code19，原签名 | [乘客快速入口](https://user-test---driver-demo-phfgquzmua-uw.a.run.app/download-passenger) |
+| 司机Android | 0.3.17-cloud / code20，原签名 | [司机快速入口](https://user-test---driver-demo-phfgquzmua-uw.a.run.app/download) |
+| 乘客Android | 1.1.18-experience / code20，原签名 | [乘客快速入口](https://user-test---driver-demo-phfgquzmua-uw.a.run.app/download-passenger) |
 | Web后台 | 继续使用原账号密码 | https://demo-admin.hbzjhs.xyz/ |
 | 体验API | 同一持久数据与HTTPS域名 | https://yijiexing-demo.hbzjhs.xyz |
 | 微信小程序 | 源码74测试通过；缺AppID，未微信编译/真机/发布 | candidates/passenger-miniprogram-0.1.0/miniprogram |

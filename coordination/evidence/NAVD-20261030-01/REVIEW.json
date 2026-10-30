@@ -1,0 +1,76 @@
+{
+  "taskId": "NAVD-20261030-01",
+  "reviewerThreadId": "01a182c6-c058-76e1-9584-38abfe813799",
+  "reviewedAt": "2026-10-30T09:55:24+08:00",
+  "acceptance": "PASS",
+  "result": "PASS_WITH_CONCURRENT_LOCATION_BOUNDARY",
+  "mergedSha": "3fdd19cb5bcb89ef19999e9fd7c2dac7571323f8",
+  "acceptedProductSha": "6ab66bdcd20b43dfd314917881342dcdcc165a9e",
+  "sourceHeadObserved": "790d19e9da372064ae49aa14a12d67880830371f",
+  "method": "SQLite URI mode=ro; quick_check; all passenger_orders stored columns compared by primary-key set, payload recursively; private JSON metadata hash/size checks; no values/identifiers exported",
+  "snapshots": {
+    "beforeOrderCount": 44,
+    "afterOrderCount": 44,
+    "missing": 0,
+    "new": 0,
+    "unchangedRows": 43,
+    "changedRows": 1,
+    "changedColumns": [
+      "payload"
+    ],
+    "changedJsonPaths": [
+      "payload.updatedAt",
+      "payload.passengerLocation.latitude",
+      "payload.passengerLocation.longitude",
+      "payload.passengerLocation.deviceTime",
+      "payload.passengerLocation.receivedAt"
+    ],
+    "otherStoredColumnsAndJsonFieldsExactEqual": true,
+    "strictAllFieldsEqual": false,
+    "quickCheckBoth": "ok",
+    "metadataSizeMd5BothMatch": true,
+    "afterSha256MatchesResponseMetadata": true
+  },
+  "concurrencyEvidence": {
+    "locationReceivedTimeIncreases": true,
+    "locationDeviceTimeIncreases": true,
+    "receivedBetweenBeforeAfterObjectGenerationTimes": true,
+    "payloadUpdatedAtNotBeforeReceivedAt": true,
+    "sampleAgeAtReceiptWithinMinus30To120Seconds": true,
+    "locationSource": "DEVICE_GPS",
+    "coordinateSystem": "WGS84",
+    "gpsAttested": false,
+    "newPassengerActionReceipts": 4,
+    "exactNewLocationResultReceiptsForChangedPassenger": 1,
+    "newAuditRows": 0
+  },
+  "sourceBinding": {
+    "trip_distance.py": "passenger_report_location validates owned active order, parses WGS84 device location then sets passengerLocation and save_shared",
+    "passenger.py:save_shared": "assigns updatedAt and writes passenger_orders driver/payload; optional event not appended when location reporter calls without event",
+    "passenger.py:410": "Explicitly excludes location.report from normal audit rows; result stored in passenger_actions request receipt",
+    "PassengerStore.kt:reportLocation": "Existing authenticated per-account report loop uses session/token/current-order guards and sends location.report; no release caller required to produce update"
+  },
+  "assessment": "Exact five-field delta, chronology, unchanged business state and matching new private action receipt support concurrent passenger location report through existing backend path. No evidence of release-induced business loss/mutation in the 44-order scope.",
+  "boundary": [
+    "Do not claim44 orders all fields unchanged: strict comparison failed on one row and remains historically FAIL.",
+    "Receipt proves stored accepted location report consistent with code path; gpsAttested=false means no physical GPS authenticity or human-operator identity proof. No server raw HTTP identity audit examined.",
+    "Comparison scope is passenger_orders full stored fields, not a claim that entire database/all other tables are unchanged.",
+    "Coordinator cloud POST0 and runtime unchanged are release-owner evidence, not independently measured by this read-only offline audit.",
+    "Do not restore older DB or overwrite legitimate newer location data."
+  ],
+  "initialStrictFailure": {
+    "path": "coordination/evidence/NAV-20261029-01/release/data-after-initial-failure.json",
+    "sha256": "8dd85abecd62773c98fa157ff145f084debeb5937a18e51f23818671389a2409",
+    "preserved": true,
+    "status": "FAIL_CHANGED_ROWS"
+  },
+  "tests": [
+    {
+      "command": "Private readonly SQLite quick_check/full44-row recursive diff + metadata size/MD5/SHA binding + chronology/action-receipt correlation",
+      "exitCode": 0,
+      "result": "PASS_WITH_CONCURRENT_LOCATION_BOUNDARY; strict all-field equality false retained"
+    }
+  ],
+  "mutations": "Only own NAVD task/evidence/backend card; no DB/source/cloud changes or POST",
+  "nextAction": "Root publish truthful final receipt with concurrent location exception; backend IDLE"
+}

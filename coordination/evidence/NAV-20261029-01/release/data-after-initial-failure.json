@@ -1,0 +1,22 @@
+{
+  "at": "2026-10-30T01:52:54.755806+00:00",
+  "strictComparison": "FAIL_CHANGED_ROWS",
+  "beforeOrders": 44,
+  "afterOrders": 44,
+  "missingOldOrders": 0,
+  "changedOldOrders": 1,
+  "newOrders": 0,
+  "changedColumns": {
+    "payload": 1
+  },
+  "changedJsonPaths": {
+    "payload.updatedAt": 1,
+    "payload.passengerLocation.latitude": 1,
+    "payload.passengerLocation.longitude": 1,
+    "payload.passengerLocation.deviceTime": 1,
+    "payload.passengerLocation.receivedAt": 1
+  },
+  "nonSensitiveEnums": [],
+  "source": "Private atomic before and initial after snapshots; no values/ids exported",
+  "cloudBusinessPostsByCoordinator": 0
+}

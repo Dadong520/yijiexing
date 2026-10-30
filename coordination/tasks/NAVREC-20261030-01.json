@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "id": "NAVREC-20261030-01",
+  "owner": "coordinator",
+  "goal": "入库NAV版本20真实发布回执、并发定位审计和README入口，不重建或重新发布",
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-cloud-navigation-review-20261029",
+  "branch": "codex/nav-release-receipt-20261030",
+  "baseSha": "3fdd19cb5bcb89ef19999e9fd7c2dac7571323f8",
+  "allow_paths": [
+    "README.md",
+    "coordination/"
+  ],
+  "checks": [
+    "Actual final receipt only; APK20 full HTTPS/signature/hash PASS;44 preserved with1audited location change, strict initialFAIL retained",
+    "No product code or runtime mutations; selected central snapshots and scoped evidence only",
+    "Coordination checker then exact head CI/PR merge; record self-referential finalmerge only centrally"
+  ],
+  "status": "IN_PROGRESS",
+  "acceptance": "NOT_RUN",
+  "tests": [],
+  "evidence": [
+    "coordination/evidence/NAV-20261029-01/release/FINAL-RELEASE-RECEIPT.json",
+    "coordination/evidence/NAVD-20261030-01/REVIEW.json"
+  ],
+  "nextAction": "Commit actual receipt+README, PR/CI/merge then central final checkpoint",
+  "pendingMergeSha": null,
+  "deploy_owner": "coordinator",
+  "releaseReady": false,
+  "updatedAt": "2026-10-30T01:57:12.359782+00:00"
+}

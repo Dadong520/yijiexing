@@ -1,0 +1,32 @@
+{
+  "source": "Atomic current authoritative GCS media response; metadata MD5/SHA bound; independent read-only concurrency audit",
+  "generation": "1793325101297219",
+  "bytes": 7774208,
+  "sha256": "36e6f03147f211cdee20a25aad922fed44087665e9553adc6887f1db8760bcc0",
+  "integrity": "ok",
+  "beforeOrderCount": 44,
+  "afterOrderCount": 44,
+  "oldOrdersMissing": 0,
+  "oldOrdersFieldsChanged": 1,
+  "oldOrdersUnchanged": 43,
+  "oldOrderNonLocationFieldsChanged": 0,
+  "newOrders": 0,
+  "concurrentLocationUpdatedOrders": 1,
+  "strictAllFieldsEqual": false,
+  "strictComparisonStatus": "FAIL_CHANGED_ROWS_PRESERVED",
+  "preservationStatus": "PASS_WITH_CONCURRENT_LOCATION_BOUNDARY",
+  "changedJsonPaths": [
+    "payload.updatedAt",
+    "payload.passengerLocation.latitude",
+    "payload.passengerLocation.longitude",
+    "payload.passengerLocation.deviceTime",
+    "payload.passengerLocation.receivedAt"
+  ],
+  "independentReview": "coordination/evidence/NAVD-20261030-01/REVIEW.json",
+  "concurrentLocationReceiptMatch": true,
+  "gpsAuthenticityAttested": false,
+  "cloudBusinessPostsByCoordinator": 0,
+  "backupAndReadbackOutsideRepository0600": true,
+  "noDatabaseRestorationOrOverwrite": true,
+  "PASS": true
+}

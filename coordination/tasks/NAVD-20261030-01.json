@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "id": "NAVD-20261030-01",
+  "owner": "backend",
+  "goal": "独立核对NAV发布前后44旧单的一笔定位并发刷新，区分合法更新与数据破坏，禁止覆盖当前数据",
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-cloud-navigation-review-20261029",
+  "branch": "codex/cloud-navigation-review-20261029",
+  "baseSha": "3fdd19cb5bcb89ef19999e9fd7c2dac7571323f8",
+  "candidateSha": "6ab66bdcd20b43dfd314917881342dcdcc165a9e",
+  "allow_paths": [
+    "coordination/tasks/NAVD-20261030-01.json",
+    "coordination/handoffs/backend.md",
+    "coordination/evidence/NAVD-20261030-01/"
+  ],
+  "checks": [
+    "Private before/after44 rows equality; changed order only GPS/updatedAt, every other stored field/order exact",
+    "Original backend passenger.location write path and audit source/time evidence, no business POST by release",
+    "No user data/tokens/coordinates/ids in committed evidence, no DB/API/runtime mutations; source read-only"
+  ],
+  "status": "REVIEW_PASS_WITH_CONCURRENT_LOCATION_BOUNDARY_IDLE",
+  "acceptance": "PASS",
+  "tests": [
+    {
+      "command": "Private readonly SQLite quick_check/full44-row recursive diff + metadata size/MD5/SHA binding + chronology/action-receipt correlation",
+      "exitCode": 0,
+      "result": "PASS_WITH_CONCURRENT_LOCATION_BOUNDARY; strict all-field equality false retained"
+    }
+  ],
+  "evidence": [
+    "coordination/evidence/NAVD-20261030-01/REVIEW.json"
+  ],
+  "nextAction": "Root publish truthful final receipt with concurrent location exception; backend IDLE",
+  "pendingMergeSha": null,
+  "deploy_owner": "coordinator",
+  "releaseReady": false,
+  "privateReadOnlyPaths": [
+    "/Users/dongge/.codex/private/yijiexing/nav20-predeploy.sqlite",
+    "/Users/dongge/.codex/private/yijiexing/nav20-after.sqlite",
+    "/Users/dongge/.codex/private/yijiexing/nav20-predeploy-metadata.json",
+    "/Users/dongge/.codex/private/yijiexing/nav20-after-response-metadata.json"
+  ],
+  "updatedAt": "2026-10-30T09:55:24+08:00"
+}

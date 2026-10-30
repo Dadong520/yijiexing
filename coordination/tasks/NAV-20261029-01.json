@@ -41,7 +41,7 @@
     "No merge or publication until non-author business/native acceptance and exact source evidence",
     "Preserve original cloud data/identity/runtime boundaries; no real payments, inferred consent, or silent destination selection"
   ],
-  "status": "ACCEPTED_AWAIT_INTEGRATION_CI",
+  "status": "RELEASED_READBACK_PASS_PENDING_RECEIPT_SYNC",
   "acceptance": "PASS",
   "tests": [
     {
@@ -76,22 +76,22 @@
     "coordination/evidence/NAVF-20261029-01/CLEANUP.json",
     "coordination/evidence/NAV-20261029-01/ROOT_FINAL_ACCEPTANCE.json"
   ],
-  "nextAction": "Sync final evidence, exact integration head CI then merge, fixed APK release/readback",
-  "pendingMergeSha": "6ab66bdcd20b43dfd314917881342dcdcc165a9e",
+  "nextAction": "NAVREC commit actual release receipt/README; no remaining product deploy",
+  "pendingMergeSha": null,
   "deploy_owner": "coordinator",
-  "releaseReady": false,
-  "updatedAt": "2026-10-30T01:45:14.374178+00:00",
+  "releaseReady": true,
+  "updatedAt": "2026-10-30T01:57:12.359782+00:00",
   "fileOwnership": "Claude: presentation/coordinate/navigation helpers+tests only; coordinator exclusively coordination and build.gradle version constants. No Store/backend/domain/manifest/NavigationContract/permissions/key changes. Claude may update only its own central short card; no other control files.",
   "sessionId": "c3342ddb-6fe0-44b6-8311-00c329e73178",
   "model": "claude-opus-5-5",
   "effort": "medium",
   "sourceBuildAcceptance": "PASS",
   "nativeAcceptance": "PASS",
-  "integrationHeadSha": "7911a6fb13804cb4ae242995de4af60a0b189c34",
+  "integrationHeadSha": "790d19e9da372064ae49aa14a12d67880830371f",
   "pullRequest": "https://github.com/Dadong520/yijiexing/pull/41",
   "ci": {
-    "headSha": "097b1a6070d0022de5e30eff762c3b2b4063ad36",
-    "runId": 40891230967,
+    "headSha": "790d19e9da372064ae49aa14a12d67880830371f",
+    "runId": 40987754723,
     "conclusion": "success"
   },
   "nativePermission": {
@@ -100,5 +100,9 @@
     "scope": "NAV current batch isolated emulator install/click/screenshots with Android official debugging tools; no personal phone",
     "receivedAt": "2026-10-30T01:02:19.952378+00:00"
   },
-  "logicSourceSha": "f7c9cee87e7c709b09f49e0d069b355c5cdfcf13"
+  "logicSourceSha": "f7c9cee87e7c709b09f49e0d069b355c5cdfcf13",
+  "mergeSha": "3fdd19cb5bcb89ef19999e9fd7c2dac7571323f8",
+  "publishedVersionCode": 20,
+  "releaseReceipt": "coordination/evidence/NAV-20261029-01/release/FINAL-RELEASE-RECEIPT.json",
+  "dataPreservation": "PASS_WITH_CONCURRENT_LOCATION_BOUNDARY"
 }
