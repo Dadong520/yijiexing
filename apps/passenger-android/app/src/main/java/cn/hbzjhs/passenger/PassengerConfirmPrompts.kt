@@ -1,14 +1,8 @@
 package cn.hbzjhs.passenger
 
-import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import java.time.Instant
 import kotlinx.coroutines.delay
 import org.json.JSONObject
@@ -68,6 +62,20 @@ private fun JSONObject.confirmPrompt(account: String, now: Instant): ConfirmProm
   }
 }
 
+/** An unpaid finished trip blocks drivers from accepting or starting another trip of this passenger. */
+private fun List<JSONObject>.arrearsPrompt(account: String): ConfirmPrompt? {
+  val unpaid = firstOrNull { it.text("stage") == "WAIT_PAY" && !it.optBoolean("paid") } ?: return null
+  val blocked = firstOrNull { it.text("id") != unpaid.text("id") && it.text("stage") in listOf("AVAILABLE", "RESERVED", "PICKUP") } ?: return null
+  return ConfirmPrompt(
+    // Same identity as the WAIT_PAY "pay" question of this order.
+    PassengerConfirmPromptRules.key(account, unpaid.text("id"), "pay"),
+    unpaid.text("id"),
+    "请先支付上一笔行程",
+    "您有一笔已结束的行程尚未支付（¥${money(unpaid.optLong("fare"))}），支付前司机无法接单或出发接驾。",
+    "去支付",
+  )
+}
+
 /**
  * App-wide popup for orders that wait on the passenger. Each account/order/question is shown once;
  * "稍后" settles only the current one and keeps it reachable on the order page. Questions about the
@@ -109,7 +117,17 @@ private fun AccountConfirmPrompts(
   fun settle(key: String) {
     settledText = PassengerConfirmPromptRules.settle(settled, key).joinToString("\n")
   }
-  val prompts = state.rows("orders").mapNotNull { it.confirmPrompt(account, now) }
+  val orders = state.rows("orders")
+  val own = orders.mapNotNull { it.confirmPrompt(account, now) }
+  // The arrears reminder is the unpaid order's own "pay" question with more context: it takes over that
+  // prompt's text in place (same key, same position), so "稍后" settles the bill once and nothing moves
+  // ahead of other questions. Without such a prompt it is appended last. It only opens the order.
+  val arrears = orders.arrearsPrompt(account)
+  val prompts = when {
+    arrears == null -> own
+    own.any { it.key == arrears.key } -> own.map { if (it.key == arrears.key) arrears else it }
+    else -> own + arrears
+  }
   val prompt = PassengerConfirmPromptRules.pick(prompts, { it.key }, { it.orderId }, { it.consent != null }, settled.toSet(), openOrderId)
   // A pending prompt holds its slot so an announcement does not claim underneath it.
   val slot = PassengerModalSlot(prompt != null, PassengerModalCoordinator.RANK_PROMPT)
@@ -165,44 +183,28 @@ private fun AccountConfirmPrompts(
     }
   }
   val inFlight = submitting == prompt.key
-  AlertDialog(
-    onDismissRequest = { if (!inFlight) settle(prompt.key) },
-    title = { Text(prompt.title, fontWeight = FontWeight.Bold) },
-    text = {
-      Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-        Text(prompt.message, fontSize = 15.sp, lineHeight = 22.sp, color = Ink)
-        if (problem.isNotBlank()) Text(problem, fontSize = 14.sp, lineHeight = 20.sp, color = Danger)
+  // Unified popup look; the RANK_PROMPT slot above already holds the coordinator, so no page slot.
+  PassengerModal(
+    title = prompt.title,
+    // "稍后" only puts this one question aside and never answers it.
+    onDismiss = { if (!inFlight) settle(prompt.key) },
+    confirmLabel = if (inFlight) "提交中…" else prompt.primary,
+    confirmEnabled = !busy && !inFlight,
+    onConfirm = {
+      if (prompt.consent != null) answer(true)
+      else {
+        settle(prompt.key)
+        openOrder(prompt.orderId)
       }
     },
-    confirmButton = {
-      Button(
-        enabled = !busy && !inFlight,
-        shape = RoundedCornerShape(12.dp),
-        colors = ButtonDefaults.buttonColors(containerColor = Teal, contentColor = Color.White),
-        onClick = {
-          if (prompt.consent != null) answer(true)
-          else {
-            settle(prompt.key)
-            openOrder(prompt.orderId)
-          }
-        },
-      ) {
-        Text(if (inFlight) "提交中…" else prompt.primary, fontWeight = FontWeight.SemiBold)
-      }
-    },
-    dismissButton = {
-      Row(horizontalArrangement = Arrangement.spacedBy(4.dp)) {
-        // "稍后" only puts this one question aside and never answers it.
-        TextButton(enabled = !inFlight, onClick = { settle(prompt.key) }) { Text("稍后", color = Muted) }
-        if (prompt.consent != null)
-          OutlinedButton(
-            enabled = !busy && !inFlight,
-            shape = RoundedCornerShape(12.dp),
-            onClick = { answer(false) },
-          ) {
-            Text("拒绝", color = Danger)
-          }
-      }
-    },
-  )
+    dismissLabel = "稍后",
+    extraLabel = if (prompt.consent != null) "拒绝" else null,
+    onExtra = { if (!busy && !inFlight) answer(false) },
+    holdPageSlot = false,
+    dismissEnabled = !inFlight,
+    extraEnabled = !busy && !inFlight,
+  ) {
+    Text(prompt.message, color = Muted)
+    if (problem.isNotBlank()) Text(problem, color = Danger)
+  }
 }

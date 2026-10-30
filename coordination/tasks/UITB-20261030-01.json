@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-ui-feedback-20261030",
+  "branch": "codex/ui-feedback-20261030",
+  "baseSha": "362c7f861a5063631c6da9ba198e04bc131402e4",
+  "cloudCandidateSha": "9495caa54e8b8581bba4d82c3fbac04701252418",
+  "updatedAt": "2026-10-30T20:40:10+08:00",
+  "acceptance": "FAIL",
+  "tests": [
+    {
+      "command": "Read-only exact9495caa parent55d2 diff and main362c7f8 qualification/guard comparison",
+      "exitCode": 0,
+      "result": "Cloud source findings returned; integrated final NOT_RUN"
+    }
+  ],
+  "pendingMergeSha": null,
+  "deploy_owner": "coordinator",
+  "releaseReady": false,
+  "id": "UITB-20261030-01",
+  "owner": "backend",
+  "goal": "非作者审查24项界面差量和集成后的订单/欠款/证件/确认/定位业务回归",
+  "allow_paths": [
+    "coordination/tasks/UI30B-20261030-01.json",
+    "coordination/handoffs/backend.md",
+    "coordination/evidence/UI30B-20261030-01/"
+  ],
+  "checks": [
+    "Read-only source review cloud commit vs parent and main; actionable findings only",
+    "Review pending qualification valid/expired distinction; no hiding expired gates",
+    "Debt prompt visibility/modal priority/account-isolation, cancel/pay action guards",
+    "No new automatic charge/confirm or personal data exposure",
+    "Canonical taskID UITB-20261030-01; initial dispatch alias UI30B-20261030-01 retained temporarily for running author/readers; same task, not separate work"
+  ],
+  "status": "CLOUD_FINDINGS_WAIT_INTEGRATED_FREEZE",
+  "evidence": [
+    "coordination/evidence/UI30B-20261030-01/REVIEW_CLOUD.json"
+  ],
+  "nextAction": "Root/Claude integrate minimal fixes while preserving NAV20; root supplies clean exact integrated frozen SHA for final independent review",
+  "legacyDispatchAlias": "UI30B-20261030-01"
+}

@@ -1,0 +1,29 @@
+{
+  "requestedEffort": "high",
+  "officialCli": "2.1.304",
+  "phases": [
+    {
+      "phase": "phase1",
+      "sessionId": "93f99706-9822-4a37-b5a9-5369a6ac2364",
+      "model": "claude-opus-5-5",
+      "exitCode": 0,
+      "isError": false,
+      "permissionDenials": 0,
+      "durationMs": 289139,
+      "selfTests": "NOT_RUN"
+    },
+    {
+      "phase": "phase2",
+      "sessionId": "93f99706-9822-4a37-b5a9-5369a6ac2364",
+      "model": "claude-opus-5-5",
+      "exitCode": 0,
+      "isError": false,
+      "permissionDenials": 0,
+      "durationMs": 128727,
+      "selfTests": "NOT_RUN"
+    }
+  ],
+  "noBash": true,
+  "cloudSession": "session_012h8mv4pbHMAJGCJ8NNbTo9",
+  "cloudCommit": "9495caa54e8b8581bba4d82c3fbac04701252418"
+}

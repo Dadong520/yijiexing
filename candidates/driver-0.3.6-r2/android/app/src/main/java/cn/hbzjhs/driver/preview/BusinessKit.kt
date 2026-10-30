@@ -102,7 +102,7 @@ internal fun BusinessPage(
 ) {
     val loading by store.loading.collectAsState()
     val error by store.error.collectAsState()
-    ProvideTextStyle(MaterialTheme.typography.bodyLarge.copy(fontSize = 18.sp, lineHeight = 28.sp)) {
+    ProvideTextStyle(MaterialTheme.typography.bodyLarge.copy(fontSize = 15.sp, lineHeight = 22.sp)) {
         Column(
             Modifier.fillMaxSize()
                 .background(Page)
@@ -113,7 +113,7 @@ internal fun BusinessPage(
             LazyColumn(
                 Modifier.weight(1f).then(if (bottomBar == null) Modifier.imePadding() else Modifier),
                 contentPadding = PaddingValues(start = 18.dp, end = 18.dp, top = 8.dp, bottom = 36.dp),
-                verticalArrangement = Arrangement.spacedBy(14.dp),
+                verticalArrangement = Arrangement.spacedBy(12.dp),
             ) {
                 if (!error.isNullOrBlank())
                     item {
@@ -121,7 +121,7 @@ internal fun BusinessPage(
                             Text(
                                 error ?: "请求未成功",
                                 color = Danger,
-                                fontSize = 16.sp,
+                                fontSize = 15.sp,
                                 modifier = Modifier.padding(14.dp),
                             )
                         }
@@ -152,8 +152,8 @@ internal fun BusinessSubmitBar(
             Text(
                 it,
                 color = MaterialTheme.colorScheme.error,
-                fontSize = 16.sp,
-                lineHeight = 26.sp,
+                fontSize = 15.sp,
+                lineHeight = 22.sp,
                 modifier = Modifier.heightIn(max = 132.dp).verticalScroll(rememberScrollState()).padding(bottom = 9.dp),
             )
         }
@@ -162,7 +162,7 @@ internal fun BusinessSubmitBar(
 
 @Composable
 internal fun BusinessHint(text: String) {
-    Text(text, color = Muted, fontSize = 16.sp, lineHeight = 26.sp)
+    Text(text, color = Muted, fontSize = 13.sp, lineHeight = 22.sp)
 }
 
 @Composable
@@ -201,9 +201,9 @@ internal fun BusinessField(
     OutlinedTextField(
         value,
         onValue,
-        label = { Text(label, fontSize = 16.sp) },
+        label = { Text(label, fontSize = 15.sp) },
         modifier = modifier.fillMaxWidth().heightIn(min = 72.dp),
-        textStyle = MaterialTheme.typography.bodyLarge.copy(fontSize = 18.sp, lineHeight = 28.sp),
+        textStyle = MaterialTheme.typography.bodyLarge.copy(fontSize = 15.sp, lineHeight = 22.sp),
         enabled = enabled,
         isError = error != null,
         minLines = minLines,
@@ -220,7 +220,7 @@ internal fun BusinessField(
             ),
         visualTransformation =
             if (password) PasswordVisualTransformation() else VisualTransformation.None,
-        supportingText = { (error ?: help)?.let { Text(it, fontSize = 16.sp, lineHeight = 24.sp) } },
+        supportingText = { (error ?: help)?.let { Text(it, fontSize = 15.sp, lineHeight = 24.sp) } },
         colors = OutlinedTextFieldDefaults.colors(unfocusedBorderColor = Muted, unfocusedLabelColor = Muted),
         shape = RoundedCornerShape(12.dp),
     )
@@ -234,11 +234,11 @@ internal fun BusinessConfirm(
     onClose: () -> Unit,
     onConfirm: () -> Unit,
 ) {
-    AlertDialog(
+    DriverDialog(
         onDismissRequest = onClose,
-        title = { Text(title, fontWeight = FontWeight.Bold, fontSize = 24.sp) },
+        title = { Text(title, fontWeight = FontWeight.Bold, fontSize = 20.sp) },
         text = {
-            Text(text, fontSize = 18.sp, lineHeight = 28.sp,
+            Text(text, fontSize = 15.sp, lineHeight = 22.sp,
                 modifier = Modifier.heightIn(max = 420.dp).verticalScroll(rememberScrollState()))
         },
         confirmButton = { BusinessTextButton(onClick = onConfirm) { Text(confirm) } },
@@ -323,7 +323,7 @@ internal fun BusinessImageSelector(
                 }
         }
     Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-        Text(label, fontSize = 18.sp, fontWeight = FontWeight.Medium)
+        Text(label, fontSize = 15.sp, fontWeight = FontWeight.Medium)
         val bitmap = remember(image) { if (image.isBlank()) null else bBitmap(image) }
         if (bitmap != null) {
             Image(
@@ -339,7 +339,7 @@ internal fun BusinessImageSelector(
                     if (processing) "正在处理图片…" else "待选择图片",
                     modifier = Modifier.padding(20.dp),
                     color = Muted,
-                    fontSize = 16.sp,
+                    fontSize = 15.sp,
                 )
             }
         Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
@@ -393,7 +393,7 @@ internal fun BusinessImageSelector(
                 }
             }
         ) {
-            Text("使用带水印的沙箱样例", fontSize = 16.sp)
+            Text("使用带水印的沙箱样例", fontSize = 15.sp)
         }
     }
 }
@@ -435,16 +435,7 @@ internal fun BusinessTextButton(
     enabled: Boolean = true,
     content: @Composable RowScope.() -> Unit,
 ) {
-    TextButton(
-        onClick = onClick,
-        modifier = modifier.heightIn(min = 56.dp),
-        enabled = enabled,
-        contentPadding = PaddingValues(horizontal = 14.dp, vertical = 12.dp),
-    ) {
-        ProvideTextStyle(MaterialTheme.typography.labelLarge.copy(fontSize = 18.sp, lineHeight = 26.sp)) {
-            content()
-        }
-    }
+    DriverTextButton(onClick = onClick, modifier = modifier, enabled = enabled, content = content)
 }
 
 @Composable
@@ -454,15 +445,23 @@ internal fun BusinessOutlinedButton(
     enabled: Boolean = true,
     content: @Composable RowScope.() -> Unit,
 ) {
-    OutlinedButton(
+    // Secondary action: soft brand fill with a thin edge, lighter than the gradient primary.
+    Button(
         onClick = onClick,
-        modifier = modifier.heightIn(min = 56.dp),
+        modifier = modifier.heightIn(min = 46.dp),
         enabled = enabled,
-        border = BorderStroke(1.dp, if (enabled) Muted else Line),
+        border = BorderStroke(1.dp, if (enabled) Green.copy(alpha = 0.35f) else Line),
         shape = RoundedCornerShape(12.dp),
-        contentPadding = PaddingValues(horizontal = 16.dp, vertical = 14.dp),
+        colors = ButtonDefaults.buttonColors(
+            containerColor = Pale,
+            contentColor = GreenStrong,
+            disabledContainerColor = Color(0xFFF3F4F6),
+            disabledContentColor = Color(0xFF9CA3AF),
+        ),
+        elevation = ButtonDefaults.buttonElevation(defaultElevation = 0.dp),
+        contentPadding = PaddingValues(horizontal = 16.dp, vertical = 10.dp),
     ) {
-        ProvideTextStyle(MaterialTheme.typography.labelLarge.copy(fontSize = 18.sp, lineHeight = 26.sp)) {
+        ProvideTextStyle(MaterialTheme.typography.labelLarge.copy(fontSize = DriverType.Body, lineHeight = 20.sp)) {
             content()
         }
     }

@@ -1,14 +1,16 @@
-# frontend NAVF 文案窄差量最终短卡
-ACK2026-10-26-v3；真实ID01a182c6-c475-7110-bbae-0deafe6d2385；2026-10-30T09:43:39.444833+08:00；context UNKNOWN/no telemetry。
-NAVF-20261029-01 COPY_DELTA_REVIEW_COMPLETE/PASS。最终candidate/pendingMerge6ab66bdcd20b43dfd314917881342dcdcc165a9e，parent7911a6fb13804cb4ae242995de4af60a0b189c34；sourceRoot /Users/dongge/.codex/tmp/yijiexing-cloud-navigation-review-20261029，branch codex/cloud-navigation-review-20261029。线上仍19；本人无产品修改/提交/合并发布，root唯一发布。
+# frontend UITF 准备阶段短卡
+ACK2026-10-26-v3；真实ID01a182c6-c475-7110-bbae-0deafe6d2385；2026-10-30T20:42:52.365424+08:00；context UNKNOWN/no telemetry。
+当前任务UITF-20261030-01（legacy UI30F同任务，证据UI30F），状态WAIT_FREEZE_PREPARED，所有候选验收NOT_RUN。sourceRoot /Users/dongge/.codex/tmp/yijiexing-ui-feedback-20261030；branch codex/ui-feedback-20261030；base/当前提交HEAD362c7f861a5063631c6da9ba198e04bc131402e4。云9495caa54e8b8581bba4d82c3fbac04701252418只是待整合差量，root cherry-pick --no-commit有8UU，Claude/root独占产品；本人未读取/复制脏产品、未构建/改产品。pendingMergeSha null，目标code21，等root精确freeze。
 
-独立确认相对791仅MainActivity613和ProfileScreens144各一个Note字符串；逐行长度/仅1行差异/引号外字节相同，版本与布局/逻辑不变，COPY_DELTA.diff保存。新说明明确定位授权、搜索逆地理依赖服务、外部地图导航；资金和发票仍模拟，不保证provider/正式扣款。原P3关闭。
+新外置/Users/dongge/.codex/tmp/yijiexing-uitf-20261030仅scripts/runtime/log/screenshots/AVD定义，无source/APK/DB/TLS/私有identity。复用官方SDK、JDK17、offline init及旧NAV fixture/UI/control模板，替换新路径/64341/serial5584；fixture首行FROZEN_SHA门禁。stage_frozen.py接受准确40SHA git archive，拒绝旧source且校验双Gradle code21，不可拿949或base20提前构建。5Python模板ast.parse PASS（未import/execute）。avdmanager仅创建UITF_20261030定义1080x2400/density440，未boot。
 
-原791 FINAL_BUILD_PROOF已原样另存BUILD_PROOF_7911.json；FINAL_BUILD_PROOF.json现source6ab。乘客新独立外置 /Users/dongge/.codex/tmp/yijiexing-navf-copy-6ab-20261030 git archive：原包assemble成功76s，QA63s；原ID/证书/code20/1.1.18-experience/HTTPS/私有4值0扫描/源逐字节绑定通过。新乘客sha256 aa696a485a5e10d7c1cf3d7c2eeb7ecc82f1e185359f047ff9106756e29b2bd9，bytes107188601。54实际f7单测按仅2Note文字+版本常量差异继承，没重跑/新写测试；报告不冒称整个app/src与f7字节相同，test文件树相同。
-司机完整子树与791相同，继承791 code20/0.3.17-cloud原包hash4a346bc4600e84a9ab0a39285ce6c70e9d292c9a9404458d03b8b12fb7b91af6、77实际2ba单测/构建。司机没有新构建或重新GUI声称。
+设备/端口初读空：adb devices空，64340/64341/5584无listener；无build/fixture/emulator/reverse在途。新批用户已授权本次专用隔离AVD官方工具安装点击截图，禁止个人设备与线上业务POST；无需借旧NAV许可。不派代理/不提交发布，root唯一合并部署。凭据/APK/cache继续外置。
 
-复开同NAV批许可AVD5586+localhost64331仅登录与个人页：2张实际6ab截图c11-login-copy-final、c08-profile-copy-final及XML已visual看完，全文可滚动读、旧字去除、无裁切。copy-delta/目录及COPY_DELTA_REVIEW.json。首次null-root/首张未滚动不计证据。QA仅applicationId/localHTTPS/debugCA，无Kotlin改动；backend仍旧791export但完整子树同6ab，所有账号/DB合成本地，无云业务POST。
-原65组FINAL_SCREENSHOTS.json保持791，SHA2566cd86520a4f54238cebf24421bc5c27c076cbe9a0b9bc74fb46bafb5fe5db9e4完全未改；FINAL_REVIEW仍为791历史审核，原P3由新COPY_DELTA关闭，不能把65改标6ab。原7组导航/确认/公告/GPS/search/小屏钱包实操PASS及54/77依据有效继承。实际provider/逆地理成功/OEM/个人手机/真实资金和部分异步排列NOT_RUN，BIZ09仍ack先于render，账号切换可丢held，不保证持久补弹。
+准备矩阵G1/P1-P4/D1-D3见evidence/UI30F-20261030-01/ACCEPTANCE_PLAN.json：统一modal/button/type/smallfont、所有阶段固定cancel/pay与失败忙碌、债务modal优先级/重试、多单账号、选点常用history/waypoints/草稿、预约细条、两端profile空态/迁移、听单偏好/tools、tripnav并排/取消link、wallet tabs3条展开及资格旧证expired+pending replacement。当前只按commit message和派单分组，尚无24项逐号材料，不编造1:1覆盖，freeze后核scope再细化。真实provider/OEM/资金边界延续；合成fixture与真实localaction分别注明。
 
-窄验收资源：original64870/QA43697 exit0；AVD12967/fixture56309 exit0，5586 reverse443移除，两端口无监听，最终adb回读见COPY_DELTA_CLEANUP。原791资源cleanup另存CLEANUP_7911；新CLEANUP.json指6ab。所有APK/cache/DB/TLS/私有identity外置，没新代理/后台轮询/自动回信。
-只写本任务/evidence/自身卡，≤8KB/6KB。真实ID末门禁PASS（不等业务）。下一步IDLE，root综合独审/准确SHA门禁后唯一合并发布回读；releaseReady=false不擅自发布。
+自身task原allow_paths只有旧alias，按root明确UITF正式派单补入canonical自身路径；同步canonical与alias同内容，没写STATE/BOARD/REGISTRY。READY记录命令/哈希/NOT_RUN；门禁PASS不是业务验收。
+
+记忆评估HANDOFF_RECOMMENDED：本对话已跨UIOV/NAV多轮原生/修复和发布前验收，正进入24项新大任务；依MEMORY_POLICY§4建议在freeze到达前后切新frontend以减少恢复成本。无上下文遥测，不报百分比；不自行建新会话/替换角色/停派，未收到用户明确新开前仍可按短卡继续。已保存evidence/UI30F-20261030-01/NEW_CHAT_PROMPT.txt，需root登记新真实ID并停旧派单，不能双角色。
+
+上一NAV6ab独审与窄文案已PASS，root实际发布20并完成PR41/42回读，STATE main362为权威；旧所有AVD/fixture/reverse已清理。不再称线上19，不重做旧发布。
+下一步IDLE等root准确code21freeze；不轮询作者或自行唤醒角色。获freeze后先真实IDgate和外置committed export、双unit/build，再QA原生逐组证据，问题回root/Claude，完毕清理/短卡。

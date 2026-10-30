@@ -37,7 +37,7 @@ fun RidersScreen(state: JSONObject, store: PassengerStore) {
       Text("${self.text("name", "当前账号")} · 本人", fontWeight = FontWeight.SemiBold, color = Ink)
       Note(self.text("mobile").let { if (it.isNotBlank()) "账号尾号 ${it.takeLast(4)}" else "当前登录账号" })
       if (PassengerDefaults.id(state, "RIDER").isBlank()) Text("新行程由本人乘车", color = Teal)
-      else TextButton(enabled = !busy, onClick = { PassengerDefaults.set(store, "RIDER", null) }) { Text("恢复本人为新行程建议") }
+      else PassengerTextButton(enabled = !busy, onClick = { PassengerDefaults.set(store, "RIDER", null) }) { Text("恢复本人为新行程建议") }
     }
     if (state.rows("riders").isEmpty()) EmptyCard("暂无其他乘车人", "可添加常用乘车人；默认建议只用于新行程草稿。")
     state.rows("riders").forEach { r ->
@@ -52,7 +52,7 @@ fun RidersScreen(state: JSONObject, store: PassengerStore) {
     var mobile by remember(r) { mutableStateOf(r.text("mobile")) }
     var isDefault by remember(r) { mutableStateOf(r.text("id").isNotBlank() && PassengerDefaults.id(state, "RIDER") == r.text("id")) }
     PassengerModalSlot()
-    AlertDialog(
+    PassengerDialog(
       onDismissRequest = { edit = null },
       title = { Text("乘车人资料") },
       text = {
@@ -64,7 +64,7 @@ fun RidersScreen(state: JSONObject, store: PassengerStore) {
         }
       },
       confirmButton = {
-        TextButton(
+        PassengerTextButton(
           onClick = {
             val p = JSONObject().put("name", name.trim()).put("mobile", mobile.trim()).put("isDefault", isDefault)
             if (r.has("id")) p.put("id", r.text("id"))
@@ -75,7 +75,7 @@ fun RidersScreen(state: JSONObject, store: PassengerStore) {
           Text("保存")
         }
       },
-      dismissButton = { TextButton(onClick = { edit = null }) { Text("取消") } },
+      dismissButton = { PassengerTextButton(onClick = { edit = null }) { Text("取消") } },
     )
   }
   remove?.let { r ->
@@ -109,7 +109,7 @@ fun InvoiceTitlesScreen(state: JSONObject, store: PassengerStore) {
     var email by remember(t) { mutableStateOf(t.text("email")) }
     var isDefault by remember(t) { mutableStateOf(t.text("id").isNotBlank() && PassengerDefaults.id(state, "INVOICE_TITLE") == t.text("id")) }
     PassengerModalSlot()
-    AlertDialog(
+    PassengerDialog(
       onDismissRequest = { edit = null },
       title = { Text("编辑发票抬头") },
       text = {
@@ -130,7 +130,7 @@ fun InvoiceTitlesScreen(state: JSONObject, store: PassengerStore) {
         }
       },
       confirmButton = {
-        TextButton(
+        PassengerTextButton(
           onClick = {
             val p =
               JSONObject()
@@ -148,7 +148,7 @@ fun InvoiceTitlesScreen(state: JSONObject, store: PassengerStore) {
           Text("保存")
         }
       },
-      dismissButton = { TextButton(onClick = { edit = null }) { Text("取消") } },
+      dismissButton = { PassengerTextButton(onClick = { edit = null }) { Text("取消") } },
     )
   }
   remove?.let { t ->
@@ -185,7 +185,7 @@ fun InvoicesScreen(state: JSONObject, store: PassengerStore) {
   PageColumn {
     SectionTitle("发票与模拟回执", "模拟回执不可用于报销，不是真实税务发票。")
     if (PassengerOperations.enabled(state,"invoice") || available.isNotEmpty()) Panel("申请模拟回执") {
-      if (available.isEmpty()) Note("暂无可申请订单。资格按每单服务地区判断；已完成且模拟支付成功的可申请订单，每单仅一次。")
+      if (available.isEmpty()) EmptyCard("暂无可申请回执的订单", "已完成且模拟支付成功的订单可申请，每单仅一次。")
       available.forEach { o ->
         PassengerCompactRecord(
           title = "${o.text("origin")} → ${o.text("destination")}",
@@ -226,12 +226,12 @@ fun InvoicesScreen(state: JSONObject, store: PassengerStore) {
   }
   PassengerModalSlot(confirm && selectedEligible)
   if (confirm && selectedEligible)
-    AlertDialog(
+    PassengerDialog(
       onDismissRequest = { confirm = false },
       title = { Text("确认生成模拟回执") },
       text = { Text("将使用所选抬头保存云端模拟申请，不会开具真实税务发票，也不会发送邮件。") },
       confirmButton = {
-        TextButton(
+        PassengerTextButton(
           enabled = !busy && selectedEligible && titles.any { it.text("id") == titleId },
           onClick = {
             store.action(
@@ -246,7 +246,7 @@ fun InvoicesScreen(state: JSONObject, store: PassengerStore) {
           Text("生成模拟回执")
         }
       },
-      dismissButton = { TextButton(onClick = { confirm = false }) { Text("取消") } },
+      dismissButton = { PassengerTextButton(onClick = { confirm = false }) { Text("取消") } },
     )
 }
 
@@ -259,12 +259,8 @@ fun BlockedScreen(state: JSONObject, store: PassengerStore) {
       Panel(d.text("name")) {
         Text(d.text("plate"))
         Note(d.text("reason"))
-        OutlinedButton(
-          onClick = {
-            store.action("order.unblockDriver", JSONObject().put("driverId", d.text("driverId")))
-          }
-        ) {
-          Text("恢复匹配此司机")
+        SecondaryButton("恢复匹配此司机") {
+          store.action("order.unblockDriver", JSONObject().put("driverId", d.text("driverId")))
         }
       }
     }
@@ -274,7 +270,7 @@ fun BlockedScreen(state: JSONObject, store: PassengerStore) {
 @Composable
 fun ComplaintImage(attachment: JSONObject, store: PassengerStore) {
   var bitmap by remember(attachment.text("id")) { mutableStateOf<android.graphics.Bitmap?>(null) }
-  TextButton(
+  PassengerTextButton(
     onClick = {
       store.query(attachment.text("path") + "?encoding=base64") { data ->
         runCatching {

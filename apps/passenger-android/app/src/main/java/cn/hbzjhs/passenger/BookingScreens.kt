@@ -212,39 +212,46 @@ private fun PassengerBookingDraft(owner: String, state: JSONObject, store: Passe
             .padding(horizontal = 16.dp, vertical = 12.dp),
           verticalArrangement = Arrangement.spacedBy(10.dp),
         ) {
-          reservations.forEach { reservation ->
-            PassengerReservationNotice(formatTime(reservation.text("scheduledAt"))) { openOrder(reservation.text("id")) }
+          state.rows("orders").firstOrNull { it.text("stage") == "WAIT_PAY" && !it.optBoolean("paid") }?.let { unpaid ->
+            OutstandingPaymentNotice { openOrder(unpaid.text("id")) }
+          }
+          // Several waiting reservations collapse into one slim line pointing at the earliest.
+          reservations.minByOrNull { it.text("scheduledAt") }?.let { reservation ->
+            PassengerReservationNotice(
+              formatTime(reservation.text("scheduledAt")) + if (reservations.size > 1) " 等 ${reservations.size} 笔" else "",
+            ) { openOrder(reservation.text("id")) }
           }
           if (active != null) {
             Surface(
               shape = RoundedCornerShape(12.dp),
-              color = SuccessSoft,
-              border = BorderStroke(1.dp, Success.copy(alpha = 0.25f)),
+              color = Color.White,
+              shadowElevation = 3.dp,
+              border = BorderStroke(1.dp, Teal.copy(alpha = 0.22f)),
               modifier = Modifier.fillMaxWidth().clickable { openOrder(active.text("id")) },
             ) {
               Row(
-                Modifier.padding(horizontal = 14.dp, vertical = 10.dp),
+                Modifier.padding(horizontal = 12.dp, vertical = 8.dp),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.spacedBy(10.dp),
               ) {
-                Box(Modifier.size(8.dp).background(Teal, CircleShape))
+                CarIllustration(Modifier.size(width = 44.dp, height = 30.dp))
                 Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
                   Row(
                     horizontalArrangement = Arrangement.spacedBy(8.dp),
                     verticalAlignment = Alignment.CenterVertically,
                   ) {
-                    Text("进行中行程", fontWeight = FontWeight.Bold, fontSize = 14.sp, color = Ink)
-                    Text(stageName(active.text("stage")), color = Teal, fontSize = 13.sp, fontWeight = FontWeight.Medium)
+                    Text("进行中行程", fontWeight = FontWeight.Bold, fontSize = TypeScale.Body, color = Ink)
+                    Text(stageName(active.text("stage")), color = Teal, fontSize = TypeScale.Caption, fontWeight = FontWeight.Medium)
                   }
                   Text(
                     "${active.text("origin")} → ${active.text("destination")}",
-                    fontSize = 13.sp,
+                    fontSize = TypeScale.Caption,
                     color = Muted,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis,
                   )
                 }
-                Text("查看行程", fontSize = 13.sp, fontWeight = FontWeight.SemiBold, color = Teal)
+                Text("查看", fontSize = TypeScale.Caption, fontWeight = FontWeight.SemiBold, color = Teal)
                 Icon(
                   Icons.AutoMirrored.Filled.KeyboardArrowRight,
                   contentDescription = null,
@@ -267,12 +274,13 @@ private fun PassengerBookingDraft(owner: String, state: JSONObject, store: Passe
               Surface(
                 onClick = { kind = mode },
                 shape = RoundedCornerShape(12.dp),
-                color = if (selected) Teal else Paper,
+                color = if (selected) Teal else Color.White,
                 border = BorderStroke(1.dp, if (selected) Teal else Line),
-                modifier = Modifier.weight(1f).heightIn(min = 48.dp),
+                shadowElevation = if (selected) 4.dp else 0.dp,
+                modifier = Modifier.weight(1f).heightIn(min = 44.dp),
               ) {
                 Row(
-                  modifier = Modifier.padding(horizontal = 4.dp, vertical = 10.dp),
+                  modifier = Modifier.padding(horizontal = 4.dp, vertical = 8.dp),
                   verticalAlignment = Alignment.CenterVertically,
                   horizontalArrangement = Arrangement.Center,
                 ) {
@@ -285,7 +293,7 @@ private fun PassengerBookingDraft(owner: String, state: JSONObject, store: Passe
                   Spacer(Modifier.width(4.dp))
                   Text(
                     label,
-                    fontSize = 13.sp,
+                    fontSize = 14.sp,
                     fontWeight = if (selected) FontWeight.Bold else FontWeight.Medium,
                     color = if (selected) Color.White else Ink,
                   )
@@ -294,19 +302,20 @@ private fun PassengerBookingDraft(owner: String, state: JSONObject, store: Passe
             }
           }
           Card(
-            colors = CardDefaults.cardColors(containerColor = Paper),
+            colors = CardDefaults.cardColors(containerColor = Color.White),
             shape = RoundedCornerShape(16.dp),
             border = BorderStroke(1.dp, Line),
+            elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
             modifier = Modifier.fillMaxWidth(),
           ) {
-            Column(Modifier.padding(horizontal = 14.dp, vertical = 8.dp)) {
+            Column(Modifier.padding(horizontal = 14.dp, vertical = 6.dp)) {
               Row(
                 Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceBetween,
               ) {
-                Text("乘车路线", fontWeight = FontWeight.Bold, fontSize = 14.sp, color = Ink)
-                TextButton(
+                Text("乘车路线", fontWeight = FontWeight.Bold, fontSize = TypeScale.Title, color = Ink)
+                PassengerTextButton(
                   contentPadding = PaddingValues(horizontal = 6.dp, vertical = 2.dp),
                   onClick = {
                     originTouched = true
@@ -324,7 +333,7 @@ private fun PassengerBookingDraft(owner: String, state: JSONObject, store: Passe
                     dMetadata = metadata
                   },
                 ) {
-                  Text("交换起终点", fontSize = 12.sp, color = Teal)
+                  Text("交换起终点", fontSize = TypeScale.Caption)
                 }
               }
               AddressRow(
@@ -371,167 +380,183 @@ private fun PassengerBookingDraft(owner: String, state: JSONObject, store: Passe
       }
     }
   }
-  if (showOptions) PassengerFullPage("行程设置与代叫", { showOptions = false }) {
-            if (kind == "RESERVED") {
-              Text("预约时间：${date.replace('T', ' ')}", color = Ink, fontWeight = FontWeight.Medium, fontSize = 14.sp)
-              OutlinedButton(
-                onClick = {
-                  val current =
-                    runCatching { LocalDateTime.parse(date) }
-                      .getOrDefault(LocalDateTime.now().plusHours(1))
-                  DatePickerDialog(
-                      context,
-                      { _, y, m, d ->
-                        TimePickerDialog(
-                            context,
-                            { _, h, min -> date = LocalDateTime.of(y, m + 1, d, h, min).toString() },
-                            current.hour,
-                            current.minute,
-                            true,
-                          )
-                          .show()
-                      },
-                      current.year,
-                      current.monthValue - 1,
-                      current.dayOfMonth,
-                    )
-                    .show()
-                },
-                shape = RoundedCornerShape(10.dp),
-              ) {
-                Text("选择预约日期与时间", color = Teal, fontSize = 13.sp)
-              }
-              Note("预约范围：15 分钟后至未来 30 天；设备当地时间。")
-            }
+  if (showOptions) PassengerFullPage(
+    "行程设置与代叫",
+    { showOptions = false },
+    bottom = { ActionButton("完成") { showOptions = false } },
+  ) {
+            val passengerTail = state.optJSONObject("passenger")?.text("mobile")?.takeLast(4).orEmpty()
             val contacts = state.rows("riders")
-            if (contacts.isNotEmpty()) {
-              Text("乘车人", fontWeight = FontWeight.SemiBold, fontSize = 14.sp, color = Ink)
+            TripOptionSection(Icons.Default.Person, "谁来乘车", "为家人朋友叫车时选择乘车人，司机将联系乘车人") {
               FlowRow(
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
-                verticalArrangement = Arrangement.spacedBy(6.dp),
+                verticalArrangement = Arrangement.spacedBy(8.dp),
               ) {
-                val selfSelected = contactId.isBlank()
-                FilterChip(
-                  selected = selfSelected,
-                  onClick = { contactId = "" },
-                  label = {
-                    Text("本人 · 尾号 ${state.optJSONObject("passenger")?.text("mobile")?.takeLast(4)}", fontSize = 13.sp)
-                  },
-                  colors = FilterChipDefaults.filterChipColors(
-                    selectedContainerColor = Teal,
-                    selectedLabelColor = Color.White,
-                  ),
-                  shape = RoundedCornerShape(8.dp),
-                )
+                RiderChoice("本人 · 尾号 $passengerTail", contactId.isBlank()) { contactId = "" }
                 contacts.forEach { c ->
-                  val cSelected = contactId == c.text("id")
-                  FilterChip(
-                    selected = cSelected,
-                    onClick = { contactId = c.text("id") },
-                    label = { Text("${c.text("name")} · ${c.text("mobile").takeLast(4)}${if (PassengerDefaults.id(state, "RIDER") == c.text("id")) " · 默认" else ""}", fontSize = 13.sp) },
-                    colors = FilterChipDefaults.filterChipColors(
-                      selectedContainerColor = Teal,
-                      selectedLabelColor = Color.White,
-                    ),
-                    shape = RoundedCornerShape(8.dp),
-                  )
+                  val default = if (PassengerDefaults.id(state, "RIDER") == c.text("id")) " · 默认" else ""
+                  RiderChoice("${c.text("name")} · ${c.text("mobile").takeLast(4)}$default", contactId == c.text("id")) { contactId = c.text("id") }
                 }
               }
+              if (contacts.isEmpty()) Note("还没有乘车人，可在“我的 → 乘车人”中添加后为他人叫车。")
             }
-            Field(remark, { remark = it.take(500) }, "用车备注（可选）", lines = 2)
-            TextButton(
-              onClick = { showWaypoints = !showWaypoints },
-            ) {
-              Text(if (showWaypoints) "收起途经点" else "添加途经点（可选）", color = Teal, fontSize = 13.sp)
-            }
-            if (showWaypoints) {
-              Field(waypointName, { waypointName = it }, "途经点名称")
-              Field(waypointLat, { waypointLat = it }, "途经点纬度", KeyboardType.Decimal)
-              Field(waypointLng, { waypointLng = it }, "途经点经度", KeyboardType.Decimal)
-              HorizontalDivider(color = DividerTone, thickness = 0.8.dp)
-              Text("第二途经点（可选）", fontWeight = FontWeight.SemiBold, fontSize = 14.sp, color = Ink)
-              Field(waypointName2, { waypointName2 = it }, "第二途经点名称")
-              Field(waypointLat2, { waypointLat2 = it }, "第二途经点纬度", KeyboardType.Decimal)
-              Field(waypointLng2, { waypointLng2 = it }, "第二途经点经度", KeyboardType.Decimal)
-              Note("最多 2 个途经点，按顺序经过。司机到达后确认，乘客可在订单查看进度。")
-            }
-            HorizontalDivider(color = DividerTone, thickness = 0.8.dp)
-            MenuRow("线下议价", Icons.Default.Info, "与现场司机配对，核对报价") { showOptions = false; onNegotiation() }
-            state
-              .rows("orders")
-              .firstOrNull { it.text("stage") in listOf("DONE", "CANCELLED") }
-              ?.let { recent ->
-                Card(
-                  colors = CardDefaults.cardColors(containerColor = Paper),
-                  shape = RoundedCornerShape(12.dp),
-                  border = BorderStroke(1.dp, Line),
-                  modifier = Modifier.fillMaxWidth(),
-                ) {
-                  Row(
-                    Modifier.padding(12.dp),
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.spacedBy(10.dp),
-                  ) {
-                    Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
-                      Text("常用行程", fontSize = 12.sp, color = Muted)
-                      Text(
-                        "${recent.text("origin")} → ${recent.text("destination")}",
-                        fontWeight = FontWeight.SemiBold,
-                        fontSize = 14.sp,
-                        color = Ink,
-                        maxLines = 1,
-                        overflow = TextOverflow.Ellipsis,
+            if (kind == "RESERVED")
+              TripOptionSection(Icons.Default.DateRange, "预约时间", "15 分钟后至未来 30 天 · 设备当地时间") {
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                  Text(date.replace('T', ' '), color = Ink, fontWeight = FontWeight.Bold, fontSize = TypeScale.Title, modifier = Modifier.weight(1f))
+                  PassengerTextButton(onClick = {
+                    val current =
+                      runCatching { LocalDateTime.parse(date) }
+                        .getOrDefault(LocalDateTime.now().plusHours(1))
+                    DatePickerDialog(
+                        context,
+                        { _, y, m, d ->
+                          TimePickerDialog(
+                              context,
+                              { _, h, min -> date = LocalDateTime.of(y, m + 1, d, h, min).toString() },
+                              current.hour,
+                              current.minute,
+                              true,
+                            )
+                            .show()
+                        },
+                        current.year,
+                        current.monthValue - 1,
+                        current.dayOfMonth,
                       )
-                    }
-                    OutlinedButton(
-                      onClick = {
-                        originTouched = true
-                        origin = recent.text("origin")
-                        destination = recent.text("destination")
-                        oLat = recent.coordText("originLat")
-                        oLng = recent.coordText("originLng")
-                        dLat = recent.coordText("destinationLat")
-                        dLng = recent.coordText("destinationLng")
-                        oMetadata = recent.optJSONObject("originCoordinateMetadata")?.toString().orEmpty()
-                        dMetadata = recent.optJSONObject("destinationCoordinateMetadata")?.toString().orEmpty()
-                      },
-                      shape = RoundedCornerShape(10.dp),
-                      contentPadding = PaddingValues(horizontal = 10.dp, vertical = 4.dp),
-                    ) {
-                      Text("填入路线", fontSize = 12.sp, color = Teal)
-                    }
+                      .show()
+                  }) { Text("修改时间") }
+                }
+              }
+            TripOptionSection(Icons.Default.Place, "途经点", "最多 2 个，按顺序经过；司机到达后确认") {
+              WaypointRow("途经点 1", waypointName) { editor = "waypoint1" }
+              if (waypointName.isNotBlank())
+                WaypointRow("途经点 2（可选）", waypointName2) { editor = "waypoint2" }
+              if (waypointName.isNotBlank())
+                PassengerTextButton(onClick = {
+                  waypointName = ""; waypointLat = ""; waypointLng = ""
+                  waypointName2 = ""; waypointLat2 = ""; waypointLng2 = ""
+                  showWaypoints = false
+                }) { Text("清除途经点", color = Muted) }
+            }
+            TripOptionSection(Icons.Default.Edit, "给司机捎句话", null) {
+              Field(remark, { remark = it.take(500) }, "例如：在东门等、带了大件行李（可选）", lines = 2)
+            }
+            TripOptionSection(Icons.Default.Star, "更多方式", null) {
+              MenuRow("线下议价", Icons.Default.Share, "与现场司机配对，核对报价") { showOptions = false; onNegotiation() }
+              state
+                .rows("orders")
+                .firstOrNull { it.text("stage") in listOf("DONE", "CANCELLED") }
+                ?.let { recent ->
+                  HorizontalDivider(color = DividerTone, thickness = 0.8.dp)
+                  MenuRow("再走一次：${recent.text("origin")} → ${recent.text("destination")}", Icons.Default.Refresh, "填入上次路线") {
+                    originTouched = true
+                    origin = recent.text("origin")
+                    destination = recent.text("destination")
+                    oLat = recent.coordText("originLat")
+                    oLng = recent.coordText("originLng")
+                    dLat = recent.coordText("destinationLat")
+                    dLng = recent.coordText("destinationLng")
+                    oMetadata = recent.optJSONObject("originCoordinateMetadata")?.toString().orEmpty()
+                    dMetadata = recent.optJSONObject("destinationCoordinateMetadata")?.toString().orEmpty()
+                    showOptions = false
                   }
                 }
-              }
-            ExpandablePanel("地点选择说明", "系统搜索与坐标提示", initialExpanded = false) {
-              Note("上车点默认使用手机定位，可点击修改；在地址框输入即自动搜索，也可选常用地点或手动WGS84坐标。")
             }
   }
   if (editor.isNotBlank())
     AddressDialog(
-      if (editor == "origin") origin else destination,
-      if (editor == "origin") oLat else dLat,
-      if (editor == "origin") oLng else dLng,
+      when (editor) { "origin" -> origin; "waypoint1" -> waypointName; "waypoint2" -> waypointName2; else -> destination },
+      when (editor) { "origin" -> oLat; "waypoint1" -> waypointLat; "waypoint2" -> waypointLat2; else -> dLat },
+      when (editor) { "origin" -> oLng; "waypoint1" -> waypointLng; "waypoint2" -> waypointLng2; else -> dLng },
       (state.rows("favorites") +
         state.rows("historicalLocations").map { JSONObject(it.toString()).put("label", "历史地点") }),
       { editor = "" },
-      initialNormalization = (if (editor == "origin") oMetadata else dMetadata).takeIf { it.isNotBlank() }?.let { JSONObject(it) },
+      initialNormalization = (when (editor) { "origin" -> oMetadata; "destination" -> dMetadata; else -> "" }).takeIf { it.isNotBlank() }?.let { JSONObject(it) },
       city = state.optJSONObject("passenger")?.text("cityName").orEmpty(),
     ) { name, lat, lng, normalization ->
-      if (editor == "origin") {
-        originTouched = true
-        origin = name
-        oLat = lat
-        oLng = lng
-        oMetadata = normalization?.toString().orEmpty()
-      } else {
-        destination = name
-        dLat = lat
-        dLng = lng
-        dMetadata = normalization?.toString().orEmpty()
+      when (editor) {
+        "origin" -> {
+          originTouched = true
+          origin = name
+          oLat = lat
+          oLng = lng
+          oMetadata = normalization?.toString().orEmpty()
+        }
+        "waypoint1" -> {
+          waypointName = name
+          waypointLat = lat
+          waypointLng = lng
+          showWaypoints = true
+        }
+        "waypoint2" -> {
+          waypointName2 = name
+          waypointLat2 = lat
+          waypointLng2 = lng
+          showWaypoints = true
+        }
+        else -> {
+          destination = name
+          dLat = lat
+          dLng = lng
+          dMetadata = normalization?.toString().orEmpty()
+        }
       }
       editor = ""
     }
+}
+
+/** One titled card on the trip options page, with a lit icon badge. */
+@Composable
+private fun TripOptionSection(
+  icon: androidx.compose.ui.graphics.vector.ImageVector,
+  title: String,
+  subtitle: String?,
+  content: @Composable ColumnScope.() -> Unit,
+) {
+  val (tint, soft) = iconAccent(icon)
+  Card(
+    colors = CardDefaults.cardColors(containerColor = Color.White),
+    shape = RoundedCornerShape(16.dp),
+    elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
+    modifier = Modifier.fillMaxWidth(),
+  ) {
+    Column(Modifier.padding(horizontal = 16.dp, vertical = 12.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
+      Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+        Box(
+          Modifier.size(32.dp).background(androidx.compose.ui.graphics.Brush.verticalGradient(listOf(Color.White, soft)), RoundedCornerShape(10.dp)),
+          contentAlignment = Alignment.Center,
+        ) { Icon(icon, contentDescription = null, tint = tint, modifier = Modifier.size(18.dp)) }
+        Column(Modifier.weight(1f)) {
+          Text(title, fontSize = TypeScale.Title, fontWeight = FontWeight.Bold, color = Ink)
+          subtitle?.let { Note(it) }
+        }
+      }
+      content()
+    }
+  }
+}
+
+@Composable
+private fun RiderChoice(label: String, selected: Boolean, onClick: () -> Unit) {
+  FilterChip(
+    selected = selected,
+    onClick = onClick,
+    label = { Text(label, fontSize = 14.sp) },
+    leadingIcon = if (selected) ({ Icon(Icons.Default.Check, contentDescription = null, modifier = Modifier.size(16.dp)) }) else null,
+    colors = FilterChipDefaults.filterChipColors(
+      selectedContainerColor = BrandSoft,
+      selectedLabelColor = BrandStrong,
+      selectedLeadingIconColor = BrandStrong,
+    ),
+    border = FilterChipDefaults.filterChipBorder(enabled = true, selected = selected, borderColor = Line, selectedBorderColor = Teal),
+    shape = RoundedCornerShape(10.dp),
+  )
+}
+
+@Composable
+private fun WaypointRow(label: String, value: String, onClick: () -> Unit) {
+  AddressRow(label, value.ifBlank { "点此选择地点" }, onClick = onClick)
 }
 
 @Composable
@@ -553,7 +578,6 @@ fun AddressDialog(
   var lat by remember(initial, initialLat, initialLng) { mutableStateOf(initialLat) }
   var lng by remember(initial, initialLat, initialLng) { mutableStateOf(initialLng) }
   var error by remember { mutableStateOf("") }
-  var advanced by remember { mutableStateOf(false) }
   var searching by remember { mutableStateOf(false) }
   var searchJob by remember { mutableStateOf<Job?>(null) }
   var results by remember { mutableStateOf<List<SearchedAddress>>(emptyList()) }
@@ -598,7 +622,7 @@ fun AddressDialog(
       ActionButton("使用此地点", !searching) {
         runCatching {
           require(name.trim().length >= 2) { "请填写地址名称" }
-          require(lat.isNotBlank() && lng.isNotBlank()) { "地址文字已修改，请先选择搜索结果、常用地点或填写匹配的坐标" }
+          require(lat.isNotBlank() && lng.isNotBlank()) { "请从搜索结果、地图或常用地点中选择一个具体地点" }
           coordinate(lat, true); coordinate(lng, false)
           save(name.trim(), lat.trim(), lng.trim(), selectedMetadata)
         }.onFailure { error=it.message.orEmpty() }
@@ -644,21 +668,21 @@ fun AddressDialog(
         fetch = { searchSystemAddresses(context, query, city) },
         publish = { found ->
           results=found
-          if (found.isEmpty()) error="未找到地址，请补充城市和详细名称，或选择常用地点/手动坐标。"
+          if (found.isEmpty()) error="未找到地址，请补充城市和详细名称，或在地图上点选。"
         },
         fail = { e -> error=e.message ?: "地址搜索暂不可用，请重试或在地图选点。" },
         end = { searching=false },
       )
     }
     if (!searching && results.isEmpty() && name.isNotBlank() && (lat.isBlank() || lng.isBlank()) && error.isBlank())
-      Note(if (name.trim().length < 2) "再输入几个字即可自动搜索" else if (typedQuery.isBlank()) "已取消搜索，可重新搜索或改用常用、地图、手动地点" else "请从搜索结果中选择具体地点")
+      Note(if (name.trim().length < 2) "再输入几个字即可自动搜索" else if (typedQuery.isBlank()) "已取消搜索，可重新搜索或改用常用、地图地点" else "请从搜索结果中选择具体地点")
     // Small retry for the same text after a failure or cancel; no persistent search button.
     if (!searching && results.isEmpty() && name.trim().length >= 2 && (lat.isBlank() || lng.isBlank()) &&
       (error.isNotBlank() || typedQuery.isBlank()))
-      TextButton(onClick={ cancelSearch(); error=""; typedQuery=name.trim(); retryTick++ }) { Text("重新搜索“${name.trim().take(20)}”", fontSize = 13.sp) }
+      PassengerTextButton(onClick={ cancelSearch(); error=""; typedQuery=name.trim(); retryTick++ }) { Text("重新搜索“${name.trim().take(20)}”", fontSize = 13.sp) }
     if (searching) {
       LinearProgressIndicator(Modifier.fillMaxWidth())
-      TextButton(onClick={cancelSearch(); typedQuery=""}) { Text("取消搜索，改用常用或手动地点") }
+      PassengerTextButton(onClick={cancelSearch(); typedQuery=""}) { Text("取消搜索") }
     }
     results.forEach { result ->
       MenuRow(result.name, Icons.Default.LocationOn, "选择并在地图核对") {
@@ -666,7 +690,7 @@ fun AddressDialog(
       }
     }
     if (source.isNotBlank()) Note("$source · 请核对名称与地图位置")
-    Note(if (amapKey.isNotBlank()) "使用高德地点搜索与地图选点；请选择具体车站、入口或建筑。" else "地址服务可用性依赖设备服务，请核对地点后使用。")
+    Note(if (amapKey.isNotBlank()) "输入即搜索，也可点击地图选点；请选择具体车站、入口或建筑。" else "输入即搜索；地址服务可用性依赖设备服务，请核对地点后使用。")
     val (historyPlaces, commonPlaces) =
       places.partition { (n, a, b) -> Triple(n, a.toDoubleOrNull(), b.toDoubleOrNull()) in historyKeys }
     listOf("收藏与常用地点" to commonPlaces, "历史地点" to historyPlaces).forEach { (section, rows) ->
@@ -690,12 +714,6 @@ fun AddressDialog(
           HorizontalDivider()
         }
       }
-    }
-    TextButton(onClick={advanced=!advanced}) { Text(if (advanced) "收起手动坐标" else "手动坐标 · 高级设置") }
-    if (advanced) {
-      Note("请核对名称和WGS84坐标一致；手动填写不会查询地点。")
-      Field(lat, {cancelSearch(); lat=it; source="手动坐标"; selectedMetadata=null}, "WGS84 纬度", KeyboardType.Decimal)
-      Field(lng, {cancelSearch(); lng=it; source="手动坐标"; selectedMetadata=null}, "WGS84 经度", KeyboardType.Decimal)
     }
   }
 }

@@ -89,7 +89,7 @@ private fun BusinessDriver(
                         Text(displayName, fontSize = 23.sp, fontWeight = FontWeight.Bold)
                         Text(
                             driver.bText("organization", fallback = "宜捷行 · 独立演示服务"),
-                            fontSize = 16.sp,
+                            fontSize = 15.sp,
                             color = Muted,
                         )
                     }
@@ -151,12 +151,12 @@ private fun BusinessDriver(
         item { BusinessHint("资料来自独立演示数据库；不接入真实司机身份库。") }
     }
     if (serviceCard)
-        AlertDialog(
+        DriverDialog(
             onDismissRequest = { serviceCard = false },
             title = { Text("宜捷行司机服务卡") },
             text = {
                 Column(Modifier.heightIn(max = 440.dp).verticalScroll(rememberScrollState())) {
-                    Text(displayName, fontSize = 24.sp, fontWeight = FontWeight.Bold, color = Green)
+                    Text(displayName, fontSize = 20.sp, fontWeight = FontWeight.Bold, color = Green)
                     DetailRow("司机编号", driver.bText("id"))
                     DetailRow("车牌", driver.bText("plate", "carNo"))
                     DetailRow("区域", driver.bText("cityName", "city"))
@@ -195,7 +195,7 @@ private fun BusinessCertificates(
                     Glyph("shield", modifier = Modifier.size(30.dp))
                     Text(
                         cert.bText("title", "name", fallback = bCertificateTitle(type)),
-                        fontSize = 18.sp,
+                        fontSize = 15.sp,
                         fontWeight = FontWeight.Bold,
                         modifier = Modifier.weight(1f).padding(start = 12.dp),
                     )
@@ -207,7 +207,15 @@ private fun BusinessCertificates(
                 DetailRow("当前有效期限", if (until == "LONG_TERM") "长期有效" else until)
                 DriverCertificateStatus(cert)
                 cert.optJSONObject("pending")?.let { pending ->
-                    BusinessHint("新材料待审核：${pending.optString("validFrom")} 至 ${pending.optString("validUntil")}。旧证仍在有效期内可继续接单，过期将暂停新增接单。在途订单可完成。")
+                    // A pending replacement never changes what the current material allows.
+                    BusinessHint(
+                        "新材料待审核：${pending.optString("validFrom")} 至 ${pending.optString("validUntil")}。" +
+                            when {
+                                certificateCurrentlyValid(cert) -> "旧证仍在有效期内可继续接单，过期将暂停新增接单。在途订单可完成。"
+                                certificateOutOfDate(cert) -> "当前材料不在有效期内，审核通过前仍暂停新增接单。在途订单可完成。"
+                                else -> "当前材料有效期未确认或尚未审核通过，不能视为有效证件，请以审核结果为准。"
+                            },
+                    )
                 }
                 if (cert.optString("submittedAt").isNotBlank())
                     DetailRow("提交时间", cert.bText("submittedAt"))
@@ -215,7 +223,7 @@ private fun BusinessCertificates(
                     Text(
                         "审核说明：${cert.bText("rejectionReason", "reply")}",
                         color = Orange,
-                        fontSize = 16.sp,
+                        fontSize = 15.sp,
                     )
                 if (bCanEditCertificate(cert, CertificateDueStatus.today(store.payload.value.optString("serverTime"))))
                     PrimaryButton("更新并提交审核") { navigate("qualification/$type") }
@@ -356,22 +364,22 @@ private fun BusinessCertificateEdit(
         }
         item {
             SheetCard {
-                Text("证件有效期", fontWeight = FontWeight.Bold, fontSize = 18.sp)
+                Text("证件有效期", fontWeight = FontWeight.Bold, fontSize = 15.sp)
                 Spacer(Modifier.height(12.dp))
                 BusinessDateField("开始日期", start, editable) { start = it }
                 if (!longTerm) BusinessDateField("截止日期", end, editable) { end = it }
                 if (type != "insurance")
                     Row(
-                        Modifier.fillMaxWidth().heightIn(min = 56.dp)
+                        Modifier.fillMaxWidth().heightIn(min = 52.dp)
                             .toggleable(value = longTerm, enabled = editable, role = Role.Checkbox, onValueChange = { longTerm = it })
                             .padding(vertical = 10.dp),
                         verticalAlignment = Alignment.CenterVertically,
                     ) {
                         Checkbox(longTerm, onCheckedChange = null, enabled = editable)
-                        Text("长期有效", fontSize = 18.sp, modifier = Modifier.weight(1f).padding(start = 10.dp))
+                        Text("长期有效", fontSize = 15.sp, modifier = Modifier.weight(1f).padding(start = 10.dp))
                     }
                 if (validation.isNotBlank())
-                    Text(validation, color = MaterialTheme.colorScheme.error, fontSize = 16.sp)
+                    Text(validation, color = MaterialTheme.colorScheme.error, fontSize = 15.sp)
                 if (editable)
                     PrimaryButton("提交演示审核", enabled = !busy) {
                         validation =
@@ -416,7 +424,7 @@ private fun BusinessCertificateEdit(
             }
         }
     if (preview.isNotBlank())
-        AlertDialog(
+        DriverDialog(
             onDismissRequest = { preview = "" },
             title = { Text(previewTitle) },
             text = {

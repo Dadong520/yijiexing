@@ -178,7 +178,7 @@ fun DriverTripDistanceCard(
                         Text(
                             text = "等待乘客同意$typeLabel",
                             fontWeight = FontWeight.Bold,
-                            fontSize = 16.sp,
+                            fontSize = 15.sp,
                             color = primaryGreen
                         )
                         Text(

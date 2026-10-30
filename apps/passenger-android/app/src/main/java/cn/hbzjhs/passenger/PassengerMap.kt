@@ -213,7 +213,7 @@ private fun PassengerMapLegacy(
           if (failed) {
             Text("地图暂未加载", color = Ink, fontSize = 15.sp)
             Text("网络或瓦片服务异常，可点击重试", color = Muted, fontSize = 12.sp)
-            TextButton(onClick = { retry++ }) { Text("重新加载地图") }
+            PassengerTextButton(onClick = { retry++ }) { Text("重新加载地图") }
           } else {
             CircularProgressIndicator(Modifier.size(22.dp), strokeWidth = 2.dp, color = Teal)
             Spacer(Modifier.height(8.dp))

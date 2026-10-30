@@ -1,11 +1,15 @@
 # backend 当前短卡
-ACK2026-10-26-v3；真实ID01a182c6-c058-76e1-9584-38abfe813799；2026-10-30T09:55:24+08:00。context UNKNOWN/not_exposed；NORMAL。root01a17cc7-e0a2-7791-bf1d-4611c09bab22唯一协调合并发布。
-当前NAVD-20261030-01独立离线数据核验PASS_WITH_CONCURRENT_LOCATION_BOUNDARY（规范acceptance PASS），IDLE。任务基线3fdd19cb5bcb89ef19999e9fd7c2dac7571323f8/产品6ab66bdcd20b43dfd314917881342dcdcc165a9e。源/Users/dongge/.codex/tmp/yijiexing-cloud-navigation-review-20261029仅只读。
+ACK2026-10-26-v3；真实ID01a182c6-c058-76e1-9584-38abfe813799；2026-10-30T20:40:10+08:00。context UNKNOWN/not_exposed；NORMAL。root01a17cc7-e0a2-7791-bf1d-4611c09bab22唯一协调合并发布。
+当前正式UITB-20261030-01（旧派单UI30B别名，同任务），云差量初审FAIL，集成最终NOT_RUN，等待root精确freeze。source /Users/dongge/.codex/tmp/yijiexing-ui-feedback-20261030/base362c7f861a5063631c6da9ba198e04bc131402e4；branch codex/ui-feedback-20261030。root/Claude正处理8产品冲突，本人不碰产品/暂存区；只写正式UITB任务、本卡、evidence/UI30B-20261030-01/。
 
-## 数据结论
-证据evidence/NAVD-20261030-01/REVIEW.json，私有nav20-predeploy.sqlite/after.sqlite以SQLite mode=ro读取，两quick_checkOK；元数据size/MD5均绑定，afterSHA匹配。44→44，丢失0/新增0/变更1，43行完全相同。唯一变更5路径：payload.updatedAt及passengerLocation的latitude/longitude/deviceTime/receivedAt。该单所有其他JSON及SQL存储列与其余43单精确一致。不得写“44单全部字段不变”。原release/data-after-initial-failure.json严格FAIL保留未改，hash入报告。
-新定位采样/接收时间均向前，接收时刻在两对象generation之间；采样接收差在-30..120秒；updatedAt不早于receivedAt。新增4条乘客action回执中，1条同该乘客location结果精确匹配after。无新增普通audit，符合passenger.py显式排除location.report审计；trip_distance.passenger_report_location→save_shared原路径只写定位和updatedAt。此为既有接收路径并发定位刷新证据，不证明真实GPS/实际操作者，gpsAttested=false。不恢复旧快照覆盖更新。
-仅passenger_orders范围，不声称全DB不变。runtime不变/协调者POST0由root发布证据负责，本轮不新查云。无DB/源/云修改、无POST/GUI/代理。只写本任务/本卡/NAVD证据，未输出ID/坐标/凭据。
+## 本轮发现
+证据UI30B-20261030-01/REVIEW_CLOUD.json，精确云9495caa54e8b8581bba4d82c3fbac04701252418 parent55d2d8782a5c041b415c497c66d6576500048e3d。
+UITB01 P2：DriverQualificationBanner任何pending都排除，误隐藏有效旧证已EXPIRED/UNKNOWN/NOT_EFFECTIVE的限制原因；后端门禁未被绕过。只压旧证有效且已提交的重复催办，保留失效/禁接单审核中提示。
+UITB02 P1集成风险：云ConfirmPrompts仍pre-NAV无账号handled、同类批量close、提交前标记、非法expiry failopen、无点击重验；非相对55d2新增，但若覆盖main会恢复旧NAV缺陷。把欠款提示移入main保护pipeline，不能整文件接收。
+UITB03 P2：新PassengerDialog/云PassengerModal无模态slot，替换支付/司机选择等后可能被全局欠款/公告抢模态。wrapper挂PAGE rank，保留main全部rank/slot，别将全局prompt当PAGE自锁。
+底栏取消条件/!busy/理由和成功回home保留；支付先捕获报价/金额快照再既有二次确认，matches及payload校验未见移除；欠款只导航详情不自动付。
 
-## 下一步
-root如实汇总版本20实际HTTPS回读及发布回执，注明1笔合法定位并发边界；本角色IDLE不轮询。NAVB业务审核历史55 FAIL/2ba PASS/f7附边界PASS保留，最终6ab规则对象继承由root证据绑定。真实地图provider/OEM/真实资金未验，微信缺AppID，IM中继录音警方未接。BIZ04–09不变；Claude主实现/Gemini暂停。真实ID前置及结束检查PASS（结构非业务遥测）。
+## 验证与状态
+只读云Git对象/差量和main证件有效性源，无全套测试/GUI/云/代理/发布；不读私有凭据。初始中央4个含数字任务ID gate失败，root已改正式UITB与枚举后本人真实IDgate PASS，本人未改共享工具。最终集成验收未做，不能据云初审发布。
+线上NAV20已完成：乘客1.1.18/code20、司机0.3.17/code20，main362c7f8。NAVD44单43exact+1五定位并发边界/原FAIL保留，PR42回执窄审已PASS，不重做DB/发布。真实provider/OEM/资金未验，微信等边界不变；Claude主实现/Gemini暂停，BIZ04–09保留。
+下一步root/Claude最小集成修复并给clean frozen SHA，本角色IDLE待派，不自动回信或轮询。待合并SHA未知。

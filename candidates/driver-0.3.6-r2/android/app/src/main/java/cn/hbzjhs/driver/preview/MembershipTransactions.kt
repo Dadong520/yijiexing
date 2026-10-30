@@ -65,8 +65,8 @@ internal fun ColumnScope.MembershipCheckoutScreen(
         level?.optBoolean("saleEnabled") == true && level.mLong("price") != null && !hasActive
     LazyColumn(
         Modifier.weight(1f),
-        contentPadding = PaddingValues(18.dp),
-        verticalArrangement = Arrangement.spacedBy(15.dp),
+        contentPadding = PaddingValues(horizontal = 16.dp, vertical = 12.dp),
+        verticalArrangement = Arrangement.spacedBy(12.dp),
     ) {
         item {
             MembershipNotice(
@@ -81,7 +81,7 @@ internal fun ColumnScope.MembershipCheckoutScreen(
                     "${existing!!.mText("levelName")} 有效期至 ${mDate(existing.mText("endAt", ""))}。提前续费、升级及剩余期折算尚未开放；在期成交权益保留。",
                     true,
                 )
-                TextButton(onClick = { navigate(mRoute("subscriptions")) }) { Text("管理已有订阅") }
+                DriverTextButton(onClick = { navigate(mRoute("subscriptions")) }) { Text("管理已有订阅") }
             }
         item { SectionTitle("选择会员等级") }
         items(mLevels(catalog).count { mLevelId(it) != "TRIAL" }) { index ->
@@ -112,18 +112,18 @@ internal fun ColumnScope.MembershipCheckoutScreen(
                         enabled = enabled && !submitting,
                     )
                     Column(Modifier.weight(1f).padding(start = 5.dp, end = 8.dp)) {
-                        Text(plan.mText("name"), fontSize = 17.sp, fontWeight = FontWeight.SemiBold)
+                        Text(plan.mText("name"), fontSize = 16.sp, fontWeight = FontWeight.SemiBold)
                         Text(
                             "${plan.mNumber("rightsCount", " 项权益")} · ${plan.optJSONObject("mapQuota")?.mText("label") ?: "地图参数未提供"}",
                             color = Muted,
-                            fontSize = 16.sp,
+                            fontSize = 15.sp,
                             lineHeight = 24.sp,
                             modifier = Modifier.padding(top = 5.dp),
                         )
-                        if (!enabled) Text("本城市暂未开放", color = Orange, fontSize = 16.sp)
+                        if (!enabled) Text("本城市暂未开放", color = Orange, fontSize = 15.sp)
                     Text(
                         mMoney(plan.mLong("price")),
-                        fontSize = 21.sp,
+                        fontSize = 16.sp,
                         fontWeight = FontWeight.Bold,
                         color = if (enabled) Ink else Muted,
                     )
@@ -146,7 +146,7 @@ internal fun ColumnScope.MembershipCheckoutScreen(
                         horizontalAlignment = Alignment.CenterHorizontally,
                     ) {
                         Text("1 年", color = Green, fontWeight = FontWeight.Bold)
-                        Text("年度套餐", color = Green, fontSize = 16.sp)
+                        Text("年度套餐", color = Green, fontSize = 15.sp)
                     }
                 }
                 listOf("半年", "月度").forEach { period ->
@@ -160,7 +160,7 @@ internal fun ColumnScope.MembershipCheckoutScreen(
                             horizontalAlignment = Alignment.CenterHorizontally,
                         ) {
                             Text(period, color = Muted)
-                            Text("暂未开放", color = Muted, fontSize = 16.sp)
+                            Text("暂未开放", color = Muted, fontSize = 13.sp)
                         }
                     }
                 }
@@ -174,7 +174,7 @@ internal fun ColumnScope.MembershipCheckoutScreen(
                         Text(
                             "默认关闭，可主动选择；本版仅保存沙箱状态，不签约、不扣款。",
                             color = Muted,
-                            fontSize = 16.sp,
+                            fontSize = 15.sp,
                             lineHeight = 24.sp,
                             modifier = Modifier.padding(top = 5.dp),
                         )
@@ -194,7 +194,7 @@ internal fun ColumnScope.MembershipCheckoutScreen(
                 Text(
                     "首年价、优惠资格及升级剩余期折算待业务确认，当前按所选城市年度售价下单。",
                     color = Muted,
-                    fontSize = 16.sp,
+                    fontSize = 15.sp,
                     lineHeight = 24.sp,
                 )
                 HorizontalDivider(color = Line, modifier = Modifier.padding(top = 12.dp))
@@ -219,7 +219,7 @@ internal fun ColumnScope.MembershipCheckoutScreen(
                         )
                         Column(Modifier.weight(1f).padding(start = 13.dp)) {
                             Text(title, fontSize = 15.sp)
-                            Text("云端沙箱，不调用真实支付渠道", color = Muted, fontSize = 16.sp)
+                            Text("云端沙箱，不调用真实支付渠道", color = Muted, fontSize = 13.sp)
                         }
                         RadioButton(method == id, onClick = { method = id }, enabled = !submitting)
                     }
@@ -236,28 +236,28 @@ internal fun ColumnScope.MembershipCheckoutScreen(
                         fontSize = 14.sp,
                         modifier = Modifier.weight(1f).padding(start = 13.dp),
                     )
-                    Text("暂不支持", color = Muted, fontSize = 16.sp)
+                    Text("暂不支持", color = Muted, fontSize = 13.sp)
                 }
             }
         }
         item {
-            Row(Modifier.fillMaxWidth().heightIn(min = 56.dp)
+            Row(Modifier.fillMaxWidth().heightIn(min = 52.dp)
                 .clickable(enabled = !submitting) { agreed = !agreed }, verticalAlignment = Alignment.Top) {
                 Checkbox(agreed, onCheckedChange = null, enabled = !submitting)
                 Column(Modifier.weight(1f).padding(top = 9.dp)) {
-                    Text("我已阅读并同意会员服务说明，知悉权益以所选地区和成交快照为准。", fontSize = 16.sp, lineHeight = 24.sp)
-                    TextButton(
+                    Text("我已阅读并同意会员服务说明，知悉权益以所选地区和成交快照为准。", fontSize = 15.sp, lineHeight = 24.sp)
+                    DriverTextButton(
                         onClick = { navigate(mRoute("agreement")) },
                         contentPadding = PaddingValues(0.dp),
                     ) {
-                        Text("查看《司机会员服务协议》", fontSize = 16.sp)
+                        Text("查看《司机会员服务协议》", fontSize = 15.sp)
                     }
                     if (autoRenew)
-                        TextButton(
+                        DriverTextButton(
                             onClick = { navigate(mRoute("renewal-rules")) },
                             contentPadding = PaddingValues(0.dp),
                         ) {
-                            Text("查看《自动续费说明》", fontSize = 16.sp)
+                            Text("查看《自动续费说明》", fontSize = 15.sp)
                         }
                 }
             }
@@ -265,7 +265,7 @@ internal fun ColumnScope.MembershipCheckoutScreen(
         failure?.let { reason ->
             item {
                 MembershipNotice("未能创建订单", reason, true)
-                TextButton(
+                DriverTextButton(
                     onClick = {
                         reloadCatalog()
                         failure = null
@@ -314,7 +314,7 @@ internal fun ColumnScope.MembershipCheckoutScreen(
         }
     }
     if (renewalDialog)
-        AlertDialog(
+        DriverDialog(
             onDismissRequest = { renewalDialog = false },
             title = { Text("开启沙箱续费授权？") },
             text = {
@@ -325,7 +325,7 @@ internal fun ColumnScope.MembershipCheckoutScreen(
                 )
             },
             confirmButton = {
-                TextButton(
+                DriverTextButton(
                     onClick = {
                         autoRenew = true
                         renewalDialog = false
@@ -334,7 +334,7 @@ internal fun ColumnScope.MembershipCheckoutScreen(
                     Text("确认主动开启")
                 }
             },
-            dismissButton = { TextButton(onClick = { renewalDialog = false }) { Text("保持关闭") } },
+            dismissButton = { DriverTextButton(onClick = { renewalDialog = false }) { Text("保持关闭") } },
         )
 }
 
@@ -379,8 +379,8 @@ internal fun ColumnScope.MembershipPaymentScreen(
                 }
         LazyColumn(
             Modifier.weight(1f),
-            contentPadding = PaddingValues(18.dp),
-            verticalArrangement = Arrangement.spacedBy(15.dp),
+            contentPadding = PaddingValues(horizontal = 16.dp, vertical = 12.dp),
+            verticalArrangement = Arrangement.spacedBy(12.dp),
         ) {
             item {
                 MembershipHero(gold = !active) {
@@ -401,14 +401,14 @@ internal fun ColumnScope.MembershipPaymentScreen(
                         else if (paid) "请刷新确认开通结果；当前不宣称已恢复接单。"
                         else if (pending) "等待服务端确认，未确认前不会显示权益生效。" else "当前为云端体验沙箱，不会发起真实扣款。",
                         color = Color.White,
-                        fontSize = 16.sp,
+                        fontSize = 15.sp,
                         lineHeight = 21.sp,
                         modifier = Modifier.padding(top = 9.dp),
                     )
                     Text(
                         "${if (paid) "实付" else "应付"} ${mMoney(order.mLong("amount"))}",
                         color = Color.White,
-                        fontSize = 30.sp,
+                        fontSize = 24.sp,
                         fontWeight = FontWeight.Bold,
                         modifier = Modifier.padding(top = 20.dp),
                     )
@@ -433,7 +433,7 @@ internal fun ColumnScope.MembershipPaymentScreen(
                     Text(
                         "订单编号 ${order.mText("id")}",
                         color = Muted,
-                        fontSize = 16.sp,
+                        fontSize = 15.sp,
                         modifier = Modifier.padding(top = 9.dp),
                     )
                 }
@@ -447,13 +447,13 @@ internal fun ColumnScope.MembershipPaymentScreen(
                             Text(
                                 snapshot.mText("rightsCountNotice"),
                                 color = Muted,
-                                fontSize = 16.sp,
+                                fontSize = 15.sp,
                                 lineHeight = 24.sp,
                             )
                         Text(
                             snapshot.optJSONObject("mapQuota")?.mText("label") ?: "地图额度见成交权益快照",
                             color = Green,
-                            fontSize = 16.sp,
+                            fontSize = 15.sp,
                         )
                         mRights(snapshot)
                             .filter { it.optBoolean("enabled") }
@@ -466,7 +466,7 @@ internal fun ColumnScope.MembershipPaymentScreen(
                                     Glyph("check", Green, Modifier.size(16.dp))
                                     Text(
                                         right.mText("label") + " · " + right.mText("value", "支持"),
-                                        fontSize = 16.sp,
+                                        fontSize = 15.sp,
                                         modifier = Modifier.padding(start = 7.dp),
                                     )
                                 }
@@ -504,7 +504,7 @@ internal fun ColumnScope.MembershipPaymentScreen(
                         Text(
                             "沙箱中的“处理中”不会自动伪造成功，可返回沙箱收银台提交明确结果。",
                             color = Muted,
-                            fontSize = 16.sp,
+                            fontSize = 15.sp,
                             lineHeight = 24.sp,
                             modifier = Modifier.padding(top = 9.dp),
                         )
@@ -522,7 +522,7 @@ internal fun ColumnScope.MembershipPaymentScreen(
                     }
                 }
                 item {
-                    TextButton(
+                    DriverTextButton(
                         onClick = { navigate(mRoute("records")) },
                         modifier = Modifier.fillMaxWidth(),
                     ) {
@@ -533,7 +533,7 @@ internal fun ColumnScope.MembershipPaymentScreen(
             failure?.let { error ->
                 item {
                     MembershipNotice("操作未完成", error, true)
-                    TextButton(
+                    DriverTextButton(
                         onClick = { navigate(mRoute("city", city = order.mText("city", ""))) },
                         modifier = Modifier.fillMaxWidth(),
                     ) {
@@ -549,14 +549,14 @@ internal fun ColumnScope.MembershipPaymentScreen(
             }
         }
         if (sheet && !paid && !paying)
-            AlertDialog(
+            DriverDialog(
                 onDismissRequest = { sheet = false },
                 title = { Text("云端沙箱收银台") },
                 text = {
                     Column(Modifier.heightIn(max = 520.dp).verticalScroll(rememberScrollState())) {
                         Text(
                             "订单 ${order.mText("id")}\n应付 ${mMoney(order.mLong("amount"))}\n选择结果以验证完整支付状态流程，不会真实扣款。",
-                            fontSize = 16.sp,
+                            fontSize = 15.sp,
                             color = Muted,
                             lineHeight = 21.sp,
                         )
@@ -570,7 +570,7 @@ internal fun ColumnScope.MembershipPaymentScreen(
                                     (method.ifBlank { order.mText("paymentMethod") }) == value,
                                     onClick = { method = value },
                                 )
-                                Text(label, fontSize = 16.sp)
+                                Text(label, fontSize = 15.sp)
                             }
                         }
                         listOf(
@@ -621,7 +621,7 @@ internal fun ColumnScope.MembershipPaymentScreen(
                             }
                     }
                 },
-                confirmButton = { TextButton(onClick = { sheet = false }) { Text("暂不支付") } },
+                confirmButton = { DriverTextButton(onClick = { sheet = false }) { Text("暂不支付") } },
             )
     }
 }

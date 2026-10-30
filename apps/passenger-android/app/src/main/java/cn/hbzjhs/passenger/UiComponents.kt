@@ -43,16 +43,19 @@ fun MenuRow(title: String, icon: ImageVector, subtitle: String? = null, onClick:
     Modifier
       .fillMaxWidth()
       .clickable(onClick = onClick)
-      .heightIn(min = 54.dp)
-      .padding(vertical = 10.dp),
+      .heightIn(min = 48.dp)
+      .padding(vertical = 6.dp),
     verticalAlignment = Alignment.CenterVertically,
-    horizontalArrangement = Arrangement.spacedBy(14.dp),
+    horizontalArrangement = Arrangement.spacedBy(12.dp),
   ) {
     val (accent, accentSoft) = iconAccent(icon)
     Box(
       modifier = Modifier
-        .size(36.dp)
-        .background(accentSoft, RoundedCornerShape(10.dp)),
+        .size(34.dp)
+        .background(
+          androidx.compose.ui.graphics.Brush.verticalGradient(listOf(Color.White, accentSoft)),
+          RoundedCornerShape(10.dp),
+        ),
       contentAlignment = Alignment.Center,
     ) {
       Icon(
@@ -65,10 +68,10 @@ fun MenuRow(title: String, icon: ImageVector, subtitle: String? = null, onClick:
     Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
       Text(
         title,
-        fontSize = 16.sp,
+        fontSize = TypeScale.Body,
         fontWeight = FontWeight.Medium,
         color = Ink,
-        lineHeight = 22.sp,
+        lineHeight = 20.sp,
       )
       subtitle?.let { Note(it) }
     }
@@ -108,7 +111,7 @@ fun ExpandablePanel(
         verticalAlignment = Alignment.CenterVertically,
       ) {
         Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
-          Text(title, fontWeight = FontWeight.SemiBold, fontSize = 16.sp, color = Ink)
+          Text(title, fontWeight = FontWeight.SemiBold, fontSize = TypeScale.Title, color = Ink)
           subtitle?.let { Note(it) }
         }
         Icon(
@@ -146,12 +149,12 @@ fun AddressRow(label: String, address: String, emphasize: Boolean = false, onCli
         ),
     )
     Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
-      Text(label, color = Muted, fontSize = 12.sp)
+      Text(label, color = Muted, fontSize = TypeScale.Caption)
       Text(
         address,
         fontWeight = if (emphasize) FontWeight.Bold else FontWeight.SemiBold,
-        fontSize = if (emphasize) 18.sp else 16.sp,
-        lineHeight = if (emphasize) 24.sp else 22.sp,
+        fontSize = TypeScale.Title,
+        lineHeight = 22.sp,
         color = Ink,
       )
     }
@@ -164,6 +167,10 @@ fun AddressRow(label: String, address: String, emphasize: Boolean = false, onCli
   }
 }
 
+/**
+ * The one popup style for the whole app: centered card, 18sp title, 15sp body and a single row of
+ * equal-height buttons (optional extra action on the left, cancel, then the gradient confirm).
+ */
 @Composable
 fun PassengerModal(
   title: String,
@@ -173,9 +180,16 @@ fun PassengerModal(
   onConfirm: () -> Unit,
   dismissLabel: String = "取消",
   confirmColor: Color = Teal,
+  extraLabel: String? = null,
+  onExtra: () -> Unit = {},
+  // Callers that already hold a higher-ranked slot (app-wide prompts) must not add a page slot,
+  // or they would outrank themselves and hide.
+  holdPageSlot: Boolean = true,
+  dismissEnabled: Boolean = true,
+  extraEnabled: Boolean = true,
   content: @Composable ColumnScope.() -> Unit,
 ) {
-  PassengerModalSlot()
+  if (holdPageSlot) PassengerModalSlot()
   Dialog(
     onDismissRequest = onDismiss,
     properties = DialogProperties(usePlatformDefaultWidth = false, decorFitsSystemWindows = false),
@@ -185,57 +199,81 @@ fun PassengerModal(
         .fillMaxSize()
         .safeDrawingPadding()
         .imePadding()
-        .padding(16.dp),
+        .padding(24.dp),
       contentAlignment = Alignment.Center,
     ) {
       Surface(
-        shape = RoundedCornerShape(24.dp),
+        shape = RoundedCornerShape(20.dp),
         color = Color.White,
-        shadowElevation = 8.dp,
+        shadowElevation = 12.dp,
         modifier = Modifier.fillMaxWidth(),
       ) {
         Column(
           Modifier
             .fillMaxWidth()
-            .heightIn(max = 680.dp)
-            .padding(22.dp),
-          verticalArrangement = Arrangement.spacedBy(14.dp),
+            .heightIn(max = 640.dp)
+            .padding(start = 20.dp, end = 20.dp, top = 20.dp, bottom = 16.dp),
+          verticalArrangement = Arrangement.spacedBy(12.dp),
         ) {
           Text(
             title,
-            fontSize = 20.sp,
+            fontSize = 18.sp,
             fontWeight = FontWeight.Bold,
-            lineHeight = 26.sp,
+            lineHeight = 24.sp,
             color = Ink,
           )
-          Column(
-            Modifier
-              .weight(1f, fill = false)
-              .verticalScroll(rememberScrollState()),
-            verticalArrangement = Arrangement.spacedBy(12.dp),
-            content = content,
-          )
-          HorizontalDivider(color = DividerTone, thickness = 0.8.dp)
-          Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-            TextButton(
+          ProvideTextStyle(TextStyle(fontSize = TypeScale.Body, lineHeight = 22.sp, color = Ink)) {
+            Column(
+              Modifier
+                .weight(1f, fill = false)
+                .verticalScroll(rememberScrollState()),
+              verticalArrangement = Arrangement.spacedBy(10.dp),
+              content = content,
+            )
+          }
+          Row(
+            Modifier.fillMaxWidth().padding(top = 4.dp),
+            horizontalArrangement = Arrangement.spacedBy(10.dp),
+            verticalAlignment = Alignment.CenterVertically,
+          ) {
+            val buttonShape = RoundedCornerShape(12.dp)
+            if (extraLabel != null)
+              OutlinedButton(
+                onClick = onExtra,
+                enabled = extraEnabled,
+                modifier = Modifier.weight(1f).height(46.dp),
+                shape = buttonShape,
+                border = BorderStroke(1.dp, DangerLine),
+                contentPadding = PaddingValues(horizontal = 6.dp),
+              ) {
+                Text(extraLabel, color = Danger, fontSize = TypeScale.Body, maxLines = 1)
+              }
+            Button(
               onClick = onDismiss,
-              modifier = Modifier.weight(0.4f).heightIn(min = 48.dp),
+              enabled = dismissEnabled,
+              modifier = Modifier.weight(1f).height(46.dp),
+              shape = buttonShape,
+              colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFF1F3F6), contentColor = Muted),
+              elevation = ButtonDefaults.buttonElevation(defaultElevation = 0.dp),
+              contentPadding = PaddingValues(horizontal = 6.dp),
             ) {
-              Text(dismissLabel, color = Muted, fontSize = 15.sp)
+              Text(dismissLabel, fontSize = TypeScale.Body, maxLines = 1)
             }
             Button(
               onClick = onConfirm,
               enabled = confirmEnabled,
-              modifier = Modifier.weight(0.6f).heightIn(min = 48.dp),
-              shape = RoundedCornerShape(12.dp),
+              modifier = Modifier.weight(if (extraLabel != null) 1.4f else 1.2f).height(46.dp),
+              shape = buttonShape,
               colors = ButtonDefaults.buttonColors(
                 containerColor = confirmColor,
                 contentColor = Color.White,
                 disabledContainerColor = Line,
                 disabledContentColor = Muted,
               ),
+              elevation = ButtonDefaults.buttonElevation(defaultElevation = 3.dp),
+              contentPadding = PaddingValues(horizontal = 6.dp),
             ) {
-              Text(confirmLabel, fontSize = 15.sp, fontWeight = FontWeight.SemiBold)
+              Text(confirmLabel, fontSize = TypeScale.Body, fontWeight = FontWeight.SemiBold, maxLines = 1)
             }
           }
         }
@@ -244,3 +282,112 @@ fun PassengerModal(
   }
 }
 
+/** Plain message popup in the unified style. */
+@Composable
+fun PassengerAlert(
+  title: String,
+  message: String,
+  confirmLabel: String,
+  onConfirm: () -> Unit,
+  onDismiss: () -> Unit,
+  dismissLabel: String = "取消",
+  confirmEnabled: Boolean = true,
+  confirmColor: Color = Teal,
+  extraLabel: String? = null,
+  onExtra: () -> Unit = {},
+) {
+  PassengerModal(title, onDismiss, confirmLabel, confirmEnabled, onConfirm, dismissLabel, confirmColor, extraLabel, onExtra) {
+    Text(message, color = Muted)
+  }
+}
+
+private enum class DialogButtonRole { None, Confirm, Dismiss }
+
+private val LocalDialogButtonRole = staticCompositionLocalOf { DialogButtonRole.None }
+
+/**
+ * Text-level action shown as a real button: a soft tinted pill instead of bare coloured text. Inside
+ * [PassengerDialog] the same call renders as the dialog's full-width confirm or cancel button.
+ */
+@Composable
+fun PassengerTextButton(
+  onClick: () -> Unit,
+  modifier: Modifier = Modifier,
+  enabled: Boolean = true,
+  contentPadding: PaddingValues = PaddingValues(horizontal = 14.dp, vertical = 6.dp),
+  content: @Composable RowScope.() -> Unit,
+) {
+  val role = LocalDialogButtonRole.current
+  val shape = RoundedCornerShape(if (role == DialogButtonRole.None) 10.dp else 12.dp)
+  Button(
+    onClick = onClick,
+    // Dialog buttons ignore caller sizing so every popup gets the same equal-height button row.
+    modifier = if (role == DialogButtonRole.None) modifier.heightIn(min = 36.dp) else Modifier.fillMaxWidth().height(46.dp),
+    enabled = enabled,
+    shape = shape,
+    colors = ButtonDefaults.buttonColors(
+      containerColor = if (role == DialogButtonRole.Dismiss) Color(0xFFF1F3F6) else BrandSoft,
+      contentColor = if (role == DialogButtonRole.Dismiss) Muted else BrandStrong,
+      disabledContainerColor = Color(0xFFF3F4F6),
+      disabledContentColor = Color(0xFF9CA3AF),
+    ),
+    border = if (role == DialogButtonRole.Confirm) BorderStroke(1.dp, Teal.copy(alpha = 0.45f)) else null,
+    elevation = ButtonDefaults.buttonElevation(defaultElevation = 0.dp),
+    contentPadding = if (role == DialogButtonRole.None) contentPadding else PaddingValues(horizontal = 6.dp),
+  ) {
+    ProvideTextStyle(
+      TextStyle(
+        fontSize = if (role == DialogButtonRole.None) 14.sp else TypeScale.Body,
+        fontWeight = if (role == DialogButtonRole.Confirm) FontWeight.SemiBold else FontWeight.Medium,
+      )
+    ) { content() }
+  }
+}
+
+/** Drop-in for Material's AlertDialog that renders in the unified [PassengerModal] look. */
+@Composable
+fun PassengerDialog(
+  onDismissRequest: () -> Unit,
+  confirmButton: @Composable () -> Unit,
+  modifier: Modifier = Modifier,
+  dismissButton: (@Composable () -> Unit)? = null,
+  title: (@Composable () -> Unit)? = null,
+  text: (@Composable () -> Unit)? = null,
+) {
+  Dialog(
+    onDismissRequest = onDismissRequest,
+    properties = DialogProperties(usePlatformDefaultWidth = false, decorFitsSystemWindows = false),
+  ) {
+    Box(
+      Modifier.fillMaxSize().safeDrawingPadding().imePadding().padding(24.dp),
+      contentAlignment = Alignment.Center,
+    ) {
+      Surface(shape = RoundedCornerShape(20.dp), color = Color.White, shadowElevation = 12.dp, modifier = modifier.fillMaxWidth()) {
+        Column(
+          Modifier.fillMaxWidth().heightIn(max = 640.dp).padding(start = 20.dp, end = 20.dp, top = 20.dp, bottom = 16.dp),
+          verticalArrangement = Arrangement.spacedBy(12.dp),
+        ) {
+          title?.let {
+            ProvideTextStyle(TextStyle(fontSize = 18.sp, lineHeight = 24.sp, fontWeight = FontWeight.Bold, color = Ink)) { it() }
+          }
+          text?.let {
+            // Long bodies bring their own scroll; nesting another vertical scroll here would crash.
+            Box(Modifier.weight(1f, fill = false)) {
+              ProvideTextStyle(TextStyle(fontSize = TypeScale.Body, lineHeight = 22.sp, color = Ink)) { it() }
+            }
+          }
+          Row(Modifier.fillMaxWidth().padding(top = 4.dp), horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+            dismissButton?.let {
+              Box(Modifier.weight(1f)) {
+                CompositionLocalProvider(LocalDialogButtonRole provides DialogButtonRole.Dismiss) { it() }
+              }
+            }
+            Box(Modifier.weight(1.2f)) {
+              CompositionLocalProvider(LocalDialogButtonRole provides DialogButtonRole.Confirm) { confirmButton() }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,64 @@
+{
+  "schemaVersion": 1,
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-ui-feedback-20261030",
+  "branch": "codex/ui-feedback-20261030",
+  "baseSha": "362c7f861a5063631c6da9ba198e04bc131402e4",
+  "cloudCandidateSha": "9495caa54e8b8581bba4d82c3fbac04701252418",
+  "updatedAt": "2026-10-30T20:42:52.365424+08:00",
+  "acceptance": "NOT_RUN",
+  "tests": [
+    {
+      "command": "python3 tools/check_coordination.py --memory-role frontend --session-id 01a182c6-c475-7110-bbae-0deafe6d2385",
+      "status": "PASS",
+      "exitCode": 0
+    },
+    {
+      "command": "ast.parse5 external preparation templates, without import/execute",
+      "status": "PASS",
+      "exitCode": 0
+    },
+    {
+      "command": "avdmanager create UITF_20261030 isolated fresh definition only; no boot",
+      "status": "PASS",
+      "exitCode": 0
+    },
+    {
+      "command": "Candidate compile/unit/native UI/package",
+      "status": "NOT_RUN",
+      "reason": "Root exact integration freeze pending; dirty/conflicted tree not copied or built"
+    }
+  ],
+  "pendingMergeSha": null,
+  "deploy_owner": "coordinator",
+  "releaseReady": false,
+  "id": "UITF-20261030-01",
+  "owner": "frontend",
+  "goal": "独立编译/测试并在本轮专用隔离模拟器验收两端新版UI",
+  "allow_paths": [
+    "coordination/tasks/UITF-20261030-01.json",
+    "coordination/tasks/UI30F-20261030-01.json",
+    "coordination/handoffs/frontend.md",
+    "coordination/evidence/UI30F-20261030-01/"
+  ],
+  "checks": [
+    "Wait exact integrated source freeze before builds; no product edits",
+    "Reuse SDK/JDK/cache/fixtures externally, no APK/cache/credentials in Git",
+    "Unit/build then native dialogs, fixed bottom actions all stages, location selection, settings/profile/wallet/qualification and small screen/large font",
+    "Android official tools only dedicated isolated emulator; user requests this batch test and publish with autonomous testing. No personal devices or live business writes. Cleanup after.",
+    "Canonical taskID UITF-20261030-01; initial dispatch alias UI30F-20261030-01 retained temporarily for running author/readers; same task, not separate work"
+  ],
+  "status": "WAIT_FREEZE_PREPARED",
+  "evidence": [
+    {
+      "path": "coordination/evidence/UI30F-20261030-01/READY.json",
+      "sha256": "8c3ab47add9b1331ce67fe29e647fa90b8780e5817a4a17d59ea718a9158d5be"
+    },
+    {
+      "path": "coordination/evidence/UI30F-20261030-01/ACCEPTANCE_PLAN.json",
+      "sha256": "6bc56b22a264ecc4d787d6b0c0f72c393d9d4071ac0939aab6dd7ae129ad7c69"
+    }
+  ],
+  "nextAction": "IDLE until root supplies exact integrated code21 freeze; no source stage/build/runtime started",
+  "legacyDispatchAlias": "UI30F-20261030-01",
+  "taskPathNote": "Canonical own-task path added to stale alias-only allow_paths per explicit UITF dispatch; legacy UI30F mirror remains same task, no root controls edited"
+}

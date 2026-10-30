@@ -21,6 +21,7 @@ import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Place
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.*
+import androidx.compose.ui.draw.shadow
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -44,115 +45,101 @@ fun ProfileScreen(
   var logout by remember { mutableStateOf(false) }
   var city by remember(p.text("city")) { mutableStateOf(p.text("city")) }
   PageColumn {
-    Card(
-      colors = CardDefaults.cardColors(containerColor = Color.White),
-      shape = RoundedCornerShape(20.dp),
-      border = BorderStroke(1.dp, Line),
-      elevation = CardDefaults.cardElevation(defaultElevation = 1.dp),
-      modifier = Modifier.fillMaxWidth(),
+    // Light-3D hero: gradient card, lit avatar and a small car; city lives in the menu below.
+    Box(
+      Modifier
+        .fillMaxWidth()
+        .shadow(8.dp, RoundedCornerShape(20.dp), spotColor = Teal)
+        .background(HeroGradient, RoundedCornerShape(20.dp))
+        .clickable { edit = true }
+        .padding(horizontal = 18.dp, vertical = 20.dp),
     ) {
-      Box(
-        Modifier
-          .fillMaxWidth()
-          .background(BrandSoft)
-          .padding(18.dp)
-      ) {
-        Row(
-          verticalAlignment = Alignment.CenterVertically,
-          horizontalArrangement = Arrangement.spacedBy(14.dp),
+      Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(14.dp)) {
+        Box(
+          Modifier
+            .size(58.dp)
+            .shadow(4.dp, CircleShape)
+            .background(androidx.compose.ui.graphics.Brush.verticalGradient(listOf(Color.White, BrandSoft)), CircleShape),
+          contentAlignment = Alignment.Center,
         ) {
-          Box(
-            modifier = Modifier
-              .size(56.dp)
-              .background(Color.White, CircleShape),
-            contentAlignment = Alignment.Center,
-          ) {
-            Icon(
-              Icons.Default.AccountCircle,
-              contentDescription = null,
-              tint = Teal,
-              modifier = Modifier.size(52.dp),
-            )
-          }
-          Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(3.dp)) {
-            Text(p.text("name", "体验乘客"), fontSize = 20.sp, fontWeight = FontWeight.Bold, color = Ink)
-            Row(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalAlignment = Alignment.CenterVertically) {
-              Text(p.text("mobile"), color = Muted, fontSize = 13.sp, modifier = Modifier.weight(1f), maxLines = 1, overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis)
-              Surface(
-                color = Color.White,
-                shape = RoundedCornerShape(4.dp),
-                border = BorderStroke(0.5.dp, Teal.copy(alpha = 0.4f)),
-              ) {
-                Text(
-                  p.text("cityName", "宜昌"),
-                  fontSize = 12.sp,
-                  color = Teal,
-                  fontWeight = FontWeight.Medium,
-                  modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp),
-                )
-              }
-            }
-          }
-          OutlinedButton(
-            onClick = { edit = true },
-            shape = RoundedCornerShape(10.dp),
-            border = BorderStroke(1.dp, Teal),
-            contentPadding = PaddingValues(horizontal = 12.dp, vertical = 6.dp),
-          ) {
-            Text("编辑", fontSize = 13.sp, color = Teal)
-          }
+          Text(p.text("name", "乘").take(1), fontSize = 24.sp, fontWeight = FontWeight.Bold, color = Teal)
         }
+        Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(4.dp)) {
+          Text(p.text("name", "体验乘客"), fontSize = TypeScale.Page, fontWeight = FontWeight.Bold, color = Color.White)
+          Text(
+            p.text("mobile").let { if (it.length >= 7) it.take(3) + "****" + it.takeLast(4) else it },
+            color = Color.White.copy(alpha = 0.85f),
+            fontSize = TypeScale.Caption,
+          )
+          Text("编辑资料 ›", color = Color.White.copy(alpha = 0.85f), fontSize = TypeScale.Caption)
+        }
+        CarIllustration(Modifier.size(width = 76.dp, height = 52.dp), body = Color.White)
       }
     }
-    PassengerSectionHeader("出行资料")
-    Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-      listOf("常用地址" to "favorites", "乘车人" to "riders", "发票抬头" to "invoiceTitles").forEach { (label, page) ->
-        val (tileTint, tileSoft) = when (page) { "favorites" -> Sky to SkySoft; "riders" -> Teal to BrandSoft; else -> Warm to WarmSoft }
-        Card(onClick = { navigate(page) }, colors = CardDefaults.cardColors(containerColor = tileSoft), shape = RoundedCornerShape(14.dp), border = BorderStroke(1.dp, tileTint.copy(alpha = 0.18f)), modifier = Modifier.weight(1f)) {
-          Column(Modifier.fillMaxWidth().padding(horizontal = 8.dp, vertical = 18.dp), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(8.dp)) {
-            Icon(if (page == "favorites") Icons.Default.Place else if (page == "riders") Icons.Default.Person else Icons.AutoMirrored.Filled.List, null, tint = tileTint)
+    Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+      listOf(
+        Triple("常用地址", "favorites", Icons.Default.Place),
+        Triple("乘车人", "riders", Icons.Default.Person),
+        Triple("发票抬头", "invoiceTitles", Icons.AutoMirrored.Filled.List),
+      ).forEach { (label, page, icon) ->
+        val (tileTint, tileSoft) = iconAccent(icon)
+        Card(
+          onClick = { navigate(page) },
+          colors = CardDefaults.cardColors(containerColor = Color.White),
+          shape = RoundedCornerShape(16.dp),
+          elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
+          modifier = Modifier.weight(1f),
+        ) {
+          Column(Modifier.fillMaxWidth().padding(vertical = 14.dp), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(8.dp)) {
+            Box(
+              Modifier.size(42.dp).shadow(3.dp, RoundedCornerShape(14.dp), spotColor = tileTint)
+                .background(androidx.compose.ui.graphics.Brush.verticalGradient(listOf(tileSoft, tileTint.copy(alpha = 0.28f))), RoundedCornerShape(14.dp)),
+              contentAlignment = Alignment.Center,
+            ) { Icon(icon, null, tint = tileTint, modifier = Modifier.size(22.dp)) }
             Text(label, color = Ink, fontSize = 14.sp, fontWeight = FontWeight.Medium)
           }
         }
       }
     }
-    Panel {
-      MenuRow(if (PassengerOperations.enabled(state,"invoice")) "模拟发票与回执" else "历史模拟回执", Icons.AutoMirrored.Filled.List, "查看申请与记录 · 不可报销") { navigate("invoices") }
+    Panel("我的服务") {
+      MenuRow(if (PassengerOperations.enabled(state,"invoice")) "模拟发票与回执" else "历史模拟回执", Icons.Default.ShoppingCart, "查看申请与记录 · 不可报销") { navigate("invoices") }
+      HorizontalDivider(color = DividerTone, thickness = 0.8.dp)
       MenuRow("安全中心与联系人", Icons.Default.Lock, "当前账号本机保存") { navigate("safety") }
+      HorizontalDivider(color = DividerTone, thickness = 0.8.dp)
+      MenuRow("服务城市", Icons.Default.LocationOn, p.text("cityName", "宜昌市")) { edit = true }
     }
-    Panel("更多体验") {
-      Note("卡券、积分与邀请 · 未接营销账务")
-      MenuRow("我的卡券 · 演示", Icons.Default.Info, "0张 · 不参与订单抵扣") { navigate("coupons") }
+    Panel("权益与活动") {
+      MenuRow("我的卡券", Icons.Default.Star, "0 张 · 演示，不参与订单抵扣") { navigate("coupons") }
       HorizontalDivider(color = DividerTone, thickness = 0.8.dp)
-      MenuRow("积分 · 演示", Icons.Default.Info, "0分 · 未接营销账务") { navigate("points") }
+      MenuRow("积分", Icons.Default.Favorite, "0 分 · 演示，未接营销账务") { navigate("points") }
       HorizontalDivider(color = DividerTone, thickness = 0.8.dp)
-      MenuRow("邀请体验 · 演示", Icons.Default.Person, "无实际奖励或拉新绑定") { navigate("invite") }
+      MenuRow("邀请好友", Icons.Default.Share, "演示 · 无实际奖励") { navigate("invite") }
     }
     Panel("帮助与反馈") {
-      MenuRow("我的投诉", Icons.Default.Email) { navigate("complaints") }
+      MenuRow("我的投诉", Icons.Default.Warning) { navigate("complaints") }
       HorizontalDivider(color = DividerTone, thickness = 0.8.dp)
       MenuRow("意见反馈与记录", Icons.Default.Email) { navigate("feedback") }
       HorizontalDivider(color = DividerTone, thickness = 0.8.dp)
-      MenuRow("已屏蔽司机", Icons.Default.Lock) { navigate("blocked") }
+      MenuRow("已屏蔽司机", Icons.Default.Face) { navigate("blocked") }
       HorizontalDivider(color = DividerTone, thickness = 0.8.dp)
-      MenuRow("公告、客服与服务说明", Icons.Default.Info) { navigate("help") }
+      MenuRow("公告、客服与服务说明", Icons.Default.Notifications) { navigate("help") }
     }
     Panel("应用与连接") {
       MenuRow("连接状态", Icons.Default.Settings, "网络异常时重试") { settings() }
-      HorizontalDivider(color = DividerTone, thickness = 0.8.dp)
-      Note("体验版 ${BuildConfig.VERSION_NAME}")
-      Note("与司机端共用订单。支付、退款与发票均为模拟，不产生真实资金或凭证。定位需设备授权；地点搜索与逆地理依赖可用服务，导航通过外部地图应用打开。短信、电话中继及实时人工客服尚未接入；投诉支持后台查看和回复。")
+      Note("体验版 ${BuildConfig.VERSION_NAME} · 与司机端共用订单；支付、退款与发票均为模拟，不产生真实资金或凭证。")
+      Note("定位需设备授权；地点搜索与逆地理依赖可用服务，导航通过外部地图应用打开。短信、电话中继及实时人工客服尚未接入；投诉支持后台查看和回复。")
     }
     OutlinedButton(
       onClick = { logout = true },
-      modifier = Modifier.fillMaxWidth().heightIn(min = 52.dp),
+      modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp),
       shape = RoundedCornerShape(14.dp),
       colors = ButtonDefaults.outlinedButtonColors(
+        containerColor = Color.White,
         contentColor = Danger,
       ),
       border = BorderStroke(1.dp, DangerLine),
     ) {
-      Text("退出当前账号", fontSize = 15.sp, fontWeight = FontWeight.Medium)
+      Text("退出当前账号", fontSize = TypeScale.Body, fontWeight = FontWeight.Medium)
     }
   }
   if (edit)
@@ -188,12 +175,12 @@ fun ProfileScreen(
     }
   PassengerModalSlot(logout)
   if (logout)
-    AlertDialog(
+    PassengerDialog(
       onDismissRequest = { logout = false },
       title = { Text("退出登录？", fontWeight = FontWeight.Bold, color = Ink) },
       text = { Text("本机登录凭证将移除，云端订单与资料仍保留。下次可选择体验账号一键进入。") },
       confirmButton = {
-        TextButton(
+        PassengerTextButton(
           onClick = {
             store.logout()
             logout = false
@@ -203,7 +190,7 @@ fun ProfileScreen(
         }
       },
       dismissButton = {
-        TextButton(onClick = { logout = false }) {
+        PassengerTextButton(onClick = { logout = false }) {
           Text("取消", color = Muted)
         }
       },
@@ -239,8 +226,14 @@ fun FavoritesScreen(state: JSONObject, store: PassengerStore) {
       }
     var error by remember { mutableStateOf("") }
     var isDefault by remember(f) { mutableStateOf(PassengerDefaults.id(state, "FAVORITE") == f.text("id") && f.text("id").isNotBlank()) }
+    var picking by remember(f) { mutableStateOf(false) }
+    // Held across the editor and its address picker so app-wide popups keep waiting.
     PassengerModalSlot()
-    AlertDialog(
+    if (picking)
+      AddressDialog(address, lat, lng, emptyList(), { picking = false }, city = state.optJSONObject("passenger")?.text("cityName").orEmpty()) { n, a, b, _ ->
+        address = n.take(100); lat = a; lng = b; error = ""; picking = false
+      }
+    else PassengerDialog(
       onDismissRequest = { edit = null },
       title = { Text("保存常用地址") },
       text = {
@@ -249,19 +242,17 @@ fun FavoritesScreen(state: JSONObject, store: PassengerStore) {
           verticalArrangement = Arrangement.spacedBy(10.dp),
         ) {
           Field(label, { label = it.take(30) }, "标签（例如家、公司）")
-          Field(address, { address = it.take(100) }, "地址名称")
-          Field(lat, { lat = it }, "WGS84 纬度", KeyboardType.Decimal)
-          Field(lng, { lng = it }, "WGS84 经度", KeyboardType.Decimal)
+          AddressRow("地点", address.ifBlank { "点此搜索或在地图上选择" }) { picking = true }
           PassengerDefaultCheck(isDefault, "设为默认常用地址") { isDefault = it }
           if (error.isNotBlank()) Text(error, color = MaterialTheme.colorScheme.error)
         }
       },
       confirmButton = {
-        TextButton(
+        PassengerTextButton(
           enabled = !busy,
           onClick = {
             runCatching {
-                require(label.trim().isNotBlank() && address.trim().length >= 2) { "请填写标签与地址" }
+                require(label.trim().isNotBlank() && address.trim().length >= 2 && lat.isNotBlank()) { "请填写标签并选择地点" }
                 val payload =
                   JSONObject()
                     .put("isDefault", isDefault)
@@ -278,7 +269,7 @@ fun FavoritesScreen(state: JSONObject, store: PassengerStore) {
           Text("保存")
         }
       },
-      dismissButton = { TextButton(onClick = { edit = null }) { Text("取消") } },
+      dismissButton = { PassengerTextButton(onClick = { edit = null }) { Text("取消") } },
     )
   }
   remove?.let { f ->
@@ -403,11 +394,11 @@ fun HelpScreen(state: JSONObject, store: PassengerStore) {
 @Composable
 fun DeleteDialog(title: String, close: () -> Unit, remove: () -> Unit) {
   PassengerModalSlot()
-  AlertDialog(
+  PassengerDialog(
     onDismissRequest = close,
     title = { Text(title) },
     text = { Text("删除后此条资料不会再用于新的订单。") },
-    confirmButton = { TextButton(onClick = remove) { Text("删除") } },
-    dismissButton = { TextButton(onClick = close) { Text("取消") } },
+    confirmButton = { PassengerTextButton(onClick = remove) { Text("删除") } },
+    dismissButton = { PassengerTextButton(onClick = close) { Text("取消") } },
   )
 }

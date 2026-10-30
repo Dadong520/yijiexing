@@ -55,7 +55,8 @@ import kotlinx.coroutines.delay
 val Teal = Color(0xFF00796E)
 val Ink = Color(0xFF0F1B2A)
 val Muted = Color(0xFF4B5B6B)
-val Paper = Color(0xFFF2F6F7)
+// Neutral cool page grey; the old green-grey read as muddy behind soft green panels.
+val Paper = Color(0xFFF4F6F9)
 val Amber = Color(0xFFF59E0B)
 
 class MainActivity : ComponentActivity() {
@@ -193,7 +194,7 @@ fun PassengerApp(
             color = Teal,
             modifier = Modifier.weight(1f),
           )
-          TextButton(onClick = { showPermissionGuide = true }) { Text("权限", color = Teal) }
+          PassengerTextButton(onClick = { showPermissionGuide = true }) { Text("权限", color = Teal) }
           if (logged) {
             Text(
               state.optJSONObject("passenger")?.text("cityName", "宜昌市").orEmpty(),
@@ -203,7 +204,7 @@ fun PassengerApp(
             IconButton(onClick = { store.refresh() }, enabled = !busy) {
               Icon(Icons.Default.Refresh, contentDescription = "刷新订单", tint = Teal)
             }
-          } else TextButton(onClick = { settings = true }) { Text("连接设置") }
+          } else PassengerTextButton(onClick = { settings = true }) { Text("连接设置") }
         }
         if (logged && !connected)
           Row(
@@ -213,7 +214,7 @@ fun PassengerApp(
             verticalAlignment = Alignment.CenterVertically,
           ) {
             Text("连接暂未更新，请刷新重试", color = Amber, fontSize = 13.sp, modifier = Modifier.weight(1f))
-            TextButton(onClick = { store.refresh() }, enabled = !busy) { Text("重试连接") }
+            PassengerTextButton(onClick = { store.refresh() }, enabled = !busy) { Text("重试连接") }
           }
         if (busy) {
           LinearProgressIndicator(Modifier.fillMaxWidth())
@@ -230,7 +231,7 @@ fun PassengerApp(
             verticalAlignment = Alignment.CenterVertically,
           ) {
             Text(it, color = Color(0xFF8F3626), fontSize = 14.sp, modifier = Modifier.weight(1f))
-            TextButton(
+            PassengerTextButton(
               onClick = {
                 store.clearError()
                 if (logged) store.refresh()
@@ -258,7 +259,7 @@ fun PassengerApp(
                 label = { Text(title) },
                 colors =
                   NavigationBarItemDefaults.colors(
-                    indicatorColor = Color(0xFFE4F4EF),
+                    indicatorColor = BrandSoft,
                     selectedIconColor = Teal,
                     selectedTextColor = Teal,
                     unselectedIconColor = Muted,
@@ -281,7 +282,7 @@ fun PassengerApp(
               page = "orders"
             }
           }
-        else OrderDetail(order, store, busy) {
+        else OrderDetail(order, store, busy, openOrder = { selected = it }) {
           // Called only from a successful cancellation callback.
           selected = ""
           page = "home"
@@ -333,23 +334,27 @@ fun PageColumn(content: @Composable ColumnScope.() -> Unit) {
 fun Panel(title: String? = null, content: @Composable ColumnScope.() -> Unit) {
   Card(
     colors = CardDefaults.cardColors(containerColor = Color.White),
-    shape = RoundedCornerShape(18.dp),
+    shape = RoundedCornerShape(16.dp),
     border = BorderStroke(1.dp, Color(0xFFEDEFF2)),
-    elevation = CardDefaults.cardElevation(defaultElevation = 1.dp),
+    elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
     modifier = Modifier.fillMaxWidth(),
   ) {
     Column(
-      Modifier.padding(horizontal = Gap.L, vertical = Gap.L),
+      Modifier.padding(horizontal = Gap.L, vertical = Gap.M),
       verticalArrangement = Arrangement.spacedBy(Gap.S),
     ) {
       title?.let {
-        Text(
-          it,
-          fontWeight = FontWeight.Bold,
-          fontSize = 17.sp,
-          color = Ink,
-          lineHeight = 22.sp,
-        )
+        Row(verticalAlignment = Alignment.CenterVertically) {
+          Box(Modifier.size(width = 4.dp, height = 14.dp).background(BrandGradient, RoundedCornerShape(2.dp)))
+          Text(
+            it,
+            fontWeight = FontWeight.Bold,
+            fontSize = TypeScale.Title,
+            color = Ink,
+            lineHeight = 22.sp,
+            modifier = Modifier.padding(start = Gap.S),
+          )
+        }
       }
       content()
     }
@@ -361,8 +366,8 @@ fun Note(text: String) {
   Text(
     text,
     color = Muted,
-    fontSize = 13.sp,
-    lineHeight = 19.sp,
+    fontSize = TypeScale.Caption,
+    lineHeight = 18.sp,
   )
 }
 
@@ -371,10 +376,10 @@ fun SectionTitle(title: String, subtitle: String = "") {
   Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
     Text(
       title,
-      fontSize = 24.sp,
+      fontSize = TypeScale.Page,
       fontWeight = FontWeight.Bold,
       color = Ink,
-      lineHeight = 32.sp,
+      lineHeight = 28.sp,
     )
     if (subtitle.isNotBlank()) Note(subtitle)
   }
@@ -382,25 +387,7 @@ fun SectionTitle(title: String, subtitle: String = "") {
 
 @Composable
 fun ActionButton(label: String, enabled: Boolean = true, onClick: () -> Unit) {
-  Button(
-    onClick = onClick,
-    enabled = enabled,
-    modifier = Modifier.fillMaxWidth().heightIn(min = 54.dp),
-    shape = RoundedCornerShape(14.dp),
-    colors = ButtonDefaults.buttonColors(
-      containerColor = Teal,
-      contentColor = Color.White,
-      disabledContainerColor = Color(0xFFE5E7EB),
-      disabledContentColor = Color(0xFF9CA3AF),
-    ),
-  ) {
-    Text(
-      label,
-      fontSize = 16.sp,
-      fontWeight = FontWeight.SemiBold,
-      lineHeight = 22.sp,
-    )
-  }
+  GradientButton(label, enabled, onClick = onClick)
 }
 
 @Composable
@@ -415,6 +402,7 @@ fun Field(
     value = value,
     onValueChange = onValue,
     label = { Text(label, fontSize = 14.sp) },
+    textStyle = TextStyle(fontSize = TypeScale.Body),
     modifier = Modifier.fillMaxWidth(),
     shape = RoundedCornerShape(12.dp),
     colors = OutlinedTextFieldDefaults.colors(
@@ -443,13 +431,13 @@ fun EmptyCard(title: String, desc: String) {
       Text(
         title,
         fontWeight = FontWeight.SemiBold,
-        fontSize = 16.sp,
+        fontSize = TypeScale.Title,
         color = Ink,
       )
       Text(
         desc,
         color = Muted,
-        fontSize = 13.sp,
+        fontSize = TypeScale.Caption,
         lineHeight = 20.sp,
         textAlign = TextAlign.Center,
       )
@@ -468,7 +456,7 @@ fun KV(label: String, value: String) {
       label,
       color = Muted,
       modifier = Modifier.weight(0.38f),
-      fontSize = 14.sp,
+      fontSize = 13.sp,
       lineHeight = 20.sp,
     )
     Text(
@@ -486,7 +474,7 @@ fun KV(label: String, value: String) {
 fun SettingsDialog(store: PassengerStore, configured: Boolean, close: () -> Unit) {
   val settingsError by store.error.collectAsState()
   val logged by store.loggedIn.collectAsState()
-  AlertDialog(
+  PassengerDialog(
     onDismissRequest = close,
     title = { Text("连接状态") },
     text = {
@@ -500,13 +488,13 @@ fun SettingsDialog(store: PassengerStore, configured: Boolean, close: () -> Unit
       }
     },
     confirmButton = {
-      TextButton(
+      PassengerTextButton(
         onClick = { if (logged) store.refresh() else close() },
       ) {
         Text(if (logged) "重试连接" else "返回体验", color = Teal)
       }
     },
-    dismissButton = { TextButton(onClick = close) { Text("关闭") } },
+    dismissButton = { PassengerTextButton(onClick = close) { Text("关闭") } },
   )
 }
 
@@ -562,7 +550,7 @@ fun LoginScreen(store: PassengerStore, configured: Boolean, settings: () -> Unit
           )
           Note("选择目的地，查看司机报价，与司机端共享同一订单")
         }
-        TextButton(
+        PassengerTextButton(
           onClick = settings,
           modifier = Modifier.heightIn(min = 48.dp),
         ) {
@@ -646,12 +634,12 @@ fun PassengerVisualTheme(content: @Composable () -> Unit) {
   MaterialTheme(
     colorScheme = colorScheme,
     typography = Typography(
-      bodyLarge = TextStyle(fontSize = 16.sp, lineHeight = 24.sp),
-      bodyMedium = TextStyle(fontSize = 16.sp, lineHeight = 23.sp),
-      bodySmall = TextStyle(fontSize = 13.sp, lineHeight = 19.sp),
-      titleLarge = TextStyle(fontSize = 24.sp, lineHeight = 30.sp, fontWeight = FontWeight.Bold),
-      titleMedium = TextStyle(fontSize = 18.sp, lineHeight = 24.sp, fontWeight = FontWeight.SemiBold),
-      labelLarge = TextStyle(fontSize = 16.sp, lineHeight = 22.sp, fontWeight = FontWeight.SemiBold),
+      bodyLarge = TextStyle(fontSize = TypeScale.Body, lineHeight = 22.sp),
+      bodyMedium = TextStyle(fontSize = TypeScale.Body, lineHeight = 22.sp),
+      bodySmall = TextStyle(fontSize = TypeScale.Caption, lineHeight = 18.sp),
+      titleLarge = TextStyle(fontSize = TypeScale.Page, lineHeight = 28.sp, fontWeight = FontWeight.Bold),
+      titleMedium = TextStyle(fontSize = TypeScale.Title, lineHeight = 22.sp, fontWeight = FontWeight.SemiBold),
+      labelLarge = TextStyle(fontSize = TypeScale.Body, lineHeight = 20.sp, fontWeight = FontWeight.SemiBold),
     ),
     content = content,
   )
