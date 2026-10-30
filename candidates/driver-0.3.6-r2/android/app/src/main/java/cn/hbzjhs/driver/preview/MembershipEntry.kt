@@ -51,7 +51,7 @@ fun MembershipEntry(
             Glyph("shield", Green, Modifier.size(16.dp))
             Text(
                 "云端体验沙箱 · 无真实扣款和自动扣款",
-                fontSize = 16.sp,
+                fontSize = 15.sp,
                 color = Green,
                 modifier = Modifier.padding(start = 7.dp),
             )
@@ -125,7 +125,7 @@ internal fun ColumnScope.MembershipLoad(
             Text(
                 "正在读取已发布的会员配置",
                 color = Muted,
-                fontSize = 16.sp,
+                fontSize = 15.sp,
                 modifier = Modifier.padding(top = 15.dp),
             )
         }
@@ -138,7 +138,7 @@ internal fun ColumnScope.MembershipLoad(
             Glyph("bell", Orange, Modifier.size(42.dp))
             Text(
                 "暂时无法读取",
-                fontSize = 19.sp,
+                fontSize = 16.sp,
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier.padding(top = 16.dp),
             )
@@ -156,8 +156,8 @@ internal fun ColumnScope.MembershipLoad(
                 Modifier.fillMaxWidth().background(Color(0xFFFFF2E6)).padding(horizontal = 18.dp),
                 verticalAlignment = Alignment.CenterVertically,
             ) {
-                Text(error, color = Orange, fontSize = 16.sp, modifier = Modifier.weight(1f))
-                TextButton(onClick = onRetry) { Text("重试") }
+                Text(error, color = Orange, fontSize = 15.sp, modifier = Modifier.weight(1f))
+                DriverTextButton(onClick = onRetry) { Text("重试") }
             }
         }
         content(resource.data!!)

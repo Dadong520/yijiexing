@@ -43,9 +43,9 @@ fun PassengerCompanyPhone(company: JSONObject?) {
     if (status == "CONFIGURED" && phone.isNotBlank()) ActionButton("联系公司客服") { confirm = true }
     if(error.isNotBlank()) Text(error, color=MaterialTheme.colorScheme.error)
   }
-  if(confirm) AlertDialog(onDismissRequest={confirm=false},title={Text("打开系统拨号？")},text={Text("$phone\n进入系统拨号界面后，由您决定是否拨出。")},
-    confirmButton={TextButton(onClick={confirm=false;runCatching { context.startActivity(Intent(Intent.ACTION_DIAL,Uri.fromParts("tel",phone,null))) }.onFailure { error="无法打开拨号应用，请手动拨号。" }}){Text("打开拨号")}},
-    dismissButton={TextButton(onClick={confirm=false}){Text("取消")}})
+  if(confirm) PassengerDialog(onDismissRequest={confirm=false},title={Text("打开系统拨号？")},text={Text("$phone\n进入系统拨号界面后，由您决定是否拨出。")},
+    confirmButton={PassengerTextButton(onClick={confirm=false;runCatching { context.startActivity(Intent(Intent.ACTION_DIAL,Uri.fromParts("tel",phone,null))) }.onFailure { error="无法打开拨号应用，请手动拨号。" }}){Text("打开拨号")}},
+    dismissButton={PassengerTextButton(onClick={confirm=false}){Text("取消")}})
 }
 
 @Composable
@@ -56,9 +56,9 @@ fun PassengerCompanySelector(state: JSONObject, store: PassengerStore) {
   if(ops.rows("companies").isNotEmpty()) Panel("选择客服公司") {
     Note("有活动订单公司时优先使用订单公司；此选择不会改变历史订单公司或派单规则。")
     ops.rows("companies").forEach { c ->
-      OutlinedButton(enabled=!busy,onClick={store.action("ops.company.select",JSONObject().put("companyId",c.text("id")))},modifier=Modifier.fillMaxWidth()) { Text(c.text("name")) }
+      SecondaryButton(c.text("name"), !busy) { store.action("ops.company.select",JSONObject().put("companyId",c.text("id"))) }
     }
-    TextButton(enabled=!busy,onClick={store.action("ops.company.select",JSONObject().put("companyId",JSONObject.NULL))}){Text("清除本人选择")}
+    PassengerTextButton(enabled=!busy,onClick={store.action("ops.company.select",JSONObject().put("companyId",JSONObject.NULL))}){Text("清除本人选择")}
   }
 }
 
@@ -89,11 +89,11 @@ fun PassengerAnnouncements(state: JSONObject, store: PassengerStore, logged: Boo
     }
   }
   showing?.let { row ->
-    AlertDialog(onDismissRequest={showing=null},title={Text(row.text("title"))},
+    PassengerDialog(onDismissRequest={showing=null},title={Text(row.text("title"))},
       text={Text(row.text("content"),modifier=Modifier.verticalScroll(rememberScrollState()))},
-      confirmButton={TextButton(onClick={showing=null}){Text("知道了")}})
+      confirmButton={PassengerTextButton(onClick={showing=null}){Text("知道了")}})
   }
-  if(failed&&candidate!=null) AlertDialog(onDismissRequest={failed=false;pausedKey=candidateKey},title={Text("公告暂未读取完成")},
+  if(failed&&candidate!=null) PassengerDialog(onDismissRequest={failed=false;pausedKey=candidateKey},title={Text("公告暂未读取完成")},
     text={Text("请检查网络后重试。公告通过服务端回执去重，不会重复消耗展示次数。")},
-    confirmButton={TextButton(onClick={failed=false;store.refresh()}){Text("重试")}},dismissButton={TextButton(onClick={failed=false;pausedKey=candidateKey}){Text("稍后")}})
+    confirmButton={PassengerTextButton(onClick={failed=false;store.refresh()}){Text("重试")}},dismissButton={PassengerTextButton(onClick={failed=false;pausedKey=candidateKey}){Text("稍后")}})
 }

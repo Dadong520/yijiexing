@@ -39,7 +39,7 @@ fun PassengerFullPage(
                         .padding(horizontal = 8.dp, vertical = 4.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    TextButton(onClick = onBack) {
+                    PassengerTextButton(onClick = onBack) {
                         Text(text = "返回", color = Teal)
                     }
                     Text(

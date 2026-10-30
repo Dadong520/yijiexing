@@ -8,6 +8,9 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
+import androidx.compose.material.icons.filled.Warning
+import androidx.compose.foundation.background
+import androidx.compose.ui.draw.shadow
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -24,7 +27,7 @@ import org.json.JSONObject
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun OrderDetail(o: JSONObject, store: PassengerStore, busy: Boolean, onHome: () -> Unit = {}) {
+fun OrderDetail(o: JSONObject, store: PassengerStore, busy: Boolean, openOrder: (String) -> Unit = {}, onHome: () -> Unit = {}) {
   val id = o.text("id")
   val stage = o.text("stage")
   val driver = o.optJSONObject("driver")
@@ -72,38 +75,37 @@ fun OrderDetail(o: JSONObject, store: PassengerStore, busy: Boolean, onHome: () 
   val cancellable =
     stage in
       listOf("AVAILABLE", "BID_SENT", "PREPAY", "RESERVED", "PICKUP", "ARRIVED", "WAIT_CONTINUE")
-  PageColumn {
-    SectionTitle(stageName(stage), orderSummary(o))
-    Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
+  val payable =
+    stage in listOf("PREPAY", "WAIT_PAY") && !(negotiated && o.text("negotiationStatus") != "OFFERED")
+  val allState by store.state.collectAsState()
+  val unpaidOther =
+    allState.rows("orders").firstOrNull {
+      it.text("id") != id && it.text("stage") == "WAIT_PAY" && !it.optBoolean("paid")
+    }
+  Column(Modifier.fillMaxSize()) {
+  Column(
+    Modifier
+      .weight(1f)
+      .verticalScroll(rememberScrollState())
+      .padding(horizontal = Gap.L, vertical = Gap.M),
+    verticalArrangement = Arrangement.spacedBy(Gap.M),
+  ) {
+    // The status message sits above the route map so the passenger sees what changed at a glance.
+    OrderStatusBanner(stageName(stage), stageMessage(o, negotiated), orderSummary(o))
+    if (unpaidOther != null && stage in listOf("AVAILABLE", "RESERVED", "PICKUP", "PREPAY"))
+      OutstandingPaymentNotice { openOrder(unpaidOther.text("id")) }
+    Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(Gap.S)) {
       IdentifierButton(id, "订单信息")
-      TextButton(onClick = { contactPage = true }) { Text("联系与帮助") }
-    }
-    Row(
-      Modifier.fillMaxWidth().heightIn(min = 48.dp),
-      verticalAlignment = Alignment.CenterVertically,
-      horizontalArrangement = Arrangement.spacedBy(8.dp),
-    ) {
-      Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
-        Text(
-          if (o.optBoolean("destinationPending")) "费用待定（并非免费）"
-          else "${orderFarePresentation(o).label} ¥${money(o.optLong("fare"))}",
-          fontSize = 18.sp,
-          fontWeight = FontWeight.Bold,
-          color = Ink,
-        )
-        Note("${paymentName(o.text("paymentStatus", if (o.optBoolean("paid")) "SUCCESS" else "UNPAID"))} · 支付和退款均为模拟")
-      }
-    }
-    if (cancellable) OutlinedButton(
-      onClick = { cancelChoice = "行程计划有变"; cancelOther = ""; dialog = "cancel" },
-      enabled = !busy,
-      modifier = Modifier.fillMaxWidth().heightIn(min = 52.dp),
-      shape = androidx.compose.foundation.shape.RoundedCornerShape(14.dp),
-      border = androidx.compose.foundation.BorderStroke(1.5.dp, if (busy) Line else Danger),
-      colors = ButtonDefaults.outlinedButtonColors(containerColor = DangerSoft, contentColor = Danger, disabledContentColor = Muted.copy(alpha = 0.6f)),
-    ) {
-      Icon(Icons.Default.Close, contentDescription = null, modifier = Modifier.size(18.dp))
-      Text(if (stage == "AVAILABLE") "取消订单（等待接单中）" else "取消订单", fontSize = 16.sp, fontWeight = FontWeight.Bold, modifier = Modifier.padding(start = 6.dp))
+      PassengerTextButton(onClick = { contactPage = true }) { Text("联系与帮助") }
+      Spacer(Modifier.weight(1f))
+      Text(
+        if (o.optBoolean("destinationPending")) "费用待定"
+        else "¥${money(o.optLong("fare"))}",
+        fontSize = TypeScale.Page,
+        fontWeight = FontWeight.Bold,
+        color = Ink,
+        modifier = Modifier.align(Alignment.CenterVertically),
+      )
     }
     Panel("行程路线") {
       if (o.text("scheduledAt").isNotBlank()) {
@@ -136,10 +138,7 @@ fun OrderDetail(o: JSONObject, store: PassengerStore, busy: Boolean, onHome: () 
           modifier = Modifier.fillMaxSize(),
         )
       }
-      Note("地图展示起终点与司机最新上报位置；直接连线仅供示意，非真实道路导航。")
-      if (hasDriverLoc) {
-        Note("司机上报位置：${loc!!.optDouble("latitude")}, ${loc.optDouble("longitude")} · 上报于 ${driverTime.orEmpty()}${if (!driverAccuracy.isNullOrBlank()) " · 精度约 $driverAccuracy" else ""}（单次上报非持续追踪）")
-      }
+      if (hasDriverLoc) Note("司机位置更新于 ${driverTime.orEmpty()}")
 
       Text("出发  ${o.text("origin")}", fontWeight = FontWeight.Bold)
       o.rows("waypoints").forEachIndexed { index, w ->
@@ -163,59 +162,30 @@ fun OrderDetail(o: JSONObject, store: PassengerStore, busy: Boolean, onHome: () 
           dialog = "destination"
         }
       }
-      TextButton(onClick = { showRoute = !showRoute }) {
+      PassengerTextButton(onClick = { showRoute = !showRoute }) {
         Text(if (showRoute) "收起乘车人与备注信息" else "乘车人与备注信息")
       }
       if (showRoute) {
-        RouteDiagram(o)
-        Note("坐标连线示意 · 非真实道路导航；不包含实时路况、自动定位或正式地图搜索。")
         if (o.text("remark").isNotBlank()) KV("乘客备注", o.text("remark"))
         o.optJSONObject("rider")?.let { KV("乘车人", it.text("name")) }
         KV("乘车手机号尾号", o.text("phoneTail"))
       }
     }
     PassengerTripDistanceCard(o, store, busy)
-    Panel {
-      Text(
-        when (stage) {
-          "WAIT_CONTINUE" -> "司机已取消接驾。您可以继续呼叫其他司机，或取消此次行程。若已预付，系统已记录模拟退款。"
-          "AVAILABLE" -> if (o.text("kind") == "BID") "司机报价后，请在下方比较并选定司机。" else "订单已发送到司机端，等待司机接单。"
-          "PREPAY" ->
-            if (negotiated) {
-              if (o.text("negotiationStatus") == "DISPUTED") "您已提出价格异议，等待原司机重新报价。异议未解决前不可付款。"
-              else "您与司机已线下配对。请核对车牌、报价版本和金额；明确确认后模拟支付，随后等待接驾；司机核验上车和距离后开始行程。"
-            } else "已选定司机，请模拟预付后等待接驾。"
-          "RESERVED" -> "司机已接单，将按预约时间前来接您。"
-          "PICKUP" -> "司机正在前往上车点，请在安全位置等待。"
-          "ARRIVED" -> "司机已到达。上车时请告知乘车手机号尾号 ${o.text("phoneTail")}，由司机核验后开始行程。"
-          "TRIP" -> "行程已开始，请系好安全带。司机到达终点后会结束行程。"
-          "WAIT_PAY" -> "行程已结束，请核对费用后进行模拟支付。"
-          "DONE" -> "感谢乘坐，欢迎评价本次行程。"
-          else -> "本次订单已结束，您可以返回出行页面再次叫车。"
-        },
-        lineHeight = 23.sp,
-      )
-    }
     if (stage == "WAIT_CONTINUE")
       Panel("是否继续用车？") {
         ActionButton("继续呼叫其他司机", !busy) {
           store.action("order.continue", JSONObject().put("id", id).put("type", 1))
         }
-        OutlinedButton(
-          onClick = { store.action("order.continue", JSONObject().put("id", id).put("type", 2)) },
-          enabled = !busy,
-          modifier = Modifier.fillMaxWidth(),
-          colors = ButtonDefaults.outlinedButtonColors(contentColor = Danger, disabledContentColor = Muted.copy(alpha = 0.6f)),
-          border = androidx.compose.foundation.BorderStroke(1.dp, if (!busy) DangerLine else Line),
-        ) {
-          Text("不再用车 · 取消订单")
+        DangerButton("不再用车 · 取消订单", !busy) {
+          store.action("order.continue", JSONObject().put("id", id).put("type", 2))
         }
       }
     if (negotiated)
       Panel("线下议价 · 报价版本 ${o.optInt("quoteVersion")}") {
         Text(
           "¥${money(o.optLong("fare"))}",
-          fontSize = 30.sp,
+          fontSize = TypeScale.Page,
           fontWeight = FontWeight.Bold,
           color = Teal,
         )
@@ -229,16 +199,10 @@ fun OrderDetail(o: JSONObject, store: PassengerStore, busy: Boolean, onHome: () 
         )
         Note("该订单已配对现场司机，不进入大厅抢单。付款时必须确认本页展示的版本和金额。")
         if (stage == "PREPAY" && o.text("negotiationStatus") == "OFFERED")
-          OutlinedButton(
-            onClick = {
-              shownQuote = QuoteSnapshot.from(o)
-              content = ""
-              dialog = "dispute"
-            },
-            enabled = !busy,
-            modifier = Modifier.fillMaxWidth(),
-          ) {
-            Text("对当前报价提出异议")
+          SecondaryButton("对当前报价提出异议", !busy) {
+            shownQuote = QuoteSnapshot.from(o)
+            content = ""
+            dialog = "dispute"
           }
         o.rows("quoteHistory").reversed().forEach { q ->
           Note(
@@ -276,9 +240,9 @@ fun OrderDetail(o: JSONObject, store: PassengerStore, busy: Boolean, onHome: () 
         if (bids.isEmpty()) Note("暂无司机报价；保持此页即可自动获取新报价。")
         bids.forEach { b ->
           HorizontalDivider()
-          Text(b.text("plate"), fontWeight = FontWeight.Bold, fontSize = 21.sp)
+          Text(b.text("plate"), fontWeight = FontWeight.Bold, fontSize = TypeScale.Title)
           Text("${b.text("name")} · ${b.text("vehicleModel")}", color = Muted)
-          Text("¥${money(b.optLong("amount"))}", fontSize = 24.sp, color = Teal)
+          Text("¥${money(b.optLong("amount"))}", fontSize = TypeScale.Page, fontWeight = FontWeight.Bold, color = Teal)
           ActionButton("选择此司机", !busy) { choose = b }
         }
       }
@@ -287,7 +251,7 @@ fun OrderDetail(o: JSONObject, store: PassengerStore, busy: Boolean, onHome: () 
       Note(farePresentation.label)
       Text(
         if (o.optBoolean("destinationPending")) "费用待定（并非免费）" else "¥${money(o.optLong("fare"))}",
-        fontSize = 22.sp,
+        fontSize = TypeScale.Page,
         lineHeight = 28.sp,
         fontWeight = FontWeight.Bold,
         color = Ink,
@@ -299,7 +263,7 @@ fun OrderDetail(o: JSONObject, store: PassengerStore, busy: Boolean, onHome: () 
       )
       if (o.optLong("refundAmount") > 0) KV("模拟退款金额", "¥${money(o.optLong("refundAmount"))}")
       Note("体验计价 · 支付和退款均为模拟")
-      TextButton(
+      PassengerTextButton(
         onClick = { store.query("/api/passenger/orders/$id/fees") { fees = it } },
         enabled = !busy,
       ) {
@@ -314,39 +278,24 @@ fun OrderDetail(o: JSONObject, store: PassengerStore, busy: Boolean, onHome: () 
         KV("支付手续费", "¥${money(f.optLong("paymentFee"))}")
         Note(f.text("policyLabel", "独立体验估价"))
       }
-      if (stage in listOf("PREPAY", "WAIT_PAY")) {
-        if (negotiated && o.text("negotiationStatus") != "OFFERED") Note("请等待司机重新报价，之后再次核对金额。")
-        else
-          ActionButton(
-            if (negotiated) "核对第 ${o.optInt("quoteVersion")} 版并模拟支付"
-            else "模拟支付 ¥${money(o.optLong("fare"))}",
-            !busy,
-          ) {
-            shownQuote = if (negotiated) QuoteSnapshot.from(o) else null
-            shownPayment = if (negotiated) null else PaymentSnapshot.from(o)
-            dialog = "pay"
-          }
-      }
+      if (stage in listOf("PREPAY", "WAIT_PAY") && negotiated && o.text("negotiationStatus") != "OFFERED")
+        Note("请等待司机重新报价，之后再次核对金额。")
     }
     if (driver != null)
       Panel("司机与车辆") {
-        TextButton(onClick = { driverCard = true }) { Text("查看司机服务卡") }
+        PassengerTextButton(onClick = { driverCard = true }) { Text("查看司机服务卡") }
         Text("${driver.text("name")} · ${driver.text("plate")}", fontWeight = FontWeight.Bold)
         KV("车型", driver.text("vehicleModel", "体验车辆"))
         KV("司机联系方式", driver.text("mobileMasked", "未提供"))
-        driver.optJSONObject("location")?.let { loc ->
-          KV("最新位置", "${loc.optDouble("latitude")}, ${loc.optDouble("longitude")}")
-          Note("上报于 ${formatTime(loc.text("receivedAt"))}；仅展示司机端上报，不代表实时持续定位。")
-        }
-        TextButton(onClick = { contactPage = true }) { Text("联系司机 / 公司客服") }
+        PassengerTextButton(onClick = { contactPage = true }) { Text("联系司机 / 公司客服") }
         Note("司机电话中继尚未配置；可在联系页查看当前可用服务。")
         if (stage in listOf("DONE", "CANCELLED", "WAIT_PAY"))
-          TextButton(onClick = { dialog = "block" }, enabled = !busy) { Text("以后不再匹配此司机") }
+          PassengerTextButton(onClick = { dialog = "block" }, enabled = !busy) { Text("以后不再匹配此司机") }
       }
     if (cancellable)
       ExpandablePanel("其他行程操作", "备注、目的地和取消说明") {
         Note(if (o.optBoolean("paid")) "取消后云端记录模拟退款，不产生实际资金转账。" else "出发前可取消；开始行程后不允许直接取消。")
-        TextButton(
+        PassengerTextButton(
           onClick = {
             content = o.text("remark")
             dialog = "remark"
@@ -364,7 +313,7 @@ fun OrderDetail(o: JSONObject, store: PassengerStore, busy: Boolean, onHome: () 
               dialog = "destination"
             }
           } else {
-            TextButton(onClick = { dialog = "destination" }, enabled = !busy) {
+            PassengerTextButton(onClick = { dialog = "destination" }, enabled = !busy) {
               Text("修改目的地并重新估价")
             }
           }
@@ -384,16 +333,10 @@ fun OrderDetail(o: JSONObject, store: PassengerStore, busy: Boolean, onHome: () 
           }
       }
     if (stage in listOf("DONE", "CANCELLED", "WAIT_PAY"))
-      OutlinedButton(
-        onClick = {
-          content = ""
-          reason = "服务问题"
-          dialog = "complaint"
-        },
-        enabled = !busy,
-        modifier = Modifier.fillMaxWidth(),
-      ) {
-        Text("投诉与问题反馈")
+      SecondaryButton("投诉与问题反馈", !busy) {
+        content = ""
+        reason = "服务问题"
+        dialog = "complaint"
       }
     o.rows("complaints").forEach { c ->
       Panel("投诉记录") {
@@ -403,14 +346,9 @@ fun OrderDetail(o: JSONObject, store: PassengerStore, busy: Boolean, onHome: () 
         Note(c.text("reply").ifBlank { "暂无回复，后台回复后会同步显示在这里。" })
         c.rows("attachments").forEach { attachment -> ComplaintImage(attachment, store) }
         if (c.rows("attachments").size < 3)
-          OutlinedButton(
-            onClick = {
-              complaintForImage = c.text("id")
-              imagePicker.launch("image/*")
-            },
-            enabled = !busy,
-          ) {
-            Text("从相册添加投诉图片 (${c.rows("attachments").size}/3)")
+          SecondaryButton("从相册添加投诉图片 (${c.rows("attachments").size}/3)", !busy) {
+            complaintForImage = c.text("id")
+            imagePicker.launch("image/*")
           }
         Note("图片会压缩至 512 KB 以内并上传到本订单投诉，供您和有权限的后台处理人员查看。")
       }
@@ -423,13 +361,47 @@ fun OrderDetail(o: JSONObject, store: PassengerStore, busy: Boolean, onHome: () 
     }
     Spacer(Modifier.height(10.dp))
   }
+  // Pay and cancel stay pinned to the bottom so they never need scrolling to find.
+  if (payable || cancellable)
+    Surface(color = Color.White, shadowElevation = 10.dp, modifier = Modifier.fillMaxWidth()) {
+      Row(
+        Modifier.fillMaxWidth().padding(horizontal = Gap.L, vertical = 10.dp),
+        horizontalArrangement = Arrangement.spacedBy(Gap.M),
+        verticalAlignment = Alignment.CenterVertically,
+      ) {
+        if (cancellable)
+          OutlinedButton(
+            onClick = { cancelChoice = "行程计划有变"; cancelOther = ""; dialog = "cancel" },
+            enabled = !busy,
+            modifier = (if (payable) Modifier.weight(1f) else Modifier.fillMaxWidth()).height(50.dp),
+            shape = androidx.compose.foundation.shape.RoundedCornerShape(14.dp),
+            border = androidx.compose.foundation.BorderStroke(1.dp, if (busy) Line else DangerLine),
+            colors = ButtonDefaults.outlinedButtonColors(contentColor = Danger, disabledContentColor = Muted.copy(alpha = 0.6f)),
+          ) {
+            Icon(Icons.Default.Close, contentDescription = null, modifier = Modifier.size(16.dp))
+            Text("取消订单", fontSize = TypeScale.Body, fontWeight = FontWeight.Medium, modifier = Modifier.padding(start = 4.dp))
+          }
+        if (payable)
+          GradientButton(
+            if (negotiated) "核对第 ${o.optInt("quoteVersion")} 版并支付 ¥${money(o.optLong("fare"))}"
+            else "去支付 ¥${money(o.optLong("fare"))}",
+            !busy,
+            modifier = Modifier.weight(if (cancellable) 1.6f else 1f),
+          ) {
+            shownQuote = if (negotiated) QuoteSnapshot.from(o) else null
+            shownPayment = if (negotiated) null else PaymentSnapshot.from(o)
+            dialog = "pay"
+          }
+      }
+    }
+  }
   if (dialog == "block")
-    AlertDialog(
+    PassengerDialog(
       onDismissRequest = { dialog = "" },
       title = { Text("不再匹配此司机？") },
       text = { Text("后续新订单会过滤此司机。您可在“我的 → 已屏蔽司机”中恢复匹配。") },
       confirmButton = {
-        TextButton(
+        PassengerTextButton(
           onClick = {
             store.action("order.blockDriver", JSONObject().put("id", id).put("reason", "乘客选择不再匹配"))
             dialog = ""
@@ -438,7 +410,7 @@ fun OrderDetail(o: JSONObject, store: PassengerStore, busy: Boolean, onHome: () 
           Text("确认屏蔽")
         }
       },
-      dismissButton = { TextButton(onClick = { dialog = "" }) { Text("取消") } },
+      dismissButton = { PassengerTextButton(onClick = { dialog = "" }) { Text("取消") } },
     )
   if (dialog == "destination")
     AddressDialog(
@@ -474,7 +446,7 @@ fun OrderDetail(o: JSONObject, store: PassengerStore, busy: Boolean, onHome: () 
       Field(content, { content = it.take(500) }, "备注（1–500 字）", lines = 3)
     }
   choose?.let { b ->
-    AlertDialog(
+    PassengerDialog(
       onDismissRequest = { choose = null },
       title = { Text("确认选择司机") },
       text = {
@@ -483,7 +455,7 @@ fun OrderDetail(o: JSONObject, store: PassengerStore, busy: Boolean, onHome: () 
         )
       },
       confirmButton = {
-        TextButton(
+        PassengerTextButton(
           onClick = {
             store.action(
               "order.selectDriver",
@@ -496,11 +468,11 @@ fun OrderDetail(o: JSONObject, store: PassengerStore, busy: Boolean, onHome: () 
           Text("确认选择")
         }
       },
-      dismissButton = { TextButton(onClick = { choose = null }) { Text("继续比较") } },
+      dismissButton = { PassengerTextButton(onClick = { choose = null }) { Text("继续比较") } },
     )
   }
   if (dialog == "pay")
-    AlertDialog(
+    PassengerDialog(
       onDismissRequest = { dialog = "" },
       title = { Text("模拟支付 · 不会真实扣款") },
       text = {
@@ -533,30 +505,27 @@ fun OrderDetail(o: JSONObject, store: PassengerStore, busy: Boolean, onHome: () 
               "CANCEL" to "取消本次支付",
             )
             .forEach { (v, t) ->
-              OutlinedButton(
-                onClick = {
-                  runCatching {
-                      if (negotiated) negotiatedPaymentPayload(id, requireNotNull(shownQuote), o, v)
-                      else confirmedPaymentPayload(requireNotNull(shownPayment), o, v)
-                    }
-                    .onSuccess { payload ->
-                      store.action("order.pay", payload)
-                      dialog = ""
-                    }
-                    .onFailure {
-                      store.reportError(it.message ?: "报价已变化，请重新核对")
-                      dialog = ""
-                    }
-                },
-                enabled = !busy && quoteCurrent,
-                modifier = Modifier.fillMaxWidth(),
-              ) {
-                Text(t)
+              val pay = {
+                runCatching {
+                    if (negotiated) negotiatedPaymentPayload(id, requireNotNull(shownQuote), o, v)
+                    else confirmedPaymentPayload(requireNotNull(shownPayment), o, v)
+                  }
+                  .onSuccess { payload ->
+                    store.action("order.pay", payload)
+                    dialog = ""
+                  }
+                  .onFailure {
+                    store.reportError(it.message ?: "报价已变化，请重新核对")
+                    dialog = ""
+                  }
+                Unit
               }
+              if (v == "SUCCESS") GradientButton(t, !busy && quoteCurrent, onClick = pay)
+              else SecondaryButton(t, !busy && quoteCurrent, onClick = pay)
             }
         }
       },
-      confirmButton = { TextButton(onClick = { dialog = "" }) { Text("关闭") } },
+      confirmButton = { PassengerTextButton(onClick = { dialog = "" }) { Text("关闭") } },
     )
   if (dialog == "dispute")
     PassengerModal(
@@ -613,7 +582,7 @@ fun OrderDetail(o: JSONObject, store: PassengerStore, busy: Boolean, onHome: () 
         Text("评分：$rating 分")
         Row {
           (1..5).forEach { n ->
-            TextButton(
+            PassengerTextButton(
               onClick = { rating = n },
               contentPadding = PaddingValues(5.dp),
               modifier =
@@ -733,3 +702,62 @@ fun eventName(value: String): String =
     "EVALUATED" to "已评价",
     "COMPLAINT" to "已提交投诉",
   )[value] ?: if (value.startsWith("ADMIN_")) "后台已更新订单" else "订单动态已更新"
+
+/** Stage message for the banner above the map. */
+private fun stageMessage(o: JSONObject, negotiated: Boolean): String =
+  when (o.text("stage")) {
+    "WAIT_CONTINUE" -> "司机已取消接驾。您可以继续呼叫其他司机，或取消此次行程。若已预付，系统已记录模拟退款。"
+    "AVAILABLE" -> if (o.text("kind") == "BID") "司机报价后，请在下方比较并选定司机。" else "订单已发送到司机端，等待司机接单。"
+    "PREPAY" ->
+      if (negotiated) {
+        if (o.text("negotiationStatus") == "DISPUTED") "您已提出价格异议，等待原司机重新报价。异议未解决前不可付款。"
+        else "您与司机已线下配对。请核对车牌、报价版本和金额后在页面底部支付。"
+      } else "已选定司机，请在页面底部完成模拟预付后等待接驾。"
+    "RESERVED" -> "司机已接单，将按预约时间前来接您。"
+    "PICKUP" -> "司机正在前往上车点，请在安全位置等待。"
+    "ARRIVED" -> "司机已到达。上车时请告知乘车手机号尾号 ${o.text("phoneTail")}，由司机核验后开始行程。"
+    "TRIP" -> "行程已开始，请系好安全带。司机到达终点后会结束行程。"
+    "WAIT_PAY" -> "行程已结束，请核对费用后在页面底部支付。"
+    "DONE" -> "感谢乘坐，欢迎评价本次行程。"
+    else -> "本次订单已结束，您可以返回出行页面再次叫车。"
+  }
+
+@Composable
+private fun OrderStatusBanner(title: String, message: String, summary: String) {
+  Box(
+    Modifier
+      .fillMaxWidth()
+      .shadow(6.dp, androidx.compose.foundation.shape.RoundedCornerShape(18.dp), spotColor = Teal)
+      .background(HeroGradient, androidx.compose.foundation.shape.RoundedCornerShape(18.dp))
+      .padding(horizontal = Gap.L, vertical = 14.dp),
+  ) {
+    Row(verticalAlignment = Alignment.CenterVertically) {
+      Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(4.dp)) {
+        Text(title, color = Color.White, fontSize = TypeScale.Page, fontWeight = FontWeight.Bold)
+        Text(message, color = Color.White.copy(alpha = 0.92f), fontSize = 14.sp, lineHeight = 20.sp)
+        if (summary.isNotBlank()) Text(summary, color = Color.White.copy(alpha = 0.75f), fontSize = TypeScale.Caption)
+      }
+      CarIllustration(Modifier.padding(start = Gap.S).size(width = 64.dp, height = 44.dp), body = Color(0xFFFFFFFF))
+    }
+  }
+}
+
+/** Shown when another trip of this passenger is unpaid: the driver cannot start pickup until it is paid. */
+@Composable
+fun OutstandingPaymentNotice(onPay: () -> Unit) {
+  Row(
+    Modifier
+      .fillMaxWidth()
+      .background(DangerSoft, androidx.compose.foundation.shape.RoundedCornerShape(12.dp))
+      .padding(horizontal = 12.dp, vertical = 10.dp),
+    verticalAlignment = Alignment.CenterVertically,
+    horizontalArrangement = Arrangement.spacedBy(Gap.S),
+  ) {
+    Icon(Icons.Default.Warning, contentDescription = null, tint = Danger, modifier = Modifier.size(18.dp))
+    Column(Modifier.weight(1f)) {
+      Text("您有未支付的行程费用", color = Danger, fontWeight = FontWeight.Bold, fontSize = 14.sp)
+      Text("支付前司机无法出发接驾，请先完成上一笔行程的支付。", color = Ink, fontSize = TypeScale.Caption, lineHeight = 17.sp)
+    }
+    PassengerTextButton(onClick = onPay) { Text("去支付", color = Danger) }
+  }
+}

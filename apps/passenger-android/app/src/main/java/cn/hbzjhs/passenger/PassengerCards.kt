@@ -6,6 +6,9 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
+import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -40,10 +43,9 @@ fun PassengerSectionHeader(
             overflow = TextOverflow.Ellipsis
         )
         if (!action.isNullOrEmpty()) {
-            TextButton(
+            PassengerTextButton(
                 onClick = onAction,
-                modifier = Modifier.defaultMinSize(minHeight = 48.dp),
-                colors = ButtonDefaults.textButtonColors(contentColor = Teal)
+                modifier = Modifier.defaultMinSize(minHeight = 40.dp),
             ) {
                 Text(text = action, style = MaterialTheme.typography.labelLarge)
             }
@@ -51,58 +53,34 @@ fun PassengerSectionHeader(
     }
 }
 
+/** One slim line per waiting reservation so it never pushes the booking form down. */
 @Composable
 fun PassengerReservationNotice(
     time: String,
     onView: () -> Unit
 ) {
-    Card(
+    Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = 6.dp),
-        shape = RoundedCornerShape(12.dp),
-        colors = CardDefaults.cardColors(containerColor = Paper),
-        border = BorderStroke(1.dp, Amber.copy(alpha = 0.5f))
+            .clip(RoundedCornerShape(10.dp))
+            .background(WarmSoft)
+            .clickable(role = Role.Button, onClick = onView)
+            .padding(horizontal = 12.dp, vertical = 8.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
     ) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(12.dp),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-            Column(modifier = Modifier.weight(1f).padding(end = 8.dp)) {
-                Surface(
-                    shape = RoundedCornerShape(4.dp),
-                    color = Amber.copy(alpha = 0.15f)
-                ) {
-                    Text(
-                        text = "待出发预约",
-                        style = MaterialTheme.typography.labelSmall,
-                        color = Ink,
-                        modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp)
-                    )
-                }
-                Spacer(modifier = Modifier.height(4.dp))
-                Text("预约已保留，可继续即时叫车", style = MaterialTheme.typography.bodySmall, color = Muted)
-                Text(
-                    text = time,
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = Ink,
-                    maxLines = 2,
-                    overflow = TextOverflow.Ellipsis
-                )
-            }
-            OutlinedButton(
-                onClick = onView,
-                modifier = Modifier.defaultMinSize(minHeight = 48.dp),
-                shape = RoundedCornerShape(8.dp),
-                border = BorderStroke(1.dp, Teal),
-                colors = ButtonDefaults.outlinedButtonColors(contentColor = Teal)
-            ) {
-                Text(text = "查看", style = MaterialTheme.typography.labelMedium)
-            }
-        }
+        Icon(Icons.Default.DateRange, contentDescription = null, tint = Warm, modifier = Modifier.size(16.dp))
+        Text(
+            "待出发预约 · $time",
+            fontSize = TypeScale.Caption,
+            fontWeight = FontWeight.Medium,
+            color = Ink,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
+            modifier = Modifier.weight(1f),
+        )
+        Text("查看", fontSize = TypeScale.Caption, fontWeight = FontWeight.SemiBold, color = Warm)
+        Icon(Icons.AutoMirrored.Filled.KeyboardArrowRight, contentDescription = null, tint = Warm, modifier = Modifier.size(16.dp))
     }
 }
 
@@ -230,10 +208,10 @@ fun PassengerManagedRecord(
             }
             Text(subtitle, color = Muted, style = MaterialTheme.typography.bodyMedium, maxLines = 2, overflow = TextOverflow.Ellipsis)
             Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
-                TextButton(enabled = !busy, onClick = onDefault) { Text(if (isDefault) "取消默认" else "设为默认") }
+                PassengerTextButton(enabled = !busy, onClick = onDefault) { Text(if (isDefault) "取消默认" else "设为默认") }
                 Row {
-                    TextButton(enabled = !busy, onClick = onEdit) { Text("编辑") }
-                    TextButton(enabled = !busy, onClick = onRemove) { Text("删除", color = Muted) }
+                    PassengerTextButton(enabled = !busy, onClick = onEdit) { Text("编辑") }
+                    PassengerTextButton(enabled = !busy, onClick = onRemove) { Text("删除", color = Muted) }
                 }
             }
         }

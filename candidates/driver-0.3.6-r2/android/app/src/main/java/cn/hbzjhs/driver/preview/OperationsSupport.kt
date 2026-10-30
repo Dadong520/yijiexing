@@ -8,6 +8,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import org.json.JSONObject
 
 @Composable
@@ -28,12 +29,17 @@ internal fun DriverCertificateStatus(cert: JSONObject) {
 @Composable
 internal fun DriverQualificationBanner(payload: JSONObject, navigate: (String) -> Unit) {
     val certificates = payload.optJSONObject("profile")?.bList("certificates").orEmpty()
-    val alerts = certificates.filter { it.optBoolean("reminder") || it.optString("validity") == "UNKNOWN" }
+    // A certificate whose replacement is already submitted is no longer the driver's to act on, so it
+    // drops out of the reminder instead of nagging until the review finishes.
+    val alerts = certificates.filter {
+        (it.optBoolean("reminder") || it.optString("validity") == "UNKNOWN") &&
+            it.optJSONObject("pending") == null && it.optString("status") != "PENDING"
+    }
     if (alerts.isNotEmpty()) {
-        Surface(color = Orange.copy(alpha = .12f), modifier = Modifier.fillMaxWidth()) {
-            Row(Modifier.padding(horizontal = 12.dp, vertical = 4.dp)) {
-                Text("${alerts.size}项证件需关注；更新审核通过后解除。", modifier = Modifier.weight(1f))
-                TextButton(onClick = { navigate("qualification") }) { Text("查看证件") }
+        Surface(color = WarmSoft, modifier = Modifier.fillMaxWidth()) {
+            Row(Modifier.padding(horizontal = 12.dp, vertical = 6.dp), verticalAlignment = androidx.compose.ui.Alignment.CenterVertically) {
+                Text("${alerts.size}项证件需更新", modifier = Modifier.weight(1f), color = Warm, fontSize = 13.sp)
+                DriverTextButton(onClick = { navigate("qualification") }) { Text("去更新") }
             }
         }
     }
@@ -54,11 +60,11 @@ internal fun DriverCompanyContact(store: ConnectedStore) {
         PrimaryButton("联系公司客服") { confirm = true }
     }
     if (error.isNotBlank()) Text(error, color = MaterialTheme.colorScheme.error)
-    if (confirm) AlertDialog(onDismissRequest = { confirm = false }, title = { Text("打开系统拨号？") },
+    if (confirm) DriverDialog(onDismissRequest = { confirm = false }, title = { Text("打开系统拨号？") },
         text = { Text("${company.optString("name")}\n$phone\n进入系统拨号界面后由您决定是否拨出。") },
-        confirmButton = { TextButton(onClick = {
+        confirmButton = { DriverTextButton(onClick = {
             confirm = false
             runCatching { context.startActivity(Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", phone, null))) }
                 .onFailure { error = "无法打开拨号应用，请手动拨号。" }
-        }) { Text("打开拨号") } }, dismissButton = { TextButton(onClick = { confirm = false }) { Text("取消") } })
+        }) { Text("打开拨号") } }, dismissButton = { DriverTextButton(onClick = { confirm = false }) { Text("取消") } })
 }

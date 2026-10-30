@@ -223,63 +223,27 @@ fun PassengerTripDistanceCard(
     }
 
     if (showConfirmDialog) {
-        Dialog(onDismissRequest = { showConfirmDialog = false }) {
-            Card(
-                shape = RoundedCornerShape(16.dp),
-                colors = CardDefaults.cardColors(containerColor = Color.White),
-                modifier = Modifier.fillMaxWidth(0.92f)
-            ) {
-                Column(modifier = Modifier.padding(20.dp)) {
-                    Text(
-                        text = if (pendingApprovalChoice) "请核实并确认" else "确认拒绝此申请",
-                        fontSize = 17.sp,
-                        fontWeight = FontWeight.Bold,
-                        color = textDark
-                    )
-                    Spacer(modifier = Modifier.height(10.dp))
-                    Text(
-                        text = if (pendingApprovalChoice) {
-                            "您确认已与司机实际碰面或已到达目的地吗？确认后订单将进入下一阶段。"
-                        } else {
-                            "拒绝后订单将维持原阶段不推进，司机可重新校准定位再次申请。"
-                        },
-                        fontSize = 14.sp,
-                        color = textGrey
-                    )
-                    Spacer(modifier = Modifier.height(18.dp))
-                    Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.spacedBy(10.dp)
-                    ) {
-                        OutlinedButton(
-                            onClick = { showConfirmDialog = false },
-                            modifier = Modifier.weight(1f).height(44.dp),
-                            shape = RoundedCornerShape(8.dp)
-                        ) {
-                            Text("取消", fontSize = 14.sp, color = textGrey)
-                        }
-                        Button(
-                            onClick = {
-                                showConfirmDialog = false
-                                val payload = JSONObject().apply {
-                                    put("id", order.optString("id"))
-                                    put("consentId", dialogSnapshotConsentId)
-                                    put("approve", pendingApprovalChoice)
-                                }
-                                store.action("order.distanceConsent", payload)
-                            },
-                            enabled = !busy,
-                            modifier = Modifier.weight(1f).height(44.dp),
-                            colors = ButtonDefaults.buttonColors(
-                                containerColor = if (pendingApprovalChoice) primaryTeal else Color(0xFFD32F2F)
-                            ),
-                            shape = RoundedCornerShape(8.dp)
-                        ) {
-                            Text("确认", fontSize = 14.sp, color = Color.White)
-                        }
-                    }
+        PassengerModal(
+            title = if (pendingApprovalChoice) "请核实并确认" else "确认拒绝此申请",
+            onDismiss = { showConfirmDialog = false },
+            confirmLabel = if (pendingApprovalChoice) approveBtnText else "确认拒绝",
+            confirmEnabled = !busy,
+            confirmColor = if (pendingApprovalChoice) Teal else Danger,
+            onConfirm = {
+                showConfirmDialog = false
+                val payload = JSONObject().apply {
+                    put("id", order.optString("id"))
+                    put("consentId", dialogSnapshotConsentId)
+                    put("approve", pendingApprovalChoice)
                 }
-            }
+                store.action("order.distanceConsent", payload)
+            },
+        ) {
+            Text(
+                if (pendingApprovalChoice) "您确认已与司机实际碰面或已到达目的地吗？确认后订单将进入下一阶段。"
+                else "拒绝后订单将维持原阶段不推进，司机可重新校准定位再次申请。",
+                color = Muted,
+            )
         }
     }
 }

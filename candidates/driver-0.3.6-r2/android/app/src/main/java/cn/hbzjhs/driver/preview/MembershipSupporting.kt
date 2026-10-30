@@ -30,7 +30,7 @@ fun MembershipSummaryCard(store: ConnectedStore, navigate: (String) -> Unit) {
             Column(Modifier.weight(1f).padding(start = 12.dp)) {
                 Text(
                     if (active) subscription!!.mText("levelName") else "司机会员权益",
-                    fontSize = 16.sp,
+                    fontSize = 15.sp,
                     fontWeight = FontWeight.Bold,
                 )
                 Text(
@@ -41,12 +41,12 @@ fun MembershipSummaryCard(store: ConnectedStore, navigate: (String) -> Unit) {
                     else
                         "体验剩余 ${trial.mNumber("daysRemaining")} 天 · ${trial.mNumber("ordersRemaining")} 单",
                     color = Muted,
-                    fontSize = 16.sp,
+                    fontSize = 15.sp,
                     lineHeight = 24.sp,
                     modifier = Modifier.padding(top = 5.dp),
                 )
             }
-            TextButton(
+            DriverTextButton(
                 onClick = {
                     navigate(
                         if (trial?.mText("status") == "ENDED" && !active) mRoute("expiry")
@@ -87,8 +87,8 @@ internal fun ColumnScope.MembershipInvoiceScreen(
         val order = mOrder(raw)
         LazyColumn(
             Modifier.weight(1f),
-            contentPadding = PaddingValues(18.dp),
-            verticalArrangement = Arrangement.spacedBy(15.dp),
+            contentPadding = PaddingValues(horizontal = 16.dp, vertical = 12.dp),
+            verticalArrangement = Arrangement.spacedBy(12.dp),
         ) {
             item { MembershipNotice("云端沙箱发票申请", "这里只保存申请信息，不连接税务平台，不开具或发送真实电子发票。请使用示例抬头信息。", true) }
             item {
@@ -97,7 +97,7 @@ internal fun ColumnScope.MembershipInvoiceScreen(
                     DetailRow("下单城市", order.mText("cityName"))
                     DetailRow("实付金额", mMoney(order.mLong("amount")))
                     DetailRow("支付状态", mStatus(order.mText("status")))
-                    Text(order.mText("id"), color = Muted, fontSize = 16.sp)
+                    Text(order.mText("id"), color = Muted, fontSize = 13.sp)
                 }
             }
             if (!mPaid(order))
@@ -112,7 +112,7 @@ internal fun ColumnScope.MembershipInvoiceScreen(
                         Glyph("check", Green, Modifier.size(36.dp))
                         Text(
                             "沙箱申请已保存",
-                            fontSize = 21.sp,
+                            fontSize = 16.sp,
                             fontWeight = FontWeight.Bold,
                             modifier = Modifier.padding(top = 13.dp),
                         )
@@ -121,7 +121,7 @@ internal fun ColumnScope.MembershipInvoiceScreen(
                         DetailRow("发票抬头", invoice!!.mText("title"))
                         Text(
                             "保存成功不代表真实发票已开具。可在开通与申请记录查看。",
-                            fontSize = 16.sp,
+                            fontSize = 15.sp,
                             color = Muted,
                             lineHeight = 21.sp,
                             modifier = Modifier.padding(top = 10.dp),
@@ -185,7 +185,7 @@ internal fun ColumnScope.MembershipInvoiceScreen(
                             Text(
                                 it,
                                 color = MaterialTheme.colorScheme.error,
-                                fontSize = 16.sp,
+                                fontSize = 15.sp,
                                 modifier = Modifier.padding(top = 12.dp),
                             )
                         }
@@ -225,7 +225,7 @@ internal fun ColumnScope.MembershipInvoiceScreen(
                 }
             }
             item {
-                TextButton(
+                DriverTextButton(
                     onClick = { navigate(mRoute("records")) },
                     modifier = Modifier.fillMaxWidth(),
                 ) {
@@ -241,8 +241,8 @@ internal fun ColumnScope.MembershipTermsScreen(page: String) {
     val renewal = page == "renewal-rules"
     LazyColumn(
         Modifier.weight(1f),
-        contentPadding = PaddingValues(18.dp),
-        verticalArrangement = Arrangement.spacedBy(15.dp),
+        contentPadding = PaddingValues(horizontal = 16.dp, vertical = 12.dp),
+        verticalArrangement = Arrangement.spacedBy(12.dp),
     ) {
         item {
             MembershipNotice("联调版规则说明 · 非正式合同", "正式服务提供方、协议文本、支付签约、退款和自动扣款规则需运营、研发及财务确认后发布。", true)
@@ -251,7 +251,7 @@ internal fun ColumnScope.MembershipTermsScreen(page: String) {
             SheetCard {
                 Text(
                     if (renewal) "自动续费说明" else "司机会员服务说明",
-                    fontSize = 21.sp,
+                    fontSize = 16.sp,
                     fontWeight = FontWeight.Bold,
                 )
                 val sections =
@@ -284,14 +284,14 @@ internal fun ColumnScope.MembershipTermsScreen(page: String) {
                 sections.forEach { (title, body) ->
                     Text(
                         title,
-                        fontSize = 16.sp,
+                        fontSize = 15.sp,
                         fontWeight = FontWeight.SemiBold,
                         modifier = Modifier.padding(top = 22.dp),
                     )
                     Text(
                         body,
                         color = Muted,
-                        fontSize = 16.sp,
+                        fontSize = 15.sp,
                         lineHeight = 24.sp,
                         modifier = Modifier.padding(top = 9.dp),
                     )

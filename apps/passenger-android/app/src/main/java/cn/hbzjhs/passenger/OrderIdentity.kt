@@ -5,9 +5,7 @@ import android.content.ClipboardManager
 import android.content.Context
 import android.widget.Toast
 import androidx.compose.foundation.text.selection.SelectionContainer
-import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.*
 import androidx.compose.ui.platform.LocalContext
 import java.time.Instant
@@ -33,14 +31,14 @@ fun IdentifierButton(value: String, label: String = "订单编号") {
   if (value.isBlank()) return
   var visible by remember(value) { mutableStateOf(false) }
   val context = LocalContext.current
-  TextButton(onClick = { visible = true }) { Text("查看$label") }
+  PassengerTextButton(onClick = { visible = true }) { Text("查看$label") }
   if (visible)
-    AlertDialog(
+    PassengerDialog(
       onDismissRequest = { visible = false },
       title = { Text(label) },
       text = { SelectionContainer { Text(value) } },
       confirmButton = {
-        TextButton(
+        PassengerTextButton(
           onClick = {
             val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
             clipboard.setPrimaryClip(ClipData.newPlainText(label, value))
@@ -50,6 +48,6 @@ fun IdentifierButton(value: String, label: String = "订单编号") {
           Text("复制$label")
         }
       },
-      dismissButton = { TextButton(onClick = { visible = false }) { Text("关闭") } },
+      dismissButton = { PassengerTextButton(onClick = { visible = false }) { Text("关闭") } },
     )
 }

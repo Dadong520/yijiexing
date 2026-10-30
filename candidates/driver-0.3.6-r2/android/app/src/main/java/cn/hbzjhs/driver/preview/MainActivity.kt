@@ -406,7 +406,7 @@ private fun ConnectedApp(store: ConnectedStore, state: DriverState) {
                             if (waitingForCloud)
                                 Text(
                                     "首次使用可能需要启动，请稍候；请勿重复提交支付或提现。",
-                                    fontSize = 16.sp,
+                                    fontSize = 15.sp,
                                     lineHeight = 24.sp,
                                     color = Muted,
                                     modifier = Modifier.padding(top = 5.dp),
@@ -417,26 +417,25 @@ private fun ConnectedApp(store: ConnectedStore, state: DriverState) {
             }
     }
     confirm?.let { c ->
-        AlertDialog(
+        DriverDialog(
             onDismissRequest = { confirm = null },
             title = { Text(c.title) },
-            text = { Text(c.message, modifier = Modifier.verticalScroll(rememberScrollState()), fontSize = 18.sp, lineHeight = 28.sp) },
+            text = { Text(c.message, modifier = Modifier.verticalScroll(rememberScrollState()), color = Muted) },
             confirmButton = {
-                TextButton(
-                    modifier = Modifier.heightIn(min = 56.dp),
+                DriverTextButton(
                     onClick = {
                         confirm = null
                         c.action()
                     }
                 ) {
-                    Text(c.label, fontSize = 20.sp, lineHeight = 28.sp, fontWeight = FontWeight.Bold)
+                    Text(c.label)
                 }
             },
-            dismissButton = { TextButton(onClick = { confirm = null }, modifier = Modifier.heightIn(min = 56.dp)) { Text("返回", fontSize = 18.sp) } },
+            dismissButton = { DriverTextButton(onClick = { confirm = null }) { Text("返回") } },
         )
     }
     cancelOrder?.let { id ->
-        AlertDialog(
+        DriverDialog(
             onDismissRequest = { cancelOrder = null },
             title = { Text("取消订单") },
             text = {
@@ -444,11 +443,11 @@ private fun ConnectedApp(store: ConnectedStore, state: DriverState) {
                     Text("请选择实际取消原因，提交后将保存到订单记录。")
                     listOf("乘客要求取消", "无法联系乘客", "车辆临时故障", "其他原因").forEach { reason ->
                         Row(
-                            Modifier.fillMaxWidth().heightIn(min = 56.dp).selectable(selected = cancelReason == reason, role = Role.RadioButton, onClick = { cancelReason = reason }),
+                            Modifier.fillMaxWidth().heightIn(min = 52.dp).selectable(selected = cancelReason == reason, role = Role.RadioButton, onClick = { cancelReason = reason }),
                             verticalAlignment = Alignment.CenterVertically,
                         ) {
                             RadioButton(cancelReason == reason, onClick = null)
-                            Text(reason, fontSize = 18.sp, lineHeight = 28.sp, modifier = Modifier.padding(start = 10.dp))
+                            Text(reason, fontSize = 15.sp, lineHeight = 22.sp, modifier = Modifier.padding(start = 10.dp))
                         }
                     }
                     if (cancelReason == "其他原因")
@@ -462,8 +461,8 @@ private fun ConnectedApp(store: ConnectedStore, state: DriverState) {
                 }
             },
             confirmButton = {
-                TextButton(
-                    modifier = Modifier.heightIn(min = 56.dp),
+                DriverTextButton(
+                    modifier = Modifier.heightIn(min = 52.dp),
                     enabled =
                         cancelReason.isNotBlank() &&
                             (cancelReason != "其他原因" || cancelOther.isNotBlank()),
@@ -477,10 +476,10 @@ private fun ConnectedApp(store: ConnectedStore, state: DriverState) {
                         )
                     },
                 ) {
-                    Text("确认取消", fontSize = 20.sp, lineHeight = 28.sp, fontWeight = FontWeight.Bold)
+                    Text("确认取消", fontSize = 16.sp, lineHeight = 22.sp, fontWeight = FontWeight.Bold)
                 }
             },
-            dismissButton = { TextButton(onClick = { cancelOrder = null }, modifier = Modifier.heightIn(min = 56.dp)) { Text("继续行程", fontSize = 18.sp) } },
+            dismissButton = { DriverTextButton(onClick = { cancelOrder = null }) { Text("继续行程") } },
         )
     }
 }
