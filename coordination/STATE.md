@@ -1,8 +1,8 @@
 # 宜捷行当前检查点 2026-10-30T01:54:33.345288+00:00
 中央/Users/dongge/Documents/New project 2/coordination唯一权威，协议2026-10-26-v3。唯一coordinator01a17cc7-e0a2-7791-bf1d-4611c09bab22/generation6；context UNKNOWN/not_exposed。root独占状态/验收/合并发布。
 
-## 新活动UIT-20261030-01
-用户要求测试并发布Claude云端9495caa的24项UI调整；新树/Users/dongge/.codex/tmp/yijiexing-ui-feedback-20261030，branch codex/ui-feedback-20261030，base main362c7f8。仅cherry-pick949差量（不是覆盖旧分支），8处产品冲突交Claude整合，backend只读独审；frontend待freeze后编译/本轮隔离模拟器验收。root唯一合并发布，目标code21；线上仍20。
+## 新活动UIT-20261030-01：最终独立验收PASS，待合并发布21
+用户要求测试并发布Claude云端9495caa的24项UI差量。source /Users/dongge/.codex/tmp/yijiexing-ui-feedback-20261030，branch codex/ui-feedback-20261030；base main362c7f8。Claude新官方session93f99706-9822-4a37-b5a9-5369a6ac2364 Opus5.5/high四阶段exit0，无作者Bash自测。17d整合后独立业务PASS、实际乘客54/司机77 unit和原包构建PASS、root tools27/mini74/check PASS；原生发现360dp/1.3font同意按钮截字，原FAIL保留。当前freeze ecc9d8d0e63f5ee1c9a8f45df87e92f7b42e0ea5，281按钮排版已原生复验PASS；新增DriverCertificateStatus待审去重复更新催办，独立业务窄审PASS，frontend最终司机重编与资格状态复验PASS；G1/P1-P4/D1-D3 PASS，资源已清理。旧17d/281图来源不改。草稿PR43 remote17d/CI41058230149 SUCCESS，ECC本地未push，未合并/上传/提升，线上仍20。新款乘客1.1.19-experience/司机0.3.18-cloud/code21。root唯一发布，仅独立体验APK，后台/后端不改。只读runtime baseline未变，当前45单原子备份外置，发布前检查fresh；本轮AVD5584/fixture64341/reverse均已清理。详见coordinator短卡/UIT任务与UI30F/C/B证据。
 
 ## 当前已公开版本：20，限定发布回读PASS，源码及实际回执均入库
 Git main362c7f861a5063631c6da9ba198e04bc131402e4（PR42真实回执/README合并，head efcca456/CI40988992701 SUCCESS）；产品PR41 merge3fdd19cb5bcb89ef19999e9fd7c2dac7571323f8，PR41 head790d19e9da372064ae49aa14a12d67880830371f/CI40987754723 SUCCESS，expected-head合并PASS。产品源6ab66bdcd20b43dfd314917881342dcdcc165a9e，5产品树与main相同。

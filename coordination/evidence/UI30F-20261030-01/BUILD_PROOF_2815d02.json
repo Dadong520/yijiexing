@@ -1,0 +1,81 @@
+{
+  "sourceSha": "2815d02db65ec8ac82d102ad4664eb9ea185cc77",
+  "roles": {
+    "passenger": {
+      "sourceSha": "2815d02db65ec8ac82d102ad4664eb9ea185cc77",
+      "buildSha": "2815d02db65ec8ac82d102ad4664eb9ea185cc77",
+      "testBuildSha": "17d491106f3a2e2719d5424978408156cd51a0bd",
+      "tests": 54,
+      "failures": 0,
+      "errors": 0,
+      "inheritedTests": true,
+      "apk": "/Users/dongge/.codex/tmp/yijiexing-uitf-20261030/revision281/source/apps/passenger-android/app/build/outputs/apk/debug/app-debug.apk",
+      "sha256": "476ba49f596e5736931e7a21ee3260984f9766029d217fa33abdc69f51185e69",
+      "bytes": 107204985,
+      "sourceTree": "5bf93c9f7c77ef9dbcd395780a11ce2c3b62b5bd",
+      "sourceTrackedFiles": 107,
+      "sourceMismatches": [],
+      "packageVersionLine": "package: name='cn.hbzjhs.dc.passenger.cloud' versionCode='21' versionName='1.1.19-experience' platformBuildVersionName='14' platformBuildVersionCode='34' compileSdkVersion='34' compileSdkVersionCodename='14'",
+      "aaptExit": 0,
+      "apksignerExit": 0,
+      "samePriorSigner": true,
+      "privateExactMatches": 0,
+      "uncompressedEntriesScanned": 425,
+      "originalHttpsPresent": true,
+      "command": "exact281 offline assembleDebug; unit54 inherited from17d explicitly",
+      "qa": {
+        "apk": "/Users/dongge/.codex/tmp/yijiexing-uitf-20261030/revision281/build/qa-passenger/_app/outputs/apk/debug/app-debug.apk",
+        "sha256": "25b65fc54da334f2f1017f60b75fb9a8580ad07f80c44975cff590aa71402aa9",
+        "sourceSha": "2815d02db65ec8ac82d102ad4664eb9ea185cc77",
+        "differences": [
+          "QA applicationId",
+          "localhostHTTPS",
+          "debug manifest/localCA"
+        ],
+        "productKotlinEdits": false,
+        "publicationArtifact": false
+      },
+      "testInheritanceReason": "Only Compose modal button layout changed; test files, tested rules and all other product files byte-identical. Actual54 tests at17d remain accurately attributed."
+    },
+    "driver": {
+      "sourceSha": "2815d02db65ec8ac82d102ad4664eb9ea185cc77",
+      "buildSha": "17d491106f3a2e2719d5424978408156cd51a0bd",
+      "testBuildSha": "17d491106f3a2e2719d5424978408156cd51a0bd",
+      "tests": 77,
+      "failures": 0,
+      "errors": 0,
+      "inheritedTests": true,
+      "apk": "/Users/dongge/.codex/tmp/yijiexing-uitf-20261030/source/candidates/driver-0.3.6-r2/android/app/build/outputs/apk/debug/app-debug.apk",
+      "sha256": "1c07b9865844375d81f8e58d8c4f8965fc150fa2cd0763be57a13f6c03975752",
+      "bytes": 108685957,
+      "sourceTree": "7ff68581a32192ea3e2bd802050a14534cbe124b",
+      "sourceTrackedFiles": 68,
+      "sourceMismatches": [],
+      "packageVersionLine": "package: name='cn.hbzjhs.dc.driver.cloud' versionCode='21' versionName='0.3.18-cloud' platformBuildVersionName='14' platformBuildVersionCode='34' compileSdkVersion='34' compileSdkVersionCodename='14'",
+      "aaptExit": 0,
+      "apksignerExit": 0,
+      "samePriorSigner": true,
+      "privateExactMatches": 0,
+      "uncompressedEntriesScanned": 433,
+      "originalHttpsPresent": true,
+      "command": "JAVA_HOME=JDK17 ANDROID_HOME=officialSDK bash gradlew --offline --no-daemon --max-workers=2 -I <externalRoot>/scripts/offline.init.gradle testDebugUnitTest assembleDebug",
+      "qa": {
+        "apk": "/Users/dongge/.codex/tmp/yijiexing-uitf-20261030/build/qa-driver/_app/outputs/apk/debug/app-debug.apk",
+        "sha256": "58e84b91a4e175c139a6df408da739d63a20d470997253ea185297eb005bd4d8",
+        "sourceSha": "17d491106f3a2e2719d5424978408156cd51a0bd",
+        "differences": [
+          "QA applicationId",
+          "localhostHTTPS",
+          "debug manifest/localCA"
+        ],
+        "productKotlinEdits": false,
+        "publicationArtifact": false
+      },
+      "buildInheritanceReason": "Entire driver tree Git object identical17d\u2192281; original17d APK/unit77/QA/native evidence retained with actual buildSha17d."
+    }
+  },
+  "previousProof": "BUILD_PROOF_17d4911.json",
+  "productChangesSincePrevious": [
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/UiComponents.kt"
+  ]
+}

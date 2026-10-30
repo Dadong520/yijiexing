@@ -1,0 +1,22 @@
+{
+  "taskId": "UITB-20261030-01",
+  "reviewerThreadId": "01a182c6-c058-76e1-9584-38abfe813799",
+  "reviewedAt": "2026-10-30T21:04:20+08:00",
+  "candidateSha": "2815d02db65ec8ac82d102ad4664eb9ea185cc77",
+  "inheritedSemanticPassSha": "17d491106f3a2e2719d5424978408156cd51a0bd",
+  "acceptance": "PASS",
+  "scope": "Single product file button-layout delta only",
+  "onlyProductFile": "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/UiComponents.kt",
+  "guardCallbackSlotLineEquality": {
+    "onClick =": true,
+    "enabled =": true,
+    "onDismissRequest =": true,
+    "PassengerModalSlot(": true,
+    "holdPageSlot:": true,
+    "dismissEnabled:": true,
+    "extraEnabled:": true
+  },
+  "assessment": "Changes limited to intrinsic row height, fill height/min46, text wrapping/centering and padding/style placement. Labels, callback bindings, enable booleans and modal slot controls unchanged. All other product objects unchanged, previous business-semantic conclusions inherited.",
+  "notRun": "No tests/Gradle/device repeated; frontend must verify small-screen/font1.3 native rendering on this exact candidate",
+  "nextAction": "Backend IDLE; root combine frontend final native acceptance"
+}

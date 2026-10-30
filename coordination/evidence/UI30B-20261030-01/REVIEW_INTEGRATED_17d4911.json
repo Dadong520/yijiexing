@@ -1,0 +1,62 @@
+{
+  "taskId": "UITB-20261030-01",
+  "reviewedAt": "2026-10-30T20:48:38+08:00",
+  "reviewerThreadId": "01a182c6-c058-76e1-9584-38abfe813799",
+  "candidateSha": "17d491106f3a2e2719d5424978408156cd51a0bd",
+  "baseSha": "362c7f861a5063631c6da9ba198e04bc131402e4",
+  "acceptance": "PASS",
+  "scope": "Independent integrated-source business-semantic review; build/UI/runtime acceptance separate",
+  "sourceObservation": "HEAD exact17d4911, statusShort empty",
+  "protectedObjectsEqual": {
+    "apps/cloud-service": true,
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/PassengerStore.kt": true,
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/PassengerConfirmPromptRules.kt": true,
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/PassengerModalCoordinator.kt": true,
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/PassengerPickupDefaults.kt": true,
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/ConnectedStore.kt": true,
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/DriverDomain.kt": true,
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/NavigationAutoRules.kt": true,
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/NavigationContract.kt": true
+  },
+  "findingsClosed": [
+    {
+      "id": "UITB-01",
+      "result": "PASS",
+      "evidence": "certificateCurrentlyValid requires APPROVED plus VALID/EXPIRING/LONG_TERM. Pending invalid current certificates remain reviewing banner: EXPIRED/NOT_EFFECTIVE explicitly pause new orders; UNKNOWN or unapproved clearly state unconfirmed/not approved, never blanket old-valid claim. Rejected replacement text says valid preserved only if predicate true. Server qualification gates unchanged."
+    },
+    {
+      "id": "UITB-02",
+      "result": "PASS",
+      "evidence": "Main account-keyed pipeline retained. Arrears uses same account/order/pay key as WAIT_PAY and replaces text in place, preserving prompt order; settling later handles current bill once. Consent success-only settlement, failure retry, click-time current state/account/status/stage/expiry validation retained. Financial arrears confirm only openOrder, not payment."
+    },
+    {
+      "id": "UITB-03",
+      "result": "PASS",
+      "evidence": "Regular PassengerModal owns default PAGE slot; existing surrounding conditional slots retained for PassengerDialog callers (OrderDetail dialog/choose, profile/edit/delete/logout, settings, receipt, identity/safety etc.). Wrapper intentionally has no automatic slot so announcements retain own ANNOUNCEMENT rank. Global prompt holds RANK_PROMPT and passes holdPageSlot=false to prevent self-suppression. In-flight dismissal and reject disabled checks retained."
+    }
+  ],
+  "financialAndNavAssessment": [
+    "Pinned cancel uses same cancellable stage list/!busy, passes cancellation reason through existing submit, success-only onHome callback. System back not cancellation.",
+    "Pinned pay requires payable stage/negotiated offered rule; click freezes QuoteSnapshot/PaymentSnapshot, opens explicit simulated outcome dialog; matches and confirmed payload functions remain before action. No auto-pay or new backend amount calculation.",
+    "Store account/generation guards and backend/domain unchanged; navigation transition/dedupe rules, coordinate lookup quality/account helper and modal rank rules exact-object inherited from main.",
+    "Outstanding payment page notice only navigates stored unpaid order; no automatic continue/charge."
+  ],
+  "testSuggestions": [
+    "Focused qualification predicates: pending+approvedValid hides routine nag; pending+expired/notEffective/unknown/nonApproved retains factual review/status message.",
+    "Compose focus cases: debt plus WAIT_PAY same key only once; account switch isolates settled; page open wins over global prompt and announcement; in-flight back/reject disabled."
+  ],
+  "validation": [
+    {
+      "command": "Exact base362c7f8..17d4911 source review plus protected Git object comparisons",
+      "exitCode": 0,
+      "result": "PASS source semantics, cloud3 findings closed"
+    }
+  ],
+  "notRun": [
+    "No broad backend/Gradle/UI/device/cloud tests run by this reviewer; author tests not inferred",
+    "Integration/native acceptance and release must use exact final frozen SHA"
+  ],
+  "historicalCloudReview": "REVIEW_CLOUD.json preserved FAIL for9495caa cloud candidate, not current integrated candidate",
+  "remainingFindings": [],
+  "nextAction": "Root combine frontend compile/unit/native exact-SHA acceptance; backend IDLE, no deployment by reviewer"
+}

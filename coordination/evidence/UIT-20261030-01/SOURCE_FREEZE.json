@@ -1,0 +1,19 @@
+{
+  "sourceSha": "17d491106f3a2e2719d5424978408156cd51a0bd",
+  "baseSha": "362c7f861a5063631c6da9ba198e04bc131402e4",
+  "cloudDelta": "9495caa54e8b8581bba4d82c3fbac04701252418",
+  "versionCode": 21,
+  "passengerVersion": "1.1.19-experience",
+  "driverVersion": "0.3.18-cloud",
+  "authorSession": "93f99706-9822-4a37-b5a9-5369a6ac2364",
+  "authorPhases": 2,
+  "authorExitCodes": [
+    0,
+    0
+  ],
+  "selfTests": "NOT_RUN",
+  "acceptance": "NOT_RUN",
+  "deployReady": false,
+  "at": "2026-10-30T12:47:18.573593+00:00",
+  "resources": "No author process; frontend owns scoped AVDS5584/local64341 only; root unique release"
+}

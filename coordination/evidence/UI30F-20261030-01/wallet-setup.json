@@ -1,0 +1,23 @@
+{
+  "explicitSyntheticSharedOrders": [
+    {
+      "id": "PORDcde516dd269f",
+      "stage": "DONE"
+    },
+    {
+      "id": "PORD50cac7823230",
+      "stage": "DONE"
+    },
+    {
+      "id": "PORD1c1c21c65a56",
+      "stage": "DONE"
+    },
+    {
+      "id": "PORD67e53bf78c2e",
+      "stage": "DONE"
+    }
+  ],
+  "driver2EmptyEntries": {
+    "syntheticEntries": 0
+  }
+}

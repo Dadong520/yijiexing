@@ -1,0 +1,76 @@
+{
+  "sourceSha": "17d491106f3a2e2719d5424978408156cd51a0bd",
+  "findings": [
+    {
+      "id": "UITF-R1",
+      "priority": "P2",
+      "status": "FIXED_VERIFIED_2815d02",
+      "file": "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/UiComponents.kt",
+      "lines": [
+        265,
+        276
+      ],
+      "scenario": "720x1280 density320 (360dp), font_scale1.3; real local distance consent popup",
+      "actual": "完整语义/XML文字为“同意已上车”；实际可见只到“同意已上”，末字“车”裁切，无省略标记。拒绝/稍后完整。",
+      "expected": "All consent decision labels fully readable at required small-screen/large-font setting",
+      "evidence": [
+        "coordination/evidence/UI30F-20261030-01/native/p09-distance-small-font.png",
+        "coordination/evidence/UI30F-20261030-01/native/p09-distance-small-font.xml"
+      ],
+      "device": {
+        "physicalOverridePx": "720x1280",
+        "densityDpi": 320,
+        "logicalDp": "360x640",
+        "fontScale": 1.3
+      },
+      "component": "PassengerModal (PassengerDialog delegates to same component); driver dialog NOT_YET_TESTED",
+      "implementation": "UiComponents.kt:265 fixes primary width weight1.4; :276 Text maxLines1 at Body15sp; row siblings each weight1, modal horizontal padding20dp.",
+      "fixSha": "2815d02db65ec8ac82d102ad4664eb9ea185cc77",
+      "fixEvidence": "native/r281-01-small-consent.png+xml; r281-02 inflight all3 disabled; r281-03failure/r281-04retry actuallocal success"
+    },
+    {
+      "id": "UITF-R2",
+      "priority": "P2",
+      "reportedBy": "coordinator",
+      "status": "FIXED_VERIFIED_ecc9d8d",
+      "originalSourceSha": "17d491106f3a2e2719d5424978408156cd51a0bd",
+      "originalEvidence": "native/d11-certs-valid.png+xml",
+      "actual": "Pending replacement still duplicated 请提前更新 in current certificate detail.",
+      "fixSha": "ecc9d8d0e63f5ee1c9a8f45df87e92f7b42e0ea5",
+      "fixEvidence": [
+        "native/ecc-02-nonpending-reminder",
+        "native/ecc-04-valid-settled",
+        "native/ecc-05-expired-pending",
+        "native/ecc-06-unknown-pending",
+        "native/ecc-07-nonapproved-pending",
+        "native/ecc-09-valid-home"
+      ],
+      "verification": "Pending expiry fact retained without renewed update nag; expired block/inflight completion retained; unknown/nonapproved not valid; nonpending old reminder retained."
+    }
+  ],
+  "verified": [
+    {
+      "scenario": "distance consent inflight8s local503",
+      "result": "PASS all3 clickable parent nodes enabled=false in p10; p11 failure text and all choices restored"
+    },
+    {
+      "scenario": "Fresh consent after initial request expiry",
+      "result": "PASS p16 actual popup, p17 actual local consent success ->TRIP. Earlier p12 retry on expired request not success evidence."
+    },
+    {
+      "scenario": "WAIT_PAY + another AVAILABLE order projection",
+      "result": "PASS p19 same bill arrears replaces pay prompt; p20 later and p21 refresh no repeat, banner persists. Other AVAILABLE is explicit local API projection, not actual accepted second order."
+    },
+    {
+      "scenario": "Fixed actions all stages after body scroll",
+      "result": "PASS stage-results.json: cancel AVAILABLE/BID_SENT/PREPAY/RESERVED/PICKUP/ARRIVED/WAIT_CONTINUE; pay PREPAY and separate WAIT_PAY; no cancel TRIP/DONE/CANCELLED; synthetic set stages, not real lifecycle completion."
+    },
+    {
+      "scenario": "WAIT_PAY actual local simulated failure",
+      "result": "PASS p25 payment dialog p26 actual server simulated FAIL p27 retry button restored."
+    }
+  ],
+  "excluded": [
+    "p07-distance-prompt: probe still home, not actual distance evidence"
+  ]
+}

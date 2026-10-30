@@ -66,15 +66,26 @@
     "No commit/deploy/self-acceptance; root runs tests; report actual NOT_RUN",
     "Canonical taskID UITC-20261030-01; initial dispatch alias UI30C-20261030-01 retained temporarily for running author/readers; same task, not separate work"
   ],
-  "status": "AUTHOR_PHASE2_COMPLETE_NEEDS_INDEPENDENT_REVIEW",
+  "status": "AUTHOR_PHASE4_COMPLETE_NEEDS_NATIVE_REVIEW",
   "evidence": [
     "coordination/evidence/UI30C-20261030-01/INTEGRATION.md",
     "coordination/evidence/UI30C-20261030-01/EXECUTION.json"
   ],
-  "nextAction": "Root freeze; backend source and frontend unit/build/native acceptance",
+  "nextAction": "IDLE same-session author, source copy fix only",
   "sessionId": "93f99706-9822-4a37-b5a9-5369a6ac2364",
   "model": "claude-opus-5-5",
   "thinking": "high",
   "executionEvidenceRoot": "/Users/dongge/.codex/tmp/yijiexing-ui30-integration",
-  "legacyDispatchAlias": "UI30C-20261030-01"
+  "legacyDispatchAlias": "UI30C-20261030-01",
+  "phase3AllowPaths": [
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/UiComponents.kt",
+    "coordination/handoffs/claude.md",
+    "coordination/evidence/UI30C-20261030-01/"
+  ],
+  "candidateSha": "ecc9d8d0e63f5ee1c9a8f45df87e92f7b42e0ea5",
+  "phase4AllowPaths": [
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/OperationsSupport.kt",
+    "coordination/handoffs/claude.md",
+    "coordination/evidence/UI30C-20261030-01/"
+  ]
 }

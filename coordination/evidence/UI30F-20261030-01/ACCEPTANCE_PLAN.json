@@ -1,0 +1,46 @@
+{
+  "taskId": "UITF-20261030-01",
+  "status": "PLANNED_NOT_RUN",
+  "groups": [
+    {
+      "group": "G1",
+      "scope": "Both apps unified modals/button rows/type scale, long text/IME/back, small360x640,font1.3, queue and NAV modal priorities",
+      "status": "NOT_RUN"
+    },
+    {
+      "group": "P1",
+      "scope": "Passenger every defined order stage fixed cancel/pay actions; cancel/confirm payment success vs failures and busy/retry; no client eligibility bypass",
+      "status": "NOT_RUN"
+    },
+    {
+      "group": "P2",
+      "scope": "Debt banner+modal priority, multiple debts, re-entry/account change and failure retry; actual server conflict gates stay enforced",
+      "status": "NOT_RUN"
+    },
+    {
+      "group": "P3",
+      "scope": "Address/map/history/favorites with removed manual coords, selected point metadata and draft protection; waypoints/ride-for-others cards",
+      "status": "NOT_RUN"
+    },
+    {
+      "group": "P4",
+      "scope": "Reservation slim collapse and passenger profile icons/empty-state entrances/ability disclosures",
+      "status": "NOT_RUN"
+    },
+    {
+      "group": "D1",
+      "scope": "Listening preferences only, tools/status moved profile, settings/profile function reachability; NAV true legs/dedupe unaffected",
+      "status": "NOT_RUN"
+    },
+    {
+      "group": "D2",
+      "scope": "Trip navigation+next-step row and cancel link all relevant stages, wallet tabs3-row/expand/collapse/empty lists/data count",
+      "status": "NOT_RUN"
+    },
+    {
+      "group": "D3",
+      "scope": "Membership/profile changes and qualification reminder: pending replacement with still-valid old cert vs already-expired old cert, genuine block retained",
+      "status": "NOT_RUN"
+    }
+  ]
+}

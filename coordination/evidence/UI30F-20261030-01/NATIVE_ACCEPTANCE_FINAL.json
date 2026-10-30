@@ -1,0 +1,1505 @@
+{
+  "taskId": "UITF-20261030-01",
+  "candidateSha": "ecc9d8d0e63f5ee1c9a8f45df87e92f7b42e0ea5",
+  "status": "PASS_SCOPED_NATIVE_UI",
+  "groups": [
+    {
+      "group": "G1",
+      "status": "PASS",
+      "sourceEvidence": {
+        "17d": [
+          "d39-driver-dialog-small",
+          "p09-distance-small-font (original FAIL)"
+        ],
+        "281": [
+          "r281-01-small-consent",
+          "r281-02-inflight",
+          "r281-03-failure",
+          "r281-04-retry-success",
+          "r281-05-normal-dropoff",
+          "r281-11-finance-small",
+          "r281-24-destination-page",
+          "r281-27-page-holds-announcement",
+          "r281-31-page-closed"
+        ]
+      },
+      "tested": "360x640dp/font1.3 text fully visible/equal button height; normal screen; all3 disabled inflight; local503 restore/retry; IME phone/rider form; native driver accept dialog; page holds announcement then releases. Platform navigation fallback is native Android dialog, outside Compose style unification."
+    },
+    {
+      "group": "P1",
+      "status": "PASS",
+      "sourceEvidence": {
+        "17d": [
+          "stage-AVAILABLE-settled",
+          "stage-BID_SENT-settled",
+          "stage-PREPAY-settled",
+          "stage-RESERVED-settled",
+          "stage-PICKUP-settled",
+          "stage-ARRIVED-settled",
+          "stage-WAIT_CONTINUE-settled",
+          "stage-TRIP-settled",
+          "stage-DONE-settled",
+          "stage-CANCELLED-settled",
+          "p24-waitpay-scrolled",
+          "p27-payment-retry-restored"
+        ],
+        "281": [
+          "r281-17-cancel-modal",
+          "r281-18-cancel-failure",
+          "r281-21-cancel-reopen",
+          "r281-22-cancel-success",
+          "r281-12-paid",
+          "r281-13-paid-settled"
+        ]
+      },
+      "tested": "All defined stages eligibility and fixed bottom actions after scroll. Stages assigned synthetically for layout; separate actual local cancel503/reopen/success and simulated failed payment/retry/success. Not real finance or full lifecycle of every stage."
+    },
+    {
+      "group": "P2",
+      "status": "PASS",
+      "sourceEvidence": {
+        "17d": [
+          "p19-arrears-settled",
+          "p20-arrears-later",
+          "p21-arrears-no-repeat"
+        ],
+        "281": [
+          "r281-59-passenger-resume",
+          "r281-60-second-bill",
+          "r281-61-bills-settled",
+          "r281-62-no-bill-repeat",
+          "r281-77-other-account-no-debt"
+        ]
+      },
+      "tested": "Samebill arrears takes over pay question; later/refresh no samebill requeue. Multiple synthetic WAIT_PAY orders plus notstarted real order rows settle sequentially, account2 has no account1 debt. First single companion used explicit API projection; later multiple setup via actual creates plus explicit synthetic stage changes. Business accept gates independently backend/root scope."
+    },
+    {
+      "group": "P3",
+      "status": "PASS",
+      "sourceEvidence": {
+        "17d": [
+          "p36-edit-favorite",
+          "p37-favorite-place-page",
+          "p38-place-return"
+        ],
+        "281": [
+          "r281-24-destination-page",
+          "r281-28-history-end",
+          "r281-29-unknown-not-authorized",
+          "r281-30-known-history",
+          "r281-33-ann-dismiss",
+          "r281-36-waypoint-picker",
+          "r281-37-waypoint-selected",
+          "r281-38-waypoint-return",
+          "r281-39-draft-waypoint",
+          "r281-46-rider-saved",
+          "r281-56-rider-selected",
+          "r281-57-rider-draft"
+        ]
+      },
+      "tested": "Fullpage favorite/route/waypoint picker, no manualcoords; favorites and13history rows grouped; unknown lacks usablecoords and commitdisabled; known selection returns. Waypoint and destination retained returning editor/options; real local rider save then other-rider selection. GPS/provider actual success nottested; underlying async gate/default unit54/source unchanged."
+    },
+    {
+      "group": "P4",
+      "status": "PASS",
+      "sourceEvidence": {
+        "281": [
+          "r281-15-reservation-home",
+          "r281-16-reserved-expanded",
+          "r281-40-profile",
+          "r281-41-rider-empty",
+          "r281-79-profile2",
+          "r281-80-title-empty",
+          "r281-82-invoice-empty"
+        ]
+      },
+      "tested": "Actual local reservation create shows slimline/click detail; redesigned profile entrances and capability disclosures; rider/title/invoice-record empty states."
+    },
+    {
+      "group": "D1",
+      "status": "PASS",
+      "sourceEvidence": {
+        "17d": [
+          "d08-profile-valid",
+          "d09-profile-tools",
+          "d10-profile-more",
+          "d30-settings",
+          "d31-settings-bottom",
+          "d32-settings-saved",
+          "d40-actual-accepted"
+        ],
+        "ecc": [
+          "ecc-14-trip-navigation"
+        ]
+      },
+      "tested": "Listening preferences/radius saved via actual local action, moved tools/account entrances reachable; native acceptedorder pickup fallback identifies pickup; TRIP fallback identifies destination. Prior true-leg/dedupe rules unchanged and unit77 actual17d; no new full external app/provider regression claim."
+    },
+    {
+      "group": "D2",
+      "status": "PASS",
+      "sourceEvidence": {
+        "17d": [
+          "d41-trip-controls",
+          "d45-arrived-settled",
+          "d48-distance-request",
+          "d24-ledger-three",
+          "d27-ledger-five",
+          "d28-ledger-collapsed",
+          "d53-settlements-three",
+          "d55-settlements-six",
+          "d56-settlements-collapse",
+          "d66-driver2-wallet",
+          "d67-driver2-empty-ledger"
+        ],
+        "ecc": [
+          "ecc-12-trip-row"
+        ]
+      },
+      "tested": "Pickup/ARRIVED actual local steps with parallel nav/advance and secondarycancel; TRIP synthetic row nav/end no cancel. Missing GPS requests passenger consent, cannot auto advance. Ledger3→5→3 and settlements3→6→3, tabs totals/empty secondaccount. Four settlement display rows explicitly synthesized; not financial settlement validation."
+    },
+    {
+      "group": "D3",
+      "status": "PASS",
+      "sourceEvidence": {
+        "17d": [
+          "d11-certs-valid (original FAIL)",
+          "d16-expired-refresh",
+          "d18-unknown-settled",
+          "d19-nonapproved-certs",
+          "d21-nonapproved-banner"
+        ],
+        "ecc": [
+          "ecc-02-nonpending-reminder",
+          "ecc-04-valid-settled",
+          "ecc-05-expired-pending",
+          "ecc-06-unknown-pending",
+          "ecc-07-nonapproved-pending",
+          "ecc-09-valid-home"
+        ]
+      },
+      "tested": "Final actual certificate pages verify validpending/no repeated nag, expiredpause, UNKNOWN/notapproved not valid, nonpending reminder kept. Actual local expired/nonapproved order.accept rejected at17d; source predicates/business gates unchangedECC. Profile membership presentation d08. No real certification claim."
+    }
+  ],
+  "findings": "R1/R2 originalFAIL preserved; both independently differential verified fixed",
+  "sourceLineage": {
+    "17d": "17d491106f3a2e2719d5424978408156cd51a0bd",
+    "281": "2815d02db65ec8ac82d102ad4664eb9ea185cc77",
+    "ecc": "ecc9d8d0e63f5ee1c9a8f45df87e92f7b42e0ea5"
+  },
+  "fixture": "Actual17d cloud-service export with MemoryCAS/localTLS; cloud-service Git tree exactly identicalECC; explicit synthetic projection/stage/cert setup distinguished from actual service actions",
+  "limits": [
+    "Real provider map tiles/POI/reverse geocode/navigation success NOT_RUN (QA intentionally no provider credentials and offline DNS).",
+    "OEM background service/personal device/push/real money/refund/bank/certification/recording/police integration NOT_RUN.",
+    "Cloud business mutations/deployment NOT_RUN; all HTTP mutations localhost synthetic sandbox only.",
+    "Unsubmitted booking draft is preserved returning its editor/options; switching bottom tabs recreates it (observed pre-existing composition behavior; cross-tab persistence is not claimed).",
+    "Announcement account2 login initially showed readable retry state, manual retry actual ACK succeeded and displayed announcement; first error frame retained, not counted as success.",
+    "Some probes were named before content settled (p07/p12/d35/p48). Names are not evidence; p07 no consent, p12 expired consent, d35 recreated outside dialog, p48 cross-tab draft reset. Excluded from success cases.",
+    "No 1:1 numbering of original24 items supplied; coverage grouped against actual integrated UI scope and root specific requirements."
+  ],
+  "screenshots": [
+    {
+      "image": "native/d01-start.png",
+      "xml": "native/d01-start.xml",
+      "sourceSha": "17d491106f3a2e2719d5424978408156cd51a0bd",
+      "sha256": "fefd728ea1b0dac0867ebafb49d81159fb73e724e2633d248bc0c2ec6845a1ca",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/d02-login.png",
+      "xml": "native/d02-login.xml",
+      "sourceSha": "17d491106f3a2e2719d5424978408156cd51a0bd",
+      "sha256": "0b0535b01788eb7ee01d74783e6a5f2238a0bc7f0352ce74cf3161b87616fa87",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/d03-login-settled.png",
+      "xml": "native/d03-login-settled.xml",
+      "sourceSha": "17d491106f3a2e2719d5424978408156cd51a0bd",
+      "sha256": "0b0535b01788eb7ee01d74783e6a5f2238a0bc7f0352ce74cf3161b87616fa87",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/d04-accounts.png",
+      "xml": "native/d04-accounts.xml",
+      "sourceSha": "17d491106f3a2e2719d5424978408156cd51a0bd",
+      "sha256": "4de27197c68c9ce176190f16103bf9ab7bd03e2f1416a2e39dc28b82599c3959",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/d05-driver1.png",
+      "xml": "native/d05-driver1.xml",
+      "sourceSha": "17d491106f3a2e2719d5424978408156cd51a0bd",
+      "sha256": "13aa7fc813cca7d7229fb7579959d6c577f6351e5e7e9e43da5ca0757372d3ec",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/d06-consent.png",
+      "xml": "native/d06-consent.xml",
+      "sourceSha": "17d491106f3a2e2719d5424978408156cd51a0bd",
+      "sha256": "ea9aa08c7d30be2a62e2b85f9810ffdf3af479f52bafdd6d4d37931c0afe45c8",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/d07-home.png",
+      "xml": "native/d07-home.xml",
+      "sourceSha": "17d491106f3a2e2719d5424978408156cd51a0bd",
+      "sha256": "1372404c5f8e5b80ec5178ceeaccbe8b70d39972edc6c9fa17c6c9bb079ef087",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/d08-profile-valid.png",
+      "xml": "native/d08-profile-valid.xml",
+      "sourceSha": "17d491106f3a2e2719d5424978408156cd51a0bd",
+      "sha256": "41629fb5cc33e2100e6e6c18ade0a7b1c90aba3f4ef09aa71bb913321a1eed6d",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/d09-profile-tools.png",
+      "xml": "native/d09-profile-tools.xml",
+      "sourceSha": "17d491106f3a2e2719d5424978408156cd51a0bd",
+      "sha256": "91f5a31b63a44044df96cc48bcd06f514c4e3daf5e6424842305de4d75bbb1f1",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/d10-profile-more.png",
+      "xml": "native/d10-profile-more.xml",
+      "sourceSha": "17d491106f3a2e2719d5424978408156cd51a0bd",
+      "sha256": "c9cf23d7209fa3272f95f8ea807e8562e83a4ad412223f87d895e262e8b981a9",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/d11-certs-valid.png",
+      "xml": "native/d11-certs-valid.xml",
+      "sourceSha": "17d491106f3a2e2719d5424978408156cd51a0bd",
+      "sha256": "2fa4a7bb42e045efef958bb17dc6378946d61d31187fc902a84f3e6ba6bff02a",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/d12-profile.png",
+      "xml": "native/d12-profile.xml",
+      "sourceSha": "17d491106f3a2e2719d5424978408156cd51a0bd",
+      "sha256": "71ec9de6ae4680a19840724694b0ace4a53f7e063f892955a4ecaca7980c8875",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/d13-valid-no-nag.png",
+      "xml": "native/d13-valid-no-nag.xml",
+      "sourceSha": "17d491106f3a2e2719d5424978408156cd51a0bd",
+      "sha256": "824354756d565d3a915c486d3582a97254a5cb4f83b6d6e676f915654ae3b9d5",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/d14-expired-profile.png",
+      "xml": "native/d14-expired-profile.xml",
+      "sourceSha": "17d491106f3a2e2719d5424978408156cd51a0bd",
+      "sha256": "71ec9de6ae4680a19840724694b0ace4a53f7e063f892955a4ecaca7980c8875",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/d15-expired-certs.png",
+      "xml": "native/d15-expired-certs.xml",
+      "sourceSha": "17d491106f3a2e2719d5424978408156cd51a0bd",
+      "sha256": "4dc653f2b7903ca9a7be01e162d414acab49699ca27ba1f16885ff06dfe0867d",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/d16-expired-refresh.png",
+      "xml": "native/d16-expired-refresh.xml",
+      "sourceSha": "17d491106f3a2e2719d5424978408156cd51a0bd",
+      "sha256": "98c80eed5fac60c62dafd6ffe7cedd7ac731f6deda27b5528214c66827ed5e9c",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/d17-unknown-certs.png",
+      "xml": "native/d17-unknown-certs.xml",
+      "sourceSha": "17d491106f3a2e2719d5424978408156cd51a0bd",
+      "sha256": "47d93bfc329f318ef223abc2559295a2ae0a08a04b95e7f1eebeb7961f59221c",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/d18-unknown-settled.png",
+      "xml": "native/d18-unknown-settled.xml",
+      "sourceSha": "17d491106f3a2e2719d5424978408156cd51a0bd",
+      "sha256": "47d93bfc329f318ef223abc2559295a2ae0a08a04b95e7f1eebeb7961f59221c",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/d19-nonapproved-certs.png",
+      "xml": "native/d19-nonapproved-certs.xml",
+      "sourceSha": "17d491106f3a2e2719d5424978408156cd51a0bd",
+      "sha256": "44a8b07e036f29a2d5f8e922a41daf791787fadb22a94b94b80ba243db664b4f",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/d20-back.png",
+      "xml": "native/d20-back.xml",
+      "sourceSha": "17d491106f3a2e2719d5424978408156cd51a0bd",
+      "sha256": "111c6e61a4f59cfc4cadfd587889737e531760e20b8abe2c41b173f2506fe4f7",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/d21-nonapproved-banner.png",
+      "xml": "native/d21-nonapproved-banner.xml",
+      "sourceSha": "17d491106f3a2e2719d5424978408156cd51a0bd",
+      "sha256": "e1469a2bc7fefa7dd765cf39e6ff0d02ab9b4da2089638f565eca2367ebadfe1",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/d22-wallet.png",
+      "xml": "native/d22-wallet.xml",
+      "sourceSha": "17d491106f3a2e2719d5424978408156cd51a0bd",
+      "sha256": "f04ea61a63f73c2c0b6b5e31e4f2c20396d0d7b5fa83e95e4af318f8886724c3",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/d23-wallet-scrolled.png",
+      "xml": "native/d23-wallet-scrolled.xml",
+      "sourceSha": "17d491106f3a2e2719d5424978408156cd51a0bd",
+      "sha256": "f04ea61a63f73c2c0b6b5e31e4f2c20396d0d7b5fa83e95e4af318f8886724c3",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/d24-ledger-three.png",
+      "xml": "native/d24-ledger-three.xml",
+      "sourceSha": "17d491106f3a2e2719d5424978408156cd51a0bd",
+      "sha256": "b2b1fee407f175b21a78362988ed6a9275fdfcc6ca347b91b9647f4ac6daf25e",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/d25-ledger-expand-entry.png",
+      "xml": "native/d25-ledger-expand-entry.xml",
+      "sourceSha": "17d491106f3a2e2719d5424978408156cd51a0bd",
+      "sha256": "e44c95e85bfdb41c148c66021e8f679660c3710432b455a67fb188f78a68b919",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/d26-ledger-expanded.png",
+      "xml": "native/d26-ledger-expanded.xml",
+      "sourceSha": "17d491106f3a2e2719d5424978408156cd51a0bd",
+      "sha256": "98fd5102eb9c7d7d76187f6dbfe1a027e893ba76cbb05757a6686ef04dc31e16",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/d27-ledger-five.png",
+      "xml": "native/d27-ledger-five.xml",
+      "sourceSha": "17d491106f3a2e2719d5424978408156cd51a0bd",
+      "sha256": "3bf7d90ef7cd0e0e15013dd9fd7b462398e14576580dc18f0a27a3d5897fd711",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/d28-ledger-collapsed.png",
+      "xml": "native/d28-ledger-collapsed.xml",
+      "sourceSha": "17d491106f3a2e2719d5424978408156cd51a0bd",
+      "sha256": "fcc842b1ae90aee87469e5f5bc877d7dc07e5d481b20248e7d4a9f277fac79cf",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/d29-home.png",
+      "xml": "native/d29-home.xml",
+      "sourceSha": "17d491106f3a2e2719d5424978408156cd51a0bd",
+      "sha256": "1d6024533264ac4672223f9e9d39be2af5246262579845de022bf6bc6c15eca0",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/d30-settings.png",
+      "xml": "native/d30-settings.xml",
+      "sourceSha": "17d491106f3a2e2719d5424978408156cd51a0bd",
+      "sha256": "eb8b560826c081927d0f4f733ab059e787c3a1263a47ef9da06ec9bb0497300d",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/d31-settings-bottom.png",
+      "xml": "native/d31-settings-bottom.xml",
+      "sourceSha": "17d491106f3a2e2719d5424978408156cd51a0bd",
+      "sha256": "eb8b560826c081927d0f4f733ab059e787c3a1263a47ef9da06ec9bb0497300d",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/d32-settings-saved.png",
+      "xml": "native/d32-settings-saved.xml",
+      "sourceSha": "17d491106f3a2e2719d5424978408156cd51a0bd",
+      "sha256": "eb8b560826c081927d0f4f733ab059e787c3a1263a47ef9da06ec9bb0497300d",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/d33-settings-back.png",
+      "xml": "native/d33-settings-back.xml",
+      "sourceSha": "17d491106f3a2e2719d5424978408156cd51a0bd",
+      "sha256": "1d6024533264ac4672223f9e9d39be2af5246262579845de022bf6bc6c15eca0",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/d34-accept-confirm.png",
+      "xml": "native/d34-accept-confirm.xml",
+      "sourceSha": "17d491106f3a2e2719d5424978408156cd51a0bd",
+      "sha256": "72677e502e3f77f7512701e824ab1dce40c62ea10ec72730a10b1799fc4d08d2",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/d35-dialog-small.png",
+      "xml": "native/d35-dialog-small.xml",
+      "sourceSha": "17d491106f3a2e2719d5424978408156cd51a0bd",
+      "sha256": "2fa5c7da76cecab9afefa0b8d3523e3b93b99e35a961a4b43578c85556d70f4f",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/d38-small-scrolled.png",
+      "xml": "native/d38-small-scrolled.xml",
+      "sourceSha": "17d491106f3a2e2719d5424978408156cd51a0bd",
+      "sha256": "584fd8da1a1ba73b72afcaae299929633a23317e6671028528790774e5fde768",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/d39-driver-dialog-small.png",
+      "xml": "native/d39-driver-dialog-small.xml",
+      "sourceSha": "17d491106f3a2e2719d5424978408156cd51a0bd",
+      "sha256": "385001812071432654c0fb7ba604f5638bfd3f26794d25a5bc796ef5c41e616f",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/d40-actual-accepted.png",
+      "xml": "native/d40-actual-accepted.xml",
+      "sourceSha": "17d491106f3a2e2719d5424978408156cd51a0bd",
+      "sha256": "8332bc89913373fc9df193b8388db1fef396c415f0083db09a05001d1995b33b",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/d41-trip-controls.png",
+      "xml": "native/d41-trip-controls.xml",
+      "sourceSha": "17d491106f3a2e2719d5424978408156cd51a0bd",
+      "sha256": "24346ccbf0c53e033177cf2024360b49206c636bb3b3793248252f1de0c524cf",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/d42-cancel-dialog.png",
+      "xml": "native/d42-cancel-dialog.xml",
+      "sourceSha": "17d491106f3a2e2719d5424978408156cd51a0bd",
+      "sha256": "4075fdc8d3fb3073da43a93d2be87ea2d8533e5aeb6b7191acd8cb49e14139fb",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/d43-cancel-dismissed.png",
+      "xml": "native/d43-cancel-dismissed.xml",
+      "sourceSha": "17d491106f3a2e2719d5424978408156cd51a0bd",
+      "sha256": "a4042a350a43717071c9d1d00a77157d63b7b7a8162cdfe75838f263e136aa47",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/d44-arrived.png",
+      "xml": "native/d44-arrived.xml",
+      "sourceSha": "17d491106f3a2e2719d5424978408156cd51a0bd",
+      "sha256": "e947d1d258281aa3de695b49b69df5cae3f638ee5b7d661e424803122a55d723",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/d45-arrived-settled.png",
+      "xml": "native/d45-arrived-settled.xml",
+      "sourceSha": "17d491106f3a2e2719d5424978408156cd51a0bd",
+      "sha256": "e947d1d258281aa3de695b49b69df5cae3f638ee5b7d661e424803122a55d723",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/d46-phone-modal.png",
+      "xml": "native/d46-phone-modal.xml",
+      "sourceSha": "17d491106f3a2e2719d5424978408156cd51a0bd",
+      "sha256": "8db92649536c45b064b0bc04ad886f0e3f476c48accc7ef8cbe430dc356abcbd",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/d47-phone-input.png",
+      "xml": "native/d47-phone-input.xml",
+      "sourceSha": "17d491106f3a2e2719d5424978408156cd51a0bd",
+      "sha256": "5fc43bcf217f5a8a46dc968556bfac688ea9fe1a8a0121594667655ef1d048fa",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/d48-distance-request.png",
+      "xml": "native/d48-distance-request.xml",
+      "sourceSha": "17d491106f3a2e2719d5424978408156cd51a0bd",
+      "sha256": "f4150e0971dd48da0331d587fa574136b9aaa2daeb91da7c7bae8f705ef4fcf6",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/d49-current.png",
+      "xml": "native/d49-current.xml",
+      "sourceSha": "17d491106f3a2e2719d5424978408156cd51a0bd",
+      "sha256": "7b7a59960c5f661810049804ab05c5bd5091f3ad007c47a3d54cad0f8462a50b",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/d50-home.png",
+      "xml": "native/d50-home.xml",
+      "sourceSha": "17d491106f3a2e2719d5424978408156cd51a0bd",
+      "sha256": "5b96154837b4acb80a65059c52278ca9a2c988131d7c255394e1a9dd6f39c226",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/d51-wallet-refresh.png",
+      "xml": "native/d51-wallet-refresh.xml",
+      "sourceSha": "17d491106f3a2e2719d5424978408156cd51a0bd",
+      "sha256": "12c202db1d52906580459375b412eee3466e07bf28e3e72155365e15c4c04431",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/d52-wallet-settled.png",
+      "xml": "native/d52-wallet-settled.xml",
+      "sourceSha": "17d491106f3a2e2719d5424978408156cd51a0bd",
+      "sha256": "12c202db1d52906580459375b412eee3466e07bf28e3e72155365e15c4c04431",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/d53-settlements-three.png",
+      "xml": "native/d53-settlements-three.xml",
+      "sourceSha": "17d491106f3a2e2719d5424978408156cd51a0bd",
+      "sha256": "1a4908725a75c4fa3d367b7129c57a8fb7315cfc6c9d4aab92c4042e46b93b5b",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/d54-settlements-expanded.png",
+      "xml": "native/d54-settlements-expanded.xml",
+      "sourceSha": "17d491106f3a2e2719d5424978408156cd51a0bd",
+      "sha256": "a9c891a02f578a733e19564677cf850df8c2513e7f17d35828b7a5f5a180828a",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/d55-settlements-six.png",
+      "xml": "native/d55-settlements-six.xml",
+      "sourceSha": "17d491106f3a2e2719d5424978408156cd51a0bd",
+      "sha256": "c9ab11b7b514fdcaed97b157e542e67c6d4109b94c9ef1313196388c9d92f3ac",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/d56-settlements-collapse.png",
+      "xml": "native/d56-settlements-collapse.xml",
+      "sourceSha": "17d491106f3a2e2719d5424978408156cd51a0bd",
+      "sha256": "1a4908725a75c4fa3d367b7129c57a8fb7315cfc6c9d4aab92c4042e46b93b5b",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/d57-profile.png",
+      "xml": "native/d57-profile.xml",
+      "sourceSha": "17d491106f3a2e2719d5424978408156cd51a0bd",
+      "sha256": "4ba84ff916c14f74b9adc0baf4cf7033ee19bb0f8cbf5a3dd17091445efcdf6d",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/d58-profile-bottom.png",
+      "xml": "native/d58-profile-bottom.xml",
+      "sourceSha": "17d491106f3a2e2719d5424978408156cd51a0bd",
+      "sha256": "52fae60184cd325749c7c9a8c6f894ef342fbe9a13eec5b50fac021b4e326a98",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/d59-profile-end.png",
+      "xml": "native/d59-profile-end.xml",
+      "sourceSha": "17d491106f3a2e2719d5424978408156cd51a0bd",
+      "sha256": "1afcab6b36d26cdd7254cd03adc50494d1cb2dd3033f2e281ccf8b1fbab88a51",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/d60-logout-confirm.png",
+      "xml": "native/d60-logout-confirm.xml",
+      "sourceSha": "17d491106f3a2e2719d5424978408156cd51a0bd",
+      "sha256": "156badf5d814caa8933f13397e013d9809f022c162f4005d86e53d2539095347",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/d61-logged-out.png",
+      "xml": "native/d61-logged-out.xml",
+      "sourceSha": "17d491106f3a2e2719d5424978408156cd51a0bd",
+      "sha256": "13c49857030a769b9d85772d4ba487b97c5619f846c2615581acf2c826574507",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/d62-accounts.png",
+      "xml": "native/d62-accounts.xml",
+      "sourceSha": "17d491106f3a2e2719d5424978408156cd51a0bd",
+      "sha256": "098d4650753b70cfb15852290e7f7b97c5580fc21da966d989541d2021f9ef09",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/d63-driver2.png",
+      "xml": "native/d63-driver2.xml",
+      "sourceSha": "17d491106f3a2e2719d5424978408156cd51a0bd",
+      "sha256": "6e9d21e68f517e6d0c3c195102ed38db678193863a65731f6423eefea83cb9ca",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/d64-consent.png",
+      "xml": "native/d64-consent.xml",
+      "sourceSha": "17d491106f3a2e2719d5424978408156cd51a0bd",
+      "sha256": "899aafcecf23f413a32309e99398201bcb0235776a5a2ef4585820c8d59cf932",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/d65-driver2-home.png",
+      "xml": "native/d65-driver2-home.xml",
+      "sourceSha": "17d491106f3a2e2719d5424978408156cd51a0bd",
+      "sha256": "da365ac6fd3717b9932bad87d19e027836e3f6c277a8d4aef4dd0e7d40b2e0ec",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/d66-driver2-wallet.png",
+      "xml": "native/d66-driver2-wallet.xml",
+      "sourceSha": "17d491106f3a2e2719d5424978408156cd51a0bd",
+      "sha256": "52c644775e213d658744cd8cfd2a12118b57cb7a2a8973f33d284a0cd600293f",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/d67-driver2-empty-ledger.png",
+      "xml": "native/d67-driver2-empty-ledger.xml",
+      "sourceSha": "17d491106f3a2e2719d5424978408156cd51a0bd",
+      "sha256": "13ade3d0af9c71d40560b589f05d2536426cb1b6a293b516049a1442064bbd09",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/ecc-01-driver2-current.png",
+      "xml": "native/ecc-01-driver2-current.xml",
+      "sourceSha": "ecc9d8d0e63f5ee1c9a8f45df87e92f7b42e0ea5",
+      "sha256": "5fe53d4dd059f022800e2ca1c0bfa496454be4041557b553e375a289dabf34ce",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/ecc-02-nonpending-reminder.png",
+      "xml": "native/ecc-02-nonpending-reminder.xml",
+      "sourceSha": "ecc9d8d0e63f5ee1c9a8f45df87e92f7b42e0ea5",
+      "sha256": "a6267ecb3f4992edd8ca9d6595b4213a7b6d63d834941cfe9a7e410710ac1ea6",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/ecc-03-valid-pending.png",
+      "xml": "native/ecc-03-valid-pending.xml",
+      "sourceSha": "ecc9d8d0e63f5ee1c9a8f45df87e92f7b42e0ea5",
+      "sha256": "9480ffff70e065fec9efbdc6771f6005f10c2c62fd8d0e6edf2a70d546cd4667",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/ecc-04-valid-settled.png",
+      "xml": "native/ecc-04-valid-settled.xml",
+      "sourceSha": "ecc9d8d0e63f5ee1c9a8f45df87e92f7b42e0ea5",
+      "sha256": "9480ffff70e065fec9efbdc6771f6005f10c2c62fd8d0e6edf2a70d546cd4667",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/ecc-05-expired-pending.png",
+      "xml": "native/ecc-05-expired-pending.xml",
+      "sourceSha": "ecc9d8d0e63f5ee1c9a8f45df87e92f7b42e0ea5",
+      "sha256": "284ab4a5ba18b40dec5ce6c1c2ae8877dffa3c1798f533b9e3d2cd1a3b97a152",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/ecc-06-unknown-pending.png",
+      "xml": "native/ecc-06-unknown-pending.xml",
+      "sourceSha": "ecc9d8d0e63f5ee1c9a8f45df87e92f7b42e0ea5",
+      "sha256": "2a46f20a5d0a423cd8c0fc78fb2f3db917b042c1a725f9e878fe1fd3c5d7c718",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/ecc-07-nonapproved-pending.png",
+      "xml": "native/ecc-07-nonapproved-pending.xml",
+      "sourceSha": "ecc9d8d0e63f5ee1c9a8f45df87e92f7b42e0ea5",
+      "sha256": "ffc935e094a8716a3dcfb2addb82e3e064c5d4af8f607afbafd77ffb6d0e2239",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/ecc-08-valid-restored.png",
+      "xml": "native/ecc-08-valid-restored.xml",
+      "sourceSha": "ecc9d8d0e63f5ee1c9a8f45df87e92f7b42e0ea5",
+      "sha256": "70dbb2a81f3e8cb40fa4978df07767e4bd952a65d17b37dc534ec96821a5ddb1",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/ecc-09-valid-home.png",
+      "xml": "native/ecc-09-valid-home.xml",
+      "sourceSha": "ecc9d8d0e63f5ee1c9a8f45df87e92f7b42e0ea5",
+      "sha256": "8b973376435b3ff2b8e24677a75fbffe637cdac2f4c41ab1c1d8a98a5c9e3905",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/ecc-10-return-driver.png",
+      "xml": "native/ecc-10-return-driver.xml",
+      "sourceSha": "ecc9d8d0e63f5ee1c9a8f45df87e92f7b42e0ea5",
+      "sha256": "e97ee39acaf54e1b0638f34c01ac943405e8d99aac193e5aaf5f4ad25917caae",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/ecc-11-orders.png",
+      "xml": "native/ecc-11-orders.xml",
+      "sourceSha": "ecc9d8d0e63f5ee1c9a8f45df87e92f7b42e0ea5",
+      "sha256": "353d2e21a638f5ca5641088fec73f084625e2b91f0609d00224cc48380c0dab3",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/ecc-12-trip-row.png",
+      "xml": "native/ecc-12-trip-row.xml",
+      "sourceSha": "ecc9d8d0e63f5ee1c9a8f45df87e92f7b42e0ea5",
+      "sha256": "961fefccce0783693968c412e13a704ccf27d1ab196176fd29b0294a7ca84d72",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/ecc-14-trip-navigation.png",
+      "xml": "native/ecc-14-trip-navigation.xml",
+      "sourceSha": "ecc9d8d0e63f5ee1c9a8f45df87e92f7b42e0ea5",
+      "sha256": "0e9a63b6722539ca79a94506e6f86470a8b9cb6d1ac3d3098ed9eaf7622ecb75",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/ecc-15-nav-dismiss.png",
+      "xml": "native/ecc-15-nav-dismiss.xml",
+      "sourceSha": "ecc9d8d0e63f5ee1c9a8f45df87e92f7b42e0ea5",
+      "sha256": "38f30699164f22124dc080498b91faa9d378775d7798d56d08eb01db7d22ce4f",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/p08-resume.png",
+      "xml": "native/p08-resume.xml",
+      "sourceSha": "17d491106f3a2e2719d5424978408156cd51a0bd",
+      "sha256": "9e973d194334d04f132ce076d1e39d558b2a63a987047501b1c3d31869406ad2",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/p09-distance-small-font.png",
+      "xml": "native/p09-distance-small-font.xml",
+      "sourceSha": "17d491106f3a2e2719d5424978408156cd51a0bd",
+      "sha256": "229a12d873a6199f451ad5b0f8d6e86a5720f495c7437b773c681407d5b3f659",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/p10-distance-inflight.png",
+      "xml": "native/p10-distance-inflight.xml",
+      "sourceSha": "17d491106f3a2e2719d5424978408156cd51a0bd",
+      "sha256": "97ead59bc96e246a615cef366e06bdb1fb739975fa1645527f756fd6391f9f0d",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/p11-distance-failure.png",
+      "xml": "native/p11-distance-failure.xml",
+      "sourceSha": "17d491106f3a2e2719d5424978408156cd51a0bd",
+      "sha256": "f3427a8d481590f30472e3f039676d2e5c350d917b4404322974742c9fcb6374",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/p16-new-consent.png",
+      "xml": "native/p16-new-consent.xml",
+      "sourceSha": "17d491106f3a2e2719d5424978408156cd51a0bd",
+      "sha256": "23a3a4cf613d3f59ca756f166d2981bb774d4c9eedd22ce538eeadf2860061c9",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/p17-new-consent-approved.png",
+      "xml": "native/p17-new-consent-approved.xml",
+      "sourceSha": "17d491106f3a2e2719d5424978408156cd51a0bd",
+      "sha256": "ccf921a31bd053cba55724bf0a116ac3b6f10a75ea42bf9a1007421fcad8b381",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/p18-arrears.png",
+      "xml": "native/p18-arrears.xml",
+      "sourceSha": "17d491106f3a2e2719d5424978408156cd51a0bd",
+      "sha256": "35b93bfadf119706d286afc411589b9f805a42d3fe345fe0f66e7ff16a478d3b",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/p19-arrears-settled.png",
+      "xml": "native/p19-arrears-settled.xml",
+      "sourceSha": "17d491106f3a2e2719d5424978408156cd51a0bd",
+      "sha256": "42cd8e030d2001bd100bcd078d4cea6de1df93a823766d8dce22975c1650137a",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/p20-arrears-later.png",
+      "xml": "native/p20-arrears-later.xml",
+      "sourceSha": "17d491106f3a2e2719d5424978408156cd51a0bd",
+      "sha256": "4294f8ef2d909d94a0f544c29025a8af685404ed061d6a42a0316e7bb2fca619",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/p21-arrears-no-repeat.png",
+      "xml": "native/p21-arrears-no-repeat.xml",
+      "sourceSha": "17d491106f3a2e2719d5424978408156cd51a0bd",
+      "sha256": "4294f8ef2d909d94a0f544c29025a8af685404ed061d6a42a0316e7bb2fca619",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/p23-waitpay-detail.png",
+      "xml": "native/p23-waitpay-detail.xml",
+      "sourceSha": "17d491106f3a2e2719d5424978408156cd51a0bd",
+      "sha256": "9fc022dee29d89718737c86599e241eaecf1e2f61fad91c79c6c5e2eeda270cf",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/p24-waitpay-scrolled.png",
+      "xml": "native/p24-waitpay-scrolled.xml",
+      "sourceSha": "17d491106f3a2e2719d5424978408156cd51a0bd",
+      "sha256": "03d7bde686bf5a37d6d4ffc590af8af29132efc2b73e57fec5f7e6ee3dc8511c",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/p25-payment-modal.png",
+      "xml": "native/p25-payment-modal.xml",
+      "sourceSha": "17d491106f3a2e2719d5424978408156cd51a0bd",
+      "sha256": "56db90d9384606ec8a8bc2aec5ce7224a3fcb906ee98b9d99c7f641baca9d182",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/p27-payment-retry-restored.png",
+      "xml": "native/p27-payment-retry-restored.xml",
+      "sourceSha": "17d491106f3a2e2719d5424978408156cd51a0bd",
+      "sha256": "0c64fdce62713d191e7933beb161e70db6a78e74397dba3b4996a3fd5183a5f9",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/p30-order-list-return.png",
+      "xml": "native/p30-order-list-return.xml",
+      "sourceSha": "17d491106f3a2e2719d5424978408156cd51a0bd",
+      "sha256": "e934c61daacb6e112bc80c722d9f92e1ed4c01d1696d985b51a0159e9deadf08",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/p31-profile.png",
+      "xml": "native/p31-profile.xml",
+      "sourceSha": "17d491106f3a2e2719d5424978408156cd51a0bd",
+      "sha256": "3095384eb64e89a48e68d2a0021a54230cbaf3af6b014e3ab3bb564bcdc18807",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/p32-profile-more.png",
+      "xml": "native/p32-profile-more.xml",
+      "sourceSha": "17d491106f3a2e2719d5424978408156cd51a0bd",
+      "sha256": "57c1b3c32227f26c91b2075d8dc992a6fb327da3650be81a3943447c1cb8add1",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/p34-profile-top.png",
+      "xml": "native/p34-profile-top.xml",
+      "sourceSha": "17d491106f3a2e2719d5424978408156cd51a0bd",
+      "sha256": "4ba273e72f0be38cbf21d91793fa2f693fdb3bf07c140d774fe46cff437efe78",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/p35-favorites.png",
+      "xml": "native/p35-favorites.xml",
+      "sourceSha": "17d491106f3a2e2719d5424978408156cd51a0bd",
+      "sha256": "83e2784033b12bfbba5cbd51324dd8ba6aef413f19f51c8d6b246e00405fe813",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/p36-edit-favorite.png",
+      "xml": "native/p36-edit-favorite.xml",
+      "sourceSha": "17d491106f3a2e2719d5424978408156cd51a0bd",
+      "sha256": "592c72ab124a148ff8dfb13e12a47ab9fb894dee1bb0e0f3a108b499639789de",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/p37-favorite-place-page.png",
+      "xml": "native/p37-favorite-place-page.xml",
+      "sourceSha": "17d491106f3a2e2719d5424978408156cd51a0bd",
+      "sha256": "d2a5431ab727bac3f51c808be2cfc8c7340ddea609b17190afa2e3637333d0da",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/p38-place-return.png",
+      "xml": "native/p38-place-return.xml",
+      "sourceSha": "17d491106f3a2e2719d5424978408156cd51a0bd",
+      "sha256": "592c72ab124a148ff8dfb13e12a47ab9fb894dee1bb0e0f3a108b499639789de",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/p39-favorite-dismiss.png",
+      "xml": "native/p39-favorite-dismiss.xml",
+      "sourceSha": "17d491106f3a2e2719d5424978408156cd51a0bd",
+      "sha256": "83e2784033b12bfbba5cbd51324dd8ba6aef413f19f51c8d6b246e00405fe813",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/r281-01-small-consent.png",
+      "xml": "native/r281-01-small-consent.xml",
+      "sourceSha": "2815d02db65ec8ac82d102ad4664eb9ea185cc77",
+      "sha256": "a13692768eaab2fbadc4e6caad3109bdbb4dcbbc4d8175138d18813dfeab3922",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/r281-02-inflight.png",
+      "xml": "native/r281-02-inflight.xml",
+      "sourceSha": "2815d02db65ec8ac82d102ad4664eb9ea185cc77",
+      "sha256": "70ba804847d6087290293fb1892b5cd045b072bd83d01f6db427c87a37ff82ea",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/r281-03-failure.png",
+      "xml": "native/r281-03-failure.xml",
+      "sourceSha": "2815d02db65ec8ac82d102ad4664eb9ea185cc77",
+      "sha256": "9baff571cafeb4c85c38d0cc98e542c327992fefde6aee310b6255b04ddc1e72",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/r281-04-retry-success.png",
+      "xml": "native/r281-04-retry-success.xml",
+      "sourceSha": "2815d02db65ec8ac82d102ad4664eb9ea185cc77",
+      "sha256": "325066722d3af7598a909cbebcadba5c1685698eed53bf7dbc7e50f518a88e19",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/r281-05-normal-dropoff.png",
+      "xml": "native/r281-05-normal-dropoff.xml",
+      "sourceSha": "2815d02db65ec8ac82d102ad4664eb9ea185cc77",
+      "sha256": "16c234c6a9e97dd7974eba3a8fe66f84b3326da0460a27975995f113c0162760",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/r281-06-dropoff-success.png",
+      "xml": "native/r281-06-dropoff-success.xml",
+      "sourceSha": "2815d02db65ec8ac82d102ad4664eb9ea185cc77",
+      "sha256": "721219273748db858e3a2d4e1a16fd63701452025eb81451f73345e4b7721992",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/r281-07-pay-prompt.png",
+      "xml": "native/r281-07-pay-prompt.xml",
+      "sourceSha": "2815d02db65ec8ac82d102ad4664eb9ea185cc77",
+      "sha256": "6ef195e70c09481edc27f7c83003f3c013f9dbb3b99e38c7b80c3c47a2f99981",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/r281-08-waitpay-detail.png",
+      "xml": "native/r281-08-waitpay-detail.xml",
+      "sourceSha": "2815d02db65ec8ac82d102ad4664eb9ea185cc77",
+      "sha256": "eb59e467468cbeeb493384a0b9f7c4432ad42a7d61cc8a2a5b1b475a35acb7d6",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/r281-09-finance-dialog.png",
+      "xml": "native/r281-09-finance-dialog.xml",
+      "sourceSha": "2815d02db65ec8ac82d102ad4664eb9ea185cc77",
+      "sha256": "0305296fbf2817ee1ecb803f14a3e7376a73698d380798fc96c093be69bc4370",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/r281-10-small-recreated.png",
+      "xml": "native/r281-10-small-recreated.xml",
+      "sourceSha": "2815d02db65ec8ac82d102ad4664eb9ea185cc77",
+      "sha256": "0424911db2cf485b8b57f10bc46e76ba6400eb69cdf6fd846311c563fb32b180",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/r281-11-finance-small.png",
+      "xml": "native/r281-11-finance-small.xml",
+      "sourceSha": "2815d02db65ec8ac82d102ad4664eb9ea185cc77",
+      "sha256": "4cc36017d176767c7b825b0818a809c8db970a53c2f430341512b48485eee1f0",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/r281-12-paid.png",
+      "xml": "native/r281-12-paid.xml",
+      "sourceSha": "2815d02db65ec8ac82d102ad4664eb9ea185cc77",
+      "sha256": "1fd64f39fe0e51be00796e5aa95c4288e9ffbd66b9931a12ef2016fef9a44e83",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/r281-13-paid-settled.png",
+      "xml": "native/r281-13-paid-settled.xml",
+      "sourceSha": "2815d02db65ec8ac82d102ad4664eb9ea185cc77",
+      "sha256": "2ffd30480e2cbea6d863ae4e66c8190ef481b61585425318c8c4bdb44a7f23c7",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/r281-14-home.png",
+      "xml": "native/r281-14-home.xml",
+      "sourceSha": "2815d02db65ec8ac82d102ad4664eb9ea185cc77",
+      "sha256": "96e0dd29b2d11266337cfeb2257ec12192c00a71ab2d6e74e586fbf934058818",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/r281-15-reservation-home.png",
+      "xml": "native/r281-15-reservation-home.xml",
+      "sourceSha": "2815d02db65ec8ac82d102ad4664eb9ea185cc77",
+      "sha256": "57e826353ff3425dd164a2f6b21de5feea298af9d34d8919241e3ffdff136ae8",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/r281-16-reserved-expanded.png",
+      "xml": "native/r281-16-reserved-expanded.xml",
+      "sourceSha": "2815d02db65ec8ac82d102ad4664eb9ea185cc77",
+      "sha256": "4f6bd24534bca74c0e8aaaae6cd4709de0ae298c5fea1ffc82477da2c5ef898f",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/r281-17-cancel-modal.png",
+      "xml": "native/r281-17-cancel-modal.xml",
+      "sourceSha": "2815d02db65ec8ac82d102ad4664eb9ea185cc77",
+      "sha256": "f5007ff2bfb5ab4cf8c9c290016a8f80792ca601bd66d95beae6a5f1f2a077ed",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/r281-18-cancel-failure.png",
+      "xml": "native/r281-18-cancel-failure.xml",
+      "sourceSha": "2815d02db65ec8ac82d102ad4664eb9ea185cc77",
+      "sha256": "fa5fe58fd227bd89280bb8975edcf26b7846be8cb75d2cfefda8ccb2037256e2",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/r281-19-cancel-retry.png",
+      "xml": "native/r281-19-cancel-retry.xml",
+      "sourceSha": "2815d02db65ec8ac82d102ad4664eb9ea185cc77",
+      "sha256": "fa5fe58fd227bd89280bb8975edcf26b7846be8cb75d2cfefda8ccb2037256e2",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/r281-21-cancel-reopen.png",
+      "xml": "native/r281-21-cancel-reopen.xml",
+      "sourceSha": "2815d02db65ec8ac82d102ad4664eb9ea185cc77",
+      "sha256": "ccfda526971ff1c9e5eebebde8a1f944a538c3aff8f3f60b1486a379449686ed",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/r281-22-cancel-success.png",
+      "xml": "native/r281-22-cancel-success.xml",
+      "sourceSha": "2815d02db65ec8ac82d102ad4664eb9ea185cc77",
+      "sha256": "78950418254292722b26bdf8ddaac7af2c4120746c0e3e6352674c901757ac9b",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/r281-23-home-restored.png",
+      "xml": "native/r281-23-home-restored.xml",
+      "sourceSha": "2815d02db65ec8ac82d102ad4664eb9ea185cc77",
+      "sha256": "a4d0ca3c723bf3436cc2b58f20f2e1b81428954d095441b266e13a4c414c62bf",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/r281-24-destination-page.png",
+      "xml": "native/r281-24-destination-page.xml",
+      "sourceSha": "2815d02db65ec8ac82d102ad4664eb9ea185cc77",
+      "sha256": "31049614f3ab8d28c0851126c67857fdb8504cf0367cc25b37c0f8801b1128d2",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/r281-25-history-middle.png",
+      "xml": "native/r281-25-history-middle.xml",
+      "sourceSha": "2815d02db65ec8ac82d102ad4664eb9ea185cc77",
+      "sha256": "7361079e7426fe21381962a14eb368281fd4cafcdd5ee28acaaa48b92785d19a",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/r281-26-history-bottom.png",
+      "xml": "native/r281-26-history-bottom.xml",
+      "sourceSha": "2815d02db65ec8ac82d102ad4664eb9ea185cc77",
+      "sha256": "2ef5cbb025b9af80a022a04904bff7e9e2a47a5103a391448790a27ea04187ea",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/r281-27-page-holds-announcement.png",
+      "xml": "native/r281-27-page-holds-announcement.xml",
+      "sourceSha": "2815d02db65ec8ac82d102ad4664eb9ea185cc77",
+      "sha256": "2ef5cbb025b9af80a022a04904bff7e9e2a47a5103a391448790a27ea04187ea",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/r281-28-history-end.png",
+      "xml": "native/r281-28-history-end.xml",
+      "sourceSha": "2815d02db65ec8ac82d102ad4664eb9ea185cc77",
+      "sha256": "23cc0984736146fae36727f63f29f40a97bf9c32f004992dba811180ae9de6bc",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/r281-29-unknown-not-authorized.png",
+      "xml": "native/r281-29-unknown-not-authorized.xml",
+      "sourceSha": "2815d02db65ec8ac82d102ad4664eb9ea185cc77",
+      "sha256": "a8974d9ce660f5682f75dd4ad3bd6f0f6b475172cabf05cdc2fbf6d05db1b394",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/r281-30-known-history.png",
+      "xml": "native/r281-30-known-history.xml",
+      "sourceSha": "2815d02db65ec8ac82d102ad4664eb9ea185cc77",
+      "sha256": "2a840b283cc6485409234b02e0ef06016c83a486eb1cf1ae73638ab9d91606fe",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/r281-31-page-closed.png",
+      "xml": "native/r281-31-page-closed.xml",
+      "sourceSha": "2815d02db65ec8ac82d102ad4664eb9ea185cc77",
+      "sha256": "19472085f3fbb41a04df3f4f8a40e80f9c726a47771a4bf850e345cf61ebc663",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/r281-32-after-page.png",
+      "xml": "native/r281-32-after-page.xml",
+      "sourceSha": "2815d02db65ec8ac82d102ad4664eb9ea185cc77",
+      "sha256": "19472085f3fbb41a04df3f4f8a40e80f9c726a47771a4bf850e345cf61ebc663",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/r281-33-ann-dismiss.png",
+      "xml": "native/r281-33-ann-dismiss.xml",
+      "sourceSha": "2815d02db65ec8ac82d102ad4664eb9ea185cc77",
+      "sha256": "a61d802c4f3e11ecb415eac263acb598435c5c96296aee0f7b1cba3366822e0e",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/r281-34-home-options.png",
+      "xml": "native/r281-34-home-options.xml",
+      "sourceSha": "2815d02db65ec8ac82d102ad4664eb9ea185cc77",
+      "sha256": "393f3fdf528880a88b56b35aa1e79dad2e8d5f2d3d9e8d39c789e57afb0e349b",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/r281-35-trip-options.png",
+      "xml": "native/r281-35-trip-options.xml",
+      "sourceSha": "2815d02db65ec8ac82d102ad4664eb9ea185cc77",
+      "sha256": "ac685446d7efe417da00570a6cd38e0d52200781173941214c27abeafb480aea",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/r281-36-waypoint-picker.png",
+      "xml": "native/r281-36-waypoint-picker.xml",
+      "sourceSha": "2815d02db65ec8ac82d102ad4664eb9ea185cc77",
+      "sha256": "091bed9d3639dbe0c72f7edf1e5aef17c6552bfe3809ea7868193d37967ff05a",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/r281-37-waypoint-selected.png",
+      "xml": "native/r281-37-waypoint-selected.xml",
+      "sourceSha": "2815d02db65ec8ac82d102ad4664eb9ea185cc77",
+      "sha256": "4c015b1eca0a04a3d5e171722da486c904aa3049e02c55925a60c91f32cd359e",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/r281-38-waypoint-return.png",
+      "xml": "native/r281-38-waypoint-return.xml",
+      "sourceSha": "2815d02db65ec8ac82d102ad4664eb9ea185cc77",
+      "sha256": "d02bd4b55c97495d4ce785f8794cc0ef6a087b48a4e6c77797fd437f637f0d65",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/r281-39-draft-waypoint.png",
+      "xml": "native/r281-39-draft-waypoint.xml",
+      "sourceSha": "2815d02db65ec8ac82d102ad4664eb9ea185cc77",
+      "sha256": "18b80ec9dcd9e5b14b77cd2556bb60a8958c06bfefa302c698f437e08368ab35",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/r281-40-profile.png",
+      "xml": "native/r281-40-profile.xml",
+      "sourceSha": "2815d02db65ec8ac82d102ad4664eb9ea185cc77",
+      "sha256": "953eac3c2fd565f207f6d1de4c2667991d9993af82ca8f69b7b3a9e0321d74e0",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/r281-41-rider-empty.png",
+      "xml": "native/r281-41-rider-empty.xml",
+      "sourceSha": "2815d02db65ec8ac82d102ad4664eb9ea185cc77",
+      "sha256": "3ee5c12c5b2d686d427b2d8e06735dffe78c4748a047eb86c53bd181d553c565",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/r281-43-rider-form.png",
+      "xml": "native/r281-43-rider-form.xml",
+      "sourceSha": "2815d02db65ec8ac82d102ad4664eb9ea185cc77",
+      "sha256": "0f825405d0ebef3dba21ebb1be32dea1d8ccef644fe6d750322ed0a273cca8d4",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/r281-44-rider-name.png",
+      "xml": "native/r281-44-rider-name.xml",
+      "sourceSha": "2815d02db65ec8ac82d102ad4664eb9ea185cc77",
+      "sha256": "6760589a375a511a95440d587b18a97bb6c02d6bf8db0dea6dea73bc05138674",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/r281-45-rider-phone.png",
+      "xml": "native/r281-45-rider-phone.xml",
+      "sourceSha": "2815d02db65ec8ac82d102ad4664eb9ea185cc77",
+      "sha256": "6e61b3f5d2632f7f72340e4e3f60696d0c5afbd9efff664b1ee65de91d0c78e1",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/r281-46-rider-saved.png",
+      "xml": "native/r281-46-rider-saved.xml",
+      "sourceSha": "2815d02db65ec8ac82d102ad4664eb9ea185cc77",
+      "sha256": "22de311c480222f36d4b7051f13b4d08a1f5f412acbb8c047f0e9da3bfe4634d",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/r281-47-profile-back.png",
+      "xml": "native/r281-47-profile-back.xml",
+      "sourceSha": "2815d02db65ec8ac82d102ad4664eb9ea185cc77",
+      "sha256": "45addd88e3dd2f6e017fb9b1adc12833ec0a4eff41113e4333c9532a540f3465",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/r281-48-draft-preserved.png",
+      "xml": "native/r281-48-draft-preserved.xml",
+      "sourceSha": "2815d02db65ec8ac82d102ad4664eb9ea185cc77",
+      "sha256": "55d0dba8aa86ccbe79f19843f3fe10b0b28e49c2438a565106b6c7a5bc8b890c",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/r281-51-home-more.png",
+      "xml": "native/r281-51-home-more.xml",
+      "sourceSha": "2815d02db65ec8ac82d102ad4664eb9ea185cc77",
+      "sha256": "a283bbce6cf8f7c293595022503de4dbd176bcd909fe7d654ae1ea394b8997d0",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/r281-52-reconnected.png",
+      "xml": "native/r281-52-reconnected.xml",
+      "sourceSha": "2815d02db65ec8ac82d102ad4664eb9ea185cc77",
+      "sha256": "ef54ebad112891518b1b212282006f16978a35e60f5d599212de29a653e4d029",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/r281-53-rider-options.png",
+      "xml": "native/r281-53-rider-options.xml",
+      "sourceSha": "2815d02db65ec8ac82d102ad4664eb9ea185cc77",
+      "sha256": "90fe568e0fb94185d51f7a64d1a52b4507a9fb9d2add0207ae6a057035fb0e4c",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/r281-56-rider-selected.png",
+      "xml": "native/r281-56-rider-selected.xml",
+      "sourceSha": "2815d02db65ec8ac82d102ad4664eb9ea185cc77",
+      "sha256": "9d3bbf98aa4bfb42ac4571504e80cf1c0b2deeb2f67f825f866b5351c0c7ce2d",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/r281-57-rider-draft.png",
+      "xml": "native/r281-57-rider-draft.xml",
+      "sourceSha": "2815d02db65ec8ac82d102ad4664eb9ea185cc77",
+      "sha256": "2c98bd993af0780330566806e34c69b2f0bb4b5d9c5c285820651410e0ddbf44",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/r281-59-passenger-resume.png",
+      "xml": "native/r281-59-passenger-resume.xml",
+      "sourceSha": "2815d02db65ec8ac82d102ad4664eb9ea185cc77",
+      "sha256": "6e6001f148bb1dfe0a772a6119c0132bc665e87b3a4f4b3bb1142d4c2f420db5",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/r281-60-second-bill.png",
+      "xml": "native/r281-60-second-bill.xml",
+      "sourceSha": "2815d02db65ec8ac82d102ad4664eb9ea185cc77",
+      "sha256": "e5db426c7e214b96adc569bbc0515d45bdb4183130f7916a13e8195db20e7b07",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/r281-61-bills-settled.png",
+      "xml": "native/r281-61-bills-settled.xml",
+      "sourceSha": "2815d02db65ec8ac82d102ad4664eb9ea185cc77",
+      "sha256": "9158f29d1187cf78c4283cd880abe19b288a6c161101eeb9f0c894e8a23faf9e",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/r281-62-no-bill-repeat.png",
+      "xml": "native/r281-62-no-bill-repeat.xml",
+      "sourceSha": "2815d02db65ec8ac82d102ad4664eb9ea185cc77",
+      "sha256": "9158f29d1187cf78c4283cd880abe19b288a6c161101eeb9f0c894e8a23faf9e",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/r281-63-profile-switch.png",
+      "xml": "native/r281-63-profile-switch.xml",
+      "sourceSha": "2815d02db65ec8ac82d102ad4664eb9ea185cc77",
+      "sha256": "f56d71a3621027adec5944cb73fc3ea604fd02d435c4a463126bec082e641b09",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/r281-64-profile-bottom.png",
+      "xml": "native/r281-64-profile-bottom.xml",
+      "sourceSha": "2815d02db65ec8ac82d102ad4664eb9ea185cc77",
+      "sha256": "8d345679493a0039dc3cb2355116a3dc6bb1503dd6e55195d6a051225be5e3ad",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/r281-65-profile-end.png",
+      "xml": "native/r281-65-profile-end.xml",
+      "sourceSha": "2815d02db65ec8ac82d102ad4664eb9ea185cc77",
+      "sha256": "620db46fdf675a7953b217498b5d5e853db281dbc4856234ba1e75ce87735cc8",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/r281-66-logout.png",
+      "xml": "native/r281-66-logout.xml",
+      "sourceSha": "2815d02db65ec8ac82d102ad4664eb9ea185cc77",
+      "sha256": "ed0006c4036d3a42fb46984aa203b26a04d099feeb999965643fa84635dc3f3b",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/r281-67-out.png",
+      "xml": "native/r281-67-out.xml",
+      "sourceSha": "2815d02db65ec8ac82d102ad4664eb9ea185cc77",
+      "sha256": "f4a9281dc96b7ccaa1eb9a07bda83026af8375a678fe1cf1132d0708215de383",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/r281-68-accounts.png",
+      "xml": "native/r281-68-accounts.xml",
+      "sourceSha": "2815d02db65ec8ac82d102ad4664eb9ea185cc77",
+      "sha256": "8dcbc46c6322b011c96f54e5e39ad57b4cad818f29af0572a9bcc75c027627f0",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/r281-69-passenger2.png",
+      "xml": "native/r281-69-passenger2.xml",
+      "sourceSha": "2815d02db65ec8ac82d102ad4664eb9ea185cc77",
+      "sha256": "f4a9281dc96b7ccaa1eb9a07bda83026af8375a678fe1cf1132d0708215de383",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/r281-71-consent.png",
+      "xml": "native/r281-71-consent.xml",
+      "sourceSha": "2815d02db65ec8ac82d102ad4664eb9ea185cc77",
+      "sha256": "aaebd6b7c13a6fcf8b532d2edc1f3c0ef9d86515545f5d29999bb4f1a17ea353",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/r281-72-other-account.png",
+      "xml": "native/r281-72-other-account.xml",
+      "sourceSha": "2815d02db65ec8ac82d102ad4664eb9ea185cc77",
+      "sha256": "f333f2c2871b4734e5b480aa72eb1df818a82046ff7b831973578b7d4e06e710",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/r281-73-other-account-settled.png",
+      "xml": "native/r281-73-other-account-settled.xml",
+      "sourceSha": "2815d02db65ec8ac82d102ad4664eb9ea185cc77",
+      "sha256": "fb99c27be6642b4f6e5e386bfdcfb24dfb4b3de7f45df73784bd0e49861c27e2",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/r281-74-ann-recovery.png",
+      "xml": "native/r281-74-ann-recovery.xml",
+      "sourceSha": "2815d02db65ec8ac82d102ad4664eb9ea185cc77",
+      "sha256": "b834a4c6599981004b52224e7d77eb53db3f81e4515052edf0d88095d2b23bec",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/r281-75-ann-retry.png",
+      "xml": "native/r281-75-ann-retry.xml",
+      "sourceSha": "2815d02db65ec8ac82d102ad4664eb9ea185cc77",
+      "sha256": "72f527b87a6c4e93b183380913b76bf2b88805a2870a0238d3916801ac06ac64",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/r281-76-account2-recovered.png",
+      "xml": "native/r281-76-account2-recovered.xml",
+      "sourceSha": "2815d02db65ec8ac82d102ad4664eb9ea185cc77",
+      "sha256": "72f527b87a6c4e93b183380913b76bf2b88805a2870a0238d3916801ac06ac64",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/r281-77-other-account-no-debt.png",
+      "xml": "native/r281-77-other-account-no-debt.xml",
+      "sourceSha": "2815d02db65ec8ac82d102ad4664eb9ea185cc77",
+      "sha256": "e01147c611992d581c5d50f908b0717c7a456d8ef229e35a7ed39d3e0473ad16",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/r281-78-account2-current.png",
+      "xml": "native/r281-78-account2-current.xml",
+      "sourceSha": "2815d02db65ec8ac82d102ad4664eb9ea185cc77",
+      "sha256": "9c39b3123ee175519abe6a86555b0c8fff71c16ac5249d9a44c85dc41d792ddc",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/r281-79-profile2.png",
+      "xml": "native/r281-79-profile2.xml",
+      "sourceSha": "2815d02db65ec8ac82d102ad4664eb9ea185cc77",
+      "sha256": "92be9d360588ea28d016e32181a092553690fa194e06c5d146a076eebe4fae50",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/r281-80-title-empty.png",
+      "xml": "native/r281-80-title-empty.xml",
+      "sourceSha": "2815d02db65ec8ac82d102ad4664eb9ea185cc77",
+      "sha256": "a7c899a382f90c8e44e16cf56aaf4e944505cb6154c2e7a4a9288a4dbd93949d",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/r281-81-profile2back.png",
+      "xml": "native/r281-81-profile2back.xml",
+      "sourceSha": "2815d02db65ec8ac82d102ad4664eb9ea185cc77",
+      "sha256": "92be9d360588ea28d016e32181a092553690fa194e06c5d146a076eebe4fae50",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/r281-82-invoice-empty.png",
+      "xml": "native/r281-82-invoice-empty.xml",
+      "sourceSha": "2815d02db65ec8ac82d102ad4664eb9ea185cc77",
+      "sha256": "d49e9cb9ed656561da6f96196a132ed2b6a4c2e4636805264f7c11aa267ea424",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/stage-ARRIVED-settled.png",
+      "xml": "native/stage-ARRIVED-settled.xml",
+      "sourceSha": "17d491106f3a2e2719d5424978408156cd51a0bd",
+      "sha256": "ae4a045c26ca1594a44360f53965da32c27082389c5384c4b8dba6937524e206",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/stage-AVAILABLE-settled.png",
+      "xml": "native/stage-AVAILABLE-settled.xml",
+      "sourceSha": "17d491106f3a2e2719d5424978408156cd51a0bd",
+      "sha256": "9edf425f55e81ed831e9c3ec524fa456a05321added27ff06cf57a516424bec9",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/stage-BID_SENT-settled.png",
+      "xml": "native/stage-BID_SENT-settled.xml",
+      "sourceSha": "17d491106f3a2e2719d5424978408156cd51a0bd",
+      "sha256": "ae4a045c26ca1594a44360f53965da32c27082389c5384c4b8dba6937524e206",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/stage-CANCELLED-settled.png",
+      "xml": "native/stage-CANCELLED-settled.xml",
+      "sourceSha": "17d491106f3a2e2719d5424978408156cd51a0bd",
+      "sha256": "01824823c183b6027cbeb6f773011ff6f186810e8c5b91a6edb48f314018ea14",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/stage-DONE-settled.png",
+      "xml": "native/stage-DONE-settled.xml",
+      "sourceSha": "17d491106f3a2e2719d5424978408156cd51a0bd",
+      "sha256": "c13477890fe964189a94c498be8e3784c07cae1894db92b218174f9063412043",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/stage-PICKUP-settled.png",
+      "xml": "native/stage-PICKUP-settled.xml",
+      "sourceSha": "17d491106f3a2e2719d5424978408156cd51a0bd",
+      "sha256": "ae4a045c26ca1594a44360f53965da32c27082389c5384c4b8dba6937524e206",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/stage-PREPAY-settled.png",
+      "xml": "native/stage-PREPAY-settled.xml",
+      "sourceSha": "17d491106f3a2e2719d5424978408156cd51a0bd",
+      "sha256": "b0123df7d3e4d0dba329ab6454e2fd8fe07570de91ddd30d97c32d29c3a6f887",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/stage-RESERVED-settled.png",
+      "xml": "native/stage-RESERVED-settled.xml",
+      "sourceSha": "17d491106f3a2e2719d5424978408156cd51a0bd",
+      "sha256": "f91d0438ab147c993993829f34935d3df89fca4680d4c8f4d6f4bdf80fa9bd88",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/stage-TRIP-settled.png",
+      "xml": "native/stage-TRIP-settled.xml",
+      "sourceSha": "17d491106f3a2e2719d5424978408156cd51a0bd",
+      "sha256": "01824823c183b6027cbeb6f773011ff6f186810e8c5b91a6edb48f314018ea14",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    },
+    {
+      "image": "native/stage-WAIT_CONTINUE-settled.png",
+      "xml": "native/stage-WAIT_CONTINUE-settled.xml",
+      "sourceSha": "17d491106f3a2e2719d5424978408156cd51a0bd",
+      "sha256": "3e217c332afddc436aa4a7fc7cedd4fceb499a832ee86fefff0571467ff99619",
+      "status": "RAW_OBSERVATION; only group-linked actual frames count as acceptance evidence"
+    }
+  ],
+  "cleanup": "PASS; CLEANUP_FINAL.json",
+  "fixtureCloudTreeMatchesCandidate": true
+}

@@ -1,0 +1,32 @@
+{
+  "sourceSha": "ecc9d8d0e63f5ee1c9a8f45df87e92f7b42e0ea5",
+  "at": "2026-10-30T13:26:15.514654+00:00",
+  "status": "PASS_SCOPED",
+  "nativeGroups": [
+    "G1",
+    "P1",
+    "P2",
+    "P3",
+    "P4",
+    "D1",
+    "D2",
+    "D3"
+  ],
+  "findingsClosed": [
+    "R1 small-screen button labels",
+    "R2 pending-certificate repeated update nag"
+  ],
+  "businessReview": "UI30B-20261030-01/REVIEW_DELTA_ecc9d8d.json",
+  "nativeReview": "UI30F-20261030-01/NATIVE_ACCEPTANCE_FINAL.json",
+  "buildProof": "UI30F-20261030-01/BUILD_PROOF_ecc9d8d.json",
+  "limits": [
+    "Real provider map tiles/POI/reverse geocode/navigation success NOT_RUN (QA intentionally no provider credentials and offline DNS).",
+    "OEM background service/personal device/push/real money/refund/bank/certification/recording/police integration NOT_RUN.",
+    "Cloud business mutations/deployment NOT_RUN; all HTTP mutations localhost synthetic sandbox only.",
+    "Unsubmitted booking draft is preserved returning its editor/options; switching bottom tabs recreates it (observed pre-existing composition behavior; cross-tab persistence is not claimed).",
+    "Announcement account2 login initially showed readable retry state, manual retry actual ACK succeeded and displayed announcement; first error frame retained, not counted as success.",
+    "Some probes were named before content settled (p07/p12/d35/p48). Names are not evidence; p07 no consent, p12 expired consent, d35 recreated outside dialog, p48 cross-tab draft reset. Excluded from success cases.",
+    "No 1:1 numbering of original24 items supplied; coverage grouped against actual integrated UI scope and root specific requirements."
+  ],
+  "publication": "NOT_YET"
+}

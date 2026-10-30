@@ -1,0 +1,10 @@
+{
+  "status": "PASS",
+  "adbDevices": "List of devices attached\n\n",
+  "listeners64341and5584": "",
+  "fixtureSession51472": "exit0",
+  "emulatorSession53431": "exit0",
+  "adbReverse": "removed exact isolated serial before stop",
+  "privateArtifacts": "APKs/cache/TLS/private identities remain only external local QA root, no credentials/raw DB copied to repo",
+  "at": "2026-10-30T21:21:51.908071+08:00"
+}

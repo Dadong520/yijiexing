@@ -1,0 +1,29 @@
+{
+  "sourceSha": "17d491106f3a2e2719d5424978408156cd51a0bd",
+  "roles": [
+    {
+      "role": "passenger",
+      "bytes": 107204985,
+      "sha256": "32409e41a8acce5d55b27451bb834f9bcc03eabaa88e4f59005d7079dc4f6c98",
+      "productTree": "ba0c7d3ac8e336d32479974ce36295f7a8c16675",
+      "junitFiles": 11,
+      "actualTests": 54,
+      "failures": 0,
+      "errors": 0,
+      "PASS": true
+    },
+    {
+      "role": "driver",
+      "bytes": 108685957,
+      "sha256": "1c07b9865844375d81f8e58d8c4f8965fc150fa2cd0763be57a13f6c03975752",
+      "productTree": "7ff68581a32192ea3e2bd802050a14534cbe124b",
+      "junitFiles": 11,
+      "actualTests": 77,
+      "failures": 0,
+      "errors": 0,
+      "PASS": true
+    }
+  ],
+  "nativeAcceptance": "PENDING",
+  "noPublicationYet": true
+}

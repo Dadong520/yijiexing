@@ -1,0 +1,13 @@
+{
+  "sourceSha": "2815d02db65ec8ac82d102ad4664eb9ea185cc77",
+  "parentSha": "17d491106f3a2e2719d5424978408156cd51a0bd",
+  "productFilesChanged": [
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/UiComponents.kt"
+  ],
+  "reason": "UITF-R1 three-button label clipped in360dp/font1.3",
+  "authorPhase": 3,
+  "authorExitCode": 0,
+  "authorTests": "NOT_RUN",
+  "independentAcceptance": "NOT_RUN",
+  "versionCode": 21
+}

@@ -1,16 +1,10 @@
-# frontend UITF 准备阶段短卡
-ACK2026-10-26-v3；真实ID01a182c6-c475-7110-bbae-0deafe6d2385；2026-10-30T20:42:52.365424+08:00；context UNKNOWN/no telemetry。
-当前任务UITF-20261030-01（legacy UI30F同任务，证据UI30F），状态WAIT_FREEZE_PREPARED，所有候选验收NOT_RUN。sourceRoot /Users/dongge/.codex/tmp/yijiexing-ui-feedback-20261030；branch codex/ui-feedback-20261030；base/当前提交HEAD362c7f861a5063631c6da9ba198e04bc131402e4。云9495caa54e8b8581bba4d82c3fbac04701252418只是待整合差量，root cherry-pick --no-commit有8UU，Claude/root独占产品；本人未读取/复制脏产品、未构建/改产品。pendingMergeSha null，目标code21，等root精确freeze。
-
-新外置/Users/dongge/.codex/tmp/yijiexing-uitf-20261030仅scripts/runtime/log/screenshots/AVD定义，无source/APK/DB/TLS/私有identity。复用官方SDK、JDK17、offline init及旧NAV fixture/UI/control模板，替换新路径/64341/serial5584；fixture首行FROZEN_SHA门禁。stage_frozen.py接受准确40SHA git archive，拒绝旧source且校验双Gradle code21，不可拿949或base20提前构建。5Python模板ast.parse PASS（未import/execute）。avdmanager仅创建UITF_20261030定义1080x2400/density440，未boot。
-
-设备/端口初读空：adb devices空，64340/64341/5584无listener；无build/fixture/emulator/reverse在途。新批用户已授权本次专用隔离AVD官方工具安装点击截图，禁止个人设备与线上业务POST；无需借旧NAV许可。不派代理/不提交发布，root唯一合并部署。凭据/APK/cache继续外置。
-
-准备矩阵G1/P1-P4/D1-D3见evidence/UI30F-20261030-01/ACCEPTANCE_PLAN.json：统一modal/button/type/smallfont、所有阶段固定cancel/pay与失败忙碌、债务modal优先级/重试、多单账号、选点常用history/waypoints/草稿、预约细条、两端profile空态/迁移、听单偏好/tools、tripnav并排/取消link、wallet tabs3条展开及资格旧证expired+pending replacement。当前只按commit message和派单分组，尚无24项逐号材料，不编造1:1覆盖，freeze后核scope再细化。真实provider/OEM/资金边界延续；合成fixture与真实localaction分别注明。
-
-自身task原allow_paths只有旧alias，按root明确UITF正式派单补入canonical自身路径；同步canonical与alias同内容，没写STATE/BOARD/REGISTRY。READY记录命令/哈希/NOT_RUN；门禁PASS不是业务验收。
-
-记忆评估HANDOFF_RECOMMENDED：本对话已跨UIOV/NAV多轮原生/修复和发布前验收，正进入24项新大任务；依MEMORY_POLICY§4建议在freeze到达前后切新frontend以减少恢复成本。无上下文遥测，不报百分比；不自行建新会话/替换角色/停派，未收到用户明确新开前仍可按短卡继续。已保存evidence/UI30F-20261030-01/NEW_CHAT_PROMPT.txt，需root登记新真实ID并停旧派单，不能双角色。
-
-上一NAV6ab独审与窄文案已PASS，root实际发布20并完成PR41/42回读，STATE main362为权威；旧所有AVD/fixture/reverse已清理。不再称线上19，不重做旧发布。
-下一步IDLE等root准确code21freeze；不轮询作者或自行唤醒角色。获freeze后先真实IDgate和外置committed export、双unit/build，再QA原生逐组证据，问题回root/Claude，完毕清理/短卡。
+# frontend UITF 完成短卡
+协议ACK2026-10-26-v3；真实ID01a182c6-c475-7110-bbae-0deafe6d2385；context UNKNOWN/not_exposed。记忆HANDOFF_RECOMMENDED（旧长会话进入UIT期间可见压缩，已持续短卡恢复，源/版本已精确核清）；未擅自新建会话/改登记。当前只等root后续明确派单，不自行常驻。
+任务UITF-20261030-01，状态ACCEPTANCE_PASS_IDLE；仅本轮隔离原生UI范围PASS，非项目发布完成。sourceRoot /Users/dongge/.codex/tmp/yijiexing-ui-feedback-20261030；branch codex/ui-feedback-20261030；base362c7f861a5063631c6da9ba198e04bc131402e4；最终干净HEAD/待合并ecc9d8d0e63f5ee1c9a8f45df87e92f7b42e0ea5。root唯一合并部署，本人无产品修改/提交/部署，线上仍20以中央STATE为准。
+证据coordination/evidence/UI30F-20261030-01/：NATIVE_ACCEPTANCE_FINAL.json逐组/逐图sourceSHA，BUILD_PROOF_ecc9d8d.json最终包绑定，旧BUILD_PROOF_17d4911/2815d02保留，FINDINGS_17d4911.json原R1/R2失败+修后关闭，CLEANUP_FINAL.json资源回执。READ native矩阵即可，不遍历旧NAV或历史。
+源链：17d491106f3a2e2719d5424978408156cd51a0bd实际双单测54/77，零失败/错误，原包+QA构建；2815d02db65ec8ac82d102ad4664eb9ea185cc77仅乘客UiComponents按钮自适应，乘客重编+原生差量PASS；ECC仅Driver OperationsSupport证件显示分支，driver重编+差量PASS。54/77明确实际17d，后续纯UI/文案按测试/业务字节保持与原生差量继承，未伪称ECC重跑。cloud-service全树17d=ECC。
+最终原包乘客1.1.19-experience/code21、buildSha281，整个乘客树与ECC同：SHA476ba49f596e5736931e7a21ee3260984f9766029d217fa33abdc69f51185e69；driver0.3.18-cloud/code21、buildShaECC：SHA143108f537ec62df06a34cd9bb51ec89d8249ab80141ab9cb1df86f7adb47f0e。原包名/原Signer9ffec9…b758f/HTTPS/全部APK条目4私有值0命中PASS。原APK外置R/revision281/source/apps/passenger-android/app/build/outputs/apk/debug/app-debug.apk和R/revisionECC/source/candidates/driver-0.3.6-r2/android/app/build/outputs/apk/debug/app-debug.apk，R=/Users/dongge/.codex/tmp/yijiexing-uitf-20261030。QA仅appId/localhost端点/debugCA不同，严禁发布。
+本轮G1/P1-P4/D1-D3已跑：小屏360x640dp/font1.3正常屏、三按钮全部禁用/失败恢复/真实localretry、长财务模态、所有定义stage固定动作（明确set合成）、实际取消失败重入/成功、模拟支付失败/成功、欠款samebill替换/稍后不重弹/多单/账号2无串入、history13/未知坐标禁确认/选点/waypoint/代叫/编辑页返回保留、预约细条/两端profile空态与能力提示、司机设置迁移/5km实际更新、接单→到达真实local与GPS缺失等待乘客、不绕过、pickup/TRIP导航fallback所指正确、并排操作+cancel次级入口、流水3→5→3/入账3→6→3与账号2空态。四条wallet订单直接合成只验展示不称资金结算。可见图均按实际内容计，不按文件名。
+R1旧p09主按钮“同意已上车”裁末字车；281 r281-01全文两行且等高，02全禁用、03失败04实际retry成功。R2旧d11 pending仍催提前更新；ECC ecc02非pending提醒保留、04validpending不再催、05expired保留禁新单/在途可完、06UNKNOWN/07未通过不当有效、09首页validpending无nag。原FAIL保留。旧17d expired/nonapproved实际accept拒绝，ECC门禁谓词未变。
+边界：QA故意无真实provider/离线DNS，底图/搜索/逆地理/地图App成功/OEM/个人设备/真资金/真实认证录音警方/云业务POST/发布NOT_RUN。公告账号2登录初帧可读重试状态，手动retry实际ACK成功并显示（r28174-77）；不伪作首次就成功。未提交叫车草稿跨底部页签会重建（原有行为），只验证编辑页返回保留，不称跨tab持久化。p07首页、p12过期请求、d35重建非modal、p48草稿重建为探测而非PASS。无原24项逐号清单，以root实际集成分组验收，不伪造1:1。
+资源已清：当前fixture session51472 exit0（前61576已干净重启/退出）；AVD UITF_20261030/serial5584/session53431 exit0；reverse全部已从该serial移除；adb无该模拟器，64341/5584无listener。无build/CLI在途。APKs/cache/privateDB/TLS身份均外置，不入Git。只改自身task/handoff/evidence；STATE/BOARD/REGISTRY root独占。下一步root合并发布；本人IDLE，无可自行推进的发布权限。

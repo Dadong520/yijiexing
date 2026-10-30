@@ -4,39 +4,55 @@
   "branch": "codex/ui-feedback-20261030",
   "baseSha": "362c7f861a5063631c6da9ba198e04bc131402e4",
   "cloudCandidateSha": "9495caa54e8b8581bba4d82c3fbac04701252418",
-  "updatedAt": "2026-10-30T20:42:52.365424+08:00",
-  "acceptance": "NOT_RUN",
+  "updatedAt": "2026-10-30T21:21:51.924340+08:00",
+  "acceptance": "PASS",
   "tests": [
     {
       "command": "python3 tools/check_coordination.py --memory-role frontend --session-id 01a182c6-c475-7110-bbae-0deafe6d2385",
-      "status": "PASS",
-      "exitCode": 0
+      "status": "PASS"
     },
     {
-      "command": "ast.parse5 external preparation templates, without import/execute",
+      "command": "exact17d original native unit/build",
       "status": "PASS",
-      "exitCode": 0
+      "passengerTests": 54,
+      "driverTests": 77,
+      "failures": 0,
+      "errors": 0
     },
     {
-      "command": "avdmanager create UITF_20261030 isolated fresh definition only; no boot",
+      "command": "passenger281 original+QA assemble; driverECC original+QA assemble",
       "status": "PASS",
-      "exitCode": 0
+      "unitInheritance": "Actual54/77 executed17d; layout/certificate-display only deltas, explicit final proof basis"
     },
     {
-      "command": "Candidate compile/unit/native UI/package",
+      "command": "native G1/P1-P4/D1-D3 scoped actual scenarios; R1/R2 differential",
+      "status": "PASS",
+      "evidence": "NATIVE_ACCEPTANCE_FINAL.json; original FAILs preserved"
+    },
+    {
+      "command": "original final APK identity/version/signature/HTTPS/all-entry4private values",
+      "status": "PASS",
+      "evidence": "BUILD_PROOF_ecc9d8d.json"
+    },
+    {
+      "command": "isolated fixture/AVD/reverse cleanup",
+      "status": "PASS",
+      "evidence": "CLEANUP_FINAL.json"
+    },
+    {
+      "command": "real provider/OEM/personal device/cloud business writes/real finance/deploy",
       "status": "NOT_RUN",
-      "reason": "Root exact integration freeze pending; dirty/conflicted tree not copied or built"
+      "reason": "Outside isolated native UI acceptance; root owns release"
     }
   ],
-  "pendingMergeSha": null,
+  "pendingMergeSha": "ecc9d8d0e63f5ee1c9a8f45df87e92f7b42e0ea5",
   "deploy_owner": "coordinator",
-  "releaseReady": false,
+  "releaseReady": true,
   "id": "UITF-20261030-01",
   "owner": "frontend",
   "goal": "独立编译/测试并在本轮专用隔离模拟器验收两端新版UI",
   "allow_paths": [
     "coordination/tasks/UITF-20261030-01.json",
-    "coordination/tasks/UI30F-20261030-01.json",
     "coordination/handoffs/frontend.md",
     "coordination/evidence/UI30F-20261030-01/"
   ],
@@ -47,18 +63,35 @@
     "Android official tools only dedicated isolated emulator; user requests this batch test and publish with autonomous testing. No personal devices or live business writes. Cleanup after.",
     "Canonical taskID UITF-20261030-01; initial dispatch alias UI30F-20261030-01 retained temporarily for running author/readers; same task, not separate work"
   ],
-  "status": "WAIT_FREEZE_PREPARED",
+  "status": "ACCEPTANCE_PASS_IDLE",
   "evidence": [
     {
-      "path": "coordination/evidence/UI30F-20261030-01/READY.json",
-      "sha256": "8c3ab47add9b1331ce67fe29e647fa90b8780e5817a4a17d59ea718a9158d5be"
+      "path": "coordination/evidence/UI30F-20261030-01/BUILD_PROOF_17d4911.json",
+      "sha256": "ba1b72942ab8389144942a548634af5af6d8bda1b1d1e0383e28a9b9c6d25d0c"
     },
     {
-      "path": "coordination/evidence/UI30F-20261030-01/ACCEPTANCE_PLAN.json",
-      "sha256": "6bc56b22a264ecc4d787d6b0c0f72c393d9d4071ac0939aab6dd7ae129ad7c69"
+      "path": "coordination/evidence/UI30F-20261030-01/BUILD_PROOF_2815d02.json",
+      "sha256": "968c3c2355484477ee554be6c467236f0f9788b67e8fbf34fce6aade0f6fa8ff"
+    },
+    {
+      "path": "coordination/evidence/UI30F-20261030-01/BUILD_PROOF_ecc9d8d.json",
+      "sha256": "ef70dddff46a90de425598c3941c633cd0121bc3a5e05c200accef578dc6dac5"
+    },
+    {
+      "path": "coordination/evidence/UI30F-20261030-01/NATIVE_ACCEPTANCE_FINAL.json",
+      "sha256": "383cb6115f5ee81ea526a9c0415ea91f098d4e09f01b89523a0c0af3979947d2"
+    },
+    {
+      "path": "coordination/evidence/UI30F-20261030-01/FINDINGS_17d4911.json",
+      "sha256": "2101a3d734ce7e325bf236accf67ed7b28f5c4c334b62522a7eb8ebc99c13c0d"
+    },
+    {
+      "path": "coordination/evidence/UI30F-20261030-01/CLEANUP_FINAL.json",
+      "sha256": "d3a4fcc83b802a2804f4b59fe77ad5ba0dee2cc6ee26f60e89e93c6f8d0091f9"
     }
   ],
-  "nextAction": "IDLE until root supplies exact integrated code21 freeze; no source stage/build/runtime started",
+  "nextAction": "Root exact-head independent acceptance collection/merge/release only; frontend IDLE. No deploy performed.",
   "legacyDispatchAlias": "UI30F-20261030-01",
-  "taskPathNote": "Canonical own-task path added to stale alias-only allow_paths per explicit UITF dispatch; legacy UI30F mirror remains same task, no root controls edited"
+  "taskPathNote": "Canonical UITF only; root removed initial alias file. Evidence directory remains UI30F.",
+  "candidateSha": "ecc9d8d0e63f5ee1c9a8f45df87e92f7b42e0ea5"
 }
