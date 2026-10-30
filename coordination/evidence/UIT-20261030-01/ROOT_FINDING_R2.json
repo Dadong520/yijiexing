@@ -1,0 +1,14 @@
+{
+  "id": "UIT-R2",
+  "priority": "P2",
+  "sourceSha": "2815d02db65ec8ac82d102ad4664eb9ea185cc77",
+  "actualFrameSource": "17d491106f3a2e2719d5424978408156cd51a0bd",
+  "driverTreeUnchangedAt281": true,
+  "file": "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/OperationsSupport.kt",
+  "function": "DriverCertificateStatus",
+  "evidence": "UI30F native/d11-certs-valid.png (same actual frame copied at final evidence selection)",
+  "actual": "APPROVED+EXPIRING+pending certificate detail still says 请提前更新 next to 新材料待审核. UNKNOWN/nonapproved pending may similarly direct resubmission though already reviewing.",
+  "expected": "Pending replacement retains true current expiry/validity/approval facts and explains review; no duplicate-update nag before review result. Nonpending reminders and expired/no-new-order fact remain unchanged.",
+  "status": "OPEN",
+  "foundBy": "coordinator independent visual review"
+}

@@ -41,3 +41,11 @@ session 93f99706-9822-4a37-b5a9-5369a6ac2364（取自task）；claude-opus-5-5�
 - 估算（未实测）：360dp、fontScale1.3时确认按钮宽约104dp、内容约92dp，“同意已上车”约98dp，预期折为两行完整显示，按钮行随之增高且三按钮等高。
 - 未覆盖：司机DriverDialog（findings标NOT_YET_TESTED，本阶段不允许改driver）。
 - 测试：编译/单测/GUI及720x1280/320dpi/font1.3同场景复验全部NOT_RUN，由root/前端独立重编复验。
+
+## 阶段4（UITC-20261030-01，基于HEAD 2815d02db65ec8ac82d102ad4664eb9ea185cc77；修UIT-R2）
+同session 93f99706-9822-4a37-b5a9-5369a6ac2364。仅改司机OperationsSupport.kt的DriverCertificateStatus文案分支；谓词（certificateInReview/CurrentlyValid/OutOfDate）、canAccept条件、事件、后端、版本、乘客文件均未改。
+- 用certificateInReview区分；非审核中全部原文不变。
+- 审核中：EXPIRING→“当前材料将在N天后到期；新材料审核中，通过后替换。”；EXPIRED→保留“已过期，暂停新增接单；在途订单可完成”，改为“新材料审核中，审核通过前不解除”；NOT_EFFECTIVE原文不变；UNKNOWN→保留“有效期未确认、历史标记不代表已核验”，去掉“请补全资料”，改“请等待审核结果”（不宣称后端禁接）；LONG_TERM原文不变（非APPROVED仍写尚未审核通过）。
+- 审核中且非APPROVED、validity为VALID/EXPIRING：追加“当前材料尚未审核通过，不能视为有效证件；请等待审核结果。”
+- REJECTED：审核中→“上次提交的材料曾被驳回；本次新材料审核中，请等待审核结果。”（不催再次提交）；非审核中保留原两种重新提交文案。
+- 测试：编译/单测/GUI全部NOT_RUN。

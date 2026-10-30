@@ -26,19 +26,32 @@ internal fun certificateOutOfDate(cert: JSONObject): Boolean =
 @Composable
 internal fun DriverCertificateStatus(cert: JSONObject) {
     val approved = cert.optString("status") == "APPROVED"
+    // Under review: keep the current material's facts, but never ask to update what is already submitted.
+    val reviewing = certificateInReview(cert)
     val text = when (cert.optString("validity")) {
-        "EXPIRING" -> "证件将在 ${cert.optInt("daysRemaining")} 天后到期，请提前更新。"
-        "EXPIRED" -> "当前材料已过期，暂停新增接单；在途订单可完成。请更新并等待审核通过。"
+        "EXPIRING" ->
+            if (reviewing) "当前材料将在 ${cert.optInt("daysRemaining")} 天后到期；新材料审核中，通过后替换。"
+            else "证件将在 ${cert.optInt("daysRemaining")} 天后到期，请提前更新。"
+        "EXPIRED" ->
+            if (reviewing) "当前材料已过期，暂停新增接单；在途订单可完成。新材料审核中，审核通过前不解除。"
+            else "当前材料已过期，暂停新增接单；在途订单可完成。请更新并等待审核通过。"
         "NOT_EFFECTIVE" -> "当前材料尚未生效，不能新增接单。"
-        "UNKNOWN" -> "当前有效期未确认，请补全资料；历史标记不代表真实资质已核验。"
+        "UNKNOWN" ->
+            if (reviewing) "当前有效期未确认，历史标记不代表真实资质已核验；新材料审核中，请等待审核结果。"
+            else "当前有效期未确认，请补全资料；历史标记不代表真实资质已核验。"
         "LONG_TERM" -> if (approved) "当前材料长期有效。" else "当前材料标注长期，但尚未审核通过。"
         else -> ""
     }
     if (text.isNotBlank()) BusinessHint(text)
+    if (reviewing && !approved && cert.optString("validity") in setOf("VALID", "EXPIRING"))
+        BusinessHint("当前材料尚未审核通过，不能视为有效证件；请等待审核结果。")
     if (cert.optString("reviewStatus") == "REJECTED")
         BusinessHint(
-            if (certificateCurrentlyValid(cert)) "新材料已驳回，当前有效材料保留。请查看审核说明后重新提交。"
-            else "新材料已驳回，当前材料状态不变（见上方说明）。请查看审核说明后重新提交。",
+            when {
+                reviewing -> "上次提交的材料曾被驳回；本次新材料审核中，请等待审核结果。"
+                certificateCurrentlyValid(cert) -> "新材料已驳回，当前有效材料保留。请查看审核说明后重新提交。"
+                else -> "新材料已驳回，当前材料状态不变（见上方说明）。请查看审核说明后重新提交。"
+            },
         )
 }
 
