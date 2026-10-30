@@ -1,4 +1,4 @@
-# 宜捷行当前检查点 2026-10-29T14:12:46.796048+00:00
+# 宜捷行当前检查点 2026-10-30T01:11:43.243962+00:00
 中央 /Users/dongge/Documents/New project 2/coordination 唯一权威，协议2026-10-26-v3。唯一coordinator01a17cc7-e0a2-7791-bf1d-4611c09bab22/generation6统一派单、验收、合并和发布；context UNKNOWN/not_exposed。
 
 ## 目前线上基线
@@ -19,13 +19,13 @@ BIZ04预约待出发不占即时，明确开始接驾后双角色同一时刻单
 微信缺AppID未微信编译/真机发布；支付退款提现发票模拟，无认证/录音/警方联动。2.0余项及PMPOST83候选未混入本轮，不称三端真实业务全完成。
 
 ## 角色和恢复
-角色精确ID见SESSION_REGISTRY：backend01a182c6-c058-76e1-9584-38abfe813799、frontend01a182c6-c475-7110-bbae-0deafe6d2385均GPT6.1/当前IDLE PASS；expert01a1830f-d94b-7933-9c22-2c3898e54186 Astra/xhigh按GOV06仅堵点，当前IDLE；Gemini PAUSED_BY_USER，无在途任务，保留设置。Claude按GOV07及CLAUDE_CODE.md，root唯一发布。
+角色精确ID见SESSION_REGISTRY：backend01a182c6-c058-76e1-9584-38abfe813799、frontend01a182c6-c475-7110-bbae-0deafe6d2385均GPT6.1；backend当前IDLE/PASS，frontend本批原生验收ACTIVE；expert01a1830f-d94b-7933-9c22-2c3898e54186 Astra/xhigh按GOV06仅堵点，当前IDLE；Gemini PAUSED_BY_USER，无在途任务，保留设置。Claude按GOV07及CLAUDE_CODE.md，root唯一发布。
 AUTO已PR35实装/独审ACK。根会话完成本轮闭环后等用户体验反馈，不新建守护/bridge/保活，不自动回信循环。中央控制文件只能root写；各角色只写自身卡/任务/证据；工作树仅提交快照，不反向覆盖中央。此前CCREC已PR38完成。
 
 当前源码工作树/Users/dongge/.codex/tmp/yijiexing-ui-optimization-worktree-20261029（UIOREC文档分支）；共享后端下一次获派修改时仅此树apps/cloud-service可写，旧pm-amap树仅历史，不并发改重复快照。当前后端无改动或待发补丁。
 
-## 新NAV：源码/构建独审通过，待本批设备验收，线上19不变
-云分支claude/driver-passenger-map-navigation-ui-g9h0sr实际55d2d8782a5c041b415c497c66d6576500048e3d，parent830aa80883d27cd6e518e12e249efc8695129284；云session UNKNOWN。隔离树/Users/dongge/.codex/tmp/yijiexing-cloud-navigation-review-20261029，branch codex/cloud-navigation-review-20261029。实际本地Claude c3342ddb-6fe0-44b6-8311-00c329e73178/Opus5.5 medium三阶段exit0，最终产品f7c9cee87e7c709b09f49e0d069b355c5cdfcf13；作者无Bash测试NOT_RUN，现IDLE，无CLI运行。
-原NAVB FAIL5/NAVF FAIL4已修。NAVB f7业务源审PASS，NAVF f7源码/离线构建PASS：乘客实跑54单测、司机完整68文件与2ba子树一致继承77+双构建；原ID/签名/code19仅未发布候选产物。确认按账号/订单/请求成功后去重、点击重验；GPS质量/异步manual/账号；搜索400ms归属取消重试；公告按实际modal优先级排队；司机真实迁移与持久腿去重。原FAIL证据保留。
-BIZ09仍至多一次/用户/版本；原先claim先于显示，账号切换可能丢已领取未显示副本，新排队扩大窗口。无跨账号显示/重复claim，不声称持久补弹保证。两非作者已明确此边界不阻断当前源码口径。
-尚未合并/发布，releaseReady false。待本批隔离AVD许可回复，GUI/小屏大字体/实际导航地图时序NOT_RUN，不借UIO旧许可。先将可审查候选上传草稿PR，不冒充发布。NAV后端只读，唯一可写后端仍UIO树；无云业务POST、无原测试/生产访问。详细报告见NAVB/REVIEW_f7c9cee.json、NAVF/REVIEW_f7c9.json与BUILD_PROOF_f7c9.json。真实遥测UNKNOWN；中央恢复/gate已PASS。
+## NAV已通过限定验收，正在合并/发布准备，线上仍19
+最终产品6ab66bdcd20b43dfd314917881342dcdcc165a9e，树/Users/dongge/.codex/tmp/yijiexing-cloud-navigation-review-20261029，branch codex/cloud-navigation-review-20261029，PR41。Claude c3342ddb-6fe0-44b6-8311-00c329e73178/Opus5.5 medium四阶段exit0；作者测试NOT_RUN，由Codex执行独立验收。
+791版本20基线7组/65PNG+XML原生PASS，6ab仅登录/个人两能力Note修正，独立重编乘客与2页面截图PASS；原65截图不伪改SHA。乘客1.1.18-experience/code20、司机0.3.17-cloud/code20原包名/原签名/HTTPS/私有值0扫描；54/77真实测试结果按字节或明确2string差异继承，不冒称新跑。NAVB f7关键规则对象与最终6ab相同继承PASS，frontend最终PASS，所有AVD/fixture/reverse已清理。证据NAVF/FINAL_REVIEW、COPY_DELTA_REVIEW、FINAL_BUILD_PROOF、CLEANUP和NAV/ROOT_FINAL_ACCEPTANCE。
+模拟环境本地真实动作处理+mockGPS+导航Intent stub，不作真实高德鉴权/底图/搜索/逆地理/OEM成功证明；这些仍NOT_RUN。BIZ09原ack早于展示，切号/进程结束仍可能丢待显示副本，不保证持久补弹；无跨账号泄漏/重复领取。资金/微信限制不变。
+root已fresh44单原子GCS备份/完整性PASS（gen1793323771057295，私有0600），runtime-before完整service/IAM保存；尚无upload/promote/CloudRun或云业务POST。先精确head CI+merge，再原签名包候选上传/保护归档提升/公开HTTPS整包hash和全部旧单/完整runtime回读。准确releaseReady及发布结果看任务/实际回执，不把验收PASS写成已发布。GCS发布helpers外置nav-release-stage-20261030，禁止运行旧UIO脚本。共享后端只读，不扩新业务。

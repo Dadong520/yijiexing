@@ -1,0 +1,13 @@
+{
+  "headSha": "097b1a6070d0022de5e30eff762c3b2b4063ad36",
+  "pullRequest": "https://github.com/Dadong520/yijiexing/pull/41",
+  "workflowRunId": 40891230967,
+  "workflowName": "project-gate",
+  "status": "completed",
+  "conclusion": "success",
+  "readAt": "2026-10-29T14:26:10.367608+00:00",
+  "merged": false,
+  "released": false,
+  "nativeAcceptance": "NOT_RUN",
+  "releaseReady": false
+}

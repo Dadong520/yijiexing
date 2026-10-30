@@ -1,0 +1,219 @@
+{
+  "taskId": "NAVF-20261029-01",
+  "at": "2026-10-30T09:34:43.726270+08:00",
+  "reviewer": "frontend 01a182c6-c475-7110-bbae-0deafe6d2385 non-author",
+  "sourceSha": "7911a6fb13804cb4ae242995de4af60a0b189c34",
+  "parentSha": "097b1a6070d0022de5e30eff762c3b2b4063ad36",
+  "logicReviewedSha": "f7c9cee87e7c709b09f49e0d069b355c5cdfcf13",
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-cloud-navigation-review-20261029",
+  "branch": "codex/cloud-navigation-review-20261029",
+  "sourceStatus": "clean HEAD791 exact export; only Gradle version constants differ from approved f7 product logic",
+  "acceptance": "PASS",
+  "scope": "Actual isolated Android native interaction/layout and version20 packaging using explicit LOCAL SYNTHETIC fixtures; actual providers/OEM excluded",
+  "permission": "coordination/evidence/NAV-20261029-01/NATIVE_PERMISSION.json answer允许，仅本批隔离模拟器",
+  "openBlockingFindings": [],
+  "nonBlockingNotes": [
+    {
+      "priority": "P3",
+      "title": "Legacy passenger capability text still says automatic location not connected",
+      "files": [
+        "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/ProfileScreens.kt:144",
+        "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/MainActivity.kt:613"
+      ],
+      "observed": "Login/profile retained old disclosure 未接/尚未接入自动定位 despite new controlled GPS pickup path working. Other simulation/real-funds limits still truthful.",
+      "evidence": "p67-profile-connection/p68-logout external captures",
+      "recommendation": "Coordinator may route narrow wording update; no reviewer product edits; nonblocking to verified interaction. Not a provider success claim."
+    }
+  ],
+  "groups": [
+    {
+      "id": "G1",
+      "status": "PASS",
+      "name": "Immediate/reserved accept navigation",
+      "observed": [
+        "UI接单失败 injected503 shows error/offline, no navigation; recover/retry actual original local backend AVAILABLE->PICKUP opens pickup Intent once.",
+        "Returning from receiver and force-stop/restart atPICKUP does not repeat.",
+        "Reservation actual AVAILABLE->RESERVED produces no navigation; explicit出发接驾 RESERVED->PICKUP opens pickup Intent."
+      ],
+      "screens": [
+        "d08-accept-failed",
+        "d11-accept-navigation",
+        "d13-restart-no-repeat",
+        "d30-reserved-no-navigation",
+        "d31-reserved-pickup-navigation"
+      ],
+      "limits": "Actual Android Intent dispatch proven to external local receiver only; not real map app/OEM. Duplicate response helper unit tests inherited; native return/restart/repeated sync show no repetition."
+    },
+    {
+      "id": "G2",
+      "status": "PASS",
+      "name": "Boarding/real leg/restart/manual navigation",
+      "observed": [
+        "UI尾号0101 ARRIVED->ARRIVED creates pending boarding consent; no premature navigation. Passenger actual local order.distanceConsent succeeds; driver refresh observer ARRIVED->TRIP opens destination Intent once.",
+        "UI到达目的地 creates TRIP->TRIP pending dropoff, no extra navigation; TRIP restart no repeat.",
+        "Manual bottom navigation opens regardless of auto dedupe. Switch driver02 first usable snapshot alreadyTRIP does not open; synthetic initialTRIP clearly seeded, not actual trip event."
+      ],
+      "screens": [
+        "d19-pending-consent",
+        "d21-boarded-settled",
+        "d24-dropoff-request-no-navigation",
+        "d25-trip-restart-no-navigation",
+        "d33-manual-navigation",
+        "d65-driver2-baseline-trip"
+      ],
+      "intentEvidence": "NAVIGATION_INTENTS.log exactly4:3 auto(immediate pickup/boarded destination/reservation pickup)+1 manual"
+    },
+    {
+      "id": "G3",
+      "status": "PASS",
+      "name": "Passenger decision prompts",
+      "observed": [
+        "Approve and reject injected local network failures retain popup/error and permit retry; subsequent actual local approval succeeds and closes only corresponding question.",
+        "Synthetic two pending order requests111/222 display sequentially;稍后 only skips111,222 still displayed.",
+        "Synthetic12sec expiry disappears without click/action; synthetic replacement333→444 updates dialog and submit event contains NAV-REPLACE-NEW, no OLD submission.",
+        "New passenger02 sees same synthetic order/consent previously skipped by passenger01; settled memory does not suppress another account.",
+        "WAIT_PAY financial popup only opens existing detail via去支付; no order.pay action was sent."
+      ],
+      "screens": [
+        "p10-consent-reject-fail",
+        "p11-consent-approve-fail",
+        "p12-consent-success",
+        "p14-waitpay-prompt",
+        "p15-finance-enters-detail",
+        "p17-multi-a",
+        "p18-multi-b",
+        "p20-expiring",
+        "p21-expired-removed",
+        "p78-account2-settled",
+        "p81-replacement-old",
+        "p82-replacement-new",
+        "p83-new-request-submitted"
+      ],
+      "limits": "Multiple/expiry/replacement/account prompt rows are explicit local state projections. Stale-tap account/id/stage guards also covered by prior actual unit tests; adversarial tap between store-update and Compose frame not separately injected."
+    },
+    {
+      "id": "G4",
+      "status": "PASS",
+      "name": "Announcement queues/permission/inner distance modal",
+      "observed": [
+        "Announcement real local ack delayed12s. Open address or connection settings during request: actual ack success does not cover open modal; close page -> held announcement shown; close/refresh no native passenger01 duplicate ack.",
+        "Reset only QA permission-guide preference with auth retained: first automatic guide visible,0 announcement C ack starts while guide open; closing guide allows claim/display.",
+        "Root order detail still contains inline distance card. While inline确认 dialog is open, a second projected global request555 remains hidden; cancel inner dialog -> global555 displays. No stacking or wait deadlock observed."
+      ],
+      "screens": [
+        "p26-address-during-ack",
+        "p27-address-after-claim",
+        "p28-announced-after-address",
+        "p31-first-guide-blocks-ann",
+        "p32-after-guide-ann",
+        "p70-settings-during-claim",
+        "p71-settings-after-ack",
+        "p72-announced-after-settings",
+        "p97-inline-distance-card",
+        "p98-inline-distance-confirm",
+        "p99-inline-blocks-other-global",
+        "p100-global-after-inline-dismiss"
+      ],
+      "ackAccounting": "B/C/D each appears twice globally in event log: first native passenger01, second intentionally seeded via __navf passengerAction for passenger02 before account test to avoid unrelated announcement noise. Do not mislabel aggregate2 as duplicate for same account. SYNTHETIC_CONTROL marks those second claims.",
+      "biz09Boundary": "Ack-before-visible can still lose held copy on account switch/process death; known delivery boundary in REVIEW_f7c9, not certified durable cross-account/restart queue."
+    },
+    {
+      "id": "G5",
+      "status": "PASS_SCOPED",
+      "name": "GPS pickup/manual/account safeguards",
+      "observed": [
+        "Controlled Android mockGPS age300000ms and fresh accuracy150m do not fill pickup. Valid60m fix fills; later10m fix changes stored editor coords to30.700000762939453/111.3499984741211.",
+        "Initial too-early second fix was throttled by existing10s LocationManager request interval; recaptured after delivery, excluded p40.",
+        "Manual favorite confirmation persists after new1m accuracy fix elsewhere. New account does not inherit prior manual origin; a fresh20m fix fills new account."
+      ],
+      "screens": [
+        "p34-stale-gps-empty",
+        "p35-poor-gps-empty",
+        "p36-valid-gps-filled",
+        "p48-better-fix-coordinates",
+        "p52-manual-origin-confirmed",
+        "p53-gps-not-overwrite-manual",
+        "p79-account2-no-manual-leak",
+        "p80-account2-gps"
+      ],
+      "limits": "Mock provider only, not real GPS. Real AMap reverse-geocode/late provider response after account/manual change NOT_RUN due no credentials/provider; identity/generation/fix safeguards proven source+inherited unit tests. Non-finite native fix not injected; pure tests cover invalid ranges/NaN."
+    },
+    {
+      "id": "G6",
+      "status": "PASS_SCOPED",
+      "name": "Debounce/cancel/same-query retry",
+      "observed": [
+        "Actual Android text input followed by same-name favorite tap in84.9ms; common selection/coords persist and no late search error/progress.",
+        "System Geocoder offline query enters searching; cancel retains text and offers same-query retry; retry starts without editing.",
+        "Expected local provider DEADLINE_EXCEEDED leaves retry button; same-query retry after error starts again. Toolbar back leaves prior confirmed manual draft unchanged."
+      ],
+      "screens": [
+        "p55-samename-selection-within400",
+        "p56-samename-stable",
+        "p57-searching",
+        "p58-search-cancelled",
+        "p59-samequery-retry",
+        "p60-search-provider-result",
+        "p61-retry-after-error",
+        "p64-closed-search-draft-kept"
+      ],
+      "timing": "SEARCH_TIMING.json",
+      "limits": "No AMap credentials/map pick/real search success. No provider call counter available: zero-fetch during400ms manual/same-name/close ownership is also covered by executed real-helper unit tests. Manual-coordinate/close within400ms not separately timed on device; same-name path timed directly. First systemBack hid IME, toolbar back actually closed; failed p62 not counted."
+    },
+    {
+      "id": "G7",
+      "status": "PASS",
+      "name": "Driver map/identity/wallet/small font/layout",
+      "observed": [
+        "Identity banner above map; full hall card/accept button reachable by scrolling. 720x1280 density320 (360x640dp) font1.3 with qualification banner and long route still permits scroll to accept/confirm and cancel.",
+        "Small active-trip screen has visible bottommanual navigation and到达目的地; map gives way and body scrolls.",
+        "Wallet5 synthetic settlement rows and5 ledger entries each default3; expand shows5,collapse returns3. Small font1.3 balance368.00/income110.00 andwithdraw button remain readable. Dimensions/font reset afterwards."
+      ],
+      "screens": [
+        "d38-wallet-settled",
+        "d39-settlement-expanded",
+        "d40-settlement-expanded-bottom",
+        "d42-ledger-preview3",
+        "d44-ledger-expanded-bottom",
+        "d45-ledger-recollapsed",
+        "d48-small-large-hall-settled",
+        "d50-small-large-scroll1",
+        "d51-small-large-scroll2",
+        "d52-small-large-confirm",
+        "d56-small-large-wallet-balance-top",
+        "d67-small-trip-actions"
+      ],
+      "limits": "Representative portrait sizes/fonts, not exhaustive accessibility/OEM/landscape or extreme balance-width certification. Static comment360dp minimum not treated as literal invariant; actual controls tested reachable."
+    }
+  ],
+  "buildProof": "FINAL_BUILD_PROOF.json",
+  "buildSummary": {
+    "passenger": "Original SHA791/code20/1.1.18-experience assemble PASS; actual54 tests f7 inherited only after entire app/src tree equality.",
+    "driver": "Original SHA791/code20/0.3.17-cloud assemble PASS; actual77 tests2ba inherited by app/src equality.",
+    "package": "Original IDs/certificate/HTTPS and all APK entry scans4 private values0matches; exact source byte-bound. QA APKs differ onlyapplicationId/localHTTPS/debugCA, not publication artifacts."
+  },
+  "screenshots": "FINAL_SCREENSHOTS.json,65 selected actual PNG/XML pairs, every group annotation explicit synthetic/local",
+  "nativeProvenance": "NATIVE_PROVENANCE.json",
+  "eventEvidence": "NATIVE_EVENTS.jsonl",
+  "crashEvidence": "CRASH_BUFFER.log empty primary-session buffer; supplement no observed crash",
+  "notRun": [
+    "Actual AMap provider authentication/base map/POI/reverse/road route and real map app/OEM/personal phone",
+    "Real funds/paid membership/bank changes; no local order.pay and no cloud business POST",
+    "Native reverse lookup delayed callback identity/manual race and some400ms permutations (source+actual unit tests only)",
+    "Full physical devices/landscape/exhaustive accessibility"
+  ],
+  "cleanup": {
+    "status": "PASS",
+    "primaryEmulator21356": "exit0",
+    "primaryFixture89930": "exit0 (earlier fixture7299/11580 stopped during harness repair)",
+    "supplementEmulator19599": "exit0",
+    "supplementFixture76474": "exit0",
+    "reverse": "emulator5586 tcp443 removed before both kills",
+    "dimensions": "font1.0/size+density reset before final supplemental session",
+    "devices": "adb devices empty",
+    "listeners": "lsof64331/5586 empty (exit1 expected)",
+    "files": "External source/APK/DB/cache/TLS/identities retained; no background work. Private identities/TLSkeys never copied into repo."
+  },
+  "nextAction": "Frontend IDLE. Coordinator owns combined gates, merge/version20 publication/readback. This role made no product edits/commits/deploy or agents.",
+  "releaseReady": false
+}

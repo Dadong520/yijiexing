@@ -1,0 +1,18 @@
+{
+  "productSha": "f7c9cee87e7c709b09f49e0d069b355c5cdfcf13",
+  "headSha": "097b1a6070d0022de5e30eff762c3b2b4063ad36",
+  "pullRequest": "https://github.com/Dadong520/yijiexing/pull/41",
+  "draft": true,
+  "pushed": true,
+  "attached": true,
+  "productTreeIdentical": {
+    "apps/passenger-android": true,
+    "candidates/driver-0.3.6-r2/android": true,
+    "apps/cloud-service": true
+  },
+  "merged": false,
+  "released": false,
+  "liveVersionCode": 19,
+  "nativeAcceptance": "NOT_RUN",
+  "releaseReady": false
+}

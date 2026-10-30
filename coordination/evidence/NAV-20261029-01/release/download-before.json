@@ -1,0 +1,42 @@
+[
+  {
+    "path": "/download",
+    "exitCode": 0,
+    "headers": [
+      "HTTP/2 200",
+      "content-type: text/html; charset=utf-8",
+      "cache-control: no-store",
+      "content-length: 1345"
+    ]
+  },
+  {
+    "path": "/download-passenger",
+    "exitCode": 0,
+    "headers": [
+      "HTTP/2 200",
+      "content-type: text/html; charset=utf-8",
+      "cache-control: no-store",
+      "content-length: 1452"
+    ]
+  },
+  {
+    "path": "/download.apk",
+    "exitCode": 0,
+    "headers": [
+      "HTTP/2 200",
+      "content-type: application/vnd.android.package-archive",
+      "cache-control: no-store",
+      "content-length: 108653189"
+    ]
+  },
+  {
+    "path": "/download-passenger.apk",
+    "exitCode": 0,
+    "headers": [
+      "HTTP/2 200",
+      "content-type: application/vnd.android.package-archive",
+      "cache-control: no-store",
+      "content-length: 107155833"
+    ]
+  }
+]

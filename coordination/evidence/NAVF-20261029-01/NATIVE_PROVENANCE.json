@@ -1,0 +1,10 @@
+{
+  "fixtureScriptSha256": "750a0f6238d50cdbc83823444922d48b83cb66d5f83c45b99ee6f15bb5ae05e7",
+  "uiHelperSha256": "7d2fb6c02392e85128426d5bc08d48c7ef2b3fefeea966bfe75dcba51eeea137",
+  "stubApkSha256": "b8e4148263f084d51b59a5646bbf2ed119a827b35a3d8f04243eb7fcc1e14950",
+  "stubMeaning": "External local Intent receiver with package com.autonavi.minimap, not AMap; explicit mockGPS provider enabled only in isolated AVD.",
+  "qaDifference": "applicationId/endpoints/debugCA only; production Kotlin exact791 export byte-bound in FINAL_BUILD_PROOF",
+  "fixtureChanges": "Local backend shim logs actions, injects explicit failures/12s ack delay, projects synthetic multi/expiry/account/replacement/other-order prompts. Control endpoint directly seeds local DB only; actual navigation transitions use original backend action handlers. No product/source backend edits.",
+  "fixtureHarnessRepairs": "Initial control response used buffering CloudHandler.send and returned no bytes; changed local shim to Handler.send. First published announcement omitted PASSENGER_ANDROID audience; corrected fixture seed. Excluded frames do not count as product results.",
+  "supplement": "Initial read-only AVD stopped and restarted fresh for final inline/global overlay proof; same QA APK installed; fresh login and persistent local fixture restored. All resources stopped again."
+}

@@ -1,0 +1,13 @@
+{
+  "at": "2026-10-30T09:34:43.726270+08:00",
+  "status": "PASS",
+  "primaryEmulator21356": "exit0",
+  "primaryFixture89930": "exit0 (earlier fixture7299/11580 stopped during harness repair)",
+  "supplementEmulator19599": "exit0",
+  "supplementFixture76474": "exit0",
+  "reverse": "emulator5586 tcp443 removed before both kills",
+  "dimensions": "font1.0/size+density reset before final supplemental session",
+  "devices": "adb devices empty",
+  "listeners": "lsof64331/5586 empty (exit1 expected)",
+  "files": "External source/APK/DB/cache/TLS/identities retained; no background work. Private identities/TLSkeys never copied into repo."
+}

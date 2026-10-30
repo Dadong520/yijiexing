@@ -1,0 +1,10 @@
+{
+  "sourceSha": "6ab66bdcd20b43dfd314917881342dcdcc165a9e",
+  "parentSha": "7911a6fb13804cb4ae242995de4af60a0b189c34",
+  "files": [
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/MainActivity.kt",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/ProfileScreens.kt"
+  ],
+  "scope": "Two capability strings only; 65 native case proofs remain bound to791; narrow copy delta review/rebuild required",
+  "authorTests": "NOT_RUN"
+}

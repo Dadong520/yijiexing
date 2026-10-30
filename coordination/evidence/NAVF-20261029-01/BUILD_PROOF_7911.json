@@ -1,0 +1,75 @@
+{
+  "sourceSha": "7911a6fb13804cb4ae242995de4af60a0b189c34",
+  "roles": {
+    "passenger": {
+      "apk": "/Users/dongge/.codex/tmp/yijiexing-navf-native-20261030/source/apps/passenger-android/app/build/outputs/apk/debug/app-debug.apk",
+      "sha256": "f2b7ea5b2150c03a1d53bfa2fd5c0dd01f32d8a332ecad504de8bf410c2998c1",
+      "bytes": 107188601,
+      "buildSha": "7911a6fb13804cb4ae242995de4af60a0b189c34",
+      "tests": 54,
+      "failures": 0,
+      "errors": 0,
+      "testBuildSha": "f7c9cee87e7c709b09f49e0d069b355c5cdfcf13",
+      "inheritedTests": true,
+      "sameTestSourceTree": true,
+      "appSrcTree": "177a958ab231e7a3965d041ed24ee360baff8120",
+      "sourceTrackedFiles": 107,
+      "sourceMismatches": [],
+      "packageVersionLine": "package: name='cn.hbzjhs.dc.passenger.cloud' versionCode='20' versionName='1.1.18-experience' platformBuildVersionName='14' platformBuildVersionCode='34' compileSdkVersion='34' compileSdkVersionCodename='14'",
+      "aaptExit": 0,
+      "apksignerExit": 0,
+      "samePriorSigner": true,
+      "privateExactMatches": 0,
+      "uncompressedEntriesScanned": 425,
+      "originalHttpsPresent": true,
+      "command": "JAVA_HOME=JDK17 ANDROID_HOME=officialSDK bash gradlew --offline --no-daemon --max-workers=2 -I <externalRoot>/scripts/offline.init.gradle assembleDebug",
+      "qa": {
+        "apk": "/Users/dongge/.codex/tmp/yijiexing-navf-native-20261030/build/qa-passenger/_app/outputs/apk/debug/app-debug.apk",
+        "sha256": "2348d74982df5baa75d7b5ce2757c9bd7677fa3bc0c84dbe383c14aec2dbea85",
+        "sourceSha": "7911a6fb13804cb4ae242995de4af60a0b189c34",
+        "differences": [
+          "QA applicationId",
+          "https://localhost",
+          "debug manifest/localCA resources"
+        ],
+        "productKotlinEdits": false,
+        "publicationArtifact": false
+      }
+    },
+    "driver": {
+      "apk": "/Users/dongge/.codex/tmp/yijiexing-navf-native-20261030/source/candidates/driver-0.3.6-r2/android/app/build/outputs/apk/debug/app-debug.apk",
+      "sha256": "4a346bc4600e84a9ab0a39285ce6c70e9d292c9a9404458d03b8b12fb7b91af6",
+      "bytes": 108669573,
+      "buildSha": "7911a6fb13804cb4ae242995de4af60a0b189c34",
+      "tests": 77,
+      "failures": 0,
+      "errors": 0,
+      "testBuildSha": "2ba5b79f1113b0de9ec105a2733fc8a4a9e9ffe0",
+      "inheritedTests": true,
+      "sameTestSourceTree": true,
+      "appSrcTree": "98e5b1a481ac45c35bbb287804c072da1f23c07f",
+      "sourceTrackedFiles": 68,
+      "sourceMismatches": [],
+      "packageVersionLine": "package: name='cn.hbzjhs.dc.driver.cloud' versionCode='20' versionName='0.3.17-cloud' platformBuildVersionName='14' platformBuildVersionCode='34' compileSdkVersion='34' compileSdkVersionCodename='14'",
+      "aaptExit": 0,
+      "apksignerExit": 0,
+      "samePriorSigner": true,
+      "privateExactMatches": 0,
+      "uncompressedEntriesScanned": 433,
+      "originalHttpsPresent": true,
+      "command": "JAVA_HOME=JDK17 ANDROID_HOME=officialSDK bash gradlew --offline --no-daemon --max-workers=2 -I <externalRoot>/scripts/offline.init.gradle assembleDebug",
+      "qa": {
+        "apk": "/Users/dongge/.codex/tmp/yijiexing-navf-native-20261030/build/qa-driver/_app/outputs/apk/debug/app-debug.apk",
+        "sha256": "23892bece2ed93aaaf2302c171171c1c5113872436b57c1098a19b47f559276a",
+        "sourceSha": "7911a6fb13804cb4ae242995de4af60a0b189c34",
+        "differences": [
+          "QA applicationId",
+          "https://localhost",
+          "debug manifest/localCA resources"
+        ],
+        "productKotlinEdits": false,
+        "publicationArtifact": false
+      }
+    }
+  }
+}

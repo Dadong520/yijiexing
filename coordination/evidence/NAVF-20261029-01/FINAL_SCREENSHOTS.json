@@ -1,0 +1,1198 @@
+{
+  "sourceSha": "7911a6fb13804cb4ae242995de4af60a0b189c34",
+  "groups": {
+    "G1": [
+      "d08-accept-failed",
+      "d11-accept-navigation",
+      "d13-restart-no-repeat",
+      "d30-reserved-no-navigation",
+      "d31-reserved-pickup-navigation"
+    ],
+    "G2": [
+      "d19-pending-consent",
+      "d21-boarded-settled",
+      "d24-dropoff-request-no-navigation",
+      "d25-trip-restart-no-navigation",
+      "d33-manual-navigation",
+      "d65-driver2-baseline-trip"
+    ],
+    "G3": [
+      "p09-consent-settled",
+      "p10-consent-reject-fail",
+      "p11-consent-approve-fail",
+      "p12-consent-success",
+      "p14-waitpay-prompt",
+      "p15-finance-enters-detail",
+      "p17-multi-a",
+      "p18-multi-b",
+      "p20-expiring",
+      "p21-expired-removed",
+      "p78-account2-settled",
+      "p81-replacement-old",
+      "p82-replacement-new",
+      "p83-new-request-submitted"
+    ],
+    "G4": [
+      "p26-address-during-ack",
+      "p27-address-after-claim",
+      "p28-announced-after-address",
+      "p31-first-guide-blocks-ann",
+      "p32-after-guide-ann",
+      "p70-settings-during-claim",
+      "p71-settings-after-ack",
+      "p72-announced-after-settings",
+      "p97-inline-distance-card",
+      "p98-inline-distance-confirm",
+      "p99-inline-blocks-other-global",
+      "p100-global-after-inline-dismiss"
+    ],
+    "G5": [
+      "p34-stale-gps-empty",
+      "p35-poor-gps-empty",
+      "p36-valid-gps-filled",
+      "p48-better-fix-coordinates",
+      "p52-manual-origin-confirmed",
+      "p53-gps-not-overwrite-manual",
+      "p79-account2-no-manual-leak",
+      "p80-account2-gps"
+    ],
+    "G6": [
+      "p55-samename-selection-within400",
+      "p56-samename-stable",
+      "p57-searching",
+      "p58-search-cancelled",
+      "p59-samequery-retry",
+      "p60-search-provider-result",
+      "p61-retry-after-error",
+      "p64-closed-search-draft-kept"
+    ],
+    "G7": [
+      "d38-wallet-settled",
+      "d39-settlement-expanded",
+      "d40-settlement-expanded-bottom",
+      "d42-ledger-preview3",
+      "d44-ledger-expanded-bottom",
+      "d45-ledger-recollapsed",
+      "d48-small-large-hall-settled",
+      "d50-small-large-scroll1",
+      "d51-small-large-scroll2",
+      "d52-small-large-confirm",
+      "d56-small-large-wallet-balance-top",
+      "d67-small-trip-actions"
+    ]
+  },
+  "captures": [
+    {
+      "group": "G1",
+      "name": "d08-accept-failed",
+      "sourceSha": "7911a6fb13804cb4ae242995de4af60a0b189c34",
+      "data": "LOCAL_SYNTHETIC_ONLY; no cloud/real funds; UI unchanged Kotlin",
+      "files": {
+        "png": {
+          "path": "coordination/evidence/NAVF-20261029-01/native/d08-accept-failed.png",
+          "sha256": "f244586fe08a731d805f913b1f9ab7f2258d54a2c1257fef61973e0e2ad142d6"
+        },
+        "xml": {
+          "path": "coordination/evidence/NAVF-20261029-01/native/d08-accept-failed.xml",
+          "sha256": "33a4624f141852f711bb6ddd7b469317cabced2a0d2e088d4ccb7575c1b92104"
+        }
+      },
+      "meaning": "Actual client action or refresh over local real backend; receiver screens capture Android Intent only, not AMap/OEM navigation. driver2 initialTRIP is explicit synthetic setup."
+    },
+    {
+      "group": "G1",
+      "name": "d11-accept-navigation",
+      "sourceSha": "7911a6fb13804cb4ae242995de4af60a0b189c34",
+      "data": "LOCAL_SYNTHETIC_ONLY; no cloud/real funds; UI unchanged Kotlin",
+      "files": {
+        "png": {
+          "path": "coordination/evidence/NAVF-20261029-01/native/d11-accept-navigation.png",
+          "sha256": "ec8b62ac23fc141082dc3796af8d9ac7ad206a3f686c5ce5ada792cdf2d03fdb"
+        },
+        "xml": {
+          "path": "coordination/evidence/NAVF-20261029-01/native/d11-accept-navigation.xml",
+          "sha256": "99f3174f2756da9082d735c9733ff7ad042d680be349f8d826ae1d5f4ffcfa7c"
+        }
+      },
+      "meaning": "Actual client action or refresh over local real backend; receiver screens capture Android Intent only, not AMap/OEM navigation. driver2 initialTRIP is explicit synthetic setup."
+    },
+    {
+      "group": "G1",
+      "name": "d13-restart-no-repeat",
+      "sourceSha": "7911a6fb13804cb4ae242995de4af60a0b189c34",
+      "data": "LOCAL_SYNTHETIC_ONLY; no cloud/real funds; UI unchanged Kotlin",
+      "files": {
+        "png": {
+          "path": "coordination/evidence/NAVF-20261029-01/native/d13-restart-no-repeat.png",
+          "sha256": "69e60b200925f8819f814f477197c5eb82fdac32d1ef1b5ff670fc6bc57d0e62"
+        },
+        "xml": {
+          "path": "coordination/evidence/NAVF-20261029-01/native/d13-restart-no-repeat.xml",
+          "sha256": "368f050fe28bb18cbe0123a27f2460350f0abd18f27e75c47cf20b42b7db204d"
+        }
+      },
+      "meaning": "Actual client action or refresh over local real backend; receiver screens capture Android Intent only, not AMap/OEM navigation. driver2 initialTRIP is explicit synthetic setup."
+    },
+    {
+      "group": "G1",
+      "name": "d30-reserved-no-navigation",
+      "sourceSha": "7911a6fb13804cb4ae242995de4af60a0b189c34",
+      "data": "LOCAL_SYNTHETIC_ONLY; no cloud/real funds; UI unchanged Kotlin",
+      "files": {
+        "png": {
+          "path": "coordination/evidence/NAVF-20261029-01/native/d30-reserved-no-navigation.png",
+          "sha256": "38cf2dd3b9d636eced657db8dd4fe439a805b17fe620f097fd2a8840ddc95853"
+        },
+        "xml": {
+          "path": "coordination/evidence/NAVF-20261029-01/native/d30-reserved-no-navigation.xml",
+          "sha256": "90049a817947b893188887158de040434b6732627c10291fca664a1bdca9ab71"
+        }
+      },
+      "meaning": "Actual client action or refresh over local real backend; receiver screens capture Android Intent only, not AMap/OEM navigation. driver2 initialTRIP is explicit synthetic setup."
+    },
+    {
+      "group": "G1",
+      "name": "d31-reserved-pickup-navigation",
+      "sourceSha": "7911a6fb13804cb4ae242995de4af60a0b189c34",
+      "data": "LOCAL_SYNTHETIC_ONLY; no cloud/real funds; UI unchanged Kotlin",
+      "files": {
+        "png": {
+          "path": "coordination/evidence/NAVF-20261029-01/native/d31-reserved-pickup-navigation.png",
+          "sha256": "bfdf29cf0db8027892664e68549ab30b691fe492a41168b20c61066c8d195bce"
+        },
+        "xml": {
+          "path": "coordination/evidence/NAVF-20261029-01/native/d31-reserved-pickup-navigation.xml",
+          "sha256": "0d7c3b5008f0ed874083e692d12a813599f56838c453212a6a63d24cbbf8c969"
+        }
+      },
+      "meaning": "Actual client action or refresh over local real backend; receiver screens capture Android Intent only, not AMap/OEM navigation. driver2 initialTRIP is explicit synthetic setup."
+    },
+    {
+      "group": "G2",
+      "name": "d19-pending-consent",
+      "sourceSha": "7911a6fb13804cb4ae242995de4af60a0b189c34",
+      "data": "LOCAL_SYNTHETIC_ONLY; no cloud/real funds; UI unchanged Kotlin",
+      "files": {
+        "png": {
+          "path": "coordination/evidence/NAVF-20261029-01/native/d19-pending-consent.png",
+          "sha256": "a9474d6143ca63ed1953e14db65e36d3dda9291f5e0d705157555006fffbf5f4"
+        },
+        "xml": {
+          "path": "coordination/evidence/NAVF-20261029-01/native/d19-pending-consent.xml",
+          "sha256": "701b8b27cb868f1d0302b33e5caf10649d1266fb184771a0459a59e9d2c4f564"
+        }
+      },
+      "meaning": "Actual client action or refresh over local real backend; receiver screens capture Android Intent only, not AMap/OEM navigation. driver2 initialTRIP is explicit synthetic setup."
+    },
+    {
+      "group": "G2",
+      "name": "d21-boarded-settled",
+      "sourceSha": "7911a6fb13804cb4ae242995de4af60a0b189c34",
+      "data": "LOCAL_SYNTHETIC_ONLY; no cloud/real funds; UI unchanged Kotlin",
+      "files": {
+        "png": {
+          "path": "coordination/evidence/NAVF-20261029-01/native/d21-boarded-settled.png",
+          "sha256": "4b26f61a7cc26729273526b19c9b07f1c70cd6d9a004f96b2a8dd32060e414f3"
+        },
+        "xml": {
+          "path": "coordination/evidence/NAVF-20261029-01/native/d21-boarded-settled.xml",
+          "sha256": "485e808328e44f581aa284f41757d0a9b25a6f0e4c74789a9746771bad57783c"
+        }
+      },
+      "meaning": "Actual client action or refresh over local real backend; receiver screens capture Android Intent only, not AMap/OEM navigation. driver2 initialTRIP is explicit synthetic setup."
+    },
+    {
+      "group": "G2",
+      "name": "d24-dropoff-request-no-navigation",
+      "sourceSha": "7911a6fb13804cb4ae242995de4af60a0b189c34",
+      "data": "LOCAL_SYNTHETIC_ONLY; no cloud/real funds; UI unchanged Kotlin",
+      "files": {
+        "png": {
+          "path": "coordination/evidence/NAVF-20261029-01/native/d24-dropoff-request-no-navigation.png",
+          "sha256": "84f6428476a0895d3a1b95f59454eb8aa43f3dfd39b0058b87b97968de0b54f2"
+        },
+        "xml": {
+          "path": "coordination/evidence/NAVF-20261029-01/native/d24-dropoff-request-no-navigation.xml",
+          "sha256": "fec81fae3406de33d73e76c75bd7a9de313dd31d9e7af902f551a07790c87238"
+        }
+      },
+      "meaning": "Actual client action or refresh over local real backend; receiver screens capture Android Intent only, not AMap/OEM navigation. driver2 initialTRIP is explicit synthetic setup."
+    },
+    {
+      "group": "G2",
+      "name": "d25-trip-restart-no-navigation",
+      "sourceSha": "7911a6fb13804cb4ae242995de4af60a0b189c34",
+      "data": "LOCAL_SYNTHETIC_ONLY; no cloud/real funds; UI unchanged Kotlin",
+      "files": {
+        "png": {
+          "path": "coordination/evidence/NAVF-20261029-01/native/d25-trip-restart-no-navigation.png",
+          "sha256": "7ff9eb3ced790057f85dfbd07d7b10f3eaedbb256e3253fda03bbf68fb5af7b7"
+        },
+        "xml": {
+          "path": "coordination/evidence/NAVF-20261029-01/native/d25-trip-restart-no-navigation.xml",
+          "sha256": "f6f52fa87ce96df9f1189bdc2e078a26269f76cabe137894ca0f63207e7a024c"
+        }
+      },
+      "meaning": "Actual client action or refresh over local real backend; receiver screens capture Android Intent only, not AMap/OEM navigation. driver2 initialTRIP is explicit synthetic setup."
+    },
+    {
+      "group": "G2",
+      "name": "d33-manual-navigation",
+      "sourceSha": "7911a6fb13804cb4ae242995de4af60a0b189c34",
+      "data": "LOCAL_SYNTHETIC_ONLY; no cloud/real funds; UI unchanged Kotlin",
+      "files": {
+        "png": {
+          "path": "coordination/evidence/NAVF-20261029-01/native/d33-manual-navigation.png",
+          "sha256": "bfdf29cf0db8027892664e68549ab30b691fe492a41168b20c61066c8d195bce"
+        },
+        "xml": {
+          "path": "coordination/evidence/NAVF-20261029-01/native/d33-manual-navigation.xml",
+          "sha256": "0d7c3b5008f0ed874083e692d12a813599f56838c453212a6a63d24cbbf8c969"
+        }
+      },
+      "meaning": "Actual client action or refresh over local real backend; receiver screens capture Android Intent only, not AMap/OEM navigation. driver2 initialTRIP is explicit synthetic setup."
+    },
+    {
+      "group": "G2",
+      "name": "d65-driver2-baseline-trip",
+      "sourceSha": "7911a6fb13804cb4ae242995de4af60a0b189c34",
+      "data": "LOCAL_SYNTHETIC_ONLY; no cloud/real funds; UI unchanged Kotlin",
+      "files": {
+        "png": {
+          "path": "coordination/evidence/NAVF-20261029-01/native/d65-driver2-baseline-trip.png",
+          "sha256": "b62a04048b93d237f001b13f8d34c1a985388b7e75853d06f533a7c7aacbc044"
+        },
+        "xml": {
+          "path": "coordination/evidence/NAVF-20261029-01/native/d65-driver2-baseline-trip.xml",
+          "sha256": "02ea85a288e6706e2a1c352b27b8ad2f26c91bcd07e2b274609b6e0d04fc3e83"
+        }
+      },
+      "meaning": "Actual client action or refresh over local real backend; receiver screens capture Android Intent only, not AMap/OEM navigation. driver2 initialTRIP is explicit synthetic setup."
+    },
+    {
+      "group": "G3",
+      "name": "p09-consent-settled",
+      "sourceSha": "7911a6fb13804cb4ae242995de4af60a0b189c34",
+      "data": "LOCAL_SYNTHETIC_ONLY; no cloud/real funds; UI unchanged Kotlin",
+      "files": {
+        "png": {
+          "path": "coordination/evidence/NAVF-20261029-01/native/p09-consent-settled.png",
+          "sha256": "759a1ecd66c80e31617746b0c2e367263f7cadda0fdd4c37717ac6236ab8cd47"
+        },
+        "xml": {
+          "path": "coordination/evidence/NAVF-20261029-01/native/p09-consent-settled.xml",
+          "sha256": "26d21149b0e176a604d926471619eb4a3443e28078101262af96b7c9a1f668c6"
+        }
+      },
+      "meaning": "First order consent failures injected locally then successful real backend action; multi/expiry/account/replacement prompt lists are synthetic state projections."
+    },
+    {
+      "group": "G3",
+      "name": "p10-consent-reject-fail",
+      "sourceSha": "7911a6fb13804cb4ae242995de4af60a0b189c34",
+      "data": "LOCAL_SYNTHETIC_ONLY; no cloud/real funds; UI unchanged Kotlin",
+      "files": {
+        "png": {
+          "path": "coordination/evidence/NAVF-20261029-01/native/p10-consent-reject-fail.png",
+          "sha256": "2b52dabd5dfb33bf49df5f95d7267828fc8d68550859bd1f367f358fc4681f7c"
+        },
+        "xml": {
+          "path": "coordination/evidence/NAVF-20261029-01/native/p10-consent-reject-fail.xml",
+          "sha256": "7cc91f5392a790c515ee8e6e8c765c6c449df842773cdbc601e0773914e414b3"
+        }
+      },
+      "meaning": "First order consent failures injected locally then successful real backend action; multi/expiry/account/replacement prompt lists are synthetic state projections."
+    },
+    {
+      "group": "G3",
+      "name": "p11-consent-approve-fail",
+      "sourceSha": "7911a6fb13804cb4ae242995de4af60a0b189c34",
+      "data": "LOCAL_SYNTHETIC_ONLY; no cloud/real funds; UI unchanged Kotlin",
+      "files": {
+        "png": {
+          "path": "coordination/evidence/NAVF-20261029-01/native/p11-consent-approve-fail.png",
+          "sha256": "2b52dabd5dfb33bf49df5f95d7267828fc8d68550859bd1f367f358fc4681f7c"
+        },
+        "xml": {
+          "path": "coordination/evidence/NAVF-20261029-01/native/p11-consent-approve-fail.xml",
+          "sha256": "7cc91f5392a790c515ee8e6e8c765c6c449df842773cdbc601e0773914e414b3"
+        }
+      },
+      "meaning": "First order consent failures injected locally then successful real backend action; multi/expiry/account/replacement prompt lists are synthetic state projections."
+    },
+    {
+      "group": "G3",
+      "name": "p12-consent-success",
+      "sourceSha": "7911a6fb13804cb4ae242995de4af60a0b189c34",
+      "data": "LOCAL_SYNTHETIC_ONLY; no cloud/real funds; UI unchanged Kotlin",
+      "files": {
+        "png": {
+          "path": "coordination/evidence/NAVF-20261029-01/native/p12-consent-success.png",
+          "sha256": "7ab3aea391329dc5142c61e3dc6bef7b4c5d3643094ae2abe626bcaf9308f945"
+        },
+        "xml": {
+          "path": "coordination/evidence/NAVF-20261029-01/native/p12-consent-success.xml",
+          "sha256": "e20d1c03b1e21fbff654bcbcd987483e891b6479fbe370bd1c6d065879ecde59"
+        }
+      },
+      "meaning": "First order consent failures injected locally then successful real backend action; multi/expiry/account/replacement prompt lists are synthetic state projections."
+    },
+    {
+      "group": "G3",
+      "name": "p14-waitpay-prompt",
+      "sourceSha": "7911a6fb13804cb4ae242995de4af60a0b189c34",
+      "data": "LOCAL_SYNTHETIC_ONLY; no cloud/real funds; UI unchanged Kotlin",
+      "files": {
+        "png": {
+          "path": "coordination/evidence/NAVF-20261029-01/native/p14-waitpay-prompt.png",
+          "sha256": "ad5d7f90b7b331cbc540c40994f6863c12e4f06378e13d0015e832a251f9ead1"
+        },
+        "xml": {
+          "path": "coordination/evidence/NAVF-20261029-01/native/p14-waitpay-prompt.xml",
+          "sha256": "15dcc9d0977333c97f82789f6d5d74c9daa5669c523b1f47826c1b4d6baf31a6"
+        }
+      },
+      "meaning": "First order consent failures injected locally then successful real backend action; multi/expiry/account/replacement prompt lists are synthetic state projections."
+    },
+    {
+      "group": "G3",
+      "name": "p15-finance-enters-detail",
+      "sourceSha": "7911a6fb13804cb4ae242995de4af60a0b189c34",
+      "data": "LOCAL_SYNTHETIC_ONLY; no cloud/real funds; UI unchanged Kotlin",
+      "files": {
+        "png": {
+          "path": "coordination/evidence/NAVF-20261029-01/native/p15-finance-enters-detail.png",
+          "sha256": "49cf82752885c684d3a697c4c060dce0a5faafeb87b26f061fc66aabb639bd58"
+        },
+        "xml": {
+          "path": "coordination/evidence/NAVF-20261029-01/native/p15-finance-enters-detail.xml",
+          "sha256": "bd7449d5126a67760f5401218b30b69aab202b7c75924f5477f7e7762112d59a"
+        }
+      },
+      "meaning": "First order consent failures injected locally then successful real backend action; multi/expiry/account/replacement prompt lists are synthetic state projections."
+    },
+    {
+      "group": "G3",
+      "name": "p17-multi-a",
+      "sourceSha": "7911a6fb13804cb4ae242995de4af60a0b189c34",
+      "data": "LOCAL_SYNTHETIC_ONLY; no cloud/real funds; UI unchanged Kotlin",
+      "files": {
+        "png": {
+          "path": "coordination/evidence/NAVF-20261029-01/native/p17-multi-a.png",
+          "sha256": "1927f8f6f6f1d90aa169ac996fc110fb38c767a704bb091fa50e9fffb5396ee3"
+        },
+        "xml": {
+          "path": "coordination/evidence/NAVF-20261029-01/native/p17-multi-a.xml",
+          "sha256": "7d2a3c82fcc78dec148107be145d03c8c504be8fcc3502e492d5737bb7c812dc"
+        }
+      },
+      "meaning": "First order consent failures injected locally then successful real backend action; multi/expiry/account/replacement prompt lists are synthetic state projections."
+    },
+    {
+      "group": "G3",
+      "name": "p18-multi-b",
+      "sourceSha": "7911a6fb13804cb4ae242995de4af60a0b189c34",
+      "data": "LOCAL_SYNTHETIC_ONLY; no cloud/real funds; UI unchanged Kotlin",
+      "files": {
+        "png": {
+          "path": "coordination/evidence/NAVF-20261029-01/native/p18-multi-b.png",
+          "sha256": "12089fc9c248b3559b422b1b41d3df5e8760af5d54fb6814720ad42098e88c29"
+        },
+        "xml": {
+          "path": "coordination/evidence/NAVF-20261029-01/native/p18-multi-b.xml",
+          "sha256": "4be8820e6c1a35a62fd1f38467f9273cd63524d48fc56917b38bb19f20d374ef"
+        }
+      },
+      "meaning": "First order consent failures injected locally then successful real backend action; multi/expiry/account/replacement prompt lists are synthetic state projections."
+    },
+    {
+      "group": "G3",
+      "name": "p20-expiring",
+      "sourceSha": "7911a6fb13804cb4ae242995de4af60a0b189c34",
+      "data": "LOCAL_SYNTHETIC_ONLY; no cloud/real funds; UI unchanged Kotlin",
+      "files": {
+        "png": {
+          "path": "coordination/evidence/NAVF-20261029-01/native/p20-expiring.png",
+          "sha256": "1927f8f6f6f1d90aa169ac996fc110fb38c767a704bb091fa50e9fffb5396ee3"
+        },
+        "xml": {
+          "path": "coordination/evidence/NAVF-20261029-01/native/p20-expiring.xml",
+          "sha256": "7d2a3c82fcc78dec148107be145d03c8c504be8fcc3502e492d5737bb7c812dc"
+        }
+      },
+      "meaning": "First order consent failures injected locally then successful real backend action; multi/expiry/account/replacement prompt lists are synthetic state projections."
+    },
+    {
+      "group": "G3",
+      "name": "p21-expired-removed",
+      "sourceSha": "7911a6fb13804cb4ae242995de4af60a0b189c34",
+      "data": "LOCAL_SYNTHETIC_ONLY; no cloud/real funds; UI unchanged Kotlin",
+      "files": {
+        "png": {
+          "path": "coordination/evidence/NAVF-20261029-01/native/p21-expired-removed.png",
+          "sha256": "b0a90a2fbdb7bf7cd780f6e7b335544de44f4cf9820d2e883154dbc5fad40264"
+        },
+        "xml": {
+          "path": "coordination/evidence/NAVF-20261029-01/native/p21-expired-removed.xml",
+          "sha256": "6d1081b1c68c3524c8843cc11024e9e2f201afd0eabeb6bdb9e412c6e8f8d842"
+        }
+      },
+      "meaning": "First order consent failures injected locally then successful real backend action; multi/expiry/account/replacement prompt lists are synthetic state projections."
+    },
+    {
+      "group": "G3",
+      "name": "p78-account2-settled",
+      "sourceSha": "7911a6fb13804cb4ae242995de4af60a0b189c34",
+      "data": "LOCAL_SYNTHETIC_ONLY; no cloud/real funds; UI unchanged Kotlin",
+      "files": {
+        "png": {
+          "path": "coordination/evidence/NAVF-20261029-01/native/p78-account2-settled.png",
+          "sha256": "176d0862706282f2faf55e4b5bd13755a9d034238cf1693281c768724a8f24de"
+        },
+        "xml": {
+          "path": "coordination/evidence/NAVF-20261029-01/native/p78-account2-settled.xml",
+          "sha256": "7d2a3c82fcc78dec148107be145d03c8c504be8fcc3502e492d5737bb7c812dc"
+        }
+      },
+      "meaning": "First order consent failures injected locally then successful real backend action; multi/expiry/account/replacement prompt lists are synthetic state projections."
+    },
+    {
+      "group": "G3",
+      "name": "p81-replacement-old",
+      "sourceSha": "7911a6fb13804cb4ae242995de4af60a0b189c34",
+      "data": "LOCAL_SYNTHETIC_ONLY; no cloud/real funds; UI unchanged Kotlin",
+      "files": {
+        "png": {
+          "path": "coordination/evidence/NAVF-20261029-01/native/p81-replacement-old.png",
+          "sha256": "9fc3a4a8fd93ba41905f1a2f13f7857ec70889a131426a6dcbb54f68b78954d1"
+        },
+        "xml": {
+          "path": "coordination/evidence/NAVF-20261029-01/native/p81-replacement-old.xml",
+          "sha256": "f0f9202777d4bb3d36fa40b3b40def947419f8d15d9e6e74c2fabf6950b57209"
+        }
+      },
+      "meaning": "First order consent failures injected locally then successful real backend action; multi/expiry/account/replacement prompt lists are synthetic state projections."
+    },
+    {
+      "group": "G3",
+      "name": "p82-replacement-new",
+      "sourceSha": "7911a6fb13804cb4ae242995de4af60a0b189c34",
+      "data": "LOCAL_SYNTHETIC_ONLY; no cloud/real funds; UI unchanged Kotlin",
+      "files": {
+        "png": {
+          "path": "coordination/evidence/NAVF-20261029-01/native/p82-replacement-new.png",
+          "sha256": "5b98732cb99ee96dc2a29425bb690d0db3032d4d9a28622d70e606d8fd8c94f5"
+        },
+        "xml": {
+          "path": "coordination/evidence/NAVF-20261029-01/native/p82-replacement-new.xml",
+          "sha256": "7ae8fcd879386ba2eaeb4cd3519446372f29ed887b42a0e88c510b0a5c942b95"
+        }
+      },
+      "meaning": "First order consent failures injected locally then successful real backend action; multi/expiry/account/replacement prompt lists are synthetic state projections."
+    },
+    {
+      "group": "G3",
+      "name": "p83-new-request-submitted",
+      "sourceSha": "7911a6fb13804cb4ae242995de4af60a0b189c34",
+      "data": "LOCAL_SYNTHETIC_ONLY; no cloud/real funds; UI unchanged Kotlin",
+      "files": {
+        "png": {
+          "path": "coordination/evidence/NAVF-20261029-01/native/p83-new-request-submitted.png",
+          "sha256": "27dec1cac354fe129bf5f1fbe357534feb6c8407f98d898de539635d577d1434"
+        },
+        "xml": {
+          "path": "coordination/evidence/NAVF-20261029-01/native/p83-new-request-submitted.xml",
+          "sha256": "da6c1464dbef5c81a209e5d43e96957b058de564a6c96a50feb4b129efd992f1"
+        }
+      },
+      "meaning": "First order consent failures injected locally then successful real backend action; multi/expiry/account/replacement prompt lists are synthetic state projections."
+    },
+    {
+      "group": "G4",
+      "name": "p26-address-during-ack",
+      "sourceSha": "7911a6fb13804cb4ae242995de4af60a0b189c34",
+      "data": "LOCAL_SYNTHETIC_ONLY; no cloud/real funds; UI unchanged Kotlin",
+      "files": {
+        "png": {
+          "path": "coordination/evidence/NAVF-20261029-01/native/p26-address-during-ack.png",
+          "sha256": "01f8ef62b9d5bd1195e66a86b091a46eaab5976f39073b9ade014c2fd1873a82"
+        },
+        "xml": {
+          "path": "coordination/evidence/NAVF-20261029-01/native/p26-address-during-ack.xml",
+          "sha256": "03ed53475a5b7f44daa262d3c6fa2bd32a2170f4e545d8407dfa4791ce2705f0"
+        }
+      },
+      "meaning": "Real local announcement claim with deliberate12s delay; permission guide preference reset only in QA app; no production account or cloud messages."
+    },
+    {
+      "group": "G4",
+      "name": "p27-address-after-claim",
+      "sourceSha": "7911a6fb13804cb4ae242995de4af60a0b189c34",
+      "data": "LOCAL_SYNTHETIC_ONLY; no cloud/real funds; UI unchanged Kotlin",
+      "files": {
+        "png": {
+          "path": "coordination/evidence/NAVF-20261029-01/native/p27-address-after-claim.png",
+          "sha256": "01f8ef62b9d5bd1195e66a86b091a46eaab5976f39073b9ade014c2fd1873a82"
+        },
+        "xml": {
+          "path": "coordination/evidence/NAVF-20261029-01/native/p27-address-after-claim.xml",
+          "sha256": "03ed53475a5b7f44daa262d3c6fa2bd32a2170f4e545d8407dfa4791ce2705f0"
+        }
+      },
+      "meaning": "Real local announcement claim with deliberate12s delay; permission guide preference reset only in QA app; no production account or cloud messages."
+    },
+    {
+      "group": "G4",
+      "name": "p28-announced-after-address",
+      "sourceSha": "7911a6fb13804cb4ae242995de4af60a0b189c34",
+      "data": "LOCAL_SYNTHETIC_ONLY; no cloud/real funds; UI unchanged Kotlin",
+      "files": {
+        "png": {
+          "path": "coordination/evidence/NAVF-20261029-01/native/p28-announced-after-address.png",
+          "sha256": "c056796e7f2c6f242bd1e469d5445814487655a715f96dc21129cfd20e7ac97c"
+        },
+        "xml": {
+          "path": "coordination/evidence/NAVF-20261029-01/native/p28-announced-after-address.xml",
+          "sha256": "1b73ec4d55cc2c33dc003f7911fab0315d1b94e06291574e34548d78e652c008"
+        }
+      },
+      "meaning": "Real local announcement claim with deliberate12s delay; permission guide preference reset only in QA app; no production account or cloud messages."
+    },
+    {
+      "group": "G4",
+      "name": "p31-first-guide-blocks-ann",
+      "sourceSha": "7911a6fb13804cb4ae242995de4af60a0b189c34",
+      "data": "LOCAL_SYNTHETIC_ONLY; no cloud/real funds; UI unchanged Kotlin",
+      "files": {
+        "png": {
+          "path": "coordination/evidence/NAVF-20261029-01/native/p31-first-guide-blocks-ann.png",
+          "sha256": "1adc9ec068d765c1ebfcb4d7c8ef18043090b6211896910d6a1e274fad6316a1"
+        },
+        "xml": {
+          "path": "coordination/evidence/NAVF-20261029-01/native/p31-first-guide-blocks-ann.xml",
+          "sha256": "64a4388718e1d75cbda52933f6ce6ce23a9f38fb7f7ac216ef981643776b1164"
+        }
+      },
+      "meaning": "Real local announcement claim with deliberate12s delay; permission guide preference reset only in QA app; no production account or cloud messages."
+    },
+    {
+      "group": "G4",
+      "name": "p32-after-guide-ann",
+      "sourceSha": "7911a6fb13804cb4ae242995de4af60a0b189c34",
+      "data": "LOCAL_SYNTHETIC_ONLY; no cloud/real funds; UI unchanged Kotlin",
+      "files": {
+        "png": {
+          "path": "coordination/evidence/NAVF-20261029-01/native/p32-after-guide-ann.png",
+          "sha256": "1c6ebaed01958e9238d4c8c256e965e9b257961cc700ad32d23fb94dd9974b99"
+        },
+        "xml": {
+          "path": "coordination/evidence/NAVF-20261029-01/native/p32-after-guide-ann.xml",
+          "sha256": "de7924ac07372063163cd211320e0b1475136d040f9379e2e4a76614c32d7d02"
+        }
+      },
+      "meaning": "Real local announcement claim with deliberate12s delay; permission guide preference reset only in QA app; no production account or cloud messages."
+    },
+    {
+      "group": "G4",
+      "name": "p70-settings-during-claim",
+      "sourceSha": "7911a6fb13804cb4ae242995de4af60a0b189c34",
+      "data": "LOCAL_SYNTHETIC_ONLY; no cloud/real funds; UI unchanged Kotlin",
+      "files": {
+        "png": {
+          "path": "coordination/evidence/NAVF-20261029-01/native/p70-settings-during-claim.png",
+          "sha256": "40b65c77975c691a5a1f8e0af79612e5d3e06f81a7919cb5455a9951fda70bad"
+        },
+        "xml": {
+          "path": "coordination/evidence/NAVF-20261029-01/native/p70-settings-during-claim.xml",
+          "sha256": "4bc8951eae3f760636784f026b34839bfb65ac9135390848f42581a99b52d9f7"
+        }
+      },
+      "meaning": "Real local announcement claim with deliberate12s delay; permission guide preference reset only in QA app; no production account or cloud messages."
+    },
+    {
+      "group": "G4",
+      "name": "p71-settings-after-ack",
+      "sourceSha": "7911a6fb13804cb4ae242995de4af60a0b189c34",
+      "data": "LOCAL_SYNTHETIC_ONLY; no cloud/real funds; UI unchanged Kotlin",
+      "files": {
+        "png": {
+          "path": "coordination/evidence/NAVF-20261029-01/native/p71-settings-after-ack.png",
+          "sha256": "da57a540ebcdd65346b04c6c2df73d0e8ba3d54cfb4b65a03a3b96efd487592c"
+        },
+        "xml": {
+          "path": "coordination/evidence/NAVF-20261029-01/native/p71-settings-after-ack.xml",
+          "sha256": "4bc8951eae3f760636784f026b34839bfb65ac9135390848f42581a99b52d9f7"
+        }
+      },
+      "meaning": "Real local announcement claim with deliberate12s delay; permission guide preference reset only in QA app; no production account or cloud messages."
+    },
+    {
+      "group": "G4",
+      "name": "p72-announced-after-settings",
+      "sourceSha": "7911a6fb13804cb4ae242995de4af60a0b189c34",
+      "data": "LOCAL_SYNTHETIC_ONLY; no cloud/real funds; UI unchanged Kotlin",
+      "files": {
+        "png": {
+          "path": "coordination/evidence/NAVF-20261029-01/native/p72-announced-after-settings.png",
+          "sha256": "03a3333de32a21c319357d0a2819cd72ae6a40469ac861bba15712a4480b3128"
+        },
+        "xml": {
+          "path": "coordination/evidence/NAVF-20261029-01/native/p72-announced-after-settings.xml",
+          "sha256": "a2dd8fc1c8e0c83b87b87a4f609bcf0bc6265c0c30703d30542d6a2790215032"
+        }
+      },
+      "meaning": "Real local announcement claim with deliberate12s delay; permission guide preference reset only in QA app; no production account or cloud messages."
+    },
+    {
+      "group": "G5",
+      "name": "p34-stale-gps-empty",
+      "sourceSha": "7911a6fb13804cb4ae242995de4af60a0b189c34",
+      "data": "LOCAL_SYNTHETIC_ONLY; no cloud/real funds; UI unchanged Kotlin",
+      "files": {
+        "png": {
+          "path": "coordination/evidence/NAVF-20261029-01/native/p34-stale-gps-empty.png",
+          "sha256": "01d0e5ac663130e1e81974f5d8506764e8a382270eca6e4b35f8f46f8a24e16b"
+        },
+        "xml": {
+          "path": "coordination/evidence/NAVF-20261029-01/native/p34-stale-gps-empty.xml",
+          "sha256": "eb7dba4198669f5964c1f23635df7a801f33896a10da89213ac9eeb874e7c33e"
+        }
+      },
+      "meaning": "Controlled Android mockGPS receiver. Invalid freshness/poor accuracy, better fix and manual/account UI; no real GPS/AMap reverse lookup."
+    },
+    {
+      "group": "G5",
+      "name": "p35-poor-gps-empty",
+      "sourceSha": "7911a6fb13804cb4ae242995de4af60a0b189c34",
+      "data": "LOCAL_SYNTHETIC_ONLY; no cloud/real funds; UI unchanged Kotlin",
+      "files": {
+        "png": {
+          "path": "coordination/evidence/NAVF-20261029-01/native/p35-poor-gps-empty.png",
+          "sha256": "2d8c9e74a55f4b0e4a925967e72d86dbd5362f674ae4e3c7a82f57b249dddb72"
+        },
+        "xml": {
+          "path": "coordination/evidence/NAVF-20261029-01/native/p35-poor-gps-empty.xml",
+          "sha256": "eaaa616abdccd2f95f0ad5f249dd425e1b19f672c530a9864f46f1d2ece1e5d8"
+        }
+      },
+      "meaning": "Controlled Android mockGPS receiver. Invalid freshness/poor accuracy, better fix and manual/account UI; no real GPS/AMap reverse lookup."
+    },
+    {
+      "group": "G5",
+      "name": "p36-valid-gps-filled",
+      "sourceSha": "7911a6fb13804cb4ae242995de4af60a0b189c34",
+      "data": "LOCAL_SYNTHETIC_ONLY; no cloud/real funds; UI unchanged Kotlin",
+      "files": {
+        "png": {
+          "path": "coordination/evidence/NAVF-20261029-01/native/p36-valid-gps-filled.png",
+          "sha256": "4e6b0ed413bc744b124bbdc6ce391b3a3528c7926ae1ff2ea6d5f753ad2c036e"
+        },
+        "xml": {
+          "path": "coordination/evidence/NAVF-20261029-01/native/p36-valid-gps-filled.xml",
+          "sha256": "edb88f8e2c74e60543653cf7841ddb3a9dd1099cf37c784c2d01ae30e4e799b0"
+        }
+      },
+      "meaning": "Controlled Android mockGPS receiver. Invalid freshness/poor accuracy, better fix and manual/account UI; no real GPS/AMap reverse lookup."
+    },
+    {
+      "group": "G5",
+      "name": "p48-better-fix-coordinates",
+      "sourceSha": "7911a6fb13804cb4ae242995de4af60a0b189c34",
+      "data": "LOCAL_SYNTHETIC_ONLY; no cloud/real funds; UI unchanged Kotlin",
+      "files": {
+        "png": {
+          "path": "coordination/evidence/NAVF-20261029-01/native/p48-better-fix-coordinates.png",
+          "sha256": "f5650dbe5d356580546200301e8c42ac8db09cddcd54b3078a6bb4f2b5b45c2e"
+        },
+        "xml": {
+          "path": "coordination/evidence/NAVF-20261029-01/native/p48-better-fix-coordinates.xml",
+          "sha256": "98c590673ef18c1da88d3b5de5b969301ad03fbaa7d869cc5722287e94f14564"
+        }
+      },
+      "meaning": "Controlled Android mockGPS receiver. Invalid freshness/poor accuracy, better fix and manual/account UI; no real GPS/AMap reverse lookup."
+    },
+    {
+      "group": "G5",
+      "name": "p52-manual-origin-confirmed",
+      "sourceSha": "7911a6fb13804cb4ae242995de4af60a0b189c34",
+      "data": "LOCAL_SYNTHETIC_ONLY; no cloud/real funds; UI unchanged Kotlin",
+      "files": {
+        "png": {
+          "path": "coordination/evidence/NAVF-20261029-01/native/p52-manual-origin-confirmed.png",
+          "sha256": "55de2a5f16a0e306a2d87edc7de7d30198344778d619917acced28f0f6c1bccf"
+        },
+        "xml": {
+          "path": "coordination/evidence/NAVF-20261029-01/native/p52-manual-origin-confirmed.xml",
+          "sha256": "8360ed1392d18d21368c6fef016d9b7ecc13d9198a4b478d5f63410731241ed0"
+        }
+      },
+      "meaning": "Controlled Android mockGPS receiver. Invalid freshness/poor accuracy, better fix and manual/account UI; no real GPS/AMap reverse lookup."
+    },
+    {
+      "group": "G5",
+      "name": "p53-gps-not-overwrite-manual",
+      "sourceSha": "7911a6fb13804cb4ae242995de4af60a0b189c34",
+      "data": "LOCAL_SYNTHETIC_ONLY; no cloud/real funds; UI unchanged Kotlin",
+      "files": {
+        "png": {
+          "path": "coordination/evidence/NAVF-20261029-01/native/p53-gps-not-overwrite-manual.png",
+          "sha256": "55de2a5f16a0e306a2d87edc7de7d30198344778d619917acced28f0f6c1bccf"
+        },
+        "xml": {
+          "path": "coordination/evidence/NAVF-20261029-01/native/p53-gps-not-overwrite-manual.xml",
+          "sha256": "8360ed1392d18d21368c6fef016d9b7ecc13d9198a4b478d5f63410731241ed0"
+        }
+      },
+      "meaning": "Controlled Android mockGPS receiver. Invalid freshness/poor accuracy, better fix and manual/account UI; no real GPS/AMap reverse lookup."
+    },
+    {
+      "group": "G5",
+      "name": "p79-account2-no-manual-leak",
+      "sourceSha": "7911a6fb13804cb4ae242995de4af60a0b189c34",
+      "data": "LOCAL_SYNTHETIC_ONLY; no cloud/real funds; UI unchanged Kotlin",
+      "files": {
+        "png": {
+          "path": "coordination/evidence/NAVF-20261029-01/native/p79-account2-no-manual-leak.png",
+          "sha256": "ff2a0aed1ab42eada282c529ba3da3ea037c6f5e8d207e1144ded05a80c6c448"
+        },
+        "xml": {
+          "path": "coordination/evidence/NAVF-20261029-01/native/p79-account2-no-manual-leak.xml",
+          "sha256": "3230c6cf136bba0606ec6e5dc15247cb3e361cc0a1ac8b2c773cf8d4fb08b52a"
+        }
+      },
+      "meaning": "Controlled Android mockGPS receiver. Invalid freshness/poor accuracy, better fix and manual/account UI; no real GPS/AMap reverse lookup."
+    },
+    {
+      "group": "G5",
+      "name": "p80-account2-gps",
+      "sourceSha": "7911a6fb13804cb4ae242995de4af60a0b189c34",
+      "data": "LOCAL_SYNTHETIC_ONLY; no cloud/real funds; UI unchanged Kotlin",
+      "files": {
+        "png": {
+          "path": "coordination/evidence/NAVF-20261029-01/native/p80-account2-gps.png",
+          "sha256": "da7620f2aa7e92a0bcd381b2b16f3ebf1c0452a7a5818257badf63f76e7b990d"
+        },
+        "xml": {
+          "path": "coordination/evidence/NAVF-20261029-01/native/p80-account2-gps.xml",
+          "sha256": "8820b34a69cd6de90f21d001fbbd394197c18e3305ad85fe8fa0b4d3e79f6967"
+        }
+      },
+      "meaning": "Controlled Android mockGPS receiver. Invalid freshness/poor accuracy, better fix and manual/account UI; no real GPS/AMap reverse lookup."
+    },
+    {
+      "group": "G6",
+      "name": "p55-samename-selection-within400",
+      "sourceSha": "7911a6fb13804cb4ae242995de4af60a0b189c34",
+      "data": "LOCAL_SYNTHETIC_ONLY; no cloud/real funds; UI unchanged Kotlin",
+      "files": {
+        "png": {
+          "path": "coordination/evidence/NAVF-20261029-01/native/p55-samename-selection-within400.png",
+          "sha256": "2c2af3b2c7c1f81f143c427873fdb48333357513d2227375b1389a8ad7cb7f04"
+        },
+        "xml": {
+          "path": "coordination/evidence/NAVF-20261029-01/native/p55-samename-selection-within400.xml",
+          "sha256": "c0dbfb52c0d56a0bca28497fd58a1a4f4294f62957cc78bfb2035d8e2c16430a"
+        }
+      },
+      "meaning": "Actual text UI; no AMap credentials, system Geocoder errors expected; same-name tap85ms, network request suppression additionally proven real helper unit tests."
+    },
+    {
+      "group": "G6",
+      "name": "p56-samename-stable",
+      "sourceSha": "7911a6fb13804cb4ae242995de4af60a0b189c34",
+      "data": "LOCAL_SYNTHETIC_ONLY; no cloud/real funds; UI unchanged Kotlin",
+      "files": {
+        "png": {
+          "path": "coordination/evidence/NAVF-20261029-01/native/p56-samename-stable.png",
+          "sha256": "0f835002efdbd70de04a5ed564bbfdd5beb2870de95c4f52535b9081fef27233"
+        },
+        "xml": {
+          "path": "coordination/evidence/NAVF-20261029-01/native/p56-samename-stable.xml",
+          "sha256": "c0dbfb52c0d56a0bca28497fd58a1a4f4294f62957cc78bfb2035d8e2c16430a"
+        }
+      },
+      "meaning": "Actual text UI; no AMap credentials, system Geocoder errors expected; same-name tap85ms, network request suppression additionally proven real helper unit tests."
+    },
+    {
+      "group": "G6",
+      "name": "p57-searching",
+      "sourceSha": "7911a6fb13804cb4ae242995de4af60a0b189c34",
+      "data": "LOCAL_SYNTHETIC_ONLY; no cloud/real funds; UI unchanged Kotlin",
+      "files": {
+        "png": {
+          "path": "coordination/evidence/NAVF-20261029-01/native/p57-searching.png",
+          "sha256": "6af8220c5aecefda2de5687b7e6f5f9838adb51183ecf0c733c13028cc05b2af"
+        },
+        "xml": {
+          "path": "coordination/evidence/NAVF-20261029-01/native/p57-searching.xml",
+          "sha256": "511c7f8211b3f8a29564d01835998b3ebf7363cec14e874b5cafbef94efa017d"
+        }
+      },
+      "meaning": "Actual text UI; no AMap credentials, system Geocoder errors expected; same-name tap85ms, network request suppression additionally proven real helper unit tests."
+    },
+    {
+      "group": "G6",
+      "name": "p58-search-cancelled",
+      "sourceSha": "7911a6fb13804cb4ae242995de4af60a0b189c34",
+      "data": "LOCAL_SYNTHETIC_ONLY; no cloud/real funds; UI unchanged Kotlin",
+      "files": {
+        "png": {
+          "path": "coordination/evidence/NAVF-20261029-01/native/p58-search-cancelled.png",
+          "sha256": "d3c50b856710c4a58c6738ca4398fd248e8379a37c7fbf1f7ec6e5156d823f45"
+        },
+        "xml": {
+          "path": "coordination/evidence/NAVF-20261029-01/native/p58-search-cancelled.xml",
+          "sha256": "a2cab4065aedf8d436bbc386961527e096fc0ef823a96e3db5e0bb5d6e409f4c"
+        }
+      },
+      "meaning": "Actual text UI; no AMap credentials, system Geocoder errors expected; same-name tap85ms, network request suppression additionally proven real helper unit tests."
+    },
+    {
+      "group": "G6",
+      "name": "p59-samequery-retry",
+      "sourceSha": "7911a6fb13804cb4ae242995de4af60a0b189c34",
+      "data": "LOCAL_SYNTHETIC_ONLY; no cloud/real funds; UI unchanged Kotlin",
+      "files": {
+        "png": {
+          "path": "coordination/evidence/NAVF-20261029-01/native/p59-samequery-retry.png",
+          "sha256": "2c988e56bc00fccb6305706d2bf4d216c03a0e01338a93d9c3686109efa67395"
+        },
+        "xml": {
+          "path": "coordination/evidence/NAVF-20261029-01/native/p59-samequery-retry.xml",
+          "sha256": "511c7f8211b3f8a29564d01835998b3ebf7363cec14e874b5cafbef94efa017d"
+        }
+      },
+      "meaning": "Actual text UI; no AMap credentials, system Geocoder errors expected; same-name tap85ms, network request suppression additionally proven real helper unit tests."
+    },
+    {
+      "group": "G6",
+      "name": "p60-search-provider-result",
+      "sourceSha": "7911a6fb13804cb4ae242995de4af60a0b189c34",
+      "data": "LOCAL_SYNTHETIC_ONLY; no cloud/real funds; UI unchanged Kotlin",
+      "files": {
+        "png": {
+          "path": "coordination/evidence/NAVF-20261029-01/native/p60-search-provider-result.png",
+          "sha256": "12f1eb092417cf456bab49ea4f4ade275482cc756dddcb870ea05656cd7e49b9"
+        },
+        "xml": {
+          "path": "coordination/evidence/NAVF-20261029-01/native/p60-search-provider-result.xml",
+          "sha256": "a2277959ae04f0a4df93f2d653a59056e8d10663b931c32c357c6cf07c76724f"
+        }
+      },
+      "meaning": "Actual text UI; no AMap credentials, system Geocoder errors expected; same-name tap85ms, network request suppression additionally proven real helper unit tests."
+    },
+    {
+      "group": "G6",
+      "name": "p61-retry-after-error",
+      "sourceSha": "7911a6fb13804cb4ae242995de4af60a0b189c34",
+      "data": "LOCAL_SYNTHETIC_ONLY; no cloud/real funds; UI unchanged Kotlin",
+      "files": {
+        "png": {
+          "path": "coordination/evidence/NAVF-20261029-01/native/p61-retry-after-error.png",
+          "sha256": "be8cc8178c82ff482553bb6490158f5d9476db07269885c31ec336b224a44f98"
+        },
+        "xml": {
+          "path": "coordination/evidence/NAVF-20261029-01/native/p61-retry-after-error.xml",
+          "sha256": "511c7f8211b3f8a29564d01835998b3ebf7363cec14e874b5cafbef94efa017d"
+        }
+      },
+      "meaning": "Actual text UI; no AMap credentials, system Geocoder errors expected; same-name tap85ms, network request suppression additionally proven real helper unit tests."
+    },
+    {
+      "group": "G6",
+      "name": "p64-closed-search-draft-kept",
+      "sourceSha": "7911a6fb13804cb4ae242995de4af60a0b189c34",
+      "data": "LOCAL_SYNTHETIC_ONLY; no cloud/real funds; UI unchanged Kotlin",
+      "files": {
+        "png": {
+          "path": "coordination/evidence/NAVF-20261029-01/native/p64-closed-search-draft-kept.png",
+          "sha256": "104d7f4de3b1aa0c5b742b6be7a81286cf52f661fb8d8a81343e12798562fa5a"
+        },
+        "xml": {
+          "path": "coordination/evidence/NAVF-20261029-01/native/p64-closed-search-draft-kept.xml",
+          "sha256": "8360ed1392d18d21368c6fef016d9b7ecc13d9198a4b478d5f63410731241ed0"
+        }
+      },
+      "meaning": "Actual text UI; no AMap credentials, system Geocoder errors expected; same-name tap85ms, network request suppression additionally proven real helper unit tests."
+    },
+    {
+      "group": "G7",
+      "name": "d38-wallet-settled",
+      "sourceSha": "7911a6fb13804cb4ae242995de4af60a0b189c34",
+      "data": "LOCAL_SYNTHETIC_ONLY; no cloud/real funds; UI unchanged Kotlin",
+      "files": {
+        "png": {
+          "path": "coordination/evidence/NAVF-20261029-01/native/d38-wallet-settled.png",
+          "sha256": "5c9ac6c4acb5eda3eb0285528ea37de87b756db134ee062a472a7f450059f310"
+        },
+        "xml": {
+          "path": "coordination/evidence/NAVF-20261029-01/native/d38-wallet-settled.xml",
+          "sha256": "641ad6c565050615c45768ad23b21403db7fd8549129549af3946e1639264c48"
+        }
+      },
+      "meaning": "Synthetic wallet5 entries/orders, default3; small variants720x1280/density320/font1.3, then reset. Map provider intentionally unavailable."
+    },
+    {
+      "group": "G7",
+      "name": "d39-settlement-expanded",
+      "sourceSha": "7911a6fb13804cb4ae242995de4af60a0b189c34",
+      "data": "LOCAL_SYNTHETIC_ONLY; no cloud/real funds; UI unchanged Kotlin",
+      "files": {
+        "png": {
+          "path": "coordination/evidence/NAVF-20261029-01/native/d39-settlement-expanded.png",
+          "sha256": "c269203e145e161c2fa26c9880741e9804eabcd8487bfb3909dd70752fc55a09"
+        },
+        "xml": {
+          "path": "coordination/evidence/NAVF-20261029-01/native/d39-settlement-expanded.xml",
+          "sha256": "a99f933042a908d5edc79dfd212b5ad2b5f9ecd12b18f91a289b345bc6025c8f"
+        }
+      },
+      "meaning": "Synthetic wallet5 entries/orders, default3; small variants720x1280/density320/font1.3, then reset. Map provider intentionally unavailable."
+    },
+    {
+      "group": "G7",
+      "name": "d40-settlement-expanded-bottom",
+      "sourceSha": "7911a6fb13804cb4ae242995de4af60a0b189c34",
+      "data": "LOCAL_SYNTHETIC_ONLY; no cloud/real funds; UI unchanged Kotlin",
+      "files": {
+        "png": {
+          "path": "coordination/evidence/NAVF-20261029-01/native/d40-settlement-expanded-bottom.png",
+          "sha256": "441fc72ec5c5d7da3fbaf694c4e880b0af9afcdd44d3e771d733090a9e131030"
+        },
+        "xml": {
+          "path": "coordination/evidence/NAVF-20261029-01/native/d40-settlement-expanded-bottom.xml",
+          "sha256": "0892d797f94af8d385b295a3a6d5a35972287d0f9256c2ef413229640d36e350"
+        }
+      },
+      "meaning": "Synthetic wallet5 entries/orders, default3; small variants720x1280/density320/font1.3, then reset. Map provider intentionally unavailable."
+    },
+    {
+      "group": "G7",
+      "name": "d42-ledger-preview3",
+      "sourceSha": "7911a6fb13804cb4ae242995de4af60a0b189c34",
+      "data": "LOCAL_SYNTHETIC_ONLY; no cloud/real funds; UI unchanged Kotlin",
+      "files": {
+        "png": {
+          "path": "coordination/evidence/NAVF-20261029-01/native/d42-ledger-preview3.png",
+          "sha256": "bffa74a01b5119ef8c338a557b49d2908528c95c24a7381dfe362513ef32b425"
+        },
+        "xml": {
+          "path": "coordination/evidence/NAVF-20261029-01/native/d42-ledger-preview3.xml",
+          "sha256": "eca63b39a137e3a91d701590f03398634809e40166ae0425e317a91c79955949"
+        }
+      },
+      "meaning": "Synthetic wallet5 entries/orders, default3; small variants720x1280/density320/font1.3, then reset. Map provider intentionally unavailable."
+    },
+    {
+      "group": "G7",
+      "name": "d44-ledger-expanded-bottom",
+      "sourceSha": "7911a6fb13804cb4ae242995de4af60a0b189c34",
+      "data": "LOCAL_SYNTHETIC_ONLY; no cloud/real funds; UI unchanged Kotlin",
+      "files": {
+        "png": {
+          "path": "coordination/evidence/NAVF-20261029-01/native/d44-ledger-expanded-bottom.png",
+          "sha256": "95e1024d2ca0403bfa5c34019364ab6cec0c3006e1d8074b7877d237d063b8fc"
+        },
+        "xml": {
+          "path": "coordination/evidence/NAVF-20261029-01/native/d44-ledger-expanded-bottom.xml",
+          "sha256": "82b93df0567f7b0e23178855f9db4d83420e2809532f02c3d794ea9f64a4c3bf"
+        }
+      },
+      "meaning": "Synthetic wallet5 entries/orders, default3; small variants720x1280/density320/font1.3, then reset. Map provider intentionally unavailable."
+    },
+    {
+      "group": "G7",
+      "name": "d45-ledger-recollapsed",
+      "sourceSha": "7911a6fb13804cb4ae242995de4af60a0b189c34",
+      "data": "LOCAL_SYNTHETIC_ONLY; no cloud/real funds; UI unchanged Kotlin",
+      "files": {
+        "png": {
+          "path": "coordination/evidence/NAVF-20261029-01/native/d45-ledger-recollapsed.png",
+          "sha256": "bffa74a01b5119ef8c338a557b49d2908528c95c24a7381dfe362513ef32b425"
+        },
+        "xml": {
+          "path": "coordination/evidence/NAVF-20261029-01/native/d45-ledger-recollapsed.xml",
+          "sha256": "eca63b39a137e3a91d701590f03398634809e40166ae0425e317a91c79955949"
+        }
+      },
+      "meaning": "Synthetic wallet5 entries/orders, default3; small variants720x1280/density320/font1.3, then reset. Map provider intentionally unavailable."
+    },
+    {
+      "group": "G7",
+      "name": "d48-small-large-hall-settled",
+      "sourceSha": "7911a6fb13804cb4ae242995de4af60a0b189c34",
+      "data": "LOCAL_SYNTHETIC_ONLY; no cloud/real funds; UI unchanged Kotlin",
+      "files": {
+        "png": {
+          "path": "coordination/evidence/NAVF-20261029-01/native/d48-small-large-hall-settled.png",
+          "sha256": "4dafb2ec2a752ae69e6aa573070d01ab78e2a58459f4e810ce6e00cf72645423"
+        },
+        "xml": {
+          "path": "coordination/evidence/NAVF-20261029-01/native/d48-small-large-hall-settled.xml",
+          "sha256": "c754de9b3115fbe0c1929425154f2085d26e85dbeb3c291a7b3a49a3e576fda4"
+        }
+      },
+      "meaning": "Synthetic wallet5 entries/orders, default3; small variants720x1280/density320/font1.3, then reset. Map provider intentionally unavailable."
+    },
+    {
+      "group": "G7",
+      "name": "d50-small-large-scroll1",
+      "sourceSha": "7911a6fb13804cb4ae242995de4af60a0b189c34",
+      "data": "LOCAL_SYNTHETIC_ONLY; no cloud/real funds; UI unchanged Kotlin",
+      "files": {
+        "png": {
+          "path": "coordination/evidence/NAVF-20261029-01/native/d50-small-large-scroll1.png",
+          "sha256": "2c71a81cdb9501add71a7930ebccdbe2aaa7a0d2a6de5f9f0c28e3c6e77ccb36"
+        },
+        "xml": {
+          "path": "coordination/evidence/NAVF-20261029-01/native/d50-small-large-scroll1.xml",
+          "sha256": "45b265a83de937ff62d50a4a5cbdcd366b562c05b35f5f42768d2c420c359b98"
+        }
+      },
+      "meaning": "Synthetic wallet5 entries/orders, default3; small variants720x1280/density320/font1.3, then reset. Map provider intentionally unavailable."
+    },
+    {
+      "group": "G7",
+      "name": "d51-small-large-scroll2",
+      "sourceSha": "7911a6fb13804cb4ae242995de4af60a0b189c34",
+      "data": "LOCAL_SYNTHETIC_ONLY; no cloud/real funds; UI unchanged Kotlin",
+      "files": {
+        "png": {
+          "path": "coordination/evidence/NAVF-20261029-01/native/d51-small-large-scroll2.png",
+          "sha256": "ea42c89359f4cf717d9ea0fd0632a054a996bc02bfa26a5f7fb0a6ae53d7ec01"
+        },
+        "xml": {
+          "path": "coordination/evidence/NAVF-20261029-01/native/d51-small-large-scroll2.xml",
+          "sha256": "4ae81fc331d84b824d6a9bc314b9a5deaf0b4e9fc483dfac17ccbf27a0196163"
+        }
+      },
+      "meaning": "Synthetic wallet5 entries/orders, default3; small variants720x1280/density320/font1.3, then reset. Map provider intentionally unavailable."
+    },
+    {
+      "group": "G7",
+      "name": "d52-small-large-confirm",
+      "sourceSha": "7911a6fb13804cb4ae242995de4af60a0b189c34",
+      "data": "LOCAL_SYNTHETIC_ONLY; no cloud/real funds; UI unchanged Kotlin",
+      "files": {
+        "png": {
+          "path": "coordination/evidence/NAVF-20261029-01/native/d52-small-large-confirm.png",
+          "sha256": "5d19e481e5cd2bddfaf4b0a20f508b3995ab270db6aee9a0e8327a6eb5b5a220"
+        },
+        "xml": {
+          "path": "coordination/evidence/NAVF-20261029-01/native/d52-small-large-confirm.xml",
+          "sha256": "62fdab8093717345df34c803349cf01e0c1b27b561727e1524c2de8459a0147a"
+        }
+      },
+      "meaning": "Synthetic wallet5 entries/orders, default3; small variants720x1280/density320/font1.3, then reset. Map provider intentionally unavailable."
+    },
+    {
+      "group": "G7",
+      "name": "d56-small-large-wallet-balance-top",
+      "sourceSha": "7911a6fb13804cb4ae242995de4af60a0b189c34",
+      "data": "LOCAL_SYNTHETIC_ONLY; no cloud/real funds; UI unchanged Kotlin",
+      "files": {
+        "png": {
+          "path": "coordination/evidence/NAVF-20261029-01/native/d56-small-large-wallet-balance-top.png",
+          "sha256": "f81eeef3cb218333e1cf2c37b003bc2f1fd2d3cd190d314aa34adcdb089bca0e"
+        },
+        "xml": {
+          "path": "coordination/evidence/NAVF-20261029-01/native/d56-small-large-wallet-balance-top.xml",
+          "sha256": "b97d85e9cac893da066a88a7afaae5409e35f414813bd53d36e4fab2ad52b3ff"
+        }
+      },
+      "meaning": "Synthetic wallet5 entries/orders, default3; small variants720x1280/density320/font1.3, then reset. Map provider intentionally unavailable."
+    },
+    {
+      "group": "G7",
+      "name": "d67-small-trip-actions",
+      "sourceSha": "7911a6fb13804cb4ae242995de4af60a0b189c34",
+      "data": "LOCAL_SYNTHETIC_ONLY; no cloud/real funds; UI unchanged Kotlin",
+      "files": {
+        "png": {
+          "path": "coordination/evidence/NAVF-20261029-01/native/d67-small-trip-actions.png",
+          "sha256": "0e8e619f9c89a5d7a9eefc9e6448617e16438ac0ebf708df39a8dbba0ceea89c"
+        },
+        "xml": {
+          "path": "coordination/evidence/NAVF-20261029-01/native/d67-small-trip-actions.xml",
+          "sha256": "014cbc386cccf6d0ab64e6dc9e31f4149019e04a61ba03498cacd0267587fd7e"
+        }
+      },
+      "meaning": "Synthetic wallet5 entries/orders, default3; small variants720x1280/density320/font1.3, then reset. Map provider intentionally unavailable."
+    },
+    {
+      "group": "G4",
+      "name": "p97-inline-distance-card",
+      "sourceSha": "7911a6fb13804cb4ae242995de4af60a0b189c34",
+      "data": "Local actual shared consent + explicit second-order synthetic prompt projection. No financial/consent submit in this overlay test.",
+      "files": {
+        "png": {
+          "path": "coordination/evidence/NAVF-20261029-01/native/p97-inline-distance-card.png",
+          "sha256": "a11ef4f0b0e037c0ebb64498a182fd25eb2f3f3adae3309e3cce078cf974edd8"
+        },
+        "xml": {
+          "path": "coordination/evidence/NAVF-20261029-01/native/p97-inline-distance-card.xml",
+          "sha256": "1b164a91a93a705f57767578f0c5277d6929ba222c7331ca23952038201da9d2"
+        }
+      }
+    },
+    {
+      "group": "G4",
+      "name": "p98-inline-distance-confirm",
+      "sourceSha": "7911a6fb13804cb4ae242995de4af60a0b189c34",
+      "data": "Local actual shared consent + explicit second-order synthetic prompt projection. No financial/consent submit in this overlay test.",
+      "files": {
+        "png": {
+          "path": "coordination/evidence/NAVF-20261029-01/native/p98-inline-distance-confirm.png",
+          "sha256": "88e50b0ef14c9180986a13fa86b8412955101f1bf69a120ce69330c887d57b2b"
+        },
+        "xml": {
+          "path": "coordination/evidence/NAVF-20261029-01/native/p98-inline-distance-confirm.xml",
+          "sha256": "21cc8b552728a64fbfe4893c76301cef2f0ec5f11733e313c0fac4df0629cc6e"
+        }
+      }
+    },
+    {
+      "group": "G4",
+      "name": "p99-inline-blocks-other-global",
+      "sourceSha": "7911a6fb13804cb4ae242995de4af60a0b189c34",
+      "data": "Local actual shared consent + explicit second-order synthetic prompt projection. No financial/consent submit in this overlay test.",
+      "files": {
+        "png": {
+          "path": "coordination/evidence/NAVF-20261029-01/native/p99-inline-blocks-other-global.png",
+          "sha256": "5c8ba59f75a0f979b38c3319bd6c9e8472c1749a69ecaeb01afe88614143db43"
+        },
+        "xml": {
+          "path": "coordination/evidence/NAVF-20261029-01/native/p99-inline-blocks-other-global.xml",
+          "sha256": "21cc8b552728a64fbfe4893c76301cef2f0ec5f11733e313c0fac4df0629cc6e"
+        }
+      }
+    },
+    {
+      "group": "G4",
+      "name": "p100-global-after-inline-dismiss",
+      "sourceSha": "7911a6fb13804cb4ae242995de4af60a0b189c34",
+      "data": "Local actual shared consent + explicit second-order synthetic prompt projection. No financial/consent submit in this overlay test.",
+      "files": {
+        "png": {
+          "path": "coordination/evidence/NAVF-20261029-01/native/p100-global-after-inline-dismiss.png",
+          "sha256": "6f9f73d7d4511c173bb803d14b6c9afd24dead57e35e140ec220541938097716"
+        },
+        "xml": {
+          "path": "coordination/evidence/NAVF-20261029-01/native/p100-global-after-inline-dismiss.xml",
+          "sha256": "70df3251e174db028205a2fbd781d16e9485ad1fa3b6fe5abf259d7c1b8daf9b"
+        }
+      }
+    }
+  ],
+  "excludedExamples": [
+    "p22..24 before corrected announcement audience (fixture setup, no Android announcement)",
+    "p40 initial better fix before10s location delivery",
+    "p62 systemback hid keyboard, did not close editor",
+    "p77 login pending",
+    "d20 before refresh",
+    "d37 wallet before refresh",
+    "d47 before new order refresh",
+    "d49 swipe started outside resized screen"
+  ],
+  "scope": "All selected are actual Android screenshots/XML, synthetic local QA; do not infer provider auth, real banking, real device/OEM or cloud POST."
+}

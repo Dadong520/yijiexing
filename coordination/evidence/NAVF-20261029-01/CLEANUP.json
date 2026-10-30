@@ -1,0 +1,12 @@
+{
+  "at": "2026-10-30T09:43:39.444833+08:00",
+  "sourceSha": "6ab66bdcd20b43dfd314917881342dcdcc165a9e",
+  "status": "PASS",
+  "emulator": "session12967 exit0, scoped5586 emu kill",
+  "fixture": "session56309 exit0 after scoped stop file; local64331 only",
+  "reverse": "tcp443 removed exit0 before kill",
+  "processes": "Final adb devices empty; lsof64331/5586 no listeners; bounded Gradle/emulator/fixture sessions all exit0",
+  "privateData": "Original/QA APKs,cache,TLS/private identities/DB external only; no source commit/deploy/cloud business writes",
+  "historical791": "CLEANUP_7911.json",
+  "devices": "EMPTY_FINAL_READBACK"
+}

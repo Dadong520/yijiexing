@@ -1,0 +1,31 @@
+{
+  "sourceSha": "7911a6fb13804cb4ae242995de4af60a0b189c34",
+  "permission": "coordination/evidence/NAV-20261029-01/NATIVE_PERMISSION.json",
+  "externalRoot": "/Users/dongge/.codex/tmp/yijiexing-navf-native-20261030",
+  "avd": "NAVF_20261030 emulator-5586 Android34 ARM1080x2400 density440",
+  "emulatorSession": 21356,
+  "fixtureSession": 7299,
+  "tls": "localhost64331 via emulator reverse443; only local synthetic DB and production backend code exported exactSHA",
+  "qaPackages": [
+    "cn.hbzjhs.dc.passenger.navf",
+    "cn.hbzjhs.dc.driver.navf"
+  ],
+  "qaDifferences": [
+    "applicationId",
+    "local HTTPS endpoint",
+    "debug local CA manifest/resources"
+  ],
+  "stub": "com.autonavi.minimap local Intent capture + controlled mock location only, not real AMap app",
+  "groups": [
+    "immediate/reserved navigation",
+    "boarding/leg/restart dedupe",
+    "passenger prompts",
+    "announcement modal queue",
+    "GPS quality/manual/account",
+    "search cancel/retry",
+    "driver smallscreen/font/wallet"
+  ],
+  "resourcesStatus": "CLOSED; see CLEANUP.json",
+  "cloudBusinessPOST": 0,
+  "personalDevicesUsed": false
+}

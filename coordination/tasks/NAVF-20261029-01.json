@@ -2,11 +2,11 @@
   "schemaVersion": 1,
   "id": "NAVF-20261029-01",
   "owner": "frontend",
-  "goal": "独立离线构建与源码交互审查云端候选；设备待本批授权",
+  "goal": "已获本批隔离模拟器授权，独立验收NAV准确源码原生交互与布局，构建原签名code20候选",
   "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-cloud-navigation-review-20261029",
   "branch": "codex/cloud-navigation-review-20261029",
   "baseSha": "830aa80883d27cd6e518e12e249efc8695129284",
-  "candidateSha": "f7c9cee87e7c709b09f49e0d069b355c5cdfcf13",
+  "candidateSha": "6ab66bdcd20b43dfd314917881342dcdcc165a9e",
   "allow_paths": [
     "coordination/tasks/NAVF-20261029-01.json",
     "coordination/handoffs/frontend.md",
@@ -16,141 +16,97 @@
     "Exact current frozen SHA export to fresh external source; reuse SDK/JDK/offline init only; inherit only byte-identical complete source subtree evidence",
     "Run both unit/build once and report actual commands/proof; no product edits or cloud business writes",
     "Review shared UI regression: hall map height/small screens/largefont, wallet collapse, prompt modal ordering, GPS/search coroutine state and navigation intents",
-    "Current phase no AVD launch/install/click until root supplies fresh authorization; do not borrow prior UIO permit",
+    "User explicitly authorized this NAV batch official Android tools on isolated emulator only; no personal devices. Record QA source/artifact binding and cleanup.",
     "Report concrete findings and build status; actual provider/OEM not claimed; no agents/deploy"
   ],
-  "status": "SOURCE_BUILD_PASS_GUI_NOT_RUN",
+  "status": "COPY_DELTA_REVIEW_COMPLETE",
   "acceptance": "PASS",
   "tests": [
     {
-      "command": "Real frontend memory-role/session gate",
+      "command": "Historical55/2ba independent review repairs",
+      "status": "FAIL_THEN_PASS",
+      "evidence": "REVIEW.json,REVIEW_2ba5.json,REVIEW_f7c9.json; original failures retained"
+    },
+    {
+      "command": "f7 actual passenger54 unit,2ba actual driver77 unit; entire app/src identical to791",
+      "status": "PASS_INHERITED",
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "command": "Exact791 original two assembleDebug plus separate QA build; aapt/apksigner/4private-values scan and byte binding",
+      "status": "PASS",
+      "evidence": "FINAL_BUILD_PROOF.json"
+    },
+    {
+      "command": "Official SDK isolated AVD5586 actual seven native groups;65 selected PNG/XML pairs;4capturedIntents",
+      "status": "PASS_SCOPED",
+      "evidence": "FINAL_REVIEW.json/FINAL_SCREENSHOTS.json"
+    },
+    {
+      "command": "Actual AMap/real device/OEM/provider race permutations",
+      "status": "NOT_RUN",
+      "reason": "No credentials/provider/personal device; exact exclusions in FINAL_REVIEW"
+    },
+    {
+      "command": "Stop fixtures/emulators; remove reverse; empty adb/listeners readback",
+      "status": "PASS"
+    },
+    {
+      "command": "python3 tools/check_coordination.py --memory-role frontend --session-id 01a182c6-c475-7110-bbae-0deafe6d2385",
       "status": "PASS",
       "exitCode": 0
     },
     {
-      "command": "Both exact55d2 exports: bash gradlew --offline --no-daemon --max-workers=2 -I <externalRoot>/scripts/offline.init.gradle testDebugUnitTest assembleDebug",
+      "command": "6ab exactly2string delta, passenger original+QAassemble/scan/binding, driver entire tree inherit, login/profile2actualscreens",
       "status": "PASS",
-      "passengerTests": 31,
-      "driverTests": 70,
-      "failures": 0,
-      "errors": 0,
-      "exitCodes": [
-        0,
-        0
-      ]
-    },
-    {
-      "command": "Source interaction review of modal/search/GPS/navigation/wallet/map height",
-      "status": "FAIL",
-      "findings": [
-        "NAVF-F1",
-        "NAVF-F2",
-        "NAVF-F3",
-        "NAVF-F4"
-      ]
-    },
-    {
-      "command": "AVD/GUI",
-      "status": "NOT_RUN",
-      "reason": "Fresh batch authorization pending"
-    },
-    {
-      "command": "Exact2ba5 fresh export: dual offline testDebugUnitTest assembleDebug max-workers2",
-      "status": "PASS",
-      "passengerTests": 47,
-      "driverTests": 77,
-      "failures": 0,
-      "errors": 0,
-      "newTestClasses": 3,
-      "exitCodes": [
-        0,
-        0
-      ],
-      "proof": "coordination/evidence/NAVF-20261029-01/BUILD_PROOF_2ba5.json"
-    },
-    {
-      "command": "Repaired source review original4 findings + observer restart/account/leg dedupe",
-      "status": "FAIL",
-      "closed": [
-        "NAVF-F2",
-        "NAVF-F3"
-      ],
-      "open": [
-        "NAVF-R1",
-        "NAVF-R2"
-      ]
-    },
-    {
-      "command": "Current batch AVD/GUI",
-      "status": "NOT_RUN",
-      "reason": "Fresh authorization pending"
-    },
-    {
-      "command": "Exactf7 passenger offline testDebugUnitTest assembleDebug; actual compile/test/package",
-      "status": "PASS",
-      "tests": 54,
-      "failures": 0,
-      "errors": 0,
-      "exitCode": 0,
-      "proof": "coordination/evidence/NAVF-20261029-01/BUILD_PROOF_f7c9.json"
-    },
-    {
-      "command": "Driver full subtree f7=2ba and68 tracked files byte-bound; inherit77/build from2ba without rerun",
-      "status": "PASS_INHERITED"
-    },
-    {
-      "command": "R1/R2 ranks/actual render/permission/debounce helper focused review",
-      "status": "PASS",
-      "closed": [
-        "NAVF-R1",
-        "NAVF-R2"
-      ],
-      "limit": "BIZ09 ack-before-render account-switch delivery not durably guaranteed; see REVIEW_f7c9"
-    },
-    {
-      "command": "Current batch native GUI",
-      "status": "NOT_RUN",
-      "reason": "Fresh authorization pending"
+      "evidence": "COPY_DELTA_REVIEW.json/FINAL_BUILD_PROOF.json"
     }
   ],
   "evidence": [
-    {
-      "path": "coordination/evidence/NAVF-20261029-01/REVIEW.json",
-      "sha256": "9f038b604d4c2483a933358a76d3b449721976af87cad813723c563fbfed2dab"
-    },
-    {
-      "path": "coordination/evidence/NAVF-20261029-01/FINDINGS.json",
-      "sha256": "f090be955f47bf480fa6a2218cda387626e493b42a45658031a74d6295f8d7aa"
-    },
-    {
-      "path": "coordination/evidence/NAVF-20261029-01/BUILD_PROOF.json",
-      "sha256": "da3511055f8744a4dc3aff2cdba7b05eacb6580b1307be724ba5b2c593abc972"
-    },
-    {
-      "path": "coordination/evidence/NAVF-20261029-01/REVIEW_2ba5.json",
-      "sha256": "52d3b2c7c4f41ca8738ed590fa2135e81a4ed5095aa34abc5c781d780b448040"
-    },
-    {
-      "path": "coordination/evidence/NAVF-20261029-01/FINDINGS_2ba5.json",
-      "sha256": "74d0771b4d27471308fdf646268fe18378e63eb86b8a648c00c533a3c5b187ab"
-    },
-    {
-      "path": "coordination/evidence/NAVF-20261029-01/BUILD_PROOF_2ba5.json",
-      "sha256": "42586208486a14d6cfa604d656290c54c105eca1400502696900a8a9042378f6"
-    },
     {
       "path": "coordination/evidence/NAVF-20261029-01/REVIEW_f7c9.json",
       "sha256": "68b05efb1466f2af5c9e27de210f6ae32f2aee2c9b6a9fa2694cc68d9b19bfc0"
     },
     {
-      "path": "coordination/evidence/NAVF-20261029-01/BUILD_PROOF_f7c9.json",
-      "sha256": "985bdba6b20dcebb2f78c54d8d5623cca2b06333a7eb8e3cf65e9381d8cfbf4f"
+      "path": "coordination/evidence/NAVF-20261029-01/FINAL_REVIEW.json",
+      "sha256": "84bd5a51878f2ec666ae67626fa5a5b21961c3dd8a59afbacf821add6c4fe700"
+    },
+    {
+      "path": "coordination/evidence/NAVF-20261029-01/BUILD_PROOF_7911.json",
+      "sha256": "6d8d6cb03d49628fcdc45ed00704c4280f8fa2165c045688bda80c3140a628dc"
+    },
+    {
+      "path": "coordination/evidence/NAVF-20261029-01/FINAL_SCREENSHOTS.json",
+      "sha256": "6cd86520a4f54238cebf24421bc5c27c076cbe9a0b9bc74fb46bafb5fe5db9e4"
+    },
+    {
+      "path": "coordination/evidence/NAVF-20261029-01/COPY_DELTA_REVIEW.json",
+      "sha256": "a4e4bfd5586ded7aa73932d951e8ba651930a53b49cf05cb6e848f2572a93d5c"
+    },
+    {
+      "path": "coordination/evidence/NAVF-20261029-01/FINAL_BUILD_PROOF.json",
+      "sha256": "a227f9768eeb037537426e1307891f64a2aad0a7c9f9323f73539a29fd93a704"
+    },
+    {
+      "path": "coordination/evidence/NAVF-20261029-01/COPY_DELTA_CLEANUP.json",
+      "sha256": "12ad00ed2e7515d8ac1fde672ca01865849877b2e6577efd3dd211857c178ea4"
+    },
+    {
+      "path": "coordination/evidence/NAVF-20261029-01/CLEANUP_7911.json",
+      "sha256": "5467cca91b8bb070b91a15f9ef15d157f3c1414f10b5b7943446d4c94480dd27"
     }
   ],
-  "nextAction": "Frontend IDLE. Root combines source/build and backend review; GUI native acceptance remains pending current authorization, source/build PASS is not release approval.",
-  "pendingMergeSha": "f7c9cee87e7c709b09f49e0d069b355c5cdfcf13",
+  "nextAction": "Frontend IDLE; root alone merges/releases/readbacks. No product edits/commit/deploy/agents by reviewer.",
+  "pendingMergeSha": "6ab66bdcd20b43dfd314917881342dcdcc165a9e",
   "deploy_owner": "coordinator",
   "releaseReady": false,
-  "updatedAt": "2026-10-29T22:22:30.270165+08:00",
-  "acceptanceScope": "OFFLINE_SOURCE_AND_BUILD_ONLY"
+  "updatedAt": "2026-10-30T09:43:39.444833+08:00",
+  "acceptanceScope": "Verified2 Note string delta6ab + inherited79165 native scenes +2 actual6ab screenshots",
+  "nativePermission": {
+    "questionItemId": "call_bff05f464a3f43c9b077e31905679da6:0",
+    "answer": "允许，仅本批隔离模拟器",
+    "scope": "NAV current batch isolated emulator install/click/screenshots with Android official debugging tools; no personal phone",
+    "receivedAt": "2026-10-30T01:02:19.952378+00:00"
+  }
 }
