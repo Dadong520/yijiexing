@@ -1,0 +1,49 @@
+{
+  "sourceSha": "55d2d8782a5c041b415c497c66d6576500048e3d",
+  "parentSha": "830aa80883d27cd6e518e12e249efc8695129284",
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-cloud-navigation-review-20261029",
+  "externalRoot": "/Users/dongge/.codex/tmp/yijiexing-navf-20261029",
+  "roles": {
+    "passenger": {
+      "command": "JAVA_HOME=/opt/homebrew/opt/openjdk@17/libexec/openjdk.jdk/Contents/Home ANDROID_HOME=/opt/homebrew/share/android-commandlinetools bash gradlew --offline --no-daemon --max-workers=2 -I /Users/dongge/.codex/tmp/yijiexing-navf-20261029/scripts/offline.init.gradle testDebugUnitTest assembleDebug",
+      "cwd": "/Users/dongge/.codex/tmp/yijiexing-navf-20261029/source/apps/passenger-android",
+      "exitCode": 0,
+      "status": "PASS",
+      "tests": 31,
+      "failures": 0,
+      "errors": 0,
+      "sourceTrackedFiles": 102,
+      "sourceMismatches": [],
+      "sourceTree": "84e0e2523f6d83368d0d508c28fb4796f6a5ed10",
+      "apk": "/Users/dongge/.codex/tmp/yijiexing-navf-20261029/source/apps/passenger-android/app/build/outputs/apk/debug/app-debug.apk",
+      "bytes": 107172217,
+      "sha256": "fad6f62a4090e9f11b3f0b10bf5290a861c9f4aca6dc2bc49a1b4def89739d3a",
+      "packageVersionLine": "package: name='cn.hbzjhs.dc.passenger.cloud' versionCode='19' versionName='1.1.17-experience' platformBuildVersionName='14' platformBuildVersionCode='34' compileSdkVersion='34' compileSdkVersionCodename='14'",
+      "aaptExit": 0,
+      "apksignerExit": 0,
+      "sameOriginalSigner": true,
+      "log": "coordination/evidence/NAVF-20261029-01/passenger-build.log"
+    },
+    "driver": {
+      "command": "JAVA_HOME=/opt/homebrew/opt/openjdk@17/libexec/openjdk.jdk/Contents/Home ANDROID_HOME=/opt/homebrew/share/android-commandlinetools bash gradlew --offline --no-daemon --max-workers=2 -I /Users/dongge/.codex/tmp/yijiexing-navf-20261029/scripts/offline.init.gradle testDebugUnitTest assembleDebug",
+      "cwd": "/Users/dongge/.codex/tmp/yijiexing-navf-20261029/source/candidates/driver-0.3.6-r2/android",
+      "exitCode": 0,
+      "status": "PASS",
+      "tests": 70,
+      "failures": 0,
+      "errors": 0,
+      "sourceTrackedFiles": 66,
+      "sourceMismatches": [],
+      "sourceTree": "373febf58b661051333ffd08fdb16de15b550467",
+      "apk": "/Users/dongge/.codex/tmp/yijiexing-navf-20261029/source/candidates/driver-0.3.6-r2/android/app/build/outputs/apk/debug/app-debug.apk",
+      "bytes": 108669573,
+      "sha256": "273899ca66bb390e6b627be1f84401922db94eff5d5bc553c04050af884368e9",
+      "packageVersionLine": "package: name='cn.hbzjhs.dc.driver.cloud' versionCode='19' versionName='0.3.16-cloud' platformBuildVersionName='14' platformBuildVersionCode='34' compileSdkVersion='34' compileSdkVersionCodename='14'",
+      "aaptExit": 0,
+      "apksignerExit": 0,
+      "sameOriginalSigner": true,
+      "log": "coordination/evidence/NAVF-20261029-01/driver-build.log"
+    }
+  },
+  "gui": "NOT_RUN; authorization pending; no emulator/ADB/fixture started"
+}

@@ -423,6 +423,8 @@ fun OrderDetail(o: JSONObject, store: PassengerStore, busy: Boolean, onHome: () 
     }
     Spacer(Modifier.height(10.dp))
   }
+  // Block/pay/driver-choice confirmations keep app-wide popups waiting until they close.
+  PassengerModalSlot(dialog.isNotEmpty() || choose != null)
   if (dialog == "block")
     AlertDialog(
       onDismissRequest = { dialog = "" },

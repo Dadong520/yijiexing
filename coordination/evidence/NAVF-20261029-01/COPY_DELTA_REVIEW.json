@@ -1,0 +1,105 @@
+{
+  "taskId": "NAVF-20261029-01",
+  "at": "2026-10-30T09:43:39.444833+08:00",
+  "reviewer": "frontend 01a182c6-c475-7110-bbae-0deafe6d2385 non-author",
+  "sourceSha": "6ab66bdcd20b43dfd314917881342dcdcc165a9e",
+  "parentSha": "7911a6fb13804cb4ae242995de4af60a0b189c34",
+  "acceptance": "PASS",
+  "scope": "Two passenger disclosure Note strings only; independent original package build/scan, QA login/profile visual delta; original65 scenarios not rerun or relabelled",
+  "deltaValidation": {
+    "files": [
+      "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/MainActivity.kt:613",
+      "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/ProfileScreens.kt:144"
+    ],
+    "method": "Git diff exactly2 files, each same line count and exactly1 changed line; characters outside quoted string equal; no layout/logic/version changes. COPY_DELTA.diff retained.",
+    "driver": "Complete driver subtree unchanged791->6ab; original20APK/hash and77 actual tests inherited",
+    "backend": "Complete apps/cloud-service tree unchanged; narrow GUI uses existing791 exported backend/local synthetic DB, no product edits."
+  },
+  "wordingReview": {
+    "status": "PASS",
+    "observed": [
+      "Location explicitly requires device permission; search/reverse depend on available services; navigation opens external map application. Does not claim provider authentication or actual GPS/route success.",
+      "Payments/refunds/invoices remain simulation with no actual deduction/funds/valid voucher. SMS/phone relay/OEM offline push/live support limits remain.",
+      "Old assertion that automatic location is unconnected removed from both target notes; new text fully readable after scrolling and does not clip."
+    ],
+    "findingClosed": "Prior791 nonblockingP3 capability note"
+  },
+  "build": {
+    "proof": "FINAL_BUILD_PROOF.json",
+    "historical791Proof": "BUILD_PROOF_7911.json",
+    "passenger": {
+      "actualBuildSha": "6ab66bdcd20b43dfd314917881342dcdcc165a9e",
+      "originalAssemble": "exit0 in76s",
+      "qaAssemble": "exit0 in63s",
+      "sha256": "aa696a485a5e10d7c1cf3d7c2eeb7ecc82f1e185359f047ff9106756e29b2bd9",
+      "apk": "/Users/dongge/.codex/tmp/yijiexing-navf-copy-6ab-20261030/source/apps/passenger-android/app/build/outputs/apk/debug/app-debug.apk",
+      "packageVersionLine": "package: name='cn.hbzjhs.dc.passenger.cloud' versionCode='20' versionName='1.1.18-experience' platformBuildVersionName='14' platformBuildVersionCode='34' compileSdkVersion='34' compileSdkVersionCodename='14'",
+      "originalSigner": true,
+      "privateExactMatches": 0,
+      "originalHttpsPresent": true,
+      "unitTests": "54 from actualf7; unit test files equal, unique later production deltas only version constants and target2 Note strings; no rerun/new tests claimed"
+    },
+    "driver": {
+      "actualBuildSha": "7911a6fb13804cb4ae242995de4af60a0b189c34",
+      "inheritedBuild": true,
+      "sameCompleteSourceTree": true,
+      "sha256": "4a346bc4600e84a9ab0a39285ce6c70e9d292c9a9404458d03b8b12fb7b91af6",
+      "unitTests": 77,
+      "testBuildSha": "2ba5b79f1113b0de9ec105a2733fc8a4a9e9ffe0"
+    }
+  },
+  "visualDelta": {
+    "status": "PASS",
+    "screenshots": [
+      {
+        "name": "c11-login-copy-final",
+        "sourceSha": "6ab66bdcd20b43dfd314917881342dcdcc165a9e",
+        "meaning": "Login disclosure scrolled fully visible, actual native QA6ab, synthetic account selection only",
+        "files": {
+          "png": {
+            "path": "coordination/evidence/NAVF-20261029-01/copy-delta/c11-login-copy-final.png",
+            "sha256": "20a901c65f5057086ad8bea12d80637a580e1ed2ff426fcea1dcc3d8fb5d6294"
+          },
+          "xml": {
+            "path": "coordination/evidence/NAVF-20261029-01/copy-delta/c11-login-copy-final.xml",
+            "sha256": "9b0a8d00a517899a19fa7e5f5cb3680fc3c6943535366eb5b1db843397e279ef"
+          }
+        }
+      },
+      {
+        "name": "c08-profile-copy-final",
+        "sourceSha": "6ab66bdcd20b43dfd314917881342dcdcc165a9e",
+        "meaning": "Profile disclosure scrolled fully visible, actual native QA6ab, synthetic passenger02 local account",
+        "files": {
+          "png": {
+            "path": "coordination/evidence/NAVF-20261029-01/copy-delta/c08-profile-copy-final.png",
+            "sha256": "0b120d5dec204ccd5e7af7fc1e58f891715c981ce5652e7b588d2271b92c8d68"
+          },
+          "xml": {
+            "path": "coordination/evidence/NAVF-20261029-01/copy-delta/c08-profile-copy-final.xml",
+            "sha256": "2927aacf951337e17d0697cc6f8a686ab76dfcb6e4f1aae0edd49d83578591f7"
+          }
+        }
+      }
+    ],
+    "device": "Same authorized NAV batch, isolated Android34 ARM AVDF5586 1080x2400 density440/font1.0; no personal device",
+    "qaDiff": "QA applicationId+localHTTPS+debugCA only, no Kotlin edits",
+    "harness": "Initial automation null-root before first composition settled; discarded, recaptured. Login first unscrolled capture cut Note, not used; final scrolled capture fully visible."
+  },
+  "historicalNativeEvidence": {
+    "sourceSha": "7911a6fb13804cb4ae242995de4af60a0b189c34",
+    "count": 65,
+    "index": "FINAL_SCREENSHOTS.json",
+    "indexSha256Unchanged": "6cd86520a4f54238cebf24421bc5c27c076cbe9a0b9bc74fb46bafb5fe5db9e4",
+    "review": "FINAL_REVIEW.json (historical791 review includes originalP3 now closed by this delta)",
+    "proof": "BUILD_PROOF_7911.json",
+    "instruction": "Do not interpret historical65 as recaptured6ab. Current candidate accepted by verified string-only delta plus two new6ab screenshots."
+  },
+  "notRun": [
+    "65 original interaction scenes not rerun because no interaction/layout changes",
+    "Actual AMap/provider/OEM/personal phone/real funds remainNOT_RUN; all prior limits and BIZ09 ack-before-render boundary remain"
+  ],
+  "cleanup": "COPY_DELTA_CLEANUP.json/CLEANUP.json final readback follows",
+  "nextAction": "Frontend IDLE; root alone merges/releases/readbacks. No product edits/commit/deploy/agents by reviewer.",
+  "releaseReady": false
+}

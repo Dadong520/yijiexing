@@ -1,0 +1,17 @@
+{
+  "sourceSha": "7911a6fb13804cb4ae242995de4af60a0b189c34",
+  "checks": {
+    "passenger": {
+      "sourceTreeBound": true,
+      "artifactHashBound": true,
+      "qaProductKotlinEdits": false
+    },
+    "driver": {
+      "sourceTreeBound": true,
+      "artifactHashBound": true,
+      "qaProductKotlinEdits": false
+    }
+  },
+  "nativeAcceptance": "PENDING_FINAL_REPORT",
+  "released": false
+}

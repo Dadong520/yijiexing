@@ -1,0 +1,87 @@
+{
+  "taskId": "NAVB-20261029-01",
+  "candidateSha": "55d2d8782a5c041b415c497c66d6576500048e3d",
+  "baseSha": "830aa80883d27cd6e518e12e249efc8695129284",
+  "reviewerThreadId": "01a182c6-c058-76e1-9584-38abfe813799",
+  "reviewedAt": "2026-10-29T21:37:11+08:00",
+  "acceptance": "FAIL",
+  "findings": [
+    {
+      "id": "NAVB-01",
+      "priority": "P1",
+      "file": "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/PassengerConfirmPrompts.kt",
+      "line": 91,
+      "problem": "Closing or submitting one distance consent suppresses all pending distance consents, including other orders, before any request succeeds.",
+      "scenario": "orders A/DC1 and B/DC2 pending; tap A agree/reject/later -> handled includes both distance:DC1 and distance:DC2. If A POST fails, A is also permanently hidden for this composition; B was never presented.",
+      "minimumFix": "Only mark current account/order/consent key, only after successful done for approve/reject. Later should defer only current prompt, never silently consume other orders. Keep failure visible/retryable."
+    },
+    {
+      "id": "NAVB-02",
+      "priority": "P2",
+      "file": "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/PassengerConfirmPrompts.kt",
+      "line": 81,
+      "problem": "Saved handled keys are not scoped/reset by account.",
+      "scenario": "handledText rememberSaveable remains mounted across logged false return and login; account A suppression keys carry into B, and back into A. This is inconsistent with account-specific draft/announcement state; consent key lacks order/account identity.",
+      "minimumFix": "Key saved state to passenger owner (and order/consent identity), reset on account change/logout; do not reuse another account handled set."
+    },
+    {
+      "id": "NAVB-03",
+      "priority": "P2",
+      "file": "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/BookingScreens.kt",
+      "line": 91,
+      "problem": "GPS auto-fill consumes cached position without consumer freshness/quality checks and never replaces the first coarse fix.",
+      "scenario": "PositionBus retains a nonnull older fix. Draft opened later copies it regardless fix.time; accuracy has only provider >0 check (arbitrarily coarse allowed). originFromGps=true then blocks better updates; effect keyed on position!=null never observes new nonnull fix. Automatic label suggests current phone pickup.",
+      "minimumFix": "Use full fix identity/timestamp and explicit finite/range/accuracy/freshness guard at use, allow fresher/better updates until manual confirmation, preserve originTouched; recheck before async reverse result. Do not treat originFromGps as permanent lock."
+    },
+    {
+      "id": "NAVB-04",
+      "priority": "P2",
+      "file": "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/NativeMap.kt",
+      "line": 402,
+      "problem": "Automatic navigation checks resulting stage only, not an actual stage transition or unique leg.",
+      "scenario": "TRIP finish when distance gate needs passenger consent: backend gate_shared_advance returns success with same TRIP + PENDING. perform.done calls navigateForNewLeg; it sees TRIP and opens external navigation again though no new leg began. Retrying same consent repeats launch.",
+      "minimumFix": "Pass expected prior stage and verify successful target transition, e.g. RESERVED->PICKUP or ARRIVED->TRIP, plus account/order/leg dedupe; no navigation for unchanged-stage consent request or idempotent replay."
+    },
+    {
+      "id": "NAVB-05",
+      "priority": "P2",
+      "file": "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/PassengerConfirmPrompts.kt",
+      "line": 28,
+      "problem": "Expiry depends only on incidental recomposition; malformed/missing expiry is treated unexpired.",
+      "scenario": "Displayed pending prompt can remain approve-enabled after expiresAt passes while refresh offline. close() hides it then backend rejects as expired. Existing check covers initial status/stage but no action-time freshness/current-consent validation.",
+      "minimumFix": "Validate current order/consent/account/stage/expiry at click, fail closed for invalid expiry, drive expiry update or dismiss/refresh without answering; preserve backend authoritative validation."
+    }
+  ],
+  "protectedObjectsIdentical": {
+    "apps/cloud-service": true,
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/PassengerStore.kt": true,
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/ConnectedStore.kt": true,
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/NavigationContract.kt": true
+  },
+  "passed": [
+    "Financial prompts only call openOrder, no payment/quote/continue auto actions. Simulated payment text explicit.",
+    "Existing Store session generation/request epoch callbacks prevent stale account actions; new prompt local state issue separate.",
+    "Booking draft already key(owner), manual confirm/recent/swap originTouched protects async GPS completion once selected; WGS84 forward/reverse conversion path reused.",
+    "NavigationContract unchanged: PICKUP target origin, TRIP next pending waypoint then destination; existing stage target correct when actual transition occurs."
+  ],
+  "validation": "Read exact candidate and parent Git diff, source-call chains and protected object equality. No new broad backend/Gradle/runtime/cloud tests.",
+  "scenarios": {
+    "batchHandledSourceEvaluation": {
+      "input": [
+        "distance:DC1",
+        "distance:DC2"
+      ],
+      "closeFirstAdds": [
+        "distance:DC1",
+        "distance:DC2"
+      ],
+      "result": "Other request suppressed; failure also remains handled"
+    },
+    "unchangedTripSuccess": "gate_shared_advance can create/reuse PENDING and return without stage mutation; done still runs; navigateForNewLeg sees TRIP -> launches"
+  },
+  "notRun": [
+    "Actual app/runtime UI, provider GPS, cloud POST and deployment NOT_RUN",
+    "No private credentials/raw logs read"
+  ],
+  "nextAction": "Root dispatch minimal author fixes and focused regressions, supply repaired exact SHA for delta review; live code19 unchanged"
+}

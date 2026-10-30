@@ -1,0 +1,112 @@
+{
+  "schemaVersion": 1,
+  "id": "NAVF-20261029-01",
+  "owner": "frontend",
+  "goal": "已获本批隔离模拟器授权，独立验收NAV准确源码原生交互与布局，构建原签名code20候选",
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-cloud-navigation-review-20261029",
+  "branch": "codex/cloud-navigation-review-20261029",
+  "baseSha": "830aa80883d27cd6e518e12e249efc8695129284",
+  "candidateSha": "6ab66bdcd20b43dfd314917881342dcdcc165a9e",
+  "allow_paths": [
+    "coordination/tasks/NAVF-20261029-01.json",
+    "coordination/handoffs/frontend.md",
+    "coordination/evidence/NAVF-20261029-01/"
+  ],
+  "checks": [
+    "Exact current frozen SHA export to fresh external source; reuse SDK/JDK/offline init only; inherit only byte-identical complete source subtree evidence",
+    "Run both unit/build once and report actual commands/proof; no product edits or cloud business writes",
+    "Review shared UI regression: hall map height/small screens/largefont, wallet collapse, prompt modal ordering, GPS/search coroutine state and navigation intents",
+    "User explicitly authorized this NAV batch official Android tools on isolated emulator only; no personal devices. Record QA source/artifact binding and cleanup.",
+    "Report concrete findings and build status; actual provider/OEM not claimed; no agents/deploy"
+  ],
+  "status": "COPY_DELTA_REVIEW_COMPLETE",
+  "acceptance": "PASS",
+  "tests": [
+    {
+      "command": "Historical55/2ba independent review repairs",
+      "status": "FAIL_THEN_PASS",
+      "evidence": "REVIEW.json,REVIEW_2ba5.json,REVIEW_f7c9.json; original failures retained"
+    },
+    {
+      "command": "f7 actual passenger54 unit,2ba actual driver77 unit; entire app/src identical to791",
+      "status": "PASS_INHERITED",
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "command": "Exact791 original two assembleDebug plus separate QA build; aapt/apksigner/4private-values scan and byte binding",
+      "status": "PASS",
+      "evidence": "FINAL_BUILD_PROOF.json"
+    },
+    {
+      "command": "Official SDK isolated AVD5586 actual seven native groups;65 selected PNG/XML pairs;4capturedIntents",
+      "status": "PASS_SCOPED",
+      "evidence": "FINAL_REVIEW.json/FINAL_SCREENSHOTS.json"
+    },
+    {
+      "command": "Actual AMap/real device/OEM/provider race permutations",
+      "status": "NOT_RUN",
+      "reason": "No credentials/provider/personal device; exact exclusions in FINAL_REVIEW"
+    },
+    {
+      "command": "Stop fixtures/emulators; remove reverse; empty adb/listeners readback",
+      "status": "PASS"
+    },
+    {
+      "command": "python3 tools/check_coordination.py --memory-role frontend --session-id 01a182c6-c475-7110-bbae-0deafe6d2385",
+      "status": "PASS",
+      "exitCode": 0
+    },
+    {
+      "command": "6ab exactly2string delta, passenger original+QAassemble/scan/binding, driver entire tree inherit, login/profile2actualscreens",
+      "status": "PASS",
+      "evidence": "COPY_DELTA_REVIEW.json/FINAL_BUILD_PROOF.json"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "coordination/evidence/NAVF-20261029-01/REVIEW_f7c9.json",
+      "sha256": "68b05efb1466f2af5c9e27de210f6ae32f2aee2c9b6a9fa2694cc68d9b19bfc0"
+    },
+    {
+      "path": "coordination/evidence/NAVF-20261029-01/FINAL_REVIEW.json",
+      "sha256": "84bd5a51878f2ec666ae67626fa5a5b21961c3dd8a59afbacf821add6c4fe700"
+    },
+    {
+      "path": "coordination/evidence/NAVF-20261029-01/BUILD_PROOF_7911.json",
+      "sha256": "6d8d6cb03d49628fcdc45ed00704c4280f8fa2165c045688bda80c3140a628dc"
+    },
+    {
+      "path": "coordination/evidence/NAVF-20261029-01/FINAL_SCREENSHOTS.json",
+      "sha256": "6cd86520a4f54238cebf24421bc5c27c076cbe9a0b9bc74fb46bafb5fe5db9e4"
+    },
+    {
+      "path": "coordination/evidence/NAVF-20261029-01/COPY_DELTA_REVIEW.json",
+      "sha256": "a4e4bfd5586ded7aa73932d951e8ba651930a53b49cf05cb6e848f2572a93d5c"
+    },
+    {
+      "path": "coordination/evidence/NAVF-20261029-01/FINAL_BUILD_PROOF.json",
+      "sha256": "a227f9768eeb037537426e1307891f64a2aad0a7c9f9323f73539a29fd93a704"
+    },
+    {
+      "path": "coordination/evidence/NAVF-20261029-01/COPY_DELTA_CLEANUP.json",
+      "sha256": "12ad00ed2e7515d8ac1fde672ca01865849877b2e6577efd3dd211857c178ea4"
+    },
+    {
+      "path": "coordination/evidence/NAVF-20261029-01/CLEANUP_7911.json",
+      "sha256": "5467cca91b8bb070b91a15f9ef15d157f3c1414f10b5b7943446d4c94480dd27"
+    }
+  ],
+  "nextAction": "Frontend IDLE; root alone merges/releases/readbacks. No product edits/commit/deploy/agents by reviewer.",
+  "pendingMergeSha": "6ab66bdcd20b43dfd314917881342dcdcc165a9e",
+  "deploy_owner": "coordinator",
+  "releaseReady": false,
+  "updatedAt": "2026-10-30T09:43:39.444833+08:00",
+  "acceptanceScope": "Verified2 Note string delta6ab + inherited79165 native scenes +2 actual6ab screenshots",
+  "nativePermission": {
+    "questionItemId": "call_bff05f464a3f43c9b077e31905679da6:0",
+    "answer": "允许，仅本批隔离模拟器",
+    "scope": "NAV current batch isolated emulator install/click/screenshots with Android official debugging tools; no personal phone",
+    "receivedAt": "2026-10-30T01:02:19.952378+00:00"
+  }
+}

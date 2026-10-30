@@ -1,0 +1,18 @@
+{
+  "sha": "f7c9cee87e7c709b09f49e0d069b355c5cdfcf13",
+  "parent": "2ba5b79f1113b0de9ec105a2733fc8a4a9e9ffe0",
+  "files": [
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/BookingScreens.kt",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/MainActivity.kt",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/OperationsSupport.kt",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/PassengerConfirmPrompts.kt",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/PassengerModalCoordinator.kt",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/PassengerPermissions.kt",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/PassengerPickupDefaults.kt",
+    "apps/passenger-android/app/src/test/java/cn/hbzjhs/passenger/PassengerConfirmPromptRulesTest.kt",
+    "apps/passenger-android/app/src/test/java/cn/hbzjhs/passenger/PassengerPickupDefaultsTest.kt"
+  ],
+  "privateValuesHits": 0,
+  "authorTests": "NOT_RUN",
+  "releaseReady": false
+}

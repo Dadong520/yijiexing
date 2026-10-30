@@ -175,6 +175,7 @@ fun PassengerModal(
   confirmColor: Color = Teal,
   content: @Composable ColumnScope.() -> Unit,
 ) {
+  PassengerModalSlot()
   Dialog(
     onDismissRequest = onDismiss,
     properties = DialogProperties(usePlatformDefaultWidth = false, decorFitsSystemWindows = false),

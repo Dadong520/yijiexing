@@ -1,0 +1,51 @@
+{
+  "sourceSha": "2ba5b79f1113b0de9ec105a2733fc8a4a9e9ffe0",
+  "findings": [
+    {
+      "id": "NAVF-R1",
+      "original": "NAVF-F1",
+      "priority": "P2",
+      "status": "OPEN_PARTIAL_REPAIR",
+      "title": "公告请求回调与实际Dialog仍未受modal互斥约束",
+      "file": "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/OperationsSupport.kt",
+      "line": 87,
+      "lines": [
+        79,
+        84,
+        87,
+        95,
+        100
+      ],
+      "trigger": "无其他模态时启动公告claim，在响应回来前打开地址/设置/其他子页Dialog；或公告已显示时打开新的子模态。",
+      "evidence": "blocked只限制claim前置条件。claimAnnouncement在PassengerStore.run/ViewModel作用域内发送ack，LaunchedEffect因blocked取消不会取消它；回调仍直接showing=captured或failed=true。实际showing/failed AlertDialog没有blocked判断。",
+      "impact": "公告可压在新开的子界面上/被子界面遮住；服务端BIZ09 firstDisplay已消费，修复未达成不叠层和可靠展示目标。",
+      "repair": "单一可抢占/排队modal owner或在投递/显示阶段重新协调；已领取的captured公告需保留到可见时，不丢弃、不再重复ack。",
+      "additionalGap": "权限初次自动引导也未注册：MainActivity仅PassengerModalSlot(showPermissionGuide)，但PassengerPermissions实际shouldShow=forceOpen||!seenGuide。应由实际shouldShow注册。",
+      "validation": "STATIC_CONFIRMED; root定向疑点核实；GUI NOT_RUN"
+    },
+    {
+      "id": "NAVF-R2",
+      "original": "NAVF-F4",
+      "priority": "P2",
+      "status": "OPEN_DEBOUNCE_GAP",
+      "title": "400ms等待中的文字搜索没有捕获取消代次，手动操作后仍可启动",
+      "file": "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/BookingScreens.kt",
+      "line": 636,
+      "lines": [
+        568,
+        570,
+        633,
+        636,
+        637,
+        639,
+        697,
+        698
+      ],
+      "trigger": "输入查询后400ms内修改高级手动坐标；或点击名称恰好等于当前查询的常用地点，保持name/typedQuery不变。",
+      "evidence": "cancelSearch只invalidate gate/取消地图searchJob，typedQuery和retryTick不变。LaunchedEffect在delay前没捕获gate token，delay后只比name/typedQuery，再cancelSearch和gate.next重新取得归属；已被手动操作废弃的等待任务仍启动网络请求、置searching并发布结果/错误。",
+      "impact": "手动/常用选择后又出现旧搜索与进度，可能暂时禁用使用此地点；“手动填写不会查询地点”不成立。已运行请求的迟到写入被gate解决，等待阶段仍漏。",
+      "repair": "把400ms等待也纳入job/generation，等待前捕获token并在等待后验证；或在所有手动/选择路径清空typedQuery并取消整个effect。原有同query retry保留。",
+      "validation": "STATIC_CONFIRMED asynchronous control-flow; GUI/provider NOT_RUN"
+    }
+  ]
+}

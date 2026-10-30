@@ -117,7 +117,9 @@ fun PassengerApp(
   var selected by rememberSaveable { mutableStateOf("") }
   var settings by remember { mutableStateOf(false) }
   var showPermissionGuide by rememberSaveable { mutableStateOf(false) }
+  // The guide registers its own modal slot from its real show condition (forced or first run).
   PassengerPermissions(showPermissionGuide) { showPermissionGuide = false }
+  PassengerModalSlot(settings)
   PassengerTripLocationReporter(state, logged, store)
   val lifecycle = LocalLifecycleOwner.current
   LaunchedEffect(logged, incomingCode) {
@@ -308,6 +310,10 @@ fun PassengerApp(
     }
   }
   PassengerAnnouncements(state, store, logged)
+  PassengerConfirmPrompts(state, store, logged, busy, openOrderId = selected) {
+    selected = it
+    page = "home"
+  }
   if (settings) SettingsDialog(store, configured) { settings = false }
 }
 
@@ -604,7 +610,7 @@ fun LoginScreen(store: PassengerStore, configured: Boolean, settings: () -> Unit
         )
         Spacer(Modifier.height(6.dp))
         Note(
-          "本应用用于独立演示环境验证。订单真实保存并同步到司机端；付款、退款和发票均为模拟，不发生真实扣款。请使用合成资料，不填写真实身份信息。未接道路导航、自动定位、短信、电话中继、推送或实时人工客服；退出登录会移除本机体验状态，云端订单记录保留。"
+          "本应用用于独立演示环境验证。订单真实保存并同步到司机端；付款、退款和发票均为模拟，不发生真实扣款。请使用合成资料，不填写真实身份信息。定位需设备授权；地点搜索与逆地理依赖可用服务，导航通过外部地图应用打开。短信、电话中继、厂商离线推送及实时人工客服未接入；退出登录会移除本机体验状态，云端订单记录保留。"
         )
       }
       Spacer(Modifier.height(16.dp))

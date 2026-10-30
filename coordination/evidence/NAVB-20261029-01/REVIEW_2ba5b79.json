@@ -1,0 +1,78 @@
+{
+  "taskId": "NAVB-20261029-01",
+  "candidateSha": "2ba5b79f1113b0de9ec105a2733fc8a4a9e9ffe0",
+  "baseSha": "830aa80883d27cd6e518e12e249efc8695129284",
+  "previousRejectedSha": "55d2d8782a5c041b415c497c66d6576500048e3d",
+  "reviewerThreadId": "01a182c6-c058-76e1-9584-38abfe813799",
+  "reviewedAt": "2026-10-29T22:13:21+08:00",
+  "acceptance": "PASS",
+  "scope": "Independent business-semantic source re-review only; not full build/device/release acceptance",
+  "historicalFailure": "REVIEW.json preserved unchanged",
+  "sourceObservation": {
+    "head": "2ba5b79f1113b0de9ec105a2733fc8a4a9e9ffe0",
+    "initialStatusShort": "",
+    "branch": "codex/cloud-navigation-review-20261029"
+  },
+  "protectedObjectsIdentical": {
+    "apps/cloud-service": true,
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/PassengerStore.kt": true,
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/ConnectedStore.kt": true,
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/NavigationContract.kt": true
+  },
+  "reviewedFileHashes": {
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/PassengerConfirmPrompts.kt": "c6677b53ff2b9ee304af97eef0cf266799cabfc440bac038c0a628ba92b6d0b3",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/PassengerConfirmPromptRules.kt": "c0bd642d0883306761c79e01979315f89b6e6deede73a3cbf80433dfd01aeddb",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/PassengerPickupDefaults.kt": "beb7bc4869200916ebd443301357375a91c6095d3823889b750edf0dfe0f4cfa",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/BookingScreens.kt": "1ec6fc0e0a88f286013a6adba780804c54ceb4f9165d5e10db3aa3f80b39b5e5",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/NavigationAutoRules.kt": "01feb2f40a0196e796b04b3fb3bb56963b50428ce117a7c3e1c91b9eec3fb814",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/NativeMap.kt": "b9b8fcc13dcea8bb66e800f18707a29fe9f89f0a9d8354f7096d7696cce89c4e",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/CoreScreens.kt": "030a37829bf956f83c8767b1f6993f6ef4ea58bef543114bb3cbfe597a55351e",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/MainActivity.kt": "d80b4e79ed101268f1e7f91ed5e79df465a902f2651e4648de98d8267304c4e7"
+  },
+  "closedFindings": [
+    {
+      "id": "NAVB-01",
+      "result": "PASS",
+      "reason": "settle now only one account/order/question key; agree/reject settle only Store done. Busy/refusal/error does not settle; submitFailed releases pending flag and shows error. Later consumes only current prompt without POST."
+    },
+    {
+      "id": "NAVB-02",
+      "result": "PASS",
+      "reason": "Outer composition key(logged account or empty) + account-specific saved state and full prompt keys isolate accounts. Store callback retains original generation guard."
+    },
+    {
+      "id": "NAVB-03",
+      "result": "PASS",
+      "reason": "PickupFix checks finite/range/0<accuracy<=100m/-30s..120s freshness; replacement accepts fresher fix when applied stale or accuracy improves10m; full position effect observes fixes. Async lookup token covers owner/generation/fix and completion re-reads current Store owner, respects manual flag. Draft already key(owner); manual swap/history/editor save retain override."
+    },
+    {
+      "id": "NAVB-04",
+      "result": "PASS",
+      "reason": "isNewLeg allows only AVAILABLE/RESERVED->PICKUP and ARRIVED->TRIP; TRIP unchanged consent creation rejected. callbacks pass before stage; observer uses first complete connected account snapshot only as baseline for passenger-side boarding. Shared synchronized memory claim stores account/order/leg in SharedPreferences bounded200, blocks callback/observer duplicate/restart replay; manual NavigationContract unchanged."
+    },
+    {
+      "id": "NAVB-05",
+      "result": "PASS",
+      "reason": "Invalid/blank expiry fails closed, clock updates every1s, click reads latest Store order/consent/account/stage/status/expiry before POST; stale click refreshes without settlement."
+    }
+  ],
+  "additionalReview": [
+    "Financial prompts still only open existing detail and retain simulated payment text; no auto-pay/quote/continue.",
+    "Address lookups use generation ownership across typed search/map/manual actions; stale callbacks cannot overwrite newer request state. Account/manual guard for pickup remains separate.",
+    "Added tests cover rules/expiry/submit failure/scoped handling/GPS ownership and navigation transitions/persistence-list logic, source inspected only."
+  ],
+  "limitations": [
+    "Author no Bash: all author tests NOT_RUN, not treated as PASS.",
+    "Reviewer did not run Gradle/JUnit/UI/provider/cloud operations; frontend/source-build reviewer to execute focused tests and runtime cases.",
+    "SharedPreferences leg history is bounded200, not infinite dedupe; entries may age out by count. First synced snapshot intentionally does not auto-navigate.",
+    "Actual navigation application launch/provider GPS and composition scheduling require device acceptance; this source PASS does not replace those gates."
+  ],
+  "tests": [
+    {
+      "command": "Exact2ba5 vs55d2 source diff, protected Git-object equality to830, rule/callback/observer inspection",
+      "exitCode": 0,
+      "result": "PASS business-semantic source review; original5 findings closed"
+    }
+  ],
+  "nextAction": "Root combine frontend test/build/device gates; backend IDLE; no release action by reviewer"
+}

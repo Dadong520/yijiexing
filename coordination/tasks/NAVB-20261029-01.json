@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "id": "NAVB-20261029-01",
+  "owner": "backend",
+  "goal": "独立审查云端候选的确认弹窗、定位/导航与订单业务边界",
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-cloud-navigation-review-20261029",
+  "branch": "codex/cloud-navigation-review-20261029",
+  "baseSha": "830aa80883d27cd6e518e12e249efc8695129284",
+  "candidateSha": "f7c9cee87e7c709b09f49e0d069b355c5cdfcf13",
+  "allow_paths": [
+    "coordination/tasks/NAVB-20261029-01.json",
+    "coordination/handoffs/backend.md",
+    "coordination/evidence/NAVB-20261029-01/"
+  ],
+  "checks": [
+    "Inspect exact55d2 vs830; readonly source and own evidence only",
+    "Global prompts: key/account/consent identity, expectedStage/expiry/current state, duplicate handling, cancel/reject/later, failed request retry; never infer approve or hide other order requests",
+    "GPS freshness/accuracy/coordinate conversions/manual override/async account changes; search job cancellation/stale callback",
+    "Driver navigation only after actual successful target transition; no repeats on failed callbacks/retries, correct stop perstage; original NavigationContract unchanged",
+    "Financial prompts route to existing review pages, no auto pay/quote/continue; report concrete bugs with minimal fixes, no broad unchanged tests"
+  ],
+  "status": "SOURCE_SEMANTICS_PASS_WITH_STATED_LIMITS_IDLE",
+  "acceptance": "PASS",
+  "tests": [
+    {
+      "command": "Exact55d2 vs830 Git object comparison and read-only source/state-machine review",
+      "exitCode": 0,
+      "result": "Five actionable findings; no broad tests; protected objects identical"
+    },
+    {
+      "command": "Exact2ba5 vs55d2 source diff, protected Git-object equality to830, rule/callback/observer inspection",
+      "exitCode": 0,
+      "result": "PASS business-semantic source review; original5 findings closed"
+    },
+    {
+      "command": "Exact2ba5..f7c9 source and protected Git object comparisons; compare830 announcement + Store/server receipt chain",
+      "exitCode": 0,
+      "result": "PASS_WITH_STATED_LIMITS; no full test rerun"
+    }
+  ],
+  "evidence": [
+    "coordination/evidence/NAVB-20261029-01/REVIEW.json",
+    "coordination/evidence/NAVB-20261029-01/REVIEW_2ba5b79.json",
+    "coordination/evidence/NAVB-20261029-01/REVIEW_f7c9cee.json"
+  ],
+  "nextAction": "Root combine frontend regression/GUI gates; backend IDLE; live code19 unchanged",
+  "pendingMergeSha": "f7c9cee87e7c709b09f49e0d069b355c5cdfcf13",
+  "deploy_owner": "coordinator",
+  "releaseReady": false,
+  "updatedAt": "2026-10-29T22:21:03+08:00",
+  "acceptedSha": "f7c9cee87e7c709b09f49e0d069b355c5cdfcf13",
+  "reviewer": "backend"
+}

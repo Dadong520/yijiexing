@@ -1,0 +1,10 @@
+{
+  "source": "atomic current GCS media response; generation/MD5 bound to same response",
+  "generation": "1793323771057295",
+  "bytes": 7671808,
+  "sha256": "4fe86fb563b512753da662b511f44c405eab2e1d72b4a119afdc84619f4440fc",
+  "integrity": "ok",
+  "orderCount": 44,
+  "mode": "0600 private outside repository",
+  "transportEvents": []
+}

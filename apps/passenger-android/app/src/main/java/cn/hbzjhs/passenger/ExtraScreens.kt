@@ -51,6 +51,7 @@ fun RidersScreen(state: JSONObject, store: PassengerStore) {
     var name by remember(r) { mutableStateOf(r.text("name")) }
     var mobile by remember(r) { mutableStateOf(r.text("mobile")) }
     var isDefault by remember(r) { mutableStateOf(r.text("id").isNotBlank() && PassengerDefaults.id(state, "RIDER") == r.text("id")) }
+    PassengerModalSlot()
     AlertDialog(
       onDismissRequest = { edit = null },
       title = { Text("乘车人资料") },
@@ -107,6 +108,7 @@ fun InvoiceTitlesScreen(state: JSONObject, store: PassengerStore) {
     var tax by remember(t) { mutableStateOf(t.text("taxNumber")) }
     var email by remember(t) { mutableStateOf(t.text("email")) }
     var isDefault by remember(t) { mutableStateOf(t.text("id").isNotBlank() && PassengerDefaults.id(state, "INVOICE_TITLE") == t.text("id")) }
+    PassengerModalSlot()
     AlertDialog(
       onDismissRequest = { edit = null },
       title = { Text("编辑发票抬头") },
@@ -222,6 +224,7 @@ fun InvoicesScreen(state: JSONObject, store: PassengerStore) {
       }
     }
   }
+  PassengerModalSlot(confirm && selectedEligible)
   if (confirm && selectedEligible)
     AlertDialog(
       onDismissRequest = { confirm = false },

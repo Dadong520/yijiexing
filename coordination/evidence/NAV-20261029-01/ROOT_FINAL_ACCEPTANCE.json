@@ -1,0 +1,21 @@
+{
+  "at": "2026-10-30T01:45:14.374178+00:00",
+  "sourceSha": "6ab66bdcd20b43dfd314917881342dcdcc165a9e",
+  "acceptance": "PASS",
+  "scope": "Native synthetic/local NAV interactions plus exact2string copy delta; real provider/OEM/funds excluded",
+  "nativeBaseSha": "7911a6fb13804cb4ae242995de4af60a0b189c34",
+  "nativeScreenshots": 65,
+  "copyScreenshots": 2,
+  "frontendReview": "COPY_DELTA_REVIEW.json + FINAL_REVIEW.json",
+  "backendF7ReviewInheritedByProtectedObjectEquality": {
+    "apps/cloud-service": true,
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/PassengerStore.kt": true,
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/PassengerConfirmPromptRules.kt": true,
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/NavigationAutoRules.kt": true,
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/NavigationContract.kt": true
+  },
+  "artifactBindings": "Both app/src tree and original APK hash match current independent proof",
+  "cleanup": "PASS",
+  "releaseReady": false,
+  "reason": "Await exact integration head CI and merge, no distribution mutation yet"
+}

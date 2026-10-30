@@ -1,0 +1,26 @@
+diff --git a/apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/MainActivity.kt b/apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/MainActivity.kt
+index 47fca8d..09bd5cf 100644
+--- a/apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/MainActivity.kt
++++ b/apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/MainActivity.kt
+@@ -610,7 +610,7 @@ fun LoginScreen(store: PassengerStore, configured: Boolean, settings: () -> Unit
+         )
+         Spacer(Modifier.height(6.dp))
+         Note(
+-          "本应用用于独立演示环境验证。订单真实保存并同步到司机端；付款、退款和发票均为模拟，不发生真实扣款。请使用合成资料，不填写真实身份信息。未接道路导航、自动定位、短信、电话中继、推送或实时人工客服；退出登录会移除本机体验状态，云端订单记录保留。"
++          "本应用用于独立演示环境验证。订单真实保存并同步到司机端；付款、退款和发票均为模拟，不发生真实扣款。请使用合成资料，不填写真实身份信息。定位需设备授权；地点搜索与逆地理依赖可用服务，导航通过外部地图应用打开。短信、电话中继、厂商离线推送及实时人工客服未接入；退出登录会移除本机体验状态，云端订单记录保留。"
+         )
+       }
+       Spacer(Modifier.height(16.dp))
+diff --git a/apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/ProfileScreens.kt b/apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/ProfileScreens.kt
+index c9fd7f2..15654f5 100644
+--- a/apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/ProfileScreens.kt
++++ b/apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/ProfileScreens.kt
+@@ -141,7 +141,7 @@ fun ProfileScreen(
+       MenuRow("连接状态", Icons.Default.Settings, "网络异常时重试") { settings() }
+       HorizontalDivider(color = DividerTone, thickness = 0.8.dp)
+       Note("体验版 ${BuildConfig.VERSION_NAME}")
+-      Note("与司机端共用订单。支付、退款与发票均为模拟，不产生真实资金或凭证。地址搜索使用设备系统Geocoder；自动定位、道路导航、短信、电话中继及实时人工客服尚未接入；投诉支持后台查看和回复。")
++      Note("与司机端共用订单。支付、退款与发票均为模拟，不产生真实资金或凭证。定位需设备授权；地点搜索与逆地理依赖可用服务，导航通过外部地图应用打开。短信、电话中继及实时人工客服尚未接入；投诉支持后台查看和回复。")
+     }
+     OutlinedButton(
+       onClick = { logout = true },

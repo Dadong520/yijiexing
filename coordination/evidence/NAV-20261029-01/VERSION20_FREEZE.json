@@ -1,0 +1,24 @@
+{
+  "sourceSha": "7911a6fb13804cb4ae242995de4af60a0b189c34",
+  "parentSha": "097b1a6070d0022de5e30eff762c3b2b4063ad36",
+  "logicSourceSha": "f7c9cee87e7c709b09f49e0d069b355c5cdfcf13",
+  "delta": "Only two build.gradle version constants",
+  "versions": {
+    "passenger": {
+      "versionName": "1.1.18-experience",
+      "versionCode": 20
+    },
+    "driver": {
+      "versionName": "0.3.17-cloud",
+      "versionCode": 20
+    }
+  },
+  "ci": {
+    "headSha": "7911a6fb13804cb4ae242995de4af60a0b189c34",
+    "runId": 40983992678,
+    "conclusion": "success"
+  },
+  "nativeAcceptance": "IN_PROGRESS",
+  "released": false,
+  "at": "2026-10-30T01:10:47.926238+00:00"
+}

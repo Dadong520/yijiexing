@@ -1,0 +1,23 @@
+{
+  "input": "User pasted Claude cloud handoff; first CCUI section historical, not resumed",
+  "remoteBranch": "claude/driver-passenger-map-navigation-ui-g9h0sr",
+  "actualSha": "55d2d8782a5c041b415c497c66d6576500048e3d",
+  "actualParent": "830aa80883d27cd6e518e12e249efc8695129284",
+  "remoteAuthorSessionId": "UNKNOWN",
+  "localCliSessionNotCloud": "b23ffb33-b639-4295-8369-4925bdab9d87",
+  "authorBuildsAndDevice": "NOT_RUN per supplied cloud report",
+  "scope": [
+    "driver post-success auto navigation and persistent navigation button",
+    "passenger global confirmation prompts",
+    "GPS pickup default and400ms address search debounce",
+    "driver identity/map and compact wallet layouts"
+  ],
+  "rootPreliminaryFindings": [
+    "Prompt closes/marks handled before distanceConsent succeeds; failure retry needs review",
+    "Category-wide marking can suppress unrelated pending order reminders",
+    "GPS first nonnull fix lacks visible freshness/accuracy checks; async/cross-session overwrite guards need review",
+    "Search debounce cancellation and result staleness need review"
+  ],
+  "publishedVersionUnchanged": "passenger1.1.17/driver0.3.16 code19",
+  "avdAuthorization": "REQUEST_PENDING_NEW_BATCH"
+}

@@ -243,6 +243,8 @@ fun PassengerPermissions(
     }
 
     val shouldShow = forceOpen || !seenGuide
+    // UI-only: the guide (first automatic or opened from the top bar) keeps app-wide popups waiting.
+    PassengerModalSlot(shouldShow)
     if (!shouldShow) return
 
     val primaryGreen = Color(0xFF00796B)

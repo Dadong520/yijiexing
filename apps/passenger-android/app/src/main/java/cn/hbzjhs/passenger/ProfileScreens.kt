@@ -141,7 +141,7 @@ fun ProfileScreen(
       MenuRow("连接状态", Icons.Default.Settings, "网络异常时重试") { settings() }
       HorizontalDivider(color = DividerTone, thickness = 0.8.dp)
       Note("体验版 ${BuildConfig.VERSION_NAME}")
-      Note("与司机端共用订单。支付、退款与发票均为模拟，不产生真实资金或凭证。地址搜索使用设备系统Geocoder；自动定位、道路导航、短信、电话中继及实时人工客服尚未接入；投诉支持后台查看和回复。")
+      Note("与司机端共用订单。支付、退款与发票均为模拟，不产生真实资金或凭证。定位需设备授权；地点搜索与逆地理依赖可用服务，导航通过外部地图应用打开。短信、电话中继及实时人工客服尚未接入；投诉支持后台查看和回复。")
     }
     OutlinedButton(
       onClick = { logout = true },
@@ -186,6 +186,7 @@ fun ProfileScreen(
       }
       Note("区域开通范围由云端控制；存在进行中的订单时不能切换城市。地点坐标需自行选择到对应城市。")
     }
+  PassengerModalSlot(logout)
   if (logout)
     AlertDialog(
       onDismissRequest = { logout = false },
@@ -238,6 +239,7 @@ fun FavoritesScreen(state: JSONObject, store: PassengerStore) {
       }
     var error by remember { mutableStateOf("") }
     var isDefault by remember(f) { mutableStateOf(PassengerDefaults.id(state, "FAVORITE") == f.text("id") && f.text("id").isNotBlank()) }
+    PassengerModalSlot()
     AlertDialog(
       onDismissRequest = { edit = null },
       title = { Text("保存常用地址") },
@@ -400,6 +402,7 @@ fun HelpScreen(state: JSONObject, store: PassengerStore) {
 
 @Composable
 fun DeleteDialog(title: String, close: () -> Unit, remove: () -> Unit) {
+  PassengerModalSlot()
   AlertDialog(
     onDismissRequest = close,
     title = { Text(title) },

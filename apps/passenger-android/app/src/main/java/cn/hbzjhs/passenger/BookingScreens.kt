@@ -34,6 +34,7 @@ import java.time.LocalDateTime
 import java.time.ZoneId
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import org.json.JSONArray
@@ -49,20 +50,23 @@ fun BookingScreen(
   openOrder: (String) -> Unit,
 ) {
   val owner = state.optJSONObject("passenger")?.text("id").orEmpty()
-  key(owner) { PassengerBookingDraft(state, store, busy, onNegotiation, openOrder) }
+  key(owner) { PassengerBookingDraft(owner, state, store, busy, onNegotiation, openOrder) }
 }
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-private fun PassengerBookingDraft(state: JSONObject, store: PassengerStore, busy: Boolean, onNegotiation: () -> Unit, openOrder: (String) -> Unit) {
+private fun PassengerBookingDraft(owner: String, state: JSONObject, store: PassengerStore, busy: Boolean, onNegotiation: () -> Unit, openOrder: (String) -> Unit) {
   var kind by rememberSaveable { mutableStateOf("STANDARD") }
-  var origin by rememberSaveable { mutableStateOf("宜昌东站 · 出租车上客区") }
+  // The pickup point starts empty and follows the phone's own location until the passenger picks one.
+  var origin by rememberSaveable { mutableStateOf("") }
   var destination by rememberSaveable { mutableStateOf("夷陵广场 · 东侧入口") }
-  var oLat by rememberSaveable { mutableStateOf("30.6648") }
-  var oLng by rememberSaveable { mutableStateOf("111.3674") }
+  var oLat by rememberSaveable { mutableStateOf("") }
+  var oLng by rememberSaveable { mutableStateOf("") }
   var dLat by rememberSaveable { mutableStateOf("30.7040") }
   var dLng by rememberSaveable { mutableStateOf("111.2929") }
   var oMetadata by rememberSaveable { mutableStateOf("") }
+  var originTouched by rememberSaveable { mutableStateOf(false) }
+  var originFromGps by rememberSaveable { mutableStateOf(false) }
   var dMetadata by rememberSaveable { mutableStateOf("") }
   var remark by rememberSaveable { mutableStateOf("") }
   var date by rememberSaveable {
@@ -82,6 +86,51 @@ private fun PassengerBookingDraft(state: JSONObject, store: PassengerStore, busy
   var contactId by rememberSaveable { mutableStateOf(PassengerDefaults.draftSelection("", false, PassengerDefaults.id(state, "RIDER"), riderIds)) }
   LaunchedEffect(riderIds) { contactId = PassengerDefaults.draftSelection(contactId, true, "", riderIds) }
   val context = LocalContext.current
+  val position by PassengerPositionBus.position.collectAsState()
+  val amapKey by AmapRuntime.key.collectAsState()
+  // Fix currently used for the automatic pickup point, and whether it already got a place name.
+  // Only the passenger id, a local generation and the fix are kept here; never any credential.
+  var gpsFix by rememberSaveable { mutableStateOf("") }
+  var gpsGeneration by rememberSaveable { mutableStateOf(0) }
+  var gpsNamed by rememberSaveable { mutableStateOf(false) }
+  // Every manual pickup change (pick, swap, history) sets originTouched; it also retires any lookup in flight.
+  LaunchedEffect(originTouched) { if (originTouched) gpsGeneration++ }
+  LaunchedEffect(position, originTouched) {
+    val fix = position?.let { PickupFix(it.latitude, it.longitude, it.accuracy, it.time) }
+    // Only an empty pickup or one still filled from GPS follows the phone; a manual choice always wins.
+    if (originTouched || (!originFromGps && origin.isNotBlank())) return@LaunchedEffect
+    if (!PassengerPickupDefaults.shouldReplace(PickupFix.parse(gpsFix), fix, originTouched, System.currentTimeMillis())) return@LaunchedEffect
+    // Device fixes are WGS84, the same system the booking coordinates use.
+    originFromGps = true
+    origin = "我的位置（手机定位）"
+    oLat = fix!!.latitude.toString()
+    oLng = fix.longitude.toString()
+    oMetadata = ""
+    gpsNamed = false
+    gpsGeneration++
+    gpsFix = fix.token()
+  }
+  // Keyed on the applied fix (not every location frame), so a name is looked up once per accepted fix.
+  LaunchedEffect(gpsFix, amapKey, originTouched) {
+    val fix = PickupFix.parse(gpsFix) ?: return@LaunchedEffect
+    if (originTouched || !originFromGps || gpsNamed || amapKey.isBlank() || owner.isBlank()) return@LaunchedEffect
+    val requested = PassengerPickupDefaults.lookupToken(owner, gpsGeneration, gpsFix)
+    runCatching {
+      val shown = amapForward(context, fix.latitude, fix.longitude)
+      reverseAmapAddress(context, shown.latitude, shown.longitude)
+    }.onSuccess { place ->
+      // Re-read the signed-in passenger at completion: a result never lands in another account's draft.
+      val currentOwner = store.state.value.optJSONObject("passenger")?.text("id").orEmpty()
+      val current = PassengerPickupDefaults.lookupToken(currentOwner, gpsGeneration, gpsFix)
+      if (PassengerPickupDefaults.acceptLookup(requested, current, originTouched, originFromGps)) {
+        origin = place.name
+        oLat = place.latitude.toString()
+        oLng = place.longitude.toString()
+        oMetadata = place.metadata?.toString().orEmpty()
+        gpsNamed = true
+      }
+    }
+  }
   val reservations = state.rows("orders").filter { it.text("kind") == "RESERVED" && it.text("stage") in listOf("AVAILABLE", "RESERVED") }
   val active = state.rows("orders").firstOrNull {
     it.text("stage") !in listOf("DONE", "CANCELLED") && it !in reservations
@@ -260,6 +309,7 @@ private fun PassengerBookingDraft(state: JSONObject, store: PassengerStore, busy
                 TextButton(
                   contentPadding = PaddingValues(horizontal = 6.dp, vertical = 2.dp),
                   onClick = {
+                    originTouched = true
                     val address = origin
                     origin = destination
                     destination = address
@@ -277,7 +327,10 @@ private fun PassengerBookingDraft(state: JSONObject, store: PassengerStore, busy
                   Text("交换起终点", fontSize = 12.sp, color = Teal)
                 }
               }
-              AddressRow("从这里出发", origin) { editor = "origin" }
+              AddressRow(
+                "从这里出发",
+                origin.ifBlank { if (position == null) "正在获取手机定位…（可点此选择上车点）" else "点此选择上车点" },
+              ) { editor = "origin" }
               HorizontalDivider(color = DividerTone, thickness = 0.8.dp)
               AddressRow(
                 "目的地",
@@ -432,6 +485,7 @@ private fun PassengerBookingDraft(state: JSONObject, store: PassengerStore, busy
                     }
                     OutlinedButton(
                       onClick = {
+                        originTouched = true
                         origin = recent.text("origin")
                         destination = recent.text("destination")
                         oLat = recent.coordText("originLat")
@@ -450,7 +504,7 @@ private fun PassengerBookingDraft(state: JSONObject, store: PassengerStore, busy
                 }
               }
             ExpandablePanel("地点选择说明", "系统搜索与坐标提示", initialExpanded = false) {
-              Note("可使用设备系统搜索、常用地点或手动WGS84坐标；系统搜索可用性取决于设备，未提供自动定位或道路导航。")
+              Note("上车点默认使用手机定位，可点击修改；在地址框输入即自动搜索，也可选常用地点或手动WGS84坐标。")
             }
   }
   if (editor.isNotBlank())
@@ -465,6 +519,7 @@ private fun PassengerBookingDraft(state: JSONObject, store: PassengerStore, busy
       city = state.optJSONObject("passenger")?.text("cityName").orEmpty(),
     ) { name, lat, lng, normalization ->
       if (editor == "origin") {
+        originTouched = true
         origin = name
         oLat = lat
         oLng = lng
@@ -504,7 +559,14 @@ fun AddressDialog(
   var results by remember { mutableStateOf<List<SearchedAddress>>(emptyList()) }
   var source by remember { mutableStateOf("已有地点与坐标") }
   var selectedMetadata by remember(initial, initialLat, initialLng) { mutableStateOf(initialNormalization) }
-  fun cancelSearch() { searchJob?.cancel(); searching=false; results=emptyList() }
+  // Only text the passenger typed is searched; picking a result never re-triggers a search.
+  var typedQuery by remember { mutableStateOf("") }
+  // Bumped by the small retry action so the same text can be searched again after a failure or cancel.
+  var retryTick by remember { mutableStateOf(0) }
+  // Shared by text search, map lookup and every manual change: only the newest request may write.
+  val gate = remember { PassengerLookupGate() }
+  fun cancelSearch() { gate.invalidate(); searchJob?.cancel(); searchJob=null; searching=false; results=emptyList() }
+  val closeEditor = { cancelSearch(); close() }
   fun selectPlace(n: String, a: String, b: String, from: String, metadata: JSONObject? = null) {
     cancelSearch(); name=n; lat=a; lng=b; source=from; selectedMetadata=metadata; error=""
   }
@@ -522,7 +584,7 @@ fun AddressDialog(
   // Full-screen picker: title back and system back both call close() without touching the draft.
   PassengerFullPage(
     "选择地点",
-    close,
+    closeEditor,
     bottom = {
       if (name.isNotBlank())
         Text(
@@ -546,44 +608,57 @@ fun AddressDialog(
     Field(name, { value ->
       if (value != name) {
         cancelSearch(); name=value.take(200); lat=""; lng=""; source=""; selectedMetadata=null
-        error="地址已修改，原坐标已清除；请搜索并选中地点，或填写匹配坐标。"
+        typedQuery=name.trim()
+        error=""
       }
-    }, "地点或详细地址")
+    }, "输入地点或详细地址，自动搜索")
     if (amapKey.isNotBlank()) {
       Field(searchCity, { cancelSearch(); searchCity=it.take(40) }, "搜索城市（可选）")
       val selected = if (lat.toDoubleOrNull()?.isFinite() == true && lng.toDoubleOrNull()?.isFinite() == true)
         listOf(AmapPlacePoint(lat.toDouble(), lng.toDouble(), name)) else emptyList()
       AmapCanvas(selected, Modifier.fillMaxWidth().height(240.dp), onPick = { a, b ->
-        cancelSearch(); lat=""; lng=""; selectedMetadata=null; source=""; searching=true; error=""
+        cancelSearch(); typedQuery=""; lat=""; lng=""; selectedMetadata=null; source=""; error=""
+        val token=gate.next()
+        searching=true
         searchJob=scope.launch {
           try {
             val result=reverseAmapAddress(context,a,b)
-            selectPlace(result.name,result.latitude.toString(),result.longitude.toString(),"地图选定地点",result.metadata)
+            if (gate.isCurrent(token)) selectPlace(result.name,result.latitude.toString(),result.longitude.toString(),"地图选定地点",result.metadata)
           } catch (e: CancellationException) { throw e }
-          catch (e: Exception) { error=e.message ?: "地图地点解析失败，请重试" }
-          finally { if (isActive) searching=false }
+          catch (e: Exception) { if (gate.isCurrent(token)) error=e.message ?: "地图地点解析失败，请重试" }
+          finally { if (gate.isCurrent(token)) searching=false }
         }
       }, notice = "点击地图选点，再核对地址")
     }
-    SecondaryButton(if (searching) "正在查询…" else if (amapKey.isNotBlank()) "搜索高德地点" else "搜索地址", !searching && name.trim().length >= 2) {
-      val query=name.trim()
-      error=""; results=emptyList(); searching=true
-      searchJob=scope.launch {
-        try {
-          val found=searchSystemAddresses(context, query, searchCity)
-          if (name.trim()==query) {
-            results=found
-            if (found.isEmpty()) error="未找到地址，请补充城市和详细名称，或选择常用地点/手动坐标。"
-          }
-        } catch (e: CancellationException) { throw e }
-        catch (e: Exception) {
-          if (name.trim()==query) error=e.message ?: "地址搜索暂不可用，请重试或在地图选点。"
-        } finally { if (isActive) searching=false }
-      }
+    LaunchedEffect(typedQuery, searchCity, retryTick) {
+      val query=typedQuery
+      if (query.length < 2 || name.trim()!=query) return@LaunchedEffect
+      val city=searchCity
+      // Ownership is taken before the 400ms wait: manual coordinates, any selection (even one with the
+      // same name), map pick, cancel or closing invalidate the gate and retire this run while it waits.
+      PassengerAddressLookup.debounced(
+        gate,
+        stillWanted = { name.trim()==query && typedQuery==query },
+        wait = { delay(PassengerAddressLookup.DEBOUNCE_MS) },
+        begin = { searchJob?.cancel(); searchJob=null; error=""; results=emptyList(); searching=true },
+        fetch = { searchSystemAddresses(context, query, city) },
+        publish = { found ->
+          results=found
+          if (found.isEmpty()) error="未找到地址，请补充城市和详细名称，或选择常用地点/手动坐标。"
+        },
+        fail = { e -> error=e.message ?: "地址搜索暂不可用，请重试或在地图选点。" },
+        end = { searching=false },
+      )
     }
+    if (!searching && results.isEmpty() && name.isNotBlank() && (lat.isBlank() || lng.isBlank()) && error.isBlank())
+      Note(if (name.trim().length < 2) "再输入几个字即可自动搜索" else if (typedQuery.isBlank()) "已取消搜索，可重新搜索或改用常用、地图、手动地点" else "请从搜索结果中选择具体地点")
+    // Small retry for the same text after a failure or cancel; no persistent search button.
+    if (!searching && results.isEmpty() && name.trim().length >= 2 && (lat.isBlank() || lng.isBlank()) &&
+      (error.isNotBlank() || typedQuery.isBlank()))
+      TextButton(onClick={ cancelSearch(); error=""; typedQuery=name.trim(); retryTick++ }) { Text("重新搜索“${name.trim().take(20)}”", fontSize = 13.sp) }
     if (searching) {
       LinearProgressIndicator(Modifier.fillMaxWidth())
-      TextButton(onClick={cancelSearch()}) { Text("取消搜索，改用常用或手动地点") }
+      TextButton(onClick={cancelSearch(); typedQuery=""}) { Text("取消搜索，改用常用或手动地点") }
     }
     results.forEach { result ->
       MenuRow(result.name, Icons.Default.LocationOn, "选择并在地图核对") {

@@ -1,0 +1,90 @@
+{
+  "sourceSha": "6ab66bdcd20b43dfd314917881342dcdcc165a9e",
+  "roles": {
+    "passenger": {
+      "apk": "/Users/dongge/.codex/tmp/yijiexing-navf-copy-6ab-20261030/source/apps/passenger-android/app/build/outputs/apk/debug/app-debug.apk",
+      "sha256": "aa696a485a5e10d7c1cf3d7c2eeb7ecc82f1e185359f047ff9106756e29b2bd9",
+      "bytes": 107188601,
+      "buildSha": "6ab66bdcd20b43dfd314917881342dcdcc165a9e",
+      "tests": 54,
+      "failures": 0,
+      "errors": 0,
+      "testBuildSha": "f7c9cee87e7c709b09f49e0d069b355c5cdfcf13",
+      "inheritedTests": true,
+      "sameTestSourceTree": false,
+      "appSrcTree": "5297b4f37f32d03388b9249acca843c20653985e",
+      "sourceTrackedFiles": 107,
+      "sourceMismatches": [],
+      "packageVersionLine": "package: name='cn.hbzjhs.dc.passenger.cloud' versionCode='20' versionName='1.1.18-experience' platformBuildVersionName='14' platformBuildVersionCode='34' compileSdkVersion='34' compileSdkVersionCodename='14'",
+      "aaptExit": 0,
+      "apksignerExit": 0,
+      "samePriorSigner": true,
+      "privateExactMatches": 0,
+      "uncompressedEntriesScanned": 425,
+      "originalHttpsPresent": true,
+      "command": "JAVA_HOME=JDK17 ANDROID_HOME=officialSDK bash gradlew --offline --no-daemon --max-workers=2 -I <externalRoot>/scripts/offline.init.gradle assembleDebug",
+      "qa": {
+        "apk": "/Users/dongge/.codex/tmp/yijiexing-navf-copy-6ab-20261030/build/qa-passenger/_app/outputs/apk/debug/app-debug.apk",
+        "sha256": "d173817b7c153746e58f99964922856a8e9b73a85adbfccac3190ed0145c806d",
+        "sourceSha": "6ab66bdcd20b43dfd314917881342dcdcc165a9e",
+        "differences": [
+          "QA applicationId",
+          "https://localhost",
+          "debug manifest/localCA resources"
+        ],
+        "productKotlinEdits": false,
+        "publicationArtifact": false
+      },
+      "sourceSha": "6ab66bdcd20b43dfd314917881342dcdcc165a9e",
+      "inheritedBuild": false,
+      "sameFinalSourceTree": true,
+      "sourceTree": "796e3b52d601a13bcd58a09e5832d1527fc4e0df",
+      "unitTestSourceTreeEqual": true,
+      "testInheritanceReason": "Actual54 from f7; only version constants and two Note string contents changed since tested production logic; unit test files unchanged; no new tests or rerun claimed"
+    },
+    "driver": {
+      "apk": "/Users/dongge/.codex/tmp/yijiexing-navf-native-20261030/source/candidates/driver-0.3.6-r2/android/app/build/outputs/apk/debug/app-debug.apk",
+      "sha256": "4a346bc4600e84a9ab0a39285ce6c70e9d292c9a9404458d03b8b12fb7b91af6",
+      "bytes": 108669573,
+      "buildSha": "7911a6fb13804cb4ae242995de4af60a0b189c34",
+      "tests": 77,
+      "failures": 0,
+      "errors": 0,
+      "testBuildSha": "2ba5b79f1113b0de9ec105a2733fc8a4a9e9ffe0",
+      "inheritedTests": true,
+      "sameTestSourceTree": true,
+      "appSrcTree": "98e5b1a481ac45c35bbb287804c072da1f23c07f",
+      "sourceTrackedFiles": 68,
+      "sourceMismatches": [],
+      "packageVersionLine": "package: name='cn.hbzjhs.dc.driver.cloud' versionCode='20' versionName='0.3.17-cloud' platformBuildVersionName='14' platformBuildVersionCode='34' compileSdkVersion='34' compileSdkVersionCodename='14'",
+      "aaptExit": 0,
+      "apksignerExit": 0,
+      "samePriorSigner": true,
+      "privateExactMatches": 0,
+      "uncompressedEntriesScanned": 433,
+      "originalHttpsPresent": true,
+      "command": "JAVA_HOME=JDK17 ANDROID_HOME=officialSDK bash gradlew --offline --no-daemon --max-workers=2 -I <externalRoot>/scripts/offline.init.gradle assembleDebug",
+      "qa": {
+        "apk": "/Users/dongge/.codex/tmp/yijiexing-navf-native-20261030/build/qa-driver/_app/outputs/apk/debug/app-debug.apk",
+        "sha256": "23892bece2ed93aaaf2302c171171c1c5113872436b57c1098a19b47f559276a",
+        "sourceSha": "7911a6fb13804cb4ae242995de4af60a0b189c34",
+        "differences": [
+          "QA applicationId",
+          "https://localhost",
+          "debug manifest/localCA resources"
+        ],
+        "productKotlinEdits": false,
+        "publicationArtifact": false,
+        "sameFinalSourceTree": true
+      },
+      "sourceSha": "6ab66bdcd20b43dfd314917881342dcdcc165a9e",
+      "inheritedBuild": true,
+      "sameFinalSourceTree": true,
+      "sourceTree": "77bcf76eb8ea51e1fb3bff5950e783e5cf730c61"
+    }
+  },
+  "parentSha": "7911a6fb13804cb4ae242995de4af60a0b189c34",
+  "copyDeltaReview": "COPY_DELTA_REVIEW.json",
+  "historical791Proof": "BUILD_PROOF_7911.json",
+  "historical65NativeSourceSha": "7911a6fb13804cb4ae242995de4af60a0b189c34"
+}
