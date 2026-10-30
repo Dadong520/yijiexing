@@ -141,7 +141,7 @@ fun ProfileScreen(
       MenuRow("连接状态", Icons.Default.Settings, "网络异常时重试") { settings() }
       HorizontalDivider(color = DividerTone, thickness = 0.8.dp)
       Note("体验版 ${BuildConfig.VERSION_NAME}")
-      Note("与司机端共用订单。支付、退款与发票均为模拟，不产生真实资金或凭证。地址搜索使用设备系统Geocoder；自动定位、道路导航、短信、电话中继及实时人工客服尚未接入；投诉支持后台查看和回复。")
+      Note("与司机端共用订单。支付、退款与发票均为模拟，不产生真实资金或凭证。定位需设备授权；地点搜索与逆地理依赖可用服务，导航通过外部地图应用打开。短信、电话中继及实时人工客服尚未接入；投诉支持后台查看和回复。")
     }
     OutlinedButton(
       onClick = { logout = true },
