@@ -90,10 +90,10 @@
     "coordination/archive/2026-10-26/AUTH-20261026-02.json"
   ],
   "memoryProtocolVersion": "2026-10-26-v3",
-  "currentStage": "UIT21_PUBLISHED_RECEIPT_REVIEW",
+  "currentStage": "UIT21_RECEIPT_PASS_AWAIT_MERGE",
   "roleAssignments": {
     "coordinator": "UIT21 published/readbacks PASS; UITREC actual receipt/README narrow review and merge",
-    "backend": "IDLE UITB ECC business PASS",
+    "backend": "IDLE UITR15 receipt checks PASS",
     "frontend": "IDLE UITF final native PASS; resources cleaned",
     "antigravity": "PAUSED_BY_USER_20261029; no new Gemini dispatch",
     "expert": "IDLE; configuration verified, SDK auth recovered; user deferred actual device test",

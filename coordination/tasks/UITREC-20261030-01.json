@@ -15,12 +15,27 @@
     "Backend non-author narrow receipt review",
     "Metadata only; exact-head CI/merge, no repeated deployment"
   ],
-  "status": "ACTUAL_RECEIPT_READY_FOR_REVIEW",
-  "acceptance": "NOT_RUN",
-  "tests": [],
-  "evidence": [],
-  "nextAction": "Commit actual receipt/README and dispatch UITR independent narrow review",
+  "status": "REVIEW_PASS_AWAIT_EXACT_HEAD_CI_MERGE",
+  "acceptance": "PASS",
+  "tests": [
+    {
+      "command": "UITR independent narrow receipt/README15 consistency checks exact36ecc83",
+      "status": "PASS",
+      "exitCode": 0,
+      "sourceSha": "36ecc83259b1a9d37cba43b7108e3be5259b3069"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "coordination/evidence/UITR-20261030-01/REVIEW.json",
+      "sha256": "9bdd715e2006fecf36c26a9fd24a859a0db85b0c3214837e6ceb8795c57309ed"
+    }
+  ],
+  "nextAction": "Final metadata-only evidence commit/push, exact-head CI and merge; no redeploy",
   "deploy_owner": "coordinator",
   "releaseReady": false,
-  "updatedAt": "2026-10-30T13:32:47.133450+00:00"
+  "updatedAt": "2026-10-30T14:02:13.369050+00:00",
+  "candidateSha": "36ecc83259b1a9d37cba43b7108e3be5259b3069",
+  "acceptedSha": "36ecc83259b1a9d37cba43b7108e3be5259b3069",
+  "reviewer": "backend"
 }

@@ -16,12 +16,22 @@
     "Do not claim all database tables/provider/OEM/live finance; strict order differences require separate audit",
     "Wait root explicit READY dispatch, not background polling"
   ],
-  "status": "PREPARED_NOT_DISPATCHED",
-  "acceptance": "NOT_RUN",
-  "tests": [],
-  "evidence": [],
-  "nextAction": "Wait actual receipts and root READY",
+  "status": "RECEIPT_REVIEW_PASS_IDLE",
+  "acceptance": "PASS",
+  "tests": [
+    {
+      "command": "Exact36ecc832 README/receipt/readback/build/test/merge consistency and Git subtree comparison",
+      "exitCode": 0,
+      "result": "PASS narrow evidence consistency; no business rerun"
+    }
+  ],
+  "evidence": [
+    "coordination/evidence/UITR-20261030-01/REVIEW.json"
+  ],
+  "nextAction": "Root governance receipt integration; backend IDLE",
   "deploy_owner": "coordinator",
   "releaseReady": false,
-  "updatedAt": "2026-10-30T13:29:33.425928+00:00"
+  "updatedAt": "2026-10-30T22:01:32+08:00",
+  "candidateSha": "36ecc83259b1a9d37cba43b7108e3be5259b3069",
+  "acceptedSha": "36ecc83259b1a9d37cba43b7108e3be5259b3069"
 }

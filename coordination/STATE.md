@@ -1,14 +1,14 @@
 # 宜捷行当前检查点 2026-10-30T13:59:32.295711+00:00
 中央/Users/dongge/Documents/New project 2/coordination唯一权威，协议2026-10-26-v3。唯一coordinator01a17cc7-e0a2-7791-bf1d-4611c09bab22/generation6；context UNKNOWN。root独占状态/验收/合并发布。
 
-## 当前已公开版本21：测试、合并、发布与实际回读PASS；回执入库审查中
+## 当前已公开版本21：测试、合并、发布与实际回读PASS；回执独立审查PASS待准确head合并
 用户要求测试发布Claude云端9495caa的新24项UI差量。产品最终源ecc9d8d0e63f5ee1c9a8f45df87e92f7b42e0ea5；PR43准确head089ea8c130506b18df6afe28b22f572c10552ea8/CI41063380582 SUCCESS，expected-head squash合并8e8da981faa54de0bd12d24e1921d3d20a3d570b。所有产品树与验收源一致。UIT任务COMPLETE；UITREC/UITR仅实际receipt/README窄审入库，不重复部署。
 乘客1.1.19-experience/code21，SHA476ba49f596e5736931e7a21ee3260984f9766029d217fa33abdc69f51185e69；司机0.3.18-cloud/code21，SHA143108f537ec62df06a34cd9bb51ec89d8249ab80141ab9cb1df86f7adb47f0e。原包名/原Signer9ffec9…b758f，原签名可覆盖安装。两公开HTTPS整包size/hash/版本/原签名均actualPASS匹配独立验收原包。初次160秒未完整及并发429保留，服务containerConcurrency1保持；改900秒上限独立下载后两包direct200/exit0。旧20已受generation保护归档，固定21提升完成；不重复upload/promote。
 司机 https://user-test---driver-demo-phfgquzmua-uw.a.run.app/download ，乘客同域/download-passenger（对应.apk整包）。后台 https://demo-admin.hbzjhs.xyz/ 原账号密码/无GoogleIAP；API https://yijiexing-demo.hbzjhs.xyz。
 
 ## 独立验收与数据边界
 Claude官方本地session93f99706-9822-4a37-b5a9-5369a6ac2364/Opus5.5high四阶段exit0/permissionDenials0，作者无Bash自测NOT_RUN。Codex backend独立ECC源审PASS；frontend G1/P1-P4/D1-D3原生PASS。R1小屏大字截字、R2待审重复催更新均修复独立差量复验，原FAIL保留。actual17d单测54/77零失败，后续UI布局/证件显示明确继承；原包乘客281整树同ECC，司机ECC重新构建。原签名/包名/code21/HTTPS/四私有值0命中PASS。root tools27/mini74/check actual17d后明确源相同继承。独立隔离AVD5584/fixture64341/reverse已全部清理。原图17d/281/ECC按真实源保留，不统一伪改。
-45订单同一GCS generation1793356223301353，发布前后45→45，旧单0丢/0字段改/0新增、SQLite完整性PASS，原始DB外置0600；范围passenger_orders，不宣称全部表。仅独立yijiexing-driver-demo-1023/us-west1，GCS APK更新，无CloudRun部署/云业务POST。API/admin revision仍driver-demo-ccui-107e226-test1/driver-admin-ccui-107e226-test1 100%及user-test同版；完整spec/服务annotations/IAM/ENV/secret/SA/traffic不变，automatic/min0/max1/请求计费/API900/concurrency1保持，不保活不自动暂停。禁止访问原测试/生产。实际FINAL-RELEASE-RECEIPT及README待UITR独立审查和UITREC准确head合并。
+45订单同一GCS generation1793356223301353，发布前后45→45，旧单0丢/0字段改/0新增、SQLite完整性PASS，原始DB外置0600；范围passenger_orders，不宣称全部表。仅独立yijiexing-driver-demo-1023/us-west1，GCS APK更新，无CloudRun部署/云业务POST。API/admin revision仍driver-demo-ccui-107e226-test1/driver-admin-ccui-107e226-test1 100%及user-test同版；完整spec/服务annotations/IAM/ENV/secret/SA/traffic不变，automatic/min0/max1/请求计费/API900/concurrency1保持，不保活不自动暂停。禁止访问原测试/生产。实际FINAL-RELEASE-RECEIPT及README已UITR15项独立窄审PASS，待UITREC准确head合并。
 本轮仅原生UI；后台无新模块。合成阶段/资格/账单与mockGPS明确标记，真实provider底图/POI/逆地理/外部高德/OEM/个人手机/真实资金NOT_RUN；未将所有阶段布局称真实业务生命周期。微信缺AppID未微信编译/真机/发布。草稿返回编辑/设置保留，跨底栏重建保留未承诺。公告先领取后显示的既有跨账号/重启持久补弹边界不变。
 
 ## 长期确认与角色
