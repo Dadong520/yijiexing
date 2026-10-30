@@ -1,0 +1,22 @@
+[
+  {
+    "role": "passenger",
+    "url": "https://user-test---driver-demo-phfgquzmua-uw.a.run.app/download-passenger.apk",
+    "attempts": [
+      {
+        "transport": "direct",
+        "curlExit": 0,
+        "http": 200
+      }
+    ],
+    "bytes": 107204985,
+    "sha256": "476ba49f596e5736931e7a21ee3260984f9766029d217fa33abdc69f51185e69",
+    "package": "cn.hbzjhs.dc.passenger.cloud",
+    "versionName": "1.1.19-experience",
+    "versionCode": 21,
+    "signerSha256": "9ffec9b342d12909ff288bd73f23ba104893b39120cb24ea83c9734a0d2b758f",
+    "aaptAndApksignerExit": 0,
+    "sameBytesAsIndependentlyReviewedBuild": true,
+    "PASS": true
+  }
+]

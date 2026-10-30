@@ -4,7 +4,7 @@
   "branch": "codex/ui-feedback-20261030",
   "baseSha": "362c7f861a5063631c6da9ba198e04bc131402e4",
   "cloudCandidateSha": "9495caa54e8b8581bba4d82c3fbac04701252418",
-  "updatedAt": "2026-10-30T13:26:15.514654+00:00",
+  "updatedAt": "2026-10-30T13:28:30.644128+00:00",
   "acceptance": "PASS",
   "tests": [
     {
@@ -69,7 +69,7 @@
     "Both Android compile/unit checks and independent native UI acceptance",
     "Exact source/CI merge gate, original signer code21, independent project APK-only publication/readback"
   ],
-  "status": "ACCEPTED_AWAIT_EXACT_HEAD_CI_MERGE",
+  "status": "COMPLETE",
   "evidence": [
     {
       "path": "coordination/evidence/UIT-20261030-01/ROOT_FINAL_ACCEPTANCE.json",
@@ -80,11 +80,11 @@
       "sha256": "d5781eeac92523d2bab1514a7c7947ec2c3148654753d823bdb7530173e5c65e"
     }
   ],
-  "nextAction": "Commit evidence, final exact-head CI/merge then original APK-only publish/readback",
+  "nextAction": "IDLE; actual receipt/README in UITREC for independent review/merge; no repeat deployment",
   "authorSessionId": "93f99706-9822-4a37-b5a9-5369a6ac2364",
   "candidateSha": "ecc9d8d0e63f5ee1c9a8f45df87e92f7b42e0ea5",
   "pullRequest": "https://github.com/Dadong520/yijiexing/pull/43",
-  "integrationHeadSha": "17d491106f3a2e2719d5424978408156cd51a0bd",
+  "integrationHeadSha": "089ea8c130506b18df6afe28b22f572c10552ea8",
   "businessReview": {
     "status": "PASS",
     "sha": "ecc9d8d0e63f5ee1c9a8f45df87e92f7b42e0ea5",
@@ -100,5 +100,14 @@
     "status": "PASS_SCOPED_NATIVE_UI",
     "sha": "ecc9d8d0e63f5ee1c9a8f45df87e92f7b42e0ea5",
     "evidence": "coordination/evidence/UI30F-20261030-01/NATIVE_ACCEPTANCE_FINAL.json"
-  }
+  },
+  "mergeSha": "8e8da981faa54de0bd12d24e1921d3d20a3d570b",
+  "ci": {
+    "headSha": "089ea8c130506b18df6afe28b22f572c10552ea8",
+    "runId": 41063380582,
+    "conclusion": "success"
+  },
+  "publishedVersionCode": 21,
+  "releaseReceipt": "coordination/evidence/UIT-20261030-01/release/FINAL-RELEASE-RECEIPT.json",
+  "dataPreservation": "PASS_45_OLD_ORDER_ROWS_ALL_FIELDS_UNCHANGED"
 }

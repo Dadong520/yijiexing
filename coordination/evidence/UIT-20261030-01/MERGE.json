@@ -1,0 +1,11 @@
+{
+  "sourceSha": "ecc9d8d0e63f5ee1c9a8f45df87e92f7b42e0ea5",
+  "mergeSha": "8e8da981faa54de0bd12d24e1921d3d20a3d570b",
+  "integrationHeadSha": "089ea8c130506b18df6afe28b22f572c10552ea8",
+  "ci": {
+    "headSha": "089ea8c130506b18df6afe28b22f572c10552ea8",
+    "runId": 41063380582,
+    "conclusion": "success"
+  },
+  "allProductTreesUnchanged": true
+}

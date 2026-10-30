@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "id": "UITR-20261030-01",
+  "owner": "backend",
+  "goal": "独立窄审版本21实际发布回执与README，不重跑业务测试",
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-ui-feedback-20261030",
+  "branch": "codex/ui-feedback-receipt-20261030",
+  "baseSha": "8e8da981faa54de0bd12d24e1921d3d20a3d570b",
+  "allow_paths": [
+    "coordination/tasks/UITR-20261030-01.json",
+    "coordination/handoffs/backend.md",
+    "coordination/evidence/UITR-20261030-01/"
+  ],
+  "checks": [
+    "Only inspect actual final receipt/readbacks against final build/source/CI/merge and README; no product edits/cloud writes",
+    "Do not claim all database tables/provider/OEM/live finance; strict order differences require separate audit",
+    "Wait root explicit READY dispatch, not background polling"
+  ],
+  "status": "PREPARED_NOT_DISPATCHED",
+  "acceptance": "NOT_RUN",
+  "tests": [],
+  "evidence": [],
+  "nextAction": "Wait actual receipts and root READY",
+  "deploy_owner": "coordinator",
+  "releaseReady": false,
+  "updatedAt": "2026-10-30T13:29:33.425928+00:00"
+}

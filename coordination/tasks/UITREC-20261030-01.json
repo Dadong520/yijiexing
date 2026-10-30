@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "id": "UITREC-20261030-01",
+  "owner": "coordinator",
+  "goal": "版本21实际发布回执与README入库，独立审查后合并",
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-ui-feedback-20261030",
+  "branch": "codex/ui-feedback-receipt-20261030",
+  "baseSha": "8e8da981faa54de0bd12d24e1921d3d20a3d570b",
+  "allow_paths": [
+    "coordination/",
+    "README.md"
+  ],
+  "checks": [
+    "Actual public APK/runtime/data readbacks before receipt claims",
+    "Backend non-author narrow receipt review",
+    "Metadata only; exact-head CI/merge, no repeated deployment"
+  ],
+  "status": "ACTUAL_RECEIPT_READY_FOR_REVIEW",
+  "acceptance": "NOT_RUN",
+  "tests": [],
+  "evidence": [],
+  "nextAction": "Commit actual receipt/README and dispatch UITR independent narrow review",
+  "deploy_owner": "coordinator",
+  "releaseReady": false,
+  "updatedAt": "2026-10-30T13:32:47.133450+00:00"
+}
