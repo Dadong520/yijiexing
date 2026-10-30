@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updated": "2026-10-30T01:45:14.374178+00:00",
+  "updated": "2026-10-30T01:57:12.359782+00:00",
   "coordinator": "coordinator",
   "activeTaskIds": [
     "WX-20261025-01",
@@ -53,7 +53,9 @@
     "UIOREC-20261029-01",
     "NAV-20261029-01",
     "NAVB-20261029-01",
-    "NAVF-20261029-01"
+    "NAVF-20261029-01",
+    "NAVD-20261030-01",
+    "NAVREC-20261030-01"
   ],
   "releaseOwner": "coordinator",
   "policy": "作者提交→自测→独立验收→协调者合并→部署回读；无业务验收PASS不发布",
@@ -82,14 +84,14 @@
     "coordination/archive/2026-10-26/AUTH-20261026-02.json"
   ],
   "memoryProtocolVersion": "2026-10-26-v3",
-  "currentStage": "NAV_ACCEPTED_AWAIT_FINAL_HEAD_CI_MERGE",
+  "currentStage": "NAV20_RELEASED_RECEIPT_SYNC",
   "roleAssignments": {
-    "coordinator": "NAV6ab scoped acceptance PASS; integrate/CI/merge/release owner",
-    "backend": "IDLE NAVB f7 source PASS with BIZ09 delivery boundary",
-    "frontend": "IDLE NAV6ab copy delta +79165native PASS; cleanup PASS",
+    "coordinator": "NAVREC actual receipt/README sync; APK20 released/readbackPASS; no deploy left",
+    "backend": "IDLE NAVD concurrent location review PASS",
+    "frontend": "IDLE final native/copy acceptance PASS",
     "antigravity": "PAUSED_BY_USER_20261029; no new Gemini dispatch",
     "expert": "IDLE; configuration verified, SDK auth recovered; user deferred actual device test",
-    "claude": "IDLE c334 four phases done; author tests NOT_RUN"
+    "claude": "IDLE all four phases complete"
   },
   "collaborationDecision": "GOV07 user Claude Code main implementation; Gemini temporarily paused; visible Codex role reviews and root unique release"
 }

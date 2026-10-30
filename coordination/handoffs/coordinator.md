@@ -1,10 +1,14 @@
-# coordinator 短卡
-协议2026-10-26-v3；ACK；真实ID01a17cc7-e0a2-7791-bf1d-4611c09bab22/generation6，唯一协调/合并/发布；context UNKNOWN/not_exposed。当前NAV-20261029-01。
-最终产品6ab66bdcd20b43dfd314917881342dcdcc165a9e（parent7911a6fb13804cb4ae242995de4af60a0b189c34），源码/Users/dongge/.codex/tmp/yijiexing-cloud-navigation-review-20261029，branch codex/cloud-navigation-review-20261029，PR41 https://github.com/Dadong520/yijiexing/pull/41。逻辑f7，云原55d2来自main830aa80883d27cd6e518e12e249efc8695129284；云session UNKNOWN。本地Claude真实c334/Opus5.5medium四阶段exit0，作者无Bash测试NOT_RUN，全部CLI已停。
-验收：frontend7917组65原生截图PASS；最终6ab只2Note字符串，独立乘客重编/两页面截图PASS。保留65在791、2新在6ab，不伪改。FINAL_BUILD_PROOF当前source6ab，旧BUILD_PROOF_7911另存；原签名code20乘客1.1.18-experience SHAaa696a485a5e10d7c1cf3d7c2eeb7ecc82f1e185359f047ff9106756e29b2bd9，司机0.3.17-cloud SHA4a346bc4600e84a9ab0a39285ce6c70e9d292c9a9404458d03b8b12fb7b91af6；root树/hash再次绑定PASS。54/77单测按对象/仅2字串差异明确继承。NAVB关键规则与f7对象相等PASS；ROOT_FINAL_ACCEPTANCE记录；CLEANUP PASS，所有测试设备/fixture/reverse已停。真实高德/逆地理/OEM/真金流NOT_RUN；本地合成/mockGPS/Intent接收器明确。
-当前root将同步最终控制+证据，commit/push后读准确head CI，markready/expectedhead merge。releaseReady仍false（待CI与merge），尚未上传/提升/发布。线上仍乘客1.1.17-experience/司机0.3.16-cloud code19。oldmain830/UIO产品137已PR39/40完成，不重发19。
-发布步骤：准确CI和merge后中央任务写integrationHeadSha/ci/mergeSha/releaseReadytrue；外置/Users/dongge/.codex/tmp/yijiexing-nav-release-stage-20261030/release-binding已6ab/releaseId20261030-nav-6ab66bd。transfer.py upload→refresh_backup_if_changed.py（如果现GCSgen变，归档旧私有并fresh）→promote_apks.py→readback_apks.py、data_after.py、runtime_after.py（三者独立可并行）→final_receipt.py。所有helper已语法PASS且上传提升有硬门禁，禁止旧UIO脚本。
-backup99899已exit0，fresh44旧单gen1793323771057295/7,671,808bytes/sha4fe86fb563b512753da662b511f44c405eab2e1d72b4a119afdc84619f4440fc，私有0600；runtime-before54276已exit0、两服务service/IAM私有0600，min0max1/原revision确认。并非昨日42备份。实际上传与回读均尚未执行。
-仅独立project yijiexing-driver-demo-1023/us-west1；API/admin保持driver-demo-ccui-107e226-test1/driver-admin-ccui-107e226-test1 100%和user-test，automatic/min0max1/请求计费，API900，不CloudRun部署。两APK固定GCS对象提升，原包先generation保护归档。禁止原测试生产/云业务POST/凭据与DB/APK入库。共享后端唯一可写仍UIO树apps/cloud-service，本轮无修改。
-发布全部回读PASS后建NAVREC receipt分支/PR，更新README版本20与真实回执、中央短卡，附新PR；CI与merge完成后最后自引用merge只中央，勿循环回执PR。手机安装入口仍user-test---driver-demo-phfgquzmua-uw.a.run.app/download-passenger和/download。地图Key已DO→D0恢复SDK生成请求10000，实际手机用户后验不轮询。BIZ04–09不重问，公告ack先显示边界保留；资金模拟/微信无AppID。
-角色backend01a182c6-c058-76e1-9584-38abfe813799、frontend01a182c6-c475-7110-bbae-0deafe6d2385目前IDLE；Gemini暂停/Astra仅堵点IDLE。当前无后台工作，root自己完成发布，结束等用户反馈。
+# coordinator 最终收尾短卡
+协议2026-10-26-v3；ACK；真实ID01a17cc7-e0a2-7791-bf1d-4611c09bab22/generation6唯一协调/验收/合并发布；context UNKNOWN/not_exposed。当前NAVREC-20261030-01，实际发包已完成，只剩回执/README入库。
+
+产品6ab66bdcd20b43dfd314917881342dcdcc165a9e，PR41 head790d19e9da372064ae49aa14a12d67880830371f/CI40987754723 SUCCESS，已expectedhead squash合并3fdd19cb5bcb89ef19999e9fd7c2dac7571323f8。5产品树与已验收6ab相等。实际已发布并公开HTTPS整包回读PASS：乘客1.1.18-experience/code20，SHAaa696a485a5e10d7c1cf3d7c2eeb7ecc82f1e185359f047ff9106756e29b2bd9；司机0.3.17-cloud/code20，SHA4a346bc4600e84a9ab0a39285ce6c70e9d292c9a9404458d03b8b12fb7b91af6；原包名/原Signer9ffec9…b758f/size/hash匹配非作者原包。旧19 generation保护归档，两固定新对象已提升，不可重复publish。
+
+作者Claude c334/Opus5.5medium4阶段exit0，无Bash自测NOT_RUN。非作者：NAVB关键规则源审PASS，NAVF7917组65原生+6ab仅2Note差量重编/2图PASS，54/77既有实际单测按明确对象/文案差异继承，所有AVD/fixture/reverse清理PASS。真人GPS/高德/逆地理/OEM/真实资金NOT_RUN；本地合成/mockGPS/导航Intent stub明确。公告先ack后显示缺口仍在，不保证持久补弹。详细NAVF/FINAL_REVIEW/COPY_DELTA_REVIEW/FINAL_BUILD_PROOF/CLEANUP，65图保留791不伪改。
+
+root upload92845/promote53246/公开HTTPS17737/runtime93960已exit0；strictData55930exit1的原FAIL保留。fresh发布前44单备份gen1793325061799268，所有DB外置0600；前后44/0丢失/0新增，43全字段一致，1单仅GPS4字段+updatedAt变化。NAVD独立read-only证明回执精确匹配/接收时间在快照间/既有写路径，PASS_WITH_CONCURRENT_LOCATION_BOUNDARY，不证明真实GPS/操作者；原FAIL未抹，不恢复旧DB。审计evidence/NAVD-20261030-01/REVIEW.json，完整实际回执evidence/NAV-20261029-01/release/FINAL-RELEASE-RECEIPT.json（包含dataException）。所有发布程序已停，无后台上传/模拟器/云业务POST；不要重跑。
+
+仅独立yijiexing-driver-demo-1023/us-west1；API/admin仍driver-demo-ccui-107e226-test1/driver-admin-ccui-107e226-test1 100%及user-test；完整spec/annotations/ENV/secret/SA/IAM/traffic/revision前后全不变，automatic/min0max1/请求CPU计费/API900。没CloudRun部署。原测试/生产禁止。安装入口https://user-test---driver-demo-phfgquzmua-uw.a.run.app/download-passenger 和/download；后台https://demo-admin.hbzjhs.xyz/原账号。
+
+当前源码树/Users/dongge/.codex/tmp/yijiexing-cloud-navigation-review-20261029已新建receipt分支codex/nav-release-receipt-20261030，base3fdd，仅README/coordination；产品源码不动。NAVREC任务已建，接下来同步实际回执/中央控制/独审证据→gate→commit/push/create附PR→backend只读窄审回执/README（不重跑DB/测试）+准确headCI→merge。最后merge自引用只中央，不继续循环PR。README已写20/43+1并发真实范围。主分支最终receipt SHA尚未产生。
+
+后端唯一可写仍UIO树apps/cloud-service，本轮没改，NAV树backend只读。Gemini暂停，Astra堵点IDLE，ClaudeIDLE；frontend01a182c6-c475-7110-bbae-0deafe6d2385 IDLE，backend01a182c6-c058-76e1-9584-38abfe813799 NAVD PASS/IDLE，将仅窄审回执。当前无后台常驻，不新建自动化。BIZ04–09/地图DO→D0配置恢复及微信缺AppID等见STATE，不重问。

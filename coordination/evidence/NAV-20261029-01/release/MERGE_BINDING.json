@@ -1,0 +1,16 @@
+{
+  "pullRequest": "https://github.com/Dadong520/yijiexing/pull/41",
+  "mergeSha": "3fdd19cb5bcb89ef19999e9fd7c2dac7571323f8",
+  "productSourceSha": "6ab66bdcd20b43dfd314917881342dcdcc165a9e",
+  "productTreesIdentical": {
+    "apps/passenger-android": true,
+    "candidates/driver-0.3.6-r2/android": true,
+    "apps/cloud-service": true,
+    "apps/admin-console/web": true,
+    "candidates/passenger-miniprogram-0.1.0/miniprogram": true
+  },
+  "ciHeadSha": "790d19e9da372064ae49aa14a12d67880830371f",
+  "ciRunId": 40987754723,
+  "releaseReady": true,
+  "published": false
+}
