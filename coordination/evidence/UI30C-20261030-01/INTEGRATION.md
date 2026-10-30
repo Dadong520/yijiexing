@@ -33,3 +33,11 @@ session 93f99706-9822-4a37-b5a9-5369a6ac2364（取自task）；claude-opus-5-5�
 - slot定向核对：乘客全部Dialog调用点——OrderDetail（block/choose/pay/destination/remark/dispute由dialog/choose slot覆盖，PassengerModal自带）、ExtraScreens×3、ProfileScreens（logout/常用地址/DeleteDialog）、ParityScreens、OrderIdentity、OperationsSupport拨号、MainActivity SettingsDialog（PassengerModalSlot(settings)）、PassengerTripDistance、PassengerPermissions、PassengerFullPage均有PAGE slot；公告（RANK_ANNOUNCEMENT+PassengerDialog）与确认弹窗（RANK_PROMPT+holdPageSlot=false）不自加PAGE，无自锁。BookingScreens原生Date/TimePickerDialog沿用main（未加slot，非本轮引入）。未发现需新增slot处。
 - 剩余缺口：司机端无modal coordinator，DriverDialog互斥及司机欠费/GPS/导航自动合并未逐行复核；云端"同类一并settle"未移植。
 - 测试：编译/单测/GUI全部NOT_RUN。
+
+## 阶段3（UITC-20261030-01，基于root提交17d491106f3a2e2719d5424978408156cd51a0bd；修UITF-R1）
+同session 93f99706-9822-4a37-b5a9-5369a6ac2364。仅改apps/passenger-android/.../UiComponents.kt；未改文案/条件/回调/其他Kotlin/版本。
+- PassengerModal按钮行：Row加`height(IntrinsicSize.Min)`；三按钮（拒绝/稍后/确认）由固定`height(46.dp)`改为`fillMaxHeight().heightIn(min = 46.dp)`，仍同一行、等高（取最高标签高度），最小高度不变；去掉三处`maxLines = 1`，标签可自然换行并居中（TextAlign.Center）；contentPadding加vertical 6dp供多行留白。字号仍TypeScale.Body，未缩小用户字体；宽度权重1/1/1.4、颜色、危险描边、enabled/disabled色、Button语义不变。
+- 同文件PassengerDialog：按钮行同样`height(IntrinsicSize.Min)`，两个Box加fillMaxHeight；PassengerTextButton在对话框角色下由固定`height(46.dp)`改为`fillMaxWidth().fillMaxHeight().heightIn(min = 46.dp)`，vertical padding 6dp，文本居中；非对话框角色（None）样式完全不变。
+- 估算（未实测）：360dp、fontScale1.3时确认按钮宽约104dp、内容约92dp，“同意已上车”约98dp，预期折为两行完整显示，按钮行随之增高且三按钮等高。
+- 未覆盖：司机DriverDialog（findings标NOT_YET_TESTED，本阶段不允许改driver）。
+- 测试：编译/单测/GUI及720x1280/320dpi/font1.3同场景复验全部NOT_RUN，由root/前端独立重编复验。

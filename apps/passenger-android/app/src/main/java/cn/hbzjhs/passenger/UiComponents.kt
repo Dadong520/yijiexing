@@ -231,38 +231,41 @@ fun PassengerModal(
               content = content,
             )
           }
+          // Labels wrap instead of clipping on narrow screens / large fonts; the row takes its height
+          // from the tallest label and every button fills it, so the three stay one equal-height row.
           Row(
-            Modifier.fillMaxWidth().padding(top = 4.dp),
+            Modifier.fillMaxWidth().padding(top = 4.dp).height(IntrinsicSize.Min),
             horizontalArrangement = Arrangement.spacedBy(10.dp),
             verticalAlignment = Alignment.CenterVertically,
           ) {
             val buttonShape = RoundedCornerShape(12.dp)
+            val buttonPadding = PaddingValues(horizontal = 6.dp, vertical = 6.dp)
             if (extraLabel != null)
               OutlinedButton(
                 onClick = onExtra,
                 enabled = extraEnabled,
-                modifier = Modifier.weight(1f).height(46.dp),
+                modifier = Modifier.weight(1f).fillMaxHeight().heightIn(min = 46.dp),
                 shape = buttonShape,
                 border = BorderStroke(1.dp, DangerLine),
-                contentPadding = PaddingValues(horizontal = 6.dp),
+                contentPadding = buttonPadding,
               ) {
-                Text(extraLabel, color = Danger, fontSize = TypeScale.Body, maxLines = 1)
+                Text(extraLabel, color = Danger, fontSize = TypeScale.Body, textAlign = TextAlign.Center)
               }
             Button(
               onClick = onDismiss,
               enabled = dismissEnabled,
-              modifier = Modifier.weight(1f).height(46.dp),
+              modifier = Modifier.weight(1f).fillMaxHeight().heightIn(min = 46.dp),
               shape = buttonShape,
               colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFF1F3F6), contentColor = Muted),
               elevation = ButtonDefaults.buttonElevation(defaultElevation = 0.dp),
-              contentPadding = PaddingValues(horizontal = 6.dp),
+              contentPadding = buttonPadding,
             ) {
-              Text(dismissLabel, fontSize = TypeScale.Body, maxLines = 1)
+              Text(dismissLabel, fontSize = TypeScale.Body, textAlign = TextAlign.Center)
             }
             Button(
               onClick = onConfirm,
               enabled = confirmEnabled,
-              modifier = Modifier.weight(if (extraLabel != null) 1.4f else 1.2f).height(46.dp),
+              modifier = Modifier.weight(if (extraLabel != null) 1.4f else 1.2f).fillMaxHeight().heightIn(min = 46.dp),
               shape = buttonShape,
               colors = ButtonDefaults.buttonColors(
                 containerColor = confirmColor,
@@ -271,9 +274,9 @@ fun PassengerModal(
                 disabledContentColor = Muted,
               ),
               elevation = ButtonDefaults.buttonElevation(defaultElevation = 3.dp),
-              contentPadding = PaddingValues(horizontal = 6.dp),
+              contentPadding = buttonPadding,
             ) {
-              Text(confirmLabel, fontSize = TypeScale.Body, fontWeight = FontWeight.SemiBold, maxLines = 1)
+              Text(confirmLabel, fontSize = TypeScale.Body, fontWeight = FontWeight.SemiBold, textAlign = TextAlign.Center)
             }
           }
         }
@@ -321,8 +324,9 @@ fun PassengerTextButton(
   val shape = RoundedCornerShape(if (role == DialogButtonRole.None) 10.dp else 12.dp)
   Button(
     onClick = onClick,
-    // Dialog buttons ignore caller sizing so every popup gets the same equal-height button row.
-    modifier = if (role == DialogButtonRole.None) modifier.heightIn(min = 36.dp) else Modifier.fillMaxWidth().height(46.dp),
+    // Dialog buttons ignore caller sizing so every popup gets the same equal-height button row; they
+    // grow with wrapped labels instead of clipping them.
+    modifier = if (role == DialogButtonRole.None) modifier.heightIn(min = 36.dp) else Modifier.fillMaxWidth().fillMaxHeight().heightIn(min = 46.dp),
     enabled = enabled,
     shape = shape,
     colors = ButtonDefaults.buttonColors(
@@ -333,14 +337,13 @@ fun PassengerTextButton(
     ),
     border = if (role == DialogButtonRole.Confirm) BorderStroke(1.dp, Teal.copy(alpha = 0.45f)) else null,
     elevation = ButtonDefaults.buttonElevation(defaultElevation = 0.dp),
-    contentPadding = if (role == DialogButtonRole.None) contentPadding else PaddingValues(horizontal = 6.dp),
+    contentPadding = if (role == DialogButtonRole.None) contentPadding else PaddingValues(horizontal = 6.dp, vertical = 6.dp),
   ) {
-    ProvideTextStyle(
-      TextStyle(
-        fontSize = if (role == DialogButtonRole.None) 14.sp else TypeScale.Body,
-        fontWeight = if (role == DialogButtonRole.Confirm) FontWeight.SemiBold else FontWeight.Medium,
-      )
-    ) { content() }
+    val style = TextStyle(
+      fontSize = if (role == DialogButtonRole.None) 14.sp else TypeScale.Body,
+      fontWeight = if (role == DialogButtonRole.Confirm) FontWeight.SemiBold else FontWeight.Medium,
+    )
+    ProvideTextStyle(if (role == DialogButtonRole.None) style else style.copy(textAlign = TextAlign.Center)) { content() }
   }
 }
 
@@ -376,13 +379,13 @@ fun PassengerDialog(
               ProvideTextStyle(TextStyle(fontSize = TypeScale.Body, lineHeight = 22.sp, color = Ink)) { it() }
             }
           }
-          Row(Modifier.fillMaxWidth().padding(top = 4.dp), horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+          Row(Modifier.fillMaxWidth().padding(top = 4.dp).height(IntrinsicSize.Min), horizontalArrangement = Arrangement.spacedBy(10.dp)) {
             dismissButton?.let {
-              Box(Modifier.weight(1f)) {
+              Box(Modifier.weight(1f).fillMaxHeight()) {
                 CompositionLocalProvider(LocalDialogButtonRole provides DialogButtonRole.Dismiss) { it() }
               }
             }
-            Box(Modifier.weight(1.2f)) {
+            Box(Modifier.weight(1.2f).fillMaxHeight()) {
               CompositionLocalProvider(LocalDialogButtonRole provides DialogButtonRole.Confirm) { confirmButton() }
             }
           }
