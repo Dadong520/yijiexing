@@ -1,14 +1,10 @@
-# frontend NAVF 文案窄差量最终短卡
-ACK2026-10-26-v3；真实ID01a182c6-c475-7110-bbae-0deafe6d2385；2026-10-30T09:43:39.444833+08:00；context UNKNOWN/no telemetry。
-NAVF-20261029-01 COPY_DELTA_REVIEW_COMPLETE/PASS。最终candidate/pendingMerge6ab66bdcd20b43dfd314917881342dcdcc165a9e，parent7911a6fb13804cb4ae242995de4af60a0b189c34；sourceRoot /Users/dongge/.codex/tmp/yijiexing-cloud-navigation-review-20261029，branch codex/cloud-navigation-review-20261029。线上仍19；本人无产品修改/提交/合并发布，root唯一发布。
-
-独立确认相对791仅MainActivity613和ProfileScreens144各一个Note字符串；逐行长度/仅1行差异/引号外字节相同，版本与布局/逻辑不变，COPY_DELTA.diff保存。新说明明确定位授权、搜索逆地理依赖服务、外部地图导航；资金和发票仍模拟，不保证provider/正式扣款。原P3关闭。
-
-原791 FINAL_BUILD_PROOF已原样另存BUILD_PROOF_7911.json；FINAL_BUILD_PROOF.json现source6ab。乘客新独立外置 /Users/dongge/.codex/tmp/yijiexing-navf-copy-6ab-20261030 git archive：原包assemble成功76s，QA63s；原ID/证书/code20/1.1.18-experience/HTTPS/私有4值0扫描/源逐字节绑定通过。新乘客sha256 aa696a485a5e10d7c1cf3d7c2eeb7ecc82f1e185359f047ff9106756e29b2bd9，bytes107188601。54实际f7单测按仅2Note文字+版本常量差异继承，没重跑/新写测试；报告不冒称整个app/src与f7字节相同，test文件树相同。
-司机完整子树与791相同，继承791 code20/0.3.17-cloud原包hash4a346bc4600e84a9ab0a39285ce6c70e9d292c9a9404458d03b8b12fb7b91af6、77实际2ba单测/构建。司机没有新构建或重新GUI声称。
-
-复开同NAV批许可AVD5586+localhost64331仅登录与个人页：2张实际6ab截图c11-login-copy-final、c08-profile-copy-final及XML已visual看完，全文可滚动读、旧字去除、无裁切。copy-delta/目录及COPY_DELTA_REVIEW.json。首次null-root/首张未滚动不计证据。QA仅applicationId/localHTTPS/debugCA，无Kotlin改动；backend仍旧791export但完整子树同6ab，所有账号/DB合成本地，无云业务POST。
-原65组FINAL_SCREENSHOTS.json保持791，SHA2566cd86520a4f54238cebf24421bc5c27c076cbe9a0b9bc74fb46bafb5fe5db9e4完全未改；FINAL_REVIEW仍为791历史审核，原P3由新COPY_DELTA关闭，不能把65改标6ab。原7组导航/确认/公告/GPS/search/小屏钱包实操PASS及54/77依据有效继承。实际provider/逆地理成功/OEM/个人手机/真实资金和部分异步排列NOT_RUN，BIZ09仍ack先于render，账号切换可丢held，不保证持久补弹。
-
-窄验收资源：original64870/QA43697 exit0；AVD12967/fixture56309 exit0，5586 reverse443移除，两端口无监听，最终adb回读见COPY_DELTA_CLEANUP。原791资源cleanup另存CLEANUP_7911；新CLEANUP.json指6ab。所有APK/cache/DB/TLS/私有identity外置，没新代理/后台轮询/自动回信。
-只写本任务/evidence/自身卡，≤8KB/6KB。真实ID末门禁PASS（不等业务）。下一步IDLE，root综合独审/准确SHA门禁后唯一合并发布回读；releaseReady=false不擅自发布。
+# frontend UITF 完成短卡
+协议ACK2026-10-26-v3；真实ID01a182c6-c475-7110-bbae-0deafe6d2385；context UNKNOWN/not_exposed。记忆HANDOFF_RECOMMENDED（旧长会话进入UIT期间可见压缩，已持续短卡恢复，源/版本已精确核清）；未擅自新建会话/改登记。当前只等root后续明确派单，不自行常驻。
+任务UITF-20261030-01，状态ACCEPTANCE_PASS_IDLE；仅本轮隔离原生UI范围PASS，非项目发布完成。sourceRoot /Users/dongge/.codex/tmp/yijiexing-ui-feedback-20261030；branch codex/ui-feedback-20261030；base362c7f861a5063631c6da9ba198e04bc131402e4；最终干净HEAD/待合并ecc9d8d0e63f5ee1c9a8f45df87e92f7b42e0ea5。root唯一合并部署，本人无产品修改/提交/部署，线上仍20以中央STATE为准。
+证据coordination/evidence/UI30F-20261030-01/：NATIVE_ACCEPTANCE_FINAL.json逐组/逐图sourceSHA，BUILD_PROOF_ecc9d8d.json最终包绑定，旧BUILD_PROOF_17d4911/2815d02保留，FINDINGS_17d4911.json原R1/R2失败+修后关闭，CLEANUP_FINAL.json资源回执。READ native矩阵即可，不遍历旧NAV或历史。
+源链：17d491106f3a2e2719d5424978408156cd51a0bd实际双单测54/77，零失败/错误，原包+QA构建；2815d02db65ec8ac82d102ad4664eb9ea185cc77仅乘客UiComponents按钮自适应，乘客重编+原生差量PASS；ECC仅Driver OperationsSupport证件显示分支，driver重编+差量PASS。54/77明确实际17d，后续纯UI/文案按测试/业务字节保持与原生差量继承，未伪称ECC重跑。cloud-service全树17d=ECC。
+最终原包乘客1.1.19-experience/code21、buildSha281，整个乘客树与ECC同：SHA476ba49f596e5736931e7a21ee3260984f9766029d217fa33abdc69f51185e69；driver0.3.18-cloud/code21、buildShaECC：SHA143108f537ec62df06a34cd9bb51ec89d8249ab80141ab9cb1df86f7adb47f0e。原包名/原Signer9ffec9…b758f/HTTPS/全部APK条目4私有值0命中PASS。原APK外置R/revision281/source/apps/passenger-android/app/build/outputs/apk/debug/app-debug.apk和R/revisionECC/source/candidates/driver-0.3.6-r2/android/app/build/outputs/apk/debug/app-debug.apk，R=/Users/dongge/.codex/tmp/yijiexing-uitf-20261030。QA仅appId/localhost端点/debugCA不同，严禁发布。
+本轮G1/P1-P4/D1-D3已跑：小屏360x640dp/font1.3正常屏、三按钮全部禁用/失败恢复/真实localretry、长财务模态、所有定义stage固定动作（明确set合成）、实际取消失败重入/成功、模拟支付失败/成功、欠款samebill替换/稍后不重弹/多单/账号2无串入、history13/未知坐标禁确认/选点/waypoint/代叫/编辑页返回保留、预约细条/两端profile空态与能力提示、司机设置迁移/5km实际更新、接单→到达真实local与GPS缺失等待乘客、不绕过、pickup/TRIP导航fallback所指正确、并排操作+cancel次级入口、流水3→5→3/入账3→6→3与账号2空态。四条wallet订单直接合成只验展示不称资金结算。可见图均按实际内容计，不按文件名。
+R1旧p09主按钮“同意已上车”裁末字车；281 r281-01全文两行且等高，02全禁用、03失败04实际retry成功。R2旧d11 pending仍催提前更新；ECC ecc02非pending提醒保留、04validpending不再催、05expired保留禁新单/在途可完、06UNKNOWN/07未通过不当有效、09首页validpending无nag。原FAIL保留。旧17d expired/nonapproved实际accept拒绝，ECC门禁谓词未变。
+边界：QA故意无真实provider/离线DNS，底图/搜索/逆地理/地图App成功/OEM/个人设备/真资金/真实认证录音警方/云业务POST/发布NOT_RUN。公告账号2登录初帧可读重试状态，手动retry实际ACK成功并显示（r28174-77）；不伪作首次就成功。未提交叫车草稿跨底部页签会重建（原有行为），只验证编辑页返回保留，不称跨tab持久化。p07首页、p12过期请求、d35重建非modal、p48草稿重建为探测而非PASS。无原24项逐号清单，以root实际集成分组验收，不伪造1:1。
+资源已清：当前fixture session51472 exit0（前61576已干净重启/退出）；AVD UITF_20261030/serial5584/session53431 exit0；reverse全部已从该serial移除；adb无该模拟器，64341/5584无listener。无build/CLI在途。APKs/cache/privateDB/TLS身份均外置，不入Git。只改自身task/handoff/evidence；STATE/BOARD/REGISTRY root独占。下一步root合并发布；本人IDLE，无可自行推进的发布权限。

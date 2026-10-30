@@ -20,8 +20,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
+import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
+import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.platform.LocalDensity
@@ -36,8 +40,9 @@ import androidx.compose.ui.unit.sp
 val Green = Color(0xFF00796E)
 val Ink = Color(0xFF0F1B2A)
 val Muted = Color(0xFF4B5B6B)
-val Pale = Color(0xFFE3F4F1)
-val Page = Color(0xFFF2F6F7)
+// Brighter mint and a neutral cool page grey; the old green-grey pair read as muddy.
+val Pale = Color(0xFFE8F8F5)
+val Page = Color(0xFFF4F6F9)
 val Line = Color(0xFFDCE5E8)
 val Orange = Color(0xFFB45309)
 
@@ -101,6 +106,19 @@ fun Glyph(name: String, color: Color = Green, modifier: Modifier = Modifier.size
         "settings" -> Icons.Outlined.Settings
         "plus" -> Icons.Outlined.Add
         "close" -> Icons.Outlined.Close
+        "star" -> Icons.Outlined.Star
+        "share" -> Icons.Outlined.Share
+        "lock" -> Icons.Outlined.Lock
+        "warning" -> Icons.Outlined.Warning
+        "info" -> Icons.Outlined.Info
+        "mail" -> Icons.Outlined.Email
+        "face" -> Icons.Outlined.Face
+        "tool" -> Icons.Outlined.Build
+        "calendar" -> Icons.Outlined.DateRange
+        "thumb" -> Icons.Outlined.ThumbUp
+        "account" -> Icons.Outlined.AccountBox
+        "exit" -> Icons.Outlined.ExitToApp
+        "refresh" -> Icons.Outlined.Refresh
         else -> null
     }
     if (standard != null) {
@@ -337,35 +355,36 @@ fun SheetCard(modifier: Modifier = Modifier, content: @Composable ColumnScope.()
     Surface(
         modifier = modifier.fillMaxWidth(),
         color = Color.White,
-        shape = RoundedCornerShape(12.dp),
-        border = BorderStroke(1.dp, Line),
-        shadowElevation = 0.dp
+        shape = RoundedCornerShape(14.dp),
+        border = BorderStroke(1.dp, Color(0xFFEDEFF2)),
+        shadowElevation = 2.dp
     ) {
-        Column(Modifier.padding(14.dp), content = content)
+        Column(Modifier.padding(horizontal = 14.dp, vertical = 12.dp), content = content)
     }
 }
 
 @Composable
 fun PrimaryButton(label: String, modifier: Modifier = Modifier, enabled: Boolean = true, onClick: () -> Unit) {
-    Button(
-        onClick = onClick,
-        modifier = modifier.fillMaxWidth().heightIn(min = 52.dp),
-        enabled = enabled,
-        shape = RoundedCornerShape(10.dp),
-        colors = ButtonDefaults.buttonColors(
-            containerColor = Green,
-            contentColor = Color.White,
-            disabledContainerColor = Line,
-            disabledContentColor = Muted
-        ),
-        contentPadding = PaddingValues(horizontal = 16.dp, vertical = 12.dp)
+    // Lit gradient with a soft shadow so the primary action reads as a real button, not coloured text.
+    val shape = RoundedCornerShape(12.dp)
+    Box(
+        modifier
+            .fillMaxWidth()
+            .heightIn(min = 48.dp)
+            .shadow(if (enabled) 6.dp else 0.dp, shape, ambientColor = Green, spotColor = Green)
+            .clip(shape)
+            .background(if (enabled) BrandGradient else SolidColor(Line))
+            .clickable(enabled = enabled, role = Role.Button, onClick = onClick)
+            .padding(horizontal = 16.dp, vertical = 12.dp),
+        contentAlignment = Alignment.Center,
     ) {
         Text(
             text = label,
-            fontSize = 16.sp,
-            lineHeight = 22.sp,
+            fontSize = DriverType.Body,
+            lineHeight = 20.sp,
             textAlign = TextAlign.Center,
-            fontWeight = FontWeight.Bold
+            fontWeight = FontWeight.Bold,
+            color = if (enabled) Color.White else Muted,
         )
     }
 }
@@ -389,25 +408,18 @@ fun PageHeader(title: String, onBack: (() -> Unit)? = null, action: String? = nu
         }
         Text(
             text = title,
-            fontSize = 18.sp,
-            lineHeight = 24.sp,
+            fontSize = DriverType.Page,
+            lineHeight = 26.sp,
             fontWeight = FontWeight.Bold,
             color = Ink,
             modifier = Modifier.weight(1f).padding(horizontal = 6.dp)
         )
         if (action != null) {
-            TextButton(
+            DriverTextButton(
                 onClick = onAction,
                 modifier = Modifier.heightIn(min = 48.dp).padding(horizontal = 4.dp)
             ) {
-                Text(
-                    text = action,
-                    color = Green,
-                    fontSize = 15.sp,
-                    lineHeight = 20.sp,
-                    fontWeight = FontWeight.Medium,
-                    textAlign = TextAlign.Center
-                )
+                Text(text = action, textAlign = TextAlign.Center)
             }
         }
     }
@@ -428,8 +440,8 @@ fun SectionTitle(title: String, subtitle: String = "", action: String? = null, o
             }
         }
         if (action != null) {
-            TextButton(onClick = onAction, modifier = Modifier.heightIn(min = 48.dp)) {
-                Text(action, fontSize = 14.sp, fontWeight = FontWeight.Medium, color = Green)
+            DriverTextButton(onClick = onAction) {
+                Text(action)
             }
         }
     }
@@ -454,9 +466,9 @@ fun MenuRow(icon: String, title: String, description: String = "", onClick: () -
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .heightIn(min = 52.dp)
+            .heightIn(min = 48.dp)
             .clickable(onClick = onClick)
-            .padding(vertical = 6.dp),
+            .padding(vertical = 4.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
         val (tint, soft) = moduleAccent(icon)
@@ -464,7 +476,7 @@ fun MenuRow(icon: String, title: String, description: String = "", onClick: () -
             modifier = Modifier
                 .size(34.dp)
                 .clip(RoundedCornerShape(10.dp))
-                .background(soft),
+                .background(Brush.verticalGradient(listOf(Color.White, soft))),
             contentAlignment = Alignment.Center
         ) {
             Glyph(icon, tint, Modifier.size(18.dp))
@@ -510,8 +522,8 @@ fun RouteStops(order: DriverOrder, compact: Boolean = false) {
                 Text(
                     text = address,
                     modifier = Modifier.weight(1f),
-                    fontSize = if (compact) 16.sp else 18.sp,
-                    lineHeight = if (compact) 22.sp else 24.sp,
+                    fontSize = if (compact) DriverType.Body else DriverType.Title,
+                    lineHeight = 22.sp,
                     fontWeight = FontWeight.SemiBold,
                     color = Ink
                 )
@@ -555,8 +567,8 @@ fun OrderCard(order: DriverOrder, action: String? = null, onClick: () -> Unit) {
             }
             Text(
                 if (order.destinationPending) "费用待定" else "¥${money(order.fare)}",
-                fontSize = 24.sp,
-                lineHeight = 28.sp,
+                fontSize = DriverType.Page,
+                lineHeight = 26.sp,
                 fontWeight = FontWeight.Bold,
                 color = Ink
             )
@@ -576,12 +588,7 @@ fun OrderCard(order: DriverOrder, action: String? = null, onClick: () -> Unit) {
         )
         Spacer(Modifier.height(10.dp))
         if (action == null && order.stage != Stage.AVAILABLE)
-            OutlinedButton(
-                onClick = onClick,
-                modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp),
-                shape = RoundedCornerShape(10.dp),
-                border = BorderStroke(1.dp, Green),
-            ) { Text("查看详情", color = Green, fontSize = 15.sp, fontWeight = FontWeight.SemiBold) }
+            BusinessOutlinedButton(onClick = onClick, modifier = Modifier.fillMaxWidth()) { Text("查看详情") }
         else PrimaryButton(action ?: "查看详情", onClick = onClick)
     }
 }

@@ -1,0 +1,26 @@
+{
+  "taskId": "UITB-20261030-01",
+  "reviewerThreadId": "01a182c6-c058-76e1-9584-38abfe813799",
+  "reviewedAt": "2026-10-30T21:14:26+08:00",
+  "candidateSha": "ecc9d8d0e63f5ee1c9a8f45df87e92f7b42e0ea5",
+  "previousAcceptedSha": "2815d02db65ec8ac82d102ad4664eb9ea185cc77",
+  "acceptance": "PASS",
+  "scope": "DriverCertificateStatus display branch only",
+  "checks": {
+    "onlyProductFile": "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/OperationsSupport.kt",
+    "predicatePrefixUnchanged": true,
+    "qualificationBannerAndCallbacksSuffixUnchanged": true,
+    "otherProductObjectsUnchanged": true
+  },
+  "conclusions": [
+    "PendingEXPIRING says active expiry/new material under review; no repeated submit/update instruction.",
+    "PendingEXPIRED explicitly keeps block on new orders, permits in-trip completion, requires approval to release restriction.",
+    "PendingUNKNOWN states unverified current validity and review status, no false validity claim or blanket new prohibition.",
+    "Pending nonAPPROVED VALID/EXPIRING explicitly not approved/not valid; LONG_TERM nonapproved text retains same distinction.",
+    "Nonpending EXPIRING/EXPIRED/UNKNOWN reminders unchanged; pending rejected-history text no longer asks resubmit already-submitted material.",
+    "No qualification predicate, acceptance gate, event, callback or money change; original business semantic PASS inherited."
+  ],
+  "notRun": "No broad tests/Gradle/GUI repeated; frontend rebuilding original package and narrow GUI independently",
+  "rootFindingHistory": "ROOT_FINDING_R2 retained by root; this review binds fix only",
+  "nextAction": "Backend IDLE; root combine frontend exact-SHA GUI/build acceptance"
+}

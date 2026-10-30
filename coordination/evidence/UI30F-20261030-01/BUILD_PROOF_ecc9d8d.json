@@ -1,0 +1,83 @@
+{
+  "sourceSha": "ecc9d8d0e63f5ee1c9a8f45df87e92f7b42e0ea5",
+  "roles": {
+    "passenger": {
+      "sourceSha": "ecc9d8d0e63f5ee1c9a8f45df87e92f7b42e0ea5",
+      "buildSha": "2815d02db65ec8ac82d102ad4664eb9ea185cc77",
+      "testBuildSha": "17d491106f3a2e2719d5424978408156cd51a0bd",
+      "tests": 54,
+      "failures": 0,
+      "errors": 0,
+      "inheritedTests": true,
+      "apk": "/Users/dongge/.codex/tmp/yijiexing-uitf-20261030/revision281/source/apps/passenger-android/app/build/outputs/apk/debug/app-debug.apk",
+      "sha256": "476ba49f596e5736931e7a21ee3260984f9766029d217fa33abdc69f51185e69",
+      "bytes": 107204985,
+      "sourceTree": "5bf93c9f7c77ef9dbcd395780a11ce2c3b62b5bd",
+      "sourceTrackedFiles": 107,
+      "sourceMismatches": [],
+      "packageVersionLine": "package: name='cn.hbzjhs.dc.passenger.cloud' versionCode='21' versionName='1.1.19-experience' platformBuildVersionName='14' platformBuildVersionCode='34' compileSdkVersion='34' compileSdkVersionCodename='14'",
+      "aaptExit": 0,
+      "apksignerExit": 0,
+      "samePriorSigner": true,
+      "privateExactMatches": 0,
+      "uncompressedEntriesScanned": 425,
+      "originalHttpsPresent": true,
+      "command": "exact281 offline assembleDebug; unit54 inherited from17d explicitly",
+      "qa": {
+        "apk": "/Users/dongge/.codex/tmp/yijiexing-uitf-20261030/revision281/build/qa-passenger/_app/outputs/apk/debug/app-debug.apk",
+        "sha256": "25b65fc54da334f2f1017f60b75fb9a8580ad07f80c44975cff590aa71402aa9",
+        "sourceSha": "2815d02db65ec8ac82d102ad4664eb9ea185cc77",
+        "differences": [
+          "QA applicationId",
+          "localhostHTTPS",
+          "debug manifest/localCA"
+        ],
+        "productKotlinEdits": false,
+        "publicationArtifact": false
+      },
+      "testInheritanceReason": "Only Compose modal button layout changed; test files, tested rules and all other product files byte-identical. Actual54 tests at17d remain accurately attributed.",
+      "buildInheritanceReason": "Whole passenger tree byte-identical281\u2192ECC; original APK and QA built281, actual modal images281 retained. Unit54 actual17d explicit UI-only inheritance."
+    },
+    "driver": {
+      "sourceSha": "ecc9d8d0e63f5ee1c9a8f45df87e92f7b42e0ea5",
+      "buildSha": "ecc9d8d0e63f5ee1c9a8f45df87e92f7b42e0ea5",
+      "testBuildSha": "17d491106f3a2e2719d5424978408156cd51a0bd",
+      "tests": 77,
+      "failures": 0,
+      "errors": 0,
+      "inheritedTests": true,
+      "apk": "/Users/dongge/.codex/tmp/yijiexing-uitf-20261030/revisionECC/source/candidates/driver-0.3.6-r2/android/app/build/outputs/apk/debug/app-debug.apk",
+      "sha256": "143108f537ec62df06a34cd9bb51ec89d8249ab80141ab9cb1df86f7adb47f0e",
+      "bytes": 108685957,
+      "sourceTree": "17be2863aaee61f3c42b94ffd82f775ad2342d59",
+      "sourceTrackedFiles": 68,
+      "sourceMismatches": [],
+      "packageVersionLine": "package: name='cn.hbzjhs.dc.driver.cloud' versionCode='21' versionName='0.3.18-cloud' platformBuildVersionName='14' platformBuildVersionCode='34' compileSdkVersion='34' compileSdkVersionCodename='14'",
+      "aaptExit": 0,
+      "apksignerExit": 0,
+      "samePriorSigner": true,
+      "privateExactMatches": 0,
+      "uncompressedEntriesScanned": 433,
+      "originalHttpsPresent": true,
+      "command": "exactECC offline assembleDebug; unit77 inherited17d explicitly",
+      "qa": {
+        "apk": "/Users/dongge/.codex/tmp/yijiexing-uitf-20261030/revisionECC/build/qa-driver/_app/outputs/apk/debug/app-debug.apk",
+        "sha256": "adb7d022ebe762460f6b29d9bcc9abaf75f41f40cac1c00bf06953a442fc2b59",
+        "sourceSha": "ecc9d8d0e63f5ee1c9a8f45df87e92f7b42e0ea5",
+        "differences": [
+          "QA applicationId",
+          "localhostHTTPS",
+          "debug manifest/localCA"
+        ],
+        "productKotlinEdits": false,
+        "publicationArtifact": false
+      },
+      "testInheritanceReason": "Actual77 tests at17d. Since17d only certificate display strings/branches changed in OperationsSupport.kt; existing predicates/business gates/events/test files unchanged; independent source and native differential verification."
+    }
+  },
+  "previousProof": "BUILD_PROOF_2815d02.json",
+  "productChangesSincePrevious": [
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/OperationsSupport.kt"
+  ],
+  "testInheritanceSummary": "54/77 actually executed17d with0fail0error; layout-only passenger281 and certificate-display-only driverECC builds/native differential. No claim of rerun tests on final ECC."
+}

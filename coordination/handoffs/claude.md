@@ -1,11 +1,10 @@
 # claude 当前短卡
-协议ACK：2026-10-26-v3（已读中央START_HERE.md、MEMORY_POLICY.md、tasks/NAV-20261029-01.json）。角色claude；实际session c3342ddb-6fe0-44b6-8311-00c329e73178（取自task），claude-opus-5-5/medium；context UNKNOWN（无可靠遥测）；memoryStatus NORMAL。更新2026-10-29。Codex root唯一协调/验收/合并发布。
-任务NAV-20261029-01；source /Users/dongge/.codex/tmp/yijiexing-cloud-navigation-review-20261029，branch codex/cloud-navigation-review-20261029。阶段1/2已由root提交为2ba5b79f1113b0de9ec105a2733fc8a4a9e9ffe0（frontend构建+单测47/77 PASS，后台5问题PASS）。
-阶段4（2026-10-30，基于HEAD 7911a6fb13804cb4ae242995de4af60a0b189c34）：仅逐字替换2处能力说明字符串——ProfileScreens.kt关于说明、MainActivity.kt登录第二个Note；无其他源码/导入/格式/测试/版本改动（保持version20）；工作树未提交；编译/测试NOT_RUN，等Codex对新SHA重编乘客端并复核两页。
-阶段3历史：NAVF-R1/R2作者修复完成（已由root后续提交）；作者编译/测试/GUI全部NOT_RUN；等Codex编译与非作者复核。未合并、未发布。未改driver/Store/domain/backend/NavigationContract/manifest/key/Gradle/版本。
-阶段3改动（仅乘客）：
-- R1 PassengerModalCoordinator：slot加rank（页面0<公告1<确认2），outranked()与mayClaimAnnouncement()。OperationsSupport公告：claim前须无任何他模态；已领取的captured保存在showing（按owner remember）直到关闭，仅在无页面级模态时绘制（showing/failed对话框都复核），不丢弃不重复claim；自身slot不参与判断，无循环。确认弹窗rank2，被公告/页面遮挡时等待。PassengerPermissions按实际shouldShow=forceOpen||!seenGuide注册slot（仅UI）；MainActivity删除只按forceOpen的注册。BIZ09与服务端claim未变。
-- R2 PassengerPickupDefaults新增PassengerAddressLookup.debounced：等待前取gate token，等待后/结果/错误/finally均校验；BookingScreens文字搜索effect改用它。手动坐标、同名常用选择、地图、取消、关闭均invalidate→等待中旧查询不发请求。同query重试保留。
-- 测试：PassengerPickupDefaultsTest用runBlocking跑真实debounced控制流（等待中手动/改字/新查询、在途作废、失败后重试）；PassengerConfirmPromptRulesTest加rank互斥与claim一次规则。
-残余：账号切换时已领取未显示的公告随旧owner丢弃（不串号，但该版本对旧账号不再弹）；GUI NOT_RUN。
-下一步：root编译+单测+非作者复核；退回在同一session修。
+协议ACK：2026-10-26-v3（已读中央START_HERE.md、STATE.md、tasks/UITC-20261030-01.json）。角色claude；session 93f99706-9822-4a37-b5a9-5369a6ac2364（取自task，未自行遥测）；claude-opus-5-5；context UNKNOWN；memoryStatus NORMAL。更新2026-10-30。Codex root唯一协调/验收/合并发布。
+任务UITC-20261030-01（初始别名UI30C；证据evidence/UI30C-20261030-01/INTEGRATION.md）；source /Users/dongge/.codex/tmp/yijiexing-ui-feedback-20261030，branch codex/ui-feedback-20261030，base main362c7f8 + 9495caa cherry-pick --no-commit。
+状态：阶段1冲突整合（root已核exit0/无标记）+阶段2小修完成，未commit/add，未碰Gradle版本常量。
+阶段2：UITB-01闭合（司机证件仅当前材料APPROVED且VALID/EXPIRING/LONG_TERM时审核中才抑制催办；过期/未生效保留暂停新增接单；UNKNOWN/未通过写未确认、以审核结果为准）；证件页pending三分支文案；欠费提示与WAIT_PAY pay同key原地替换；PassengerModal dismissEnabled/extraEnabled，提交中按钮显示禁用；乘客Dialog slot定向核对无遗漏、全局弹窗不自加PAGE。
+阶段3（基于17d4911，修UITF-R1）：仅UiComponents.kt——PassengerModal与PassengerDialog按钮行IntrinsicSize.Min等高、按钮heightIn(min46)随内容增高、去maxLines1允许换行居中；字号/文案/颜色/语义不变。司机DriverDialog未改（不在本阶段范围）。
+阶段4（基于2815d02，修UIT-R2）：仅司机DriverCertificateStatus文案——审核中保留到期/过期/未生效/未知事实，不再催“请提前更新/请更新/补全/重新提交”；非审核中原文不变。NOT_RUN。
+缺口：司机端modal互斥与欠费/GPS/导航自动合并未逐行复核；云端"同类一并settle"未移植。
+测试：编译/单测/GUI全部NOT_RUN。下一步：root前置检查+非作者复核；退回在同一session修。
+历史：NAV-20261029-01（session c3342ddb-…）已由root验收发布version20。

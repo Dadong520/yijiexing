@@ -31,6 +31,8 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
@@ -65,7 +67,7 @@ fun LocalLogin(store: ConnectedStore) {
             CoreTextButton(
                 onClick = { connectionDialog = true }
             ) {
-                Text("连接状态", fontSize = 16.sp)
+                Text("连接状态", fontSize = 15.sp)
             }
         }
         androidx.compose.foundation.Image(
@@ -76,8 +78,8 @@ fun LocalLogin(store: ConnectedStore) {
             modifier = Modifier.fillMaxWidth().height(220.dp).clip(RoundedCornerShape(22.dp)),
         )
         Spacer(Modifier.height(18.dp))
-        Text("宜捷行 · 司机", fontSize = 28.sp, fontWeight = FontWeight.Bold, color = Green)
-        Text("欢迎回来，师傅", color = Ink, fontSize = 20.sp, fontWeight = FontWeight.SemiBold, modifier = Modifier.padding(top = 4.dp))
+        Text("宜捷行 · 司机", fontSize = 24.sp, fontWeight = FontWeight.Bold, color = Green)
+        Text("欢迎回来，师傅", color = Ink, fontSize = 16.sp, fontWeight = FontWeight.SemiBold, modifier = Modifier.padding(top = 4.dp))
         Text("选择体验账号，一键进入", color = Muted, fontSize = 13.sp, modifier = Modifier.padding(top = 8.dp, bottom = 12.dp))
 
         if (!sessionAvailable && connectionError != null) {
@@ -90,7 +92,7 @@ fun LocalLogin(store: ConnectedStore) {
                 )
                 Text(
                     connectionError!!,
-                    fontSize = 16.sp,
+                    fontSize = 15.sp,
                     color = Muted,
                     modifier = Modifier.padding(top = 8.dp),
                 )
@@ -107,7 +109,7 @@ fun LocalLogin(store: ConnectedStore) {
                 Text("服务连接提示", fontWeight = FontWeight.SemiBold, color = Ink)
                 Text(
                     connectionError ?: "若遇网络波动或服务休眠，可点下方按钮重试连接。",
-                    fontSize = 16.sp,
+                    fontSize = 15.sp,
                     color = Muted,
                     modifier = Modifier.padding(top = 8.dp),
                 )
@@ -117,12 +119,12 @@ fun LocalLogin(store: ConnectedStore) {
         }
 
         Spacer(Modifier.height(20.dp))
-        Text("选择体验司机账号", fontSize = 16.sp, fontWeight = FontWeight.SemiBold, color = Ink)
+        Text("选择体验司机账号", fontSize = 15.sp, fontWeight = FontWeight.SemiBold, color = Ink)
         Spacer(Modifier.height(8.dp))
 
         Box(Modifier.fillMaxWidth()) {
             OutlinedButton(onClick = { accountMenu = true }, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) {
-                Text("体验司机${selectedPhone.takeLast(2)}", fontSize = 16.sp)
+                Text("体验司机${selectedPhone.takeLast(2)}", fontSize = 15.sp)
                 Spacer(Modifier.weight(1f))
                 Text("切换账号", fontSize = 14.sp)
             }
@@ -148,7 +150,7 @@ fun LocalLogin(store: ConnectedStore) {
             Checkbox(agreed, onCheckedChange = null)
             Text(
                 "我已了解体验说明和共享演示数据范围",
-                fontSize = 16.sp,
+                fontSize = 15.sp,
                 color = Ink,
                 modifier = Modifier.weight(1f).padding(start = 10.dp),
             )
@@ -165,11 +167,11 @@ fun LocalLogin(store: ConnectedStore) {
 
         Spacer(Modifier.height(20.dp))
         SheetCard {
-            Text("体验说明", fontSize = 18.sp, fontWeight = FontWeight.Bold)
+            Text("体验说明", fontSize = 15.sp, fontWeight = FontWeight.Bold)
             Text(
                 "体验账号共用演示数据；支付、退款为模拟，不会真实扣款。请使用演示资料。",
                 color = Muted,
-                fontSize = 16.sp,
+                fontSize = 15.sp,
                 lineHeight = 24.sp,
                 modifier = Modifier.padding(top = 8.dp),
             )
@@ -205,7 +207,7 @@ private fun CloudConnectionDialog(
 ) {
     val connectionError by store.error.collectAsState()
     val sessionAvailable by store.sessionAvailable.collectAsState()
-    AlertDialog(
+    DriverDialog(
         onDismissRequest = onDismiss,
         title = { Text("连接状态") },
         text = {
@@ -219,13 +221,13 @@ private fun CloudConnectionDialog(
                     Text(
                         it,
                         color = Green,
-                        fontSize = 16.sp,
+                        fontSize = 15.sp,
                         fontWeight = FontWeight.SemiBold,
                     )
                 }
                 Text(
                     "联网后选择体验账号即可进入；已有登录状态时可以重试连接。",
-                    fontSize = 16.sp,
+                    fontSize = 15.sp,
                     color = Ink,
                 )
                 if (connectionError != null) {
@@ -263,8 +265,6 @@ fun ConnectedHome(
     onGrab: (DriverOrder) -> Unit,
 ) {
     val payload by store.payload.collectAsState()
-    val positionStatus by PositionBus.status.collectAsState()
-    val speechStatus by OrderAnnouncementStatus.status.collectAsState()
     val online by store.connected.collectAsState()
     val profile = payload.optJSONObject("profile")?.optJSONObject("driver") ?: JSONObject()
     val features = payload.optJSONObject("features") ?: JSONObject()
@@ -282,7 +282,6 @@ fun ConnectedHome(
         if (kindFilter != null && selectedKind == null) kindFilter = null
     }
     val available = if (selectedKind == null) allAvailable else allAvailable.filter { it.kind == selectedKind }
-    var toolsExpanded by remember { mutableStateOf(false) }
 
     BoxWithConstraints(Modifier.fillMaxSize().background(Page)) {
         // The identity bar sits above the map (never on top of it), and the order sheet keeps
@@ -390,7 +389,7 @@ fun ConnectedHome(
                     else if (!canAccept)
                         item {
                             SheetCard {
-                                Text("当前接单权益不可用", fontSize = 16.sp, fontWeight = FontWeight.Bold, color = Ink)
+                                Text("当前接单权益不可用", fontSize = 15.sp, fontWeight = FontWeight.Bold, color = Ink)
                                 Text(
                                     features.optString("trialEndReason", "请查看权益状态或开通适用城市等级。"),
                                     color = Muted,
@@ -410,7 +409,7 @@ fun ConnectedHome(
                                     verticalAlignment = Alignment.CenterVertically
                                 ) {
                                     Column(Modifier.weight(1f)) {
-                                        Text("当前休息中", fontSize = 17.sp, fontWeight = FontWeight.Bold, color = Ink)
+                                        Text("当前休息中", fontSize = 16.sp, fontWeight = FontWeight.Bold, color = Ink)
                                         Text("上线后将实时接收附近订单派单", color = Muted, fontSize = 13.sp, modifier = Modifier.padding(top = 2.dp))
                                     }
                                     Button(
@@ -420,7 +419,7 @@ fun ConnectedHome(
                                         colors = ButtonDefaults.buttonColors(containerColor = Green, contentColor = Color.White),
                                         modifier = Modifier.height(48.dp).widthIn(min = 100.dp)
                                     ) {
-                                        Text("开始听单", fontSize = 16.sp, fontWeight = FontWeight.Bold)
+                                        Text("开始听单", fontSize = 15.sp, fontWeight = FontWeight.Bold)
                                     }
                                 }
                             }
@@ -527,93 +526,6 @@ fun ConnectedHome(
                         }
                     }
                     item {
-                        Surface(
-                            color = Color.White,
-                            shape = RoundedCornerShape(12.dp),
-                            border = BorderStroke(1.dp, Line),
-                            modifier = Modifier.fillMaxWidth()
-                        ) {
-                            Column(Modifier.fillMaxWidth().padding(14.dp)) {
-                                Row(
-                                    Modifier.fillMaxWidth().heightIn(min = 48.dp).clickable { toolsExpanded = !toolsExpanded },
-                                    horizontalArrangement = Arrangement.SpaceBetween,
-                                    verticalAlignment = Alignment.CenterVertically
-                                ) {
-                                    Row(verticalAlignment = Alignment.CenterVertically) {
-                                        Glyph("chart", Green, Modifier.size(18.dp))
-                                        Text(
-                                            "出车工具与状态",
-                                            fontSize = 15.sp,
-                                            fontWeight = FontWeight.Bold,
-                                            color = Ink,
-                                            modifier = Modifier.padding(start = 8.dp)
-                                        )
-                                    }
-                                    Text(if (toolsExpanded) "收起 ▲" else "展开工具与状态 ▼", color = Green, fontSize = 13.sp, fontWeight = FontWeight.Medium)
-                                }
-                                if (toolsExpanded) {
-                                    Spacer(Modifier.height(8.dp))
-                                    HorizontalDivider(color = Line)
-                                    Spacer(Modifier.height(8.dp))
-                                    Column(Modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(4.dp)) {
-                                        Text("定位：$positionStatus", color = Muted, fontSize = 13.sp, lineHeight = 18.sp)
-                                        if (state.online)
-                                            Text("播报：$speechStatus", color = Muted, fontSize = 13.sp, lineHeight = 18.sp)
-                                    }
-                                    if (state.online) {
-                                        Spacer(Modifier.height(6.dp))
-                                        Row(
-                                            Modifier.fillMaxWidth().background(Pale, RoundedCornerShape(8.dp)).padding(8.dp),
-                                            verticalAlignment = Alignment.CenterVertically
-                                        ) {
-                                            Glyph("shield", Green, Modifier.size(16.dp))
-                                            Text(
-                                                "安全提醒：连续驾驶请劳逸结合，保持车距安全行车。",
-                                                color = Muted,
-                                                fontSize = 12.sp,
-                                                modifier = Modifier.padding(start = 6.dp)
-                                            )
-                                        }
-                                    }
-                                    if (active == null && canAccept && state.online) {
-                                        Spacer(Modifier.height(8.dp))
-                                        Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                                            OutlinedButton(
-                                                onClick = { navigate("negotiate") },
-                                                enabled = features.optBoolean("canNegotiate"),
-                                                modifier = Modifier.weight(1f).height(48.dp),
-                                                shape = RoundedCornerShape(8.dp),
-                                            ) {
-                                                Glyph("scan", modifier = Modifier.size(16.dp))
-                                                Text("线下议价", fontSize = 14.sp, modifier = Modifier.padding(start = 4.dp))
-                                            }
-                                            OutlinedButton(
-                                                onClick = { navigate("heat") },
-                                                enabled = features.optBoolean("canHeatmap"),
-                                                modifier = Modifier.weight(1f).height(48.dp),
-                                                shape = RoundedCornerShape(8.dp),
-                                            ) {
-                                                Glyph("chart", modifier = Modifier.size(16.dp))
-                                                Text("热力分布", fontSize = 14.sp, modifier = Modifier.padding(start = 4.dp))
-                                            }
-                                        }
-                                        if (!features.optBoolean("canNegotiate")) {
-                                            Text(
-                                                "线下议价暂不可用：当前城市或会员等级未开放此权益。",
-                                                color = Muted,
-                                                fontSize = 12.sp,
-                                                modifier = Modifier.padding(top = 4.dp)
-                                            )
-                                            CoreTextButton(onClick = { navigate("benefits") }) {
-                                                Text("查看线下议价权益", fontSize = 13.sp)
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    item {
                         Text(
                             "体验环境 · 业务数据仅供模拟展示",
                             fontSize = 12.sp,
@@ -637,57 +549,58 @@ fun ConnectedProfile(
     onWallet: () -> Unit,
 ) {
     val payload by store.payload.collectAsState()
+    val positionStatus by PositionBus.status.collectAsState()
+    val speechStatus by OrderAnnouncementStatus.status.collectAsState()
     val profile = payload.optJSONObject("profile") ?: JSONObject()
+    val features = payload.optJSONObject("features") ?: JSONObject()
     val d = profile.optJSONObject("driver") ?: JSONObject()
+    var showEndpoint by remember { mutableStateOf(false) }
+    var logout by remember { mutableStateOf(false) }
     LazyColumn(
-        contentPadding = PaddingValues(horizontal = 14.dp, vertical = 10.dp),
-        verticalArrangement = Arrangement.spacedBy(10.dp),
+        contentPadding = PaddingValues(horizontal = Gap.L, vertical = Gap.M),
+        verticalArrangement = Arrangement.spacedBy(Gap.M),
     ) {
-        item { PageHeader("司机之家", action = "设置", onAction = { navigate("settings") }) }
+        item { PageHeader("司机之家", action = "听单设置", onAction = { navigate("settings") }) }
         item {
-            SheetCard {
-                Row(
-                    Modifier.fillMaxWidth().clickable { navigate("driver") },
-                    verticalAlignment = Alignment.CenterVertically,
-                ) {
+            // Light-3D hero: gradient card, lit avatar and a small car.
+            val name = d.optString("name", "司机")
+            Box(
+                Modifier
+                    .fillMaxWidth()
+                    .shadow(8.dp, RoundedCornerShape(20.dp), spotColor = Green)
+                    .background(HeroGradient, RoundedCornerShape(20.dp))
+                    .clickable { navigate("driver") }
+                    .padding(horizontal = 18.dp, vertical = 18.dp),
+            ) {
+                Row(verticalAlignment = Alignment.CenterVertically) {
                     Box(
-                        Modifier.size(48.dp)
-                            .clip(CircleShape)
-                            .background(Pale),
-                        contentAlignment = Alignment.Center
+                        Modifier.size(56.dp)
+                            .shadow(4.dp, CircleShape)
+                            .background(Brush.verticalGradient(listOf(Color.White, Pale)), CircleShape),
+                        contentAlignment = Alignment.Center,
                     ) {
-                        Glyph("profile", Green, Modifier.size(26.dp))
+                        Text(name.take(1), fontSize = 22.sp, fontWeight = FontWeight.Bold, color = Green)
                     }
-                    Column(Modifier.weight(1f).padding(start = 12.dp)) {
-                        val name = d.optString("name", "司机")
-                        Text("${name}师傅，您好", fontSize = 17.sp, fontWeight = FontWeight.Bold, color = Ink)
+                    Column(Modifier.weight(1f).padding(start = 12.dp), verticalArrangement = Arrangement.spacedBy(3.dp)) {
+                        Text("${name}师傅，您好", fontSize = DriverType.Page, fontWeight = FontWeight.Bold, color = Color.White)
+                        val org = d.optString("organization", d.optString("company", ""))
                         Text(
-                            "车牌：${d.optString("licensePlate", d.optString("plate", "未完善车辆资料"))}",
-                            fontSize = 14.sp,
-                            color = Muted,
-                            modifier = Modifier.padding(top = 2.dp),
+                            d.optString("licensePlate", d.optString("plate", "未完善车辆资料")) + if (org.isNotBlank()) " · $org" else "",
+                            fontSize = DriverType.Caption,
+                            color = Color.White.copy(alpha = 0.85f),
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis,
                         )
-                        Row(
-                            Modifier.fillMaxWidth().padding(top = 4.dp),
-                            verticalAlignment = Alignment.CenterVertically,
-                            horizontalArrangement = Arrangement.spacedBy(8.dp)
-                        ) {
-                            val serviceScoreObj = profile.optJSONObject("serviceScore")
-                            val scoreValue = serviceScoreObj?.optInt("value", serviceScoreObj.optInt("score", -1)) ?: -1
-                            val scoreText = if (scoreValue > 0) "服务分 ${scoreValue}分" else "服务分 暂未考核"
-                            Pill(scoreText, if (scoreValue >= 90) Green else Ink)
-                            val org = d.optString("organization", d.optString("company", "未提供组织信息"))
-                            Text(
-                                org,
-                                color = Muted,
-                                fontSize = 12.sp,
-                                maxLines = 1,
-                                overflow = TextOverflow.Ellipsis,
-                                modifier = Modifier.weight(1f)
-                            )
-                        }
+                        val serviceScoreObj = profile.optJSONObject("serviceScore")
+                        val scoreValue = serviceScoreObj?.optInt("value", serviceScoreObj.optInt("score", -1)) ?: -1
+                        Text(
+                            if (scoreValue > 0) "服务分 ${scoreValue} 分" else "服务分 暂未考核",
+                            fontSize = DriverType.Caption,
+                            color = Color.White,
+                            modifier = Modifier.clip(RoundedCornerShape(6.dp)).background(Color.White.copy(alpha = 0.2f)).padding(horizontal = 6.dp, vertical = 2.dp),
+                        )
                     }
-                    Glyph("right", Muted, Modifier.size(18.dp))
+                    CarIllustration(Modifier.size(width = 72.dp, height = 50.dp), body = Color.White)
                 }
             }
         }
@@ -695,73 +608,135 @@ fun ConnectedProfile(
         item { MembershipIdentityCard(store, navigate) }
         item {
             SheetCard {
-                Text("运营明细（累计） · 含演示数据", fontSize = 15.sp, fontWeight = FontWeight.Bold, color = Ink)
+                Text("运营明细（累计） · 含演示数据", fontSize = DriverType.Title, fontWeight = FontWeight.Bold, color = Ink)
                 Row(
                     Modifier.fillMaxWidth().padding(top = Gap.M),
                     horizontalArrangement = Arrangement.SpaceAround
                 ) {
-                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                        Text(if (state.online) "出车中" else "休息中", fontSize = 17.sp, fontWeight = FontWeight.Bold, color = if (state.online) Green else Muted)
-                        Text("在线状态", fontSize = 12.sp, color = Muted, modifier = Modifier.padding(top = 2.dp))
-                    }
-                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                        Text("¥${money(state.todayIncome)}", fontSize = 18.sp, fontWeight = FontWeight.Bold, color = Warm)
-                        Text("累计收入", fontSize = 12.sp, color = Muted, modifier = Modifier.padding(top = 2.dp))
-                    }
-                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                        Text("${state.todayAccepted}", fontSize = 18.sp, fontWeight = FontWeight.Bold, color = Ink)
-                        Text("累计接单", fontSize = 12.sp, color = Muted, modifier = Modifier.padding(top = 2.dp))
-                    }
-                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                        Text("${state.todayCompleted}", fontSize = 18.sp, fontWeight = FontWeight.Bold, color = Ink)
-                        Text("累计完单", fontSize = 12.sp, color = Muted, modifier = Modifier.padding(top = 2.dp))
+                    listOf(
+                        Triple(if (state.online) "出车中" else "休息中", "在线状态", if (state.online) Green else Muted),
+                        Triple("¥${money(state.todayIncome)}", "累计收入", Warm),
+                        Triple("${state.todayAccepted}", "累计接单", Ink),
+                        Triple("${state.todayCompleted}", "累计完单", Ink),
+                    ).forEach { (value, label, color) ->
+                        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                            Text(value, fontSize = DriverType.Title, fontWeight = FontWeight.Bold, color = color)
+                            Text(label, fontSize = DriverType.Caption, color = Muted, modifier = Modifier.padding(top = 2.dp))
+                        }
                     }
                 }
             }
         }
+        // Moved here from the listening screen so that screen stays clean.
         item {
             SheetCard {
-                Text("出车与资料", fontSize = 13.sp, fontWeight = FontWeight.SemiBold, color = Muted, modifier = Modifier.padding(bottom = 2.dp))
-                MenuRow("profile", "司机与车辆资料") { navigate("driver") }
+                ProfileGroupTitle("出车工具与状态")
+                DetailRow("定位", positionStatus)
+                DetailRow("语音播报", if (state.online) speechStatus else "下线中")
+                Row(
+                    Modifier.fillMaxWidth().padding(top = 4.dp).background(Pale, RoundedCornerShape(8.dp)).padding(8.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Glyph("shield", Green, Modifier.size(16.dp))
+                    Text("连续驾驶请劳逸结合，保持车距安全行车。", color = Muted, fontSize = DriverType.Caption, modifier = Modifier.padding(start = 6.dp))
+                }
+                Row(Modifier.fillMaxWidth().padding(top = Gap.S), horizontalArrangement = Arrangement.spacedBy(Gap.S)) {
+                    BusinessOutlinedButton(
+                        onClick = { navigate("negotiate") },
+                        enabled = features.optBoolean("canNegotiate") && state.activeOrder == null,
+                        modifier = Modifier.weight(1f),
+                    ) {
+                        Glyph("scan", modifier = Modifier.size(16.dp))
+                        Text("线下议价", modifier = Modifier.padding(start = 4.dp))
+                    }
+                    BusinessOutlinedButton(
+                        onClick = { navigate("heat") },
+                        enabled = features.optBoolean("canHeatmap"),
+                        modifier = Modifier.weight(1f),
+                    ) {
+                        Glyph("chart", modifier = Modifier.size(16.dp))
+                        Text("热力分布", modifier = Modifier.padding(start = 4.dp))
+                    }
+                }
+                if (!features.optBoolean("canNegotiate"))
+                    Row(Modifier.fillMaxWidth().padding(top = 4.dp), verticalAlignment = Alignment.CenterVertically) {
+                        Text("线下议价未开放：当前城市或会员等级未包含此权益。", color = Muted, fontSize = DriverType.Caption, modifier = Modifier.weight(1f))
+                        DriverTextButton(onClick = { navigate("benefits") }) { Text("查看权益") }
+                    }
+            }
+        }
+        item {
+            SheetCard {
+                ProfileGroupTitle("出车与资料")
+                MenuRow("account", "司机与车辆资料") { navigate("driver") }
                 HorizontalDivider(color = Line)
                 MenuRow("shield", "资质证件") { navigate("qualification") }
                 HorizontalDivider(color = Line)
-                MenuRow("settings", "接单设置", "播报、悬浮入口、接单距离") { navigate("settings") }
+                MenuRow("settings", "听单设置", "播报、悬浮入口、接单距离") { navigate("settings") }
             }
         }
         item {
             SheetCard {
-                Text("账户安全", fontSize = 13.sp, fontWeight = FontWeight.SemiBold, color = Muted, modifier = Modifier.padding(bottom = 2.dp))
+                ProfileGroupTitle("账户安全")
                 MenuRow("card", "我的银行卡", "演示卡，不产生真实银行交易") { navigate("bank") }
                 HorizontalDivider(color = Line)
-                MenuRow("shield", "交易密码与钱包安全") { navigate("walletsettings") }
+                MenuRow("lock", "交易密码与钱包安全") { navigate("walletsettings") }
             }
         }
         item {
             SheetCard {
-                Text("平台服务", fontSize = 13.sp, fontWeight = FontWeight.SemiBold, color = Muted, modifier = Modifier.padding(bottom = 2.dp))
-                MenuRow("chart", "服务分明细") { navigate("serviceScore") }
+                ProfileGroupTitle("平台服务")
+                MenuRow("gift", "城市会员权益") { navigate("benefits") }
                 HorizontalDivider(color = Line)
-                MenuRow("gift", "我的积分") { navigate("points") }
+                MenuRow("thumb", "服务分明细") { navigate("serviceScore") }
                 HorizontalDivider(color = Line)
-                MenuRow("gift", "分享拉新") { navigate("referral") }
+                MenuRow("star", "我的积分") { navigate("points") }
+                HorizontalDivider(color = Line)
+                MenuRow("share", "分享拉新") { navigate("referral") }
                 HorizontalDivider(color = Line)
                 MenuRow("chart", "接单排行") { navigate("ranking") }
                 HorizontalDivider(color = Line)
-                MenuRow("shield", "乘客黑名单") { navigate("blacklist") }
+                MenuRow("face", "乘客黑名单") { navigate("blacklist") }
             }
         }
         item {
             SheetCard {
-                Text("服务细则与支持", fontSize = 13.sp, fontWeight = FontWeight.SemiBold, color = Muted, modifier = Modifier.padding(bottom = 2.dp))
+                ProfileGroupTitle("服务细则与支持")
                 MenuRow("support", "联系客服") { navigate("help") }
                 HorizontalDivider(color = Line)
-                MenuRow("doc", "意见反馈") { navigate("feedback") }
+                MenuRow("mail", "意见反馈") { navigate("feedback") }
                 HorizontalDivider(color = Line)
                 MenuRow("doc", "服务细则与协议") { navigate("rules") }
+                HorizontalDivider(color = Line)
+                MenuRow("tool", "连接状态", "独立演示环境") { showEndpoint = true }
+            }
+        }
+        item {
+            OutlinedButton(
+                onClick = { logout = true },
+                modifier = Modifier.fillMaxWidth().heightIn(min = 46.dp),
+                shape = RoundedCornerShape(12.dp),
+                border = BorderStroke(1.dp, Danger.copy(alpha = 0.35f)),
+                colors = ButtonDefaults.outlinedButtonColors(containerColor = Color.White, contentColor = Danger),
+            ) {
+                Text("退出登录", fontSize = DriverType.Body, fontWeight = FontWeight.Medium)
             }
         }
     }
+    if (showEndpoint) CloudConnectionDialog(store) { showEndpoint = false }
+    if (logout)
+        DriverDialog(
+            onDismissRequest = { logout = false },
+            title = { Text("退出登录？") },
+            text = { Text("本机登录状态将移除，云端订单与钱包记录保留。", color = Muted) },
+            confirmButton = { DriverTextButton(onClick = { logout = false; store.logout() }) { Text("退出", color = Danger) } },
+            dismissButton = { DriverTextButton(onClick = { logout = false }) { Text("取消") } },
+        )
+}
+
+@Composable
+private fun ProfileGroupTitle(text: String) {
+    Text(text, fontSize = 13.sp, fontWeight = FontWeight.SemiBold, color = Muted, modifier = Modifier.padding(bottom = 2.dp))
 }
 
 @Composable
@@ -809,14 +784,14 @@ fun ConnectedTrip(
         LazyColumn(
             Modifier.weight(1f),
             contentPadding = PaddingValues(start = 18.dp, end = 18.dp, bottom = 18.dp),
-            verticalArrangement = Arrangement.spacedBy(13.dp),
+            verticalArrangement = Arrangement.spacedBy(12.dp),
         ) {
             item { SharedParticipationNotice(order) }
             if (order.isPrivateExample)
                 item {
                     SheetCard {
-                        Text("演示订单 · 未关联乘客 App", color = Orange, fontSize = 18.sp, fontWeight = FontWeight.Bold)
-                        Text("此订单用于司机操作体验，未关联真实乘客账户。", color = Muted, fontSize = 16.sp)
+                        Text("演示订单 · 未关联乘客 App", color = Orange, fontSize = 15.sp, fontWeight = FontWeight.Bold)
+                        Text("此订单用于司机操作体验，未关联真实乘客账户。", color = Muted, fontSize = 13.sp)
                     }
                 }
             if (order.kind == OrderKind.NEGOTIATED && (order.canPairWithPassenger || order.shared))
@@ -836,7 +811,7 @@ fun ConnectedTrip(
                                 Stage.PREPAY -> "乘客完成支付后才能继续"
                                 else -> "行程已结束，等待乘客付款"
                             },
-                            fontSize = 24.sp,
+                            fontSize = 20.sp,
                             fontWeight = FontWeight.Bold,
                             modifier = Modifier.padding(top = 14.dp),
                         )
@@ -849,12 +824,12 @@ fun ConnectedTrip(
                             else if (order.shared) "请乘客在乘客 App 核对并确认模拟支付。结果由服务端自动同步，无需控制台代付。"
                             else "状态会从服务端自动刷新。旧私有演示单可在独立控制台的乘客沙箱处理。",
                             color = Muted,
-                            fontSize = 16.sp,
+                            fontSize = 15.sp,
                             modifier = Modifier.padding(top = 10.dp),
                         )
                         if (order.stage == Stage.WAIT_PAY)
                             CoreTextButton(onClick = { store.refresh() }, enabled = !tripBusy) {
-                                Text("刷新支付状态", fontSize = 18.sp)
+                                Text("刷新支付状态")
                             }
                     }
                 }
@@ -864,10 +839,10 @@ fun ConnectedTrip(
                         Row(verticalAlignment = Alignment.CenterVertically) {
                             Glyph("check", modifier = Modifier.size(36.dp))
                             Column(Modifier.padding(start = 14.dp)) {
-                                Text("已安全送达", fontSize = 28.sp, fontWeight = FontWeight.Bold)
+                                Text("已安全送达", fontSize = 24.sp, fontWeight = FontWeight.Bold)
                                 Text(
                                     "收入与支付结果已由服务端核对",
-                                    fontSize = 16.sp,
+                                    fontSize = 15.sp,
                                     color = Muted,
                                     modifier = Modifier.padding(top = 5.dp),
                                 )
@@ -885,7 +860,7 @@ fun ConnectedTrip(
                     Spacer(Modifier.height(18.dp))
                     RouteStops(order)
                     Spacer(Modifier.height(14.dp))
-                    Text("订单金额", fontSize = 16.sp, color = Muted)
+                    Text("订单金额", fontSize = 13.sp, color = Muted)
                     Text(
                         if (order.destinationPending) "费用待定（不是免费）" else "¥ ${money(order.fare)}",
                         fontSize = if (order.destinationPending) 24.sp else 32.sp,
@@ -893,11 +868,11 @@ fun ConnectedTrip(
                         modifier = Modifier.padding(top = 6.dp, bottom = 10.dp),
                     )
                     if (order.destinationPending)
-                        Text("目的地待乘客补充 · 费用待定，不是免费。补齐后双方需核对体验报价。", color = Orange, fontSize = 18.sp)
+                        Text("目的地待乘客补充 · 费用待定，不是免费。补齐后双方需核对体验报价。", color = Orange, fontSize = 15.sp)
                     DetailRow("预计里程", "${order.mileage} km")
                     if (order.kind == OrderKind.RESERVED) DetailRow("计划用车时间", order.scheduledTimeText)
                     if (order.remark.isNotBlank())
-                        Text("备注：${order.remark}", fontSize = 18.sp, color = Muted)
+                        Text("备注：${order.remark}", fontSize = 13.sp, color = Muted)
                 }
             }
             item { DriverTripDistanceCard(order.id, order.stage.name, store) }
@@ -906,12 +881,12 @@ fun ConnectedTrip(
                 item {
                     SheetCard {
                         DetailRow("乘客手机尾号", order.phoneTail)
-                        Text("接到乘客时需要核对尾号，服务端会校验。", fontSize = 16.sp, color = Muted)
+                        Text("接到乘客时需要核对尾号，服务端会校验。", fontSize = 13.sp, color = Muted)
                     }
                 }
             item {
                 SheetCard {
-                    Text("订单编号（客服查询用）", fontSize = 16.sp, color = Muted)
+                    Text("订单编号（客服查询用）", fontSize = 13.sp, color = Muted)
                     Text(
                         order.id,
                         fontSize = 14.sp,
@@ -927,29 +902,30 @@ fun ConnectedTrip(
                 }
             }
         }
-        Surface(color = Color.White, shadowElevation = 3.dp) {
-            Column(Modifier.padding(16.dp)) {
+        // Compact action bar: navigation and the next step share one row so the map and trip details
+        // keep most of the screen; cancelling is a small secondary link below.
+        Surface(color = Color.White, shadowElevation = 6.dp) {
+            Column(Modifier.padding(horizontal = Gap.L, vertical = 10.dp)) {
                 val navTarget = if (order.isActive) order.navigationTarget() else null
-                if (navTarget != null) {
-                    OutlinedButton(
+                Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(Gap.S)) {
+                if (navTarget != null)
+                    BusinessOutlinedButton(
                         onClick = { openExternalNavigation(context, order, onMessage) },
-                        modifier = Modifier.fillMaxWidth().heightIn(min = 56.dp),
-                        shape = RoundedCornerShape(12.dp),
-                        border = BorderStroke(1.5.dp, Green),
+                        modifier = Modifier.heightIn(min = 48.dp),
                     ) {
-                        Glyph("navigation", modifier = Modifier.size(18.dp))
+                        Glyph("navigation", GreenStrong, Modifier.size(16.dp))
                         Text(
-                            "导航去${navTarget.stop.title}",
-                            fontSize = 20.sp,
-                            color = Green,
-                            fontWeight = FontWeight.SemiBold,
-                            modifier = Modifier.padding(start = 7.dp),
+                            when (navTarget.stop) {
+                                NavigationStop.PICKUP -> "导航去上车点"
+                                NavigationStop.WAYPOINT -> "导航去途经点"
+                                NavigationStop.DESTINATION -> "导航去终点"
+                            },
+                            modifier = Modifier.padding(start = 4.dp),
                         )
                     }
-                    Spacer(Modifier.height(10.dp))
-                }
                 PrimaryButton(
                     action,
+                    modifier = Modifier.weight(1f),
                     enabled = !tripBusy && !hasPendingWaypoints && !distancePending,
                     onClick = {
                         when (order.stage) {
@@ -983,35 +959,30 @@ fun ConnectedTrip(
                         }
                     },
                 )
-                if (order.canCancel) {
-                    Spacer(Modifier.height(10.dp))
-                    OutlinedButton(
-                        onClick = onCancel,
-                        modifier = Modifier.fillMaxWidth().heightIn(min = 64.dp),
-                        shape = RoundedCornerShape(12.dp),
-                    ) {
-                        Text("取消订单", fontSize = 20.sp)
-                    }
                 }
+                if (order.canCancel)
+                    Row(Modifier.fillMaxWidth().padding(top = 6.dp), horizontalArrangement = Arrangement.End) {
+                        DriverTextButton(onClick = onCancel) { Text("取消订单", color = Muted) }
+                    }
                 if (hasPendingWaypoints) {
                     Text(
                         "还有 ${order.pendingWaypoints.size} 个途经点待确认，请在上方记录到达。",
                         color = Muted,
-                        fontSize = 16.sp,
-                        lineHeight = 20.sp,
-                        modifier = Modifier.padding(top = 8.dp),
+                        fontSize = DriverType.Caption,
+                        lineHeight = 18.sp,
+                        modifier = Modifier.padding(top = 6.dp),
                     )
                 }
             }
         }
     }
     if (verify)
-        AlertDialog(
+        DriverDialog(
             onDismissRequest = { verify = false },
             title = { Text("核对乘客手机尾号") },
             text = {
                 Column(Modifier.heightIn(max = 320.dp).verticalScroll(rememberScrollState())) {
-                    Text("请和乘客核对后四位。", fontSize = 18.sp, color = Muted)
+                    Text("请和乘客核对后四位。", fontSize = 13.sp, color = Muted)
                     Spacer(Modifier.height(12.dp))
                     OutlinedTextField(
                         tail,
@@ -1070,8 +1041,8 @@ fun ConnectedBid(
         PageHeader("参与竞价", onBack)
         LazyColumn(
             Modifier.weight(1f),
-            contentPadding = PaddingValues(18.dp),
-            verticalArrangement = Arrangement.spacedBy(16.dp),
+            contentPadding = PaddingValues(horizontal = 16.dp, vertical = 12.dp),
+            verticalArrangement = Arrangement.spacedBy(12.dp),
         ) {
             item {
                 SheetCard {
@@ -1083,7 +1054,7 @@ fun ConnectedBid(
             }
             item {
                 SheetCard {
-                    Text("我的报价", fontSize = 24.sp, fontWeight = FontWeight.Bold)
+                    Text("我的报价", fontSize = 20.sp, fontWeight = FontWeight.Bold)
                     Spacer(Modifier.height(16.dp))
                     OutlinedTextField(
                         amount,
@@ -1120,12 +1091,12 @@ fun ConnectedBid(
                     }
                 }
             }
-            item { Text("报价提交后不可修改。乘客选择及支付结果由服务端同步。", fontSize = 18.sp, color = Muted) }
+            item { Text("报价提交后不可修改。乘客选择及支付结果由服务端同步。", fontSize = 13.sp, color = Muted) }
         }
         Surface(color = Color.White) {
             Column(Modifier.padding(18.dp)) {
                 fieldError?.let {
-                    Text(it, color = MaterialTheme.colorScheme.error, fontSize = 16.sp)
+                    Text(it, color = MaterialTheme.colorScheme.error, fontSize = 15.sp)
                 }
                 PrimaryButton(
                     "确认提交报价",
@@ -1139,12 +1110,12 @@ fun ConnectedBid(
         }
     }
     if (confirm)
-        AlertDialog(
+        DriverDialog(
             onDismissRequest = { confirm = false },
             title = { Text("确认报价 ¥ $amount") },
             text = {
                 Column(Modifier.heightIn(max = 320.dp).verticalScroll(rememberScrollState())) {
-                    Text("请确认金额，提交后不可修改。", fontSize = 18.sp)
+                    Text("请确认金额，提交后不可修改。", fontSize = 15.sp)
                 }
             },
             confirmButton = {
@@ -1198,15 +1169,15 @@ fun ConnectedNegotiation(store: ConnectedStore, onBack: () -> Unit, onSuccess: (
         PageHeader("线下议价", onBack)
         LazyColumn(
             Modifier.weight(1f),
-            contentPadding = PaddingValues(18.dp),
-            verticalArrangement = Arrangement.spacedBy(14.dp),
+            contentPadding = PaddingValues(horizontal = 16.dp, vertical = 12.dp),
+            verticalArrangement = Arrangement.spacedBy(12.dp),
         ) {
             item {
                 SheetCard {
-                    Text("行程信息", fontSize = 24.sp, fontWeight = FontWeight.Bold)
+                    Text("行程信息", fontSize = 20.sp, fontWeight = FontWeight.Bold)
                     Text(
                         "先填写上下车地点名称，再在地图中确认位置。修改名称后需要重新确认位置。",
-                        fontSize = 16.sp,
+                        fontSize = 15.sp,
                         color = Muted,
                         modifier = Modifier.padding(top = 8.dp),
                     )
@@ -1230,10 +1201,10 @@ fun ConnectedNegotiation(store: ConnectedStore, onBack: () -> Unit, onSuccess: (
                     )
                     OutlinedButton(
                         onClick = { openPicker("origin") },
-                        modifier = Modifier.fillMaxWidth().heightIn(min = 64.dp),
+                        modifier = Modifier.fillMaxWidth().heightIn(min = 52.dp),
                     ) {
                         val point = wgs84Point(originLat, originLng)
-                        Text(if (point == null) "在地图上确认上车点" else "上车点已确认 · 重新选择", fontSize = 20.sp)
+                        Text(if (point == null) "在地图上确认上车点" else "上车点已确认 · 重新选择", fontSize = 16.sp)
                     }
                     OutlinedTextField(
                         destination,
@@ -1254,10 +1225,10 @@ fun ConnectedNegotiation(store: ConnectedStore, onBack: () -> Unit, onSuccess: (
                     )
                     OutlinedButton(
                         onClick = { openPicker("destination") },
-                        modifier = Modifier.fillMaxWidth().heightIn(min = 64.dp),
+                        modifier = Modifier.fillMaxWidth().heightIn(min = 52.dp),
                     ) {
                         val point = wgs84Point(destinationLat, destinationLng)
-                        Text(if (point == null) "在地图上确认下车点" else "下车点已确认 · 重新选择", fontSize = 20.sp)
+                        Text(if (point == null) "在地图上确认下车点" else "下车点已确认 · 重新选择", fontSize = 16.sp)
                     }
                 }
             }
@@ -1276,7 +1247,7 @@ fun ConnectedNegotiation(store: ConnectedStore, onBack: () -> Unit, onSuccess: (
                     )
                     Text(
                         "地点、金额和本城市开放状态将在服务端再次校验。",
-                        fontSize = 16.sp,
+                        fontSize = 15.sp,
                         color = Muted,
                         modifier = Modifier.padding(top = 12.dp),
                     )
@@ -1286,7 +1257,7 @@ fun ConnectedNegotiation(store: ConnectedStore, onBack: () -> Unit, onSuccess: (
         Surface(color = Color.White) {
             Column(Modifier.padding(18.dp)) {
                 formError?.let {
-                    Text(it, color = MaterialTheme.colorScheme.error, fontSize = 16.sp)
+                    Text(it, color = MaterialTheme.colorScheme.error, fontSize = 15.sp)
                 }
                 PrimaryButton(
                     "确认并发起议价",
@@ -1372,7 +1343,7 @@ fun ConnectedNegotiation(store: ConnectedStore, onBack: () -> Unit, onSuccess: (
         }
     }
     if (picking != null)
-        AlertDialog(
+        DriverDialog(
             onDismissRequest = { picking = null },
             title = { Text(if (picking == "origin") "确认上车点位置" else "确认下车点位置") },
             text = {
@@ -1380,10 +1351,10 @@ fun ConnectedNegotiation(store: ConnectedStore, onBack: () -> Unit, onSuccess: (
                     Text(
                         if (picking == "origin") origin.ifBlank { "请返回填写上车地点名称" }
                         else destination.ifBlank { "请返回填写下车地点名称" },
-                        fontSize = 18.sp,
+                        fontSize = 15.sp,
                         fontWeight = FontWeight.Bold,
                     )
-                    Text("点击地图选点，核对坐标后点击“使用此位置”。", fontSize = 16.sp, color = Muted)
+                    Text("点击地图选点，核对坐标后点击“使用此位置”。", fontSize = 13.sp, color = Muted)
                     Spacer(Modifier.height(12.dp))
                     NativeMap(
                         Modifier.fillMaxWidth().height(190.dp),
@@ -1398,11 +1369,11 @@ fun ConnectedNegotiation(store: ConnectedStore, onBack: () -> Unit, onSuccess: (
                         if (draft == null) "尚未选点，请点击地图"
                         else
                             "待确认位置：${"%.5f".format(draft.latitude)}, ${"%.5f".format(draft.longitude)}",
-                        fontSize = 16.sp,
+                        fontSize = 15.sp,
                         modifier = Modifier.padding(top = 9.dp),
                     )
                     mapPickError?.let {
-                        Text(it, color = MaterialTheme.colorScheme.error, fontSize = 16.sp)
+                        Text(it, color = MaterialTheme.colorScheme.error, fontSize = 15.sp)
                     }
                 }
             },
@@ -1455,21 +1426,20 @@ fun ConnectedSettings(
                 store.perform("settings.update", JSONObject().put("floating", true))
             else onMessage("尚未允许悬浮显示，可在系统设置中授权后再开启。")
         }
-    var showEndpoint by remember { mutableStateOf(false) }
     fun setting(k: String, v: Any) {
         store.perform("settings.update", JSONObject().put(k, v))
     }
+    // Only listening preferences live here; membership, connection and logout are in the profile tab.
     Column(Modifier.fillMaxSize()) {
-        PageHeader("接单与应用设置", onBack)
-        MenuRow("shield", "权限与提醒检查", "定位 / 通知 / 悬浮窗") { navigate("permissions") }
+        PageHeader("听单设置", onBack)
         LazyColumn(
             Modifier.weight(1f),
-            contentPadding = PaddingValues(18.dp),
-            verticalArrangement = Arrangement.spacedBy(14.dp),
+            contentPadding = PaddingValues(horizontal = Gap.L, vertical = Gap.M),
+            verticalArrangement = Arrangement.spacedBy(Gap.M),
         ) {
             item {
                 SheetCard {
-                    Text("接单偏好", fontSize = 20.sp, fontWeight = FontWeight.Bold)
+                    Text("接单偏好", fontSize = DriverType.Title, fontWeight = FontWeight.Bold, color = Ink)
                     listOf(
                             Triple("即时订单", "instant", state.instant),
                             Triple("预约订单", "reservation", state.reservation),
@@ -1479,12 +1449,10 @@ fun ConnectedSettings(
                         )
                         .forEach { (label, key, checked) ->
                             Row(
-                                Modifier.fillMaxWidth()
-                                    .heightIn(min = 64.dp)
-                                    .padding(vertical = 10.dp),
+                                Modifier.fillMaxWidth().heightIn(min = 48.dp),
                                 verticalAlignment = Alignment.CenterVertically,
                             ) {
-                                Text(label, modifier = Modifier.weight(1f))
+                                Text(label, fontSize = DriverType.Body, color = Ink, modifier = Modifier.weight(1f))
                                 Switch(
                                     checked,
                                     { setting(key, it) },
@@ -1494,12 +1462,12 @@ fun ConnectedSettings(
                         }
                     HorizontalDivider(color = Line)
                     Row(
-                        Modifier.fillMaxWidth().heightIn(min = 64.dp).padding(vertical = 10.dp),
+                        Modifier.fillMaxWidth().heightIn(min = 52.dp).padding(vertical = 4.dp),
                         verticalAlignment = Alignment.CenterVertically,
                     ) {
                         Column(Modifier.weight(1f)) {
-                            Text("接单悬浮入口")
-                            Text("听单期间离开应用后显示，可拖动并点按返回。", color = Muted, fontSize = 16.sp)
+                            Text("接单悬浮入口", fontSize = DriverType.Body, color = Ink)
+                            Text("听单期间离开应用后显示，可拖动并点按返回。", color = Muted, fontSize = DriverType.Caption)
                         }
                         Switch(
                             state.floating,
@@ -1521,35 +1489,31 @@ fun ConnectedSettings(
             }
             item {
                 SheetCard {
-                    Text("接单距离偏好", fontSize = 20.sp, fontWeight = FontWeight.Bold)
+                    Text("接单距离", fontSize = DriverType.Title, fontWeight = FontWeight.Bold, color = Ink)
                     FlowRow(
-                        horizontalArrangement = Arrangement.spacedBy(10.dp),
-                        verticalArrangement = Arrangement.spacedBy(8.dp),
+                        Modifier.padding(top = Gap.S),
+                        horizontalArrangement = Arrangement.spacedBy(Gap.S),
+                        verticalArrangement = Arrangement.spacedBy(Gap.S),
                     ) {
                         listOf(3, 5, 10).forEach { km ->
                             FilterChip(
                                 state.range == km,
                                 { setting("range", km) },
-                                label = { Text("$km 公里", fontSize = 18.sp) },
-                                modifier = Modifier.heightIn(min = 56.dp),
+                                label = { Text("$km 公里", fontSize = 14.sp) },
+                                colors = FilterChipDefaults.filterChipColors(selectedContainerColor = Pale, selectedLabelColor = GreenStrong),
                             )
                         }
                     }
-                    Text("实际可接范围还受城市和会员权益限制，服务端会再次核对。", fontSize = 16.sp, color = Muted)
+                    Text("实际可接范围还受城市和会员权益限制，服务端会再次核对。", fontSize = DriverType.Caption, color = Muted)
                 }
             }
             item {
                 SheetCard {
-                    MenuRow("shield", "查看城市会员权益") { navigate("benefits") }
-                    HorizontalDivider(color = Line)
-                    MenuRow("settings", "连接状态", "独立演示环境") { showEndpoint = true }
-                    HorizontalDivider(color = Line)
-                    MenuRow("profile", "退出登录") { store.logout() }
+                    MenuRow("shield", "权限与提醒检查", "定位 / 通知 / 悬浮窗") { navigate("permissions") }
                 }
             }
         }
     }
-    if (showEndpoint) CloudConnectionDialog(store) { showEndpoint = false }
 }
 
 @Composable
@@ -1616,9 +1580,10 @@ private const val WALLET_PREVIEW_ROWS = 3
 fun ConnectedWallet(store: ConnectedStore, state: DriverState, navigate: (String) -> Unit) {
     var settlementExpanded by rememberSaveable { mutableStateOf(false) }
     var entriesExpanded by rememberSaveable { mutableStateOf(false) }
+    var walletTab by rememberSaveable { mutableStateOf(0) }
     LazyColumn(
-        contentPadding = PaddingValues(18.dp),
-        verticalArrangement = Arrangement.spacedBy(15.dp),
+        contentPadding = PaddingValues(horizontal = 16.dp, vertical = 12.dp),
+        verticalArrangement = Arrangement.spacedBy(12.dp),
     ) {
         item { PageHeader("我的钱包", action = "提现记录", onAction = { navigate("withdrawals") }) }
         item {
@@ -1629,7 +1594,7 @@ fun ConnectedWallet(store: ConnectedStore, state: DriverState, navigate: (String
                             Text("可提现余额（元）· 体验账户", color = Color.White, fontSize = 14.sp)
                             Text(
                                 money(state.balance),
-                                fontSize = 32.sp,
+                                fontSize = 24.sp,
                                 fontWeight = FontWeight.Bold,
                                 color = Color.White,
                                 modifier = Modifier.padding(top = 6.dp),
@@ -1640,7 +1605,7 @@ fun ConnectedWallet(store: ConnectedStore, state: DriverState, navigate: (String
                             Text(
                                 "¥ ${money(state.todayIncome)}",
                                 color = Color.White,
-                                fontSize = 20.sp,
+                                fontSize = 16.sp,
                                 fontWeight = FontWeight.Bold,
                                 modifier = Modifier.padding(top = 6.dp),
                             )
@@ -1657,7 +1622,7 @@ fun ConnectedWallet(store: ConnectedStore, state: DriverState, navigate: (String
                             ),
                         shape = RoundedCornerShape(12.dp),
                     ) {
-                        Text("申请提现", fontSize = 18.sp, fontWeight = FontWeight.SemiBold)
+                        Text("申请提现", fontSize = 15.sp, fontWeight = FontWeight.SemiBold)
                     }
                 }
             }
@@ -1679,15 +1644,45 @@ fun ConnectedWallet(store: ConnectedStore, state: DriverState, navigate: (String
             }
         }
         val settledOrders = state.orders.filter { it.shared && it.stage != Stage.AVAILABLE && it.settlementStatus.isNotBlank() }
-        if (settledOrders.isNotEmpty()) {
+        // One switch picks which list to read, instead of stacking both lists down the page.
+        item {
+            Row(
+                Modifier.fillMaxWidth().clip(RoundedCornerShape(12.dp)).background(Color(0xFFEAEFF3)).padding(4.dp),
+                horizontalArrangement = Arrangement.spacedBy(4.dp),
+            ) {
+                listOf("订单入账状态 ${settledOrders.size}", "收支明细 ${state.entries.size}").forEachIndexed { index, label ->
+                    val selected = walletTab == index
+                    Box(
+                        Modifier
+                            .weight(1f)
+                            .heightIn(min = 40.dp)
+                            .shadow(if (selected) 2.dp else 0.dp, RoundedCornerShape(10.dp))
+                            .clip(RoundedCornerShape(10.dp))
+                            .background(if (selected) Color.White else Color.Transparent)
+                            .selectable(selected = selected, role = Role.Tab, onClick = { walletTab = index }),
+                        contentAlignment = Alignment.Center,
+                    ) {
+                        Text(
+                            label,
+                            fontSize = 14.sp,
+                            fontWeight = if (selected) FontWeight.Bold else FontWeight.Medium,
+                            color = if (selected) GreenStrong else Muted,
+                        )
+                    }
+                }
+            }
+        }
+        if (walletTab == 0 && settledOrders.isEmpty())
+            item { EmptyState("orders", "暂无入账记录", "共享订单完成并由服务端结算后，会显示在这里") }
+        if (walletTab == 0 && settledOrders.isNotEmpty()) {
             // Only the latest few rows are shown by default so the list never grows without bound.
             val shownSettled = if (settlementExpanded) settledOrders else settledOrders.take(WALLET_PREVIEW_ROWS)
-            item { SectionTitle("订单入账状态", "共 ${settledOrders.size} 笔 · 支付与退款均为模拟记账") }
+            item { Text("支付与退款均为模拟记账", fontSize = DriverType.Caption, color = Muted) }
             item {
                 SheetCard {
                     shownSettled.forEachIndexed { i, order ->
                         Row(
-                            Modifier.fillMaxWidth().heightIn(min = 56.dp).clickable { navigate("detail:${order.id}") }.padding(vertical = Gap.S),
+                            Modifier.fillMaxWidth().heightIn(min = 52.dp).clickable { navigate("detail:${order.id}") }.padding(vertical = Gap.S),
                             verticalAlignment = Alignment.CenterVertically,
                         ) {
                             Column(Modifier.weight(1f)) {
@@ -1704,7 +1699,7 @@ fun ConnectedWallet(store: ConnectedStore, state: DriverState, navigate: (String
                             if (order.settlementStatus in setOf("CREDITED", "REVERSED", "REFUNDED", "CLOSED_NO_INCOME"))
                                 Text(
                                     "¥${money(order.netIncome ?: 0)}",
-                                    fontSize = 16.sp,
+                                    fontSize = 15.sp,
                                     fontWeight = FontWeight.Bold,
                                     color = Ink,
                                     modifier = Modifier.padding(horizontal = Gap.S),
@@ -1720,14 +1715,14 @@ fun ConnectedWallet(store: ConnectedStore, state: DriverState, navigate: (String
                 }
             }
         }
-        item { SectionTitle("收支明细", "金额和状态以独立服务记录为准") }
-        if (state.entries.isEmpty())
+        if (walletTab == 1) item { Text("金额和状态以独立服务记录为准", fontSize = DriverType.Caption, color = Muted) }
+        if (walletTab == 1 && state.entries.isEmpty())
             item {
                 EmptyState("wallet", "暂无收支记录", "完成订单并由服务端入账后，流水会显示在这里", "查看提现记录") {
                     navigate("withdrawals")
                 }
             }
-        else
+        else if (walletTab == 1)
             item {
                 val shownEntries = if (entriesExpanded) state.entries else state.entries.take(WALLET_PREVIEW_ROWS)
                 SheetCard {
@@ -1741,7 +1736,7 @@ fun ConnectedWallet(store: ConnectedStore, state: DriverState, navigate: (String
                                 Glyph(if (income) "plus" else "wallet", if (income) Success else Warm, Modifier.size(18.dp))
                             }
                             Column(Modifier.weight(1f).padding(horizontal = Gap.M)) {
-                                Text(e.title, fontSize = 16.sp, fontWeight = FontWeight.SemiBold, color = Ink)
+                                Text(e.title, fontSize = 15.sp, fontWeight = FontWeight.SemiBold, color = Ink)
                                 Text(
                                     if (income) "入账" else "支出",
                                     fontSize = 12.sp,
@@ -1758,7 +1753,7 @@ fun ConnectedWallet(store: ConnectedStore, state: DriverState, navigate: (String
                             }
                             Text(
                                 (if (income) "+" else "−") + money(kotlin.math.abs(e.amount)),
-                                fontSize = 20.sp,
+                                fontSize = 16.sp,
                                 fontWeight = FontWeight.Bold,
                                 color = if (income) Success else Ink,
                             )
@@ -1771,7 +1766,7 @@ fun ConnectedWallet(store: ConnectedStore, state: DriverState, navigate: (String
                         }
                 }
             }
-        item { Text("演示账户资金用于联调，不产生真实银行交易。", color = Muted, fontSize = 16.sp) }
+        item { Text("演示账户资金用于联调，不产生真实银行交易。", color = Muted, fontSize = 13.sp) }
     }
 }
 
@@ -1807,8 +1802,8 @@ fun ConnectedHeat(store: ConnectedStore, onBack: () -> Unit) {
                     FilterChip(
                         period == key,
                         { period = key },
-                        label = { Text(label, fontSize = 18.sp) },
-                        modifier = Modifier.heightIn(min = 56.dp),
+                        label = { Text(label, fontSize = 15.sp) },
+                        modifier = Modifier.heightIn(min = 52.dp),
                     )
                 }
             }
@@ -1816,14 +1811,14 @@ fun ConnectedHeat(store: ConnectedStore, onBack: () -> Unit) {
             NativeMap(Modifier.fillMaxWidth().height(240.dp), heatPoints = coords)
             Spacer(Modifier.height(16.dp))
             SheetCard {
-                Text("${coords.size} 个热点", fontSize = 24.sp, fontWeight = FontWeight.Bold)
+                Text("${coords.size} 个热点", fontSize = 20.sp, fontWeight = FontWeight.Bold)
                 Text(
                     data?.optString("source", "独立服务热区") ?: "加载中",
-                    fontSize = 16.sp,
+                    fontSize = 15.sp,
                     color = Muted,
                     modifier = Modifier.padding(top = 8.dp),
                 )
-                failure?.let { Text(it, color = MaterialTheme.colorScheme.error, fontSize = 18.sp) }
+                failure?.let { Text(it, color = MaterialTheme.colorScheme.error, fontSize = 15.sp) }
             }
         }
     }
@@ -1841,7 +1836,7 @@ fun ConnectedNotifications(store: ConnectedStore, onBack: () -> Unit, navigate: 
         PageHeader("消息与通知", onBack, action = "刷新", onAction = { reload() })
         LazyColumn(
             Modifier.weight(1f),
-            contentPadding = PaddingValues(18.dp),
+            contentPadding = PaddingValues(horizontal = 16.dp, vertical = 12.dp),
             verticalArrangement = Arrangement.spacedBy(12.dp),
         ) {
             if (rows == null || rows.length() == 0)
@@ -1851,12 +1846,12 @@ fun ConnectedNotifications(store: ConnectedStore, onBack: () -> Unit, navigate: 
                 SheetCard {
                     Text(
                         row.optString("title", "业务通知"),
-                        fontSize = 20.sp,
+                        fontSize = 16.sp,
                         fontWeight = FontWeight.Bold,
                     )
                     Text(
                         row.optString("message", row.optString("content")),
-                        fontSize = 18.sp,
+                        fontSize = 15.sp,
                         color = Muted,
                         modifier = Modifier.padding(top = 9.dp),
                     )
@@ -1874,7 +1869,7 @@ fun InfoPage(title: String, onBack: () -> Unit, text: String) {
     Column(Modifier.fillMaxSize()) {
         PageHeader(title, onBack)
         Column(Modifier.weight(1f).verticalScroll(rememberScrollState()).padding(18.dp)) {
-            SheetCard { Text(text, fontSize = 18.sp, lineHeight = 28.sp) }
+            SheetCard { Text(text, fontSize = 15.sp, lineHeight = 22.sp) }
         }
     }
 }
@@ -1886,10 +1881,5 @@ private fun CoreTextButton(
     enabled: Boolean = true,
     content: @Composable RowScope.() -> Unit,
 ) {
-    TextButton(onClick = onClick, modifier = modifier.heightIn(min = 56.dp), enabled = enabled) {
-        ProvideTextStyle(
-            MaterialTheme.typography.labelLarge.copy(fontSize = 18.sp),
-            content = { content() },
-        )
-    }
+    DriverTextButton(onClick = onClick, modifier = modifier, enabled = enabled, content = content)
 }

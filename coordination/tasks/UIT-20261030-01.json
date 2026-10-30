@@ -1,0 +1,104 @@
+{
+  "schemaVersion": 1,
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-ui-feedback-20261030",
+  "branch": "codex/ui-feedback-20261030",
+  "baseSha": "362c7f861a5063631c6da9ba198e04bc131402e4",
+  "cloudCandidateSha": "9495caa54e8b8581bba4d82c3fbac04701252418",
+  "updatedAt": "2026-10-30T13:26:15.514654+00:00",
+  "acceptance": "PASS",
+  "tests": [
+    {
+      "command": "Independent business/native/build + source-bound inherited checks: ROOT_FINAL_ACCEPTANCE, ROOT_ARTIFACT_BINDING and ROOT_CHECKS_ecc9d8d",
+      "status": "PASS",
+      "exitCode": 0,
+      "sourceSha": "ecc9d8d0e63f5ee1c9a8f45df87e92f7b42e0ea5"
+    }
+  ],
+  "pendingMergeSha": null,
+  "deploy_owner": "coordinator",
+  "releaseReady": true,
+  "id": "UIT-20261030-01",
+  "owner": "coordinator",
+  "goal": "集成并测试Claude云端9495caa的24项界面调整，保留NAV20保护，经独立验收发布code21",
+  "allow_paths": [
+    "coordination/",
+    "README.md",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/AmapSupport.kt",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/BookingScreens.kt",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/ExtraScreens.kt",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/MainActivity.kt",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/OperationsSupport.kt",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/OrderDetail.kt",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/OrderIdentity.kt",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/ParityScreens.kt",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/PassengerCards.kt",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/PassengerConfirmPrompts.kt",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/PassengerMap.kt",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/PassengerPages.kt",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/PassengerPalette.kt",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/PassengerTripDistance.kt",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/ProfileScreens.kt",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/UIOComponents.kt",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/UiComponents.kt",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/AmapSupport.kt",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/BusinessCommunity.kt",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/BusinessFinance.kt",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/BusinessKit.kt",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/BusinessScreens.kt",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/BusinessSupport.kt",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/CoreScreens.kt",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/DriverPalette.kt",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/DriverTripDistance.kt",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/MainActivity.kt",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/MembershipCatalogScreens.kt",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/MembershipEntry.kt",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/MembershipSubscriptions.kt",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/MembershipSupporting.kt",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/MembershipTransactions.kt",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/MembershipUi.kt",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/NegotiationSupport.kt",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/OperationsSupport.kt",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/TripWaypoints.kt",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/UIOComponents.kt",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/UiKit.kt",
+    "apps/passenger-android/app/build.gradle.kts",
+    "candidates/driver-0.3.6-r2/android/app/build.gradle.kts"
+  ],
+  "checks": [
+    "Preserve current NAV20 concurrency/account/modal/GPS/search/navigation guards",
+    "Both Android compile/unit checks and independent native UI acceptance",
+    "Exact source/CI merge gate, original signer code21, independent project APK-only publication/readback"
+  ],
+  "status": "ACCEPTED_AWAIT_EXACT_HEAD_CI_MERGE",
+  "evidence": [
+    {
+      "path": "coordination/evidence/UIT-20261030-01/ROOT_FINAL_ACCEPTANCE.json",
+      "sha256": "baba2b78669c848aaa4b09b4baa9dcbfd8db8b22da176ccf7adf92b0d4e138e1"
+    },
+    {
+      "path": "coordination/evidence/UIT-20261030-01/ROOT_ARTIFACT_BINDING.json",
+      "sha256": "d5781eeac92523d2bab1514a7c7947ec2c3148654753d823bdb7530173e5c65e"
+    }
+  ],
+  "nextAction": "Commit evidence, final exact-head CI/merge then original APK-only publish/readback",
+  "authorSessionId": "93f99706-9822-4a37-b5a9-5369a6ac2364",
+  "candidateSha": "ecc9d8d0e63f5ee1c9a8f45df87e92f7b42e0ea5",
+  "pullRequest": "https://github.com/Dadong520/yijiexing/pull/43",
+  "integrationHeadSha": "17d491106f3a2e2719d5424978408156cd51a0bd",
+  "businessReview": {
+    "status": "PASS",
+    "sha": "ecc9d8d0e63f5ee1c9a8f45df87e92f7b42e0ea5",
+    "evidence": "coordination/evidence/UI30B-20261030-01/REVIEW_DELTA_ecc9d8d.json",
+    "previous": [
+      "coordination/evidence/UI30B-20261030-01/REVIEW_INTEGRATED_17d4911.json",
+      "coordination/evidence/UI30B-20261030-01/REVIEW_DELTA_2815d02.json"
+    ]
+  },
+  "acceptedSha": "ecc9d8d0e63f5ee1c9a8f45df87e92f7b42e0ea5",
+  "reviewer": "frontend",
+  "nativeReview": {
+    "status": "PASS_SCOPED_NATIVE_UI",
+    "sha": "ecc9d8d0e63f5ee1c9a8f45df87e92f7b42e0ea5",
+    "evidence": "coordination/evidence/UI30F-20261030-01/NATIVE_ACCEPTANCE_FINAL.json"
+  }
+}

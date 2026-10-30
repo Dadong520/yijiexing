@@ -43,8 +43,8 @@ internal fun ColumnScope.MembershipSubscriptionsScreen(
         } else {
             LazyColumn(
                 Modifier.weight(1f),
-                contentPadding = PaddingValues(18.dp),
-                verticalArrangement = Arrangement.spacedBy(15.dp),
+                contentPadding = PaddingValues(horizontal = 16.dp, vertical = 12.dp),
+                verticalArrangement = Arrangement.spacedBy(12.dp),
             ) {
                 if (page == "subscriptions") {
                     val activeRows = subscriptions.filter { it.mText("status") == "ACTIVE" }
@@ -80,7 +80,7 @@ internal fun ColumnScope.MembershipSubscriptionsScreen(
                                         Text(
                                             "${subscription.mText("cityName")} · 生效中",
                                             color = Color.White,
-                                            fontSize = 16.sp,
+                                            fontSize = 15.sp,
                                             modifier = Modifier.padding(top = 6.dp),
                                         )
                                     }
@@ -101,7 +101,7 @@ internal fun ColumnScope.MembershipSubscriptionsScreen(
                                 Text(
                                     "${mDate(subscription.mText("startAt", ""))} 至 ${mDate(subscription.mText("endAt", ""))}",
                                     color = Color.White,
-                                    fontSize = 16.sp,
+                                    fontSize = 15.sp,
                                     modifier = Modifier.padding(top = 18.dp),
                                 )
                             }
@@ -115,7 +115,7 @@ internal fun ColumnScope.MembershipSubscriptionsScreen(
                                             if (subscription.optBoolean("autoRenew")) "已主动开启演示授权状态"
                                             else "未开启，不安排沙箱续费",
                                             color = Muted,
-                                            fontSize = 16.sp,
+                                            fontSize = 15.sp,
                                             modifier = Modifier.padding(top = 5.dp),
                                         )
                                     }
@@ -129,7 +129,7 @@ internal fun ColumnScope.MembershipSubscriptionsScreen(
                                     Text(
                                         "服务端下次计划时间：${mDate(subscription.mText("nextChargeAt", ""), true)}\n仅用于联调，不产生真实签约和自动扣款。",
                                         color = Muted,
-                                        fontSize = 16.sp,
+                                        fontSize = 15.sp,
                                         lineHeight = 24.sp,
                                         modifier = Modifier.padding(top = 8.dp),
                                     )
@@ -137,7 +137,7 @@ internal fun ColumnScope.MembershipSubscriptionsScreen(
                                     Text(
                                         "关闭续费不会缩短当前已付费的会员有效期。",
                                         color = Muted,
-                                        fontSize = 16.sp,
+                                        fontSize = 15.sp,
                                         modifier = Modifier.padding(top = 8.dp),
                                     )
                                 HorizontalDivider(
@@ -188,7 +188,7 @@ internal fun ColumnScope.MembershipSubscriptionsScreen(
                                 DetailRow("状态", mStatus(subscription.mText("status")))
                                 DetailRow("成交金额", mMoney(subscription.mLong("amount")))
                                 DetailRow("有效期至", mDate(subscription.mText("endAt", "")))
-                                TextButton(
+                                DriverTextButton(
                                     onClick = {
                                         navigate(mRoute("snapshot", id = subscription.mText("id")))
                                     }
@@ -219,12 +219,12 @@ internal fun ColumnScope.MembershipSubscriptionsScreen(
                                     Column(Modifier.weight(1f)) {
                                         Text(
                                             order.mText("levelName", order.mText("level")),
-                                            fontSize = 17.sp,
+                                            fontSize = 16.sp,
                                             fontWeight = FontWeight.SemiBold,
                                         )
                                         Text(
                                             order.mText("cityName"),
-                                            fontSize = 16.sp,
+                                            fontSize = 15.sp,
                                             color = Muted,
                                             modifier = Modifier.padding(top = 4.dp),
                                         )
@@ -238,7 +238,7 @@ internal fun ColumnScope.MembershipSubscriptionsScreen(
                                 DetailRow("成交金额", mMoney(order.mLong("amount")))
                                 DetailRow("下单时间", mDate(order.mText("createdAt", ""), true))
                                 MembershipVersionDetail(order.mText("version"))
-                                Text(order.mText("id"), color = Muted, fontSize = 16.sp)
+                                Text(order.mText("id"), color = Muted, fontSize = 13.sp)
                                 Row(
                                     Modifier.fillMaxWidth().padding(top = 12.dp),
                                     horizontalArrangement = Arrangement.spacedBy(9.dp),
@@ -251,7 +251,7 @@ internal fun ColumnScope.MembershipSubscriptionsScreen(
                                     ) {
                                         Text(
                                             if (mPaid(order)) "支付详情" else "继续 / 重试",
-                                            fontSize = 16.sp,
+                                            fontSize = 15.sp,
                                         )
                                     }
                                     if (mPaid(order))
@@ -270,17 +270,17 @@ internal fun ColumnScope.MembershipSubscriptionsScreen(
                                             },
                                             modifier = Modifier.weight(1f),
                                         ) {
-                                            Text("权益快照", fontSize = 16.sp)
+                                            Text("权益快照", fontSize = 15.sp)
                                         }
                                 }
                                 if (mPaid(order))
-                                    TextButton(
+                                    DriverTextButton(
                                         onClick = {
                                             navigate(mRoute("invoice", order = order.mText("id")))
                                         },
                                         modifier = Modifier.fillMaxWidth(),
                                     ) {
-                                        Text("申请电子发票（沙箱）", fontSize = 16.sp)
+                                        Text("申请电子发票（沙箱）", fontSize = 15.sp)
                                     }
                             }
                         }
@@ -293,7 +293,7 @@ internal fun ColumnScope.MembershipSubscriptionsScreen(
                             SheetCard {
                                 Text(
                                     invoice.mText("title"),
-                                    fontSize = 16.sp,
+                                    fontSize = 15.sp,
                                     fontWeight = FontWeight.SemiBold,
                                 )
                                 DetailRow("申请状态", mStatus(invoice.mText("status")), Green)
@@ -303,13 +303,13 @@ internal fun ColumnScope.MembershipSubscriptionsScreen(
                                 Text(
                                     "申请编号 ${invoice.mText("id")}\n订单 ${invoice.mText("orderId")}\n${mDate(invoice.mText("createdAt", ""), true)}",
                                     color = Muted,
-                                    fontSize = 16.sp,
+                                    fontSize = 15.sp,
                                     lineHeight = 24.sp,
                                 )
                                 Text(
                                     "仅保存沙箱申请，不代表真实发票开具。",
                                     color = Orange,
-                                    fontSize = 16.sp,
+                                    fontSize = 15.sp,
                                     modifier = Modifier.padding(top = 8.dp),
                                 )
                             }
@@ -331,7 +331,7 @@ internal fun ColumnScope.MembershipSubscriptionsScreen(
     }
     renewalTarget?.let { subscription ->
         val enabled = !subscription.optBoolean("autoRenew")
-        AlertDialog(
+        DriverDialog(
             onDismissRequest = { if (!renewing) renewalTarget = null },
             title = { Text(if (enabled) "主动开启沙箱续费授权？" else "关闭自动续费？") },
             text = {
@@ -344,7 +344,7 @@ internal fun ColumnScope.MembershipSubscriptionsScreen(
                 )
             },
             confirmButton = {
-                TextButton(
+                DriverTextButton(
                     enabled = !renewing,
                     onClick = {
                         renewing = true
@@ -371,7 +371,7 @@ internal fun ColumnScope.MembershipSubscriptionsScreen(
                 }
             },
             dismissButton = {
-                TextButton(enabled = !renewing, onClick = { renewalTarget = null }) { Text("返回") }
+                DriverTextButton(enabled = !renewing, onClick = { renewalTarget = null }) { Text("返回") }
             },
         )
     }
@@ -381,8 +381,8 @@ internal fun ColumnScope.MembershipSubscriptionsScreen(
 private fun ColumnScope.MembershipSnapshotScreen(record: JSONObject?, navigate: (String) -> Unit) {
     LazyColumn(
         Modifier.weight(1f),
-        contentPadding = PaddingValues(18.dp),
-        verticalArrangement = Arrangement.spacedBy(15.dp),
+        contentPadding = PaddingValues(horizontal = 16.dp, vertical = 12.dp),
+        verticalArrangement = Arrangement.spacedBy(12.dp),
     ) {
         if (record == null)
             item {
@@ -405,7 +405,7 @@ private fun ColumnScope.MembershipSnapshotScreen(record: JSONObject?, navigate: 
                         Text(
                             snapshot.mText("rightsCountNotice"),
                             color = Muted,
-                            fontSize = 16.sp,
+                            fontSize = 15.sp,
                             lineHeight = 24.sp,
                         )
                     DetailRow("开始日期", mDate(record.mText("startAt", "")))
@@ -413,7 +413,7 @@ private fun ColumnScope.MembershipSnapshotScreen(record: JSONObject?, navigate: 
                     Text(
                         snapshot.optJSONObject("mapQuota")?.mText("label") ?: "地图额度未提供",
                         color = Green,
-                        fontSize = 16.sp,
+                        fontSize = 15.sp,
                         modifier = Modifier.padding(top = 8.dp),
                     )
                 }
@@ -447,14 +447,14 @@ private fun ColumnScope.MembershipSnapshotScreen(record: JSONObject?, navigate: 
                                                 right.mText("value", "支持")
                                             else "当前成交版本未开放",
                                             color = Muted,
-                                            fontSize = 16.sp,
+                                            fontSize = 15.sp,
                                             lineHeight = 24.sp,
                                             modifier = Modifier.padding(top = 5.dp),
                                         )
                                         Text(
                                             "来源：${mSource(right.mText("source", snapshot.mText("source")))}",
                                             color = Muted,
-                                            fontSize = 16.sp,
+                                            fontSize = 15.sp,
                                             modifier = Modifier.padding(top = 4.dp),
                                         )
                                     }

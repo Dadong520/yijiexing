@@ -26,11 +26,13 @@ fun PassengerExtrasScreen(page: String, owner: String) {
   var message by remember(owner, page) { mutableStateOf("") }
   PageColumn {
     SectionTitle(when(page) { "coupons" -> "我的卡券 · 演示"; "points" -> "积分 · 演示"; else -> "邀请体验 · 演示" })
+    when (page) {
+      "coupons" -> EmptyCard("暂无可用卡券", "领取、有效期、核销及退款规则待服务端接入后开放。")
+      "points" -> EmptyCard("暂无积分记录", "预付成功不视作完单，不在本机发放完单积分。")
+      else -> EmptyCard("暂无邀请记录", "尚无服务端邀请码或真实拉新绑定，不承诺注册送券或首单奖励。")
+    }
     Panel("尚未接入营销账务") {
-      KV(when(page) { "coupons" -> "可用券"; "points" -> "积分余额"; else -> "邀请记录" }, "0")
       Note("此处是功能演示，不是真实资产。不会抵扣订单、改变报价、发放积分或奖励；订单金额以共享服务端为准。")
-      if (page == "coupons") Note("暂无可用券。领取、有效期、核销及退款规则待服务端接入后开放。")
-      if (page == "points") Note("暂无积分变动。预付成功不视作完单，不在本机发放完单积分。")
       if (page == "invite") {
         Note("尚无服务端邀请码或真实拉新绑定，不承诺注册送券或首单奖励。")
         SecondaryButton("复制体验说明") {
@@ -65,7 +67,7 @@ private fun SafetyCenter(owner: String) {
     Panel {
       Text("紧急协助", color = Ink, fontWeight = FontWeight.SemiBold)
       Note("紧急情况请本人拨打当地报警电话；应用不会自动报警。")
-      OutlinedButton(onClick = { dial("110") }, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) { Text("打开 110 拨号界面") }
+      DangerButton("打开 110 拨号界面") { dial("110") }
     }
     PassengerSectionHeader("安全联系人 · ${contacts.size}/3", if (contacts.size < 3) "＋ 添加" else null) { editId=null; name=""; phone=""; error=""; editing=true }
     if (contacts.isEmpty()) EmptyCard("暂无安全联系人", "按需添加，保存后可手动打开拨号。")
@@ -76,11 +78,11 @@ private fun SafetyCenter(owner: String) {
             Text(contact.name, color = Ink, fontWeight = FontWeight.SemiBold)
             Note(contact.phone)
           }
-          TextButton(onClick = { dial(contact.phone) }) { Text("拨号") }
+          PassengerTextButton(onClick = { dial(contact.phone) }) { Text("拨号") }
         }
         Row {
-          TextButton(onClick = { editId=contact.id; name=contact.name; phone=contact.phone; error=""; editing=true }) { Text("编辑") }
-          TextButton(onClick = { deleting=contact }) { Text("删除", color = Muted) }
+          PassengerTextButton(onClick = { editId=contact.id; name=contact.name; phone=contact.phone; error=""; editing=true }) { Text("编辑") }
+          PassengerTextButton(onClick = { deleting=contact }) { Text("删除", color = Muted) }
         }
       }
     }
@@ -100,10 +102,10 @@ private fun SafetyCenter(owner: String) {
   }
   deleting?.let { contact ->
     PassengerModalSlot()
-    AlertDialog(onDismissRequest={deleting=null}, title={Text("删除安全联系人？")}, text={Text(contact.name)}, confirmButton={TextButton(onClick={
+    PassengerDialog(onDismissRequest={deleting=null}, title={Text("删除安全联系人？")}, text={Text(contact.name)}, confirmButton={PassengerTextButton(onClick={
       runCatching { local.remove(owner, contacts, contact.id); contacts=local.contacts(owner) }
         .onSuccess { deleting=null }.onFailure { error=it.message ?: "删除失败"; deleting=null }
-    }) {Text("删除")}}, dismissButton={TextButton(onClick={deleting=null}) {Text("保留")}})
+    }) {Text("删除")}}, dismissButton={PassengerTextButton(onClick={deleting=null}) {Text("保留")}})
   }
 }
 

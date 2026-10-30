@@ -1,0 +1,83 @@
+{
+  "taskId": "UITF-20261030-01",
+  "legacyAlias": "UI30F-20261030-01",
+  "at": "2026-10-30T20:41:41.464914+08:00",
+  "threadId": "01a182c6-c475-7110-bbae-0deafe6d2385",
+  "protocol": "2026-10-26-v3",
+  "status": "PREPARATION_ONLY_WAIT_FREEZE",
+  "acceptance": "NOT_RUN",
+  "baseSha": "362c7f861a5063631c6da9ba198e04bc131402e4",
+  "cloudCandidateSha": "9495caa54e8b8581bba4d82c3fbac04701252418",
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-ui-feedback-20261030",
+  "externalRoot": "/Users/dongge/.codex/tmp/yijiexing-uitf-20261030",
+  "sourceObservation": "HEAD base362 clean commit plus cherry-pick dirty/conflicts owned Claude/root; no dirty product read/copy/edit/build",
+  "prepared": [
+    "SDK/JDK17/offline init reused only",
+    "Fresh external script/runtime/log/screenshot dirs; no source/APK/DB/TLS/private identities copied",
+    "Exact SHA git archive staging helper refuses existing source and versionCode!=21",
+    "Local fixture/control/UI helpers adapted as templates; fixture cannot execute without FROZEN_SHA",
+    "Python ast.parse preparation PASS; no imports of fixture or execution",
+    "Fresh UITF_20261030 AVD definition1080x2400/density440 created; never booted"
+  ],
+  "resources": "No active emulator/fixture/reverse/build; planned fresh UITF_20261030 serial5584 and local64341 verified initially unused",
+  "permission": "This UIT batch official Android tools on dedicated isolated AVD explicitly authorized in task; no personal devices/live writes",
+  "matrix": [
+    {
+      "group": "G1",
+      "scope": "Both apps unified modals/button rows/type scale, long text/IME/back, small360x640,font1.3, queue and NAV modal priorities",
+      "status": "NOT_RUN"
+    },
+    {
+      "group": "P1",
+      "scope": "Passenger every defined order stage fixed cancel/pay actions; cancel/confirm payment success vs failures and busy/retry; no client eligibility bypass",
+      "status": "NOT_RUN"
+    },
+    {
+      "group": "P2",
+      "scope": "Debt banner+modal priority, multiple debts, re-entry/account change and failure retry; actual server conflict gates stay enforced",
+      "status": "NOT_RUN"
+    },
+    {
+      "group": "P3",
+      "scope": "Address/map/history/favorites with removed manual coords, selected point metadata and draft protection; waypoints/ride-for-others cards",
+      "status": "NOT_RUN"
+    },
+    {
+      "group": "P4",
+      "scope": "Reservation slim collapse and passenger profile icons/empty-state entrances/ability disclosures",
+      "status": "NOT_RUN"
+    },
+    {
+      "group": "D1",
+      "scope": "Listening preferences only, tools/status moved profile, settings/profile function reachability; NAV true legs/dedupe unaffected",
+      "status": "NOT_RUN"
+    },
+    {
+      "group": "D2",
+      "scope": "Trip navigation+next-step row and cancel link all relevant stages, wallet tabs3-row/expand/collapse/empty lists/data count",
+      "status": "NOT_RUN"
+    },
+    {
+      "group": "D3",
+      "scope": "Membership/profile changes and qualification reminder: pending replacement with still-valid old cert vs already-expired old cert, genuine block retained",
+      "status": "NOT_RUN"
+    }
+  ],
+  "requirementsMapping": "Preliminary acceptance groups from cloud commit message+delegation; do not invent missing24 item numbering; refine against final integrated scope at freeze",
+  "notRun": [
+    "Source staging",
+    "Unit/build/versions/signature/APK scans",
+    "AVD boot/install/UI",
+    "Actual provider/OEM/real funds",
+    "Cloud business POST/merge/deploy"
+  ],
+  "nextAction": "WAIT root precise integrated code21 freeze; no polling or product edits",
+  "scriptsSha256": {
+    "offline.init.gradle": "623a7ba6fe130bd2302a7a5604af8cd8c1c351b9883a7f37b8db7b06de0bcd38",
+    "fixture.py": "32c490a30e58dfd772fb40080a9e577eb8b596824557ef19cf0b890988c86c42",
+    "stage_frozen.py": "fb10188bf6a5afd284897dba0cf54a3bf455e26886cbc80d9a06bb069c88fc7a",
+    "fill.py": "78c7926f837ea393e6d1090abc0a993395661ee226c976f826edea8f4ffaa97c",
+    "ui.py": "3a81a9554371ca7981e7e7ed80c7916d374375ce05c01195842f8ce80f2be6d5",
+    "control.py": "e74e0b89ee739ef1d7c49d897afa88188a250d774c54887bccc23140e80a67d5"
+  }
+}

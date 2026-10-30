@@ -53,7 +53,7 @@ internal fun BusinessBanks(
                             card.bText("bankName"),
                             color = Color.White,
                             fontWeight = FontWeight.Bold,
-                            fontSize = 20.sp,
+                            fontSize = 16.sp,
                             modifier = Modifier.weight(1f).padding(start = 12.dp),
                         )
                         if (card.optBoolean("isDefault"))
@@ -68,7 +68,7 @@ internal fun BusinessBanks(
                     Text(
                         "持卡人 · ${card.bText("holder")}",
                         color = Color.White.copy(alpha = .85f),
-                        fontSize = 16.sp,
+                        fontSize = 15.sp,
                     )
                     FlowRow(
                         Modifier.fillMaxWidth().padding(top = 12.dp),
@@ -148,16 +148,16 @@ internal fun BusinessBankAdd(
                     help = "9000 开头，共 16 至 19 位数字",
                 )
                 Row(
-                    Modifier.fillMaxWidth().heightIn(min = 56.dp)
+                    Modifier.fillMaxWidth().heightIn(min = 52.dp)
                         .toggleable(value = agreement, role = Role.Checkbox, onValueChange = { agreement = it })
                         .padding(vertical = 10.dp),
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
                     Checkbox(agreement, onCheckedChange = null)
-                    Text("确认使用演示卡号", fontSize = 18.sp, modifier = Modifier.weight(1f).padding(start = 10.dp))
+                    Text("确认使用演示卡号", fontSize = 15.sp, modifier = Modifier.weight(1f).padding(start = 10.dp))
                 }
                 if (validation.isNotBlank())
-                    Text(validation, color = MaterialTheme.colorScheme.error, fontSize = 16.sp)
+                    Text(validation, color = MaterialTheme.colorScheme.error, fontSize = 15.sp)
                 Spacer(Modifier.height(10.dp))
                 PrimaryButton("添加至演示账户", enabled = !busy && agreement) {
                     validation =
@@ -288,7 +288,7 @@ internal fun BusinessPassword(
                         password = true,
                     )
                     if (validation.isNotBlank())
-                        Text(validation, color = MaterialTheme.colorScheme.error, fontSize = 16.sp)
+                        Text(validation, color = MaterialTheme.colorScheme.error, fontSize = 15.sp)
                     Spacer(Modifier.height(12.dp))
                     PrimaryButton("确认${if (mode == "reset") "重置" else "保存"}", enabled = !busy) {
                         validation =
@@ -367,7 +367,7 @@ internal fun BusinessWithdraw(
     BusinessPage("余额提现", store, onBack, "记录", { navigate("withdrawals") }) {
         item {
             SheetCard {
-                Text("可提现余额", color = Muted, fontSize = 16.sp)
+                Text("可提现余额", color = Muted, fontSize = 13.sp)
                 Text(
                     "¥${money(state.balance)}",
                     color = Green,
@@ -394,7 +394,7 @@ internal fun BusinessWithdraw(
                     role = Role.RadioButton,
                     onClick = { selectedId = card.bText("id") },
                 )) {
-                    Row(Modifier.heightIn(min = 56.dp), verticalAlignment = Alignment.CenterVertically) {
+                    Row(Modifier.heightIn(min = 52.dp), verticalAlignment = Alignment.CenterVertically) {
                         RadioButton(
                             selected = selectedId == card.bText("id"),
                             onClick = null,
@@ -404,7 +404,7 @@ internal fun BusinessWithdraw(
                             Text(
                                 "尾号 ${bCardTail(card)} · ${card.bText("holder")}",
                                 color = Muted,
-                                fontSize = 16.sp,
+                                fontSize = 15.sp,
                             )
                         }
                         if (card.optBoolean("isDefault")) Pill("默认")
@@ -425,7 +425,7 @@ internal fun BusinessWithdraw(
                     BusinessTextButton(onClick = { navigate("walletsettings/set") }) { Text("先设置交易密码") }
                 }
                 if (validation.isNotBlank())
-                    Text(validation, color = MaterialTheme.colorScheme.error, fontSize = 16.sp)
+                    Text(validation, color = MaterialTheme.colorScheme.error, fontSize = 15.sp)
                 Spacer(Modifier.height(12.dp))
                 PrimaryButton("提交提现申请", enabled = !busy && hasPassword && cards.isNotEmpty()) {
                     val value = cents()
@@ -466,10 +466,10 @@ internal fun BusinessWithdraw(
             }
         }
     if (success != null)
-        AlertDialog(
+        DriverDialog(
             onDismissRequest = { success = null },
             title = { Text("提现申请已提交") },
-            text = { Text("申请已写入独立演示数据库。请在提现记录查看待处理、成功或驳回状态；此过程不发生真实转账。", fontSize = 18.sp, lineHeight = 28.sp, modifier = Modifier.heightIn(max = 420.dp).verticalScroll(rememberScrollState())) },
+            text = { Text("申请已写入独立演示数据库。请在提现记录查看待处理、成功或驳回状态；此过程不发生真实转账。", fontSize = 15.sp, lineHeight = 22.sp, modifier = Modifier.heightIn(max = 420.dp).verticalScroll(rememberScrollState())) },
             confirmButton = {
                 BusinessTextButton(
                     onClick = {
@@ -499,8 +499,8 @@ internal fun BusinessWithdrawals(store: ConnectedStore, profile: JSONObject, onB
                 listOf("全部", "待处理", "沙箱已通过", "已驳回").forEach { f ->
                     FilterChip(
                         filter == f, { filter = f },
-                        label = { Text(f, fontSize = 18.sp) },
-                        modifier = Modifier.heightIn(min = 56.dp),
+                        label = { Text(f, fontSize = 15.sp) },
+                        modifier = Modifier.heightIn(min = 52.dp),
                         colors = FilterChipDefaults.filterChipColors(selectedContainerColor = Pale, selectedLabelColor = Green, labelColor = Ink),
                     )
                 }
@@ -514,7 +514,7 @@ internal fun BusinessWithdrawals(store: ConnectedStore, profile: JSONObject, onB
                         "¥${money(record.optLong("amount"))}",
                         modifier = Modifier.weight(1f),
                         fontWeight = FontWeight.Bold,
-                        fontSize = 26.sp,
+                        fontSize = 20.sp,
                     )
                     Pill(bStatus(record.bText("status")))
                 }
@@ -525,7 +525,7 @@ internal fun BusinessWithdrawals(store: ConnectedStore, profile: JSONObject, onB
                     "${record.bText("bankName", fallback = "演示银行卡")} ${record.bText("bankTail", "lastFour", fallback = "")}",
                 )
                 if (record.bText("reason", "reply", fallback = "").isNotBlank())
-                    Text("处理说明：${record.bText("reason", "reply")}", fontSize = 16.sp, color = Muted)
+                    Text("处理说明：${record.bText("reason", "reply")}", fontSize = 13.sp, color = Muted)
             }
         }
         item { BusinessHint("处理结果由演示管理台生成，不是银行回执。刷新可查看最新状态。") }

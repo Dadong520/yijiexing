@@ -1,0 +1,61 @@
+{
+  "sourceSha": "17d491106f3a2e2719d5424978408156cd51a0bd",
+  "at": "2026-10-30T12:48:17.940120+00:00",
+  "checks": [
+    {
+      "command": "python3 tools/check_coordination.py",
+      "status": "PASS",
+      "exitCode": 0
+    },
+    {
+      "command": "python3 -m unittest discover -s tools -p test_check_coordination.py -q",
+      "status": "PASS",
+      "exitCode": 0,
+      "tests": 27
+    },
+    {
+      "command": "npm test (candidates/passenger-miniprogram-0.1.0/miniprogram)",
+      "status": "PASS",
+      "exitCode": 0,
+      "tests": 74
+    },
+    {
+      "command": "npm run check (same mini directory)",
+      "status": "PASS",
+      "exitCode": 0,
+      "pages": 10,
+      "parsedJavaScript": 25
+    }
+  ],
+  "unchangedObjects": [
+    {
+      "path": "apps/cloud-service",
+      "gitObject": "033e173314e7339e46c2c78c178b870039609fa9",
+      "unchanged": true
+    },
+    {
+      "path": "apps/admin-console",
+      "gitObject": "86b2ac8af994108b88bf298c8eba725b31fe4a5a",
+      "unchanged": true
+    },
+    {
+      "path": "candidates/passenger-miniprogram-0.1.0",
+      "gitObject": "5236b65283b5bb80939c223aa2abfc3f6534253a",
+      "unchanged": true
+    },
+    {
+      "path": "apps/passenger-android/app/src/test",
+      "gitObject": "da09fce2933d43fd4e809486b2cb0381ac148ff0",
+      "unchanged": true
+    },
+    {
+      "path": "candidates/driver-0.3.6-r2/android/app/src/test",
+      "gitObject": "26192d89aefe14128d17233664241a4cb3ceee62",
+      "unchanged": true
+    }
+  ],
+  "limits": [
+    "Mini check is source/local contract validation; no WeChat developer compilation/AppID/actual mini publication",
+    "Android build/unit/native delegated to independent frontend; root checks do not substitute native acceptance"
+  ]
+}

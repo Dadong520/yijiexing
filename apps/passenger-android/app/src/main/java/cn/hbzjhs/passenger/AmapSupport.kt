@@ -116,7 +116,7 @@ fun AmapCanvas(
             Column(Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
                 Text("启用地图服务", style = MaterialTheme.typography.titleMedium)
                 Text("高德地图由北京高德图强科技有限公司提供。启用后将处理设备信息、IP地址、搜索词和地图操作位置，用于地图展示与地点搜索。")
-                TextButton(onClick = { context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://lbs.amap.com/pages/privacy/"))) }) { Text("阅读高德隐私政策") }
+                PassengerTextButton(onClick = { context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://lbs.amap.com/pages/privacy/"))) }) { Text("阅读高德隐私政策") }
                 Button(onClick = { AmapRuntime.agree(context) }) { Text("同意并启用地图") }
                 Text("您可继续使用其他功能，稍后再启用地图。", style = MaterialTheme.typography.bodySmall)
             }
@@ -190,7 +190,7 @@ fun AmapCanvas(
         if (failed) Surface(Modifier.align(Alignment.Center)) {
             Column(Modifier.padding(14.dp), horizontalAlignment = Alignment.CenterHorizontally) {
                 Text("地图暂未加载，请检查网络后重试")
-                TextButton(onClick = { retry++ }) { Text("重新加载地图") }
+                PassengerTextButton(onClick = { retry++ }) { Text("重新加载地图") }
             }
         }
     }

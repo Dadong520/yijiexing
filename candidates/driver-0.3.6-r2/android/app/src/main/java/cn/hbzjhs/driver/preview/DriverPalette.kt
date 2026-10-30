@@ -12,7 +12,7 @@ val WarmSoft = Color(0xFFFFF4E5)
 val Violet = Color(0xFF6D28D9)
 val VioletSoft = Color(0xFFF1EBFE)
 val Success = Color(0xFF1B7A3E)
-val SuccessSoft = Color(0xFFE6F4EA)
+val SuccessSoft = Color(0xFFEBFAF1)
 val Danger = Color(0xFFB42318)
 val DangerSoft = Color(0xFFFDECEA)
 
@@ -20,6 +20,10 @@ val DangerSoft = Color(0xFFFDECEA)
 fun moduleAccent(icon: String): Pair<Color, Color> = when (icon) {
     "location", "navigation", "car", "orders", "doc", "scan" -> Sky to SkySoft
     "wallet", "card", "gift", "chart" -> Warm to WarmSoft
-    "settings", "support", "voice", "bell" -> Violet to VioletSoft
+    "settings", "support", "voice", "bell", "share", "mail" -> Violet to VioletSoft
+    "face", "tool", "calendar", "info" -> Sky to SkySoft
+    "star" -> Warm to WarmSoft
+    "lock", "thumb" -> Success to SuccessSoft
+    "warning", "exit" -> Danger to DangerSoft
     else -> Green to Pale
 }

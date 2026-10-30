@@ -38,8 +38,8 @@ internal fun ColumnScope.MembershipCenterScreen(
     val driver = profile.optJSONObject("driver") ?: profile
     LazyColumn(
         Modifier.weight(1f),
-        contentPadding = PaddingValues(18.dp),
-        verticalArrangement = Arrangement.spacedBy(15.dp),
+        contentPadding = PaddingValues(horizontal = 16.dp, vertical = 12.dp),
+        verticalArrangement = Arrangement.spacedBy(12.dp),
     ) {
         item { MembershipCityBar(catalog, "", navigate) }
         item {
@@ -57,13 +57,13 @@ internal fun ColumnScope.MembershipCenterScreen(
                         Text(
                             driver.mText("name", "司机师傅"),
                             color = Color.White,
-                            fontSize = 20.sp,
+                            fontSize = 16.sp,
                             fontWeight = FontWeight.Bold,
                         )
                         Text(
                             "${city.mText("name")} · ${if (active) subscription!!.mText("levelName") else "体验司机"}",
                             color = Color.White,
-                            fontSize = 16.sp,
+                            fontSize = 15.sp,
                             modifier = Modifier.padding(top = 5.dp),
                         )
                     }
@@ -85,11 +85,11 @@ internal fun ColumnScope.MembershipCenterScreen(
                         )
                     }
                     Text("订阅地区：${subscription!!.mText("cityName")}", color = Color.White,
-                        fontSize = 18.sp, modifier = Modifier.padding(top = 14.dp))
+                        fontSize = 15.sp, modifier = Modifier.padding(top = 14.dp))
                     Text(
                         "有效期至 ${mDate(subscription!!.mText("endAt", ""))}",
                         color = Color.White,
-                        fontSize = 16.sp,
+                        fontSize = 15.sp,
                         modifier = Modifier.padding(top = 16.dp),
                     )
                 } else {
@@ -124,7 +124,7 @@ internal fun ColumnScope.MembershipCenterScreen(
                     Text(
                         "${trial.mNumber("daysTotal")} 天或 ${trial.mNumber("ordersLimit")} 单，先达到者结束体验",
                         color = Color.White,
-                        fontSize = 16.sp,
+                        fontSize = 15.sp,
                         modifier = Modifier.padding(top = 10.dp),
                     )
                 }
@@ -137,7 +137,7 @@ internal fun ColumnScope.MembershipCenterScreen(
                             )
                         )
                     },
-                    modifier = Modifier.fillMaxWidth().padding(top = 18.dp).heightIn(min = 60.dp),
+                    modifier = Modifier.fillMaxWidth().padding(top = 18.dp).heightIn(min = 52.dp),
                     colors = ButtonDefaults.outlinedButtonColors(contentColor = Color.White),
                     border =
                         androidx.compose.foundation.BorderStroke(
@@ -181,7 +181,7 @@ internal fun ColumnScope.MembershipCenterScreen(
                         )
                         .mapNotNull { key -> visibleRights.firstOrNull { it.mText("key") == key } }
                         .ifEmpty { visibleRights.take(8) }
-                if (rights.isEmpty()) Text("当前未返回可见权益，请刷新配置。", color = Muted, fontSize = 16.sp)
+                if (rights.isEmpty()) Text("当前未返回可见权益，请刷新配置。", color = Muted, fontSize = 13.sp)
                 rights.chunked(2).forEach { row ->
                     Row(Modifier.fillMaxWidth()) {
                         row.forEach { right ->
@@ -214,14 +214,14 @@ internal fun ColumnScope.MembershipCenterScreen(
                                 )
                                 Text(
                                     right.mText("label"),
-                                    fontSize = 16.sp,
+                                    fontSize = 15.sp,
                                     modifier = Modifier.padding(top = 9.dp),
                                     textAlign = TextAlign.Center,
                                 )
                                 Text(
                                     if (right.optBoolean("enabled")) "已开放" else "未开放",
                                     color = if (right.optBoolean("enabled")) Green else Muted,
-                                    fontSize = 16.sp,
+                                    fontSize = 15.sp,
                                     modifier = Modifier.padding(top = 3.dp),
                                 )
                             }
@@ -267,7 +267,7 @@ internal fun ColumnScope.MembershipCenterScreen(
                                 .padding(vertical = 14.dp),
                             verticalAlignment = Alignment.CenterVertically,
                         ) {
-                            Text(item.first, fontSize = 16.sp, modifier = Modifier.weight(1f))
+                            Text(item.first, fontSize = 15.sp, modifier = Modifier.weight(1f))
                             Glyph("right", Muted, Modifier.size(16.dp))
                         }
                     }
@@ -281,11 +281,11 @@ internal fun ColumnScope.MembershipCenterScreen(
         }
     }
     detail?.let { item ->
-        AlertDialog(
+        DriverDialog(
             onDismissRequest = { detail = null },
             title = { Text(item.first) },
             text = { Text(item.second, fontSize = 14.sp, lineHeight = 24.sp) },
-            confirmButton = { TextButton(onClick = { detail = null }) { Text("知道了") } },
+            confirmButton = { DriverTextButton(onClick = { detail = null }) { Text("知道了") } },
         )
     }
 }
@@ -298,8 +298,8 @@ internal fun ColumnScope.MembershipCityScreen(catalog: JSONObject, navigate: (St
     val active = subscription != null && subscription.mText("status", "ACTIVE") == "ACTIVE"
     LazyColumn(
         Modifier.weight(1f),
-        contentPadding = PaddingValues(18.dp),
-        verticalArrangement = Arrangement.spacedBy(15.dp),
+        contentPadding = PaddingValues(horizontal = 16.dp, vertical = 12.dp),
+        verticalArrangement = Arrangement.spacedBy(12.dp),
     ) {
         item { MembershipCityBar(catalog, "city", navigate) }
         item {
@@ -308,7 +308,7 @@ internal fun ColumnScope.MembershipCityScreen(catalog: JSONObject, navigate: (St
                     "已开通${subscription!!.mText("levelName")} · ${subscription.mText("cityName")}",
                     "有效期至 ${mDate(subscription.mText("endAt", ""))}。在期权益按原成交快照保留；升级与提前续期规则以服务端校验为准。",
                 )
-                TextButton(
+                DriverTextButton(
                     onClick = { navigate(mRoute("subscriptions")) },
                     modifier = Modifier.fillMaxWidth(),
                 ) {
@@ -335,11 +335,11 @@ internal fun ColumnScope.MembershipCityScreen(catalog: JSONObject, navigate: (St
         }
         item {
             SheetCard {
-                Text("购买说明", fontSize = 16.sp, fontWeight = FontWeight.SemiBold)
+                Text("购买说明", fontSize = 15.sp, fontWeight = FontWeight.SemiBold)
                 Text(
                     "• 仅支持年度套餐，半年与月度尚未开放。\n• 所有金额由服务端计算；选购、对比、订单使用同一发布版本。\n• 未确认优惠资格前不自动使用首年折扣或升级补差。\n• 自动续费需主动选择；本版仅记录沙箱授权状态。\n• 在期会员权益和成交价按购买快照保留。",
                     color = Muted,
-                    fontSize = 16.sp,
+                    fontSize = 15.sp,
                     lineHeight = 23.sp,
                     modifier = Modifier.padding(top = 10.dp),
                 )
@@ -361,8 +361,8 @@ internal fun ColumnScope.MembershipCompareScreen(
     val city = catalog.optJSONObject("city") ?: JSONObject()
     LazyColumn(
         Modifier.weight(1f),
-        contentPadding = PaddingValues(18.dp),
-        verticalArrangement = Arrangement.spacedBy(15.dp),
+        contentPadding = PaddingValues(horizontal = 16.dp, vertical = 12.dp),
+        verticalArrangement = Arrangement.spacedBy(12.dp),
     ) {
         item { MembershipCityBar(catalog, "compare", navigate) }
         item {
@@ -371,8 +371,8 @@ internal fun ColumnScope.MembershipCompareScreen(
                     FilterChip(
                         selected = mLevelId(level) == selected,
                         onClick = { selected = mLevelId(level) },
-                        label = { Text(level.mText("name"), fontSize = 16.sp) },
-                        modifier = Modifier.heightIn(min = 56.dp),
+                        label = { Text(level.mText("name"), fontSize = 15.sp) },
+                        modifier = Modifier.heightIn(min = 52.dp),
                     )
                 }
             }
@@ -391,7 +391,7 @@ internal fun ColumnScope.MembershipCompareScreen(
                             Text(
                                 level.mNumber("rightsCount", " 项权益"),
                                 color = Color.White,
-                                fontSize = 16.sp,
+                                fontSize = 15.sp,
                                 modifier = Modifier.padding(top = 7.dp),
                             )
                         }
@@ -399,13 +399,13 @@ internal fun ColumnScope.MembershipCompareScreen(
                             mMoney(level.mLong("price")),
                             color = Color.White,
                             fontWeight = FontWeight.Bold,
-                            fontSize = 28.sp,
+                            fontSize = 24.sp,
                         )
                     }
                     Text(
                         level.optJSONObject("mapQuota")?.mText("label") ?: "地图参数未提供",
                         color = Color.White,
-                        fontSize = 16.sp,
+                        fontSize = 15.sp,
                         modifier = Modifier.padding(top = 17.dp),
                     )
                 }
@@ -414,14 +414,14 @@ internal fun ColumnScope.MembershipCompareScreen(
         item {
             Surface(color = Color.White, shape = RoundedCornerShape(18.dp)) {
                 Column(Modifier.padding(12.dp)) {
-                    Text("等级权益明细", fontSize = 22.sp, fontWeight = FontWeight.Bold)
+                    Text("等级权益明细", fontSize = 20.sp, fontWeight = FontWeight.Bold)
                     val rights = levels.flatMap { mRights(it) }.distinctBy { it.mText("key") }
                     val groups = rights.groupBy { it.mText("group", "等级权益") }
                     groups.forEach { (group, rows) ->
-                        Text(group, fontWeight = FontWeight.Bold, fontSize = 20.sp, color = Green,
+                        Text(group, fontWeight = FontWeight.Bold, fontSize = 16.sp, color = Green,
                             modifier = Modifier.padding(top = 20.dp, bottom = 12.dp))
                         rows.forEach { right ->
-                            Text(right.mText("label"), fontSize = 18.sp, lineHeight = 28.sp,
+                            Text(right.mText("label"), fontSize = 15.sp, lineHeight = 22.sp,
                                 fontWeight = FontWeight.SemiBold, modifier = Modifier.padding(top = 12.dp))
                             levels.forEach { level ->
                                 val value = mRights(level).firstOrNull { it.mText("key") == right.mText("key") }
@@ -468,8 +468,8 @@ internal fun ColumnScope.MembershipExpiryScreen(catalog: JSONObject, navigate: (
     val active = subscription != null && subscription.mText("status", "ACTIVE") == "ACTIVE"
     LazyColumn(
         Modifier.weight(1f),
-        contentPadding = PaddingValues(18.dp),
-        verticalArrangement = Arrangement.spacedBy(15.dp),
+        contentPadding = PaddingValues(horizontal = 16.dp, vertical = 12.dp),
+        verticalArrangement = Arrangement.spacedBy(12.dp),
     ) {
         item {
             MembershipHero {
@@ -477,7 +477,7 @@ internal fun ColumnScope.MembershipExpiryScreen(catalog: JSONObject, navigate: (
                 Text(
                     if (active) "会员权益已恢复" else if (ended) "体验期已结束" else "体验结束后的接单规则",
                     color = Color.White,
-                    fontSize = 24.sp,
+                    fontSize = 20.sp,
                     fontWeight = FontWeight.Bold,
                     modifier = Modifier.padding(top = 15.dp),
                 )
@@ -487,7 +487,7 @@ internal fun ColumnScope.MembershipExpiryScreen(catalog: JSONObject, navigate: (
                     else if (ended) trial.mText("reason", "已达到体验期规则上限")
                     else "当前体验中，达到天数或完成单量任一阈值时结束。",
                     color = Color.White,
-                    fontSize = 16.sp,
+                    fontSize = 15.sp,
                     lineHeight = 24.sp,
                     modifier = Modifier.padding(top = 8.dp),
                 )
@@ -534,7 +534,7 @@ internal fun ColumnScope.MembershipExpiryScreen(catalog: JSONObject, navigate: (
             )
         }
         item {
-            TextButton(
+            DriverTextButton(
                 onClick = { navigate(mRoute("subscriptions")) },
                 modifier = Modifier.fillMaxWidth(),
             ) {

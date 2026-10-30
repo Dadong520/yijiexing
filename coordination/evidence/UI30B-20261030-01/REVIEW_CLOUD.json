@@ -1,0 +1,52 @@
+{
+  "taskId": "UITB-20261030-01",
+  "legacyDispatchAlias": "UI30B-20261030-01",
+  "reviewerThreadId": "01a182c6-c058-76e1-9584-38abfe813799",
+  "reviewedAt": "2026-10-30T20:40:10+08:00",
+  "cloudCandidateSha": "9495caa54e8b8581bba4d82c3fbac04701252418",
+  "cloudParentSha": "55d2d8782a5c041b415c497c66d6576500048e3d",
+  "integrationBaseSha": "362c7f861a5063631c6da9ba198e04bc131402e4",
+  "stage": "CLOUD_DELTA_PRELIMINARY_ONLY",
+  "cloudReview": "FAIL",
+  "finalIntegratedAcceptance": "NOT_RUN",
+  "findings": [
+    {
+      "id": "UITB-01",
+      "priority": "P2",
+      "file": "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/OperationsSupport.kt",
+      "line": 34,
+      "problem": "Pending replacement suppresses reminder even when current active certificate is expired, unknown or not effective.",
+      "evidence": "New alerts predicate excludes any pending object/statusPENDING after checking reminder. Existing qualifications.py submit leaves active dates/status unchanged until audit, and reminder remains true for EXPIRED/UNKNOWN/NOT_EFFECTIVE. Active expired + pending therefore vanishes from qualification banner. Server gate still rejects new trips; this is hidden reason/status, not a backend bypass.",
+      "minimumFix": "Suppress only routine actionable expiring/update nag when replacement pending and active certificate remains valid; retain explicit expired/not-effective/unknown/invalid blocking state with 审核中/current restriction. Preserve old-valid-pending acceptance and in-trip completion."
+    },
+    {
+      "id": "UITB-02",
+      "priority": "P1",
+      "file": "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/PassengerConfirmPrompts.kt",
+      "line": 77,
+      "problem": "Cloud full file still uses pre-NAV handled/submit logic; must not replace current main safeguards during integration.",
+      "classification": "Not introduced relative55d2; integration regression if cloud file taken over main362c7f8",
+      "evidence": "Unscoped rememberSaveable handledText, close consumes all same-category keys, answer closes before store action, malformed expiry fails open, no click-time latest state/time checks. New arrears prepended to this old pipeline. Restores already fixed NAVB01/02/05 if accepted wholesale.",
+      "minimumFix": "Port arrears prompt into main account/order/question pipeline with source-level rules, latest click validation, single request settlement only on successful distance response, modal priority retained. Do not revert NAV rules/helpers."
+    },
+    {
+      "id": "UITB-03",
+      "priority": "P2",
+      "file": "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/UiComponents.kt",
+      "line": 341,
+      "problem": "New PassengerDialog wrapper contains native Dialog but no modal coordinator registration; cloud PassengerModal also has none.",
+      "classification": "New wrapper must integrate current main rank registration; cloud ancestry did not include NAV modal fixes",
+      "evidence": "Cloud changes payment/block/choose-driver dialogs to PassengerDialog; wrapper and modal have no PassengerModalSlot. Copying as-is removes page/payment priority protection and can stack debt/global/announcement prompts above existing confirmation.",
+      "minimumFix": "Register wrapper exactly while mounted using PAGE rank, preserve existing page/modal/permission/distance slot registration. App-wide prompts retain lower rank instead of registering as PAGE and blocking themselves."
+    }
+  ],
+  "checkedWithoutNewFinding": [
+    "Debt prompt/action only opens unpaid order detail; no auto-pay, quote acceptance or new backend charge. Needs account/rank merge from main.",
+    "Pinned cancel uses existing cancellable stages and !busy; cancellation reason/modal and success-only onHome callback preserved.",
+    "Pay opens existing frozen QuoteSnapshot/PaymentSnapshot confirmation; paymentMatches/quotationMatches and payload checks remain before order.pay. No automatic financial confirmation added.",
+    "Backend qualifications source confirms pending replacement is distinct from effective active certificate; do not reinterpret pending as active validity."
+  ],
+  "gateHistory": "Initial check failed four invalid digit taskIDs; root renamed canonical UITB and corrected initial enum. Latest real-ID gate PASS; no shared checker changed by reviewer.",
+  "tests": "NOT_RUN; source-only cloud review, no whole tests; integrated tree conflict area/staging never touched",
+  "nextAction": "Root/Claude integrate minimal fixes while preserving NAV20; root supplies clean exact integrated frozen SHA for final independent review"
+}

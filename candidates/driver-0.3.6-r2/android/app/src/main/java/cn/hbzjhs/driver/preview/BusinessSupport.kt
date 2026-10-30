@@ -36,7 +36,7 @@ private fun BusinessAttachments(
     store: ConnectedStore,
     onMessage: (String) -> Unit,
 ) {
-    Text("图片附件 ${images.size}/$maximum", fontSize = 18.sp, fontWeight = FontWeight.Medium)
+    Text("图片附件 ${images.size}/$maximum", fontSize = 15.sp, fontWeight = FontWeight.Medium)
     images.forEachIndexed { index, base64 ->
         val bitmap = remember(base64) { bBitmap(base64) }
         Row(
@@ -52,7 +52,7 @@ private fun BusinessAttachments(
                 )
             Text(
                 "图片 ${index + 1}",
-                fontSize = 16.sp,
+                fontSize = 15.sp,
                 modifier = Modifier.weight(1f).padding(start = 12.dp),
             )
             BusinessTextButton(onClick = { onImages(images.filterIndexed { i, _ -> i != index }) }) {
@@ -107,8 +107,8 @@ internal fun BusinessFeedback(
                     FilterChip(
                         tab == index,
                         { tab = index },
-                        label = { Text(label, fontSize = 18.sp) },
-                        modifier = Modifier.heightIn(min = 56.dp),
+                        label = { Text(label, fontSize = 15.sp) },
+                        modifier = Modifier.heightIn(min = 52.dp),
                         colors = FilterChipDefaults.filterChipColors(selectedContainerColor = Pale, selectedLabelColor = Green, labelColor = Ink),
                     )
                 }
@@ -117,7 +117,7 @@ internal fun BusinessFeedback(
         if (tab == 0) {
             item {
                 SheetCard {
-                    Text("告诉我们遇到的问题", fontSize = 20.sp, fontWeight = FontWeight.Bold)
+                    Text("告诉我们遇到的问题", fontSize = 16.sp, fontWeight = FontWeight.Bold)
                     BusinessField(
                         content,
                         {
@@ -147,17 +147,17 @@ internal fun BusinessFeedback(
                         DetailRow("关联订单", entry.bText("orderId"))
                     Text(
                         entry.bText("content"),
-                        fontSize = 18.sp,
-                        lineHeight = 26.sp,
+                        fontSize = 15.sp,
+                        lineHeight = 22.sp,
                         modifier = Modifier.padding(vertical = 12.dp),
                     )
-                    Text(entry.bText("createdAt"), fontSize = 16.sp, color = Muted)
+                    Text(entry.bText("createdAt"), fontSize = 13.sp, color = Muted)
                     if (entry.bText("reply", fallback = "").isNotBlank())
                         Text(
                             "处理回复：${entry.bText("reply")}",
                             color = Green,
-                            fontSize = 18.sp,
-                            lineHeight = 26.sp,
+                            fontSize = 15.sp,
+                            lineHeight = 22.sp,
                             modifier = Modifier.padding(top = 12.dp),
                         )
                     BusinessTextButton(onClick = { selected = entry }) { Text("查看工单详情") }
@@ -192,14 +192,14 @@ internal fun BusinessFeedback(
     selected?.let { entry ->
         val files =
             entry.optJSONArray("attachmentFileIds") ?: entry.optJSONArray("fileIds") ?: JSONArray()
-        AlertDialog(
+        DriverDialog(
             onDismissRequest = { selected = null },
-            title = { Text("工单详情", fontSize = 24.sp) },
+            title = { Text("工单详情", fontSize = 20.sp) },
             text = {
                 Column(Modifier.heightIn(max = 440.dp).verticalScroll(rememberScrollState())) {
                     DetailRow("工单编号", entry.bText("id"))
                     DetailRow("状态", bStatus(entry.bText("status")))
-                    Text(entry.bText("content"), lineHeight = 26.sp)
+                    Text(entry.bText("content"), lineHeight = 22.sp)
                     Spacer(Modifier.height(12.dp))
                     Text("处理回复：${entry.bText("reply", fallback = "暂无回复")}", color = Green)
                     if (files.length() > 0)
@@ -224,7 +224,7 @@ internal fun BusinessFeedback(
         )
     }
     if (imagePreview.isNotBlank())
-        AlertDialog(
+        DriverDialog(
             onDismissRequest = { imagePreview = "" },
             title = { Text("已上传的附件") },
             text = {
@@ -268,7 +268,7 @@ internal fun BusinessFees(
             item {
                 SheetCard {
                     if (order != null && order.paymentStatus == "REFUNDED") {
-                        Text(order.paymentStatusLabel, fontSize = 22.sp, fontWeight = FontWeight.Bold, color = Green)
+                        Text(order.paymentStatusLabel, fontSize = 20.sp, fontWeight = FontWeight.Bold, color = Green)
                         Text(
                             order.refundAmountText ?: "退款金额待同步",
                             fontSize = if (order.refundAmountText != null) 32.sp else 18.sp,
@@ -278,9 +278,9 @@ internal fun BusinessFees(
                         )
                         HorizontalDivider(color = Line)
                     } else if (order != null) {
-                        Text(order.paymentStatusLabel, fontSize = 18.sp, color = Muted)
+                        Text(order.paymentStatusLabel, fontSize = 13.sp, color = Muted)
                     }
-                    Text(incomeLabel, color = Ink, fontSize = 18.sp, modifier = Modifier.padding(top = 16.dp))
+                    Text(incomeLabel, color = Ink, fontSize = 15.sp, modifier = Modifier.padding(top = 16.dp))
                     Text(
                         "¥${money(displayedIncome)}",
                         fontSize = if (order?.paymentStatus == "REFUNDED") 28.sp else 36.sp,
@@ -348,7 +348,7 @@ internal fun BusinessComplaint(
         store,
         onBack,
         bottomBar = {
-            if (submitted) Text("投诉已提交，可在上方查看处理结果", color = Green, fontSize = 16.sp)
+            if (submitted) Text("投诉已提交，可在上方查看处理结果", color = Green, fontSize = 15.sp)
             else
                 BusinessSubmitBar(
                     "确认提交投诉",
@@ -390,18 +390,18 @@ internal fun BusinessComplaint(
         if (!submitted) {
             item {
                 SheetCard {
-                    Text("选择投诉类型", fontSize = 18.sp, fontWeight = FontWeight.Bold)
+                    Text("选择投诉类型", fontSize = 15.sp, fontWeight = FontWeight.Bold)
                     Text(
                         "请选择一项，可点击文字或整行",
                         color = Muted,
-                        fontSize = 16.sp,
+                        fontSize = 15.sp,
                         modifier = Modifier.padding(top = 6.dp, bottom = 8.dp),
                     )
                     Column(Modifier.selectableGroup()) {
                         listOf("乘客未到达上车点", "乘客取消或爽约", "乘客不当行为", "支付或费用问题", "其他问题").forEach { type ->
                             Row(
                                 Modifier.fillMaxWidth()
-                                    .heightIn(min = 56.dp)
+                                    .heightIn(min = 52.dp)
                                     .background(
                                         if (reason == type) Pale else Color.Transparent,
                                         RoundedCornerShape(10.dp),
@@ -422,8 +422,8 @@ internal fun BusinessComplaint(
                                 RadioButton(selected = reason == type, onClick = null)
                                 Text(
                                     type,
-                                    fontSize = 18.sp,
-                                    lineHeight = 28.sp,
+                                    fontSize = 15.sp,
+                                    lineHeight = 22.sp,
                                     modifier = Modifier.weight(1f).padding(start = 12.dp, top = 12.dp, bottom = 12.dp),
                                 )
                             }
@@ -433,7 +433,7 @@ internal fun BusinessComplaint(
                         Text(
                             it,
                             color = MaterialTheme.colorScheme.error,
-                            fontSize = 16.sp,
+                            fontSize = 15.sp,
                             modifier = Modifier.padding(top = 6.dp),
                         )
                     }
@@ -454,7 +454,7 @@ internal fun BusinessComplaint(
                     BusinessAttachments(images, { images = it }, 9, store, onMessage)
                     Row(
                         Modifier.fillMaxWidth()
-                            .heightIn(min = 56.dp)
+                            .heightIn(min = 52.dp)
                             .toggleable(
                                 value = blockUser,
                                 enabled = !submitting,
@@ -466,7 +466,7 @@ internal fun BusinessComplaint(
                         Checkbox(blockUser, onCheckedChange = null)
                         Text(
                             "同时将此合成乘客加入黑名单",
-                            fontSize = 18.sp,
+                            fontSize = 15.sp,
                             modifier = Modifier.weight(1f).padding(start = 12.dp),
                         )
                     }
@@ -487,15 +487,15 @@ internal fun BusinessComplaint(
                 }
                 Text(
                     record.bText("content"),
-                    fontSize = 18.sp,
+                    fontSize = 15.sp,
                     modifier = Modifier.padding(vertical = 12.dp),
                 )
-                Text(record.bText("createdAt"), color = Muted, fontSize = 16.sp)
+                Text(record.bText("createdAt"), color = Muted, fontSize = 13.sp)
                 if (record.bText("reply", fallback = "").isNotBlank())
                     Text(
                         "处理回复：${record.bText("reply")}",
                         color = Green,
-                        fontSize = 18.sp,
+                        fontSize = 15.sp,
                         modifier = Modifier.padding(top = 12.dp),
                     )
             }

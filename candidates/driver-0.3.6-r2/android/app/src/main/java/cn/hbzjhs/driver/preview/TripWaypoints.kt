@@ -22,7 +22,7 @@ internal fun TripWaypoints(order: DriverOrder, store: ConnectedStore, onMessage:
         Row(verticalAlignment = Alignment.CenterVertically) {
             Text(
                 "途经点",
-                fontSize = 18.sp,
+                fontSize = 15.sp,
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier.weight(1f),
             )
@@ -102,12 +102,12 @@ internal fun TripWaypoints(order: DriverOrder, store: ConnectedStore, onMessage:
     }
 
     confirmation?.let { point ->
-        AlertDialog(
+        DriverDialog(
             onDismissRequest = { confirmation = null },
             title = { Text("确认到达途经点") },
             text = { Text("请确认车辆已到达「${point.name}」。到达记录保存后，页面会更新状态。", lineHeight = 25.sp) },
             confirmButton = {
-                TextButton(
+                DriverTextButton(
                     enabled = !busy && pendingIndex == null,
                     onClick = {
                         if (pendingIndex == null) {
@@ -138,7 +138,7 @@ internal fun TripWaypoints(order: DriverOrder, store: ConnectedStore, onMessage:
                     Text("确认到达")
                 }
             },
-            dismissButton = { TextButton(onClick = { confirmation = null }) { Text("尚未到达") } },
+            dismissButton = { DriverTextButton(onClick = { confirmation = null }) { Text("尚未到达") } },
         )
     }
 }

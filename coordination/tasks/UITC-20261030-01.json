@@ -1,0 +1,91 @@
+{
+  "schemaVersion": 1,
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-ui-feedback-20261030",
+  "branch": "codex/ui-feedback-20261030",
+  "baseSha": "362c7f861a5063631c6da9ba198e04bc131402e4",
+  "cloudCandidateSha": "9495caa54e8b8581bba4d82c3fbac04701252418",
+  "updatedAt": "2026-10-30T12:37:45.121707+00:00",
+  "acceptance": "NOT_RUN",
+  "tests": [
+    {
+      "command": "Author file integration only, no Bash",
+      "status": "NOT_RUN"
+    }
+  ],
+  "pendingMergeSha": null,
+  "deploy_owner": "coordinator",
+  "releaseReady": false,
+  "id": "UITC-20261030-01",
+  "owner": "claude",
+  "goal": "解决9495caa应用到当前main的8处代码冲突，保留既有业务保护和新版UI",
+  "allow_paths": [
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/AmapSupport.kt",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/BookingScreens.kt",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/ExtraScreens.kt",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/MainActivity.kt",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/OperationsSupport.kt",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/OrderDetail.kt",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/OrderIdentity.kt",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/ParityScreens.kt",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/PassengerCards.kt",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/PassengerConfirmPrompts.kt",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/PassengerMap.kt",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/PassengerPages.kt",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/PassengerPalette.kt",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/PassengerTripDistance.kt",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/ProfileScreens.kt",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/UIOComponents.kt",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/UiComponents.kt",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/AmapSupport.kt",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/BusinessCommunity.kt",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/BusinessFinance.kt",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/BusinessKit.kt",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/BusinessScreens.kt",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/BusinessSupport.kt",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/CoreScreens.kt",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/DriverPalette.kt",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/DriverTripDistance.kt",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/MainActivity.kt",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/MembershipCatalogScreens.kt",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/MembershipEntry.kt",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/MembershipSubscriptions.kt",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/MembershipSupporting.kt",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/MembershipTransactions.kt",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/MembershipUi.kt",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/NegotiationSupport.kt",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/OperationsSupport.kt",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/TripWaypoints.kt",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/UIOComponents.kt",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/UiKit.kt",
+    "coordination/handoffs/claude.md",
+    "coordination/evidence/UI30C-20261030-01/"
+  ],
+  "checks": [
+    "Only product Kotlin allowed; no cloud/backend/version/registry/state mutations",
+    "Reconcile conflicts retaining NAV guard semantics and cloud visual changes",
+    "No commit/deploy/self-acceptance; root runs tests; report actual NOT_RUN",
+    "Canonical taskID UITC-20261030-01; initial dispatch alias UI30C-20261030-01 retained temporarily for running author/readers; same task, not separate work"
+  ],
+  "status": "AUTHOR_PHASE4_COMPLETE_NEEDS_NATIVE_REVIEW",
+  "evidence": [
+    "coordination/evidence/UI30C-20261030-01/INTEGRATION.md",
+    "coordination/evidence/UI30C-20261030-01/EXECUTION.json"
+  ],
+  "nextAction": "IDLE same-session author, source copy fix only",
+  "sessionId": "93f99706-9822-4a37-b5a9-5369a6ac2364",
+  "model": "claude-opus-5-5",
+  "thinking": "high",
+  "executionEvidenceRoot": "/Users/dongge/.codex/tmp/yijiexing-ui30-integration",
+  "legacyDispatchAlias": "UI30C-20261030-01",
+  "phase3AllowPaths": [
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/UiComponents.kt",
+    "coordination/handoffs/claude.md",
+    "coordination/evidence/UI30C-20261030-01/"
+  ],
+  "candidateSha": "ecc9d8d0e63f5ee1c9a8f45df87e92f7b42e0ea5",
+  "phase4AllowPaths": [
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/OperationsSupport.kt",
+    "coordination/handoffs/claude.md",
+    "coordination/evidence/UI30C-20261030-01/"
+  ]
+}

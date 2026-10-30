@@ -92,13 +92,13 @@ internal fun NegotiationSupport(
     SheetCard {
         Text(
             "线下议价 · ${if (order.shared) "已与乘客配对" else "乘客配对"}",
-            fontSize = 19.sp,
+            fontSize = 16.sp,
             fontWeight = FontWeight.Bold,
         )
         Text(
             "报价 ¥ ${money(order.fare)}${if (order.quoteVersion > 0) " · 第 ${order.quoteVersion} 版" else ""}",
             color = Green,
-            fontSize = 18.sp,
+            fontSize = 15.sp,
             modifier = Modifier.padding(top = 10.dp),
         )
         Text(
@@ -227,7 +227,7 @@ internal fun NegotiationSupport(
             ) {
                 confirmPair = true
             }
-            TextButton(
+            DriverTextButton(
                 onClick = { store.refresh() },
                 enabled = !busy,
                 modifier = Modifier.fillMaxWidth(),
@@ -269,7 +269,7 @@ internal fun NegotiationSupport(
                         .onFailure { onMessage(it.message ?: "报价版本缺失，请刷新订单") }
                 }
             }
-            TextButton(
+            DriverTextButton(
                 onClick = { store.refresh() },
                 enabled = !busy,
                 modifier = Modifier.fillMaxWidth(),
@@ -280,14 +280,14 @@ internal fun NegotiationSupport(
     }
 
     if (confirmPair && order.canPairWithPassenger)
-        AlertDialog(
+        DriverDialog(
             onDismissRequest = { if (!busy) confirmPair = false },
             title = {
                 Text(if (pairStarted || order.pairingRequired) "重新生成一次配对码" else "启用乘客 App 配对")
             },
             text = { Text("本单将等待乘客 App 认领和模拟支付，原沙箱付款不能再替代乘客。新码有效 5 分钟，重新生成会撤销旧码。请只向现场乘客出示。") },
             confirmButton = {
-                TextButton(
+                DriverTextButton(
                     enabled = !busy,
                     onClick = {
                         confirmPair = false
@@ -322,11 +322,11 @@ internal fun NegotiationSupport(
                     Text("确认生成")
                 }
             },
-            dismissButton = { TextButton(onClick = { confirmPair = false }) { Text("暂不开启") } },
+            dismissButton = { DriverTextButton(onClick = { confirmPair = false }) { Text("暂不开启") } },
         )
 
     if (quoteOpen && shownQuote != null && order.canRequote)
-        AlertDialog(
+        DriverDialog(
             onDismissRequest = { if (!busy) quoteOpen = false },
             title = { Text("重新报价 · 第 ${shownQuote!!.version} 版") },
             text = {
@@ -358,7 +358,7 @@ internal fun NegotiationSupport(
                             fontSize = 12.sp,
                             color = MaterialTheme.colorScheme.error,
                         )
-                        TextButton(
+                        DriverTextButton(
                             onClick = {
                                 runCatching { NegotiationContract.snapshot(order) }
                                     .onSuccess {
@@ -371,11 +371,11 @@ internal fun NegotiationSupport(
                             Text("已核对，使用最新报价版本")
                         }
                     }
-                    TextButton(onClick = { store.refresh() }, enabled = !busy) { Text("刷新订单，保留输入") }
+                    DriverTextButton(onClick = { store.refresh() }, enabled = !busy) { Text("刷新订单，保留输入") }
                 }
             },
             confirmButton = {
-                TextButton(
+                DriverTextButton(
                     enabled = !busy,
                     onClick = {
                         val latest = store.state.value.orders.firstOrNull { it.id == order.id }
@@ -405,7 +405,7 @@ internal fun NegotiationSupport(
                 }
             },
             dismissButton = {
-                TextButton(enabled = !busy, onClick = { quoteOpen = false }) { Text("保留输入，暂不报价") }
+                DriverTextButton(enabled = !busy, onClick = { quoteOpen = false }) { Text("保留输入，暂不报价") }
             },
         )
 }
@@ -421,7 +421,7 @@ internal fun SharedParticipationNotice(order: DriverOrder) {
     SheetCard {
         Text(
             if (order.participationCancelled) "你已退出本次接驾" else "乘客正在决定是否继续叫车",
-            fontSize = 18.sp,
+            fontSize = 15.sp,
             fontWeight = FontWeight.Bold,
         )
         Text(

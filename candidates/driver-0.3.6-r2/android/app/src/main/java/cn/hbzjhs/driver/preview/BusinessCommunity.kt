@@ -36,7 +36,7 @@ internal fun BusinessBlacklist(
         if (adding)
             item {
                 SheetCard {
-                    Text("添加屏蔽记录", fontWeight = FontWeight.Bold, fontSize = 18.sp)
+                    Text("添加屏蔽记录", fontWeight = FontWeight.Bold, fontSize = 15.sp)
                     BusinessField(
                         tail,
                         { tail = it.filter(Char::isDigit).take(4) },
@@ -71,10 +71,10 @@ internal fun BusinessBlacklist(
                     )
                     BusinessTextButton(onClick = { remove = entry }, enabled = !busy) { Text("移除") }
                 }
-                Text(entry.bText("reason"), fontSize = 18.sp)
+                Text(entry.bText("reason"), fontSize = 15.sp)
                 Text(
                     entry.bText("createdAt"),
-                    fontSize = 16.sp,
+                    fontSize = 15.sp,
                     color = Muted,
                     modifier = Modifier.padding(top = 8.dp),
                 )
@@ -117,7 +117,7 @@ internal fun BusinessPoints(store: ConnectedStore, profile: JSONObject, onBack: 
     BusinessPage("我的积分", store, onBack) {
         item {
             SheetCard {
-                Text("当前积分余额", color = Muted, fontSize = 16.sp)
+                Text("当前积分余额", color = Muted, fontSize = 13.sp)
                 Text(
                     points.optLong("balance").toString(),
                     fontSize = 46.sp,
@@ -135,8 +135,8 @@ internal fun BusinessPoints(store: ConnectedStore, profile: JSONObject, onBack: 
                 DropdownMenu(monthMenu, { monthMenu = false }) {
                     months.forEach { month ->
                         DropdownMenuItem(
-                            text = { Text(month, fontSize = 18.sp) },
-                            modifier = Modifier.heightIn(min = 56.dp),
+                            text = { Text(month, fontSize = 15.sp) },
+                            modifier = Modifier.heightIn(min = 52.dp),
                             onClick = {
                                 selectedMonth = month
                                 monthMenu = false
@@ -191,11 +191,11 @@ private fun BusinessLedgerRow(entry: JSONObject, fallback: String) {
                 Text(
                     entry.bText("title", "reason", "sourceName", fallback = fallback),
                     fontWeight = FontWeight.Medium,
-                    fontSize = 18.sp,
+                    fontSize = 15.sp,
                 )
                 Text(
                     entry.bText("date", "createdAt", "time"),
-                    fontSize = 16.sp,
+                    fontSize = 15.sp,
                     color = Muted,
                     modifier = Modifier.padding(top = 6.dp),
                 )
@@ -229,7 +229,7 @@ internal fun BusinessReferral(
                 Text("好服务，值得被分享", fontSize = 25.sp, fontWeight = FontWeight.Bold)
                 Text(
                     code.ifBlank { "邀请码尚未生成" },
-                    fontSize = 24.sp,
+                    fontSize = 20.sp,
                     color = Green,
                     modifier = Modifier.padding(vertical = 24.dp),
                     fontWeight = FontWeight.Bold,
@@ -414,14 +414,14 @@ internal fun BusinessHelp(
                         fontWeight = FontWeight.Bold,
                         modifier = Modifier.weight(1f),
                     )
-                    Text(if (open == index) "收起" else "展开", color = Green, fontSize = 16.sp)
+                    Text(if (open == index) "收起" else "展开", color = Green, fontSize = 15.sp)
                 }
                 if (open == index)
                     Text(
                         entry.bText("answer", "content"),
                         color = Muted,
-                        fontSize = 18.sp,
-                        lineHeight = 26.sp,
+                        fontSize = 15.sp,
+                        lineHeight = 22.sp,
                         modifier = Modifier.padding(top = 12.dp),
                     )
             }
@@ -446,11 +446,11 @@ internal fun BusinessRules(
     ) {
         item {
             SheetCard {
-                Text("宜捷行 · Android 原生版", fontSize = 22.sp, fontWeight = FontWeight.Bold)
+                Text("宜捷行 · Android 原生版", fontSize = 20.sp, fontWeight = FontWeight.Bold)
                 Text(
                     "云端独立体验版本",
                     color = Muted,
-                    fontSize = 16.sp,
+                    fontSize = 15.sp,
                     modifier = Modifier.padding(vertical = 10.dp),
                 )
                 MenuRow("doc", "服务细则") { navigate("rules/detail") }
@@ -464,13 +464,13 @@ internal fun BusinessRules(
                     if (selected == "privacy") rules.bText("privacyTitle", fallback = "云端沙箱数据说明")
                     else if (selected == "terms") rules.bText("termsTitle", fallback = "演示服务说明")
                     else rules.bText("title", fallback = "演示服务细则"),
-                    fontSize = 20.sp,
+                    fontSize = 16.sp,
                     fontWeight = FontWeight.Bold,
                 )
                 Text(
                     "版本：${rules.bText("version")}",
                     color = Muted,
-                    fontSize = 16.sp,
+                    fontSize = 15.sp,
                     modifier = Modifier.padding(vertical = 12.dp),
                 )
                 Text(
@@ -490,8 +490,8 @@ internal fun BusinessRules(
                         else ->
                             rules.bText("content", fallback = "服务端暂未发布服务细则。请联系演示管理员补充，或通过反馈工单咨询。")
                     },
-                    lineHeight = 27.sp,
-                    fontSize = 18.sp,
+                    lineHeight = 22.sp,
+                    fontSize = 15.sp,
                 )
             }
         }

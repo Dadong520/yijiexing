@@ -39,7 +39,7 @@ internal fun MembershipNotice(title: String, description: String = "", warning: 
         Column(Modifier.padding(start = 10.dp)) {
             Text(
                 title,
-                fontSize = 16.sp,
+                fontSize = 15.sp,
                 fontWeight = FontWeight.Medium,
                 color = if (warning) MembershipGold else Green,
             )
@@ -47,7 +47,7 @@ internal fun MembershipNotice(title: String, description: String = "", warning: 
                 Text(
                     description,
                     color = Muted,
-                    fontSize = 16.sp,
+                    fontSize = 15.sp,
                     lineHeight = 24.sp,
                     modifier = Modifier.padding(top = 5.dp),
                 )
@@ -83,7 +83,7 @@ internal fun MembershipStat(value: String, label: String, modifier: Modifier = M
         Text(
             label,
             color = Color.White,
-            fontSize = 16.sp,
+            fontSize = 15.sp,
             modifier = Modifier.padding(top = 5.dp),
         )
     }
@@ -116,11 +116,11 @@ internal fun MembershipPlanCard(level: JSONObject, city: String, navigate: (Stri
                     )
                 }
                 Column(Modifier.weight(1f).padding(start = 12.dp)) {
-                    Text(level.mText("name"), fontSize = 19.sp, fontWeight = FontWeight.Bold)
+                    Text(level.mText("name"), fontSize = 16.sp, fontWeight = FontWeight.Bold)
                     Text(
                         "${level.mNumber("rightsCount", " 项权益")} · 年度会员",
                         color = Muted,
-                        fontSize = 16.sp,
+                        fontSize = 15.sp,
                     )
                 }
             }
@@ -131,21 +131,21 @@ internal fun MembershipPlanCard(level: JSONObject, city: String, navigate: (Stri
             Row(Modifier.padding(top = 17.dp), verticalAlignment = Alignment.Bottom) {
                 Text(
                     mMoney(level.mLong("price")),
-                    fontSize = 30.sp,
+                    fontSize = 24.sp,
                     fontWeight = FontWeight.Bold,
                     color = if (vip) MembershipGold else Ink,
                 )
                 Text(
                     " / 年",
                     color = Muted,
-                    fontSize = 16.sp,
+                    fontSize = 15.sp,
                     modifier = Modifier.padding(bottom = 6.dp),
                 )
             }
             Text(
                 level.optJSONObject("mapQuota")?.mText("label") ?: "地图额度待配置",
                 color = Muted,
-                fontSize = 16.sp,
+                fontSize = 15.sp,
                 modifier = Modifier.padding(top = 8.dp),
             )
             Spacer(Modifier.height(13.dp))
@@ -158,7 +158,7 @@ internal fun MembershipPlanCard(level: JSONObject, city: String, navigate: (Stri
                         Text(
                             right.mText("label") +
                                 right.mText("value", "").let { if (it.isBlank()) "" else " · $it" },
-                            fontSize = 16.sp,
+                            fontSize = 15.sp,
                             modifier = Modifier.padding(start = 7.dp),
                         )
                     }
@@ -167,7 +167,7 @@ internal fun MembershipPlanCard(level: JSONObject, city: String, navigate: (Stri
                 Text(
                     level.mText("rightsCountNotice", "完整权益字典待确认"),
                     color = Muted,
-                    fontSize = 16.sp,
+                    fontSize = 15.sp,
                     lineHeight = 24.sp,
                     modifier = Modifier.padding(top = 10.dp),
                 )
@@ -180,9 +180,9 @@ internal fun MembershipPlanCard(level: JSONObject, city: String, navigate: (Stri
                         containerColor = if (vip) MembershipGold else Green
                     ),
                 shape = RoundedCornerShape(12.dp),
-                modifier = Modifier.fillMaxWidth().heightIn(min = 64.dp),
+                modifier = Modifier.fillMaxWidth().heightIn(min = 52.dp),
             ) {
-                Text(if (enabled) "开通${level.mText("name")}" else "本城市暂不可购买", fontSize = 20.sp, lineHeight = 28.sp)
+                Text(if (enabled) "开通${level.mText("name")}" else "本城市暂不可购买", fontSize = 16.sp, lineHeight = 22.sp)
             }
         }
     }
@@ -194,27 +194,27 @@ internal fun MembershipCityBar(catalog: JSONObject, page: String, navigate: (Str
     val city = catalog.optJSONObject("city") ?: JSONObject()
     Column(Modifier.fillMaxWidth()) {
         Row(
-            Modifier.fillMaxWidth().heightIn(min = 60.dp).clickable { choosing = true }.padding(vertical = 8.dp),
+            Modifier.fillMaxWidth().heightIn(min = 52.dp).clickable { choosing = true }.padding(vertical = 8.dp),
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Glyph("location", Green, Modifier.size(21.dp))
             Text(
                 city.mText("name"),
                 fontWeight = FontWeight.Bold,
-                fontSize = 17.sp,
+                fontSize = 16.sp,
                 modifier = Modifier.padding(start = 7.dp),
             )
-            Text("切换 ▾", color = Green, fontSize = 16.sp, modifier = Modifier.padding(start = 9.dp))
+            Text("切换 ▾", color = Green, fontSize = 15.sp, modifier = Modifier.padding(start = 9.dp))
         }
         Pill("已发布配置")
     }
     if (choosing)
-        AlertDialog(
+        DriverDialog(
             onDismissRequest = { choosing = false },
             title = { Text("选择浏览城市") },
             text = {
                 Column(Modifier.verticalScroll(rememberScrollState())) {
-                    Text("重新读取该城市的有效价格和权益。浏览城市不会改变已有订阅的生效地区。", fontSize = 16.sp, color = Muted)
+                    Text("重新读取该城市的有效价格和权益。浏览城市不会改变已有订阅的生效地区。", fontSize = 13.sp, color = Muted)
                     mObjects(catalog.optJSONArray("cities")).forEach { item ->
                         Row(
                             Modifier.fillMaxWidth()
@@ -229,7 +229,7 @@ internal fun MembershipCityBar(catalog: JSONObject, page: String, navigate: (Str
                                 Text(item.mText("name"), fontWeight = FontWeight.Medium)
                                 Text(
                                     item.mText("regionName", item.mText("region", "")),
-                                    fontSize = 16.sp,
+                                    fontSize = 15.sp,
                                     color = Muted,
                                 )
                             }
@@ -239,7 +239,7 @@ internal fun MembershipCityBar(catalog: JSONObject, page: String, navigate: (Str
                     }
                 }
             },
-            confirmButton = { TextButton(onClick = { choosing = false }) { Text("关闭") } },
+            confirmButton = { DriverTextButton(onClick = { choosing = false }) { Text("关闭") } },
         )
 }
 
@@ -253,22 +253,22 @@ internal fun MembershipVersionCard(catalog: JSONObject) {
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Column(Modifier.weight(1f)) {
-                Text("价格与权益使用同一发布版本", fontSize = 16.sp, fontWeight = FontWeight.SemiBold)
+                Text("价格与权益使用同一发布版本", fontSize = 15.sp, fontWeight = FontWeight.SemiBold)
                 Text(
                     "v${catalog.mText("version")} · ${mSource(catalog.mText("source"))}",
-                    fontSize = 16.sp,
+                    fontSize = 15.sp,
                     color = Muted,
                     modifier = Modifier.padding(top = 4.dp),
                 )
             }
-            Text(if (expanded) "收起" else "来源", color = Green, fontSize = 16.sp)
+            Text(if (expanded) "收起" else "来源", color = Green, fontSize = 15.sp)
         }
         if (expanded) {
             Spacer(Modifier.height(8.dp))
             Text(
                 "按字段继承：城市配置 → 大区配置 → 全国默认。下单和支付时由服务端再次校验可售状态及版本。",
                 color = Muted,
-                fontSize = 16.sp,
+                fontSize = 15.sp,
                 lineHeight = 24.sp,
             )
             val fields =
@@ -289,11 +289,11 @@ internal fun MembershipVersionCard(catalog: JSONObject) {
                         if (value is JSONObject) value.mText("label", value.mText("source"))
                         else value.toString()
                     Row(Modifier.fillMaxWidth().padding(top = 7.dp)) {
-                        Text(label, color = Muted, fontSize = 16.sp, modifier = Modifier.weight(1f))
+                        Text(label, color = Muted, fontSize = 13.sp, modifier = Modifier.weight(1f))
                         Text(
                             mSource(text),
                             color = Ink,
-                            fontSize = 16.sp,
+                            fontSize = 15.sp,
                             modifier = Modifier.weight(1f),
                         )
                     }
@@ -305,7 +305,7 @@ internal fun MembershipVersionCard(catalog: JSONObject) {
                     Text(
                         "• ${policies.optString(i)}",
                         color = Muted,
-                        fontSize = 16.sp,
+                        fontSize = 15.sp,
                         lineHeight = 24.sp,
                         modifier = Modifier.padding(top = 5.dp),
                     )
@@ -313,7 +313,7 @@ internal fun MembershipVersionCard(catalog: JSONObject) {
             Text(
                 "服务时间 ${mDate(catalog.mText("serverTime", ""), true)}",
                 color = Muted,
-                fontSize = 16.sp,
+                fontSize = 15.sp,
                 modifier = Modifier.padding(top = 9.dp),
             )
         }
@@ -331,14 +331,14 @@ internal fun MembershipEmpty(
         Glyph("doc", Muted, Modifier.size(32.dp))
         Text(
             title,
-            fontSize = 17.sp,
+            fontSize = 16.sp,
             fontWeight = FontWeight.SemiBold,
             modifier = Modifier.padding(top = 12.dp),
         )
         Text(
             text,
             color = Muted,
-            fontSize = 16.sp,
+            fontSize = 15.sp,
             lineHeight = 24.sp,
             modifier = Modifier.padding(top = 8.dp),
         )
@@ -355,7 +355,7 @@ internal fun MembershipFooter(amount: Long?, label: String, enabled: Boolean, on
         Column(Modifier.fillMaxWidth().padding(horizontal = 18.dp, vertical = 12.dp),
             verticalArrangement = Arrangement.spacedBy(10.dp)) {
             Text("年度应付  ${mMoney(amount)}", color = Ink, fontWeight = FontWeight.Bold,
-                fontSize = 24.sp, lineHeight = 32.sp)
+                fontSize = 20.sp, lineHeight = 22.sp)
             PrimaryButton(label, enabled = enabled, onClick = onClick)
         }
     }
@@ -363,11 +363,11 @@ internal fun MembershipFooter(amount: Long?, label: String, enabled: Boolean, on
 
 @Composable
 internal fun MembershipVersionDetail(version: String, label: String = "成交配置版本") {
-    Text(label, color = Muted, fontSize = 16.sp, modifier = Modifier.padding(top = 10.dp))
+    Text(label, color = Muted, fontSize = 13.sp, modifier = Modifier.padding(top = 10.dp))
     Text(
         version,
         color = Ink,
-        fontSize = 16.sp,
+        fontSize = 15.sp,
         lineHeight = 24.sp,
         modifier = Modifier.padding(top = 4.dp),
     )

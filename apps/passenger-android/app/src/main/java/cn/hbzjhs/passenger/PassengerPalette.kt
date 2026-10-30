@@ -8,12 +8,20 @@ import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Place
 import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material.icons.filled.Star
+import androidx.compose.material.icons.filled.Phone
+import androidx.compose.material.icons.filled.Notifications
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.Warning
+import androidx.compose.material.icons.filled.ShoppingCart
+import androidx.compose.material.icons.filled.Share
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 
 // CCUI-20261029-01 shared visual tokens; presentation only.
 val BrandStrong = Color(0xFF005F56)
-val BrandSoft = Color(0xFFE3F4F1)
+// Brighter, less grey tints so soft green panels read clean rather than muddy.
+val BrandSoft = Color(0xFFE8F8F5)
 val Line = Color(0xFFDCE5E8)
 val ControlOutline = Color(0xFF71818C)
 val DividerTone =Color(0xFFE6EDEF)
@@ -25,7 +33,7 @@ val WarmSoft = Color(0xFFFFF4E5)
 val Violet = Color(0xFF6D28D9)
 val VioletSoft = Color(0xFFF1EBFE)
 val Success = Color(0xFF1B7A3E)
-val SuccessSoft = Color(0xFFE6F4EA)
+val SuccessSoft = Color(0xFFEBFAF1)
 val Danger = Color(0xFFB42318)
 val DangerSoft = Color(0xFFFDECEA)
 val DangerLine = Color(0xFFF3C5C0)
@@ -35,6 +43,9 @@ fun iconAccent(icon: ImageVector): Pair<Color, Color> = when (icon) {
   Icons.Default.Place, Icons.Default.Person -> Sky to SkySoft
   Icons.AutoMirrored.Filled.List, Icons.Default.Info -> Warm to WarmSoft
   Icons.Default.Email, Icons.Default.Settings -> Violet to VioletSoft
-  Icons.Default.Lock -> Success to SuccessSoft
+  Icons.Default.Lock, Icons.Default.Star -> Success to SuccessSoft
+  Icons.Default.Phone, Icons.Default.Notifications -> Sky to SkySoft
+  Icons.Default.Favorite, Icons.Default.Warning -> Danger to DangerSoft
+  Icons.Default.ShoppingCart, Icons.Default.Share -> Violet to VioletSoft
   else -> Teal to BrandSoft
 }

@@ -1,0 +1,75 @@
+{
+  "sourceSha": "17d491106f3a2e2719d5424978408156cd51a0bd",
+  "roles": {
+    "passenger": {
+      "sourceSha": "17d491106f3a2e2719d5424978408156cd51a0bd",
+      "buildSha": "17d491106f3a2e2719d5424978408156cd51a0bd",
+      "testBuildSha": "17d491106f3a2e2719d5424978408156cd51a0bd",
+      "tests": 54,
+      "failures": 0,
+      "errors": 0,
+      "inheritedTests": false,
+      "apk": "/Users/dongge/.codex/tmp/yijiexing-uitf-20261030/source/apps/passenger-android/app/build/outputs/apk/debug/app-debug.apk",
+      "sha256": "32409e41a8acce5d55b27451bb834f9bcc03eabaa88e4f59005d7079dc4f6c98",
+      "bytes": 107204985,
+      "sourceTree": "ba0c7d3ac8e336d32479974ce36295f7a8c16675",
+      "sourceTrackedFiles": 107,
+      "sourceMismatches": [],
+      "packageVersionLine": "package: name='cn.hbzjhs.dc.passenger.cloud' versionCode='21' versionName='1.1.19-experience' platformBuildVersionName='14' platformBuildVersionCode='34' compileSdkVersion='34' compileSdkVersionCodename='14'",
+      "aaptExit": 0,
+      "apksignerExit": 0,
+      "samePriorSigner": true,
+      "privateExactMatches": 0,
+      "uncompressedEntriesScanned": 425,
+      "originalHttpsPresent": true,
+      "command": "JAVA_HOME=JDK17 ANDROID_HOME=officialSDK bash gradlew --offline --no-daemon --max-workers=2 -I <externalRoot>/scripts/offline.init.gradle testDebugUnitTest assembleDebug",
+      "qa": {
+        "apk": "/Users/dongge/.codex/tmp/yijiexing-uitf-20261030/build/qa-passenger/_app/outputs/apk/debug/app-debug.apk",
+        "sha256": "718617277604163c0d6f2fc7f71043b206062cdef5a7339ca32adf7021d88f2e",
+        "sourceSha": "17d491106f3a2e2719d5424978408156cd51a0bd",
+        "differences": [
+          "QA applicationId",
+          "localhostHTTPS",
+          "debug manifest/localCA"
+        ],
+        "productKotlinEdits": false,
+        "publicationArtifact": false
+      }
+    },
+    "driver": {
+      "sourceSha": "17d491106f3a2e2719d5424978408156cd51a0bd",
+      "buildSha": "17d491106f3a2e2719d5424978408156cd51a0bd",
+      "testBuildSha": "17d491106f3a2e2719d5424978408156cd51a0bd",
+      "tests": 77,
+      "failures": 0,
+      "errors": 0,
+      "inheritedTests": false,
+      "apk": "/Users/dongge/.codex/tmp/yijiexing-uitf-20261030/source/candidates/driver-0.3.6-r2/android/app/build/outputs/apk/debug/app-debug.apk",
+      "sha256": "1c07b9865844375d81f8e58d8c4f8965fc150fa2cd0763be57a13f6c03975752",
+      "bytes": 108685957,
+      "sourceTree": "7ff68581a32192ea3e2bd802050a14534cbe124b",
+      "sourceTrackedFiles": 68,
+      "sourceMismatches": [],
+      "packageVersionLine": "package: name='cn.hbzjhs.dc.driver.cloud' versionCode='21' versionName='0.3.18-cloud' platformBuildVersionName='14' platformBuildVersionCode='34' compileSdkVersion='34' compileSdkVersionCodename='14'",
+      "aaptExit": 0,
+      "apksignerExit": 0,
+      "samePriorSigner": true,
+      "privateExactMatches": 0,
+      "uncompressedEntriesScanned": 433,
+      "originalHttpsPresent": true,
+      "command": "JAVA_HOME=JDK17 ANDROID_HOME=officialSDK bash gradlew --offline --no-daemon --max-workers=2 -I <externalRoot>/scripts/offline.init.gradle testDebugUnitTest assembleDebug",
+      "qa": {
+        "apk": "/Users/dongge/.codex/tmp/yijiexing-uitf-20261030/build/qa-driver/_app/outputs/apk/debug/app-debug.apk",
+        "sha256": "58e84b91a4e175c139a6df408da739d63a20d470997253ea185297eb005bd4d8",
+        "sourceSha": "17d491106f3a2e2719d5424978408156cd51a0bd",
+        "differences": [
+          "QA applicationId",
+          "localhostHTTPS",
+          "debug manifest/localCA"
+        ],
+        "productKotlinEdits": false,
+        "publicationArtifact": false
+      }
+    }
+  }
+}
