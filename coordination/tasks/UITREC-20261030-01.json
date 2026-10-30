@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "id": "UITREC-20261030-01",
+  "owner": "coordinator",
+  "goal": "版本21实际发布回执与README入库，独立审查后合并",
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-ui-feedback-20261030",
+  "branch": "codex/ui-feedback-receipt-20261030",
+  "baseSha": "8e8da981faa54de0bd12d24e1921d3d20a3d570b",
+  "allow_paths": [
+    "coordination/",
+    "README.md"
+  ],
+  "checks": [
+    "Actual public APK/runtime/data readbacks before receipt claims",
+    "Backend non-author narrow receipt review",
+    "Metadata only; exact-head CI/merge, no repeated deployment"
+  ],
+  "status": "REVIEW_PASS_AWAIT_EXACT_HEAD_CI_MERGE",
+  "acceptance": "PASS",
+  "tests": [
+    {
+      "command": "UITR independent narrow receipt/README15 consistency checks exact36ecc83",
+      "status": "PASS",
+      "exitCode": 0,
+      "sourceSha": "36ecc83259b1a9d37cba43b7108e3be5259b3069"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "coordination/evidence/UITR-20261030-01/REVIEW.json",
+      "sha256": "9bdd715e2006fecf36c26a9fd24a859a0db85b0c3214837e6ceb8795c57309ed"
+    }
+  ],
+  "nextAction": "Final metadata-only evidence commit/push, exact-head CI and merge; no redeploy",
+  "deploy_owner": "coordinator",
+  "releaseReady": false,
+  "updatedAt": "2026-10-30T14:02:13.369050+00:00",
+  "candidateSha": "36ecc83259b1a9d37cba43b7108e3be5259b3069",
+  "acceptedSha": "36ecc83259b1a9d37cba43b7108e3be5259b3069",
+  "reviewer": "backend"
+}

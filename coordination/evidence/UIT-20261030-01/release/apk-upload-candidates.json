@@ -1,0 +1,18 @@
+[
+  {
+    "role": "passenger",
+    "candidateObject": "distribution/candidates/20261030-uit-ecc9d8d/passenger.apk",
+    "generation": "1793367085343450",
+    "sha256": "476ba49f596e5736931e7a21ee3260984f9766029d217fa33abdc69f51185e69",
+    "bytes": 107204985,
+    "status": "CANDIDATE_ONLY_NOT_PUBLISHED"
+  },
+  {
+    "role": "driver",
+    "candidateObject": "distribution/candidates/20261030-uit-ecc9d8d/driver.apk",
+    "generation": "1793367216317429",
+    "sha256": "143108f537ec62df06a34cd9bb51ec89d8249ab80141ab9cb1df86f7adb47f0e",
+    "bytes": 108685957,
+    "status": "CANDIDATE_ONLY_NOT_PUBLISHED"
+  }
+]

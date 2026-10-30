@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updated": "2026-10-30T13:26:15.514654+00:00",
+  "updated": "2026-10-30T13:59:32.295711+00:00",
   "coordinator": "coordinator",
   "activeTaskIds": [
     "WX-20261025-01",
@@ -59,7 +59,9 @@
     "UIT-20261030-01",
     "UITC-20261030-01",
     "UITB-20261030-01",
-    "UITF-20261030-01"
+    "UITF-20261030-01",
+    "UITR-20261030-01",
+    "UITREC-20261030-01"
   ],
   "releaseOwner": "coordinator",
   "policy": "作者提交→自测→独立验收→协调者合并→部署回读；无业务验收PASS不发布",
@@ -88,10 +90,10 @@
     "coordination/archive/2026-10-26/AUTH-20261026-02.json"
   ],
   "memoryProtocolVersion": "2026-10-26-v3",
-  "currentStage": "UIT_ACCEPTED_MERGE_RELEASE",
+  "currentStage": "UIT21_RECEIPT_PASS_AWAIT_MERGE",
   "roleAssignments": {
-    "coordinator": "UIT accepted ECC; sole exact-head merge and APK21 publish/readback",
-    "backend": "IDLE UITB ECC business PASS",
+    "coordinator": "UIT21 published/readbacks PASS; UITREC actual receipt/README narrow review and merge",
+    "backend": "IDLE UITR15 receipt checks PASS",
     "frontend": "IDLE UITF final native PASS; resources cleaned",
     "antigravity": "PAUSED_BY_USER_20261029; no new Gemini dispatch",
     "expert": "IDLE; configuration verified, SDK auth recovered; user deferred actual device test",

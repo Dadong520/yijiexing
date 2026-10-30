@@ -1,0 +1,197 @@
+{
+  "releaseId": "20261030-uit-ecc9d8d",
+  "completedAt": "2026-10-30T13:59:32.239957+00:00",
+  "sourceSha": "ecc9d8d0e63f5ee1c9a8f45df87e92f7b42e0ea5",
+  "integrationHeadSha": "089ea8c130506b18df6afe28b22f572c10552ea8",
+  "productMergeSha": "8e8da981faa54de0bd12d24e1921d3d20a3d570b",
+  "productPullRequest": "https://github.com/Dadong520/yijiexing/pull/43",
+  "ci": {
+    "headSha": "089ea8c130506b18df6afe28b22f572c10552ea8",
+    "runId": 41063380582,
+    "conclusion": "success"
+  },
+  "acceptance": "PASS_SCOPED",
+  "publicationType": "GCS Android APK replacement only",
+  "cloudRunDeployments": 0,
+  "cloudBusinessPostsByCoordinator": 0,
+  "project": "yijiexing-driver-demo-1023",
+  "region": "us-west1",
+  "apps": [
+    {
+      "role": "passenger",
+      "url": "https://user-test---driver-demo-phfgquzmua-uw.a.run.app/download-passenger.apk",
+      "attempts": [
+        {
+          "transport": "direct",
+          "curlExit": 0,
+          "http": 200
+        }
+      ],
+      "bytes": 107204985,
+      "sha256": "476ba49f596e5736931e7a21ee3260984f9766029d217fa33abdc69f51185e69",
+      "package": "cn.hbzjhs.dc.passenger.cloud",
+      "versionName": "1.1.19-experience",
+      "versionCode": 21,
+      "signerSha256": "9ffec9b342d12909ff288bd73f23ba104893b39120cb24ea83c9734a0d2b758f",
+      "aaptAndApksignerExit": 0,
+      "sameBytesAsIndependentlyReviewedBuild": true,
+      "PASS": true
+    },
+    {
+      "role": "driver",
+      "url": "https://user-test---driver-demo-phfgquzmua-uw.a.run.app/download.apk",
+      "attempts": [
+        {
+          "transport": "direct",
+          "curlExit": 0,
+          "http": 200
+        }
+      ],
+      "bytes": 108685957,
+      "sha256": "143108f537ec62df06a34cd9bb51ec89d8249ab80141ab9cb1df86f7adb47f0e",
+      "package": "cn.hbzjhs.dc.driver.cloud",
+      "versionName": "0.3.18-cloud",
+      "versionCode": 21,
+      "signerSha256": "9ffec9b342d12909ff288bd73f23ba104893b39120cb24ea83c9734a0d2b758f",
+      "aaptAndApksignerExit": 0,
+      "sameBytesAsIndependentlyReviewedBuild": true,
+      "PASS": true
+    }
+  ],
+  "promotion": [
+    {
+      "role": "passenger",
+      "fixedObject": "distribution/yijiexing-passenger.apk",
+      "archiveObject": "distribution/archive/before-20261030-uit-ecc9d8d/passenger.apk",
+      "archivedGeneration": "1793367261373888",
+      "previousFixedGeneration": "1793325076404202",
+      "newFixedGeneration": "1793367264664062",
+      "bytes": 107204985,
+      "sha256": "476ba49f596e5736931e7a21ee3260984f9766029d217fa33abdc69f51185e69",
+      "generationPreconditions": true,
+      "oldArchiveVerified": true
+    },
+    {
+      "role": "driver",
+      "fixedObject": "distribution/yijiexing-cloud.apk",
+      "archiveObject": "distribution/archive/before-20261030-uit-ecc9d8d/driver.apk",
+      "archivedGeneration": "1793367270985775",
+      "previousFixedGeneration": "1793325084054164",
+      "newFixedGeneration": "1793367276451611",
+      "bytes": 108685957,
+      "sha256": "143108f537ec62df06a34cd9bb51ec89d8249ab80141ab9cb1df86f7adb47f0e",
+      "generationPreconditions": true,
+      "oldArchiveVerified": true
+    }
+  ],
+  "dataBefore": {
+    "source": "atomic current GCS media response; generation/MD5 bound to same response",
+    "generation": "1793356223301353",
+    "bytes": 9949184,
+    "sha256": "9574454bf7c208cbb089377fca53dab4bee2bc27ffa1eb354340f7cec93d6535",
+    "integrity": "ok",
+    "orderCount": 45,
+    "mode": "0600 private outside repository",
+    "transportEvents": []
+  },
+  "dataAfter": {
+    "source": "current authoritative GCS snapshot, response-bound generation/MD5",
+    "generation": "1793356223301353",
+    "bytes": 9949184,
+    "sha256": "9574454bf7c208cbb089377fca53dab4bee2bc27ffa1eb354340f7cec93d6535",
+    "integrity": "ok",
+    "beforeOrderCount": 45,
+    "afterOrderCount": 45,
+    "oldOrdersMissing": 0,
+    "oldOrdersFieldsChanged": 0,
+    "newOrders": 0,
+    "cloudBusinessPostsByCoordinator": 0,
+    "backupAndReadbackOutsideRepository0600": true,
+    "PASS": true,
+    "scope": "passenger_orders full row comparison, not all database tables"
+  },
+  "runtimeReadback": {
+    "project": "yijiexing-driver-demo-1023",
+    "region": "us-west1",
+    "cloudRunMutationsByCoordinator": 0,
+    "services": [
+      {
+        "role": "api",
+        "service": "driver-demo",
+        "revision": "driver-demo-ccui-107e226-test1",
+        "checks": {
+          "fullSpecUnchanged": true,
+          "serviceAnnotationsUnchanged": true,
+          "iamPolicyUnchanged": true,
+          "readyRevisionUnchanged": true,
+          "trafficUnchanged": true
+        },
+        "minScale": "0",
+        "maxScale": "1",
+        "timeoutSeconds": 900,
+        "specSha256": "1b0a229a8a947a7d131ebb2aa2d9468ddce9654307708b0c2beb82588d06b839",
+        "iamSha256": "283b16eb4e4f82142ed1981a5a7abbf4f3368b765d75e85216706d7d5f4f8426",
+        "PASS": true
+      },
+      {
+        "role": "admin",
+        "service": "driver-admin",
+        "revision": "driver-admin-ccui-107e226-test1",
+        "checks": {
+          "fullSpecUnchanged": true,
+          "serviceAnnotationsUnchanged": true,
+          "iamPolicyUnchanged": true,
+          "readyRevisionUnchanged": true,
+          "trafficUnchanged": true
+        },
+        "minScale": "0",
+        "maxScale": "1",
+        "timeoutSeconds": 300,
+        "specSha256": "8e6357aaf2d9c7d9bf6e68612ef8ae375785f7c0a79323292a0998429b908a63",
+        "iamSha256": "b027303221f99da4a53abc6f08be531edcd3e580438df9f626a6d443c26612bf",
+        "PASS": true
+      }
+    ],
+    "allPreserved": true
+  },
+  "dataScope": "passenger_orders complete old-row comparison; not all DB tables. Any strict failure retained and independently reviewed before scoped pass.",
+  "authorExecution": "coordination/evidence/UI30C-20261030-01/EXECUTION.json",
+  "rootChecks": "coordination/evidence/UIT-20261030-01/ROOT_CHECKS_ecc9d8d.json",
+  "rootBinding": "coordination/evidence/UIT-20261030-01/ROOT_ARTIFACT_BINDING.json",
+  "businessReview": {
+    "status": "PASS",
+    "sha": "ecc9d8d0e63f5ee1c9a8f45df87e92f7b42e0ea5",
+    "evidence": "coordination/evidence/UI30B-20261030-01/REVIEW_DELTA_ecc9d8d.json",
+    "previous": [
+      "coordination/evidence/UI30B-20261030-01/REVIEW_INTEGRATED_17d4911.json",
+      "coordination/evidence/UI30B-20261030-01/REVIEW_DELTA_2815d02.json"
+    ]
+  },
+  "nativeReview": {
+    "status": "PASS_SCOPED_NATIVE_UI",
+    "sha": "ecc9d8d0e63f5ee1c9a8f45df87e92f7b42e0ea5",
+    "evidence": "coordination/evidence/UI30F-20261030-01/NATIVE_ACCEPTANCE_FINAL.json"
+  },
+  "knownLimits": [
+    "Isolated dedicated emulator and local synthetic fixture; QA appID/localhost/debugCA; no personal phone or live business POST",
+    "Real AMap provider/reverse-geocode success/OEM behavior outside current QA scope",
+    "Payments/refunds/withdrawals/invoices remain simulated; no real money settlement",
+    "WeChat missing AppID: local74 checks do not mean WeChat compilation/device/publication",
+    "This batch changes only native UI; backend and admin runtime unchanged"
+  ],
+  "initialTransportFailuresRetained": [
+    "apk-https-first-failure.json",
+    "apk-https-concurrent-429.json"
+  ],
+  "buildAndTestAttribution": {
+    "proof": "coordination/evidence/UI30F-20261030-01/BUILD_PROOF_ecc9d8d.json",
+    "actualUnitSource": "17d491106f3a2e2719d5424978408156cd51a0bd",
+    "passengerUnitTests": 54,
+    "driverUnitTests": 77,
+    "failures": 0,
+    "finalUiOnlyInheritanceExplicit": true,
+    "finalPassengerBuiltAt": "2815d02db65ec8ac82d102ad4664eb9ea185cc77",
+    "finalDriverBuiltAt": "ecc9d8d0e63f5ee1c9a8f45df87e92f7b42e0ea5"
+  },
+  "nativeEvidence": "coordination/evidence/UI30F-20261030-01/NATIVE_ACCEPTANCE_FINAL.json"
+}

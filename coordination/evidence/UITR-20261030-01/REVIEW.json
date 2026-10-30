@@ -1,0 +1,34 @@
+{
+  "taskId": "UITR-20261030-01",
+  "reviewerThreadId": "01a182c6-c058-76e1-9584-38abfe813799",
+  "reviewedAt": "2026-10-30T22:01:32+08:00",
+  "acceptance": "PASS",
+  "reviewedHead": "36ecc83259b1a9d37cba43b7108e3be5259b3069",
+  "baseSha": "8e8da981faa54de0bd12d24e1921d3d20a3d570b",
+  "productSha": "ecc9d8d0e63f5ee1c9a8f45df87e92f7b42e0ea5",
+  "scope": "Narrow committed receipt/README/proof consistency review only",
+  "checks": {
+    "onlyReadmeCoordination": true,
+    "apkReadbackEquality": true,
+    "runtimeReadbackEquality": true,
+    "dataReadbackEquality": true,
+    "mergeCIConsistency": true,
+    "failureRecordsRetained": true,
+    "passengerArtifactChain": true,
+    "passengerActualUnitAttribution": true,
+    "passengerFinalDirect200": true,
+    "driverArtifactChain": true,
+    "driverActualUnitAttribution": true,
+    "driverFinalDirect200": true,
+    "mergeSourceProductTrees": true,
+    "passenger281EqualsECC": true,
+    "45OrdersScope": true
+  },
+  "readmeAssessment": "Version21/sourceECC/PR43/headCI/54and77 actual17d inheritance/passenger281sameECC driverECC/45passenger_orders equal/direct200 after incomplete+429 failures all accurately stated. Provider/OEM/real finance and fullDB acceptance not claimed.",
+  "limitations": [
+    "No fresh DB/native/HTTPS/runtime/CI rerun; consistency with recorded proofs only.",
+    "45 full old rows equality is scoped to passenger_orders; does not extend to allDB tables.",
+    "Actual unit runs belong to17d, final builds use explicit UI-only inheritance; no finalECC unit rerun claimed."
+  ],
+  "nextAction": "Root governance receipt integration; backend IDLE"
+}

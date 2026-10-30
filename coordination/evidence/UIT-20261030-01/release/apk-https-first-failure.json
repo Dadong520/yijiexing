@@ -1,0 +1,10 @@
+{
+  "status": "FAIL_TRANSPORT_INCOMPLETE",
+  "processSession": 36266,
+  "processExit": 1,
+  "configuredMaxSecondsPerAttempt": 160,
+  "directThenProxyAttempted": true,
+  "partialPassengerBytes": 35473660,
+  "passClaimed": false,
+  "nextAction": "Bounded900sec readback; record each actual transport result before asserting; no publication changes"
+}
