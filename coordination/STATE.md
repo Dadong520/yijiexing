@@ -7,7 +7,7 @@ sourceRoot /Users/dongge/.codex/tmp/yijiexing-ride-flow-polish-20261031；当前
 
 ## 实际发布阶段
 原包名/原signer9ffec9…b758f支持覆盖安装。乘客1.1.21-experience/code23，SHA cb77e6397a809027c117e963b2a4faf8b4b7a65d62a961bdaf519f333dec0842/107270521 bytes；司机0.3.20-cloud/code23，SHA237ee0ce4feeb24e29ec4257258fb56227d6ea1c95feb9017f15bd737303d30f/108718725。双候选upload60129 exit0、freshbackup32352 generation未变、promotion82170两fixed已提升23、旧22按generation归档和MD5校验PASS；不要重复upload/promote。仅GCS APK替换，无CloudRun部署。
-公开乘客87678 direct200/司机95286现有proxy200均完整下载，大小/SHA256/包名/版本23/原signer全部匹配独立原包PASS。司机直连因325秒29MB估算超过900秒限制而由root手动停止(-15)，转既有代理完整重下；原因与attempts原样留证，不伪称自然网络失败。public4GET63751均direct200，collect/实际receipt/README已生成。最终回执 coordination/evidence/RIDE-20261031-01/release/FINAL-RELEASE-RECEIPT.json。当前只剩RIDEREC/RIDER只读metadata非作者审查和准确headCI合并，不再上传/提升/重下或部署。私有helper yijiexing-ride-release-stage-20261031，所有传输进程均结束。
+公开乘客87678 direct200/司机95286现有proxy200均完整下载，大小/SHA256/包名/版本23/原signer全部匹配独立原包PASS。司机直连因325秒29MB估算超过900秒限制而由root手动停止(-15)，转既有代理完整重下；原因与attempts原样留证，不伪称自然网络失败。public4GET63751均direct200，collect/实际receipt/README已生成。最终回执 coordination/evidence/RIDE-20261031-01/release/FINAL-RELEASE-RECEIPT.json。RIDER对实际receipt/README候选56021bab95a9501cb4908de3690bb9148ed42bd9非作者17项审查PASS，当前只剩RIDEREC最终metadata准确headCI合并，不再上传/提升/重下或部署。私有helper yijiexing-ride-release-stage-20261031，所有传输进程均结束。
 司机 https://user-test---driver-demo-phfgquzmua-uw.a.run.app/download；乘客同域/download-passenger（对应.apk整包）；后台 https://demo-admin.hbzjhs.xyz/ 原账号密码，无GoogleIAP；API https://yijiexing-demo.hbzjhs.xyz。
 
 ## 验收与范围

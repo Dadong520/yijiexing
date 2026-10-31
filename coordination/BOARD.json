@@ -103,10 +103,10 @@
     "coordination/archive/2026-10-26/AUTH-20261026-02.json"
   ],
   "memoryProtocolVersion": "2026-10-26-v3",
-  "currentStage": "RIDE23_PUBLIC_VERIFIED_ACTUAL_RECEIPT_METADATA_REVIEW",
+  "currentStage": "RIDE23_RECEIPT_REVIEW_PASS_FINAL_METADATA_CI",
   "roleAssignments": {
     "coordinator": "RIDEREC actual receipt/README candidate, no further publication",
-    "backend": "IDLE phase4 source PASS, receipt review later",
+    "backend": "IDLE RIDER17 checks PASS56021",
     "frontend": "IDLE final0ef PASS/cleanup done; future major task assess successor",
     "antigravity": "PAUSED_BY_USER_20261029; no new Gemini dispatch",
     "expert": "IDLE; configuration verified, SDK auth recovered; user deferred actual device test",

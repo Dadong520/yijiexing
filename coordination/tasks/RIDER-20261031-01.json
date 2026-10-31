@@ -16,11 +16,28 @@
     "Match product0ef, PR47 mergea152, exact integration CIb78/run41197382855 and actual version23 APK hashes",
     "Preserve explicit test/source inheritance and provider/physical device/real funds NOT_RUN"
   ],
-  "status": "PREPARED_WAIT_ACTUAL_RECEIPT",
-  "acceptance": "NOT_RUN",
-  "tests": [],
-  "evidence": [],
-  "nextAction": "Wait root actual release/readback/receipt SHA; no activity before concrete reviewable receipt",
+  "status": "ACTUAL_RECEIPT_README_REVIEW_PASS",
+  "acceptance": "PASS",
+  "tests": [
+    {
+      "check": "实际回执README独立窄审",
+      "result": "PASS",
+      "candidateSha": "56021bab95a9501cb4908de3690bb9148ed42bd9",
+      "checks": 17,
+      "p1": 0,
+      "p2": 0,
+      "evidence": "coordination/evidence/RIDER-20261031-01/REVIEW.json"
+    }
+  ],
+  "evidence": [
+    "coordination/evidence/RIDER-20261031-01/REVIEW.json",
+    "coordination/evidence/RIDER-20261031-01/REVIEW.md"
+  ],
+  "nextAction": "root提交本独立报告后准确新metadata头CI合并；已发布23不再部署",
   "deploy_owner": "coordinator",
-  "releaseReady": false
+  "releaseReady": false,
+  "candidateSha": "56021bab95a9501cb4908de3690bb9148ed42bd9",
+  "acceptanceScope": "17-item existing actual evidence/README metadata audit; no new deployment or runtime tests",
+  "pendingMergeSha": "56021bab95a9501cb4908de3690bb9148ed42bd9",
+  "updatedAt": "2026-10-31T20:04:23+08:00"
 }

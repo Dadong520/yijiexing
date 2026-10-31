@@ -15,16 +15,27 @@
     "Source product0ef / mergea152 / integrationb78 / CI41197382855 bound accurately",
     "Non-author backend metadata review then exact-head CI and merge; no product or cloud redeploy"
   ],
-  "status": "ACTUAL_RECEIPT_AND_README_READY_FOR_INDEPENDENT_REVIEW",
-  "acceptance": "NOT_RUN",
-  "tests": [],
-  "evidence": [
-    "coordination/evidence/RIDE-20261031-01/release/FINAL-RELEASE-RECEIPT.json",
-    "coordination/evidence/RIDEF-20261031-01/FINAL_REVIEW.json"
+  "status": "REVIEW_PASS_FINAL_HEAD_CI_PENDING",
+  "acceptance": "PASS",
+  "tests": [
+    {
+      "command": "RIDER independent immutable receipt/README/Git object17 checks",
+      "status": "PASS",
+      "exitCode": 0,
+      "sourceSha": "56021bab95a9501cb4908de3690bb9148ed42bd9"
+    }
   ],
-  "nextAction": "Commit concrete receipt/README candidateN then backend RIDER read-only audit",
+  "evidence": [
+    "coordination/evidence/RIDER-20261031-01/REVIEW.json",
+    "coordination/evidence/RIDEREC-20261031-01/CONTENT_BINDING.json",
+    "coordination/evidence/RIDE-20261031-01/release/FINAL-RELEASE-RECEIPT.json"
+  ],
+  "nextAction": "Commit reviewer report and metadata only; exact final-head CI then expected-head merge, no redeploy",
   "deploy_owner": "coordinator",
   "releaseReady": false,
   "productSourceSha": "0ef2a8d3982dfca0e85a3b756a6004c1825ba798",
-  "productMergeSha": "a1527d2b27aeb2a5dd97e40736fd8e0bb5f4841f"
+  "productMergeSha": "a1527d2b27aeb2a5dd97e40736fd8e0bb5f4841f",
+  "candidateSha": "56021bab95a9501cb4908de3690bb9148ed42bd9",
+  "acceptedSha": "56021bab95a9501cb4908de3690bb9148ed42bd9",
+  "reviewer": "backend"
 }

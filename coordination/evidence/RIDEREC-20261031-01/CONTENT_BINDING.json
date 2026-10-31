@@ -1,0 +1,10 @@
+{
+  "reviewedCandidateSha": "56021bab95a9501cb4908de3690bb9148ed42bd9",
+  "contentUnchangedSinceNonAuthorReview": {
+    "README.md": "831c1bda8aaaac98da193e7f3084bf149e09a3a6ada142142e431515a6df4ebd",
+    "coordination/evidence/RIDE-20261031-01/release/FINAL-RELEASE-RECEIPT.json": "3dbef311151fe9bbee002a60fdd0e7cabbe0428c4e0b66bf8260f1181cbb0ac5"
+  },
+  "productBaseSha": "a1527d2b27aeb2a5dd97e40736fd8e0bb5f4841f",
+  "scope": "Final integration adds coordination review records only; product/README/receipt unchanged",
+  "PASS": true
+}
