@@ -287,9 +287,13 @@ fun ConnectedHome(
         // The identity bar sits above the map (never on top of it). The order sheet can be dragged
         // over the map or down to a handle; at half height it keeps ~360dp so hall/in-trip actions
         // stay reachable on small screens and with large text, and the map gives way first.
+        // A collapsed sheet asks for a full-screen map: the qualification banner and identity bar step
+        // aside with the tabs and come back as soon as the sheet opens. Gates and data are untouched.
+        val homeScope = driverHomeMapScope(driverAccount(payload))
+        val chromeHidden = LocalMapChromeHost.current?.hiddenFor(homeScope) == true
         Column(Modifier.fillMaxSize()) {
-            DriverQualificationBanner(payload, navigate)
-            Surface(
+            if (!chromeHidden) DriverQualificationBanner(payload, navigate)
+            if (!chromeHidden) Surface(
                 modifier = Modifier.fillMaxWidth(),
                 color = Color.White,
                 shadowElevation = 1.dp
@@ -340,7 +344,7 @@ fun ConnectedHome(
             }
             // An in-trip or listening-state change brings a collapsed sheet back so its actions stay findable.
             MapPanelLayout(
-                saveKey = "driver-home",
+                saveKey = homeScope,
                 modifier = Modifier.fillMaxWidth().weight(1f),
                 attentionKey = listOf(active?.id, active?.stage, state.online, canAccept, online),
                 collapsedLabel = if (active != null) "显示当前行程" else "显示听单与订单大厅",
@@ -976,13 +980,17 @@ fun ConnectedTrip(
             }
         }
     }
+    // A collapsed sheet asks for a full-screen map: the page header steps aside (system back still
+    // works) and returns as soon as the sheet opens or the stage leaves the map.
+    val tripScope = driverTripMapScope(order.id)
+    val chromeHidden = showMap && LocalMapChromeHost.current?.hiddenFor(tripScope) == true
     Column(Modifier.fillMaxSize()) {
-        PageHeader(title, onBack)
+        if (!chromeHidden) PageHeader(title, onBack)
         if (showMap)
             // The action bar stays pinned under the sheet content; a stage or waypoint/consent change
             // brings a collapsed sheet back so the next step is never left hidden.
             MapPanelLayout(
-                saveKey = "driver-trip:${order.id}",
+                saveKey = tripScope,
                 modifier = Modifier.fillMaxWidth().weight(1f),
                 attentionKey = listOf(order.stage, hasPendingWaypoints, distancePending, order.canCancel),
                 collapsedLabel = "显示行程操作",

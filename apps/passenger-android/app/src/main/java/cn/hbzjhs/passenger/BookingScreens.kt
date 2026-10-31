@@ -191,7 +191,7 @@ private fun PassengerBookingDraft(owner: String, state: JSONObject, store: Passe
   // Drag the panel over the map for every function, or down to a small handle for the whole map.
   // A new trip or unpaid order brings a collapsed panel back so its entry is never left hidden.
   MapPanelLayout(
-    saveKey = "passenger-booking:$owner",
+    saveKey = passengerBookingMapScope(owner),
     attentionKey = listOf(active?.text("id"), active?.text("stage"), unpaid?.text("id")),
     collapsedLabel = "显示叫车面板",
     map = { mapModifier ->

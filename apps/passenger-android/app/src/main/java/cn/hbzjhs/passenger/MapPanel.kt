@@ -130,12 +130,39 @@ class MapPanelState internal constructor(initial: MapPanelValue) {
   }
 
   companion object {
+    // A page entered again (or recreated) starts open: collapsed is never restored, so it can't
+    // bring back hidden app bars on its own.
     val PanelSaver: Saver<MapPanelState, String> = Saver(
-      save = { it.value.name },
+      save = { (if (it.value == MapPanelValue.Collapsed) MapPanelValue.Half else it.value).name },
       restore = { name -> MapPanelState(MapPanelValue.values().firstOrNull { it.name == name } ?: MapPanelValue.Half) },
     )
   }
 }
+
+/**
+ * In-memory app-chrome host for map pages. While a map panel is collapsed it claims the host with its
+ * own token and page scope (its saveKey); the activity hides its top/bottom bars only while a claim
+ * matches the page it is showing right now. Claims are released on restore and on dispose, and a
+ * page leaving never clears another page's claim. Nothing is persisted or sent anywhere.
+ */
+@Stable
+class MapChromeHost {
+  private val claims = mutableStateMapOf<Any, String>()
+
+  fun hiddenFor(scope: String?): Boolean = scope != null && claims.values.any { it == scope }
+
+  internal fun claim(token: Any, scope: String) { claims[token] = scope }
+
+  internal fun release(token: Any) { claims.remove(token) }
+}
+
+val LocalMapChromeHost = staticCompositionLocalOf<MapChromeHost?> { null }
+
+/** Page scope (and panel saveKey) of the booking home for one signed-in passenger. */
+fun passengerBookingMapScope(owner: String): String = "passenger-booking:$owner"
+
+/** Page scope (and panel saveKey) of one order's map page. */
+fun passengerOrderMapScope(orderId: String): String = "passenger-order:$orderId"
 
 /**
  * A map page whose functions live in a panel that can be dragged over the map (all functions,
@@ -170,6 +197,15 @@ fun MapPanelLayout(
     }
   }
   BackHandler(enabled = panel.value == MapPanelValue.Expanded) { panel.animateTo(MapPanelValue.Half) }
+  // Collapsed (as soon as it is the target) asks the activity to hide its bars so the map gets the
+  // whole app screen; anything else, or leaving the page, gives them back. The token is per panel.
+  val chrome = LocalMapChromeHost.current
+  val chromeToken = remember(panel) { Any() }
+  val fullscreen = panel.value == MapPanelValue.Collapsed
+  DisposableEffect(chrome, chromeToken, saveKey, fullscreen) {
+    if (fullscreen) chrome?.claim(chromeToken, saveKey) else chrome?.release(chromeToken)
+    onDispose { chrome?.release(chromeToken) }
+  }
   val connection = remember(panel) {
     object : NestedScrollConnection {
       override fun onPreScroll(available: Offset, source: NestedScrollSource): Offset =

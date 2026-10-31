@@ -122,7 +122,7 @@ fun OrderDetail(o: JSONObject, store: PassengerStore, busy: Boolean, openOrder: 
   // The route map fills the page behind a draggable panel; pay/cancel stay pinned under the panel
   // content, and a stage or payability change re-opens a collapsed panel so they never stay hidden.
   MapPanelLayout(
-    saveKey = "passenger-order:$id",
+    saveKey = passengerOrderMapScope(id),
     attentionKey = listOf(stage, payable, cancellable),
     collapsedLabel = if (payable || cancellable) "显示订单与支付/取消操作" else "显示订单详情",
     map = { mapModifier ->

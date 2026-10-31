@@ -76,6 +76,37 @@
   - 这也解决了上面风险 6。
 - 自测：编译、单测、GUI 全部 NOT_RUN。
 
+## Phase 3（基于 source freeze ee23c4c：收起时真全屏地图）
+- 同一 session 9bc07c4c-731c-4b1f-840b-ce6a0c5dc85a。改动文件：两端 MapPanel.kt、两端 MainActivity.kt（root 新增到 allow_paths；只加本地 UI host、CompositionLocal 和隐藏条件）、CoreScreens.kt，以及 BookingScreens.kt/OrderDetail.kt（只把 saveKey 字面量换成同值的 scope 函数）。Phase 2 的选址修复没有回退。未改导航、权限、资质/订单门禁、事件、Store、版本、controls、tasks。未 commit。
+- **机制**：
+  - MapPanel.kt 新增 `MapChromeHost`：内存中的 `mutableStateMapOf<token, scope>`，提供 `hiddenFor(scope)`、`claim`、`release`。
+  - 新增 `LocalMapChromeHost`（staticCompositionLocalOf，默认 null；为 null 时什么都不隐藏）。
+  - 新增 scope 函数，同时用作面板 saveKey：乘客 `passenger-booking:<passengerId>`、`passenger-order:<orderId>`；司机 `driver-home:<driverAccount>`（原为固定的 "driver-home"，现在带账号）、`driver-trip:<orderId>`。
+  - 每个面板实例用 `remember(panel){Any()}` 生成 token。只在 `panel.value == Collapsed`（目标为收起，动画一开始就算）时 claim；其他状态或 dispose 时按自己的 token release。旧页面 dispose 只删自己的 token，不会影响新页面的 claim。
+- **宿主双重作用域**：MainActivity 按当前实际显示的页面计算 mapScope。
+  - 乘客：未登录→null；有选中订单→order scope；page=home→当前乘客 id 的 booking scope；其他页面→null。
+  - 司机：未登录→null；route=root 且 tab=0→本账号的 home scope；route=detail:id→该订单的 trip scope；其他→null。
+  - 只有存在与当前页面 scope 相同的 claim 时才隐藏。所以离开地图页、返回、登出、切换账号、订单消失，都不会留下被隐藏的导航。
+- **隐藏内容**：
+  - 乘客：顶栏标题行（返回、权限、城市、刷新）、busy 进度条、底部 tab。**连接中断和错误提示条保留显示**（这是状态反馈，不是 chrome）。
+  - 司机：底部 tab；首页的资质横幅和身份栏；行程页的 PageHeader（系统返回仍可用）。
+  - 恢复半展或展开后全部原样回来。
+- **全屏范围**：父 Scaffold 的 topBar/bottomBar 在隐藏时不输出任何内容，内容区 padding 回到 contentWindowInsets：乘客为默认 systemBars，targetSdk 34 非 edge-to-edge 时为 0；司机为 0。地图与面板的容器随之扩展到整个 app 可用区域（不含系统栏），只剩把手条和“显示…面板”恢复入口。
+- **MapView 不重建**：隐藏用的都是 `if` 分组或 Scaffold slot，地图所在的组合位置不变，只是尺寸变化。
+- **动画锚点**：claim 只依赖目标档位 value，不依赖像素位置。容器高度变化时 attach 只把正在进行的动画改瞄到同一目标的新锚点，value 不变，因此不会循环。
+- **Collapsed 不再持久化**：PanelSaver 把 Collapsed 存成 Half，重新进入页面或重建 Activity 后总是先显示面板和 app 栏，不会自己把导航藏回去。旋转后会从收起变为半展，属于有意的行为变化。
+- **自动露回**：原 attentionKey 机制不变（订单阶段、可支付/可取消、途经点/同意状态、听单状态、canAccept、网络等）。值变化时面板回到 Half，同时释放全屏。
+- **新增 API/行为风险，需非作者 native 验证**：
+  1. M3 1.2.1 ScaffoldLayout 在 topBar/bottomBar slot 为空时的 inner padding 计算（预期回到 contentWindowInsets）。
+  2. 收起时容器先变大，地图可能 resize 1~2 次（容器变化一次，越过半展线一次）。AMap 和 MapLibre 的 GLSurfaceView 是否闪烁、黑边。
+  3. 改瞄动画以 0 速度重新开始，可能有轻微减速感。
+  4. Snackbar 在 tab 隐藏后位置下移。
+  5. 全屏时乘客的返回箭头、刷新、权限入口和司机行程页返回按钮都不可见，只能用系统返回或先恢复面板。
+  6. 资质横幅在收起时隐藏；接单门禁仍由 canAccept 等原逻辑控制，canAccept 变化会自动露回面板。
+  7. 大字号或小屏下，把手条按实测高度计算，IME 仍走乘客端 imePadding。
+  8. mutableStateMapOf 与 staticCompositionLocalOf 依赖 runtime 1.6 的 API。
+- 自测：编译、单测、GUI 全部 NOT_RUN。
+
 ## 验收建议（非作者执行）
 - 两端 `assembleDebug` 加现有单测（PassengerAddressLookup/PickupDefaults/Defaults 等应不受影响）。
 - AVD：360×640 小屏、字号 1.3/2.0、三键导航与手势导航、横竖屏切换、进程重建。四个页面逐一验证：拖把手、甩动、内容滚动与面板联动、地图平移缩放不抢手势、三个按钮、TalkBack customActions、Expanded 时返回键、收起后由 attentionKey 自动弹回（用 fixture 改订单阶段或可支付状态）。
