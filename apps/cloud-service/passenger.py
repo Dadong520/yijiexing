@@ -342,7 +342,13 @@ class PassengerMixin(TripDistanceMixin,NegotiationMixin,PassengerOrderOptionsMix
         elif action=='order.create':result=self.passenger_create_order(pid,p)
         elif action=='order.distanceConsent':result=self.passenger_distance_consent(pid,p)
         elif action=='location.report':result=self.passenger_report_location(pid,p)
-        elif action in ('negotiation.claim','negotiation.dispute'):result=self.passenger_negotiation_action(pid,action,p)
+        elif action in ('negotiation.claim','negotiation.dispute'):
+            result=self.passenger_negotiation_action(pid,action,p)
+            # Claim is the other path creating a canonical passenger order. It
+            # explicitly binds the booker; never backfill an old claim replay.
+            if action=='negotiation.claim' and not result.get('idempotent'):
+                self.db.execute('INSERT INTO passenger_order_contacts VALUES (?,?,?,?,?)',
+                    (result['order']['id'],pid,profile['name'],profile['mobile'],stamp()))
         elif action in ('order.blockDriver','order.unblockDriver','order.remark','order.complaint.attach'):result=self.passenger_order_option(pid,action,p)
         elif action.startswith('order.'):
             o=self.own_passenger_order(pid,p.get('id'))

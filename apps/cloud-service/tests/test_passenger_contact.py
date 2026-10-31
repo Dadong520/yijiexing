@@ -88,6 +88,14 @@ class PassengerContact(PolicyCase):
         self.request('/api/driver/passenger-contact?orderId=x&orderId=y',token=d['token'],expected=400)
         self.request('/api/driver/passenger-contact?orderId=x&mobile=ignored',token=d['token'],expected=400)
 
+    def test_blank_duplicate_or_unknown_query_key_is_not_silently_dropped(self):
+        p,d=self.setup_pair();oid=self.create(p['token'])['id']
+        self.da(d['token'],'order.accept',dict(id=oid))
+        self.contact(d['token'],oid)  # This valid assigned ID would otherwise return200.
+        for query in (f'orderId={oid}&orderId=',f'orderId={oid}&unused=','orderId='):
+            with self.subTest(query=query):
+                self.request('/api/driver/passenger-contact?'+query,token=d['token'],expected=400)
+
     def test_snapshot_failure_rolls_back_order_and_retry_is_atomic(self):
         p,d=self.setup_pair()
         self.mutate_fixture(lambda svc:svc.db.execute("CREATE TRIGGER reject_contact BEFORE INSERT ON passenger_order_contacts BEGIN SELECT RAISE(ABORT,'test contact unavailable'); END"))
@@ -97,6 +105,20 @@ class PassengerContact(PolicyCase):
         self.mutate_fixture(lambda svc:svc.db.execute('DROP TRIGGER reject_contact'))
         self.pa(p['token'],'order.create',payload,rid='atomic-contact')
         self.assertEqual(len(self.rows()),1)
+
+    def test_new_negotiation_claim_snapshots_booker_but_legacy_replay_does_not_backfill(self):
+        import test_negotiation as fixture
+        passenger=self.passenger_login()
+        driver,oid=fixture.NegotiationIntegration.offer(self)
+        offer=self.da(driver['token'],'order.pairOffer',dict(id=oid))['result']
+        order=self.pa(passenger['token'],'negotiation.claim',dict(pairCode=offer['pairCode']))['result']['order']
+        self.contact(driver['token'],oid,409)  # PREPAY still blocked.
+        self.pa(passenger['token'],'order.pay',dict(id=oid,quoteVersion=1,amount=order['fare'],outcome='SUCCESS'))
+        self.assertEqual(self.contact(driver['token'],oid)['mobile'],'13800000101')
+        self.mutate_fixture(lambda svc:svc.db.execute('DELETE FROM passenger_order_contacts WHERE order_id=?',(oid,)))
+        replay=self.pa(passenger['token'],'negotiation.claim',dict(pairCode=offer['pairCode']))
+        self.assertTrue(replay['result']['idempotent'])
+        self.contact(driver['token'],oid,409)
 
     def test_explicit_read_does_not_log_number_or_audit_it(self):
         p,d=self.setup_pair();oid=self.create(p['token'])['id'];self.da(d['token'],'order.accept',{'id':oid})
