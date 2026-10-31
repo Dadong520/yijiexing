@@ -491,38 +491,9 @@ fun MenuRow(icon: String, title: String, description: String = "", onClick: () -
 
 @Composable
 fun RouteStops(order: DriverOrder, compact: Boolean = false) {
-    Column(Modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(6.dp)) {
-        listOf(
-            Triple("起", order.origin, Green),
-            Triple("终", order.destination, Orange)
-        ).forEach { (label, address, color) ->
-            Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.Top) {
-                Box(
-                    modifier = Modifier
-                        .padding(top = 3.dp, end = 8.dp)
-                        .size(20.dp)
-                        .clip(CircleShape)
-                        .background(color.copy(alpha = 0.15f)),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Text(
-                        text = label,
-                        color = color,
-                        fontSize = 11.sp,
-                        fontWeight = FontWeight.Bold
-                    )
-                }
-                Text(
-                    text = address,
-                    modifier = Modifier.weight(1f),
-                    fontSize = if (compact) DriverType.Body else DriverType.Title,
-                    lineHeight = 22.sp,
-                    fontWeight = FontWeight.SemiBold,
-                    color = Ink
-                )
-            }
-        }
-    }
+    // Every card, dialog and detail shares one ordered list: origin, each waypoint in original
+    // order with completed / next markers, then the destination.
+    OrderStopsList(order, compact)
 }
 
 @Composable

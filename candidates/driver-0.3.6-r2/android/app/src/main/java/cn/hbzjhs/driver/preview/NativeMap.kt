@@ -1,10 +1,6 @@
 package cn.hbzjhs.driver.preview
 
-import android.app.Activity
-import android.app.AlertDialog
-import android.content.ActivityNotFoundException
 import android.content.Context
-import android.content.ContextWrapper
 import android.content.Intent
 import android.net.Uri
 import androidx.compose.foundation.background
@@ -361,55 +357,19 @@ private fun NativeMapLegacy(
     }
 }
 
-fun openExternalNavigation(context: Context, order: DriverOrder, onError: (String) -> Unit) {
-    val target = order.navigationTarget()
-    if (target == null) {
-        onError(if (order.stage == Stage.CANCELLED) "已取消的订单不能发起导航" else "该地点缺少名称和坐标，暂不能导航")
-        return
-    }
-    if (context.launchNavigation(amapNavigationIntent(target))) return
-
-    val activity = context.navigationActivity()
-    if (activity == null || activity.isFinishing) {
-        if (!context.launchNavigation(webNavigationIntent(target)))
-            onError("未找到可用的导航应用或浏览器，请在当前地图中查看地点")
-        return
-    }
-    AlertDialog.Builder(activity)
-        .setTitle("当前无法打开高德地图")
-        .setMessage(
-            "${target.stop.title}：${target.name}\n" +
-                if (target.point == null) "此地点暂无坐标，可按名称搜索。请核对搜索结果后再开始导航。"
-                else "可以用其他地图按名称搜索，或在高德网页版查看地点。请核对位置后再开始导航。"
-        )
-        .setPositiveButton("其他地图搜索") { _, _ ->
-            val chooser = Intent.createChooser(systemNavigationSearchIntent(target), "选择地图搜索地点")
-            if (
-                !context.launchNavigation(chooser) &&
-                    !context.launchNavigation(webNavigationIntent(target))
-            )
-                onError("未找到可用的地图或浏览器，请先安装高德地图")
-        }
-        .setNeutralButton("网页版查看地点") { _, _ ->
-            if (!context.launchNavigation(webNavigationIntent(target)))
-                onError("未找到可用的浏览器，请先安装高德地图")
-        }
-        .setNegativeButton("取消", null)
-        .show()
-}
-
 internal fun driverAccount(payload: JSONObject): String =
     payload.optJSONObject("profile")?.optJSONObject("driver")?.optString("id").orEmpty()
 
 /**
- * Right after accept / start-pickup / passenger boarded, jump into navigation for the new leg.
+ * Right after accept / start-pickup / passenger boarded, ask for in-app navigation of the new leg.
  * [before] is the stage the request was sent from; nothing opens unless the refreshed order really
  * moved into a new PICKUP or TRIP leg (a distance request that leaves TRIP unchanged never opens).
+ * [onOpen] receives the order id; the app's single navigation owner decides whether it may open.
  */
-fun navigateForNewLeg(context: Context, store: ConnectedStore, orderId: String, before: Stage, onError: (String) -> Unit) {
+fun navigateForNewLeg(context: Context, store: ConnectedStore, orderId: String, before: Stage, onOpen: (String) -> Unit) {
     val order = store.state.value.orders.find { it.id == orderId } ?: return
     if (AutoNavigationMemory.claim(context, driverAccount(store.payload.value), order.id, before, order.stage))
-        openExternalNavigation(context, order, onError)
+        onOpen(order.id)
 }
 
 /**
@@ -437,7 +397,7 @@ private object AutoNavigationMemory {
  * compared against the previous usable one, and persisted memory blocks repeats after restarts.
  */
 @Composable
-fun AutoNavigationObserver(store: ConnectedStore, onError: (String) -> Unit) {
+fun AutoNavigationObserver(store: ConnectedStore, onOpen: (String) -> Unit) {
     val context = LocalContext.current
     val state by store.state.collectAsState()
     val payload by store.payload.collectAsState()
@@ -454,11 +414,12 @@ fun AutoNavigationObserver(store: ConnectedStore, onError: (String) -> Unit) {
         boarded.forEach { id ->
             val order = state.orders.firstOrNull { it.id == id } ?: return@forEach
             if (AutoNavigationMemory.claim(context, account, id, Stage.ARRIVED, order.stage))
-                openExternalNavigation(context, order, onError)
+                onOpen(order.id)
         }
     }
 }
 
+// URI builders kept only for the legacy contract tests; the app never launches external navigation.
 internal fun amapNavigationIntent(target: NavigationTarget): Intent =
     Intent(Intent.ACTION_VIEW, Uri.parse(NavigationContract.amapUri(target)))
         .addCategory(Intent.CATEGORY_DEFAULT)
@@ -470,21 +431,3 @@ internal fun systemNavigationSearchIntent(target: NavigationTarget): Intent =
 internal fun webNavigationIntent(target: NavigationTarget): Intent =
     Intent(Intent.ACTION_VIEW, Uri.parse(NavigationContract.webUri(target)))
         .addCategory(Intent.CATEGORY_BROWSABLE)
-
-private fun Context.launchNavigation(intent: Intent): Boolean =
-    try {
-        if (navigationActivity() == null) intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-        startActivity(intent)
-        true
-    } catch (_: ActivityNotFoundException) {
-        false
-    } catch (_: SecurityException) {
-        false
-    }
-
-private tailrec fun Context.navigationActivity(): Activity? =
-    when (this) {
-        is Activity -> this
-        is ContextWrapper -> if (baseContext !== this) baseContext.navigationActivity() else null
-        else -> null
-    }

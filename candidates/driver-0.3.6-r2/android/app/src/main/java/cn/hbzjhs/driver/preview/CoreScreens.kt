@@ -737,6 +737,10 @@ fun ConnectedTrip(
     onCancel: () -> Unit,
     onMessage: (String) -> Unit,
     onHome: () -> Unit,
+    // In-app navigation mode reuses this screen's own actions, PIN dialog, consent and cancel flows.
+    navigating: Boolean = false,
+    onNavigate: (String) -> Unit = {},
+    onExitNavigation: () -> Unit = {},
 ) {
     val context = LocalContext.current
     val tripBusy by store.loading.collectAsState()
@@ -864,7 +868,9 @@ fun ConnectedTrip(
                 }
             }
             item { DriverTripDistanceCard(order.id, order.stage.name, store) }
-            if (order.waypoints.isNotEmpty()) item { TripWaypoints(order, store, onMessage) }
+            // The summary's RouteStops already lists every stop; the separate card only carries the
+            // TRIP-stage arrival confirmations, so the same route is not shown twice elsewhere.
+            if (order.stage == Stage.TRIP && order.waypoints.isNotEmpty()) item { TripWaypoints(order, store, onMessage) }
             if (order.stage == Stage.ARRIVED && order.phoneTail.isNotBlank())
                 item {
                     SheetCard {
@@ -896,19 +902,21 @@ fun ConnectedTrip(
     val tripActions: @Composable () -> Unit = {
         Surface(color = Color.White, border = BorderStroke(1.dp, Hairline)) {
             Column(Modifier.padding(horizontal = Gap.L, vertical = 10.dp)) {
-                val navTarget = if (order.isActive) order.navigationTarget() else null
+                // Waiting reservations may preview navigation too; departing still needs "出发接驾".
+                val navLeg = (NavigationSessionRules.legFor(order) as? LegDecision.Go)?.leg
                 Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(Gap.S)) {
-                if (navTarget != null)
+                if (!navigating && NavigationSessionRules.navigable(order))
                     BusinessOutlinedButton(
-                        onClick = { openExternalNavigation(context, order, onMessage) },
+                        onClick = { onNavigate(order.id) },
                         modifier = Modifier.heightIn(min = 48.dp),
                     ) {
                         Glyph("navigation", GreenStrong, Modifier.size(16.dp))
                         Text(
-                            when (navTarget.stop) {
+                            when (navLeg?.stop) {
                                 NavigationStop.PICKUP -> "导航去上车点"
-                                NavigationStop.WAYPOINT -> "导航去途经点"
+                                NavigationStop.WAYPOINT -> "导航去下一途经点"
                                 NavigationStop.DESTINATION -> "导航去终点"
+                                null -> "导航"
                             },
                             modifier = Modifier.padding(start = 4.dp),
                         )
@@ -935,7 +943,7 @@ fun ConnectedTrip(
                                 val current = store.state.value.orders.find { it.id == order.id }
                                 if (current?.mayAdvanceFrom(order.stage) == true) {
                                     store.perform("order.advance", JSONObject().put("id", order.id).put("expectedStage", order.stage.name)) {
-                                        navigateForNewLeg(context, store, order.id, order.stage, onMessage)
+                                        navigateForNewLeg(context, store, order.id, order.stage, onNavigate)
                                     }
                                 } else {
                                     onMessage("订单状态已更新，请刷新后再操作")
@@ -950,9 +958,10 @@ fun ConnectedTrip(
                     },
                 )
                 }
-                if (order.canCancel)
-                    Row(Modifier.fillMaxWidth().padding(top = 6.dp), horizontalArrangement = Arrangement.End) {
-                        DriverTextButton(onClick = onCancel) { Text("取消订单", color = Muted) }
+                if (order.canCancel || PassengerContactRules.eligible(order))
+                    Row(Modifier.fillMaxWidth().padding(top = 6.dp), verticalAlignment = Alignment.Top) {
+                        PassengerContactAction(order, store, Modifier.weight(1f))
+                        if (order.canCancel) DriverTextButton(onClick = onCancel) { Text("取消订单", color = Muted) }
                     }
                 if (hasPendingWaypoints) {
                     Text(
@@ -970,6 +979,45 @@ fun ConnectedTrip(
     // works) and returns as soon as the sheet opens or the stage leaves the map.
     val tripScope = driverTripMapScope(order.id)
     val chromeHidden = showMap && LocalMapChromeHost.current?.hiddenFor(tripScope) == true
+    // System back first leaves navigation, then the page as before.
+    androidx.activity.compose.BackHandler(navigating) { onExitNavigation() }
+    if (navigating) {
+        // SDK guidance on top; the order's own controls live in a separate area below that the SDK
+        // never covers. The lower area keeps at most half the height and scrolls on small screens.
+        BoxWithConstraints(Modifier.fillMaxSize().imePadding()) {
+            val businessMax = maxHeight * 0.5f
+            Column(Modifier.fillMaxSize()) {
+                Row(
+                    Modifier.fillMaxWidth().background(Color.White).padding(horizontal = 8.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                ) {
+                    Text(title, fontSize = 15.sp, fontWeight = FontWeight.Bold, color = Ink, modifier = Modifier.weight(1f).padding(start = 8.dp))
+                    DriverTextButton(onClick = onExitNavigation) { Text("退出导航") }
+                }
+                InAppNavigationPanel(
+                    decision = NavigationSessionRules.legFor(order),
+                    sessionKey = "${driverAccount(store.payload.value)}|${order.id}",
+                    modifier = Modifier.fillMaxWidth().weight(1f),
+                    onExit = onExitNavigation,
+                )
+                Column(Modifier.fillMaxWidth().heightIn(max = businessMax).background(Page)) {
+                    LazyColumn(
+                        Modifier.weight(1f, fill = false),
+                        contentPadding = PaddingValues(horizontal = 12.dp, vertical = 8.dp),
+                        verticalArrangement = Arrangement.spacedBy(8.dp),
+                    ) {
+                        // One list only: in TRIP the waypoint card (with its confirm buttons) shows the stops.
+                        if (order.stage == Stage.TRIP && order.waypoints.isNotEmpty()) item { TripWaypoints(order, store, onMessage) }
+                        else item { SheetCard { RouteStops(order, compact = true) } }
+                        item { DriverTripDistanceCard(order.id, order.stage.name, store) }
+                        if (order.stage == Stage.ARRIVED && order.phoneTail.isNotBlank())
+                            item { SheetCard { DetailRow("乘客手机尾号", order.phoneTail) } }
+                    }
+                    tripActions()
+                }
+            }
+        }
+    } else
     Column(Modifier.fillMaxSize()) {
         if (!chromeHidden) PageHeader(title, onBack)
         if (showMap)
@@ -1027,7 +1075,7 @@ fun ConnectedTrip(
                             onFailure = { verifyError = it },
                         ) {
                             verify = false
-                            navigateForNewLeg(context, store, order.id, Stage.ARRIVED, onMessage)
+                            navigateForNewLeg(context, store, order.id, Stage.ARRIVED, onNavigate)
                         }
                     }
                 ) {

@@ -524,6 +524,37 @@ class ConnectedStore(app: Application) : AndroidViewModel(app) {
         }
     }
 
+    /**
+     * One explicit read of the rider's contact for [orderId]. Bounded on purpose: it never touches
+     * driver state, loading, the global error, the connection flag or the session (a 401 here is only
+     * reported). The result reaches [onResult] on the main thread only while the same session and
+     * credentials are current; the number is never logged or stored here.
+     */
+    internal fun fetchPassengerContact(orderId: String, onResult: (Result<PassengerContact>) -> Unit) {
+        val epoch = requests.snapshot()
+        val credentials = LocalApi.credentials()
+        if (credentials.token.isBlank() || orderId.isBlank()) {
+            onResult(Result.failure(IllegalStateException("请先登录后再联系乘客")))
+            return
+        }
+        viewModelScope.launch {
+            val outcome: Result<PassengerContact> =
+                try {
+                    val path = "/api/driver/passenger-contact?orderId=" + java.net.URLEncoder.encode(orderId, "UTF-8")
+                    val data = LocalApi.request("GET", path, credentials = credentials)
+                    PassengerContactRules.parse(orderId, data)?.let { Result.success(it) }
+                        ?: Result.failure(IllegalStateException("服务返回的联系方式无效，请稍后重试"))
+                } catch (e: CancellationException) {
+                    throw e
+                } catch (e: LocalApiException) {
+                    Result.failure(IllegalStateException(PassengerContactRules.failureMessage(e.status, e.details.optString("reason"))))
+                } catch (_: Exception) {
+                    Result.failure(IllegalStateException("网络异常，获取乘客电话失败，请稍后重试"))
+                }
+            if (requests.isCurrent(epoch) && LocalApi.isCurrent(credentials)) onResult(outcome)
+        }
+    }
+
     private fun accept(epoch: Long, data: JSONObject) {
         requests.commitIfCurrent(epoch) {
             if (LocalApi.token.isNotBlank()) {

@@ -61,6 +61,10 @@ private fun navigationQuery(base: String, vararg values: Pair<String, String>): 
             key + "=" + URLEncoder.encode(value, "UTF-8").replace("+", "%20")
         }
 
+/**
+ * Legacy external-navigation URI builders, kept for their pure contract tests only. The app no longer
+ * launches external maps, browsers or geo: intents; navigation runs in-app (see InAppNavigation.kt).
+ */
 internal object NavigationContract {
     const val AMAP_PACKAGE = "com.autonavi.minimap"
     private const val SOURCE = "宜捷行云端体验版"
