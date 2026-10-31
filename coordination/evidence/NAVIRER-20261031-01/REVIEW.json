@@ -1,0 +1,200 @@
+{
+  "taskId": "NAVIRER-20261031-01",
+  "reviewerRole": "backend",
+  "reviewerSessionId": "01a182c6-c058-76e1-9584-38abfe813799",
+  "reviewedAt": "2026-11-01T00:16:08+08:00",
+  "candidateSha": "8c12e6f5dae00adf68f37ad738b8816593e4a7b1",
+  "baseSha": "6a52f55402b49f5d736b68ea58a860a53c7c4a27",
+  "acceptedProductSha": "6cdcee1a68d57465e4196243f22478c69733654c",
+  "integrationHeadSha": "fb50113db859c7b2e75f061d960bad7720e16bbe",
+  "verdict": "PASS",
+  "p1Count": 0,
+  "p2Count": 0,
+  "findings": [],
+  "checks": [
+    {
+      "id": 1,
+      "check": "Metadata-only diff",
+      "result": "PASS",
+      "detail": "Candidate against productmerge only README/coordination."
+    },
+    {
+      "id": 2,
+      "check": "Five product roots preserved",
+      "result": "PASS",
+      "detail": "Metadata candidate/merge/accepted6cd equal across all5 roots."
+    },
+    {
+      "id": 3,
+      "check": "Complete merge repository tree equals CI head",
+      "result": "PASS",
+      "detail": "Full tree locally recomputed, matches MERGE49_PROOF."
+    },
+    {
+      "id": 4,
+      "check": "PR49/CI/source binding",
+      "result": "PASS",
+      "detail": "Exact completed CI metadata and merge proof agree; no remote re-query."
+    },
+    {
+      "id": 5,
+      "check": "Driver original identity/readback equality",
+      "result": "PASS",
+      "detail": "Driver0.3.21/code24 original package/signer/SHA55b465…e9fd9d match independent original proof; QA not published."
+    },
+    {
+      "id": 6,
+      "check": "Cloud full public HTTPS proof",
+      "result": "PASS",
+      "detail": "Ephemeral Python3.12 complete public download binds original aapt/apksigner identity by exact whole-file SHA/size; no new Android tool invocation. Existing log/config digests recorded, not re-fetched here."
+    },
+    {
+      "id": 7,
+      "check": "Local partial failures accurately separated",
+      "result": "PASS",
+      "detail": "Direct timeout/proxy429/manualstop -15 preserved; local partial not accepted. Attempts summary omits repeated URL; comparison normalized to its documented fields."
+    },
+    {
+      "id": 8,
+      "check": "Initial harness failure retained",
+      "result": "PASS",
+      "detail": "CloudSDK9bb7 failed before HTTP; successful1750 separate. Not a product/hash failure."
+    },
+    {
+      "id": 9,
+      "check": "Driver upload archive and promotion",
+      "result": "PASS",
+      "detail": "Old23 generation1793446994248649 archived,24 promoted; candidate-only label refers to prior upload stage."
+    },
+    {
+      "id": 10,
+      "check": "Passenger23 unchanged",
+      "result": "PASS",
+      "detail": "No passenger rebuild/upload/promotion or new native matrix claimed; original107270521bytes/hashcb77…0842."
+    },
+    {
+      "id": 11,
+      "check": "API immutable build/revision",
+      "result": "PASS",
+      "detail": "Build058f digestf41b…9e6f. Intentional API deployment distinguished from APK-only releases; local gcloud JSON/log parse issue retained without duplicate build."
+    },
+    {
+      "id": 12,
+      "check": "API intended rollout and preserved config",
+      "result": "PASS",
+      "detail": "Sanitized exact comparisons show API other template/service/IAM preserved; default100/user-test intentional, tempnavi removed/other QA retained perSTATE; admin whole spec/annotations/traffic/IAM same. automatic/request/API900/concurrency1 preserved. No private fullspec inspection."
+    },
+    {
+      "id": 13,
+      "check": "New handler actual GET smoke",
+      "result": "PASS",
+      "detail": "Stage then default/user-test/custom health/auth/new-handler nonexistentID GET; private allowed session, no live order contact or businessPOST."
+    },
+    {
+      "id": 14,
+      "check": "46 order full-row preservation",
+      "result": "PASS",
+      "detail": "Scope passenger_orders only; current46 not restored45; same atomic snapshot/hash, rawDB0600 external and not reopened."
+    },
+    {
+      "id": 15,
+      "check": "284/95/19 scopes and inheritance",
+      "result": "PASS",
+      "detail": "Real AMap roads/turns in isolatedARM64+simulatedGPS/local syntheticorders; explicit synthetic passengerAPI controls, limited D1 hint/far-consent inheritance. No physicaldrive/voice/OEM/actualcall/finance claim."
+    },
+    {
+      "id": 16,
+      "check": "Cleanup and limitations accurate",
+      "result": "PASS",
+      "detail": "AVD/fixture/reverse/QA cleanup actual readback; ACTION_DIAL only, no relay; legacy unavailable and P3 alert wrap nonblocking remain explicit."
+    },
+    {
+      "id": 17,
+      "check": "README current versus historical publication",
+      "result": "PASS",
+      "detail": "Driver24/passenger23 table/entries, previous23 history, new API scope, original identity/cloud readback distinction all supported."
+    },
+    {
+      "id": 18,
+      "check": "Public pages and artifact exclusion",
+      "result": "PASS",
+      "detail": "Four recorded publicGET200; metadata delta no APK/privateDB/accountcredential/cache files; original privatevalue scan0. No secret contents accessed."
+    }
+  ],
+  "releaseReady": false,
+  "scope": "Independent existing actual receipt/README/named evidence consistency audit only",
+  "productTreeBindings": {
+    "apps/passenger-android": {
+      "8c12e6f5dae00adf68f37ad738b8816593e4a7b1": "3ef2c41473a192da4869469dca5765089f6d9bfd",
+      "6a52f55402b49f5d736b68ea58a860a53c7c4a27": "3ef2c41473a192da4869469dca5765089f6d9bfd",
+      "6cdcee1a68d57465e4196243f22478c69733654c": "3ef2c41473a192da4869469dca5765089f6d9bfd"
+    },
+    "candidates/driver-0.3.6-r2/android": {
+      "8c12e6f5dae00adf68f37ad738b8816593e4a7b1": "7f3c85b562d694bbadb3d35efc36a056955ab4df",
+      "6a52f55402b49f5d736b68ea58a860a53c7c4a27": "7f3c85b562d694bbadb3d35efc36a056955ab4df",
+      "6cdcee1a68d57465e4196243f22478c69733654c": "7f3c85b562d694bbadb3d35efc36a056955ab4df"
+    },
+    "apps/cloud-service": {
+      "8c12e6f5dae00adf68f37ad738b8816593e4a7b1": "b8a39107315f82af5a5c6f848a650aa0560a2fad",
+      "6a52f55402b49f5d736b68ea58a860a53c7c4a27": "b8a39107315f82af5a5c6f848a650aa0560a2fad",
+      "6cdcee1a68d57465e4196243f22478c69733654c": "b8a39107315f82af5a5c6f848a650aa0560a2fad"
+    },
+    "apps/admin-console": {
+      "8c12e6f5dae00adf68f37ad738b8816593e4a7b1": "86b2ac8af994108b88bf298c8eba725b31fe4a5a",
+      "6a52f55402b49f5d736b68ea58a860a53c7c4a27": "86b2ac8af994108b88bf298c8eba725b31fe4a5a",
+      "6cdcee1a68d57465e4196243f22478c69733654c": "86b2ac8af994108b88bf298c8eba725b31fe4a5a"
+    },
+    "candidates/passenger-miniprogram-0.1.0": {
+      "8c12e6f5dae00adf68f37ad738b8816593e4a7b1": "5236b65283b5bb80939c223aa2abfc3f6534253a",
+      "6a52f55402b49f5d736b68ea58a860a53c7c4a27": "5236b65283b5bb80939c223aa2abfc3f6534253a",
+      "6cdcee1a68d57465e4196243f22478c69733654c": "5236b65283b5bb80939c223aa2abfc3f6534253a"
+    }
+  },
+  "evidenceGitBlobs": {
+    "coordination/evidence/NAVI-20261031-01/release/FINAL-RELEASE-RECEIPT.json": "059fff2eb1fd926c8b658adfd35a5a996567a45a",
+    "coordination/evidence/NAVI-20261031-01/FINAL_BUILD_PROOF.json": "145c8624308c7da249439a8eb91cb9e11fd84805",
+    "coordination/evidence/NAVI-20261031-01/D2-native/original-apk-proof.json": "d3bb6fb61b93cf8988b7d8cf713196bfe3efa5dd",
+    "coordination/evidence/NAVI-20261031-01/EXACT_HEAD_CI.json": "5b78b2973fd497d948565bb8360055bb992d9bd7",
+    "coordination/evidence/NAVI-20261031-01/MERGE49_PROOF.json": "09f59e5395692106bfee443cbac07764f0cc99d7",
+    "coordination/tasks/NAVI-20261031-01.json": "1b3bf742498316fc27329c77734e65217445b745",
+    "coordination/evidence/NAVI-20261031-01/release/apk-https-driver.json": "d058419e9417d68efae8aa09e9f15503925d19a6",
+    "coordination/evidence/NAVI-20261031-01/release/public-cloud-readback.json": "7784e527729cace93aa4facb7e1634a9aa778144",
+    "coordination/evidence/NAVI-20261031-01/release/apk-https-attempts-driver.json": "96abf3b5f602303fbaba7a1ab93dfd189911d003",
+    "coordination/evidence/NAVI-20261031-01/release/local-download-manual-stop.json": "bab87e892e12f7b5af70b49a63d5b8944b47d6e1",
+    "coordination/evidence/NAVI-20261031-01/release/public-cloud-readback-first-harness-failure.json": "d07ab17b168c3d1ed41a919d8e92dc985c31fb12",
+    "coordination/evidence/NAVI-20261031-01/release/apk-promotion.json": "ed0beb2ef2a1b67c958f943761431eb0fd36eb4c",
+    "coordination/evidence/NAVI-20261031-01/release/apk-upload-candidates.json": "fea22be2201d5c100e6574cfd1ff0448164e16ee",
+    "coordination/evidence/NAVI-20261031-01/release/passenger-unchanged.json": "966a85777209b65ce56e28d9fd4651cd9efd29ed",
+    "coordination/evidence/NAVI-20261031-01/release/api-image-build.json": "f14eb09186aedbade38a67af946937ac1120a989",
+    "coordination/evidence/NAVI-20261031-01/release/revision-binding.json": "3fbc957fbf4358f15520954fea2c0d7aea06f83c",
+    "coordination/evidence/NAVI-20261031-01/release/api-after-config.json": "dd177c5217409bc6b7ee25ad5e2ce4c8f1b62fbc",
+    "coordination/evidence/NAVI-20261031-01/release/api-stage-config.json": "dd177c5217409bc6b7ee25ad5e2ce4c8f1b62fbc",
+    "coordination/evidence/NAVI-20261031-01/release/runtime-before.json": "c5bc1513ec309355835ab6a14a216c48548fc796",
+    "coordination/STATE.md": "9b3abc775e56c14897c3373fd5eff4476337e457",
+    "coordination/evidence/NAVI-20261031-01/release/api-after-smoke.json": "ba9844ffac88d11f06c12f6228daefc1440a04de",
+    "coordination/evidence/NAVI-20261031-01/release/api-stage-smoke.json": "1436c8e8f1ef02e71d3c07db1c08674d00fec0f2",
+    "coordination/evidence/NAVI-20261031-01/release/data-before.json": "47c64f74e0a65b7991846789ebbd49bcd9390956",
+    "coordination/evidence/NAVI-20261031-01/release/data-after.json": "ecead7637f4dc0c293d787b4252b40306677e157",
+    "coordination/evidence/NAVI-20261031-01/D2-native/FINAL_REVIEW.json": "87d378db0cdccd1e3d02bd9d9b8dc6fdd8a204df",
+    "coordination/evidence/NAVI-20261031-01/D2-native/CLEANUP.json": "d0e8098e4657366c77f58563d34773174a9e59a6",
+    "README.md": "28e212fff577e916491b3f69ecf15ccb1761661e",
+    "coordination/evidence/NAVI-20261031-01/release/public-pages-health.json": "f92e151b056ecb9130fb44acee6c078d23739535"
+  },
+  "actualChecks": [
+    "CentralSTART/STATE/BOARD/task/card and true-role gatePASS",
+    "Immutable Git objects/named evidence cross-mapping",
+    "Five product roots/complete mergeCI tree locally recomputed",
+    "git diff --check base..candidate exit0"
+  ],
+  "auditHarnessNote": "Initial overly strict attempts dictionary comparison failed because receipt includes URL and attempts summary intentionally omits URL. Compared transport/curlExit/http fields after normalization; no evidence inconsistency or product issue. No artifact was written on failed initial check.",
+  "notRun": [
+    "Fresh cloud/network/CloudBuild/download/upload/deploy",
+    "Android build/aapt/apksigner/JUnit/backend284/native replay",
+    "Private rawDB/fullspec/IAM and remote rawCloudBuild logs not reread; existing sanitized records audited"
+  ],
+  "limits": [
+    "Whole-file SHA/size equality inherits original Android identity, not a new cloud Android-tool invocation",
+    "Runtime exact-preservation and CloudBuild config/log digests are existing execution evidence, not fresh independent cloud results"
+  ],
+  "nextAction": "Root include report then exact new metadata headCI/merge; no redeploy. ReviewerIDLE."
+}

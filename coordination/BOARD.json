@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updated": "2026-10-31T09:10:03.793779+00:00",
+  "updated": "2026-10-31T16:01:13.492894+00:00",
   "coordinator": "coordinator",
   "activeTaskIds": [
     "WX-20261025-01",
@@ -79,7 +79,9 @@
     "NAVIB-20261031-01",
     "NAVIF-20261031-01",
     "NAVIC-20261031-01",
-    "NAVIRB-20261031-01"
+    "NAVIRB-20261031-01",
+    "NAVIREC-20261031-01",
+    "NAVIRER-20261031-01"
   ],
   "releaseOwner": "coordinator",
   "policy": "作者提交→自测→独立验收→协调者合并→部署回读；无业务验收PASS不发布",
@@ -108,11 +110,11 @@
     "coordination/archive/2026-10-26/AUTH-20261026-02.json"
   ],
   "memoryProtocolVersion": "2026-10-26-v3",
-  "currentStage": "NAVI_ACCEPTED_EXACT_HEAD_CI_MERGE_RELEASE",
+  "currentStage": "NAVI24_RELEASE_COMPLETE_NAVIREC_FINAL_HEAD_CI",
   "roleAssignments": {
-    "coordinator": "NAVI sole merger/deployer; candidate6cdcee accepted",
-    "backend": "IDLE D2 driver contract delta PASS; future actual receipt review only",
-    "frontend": "NAVIF SDK probe finishing; no broad native matrix yet",
+    "coordinator": "NAVIREC sole metadataCI/merger, product49 and release24 complete",
+    "backend": "IDLE NAVIRER receipt18 PASS",
+    "frontend": "IDLE HANDOFF_RECOMMENDED SDK feasibility PASS",
     "antigravity": "PAUSED_BY_USER_20261029; no new Gemini dispatch",
     "expert": "IDLE; configuration verified, SDK auth recovered; user deferred actual device test",
     "claude": "IDLE NAVIC author done; independentD2 accepted"

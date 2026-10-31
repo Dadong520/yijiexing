@@ -1,0 +1,14 @@
+[
+  {
+    "role": "driver",
+    "fixedObject": "distribution/yijiexing-cloud.apk",
+    "archiveObject": "distribution/archive/before-20261031-navi-6cdcee1/driver.apk",
+    "archivedGeneration": "1793462369987770",
+    "previousFixedGeneration": "1793446994248649",
+    "newFixedGeneration": "1793462374804294",
+    "bytes": 133016738,
+    "sha256": "55b4657b337fc1e6a4324fc30e334655fd31c3bf396965d22d6cbf36d5e9fd9d",
+    "generationPreconditions": true,
+    "oldArchiveVerified": true
+  }
+]

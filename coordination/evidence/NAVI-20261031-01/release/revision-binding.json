@@ -1,0 +1,8 @@
+{
+  "revision": "driver-demo-navi-6cdcee1",
+  "imageDigest": "us-west1-docker.pkg.dev/yijiexing-driver-demo-1023/demo/driver-cloud@sha256:f41b121b02c9ae0fc44539c3ab9894acb95bafb7c5283998e124a7a84f269e6f",
+  "sourceSha": "6cdcee1a68d57465e4196243f22478c69733654c",
+  "backendTree": "b8a39107315f82af5a5c6f848a650aa0560a2fad",
+  "ready": true,
+  "PASS": true
+}

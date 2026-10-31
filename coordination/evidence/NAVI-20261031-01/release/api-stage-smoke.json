@@ -1,0 +1,24 @@
+{
+  "phase": "stage",
+  "cloudBusinessPosts": 0,
+  "PASS": true,
+  "hosts": [
+    {
+      "host": "https://navi-6cdcee1---driver-demo-phfgquzmua-uw.a.run.app",
+      "health": 200,
+      "unauthenticated": 401,
+      "authenticatedNonexistentOrder": 404,
+      "exactNewHandlerMessage": true,
+      "cacheNoStore": true,
+      "tokenSource": "existing unexpired allowed demo driver session, kept private; GET only; nonexistent order ID",
+      "transport": [
+        {
+          "transport": "direct",
+          "exit": 0,
+          "http": 404
+        }
+      ],
+      "PASS": true
+    }
+  ]
+}
