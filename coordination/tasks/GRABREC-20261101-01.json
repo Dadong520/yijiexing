@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "id": "GRABREC-20261101-01",
+  "owner": "coordinator",
+  "goal": "Actual driver25/API publication receipt, independent metadata audit and exact-head CI merge",
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-order-competition-20261101",
+  "branch": "codex/order-competition-receipt-20261101",
+  "baseSha": "03fbf3e198e690d06d7b1dac65e106cf1411865c",
+  "allow_paths": [
+    "coordination/",
+    "README.md"
+  ],
+  "checks": [
+    "Product trees unchanged from acceptedC2; productPR51 exactCI and merge binding",
+    "Actual API default100 and ALL oldtags same new image; otherconfig and complete adminIAM unchanged",
+    "Driver25 generation-guarded archive/promotion/fullpublic SHA size originalidentity binding; passenger23 fixedgeneration unchanged",
+    "48 old order rows and2 contact snapshots retained; no coordinator cloudBusinessPOST; actual limitations accurate"
+  ],
+  "status": "ACTUAL_RECEIPT_READY_FOR_NONAUTHOR_REVIEW",
+  "acceptance": "NOT_RUN",
+  "tests": [],
+  "evidence": [
+    "coordination/evidence/GRAB-20261101-01/release/FINAL-RELEASE-RECEIPT.json"
+  ],
+  "nextAction": "Only exact metadata candidate audit, no source edits/build/cloud/fulltests/deploy",
+  "deploy_owner": "coordinator",
+  "releaseReady": false,
+  "updatedAt": "2026-10-31T18:14:22.314481+00:00"
+}

@@ -1,0 +1,10 @@
+{
+  "pr": 51,
+  "mergeSha": "03fbf3e198e690d06d7b1dac65e106cf1411865c",
+  "expectedHeadSha": "ac159173499951ebafb2a95b0a83af38e14ed5e3",
+  "ciId": 41227588478,
+  "ciConclusion": "success",
+  "wholeRepositoryTreeEqualCIHead": true,
+  "productSource": "36fdf2c1bddd859f3dff22fbeb2d7e70aa94ec7c",
+  "backendTree": "c5df96a35efc38ca50442b029681b7790b688922"
+}

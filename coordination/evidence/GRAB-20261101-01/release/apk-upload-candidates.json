@@ -1,0 +1,10 @@
+[
+  {
+    "role": "driver",
+    "candidateObject": "distribution/candidates/grab25-36fdf2c/driver.apk",
+    "generation": "1793470168248237",
+    "sha256": "3a3f2db718f282fc0a365dcef991be984e7bc32666092bc9d6daa0ac483243ec",
+    "bytes": 133079630,
+    "status": "CANDIDATE_ONLY_NOT_PUBLISHED"
+  }
+]

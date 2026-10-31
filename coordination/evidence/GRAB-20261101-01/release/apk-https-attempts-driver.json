@@ -1,0 +1,16 @@
+[
+  {
+    "transport": "local_direct",
+    "curlExit": 28,
+    "http": 200,
+    "bytes": 126274932,
+    "completeResponse": false
+  },
+  {
+    "transport": "local_direct_retry65s",
+    "curlExit": 0,
+    "http": 200,
+    "bytes": 133079630,
+    "completeResponse": true
+  }
+]
