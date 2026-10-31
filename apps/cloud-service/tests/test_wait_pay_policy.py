@@ -1,3 +1,4 @@
+import test_passenger as competition_fixture
 """Transport availability is independent of outstanding passenger payment."""
 import concurrent.futures
 import json
@@ -62,16 +63,18 @@ class WaitPayPolicyTests(PolicyCase):
 
     def test_one_driver_cannot_concurrently_accept_two_new_orders_with_old_debt(self):
         p,d=self.setup_pair();self.private_wait_pay(d);p2=self.passenger_login('13800000102');ids=[self.create(p['token'])['id'],self.create(p2['token'])['id']]
+        competition_fixture.competition_location(self,d['token'],ids[0])
         def accept(oid):
             req=urllib.request.Request(f'http://127.0.0.1:{self.driver.server_port}/api/action',data=json.dumps({'action':'order.accept','payload':{'id':oid},'requestId':str(uuid.uuid4())}).encode(),headers={'Content-Type':'application/json','X-Demo-Access':ACCESS,'Authorization':'Bearer '+d['token']})
             try:
                 with urllib.request.urlopen(req,timeout=15) as response:return response.status
             except urllib.error.HTTPError as exc:return exc.code
         with concurrent.futures.ThreadPoolExecutor(2) as pool:statuses=list(pool.map(accept,ids))
-        self.assertEqual(sorted(statuses),[200,409]);self.assertEqual(sum(o['stage'] in ACTIVE for o in self.state(d['token'])['orders']),1)
+        self.assertEqual(sorted(statuses),[200,200]);competition_fixture.competition_finish(self,d['token']);self.assertEqual(sum(o['stage'] in ACTIVE for o in self.state(d['token'])['orders']),1)
 
     def test_cross_instance_accept_conflict_with_private_debt_retains_one_assignment(self):
         p,d=self.setup_pair();self.private_wait_pay(d);p2=self.passenger_login('13800000102');ids=[self.create(p['token'])['id'],self.create(p2['token'])['id']];other=self.start()
+        competition_fixture.competition_location(self,d['token'],ids[0])
         self.remote.barrier=threading.Barrier(2)
         def accept(pair):
             oid,server=pair;req=urllib.request.Request(f'http://127.0.0.1:{server.server_port}/api/action',data=json.dumps({'action':'order.accept','payload':{'id':oid},'requestId':str(uuid.uuid4())}).encode(),headers={'Content-Type':'application/json','X-Demo-Access':ACCESS,'Authorization':'Bearer '+d['token']})
@@ -81,11 +84,12 @@ class WaitPayPolicyTests(PolicyCase):
         try:
             with concurrent.futures.ThreadPoolExecutor(2) as pool:statuses=list(pool.map(accept,zip(ids,[self.driver,other])))
         finally:self.remote.barrier=None
-        self.assertEqual(sorted(statuses),[200,503]);self.assertEqual(sum(o['stage'] in ACTIVE for o in self.state(d['token'])['orders']),1)
+        self.assertEqual(sorted(statuses),[200,503]);competition_fixture.competition_finish(self,d['token']);self.assertEqual(sum(o['stage'] in ACTIVE for o in self.state(d['token'])['orders']),1)
         self.assertEqual(self.projected(d['token'],'YC1001')['stage'],'WAIT_PAY')
 
     def test_cross_instance_late_payment_and_accept_retry_preserve_both_orders(self):
         p,d,a=self.shared_wait_pay();p2=self.passenger_login('13800000102');b=self.create(p2['token']);other=self.start();balance=self.state(d['token'])['balance']
+        competition_fixture.competition_location(self,d['token'],b['id'])
         calls=[(self.driver,'/api/passenger/action',p['token'],{'action':'order.pay','payload':{'id':a['id'],'expectedFare':a['fare'],'fareVersion':0},'requestId':'pay-cas'}),
                (other,'/api/action',d['token'],{'action':'order.accept','payload':{'id':b['id']},'requestId':'accept-cas'})]
         def invoke(call):
@@ -101,6 +105,7 @@ class WaitPayPolicyTests(PolicyCase):
         self.assertEqual(sorted(statuses),[200,503])
         # Retry both exact requests: the winning write replays; the loser reads the new snapshot.
         for call in calls:self.assertEqual(invoke(call),200)
+        competition_fixture.competition_finish(self,d['token'])
         self.assertEqual(self.get_order(p['token'],a['id'])['stage'],'DONE')
         self.assertEqual(self.get_order(p2['token'],b['id'])['stage'],'PICKUP')
         state=self.state(d['token']);self.assertEqual([o['id'] for o in state['orders'] if o['stage'] in ACTIVE],[b['id']])

@@ -1,0 +1,196 @@
+diff --git a/candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/CompetitionRules.kt b/candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/CompetitionRules.kt
+index 5fe9efe..2b0432b 100644
+--- a/candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/CompetitionRules.kt
++++ b/candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/CompetitionRules.kt
+@@ -310,6 +310,62 @@ class CompetitionWatch(private val maxWaitMs: Long = 25_000L) {
+     }
+ }
+ 
++/** What a cancel dialog was opened to do; fixed at opening, never re-derived from a later state. */
++enum class CancelIntent { WITHDRAW, ASSIGNED_CANCEL, LEGACY }
++
++/**
++ * Identity of one open cancel/withdraw dialog: account, order, intent, the competition round and
++ * the stage it was opened for. A refreshed state that no longer yields the same scope (new round,
++ * other stage/intent/account/owner) invalidates the dialog; the request only ever carries [round].
++ */
++data class CancelScope(val account: String, val orderId: String, val intent: CancelIntent, val round: Int?, val stage: String) {
++    fun encode(): String = listOf(account, orderId, intent.name, round?.toString().orEmpty(), stage).joinToString("\u001f")
++
++    companion object {
++        fun decode(value: String?): CancelScope? {
++            val p = value?.split('\u001f') ?: return null
++            if (p.size != 5 || p[0].isBlank() || p[1].isBlank() || p[4].isBlank()) return null
++            val intent = runCatching { CancelIntent.valueOf(p[2]) }.getOrNull() ?: return null
++            val round = if (p[3].isEmpty()) null else p[3].toIntOrNull() ?: return null
++            if ((intent == CancelIntent.LEGACY) != (round == null)) return null
++            return CancelScope(p[0], p[1], intent, round, p[4])
++        }
++    }
++}
++
++object CancelScopes {
++    /**
++     * The scope a dialog may open with for [order] as [account] sees it now, or null when neither a
++     * withdrawal nor a cancellation is allowed. Withdraw: own server-PENDING candidacy of an AVAILABLE
++     * round. Assigned cancel: own (driverId) competition order in the original pre-boarding cancel
++     * stages. Legacy: rows without competition (BID/private) under the original canCancel rule.
++     * A shared ordinary row missing its competition fails closed.
++     */
++    fun open(account: String, order: DriverOrder?): CancelScope? {
++        if (account.isBlank() || order == null) return null
++        val c = order.competition
++        return when {
++            c != null && order.stage == Stage.AVAILABLE ->
++                if (c.myOutcome == "PENDING") CancelScope(account, order.id, CancelIntent.WITHDRAW, c.round, order.stage.name) else null
++            c != null ->
++                if (order.canCancel && order.driverId == account) CancelScope(account, order.id, CancelIntent.ASSIGNED_CANCEL, c.round, order.stage.name) else null
++            order.competitionRequired -> null
++            order.canCancel -> CancelScope(account, order.id, CancelIntent.LEGACY, null, order.stage.name)
++            else -> null
++        }
++    }
++
++    /** True only while the latest state still yields exactly the captured scope. */
++    fun stillValid(scope: CancelScope, account: String, latest: DriverOrder?): Boolean =
++        latest?.id == scope.orderId && open(account, latest) == scope
++
++    /** order.cancel payload: the captured round, never one substituted from a newer state. */
++    fun body(scope: CancelScope, reason: String): JSONObject =
++        JSONObject().put("id", scope.orderId).put("reason", reason).apply {
++            scope.round?.let { put("competitionRound", it) }
++        }
++}
++
+ /** Bounded record of reminded/dismissed keys (account+order+round only; no token/address/phone/GPS). */
+ interface GrabSeenLog {
+     fun contains(key: GrabAlertKey): Boolean
+diff --git a/candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/MainActivity.kt b/candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/MainActivity.kt
+index 61cb8a8..e34f27f 100644
+--- a/candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/MainActivity.kt
++++ b/candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/MainActivity.kt
+@@ -90,7 +90,7 @@ private fun ConnectedApp(store: ConnectedStore, state: DriverState) {
+     var orderFilter by rememberSaveable { mutableIntStateOf(0) }
+     var stack by rememberSaveable { mutableStateOf(listOf("root")) }
+     var confirm by remember { mutableStateOf<CoreConfirm?>(null) }
+-    var cancelOrder by rememberSaveable { mutableStateOf<String?>(null) }
++    var cancelScopeValue by rememberSaveable { mutableStateOf<String?>(null) }
+     var cancelReason by rememberSaveable { mutableStateOf("") }
+     var cancelOther by rememberSaveable { mutableStateOf("") }
+     var wantsOnline by remember { mutableStateOf(false) }
+@@ -447,7 +447,7 @@ private fun ConnectedApp(store: ConnectedStore, state: DriverState) {
+                                         onCancel = {
+                                             cancelReason = ""
+                                             cancelOther = ""
+-                                            cancelOrder = id
++                                            cancelScopeValue = CancelScopes.open(driverAccount(store.payload.value), store.state.value.orders.firstOrNull { it.id == id })?.encode()
+                                         },
+                                         onMessage = ::message,
+                                         onHome = { navigate("home") },
+@@ -458,7 +458,7 @@ private fun ConnectedApp(store: ConnectedStore, state: DriverState) {
+                                         onWithdraw = {
+                                             cancelReason = ""
+                                             cancelOther = ""
+-                                            cancelOrder = id
++                                            cancelScopeValue = CancelScopes.open(driverAccount(store.payload.value), store.state.value.orders.firstOrNull { it.id == id })?.encode()
+                                         },
+                                     )
+                             }
+@@ -536,13 +536,16 @@ private fun ConnectedApp(store: ConnectedStore, state: DriverState) {
+             dismissButton = { DriverTextButton(onClick = { confirm = null }) { Text("返回") } },
+         )
+     }
+-    cancelOrder?.let { id ->
+-        val cancelTarget = state.orders.firstOrNull { it.id == id }
+-        // An AVAILABLE competition row here is this driver's own candidacy: withdrawing leaves only
+-        // the current round and never cancels the passenger's order.
+-        val withdrawing = cancelTarget?.stage == Stage.AVAILABLE && cancelTarget.competition != null
++    val cancelScope = CancelScope.decode(cancelScopeValue)
++    val cancelScopeValid = cancelScope != null && state.loggedIn &&
++        CancelScopes.stillValid(cancelScope, driverAccount(payload), state.orders.firstOrNull { it.id == cancelScope.orderId })
++    LaunchedEffect(cancelScopeValue, cancelScopeValid) {
++        if (!cancelScopeValid) cancelScopeValue = null
++    }
++    cancelScope?.takeIf { cancelScopeValid }?.let { captured ->
++        val withdrawing = captured.intent == CancelIntent.WITHDRAW
+         DriverDialog(
+-            onDismissRequest = { cancelOrder = null },
++            onDismissRequest = { cancelScopeValue = null },
+             title = { Text(if (withdrawing) "退出本轮竞抢" else "取消订单") },
+             text = {
+                 Column(Modifier.verticalScroll(rememberScrollState())) {
+@@ -578,18 +581,22 @@ private fun ConnectedApp(store: ConnectedStore, state: DriverState) {
+                     onClick = {
+                         val reason =
+                             if (cancelReason == "其他原因") cancelOther.trim() else cancelReason
+-                        cancelOrder = null
+-                        // GRAB V1: competition orders carry the round read from state, so a cancel or
+-                        // withdraw can never land on a newer round of the same order id.
+-                        val cancelBody = JSONObject().put("id", id).put("reason", reason)
+-                        cancelTarget?.competition?.let { cancelBody.put("competitionRound", it.round) }
+-                        store.perform("order.cancel", cancelBody)
++                        cancelScopeValue = null
++                        // Validate the latest store at click too: recomposition may not yet have
++                        // observed a new round/account/stage. Always submit the captured identity.
++                        val latest = store.state.value
++                        if (latest.loggedIn && CancelScopes.stillValid(
++                                captured, driverAccount(store.payload.value),
++                                latest.orders.firstOrNull { it.id == captured.orderId },
++                            )) {
++                            store.perform("order.cancel", CancelScopes.body(captured, reason))
++                        } else message("订单状态已变化，请重新操作。")
+                     },
+                 ) {
+                     Text("确认取消", fontSize = 16.sp, lineHeight = 22.sp, fontWeight = FontWeight.Bold)
+                 }
+             },
+-            dismissButton = { DriverTextButton(onClick = { cancelOrder = null }) { Text("继续行程") } },
++            dismissButton = { DriverTextButton(onClick = { cancelScopeValue = null }) { Text("继续行程") } },
+         )
+     }
+ }
+diff --git a/candidates/driver-0.3.6-r2/android/app/src/test/java/cn/hbzjhs/driver/preview/CompetitionRulesTest.kt b/candidates/driver-0.3.6-r2/android/app/src/test/java/cn/hbzjhs/driver/preview/CompetitionRulesTest.kt
+index 0e52bdf..246e5bc 100644
+--- a/candidates/driver-0.3.6-r2/android/app/src/test/java/cn/hbzjhs/driver/preview/CompetitionRulesTest.kt
++++ b/candidates/driver-0.3.6-r2/android/app/src/test/java/cn/hbzjhs/driver/preview/CompetitionRulesTest.kt
+@@ -16,6 +16,40 @@ class CompetitionRulesTest {
+     private fun avail(c: OrderCompetition?, deadline: Long? = null, now: Long = 0, pending: Boolean = false, kind: String = "STANDARD", stage: String = "AVAILABLE", required: Boolean = false) =
+         CompetitionRules.availability(kind, stage, c, deadline, now, pending, required)
+ 
++    private fun cancelRow(stage: Stage = Stage.AVAILABLE, round: Int = 1, outcome: String = "PENDING", driver: String = "") =
++        DriverOrder("order1", OrderKind.STANDARD, "起", "终", 1000, "1km", "1", "现在",
++            stage = stage, shared = true, competitionRequired = true, driverId = driver,
++            competition = comp(if (stage == Stage.AVAILABLE) "OPEN" else "ASSIGNED", round, outcome))
++
++    @Test
++    fun cancelDialogCannotFollowAnotherRoundAccountOrStage() {
++        val row = cancelRow()
++        val scope = CancelScopes.open("d1", row)!!
++        assertEquals(CancelIntent.WITHDRAW, scope.intent)
++        assertEquals(scope, CancelScope.decode(scope.encode()))
++        assertTrue(CancelScopes.stillValid(scope, "d1", row))
++        assertFalse(CancelScopes.stillValid(scope, "d1", cancelRow(round = 2)))
++        assertFalse(CancelScopes.stillValid(scope, "d2", row))
++        assertFalse(CancelScopes.stillValid(scope, "d1", cancelRow(outcome = "WITHDRAWN")))
++        assertFalse(CancelScopes.stillValid(scope, "d1", cancelRow(Stage.PICKUP, driver = "d1")))
++        assertEquals(1, CancelScopes.body(scope, "原因").getInt("competitionRound"))
++    }
++
++    @Test
++    fun assignedCancellationRequiresCurrentOwnershipAndPreservesLegacy() {
++        val assigned = cancelRow(Stage.PICKUP, driver = "d1")
++        val scope = CancelScopes.open("d1", assigned)!!
++        assertEquals(CancelIntent.ASSIGNED_CANCEL, scope.intent)
++        assertFalse(CancelScopes.stillValid(scope, "d1", assigned.copy(stage = Stage.ARRIVED)))
++        assertFalse(CancelScopes.stillValid(scope, "d1", assigned.copy(driverId = "d2")))
++        assertNull(CancelScopes.open("d1", assigned.copy(stage = Stage.TRIP)))
++        assertNull(CancelScopes.open("d1", assigned.copy(competition = null)))
++        val legacy = assigned.copy(shared = false, synthetic = true, competition = null, competitionRequired = false)
++        val old = CancelScopes.open("d1", legacy)!!
++        assertEquals(CancelIntent.LEGACY, old.intent)
++        assertFalse(CancelScopes.body(old, "原因").has("competitionRound"))
++    }
++
+     @Test
+     fun readyOpenDeadlineAndPendingStates() {
+         // READY: no first contender yet, deadline null, may grab.

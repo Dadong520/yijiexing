@@ -8,6 +8,7 @@ from passenger_extras import PassengerExtrasMixin
 from order_options import PassengerOrderOptionsMixin
 from negotiation import NegotiationMixin
 from trip_distance import TripDistanceMixin
+from competition import CompetitionMixin
 
 PASSENGER_MOBILES = ('13800000101', '13800000102', '13800000103')
 PASSENGER_SCHEMA = '''
@@ -21,9 +22,10 @@ CREATE TABLE IF NOT EXISTS passenger_actions(passenger TEXT,request_id TEXT,requ
 '''
 UNFINISHED = {'AVAILABLE','BID_SENT','PREPAY','RESERVED','PICKUP','ARRIVED','TRIP','WAIT_PAY','WAIT_CONTINUE'}
 
-class PassengerMixin(TripDistanceMixin,NegotiationMixin,PassengerOrderOptionsMixin,PassengerExtrasMixin):
+class PassengerMixin(CompetitionMixin,TripDistanceMixin,NegotiationMixin,PassengerOrderOptionsMixin,PassengerExtrasMixin):
     def init_passenger(self):
         self.db.executescript(PASSENGER_SCHEMA)
+        self.init_competitions()
     def passenger_mobile(self, mobile):
         require(isinstance(mobile,str) and mobile in getattr(self,'allowed_passenger_mobiles',PASSENGER_MOBILES),'此手机号未获乘客体验授权',403)
         return mobile
@@ -106,6 +108,7 @@ class PassengerMixin(TripDistanceMixin,NegotiationMixin,PassengerOrderOptionsMix
         canonical=self.shared_order(oid) if (oid and is_shared) else None
         if is_shared:
             o=self.trip_order_view(o)
+            if self.competition_enabled(canonical or o):o['competition']=self.competition_view(driver,canonical or o)
             for key in ('passengerId','bids','complaints'):o.pop(key,None)
             o.setdefault('fareVersion',self.order_fare_version(canonical or o))
             if driver and canonical and canonical.get('driverId')==driver and canonical.get('stage')=='ARRIVED':
@@ -190,6 +193,7 @@ class PassengerMixin(TripDistanceMixin,NegotiationMixin,PassengerOrderOptionsMix
             a=self.account(o['driverId']);value['driver']['location']=json.loads(a['location']) if a['location'] and o['stage'] in ('PREPAY','RESERVED','PICKUP','ARRIVED','TRIP') else None
         return value
     def passenger_data(self,pid,client='MINIPROGRAM'):
+        self.settle_competitions()
         self.expire_passenger_bids()
         profile=self.passenger_profile(pid)
         raw_orders=[self.passenger_view(json.loads(r['payload'])) for r in self.db.execute('SELECT payload FROM passenger_orders WHERE passenger=? ORDER BY created DESC,rowid DESC',(pid,))]
@@ -213,6 +217,7 @@ class PassengerMixin(TripDistanceMixin,NegotiationMixin,PassengerOrderOptionsMix
             'features':{'payment':'SIMULATED','sms':'SIMULATED','route':'SCHEMATIC','driverLocation':True,'externalPush':False,'humanSupport':False},
             'environment':{'name':'宜捷行独立云体验环境','sandbox':True,'originalSpringBackend':False,'network':'Google Cloud独立体验服务，不连接原测试环境'},'serverTime':stamp()}
     def sync_shared_orders(self,driver):
+        self.settle_competitions()
         self.expire_passenger_bids()
         a=self.account(driver);st=json.loads(a['state']);city=json.loads(a['profile'])['driver']['city']
         private=[o for o in st['orders'] if not o.get('shared')]
@@ -327,6 +332,7 @@ class PassengerMixin(TripDistanceMixin,NegotiationMixin,PassengerOrderOptionsMix
             (o['id'],pid,rider['name'],rider['mobile'],stamp()))
         return {'order':self.passenger_view(o)}
     def passenger_action(self,pid,action,p,request_id=None):
+        self.settle_competitions()
         self.expire_passenger_bids()
         require(isinstance(action,str) and 1<=len(action)<=80,'操作名称无效');require(isinstance(p,dict),'操作参数须为JSON对象')
         require(isinstance(request_id,str) and 1<=len(request_id)<=120,'乘客操作必须提供有效requestId')
@@ -458,8 +464,21 @@ class PassengerMixin(TripDistanceMixin,NegotiationMixin,PassengerOrderOptionsMix
         fp=hashlib.sha256(dumps({'action':action,'payload':p}).encode()).hexdigest()
         if request_id:
             old=self.db.execute('SELECT * FROM actions WHERE driver=? AND request_id=?',(driver,request_id)).fetchone()
-            if old:require(old['request_hash']==fp,'请求标识被其他操作占用',409);return self.driver_result_view(driver,json.loads(old['result']))
-        st=self.sync_shared_orders(driver);projected=self.order(st,p.get('id'));o=self.shared_order(p['id']);complaint_result=None
+            if old:
+                require(old['request_hash']==fp,'请求标识被其他操作占用',409)
+                current=self.shared_order(p.get('id'))
+                if self.competition_enabled(current) and action in ('order.accept','order.cancel'):
+                    return self.competition_result(driver,current,p.get('competitionRound',1))
+                return self.driver_result_view(driver,json.loads(old['result']))
+        st=self.sync_shared_orders(driver);o=self.shared_order(p['id']);complaint_result=None
+        if self.competition_enabled(o) and action in ('order.accept','order.cancel'):
+            if action=='order.accept':result=self.join_competition(driver,o,p)
+            elif o.get('driverId')==driver:result=self.reopen_competition(driver,o,p)
+            else:result=self.withdraw_competition(driver,o,p)
+            if request_id:self.db.execute('INSERT INTO actions VALUES (?,?,?,?)',(driver,request_id,fp,dumps(result)))
+            self.sync_shared_orders(driver)
+            return result
+        projected=self.order(st,p.get('id'))
         if action in ('order.accept','order.bid'):
             feature={'BID':'bidding','RESERVED':'reservation'}.get(o['kind'],'instant')
             self.new_accept(driver,st,projected,feature)

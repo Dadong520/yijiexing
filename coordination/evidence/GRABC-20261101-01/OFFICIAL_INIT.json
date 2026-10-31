@@ -1,0 +1,13 @@
+{
+  "session_id": "f0e957b7-5f75-4d4b-88a7-0043b2ad9253",
+  "model": "claude-opus-5-5",
+  "cwd": "/Users/dongge/.codex/tmp/yijiexing-order-competition-20261101",
+  "permissionMode": "acceptEdits",
+  "tools": [
+    "Edit",
+    "Glob",
+    "Grep",
+    "Read",
+    "Write"
+  ]
+}

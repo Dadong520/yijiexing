@@ -1,0 +1,19 @@
+{
+  "sourceSha": "36fdf2c1bddd859f3dff22fbeb2d7e70aa94ec7c",
+  "tools": {
+    "command": "python3 -m unittest discover -s tools -p test_check_coordination.py -v",
+    "count": 27,
+    "exitCode": 0,
+    "result": "PASS"
+  },
+  "mini": {
+    "command": "npm test && npm run check",
+    "count": 74,
+    "failures": 0,
+    "exitCode": 0,
+    "projectCheck": "PASS",
+    "backendScope": "frozenv8 regression, not current competition backend acceptance",
+    "wechatCompilation": "NOT_RUN AppID absent"
+  },
+  "at": "2026-10-31T18:02:36.929827+00:00"
+}

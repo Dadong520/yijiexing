@@ -11,9 +11,10 @@ import unittest
 import urllib.error
 import urllib.request
 import uuid
+from unittest.mock import patch
 
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1]))
-from common import ApiError, clone, dumps, now, stamp
+from common import ApiError, clone, dumps, now, stamp, parse_time
 from domain import Service
 from admin_console import AdminConsole, ROLES
 from seed import initial_profile, initial_state
@@ -41,7 +42,17 @@ class TripDistanceRules(unittest.TestCase):
         self.svc.close(); self.tmp.cleanup()
 
     def da(self, action, p, rid=None):
-        return self.svc.action('D1', action, p, rid or str(uuid.uuid4()))
+        before=self.svc.shared_order(p.get('id')) if action=='order.accept' else None
+        if self.svc.competition_enabled(before):
+            self.svc.action('D1','location.report',{'latitude':before['originLat'],'longitude':before['originLng'],
+                'accuracy':5,'time':stamp(),'coordinateSystem':'WGS84'},str(uuid.uuid4()))
+        reply=self.svc.action('D1', action, p, rid or str(uuid.uuid4()))
+        if self.svc.competition_enabled(before):
+            with patch('competition.now',return_value=parse_time(reply['competition']['deadline'])):
+                self.svc.data('D1')
+            self.svc.db.execute('UPDATE accounts SET location=NULL WHERE id=?',('D1',))
+            reply={'order':self.svc.project_driver_order('D1',self.svc.shared_order(before['id']))}
+        return reply
 
     def pa(self, action, p, pid='P1', rid=None):
         return self.svc.passenger_action(pid, action, p, rid or str(uuid.uuid4()))
@@ -193,9 +204,9 @@ class TripDistanceRules(unittest.TestCase):
 
     def test_driver_cancel_and_continue_invalidate_old_confirmation(self):
         self.create(); request = self.pending(); self.da('order.cancel', {'id': self.oid, 'reason': '车辆故障'})
-        self.assertEqual('WAIT_CONTINUE', self.order()['stage'])
+        self.assertEqual('AVAILABLE', self.order()['stage'])
+        self.assertEqual(2,self.svc.competition_view('D1',self.order())['round'])
         self.assertEqual('INVALIDATED', self.order()['distanceConsent']['status'])
-        self.pa('order.continue', {'id': self.oid, 'decision': 1})
         self.assertIsNone(self.order()['driverId'])
         with self.assertRaises(ApiError): self.decide(request)
 
@@ -295,7 +306,12 @@ class TripDistanceHttp(unittest.TestCase):
         order = self.pa(pt, 'order.create', {'kind': 'STANDARD', 'origin': '接口上车点', 'destination': '接口目的地',
                   'originLat': 30, 'originLng': 111, 'destinationLat': 30.02, 'destinationLng': 111.02})['result']['order']
         oid = order['id']
-        self.driver_action(token, 'order.accept', {'id': oid})
+        self.driver_action(token,'location.report',{'latitude':30.,'longitude':111.,'accuracy':5,'time':stamp(),'coordinateSystem':'WGS84'})
+        pending_grab=self.driver_action(token, 'order.accept', {'id': oid})
+        with patch('competition.now',return_value=parse_time(pending_grab['result']['competition']['deadline'])):
+            self.request('/api/state',token=token)
+        with self.driver.request_lock:
+            svc=self.driver.coordinator.begin();svc.db.execute('UPDATE accounts SET location=NULL');svc.db.commit();self.driver.coordinator.finish()
         self.driver_action(token, 'order.advance', {'id': oid, 'expectedStage': 'PICKUP'})
         pending = self.driver_action(token, 'order.advance', {'id': oid, 'expectedStage': 'ARRIVED', 'phoneTail': '0101'})['result']['order']
         self.assertEqual('ARRIVED', pending['stage']); consent = pending['distanceConsent']

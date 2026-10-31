@@ -1,0 +1,89 @@
+{
+  "sourceSha": "36fdf2c1bddd859f3dff22fbeb2d7e70aa94ec7c",
+  "orderId": "PORD8e34666613ce",
+  "clickAfterCreate": 2.098667000012938,
+  "afterClick": {
+    "stage": "AVAILABLE",
+    "competition": {
+      "round": 1,
+      "status": "OPEN",
+      "deadline": "2026-11-01T01:54:56.274084+08:00",
+      "serverNow": "2026-11-01T01:54:51.599874+08:00",
+      "serverTime": "2026-11-01T01:54:51.599874+08:00",
+      "selfStatus": "PENDING",
+      "remainingMs": 4675,
+      "myOutcome": "PENDING"
+    }
+  },
+  "observations": [
+    {
+      "afterClick": 0.3597512499836739,
+      "stage": "AVAILABLE",
+      "driverId": null
+    },
+    {
+      "afterClick": 1.1417408339912072,
+      "stage": "AVAILABLE",
+      "driverId": null
+    },
+    {
+      "afterClick": 1.8807811249862425,
+      "stage": "AVAILABLE",
+      "driverId": null
+    },
+    {
+      "afterClick": 2.607849041989539,
+      "stage": "AVAILABLE",
+      "driverId": null
+    },
+    {
+      "afterClick": 3.3319554589979816,
+      "stage": "AVAILABLE",
+      "driverId": null
+    },
+    {
+      "afterClick": 4.069961000001058,
+      "stage": "AVAILABLE",
+      "driverId": null
+    },
+    {
+      "afterClick": 4.794380749983247,
+      "stage": "AVAILABLE",
+      "driverId": null
+    },
+    {
+      "afterClick": 5.526547708985163,
+      "stage": "PICKUP",
+      "driverId": "D24035ee2a292"
+    },
+    {
+      "afterClick": 6.25449220900191,
+      "stage": "PICKUP",
+      "driverId": "D24035ee2a292"
+    },
+    {
+      "afterClick": 6.988063999975566,
+      "stage": "PICKUP",
+      "driverId": "D24035ee2a292"
+    },
+    {
+      "afterClick": 7.7054676249972545,
+      "stage": "PICKUP",
+      "driverId": "D24035ee2a292"
+    },
+    {
+      "afterClick": 8.417624041991076,
+      "stage": "PICKUP",
+      "driverId": "D24035ee2a292"
+    }
+  ],
+  "peerJoined": true,
+  "ownResults": [
+    {
+      "orderId": "PORD8e34666613ce",
+      "round": 1,
+      "outcome": "LOST"
+    }
+  ],
+  "nearestExpectedId": "D24035ee2a292"
+}

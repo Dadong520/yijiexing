@@ -3,9 +3,29 @@ import concurrent.futures
 import datetime as dt
 import uuid
 import unittest
+from unittest.mock import patch
 import test_cloud
 from test_cloud import ACCESS, ADMIN
-from common import now, stamp
+from common import now, stamp, parse_time
+
+
+def competition_location(test, token, oid, server=None):
+    """Explicit fixture GPS for older policy/race tests, never a production bypass."""
+    order=next(o for o in test.request('/api/state',token=token,server=server)['state']['orders'] if o['id']==oid)
+    test.request('/api/action',{'action':'location.report','payload':{'latitude':order['originLat'],
+        'longitude':order['originLng'],'accuracy':5,'time':stamp(),'coordinateSystem':'WGS84'},
+        'requestId':str(uuid.uuid4())},token=token,server=server)
+
+
+def competition_finish(test, token, server=None):
+    """Advance only the competition clock; real HTTP commits the due assignments."""
+    reply=test.request('/api/state',token=token,server=server)
+    deadlines=[parse_time(o['competition']['deadline']) for o in reply['state']['orders']
+        if o.get('competition',{}).get('status')=='OPEN']
+    if deadlines:
+        with patch('competition.now',return_value=max(deadlines)):
+            return test.request('/api/state',token=token,server=server)
+    return reply
 
 
 class PassengerIntegration(unittest.TestCase):
@@ -35,6 +55,16 @@ class PassengerIntegration(unittest.TestCase):
             for field in ('originLat','originLng','destinationLat','destinationLng'):self.assertIsInstance(order[field],(int,float));self.assertTrue(math.isfinite(order[field]))
         return reply
     def da(self,token,action,payload=None,**kw):
+        # Older business-policy tests explicitly await the new competition. Raw
+        # contention HTTP/CAS tests bypass this helper and assert AVAILABLE/pending.
+        if action=='order.accept' and payload:
+            state=self.request('/api/state',token=token,server=kw.get('server'))['state']
+            candidate=next((o for o in state['orders'] if o['id']==payload.get('id')),None)
+            if candidate and candidate.get('shared') and candidate['kind'] in ('STANDARD','RESERVED'):
+                payload=dict(payload,competitionRound=candidate.get('competition',{}).get('round',1))
+                self.request('/api/action',{'action':'location.report','payload':{
+                    'latitude':candidate['originLat'],'longitude':candidate['originLng'],'accuracy':5,
+                    'time':stamp(),'coordinateSystem':'WGS84'},'requestId':str(uuid.uuid4())},token=token,server=kw.get('server'))
         # These older regressions exercise fares/stages/policy, not distance.
         # Supply explicit fresh virtual GPS through both authenticated APIs.
         # test_trip_distance uses a separate raw driver_action and tests missing,
@@ -51,7 +81,19 @@ class PassengerIntegration(unittest.TestCase):
                         if any(o['id']==current['id'] for o in owned):
                             self.pa(passenger_token,'location.report',{'id':current['id'],**location},server=kw.get('server'));break
                 self.request('/api/action',{'action':'location.report','payload':location,'requestId':str(uuid.uuid4())},token=token,server=kw.get('server'))
-        return self.assert_driver_compatible(self.request('/api/action',{'action':action,'payload':payload or {},'requestId':kw.pop('rid',str(uuid.uuid4()))},token=token,**kw))
+        reply=self.assert_driver_compatible(self.request('/api/action',{'action':action,'payload':payload or {},'requestId':kw.pop('rid',str(uuid.uuid4()))},token=token,**kw))
+        competition=reply.get('result',{}).get('competition')
+        if action=='order.accept' and competition and competition['myOutcome']=='PENDING':
+            with patch('competition.now',return_value=parse_time(competition['deadline'])):
+                assigned=self.request('/api/state',token=token,server=kw.get('server'))
+            current=next((o for o in assigned['state']['orders'] if o['id']==payload['id']),None)
+            self.assertIsNotNone(current)
+            self.assertIn(current['stage'],('PICKUP','RESERVED'))
+            reply=assigned;reply['result']={'order':current}
+        elif competition and 'order' not in reply.get('result',{}):
+            current=next((o for o in reply['state']['orders'] if o['id']==payload['id']),None)
+            if current:reply['result']['order']=current
+        return reply
     def create(self,token,kind='STANDARD',**overrides):
         p={'kind':kind,'origin':'万达广场','destination':'宜昌东站','originLat':30.6687,'originLng':111.3226,'destinationLat':30.6645,'destinationLng':111.3694}
         if kind=='RESERVED':p['scheduledAt']=stamp(now()+dt.timedelta(hours=1))
@@ -103,7 +145,8 @@ class PassengerIntegration(unittest.TestCase):
         admin=self.start(role='admin');self.request('/api/local/admin/action',{'action':'sandbox.event','payload':{'driverId':d['profile']['driver']['id'],'orderId':oid,'event':'PASSENGER_PAY_SUCCESS'}},server=admin,admin=True,expected=403)
     def test_racing_accept_and_cas_no_dual_assignment(self):
         p,d=self.setup_pair();d2=self.login('13800000002');self.da(d2['token'],'driver.online',{'online':True});oid=self.create(p['token'])['id']
-        # Competing requests at one service serialize under the same service lock.
+        for token in (d['token'],d2['token']):competition_location(self,token,oid)
+        # Both valid contenders can enter; only the deadline settlement assigns.
         def accept(token):
             import json,urllib.request,urllib.error
             data=json.dumps({'action':'order.accept','payload':{'id':oid},'requestId':str(uuid.uuid4())}).encode()
@@ -111,7 +154,7 @@ class PassengerIntegration(unittest.TestCase):
             try:return urllib.request.urlopen(req).status
             except urllib.error.HTTPError as e:return e.code
         with concurrent.futures.ThreadPoolExecutor(2) as pool:statuses=list(pool.map(accept,[d['token'],d2['token']]))
-        self.assertEqual(sorted(statuses),[200,404]);self.assertIn(self.get_order(p['token'],oid)['driver']['id'],[d['profile']['driver']['id'],d2['profile']['driver']['id']])
+        self.assertEqual(sorted(statuses),[200,200]);competition_finish(self,d['token']);self.assertIn(self.get_order(p['token'],oid)['driver']['id'],[d['profile']['driver']['id'],d2['profile']['driver']['id']])
     def test_cancel_refund_reserved_waypoints_and_external_markers(self):
         p,d=self.setup_pair();pt,dtok=p['token'],d['token'];oid=self.create(pt,'BID')['id'];self.da(dtok,'order.bid',{'id':oid,'amount':1000});self.pa(pt,'order.selectDriver',{'id':oid,'driverId':d['profile']['driver']['id']});self.pa(pt,'order.pay',{'id':oid})
         self.pa(pt,'order.cancel',{'id':oid,'reason':'计划有变'});self.assertEqual(self.get_order(pt,oid)['paymentStatus'],'REFUNDED')
@@ -150,6 +193,7 @@ class PassengerIntegration(unittest.TestCase):
         self.da(dtok,'order.bid',{'id':oid,'amount':1900});self.assertEqual(self.get_order(pt,oid)['bids'][0]['amount'],1900)
     def test_cross_instance_race_cas_never_assigns_twice(self):
         p,d=self.setup_pair();d2=self.login('13800000002');self.da(d2['token'],'driver.online',{'online':True});oid=self.create(p['token'])['id'];other=self.start()
+        for token in (d['token'],d2['token']):competition_location(self,token,oid)
         # Ensure both independent instances load the same revision before mutating.
         import threading,json,urllib.request,urllib.error
         self.remote.barrier=threading.Barrier(2)
@@ -160,7 +204,7 @@ class PassengerIntegration(unittest.TestCase):
         try:
             with concurrent.futures.ThreadPoolExecutor(2) as pool:statuses=list(pool.map(accept,[(d['token'],self.driver),(d2['token'],other)]))
         finally:self.remote.barrier=None
-        self.assertEqual(sorted(statuses),[200,503]);order=self.get_order(p['token'],oid)
+        self.assertEqual(sorted(statuses),[200,503]);competition_finish(self,d['token']);order=self.get_order(p['token'],oid)
         self.assertIn(order['driver']['id'],[d['profile']['driver']['id'],d2['profile']['driver']['id']])
         owners=[]
         for token in (d['token'],d2['token']):
@@ -182,7 +226,7 @@ class PassengerIntegration(unittest.TestCase):
     def test_driver_cancel_same_order_continue_and_rider_snapshot(self):
         p,d=self.setup_pair();pt,dtok=p['token'],d['token'];r=self.pa(pt,'rider.save',{'name':'测试乘车人','mobile':'13800000999'})['result']['rider'];o=self.create(pt,riderId=r['id']);oid=o['id']
         self.assertEqual(o['phoneTail'],'0999');self.pa(pt,'rider.remove',{'id':r['id']});self.da(dtok,'order.accept',{'id':oid});self.da(dtok,'order.cancel',{'id':oid,'reason':'车辆出现故障'})
-        self.assertEqual(self.get_order(pt,oid)['stage'],'WAIT_CONTINUE');result=self.pa(pt,'order.continue',{'id':oid,'type':1});self.assertEqual(len(result['orders']),1);self.assertEqual(result['orders'][0]['id'],oid)
+        self.assertEqual(self.get_order(pt,oid)['stage'],'AVAILABLE');result=self.request('/api/passenger/state',token=pt);self.assertEqual(len(result['orders']),1);self.assertEqual(result['orders'][0]['id'],oid)
         self.da(dtok,'order.accept',{'id':oid});self.finish(dtok,oid,'0999');self.pa(pt,'order.pay',{'id':oid})
         title=self.pa(pt,'invoice.title.save',{'type':'PERSONAL','title':'测试乘客'})['result']['invoiceTitle'];receipt=self.pa(pt,'invoice.apply',{'orderId':oid,'titleId':title['id']})['result']['invoice']
         self.assertTrue(receipt['simulated']);self.assertEqual(receipt['status'],'SIMULATED_ISSUED');self.pa(pt,'invoice.apply',{'orderId':oid,'titleId':title['id']});self.assertEqual(len(self.request('/api/passenger/state',token=pt)['invoices']),1)
@@ -219,7 +263,7 @@ class PassengerIntegration(unittest.TestCase):
         replay=self.da(dtok,'order.complaint',payload);self.assertEqual(len(replay['profile']['blacklist']),1)
         blocked=self.create(pt)['id'];self.da(dtok,'order.accept',{'id':blocked},expected=403)
     def test_driver_wait_continue_projection_stays_legacy_compatible(self):
-        p,d=self.setup_pair();pt,dtok=p['token'],d['token'];oid=self.create(pt)['id'];self.da(dtok,'order.accept',{'id':oid})
+        p,d=self.setup_pair();pt,dtok=p['token'],d['token'];oid=self.create(pt,'BID')['id'];self.da(dtok,'order.bid',{'id':oid,'amount':2000});self.pa(pt,'order.selectDriver',{'id':oid,'driverId':d['profile']['driver']['id']})
         reply=self.da(dtok,'order.cancel',{'id':oid,'reason':'司机取消测试'})
         self.assertEqual(reply['result']['order']['stage'],'CANCELLED');self.assertEqual(self.get_order(pt,oid)['stage'],'WAIT_CONTINUE')
         driverstate=self.assert_driver_compatible(self.request('/api/state',token=dtok));self.assertEqual(next(o for o in driverstate['state']['orders'] if o['id']==oid)['stage'],'CANCELLED')
@@ -255,7 +299,7 @@ class PassengerIntegration(unittest.TestCase):
         self.assertEqual(self.get_order(pt,oid)['stage'],'PREPAY')
         self.pa(pt,'order.cancel',{'id':oid,'reason':'乘客取消已选单'});self.assert_projection_stages(self.projected_shared(dtok,oid),'CANCELLED','CANCELLED');self.assertIsNone(self.projected_shared(t2,oid))
     def test_optional_projection_distinguishes_continuation_from_final_cancellation(self):
-        p,d=self.setup_pair();pt,dtok=p['token'],d['token'];oid=self.create(pt)['id'];self.da(dtok,'order.accept',{'id':oid})
+        p,d=self.setup_pair();pt,dtok=p['token'],d['token'];oid=self.create(pt,'BID')['id'];self.da(dtok,'order.bid',{'id':oid,'amount':2000});self.pa(pt,'order.selectDriver',{'id':oid,'driverId':d['profile']['driver']['id']})
         reply=self.da(dtok,'order.cancel',{'id':oid,'reason':'司机退出等待续叫'})
         self.assert_projection_stages(reply['result']['order'],'WAIT_CONTINUE','CANCELLED')
         self.assert_projection_stages(self.projected_shared(dtok,oid),'WAIT_CONTINUE','CANCELLED')

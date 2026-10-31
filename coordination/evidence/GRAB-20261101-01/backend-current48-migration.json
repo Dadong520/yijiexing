@@ -1,0 +1,21 @@
+{
+  "backendSourceSha": "3bdb8f71743b30f83d65131bb90ed7485690b62b",
+  "backendTree": "c5df96a35efc38ca50442b029681b7790b688922",
+  "source": "exact Git archive",
+  "author": "backend",
+  "independentReviewer": "coordinator",
+  "testScope": "real isolated HTTP/SQLite/MemoryCAS; no cloud business calls",
+  "sourceGeneration": "1793466630274601",
+  "sourceSnapshotSha256": "83a78b1f7c18c2b0a15007ee73b678fbbd1f9adf0e769e376504dc05a5e8efcc",
+  "orderCount": 48,
+  "contactSnapshotCount": 2,
+  "checks": {
+    "passengerOrdersFullRowsUnchanged": true,
+    "contactSnapshotsFullRowsUnchanged": true,
+    "integrity": true,
+    "newCompetitionRows": true,
+    "newContenderRows": true
+  },
+  "scope": "Offline disposable clone of current authorized independent snapshot; only passenger_orders/contact full rows compared; no cloud writes or legacy round/phone backfill",
+  "result": "PASS"
+}

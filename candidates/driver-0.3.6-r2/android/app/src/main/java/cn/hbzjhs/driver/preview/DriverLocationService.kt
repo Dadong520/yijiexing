@@ -56,18 +56,22 @@ class DriverLocationService : Service(), LocationListener {
     private var windows: WindowManager? = null
     private var announcer: NativeOrderAnnouncer? = null
     private var orderOverlay: NewOrderOverlay? = null
-    private var shownOverlayId: String? = null
+    private val renderAlerts: () -> Unit = { updateBubble() }
+    /** State fetched by the app or the candidate poll also reaches the announcer: one poll, two readers. */
+    private val sharedState: (LocalApi.Credentials, JSONObject) -> Unit = { _, data -> applyState(data) }
+    /** Latest authoritative payload (main thread); decides this service's background cadence. */
+    private var latestState = JSONObject()
 
     private fun updateBubble() {
-        val notice = NewOrderAlerts.notices.value.lastOrNull()
-        val overlayAllowed = floatingEnabled && floatingAllowed && !DriverUiPresence.visible && Settings.canDrawOverlays(this)
-        if (overlayAllowed && notice != null && shownOverlayId != notice.id) {
-            shownOverlayId = notice.id
-            orderOverlay?.show(notice)
-        } else if (!overlayAllowed || notice == null) {
-            orderOverlay?.hide()
-            shownOverlayId = null
-        }
+        // The 3s new-order reminder is a core listening capability: it needs only the listening
+        // eligibility (enforced where reminders are admitted) and the user's own system overlay grant,
+        // never the paid floating-bubble benefit below. The foreground dialog owns it while visible.
+        val alert = NewOrderAlerts.current.value
+        val overlayAllowed = !DriverUiPresence.visible && Settings.canDrawOverlays(this)
+        if (overlayAllowed && alert != null) {
+            if (orderOverlay?.shownKey != alert.key) orderOverlay?.show(alert)
+            else orderOverlay?.render()
+        } else orderOverlay?.hide()
         val shouldShow =
             floatingEnabled &&
                 floatingAllowed &&
@@ -179,6 +183,8 @@ class DriverLocationService : Service(), LocationListener {
         super.onCreate()
         announcer = NativeOrderAnnouncer(this)
         orderOverlay = NewOrderOverlay(this)
+        NewOrderAlerts.onChanged = renderAlerts
+        GrabActions.addStateListener(sharedState)
         val notifications = getSystemService(NotificationManager::class.java)
         notifications.createNotificationChannel(
             NotificationChannel("driver-location", "接单期间的位置服务", NotificationManager.IMPORTANCE_LOW)
@@ -248,44 +254,40 @@ class DriverLocationService : Service(), LocationListener {
             stopSelf()
         }
         scope.launch {
-            var nextPollAt = 0L
-            var retryDelay = 15000L
+            // Error backoff only; 0 = healthy. The normal cadence comes from the shared gate.
+            var retryDelay = 0L
+            var nextAllowedAt = 0L
             while (isActive) {
-                delay(1000)
+                delay(500)
                 withContext(Dispatchers.Main) { updateBubble() }
-                if (SystemClock.elapsedRealtime() >= nextPollAt) {
-                    nextPollAt = SystemClock.elapsedRealtime() + retryDelay
+                if (SystemClock.elapsedRealtime() < nextAllowedAt) continue
+                // While the app is visible its store polls and this service only reads the shared
+                // state (sharedState listener). In the background this loop polls through the same
+                // single-flight gate as the store and the candidate poll: ≤2s/1s while listening,
+                // the original 15s while only a trip is in progress.
+                val began = withContext(Dispatchers.Main) {
+                    if (DriverUiPresence.visible) false
+                    else {
+                        val interval =
+                            if (latestState.optJSONObject("state") == null) StateCadence.LISTENING_MS
+                            else GrabActions.baseInterval(latestState, foreground = false) ?: StateCadence.TRIP_MS
+                        GrabActions.tryBeginBaseFetch(interval)
+                    }
+                }
+                if (!began) continue
+                run {
                     val generation = serviceGeneration
                     val credentials = LocalApi.credentials()
                     try {
+                        val started = SystemClock.elapsedRealtime()
                         val data = LocalApi.request("GET", "/api/state", credentials = credentials)
+                        val timing = RequestTiming(started, SystemClock.elapsedRealtime())
                         withContext(Dispatchers.Main) {
                         if (generation != serviceGeneration || !LocalApi.isCurrent(credentials)) return@withContext
-                        announcer?.update(data)
-                        linkAvailable = true
-                        retryDelay = 15000L
-                        val state = data.optJSONObject("state")
-                        listening = state?.optBoolean("online") == true
-                        val orders = state?.optJSONArray("orders")
-                        val inProgress =
-                            (0 until (orders?.length() ?: 0)).any { index ->
-                                orders?.optJSONObject(index)?.optString("stage") in
-                                    setOf(
-                                        "BID_SENT",
-                                        "PREPAY",
-                                        "RESERVED",
-                                        "PICKUP",
-                                        "ARRIVED",
-                                        "TRIP",
-                                    )
-                            }
-                        if (state?.optBoolean("online") != true && !inProgress) {
-                            stopSelf()
-                            return@withContext
-                        }
-                        floatingEnabled = state.optBoolean("floating")
-                        floatingAllowed =
-                            data.optJSONObject("features")?.optBoolean("canFloating") == true
+                        retryDelay = 0L
+                        // Anchors windows/resolves candidates, then forwards to the app store.
+                        GrabActions.observeState(credentials, data, from = sharedState, timing = timing)
+                        applyState(data)
                         }
                     } catch (e: CancellationException) {
                         throw e
@@ -304,20 +306,43 @@ class DriverLocationService : Service(), LocationListener {
                             stopSelf()
                             return@withContext
                         }
-                        retryDelay = (retryDelay * 2).coerceAtMost(60000L)
+                        retryDelay = (retryDelay * 2).coerceIn(4000L, 60000L)
+                        nextAllowedAt = SystemClock.elapsedRealtime() + retryDelay
                         }
                     } catch (_: Exception) {
                         withContext(Dispatchers.Main) {
                         if (generation != serviceGeneration || !LocalApi.isCurrent(credentials)) return@withContext
                         linkAvailable = false
                         announcer?.pause("云端服务连接中断，新单语音暂停")
-                        retryDelay = (retryDelay * 2).coerceAtMost(60000L)
+                        retryDelay = (retryDelay * 2).coerceIn(4000L, 60000L)
+                        nextAllowedAt = SystemClock.elapsedRealtime() + retryDelay
                         // Back off while the phone's connection recovers.
                         }
+                    } finally {
+                        withContext(NonCancellable + Dispatchers.Main) { GrabActions.endFetch() }
                     }
                 }
             }
         }
+    }
+
+    /**
+     * One place that turns any authoritative state (own poll, app refresh or candidate poll) into the
+     * announcer update and this service's flags, so none of them lag behind a skipped poll.
+     */
+    private fun applyState(data: JSONObject) {
+        val state = data.optJSONObject("state") ?: return
+        latestState = data
+        announcer?.update(data)
+        linkAvailable = true
+        listening = state.optBoolean("online")
+        if (!state.optBoolean("online") && !StateCadence.inProgress(data)) {
+            GrabActions.endSession()
+            stopSelf()
+            return
+        }
+        floatingEnabled = state.optBoolean("floating")
+        floatingAllowed = data.optJSONObject("features")?.optBoolean("canFloating") == true
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
@@ -380,6 +405,9 @@ class DriverLocationService : Service(), LocationListener {
 
     override fun onDestroy() {
         serviceGeneration++
+        // Unhook first so clearing reminders below cannot re-add the bubble or overlay.
+        if (NewOrderAlerts.onChanged === renderAlerts) NewOrderAlerts.onChanged = null
+        GrabActions.removeStateListener(sharedState)
         if (::manager.isInitialized) runCatching { manager.removeUpdates(this) }
         bubble?.let { runCatching { windows?.removeView(it) } }
         bubble = null

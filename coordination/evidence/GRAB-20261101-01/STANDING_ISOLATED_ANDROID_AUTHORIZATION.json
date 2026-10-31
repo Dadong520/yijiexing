@@ -1,0 +1,7 @@
+{
+  "confirmedAt": "2026-10-31T16:47:28.542032+00:00",
+  "userAnswer": "允许本轮及后续宜捷行隔离模拟器验收（推荐）",
+  "scope": "Android official debugging tools for installation, clicks/input, test-permission configuration and screenshots in dedicated isolated Yijiexing emulators only; no personal devices",
+  "supersedes": "Earlier per-batch-only Android-tool authorizations for future dedicated isolated project emulator acceptance",
+  "toolReason": "cua_repl UI rule requires explicit user request for alternate UI technology; inventory did not recognize Android emulator"
+}

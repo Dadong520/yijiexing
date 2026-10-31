@@ -1,0 +1,56 @@
+{
+  "candidateSha": "9f9ee9b188d47211872d836cbe73ead88d10135a",
+  "readMode": "git show immutable object, no source changes",
+  "files": [
+    {
+      "file": "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/CompetitionRules.kt",
+      "sha256": "babc36526a47218a5051601fef906ee73c711a5a6e563b4e6e600931b21fe409",
+      "lines": 363
+    },
+    {
+      "file": "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/GrabAlertRules.kt",
+      "sha256": "b66c2f129a1e75ed6ecff3f006c398521f33bc4c191c5f0d6c8146ac9bae9c6a",
+      "lines": 239
+    },
+    {
+      "file": "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/NewOrderAlerts.kt",
+      "sha256": "d60e85a22580ee49e3e16bb6dccd05c54b870a975441ed822d740f1939c71871",
+      "lines": 927
+    },
+    {
+      "file": "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/ConnectedStore.kt",
+      "sha256": "a367a9e009d1b9131c0098917ee3c8c1e659d84bce76ccf05426e90c5c36647a",
+      "lines": 773
+    },
+    {
+      "file": "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/MainActivity.kt",
+      "sha256": "bfec69799d473204e4f6fd1df91e1c8ecfac4e93e4b7fa673790348ed1ac204f",
+      "lines": 595
+    },
+    {
+      "file": "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/DriverLocationService.kt",
+      "sha256": "fc0edf0589f0b1308e44248ed9bf55a225c6bfa595f8121f9687315383805a87",
+      "lines": 423
+    },
+    {
+      "file": "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/DriverSpeech.kt",
+      "sha256": "a878bee484153da1ab9383f698cb521b55fec32be48d0dcaeb59f841f3029945",
+      "lines": 652
+    },
+    {
+      "file": "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/DriverDomain.kt",
+      "sha256": "99fc681869879df2e1d7c07b6f6a051f181c5d44661de58018d6dd08def6e1f6",
+      "lines": 226
+    },
+    {
+      "file": "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/CoreScreens.kt",
+      "sha256": "317f7ec627ccdede44936044184c67e585b55088da969288a13813e9281864a7",
+      "lines": 1977
+    },
+    {
+      "file": "candidates/driver-0.3.6-r2/android/app/src/main/AndroidManifest.xml",
+      "sha256": "aa036a7586da49e202296d67391d2fb65b8bfdf12b05b205386981f785c6d03d",
+      "lines": 29
+    }
+  ]
+}

@@ -1,0 +1,61 @@
+{
+  "schemaVersion": 1,
+  "id": "GRABB-20261101-01",
+  "owner": "backend",
+  "goal": "关键派单数据规则实现与合同：服务端5秒/最近有效候选/原子唯一获派/取消重开",
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-ui-optimization-worktree-20261029",
+  "branch": "codex/order-competition-backend-20261101",
+  "baseSha": "29e83a8da4513859eaed073e0096ab1256a1a576",
+  "allow_paths": [
+    "apps/cloud-service/",
+    "coordination/contracts/GRAB-20261101-01.md",
+    "coordination/tasks/GRABB-20261101-01.json",
+    "coordination/evidence/GRABB-20261101-01/",
+    "coordination/handoffs/backend.md"
+  ],
+  "checks": [
+    "Only ordinary shared STANDARD/RESERVED enter5s competition; BID price choice/negotiated/private demo flow unchanged",
+    "First valid server-side contender opens fixed5seconds; duplicates do not restart, late requests excluded; persisted round/deadline/CAS atomic at most one winner",
+    "Winner nearest validated reported location to passenger origin; deterministic tie; eligibility/reliable location/active trip recheck; losers never navigate or expose contact",
+    "User confirmed: assigned winner cancel beforeboarding reopens sameorderId/newround; afterboarding original cancel restriction; no new auto penalties/fees",
+    "3s foreground dialog/system overlay direct grab; no duplicate reminders across foreground/background/configchange; explicit overlay grant/fallback/no forbidden full-screen auto activity; token/account/order/round isolation",
+    "Independent root/backend review and meaningful unit/HTTP/CAS/isolated native tests before unique root experience release; no current prod/test environment access"
+  ],
+  "status": "IMPLEMENTATION_READY_FOR_ROOT_INDEPENDENT_REVIEW",
+  "acceptance": "NOT_RUN",
+  "tests": [
+    {
+      "command": "python3 -m unittest discover -s apps/cloud-service/tests -v",
+      "tests": 307,
+      "failures": 0,
+      "seconds": 74.826,
+      "result": "PASS_AUTHOR_SELFTEST",
+      "log": "coordination/evidence/GRABB-20261101-01/full-backend-307.log",
+      "sha256": "edf288b7c6d22c11497a34679a5a31dcd9eeb619496dd9359a7e3da24a434848"
+    },
+    {
+      "command": "python3 -m unittest discover -s apps/cloud-service/tests -p test_order_competition.py -v",
+      "tests": 23,
+      "failures": 0,
+      "seconds": 5.451,
+      "result": "PASS_AUTHOR_SELFTEST_SUBSET",
+      "log": "coordination/evidence/GRABB-20261101-01/competition-23.log",
+      "sha256": "10e4d23173928e03397bb85d245602b69759d62989fcd77602a6747770a14b6a"
+    }
+  ],
+  "evidence": [
+    "coordination/evidence/GRABB-20261101-01/intermediate-full-298-fail10.log",
+    "coordination/evidence/GRABB-20261101-01/intermediate-competition-22-pass.log",
+    "coordination/evidence/GRABB-20261101-01/IMPLEMENTATION.json",
+    "coordination/evidence/GRABB-20261101-01/full-backend-307.log",
+    "coordination/evidence/GRABB-20261101-01/competition-23.log",
+    "coordination/evidence/GRABB-20261101-01/IMPLEMENTATION.md"
+  ],
+  "nextAction": "root导入3bdb8f7与中央contract后非作者审查/307及原生集成，API全部tags/default旧writer退役由root发布；backend IDLE",
+  "deploy_owner": "coordinator",
+  "releaseReady": false,
+  "updatedAt": "2026-11-01T01:06:29+08:00",
+  "authorSelfTest": "307_PASS_23_COMPETITION_SUBSET",
+  "pendingMergeSha": "3bdb8f71743b30f83d65131bb90ed7485690b62b",
+  "backendCommitSha": "3bdb8f71743b30f83d65131bb90ed7485690b62b"
+}

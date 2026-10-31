@@ -1,0 +1,3 @@
+source65695082d541a648a50a161634f99293f8b12ee7
+compileDebugKotlin FAIL: NewOrderAlerts.kt:722:13 Val cannot be reassigned
+JUnit/assemble/QA/native NOT_RUN after compiler failure. Raw complete log kept private original-build.log.

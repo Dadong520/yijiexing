@@ -1,0 +1,90 @@
+{
+  "taskId": "GRABB-20261101-01",
+  "authorRole": "backend",
+  "authorSessionId": "01a182c6-c058-76e1-9584-38abfe813799",
+  "at": "2026-11-01T01:04:43+08:00",
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-ui-optimization-worktree-20261029",
+  "branch": "codex/order-competition-backend-20261101",
+  "baseSha": "29e83a8da4513859eaed073e0096ab1256a1a576",
+  "commitSha": "3bdb8f71743b30f83d65131bb90ed7485690b62b",
+  "authorSelfTest": "PASS",
+  "independentAcceptance": "NOT_RUN/root owns",
+  "releaseReady": false,
+  "contract": "coordination/contracts/GRAB-20261101-01.md",
+  "testRuns": [
+    {
+      "command": "python3 -m unittest discover -s apps/cloud-service/tests -v",
+      "tests": 307,
+      "failures": 0,
+      "seconds": 74.826,
+      "result": "PASS_AUTHOR_SELFTEST",
+      "log": "coordination/evidence/GRABB-20261101-01/full-backend-307.log",
+      "sha256": "edf288b7c6d22c11497a34679a5a31dcd9eeb619496dd9359a7e3da24a434848"
+    },
+    {
+      "command": "python3 -m unittest discover -s apps/cloud-service/tests -p test_order_competition.py -v",
+      "tests": 23,
+      "failures": 0,
+      "seconds": 5.451,
+      "result": "PASS_AUTHOR_SELFTEST_SUBSET",
+      "log": "coordination/evidence/GRABB-20261101-01/competition-23.log",
+      "sha256": "10e4d23173928e03397bb85d245602b69759d62989fcd77602a6747770a14b6a"
+    }
+  ],
+  "changes": [
+    "Private persisted competition round/deadline/binding and contender report snapshots, no candidate identities/coordinates in public DTO",
+    "First valid ordinary shared STANDARD/RESERVED accept opens exactly5 microsecond-precision seconds, keeps AVAILABLE/no driver; ordinalround required except legacyround1",
+    "Nearest entry-time reported GPS snapshot wins, deterministic entered/driverId ties; recheck current online/cert/rights/range/preference/singleexecution at grant",
+    "Due settlement at all relevant HTTP/state/action paths; fixed receive-time per request, SQLite checkpoint before business errors; GCS CAS response boundary unchanged",
+    "Winner preboarding cancel sameorder/newround READY, no monetary/penalty changes; abnormal already-paid ordinary order not automatically reopened",
+    "Offline/logout/explicit withdraw retires candidate; passenger cancel/route binding changes retire oldround; replay never rejoins newer round",
+    "Public competition myOutcome/selfStatus+round/deadline/serverTime/serverNow/remainingMs and own top-level competitionResults20; no fake winner order in accept response",
+    "BID/negotiation/private examples unchanged; old noncompetition policy fixtures explicitly GPS+wait using realHTTP settlement"
+  ],
+  "meaningfulCoverage": [
+    "Fixed5s fractional boundary; first/single/multi nearest; position freeze; entered and ID tie; duplicate/no extending",
+    "Restart deadline survives; late fresh accept409 then cold new service confirms assignment persisted",
+    "Two same-version services MemoryCAS simultaneous settlement returns200/503 then one canonical winner",
+    "Two windows/current active trip revalidation never award one driver two executing STANDARD legs",
+    "Certificate/membership/preferences/offline invalidation atgrant and reliable GPS/actual range atentry",
+    "Withdraw/logout no ghost candidate; cancel/reopen staleRound/old requestId/legacy noRound guard; TRIP cancel remains denied",
+    "Passenger cancel/destination binding changes invalidateoldround; RESERVED waiting remains exception until explicit departure",
+    "Own results only/no candidate identity/fullposition; contender cannot fetch passenger contact; original money/distance/PIN/BID/negotiation suite"
+  ],
+  "intermediateRuns": [
+    {
+      "log": "coordination/evidence/GRABB-20261101-01/intermediate-full-298-fail10.log",
+      "result": "298 executed/10 FAIL before legacy test fixtures adapted; old immediate assign/GPS/manual STANDARD continuation assumptions changed by authorized rules"
+    },
+    {
+      "log": "coordination/evidence/GRABB-20261101-01/intermediate-competition-22-pass.log",
+      "result": "22 PASS at intermediate source, superseded final23"
+    }
+  ],
+  "limitations": [
+    "Position is validated device report, not anti-cheat GPS proof; ranking freezes entry snapshot, not latest coordinate or road distance",
+    "No timer/keepalive: assignment commits on next API read/write afterdeadline, so idle periods do not proactively notify",
+    "No-round old clients only first round; candidate200 is not assignment; clients require latest ownedPICKUP/RESERVED account/order/round match before navigation",
+    "Withdrawn candidate cannot rejoin same round; no valid contenders creates fresh READYround without auto5s window",
+    "Ordinary already-paid abnormal preboarding cancellations reject automatic reopen rather than silently changing refunds",
+    "Same-new-version CAS guarantee; root must retire all legacy business writers by routing default100/all API tags to new revision, admin unchanged/no global version lock",
+    "Existing urllib fixture negative-response ResourceWarning retained; all assertions passed",
+    "No cloud/privateDB/native/actualGPS/realcall/funds/deployment executed by author"
+  ],
+  "nextAction": "Record exact backend-only commit; root imports to client integration tree and independently reviews/runs tests before unique root release.",
+  "finishedAt": "2026-11-01T01:06:29+08:00",
+  "workingTreeClean": true,
+  "changedFiles": [
+    "apps/cloud-service/admin.py",
+    "apps/cloud-service/competition.py",
+    "apps/cloud-service/domain.py",
+    "apps/cloud-service/passenger.py",
+    "apps/cloud-service/server.py",
+    "apps/cloud-service/tests/test_live_operations.py",
+    "apps/cloud-service/tests/test_order_competition.py",
+    "apps/cloud-service/tests/test_passenger.py",
+    "apps/cloud-service/tests/test_trip_distance.py",
+    "apps/cloud-service/tests/test_wait_pay_policy.py"
+  ],
+  "backendTree": "c5df96a35efc38ca50442b029681b7790b688922"
+}

@@ -1,0 +1,10 @@
+{
+  "sourceSha": "36fdf2c1bddd859f3dff22fbeb2d7e70aa94ec7c",
+  "orderId": "PORD876f19ca6d39",
+  "overlayPermission": "denied",
+  "notificationDirectClick": true,
+  "pendingBeforeAward": true,
+  "assignedAfter5Seconds": true,
+  "stage": "PICKUP",
+  "result": "PASS"
+}

@@ -1,0 +1,15 @@
+{
+  "backendSourceSha": "3bdb8f71743b30f83d65131bb90ed7485690b62b",
+  "backendTree": "c5df96a35efc38ca50442b029681b7790b688922",
+  "source": "exact Git archive",
+  "author": "backend",
+  "independentReviewer": "coordinator",
+  "testScope": "real isolated HTTP/SQLite/MemoryCAS; no cloud business calls",
+  "command": "python3 -m unittest discover -s tests -v",
+  "exitCode": 0,
+  "tests": 307,
+  "seconds": 79.0,
+  "result": "PASS",
+  "logSha256": "d50147617bd660eb4d3995d315a43f5721b3619b11d12bd7603ba96c2d93ffb6",
+  "cloudBusinessPosts": 0
+}

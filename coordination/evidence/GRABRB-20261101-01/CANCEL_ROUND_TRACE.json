@@ -1,0 +1,34 @@
+{
+  "kind": "SOURCE_DIRECTED_TRACE_NOT_ANDROID_RUNTIME",
+  "candidateSha": "9f9ee9b188d47211872d836cbe73ead88d10135a",
+  "sourceAssertions": 3,
+  "opened": {
+    "id": "same-order",
+    "stage": "AVAILABLE",
+    "competition": {
+      "round": 1,
+      "myOutcome": "PENDING"
+    }
+  },
+  "events": [
+    "A opens withdrawal/cancel dialog for round1; only orderId is retained",
+    "A leaves dialog open; original round ends/cancels and same order enters round2",
+    "Same account B on another device joins/wins round2; automatic state refresh updates A",
+    "A presses the still-open confirmation; its payload uses updated round2"
+  ],
+  "refreshed": {
+    "id": "same-order",
+    "stage": "PICKUP",
+    "competition": {
+      "round": 2,
+      "myOutcome": "WON"
+    }
+  },
+  "actualBodyBySource": {
+    "id": "same-order",
+    "reason": "车辆临时故障",
+    "competitionRound": 2
+  },
+  "expected": "Reject/dismiss stale round1 dialog; do not submit round2 on behalf of old confirmation",
+  "result": "P2_REPRODUCED_BY_SOURCE_TRACE"
+}

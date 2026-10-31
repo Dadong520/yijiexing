@@ -258,6 +258,27 @@ class ConnectedStore(app: Application) : AndroidViewModel(app) {
         else mutableInitialized.value = true
     }
 
+    /** A /api/state fetched by the candidate poller lands here too, so the UI needs no second poll. */
+    private val externalState: (LocalApi.Credentials, JSONObject) -> Unit = { credentials, data ->
+        val epoch = requests.snapshot()
+        if (LocalApi.isCurrent(credentials) && data.optJSONObject("state") != null)
+            requests.commitIfCurrent(epoch) {
+                mutableState.value = parseDriverState(data.getJSONObject("state"))
+                mutablePayload.value = JSONObject(data.toString())
+                AmapRuntime.configure(data.optJSONObject("mapConfig"))
+            }
+    }
+
+    // After the listener property above is initialized (Kotlin runs initializers in order).
+    init {
+        GrabActions.addStateListener(externalState)
+    }
+
+    override fun onCleared() {
+        GrabActions.removeStateListener(externalState)
+        super.onCleared()
+    }
+
     fun clearError() {
         mutableError.value = null
     }
@@ -439,6 +460,9 @@ class ConnectedStore(app: Application) : AndroidViewModel(app) {
         requests.commitIfCurrent(epoch) {
             vault.clear()
             LocalApi.token = ""
+            // Ends new-order reminders and this session's candidate waiting; late results are dropped.
+            NewOrderAlerts.clear()
+            GrabActions.endSession()
             mutableSessionAvailable.value = false
             mutableState.value = emptyState()
             mutablePayload.value = JSONObject()
@@ -466,19 +490,34 @@ class ConnectedStore(app: Application) : AndroidViewModel(app) {
     fun refresh(silent: Boolean = false) {
         if (refreshing || LocalApi.token.isBlank()) return
         if (silent && (!automaticRefreshEnabled || android.os.SystemClock.elapsedRealtime() < nextAutomaticRefreshAt)) return
+        // Periodic reads share one gate with the service and the candidate poll: never two at once,
+        // and none while a fresh enough state (from anyone) is already here.
+        var gated = false
+        if (silent) {
+            val interval = foregroundInterval() ?: return
+            if (!GrabActions.tryBeginBaseFetch(interval)) return
+            gated = true
+        }
         refreshing = true
-        launchRequest(!silent, onFinally = { refreshing = false }) { epoch, credentials ->
-            accept(epoch, LocalApi.request("GET", "/api/state", credentials = credentials))
+        launchRequest(!silent, onFinally = { refreshing = false; if (gated) GrabActions.endFetch() }) { epoch, credentials ->
+            val started = android.os.SystemClock.elapsedRealtime()
+            val data = LocalApi.request("GET", "/api/state", credentials = credentials)
+            accept(epoch, data, RequestTiming(started, android.os.SystemClock.elapsedRealtime()))
         }
     }
+
+    /** Foreground base cadence: ≤2s/1s while really listening, the original 10s otherwise. */
+    fun foregroundInterval(): Long? = GrabActions.baseInterval(mutablePayload.value, foreground = true)
 
     fun query(path: String, done: (JSONObject) -> Unit) = query(path, {}, done)
 
     fun query(path: String, onFailure: (String) -> Unit, done: (JSONObject) -> Unit) =
         launchRequest(onFailure = onFailure) { epoch, credentials ->
+            val started = android.os.SystemClock.elapsedRealtime()
             val data = LocalApi.request("GET", path, credentials = credentials)
+            val timing = RequestTiming(started, android.os.SystemClock.elapsedRealtime())
             requests.commitIfCurrent(epoch) {
-                if (data.has("state")) accept(epoch, data)
+                if (data.has("state")) accept(epoch, data, timing)
                 done(data)
             }
         }
@@ -504,6 +543,7 @@ class ConnectedStore(app: Application) : AndroidViewModel(app) {
             val body = if (path == "/api/action")
                 JSONObject().put("action", action).put("payload", payload).put("requestId", key)
             else JSONObject(payload.toString()).put("idempotencyKey", payload.optString("idempotencyKey", key))
+            val postStarted = android.os.SystemClock.elapsedRealtime()
             val data = try {
                 LocalApi.request("POST", path, body, credentials = credentials)
             } catch (e: LocalApiException) {
@@ -513,9 +553,11 @@ class ConnectedStore(app: Application) : AndroidViewModel(app) {
             if (!requests.isCurrent(epoch)) return@launchRequest
             if (data.has("state")) {
                 val stateData = if (action == "order.pairOffer") JSONObject(data.toString()).apply { remove("result") } else data
-                accept(epoch, stateData)
+                accept(epoch, stateData, RequestTiming(postStarted, android.os.SystemClock.elapsedRealtime()))
             } else {
-                accept(epoch, LocalApi.request("GET", "/api/state", credentials = credentials))
+                val getStarted = android.os.SystemClock.elapsedRealtime()
+                val fresh = LocalApi.request("GET", "/api/state", credentials = credentials)
+                accept(epoch, fresh, RequestTiming(getStarted, android.os.SystemClock.elapsedRealtime()))
             }
             requests.commitIfCurrent(epoch) {
                 pendingKeys.remove(signature)
@@ -555,7 +597,8 @@ class ConnectedStore(app: Application) : AndroidViewModel(app) {
         }
     }
 
-    private fun accept(epoch: Long, data: JSONObject) {
+    /** [timing] is the measured request that produced [data]; null (e.g. login) never anchors a window. */
+    private fun accept(epoch: Long, data: JSONObject, timing: RequestTiming? = null) {
         requests.commitIfCurrent(epoch) {
             if (LocalApi.token.isNotBlank()) {
                 val s = data.optJSONObject("state")
@@ -563,6 +606,8 @@ class ConnectedStore(app: Application) : AndroidViewModel(app) {
                     mutableState.value = parseDriverState(s)
                     mutablePayload.value = JSONObject(data.toString())
                     AmapRuntime.configure(data.optJSONObject("mapConfig"))
+                    // Window anchors and candidate verdicts read every authoritative state once.
+                    GrabActions.observeState(LocalApi.credentials(), data, from = externalState, timing = timing)
                 }
             }
         }
@@ -692,6 +737,9 @@ class ConnectedStore(app: Application) : AndroidViewModel(app) {
                                 o.optBoolean("pairingRequired", false),
                             ),
                         pairingExpiresAt = o.optString("pairingExpiresAt", ""),
+                        competition = parseCompetition(o),
+                        competitionRequired = CompetitionRules.required(o),
+                        driverId = o.optString("driverId").takeUnless { o.isNull("driverId") || it == "null" }.orEmpty(),
                     )
                 }
             val e = s.optJSONArray("entries")

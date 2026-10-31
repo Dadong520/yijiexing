@@ -9,7 +9,7 @@ import urllib.request
 from unittest.mock import patch
 import test_admin_http as fixture
 import test_operations_drafts as drafts_fixture
-from common import now, stamp
+from common import now, stamp, parse_time
 
 
 class LiveOperationsTests(unittest.TestCase):
@@ -46,8 +46,20 @@ class LiveOperationsTests(unittest.TestCase):
 
     def da(self, token, action, payload, **kw):
         self.rid += 1
-        return self.public('/api/action', {'action':action,'payload':payload,
-            'requestId':'driver-'+str(self.rid)}, token, **kw)[0]
+        request_id='driver-'+str(self.rid)
+        if action=='order.accept':
+            order=next((o for o in self.public('/api/state',token=token)[0]['state']['orders'] if o['id']==payload['id']),None)
+            if order and order.get('shared') and order['kind'] in ('STANDARD','RESERVED'):
+                self.public('/api/action',{'action':'location.report','payload':{'latitude':order['originLat'],
+                    'longitude':order['originLng'],'accuracy':5,'time':stamp(),'coordinateSystem':'WGS84'},
+                    'requestId':'fix-'+request_id},token)
+        reply=self.public('/api/action', {'action':action,'payload':payload,
+            'requestId':request_id}, token, **kw)[0]
+        comp=reply.get('result',{}).get('competition')
+        if action=='order.accept' and comp and comp['myOutcome']=='PENDING':
+            with patch('competition.now',return_value=parse_time(comp['deadline'])):
+                reply=self.public('/api/state',token=token)[0]
+        return reply
 
     def ps(self, token, client='MINIPROGRAM', **kw):
         return self.public('/api/passenger/state?client='+client, token=token, **kw)[0]
@@ -209,9 +221,9 @@ class LiveOperationsTests(unittest.TestCase):
     def test_closed_feature_blocks_recall_but_keeps_decline_recall(self):
         s=self.login()['session'];p=self.user();d=self.user('13800000001',True)
         self.da(d['token'],'driver.online',{'online':True})
-        o=self.pa(p['token'],'order.create',self.order_payload())['result']['order']
-        self.da(d['token'],'order.accept',{'id':o['id']});self.da(d['token'],'order.cancel',{'id':o['id'],'reason':'演练司机取消'})
-        self.features(s,{'instant':False})
+        o=self.pa(p['token'],'order.create',dict(self.order_payload(),kind='BID'))['result']['order']
+        self.da(d['token'],'order.bid',{'id':o['id'],'amount':2000});self.pa(p['token'],'order.selectDriver',{'id':o['id'],'driverId':d['profile']['driver']['id']});self.da(d['token'],'order.cancel',{'id':o['id'],'reason':'演练司机取消'})
+        self.features(s,{'bidding':False})
         self.pa(p['token'],'order.continue',{'id':o['id'],'type':1},expected=403)
         self.assertEqual(self.pa(p['token'],'order.continue',{'id':o['id'],'type':2})['result']['order']['stage'],'CANCELLED')
 

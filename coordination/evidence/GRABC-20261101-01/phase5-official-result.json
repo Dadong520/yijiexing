@@ -1,0 +1,12 @@
+{
+  "sessionId": "f0e957b7-5f75-4d4b-88a7-0043b2ad9253",
+  "exitCode": 1,
+  "isError": true,
+  "reason": "session usage limit, resets02:50Asia/Singapore",
+  "permissionDenials": [],
+  "partialFiles": [
+    "CompetitionRules.kt"
+  ],
+  "rootTakesCancellationOnly": true,
+  "at": "2026-10-31T17:50:55.684371+00:00"
+}

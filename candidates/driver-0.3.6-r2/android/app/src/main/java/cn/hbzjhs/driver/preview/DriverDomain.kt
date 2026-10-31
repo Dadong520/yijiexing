@@ -73,6 +73,13 @@ data class DriverOrder(
     val settlementStatus: String = "",
     val settlementLabel: String = "",
     val netIncome: Long? = null,
+    // GRAB V1: present only on ordinary shared STANDARD/RESERVED; null keeps the original flow.
+    val competition: OrderCompetition? = null,
+    // True when this row must carry a valid competition (shared ordinary or has the key); a missing or
+    // malformed one then fails closed instead of falling back to the original accept.
+    val competitionRequired: Boolean = false,
+    // Assigned driver id from the server; empty while AVAILABLE/candidate.
+    val driverId: String = "",
 ) {
     val isWaitingReservation: Boolean
         get() = kind == OrderKind.RESERVED && stage == Stage.RESERVED && !participationCancelled

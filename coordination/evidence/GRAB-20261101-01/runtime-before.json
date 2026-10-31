@@ -1,0 +1,76 @@
+{
+  "project": "yijiexing-driver-demo-1023",
+  "region": "us-west1",
+  "operation": "Read only fresh baseline, no cloud service/business mutation",
+  "readAt": "2026-10-31T17:00:53.729586+00:00",
+  "services": [
+    {
+      "role": "api",
+      "revision": "driver-demo-navi-6cdcee1",
+      "specSha256": "19b897027603946b1b789ad7ef2329be4ec81bd4ce70ebdc5b89586640b9a773",
+      "iamSha256": "283b16eb4e4f82142ed1981a5a7abbf4f3368b765d75e85216706d7d5f4f8426",
+      "traffic": [
+        {
+          "percent": 100,
+          "revisionName": "driver-demo-navi-6cdcee1"
+        },
+        {
+          "revisionName": "driver-demo-pm-364078b4-qa1",
+          "tag": "pm-map-qa"
+        },
+        {
+          "revisionName": "driver-demo-pmv-817ed22-test1",
+          "tag": "pmv-qa"
+        },
+        {
+          "revisionName": "driver-demo-pui-7d6dc60-test1",
+          "tag": "pui-qa"
+        },
+        {
+          "revisionName": "driver-demo-ccui-107e226-test1",
+          "tag": "ccui-qa"
+        },
+        {
+          "revisionName": "driver-demo-navi-6cdcee1",
+          "tag": "user-test"
+        }
+      ],
+      "minScale": "0",
+      "maxScale": "1",
+      "timeoutSeconds": 900,
+      "containerConcurrency": 1
+    },
+    {
+      "role": "admin",
+      "revision": "driver-admin-ccui-107e226-test1",
+      "specSha256": "8e6357aaf2d9c7d9bf6e68612ef8ae375785f7c0a79323292a0998429b908a63",
+      "iamSha256": "b027303221f99da4a53abc6f08be531edcd3e580438df9f626a6d443c26612bf",
+      "traffic": [
+        {
+          "percent": 100,
+          "revisionName": "driver-admin-ccui-107e226-test1"
+        },
+        {
+          "revisionName": "driver-admin-pmv-817ed22-test1",
+          "tag": "pmv-qa"
+        },
+        {
+          "revisionName": "driver-admin-pui-7d6dc60-test1",
+          "tag": "pui-qa"
+        },
+        {
+          "revisionName": "driver-admin-ccui-107e226-test1",
+          "tag": "ccui-qa"
+        },
+        {
+          "revisionName": "driver-admin-ccui-107e226-test1",
+          "tag": "user-test"
+        }
+      ],
+      "minScale": "0",
+      "maxScale": "1",
+      "timeoutSeconds": 300,
+      "containerConcurrency": 1
+    }
+  ]
+}

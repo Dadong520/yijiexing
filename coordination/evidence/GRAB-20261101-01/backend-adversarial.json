@@ -1,0 +1,24 @@
+{
+  "backendSourceSha": "3bdb8f71743b30f83d65131bb90ed7485690b62b",
+  "backendTree": "c5df96a35efc38ca50442b029681b7790b688922",
+  "source": "exact Git archive",
+  "author": "backend",
+  "independentReviewer": "coordinator",
+  "testScope": "real isolated HTTP/SQLite/MemoryCAS; no cloud business calls",
+  "independentCases": [
+    {
+      "case": "uncertain_first_write_idempotency",
+      "result": "PASS",
+      "detail": "503 after actual CAS commit, exact retry retains one candidate/deadline/award/todayAccepted"
+    },
+    {
+      "case": "candidate_is_not_assignment_or_contact_authorization",
+      "result": "PASS",
+      "detail": "Candidate and loser cannot advance trip or fetch rider contact; normal row has no full passenger phone"
+    }
+  ],
+  "caseCount": 2,
+  "result": "PASS",
+  "cloudBusinessPosts": 0,
+  "scope": "Root-authored adversarial real HTTP/SQLite/MemoryCAS tests, synthetic local fixtures, no Android UI claim"
+}

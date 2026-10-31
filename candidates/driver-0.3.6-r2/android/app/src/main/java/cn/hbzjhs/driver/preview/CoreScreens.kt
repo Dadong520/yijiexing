@@ -273,6 +273,15 @@ fun ConnectedHome(
     val pendingCollections = state.pendingCollections
     val waitingReservations = state.waitingReservations
     val allAvailable = state.orders.filter { it.stage == Stage.AVAILABLE }.sortedBy { it.isPrivateExample }
+    val account = driverAccount(payload)
+    val grabVersion by GrabActions.version.collectAsState()
+    // Ticks only while some round's 5s window is open, so "已截止" appears without a server poll.
+    val grabTick by produceState(0, allAvailable.any { it.competition?.status == "OPEN" }) {
+        while (allAvailable.any { it.competition?.status == "OPEN" }) {
+            kotlinx.coroutines.delay(500)
+            value++
+        }
+    }
     val availableKinds = OrderKind.values().filter { kind -> allAvailable.any { it.kind == kind } }
     var kindFilter by rememberSaveable { mutableStateOf<String?>(null) }
     // A filter only applies while its kind is still present and there is more than one kind to pick from;
@@ -523,7 +532,7 @@ fun ConnectedHome(
                                 ) { store.refresh() }
                             }
                         items(available, key = { it.id }) {
-                            order -> OrderCard(order, if (order.kind == OrderKind.BID) "参与竞价" else "立即抢单") {
+                            order -> OrderCard(order, if (order.kind == OrderKind.BID) "参与竞价" else competitionLabel(account, order, grabVersion, grabTick)) {
                                 onGrab(order)
                             }
                         }
@@ -741,6 +750,9 @@ fun ConnectedTrip(
     navigating: Boolean = false,
     onNavigate: (String) -> Unit = {},
     onExitNavigation: () -> Unit = {},
+    // GRAB V1: the same single grab entry as the hall; withdraw leaves only this driver's candidacy.
+    onGrab: (DriverOrder) -> Unit = {},
+    onWithdraw: () -> Unit = {},
 ) {
     val context = LocalContext.current
     val tripBusy by store.loading.collectAsState()
@@ -781,6 +793,8 @@ fun ConnectedTrip(
             verticalArrangement = Arrangement.spacedBy(12.dp),
         ) {
             item { SharedParticipationNotice(order) }
+            if (order.stage == Stage.AVAILABLE && order.competition != null && order.kind != OrderKind.BID)
+                item { CompetitionCard(order, store, onGrab, onWithdraw) }
             if (order.isPrivateExample)
                 item {
                     SheetCard {

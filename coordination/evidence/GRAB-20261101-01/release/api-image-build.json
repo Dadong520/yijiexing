@@ -1,0 +1,13 @@
+{
+  "operation": "Accepted backend image built; no CloudRun revision/traffic mutation",
+  "project": "yijiexing-driver-demo-1023",
+  "region": "us-west1",
+  "backendSourceSha": "3bdb8f71743b30f83d65131bb90ed7485690b62b",
+  "backendTree": "c5df96a35efc38ca50442b029681b7790b688922",
+  "buildId": "40550617-3e31-4cb5-94d7-36528c64ee88",
+  "status": "SUCCESS",
+  "imageDigest": "sha256:ce8a90484a3dcc5fdec139ab4c3673b36fcefeaca88d43cf8f99950ff94fb262",
+  "immutableImage": "us-west1-docker.pkg.dev/yijiexing-driver-demo-1023/demo/driver-cloud@sha256:ce8a90484a3dcc5fdec139ab4c3673b36fcefeaca88d43cf8f99950ff94fb262",
+  "finalClientBinding": "Must verify accepted combined backend tree equality before deployment",
+  "at": "2026-10-31T17:22:21.412299+00:00"
+}

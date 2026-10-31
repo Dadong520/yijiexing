@@ -1,0 +1,418 @@
+test_bid_choice_private_demo_and_boarded_cancel_not_redefined (test_order_competition.OrderCompetition.test_bid_choice_private_demo_and_boarded_cancel_not_redefined) ... [2026-11-01T01:00:11+08:00] POST /api/passenger/auth/code 200
+[2026-11-01T01:00:12+08:00] POST /api/passenger/auth/login 200
+[2026-11-01T01:00:12+08:00] POST /api/auth/code 200
+[2026-11-01T01:00:12+08:00] POST /api/auth/login 200
+[2026-11-01T01:00:12+08:00] POST /api/action 200
+[2026-11-01T01:00:12+08:00] POST /api/auth/code 200
+[2026-11-01T01:00:12+08:00] POST /api/auth/login 200
+[2026-11-01T01:00:12+08:00] POST /api/action 200
+[2026-11-01T01:00:12+08:00] POST /api/action 200
+[2026-11-01T01:00:12+08:00] POST /api/action 200
+[2026-11-01T01:00:12+08:00] POST /api/passenger/action 200
+[2026-11-01T01:00:12+08:00] POST /api/passenger/action 200
+[2026-11-01T01:00:12+08:00] POST /api/passenger/action 200
+[2026-11-01T01:00:12+08:00] POST /api/action 200
+[2026-11-01T01:00:12+08:00] POST /api/passenger/action 200
+[2026-11-01T01:00:12+08:00] GET /api/passenger/state 200
+[2026-11-01T01:00:12+08:00] POST /api/passenger/action 200
+[2026-11-01T01:00:12+08:00] POST /api/action 200
+ok
+test_driver_cannot_cancel_after_boarding (test_order_competition.OrderCompetition.test_driver_cannot_cancel_after_boarding) ... [2026-11-01T01:00:12+08:00] POST /api/passenger/auth/code 200
+[2026-11-01T01:00:12+08:00] POST /api/passenger/auth/login 200
+[2026-11-01T01:00:12+08:00] POST /api/auth/code 200
+[2026-11-01T01:00:12+08:00] POST /api/auth/login 200
+[2026-11-01T01:00:12+08:00] POST /api/action 200
+[2026-11-01T01:00:12+08:00] POST /api/auth/code 200
+[2026-11-01T01:00:12+08:00] POST /api/auth/login 200
+[2026-11-01T01:00:12+08:00] POST /api/action 200
+[2026-11-01T01:00:12+08:00] POST /api/action 200
+[2026-11-01T01:00:12+08:00] POST /api/action 200
+[2026-11-01T01:00:12+08:00] POST /api/passenger/action 200
+[2026-11-01T01:00:12+08:00] POST /api/action 200
+[2026-11-01T01:00:12+08:00] GET /api/passenger/state 200
+[2026-11-01T01:00:12+08:00] POST /api/action 409
+/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/tempfile.py:484: ResourceWarning: Implicitly cleaning up <HTTPError 409: 'Conflict'>
+  _warnings.warn(self.warn_message, ResourceWarning)
+[2026-11-01T01:00:12+08:00] GET /api/passenger/state 200
+ok
+test_equal_distance_and_entered_time_uses_driver_id (test_order_competition.OrderCompetition.test_equal_distance_and_entered_time_uses_driver_id) ... [2026-11-01T01:00:12+08:00] POST /api/passenger/auth/code 200
+[2026-11-01T01:00:12+08:00] POST /api/passenger/auth/login 200
+[2026-11-01T01:00:12+08:00] POST /api/auth/code 200
+[2026-11-01T01:00:12+08:00] POST /api/auth/login 200
+[2026-11-01T01:00:12+08:00] POST /api/action 200
+[2026-11-01T01:00:12+08:00] POST /api/auth/code 200
+[2026-11-01T01:00:12+08:00] POST /api/auth/login 200
+[2026-11-01T01:00:12+08:00] POST /api/action 200
+[2026-11-01T01:00:12+08:00] POST /api/action 200
+[2026-11-01T01:00:12+08:00] POST /api/action 200
+[2026-11-01T01:00:12+08:00] POST /api/passenger/action 200
+[2026-11-01T01:00:12+08:00] POST /api/action 200
+[2026-11-01T01:00:12+08:00] POST /api/action 200
+[2026-11-01T01:00:12+08:00] POST /api/action 200
+[2026-11-01T01:00:12+08:00] GET /api/passenger/state 200
+ok
+test_first_valid_fixed_deadline_single_and_nearest_multiple (test_order_competition.OrderCompetition.test_first_valid_fixed_deadline_single_and_nearest_multiple) ... [2026-11-01T01:00:12+08:00] POST /api/passenger/auth/code 200
+[2026-11-01T01:00:12+08:00] POST /api/passenger/auth/login 200
+[2026-11-01T01:00:12+08:00] POST /api/auth/code 200
+[2026-11-01T01:00:12+08:00] POST /api/auth/login 200
+[2026-11-01T01:00:12+08:00] POST /api/action 200
+[2026-11-01T01:00:12+08:00] POST /api/auth/code 200
+[2026-11-01T01:00:12+08:00] POST /api/auth/login 200
+[2026-11-01T01:00:12+08:00] POST /api/action 200
+[2026-11-01T01:00:12+08:00] POST /api/action 200
+[2026-11-01T01:00:12+08:00] POST /api/action 200
+[2026-11-01T01:00:12+08:00] POST /api/passenger/action 200
+[2026-11-01T01:00:12+08:00] POST /api/action 200
+[2026-11-01T01:00:12+08:00] GET /api/passenger/state 200
+[2026-11-01T01:00:12+08:00] POST /api/action 200
+[2026-11-01T01:00:12+08:00] POST /api/action 200
+[2026-11-01T01:00:12+08:00] GET /api/passenger/state 200
+[2026-11-01T01:00:12+08:00] GET /api/state 200
+[2026-11-01T01:00:12+08:00] POST /api/action 409
+ok
+test_fractional_time_is_exact_five_seconds (test_order_competition.OrderCompetition.test_fractional_time_is_exact_five_seconds) ... [2026-11-01T01:00:12+08:00] POST /api/passenger/auth/code 200
+[2026-11-01T01:00:12+08:00] POST /api/passenger/auth/login 200
+[2026-11-01T01:00:12+08:00] POST /api/auth/code 200
+[2026-11-01T01:00:13+08:00] POST /api/auth/login 200
+[2026-11-01T01:00:13+08:00] POST /api/action 200
+[2026-11-01T01:00:13+08:00] POST /api/auth/code 200
+[2026-11-01T01:00:13+08:00] POST /api/auth/login 200
+[2026-11-01T01:00:13+08:00] POST /api/action 200
+[2026-11-01T01:00:13+08:00] POST /api/action 200
+[2026-11-01T01:00:13+08:00] POST /api/action 200
+[2026-11-01T01:00:13+08:00] POST /api/passenger/action 200
+[2026-11-01T01:00:13+08:00] POST /api/action 200
+[2026-11-01T01:00:13+08:00] GET /api/passenger/state 200
+[2026-11-01T01:00:13+08:00] GET /api/passenger/state 200
+ok
+test_grant_rechecks_accept_preference_after_join (test_order_competition.OrderCompetition.test_grant_rechecks_accept_preference_after_join) ... [2026-11-01T01:00:13+08:00] POST /api/passenger/auth/code 200
+[2026-11-01T01:00:13+08:00] POST /api/passenger/auth/login 200
+[2026-11-01T01:00:13+08:00] POST /api/auth/code 200
+[2026-11-01T01:00:13+08:00] POST /api/auth/login 200
+[2026-11-01T01:00:13+08:00] POST /api/action 200
+[2026-11-01T01:00:13+08:00] POST /api/auth/code 200
+[2026-11-01T01:00:13+08:00] POST /api/auth/login 200
+[2026-11-01T01:00:13+08:00] POST /api/action 200
+[2026-11-01T01:00:13+08:00] POST /api/action 200
+[2026-11-01T01:00:13+08:00] POST /api/action 200
+[2026-11-01T01:00:13+08:00] POST /api/passenger/action 200
+[2026-11-01T01:00:13+08:00] POST /api/action 200
+[2026-11-01T01:00:13+08:00] POST /api/action 200
+[2026-11-01T01:00:13+08:00] GET /api/passenger/state 200
+ok
+test_grant_rechecks_certificate_after_join (test_order_competition.OrderCompetition.test_grant_rechecks_certificate_after_join) ... [2026-11-01T01:00:13+08:00] POST /api/passenger/auth/code 200
+[2026-11-01T01:00:13+08:00] POST /api/passenger/auth/login 200
+[2026-11-01T01:00:13+08:00] POST /api/auth/code 200
+[2026-11-01T01:00:13+08:00] POST /api/auth/login 200
+[2026-11-01T01:00:13+08:00] POST /api/action 200
+[2026-11-01T01:00:13+08:00] POST /api/auth/code 200
+[2026-11-01T01:00:13+08:00] POST /api/auth/login 200
+[2026-11-01T01:00:13+08:00] POST /api/action 200
+[2026-11-01T01:00:13+08:00] POST /api/action 200
+[2026-11-01T01:00:13+08:00] POST /api/action 200
+[2026-11-01T01:00:13+08:00] POST /api/passenger/action 200
+[2026-11-01T01:00:13+08:00] POST /api/action 200
+[2026-11-01T01:00:13+08:00] POST /api/action 200
+[2026-11-01T01:00:13+08:00] GET /api/passenger/state 200
+ok
+test_grant_rechecks_membership_after_join (test_order_competition.OrderCompetition.test_grant_rechecks_membership_after_join) ... [2026-11-01T01:00:13+08:00] POST /api/passenger/auth/code 200
+[2026-11-01T01:00:13+08:00] POST /api/passenger/auth/login 200
+[2026-11-01T01:00:13+08:00] POST /api/auth/code 200
+[2026-11-01T01:00:13+08:00] POST /api/auth/login 200
+[2026-11-01T01:00:13+08:00] POST /api/action 200
+[2026-11-01T01:00:13+08:00] POST /api/auth/code 200
+[2026-11-01T01:00:13+08:00] POST /api/auth/login 200
+[2026-11-01T01:00:13+08:00] POST /api/action 200
+[2026-11-01T01:00:13+08:00] POST /api/action 200
+[2026-11-01T01:00:13+08:00] POST /api/action 200
+[2026-11-01T01:00:13+08:00] POST /api/passenger/action 200
+[2026-11-01T01:00:13+08:00] POST /api/action 200
+[2026-11-01T01:00:13+08:00] POST /api/action 200
+[2026-11-01T01:00:13+08:00] GET /api/passenger/state 200
+ok
+test_grant_rechecks_online_certificate_membership_and_real_range (test_order_competition.OrderCompetition.test_grant_rechecks_online_certificate_membership_and_real_range) ... [2026-11-01T01:00:13+08:00] POST /api/passenger/auth/code 200
+[2026-11-01T01:00:13+08:00] POST /api/passenger/auth/login 200
+[2026-11-01T01:00:13+08:00] POST /api/auth/code 200
+[2026-11-01T01:00:13+08:00] POST /api/auth/login 200
+[2026-11-01T01:00:13+08:00] POST /api/action 200
+[2026-11-01T01:00:13+08:00] POST /api/auth/code 200
+[2026-11-01T01:00:13+08:00] POST /api/auth/login 200
+[2026-11-01T01:00:13+08:00] POST /api/action 200
+[2026-11-01T01:00:13+08:00] POST /api/action 200
+[2026-11-01T01:00:13+08:00] POST /api/action 200
+[2026-11-01T01:00:13+08:00] POST /api/passenger/action 200
+[2026-11-01T01:00:13+08:00] POST /api/action 200
+[2026-11-01T01:00:13+08:00] POST /api/action 200
+[2026-11-01T01:00:13+08:00] POST /api/action 200
+[2026-11-01T01:00:13+08:00] GET /api/passenger/state 200
+ok
+test_late_accept_409_does_not_rollback_due_assignment (test_order_competition.OrderCompetition.test_late_accept_409_does_not_rollback_due_assignment) ... [2026-11-01T01:00:14+08:00] POST /api/passenger/auth/code 200
+[2026-11-01T01:00:14+08:00] POST /api/passenger/auth/login 200
+[2026-11-01T01:00:14+08:00] POST /api/auth/code 200
+[2026-11-01T01:00:14+08:00] POST /api/auth/login 200
+[2026-11-01T01:00:14+08:00] POST /api/action 200
+[2026-11-01T01:00:14+08:00] POST /api/auth/code 200
+[2026-11-01T01:00:14+08:00] POST /api/auth/login 200
+[2026-11-01T01:00:14+08:00] POST /api/action 200
+[2026-11-01T01:00:14+08:00] POST /api/action 200
+[2026-11-01T01:00:14+08:00] POST /api/action 200
+[2026-11-01T01:00:14+08:00] POST /api/passenger/action 200
+[2026-11-01T01:00:14+08:00] POST /api/action 200
+[2026-11-01T01:00:14+08:00] POST /api/action 409
+[2026-11-01T01:00:14+08:00] GET /api/passenger/state 200
+[2026-11-01T01:00:14+08:00] GET /api/passenger/state 200
+ok
+test_logout_before_deadline_retires_candidate_and_no_ghost_assignment (test_order_competition.OrderCompetition.test_logout_before_deadline_retires_candidate_and_no_ghost_assignment) ... [2026-11-01T01:00:14+08:00] POST /api/passenger/auth/code 200
+[2026-11-01T01:00:14+08:00] POST /api/passenger/auth/login 200
+[2026-11-01T01:00:14+08:00] POST /api/auth/code 200
+[2026-11-01T01:00:14+08:00] POST /api/auth/login 200
+[2026-11-01T01:00:14+08:00] POST /api/action 200
+[2026-11-01T01:00:14+08:00] POST /api/auth/code 200
+[2026-11-01T01:00:14+08:00] POST /api/auth/login 200
+[2026-11-01T01:00:14+08:00] POST /api/action 200
+[2026-11-01T01:00:14+08:00] POST /api/action 200
+[2026-11-01T01:00:14+08:00] POST /api/action 200
+[2026-11-01T01:00:14+08:00] POST /api/passenger/action 200
+[2026-11-01T01:00:14+08:00] POST /api/action 200
+[2026-11-01T01:00:14+08:00] POST /api/action 200
+[2026-11-01T01:00:14+08:00] POST /api/auth/logout 200
+[2026-11-01T01:00:14+08:00] GET /api/passenger/state 200
+ok
+test_missing_bad_location_or_eligibility_never_starts_window (test_order_competition.OrderCompetition.test_missing_bad_location_or_eligibility_never_starts_window) ... [2026-11-01T01:00:14+08:00] POST /api/passenger/auth/code 200
+[2026-11-01T01:00:14+08:00] POST /api/passenger/auth/login 200
+[2026-11-01T01:00:14+08:00] POST /api/auth/code 200
+[2026-11-01T01:00:14+08:00] POST /api/auth/login 200
+[2026-11-01T01:00:14+08:00] POST /api/action 200
+[2026-11-01T01:00:14+08:00] POST /api/auth/code 200
+[2026-11-01T01:00:14+08:00] POST /api/auth/login 200
+[2026-11-01T01:00:14+08:00] POST /api/action 200
+[2026-11-01T01:00:14+08:00] POST /api/action 200
+[2026-11-01T01:00:14+08:00] POST /api/action 200
+[2026-11-01T01:00:14+08:00] POST /api/passenger/action 200
+[2026-11-01T01:00:14+08:00] POST /api/action 409
+[2026-11-01T01:00:14+08:00] POST /api/action 200
+[2026-11-01T01:00:14+08:00] POST /api/action 200
+[2026-11-01T01:00:14+08:00] POST /api/action 409
+[2026-11-01T01:00:14+08:00] POST /api/action 200
+[2026-11-01T01:00:14+08:00] POST /api/action 200
+ok
+test_passenger_cancel_and_route_change_invalidate_candidates (test_order_competition.OrderCompetition.test_passenger_cancel_and_route_change_invalidate_candidates) ... [2026-11-01T01:00:14+08:00] POST /api/passenger/auth/code 200
+[2026-11-01T01:00:14+08:00] POST /api/passenger/auth/login 200
+[2026-11-01T01:00:14+08:00] POST /api/auth/code 200
+[2026-11-01T01:00:14+08:00] POST /api/auth/login 200
+[2026-11-01T01:00:14+08:00] POST /api/action 200
+[2026-11-01T01:00:14+08:00] POST /api/auth/code 200
+[2026-11-01T01:00:14+08:00] POST /api/auth/login 200
+[2026-11-01T01:00:14+08:00] POST /api/action 200
+[2026-11-01T01:00:14+08:00] POST /api/action 200
+[2026-11-01T01:00:14+08:00] POST /api/action 200
+[2026-11-01T01:00:14+08:00] POST /api/passenger/action 200
+[2026-11-01T01:00:14+08:00] POST /api/action 200
+[2026-11-01T01:00:14+08:00] POST /api/passenger/action 200
+[2026-11-01T01:00:14+08:00] POST /api/action 409
+[2026-11-01T01:00:14+08:00] POST /api/action 200
+[2026-11-01T01:00:14+08:00] POST /api/passenger/action 200
+[2026-11-01T01:00:14+08:00] GET /api/passenger/state 200
+[2026-11-01T01:00:14+08:00] POST /api/action 409
+ok
+test_position_frozen_duplicate_does_not_refresh_rank (test_order_competition.OrderCompetition.test_position_frozen_duplicate_does_not_refresh_rank) ... [2026-11-01T01:00:14+08:00] POST /api/passenger/auth/code 200
+[2026-11-01T01:00:14+08:00] POST /api/passenger/auth/login 200
+[2026-11-01T01:00:15+08:00] POST /api/auth/code 200
+[2026-11-01T01:00:15+08:00] POST /api/auth/login 200
+[2026-11-01T01:00:15+08:00] POST /api/action 200
+[2026-11-01T01:00:15+08:00] POST /api/auth/code 200
+[2026-11-01T01:00:15+08:00] POST /api/auth/login 200
+[2026-11-01T01:00:15+08:00] POST /api/action 200
+[2026-11-01T01:00:15+08:00] POST /api/action 200
+[2026-11-01T01:00:15+08:00] POST /api/action 200
+[2026-11-01T01:00:15+08:00] POST /api/passenger/action 200
+[2026-11-01T01:00:15+08:00] POST /api/action 200
+[2026-11-01T01:00:15+08:00] POST /api/action 200
+[2026-11-01T01:00:15+08:00] POST /api/action 200
+[2026-11-01T01:00:15+08:00] POST /api/action 200
+[2026-11-01T01:00:15+08:00] POST /api/action 200
+[2026-11-01T01:00:15+08:00] GET /api/passenger/state 200
+[2026-11-01T01:00:15+08:00] POST /api/action 200
+ok
+test_reserved_waiting_does_not_occupy_instant_but_departure_still_single (test_order_competition.OrderCompetition.test_reserved_waiting_does_not_occupy_instant_but_departure_still_single) ... [2026-11-01T01:00:15+08:00] POST /api/passenger/auth/code 200
+[2026-11-01T01:00:15+08:00] POST /api/passenger/auth/login 200
+[2026-11-01T01:00:15+08:00] POST /api/auth/code 200
+[2026-11-01T01:00:15+08:00] POST /api/auth/login 200
+[2026-11-01T01:00:15+08:00] POST /api/action 200
+[2026-11-01T01:00:15+08:00] POST /api/auth/code 200
+[2026-11-01T01:00:15+08:00] POST /api/auth/login 200
+[2026-11-01T01:00:15+08:00] POST /api/action 200
+[2026-11-01T01:00:15+08:00] POST /api/action 200
+[2026-11-01T01:00:15+08:00] POST /api/action 200
+[2026-11-01T01:00:15+08:00] POST /api/passenger/action 200
+[2026-11-01T01:00:15+08:00] POST /api/passenger/action 200
+[2026-11-01T01:00:15+08:00] POST /api/passenger/action 200
+[2026-11-01T01:00:15+08:00] POST /api/action 200
+[2026-11-01T01:00:15+08:00] GET /api/passenger/state 200
+[2026-11-01T01:00:15+08:00] POST /api/passenger/auth/code 200
+[2026-11-01T01:00:15+08:00] POST /api/passenger/auth/login 200
+[2026-11-01T01:00:15+08:00] POST /api/passenger/action 200
+[2026-11-01T01:00:15+08:00] POST /api/action 200
+[2026-11-01T01:00:15+08:00] GET /api/state 200
+[2026-11-01T01:00:15+08:00] POST /api/action 409
+[2026-11-01T01:00:15+08:00] POST /api/action 200
+[2026-11-01T01:00:15+08:00] POST /api/action 200
+[2026-11-01T01:00:15+08:00] GET /api/passenger/state 200
+ok
+test_restart_keeps_deadline_and_get_settles (test_order_competition.OrderCompetition.test_restart_keeps_deadline_and_get_settles) ... [2026-11-01T01:00:15+08:00] POST /api/passenger/auth/code 200
+[2026-11-01T01:00:15+08:00] POST /api/passenger/auth/login 200
+[2026-11-01T01:00:15+08:00] POST /api/auth/code 200
+[2026-11-01T01:00:15+08:00] POST /api/auth/login 200
+[2026-11-01T01:00:15+08:00] POST /api/action 200
+[2026-11-01T01:00:15+08:00] POST /api/auth/code 200
+[2026-11-01T01:00:15+08:00] POST /api/auth/login 200
+[2026-11-01T01:00:15+08:00] POST /api/action 200
+[2026-11-01T01:00:15+08:00] POST /api/action 200
+[2026-11-01T01:00:15+08:00] POST /api/action 200
+[2026-11-01T01:00:15+08:00] POST /api/passenger/action 200
+[2026-11-01T01:00:15+08:00] POST /api/action 200
+[2026-11-01T01:00:15+08:00] GET /api/state 200
+[2026-11-01T01:00:15+08:00] GET /api/passenger/state 200
+ok
+test_round_and_candidate_privacy_no_contacts_for_contender (test_order_competition.OrderCompetition.test_round_and_candidate_privacy_no_contacts_for_contender) ... [2026-11-01T01:00:15+08:00] POST /api/passenger/auth/code 200
+[2026-11-01T01:00:15+08:00] POST /api/passenger/auth/login 200
+[2026-11-01T01:00:15+08:00] POST /api/auth/code 200
+[2026-11-01T01:00:15+08:00] POST /api/auth/login 200
+[2026-11-01T01:00:15+08:00] POST /api/action 200
+[2026-11-01T01:00:15+08:00] POST /api/auth/code 200
+[2026-11-01T01:00:15+08:00] POST /api/auth/login 200
+[2026-11-01T01:00:15+08:00] POST /api/action 200
+[2026-11-01T01:00:15+08:00] POST /api/action 200
+[2026-11-01T01:00:15+08:00] POST /api/action 200
+[2026-11-01T01:00:15+08:00] POST /api/passenger/action 200
+[2026-11-01T01:00:15+08:00] POST /api/action 200
+[2026-11-01T01:00:15+08:00] GET /api/state 200
+[2026-11-01T01:00:15+08:00] GET /api/driver/passenger-contact 404
+/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/tempfile.py:484: ResourceWarning: Implicitly cleaning up <HTTPError 404: 'Not Found'>
+  _warnings.warn(self.warn_message, ResourceWarning)
+ok
+test_ties_use_entered_time_then_driver_id (test_order_competition.OrderCompetition.test_ties_use_entered_time_then_driver_id) ... [2026-11-01T01:00:15+08:00] POST /api/passenger/auth/code 200
+[2026-11-01T01:00:15+08:00] POST /api/passenger/auth/login 200
+[2026-11-01T01:00:16+08:00] POST /api/auth/code 200
+[2026-11-01T01:00:16+08:00] POST /api/auth/login 200
+[2026-11-01T01:00:16+08:00] POST /api/action 200
+[2026-11-01T01:00:16+08:00] POST /api/auth/code 200
+[2026-11-01T01:00:16+08:00] POST /api/auth/login 200
+[2026-11-01T01:00:16+08:00] POST /api/action 200
+[2026-11-01T01:00:16+08:00] POST /api/action 200
+[2026-11-01T01:00:16+08:00] POST /api/action 200
+[2026-11-01T01:00:16+08:00] POST /api/passenger/action 200
+[2026-11-01T01:00:16+08:00] POST /api/action 200
+[2026-11-01T01:00:16+08:00] POST /api/action 200
+[2026-11-01T01:00:16+08:00] POST /api/action 200
+[2026-11-01T01:00:16+08:00] GET /api/passenger/state 200
+ok
+test_two_services_cas_concurrent_settlement_unique_winner (test_order_competition.OrderCompetition.test_two_services_cas_concurrent_settlement_unique_winner) ... [2026-11-01T01:00:16+08:00] POST /api/passenger/auth/code 200
+[2026-11-01T01:00:16+08:00] POST /api/passenger/auth/login 200
+[2026-11-01T01:00:16+08:00] POST /api/auth/code 200
+[2026-11-01T01:00:16+08:00] POST /api/auth/login 200
+[2026-11-01T01:00:16+08:00] POST /api/action 200
+[2026-11-01T01:00:16+08:00] POST /api/auth/code 200
+[2026-11-01T01:00:16+08:00] POST /api/auth/login 200
+[2026-11-01T01:00:16+08:00] POST /api/action 200
+[2026-11-01T01:00:16+08:00] POST /api/action 200
+[2026-11-01T01:00:16+08:00] POST /api/action 200
+[2026-11-01T01:00:16+08:00] POST /api/passenger/action 200
+[2026-11-01T01:00:16+08:00] POST /api/action 200
+[2026-11-01T01:00:16+08:00] POST /api/action 200
+[2026-11-01T01:00:16+08:00] GET /api/state 200
+[2026-11-01T01:00:16+08:00] cloud persistence unavailable: SnapshotConflict
+[2026-11-01T01:00:16+08:00] GET /api/state 503
+/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/tempfile.py:484: ResourceWarning: Implicitly cleaning up <HTTPError 503: 'Service Unavailable'>
+  _warnings.warn(self.warn_message, ResourceWarning)
+[2026-11-01T01:00:16+08:00] GET /api/passenger/state 200
+ok
+test_two_windows_do_not_award_one_driver_two_executing_orders (test_order_competition.OrderCompetition.test_two_windows_do_not_award_one_driver_two_executing_orders) ... [2026-11-01T01:00:16+08:00] POST /api/passenger/auth/code 200
+[2026-11-01T01:00:16+08:00] POST /api/passenger/auth/login 200
+[2026-11-01T01:00:16+08:00] POST /api/auth/code 200
+[2026-11-01T01:00:16+08:00] POST /api/auth/login 200
+[2026-11-01T01:00:16+08:00] POST /api/action 200
+[2026-11-01T01:00:16+08:00] POST /api/auth/code 200
+[2026-11-01T01:00:16+08:00] POST /api/auth/login 200
+[2026-11-01T01:00:16+08:00] POST /api/action 200
+[2026-11-01T01:00:16+08:00] POST /api/action 200
+[2026-11-01T01:00:16+08:00] POST /api/action 200
+[2026-11-01T01:00:16+08:00] POST /api/passenger/action 200
+[2026-11-01T01:00:16+08:00] POST /api/passenger/auth/code 200
+[2026-11-01T01:00:16+08:00] POST /api/passenger/auth/login 200
+[2026-11-01T01:00:16+08:00] POST /api/passenger/action 200
+[2026-11-01T01:00:16+08:00] POST /api/action 200
+[2026-11-01T01:00:16+08:00] POST /api/action 200
+[2026-11-01T01:00:16+08:00] POST /api/action 200
+[2026-11-01T01:00:16+08:00] POST /api/action 200
+[2026-11-01T01:00:16+08:00] GET /api/state 200
+ok
+test_winner_cancel_reopens_same_order_round_and_old_requests_cannot_cross (test_order_competition.OrderCompetition.test_winner_cancel_reopens_same_order_round_and_old_requests_cannot_cross) ... [2026-11-01T01:00:16+08:00] POST /api/passenger/auth/code 200
+[2026-11-01T01:00:16+08:00] POST /api/passenger/auth/login 200
+[2026-11-01T01:00:16+08:00] POST /api/auth/code 200
+[2026-11-01T01:00:16+08:00] POST /api/auth/login 200
+[2026-11-01T01:00:16+08:00] POST /api/action 200
+[2026-11-01T01:00:16+08:00] POST /api/auth/code 200
+[2026-11-01T01:00:16+08:00] POST /api/auth/login 200
+[2026-11-01T01:00:16+08:00] POST /api/action 200
+[2026-11-01T01:00:16+08:00] POST /api/action 200
+[2026-11-01T01:00:16+08:00] POST /api/action 200
+[2026-11-01T01:00:16+08:00] POST /api/passenger/action 200
+[2026-11-01T01:00:16+08:00] POST /api/action 200
+[2026-11-01T01:00:16+08:00] GET /api/passenger/state 200
+[2026-11-01T01:00:16+08:00] POST /api/action 200
+[2026-11-01T01:00:16+08:00] GET /api/passenger/state 200
+[2026-11-01T01:00:16+08:00] POST /api/action 200
+[2026-11-01T01:00:16+08:00] POST /api/action 409
+[2026-11-01T01:00:16+08:00] POST /api/action 409
+[2026-11-01T01:00:16+08:00] POST /api/action 200
+[2026-11-01T01:00:16+08:00] GET /api/passenger/state 200
+[2026-11-01T01:00:16+08:00] POST /api/action 200
+[2026-11-01T01:00:16+08:00] GET /api/passenger/state 200
+ok
+test_withdraw_offline_and_no_valid_candidate_reopen_without_timer (test_order_competition.OrderCompetition.test_withdraw_offline_and_no_valid_candidate_reopen_without_timer) ... [2026-11-01T01:00:16+08:00] POST /api/passenger/auth/code 200
+[2026-11-01T01:00:16+08:00] POST /api/passenger/auth/login 200
+[2026-11-01T01:00:17+08:00] POST /api/auth/code 200
+[2026-11-01T01:00:17+08:00] POST /api/auth/login 200
+[2026-11-01T01:00:17+08:00] POST /api/action 200
+[2026-11-01T01:00:17+08:00] POST /api/auth/code 200
+[2026-11-01T01:00:17+08:00] POST /api/auth/login 200
+[2026-11-01T01:00:17+08:00] POST /api/action 200
+[2026-11-01T01:00:17+08:00] POST /api/action 200
+[2026-11-01T01:00:17+08:00] POST /api/action 200
+[2026-11-01T01:00:17+08:00] POST /api/passenger/action 200
+[2026-11-01T01:00:17+08:00] POST /api/action 200
+[2026-11-01T01:00:17+08:00] POST /api/action 200
+[2026-11-01T01:00:17+08:00] POST /api/action 200
+[2026-11-01T01:00:17+08:00] POST /api/action 409
+[2026-11-01T01:00:17+08:00] POST /api/action 200
+[2026-11-01T01:00:17+08:00] GET /api/passenger/state 200
+[2026-11-01T01:00:17+08:00] GET /api/state 200
+[2026-11-01T01:00:17+08:00] POST /api/action 409
+[2026-11-01T01:00:17+08:00] POST /api/action 200
+ok
+test_zero_accuracy_stale_and_far_reported_positions_cannot_join (test_order_competition.OrderCompetition.test_zero_accuracy_stale_and_far_reported_positions_cannot_join) ... [2026-11-01T01:00:17+08:00] POST /api/passenger/auth/code 200
+[2026-11-01T01:00:17+08:00] POST /api/passenger/auth/login 200
+[2026-11-01T01:00:17+08:00] POST /api/auth/code 200
+[2026-11-01T01:00:17+08:00] POST /api/auth/login 200
+[2026-11-01T01:00:17+08:00] POST /api/action 200
+[2026-11-01T01:00:17+08:00] POST /api/auth/code 200
+[2026-11-01T01:00:17+08:00] POST /api/auth/login 200
+[2026-11-01T01:00:17+08:00] POST /api/action 200
+[2026-11-01T01:00:17+08:00] POST /api/action 200
+[2026-11-01T01:00:17+08:00] POST /api/action 200
+[2026-11-01T01:00:17+08:00] POST /api/passenger/action 200
+[2026-11-01T01:00:17+08:00] POST /api/action 200
+[2026-11-01T01:00:17+08:00] POST /api/action 409
+[2026-11-01T01:00:17+08:00] POST /api/action 200
+[2026-11-01T01:00:17+08:00] POST /api/action 409
+[2026-11-01T01:00:17+08:00] POST /api/action 200
+[2026-11-01T01:00:17+08:00] POST /api/action 403
+/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/tempfile.py:484: ResourceWarning: Implicitly cleaning up <HTTPError 403: 'Forbidden'>
+  _warnings.warn(self.warn_message, ResourceWarning)
+ok
+
+----------------------------------------------------------------------
+Ran 23 tests in 5.451s
+
+OK

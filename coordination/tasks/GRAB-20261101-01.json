@@ -1,0 +1,103 @@
+{
+  "schemaVersion": 1,
+  "id": "GRAB-20261101-01",
+  "owner": "coordinator",
+  "goal": "系统后台3秒新单直接抢单与5秒最近司机竞抢整合/独立验收/发布",
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-order-competition-20261101",
+  "branch": "codex/order-competition-20261101",
+  "baseSha": "29e83a8da4513859eaed073e0096ab1256a1a576",
+  "allow_paths": [
+    "coordination/",
+    "README.md",
+    "candidates/driver-0.3.6-r2/android/app/build.gradle.kts",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/CompetitionRules.kt",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/MainActivity.kt",
+    "candidates/driver-0.3.6-r2/android/app/src/test/java/cn/hbzjhs/driver/preview/CompetitionRulesTest.kt"
+  ],
+  "checks": [
+    "Only ordinary shared STANDARD/RESERVED enter5s competition; BID price choice/negotiated/private demo flow unchanged",
+    "First valid server-side contender opens fixed5seconds; duplicates do not restart, late requests excluded; persisted round/deadline/CAS atomic at most one winner",
+    "Winner nearest validated reported location to passenger origin; deterministic tie; eligibility/reliable location/active trip recheck; losers never navigate or expose contact",
+    "User confirmed: assigned winner cancel beforeboarding reopens sameorderId/newround; afterboarding original cancel restriction; no new auto penalties/fees",
+    "3s foreground dialog/system overlay direct grab; no duplicate reminders across foreground/background/configchange; explicit overlay grant/fallback/no forbidden full-screen auto activity; token/account/order/round isolation",
+    "Independent root/backend review and meaningful unit/HTTP/CAS/isolated native tests before unique root experience release; no current prod/test environment access",
+    "Deployment must retarget all existing driver-demo API tags plus default100 to same accepted newrevision, preserve tag names/URLs and admin entirely, preventing legacy writer bypass; explicitly compare other config/IAM"
+  ],
+  "status": "ACCEPTED_C2_READY_EXACT_HEAD_CI_MERGE",
+  "acceptance": "PASS",
+  "tests": [
+    {
+      "suite": "Root independent backend full",
+      "count": 307,
+      "result": "PASS",
+      "sourceSha": "3bdb8f71743b30f83d65131bb90ed7485690b62b"
+    },
+    {
+      "suite": "Root-authored adversarial HTTP/MemoryCAS",
+      "count": 2,
+      "result": "PASS",
+      "sourceSha": "3bdb8f71743b30f83d65131bb90ed7485690b62b"
+    },
+    {
+      "suite": "Exact D0 driver compiler",
+      "result": "FAIL",
+      "sourceSha": "65695082d541a648a50a161634f99293f8b12ee7",
+      "reason": "NewOrderAlerts.kt722 val cannot be reassigned; JUnit/QA/nativeNOT_RUN"
+    },
+    {
+      "suite": "C1 original+QA compile and driver JUnit",
+      "count": 120,
+      "result": "PASS",
+      "sourceSha": "9f9ee9b188d47211872d836cbe73ead88d10135a"
+    },
+    {
+      "suite": "Independent client contract review",
+      "result": "FAIL",
+      "reason": "P2 stale cancel dialog substitutes newest round; Phase5 dispatched"
+    },
+    {
+      "suite": "C2 original+QA compile, driverJUnit",
+      "count": 122,
+      "result": "PASS",
+      "sourceSha": "36fdf2c1bddd859f3dff22fbeb2d7e70aa94ec7c"
+    },
+    {
+      "suite": "C2 nonauthor cancellation delta",
+      "result": "PASS",
+      "sourceSha": "36fdf2c1bddd859f3dff22fbeb2d7e70aa94ec7c",
+      "P1": 0,
+      "P2": 0
+    },
+    {
+      "suite": "C2 isolated native8groups",
+      "result": "PASS",
+      "sourceSha": "36fdf2c1bddd859f3dff22fbeb2d7e70aa94ec7c",
+      "evidence": "coordination/evidence/GRAB-20261101-01/native/FINAL_REVIEW.json"
+    },
+    {
+      "suite": "localtools27 mini74 projectcheck",
+      "result": "PASS",
+      "sourceSha": "36fdf2c1bddd859f3dff22fbeb2d7e70aa94ec7c"
+    }
+  ],
+  "evidence": [
+    "coordination/evidence/GRAB-20261101-01/USER_RULES.json",
+    "coordination/evidence/GRAB-20261101-01/STANDING_ISOLATED_ANDROID_AUTHORIZATION.json",
+    "coordination/evidence/GRAB-20261101-01/NATIVE_ACCEPTANCE_PLAN.md",
+    "coordination/evidence/GRAB-20261101-01/INTEGRATION_REVIEW_NOTES.md",
+    "coordination/evidence/GRAB-20261101-01/FINAL_BUILD_PROOF.json",
+    "coordination/evidence/GRAB-20261101-01/native/FINAL_REVIEW.json",
+    "coordination/evidence/GRAB-20261101-01/native/CLEANUP.json"
+  ],
+  "nextAction": "Sync scoped accepted records, exact head CI/merge, then unique root experience API alltags and driver25 publication/readback",
+  "deploy_owner": "coordinator",
+  "releaseReady": true,
+  "updatedAt": "2026-10-31T18:02:36.929827+00:00",
+  "backendAcceptedSha": "3bdb8f71743b30f83d65131bb90ed7485690b62b",
+  "backendTree": "c5df96a35efc38ca50442b029681b7790b688922",
+  "backendAcceptance": "PASS",
+  "backendImportedSha": "2eafd7d4353d6afa474ed37e678768902e20d1b2",
+  "firstCandidateSha": "65695082d541a648a50a161634f99293f8b12ee7",
+  "candidateSha": "36fdf2c1bddd859f3dff22fbeb2d7e70aa94ec7c",
+  "buildCandidateSha": "36fdf2c1bddd859f3dff22fbeb2d7e70aa94ec7c"
+}
