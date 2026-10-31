@@ -1,0 +1,93 @@
+{
+  "taskId": "RIDEB-20261031-01",
+  "phase": 3,
+  "reviewedAt": "2026-10-31T18:48:43+08:00",
+  "reviewerRole": "backend",
+  "reviewerSessionId": "01a182c6-c058-76e1-9584-38abfe813799",
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-ride-flow-polish-20261031",
+  "baseSha": "4a6a2970d81c62dca59f64b9deb92831b75b5841",
+  "candidateSha": "b3bc07dbecbd49d3b5213d96cb11aef53e9ad644",
+  "verdict": "PASS",
+  "scope": "Independent phase3 delta source review only; not native/business/release acceptance",
+  "p1Count": 0,
+  "p2Count": 0,
+  "releaseReady": false,
+  "findings": [],
+  "closedFindings": [
+    {
+      "id": "RIDEB-P2-NESTED-RETURN",
+      "status": "CLOSED_SOURCE",
+      "refs": [
+        "BookingScreens.kt:91-98",
+        "BookingScreens.kt:434-480",
+        "BookingScreens.kt:724",
+        "BookingScreens.kt:764-785",
+        "BookingScreens.kt:797-801",
+        "BookingScreens.kt:832-834"
+      ],
+      "detail": "All editor assignments go via openEditor: same parent-owner shield arms before page switch. leave now arms also when stop picker returns to destination. Fresh destination session receives same shield. Row/result return before commit; map returns before cancellation/lookup; add and stop edit/remove check before action. Blocked second tap consumes no session and changes no draft, so after guard expires the same valid row remains usable.",
+      "nativeVerification": "NOT_RUN by backend; frontend actual hit-target replay required"
+    }
+  ],
+  "checks": [
+    {
+      "id": "shared_scope_and_all_switches",
+      "result": "PASS_SOURCE",
+      "detail": "Only editor assignment now line97 inside openEditor. Home origin/destination/stops summary, child add/edit and all leave/cancel/back switch through it. Shield remembered outside key(editor), within owner-keyed draft: survives child switch, resets on owner composition disposal. Owner/target checks unchanged."
+    },
+    {
+      "id": "before_consume_and_map_lookup",
+      "result": "PASS_SOURCE",
+      "detail": "interactionAllowed line724 checks guard at event time. pickRow and pickResult gate before commit; map before cancelSearch/beginLookup. No new check after async commit that could strand committed session. Existing query/map newest-token/cancellation validation unchanged."
+    },
+    {
+      "id": "stop_buttons_and_main_cta",
+      "result": "PASS_SOURCE",
+      "detail": "Add/edit/remove use enabled appearance plus onClick clock check. Main booking CTA/swap phase2 gate preserved. Rejected transition tap does not shift/delete/add a waypoint or call create/payment."
+    },
+    {
+      "id": "bounded_recovery_and_cancel",
+      "result": "PASS_SOURCE",
+      "detail": "Guard/shield implementation byte-identical to phase2: 700ms bounded, effect settles appearance; refused callback does not rearm. Inputs/city/search retry/cancel/back/scroll/pan remain outside point gate. Back only arms then changes editor; does not save draft. Repeated explicit page transitions restart700ms intentionally, no autonomous restart."
+    },
+    {
+      "id": "Profile_Order_server_inheritance",
+      "result": "PASS_SOURCE_INHERITED",
+      "detail": "Git diff confirms ProfileScreens, OrderDetail, PlaceSelection, Store/backend identical to reviewed phase2. AddressDialog shield defaults null so their existing calls keep behavior, including separate save/reprice and return guards. Their picker opening is not guarded by new shared Booking shield; no claim universal opening doubletap prevention."
+    },
+    {
+      "id": "new_unit_test",
+      "result": "INSPECTED_NOT_RUN",
+      "detail": "One added test models49ms rejection before fresh session commit and successful later reuse. Does not prove actual screen hit arbitration. Frontend owns compile/JUnit/native."
+    }
+  ],
+  "experienceBoundaries": [
+    "Every Booking picker opening now arms too: a deliberate first place tap during the next700ms is ignored, not just a duplicate tap after returning. This is bounded and no selection is consumed; no blocking source defect found within authorized tradeoff.",
+    "List/search result rows retain normal appearance while shield rejects clicks; add/edit/delete controls show disabled. Can temporarily look unresponsive for<=700ms; frontend must inspect normal post-window selection.",
+    "Profile/Order picker-opening doubletap is outside new Booking shared shield; phase2 protects their exposed save/reprice/payment/cancel actions.",
+    "Source cannot establish actual native event dispatch, click completion timing, small-screen visibility, or absence of all cross-window hit targets."
+  ],
+  "actualChecks": [
+    "Entry START/STATE/BOARD/current task/card and memory-role gate PASS",
+    "Exact candidate HEAD and clean tree verified",
+    "git diff4a6a..b3bc product names: BookingScreens.kt and PlaceSelectionTest.kt only",
+    "Every editor assignment and commit/lookup entry inspected from immutable Git object",
+    "git diff --check4a6a..b3bc -- apps/passenger-android exit0",
+    "Inherited guard/Profile/Order/Store/backend diff empty"
+  ],
+  "notRun": [
+    "Build/JUnit/nativeGUI: frontend assigned, not repeated",
+    "API/DB/cloud/provider/OEM/real funds"
+  ],
+  "preservedPriorEvidenceSha256": {
+    "SOURCE_REVIEW.json": "78cd1286b909075b2ce27d6df7391ba587429c373c3db6c7fc4dfc6e1946fab3",
+    "SOURCE_REVIEW.md": "f1453f2835974dc2e7df58119e5e552a47debcaaf3b5d284d3c1557c52a46e65",
+    "PHASE2_REVIEW.json": "d0ca4fd423bed99a5ac87743032bcb6e973c2e8b6cbe9af249125485a79d57e6",
+    "PHASE2_REVIEW.md": "ccfece0e286c14bde9829b75a6b18a0f820b6625a752df912a9a35d51ffdc350"
+  },
+  "reviewedGitBlobs": {
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/BookingScreens.kt": "13aff2354fc07aa3fedf4148ae7cb261e1734774",
+    "apps/passenger-android/app/src/test/java/cn/hbzjhs/passenger/PlaceSelectionTest.kt": "5fb92dce1f2f0a9fb6dfa414cdacb36728e0a31f"
+  },
+  "nextAction": "Root combine exact-head frontend compilation/JUnit/native originalP1+nestedP2+expiry and explicit selection tests; only root closes overall business gate and publishes. Re-review product changes."
+}

@@ -2,7 +2,7 @@
 中央/Users/dongge/Documents/New project 2/coordination唯一权威，协议2026-10-26-v3。唯一coordinator01a17cc7-e0a2-7791-bf1d-4611c09bab22/generation6；context UNKNOWN。root独占状态/验收/合并发布。
 
 ## 新活动RIDE-20261031-01
-用户要求一击确认有效地址、途经点入口移目的地页、修历史点击无反应、两端成熟网约车风格简化。新source /Users/dongge/.codex/tmp/yijiexing-ride-flow-polish-20261031 branch codex/ride-flow-polish-20261031 base c261d78；Claude fresh 6c0ddf57-d854-4c5c-a8a9-43f7ee7e3063 Opus5.5high phase1 exit0，冻结ff53f570296d0bd97d8dc7ee4e16c915987a8542；RIDEB源审PASS/0P1P2，root27/mini74/checkPASS。draftPR47/head ff53f57 CI41192639216 SUCCESS，双原包/QA和63/77单测PASS但RIDEF原生49ms双击穿透确认呼叫P1 FAIL；Claude同SID phase2 runner34648有界退修，当前不可发布。公开仍22。DESIGN_BRIEF为参考。
+用户要求有效地点一击确认、途经点移目的地页、修历史点击无反应、两端成熟风格简化。source /Users/dongge/.codex/tmp/yijiexing-ride-flow-polish-20261031 branch codex/ride-flow-polish-20261031/base c261d78。Claude官方SID6c0ddf57-d854-4c5c-a8a9-43f7ee7e3063 Opus5.5high三阶段exit0。ff53原生49ms第二tap穿透叫车P1、4a6a嵌套返回误选P2原FAIL保留；最终b3bc07dbecbd49d3b5213d96cb11aef53e9ad644，跨页700ms防误触/commit前检查，RIDEB phase3源审PASS。旧63/77、4a新增时钟测试和构建已有证据；RIDEF正最终乘客69预计单测/原包QA重建与A-B差量，司机同源可明确继承。root工具27/mini74/check按准确不变树归属。draftPR47未合并，未发布23，公开仍22。真实provider成功不在QA证明范围。root独占发布；Claude/backend暂闲、frontend验收中。
 
 ## MAPS版本22：测试、合并、发布和实际回读PASS；源码与实际回执均已合并入库
 用户要求四主地图页功能面板三态拖动，上拖全展可滚所有项，下拖至全屏；乘客新草稿GPS起点/空终点，选址上地图/空查询框/下模糊结果。Claude官方session9bc07c4c-731c-4b1f-840b-ce6a0c5dc85a/Opus5.5high三阶段exit0。作者无Bash自测NOT_RUN，由不同会话验收。最终产品d6d5206a82f16987fd51371044fb12e76ba9f8d8，PR45准确head125699eb8729e43bd3ec83d2db50bd292b479afd/CI41185604204 SUCCESS，expected-head squash merge49bc669ec8f412756eb782498bcedeecb4098b52；所有产品树同最终验收源。
@@ -18,4 +18,4 @@ MAPSB独立源审最终PASS，前两P2(新查询复用旧点/空终点swap清GPS
 NETC只读核对原21包origin、health200/TLS和有界日志，未复现手机故障；本机198.18合成DNS/TUN不能外推手机。用户随后明确“已经恢复”，根因未证实，不继续盲改云配置或轮询。
 BIZ04预约待出发不占即时，明确开始接驾后双角色单执行/欠款门禁；无自动处罚/准时保证。BIZ05历史32类仅配置草稿与人工记录。BIZ06新单终点必填/旧单同ID补齐。BIZ07差额单扣/余分平台仅模拟。BIZ08三证提前60天提醒、审核通过替换；有效待审可接、过期禁新单、在途完成。BIZ09每用户每发布版本弹一次可关。默认乘车人/抬头仅新草稿建议；默认地址可保存但按本次UI-MAP-20261031新草稿终点空，不覆盖手动点/已有草稿/历史。ACTION_DIAL公司电话确认，无IM/中继。公告既有先领后显跨重启持久补弹边界不变。
 后台平台运维→公告/客服电话/乘客配置；司机管理→资质到期；配置与治理→历史草稿与人工记录。地图EXMAP用户已修SHA1字母O→数字0，合成原SDK10008→10000/1POI不等于手机SDK；用户稍后体验，Astra IDLE不轮询。PMPOST候选未混入。
-源码/Users/dongge/.codex/tmp/yijiexing-map-panels-20261031，当前receipt branch codex/map-panels-receipt-20261031。共享后端唯一可写仍UIO树apps/cloud-service，本轮未改。中央控制root独占，工作树仅快照不可反向覆盖。Claude/ backend/ frontend IDLE，root/所有角色IDLE等用户体验反馈；Gemini暂停、Astra仅堵点，核心GPT6.1；无常驻自动化。细节见coordinator短卡及MAPS任务。
+源码/Users/dongge/.codex/tmp/yijiexing-map-panels-20261031，当前receipt branch codex/map-panels-receipt-20261031。共享后端唯一可写仍UIO树apps/cloud-service，本轮未改。中央控制root独占，工作树仅快照不可反向覆盖。当前角色状态见上方RIDE活动与REGISTRY；Gemini暂停、Astra仅堵点，核心GPT6.1；无常驻自动化。细节见coordinator短卡及MAPS任务。

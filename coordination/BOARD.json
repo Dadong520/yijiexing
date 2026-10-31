@@ -101,14 +101,14 @@
     "coordination/archive/2026-10-26/AUTH-20261026-02.json"
   ],
   "memoryProtocolVersion": "2026-10-26-v3",
-  "currentStage": "RIDE_NATIVE_TAP_THROUGH_FAIL_AUTHOR_REPAIR",
+  "currentStage": "RIDE_PHASE4_PRICE_DISPLAY_FINAL_POLISH",
   "roleAssignments": {
     "coordinator": "RIDE sole coordination and release",
-    "backend": "RIDEB final source review after freeze",
-    "frontend": "RIDEF dual build and bounded native A/B after freeze",
+    "backend": "IDLE wait phase4 UI-only source freeze",
+    "frontend": "Finalize B3 actual report then narrow phase4 passenger delta",
     "antigravity": "PAUSED_BY_USER_20261029; no new Gemini dispatch",
     "expert": "IDLE; configuration verified, SDK auth recovered; user deferred actual device test",
-    "claude": "RIDEC phase2 repair pending; exact same SID"
+    "claude": "RIDEC phase4 one-file price display running38048"
   },
   "collaborationDecision": "GOV07 user Claude Code main implementation; Gemini temporarily paused; visible Codex role reviews and root unique release"
 }

@@ -1,0 +1,198 @@
+{
+  "task": "RIDEF-20261031-01",
+  "reviewerRole": "frontend",
+  "reviewerSessionId": "01a182c6-c475-7110-bbae-0deafe6d2385",
+  "candidateSha": "b3bc07dbecbd49d3b5213d96cb11aef53e9ad644",
+  "status": "PASS",
+  "qualification": "Limited A/B independent review; two nonblocking P3 visual notes. Root owns final merge/release decision. No product changes by reviewer.",
+  "buildProof": "FINAL_BUILD_PROOF.json",
+  "cleanupProof": "CLEANUP.json",
+  "sourceAttribution": {
+    "passengerFinalBuildAndA": "b3bc07dbecbd49d3b5213d96cb11aef53e9ad644",
+    "driverBuildUnitAndB": "ff53f570296d0bd97d8dc7ee4e16c915987a8542",
+    "driverInheritance": "Complete Git product tree identical ff53→b3",
+    "passengerB": "ff53 representative B shots inherited for unchanged layout/styles; final B3 A/profile/small-IME images also retained. ff53→b3 changes are return guards/picker lifecycle and tests, no restyling. Old shots retain original source."
+  },
+  "cases": [
+    {
+      "id": "A1",
+      "status": "PASS",
+      "case": "Valid favorite/history one-click fills point and returns, without second Use; no auto-call",
+      "evidence": [
+        "native/f15-correct-origin-return.xml",
+        "native/f18b-r1-verified-return.xml",
+        "r1-native-verified.json"
+      ]
+    },
+    {
+      "id": "R1-final",
+      "status": "PASS",
+      "case": "Rapid native second tap after destination row selection does not call ride",
+      "actualIntervalMs": 75,
+      "timingNote": "Actual ~75ms, not exact original49ms; original49ms failure retained unchanged. Both inside700ms guard.",
+      "evidence": [
+        "r1-native-verified.json",
+        "native/f18b-r1-verified-return.png",
+        "final-local-mutations.json"
+      ]
+    },
+    {
+      "id": "A-open-window",
+      "status": "PASS",
+      "case": "Opening picker +42ms early valid row ignored, session remains usable; same row later selects normally",
+      "evidence": [
+        "nested-progress.json",
+        "native/f25-early-child-refusal.xml",
+        "native/f26-normal-stop-selected.xml"
+      ]
+    },
+    {
+      "id": "R2-final",
+      "status": "PASS",
+      "case": "Select edited stop then tap valid parent destination at159ms; stays parentpicker, no destination commit. After window normal parent destination selection returns caller",
+      "evidence": [
+        "nested-return.json",
+        "native/f29-nested-second-tap-protected.xml",
+        "native/f35-parent-normal-return.xml"
+      ]
+    },
+    {
+      "id": "A-stops",
+      "status": "PASS",
+      "case": "Add first and second stop, max2 removes add entry; edit first, remove second, cancel empty second; selected route persisted exactly one stop",
+      "evidence": [
+        "native/f31-max2.xml",
+        "native/f32-remove-stop2.xml",
+        "native/f34-cancel-stop2-unchanged.xml",
+        "final-local-mutations.json"
+      ]
+    },
+    {
+      "id": "A-invalid",
+      "status": "PASS",
+      "case": "Unknown-coordinate history remains visible, explicit no-coordinates feedback and name-search path; no zero-point or silent return; caller unchanged after search cancellation",
+      "evidence": [
+        "native/f38-history-bottom.xml",
+        "native/f39-unknown-feedback.xml",
+        "native/f47-query-cancel-caller.xml"
+      ]
+    },
+    {
+      "id": "A-callbacks",
+      "status": "PASS",
+      "case": "Valid history metadata, invalid coordinates, duplicate commits, late/only-newest map lookup, delayed search retirement and bounded guard refusal covered by actual69 unit tests. Search/map success is stub/rule level only.",
+      "evidence": [
+        "FINAL_BUILD_PROOF.json",
+        "passenger-b3-original-build.log"
+      ]
+    },
+    {
+      "id": "A-explicit-create",
+      "status": "PASS",
+      "case": "After guard window explicit call once creates one local order0→1 with exact origin/destination/one waypoint; never auto called by selection",
+      "evidence": [
+        "native/f49-explicit-create.xml",
+        "final-local-mutations.json"
+      ]
+    },
+    {
+      "id": "A-reprice",
+      "status": "PASS",
+      "case": "Existing order point selection opens explicit reprice confirmation; fast second tap cannot submit; server destination unchanged until later explicit confirmation updates once",
+      "evidence": [
+        "native/f54-reprice-confirm.xml",
+        "native/f57-reprice-fast-second-protected.xml",
+        "native/f58-reprice-explicit.xml",
+        "reprice-fast-input.json",
+        "final-local-mutations.json"
+      ]
+    },
+    {
+      "id": "A-favorite-save",
+      "status": "PASS",
+      "case": "Point selection only changes local favorite form; fast second Save rejected, server retains old point. Later explicit Save persists once",
+      "evidence": [
+        "native/f64-favorite-fast-save-protected.xml",
+        "native/f65-favorite-explicit-save.xml",
+        "favorite-fast-input.json",
+        "final-local-mutations.json"
+      ]
+    },
+    {
+      "id": "B-style",
+      "status": "PASS",
+      "case": "White/ink/restrained teal, representative passenger home/order/profile and driver listening/trip/wallet/profile visually checked; trip is read-only DTO projection, wallet synthetic",
+      "evidence": [
+        "native/final-visual-contact.png",
+        "native/b31-driver-trip-normal-clean.png",
+        "native/b12-driver-wallet.png",
+        "native/b13-driver-profile.png"
+      ]
+    },
+    {
+      "id": "B-small-IME-confirm-fullscreen",
+      "status": "PASS",
+      "case": "360dp/font1.3 real keyboard queryA→B/back; route visible/scrollable. Danger Other-with-blank reason confirm disabled; dismiss no cancel. Fullscreen and restore passengerorder/drivertrip checked on ff53 unchanged presentation; no business transitions",
+      "evidence": [
+        "native/f44-small-real-ime.png",
+        "native/f45-small-queryB.xml",
+        "native/f46-small-hide-ime.xml",
+        "native/b28-danger-disabled-settled.xml",
+        "native/b02-order-full-map.png",
+        "native/b03-order-map-restore.png",
+        "native/b19-driver-trip-full-map.png",
+        "native/b20-driver-trip-restored.png"
+      ]
+    }
+  ],
+  "nonblockingNotes": [
+    {
+      "id": "VIS-P3-1",
+      "severity": "P3",
+      "description": "360dp/font1.3 offline map failure overlay clips lower portion of reload label; control remains present. Real-provider successful map outside this QA.",
+      "evidence": "native/f44-small-real-ime.png"
+    },
+    {
+      "id": "VIS-P3-2",
+      "severity": "P3",
+      "description": "Small-screen passenger order header price wraps the final digit of ¥8.00 onto a second line; no amount data change or overlap with primary action observed.",
+      "evidence": "native/b25-passenger-order-small.png"
+    }
+  ],
+  "historicalFindings": [
+    {
+      "sha": "ff53f570296d0bd97d8dc7ee4e16c915987a8542",
+      "id": "RIDEF-R1",
+      "status": "FAIL_PRESERVED",
+      "evidence": "FINDINGS_ff53.json"
+    },
+    {
+      "sha": "4a6a2970d81c62dca59f64b9deb92831b75b5841",
+      "id": "nested return R2",
+      "status": "RIDEB_SOURCE_FAIL_PRESERVED",
+      "nativeRetest": "NOT_RUN on4a; final B3 native tested"
+    }
+  ],
+  "excludedProbes": [
+    "f01 stale old-driver UI root excluded",
+    "f07–f18 early harness/precondition probes excluded except separately verified corrected f14–f17; only f18b used for final R1",
+    "b14/b21 transient network frames excluded; b15/b31 clean replacements used",
+    "f41 configuration recreated caller; attempted fill failed before input, not counted as IME case"
+  ],
+  "notRun": [
+    "Real map provider positive POI/fuzzy search/reverse geocode/routes/camera/pinch success",
+    "Physical devices/OEM",
+    "Full ride lifecycle/payment/refund/real funds/identity/police/coupon integrations",
+    "Cloud business writes/deploy/merge"
+  ],
+  "mutations": "Only fresh localhost fixture: one native explicit create, one explicit reprice update, one explicit favorite save; initial fixture created2 favorites. Old failure order payload hash unchanged.",
+  "resourceDisposition": "CLEANUP PASS: dedicated emulator absent,64361/64362/5584 closed, reverse removed; private fixtures retained outside repo; no personal device touched.",
+  "pendingMergeSha": "b3bc07dbecbd49d3b5213d96cb11aef53e9ad644",
+  "publishedVersion": "22 unchanged; 23 not published by frontend",
+  "releaseAssessmentOverride": {
+    "authority": "root latest instruction",
+    "status": "PENDING_PHASE4",
+    "requiredBeforeRelease": "Amount single-line fix and targeted passenger retest",
+    "historicalB3FunctionalResultPreserved": true
+  }
+}

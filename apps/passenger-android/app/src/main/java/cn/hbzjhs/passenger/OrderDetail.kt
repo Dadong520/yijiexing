@@ -160,18 +160,24 @@ fun OrderDetail(o: JSONObject, store: PassengerStore, busy: Boolean, openOrder: 
     OrderStatusBanner(stageName(stage), stageMessage(o, negotiated), orderSummary(o))
     if (unpaidOther != null && stage in listOf("AVAILABLE", "RESERVED", "PICKUP", "PREPAY"))
       OutstandingPaymentNotice { openOrder(unpaidOther.text("id")) }
-    Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(Gap.S)) {
+    // The amount gets its own full-width line so small screens and large fonts never split it; the
+    // two helper buttons wrap on the line below instead of squeezing it.
+    Text(
+      if (o.optBoolean("destinationPending")) "费用待定"
+      else "¥${money(o.optLong("fare"))}",
+      fontSize = TypeScale.Page,
+      lineHeight = 28.sp,
+      fontWeight = FontWeight.Bold,
+      color = Ink,
+      modifier = Modifier.fillMaxWidth(),
+    )
+    FlowRow(
+      Modifier.fillMaxWidth(),
+      horizontalArrangement = Arrangement.spacedBy(Gap.S),
+      verticalArrangement = Arrangement.spacedBy(Gap.S),
+    ) {
       IdentifierButton(id, "订单信息")
       PassengerTextButton(onClick = { contactPage = true }) { Text("联系与帮助") }
-      Spacer(Modifier.weight(1f))
-      Text(
-        if (o.optBoolean("destinationPending")) "费用待定"
-        else "¥${money(o.optLong("fare"))}",
-        fontSize = TypeScale.Page,
-        fontWeight = FontWeight.Bold,
-        color = Ink,
-        modifier = Modifier.align(Alignment.CenterVertically),
-      )
     }
     Panel("行程路线") {
       if (o.text("scheduledAt").isNotBlank()) {

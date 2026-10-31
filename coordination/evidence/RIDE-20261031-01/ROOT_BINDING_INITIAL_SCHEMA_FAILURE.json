@@ -1,0 +1,6 @@
+{
+  "command": "python3 bind_artifacts.py",
+  "session": 7943,
+  "exitCode": 1,
+  "reason": "Verifier expected inheritedFromPriorCandidate flag, actual reviewer proof declares inherited=true. Driver exact Git tree equality checks had already passed. Adapted schema alias; no APK/source/proof modification."
+}

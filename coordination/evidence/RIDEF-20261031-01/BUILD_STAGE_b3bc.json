@@ -1,0 +1,11 @@
+{
+  "sourceSha": "b3bc07dbecbd49d3b5213d96cb11aef53e9ad644",
+  "originalUnitAssemble": "PASS",
+  "passengerUnit": {
+    "tests": 69,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "driverInheritance": "Entire driver product tree sameff53, actual77 tests/oldoriginal+QA"
+}

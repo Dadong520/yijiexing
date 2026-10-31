@@ -1,0 +1,15 @@
+{
+  "points": [
+    [
+      353,
+      1343
+    ],
+    [
+      312,
+      1910
+    ]
+  ],
+  "intervalMs": 159.17095798067749,
+  "assertion": "still destination picker after stop selection; second destination tap rejected",
+  "status": "PASS"
+}

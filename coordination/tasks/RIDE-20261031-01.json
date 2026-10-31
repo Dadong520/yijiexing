@@ -17,7 +17,7 @@
     "Preserve owner/query generation, valid coordinates, manualGPS, modal priority, full-map/scope restoration and business gates",
     "No backend/Store/network/prod edits; independent reviewer tests before root exact-head merge/release"
   ],
-  "status": "PHASE3_REPAIR_NESTED_PICKER_RETURN",
+  "status": "PHASE4_FINAL_VISUAL_REPAIR",
   "acceptance": "FAIL",
   "tests": [
     {
@@ -37,14 +37,20 @@
   ],
   "evidence": [
     "coordination/evidence/RIDE-20261031-01/ROOT_CHECKS_ff53f57.json",
-    "coordination/evidence/RIDEB-20261031-01/SOURCE_REVIEW.json"
+    "coordination/evidence/RIDEB-20261031-01/SOURCE_REVIEW.json",
+    "coordination/evidence/RIDE-20261031-01/ROOT_CHECKS_b3bc07d.json",
+    "coordination/evidence/RIDEB-20261031-01/PHASE3_REVIEW.json",
+    "coordination/evidence/RIDE-20261031-01/ROOT_ARTIFACT_BINDING.json",
+    "coordination/evidence/RIDE-20261031-01/ROOT_VISUAL_REVIEW.json",
+    "coordination/evidence/RIDEF-20261031-01/FINAL_BUILD_PROOF.json"
   ],
-  "nextAction": "Backend found stop->destination new-session rapid tap gap; Claude sameSID phase3 running41701; frontend current build may finish then final differential only",
+  "nextAction": "Root actual b25 price split noted, author one-file repair then narrow passenger rebuild/native before release",
   "deploy_owner": "coordinator",
   "releaseReady": false,
   "updatedAt": "2026-10-31T10:22:24.928184+00:00",
-  "candidateSha": "4a6a2970d81c62dca59f64b9deb92831b75b5841",
-  "businessReview": "coordination/evidence/RIDEB-20261031-01/SOURCE_REVIEW.json",
-  "rootChecks": "coordination/evidence/RIDE-20261031-01/ROOT_CHECKS_ff53f57.json",
-  "pullRequest": "https://github.com/Dadong520/yijiexing/pull/47"
+  "candidateSha": "b3bc07dbecbd49d3b5213d96cb11aef53e9ad644",
+  "businessReview": "coordination/evidence/RIDEB-20261031-01/PHASE3_REVIEW.json",
+  "rootChecks": "coordination/evidence/RIDE-20261031-01/ROOT_CHECKS_b3bc07d.json",
+  "pullRequest": "https://github.com/Dadong520/yijiexing/pull/47",
+  "nativeReview": "coordination/evidence/RIDEF-20261031-01/FINAL_REVIEW.json"
 }

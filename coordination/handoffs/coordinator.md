@@ -1,17 +1,11 @@
-# coordinator RIDE活动短卡
-协议2026-10-26-v3；真实ID01a17cc7-e0a2-7791-bf1d-4611c09bab22/generation6唯一协调/发布；context UNKNOWN。
-用户要求：有效地点点选直接确认/不要使用此地点；途经点移目的地页；历史点击无反应；参考滴滴Uber提升两端美观与易用。新source /Users/dongge/.codex/tmp/yijiexing-ride-flow-polish-20261031 branch codex/ride-flow-polish-20261031 base mainc261d78c0108067b6057ff655d1396ec135d815e。本轮RIDE/RIDEC/RIDEB/RIDEF-20261031-01；Claude新官方sid6c0ddf57-d854-4c5c-a8a9-43f7ee7e3063 Opus5.5/high实现，private /Users/dongge/.codex/tmp/yijiexing-ride-flow-author-20261031，noBash作者自测NOT_RUN；backend先只读诊断schema/callback，之后源审。frontend旧会话HANDOFF_RECOMMENDED，只在freeze后评估限定两组，不扩大旧会话。Gemini暂停，Astra仅堵点，不开更多代理。
-root已看22版f01截图与源码：历史多数有坐标，点击仅selected后需第二按钮造成无反馈；缺坐标要可见反馈不能伪造。参考官方DiDi帮助/Uber多点入口/Base一致性框架，DESIGN_BRIEF有来源与自有推断边界。不进入新原型/三图审批流程，此为既有原生代码实现。保留当前品牌，减少绿色大按钮/重阴影/嵌套卡，主要地址和CTA突出。只改已列UI文件，无Store/backend网络业务变动；费用/取消等真实风险确认不移除。选择地址不等于自动叫车或支付；途经点仍上限2，不照搬Uber5点。
-当前公开22 PR45产品/PR46回执mainc261d78，所有CLI/QA/GCS已结束，不重复发布。最新MAPS productD6，乘客1.1.20/司机0.3.19 code22原签名；旧22数据45单全字段同，provider真实服务/OEM/资金仍未验证。共享后端唯一UIO树apps/cloud-service不改，原测试/生产禁止。root中央控制独占，其他只自己卡/任务/证据。下一步作者实现→freeze→独立构建/选址与样式原生→准确headCI/merge/体验发布回读；未验收不称已发布。
-
-作者runner80507已exit0，phase1成功/permissionDenials[]，自测NOT_RUN；即将freeze独立审查，timeout1200；实际init6c0ddf57-d854-4c5c-a8a9-43f7ee7e3063/claude-opus-5-5已核；private yijiexing-ride-flow-author-20261031/run.py，输出phase1-stream/result.json。未结束不并发resume。root已只改双Gradle候选code23，乘客1.1.21-experience/司机0.3.20-cloud，未构建未发布。Task RIDEC允许16 UI Kotlin+1纯helper测试，不允许Store/后端/网络或现金业务。rootProductDesign index查阅判定普通既有应用实现不路由原型/三图审批；实际参考源已写DESIGN_BRIEF、已告知用户。
-
-冻结ff53f570296d0bd97d8dc7ee4e16c915987a8542；双23候选，作者phase1成功0拒绝。backend源审、frontend相关单测双原包/QA与A/B原生；未发布，公开仍22。
-
-RIDEF ff53真实本地原生FAIL：历史列表底部快速双击第一下选址返回、第二下落确认呼叫并创建fixture订单。不得发布ff53。等独立精确复现落盘→Claude原SID phase2防误触修复，不能恢复Use按钮；B外观可继续，A停依赖。
-
-phase2 official sameSID runner34648启动，限1200s/ReadEdit/noBash。已收到49ms精确独立FAIL；修所有3 AddressDialog调用方返回后有界短窗action内部单调时钟防误触，禁恢复Use/延迟返回/改业务。frontend原失败保留AVD5584/fixture64361暂待或做限定B，修复前绝不发布。
-
-phase2作者34648 exit0/30turn/0权限拒绝，5限定文件。新freeze4a6a2970d81c62dca59f64b9deb92831b75b5841，guard700ms单调时钟/内部检查/Compose短禁用；下一步非作者补差量，不能把ff53纯源审当修复验收。
-
-phase2残余P2(backend源审)：途经点回目的地新session第二tap可误改终点。phase3同SID runner41701/900s仅Booking(必要helper/tests)修，所有leave先arm，父picker选定/地图提交/stop管理action在consume前检查；查询浏览保持。4a6a仍FAIL，不发布。
+# coordinator RIDE 最后视觉修复短卡
+协议2026-10-26-v3；真实root 01a17cc7-e0a2-7791-bf1d-4611c09bab22/generation6唯一协调/验收/合并发布；context UNKNOWN，无遥测。
+当前RIDE/RIDEC/RIDEB/RIDEF-20261031-01，source /Users/dongge/.codex/tmp/yijiexing-ride-flow-polish-20261031，branch codex/ride-flow-polish-20261031，base main c261d78c0108067b6057ff655d1396ec135d815e，HEAD b3bc07dbecbd49d3b5213d96cb11aef53e9ad644。用户三项：有效点一下回填返回/去Use；途经点在目的地页max2；历史点击反馈及参考成熟平台简化两端。root为单独体验原包候选code23：乘客1.1.21-experience、司机0.3.20-cloud，尚未发布。
+Claude官方SID6c0ddf57-d854-4c5c-a8a9-43f7ee7e3063 Opus5.5/high，private /Users/dongge/.codex/tmp/yijiexing-ride-flow-author-20261031。phase1/2/3 exit0且0拒绝，自测均NOT_RUN。原ff53原生49ms连点穿透叫车P1、4a6a nested返回误选P2原FAIL保留；B3同owner跨页700ms单调时钟/consume前检查已修，RIDEB phase3源审PASS。打开Booking选址也短窗，700ms内row无disabled外观但不消耗session，之后正常，可输入/返回/浏览。
+B3 frontend已实际双原包/QA；乘客69，司机源完全同ff53继承77，0fail/error/skip。R1最终实际75ms复验：第一tap填对返回、0→0；nested/2stop增删改/取消/max2/未知历史提示与重试、窗口后明确CTA仅1单且payload路线一致、旧订单重估先确认且快点不提交、Profile先回编辑快点不保存明确Save才写，小屏IME/B代表/全屏恢复已跑。旧UI locator失败读缓存的探测明确排除，私有工具修为先删旧XML+失败重试，不能按文件名/仅0订单算PASS。B3 CLEANUP.json PASS，AVD5584/两fixture64361,64362/转发都已关闭；旧误单和privateDB保留未抹。frontend正在写B3最终报告，不能把旧图伪改新SHA。
+root已view代表截图、存ROOT_VISUAL_REVIEW仅视觉。bind4746 PASS原APK/JUnit/Git全部tracked字节：乘客ce35050482a7a42d62f97331d356bf93250d15ffb006efd94533d5790df979cc/107270521，司机237ee0ce4feeb24e29ec4257258fb56227d6ea1c95feb9017f15bd737303d30f/108718725。原签名9ffec9…b758f/原包名/code23/四私有值0命中/原DEX HTTPS API origin均核。proof用inherited=true（非inheritedFromPriorCandidate），root helper首7943 schema失败留证，后4746适配且精确tree相等；不是改proof过门禁。
+当前phase4 runner38048/600s同SID正在执行：root实看b25小屏金额¥8.00拆为¥8.0与0，不能带此显示发。仅许OrderDetail约160行金额/辅助按钮布局+claude卡/证据，不许改formatter/字段/业务/事件/其他文件。frontend先保留B3全部真实结果，等新freeze只乘客重建69+原包QA、正常与360dp/font1.3金额完整一行/按钮可达/旧确认取消smoke；B3其余A按函数相同明确继承，driver ff53原包77不重复。离线地图reload字略裁为未变MapPanel非阻塞备注，不扩大此最后修复。
+角色backend01a182c6-c058-76e1-9584-38abfe813799暂闲；frontend01a182c6-c475-7110-bbae-0deafe6d2385活动，HANDOFF_RECOMMENDED但可接此限定差量，未来大任务先换，不能假装清空。Gemini暂停/Astra闲，不自行开更多代理/chat。中央root独占STATE/BOARD/REGISTRY/DECISIONS，角色只自己资料。DECISIONS已近8192不要追加。
+PR47 draft已推B3，CI41194172684 SUCCESS；最终验收metadata integration head还需准确CI/expected-head合并，产品树须等验收源。公开仍22，PR45产品/PR46回执mainc261d78已完成勿重做。共享backend唯一UIO树apps/cloud-service不改。只独立yijiexing-driver-demo-1023/us-west1，禁止原测试/生产。APK-only不改CloudRun/IAM/env/secret/SA/revision/traffic，automatic/min0/max1/请求计费/API900/concurrency1保持。
+私有release helper /Users/dongge/.codex/tmp/yijiexing-ride-release-stage-20261031 已复制适配23，当前binding仍B3将过时，绝未upload/promote。新proof后run bind_artifacts.py（允许driver inherited别名但须build/test fulltree相等），记录新APKhash。原子data-before45单generation1793441160408859/2aa07b…私有ride23-prefix；提升前必须refresh_backup_if_changed。runtime-before完整spec与22相同，public4GET direct200；初错误用顶层status已留证改data.status。
+剩余：phase4退修→冻结→backend仅局部非业务源审+frontend限定乘客build/native→root绑定/结构门禁→最终metadata准确headCI/merge→GCS候选upload/refresh备份/旧22归档/提升→顺序两个公开APK完整900s回读（concurrency1不要并发，header临时文件勿共享并发）+runtime/data/public页→实际receipt/README独立backend窄审/准确CI合并→最后中央登记自引用SHA不循环PR。真实provider/个人手机/OEM/真钱未验，微信缺AppID未发；不能称真实三端全业务。

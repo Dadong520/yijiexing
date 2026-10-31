@@ -1,0 +1,34 @@
+{
+  "onlyLocalhost": true,
+  "orderCount": 1,
+  "createdOrder": {
+    "id": "PORDa0bc5c96c356",
+    "origin": "RIDEF SameName Place",
+    "destination": "夷陵广场 · 东侧入口",
+    "originLat": 30.6687,
+    "originLng": 111.3226,
+    "destinationLat": 30.704,
+    "destinationLng": 111.2929,
+    "waypoints": [
+      {
+        "id": "WPee9378df9a24",
+        "sortNo": 1,
+        "name": "宜昌东站 · 出租车上客区",
+        "latitude": 30.6648,
+        "longitude": 111.3674
+      }
+    ]
+  },
+  "repriceDestinationBefore": "夷陵广场 · 东侧入口",
+  "repriceDestinationAfter": "三峡游客中心",
+  "favoriteAddressBeforeExplicit": "RIDEF SameName Place",
+  "favoriteAddressAfterExplicit": "三峡游客中心",
+  "successfulActionsIncludingFixtureBootstrap": {
+    "order.create": 1,
+    "order.update": 1,
+    "favorite.save": 3
+  },
+  "favoriteBootstrapActions": 2,
+  "nativeExplicitFavoriteSaves": 1,
+  "originalFailureUnchanged": true
+}

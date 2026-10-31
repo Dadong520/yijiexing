@@ -1,0 +1,23 @@
+{
+  "input": {
+    "point": [
+      269,
+      1971
+    ],
+    "target": "UIT历史地点06",
+    "clickableRowBounds": [
+      44,
+      1825,
+      1037,
+      1984
+    ],
+    "intervalMs": 74.62316600140184,
+    "sourceSha": "b3bc07dbecbd49d3b5213d96cb11aef53e9ad644"
+  },
+  "beforeOrders": 0,
+  "afterOrders": 0,
+  "origin": "RIDEF SameName Place",
+  "destination": "UIT历史地点06",
+  "status": "PASS_NO_AUTO_ORDER",
+  "explicitCtaAfterWindow": "Pending, will be combined with final route submission"
+}

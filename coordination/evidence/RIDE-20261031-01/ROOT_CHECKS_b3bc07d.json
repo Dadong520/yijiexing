@@ -1,0 +1,28 @@
+{
+  "sourceSha": "b3bc07dbecbd49d3b5213d96cb11aef53e9ad644",
+  "actualTests": [
+    {
+      "command": "python3 -m unittest discover -s tools -p test_check_coordination.py -q",
+      "session": 64170,
+      "exitCode": 0,
+      "passed": 27
+    },
+    {
+      "command": "npm test && npm run check",
+      "session": 17940,
+      "exitCode": 0,
+      "passed": 74,
+      "check": "10pages/25JS/config PASS"
+    }
+  ],
+  "nativeAcceptance": "PENDING_FINAL_RIDEF",
+  "actualExecutedAtSourceSha": "4a6a2970d81c62dca59f64b9deb92831b75b5841",
+  "inheritedBecauseExactTestAndScannedObjectsEqual": {
+    "tools": "8c703659b26b2b1fcbc8cea608b8bfb04af2e8e6",
+    "apps/cloud-service": "033e173314e7339e46c2c78c178b870039609fa9",
+    "apps/admin-console": "86b2ac8af994108b88bf298c8eba725b31fe4a5a",
+    "candidates/passenger-miniprogram-0.1.0": "5236b65283b5bb80939c223aa2abfc3f6534253a",
+    "candidates/driver-0.3.6-r2/android": "ee3c2918d51f69e177d7d74b45afdece1a26c70c"
+  },
+  "currentCentralMemoryGate": "PASS actual coordinator real session"
+}
