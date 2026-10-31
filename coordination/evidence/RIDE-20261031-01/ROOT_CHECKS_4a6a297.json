@@ -1,0 +1,19 @@
+{
+  "sourceSha": "4a6a2970d81c62dca59f64b9deb92831b75b5841",
+  "actualTests": [
+    {
+      "command": "python3 -m unittest discover -s tools -p test_check_coordination.py -q",
+      "session": 64170,
+      "exitCode": 0,
+      "passed": 27
+    },
+    {
+      "command": "npm test && npm run check",
+      "session": 17940,
+      "exitCode": 0,
+      "passed": 74,
+      "check": "10pages/25JS/config PASS"
+    }
+  ],
+  "nativeAcceptance": "FAIL_NOT_PUBLISHABLE_PENDING_PHASE3"
+}

@@ -1,0 +1,108 @@
+{
+  "taskId": "RIDEB-20261031-01",
+  "phase": 2,
+  "reviewerRole": "backend",
+  "reviewerSessionId": "01a182c6-c058-76e1-9584-38abfe813799",
+  "reviewedAt": "2026-10-31T18:43:51+08:00",
+  "baseSha": "ff53f570296d0bd97d8dc7ee4e16c915987a8542",
+  "candidateSha": "4a6a2970d81c62dca59f64b9deb92831b75b5841",
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-ride-flow-polish-20261031",
+  "verdict": "FAIL",
+  "scope": "Independent delta source review only",
+  "p1Count": 0,
+  "p2Count": 1,
+  "releaseReady": false,
+  "findings": [
+    {
+      "id": "RIDEB-P2-NESTED-RETURN",
+      "priority": "P2",
+      "status": "OPEN_AUTHOR_FIX_REQUIRED",
+      "file": "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/BookingScreens.kt",
+      "startLine": 433,
+      "endLine": 434,
+      "title": "途经点返回新目的地选址页未保护，第二tap仍可提交另一个目的地",
+      "description": "leave()只在返回首页时arm；stopSlot>0直接editor=destination。key(editor)切换后AddressDialog生成新的PlacePickSession(committed=false)，pickRow/pickResult/map onPick均不检查任何返回窗口。第一tap填写途经点后，同一连点序列的第二tap若落在新页有效地点行，新的session会接受并写destination后回首页；此时首页shield才arm，无法撤回错误目的地。当前owner/target检查均可通过，原session最多一次无法保护新session。",
+      "supportingRefs": [
+        "BookingScreens.kt:427-434",
+        "BookingScreens.kt:483-500",
+        "BookingScreens.kt:733-769",
+        "BookingScreens.kt:780-794",
+        "coordination/evidence/RIDEC-20261031-01/PHASE2.md 残余风险段"
+      ],
+      "impact": "可把只想添加/修改途经点的连点变成最终目的地变更，后续显式叫车将使用该错误路线。不是已证明的自动下单/付款。",
+      "evidenceType": "SOURCE_CONFIRMED_UNPROTECTED_TRANSITION; concrete native hit coordinates NOT_RUN",
+      "requestedFix": "在途经点返回目的地页前arm可跨两页存活的保护，并在新页选点/结果/地图入口消耗session或发起可提交lookup之前检查；不要仅在save回调末端拒绝，否则可能消耗session而卡住。窗口后恢复正常选址；保留一击回填与owner/generation/取消语义。",
+      "validation": "frontend补原生途经点选址→目的地页连续tap（含与新可选行重合坐标）；窗口内终点/途经点仅预期一次变化，无order.create/payment；窗口后首次明确选点成功。"
+    }
+  ],
+  "originalRIDEF_R1": "Original ff53 native P1 evidence preserved. Main CTA protection PASS_SOURCE, actual closure requires frontend exact-head native retest; not claimed closed by source review.",
+  "checks": [
+    {
+      "check": "ReturnTapGuard monotonic bounded window",
+      "result": "PASS_SOURCE",
+      "refs": [
+        "PlaceSelection.kt:118-141"
+      ],
+      "detail": "System.nanoTime millisecond differences; unarmed open, 700ms expires, rearm restarts, backwards elapsed opens; no wall clock dependency or credential/storage effects."
+    },
+    {
+      "check": "Compose appearance and real action gate",
+      "result": "PASS_SOURCE",
+      "refs": [
+        "BookingScreens.kt:217-224",
+        "BookingScreens.kt:279-300",
+        "BookingScreens.kt:512-543"
+      ],
+      "detail": "guard checked synchronously at action time as well as enabled appearance. arm sets guard then active/generation; effect restarts per generation, waits remaining then settles active false. No source path for indefinite lock; exact runtime timing/frontend verification NOT_RUN."
+    },
+    {
+      "check": "Booking main return arming and owner",
+      "result": "PASS_SOURCE_EXCEPT_NESTED_FINDING",
+      "refs": [
+        "BookingScreens.kt:89-91",
+        "BookingScreens.kt:433-436",
+        "BookingScreens.kt:470-500"
+      ],
+      "detail": "Main draft owner-keyed shield; owner/target checked before save, main return arms before editor empty for both select and cancel/back. Existing submit/busy/feature/coordinate/GPS logic unchanged by delta. Nested return explicitly excluded and is the P2."
+    },
+    {
+      "check": "Profile return and protected actions",
+      "result": "PASS_SOURCE",
+      "refs": [
+        "ProfileScreens.kt:229-278"
+      ],
+      "detail": "arm before picking=false on select/back; save/default/cancel/dismiss callback checks window, save/cancel additionally disabled visually. Still only explicit save favorite.save; back from picker does not save. Shield local to editor lifetime; no persistent account state."
+    },
+    {
+      "check": "OrderDetail confirm and exposed actions",
+      "result": "PASS_SOURCE",
+      "refs": [
+        "OrderDetail.kt:426-466",
+        "OrderDetail.kt:102-128"
+      ],
+      "detail": "arm before destinationConfirm, or before back closes picker. Reprice confirm plus dismiss/cancel/payment entry gated at callback time and enabled appearance. Server condition/payload unchanged. Shield remembers composable rather than id; may carry at most remaining700ms on in-place id change, no mutation or identity data carried and no permanent lock."
+    },
+    {
+      "check": "unit additions inspected only",
+      "result": "NOT_RUN",
+      "detail": "Five guard tests cover unarmed/49ms/699/700/rearm/backwards/default; frontend compiles/runs. They do not cover actual cross-page hit target or missing nested arming."
+    }
+  ],
+  "actualChecks": [
+    "Central START/STATE/BOARD/task/card entry + true-role memory gate PASS",
+    "Exact HEAD4a6a297 and clean status verified",
+    "Immutable git diff ff53..4a6a: only five allowed passenger product/test files changed",
+    "Bounded git show inspection of guard/callers and exact old RIDEF FINDINGS/author PHASE2 residual",
+    "git diff --check ff53..4a6a -- apps/passenger-android exit0"
+  ],
+  "notRun": [
+    "Compilation/JUnit (frontend owns)",
+    "GUI/native49ms and nested target replay (frontend owns)",
+    "Backend/network/DB/cloud/provider/OEM/funds"
+  ],
+  "preservedPriorEvidenceSha256": {
+    "SOURCE_REVIEW.json": "78cd1286b909075b2ce27d6df7391ba587429c373c3db6c7fc4dfc6e1946fab3",
+    "SOURCE_REVIEW.md": "f1453f2835974dc2e7df58119e5e552a47debcaaf3b5d284d3c1557c52a46e65"
+  },
+  "nextAction": "Coordinator bounded author repair for nested return; frontend original P1 and nested source P2 exact-head native retest, plus expiry/resume. No release before combined PASS."
+}

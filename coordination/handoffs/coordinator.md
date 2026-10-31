@@ -11,3 +11,7 @@ root已看22版f01截图与源码：历史多数有坐标，点击仅selected后
 RIDEF ff53真实本地原生FAIL：历史列表底部快速双击第一下选址返回、第二下落确认呼叫并创建fixture订单。不得发布ff53。等独立精确复现落盘→Claude原SID phase2防误触修复，不能恢复Use按钮；B外观可继续，A停依赖。
 
 phase2 official sameSID runner34648启动，限1200s/ReadEdit/noBash。已收到49ms精确独立FAIL；修所有3 AddressDialog调用方返回后有界短窗action内部单调时钟防误触，禁恢复Use/延迟返回/改业务。frontend原失败保留AVD5584/fixture64361暂待或做限定B，修复前绝不发布。
+
+phase2作者34648 exit0/30turn/0权限拒绝，5限定文件。新freeze4a6a2970d81c62dca59f64b9deb92831b75b5841，guard700ms单调时钟/内部检查/Compose短禁用；下一步非作者补差量，不能把ff53纯源审当修复验收。
+
+phase2残余P2(backend源审)：途经点回目的地新session第二tap可误改终点。phase3同SID runner41701/900s仅Booking(必要helper/tests)修，所有leave先arm，父picker选定/地图提交/stop管理action在consume前检查；查询浏览保持。4a6a仍FAIL，不发布。

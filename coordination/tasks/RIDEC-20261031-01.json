@@ -32,18 +32,18 @@
     "Preserve owner/query generation, valid coordinates, manualGPS, modal priority, full-map/scope restoration and business gates",
     "No backend/Store/network/prod edits; independent reviewer tests before root exact-head merge/release"
   ],
-  "status": "PHASE2_RUNNING_NATIVE_P1_REPAIR",
+  "status": "PHASE3_RUNNING",
   "acceptance": "NOT_RUN",
   "tests": [],
   "evidence": [],
-  "nextAction": "Prevent returning picker rapid followup tap from activating underlying risky actions without reintroducing Use button",
+  "nextAction": "Review exact phase2 source; frontend rebuild affected passenger original/QA+units then actual R1 and remaining A/B, retain first FAIL",
   "deploy_owner": "coordinator",
   "releaseReady": false,
   "updatedAt": "2026-10-31T10:22:24.928184+00:00",
   "sessionId": "6c0ddf57-d854-4c5c-a8a9-43f7ee7e3063",
   "model": "claude-opus-5-5",
   "effort": "high",
-  "candidateSha": "ff53f570296d0bd97d8dc7ee4e16c915987a8542",
+  "candidateSha": "4a6a2970d81c62dca59f64b9deb92831b75b5841",
   "phase2": {
     "sessionId": "6c0ddf57-d854-4c5c-a8a9-43f7ee7e3063",
     "runnerSession": 34648,
@@ -56,5 +56,10 @@
       "OrderDetail.kt",
       "PlaceSelectionTest.kt"
     ]
+  },
+  "phase3": {
+    "runnerSession": 41701,
+    "reason": "nested stop picker return reveals new destination picker session without guard",
+    "tests": "NOT_RUN"
   }
 }

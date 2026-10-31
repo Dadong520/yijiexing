@@ -89,6 +89,13 @@ private fun PassengerBookingDraft(owner: String, state: JSONObject, store: Passe
   // Armed whenever a place page closes back to this home (chosen or back), so a fast second tap
   // cannot reach the call button or swap that the closing page uncovers. Per owner (draft is keyed).
   val returnShield = rememberReturnTapShield()
+  // Every switch between home and place pages (opening, child picker returning to the destination
+  // page, any picker returning home) arms the same shield first; the place pages share it, so a fast
+  // second tap cannot change the draft on whichever page appears under the finger.
+  fun openEditor(next: String) {
+    returnShield.arm()
+    editor = next
+  }
   var showOptions by rememberSaveable { mutableStateOf(false) }
   var submitting by remember { mutableStateOf(false) }
   val riderIds = state.rows("riders").map { it.text("id") }.toSet()
@@ -324,10 +331,10 @@ private fun PassengerBookingDraft(owner: String, state: JSONObject, store: Passe
                   else if (position == null) "正在获取手机定位…（可点此选择上车点）" else "点此选择上车点"
                 },
                 placeholder = origin.isBlank(),
-              ) { editor = "origin" }
+              ) { openEditor("origin") }
               HorizontalDivider(Modifier.padding(start = 22.dp), color = DividerTone)
               if (stops.isNotEmpty()) {
-                AddressRow("途经点 · ${stops.size}/2 · 点此修改", stops.joinToString("  →  "), dot = IconTone) { editor = "destination" }
+                AddressRow("途经点 · ${stops.size}/2 · 点此修改", stops.joinToString("  →  "), dot = IconTone) { openEditor("destination") }
                 HorizontalDivider(Modifier.padding(start = 22.dp), color = DividerTone)
               }
               AddressRow(
@@ -336,7 +343,7 @@ private fun PassengerBookingDraft(owner: String, state: JSONObject, store: Passe
                 emphasize = true,
                 placeholder = destination.isBlank(),
               ) {
-                editor = "destination"
+                openEditor("destination")
               }
             }
           }
@@ -429,10 +436,9 @@ private fun PassengerBookingDraft(owner: String, state: JSONObject, store: Passe
     val stopSlot = when (target) { "waypoint1" -> 1; "waypoint2" -> 2; else -> 0 }
     val nextSlot = PlaceSelection.nextStopSlot(waypointName, waypointName2)
     // A stop is picked from the destination page and returns there; every other picker returns home.
-    // Arms the home shield before the picker leaves, i.e. before the home controls are uncovered.
-    fun leave() {
-      if (stopSlot > 0) editor = "destination" else { returnShield.arm(); editor = "" }
-    }
+    // Either way the shield is armed before the picker leaves, i.e. before the page underneath (home
+    // or the destination picker) is uncovered.
+    fun leave() = openEditor(if (stopSlot > 0) "destination" else "")
     val back = { leave() }
     val stopsEditor: (@Composable ColumnScope.() -> Unit)? =
       if (target == "destination" && stops.isNotEmpty()) {
@@ -440,13 +446,17 @@ private fun PassengerBookingDraft(owner: String, state: JSONObject, store: Passe
           RouteStopsEditor(
             origin = origin,
             stops = stops,
-            onEdit = { index -> editor = "waypoint${index + 1}" },
+            enabled = !returnShield.active,
+            // Tap-time clock checks: a second tap from the stop page just closed edits nothing.
+            onEdit = { index -> if (returnShield.allows()) openEditor("waypoint${index + 1}") },
             onRemove = { index ->
-              // Removing stop 1 moves stop 2 up, so the order of the remaining stop never changes.
-              if (index == 0) {
-                waypointName = waypointName2; waypointLat = waypointLat2; waypointLng = waypointLng2
+              if (returnShield.allows()) {
+                // Removing stop 1 moves stop 2 up, so the order of the remaining stop never changes.
+                if (index == 0) {
+                  waypointName = waypointName2; waypointLat = waypointLat2; waypointLng = waypointLng2
+                }
+                waypointName2 = ""; waypointLat2 = ""; waypointLng2 = ""
               }
-              waypointName2 = ""; waypointLat2 = ""; waypointLng2 = ""
             },
           )
         }
@@ -465,8 +475,9 @@ private fun PassengerBookingDraft(owner: String, state: JSONObject, store: Passe
       },
       history = state.rows("historicalLocations"),
       queryLabel = when (target) { "origin" -> "搜索上车点"; "destination" -> "搜索目的地"; else -> "搜索途经点" },
-      onAddStop = if (target == "destination" && nextSlot != null) ({ editor = "waypoint$nextSlot" }) else null,
+      onAddStop = if (target == "destination" && nextSlot != null) ({ openEditor("waypoint$nextSlot") }) else null,
       routeStops = stopsEditor,
+      shield = returnShield,
     ) { name, lat, lng, normalization ->
       // Written only for this opening and the passenger who opened it; a late callback after a
       // page or account change is dropped. Choosing a place never creates or pays an order.
@@ -588,7 +599,7 @@ private fun KindSegments(kinds: List<Pair<String, String>>, selected: String, on
 
 /** The trip's stops shown on the destination page, each editable or removable. */
 @Composable
-private fun RouteStopsEditor(origin: String, stops: List<String>, onEdit: (Int) -> Unit, onRemove: (Int) -> Unit) {
+private fun RouteStopsEditor(origin: String, stops: List<String>, enabled: Boolean, onEdit: (Int) -> Unit, onRemove: (Int) -> Unit) {
   Column(Modifier.fillMaxWidth()) {
     Note("行程路线 · 按顺序经过，最多 2 个途经点")
     StopLine(Teal, "起点", origin.ifBlank { "上车点待选择" })
@@ -603,8 +614,8 @@ private fun RouteStopsEditor(origin: String, stops: List<String>, onEdit: (Int) 
           Text("途经点 ${index + 1}", color = Muted, fontSize = TypeScale.Caption, lineHeight = 16.sp)
           Text(name, color = Ink, fontSize = TypeScale.Body, fontWeight = FontWeight.Medium, lineHeight = 20.sp)
         }
-        PassengerTextButton(onClick = { onEdit(index) }) { Text("修改") }
-        PassengerTextButton(onClick = { onRemove(index) }) { Text("删除", color = Danger) }
+        PassengerTextButton(enabled = enabled, onClick = { onEdit(index) }) { Text("修改") }
+        PassengerTextButton(enabled = enabled, onClick = { onRemove(index) }) { Text("删除", color = if (enabled) Danger else DisabledText) }
       }
     }
     StopLine(Amber, "终点", "在下方搜索或选择")
@@ -703,9 +714,14 @@ fun AddressDialog(
   queryLabel: String = "搜索地点或详细地址",
   onAddStop: (() -> Unit)? = null,
   routeStops: (@Composable ColumnScope.() -> Unit)? = null,
+  // The caller's return shield, shared across its place pages. While it is armed (a page just opened
+  // or a child page just returned here), choosing a place, map pick, "+ 途经点" do nothing; typing,
+  // back and moving the map stay usable. Checked before anything is committed or started.
+  shield: ReturnTapShield? = null,
   save: (String, String, String, JSONObject?) -> Unit,
 ) {
   val context = LocalContext.current
+  fun interactionAllowed(): Boolean = shield?.allows() ?: true
   val scope = rememberCoroutineScope()
   val amapKey by AmapRuntime.key.collectAsState()
   val pageScroll = rememberScrollState()
@@ -746,7 +762,8 @@ fun AddressDialog(
     cancelSearch(); query=text.take(200); typedQuery=query.trim(); pending=typedQuery.length >= 2; error=""; hint=""
   }
   fun pickRow(row: PlaceRow) {
-    if (session.committed) return
+    // Shield first: a refused tap consumes nothing, so the next deliberate tap still works.
+    if (session.committed || !interactionAllowed()) return
     when (val resolution = row.resolution) {
       is PlaceResolution.Ready -> {
         val place = session.commit(resolution) ?: return
@@ -763,7 +780,7 @@ fun AddressDialog(
     }
   }
   fun pickResult(result: SearchedAddress) {
-    if (session.committed) return
+    if (session.committed || !interactionAllowed()) return
     val place = session.commit(PlaceSelection.resolve(result.name, result.latitude, result.longitude, result.metadata))
     if (place == null) { error = "该结果缺少有效坐标，请选择其他结果或在地图上点选"; return }
     cancelSearch(); deliver(place)
@@ -778,7 +795,8 @@ fun AddressDialog(
     val mapModifier = Modifier.fillMaxWidth().height(if (WindowInsets.isImeVisible) 150.dp else 240.dp)
     if (amapKey.isNotBlank()) {
       AmapCanvas(listOfNotNull(shownPoint), mapModifier, onPick = { a, b ->
-        if (!session.committed) {
+        // A refused tap starts no lookup and cancels nothing; panning and zooming are not clicks.
+        if (!session.committed && interactionAllowed()) {
           cancelSearch(); error=""; hint=""
           val token = session.beginLookup()
           if (token != null) {
@@ -812,7 +830,8 @@ fun AddressDialog(
       Box(Modifier.weight(1f)) { Field(query, { value -> if (value != query) searchFor(value) }, queryLabel) }
       if (onAddStop != null)
         PassengerTextButton(
-          onClick = { if (!session.committed) { cancelSearch(); onAddStop() } },
+          enabled = shield?.active != true,
+          onClick = { if (!session.committed && interactionAllowed()) { cancelSearch(); onAddStop() } },
           modifier = Modifier.heightIn(min = 48.dp),
           contentPadding = PaddingValues(horizontal = 10.dp, vertical = 4.dp),
         ) {

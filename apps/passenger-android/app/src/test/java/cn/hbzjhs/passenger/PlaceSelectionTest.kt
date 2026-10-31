@@ -204,6 +204,23 @@ class PlaceSelectionTest {
   }
 
   @Test
+  fun aTapRefusedByTheShieldLeavesThePickerUsable() {
+    // A child stop page just returned to the destination page: one shield, a fresh picker session.
+    val clock = FakeClock()
+    val guard = ReturnTapGuard(700L, clock::read)
+    val session = PlacePickSession()
+    guard.arm()
+    val row = PlaceSelection.resolveRow(history("UIT历史地点06", 30.666, 111.326))
+    clock.now += 49L
+    // The shield is asked first, so the refused second tap commits nothing.
+    if (guard.allows()) session.commit(row)
+    assertFalse(session.committed)
+    clock.now += 700L
+    assertTrue(guard.allows())
+    assertEquals("UIT历史地点06", session.commit(row)?.name)
+  }
+
+  @Test
   fun stopsFillInOrderUpToTwo() {
     assertEquals(1, PlaceSelection.nextStopSlot("", ""))
     assertEquals(2, PlaceSelection.nextStopSlot("夷陵广场", ""))

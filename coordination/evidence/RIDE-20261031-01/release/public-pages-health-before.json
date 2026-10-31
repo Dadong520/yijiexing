@@ -1,0 +1,66 @@
+[
+  {
+    "name": "passenger_landing",
+    "url": "https://user-test---driver-demo-phfgquzmua-uw.a.run.app/download-passenger",
+    "attempts": [
+      {
+        "transport": "direct",
+        "curlExit": 0,
+        "http": 200
+      }
+    ],
+    "http": 200,
+    "expectedContentPresent": true,
+    "bytes": 1452,
+    "bodySha256": "a996427a6f0f048bbb1e9339848d56dc700cf9702455c923720cad717372d4ce",
+    "PASS": true
+  },
+  {
+    "name": "driver_landing",
+    "url": "https://user-test---driver-demo-phfgquzmua-uw.a.run.app/download",
+    "attempts": [
+      {
+        "transport": "direct",
+        "curlExit": 0,
+        "http": 200
+      }
+    ],
+    "http": 200,
+    "expectedContentPresent": true,
+    "bytes": 1345,
+    "bodySha256": "7dad18359e2318e57d43a0285e0d3d199128e7c55a4e962ea2653386723c7920",
+    "PASS": true
+  },
+  {
+    "name": "api_health",
+    "url": "https://yijiexing-demo.hbzjhs.xyz/health",
+    "attempts": [
+      {
+        "transport": "direct",
+        "curlExit": 0,
+        "http": 200
+      }
+    ],
+    "http": 200,
+    "expectedContentPresent": true,
+    "bytes": 118,
+    "bodySha256": "9320ac6fcce184c2ce2e98474209b33546e31354810873bb3ee1ca4357e9596c",
+    "PASS": true
+  },
+  {
+    "name": "admin_login",
+    "url": "https://demo-admin.hbzjhs.xyz/",
+    "attempts": [
+      {
+        "transport": "direct",
+        "curlExit": 0,
+        "http": 200
+      }
+    ],
+    "http": 200,
+    "expectedContentPresent": true,
+    "bytes": 2350,
+    "bodySha256": "38e32f1ef3fc7a0c4780fd2ec18d1b4e27fa785837b7dbd227ec638525090040",
+    "PASS": true
+  }
+]

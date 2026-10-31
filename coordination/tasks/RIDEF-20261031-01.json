@@ -16,7 +16,7 @@
     "Preserve owner/query generation, valid coordinates, manualGPS, modal priority, full-map/scope restoration and business gates",
     "No backend/Store/network/prod edits; independent reviewer tests before root exact-head merge/release"
   ],
-  "status": "NATIVE_FAIL_AWAIT_AUTHOR_FIX",
+  "status": "PHASE2_INDEPENDENT_REVIEW",
   "acceptance": "FAIL",
   "tests": [
     {
@@ -67,10 +67,10 @@
     "coordination/evidence/RIDEF-20261031-01/PREPARATION.json",
     "coordination/evidence/RIDEF-20261031-01/FINDINGS_ff53.json"
   ],
-  "nextAction": "Coordinator send RIDEF-R1 to Claude; exact fix freeze then scoped differential and remainingA/B. Do not releaseff53.",
+  "nextAction": "Review exact phase2 source; frontend rebuild affected passenger original/QA+units then actual R1 and remaining A/B, retain first FAIL",
   "deploy_owner": "coordinator",
   "releaseReady": false,
   "updatedAt": "2026-10-31T18:35:22.098751+08:00",
-  "candidateSha": "ff53f570296d0bd97d8dc7ee4e16c915987a8542",
+  "candidateSha": "4a6a2970d81c62dca59f64b9deb92831b75b5841",
   "pendingMergeSha": "ff53f570296d0bd97d8dc7ee4e16c915987a8542"
 }
