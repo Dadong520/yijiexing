@@ -1,0 +1,18 @@
+{
+  "status": "PASS",
+  "resources": "Only RIDEF dedicated AVD and both local fixture processes",
+  "reverseRemovalExit": 0,
+  "emulatorKillExit": 0,
+  "emulatorKillOutput": "OK: killing emulator, bye bye\nOK",
+  "listeningAfterCleanup": {
+    "64361": false,
+    "64362": false,
+    "5584": false
+  },
+  "adbDevicesAfterCleanup": "List of devices attached",
+  "privateRuntimeRetainedOutsideRepo": true,
+  "originalFailureOrderPreserved": true,
+  "cloudActions": 0,
+  "personalDevices": 0,
+  "initialReadback": "AVD briefly offline immediately after kill; initial FAIL retained here as transient, ports already closed"
+}

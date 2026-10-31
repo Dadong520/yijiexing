@@ -1,0 +1,86 @@
+{
+  "candidateSha": "ff53f570296d0bd97d8dc7ee4e16c915987a8542",
+  "status": "FAIL",
+  "findings": [
+    {
+      "id": "RIDEF-R1",
+      "priority": "P1",
+      "status": "OPEN_AUTHOR_FIX_REQUIRED",
+      "title": "Rapid second place-row tap clicks through to booking CTA and creates order",
+      "files": [
+        {
+          "path": "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/BookingScreens.kt",
+          "lines": [
+            216,
+            219,
+            688,
+            702,
+            867
+          ]
+        }
+      ],
+      "precondition": "Fresh isolated localhost fixture; passenger01; originRIDEF SameName Place chosen; no orders (actual state read18:31:31); destinationempty.",
+      "steps": [
+        "Open destination picker; scroll history until UIT历史地点06 text bounds[132,1941][406,2002].",
+        "Issue two native Android taps at(269,1971); recorded49ms tap-start interval.",
+        "Observe actual order screen and service order.create without a separate deliberate order-confirmation action."
+      ],
+      "actual": {
+        "beforeOrders": 0,
+        "after": {
+          "orderCount": 1,
+          "orders": [
+            {
+              "id": "PORDf9d1de3a8e38",
+              "stage": "AVAILABLE",
+              "origin": "RIDEF SameName Place",
+              "destination": "UIT历史地点06",
+              "createdAt": "2026-10-31T18:32:22+08:00"
+            }
+          ]
+        },
+        "nativeInput": {
+          "point": [
+            269,
+            1971
+          ],
+          "target": "UIT历史地点06",
+          "tapStartTimes": [
+            1793442741.771863,
+            1793442741.8209212
+          ],
+          "intervalMs": 49.05819892883301,
+          "underlyingCtaBoundsFromP08": "[44,1948][1036,2086]",
+          "candidateSha": "ff53f570296d0bd97d8dc7ee4e16c915987a8542"
+        },
+        "underlayCtaBounds": "[44,1948][1036,2086]",
+        "serviceAction": "order.create SUCCESS18:32:22; destinationUIT历史地点06; coords30.666/111.326"
+      },
+      "expected": "Selecting a place returns address once; repeated place tap cannot activate underlay create/payment/destructive actions. New order only after a separate explicit booking confirmation.",
+      "scope": "Native double-tap flow in local synthetic fixture; no cloud/real money/personal device. Pure session callback unit tests do not cover second tap arriving on newly exposed caller.",
+      "evidence": [
+        "native/p08-origin-one-tap-return.xml",
+        "native/p10-history-scroll.png",
+        "native/p10-history-scroll.xml",
+        "native/p11-double-tap-result.png",
+        "native/p11-double-tap-result.xml",
+        "double-tap-input.json",
+        "double-tap-state.json",
+        "local-events-at-finding.jsonl"
+      ]
+    }
+  ],
+  "builds": {
+    "original": "dualPASS",
+    "qa": "dualPASS",
+    "unit": {
+      "passenger": 63,
+      "driver": 77,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  },
+  "remaining": "A otherhistory/waypoint/explicitorder-destination confirmation and B representative screens remain NOT_RUN; no overallPASS",
+  "resources": "Keep exact task-owned freshAVD38566/serial5584 and TLSfixture41722/64361 for immediate coordinator-author repair/retest. No background polling. Final cleanup still required."
+}

@@ -59,9 +59,10 @@ object TypeScale {
   val Caption = 12.sp
 }
 
-/** Light-3D brand fill: a top-lit vertical gradient used on primary buttons and hero cards. */
-val BrandGradient = Brush.verticalGradient(listOf(Color(0xFF14A394), Teal, BrandStrong))
-val HeroGradient = Brush.linearGradient(listOf(Color(0xFF0E9C8E), Color(0xFF0B7F86), Color(0xFF175E8C)))
+/** Brand fill: one flat teal (RIDEC dropped the lit gradients and coloured shadows). */
+val BrandGradient: Brush = SolidColor(Teal)
+/** Kept for source compatibility; heroes are now plain white surfaces. */
+val HeroGradient: Brush = SolidColor(Teal)
 
 /** Coordinate as text, or "" when absent/NaN/0 so a missing point is never filled as 0 or NaN. */
 fun org.json.JSONObject.coordText(key: String): String {
@@ -86,23 +87,11 @@ fun emptyIcon(title: String): ImageVector = when {
   else -> Icons.Default.Info
 }
 
-/** Light-3D empty-state art: a lit sphere with a soft ground shadow behind the module icon. */
+/** Empty-state mark: the module icon in a plain neutral circle. */
 @Composable
 fun EmptyIllustration(icon: ImageVector) {
-  val (tint, soft) = iconAccent(icon)
-  Box(Modifier.size(width = 120.dp, height = 96.dp), contentAlignment = Alignment.Center) {
-    Canvas(Modifier.matchParentSize()) {
-      drawOval(Color(0x1A0F1B2A), topLeft = Offset(size.width * 0.22f, size.height * 0.80f), size = Size(size.width * 0.56f, size.height * 0.12f))
-      drawCircle(soft, radius = size.height * 0.40f, center = Offset(size.width / 2, size.height * 0.44f))
-      drawCircle(
-        Brush.radialGradient(listOf(Color.White, soft), center = Offset(size.width * 0.42f, size.height * 0.30f), radius = size.height * 0.42f),
-        radius = size.height * 0.34f,
-        center = Offset(size.width / 2, size.height * 0.44f),
-      )
-      drawCircle(tint.copy(alpha = 0.16f), radius = 7.dp.toPx(), center = Offset(size.width * 0.16f, size.height * 0.24f))
-      drawCircle(tint.copy(alpha = 0.12f), radius = 4.dp.toPx(), center = Offset(size.width * 0.86f, size.height * 0.62f))
-    }
-    Icon(icon, contentDescription = null, tint = tint, modifier = Modifier.size(30.dp).padding(bottom = 4.dp))
+  Box(Modifier.size(64.dp).background(SurfaceMuted, CircleShape), contentAlignment = Alignment.Center) {
+    Icon(icon, contentDescription = null, tint = IconTone, modifier = Modifier.size(28.dp))
   }
 }
 
@@ -133,7 +122,10 @@ fun CarIllustration(modifier: Modifier = Modifier, body: Color = Teal) {
   }
 }
 
-/** Primary action with a lit gradient and soft shadow, so it reads as a real button rather than coloured text. */
+/**
+ * The page's one primary action: solid teal, white text, no shadow. Disabled turns neutral grey with
+ * text that stays readable. Wrapped labels grow the button instead of clipping.
+ */
 @Composable
 fun GradientButton(
   label: String,
@@ -142,38 +134,36 @@ fun GradientButton(
   icon: ImageVector? = null,
   onClick: () -> Unit,
 ) {
-  val shape = RoundedCornerShape(14.dp)
+  val shape = RoundedCornerShape(12.dp)
   Row(
     modifier
       .heightIn(min = 50.dp)
-      .shadow(if (enabled) 6.dp else 0.dp, shape, ambientColor = Teal, spotColor = Teal)
       .clip(shape)
-      .background(if (enabled) BrandGradient else SolidColor(Color(0xFFE5E7EB)))
+      .background(if (enabled) Teal else SurfaceMuted)
       .clickable(enabled = enabled, role = Role.Button, onClick = onClick)
       .padding(horizontal = 16.dp, vertical = 12.dp),
     horizontalArrangement = Arrangement.Center,
     verticalAlignment = Alignment.CenterVertically,
   ) {
-    val content = if (enabled) Color.White else Color(0xFF9CA3AF)
+    val content = if (enabled) Color.White else DisabledText
     icon?.let { Icon(it, contentDescription = null, tint = content, modifier = Modifier.size(18.dp).padding(end = 2.dp)) }
     Text(label, color = content, fontSize = TypeScale.Body, fontWeight = FontWeight.SemiBold, lineHeight = 20.sp, textAlign = TextAlign.Center)
   }
 }
 
-/** Secondary action: soft brand fill with a thin edge, lighter than the gradient primary. */
+/** Secondary action: neutral grey fill with brand text, clearly lighter than the primary. */
 @Composable
 fun SecondaryButton(label: String, enabled: Boolean = true, onClick: () -> Unit) {
   Button(
     onClick = onClick,
     enabled = enabled,
     modifier = Modifier.fillMaxWidth().heightIn(min = 46.dp),
-    shape = RoundedCornerShape(14.dp),
-    border = BorderStroke(1.dp, if (enabled) Teal.copy(alpha = 0.35f) else Line),
+    shape = RoundedCornerShape(12.dp),
     colors = ButtonDefaults.buttonColors(
-      containerColor = BrandSoft,
+      containerColor = SurfaceMuted,
       contentColor = BrandStrong,
-      disabledContainerColor = Color(0xFFF3F4F6),
-      disabledContentColor = Color(0xFF9CA3AF),
+      disabledContainerColor = SurfaceMuted,
+      disabledContentColor = DisabledText,
     ),
     elevation = ButtonDefaults.buttonElevation(defaultElevation = 0.dp),
   ) {
@@ -181,16 +171,16 @@ fun SecondaryButton(label: String, enabled: Boolean = true, onClick: () -> Unit)
   }
 }
 
-/** Destructive action: red outline on soft red, never the primary green block. */
+/** Destructive action: red text on white with a red edge, never the primary teal block. */
 @Composable
 fun DangerButton(label: String, enabled: Boolean = true, onClick: () -> Unit) {
   OutlinedButton(
     onClick = onClick,
     enabled = enabled,
     modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp),
-    shape = RoundedCornerShape(14.dp),
-    border = BorderStroke(1.dp, if (enabled) Danger else Line),
-    colors = ButtonDefaults.outlinedButtonColors(containerColor = DangerSoft, contentColor = Danger, disabledContentColor = Muted.copy(alpha = 0.6f)),
+    shape = RoundedCornerShape(12.dp),
+    border = BorderStroke(1.dp, if (enabled) DangerLine else Line),
+    colors = ButtonDefaults.outlinedButtonColors(containerColor = Color.White, contentColor = Danger, disabledContentColor = DisabledText),
   ) {
     Text(label, fontSize = TypeScale.Body, fontWeight = FontWeight.SemiBold, lineHeight = 20.sp, textAlign = TextAlign.Center)
   }

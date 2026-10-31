@@ -19,13 +19,20 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 
 // CCUI-20261029-01 shared visual tokens; presentation only.
+// RIDEC-20261031-01: white / near-white surfaces, ink text and a restrained teal accent. Soft brand
+// tint is only for small selected states; neutral grey fills carry secondary actions.
 val BrandStrong = Color(0xFF005F56)
-// Brighter, less grey tints so soft green panels read clean rather than muddy.
-val BrandSoft = Color(0xFFE8F8F5)
-val Line = Color(0xFFDCE5E8)
+val BrandSoft = Color(0xFFEAF5F3)
+val Line = Color(0xFFE2E6EA)
 val ControlOutline = Color(0xFF71818C)
-val DividerTone =Color(0xFFE6EDEF)
-val Chevron = Color(0xFF71818C)
+val DividerTone = Color(0xFFEDF0F2)
+val Chevron = Color(0xFF8A96A1)
+/** Neutral fill for secondary buttons, segmented tracks and icon wells. */
+val SurfaceMuted = Color(0xFFF2F4F6)
+/** Monochrome list icons, so colour is left for state and the one primary action. */
+val IconTone = Color(0xFF5B6773)
+/** Disabled text that stays readable on [SurfaceMuted]. */
+val DisabledText = Color(0xFF6B7682)
 val Sky = Color(0xFF0369A1)
 val SkySoft = Color(0xFFE0F2FE)
 val Warm = Color(0xFFB45309)

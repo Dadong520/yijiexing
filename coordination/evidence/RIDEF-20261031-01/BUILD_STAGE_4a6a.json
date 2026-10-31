@@ -1,0 +1,12 @@
+{
+  "sourceSha": "4a6a2970d81c62dca59f64b9deb92831b75b5841",
+  "passengerOriginalUnitAndAssemble": "PASS",
+  "unit": {
+    "tests": 68,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "qa": "NOT_RUN; rootphase3 nested-return fix pending",
+  "native4a": "NOT_RUN; not started before next fix directive"
+}

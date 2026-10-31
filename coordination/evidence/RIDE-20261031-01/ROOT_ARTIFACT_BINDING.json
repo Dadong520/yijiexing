@@ -1,0 +1,55 @@
+{
+  "sourceSha": "0ef2a8d3982dfca0e85a3b756a6004c1825ba798",
+  "roles": [
+    {
+      "role": "passenger",
+      "sha256": "cb77e6397a809027c117e963b2a4faf8b4b7a65d62a961bdaf519f333dec0842",
+      "bytes": 107270521,
+      "productTree": "3ef2c41473a192da4869469dca5765089f6d9bfd",
+      "buildSha": "0ef2a8d3982dfca0e85a3b756a6004c1825ba798",
+      "testBuildSha": "0ef2a8d3982dfca0e85a3b756a6004c1825ba798",
+      "actualJUnit": {
+        "tests": 69,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "junitFiles": 12,
+      "trackedFilesByteBound": 110,
+      "inheritedFromPriorCandidate": false,
+      "package": "cn.hbzjhs.dc.passenger.cloud",
+      "versionName": "1.1.21-experience",
+      "versionCode": 23,
+      "signerSha256": "9ffec9b342d12909ff288bd73f23ba104893b39120cb24ea83c9734a0d2b758f",
+      "privateExactMatches": 0,
+      "PASS": true,
+      "expectedHttpsApiOriginPresent": true
+    },
+    {
+      "role": "driver",
+      "sha256": "237ee0ce4feeb24e29ec4257258fb56227d6ea1c95feb9017f15bd737303d30f",
+      "bytes": 108718725,
+      "productTree": "ee3c2918d51f69e177d7d74b45afdece1a26c70c",
+      "buildSha": "ff53f570296d0bd97d8dc7ee4e16c915987a8542",
+      "testBuildSha": "ff53f570296d0bd97d8dc7ee4e16c915987a8542",
+      "actualJUnit": {
+        "tests": 77,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "junitFiles": 11,
+      "trackedFilesByteBound": 69,
+      "inheritedFromPriorCandidate": true,
+      "package": "cn.hbzjhs.dc.driver.cloud",
+      "versionName": "0.3.20-cloud",
+      "versionCode": 23,
+      "signerSha256": "9ffec9b342d12909ff288bd73f23ba104893b39120cb24ea83c9734a0d2b758f",
+      "privateExactMatches": 0,
+      "PASS": true,
+      "expectedHttpsApiOriginPresent": true
+    }
+  ],
+  "nativeAcceptance": "PASS_SCOPED_EXPLICIT_B3_AND_FF53_INHERITANCE",
+  "publication": "NOT_RUN"
+}

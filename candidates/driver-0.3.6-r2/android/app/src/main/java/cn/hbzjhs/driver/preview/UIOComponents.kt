@@ -17,6 +17,7 @@ import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.window.Dialog
@@ -52,9 +53,10 @@ object DriverType {
 private val MemberInk = Color(0xFF5B3A12)
 private val MemberAccent = Color(0xFFB7791F)
 
-/** Light-3D brand fill: a top-lit vertical gradient for primary buttons and hero cards. */
-val BrandGradient = Brush.verticalGradient(listOf(Color(0xFF14A394), Green, GreenStrong))
-val HeroGradient = Brush.linearGradient(listOf(Color(0xFF0E9C8E), Color(0xFF0B7F86), Color(0xFF175E8C)))
+/** Brand fill: one flat teal (RIDEC dropped the lit gradients and coloured shadows). */
+val BrandGradient: Brush = SolidColor(Green)
+/** Kept for source compatibility; heroes are now plain white surfaces. */
+val HeroGradient: Brush = SolidColor(Green)
 
 /** Small light-3D car on a road, used to decorate headers and empty states. */
 @Composable
@@ -87,8 +89,9 @@ private enum class DialogButtonRole { None, Confirm, Dismiss }
 private val LocalDialogButtonRole = staticCompositionLocalOf { DialogButtonRole.None }
 
 /**
- * Text-level action shown as a real button: a soft tinted pill instead of bare coloured text. Inside
- * [DriverDialog] the same call renders as the dialog's full-width confirm or cancel button.
+ * Text-level action shown as a light button: a neutral grey pill with brand text, so it never
+ * competes with the page's one primary action. Inside [DriverDialog] the same call renders as the
+ * dialog's full-width confirm or cancel button.
  */
 @Composable
 fun DriverTextButton(
@@ -106,10 +109,10 @@ fun DriverTextButton(
         enabled = enabled,
         shape = RoundedCornerShape(if (role == DialogButtonRole.None) 10.dp else 12.dp),
         colors = ButtonDefaults.buttonColors(
-            containerColor = if (role == DialogButtonRole.Dismiss) Color(0xFFF1F3F6) else Pale,
-            contentColor = if (role == DialogButtonRole.Dismiss) Muted else GreenStrong,
-            disabledContainerColor = Color(0xFFF3F4F6),
-            disabledContentColor = Color(0xFF9CA3AF),
+            containerColor = if (role == DialogButtonRole.Confirm) Pale else SurfaceMuted,
+            contentColor = if (role == DialogButtonRole.Dismiss) Ink else GreenStrong,
+            disabledContainerColor = SurfaceMuted,
+            disabledContentColor = DisabledText,
         ),
         border = if (role == DialogButtonRole.Confirm) BorderStroke(1.dp, Green.copy(alpha = 0.45f)) else null,
         elevation = ButtonDefaults.buttonElevation(defaultElevation = 0.dp),
@@ -142,7 +145,7 @@ fun DriverDialog(
             Modifier.fillMaxSize().safeDrawingPadding().imePadding().padding(24.dp),
             contentAlignment = Alignment.Center,
         ) {
-            Surface(shape = RoundedCornerShape(20.dp), color = Color.White, shadowElevation = 12.dp, modifier = modifier.fillMaxWidth()) {
+            Surface(shape = RoundedCornerShape(16.dp), color = Color.White, shadowElevation = 6.dp, modifier = modifier.fillMaxWidth()) {
                 Column(
                     Modifier.fillMaxWidth().heightIn(max = 640.dp).padding(start = 20.dp, end = 20.dp, top = 20.dp, bottom = 16.dp),
                     verticalArrangement = Arrangement.spacedBy(12.dp),
@@ -181,25 +184,14 @@ fun EmptyState(
     actionLabel: String? = null,
     onAction: (() -> Unit)? = null,
 ) {
-    val (tint, soft) = moduleAccent(icon)
     SheetCard {
         Column(
             Modifier.fillMaxWidth().padding(vertical = Gap.L),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            Box(Modifier.size(width = 120.dp, height = 96.dp), contentAlignment = Alignment.Center) {
-                Canvas(Modifier.matchParentSize()) {
-                    drawOval(Color(0x1A0F1B2A), topLeft = Offset(size.width * 0.22f, size.height * 0.80f), size = Size(size.width * 0.56f, size.height * 0.12f))
-                    drawCircle(soft, radius = size.height * 0.40f, center = Offset(size.width / 2, size.height * 0.44f))
-                    drawCircle(
-                        Brush.radialGradient(listOf(Color.White, soft), center = Offset(size.width * 0.42f, size.height * 0.30f), radius = size.height * 0.42f),
-                        radius = size.height * 0.34f,
-                        center = Offset(size.width / 2, size.height * 0.44f),
-                    )
-                    drawCircle(tint.copy(alpha = 0.16f), radius = 7.dp.toPx(), center = Offset(size.width * 0.16f, size.height * 0.24f))
-                    drawCircle(tint.copy(alpha = 0.12f), radius = 4.dp.toPx(), center = Offset(size.width * 0.86f, size.height * 0.62f))
-                }
-                Glyph(icon, tint, Modifier.size(30.dp).padding(bottom = 4.dp))
+            // The module glyph in a plain neutral circle.
+            Box(Modifier.size(64.dp).clip(CircleShape).background(SurfaceMuted), contentAlignment = Alignment.Center) {
+                Glyph(icon, IconTone, Modifier.size(28.dp))
             }
             Text(
                 title,
@@ -296,21 +288,21 @@ fun MembershipIdentityCard(store: ConnectedStore, navigate: (String) -> Unit) {
         subscription?.let { mRights(it) } ?: emptyList()
     }
     val features = payload.optJSONObject("features") ?: JSONObject()
-    // Light gold member card: reads as "premium" while staying in tune with the teal brand.
+    // Flat light-gold member card with a hairline edge: distinct, but no gradient or shadow.
     Surface(
         modifier = Modifier.fillMaxWidth(),
-        shape = RoundedCornerShape(16.dp),
-        color = Color.Transparent,
-        shadowElevation = 4.dp,
+        shape = RoundedCornerShape(12.dp),
+        color = Color(0xFFFFF8EA),
+        border = BorderStroke(1.dp, Color(0xFFF1DEB8)),
+        shadowElevation = 0.dp,
     ) {
         Column(
             Modifier.fillMaxWidth()
-                .background(Brush.linearGradient(listOf(Color(0xFFFFF6E3), Color(0xFFF6DDAF))))
                 .padding(Gap.L)
         ) {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Box(
-                    Modifier.size(40.dp).shadow(3.dp, CircleShape).clip(CircleShape).background(Brush.verticalGradient(listOf(Color.White, Color(0xFFFCE9C4)))),
+                    Modifier.size(40.dp).clip(CircleShape).background(Color.White),
                     contentAlignment = Alignment.Center,
                 ) {
                     Glyph("gift", MemberAccent, Modifier.size(22.dp))

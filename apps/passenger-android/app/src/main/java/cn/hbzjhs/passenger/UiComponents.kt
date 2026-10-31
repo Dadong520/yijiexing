@@ -48,23 +48,13 @@ fun MenuRow(title: String, icon: ImageVector, subtitle: String? = null, onClick:
     verticalAlignment = Alignment.CenterVertically,
     horizontalArrangement = Arrangement.spacedBy(12.dp),
   ) {
-    val (accent, accentSoft) = iconAccent(icon)
-    Box(
-      modifier = Modifier
-        .size(34.dp)
-        .background(
-          androidx.compose.ui.graphics.Brush.verticalGradient(listOf(Color.White, accentSoft)),
-          RoundedCornerShape(10.dp),
-        ),
-      contentAlignment = Alignment.Center,
-    ) {
-      Icon(
-        icon,
-        contentDescription = null,
-        tint = accent,
-        modifier = Modifier.size(20.dp),
-      )
-    }
+    // Flat list row: a monochrome icon, no tinted tile, so rows scan as one calm list.
+    Icon(
+      icon,
+      contentDescription = null,
+      tint = IconTone,
+      modifier = Modifier.size(22.dp),
+    )
     Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
       Text(
         title,
@@ -94,14 +84,14 @@ fun ExpandablePanel(
   var expanded by remember(initialExpanded) { mutableStateOf(initialExpanded) }
   Card(
     colors = CardDefaults.cardColors(containerColor = Color.White),
-    shape = RoundedCornerShape(18.dp),
-    border = BorderStroke(1.dp, Line),
-    elevation = CardDefaults.cardElevation(defaultElevation = 1.dp),
+    shape = RoundedCornerShape(12.dp),
+    border = BorderStroke(1.dp, DividerTone),
+    elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
     modifier = Modifier.fillMaxWidth(),
   ) {
     Column(
-      Modifier.padding(horizontal = 18.dp, vertical = 14.dp),
-      verticalArrangement = Arrangement.spacedBy(12.dp),
+      Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
+      verticalArrangement = Arrangement.spacedBy(8.dp),
     ) {
       Row(
         Modifier
@@ -129,12 +119,24 @@ fun ExpandablePanel(
   }
 }
 
+/**
+ * One stop of a route (or a place field): a small marker, a caption and the place. [placeholder]
+ * renders the text as a muted prompt instead of a chosen place. [dot] overrides the marker colour
+ * (pickup teal, destination amber by default).
+ */
 @Composable
-fun AddressRow(label: String, address: String, emphasize: Boolean = false, onClick: () -> Unit) {
+fun AddressRow(
+  label: String,
+  address: String,
+  emphasize: Boolean = false,
+  placeholder: Boolean = false,
+  dot: Color? = null,
+  onClick: () -> Unit,
+) {
   Row(
     Modifier
       .fillMaxWidth()
-      .clickable(onClick = onClick)
+      .clickable(role = Role.Button, onClick = onClick)
       .heightIn(min = 56.dp)
       .padding(vertical = 8.dp),
     verticalAlignment = Alignment.CenterVertically,
@@ -144,18 +146,18 @@ fun AddressRow(label: String, address: String, emphasize: Boolean = false, onCli
       modifier = Modifier
         .size(10.dp)
         .background(
-          if (emphasize) Amber else Teal,
+          dot ?: if (emphasize) Amber else Teal,
           CircleShape,
         ),
     )
     Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
-      Text(label, color = Muted, fontSize = TypeScale.Caption)
+      Text(label, color = Muted, fontSize = TypeScale.Caption, lineHeight = 16.sp)
       Text(
         address,
-        fontWeight = if (emphasize) FontWeight.Bold else FontWeight.SemiBold,
-        fontSize = TypeScale.Title,
+        fontWeight = if (placeholder) FontWeight.Medium else if (emphasize) FontWeight.Bold else FontWeight.SemiBold,
+        fontSize = if (emphasize) 17.sp else TypeScale.Title,
         lineHeight = 22.sp,
-        color = Ink,
+        color = if (placeholder) Muted else Ink,
       )
     }
     Icon(
@@ -203,9 +205,9 @@ fun PassengerModal(
       contentAlignment = Alignment.Center,
     ) {
       Surface(
-        shape = RoundedCornerShape(20.dp),
+        shape = RoundedCornerShape(16.dp),
         color = Color.White,
-        shadowElevation = 12.dp,
+        shadowElevation = 6.dp,
         modifier = Modifier.fillMaxWidth(),
       ) {
         Column(
@@ -256,7 +258,12 @@ fun PassengerModal(
               enabled = dismissEnabled,
               modifier = Modifier.weight(1f).fillMaxHeight().heightIn(min = 46.dp),
               shape = buttonShape,
-              colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFF1F3F6), contentColor = Muted),
+              colors = ButtonDefaults.buttonColors(
+                containerColor = SurfaceMuted,
+                contentColor = Ink,
+                disabledContainerColor = SurfaceMuted,
+                disabledContentColor = DisabledText,
+              ),
               elevation = ButtonDefaults.buttonElevation(defaultElevation = 0.dp),
               contentPadding = buttonPadding,
             ) {
@@ -270,10 +277,10 @@ fun PassengerModal(
               colors = ButtonDefaults.buttonColors(
                 containerColor = confirmColor,
                 contentColor = Color.White,
-                disabledContainerColor = Line,
-                disabledContentColor = Muted,
+                disabledContainerColor = SurfaceMuted,
+                disabledContentColor = DisabledText,
               ),
-              elevation = ButtonDefaults.buttonElevation(defaultElevation = 3.dp),
+              elevation = ButtonDefaults.buttonElevation(defaultElevation = 0.dp),
               contentPadding = buttonPadding,
             ) {
               Text(confirmLabel, fontSize = TypeScale.Body, fontWeight = FontWeight.SemiBold, textAlign = TextAlign.Center)
@@ -309,8 +316,9 @@ private enum class DialogButtonRole { None, Confirm, Dismiss }
 private val LocalDialogButtonRole = staticCompositionLocalOf { DialogButtonRole.None }
 
 /**
- * Text-level action shown as a real button: a soft tinted pill instead of bare coloured text. Inside
- * [PassengerDialog] the same call renders as the dialog's full-width confirm or cancel button.
+ * Text-level action shown as a light button: a neutral grey pill with brand text, so it never
+ * competes with the page's one primary action. Inside [PassengerDialog] the same call renders as the
+ * dialog's full-width confirm or cancel button.
  */
 @Composable
 fun PassengerTextButton(
@@ -330,10 +338,10 @@ fun PassengerTextButton(
     enabled = enabled,
     shape = shape,
     colors = ButtonDefaults.buttonColors(
-      containerColor = if (role == DialogButtonRole.Dismiss) Color(0xFFF1F3F6) else BrandSoft,
-      contentColor = if (role == DialogButtonRole.Dismiss) Muted else BrandStrong,
-      disabledContainerColor = Color(0xFFF3F4F6),
-      disabledContentColor = Color(0xFF9CA3AF),
+      containerColor = if (role == DialogButtonRole.Confirm) BrandSoft else SurfaceMuted,
+      contentColor = if (role == DialogButtonRole.Dismiss) Ink else BrandStrong,
+      disabledContainerColor = SurfaceMuted,
+      disabledContentColor = DisabledText,
     ),
     border = if (role == DialogButtonRole.Confirm) BorderStroke(1.dp, Teal.copy(alpha = 0.45f)) else null,
     elevation = ButtonDefaults.buttonElevation(defaultElevation = 0.dp),
@@ -365,7 +373,7 @@ fun PassengerDialog(
       Modifier.fillMaxSize().safeDrawingPadding().imePadding().padding(24.dp),
       contentAlignment = Alignment.Center,
     ) {
-      Surface(shape = RoundedCornerShape(20.dp), color = Color.White, shadowElevation = 12.dp, modifier = modifier.fillMaxWidth()) {
+      Surface(shape = RoundedCornerShape(16.dp), color = Color.White, shadowElevation = 6.dp, modifier = modifier.fillMaxWidth()) {
         Column(
           Modifier.fillMaxWidth().heightIn(max = 640.dp).padding(start = 20.dp, end = 20.dp, top = 20.dp, bottom = 16.dp),
           verticalArrangement = Arrangement.spacedBy(12.dp),

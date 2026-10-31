@@ -1,0 +1,59 @@
+{
+  "sourceSha": "ff53f570296d0bd97d8dc7ee4e16c915987a8542",
+  "actualTests": [
+    {
+      "command": "python3 -m unittest discover -s tools -p test_check_coordination.py -q",
+      "session": 35422,
+      "exitCode": 0,
+      "passed": 27
+    },
+    {
+      "command": "npm test && npm run check",
+      "cwd": "candidates/passenger-miniprogram-0.1.0",
+      "session": 7166,
+      "exitCode": 254,
+      "result": "WRONG_CWD_ENOENT_CORRECTED_NEXT"
+    },
+    {
+      "command": "npm test && npm run check",
+      "cwd": "candidates/passenger-miniprogram-0.1.0/miniprogram",
+      "session": 93640,
+      "exitCode": 0,
+      "passed": 74,
+      "check": "10pages/25JS/config PASS",
+      "wechat": "NOT_RUN_MISSING_APPID"
+    }
+  ],
+  "publication": "NOT_RUN",
+  "protectedTreesUnchanged": {
+    "apps/cloud-service": {
+      "object": "033e173314e7339e46c2c78c178b870039609fa9",
+      "sameAsBaseline": true
+    },
+    "apps/admin-console": {
+      "object": "86b2ac8af994108b88bf298c8eba725b31fe4a5a",
+      "sameAsBaseline": true
+    },
+    "candidates/passenger-miniprogram-0.1.0": {
+      "object": "5236b65283b5bb80939c223aa2abfc3f6534253a",
+      "sameAsBaseline": true
+    },
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/PassengerStore.kt": {
+      "object": "189821ecb57e104932c4e501135715308852bbec",
+      "sameAsBaseline": true
+    },
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/MapPanel.kt": {
+      "object": "5a76d38d13fed703beffab893d7f47c4cd6ea6d5",
+      "sameAsBaseline": true
+    },
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/ConnectedStore.kt": {
+      "object": "7ad9c97ea18317211640c93464e2cdaa53802c45",
+      "sameAsBaseline": true
+    },
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/MapPanel.kt": {
+      "object": "6ca3bd990e9f61650d7f57dc49b30a9ef4009a86",
+      "sameAsBaseline": true
+    }
+  },
+  "note": "Driver Store actual path ConnectedStore.kt; initial object probe used nonexistent DriverStore.kt and was corrected; no product edit"
+}

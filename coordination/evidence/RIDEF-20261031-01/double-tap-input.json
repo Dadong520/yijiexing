@@ -1,0 +1,14 @@
+{
+  "point": [
+    269,
+    1971
+  ],
+  "target": "UIT\u5386\u53f2\u5730\u70b906",
+  "tapStartTimes": [
+    1793442741.771863,
+    1793442741.8209212
+  ],
+  "intervalMs": 49.05819892883301,
+  "underlyingCtaBoundsFromP08": "[44,1948][1036,2086]",
+  "candidateSha": "ff53f570296d0bd97d8dc7ee4e16c915987a8542"
+}

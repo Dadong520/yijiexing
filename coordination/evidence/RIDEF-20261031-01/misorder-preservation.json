@@ -1,0 +1,9 @@
+{
+  "id": "PORDf9d1de3a8e38",
+  "sha256BeforeB": "6d59b6dab745aba64474861346c1439f2c77796ff1ba8cba990bbe87d873785e",
+  "constraint": "Do not mutate original failure order",
+  "sha256AfterBProjection": "6d59b6dab745aba64474861346c1439f2c77796ff1ba8cba990bbe87d873785e",
+  "unchanged": true,
+  "sha256AfterAllB": "6d59b6dab745aba64474861346c1439f2c77796ff1ba8cba990bbe87d873785e",
+  "sha256AfterFinalA": "6d59b6dab745aba64474861346c1439f2c77796ff1ba8cba990bbe87d873785e"
+}

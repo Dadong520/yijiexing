@@ -1,0 +1,18 @@
+{
+  "candidateSha": "0ef2a8d3982dfca0e85a3b756a6004c1825ba798",
+  "status": "PASS",
+  "reverseRemovalExit": 0,
+  "emulatorKillExit": 0,
+  "listeningAfterCleanup": {
+    "64361": false,
+    "64362": false,
+    "5584": false
+  },
+  "adbDevicesAfterCleanup": "List of devices attached",
+  "resources": "Only dedicated RIDEF_20261031 AVD and phase4 localfixture",
+  "privateRuntimeRetainedOutsideRepo": true,
+  "newPhase4BusinessActions": 0,
+  "cloudActions": 0,
+  "personalDevices": 0,
+  "priorB3Cleanup": "pre-phase4/CLEANUP.json"
+}

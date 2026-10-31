@@ -1,0 +1,53 @@
+{
+  "reviewer": "coordinator",
+  "reviewerSessionId": "01a17cc7-e0a2-7791-bf1d-4611c09bab22",
+  "authorSessionId": "6c0ddf57-d854-4c5c-a8a9-43f7ee7e3063",
+  "method": "Actual independent view_image inspection of frontend native screenshots",
+  "verdict": "PASS_SCOPED_VISUAL_ONLY",
+  "reviewedImages": [
+    {
+      "file": "coordination/evidence/RIDE-20261031-01/visual/p09-destination-with-stop-entry.png",
+      "sha256": "9ecd7d918f2a4878f967aaeef97cd654e69efee6be96134d1eb1c7b64dc4fae6",
+      "sourceSha": "ff53f570296d0bd97d8dc7ee4e16c915987a8542",
+      "fixture": "isolated synthetic data/provider unavailable, not live success"
+    },
+    {
+      "file": "coordination/evidence/RIDE-20261031-01/visual/b05-passenger-profile.png",
+      "sha256": "5a85dcf6eec2ed3caf7b3c1db83df6e819ac2ed2d1fff65dec056b1a38ad0eab",
+      "sourceSha": "ff53f570296d0bd97d8dc7ee4e16c915987a8542",
+      "fixture": "isolated synthetic data/provider unavailable, not live success"
+    },
+    {
+      "file": "coordination/evidence/RIDE-20261031-01/visual/b12-driver-wallet.png",
+      "sha256": "7ebd2270f04b7c9b7fad7f09e6a78404fc532ddbff6acc2f237af31c32d4b026",
+      "sourceSha": "ff53f570296d0bd97d8dc7ee4e16c915987a8542",
+      "fixture": "isolated synthetic data/provider unavailable, not live success"
+    }
+  ],
+  "checked": [
+    "Destination query plus stop entry share one obvious row; common/history grouped with thin dividers and no second Use action",
+    "Passenger profile uses clear flat identity/shortcut/service hierarchy and preserves demo capability notes",
+    "Driver wallet hierarchy prioritizes amount, main action and tabbed details; secondary button weights are lower"
+  ],
+  "limits": [
+    "Does not replace final native interaction, timing or release acceptance",
+    "Map provider rendering/geocoder unavailable in isolated QA; no live-provider beauty/success claim",
+    "Final return-shield changes require separate final-SHA native proof; these pictures keep actual original source attribution"
+  ],
+  "phase4Review": {
+    "candidateSha": "0ef2a8d3982dfca0e85a3b756a6004c1825ba798",
+    "method": "Actual root view_image g10 and g12",
+    "result": "PASS_360dp_FONT1_3_AMOUNT_VISUAL",
+    "images": [
+      {
+        "file": "coordination/evidence/RIDE-20261031-01/visual/g10-small-eight.png",
+        "sha256": "7df650dd21402485886c4b4f8de4004a3729473d2633976d7d88153701d1219b"
+      },
+      {
+        "file": "coordination/evidence/RIDE-20261031-01/visual/g12-small-large-settled.png",
+        "sha256": "6b617e32e396bfc9a13447af0b68471daaec6c5f36a1a468d220f045c2595e6a"
+      }
+    ],
+    "details": "8.00 and 12345.67 fully legible in one line, buttons separately visible below; no provider success claim"
+  }
+}

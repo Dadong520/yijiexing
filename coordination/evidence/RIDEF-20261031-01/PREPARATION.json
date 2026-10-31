@@ -1,0 +1,85 @@
+{
+  "taskId": "RIDEF-20261031-01",
+  "preparedAt": "2026-10-31T18:17:51.761682+08:00",
+  "status": "PREPARED_WAIT_EXACT_FREEZE",
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-ride-flow-polish-20261031",
+  "branch": "codex/ride-flow-polish-20261031",
+  "baseSha": "c261d78c0108067b6057ff655d1396ec135d815e",
+  "observedHead": "c261d78c0108067b6057ff655d1396ec135d815e",
+  "frozenSha": null,
+  "memoryAssessment": {
+    "state": "HANDOFF_RECOMMENDED",
+    "contextUsedPercent": null,
+    "telemetrySource": "not_exposed",
+    "canContinueBounded": true,
+    "basis": "Current checkpoint/base/published22/ownership and two scoped groups reliably distinguished from previous completed task. No unresolved source/version/authorization conflict. Preparation and scoped follow-through safe from current short card.",
+    "concreteRisk": "Previous MAPSF had stale-control probes after configuration recreation; they were explicitly excluded/corrected. Do not carry old Use-button scenarios into new click-commit policy.",
+    "mitigation": [
+      "Wait for completion and inspect exitCode before any dependent action.",
+      "After app/page/config switch obtain fresh snapshot before target lookup; stop dependent chain if target missing or prior step failed.",
+      "Validate actual frame content and callback/data effects, never infer PASS from frame name.",
+      "Checkpoint at unit/build/native/differential/cleanup stages; escalate if repeated recovery mistakes or source conflicts prevent reliable continuation."
+    ],
+    "handoff": "Recommended before any broader task; no required takeover signal now. Do not create chat/agent or edit central registry."
+  },
+  "policyChanges": [
+    "Latest user rule: valid point selection commits chosen point once and returns; old second Use confirmation is superseded.",
+    "Point selection never automatically creates a ride, pays, or submits an outer profile/favorite form. Keep original order/payment/cancel confirmations.",
+    "Do not count previous MAPSF picker-flow PASS for the changed selection behavior. Only exact unchanged code/tests may be inherited with explicit source attribution."
+  ],
+  "groups": [
+    {
+      "id": "A",
+      "scope": "Place selection, history feedback and waypoints",
+      "status": "NOT_RUN",
+      "unitCases": [
+        "Run relevant new PlaceSelection JUnit and affected existing owner/query/manualGPS/modal rule tests against exact freeze.",
+        "Known valid history/common point and synthetic search callback commit exactly once; repeated tap/duplicate callback cannot write twice.",
+        "Missing/NaN/infinite/out-of-range coordinates show actionable feedback or start required lookup, never silently return or fabricate0 coordinates. Explicit valid coordinates follow existing contract.",
+        "Account/query/target generation change, cancellation and old asynchronous callbacks cannot update wrong caller draft."
+      ],
+      "nativeCases": [
+        "Known historical/common point click immediately returns correct name/coordinates/metadata; no obsolete Use button.",
+        "Invalid/unknown historical point has visible feedback, stays usable and preserves prior draft until valid selection.",
+        "Destination page owns waypoint entry; add/edit/remove/order up to2 points; max limit enforced without silently losing existing points.",
+        "New and pre-existing pickup/destination/waypoint/favorite contexts: return with no selection or cancel leaves caller unchanged.",
+        "Repeated taps and pending-search→cancel/return have at most one correct selection; search-stub callback may be proven in pure rule tests when actual provider unavailable.",
+        "Original booking confirmation and necessary payment/cancel confirmations remain reachable; choosing a point alone sends no order/payment."
+      ]
+    },
+    {
+      "id": "B",
+      "scope": "Shared mature/simple visual style, representative screens only",
+      "status": "NOT_RUN",
+      "nativeCases": [
+        "Passenger representative home, order, profile; driver home, trip/order, profile, wallet at normal size. Compare shared typography/colors/button hierarchy/spacing/list treatment against frozen design intent.",
+        "360x640dp/font1.3 and real keyboard on relevant input/selection form: no clipped important labels, unreachable final action, or misleading disabled/primary states.",
+        "Necessary confirmation dialogs retain readable full labels and equal usable actions; opening/closing restores caller.",
+        "Representative map panel/fullscreen and modal/page scope smoke only where shared styling affects them; keep visible restoration controls/header/tabs. No repeat of old full native matrix."
+      ]
+    }
+  ],
+  "afterFreeze": [
+    "Root exact40SHA/version/committed product then fresh external export; do not build active dirty tree.",
+    "Relevant actual unit tests, both original APK builds and isolatedQA builds; source/version/package/priorSigner/HTTPS/private-value scans.",
+    "Fresh dedicated official-tools AVD/local fixture/identities/data; reuse verified generic tooling only, not old data or obsolete scenario expectations.",
+    "Native actual frames+XML and callback/local synthetic effects tagged with precise source; preserve FAIL and differential fixes.",
+    "Cleanup exact own emulator/fixture/reverse, save final proof/review/short card and run memory gate; root alone merge/releases."
+  ],
+  "preflight": {
+    "memoryGate": "PASS",
+    "registeredThreadId": "01a182c6-c475-7110-bbae-0deafe6d2385",
+    "adbDevices": "EMPTY",
+    "source": "HEAD basec261; author has uncommitted product changes; only metadata status inspected, no product review/copy/build."
+  },
+  "notStarted": [
+    "No source export/build/test/QA package",
+    "No AVD definition/boot/fixture/TLS/private identity or data creation",
+    "No product edit/commit/deploy"
+  ],
+  "excluded": [
+    "Old full ride/payment lifecycle and unrelated old UI matrices",
+    "Backend/Store/network configuration/production changes, cloud business mutations",
+    "Real map/provider success, personal phone, OEM, real money and certification claims"
+  ]
+}

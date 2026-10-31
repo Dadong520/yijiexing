@@ -1,0 +1,6 @@
+{
+  "command": "python3 read_public.py --before",
+  "session": 71947,
+  "exitCode": 1,
+  "reason": "Verifier assumed top-level status; actual unchanged cloud contract wraps data.status with code0. HTTP transport was not the failure. Corrected using cloud_server.py immutable source; rerun pending."
+}

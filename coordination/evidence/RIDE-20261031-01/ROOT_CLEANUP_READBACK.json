@@ -1,0 +1,10 @@
+{
+  "ownedEmulatorPresent": false,
+  "ownedPortsListening": {
+    "64361": false,
+    "64362": false,
+    "5584": false
+  },
+  "PASS": true,
+  "rawDeviceInventoryWithheld": true
+}

@@ -40,10 +40,10 @@ import androidx.compose.ui.unit.sp
 val Green = Color(0xFF00796E)
 val Ink = Color(0xFF0F1B2A)
 val Muted = Color(0xFF4B5B6B)
-// Brighter mint and a neutral cool page grey; the old green-grey pair read as muddy.
-val Pale = Color(0xFFE8F8F5)
-val Page = Color(0xFFF4F6F9)
-val Line = Color(0xFFDCE5E8)
+// Soft brand tint only for small selected states; near-white page behind white cards.
+val Pale = Color(0xFFEAF5F3)
+val Page = Color(0xFFF7F8FA)
+val Line = Color(0xFFE2E6EA)
 val Orange = Color(0xFFB45309)
 
 @Composable
@@ -72,7 +72,7 @@ fun NativeTheme(large: Boolean = false, content: @Composable () -> Unit) {
                     onBackground = Ink,
                     outline = ControlOutline,
                     outlineVariant = Line,
-                    surfaceVariant = Page,
+                    surfaceVariant = SurfaceMuted,
                     onSurfaceVariant = Muted,
                 ),
             typography =
@@ -352,28 +352,28 @@ fun Pill(text: String, color: Color = Green, bg: Color = Pale) {
 
 @Composable
 fun SheetCard(modifier: Modifier = Modifier, content: @Composable ColumnScope.() -> Unit) {
+    // One flat surface: white, hairline edge, no shadow.
     Surface(
         modifier = modifier.fillMaxWidth(),
         color = Color.White,
-        shape = RoundedCornerShape(14.dp),
-        border = BorderStroke(1.dp, Color(0xFFEDEFF2)),
-        shadowElevation = 2.dp
+        shape = RoundedCornerShape(12.dp),
+        border = BorderStroke(1.dp, Hairline),
+        shadowElevation = 0.dp
     ) {
-        Column(Modifier.padding(horizontal = 14.dp, vertical = 12.dp), content = content)
+        Column(Modifier.padding(horizontal = 16.dp, vertical = 12.dp), content = content)
     }
 }
 
 @Composable
 fun PrimaryButton(label: String, modifier: Modifier = Modifier, enabled: Boolean = true, onClick: () -> Unit) {
-    // Lit gradient with a soft shadow so the primary action reads as a real button, not coloured text.
+    // The page's one primary action: solid brand teal, no shadow; disabled turns neutral and readable.
     val shape = RoundedCornerShape(12.dp)
     Box(
         modifier
             .fillMaxWidth()
             .heightIn(min = 48.dp)
-            .shadow(if (enabled) 6.dp else 0.dp, shape, ambientColor = Green, spotColor = Green)
             .clip(shape)
-            .background(if (enabled) BrandGradient else SolidColor(Line))
+            .background(if (enabled) Green else SurfaceMuted)
             .clickable(enabled = enabled, role = Role.Button, onClick = onClick)
             .padding(horizontal = 16.dp, vertical = 12.dp),
         contentAlignment = Alignment.Center,
@@ -384,7 +384,7 @@ fun PrimaryButton(label: String, modifier: Modifier = Modifier, enabled: Boolean
             lineHeight = 20.sp,
             textAlign = TextAlign.Center,
             fontWeight = FontWeight.Bold,
-            color = if (enabled) Color.White else Muted,
+            color = if (enabled) Color.White else DisabledText,
         )
     }
 }
@@ -471,20 +471,12 @@ fun MenuRow(icon: String, title: String, description: String = "", onClick: () -
             .padding(vertical = 4.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        val (tint, soft) = moduleAccent(icon)
-        Box(
-            modifier = Modifier
-                .size(34.dp)
-                .clip(RoundedCornerShape(10.dp))
-                .background(Brush.verticalGradient(listOf(Color.White, soft))),
-            contentAlignment = Alignment.Center
-        ) {
-            Glyph(icon, tint, Modifier.size(18.dp))
-        }
+        // Flat list row: a monochrome glyph, no tinted tile, so rows scan as one calm list.
+        Glyph(icon, IconTone, Modifier.size(22.dp))
         Column(
             modifier = Modifier
                 .weight(1f)
-                .padding(horizontal = 10.dp)
+                .padding(horizontal = 12.dp)
         )
         {
             Text(title, fontSize = 15.sp, lineHeight = 20.sp, fontWeight = FontWeight.Medium, color = Ink)
@@ -495,6 +487,7 @@ fun MenuRow(icon: String, title: String, description: String = "", onClick: () -
         Glyph("right", Muted, Modifier.size(16.dp))
     }
 }
+
 
 @Composable
 fun RouteStops(order: DriverOrder, compact: Boolean = false) {
