@@ -32,15 +32,29 @@
     "Preserve owner/query generation, valid coordinates, manualGPS, modal priority, full-map/scope restoration and business gates",
     "No backend/Store/network/prod edits; independent reviewer tests before root exact-head merge/release"
   ],
-  "status": "AUTHOR_DONE_NEEDS_INDEPENDENT_REVIEW",
+  "status": "PHASE2_RUNNING_NATIVE_P1_REPAIR",
   "acceptance": "NOT_RUN",
   "tests": [],
   "evidence": [],
-  "nextAction": "Root freeze then independent compilation/native and source review; no release until PASS",
+  "nextAction": "Prevent returning picker rapid followup tap from activating underlying risky actions without reintroducing Use button",
   "deploy_owner": "coordinator",
   "releaseReady": false,
   "updatedAt": "2026-10-31T10:22:24.928184+00:00",
   "sessionId": "6c0ddf57-d854-4c5c-a8a9-43f7ee7e3063",
   "model": "claude-opus-5-5",
-  "effort": "high"
+  "effort": "high",
+  "candidateSha": "ff53f570296d0bd97d8dc7ee4e16c915987a8542",
+  "phase2": {
+    "sessionId": "6c0ddf57-d854-4c5c-a8a9-43f7ee7e3063",
+    "runnerSession": 34648,
+    "failure": "coordination/evidence/RIDEF-20261031-01/FINDINGS_ff53.json",
+    "tests": "NOT_RUN",
+    "allowedProductFiles": [
+      "BookingScreens.kt",
+      "PlaceSelection.kt",
+      "ProfileScreens.kt",
+      "OrderDetail.kt",
+      "PlaceSelectionTest.kt"
+    ]
+  }
 }

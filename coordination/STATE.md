@@ -2,7 +2,7 @@
 中央/Users/dongge/Documents/New project 2/coordination唯一权威，协议2026-10-26-v3。唯一coordinator01a17cc7-e0a2-7791-bf1d-4611c09bab22/generation6；context UNKNOWN。root独占状态/验收/合并发布。
 
 ## 新活动RIDE-20261031-01
-用户要求一击确认有效地址、途经点入口移目的地页、修历史点击无反应、两端成熟网约车风格简化。新source /Users/dongge/.codex/tmp/yijiexing-ride-flow-polish-20261031 branch codex/ride-flow-polish-20261031 base c261d78；Claude fresh 6c0ddf57-d854-4c5c-a8a9-43f7ee7e3063 主实现，backend先诊断；新版未构建发布，当前仍22。root图文参考DESIGN_BRIEF。
+用户要求一击确认有效地址、途经点入口移目的地页、修历史点击无反应、两端成熟网约车风格简化。新source /Users/dongge/.codex/tmp/yijiexing-ride-flow-polish-20261031 branch codex/ride-flow-polish-20261031 base c261d78；Claude fresh 6c0ddf57-d854-4c5c-a8a9-43f7ee7e3063 Opus5.5high phase1 exit0，冻结ff53f570296d0bd97d8dc7ee4e16c915987a8542；RIDEB源审PASS/0P1P2，root27/mini74/checkPASS。draftPR47/head ff53f57 CI41192639216 SUCCESS，双原包/QA和63/77单测PASS但RIDEF原生49ms双击穿透确认呼叫P1 FAIL；Claude同SID phase2 runner34648有界退修，当前不可发布。公开仍22。DESIGN_BRIEF为参考。
 
 ## MAPS版本22：测试、合并、发布和实际回读PASS；源码与实际回执均已合并入库
 用户要求四主地图页功能面板三态拖动，上拖全展可滚所有项，下拖至全屏；乘客新草稿GPS起点/空终点，选址上地图/空查询框/下模糊结果。Claude官方session9bc07c4c-731c-4b1f-840b-ce6a0c5dc85a/Opus5.5high三阶段exit0。作者无Bash自测NOT_RUN，由不同会话验收。最终产品d6d5206a82f16987fd51371044fb12e76ba9f8d8，PR45准确head125699eb8729e43bd3ec83d2db50bd292b479afd/CI41185604204 SUCCESS，expected-head squash merge49bc669ec8f412756eb782498bcedeecb4098b52；所有产品树同最终验收源。

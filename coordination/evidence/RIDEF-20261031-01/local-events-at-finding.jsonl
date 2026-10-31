@@ -1,0 +1,8 @@
+{"at": "2026-10-31T18:26:55+08:00", "kind": "PASSENGER_ACTION", "action": "profile.update", "id": null, "result": "SUCCESS", "consentId": null, "choice": null, "coords": {}}
+{"at": "2026-10-31T18:26:55+08:00", "kind": "PASSENGER_ACTION", "action": "favorite.save", "id": null, "result": "SUCCESS", "consentId": null, "choice": null, "coords": {}}
+{"at": "2026-10-31T18:26:55+08:00", "kind": "PASSENGER_ACTION", "action": "profile.update", "id": null, "result": "SUCCESS", "consentId": null, "choice": null, "coords": {}}
+{"at": "2026-10-31T18:26:55+08:00", "kind": "PASSENGER_ACTION", "action": "favorite.save", "id": null, "result": "SUCCESS", "consentId": null, "choice": null, "coords": {}}
+{"at": "2026-10-31T18:26:55+08:00", "kind": "START", "sourceSha": "ff53f570296d0bd97d8dc7ee4e16c915987a8542", "port": 64361}
+{"at": "2026-10-31T18:31:31+08:00", "kind": "SYNTHETIC_CONTROL", "type": "state", "id": null}
+{"at": "2026-10-31T18:32:22+08:00", "kind": "PASSENGER_ACTION", "action": "order.create", "id": null, "result": "SUCCESS", "consentId": null, "choice": null, "coords": {"originLat": 30.6687, "originLng": 111.3226, "destinationLat": 30.666, "destinationLng": 111.326}}
+{"at": "2026-10-31T18:32:27+08:00", "kind": "SYNTHETIC_CONTROL", "type": "state", "id": null}

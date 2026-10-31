@@ -17,12 +17,34 @@
     "Preserve owner/query generation, valid coordinates, manualGPS, modal priority, full-map/scope restoration and business gates",
     "No backend/Store/network/prod edits; independent reviewer tests before root exact-head merge/release"
   ],
-  "status": "SOURCE_FREEZE_PENDING_REVIEW",
-  "acceptance": "NOT_RUN",
-  "tests": [],
-  "evidence": [],
-  "nextAction": "Root freeze then independent compilation/native and source review; no release until PASS",
+  "status": "NATIVE_FAIL_NEEDS_AUTHOR_REPAIR",
+  "acceptance": "FAIL",
+  "tests": [
+    {
+      "command": "root tools27/mini74/projectcheck",
+      "status": "PASS",
+      "sourceSha": "ff53f570296d0bd97d8dc7ee4e16c915987a8542"
+    },
+    {
+      "command": "RIDEB independent source review",
+      "status": "PASS",
+      "sourceSha": "ff53f570296d0bd97d8dc7ee4e16c915987a8542"
+    },
+    {
+      "command": "RIDEF build/native",
+      "status": "PENDING"
+    }
+  ],
+  "evidence": [
+    "coordination/evidence/RIDE-20261031-01/ROOT_CHECKS_ff53f57.json",
+    "coordination/evidence/RIDEB-20261031-01/SOURCE_REVIEW.json"
+  ],
+  "nextAction": "Frontend reproduced rapid second tap after place return hitting ConfirmCall; retain failure, Claude repair same exact session, independent differential review/rebuild before publish",
   "deploy_owner": "coordinator",
   "releaseReady": false,
-  "updatedAt": "2026-10-31T10:22:24.928184+00:00"
+  "updatedAt": "2026-10-31T10:22:24.928184+00:00",
+  "candidateSha": "ff53f570296d0bd97d8dc7ee4e16c915987a8542",
+  "businessReview": "coordination/evidence/RIDEB-20261031-01/SOURCE_REVIEW.json",
+  "rootChecks": "coordination/evidence/RIDE-20261031-01/ROOT_CHECKS_ff53f57.json",
+  "pullRequest": "https://github.com/Dadong520/yijiexing/pull/47"
 }

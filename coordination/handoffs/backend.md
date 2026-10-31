@@ -1,13 +1,13 @@
 # backend 当前短卡
-ACK2026-10-26-v3；真实ID 01a182c6-c058-76e1-9584-38abfe813799；2026-10-31T18:04:52+08:00。context UNKNOWN/not_exposed；NORMAL。root 01a17cc7-e0a2-7791-bf1d-4611c09bab22 唯一协调合并发布。
+ACK2026-10-26-v3；真实ID 01a182c6-c058-76e1-9584-38abfe813799；2026-10-31T18:25:43+08:00。context UNKNOWN/not_exposed；NORMAL。root 01a17cc7-e0a2-7791-bf1d-4611c09bab22 唯一协调合并发布。
 
-当前 RIDEB-20261031-01 初诊完成/WAITING_FINAL_SHA，最终验收 NOT_RUN/releaseReady=false。base c261d78c0108067b6057ff655d1396ec135d815e；源 /Users/dongge/.codex/tmp/yijiexing-ride-flow-polish-20261031，branch codex/ride-flow-polish-20261031。仅写本任务/本卡/evidence，未改产品、Store、后端或云，未把Claude并行修改当冻结成果。待合并SHA未提供。
+当前 RIDEB-20261031-01 精确冻结独立源审 **PASS** / SOURCE_REVIEW_COMPLETE；P1=0/P2=0。候选/待合并 ff53f570296d0bd97d8dc7ee4e16c915987a8542，base c261d78c0108067b6057ff655d1396ec135d815e；source /Users/dongge/.codex/tmp/yijiexing-ride-flow-polish-20261031 branch codex/ride-flow-polish-20261031，检查时HEAD准确且clean。releaseReady=false：frontend负责同头build/JUnit/native；root最终验收发布。仅写RIDEB task/本卡/evidence，无产品或云修改。
 
-## 初诊要点
-历史服务输出address/latitude/longitude/coordinateMetadata，与Android读取一致。有坐标历史点击只selectPlace局部更新，第二个“使用此地点”才save，可解释未回填；无坐标仅按名搜索。不能把字符串非空当有效坐标。未实机复现，不能排除其他触摸问题。
-三个AddressDialog调用方：Booking四目标只改账号草稿；Profile只改编辑缓存，原favorite.save确认须保留；OrderDetail回调立即order.update且后端会改fare/estimatedFare/mileage/destinationPending，必须保留既有订单明确提交确认，不能统一选择即网络保存。后端接单/报价/阶段/300km门槛不变。
-途经点由父级owner草稿rememberSaveable持有最多2个；迁移入口勿新建局部丢草稿、勿因editor清空返回错误层。删除点1连清点2或明确前移；显示、showWaypoints与payload一致，按点1→点2→终点影响估价。保留有效坐标/元数据、query/city清旧选择、世代取消、GPS手动优先、弹窗与地图scope。
+## 结论
+PlacePickSession单次交付/共用gate；query/city/取消/关闭/选择退休旧请求，map成功且current才交付，无效/失败不消耗session可重试。历史字段一致；未知坐标行保留原因与按名搜索；metadata跟随同点。Booking最新owner/target复核只写草稿；Profile回编辑后保存；OrderDetail先选本地候选再明确“确认并重新估价”，server归属与阶段/报价/300km/金额规则未改，不自动叫车支付。
+途经点最多两槽，删1提升2全三字段再清2，删2仅清2；父级owner记忆保留，显示与payload同序。**交换专项PASS**：O→W1→W2→D变D→W2→W1→O，端点含metadata、途经点含name/lat/lng全部成对交换；一/零点正确。originTouched保护GPS，未发现需修P1/P2。
+server/Store/pickup lookup/AddressSearch与base无差异，ModalSlot/map scope保持。客户端pending编辑条件少STANDARD检查但server保持强制，未形成绕过；错误由Store通道反馈，确认页关闭不等于保存成功。
 
-证据 coordination/evidence/RIDEB-20261031-01/PRELIMINARY.md，含源行与冻结后针对验收场景。实际仅git ls-tree/git show只读源检查；新实现差异/build/unit/native/后端集成/DB/网络/provider/OEM/最终验收全部NOT_RUN。待root给最终SHA与作者证据再审，不轮询，不直接向其他chat自动回信。
+证据 coordination/evidence/RIDEB-20261031-01/SOURCE_REVIEW.json 与 SOURCE_REVIEW.md（精确SHA/Git blob绑定/行号/未运行）；初诊PRELIMINARY保留。实际只读Git对象/差异/HEAD与branch/clean；diff --check exit0。NOT_RUN：build/JUnit/native（frontend所有）、小屏hint可见性实测、API/DB/云/真实provider/OEM/资金。源审PASS不替代整体业务验收。产品SHA改动需复核，不轮询，不自动向其他chat回信。
 
-上轮MAPSR窄审PASS，证据原路径保留；线上乘客1.1.20/code22、司机0.3.19/code22，产品d6d5206与PR45merge49bc669；本轮没有发布授权执行。Claude主实现/Gemini暂停，BIZ04–09既定边界保持。
+线上仍乘客1.1.20/code22、司机0.3.19/code22；本轮无发布。Claude主实现/Gemini暂停，既定BIZ04–09保持。

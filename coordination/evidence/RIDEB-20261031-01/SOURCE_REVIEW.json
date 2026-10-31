@@ -1,0 +1,130 @@
+{
+  "taskId": "RIDEB-20261031-01",
+  "reviewerRole": "backend",
+  "reviewerSessionId": "01a182c6-c058-76e1-9584-38abfe813799",
+  "reviewedAt": "2026-10-31T18:25:43+08:00",
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-ride-flow-polish-20261031",
+  "baseSha": "c261d78c0108067b6057ff655d1396ec135d815e",
+  "candidateSha": "ff53f570296d0bd97d8dc7ee4e16c915987a8542",
+  "verdict": "PASS",
+  "scope": "Independent immutable-source review only; compilation/JUnit/native GUI owned by frontend. Not release acceptance.",
+  "findings": [],
+  "p1Count": 0,
+  "p2Count": 0,
+  "releaseReady": false,
+  "checks": [
+    {
+      "id": "session_stale_duplicate_failure",
+      "result": "PASS_SOURCE",
+      "refs": [
+        "PlaceSelection.kt:115-134",
+        "BookingScreens.kt:683-719",
+        "BookingScreens.kt:730-746",
+        "BookingScreens.kt:774-834",
+        "PassengerPickupDefaults.kt:78-94"
+      ],
+      "detail": "One commit per opening; shared gate invalidated by query/city/pick/cancel/close; text publish checks newest gate and query; reverse lookup commits only current token. Invalid result or failure does not consume session, reports error and permits retry. Initial map center is never committed."
+    },
+    {
+      "id": "history_contract_and_metadata",
+      "result": "PASS_SOURCE",
+      "refs": [
+        "passenger.py:195-209",
+        "PlaceSelection.kt:37-98",
+        "BookingScreens.kt:708-710",
+        "BookingScreens.kt:841-851"
+      ],
+      "detail": "address/latitude/longitude/coordinateMetadata matches server; finite in-range nonzero coordinates required. Unknown/broken named rows remain visible with warning, click searches name and retains explanation. Metadata stays with chosen row/result; no name-only metadata lookup. Duplicate same name/point prefers common row as documented; same name/different point remains distinct."
+    },
+    {
+      "id": "callback_and_owner",
+      "result": "PASS_SOURCE",
+      "refs": [
+        "BookingScreens.kt:461-491",
+        "ProfileScreens.kt:232-265",
+        "OrderDetail.kt:419-460",
+        "MainActivity.kt:287-306",
+        "PassengerStore.kt:397-411",
+        "passenger.py:312-358"
+      ],
+      "detail": "Booking verifies current owner and editor target before draft write, manually chosen origin locks GPS; stops return destination page. Profile only fills favorite editor until separate 保存. OrderDetail pick stores local candidate and shows explicit re-price modal; only confirm issues order.update. No address callback invokes order.create or payment. Account/order UI disposed on logout or absent selected order; Store session generation protects response acceptance and unchanged server own_passenger_order enforces request ownership."
+    },
+    {
+      "id": "order_stage_and_price",
+      "result": "PASS_SOURCE",
+      "refs": [
+        "OrderDetail.kt:433-460",
+        "passenger.py:341-360"
+      ],
+      "detail": "Confirmation checks latest recomposed stage/bids; busy gates duplicate submit. Client pending-destination shortcut is broader than server STANDARD-kind condition, but server remains unchanged and authoritative: own order, stage/kind/bid, complete destination, point/metadata, same origin, route<=300km. UI acknowledges re-estimate and simulated funds; only store success posts success notice. Cancel clears pending place without request; failed request surfaces error rather than success."
+    },
+    {
+      "id": "stops_add_remove_payload",
+      "result": "PASS_SOURCE",
+      "refs": [
+        "PlaceSelection.kt:101-106",
+        "BookingScreens.kt:79-87",
+        "BookingScreens.kt:172-187",
+        "BookingScreens.kt:422-491"
+      ],
+      "detail": "At most two reachable slots: add first then second; add absent when full. Remove first promotes all three second fields then clears all second fields; remove second clears only second. Parent owner-keyed rememberSaveable owns data across child picker changes. No showWaypoints flag can hide submitted data. Payload includes nonblank slots in display order with coordinate validation; max2 server constraint unchanged."
+    },
+    {
+      "id": "swap_entire_route",
+      "result": "PASS_SOURCE",
+      "refs": [
+        "BookingScreens.kt:275-300",
+        "BookingScreens.kt:103-138",
+        "BookingScreens.kt:172-187"
+      ],
+      "detail": "For O->W1->W2->D, swap yields D->W2->W1->O; both names and coordinate pairs swap, origin/destination metadata swap, originTouched=true locks late GPS naming. One stop stays in same lone slot, zero stops unchanged. Valid endpoint gate is checked both enabled and click. Stop metadata is not part of existing draft/payload contract. Route display derives same slots and payload uses same reversed order. No inconsistency found; no repair requested."
+    },
+    {
+      "id": "guard_lineage",
+      "result": "PASS_SOURCE",
+      "refs": [
+        "apps/cloud-service",
+        "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/PassengerStore.kt",
+        "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/PassengerPickupDefaults.kt",
+        "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/AddressSearch.kt"
+      ],
+      "detail": "git diff base..candidate confirms backend tree, PassengerStore, pickup/debounce rules and AddressSearch unchanged. ModalSlot remains in PassengerFullPage and favorite editor; existing map scope/attention keys preserved."
+    }
+  ],
+  "actualChecks": [
+    {
+      "command": "git status --short; git branch --show-current; git rev-parse HEAD",
+      "result": "clean; codex/ride-flow-polish-20261031; exact candidate SHA"
+    },
+    {
+      "command": "git show candidate:path + bounded line reads and git diff base candidate for scoped callsites",
+      "result": "completed source inspection"
+    },
+    {
+      "command": "git diff --name-only base candidate -- apps/cloud-service PassengerStore.kt PassengerPickupDefaults.kt AddressSearch.kt (full paths used)",
+      "result": "empty; unchanged"
+    },
+    {
+      "command": "git diff --check base candidate -- apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/",
+      "result": "exit 0"
+    }
+  ],
+  "notRun": [
+    "Compilation and all JUnit (frontend assigned, not duplicated)",
+    "Native GUI/touch, small-screen/IME feedback visibility, runtime account-switch interaction",
+    "Backend API/DB/network/cloud/business mutation tests",
+    "Real provider map/POI/reverse geocoding/OEM/funds"
+  ],
+  "reviewedGitBlobIds": {
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/PlaceSelection.kt": "ff4ac92210a689ef6fef9e88a7dc062ce865fc1a",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/BookingScreens.kt": "a4e376e39429adcea6da19b248acc927f73bf66e",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/OrderDetail.kt": "5d9b925ec3dbf473586787a2e28ec993c63e94bd",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/ProfileScreens.kt": "8303668b1345d9acf9daf7b0e595e03c71886772",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/PassengerPages.kt": "3d1064d738941d14b0c650b0e079d50930b5dbc3",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/PassengerStore.kt": "189821ecb57e104932c4e501135715308852bbec",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/PassengerPickupDefaults.kt": "fccc3657589921862b3b6404b092eaea7ff38741",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/AddressSearch.kt": "2214c57d42ca0a0a4d296590126d4485ab9aa125",
+    "apps/cloud-service/passenger.py": "5eb952b1260e168902c9b6302b4d50aa97796edd"
+  },
+  "nextAction": "Coordinator combine exact-head frontend build/JUnit/native results; final merge/release gate remains coordinator-owned. Re-review if product SHA changes."
+}

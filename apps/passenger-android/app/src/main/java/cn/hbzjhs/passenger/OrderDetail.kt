@@ -37,6 +37,8 @@ fun OrderDetail(o: JSONObject, store: PassengerStore, busy: Boolean, openOrder: 
   var dialog by remember(id) { mutableStateOf("") }
   // Destination picked in the place page, waiting for the passenger to confirm the re-price.
   var newDestination by remember(id) { mutableStateOf<PickedPlace?>(null) }
+  // Short bounded shield armed when the destination picker closes (see ReturnTapGuard).
+  val pickShield = rememberReturnTapShield()
   var content by remember(id) { mutableStateOf("") }
   var rating by remember(id) { mutableStateOf(5) }
   var reason by remember { mutableStateOf("行程计划有变") }
@@ -88,6 +90,7 @@ fun OrderDetail(o: JSONObject, store: PassengerStore, busy: Boolean, openOrder: 
   val hasDriverLoc = loc != null && loc.has("latitude") && loc.has("longitude")
   val driverTime = loc?.text("receivedAt")?.takeIf { it.isNotBlank() }?.let { formatTime(it) }
   // Pay and cancel stay pinned to the bottom of the panel so they never need scrolling to find.
+  // While the place page has just closed, a fast second tap must not open them either.
   val pinnedActions: @Composable () -> Unit = {
     Column(Modifier.fillMaxWidth().background(Color.White)) {
       HorizontalDivider(color = DividerTone)
@@ -99,8 +102,8 @@ fun OrderDetail(o: JSONObject, store: PassengerStore, busy: Boolean, openOrder: 
       ) {
         if (cancellable)
           OutlinedButton(
-            onClick = { cancelChoice = "行程计划有变"; cancelOther = ""; dialog = "cancel" },
-            enabled = !busy,
+            onClick = { if (pickShield.allows()) { cancelChoice = "行程计划有变"; cancelOther = ""; dialog = "cancel" } },
+            enabled = !busy && !pickShield.active,
             modifier = (if (payable) Modifier.weight(1f) else Modifier.fillMaxWidth()).fillMaxHeight().heightIn(min = 50.dp),
             shape = androidx.compose.foundation.shape.RoundedCornerShape(12.dp),
             border = androidx.compose.foundation.BorderStroke(1.dp, if (busy) Line else DangerLine),
@@ -113,9 +116,10 @@ fun OrderDetail(o: JSONObject, store: PassengerStore, busy: Boolean, openOrder: 
           GradientButton(
             if (negotiated) "核对第 ${o.optInt("quoteVersion")} 版并支付 ¥${money(o.optLong("fare"))}"
             else "去支付 ¥${money(o.optLong("fare"))}",
-            !busy,
+            !busy && !pickShield.active,
             modifier = Modifier.weight(if (cancellable) 1.6f else 1f).fillMaxHeight(),
           ) {
+            if (!pickShield.allows()) return@GradientButton
             shownQuote = if (negotiated) QuoteSnapshot.from(o) else null
             shownPayment = if (negotiated) null else PaymentSnapshot.from(o)
             dialog = "pay"
@@ -422,21 +426,26 @@ fun OrderDetail(o: JSONObject, store: PassengerStore, busy: Boolean, openOrder: 
       o.optDouble("destinationLat").toString(),
       o.optDouble("destinationLng").toString(),
       emptyList(),
-      { dialog = "" },
+      { pickShield.arm(); dialog = "" },
       title = if (o.optBoolean("destinationPending")) "补充目的地" else "修改目的地",
       queryLabel = "搜索目的地",
     ) { name, lat, lng, normalization ->
       // One tap only chooses the address; changing the order and its price stays a separate confirmation.
+      // Armed first: the confirm button may sit right where the second tap of a double tap lands.
+      pickShield.arm()
       newDestination = PickedPlace(name, coordinate(lat, true), coordinate(lng, false), normalization)
       dialog = "destinationConfirm"
     }
   if (dialog == "destinationConfirm") newDestination?.let { place ->
     PassengerModal(
       title = if (o.optBoolean("destinationPending")) "确认补充目的地？" else "确认修改目的地？",
-      onDismiss = { newDestination = null; dialog = "" },
+      // An early outside tap or back must not silently drop the place just picked.
+      onDismiss = { if (pickShield.allows()) { newDestination = null; dialog = "" } },
       confirmLabel = "确认并重新估价",
-      confirmEnabled = !busy,
+      confirmEnabled = !busy && !pickShield.active,
+      dismissEnabled = !pickShield.active,
       onConfirm = {
+        if (!pickShield.allows()) return@PassengerModal
         // Re-checked with the order as it is now: a driver may have accepted or quoted meanwhile.
         val editable = (stage == "AVAILABLE" && o.rows("bids").isEmpty()) ||
           (o.optBoolean("destinationPending") && stage in listOf("PICKUP", "ARRIVED"))

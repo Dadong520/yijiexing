@@ -139,6 +139,70 @@ class PlaceSelectionTest {
     assertFalse(published)
   }
 
+  private class FakeClock(var now: Long = 50_000L) {
+    fun read(): Long = now
+  }
+
+  @Test
+  fun returnGuardIsOpenUntilArmed() {
+    val clock = FakeClock()
+    val guard = ReturnTapGuard(700L, clock::read)
+    assertTrue(guard.allows())
+    assertEquals(0L, guard.remainingMs())
+  }
+
+  @Test
+  fun secondTapInsideTheWindowIsRefusedAndAllowedFromTheBoundary() {
+    val clock = FakeClock()
+    val guard = ReturnTapGuard(700L, clock::read)
+    guard.arm()
+    // RIDEF-R1: the second native tap arrived 49 ms after the first.
+    clock.now += 49L
+    assertFalse(guard.allows())
+    assertEquals(651L, guard.remainingMs())
+    clock.now += 650L
+    assertFalse(guard.allows())
+    assertEquals(1L, guard.remainingMs())
+    clock.now += 1L
+    assertTrue(guard.allows())
+    // Once open it stays open until armed again; nothing keeps it closed.
+    clock.now += 10_000L
+    assertTrue(guard.allows())
+  }
+
+  @Test
+  fun armingAgainRestartsTheWindowFromNow() {
+    val clock = FakeClock()
+    val guard = ReturnTapGuard(700L, clock::read)
+    guard.arm()
+    clock.now += 600L
+    guard.arm()
+    clock.now += 600L
+    assertFalse(guard.allows())
+    clock.now += 100L
+    assertTrue(guard.allows())
+  }
+
+  @Test
+  fun windowIsBoundedEvenIfTheClockRunsBackwards() {
+    val clock = FakeClock()
+    val guard = ReturnTapGuard(700L, clock::read)
+    guard.arm()
+    clock.now -= 5_000L
+    assertTrue(guard.allows())
+    assertEquals(0L, guard.remainingMs())
+  }
+
+  @Test
+  fun defaultGuardCoversAStandardDoubleTapOnTheRealMonotonicClock() {
+    // Android's double-tap timeout is 300 ms; the default window must be longer and still short.
+    assertTrue(ReturnTapGuard.WINDOW_MS in 600L..750L)
+    val guard = ReturnTapGuard()
+    guard.arm()
+    assertFalse(guard.allows())
+    assertTrue(guard.remainingMs() in 1L..ReturnTapGuard.WINDOW_MS)
+  }
+
   @Test
   fun stopsFillInOrderUpToTwo() {
     assertEquals(1, PlaceSelection.nextStopSlot("", ""))

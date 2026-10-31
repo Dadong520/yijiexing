@@ -226,15 +226,18 @@ fun FavoritesScreen(state: JSONObject, store: PassengerStore) {
     var error by remember { mutableStateOf("") }
     var isDefault by remember(f) { mutableStateOf(PassengerDefaults.id(state, "FAVORITE") == f.text("id") && f.text("id").isNotBlank()) }
     var picking by remember(f) { mutableStateOf(false) }
+    // Armed when the picker closes (chosen or back): a fast second tap must not save, toggle the
+    // default, cancel or dismiss this editor (which would drop the place just picked).
+    val pickShield = rememberReturnTapShield()
     // Held across the editor and its address picker so app-wide popups keep waiting.
     PassengerModalSlot()
     if (picking)
       // One tap fills the address and returns here; the favorite is still only saved by 保存 below.
-      AddressDialog(address, lat, lng, emptyList(), { picking = false }, city = state.optJSONObject("passenger")?.text("cityName").orEmpty(), title = "选择常用地点") { n, a, b, _ ->
-        address = n.take(100); lat = a; lng = b; error = ""; picking = false
+      AddressDialog(address, lat, lng, emptyList(), { pickShield.arm(); picking = false }, city = state.optJSONObject("passenger")?.text("cityName").orEmpty(), title = "选择常用地点") { n, a, b, _ ->
+        pickShield.arm(); address = n.take(100); lat = a; lng = b; error = ""; picking = false
       }
     else PassengerDialog(
-      onDismissRequest = { edit = null },
+      onDismissRequest = { if (pickShield.allows()) edit = null },
       title = { Text("保存常用地址") },
       text = {
         Column(
@@ -243,14 +246,16 @@ fun FavoritesScreen(state: JSONObject, store: PassengerStore) {
         ) {
           Field(label, { label = it.take(30) }, "标签（例如家、公司）")
           AddressRow("地点", address.ifBlank { "点此搜索或在地图上选择" }) { picking = true }
-          PassengerDefaultCheck(isDefault, "设为默认常用地址") { isDefault = it }
+          PassengerDefaultCheck(isDefault, "设为默认常用地址") { if (pickShield.allows()) isDefault = it }
           if (error.isNotBlank()) Text(error, color = MaterialTheme.colorScheme.error)
         }
       },
       confirmButton = {
         PassengerTextButton(
-          enabled = !busy,
+          enabled = !busy && !pickShield.active,
           onClick = {
+            // Tap-time clock check, not only the enabled look.
+            if (!pickShield.allows()) return@PassengerTextButton
             runCatching {
                 require(label.trim().isNotBlank() && address.trim().length >= 2 && lat.isNotBlank()) { "请填写标签并选择地点" }
                 val payload =
@@ -269,7 +274,7 @@ fun FavoritesScreen(state: JSONObject, store: PassengerStore) {
           Text("保存")
         }
       },
-      dismissButton = { PassengerTextButton(onClick = { edit = null }) { Text("取消") } },
+      dismissButton = { PassengerTextButton(enabled = !pickShield.active, onClick = { if (pickShield.allows()) edit = null }) { Text("取消") } },
     )
   }
   remove?.let { f ->

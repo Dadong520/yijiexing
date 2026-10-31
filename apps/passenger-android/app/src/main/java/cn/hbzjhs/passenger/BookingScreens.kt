@@ -86,6 +86,9 @@ private fun PassengerBookingDraft(owner: String, state: JSONObject, store: Passe
   var waypointLat2 by rememberSaveable { mutableStateOf("") }
   var waypointLng2 by rememberSaveable { mutableStateOf("") }
   var editor by remember { mutableStateOf("") }
+  // Armed whenever a place page closes back to this home (chosen or back), so a fast second tap
+  // cannot reach the call button or swap that the closing page uncovers. Per owner (draft is keyed).
+  val returnShield = rememberReturnTapShield()
   var showOptions by rememberSaveable { mutableStateOf(false) }
   var submitting by remember { mutableStateOf(false) }
   val riderIds = state.rows("riders").map { it.text("id") }.toSet()
@@ -214,8 +217,10 @@ private fun PassengerBookingDraft(owner: String, state: JSONObject, store: Passe
         Box(Modifier.padding(horizontal = 16.dp, vertical = 10.dp)) {
           ActionButton(
             if (active != null) "查看当前行程" else if (enabledKinds.isEmpty()) "当前地区暂无开放叫车" else "确认呼叫 · ${kindName(kind)}",
-            !busy && !submitting && (active != null || enabledKinds.isNotEmpty()),
+            !busy && !submitting && (active != null || enabledKinds.isNotEmpty()) && !returnShield.active,
           ) {
+            // Checked against the clock at tap time: a second tap from the place page just closed is ignored.
+            if (!returnShield.allows()) return@ActionButton
             if (active != null) openOrder(active.text("id")) else submitOrder()
           }
         }
@@ -274,10 +279,10 @@ private fun PassengerBookingDraft(owner: String, state: JSONObject, store: Passe
             // pickup or marks it manual (which would stop GPS from filling it).
             PassengerTextButton(
               contentPadding = PaddingValues(horizontal = 10.dp, vertical = 2.dp),
-              enabled = routePointReady(origin, oLat, oLng) && routePointReady(destination, dLat, dLng),
+              enabled = routePointReady(origin, oLat, oLng) && routePointReady(destination, dLat, dLng) && !returnShield.active,
               onClick = {
                 // Re-checked at tap time with the current draft before touching any field.
-                if (routePointReady(origin, oLat, oLng) && routePointReady(destination, dLat, dLng)) {
+                if (returnShield.allows() && routePointReady(origin, oLat, oLng) && routePointReady(destination, dLat, dLng)) {
                   originTouched = true
                   val address = origin
                   origin = destination
@@ -424,7 +429,11 @@ private fun PassengerBookingDraft(owner: String, state: JSONObject, store: Passe
     val stopSlot = when (target) { "waypoint1" -> 1; "waypoint2" -> 2; else -> 0 }
     val nextSlot = PlaceSelection.nextStopSlot(waypointName, waypointName2)
     // A stop is picked from the destination page and returns there; every other picker returns home.
-    val back = { editor = if (stopSlot > 0) "destination" else "" }
+    // Arms the home shield before the picker leaves, i.e. before the home controls are uncovered.
+    fun leave() {
+      if (stopSlot > 0) editor = "destination" else { returnShield.arm(); editor = "" }
+    }
+    val back = { leave() }
     val stopsEditor: (@Composable ColumnScope.() -> Unit)? =
       if (target == "destination" && stops.isNotEmpty()) {
         {
@@ -488,9 +497,50 @@ private fun PassengerBookingDraft(owner: String, state: JSONObject, store: Passe
           dMetadata = normalization?.toString().orEmpty()
         }
       }
-      editor = if (stopSlot > 0) "destination" else ""
+      leave()
     }
   }
+}
+
+/**
+ * Compose side of [ReturnTapGuard] for a screen that opens a place page. [arm] when the place page
+ * closes; risky actions check [allows] at tap time (the real gate, read from the clock, so an old
+ * closure or the first frame after closing cannot slip through) and use [active] for their enabled
+ * look, which clears itself when the window ends.
+ */
+@Stable
+class ReturnTapShield(val guard: ReturnTapGuard = ReturnTapGuard()) {
+  var active by mutableStateOf(false)
+    private set
+  var generation by mutableIntStateOf(0)
+    private set
+
+  fun arm() {
+    guard.arm()
+    active = true
+    generation++
+  }
+
+  fun allows(): Boolean = guard.allows().also { if (it) active = false }
+
+  internal fun settle() {
+    active = !guard.allows()
+  }
+}
+
+@Composable
+fun rememberReturnTapShield(): ReturnTapShield {
+  val shield = remember { ReturnTapShield() }
+  // Restarted by every arm; ends the enabled-look once the clock says the window is over.
+  LaunchedEffect(shield, shield.generation) {
+    while (true) {
+      val wait = shield.guard.remainingMs()
+      if (wait <= 0L) break
+      delay(wait)
+    }
+    shield.settle()
+  }
+  return shield
 }
 
 /** A route end that may be used or swapped: a real name and finite, in-range coordinates. */

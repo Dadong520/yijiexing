@@ -4,4 +4,5 @@
 状态：主实现完成，未commit/add；只改allow_paths（乘客BookingScreens/OrderDetail/ProfileScreens/PassengerPages/PassengerPalette/MainActivity/UIOComponents/UiComponents/PassengerCards，新增PlaceSelection.kt+PlaceSelectionTest.kt；司机DriverPalette/UiKit/UIOComponents/CoreScreens）。未碰MapPanel、Gradle/版本/Store/backend/network/控制/task文件。
 要点：AddressDialog一击确认（结果/常用/有效历史/地图逆地理成功即交付，删“使用此地点”），PlacePickSession单次提交+共享gate防迟到写；历史无反应根因三条（见证据）已修，坏点按名称搜索+可见提示+滚回查询区，绝不填0；订单改目的地点选后另有“确认并重新估价”弹窗；常用地址仍需保存；途经点入口移到目的地页（＋途经点，最多2，可改/删，首页摘要可回编辑）；两端共享组件扁平化白底/单色图标/唯一主CTA。
 测试：编译/单测/GUI/native全部NOT_RUN（无Bash）。下一步：独立Codex编译+单测+native核验；退回在同一session修。
+Phase2（基于冻结ff53f57，修RIDEF-R1 P1：49ms第二tap穿透“确认呼叫”建单；原FAIL保留）：PlaceSelection.kt新增纯逻辑ReturnTapGuard（单调时钟，700ms，未arm开放、可重arm、时钟倒退即开放）；BookingScreens新增ReturnTapShield/rememberReturnTapShield。选址页返回调用方时先arm：首页“确认呼叫/查看当前行程”与“交换起终点”；常用地址“保存/设为默认/取消/外点”；订单“确认并重新估价/暂不修改/外点”及底部“取消订单/去支付”——enabled外观+点击时时钟检查。未恢复使用此地点、不延迟返回、无通用确认层、业务门禁不变。新增5单测（原9保留）。仅改BookingScreens/PlaceSelection/ProfileScreens/OrderDetail/PlaceSelectionTest；未commit/stage。全部NOT_RUN，证据evidence/RIDEC-20261031-01/PHASE2.md。等待frontend独立编译与原生复验。
 历史：MAPSC-20261031-01（session 9bc07c4c-…）已由root验收发布version22。

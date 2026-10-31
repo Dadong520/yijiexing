@@ -107,6 +107,42 @@ object PlaceSelection {
 }
 
 /**
+ * Short bounded shield for the screen a place page returns to. A fast second tap (a double tap, or
+ * a tap still in flight when the picker closes) would otherwise land on whatever the page exposes
+ * at the same spot, such as the call button. [arm] when the picker closes (place chosen or back);
+ * risky actions then call [allows] at tap time and do nothing while it is false.
+ *
+ * Uses a monotonic clock (not wall time). Never armed means open; the window always ends after
+ * [windowMs]; a clock that runs backwards opens it rather than holding it indefinitely.
+ */
+class ReturnTapGuard(val windowMs: Long = WINDOW_MS,private val clock: () -> Long = { System.nanoTime() / 1_000_000L }) {
+  private var armedAt: Long? = null
+
+  /** Starts (or restarts) the window from now. */
+  fun arm() {
+    armedAt = clock()
+  }
+
+  /** Milliseconds left in the window, 0 when open; never more than [windowMs]. */
+  fun remainingMs(): Long {
+    val start = armedAt ?: return 0L
+    val elapsed = clock() - start
+    if (elapsed < 0L || elapsed >= windowMs) {
+      armedAt = null
+      return 0L
+    }
+    return windowMs - elapsed
+  }
+
+  fun allows(): Boolean = remainingMs() == 0L
+
+  companion object {
+    /** Default window: well above Android's 300 ms double-tap timeout, short enough not to feel locked. */
+    const val WINDOW_MS = 700L
+  }
+}
+
+/**
  * One opening of the place picker. A place is handed to the caller at most once (a second tap, a
  * late map lookup or a late search can never commit again). Text search, map lookups and every pick
  * share [gate]: committing retires all of them, and a lookup result commits only while it is still

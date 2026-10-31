@@ -1,0 +1,25 @@
+{
+  "project": "yijiexing-driver-demo-1023",
+  "region": "us-west1",
+  "cloudMutations": 0,
+  "services": [
+    {
+      "role": "api",
+      "service": "driver-demo",
+      "revision": "driver-demo-ccui-107e226-test1",
+      "specSha256": "1b0a229a8a947a7d131ebb2aa2d9468ddce9654307708b0c2beb82588d06b839",
+      "minScale": "0",
+      "maxScale": "1",
+      "timeoutSeconds": 900
+    },
+    {
+      "role": "admin",
+      "service": "driver-admin",
+      "revision": "driver-admin-ccui-107e226-test1",
+      "specSha256": "8e6357aaf2d9c7d9bf6e68612ef8ae375785f7c0a79323292a0998429b908a63",
+      "minScale": "0",
+      "maxScale": "1",
+      "timeoutSeconds": 300
+    }
+  ]
+}
