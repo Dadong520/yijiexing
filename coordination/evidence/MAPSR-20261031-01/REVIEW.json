@@ -1,0 +1,37 @@
+{
+  "taskId": "MAPSR-20261031-01",
+  "reviewerThreadId": "01a182c6-c058-76e1-9584-38abfe813799",
+  "reviewedAt": "2026-10-31T17:04:39+08:00",
+  "reviewedHead": "fd96f29a78e2889554ba6a3c2360335cc490bac2",
+  "baseSha": "49bc669ec8f412756eb782498bcedeecb4098b52",
+  "productSha": "d6d5206a82f16987fd51371044fb12e76ba9f8d8",
+  "acceptance": "PASS",
+  "scope": "Narrow committed release receipt/README/proof consistency only",
+  "checks": {
+    "metadataOnly": true,
+    "apkReadbackEqualsReceipt": true,
+    "runtimeReadbackEqualsReceipt": true,
+    "dataReadbackEqualsReceipt": true,
+    "mergeCIEquals": true,
+    "author3SameSessionNoDenials": true,
+    "nativeExactD6": true,
+    "passengerOriginalArtifact": true,
+    "passengerActualD6UnitBuildQA": true,
+    "passengerDirect200": true,
+    "driverOriginalArtifact": true,
+    "driverActualD6UnitBuildQA": true,
+    "driverDirect200": true,
+    "45OldRowsScope": true,
+    "sourceMerge5TreesEqual": true
+  },
+  "readmeAssessment": "Accurate22 versions/sourceD6/head125699eCI41185604204/PR45merge; actualD6 54/77 unit/original+QA; four map pages full-app chrome and restore entry, configuration normalizesHalf explicitly. Old cbe/EE frames retain realSHA and handler/function equivalence, not all relabeledD6.",
+  "nativeProvenanceAssessment": "FINAL_REVIEW explicitly distinguishes inherited cbe attention evidence from confounded final driver stage/config sequence; ee select-then-type and permission flow inherited with exact suffix/handler bindings. NewD6 native fullscreen/frame/control observations separately attributed. Provider positive POI/reverse/map-camera/pinch success NOT_RUN explicit.",
+  "authorAssessment": "Three recorded actual init/result phases share one real Claude session/model, exit0 and no denials; no private raw log reread.",
+  "dataRuntimeAssessment": "Receipt sections exactly equal committed readbacks;45old full passenger_orders rows0loss0change0new, no allDB-table expansion; fullspec/annotations/IAM/revision/traffic unchanged; noCloudRun deploy/businessPOST claimed.",
+  "limitations": [
+    "No fresh APK download/network/native/build/unit/DB/cloud checks; source proofs read only.",
+    "Provider/OEM/personalphone/realfinance/WeChat not accepted by this review.",
+    "Receipt-branch CI/merge still root responsibility."
+  ],
+  "nextAction": "Root receipt integration with exact-head CI; backend IDLE"
+}

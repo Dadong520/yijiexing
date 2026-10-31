@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "id": "MAPSREC-20261031-01",
+  "owner": "coordinator",
+  "goal": "版本22实际发布回执和README入库",
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-map-panels-20261031",
+  "branch": "codex/map-panels-receipt-20261031",
+  "baseSha": "49bc669ec8f412756eb782498bcedeecb4098b52",
+  "allow_paths": [
+    "README.md",
+    "coordination/"
+  ],
+  "checks": [
+    "Actual public APK/runtime/data readbacks before release claims",
+    "Metadata only; non-author narrow review and exact-head CI/merge",
+    "No product changes or repeat deploy"
+  ],
+  "status": "REVIEW_PASS_AWAIT_FINAL_CI_MERGE",
+  "acceptance": "PASS",
+  "tests": [
+    {
+      "command": "MAPSR independent15 consistency checks exactfd96f29",
+      "status": "PASS",
+      "exitCode": 0,
+      "sourceSha": "fd96f29a78e2889554ba6a3c2360335cc490bac2"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "coordination/evidence/MAPSR-20261031-01/REVIEW.json",
+      "sha256": "b36cade65157677506d3819a7cb05c92d3b7dcd41885dce81f956c7e5cab843d"
+    }
+  ],
+  "nextAction": "Final metadata review evidence commit, exact-head CI/merge; no deploy",
+  "deploy_owner": "coordinator",
+  "releaseReady": false,
+  "candidateSha": "fd96f29a78e2889554ba6a3c2360335cc490bac2",
+  "acceptedSha": "fd96f29a78e2889554ba6a3c2360335cc490bac2",
+  "reviewer": "backend",
+  "updatedAt": "2026-10-31T09:07:01.767557+00:00"
+}

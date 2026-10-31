@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "id": "MAPSR-20261031-01",
+  "owner": "backend",
+  "goal": "独立窄审版本22实际回执及README",
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-map-panels-20261031",
+  "branch": "codex/map-panels-receipt-20261031",
+  "baseSha": "49bc669ec8f412756eb782498bcedeecb4098b52",
+  "allow_paths": [
+    "coordination/tasks/MAPSR-20261031-01.json",
+    "coordination/handoffs/backend.md",
+    "coordination/evidence/MAPSR-20261031-01/"
+  ],
+  "checks": [
+    "Actual public APK/runtime/data readbacks before release claims",
+    "Metadata only; non-author narrow review and exact-head CI/merge",
+    "No product changes or repeat deploy"
+  ],
+  "status": "NARROW_RECEIPT_PASS_IDLE",
+  "acceptance": "PASS",
+  "tests": [
+    {
+      "command": "Exactfd96f29 receipt/README/proof consistency and product Git tree equality",
+      "exitCode": 0,
+      "result": "PASS narrow review; no repeated tests or network"
+    }
+  ],
+  "evidence": [
+    "coordination/evidence/MAPSR-20261031-01/REVIEW.json"
+  ],
+  "nextAction": "Root receipt integration with exact-head CI; backend IDLE",
+  "deploy_owner": "coordinator",
+  "releaseReady": false,
+  "candidateSha": "fd96f29a78e2889554ba6a3c2360335cc490bac2",
+  "acceptedSha": "fd96f29a78e2889554ba6a3c2360335cc490bac2",
+  "updatedAt": "2026-10-31T17:04:39+08:00"
+}
