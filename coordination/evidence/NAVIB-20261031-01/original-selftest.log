@@ -1,0 +1,552 @@
+test_AC01_levels_and_baseline (test_original_integration.LocalIntegration.test_AC01_levels_and_baseline) ... [2026-10-31T22:00:58+08:00] POST /api/auth/code 200
+[2026-10-31T22:00:58+08:00] POST /api/auth/login 200
+[2026-10-31T22:00:58+08:00] GET /api/benefits/catalog 200
+[2026-10-31T22:00:58+08:00] GET /api/benefits/catalog 200
+ok
+test_AC02_draft_does_not_leak_or_change_other_level (test_original_integration.LocalIntegration.test_AC02_draft_does_not_leak_or_change_other_level) ... [2026-10-31T22:00:58+08:00] POST /api/auth/code 200
+[2026-10-31T22:00:58+08:00] POST /api/auth/login 200
+[2026-10-31T22:00:58+08:00] GET /api/benefits/catalog 200
+[2026-10-31T22:00:58+08:00] GET /api/local/admin/state 200
+[2026-10-31T22:00:58+08:00] POST /api/local/admin/action 200
+[2026-10-31T22:00:58+08:00] GET /api/benefits/catalog 200
+ok
+test_AC03_publish_entitlements_same_version (test_original_integration.LocalIntegration.test_AC03_publish_entitlements_same_version) ... [2026-10-31T22:00:59+08:00] POST /api/auth/code 200
+[2026-10-31T22:00:59+08:00] POST /api/auth/login 200
+[2026-10-31T22:00:59+08:00] GET /api/local/admin/state 200
+[2026-10-31T22:00:59+08:00] POST /api/local/admin/action 200
+[2026-10-31T22:00:59+08:00] GET /api/local/admin/state 200
+[2026-10-31T22:00:59+08:00] POST /api/local/admin/action 200
+[2026-10-31T22:00:59+08:00] GET /api/benefits/catalog 200
+ok
+test_AC04_map_types_validation (test_original_integration.LocalIntegration.test_AC04_map_types_validation) ... [2026-10-31T22:00:59+08:00] POST /api/auth/code 200
+[2026-10-31T22:00:59+08:00] POST /api/auth/login 200
+[2026-10-31T22:00:59+08:00] GET /api/local/admin/state 200
+[2026-10-31T22:00:59+08:00] POST /api/local/admin/action 200
+[2026-10-31T22:00:59+08:00] GET /api/local/admin/state 200
+[2026-10-31T22:00:59+08:00] POST /api/local/admin/action 200
+[2026-10-31T22:00:59+08:00] GET /api/benefits/catalog 200
+[2026-10-31T22:00:59+08:00] GET /api/local/admin/state 200
+[2026-10-31T22:00:59+08:00] POST /api/local/admin/action 400
+/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/tempfile.py:484: ResourceWarning: Implicitly cleaning up <HTTPError 400: 'Bad Request'>
+  _warnings.warn(self.warn_message, ResourceWarning)
+ok
+test_AC05_city_region_and_custom_data (test_original_integration.LocalIntegration.test_AC05_city_region_and_custom_data) ... [2026-10-31T22:01:00+08:00] POST /api/auth/code 200
+[2026-10-31T22:01:00+08:00] POST /api/auth/login 200
+[2026-10-31T22:01:00+08:00] GET /api/local/admin/state 200
+ok
+test_AC06_price_published_catalog_and_order (test_original_integration.LocalIntegration.test_AC06_price_published_catalog_and_order) ... [2026-10-31T22:01:01+08:00] POST /api/auth/code 200
+[2026-10-31T22:01:01+08:00] POST /api/auth/login 200
+[2026-10-31T22:01:01+08:00] GET /api/local/admin/state 200
+[2026-10-31T22:01:01+08:00] POST /api/local/admin/action 200
+[2026-10-31T22:01:01+08:00] GET /api/local/admin/state 200
+[2026-10-31T22:01:01+08:00] POST /api/local/admin/action 200
+[2026-10-31T22:01:01+08:00] GET /api/benefits/catalog 200
+[2026-10-31T22:01:01+08:00] GET /api/benefits/catalog 200
+[2026-10-31T22:01:01+08:00] POST /api/benefits/orders 200
+[2026-10-31T22:01:01+08:00] POST /api/benefits/pay 200
+ok
+test_AC07_recovered_draft (test_original_integration.LocalIntegration.test_AC07_recovered_draft) ... [2026-10-31T22:01:01+08:00] POST /api/auth/code 200
+[2026-10-31T22:01:01+08:00] POST /api/auth/login 200
+[2026-10-31T22:01:01+08:00] GET /api/local/admin/state 200
+[2026-10-31T22:01:01+08:00] POST /api/local/admin/action 200
+[2026-10-31T22:01:01+08:00] GET /api/local/admin/state 200
+[2026-10-31T22:01:01+08:00] GET /api/benefits/catalog 200
+ok
+test_AC08_per_field_clear_inherits (test_original_integration.LocalIntegration.test_AC08_per_field_clear_inherits) ... [2026-10-31T22:01:02+08:00] POST /api/auth/code 200
+[2026-10-31T22:01:02+08:00] POST /api/auth/login 200
+[2026-10-31T22:01:02+08:00] GET /api/local/admin/state 200
+[2026-10-31T22:01:02+08:00] POST /api/local/admin/action 200
+[2026-10-31T22:01:02+08:00] GET /api/local/admin/state 200
+[2026-10-31T22:01:02+08:00] POST /api/local/admin/action 200
+[2026-10-31T22:01:02+08:00] GET /api/benefits/catalog 200
+ok
+test_AC09_batch_dedup (test_original_integration.LocalIntegration.test_AC09_batch_dedup) ... [2026-10-31T22:01:02+08:00] POST /api/auth/code 200
+[2026-10-31T22:01:02+08:00] POST /api/auth/login 200
+[2026-10-31T22:01:02+08:00] POST /api/local/admin/action 200
+ok
+test_AC10_batch_skip_and_results (test_original_integration.LocalIntegration.test_AC10_batch_skip_and_results) ... [2026-10-31T22:01:03+08:00] POST /api/auth/code 200
+[2026-10-31T22:01:03+08:00] POST /api/auth/login 200
+[2026-10-31T22:01:03+08:00] POST /api/local/admin/action 200
+[2026-10-31T22:01:03+08:00] POST /api/local/admin/action 200
+[2026-10-31T22:01:03+08:00] GET /api/benefits/catalog 200
+[2026-10-31T22:01:03+08:00] GET /api/benefits/catalog 200
+[2026-10-31T22:01:03+08:00] POST /api/local/admin/action 200
+ok
+test_AC11_batch_switch_only_preserves_prices (test_original_integration.LocalIntegration.test_AC11_batch_switch_only_preserves_prices) ... [2026-10-31T22:01:03+08:00] POST /api/auth/code 200
+[2026-10-31T22:01:04+08:00] POST /api/auth/login 200
+[2026-10-31T22:01:04+08:00] POST /api/local/admin/action 200
+[2026-10-31T22:01:04+08:00] POST /api/local/admin/action 200
+[2026-10-31T22:01:04+08:00] GET /api/benefits/catalog 200
+[2026-10-31T22:01:04+08:00] GET /api/benefits/catalog 200
+ok
+test_AC12_two_stage_approval_and_rejection (test_original_integration.LocalIntegration.test_AC12_two_stage_approval_and_rejection) ... [2026-10-31T22:01:04+08:00] POST /api/auth/code 200
+[2026-10-31T22:01:04+08:00] POST /api/auth/login 200
+[2026-10-31T22:01:04+08:00] GET /api/local/admin/state 200
+[2026-10-31T22:01:04+08:00] POST /api/local/admin/action 200
+[2026-10-31T22:01:04+08:00] GET /api/local/admin/state 200
+[2026-10-31T22:01:04+08:00] POST /api/local/admin/action 200
+[2026-10-31T22:01:04+08:00] GET /api/benefits/catalog 200
+[2026-10-31T22:01:04+08:00] POST /api/local/admin/action 403
+/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/tempfile.py:484: ResourceWarning: Implicitly cleaning up <HTTPError 403: 'Forbidden'>
+  _warnings.warn(self.warn_message, ResourceWarning)
+[2026-10-31T22:01:04+08:00] POST /api/local/admin/action 200
+[2026-10-31T22:01:04+08:00] GET /api/benefits/catalog 200
+[2026-10-31T22:01:04+08:00] POST /api/local/admin/action 200
+[2026-10-31T22:01:04+08:00] GET /api/benefits/catalog 200
+ok
+test_AC13_closure_preserves_paid_and_stops_renewal (test_original_integration.LocalIntegration.test_AC13_closure_preserves_paid_and_stops_renewal) ... [2026-10-31T22:01:05+08:00] POST /api/auth/code 200
+[2026-10-31T22:01:05+08:00] POST /api/auth/login 200
+[2026-10-31T22:01:05+08:00] GET /api/benefits/catalog 200
+[2026-10-31T22:01:05+08:00] POST /api/benefits/orders 200
+[2026-10-31T22:01:05+08:00] POST /api/benefits/pay 200
+[2026-10-31T22:01:05+08:00] GET /api/local/admin/state 200
+[2026-10-31T22:01:05+08:00] POST /api/local/admin/action 200
+[2026-10-31T22:01:05+08:00] GET /api/local/admin/state 200
+[2026-10-31T22:01:05+08:00] POST /api/local/admin/action 200
+[2026-10-31T22:01:05+08:00] POST /api/local/admin/action 200
+[2026-10-31T22:01:05+08:00] POST /api/local/admin/action 200
+[2026-10-31T22:01:05+08:00] GET /api/benefits/catalog 200
+[2026-10-31T22:01:05+08:00] POST /api/benefits/renewal 403
+ok
+test_AC14_server_scheduler_without_browser (test_original_integration.LocalIntegration.test_AC14_server_scheduler_without_browser) ... [2026-10-31T22:01:05+08:00] POST /api/auth/code 200
+[2026-10-31T22:01:05+08:00] POST /api/auth/login 200
+[2026-10-31T22:01:05+08:00] GET /api/benefits/catalog 200
+[2026-10-31T22:01:05+08:00] GET /api/local/admin/state 200
+[2026-10-31T22:01:05+08:00] POST /api/local/admin/action 200
+[2026-10-31T22:01:05+08:00] GET /api/local/admin/state 200
+[2026-10-31T22:01:05+08:00] POST /api/local/admin/action 200
+[2026-10-31T22:01:05+08:00] GET /api/benefits/catalog 200
+[2026-10-31T22:01:08+08:00] GET /api/benefits/catalog 200
+ok
+test_AC15_trial_either_limit_preserves_active_trip_and_wallet (test_original_integration.LocalIntegration.test_AC15_trial_either_limit_preserves_active_trip_and_wallet) ... [2026-10-31T22:01:08+08:00] POST /api/auth/code 200
+[2026-10-31T22:01:08+08:00] POST /api/auth/login 200
+[2026-10-31T22:01:08+08:00] POST /api/action 200
+[2026-10-31T22:01:08+08:00] POST /api/action 200
+[2026-10-31T22:01:08+08:00] POST /api/local/admin/action 200
+[2026-10-31T22:01:08+08:00] GET /api/state 200
+[2026-10-31T22:01:08+08:00] POST /api/action 200
+[2026-10-31T22:01:08+08:00] POST /api/action 200
+[2026-10-31T22:01:08+08:00] POST /api/action 200
+[2026-10-31T22:01:08+08:00] GET /api/state 200
+[2026-10-31T22:01:08+08:00] POST /api/action 403
+[2026-10-31T22:01:08+08:00] POST /api/local/admin/action 200
+[2026-10-31T22:01:08+08:00] GET /api/benefits/catalog 200
+ok
+test_AC16_city_switch_reprice_and_closed_level (test_original_integration.LocalIntegration.test_AC16_city_switch_reprice_and_closed_level) ... [2026-10-31T22:01:09+08:00] POST /api/auth/code 200
+[2026-10-31T22:01:09+08:00] POST /api/auth/login 200
+[2026-10-31T22:01:09+08:00] GET /api/benefits/catalog 200
+[2026-10-31T22:01:09+08:00] GET /api/benefits/catalog 200
+[2026-10-31T22:01:09+08:00] GET /api/local/admin/state 200
+[2026-10-31T22:01:09+08:00] POST /api/local/admin/action 200
+[2026-10-31T22:01:09+08:00] GET /api/local/admin/state 200
+[2026-10-31T22:01:09+08:00] POST /api/local/admin/action 200
+[2026-10-31T22:01:09+08:00] POST /api/local/admin/action 200
+[2026-10-31T22:01:09+08:00] POST /api/local/admin/action 200
+[2026-10-31T22:01:09+08:00] GET /api/benefits/catalog 200
+[2026-10-31T22:01:09+08:00] POST /api/benefits/orders 403
+ok
+test_AC17_explicit_agreement (test_original_integration.LocalIntegration.test_AC17_explicit_agreement) ... [2026-10-31T22:01:09+08:00] POST /api/auth/code 200
+[2026-10-31T22:01:09+08:00] POST /api/auth/login 200
+[2026-10-31T22:01:09+08:00] GET /api/benefits/catalog 200
+[2026-10-31T22:01:09+08:00] POST /api/benefits/orders 400
+ok
+test_AC18_cancel_failed_pending_retry (test_original_integration.LocalIntegration.test_AC18_cancel_failed_pending_retry) ... [2026-10-31T22:01:10+08:00] POST /api/auth/code 200
+[2026-10-31T22:01:10+08:00] POST /api/auth/login 200
+[2026-10-31T22:01:10+08:00] GET /api/benefits/catalog 200
+[2026-10-31T22:01:10+08:00] POST /api/benefits/orders 200
+[2026-10-31T22:01:10+08:00] POST /api/benefits/pay 200
+[2026-10-31T22:01:10+08:00] GET /api/benefits/catalog 200
+[2026-10-31T22:01:10+08:00] POST /api/benefits/pay 200
+[2026-10-31T22:01:10+08:00] GET /api/benefits/catalog 200
+[2026-10-31T22:01:10+08:00] POST /api/benefits/pay 200
+[2026-10-31T22:01:10+08:00] POST /api/benefits/pay 200
+ok
+test_AC19_payment_idempotency_and_server_price (test_original_integration.LocalIntegration.test_AC19_payment_idempotency_and_server_price) ... [2026-10-31T22:01:10+08:00] POST /api/auth/code 200
+[2026-10-31T22:01:10+08:00] POST /api/auth/login 200
+[2026-10-31T22:01:10+08:00] GET /api/benefits/catalog 200
+[2026-10-31T22:01:10+08:00] POST /api/benefits/orders 200
+[2026-10-31T22:01:10+08:00] POST /api/benefits/pay 200
+[2026-10-31T22:01:10+08:00] POST /api/benefits/pay 200
+[2026-10-31T22:01:10+08:00] GET /api/benefits/subscriptions 200
+ok
+test_AC20_renewal_off_keeps_end (test_original_integration.LocalIntegration.test_AC20_renewal_off_keeps_end) ... [2026-10-31T22:01:11+08:00] POST /api/auth/code 200
+[2026-10-31T22:01:11+08:00] POST /api/auth/login 200
+[2026-10-31T22:01:11+08:00] GET /api/benefits/catalog 200
+[2026-10-31T22:01:11+08:00] POST /api/benefits/orders 200
+[2026-10-31T22:01:11+08:00] POST /api/benefits/pay 200
+[2026-10-31T22:01:11+08:00] POST /api/benefits/renewal 200
+ok
+test_AC21_snapshots_city_browse_price_change (test_original_integration.LocalIntegration.test_AC21_snapshots_city_browse_price_change) ... [2026-10-31T22:01:12+08:00] POST /api/auth/code 200
+[2026-10-31T22:01:12+08:00] POST /api/auth/login 200
+[2026-10-31T22:01:12+08:00] GET /api/benefits/catalog 200
+[2026-10-31T22:01:12+08:00] POST /api/benefits/orders 200
+[2026-10-31T22:01:12+08:00] POST /api/benefits/pay 200
+[2026-10-31T22:01:12+08:00] GET /api/local/admin/state 200
+[2026-10-31T22:01:12+08:00] POST /api/local/admin/action 200
+[2026-10-31T22:01:12+08:00] GET /api/local/admin/state 200
+[2026-10-31T22:01:12+08:00] POST /api/local/admin/action 200
+[2026-10-31T22:01:12+08:00] GET /api/benefits/catalog 200
+[2026-10-31T22:01:12+08:00] GET /api/benefits/catalog 200
+ok
+test_AC22_restore_keeps_city_identity (test_original_integration.LocalIntegration.test_AC22_restore_keeps_city_identity) ... [2026-10-31T22:01:12+08:00] POST /api/auth/code 200
+[2026-10-31T22:01:12+08:00] POST /api/auth/login 200
+[2026-10-31T22:01:12+08:00] GET /api/local/admin/state 200
+[2026-10-31T22:01:12+08:00] POST /api/local/admin/action 200
+[2026-10-31T22:01:12+08:00] GET /api/benefits/catalog 200
+[2026-10-31T22:01:12+08:00] GET /api/local/admin/state 200
+[2026-10-31T22:01:12+08:00] POST /api/local/admin/action 200
+[2026-10-31T22:01:12+08:00] GET /api/benefits/catalog 200
+ok
+test_admin_token_logout_and_unsupported_methods (test_original_integration.LocalIntegration.test_admin_token_logout_and_unsupported_methods) ... [2026-10-31T22:01:13+08:00] POST /api/auth/code 200
+[2026-10-31T22:01:13+08:00] POST /api/auth/login 200
+[2026-10-31T22:01:13+08:00] GET /api/local/admin/state 401
+/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/tempfile.py:484: ResourceWarning: Implicitly cleaning up <HTTPError 401: 'Unauthorized'>
+  _warnings.warn(self.warn_message, ResourceWarning)
+[2026-10-31T22:01:13+08:00] POST /api/auth/logout 200
+[2026-10-31T22:01:13+08:00] GET /api/state 401
+ok
+test_bank_files_certificate_audit_and_account_isolation (test_original_integration.LocalIntegration.test_bank_files_certificate_audit_and_account_isolation) ... [2026-10-31T22:01:13+08:00] POST /api/auth/code 200
+[2026-10-31T22:01:13+08:00] POST /api/auth/login 200
+[2026-10-31T22:01:13+08:00] POST /api/action 400
+[2026-10-31T22:01:13+08:00] POST /api/action 200
+[2026-10-31T22:01:13+08:00] POST /api/action 200
+[2026-10-31T22:01:13+08:00] GET /api/files/FILEf551d3a5baf4 200
+[2026-10-31T22:01:13+08:00] POST /api/local/admin/action 200
+[2026-10-31T22:01:13+08:00] GET /api/state 200
+[2026-10-31T22:01:13+08:00] GET /api/state 200
+[2026-10-31T22:01:14+08:00] POST /api/auth/code 200
+[2026-10-31T22:01:14+08:00] POST /api/auth/login 200
+[2026-10-31T22:01:14+08:00] GET /api/files/FILEf551d3a5baf4 404
+/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/tempfile.py:484: ResourceWarning: Implicitly cleaning up <HTTPError 404: 'Not Found'>
+  _warnings.warn(self.warn_message, ResourceWarning)
+ok
+test_batch_close_is_atomic_until_second_approval (test_original_integration.LocalIntegration.test_batch_close_is_atomic_until_second_approval) ... [2026-10-31T22:01:14+08:00] POST /api/auth/code 200
+[2026-10-31T22:01:14+08:00] POST /api/auth/login 200
+[2026-10-31T22:01:14+08:00] POST /api/local/admin/action 200
+[2026-10-31T22:01:14+08:00] POST /api/local/admin/action 200
+[2026-10-31T22:01:14+08:00] GET /api/benefits/catalog 200
+[2026-10-31T22:01:14+08:00] POST /api/local/admin/action 200
+[2026-10-31T22:01:14+08:00] GET /api/benefits/catalog 200
+[2026-10-31T22:01:14+08:00] POST /api/local/admin/action 200
+[2026-10-31T22:01:14+08:00] GET /api/benefits/catalog 200
+[2026-10-31T22:01:14+08:00] GET /api/benefits/catalog 200
+[2026-10-31T22:01:14+08:00] GET /api/local/admin/state 200
+ok
+test_city_can_disable_order_voice_without_changing_global_right (test_original_integration.LocalIntegration.test_city_can_disable_order_voice_without_changing_global_right) ... [2026-10-31T22:01:15+08:00] POST /api/auth/code 200
+[2026-10-31T22:01:15+08:00] POST /api/auth/login 200
+[2026-10-31T22:01:15+08:00] GET /api/local/admin/state 200
+[2026-10-31T22:01:15+08:00] POST /api/local/admin/action 200
+[2026-10-31T22:01:15+08:00] GET /api/local/admin/state 200
+[2026-10-31T22:01:15+08:00] POST /api/local/admin/action 200
+[2026-10-31T22:01:15+08:00] GET /api/state 200
+[2026-10-31T22:01:15+08:00] GET /api/local/admin/state 200
+ok
+test_cli_start_stop_and_reopen_keeps_database (test_original_integration.LocalIntegration.test_cli_start_stop_and_reopen_keeps_database) ... [2026-10-31T22:01:15+08:00] POST /api/auth/code 200
+[2026-10-31T22:01:15+08:00] POST /api/auth/login 200
+ok
+test_close_review_tasks_only_include_affected_city (test_original_integration.LocalIntegration.test_close_review_tasks_only_include_affected_city) ... [2026-10-31T22:01:16+08:00] POST /api/auth/code 200
+[2026-10-31T22:01:16+08:00] POST /api/auth/login 200
+[2026-10-31T22:01:16+08:00] GET /api/benefits/catalog 200
+[2026-10-31T22:01:16+08:00] POST /api/benefits/orders 200
+[2026-10-31T22:01:16+08:00] POST /api/benefits/pay 200
+[2026-10-31T22:01:16+08:00] GET /api/local/admin/state 200
+[2026-10-31T22:01:16+08:00] POST /api/local/admin/action 200
+[2026-10-31T22:01:16+08:00] GET /api/local/admin/state 200
+[2026-10-31T22:01:16+08:00] POST /api/local/admin/action 200
+[2026-10-31T22:01:16+08:00] POST /api/local/admin/action 200
+[2026-10-31T22:01:16+08:00] POST /api/local/admin/action 200
+[2026-10-31T22:01:16+08:00] GET /api/benefits/catalog 200
+[2026-10-31T22:01:16+08:00] POST /api/benefits/orders 200
+[2026-10-31T22:01:16+08:00] POST /api/benefits/pay 200
+[2026-10-31T22:01:16+08:00] GET /api/local/admin/state 200
+[2026-10-31T22:01:16+08:00] POST /api/local/admin/action 200
+[2026-10-31T22:01:16+08:00] GET /api/local/admin/state 200
+[2026-10-31T22:01:16+08:00] POST /api/local/admin/action 200
+[2026-10-31T22:01:16+08:00] POST /api/local/admin/action 200
+[2026-10-31T22:01:16+08:00] POST /api/local/admin/action 200
+ok
+test_code_reuse_and_wrong_password_reset_does_not_expire_session (test_original_integration.LocalIntegration.test_code_reuse_and_wrong_password_reset_does_not_expire_session) ... [2026-10-31T22:01:17+08:00] POST /api/auth/code 200
+[2026-10-31T22:01:17+08:00] POST /api/auth/login 200
+[2026-10-31T22:01:17+08:00] POST /api/action 200
+[2026-10-31T22:01:17+08:00] POST /api/action 400
+[2026-10-31T22:01:17+08:00] GET /api/state 200
+ok
+test_conflict_optimistic_revision (test_original_integration.LocalIntegration.test_conflict_optimistic_revision) ... [2026-10-31T22:01:18+08:00] POST /api/auth/code 200
+[2026-10-31T22:01:18+08:00] POST /api/auth/login 200
+[2026-10-31T22:01:18+08:00] GET /api/local/admin/state 200
+[2026-10-31T22:01:18+08:00] GET /api/local/admin/state 200
+[2026-10-31T22:01:18+08:00] POST /api/local/admin/action 200
+[2026-10-31T22:01:18+08:00] POST /api/local/admin/action 409
+/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/tempfile.py:484: ResourceWarning: Implicitly cleaning up <HTTPError 409: 'Conflict'>
+  _warnings.warn(self.warn_message, ResourceWarning)
+ok
+test_disabled_instant_keeps_reservation_online_capability (test_original_integration.LocalIntegration.test_disabled_instant_keeps_reservation_online_capability) ... [2026-10-31T22:01:18+08:00] POST /api/auth/code 200
+[2026-10-31T22:01:18+08:00] POST /api/auth/login 200
+[2026-10-31T22:01:18+08:00] GET /api/local/admin/state 200
+[2026-10-31T22:01:18+08:00] POST /api/local/admin/action 200
+[2026-10-31T22:01:18+08:00] GET /api/local/admin/state 200
+[2026-10-31T22:01:18+08:00] POST /api/local/admin/action 200
+[2026-10-31T22:01:18+08:00] GET /api/state 200
+[2026-10-31T22:01:18+08:00] POST /api/action 200
+[2026-10-31T22:01:18+08:00] POST /api/action 403
+[2026-10-31T22:01:18+08:00] POST /api/action 200
+ok
+test_driver_cannot_access_admin_attachment_or_other_orders (test_original_integration.LocalIntegration.test_driver_cannot_access_admin_attachment_or_other_orders) ... [2026-10-31T22:01:19+08:00] POST /api/auth/code 200
+[2026-10-31T22:01:19+08:00] POST /api/auth/login 200
+[2026-10-31T22:01:19+08:00] GET /api/benefits/catalog 200
+[2026-10-31T22:01:19+08:00] POST /api/benefits/orders 200
+[2026-10-31T22:01:19+08:00] POST /api/benefits/pay 200
+[2026-10-31T22:01:19+08:00] GET /api/local/admin/files/anything 401
+[2026-10-31T22:01:19+08:00] POST /api/auth/code 200
+[2026-10-31T22:01:19+08:00] POST /api/auth/login 200
+[2026-10-31T22:01:19+08:00] GET /api/benefits/orders/MOaab2447de02f 404
+ok
+test_duplicate_payment_concurrently_creates_one_subscription (test_original_integration.LocalIntegration.test_duplicate_payment_concurrently_creates_one_subscription) ... [2026-10-31T22:01:19+08:00] POST /api/auth/code 200
+[2026-10-31T22:01:20+08:00] POST /api/auth/login 200
+[2026-10-31T22:01:20+08:00] GET /api/benefits/catalog 200
+[2026-10-31T22:01:20+08:00] POST /api/benefits/orders 200
+[2026-10-31T22:01:20+08:00] POST /api/benefits/pay 200
+[2026-10-31T22:01:20+08:00] POST /api/benefits/pay 200
+[2026-10-31T22:01:20+08:00] POST /api/benefits/pay 200
+[2026-10-31T22:01:20+08:00] POST /api/benefits/pay 200
+[2026-10-31T22:01:20+08:00] POST /api/benefits/pay 200
+[2026-10-31T22:01:20+08:00] POST /api/benefits/pay 200
+[2026-10-31T22:01:20+08:00] GET /api/benefits/subscriptions 200
+ok
+test_expired_trial_preserves_withdraw_and_certificate_submission (test_original_integration.LocalIntegration.test_expired_trial_preserves_withdraw_and_certificate_submission) ... [2026-10-31T22:01:20+08:00] POST /api/auth/code 200
+[2026-10-31T22:01:20+08:00] POST /api/auth/login 200
+[2026-10-31T22:01:20+08:00] POST /api/local/admin/action 200
+[2026-10-31T22:01:20+08:00] POST /api/action 200
+[2026-10-31T22:01:20+08:00] POST /api/action 200
+[2026-10-31T22:01:20+08:00] POST /api/action 200
+ok
+test_feedback_complaint_reply_and_blacklist (test_original_integration.LocalIntegration.test_feedback_complaint_reply_and_blacklist) ... [2026-10-31T22:01:21+08:00] POST /api/auth/code 200
+[2026-10-31T22:01:21+08:00] POST /api/auth/login 200
+[2026-10-31T22:01:21+08:00] POST /api/action 200
+[2026-10-31T22:01:21+08:00] POST /api/local/admin/action 200
+[2026-10-31T22:01:21+08:00] GET /api/state 200
+[2026-10-31T22:01:21+08:00] POST /api/action 200
+[2026-10-31T22:01:21+08:00] GET /api/state 200
+ok
+test_global_all_area_right_bypasses_level_nearby_but_keeps_preference (test_original_integration.LocalIntegration.test_global_all_area_right_bypasses_level_nearby_but_keeps_preference) ... [2026-10-31T22:01:21+08:00] POST /api/auth/code 200
+[2026-10-31T22:01:21+08:00] POST /api/auth/login 200
+[2026-10-31T22:01:21+08:00] GET /api/local/admin/state 200
+[2026-10-31T22:01:21+08:00] POST /api/local/admin/action 200
+[2026-10-31T22:01:21+08:00] GET /api/local/admin/state 200
+[2026-10-31T22:01:21+08:00] POST /api/local/admin/action 200
+[2026-10-31T22:01:21+08:00] GET /api/local/admin/state 200
+[2026-10-31T22:01:21+08:00] POST /api/local/admin/action 200
+[2026-10-31T22:01:21+08:00] GET /api/local/admin/state 200
+[2026-10-31T22:01:21+08:00] POST /api/local/admin/action 200
+[2026-10-31T22:01:21+08:00] POST /api/action 200
+[2026-10-31T22:01:21+08:00] POST /api/action 200
+[2026-10-31T22:01:21+08:00] POST /api/action 403
+[2026-10-31T22:01:21+08:00] POST /api/action 200
+[2026-10-31T22:01:21+08:00] POST /api/action 200
+ok
+test_invoice_idempotency_and_sqlite_persistence (test_original_integration.LocalIntegration.test_invoice_idempotency_and_sqlite_persistence) ... [2026-10-31T22:01:22+08:00] POST /api/auth/code 200
+[2026-10-31T22:01:22+08:00] POST /api/auth/login 200
+[2026-10-31T22:01:22+08:00] GET /api/benefits/catalog 200
+[2026-10-31T22:01:22+08:00] POST /api/benefits/orders 200
+[2026-10-31T22:01:22+08:00] POST /api/benefits/pay 200
+[2026-10-31T22:01:22+08:00] POST /api/benefits/invoices 200
+[2026-10-31T22:01:22+08:00] POST /api/benefits/invoices 200
+ok
+test_location_route_and_estimate (test_original_integration.LocalIntegration.test_location_route_and_estimate) ... [2026-10-31T22:01:22+08:00] POST /api/auth/code 200
+[2026-10-31T22:01:23+08:00] POST /api/auth/login 200
+[2026-10-31T22:01:23+08:00] POST /api/action 200
+[2026-10-31T22:01:23+08:00] GET /api/location/latest 200
+[2026-10-31T22:01:23+08:00] GET /api/orders/YC1001/route 200
+[2026-10-31T22:01:23+08:00] GET /api/orders/YC1001/estimate 200
+ok
+test_national_identity_cannot_be_redefined (test_original_integration.LocalIntegration.test_national_identity_cannot_be_redefined) ... [2026-10-31T22:01:23+08:00] POST /api/auth/code 200
+[2026-10-31T22:01:23+08:00] POST /api/auth/login 200
+[2026-10-31T22:01:23+08:00] GET /api/local/admin/state 200
+[2026-10-31T22:01:23+08:00] POST /api/local/admin/action 400
+ok
+test_negotiate_legacy_without_coordinates_is_explicitly_synthetic (test_original_integration.LocalIntegration.test_negotiate_legacy_without_coordinates_is_explicitly_synthetic) ... [2026-10-31T22:01:24+08:00] POST /api/auth/code 200
+[2026-10-31T22:01:24+08:00] POST /api/auth/login 200
+[2026-10-31T22:01:24+08:00] GET /api/local/admin/state 200
+[2026-10-31T22:01:24+08:00] POST /api/local/admin/action 200
+[2026-10-31T22:01:24+08:00] GET /api/local/admin/state 200
+[2026-10-31T22:01:24+08:00] POST /api/local/admin/action 200
+[2026-10-31T22:01:24+08:00] POST /api/action 200
+[2026-10-31T22:01:24+08:00] POST /api/action 200
+ok
+test_negotiate_persists_user_selected_coordinates_and_route (test_original_integration.LocalIntegration.test_negotiate_persists_user_selected_coordinates_and_route) ... [2026-10-31T22:01:24+08:00] POST /api/auth/code 200
+[2026-10-31T22:01:24+08:00] POST /api/auth/login 200
+[2026-10-31T22:01:24+08:00] GET /api/local/admin/state 200
+[2026-10-31T22:01:24+08:00] POST /api/local/admin/action 200
+[2026-10-31T22:01:24+08:00] GET /api/local/admin/state 200
+[2026-10-31T22:01:24+08:00] POST /api/local/admin/action 200
+[2026-10-31T22:01:24+08:00] POST /api/action 200
+[2026-10-31T22:01:24+08:00] POST /api/action 200
+[2026-10-31T22:01:24+08:00] GET /api/state 200
+[2026-10-31T22:01:24+08:00] GET /api/orders/NEG67bd27b6fa66/route 200
+ok
+test_negotiate_rejects_duplicate_place_and_invalid_or_missing_coordinates (test_original_integration.LocalIntegration.test_negotiate_rejects_duplicate_place_and_invalid_or_missing_coordinates) ... [2026-10-31T22:01:25+08:00] POST /api/auth/code 200
+[2026-10-31T22:01:25+08:00] POST /api/auth/login 200
+[2026-10-31T22:01:25+08:00] GET /api/local/admin/state 200
+[2026-10-31T22:01:25+08:00] POST /api/local/admin/action 200
+[2026-10-31T22:01:25+08:00] GET /api/local/admin/state 200
+[2026-10-31T22:01:25+08:00] POST /api/local/admin/action 200
+[2026-10-31T22:01:25+08:00] POST /api/action 200
+[2026-10-31T22:01:25+08:00] POST /api/action 400
+[2026-10-31T22:01:25+08:00] POST /api/action 400
+[2026-10-31T22:01:25+08:00] POST /api/action 400
+[2026-10-31T22:01:25+08:00] POST /api/action 400
+[2026-10-31T22:01:25+08:00] POST /api/action 400
+ok
+test_new_accept_blocks_server_bypass (test_original_integration.LocalIntegration.test_new_accept_blocks_server_bypass) ... [2026-10-31T22:01:25+08:00] POST /api/auth/code 200
+[2026-10-31T22:01:25+08:00] POST /api/auth/login 200
+[2026-10-31T22:01:25+08:00] POST /api/local/admin/action 200
+[2026-10-31T22:01:25+08:00] GET /api/state 200
+[2026-10-31T22:01:25+08:00] POST /api/action 409
+[2026-10-31T22:01:25+08:00] GET /api/state 200
+[2026-10-31T22:01:25+08:00] GET /api/heatmap 403
+ok
+test_new_order_waypoints_clean_fixture_and_completion_guard (test_original_integration.LocalIntegration.test_new_order_waypoints_clean_fixture_and_completion_guard) ... [2026-10-31T22:01:26+08:00] POST /api/auth/code 200
+[2026-10-31T22:01:26+08:00] POST /api/auth/login 200
+[2026-10-31T22:01:26+08:00] POST /api/action 200
+[2026-10-31T22:01:26+08:00] POST /api/action 200
+[2026-10-31T22:01:26+08:00] POST /api/action 200
+[2026-10-31T22:01:26+08:00] POST /api/action 200
+[2026-10-31T22:01:26+08:00] POST /api/action 200
+[2026-10-31T22:01:26+08:00] POST /api/local/admin/action 200
+[2026-10-31T22:01:26+08:00] GET /api/state 200
+[2026-10-31T22:01:26+08:00] POST /api/local/admin/action 200
+[2026-10-31T22:01:26+08:00] GET /api/state 200
+[2026-10-31T22:01:26+08:00] POST /api/action 200
+[2026-10-31T22:01:26+08:00] POST /api/action 200
+[2026-10-31T22:01:26+08:00] POST /api/action 200
+[2026-10-31T22:01:26+08:00] POST /api/action 400
+[2026-10-31T22:01:26+08:00] POST /api/action 200
+[2026-10-31T22:01:26+08:00] POST /api/action 200
+[2026-10-31T22:01:26+08:00] POST /api/action 400
+[2026-10-31T22:01:26+08:00] POST /api/action 200
+[2026-10-31T22:01:26+08:00] POST /api/action 200
+ok
+test_new_order_waypoints_validation_rejects_invalid_payload_without_insertion (test_original_integration.LocalIntegration.test_new_order_waypoints_validation_rejects_invalid_payload_without_insertion) ... [2026-10-31T22:01:27+08:00] POST /api/auth/code 200
+[2026-10-31T22:01:27+08:00] POST /api/auth/login 200
+[2026-10-31T22:01:27+08:00] GET /api/state 200
+[2026-10-31T22:01:27+08:00] POST /api/local/admin/action 400
+[2026-10-31T22:01:27+08:00] POST /api/local/admin/action 400
+[2026-10-31T22:01:27+08:00] POST /api/local/admin/action 400
+[2026-10-31T22:01:27+08:00] POST /api/local/admin/action 400
+[2026-10-31T22:01:27+08:00] POST /api/local/admin/action 400
+[2026-10-31T22:01:27+08:00] GET /api/state 200
+ok
+test_no_advance_renewal_overwrites_active_snapshot (test_original_integration.LocalIntegration.test_no_advance_renewal_overwrites_active_snapshot) ... [2026-10-31T22:01:27+08:00] POST /api/auth/code 200
+[2026-10-31T22:01:27+08:00] POST /api/auth/login 200
+[2026-10-31T22:01:27+08:00] GET /api/benefits/catalog 200
+[2026-10-31T22:01:27+08:00] POST /api/benefits/orders 200
+[2026-10-31T22:01:27+08:00] POST /api/benefits/pay 200
+[2026-10-31T22:01:27+08:00] GET /api/benefits/catalog 200
+[2026-10-31T22:01:27+08:00] POST /api/benefits/orders 409
+[2026-10-31T22:01:27+08:00] GET /api/benefits/catalog 200
+ok
+test_on_disk_restart_preserves_token_order_and_subscription (test_original_integration.LocalIntegration.test_on_disk_restart_preserves_token_order_and_subscription) ... [2026-10-31T22:01:28+08:00] POST /api/auth/code 200
+[2026-10-31T22:01:28+08:00] POST /api/auth/login 200
+[2026-10-31T22:01:28+08:00] GET /api/benefits/catalog 200
+[2026-10-31T22:01:28+08:00] POST /api/benefits/orders 200
+[2026-10-31T22:01:28+08:00] POST /api/benefits/pay 200
+[2026-10-31T22:01:28+08:00] POST /api/action 200
+[2026-10-31T22:01:28+08:00] GET /api/state 200
+[2026-10-31T22:01:28+08:00] GET /api/benefits/catalog 200
+ok
+test_order_state_machine_and_external_passenger_event (test_original_integration.LocalIntegration.test_order_state_machine_and_external_passenger_event) ... [2026-10-31T22:01:29+08:00] POST /api/auth/code 200
+[2026-10-31T22:01:29+08:00] POST /api/auth/login 200
+[2026-10-31T22:01:29+08:00] POST /api/action 200
+[2026-10-31T22:01:29+08:00] POST /api/action 200
+[2026-10-31T22:01:29+08:00] POST /api/action 403
+[2026-10-31T22:01:29+08:00] POST /api/local/admin/action 200
+[2026-10-31T22:01:29+08:00] POST /api/action 403
+[2026-10-31T22:01:29+08:00] POST /api/local/admin/action 200
+[2026-10-31T22:01:29+08:00] POST /api/action 200
+[2026-10-31T22:01:29+08:00] POST /api/action 400
+[2026-10-31T22:01:29+08:00] POST /api/action 200
+[2026-10-31T22:01:29+08:00] GET /api/state 200
+[2026-10-31T22:01:29+08:00] POST /api/action 200
+[2026-10-31T22:01:29+08:00] GET /api/state 200
+[2026-10-31T22:01:29+08:00] POST /api/action 409
+ok
+test_price_revalidated_before_pay (test_original_integration.LocalIntegration.test_price_revalidated_before_pay) ... [2026-10-31T22:01:30+08:00] POST /api/auth/code 200
+[2026-10-31T22:01:30+08:00] POST /api/auth/login 200
+[2026-10-31T22:01:30+08:00] GET /api/benefits/catalog 200
+[2026-10-31T22:01:30+08:00] POST /api/benefits/orders 200
+[2026-10-31T22:01:30+08:00] POST /api/benefits/pay 200
+[2026-10-31T22:01:30+08:00] GET /api/local/admin/state 200
+[2026-10-31T22:01:30+08:00] POST /api/local/admin/action 200
+[2026-10-31T22:01:30+08:00] GET /api/local/admin/state 200
+[2026-10-31T22:01:30+08:00] POST /api/local/admin/action 200
+[2026-10-31T22:01:30+08:00] POST /api/benefits/pay 409
+[2026-10-31T22:01:30+08:00] GET /api/benefits/catalog 200
+ok
+test_range_enforced_from_server_owned_synthetic_distance (test_original_integration.LocalIntegration.test_range_enforced_from_server_owned_synthetic_distance) ... [2026-10-31T22:01:30+08:00] POST /api/auth/code 200
+[2026-10-31T22:01:30+08:00] POST /api/auth/login 200
+[2026-10-31T22:01:30+08:00] GET /api/local/admin/state 200
+[2026-10-31T22:01:30+08:00] POST /api/local/admin/action 200
+[2026-10-31T22:01:30+08:00] GET /api/local/admin/state 200
+[2026-10-31T22:01:30+08:00] POST /api/local/admin/action 200
+[2026-10-31T22:01:30+08:00] POST /api/action 200
+[2026-10-31T22:01:30+08:00] POST /api/action 403
+[2026-10-31T22:01:30+08:00] POST /api/action 200
+[2026-10-31T22:01:30+08:00] GET /api/state 200
+ok
+test_rank_not_leaked_in_state_after_trial_end (test_original_integration.LocalIntegration.test_rank_not_leaked_in_state_after_trial_end) ... [2026-10-31T22:01:31+08:00] POST /api/auth/code 200
+[2026-10-31T22:01:31+08:00] POST /api/auth/login 200
+[2026-10-31T22:01:31+08:00] POST /api/local/admin/action 200
+[2026-10-31T22:01:31+08:00] GET /api/state 200
+[2026-10-31T22:01:31+08:00] GET /api/state 200
+[2026-10-31T22:01:31+08:00] GET /api/ranking 403
+ok
+test_schedule_conflict_does_not_overwrite_newer_draft (test_original_integration.LocalIntegration.test_schedule_conflict_does_not_overwrite_newer_draft) ... [2026-10-31T22:01:31+08:00] POST /api/auth/code 200
+[2026-10-31T22:01:31+08:00] POST /api/auth/login 200
+[2026-10-31T22:01:31+08:00] GET /api/local/admin/state 200
+[2026-10-31T22:01:31+08:00] POST /api/local/admin/action 200
+[2026-10-31T22:01:31+08:00] GET /api/local/admin/state 200
+[2026-10-31T22:01:31+08:00] POST /api/local/admin/action 200
+[2026-10-31T22:01:31+08:00] GET /api/local/admin/state 200
+[2026-10-31T22:01:31+08:00] POST /api/local/admin/action 200
+[2026-10-31T22:01:34+08:00] GET /api/benefits/catalog 200
+[2026-10-31T22:01:34+08:00] GET /api/local/admin/state 200
+[2026-10-31T22:01:34+08:00] GET /api/local/admin/state 200
+ok
+test_scheduled_sale_closure_explicitly_rejected_without_silent_early_effect (test_original_integration.LocalIntegration.test_scheduled_sale_closure_explicitly_rejected_without_silent_early_effect) ... [2026-10-31T22:01:34+08:00] POST /api/auth/code 200
+[2026-10-31T22:01:34+08:00] POST /api/auth/login 200
+[2026-10-31T22:01:34+08:00] GET /api/local/admin/state 200
+[2026-10-31T22:01:34+08:00] POST /api/local/admin/action 200
+[2026-10-31T22:01:34+08:00] GET /api/local/admin/state 200
+[2026-10-31T22:01:34+08:00] POST /api/local/admin/action 400
+[2026-10-31T22:01:34+08:00] GET /api/benefits/catalog 200
+[2026-10-31T22:01:34+08:00] GET /api/local/admin/state 200
+ok
+test_voice_floating_and_required_location_separated (test_original_integration.LocalIntegration.test_voice_floating_and_required_location_separated) ... [2026-10-31T22:01:35+08:00] POST /api/auth/code 200
+[2026-10-31T22:01:35+08:00] POST /api/auth/login 200
+[2026-10-31T22:01:35+08:00] GET /api/state 200
+[2026-10-31T22:01:35+08:00] POST /api/action 200
+[2026-10-31T22:01:35+08:00] POST /api/local/admin/action 200
+[2026-10-31T22:01:35+08:00] GET /api/state 200
+[2026-10-31T22:01:35+08:00] POST /api/action 403
+[2026-10-31T22:01:35+08:00] POST /api/action 403
+[2026-10-31T22:01:35+08:00] POST /api/action 200
+[2026-10-31T22:01:35+08:00] POST /api/action 200
+ok
+test_wallet_password_withdraw_reject_once (test_original_integration.LocalIntegration.test_wallet_password_withdraw_reject_once) ... [2026-10-31T22:01:35+08:00] POST /api/auth/code 200
+[2026-10-31T22:01:35+08:00] POST /api/auth/login 200
+[2026-10-31T22:01:35+08:00] POST /api/action 200
+[2026-10-31T22:01:35+08:00] POST /api/action 200
+[2026-10-31T22:01:35+08:00] POST /api/action 200
+[2026-10-31T22:01:35+08:00] GET /api/state 200
+[2026-10-31T22:01:35+08:00] POST /api/local/admin/action 200
+[2026-10-31T22:01:35+08:00] GET /api/state 200
+[2026-10-31T22:01:35+08:00] POST /api/local/admin/action 409
+[2026-10-31T22:01:35+08:00] POST /api/action 200
+[2026-10-31T22:01:35+08:00] POST /api/action 200
+[2026-10-31T22:01:36+08:00] POST /api/action 200
+ok
+
+----------------------------------------------------------------------
+Ran 55 tests in 38.389s
+
+OK

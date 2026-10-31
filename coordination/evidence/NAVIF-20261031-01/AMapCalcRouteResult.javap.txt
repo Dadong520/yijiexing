@@ -1,0 +1,17 @@
+Compiled from "AMapCalcRouteResult.java"
+public class com.amap.api.navi.model.AMapCalcRouteResult {
+  public com.amap.api.navi.model.AMapCalcRouteResult();
+  public com.amap.api.navi.model.AMapCalcRouteResult(int);
+  public java.lang.String getErrorDescription();
+  public void setErrorDescription(java.lang.String);
+  public java.lang.String getErrorDetail();
+  public void setErrorDetail(java.lang.String);
+  public int getErrorCode();
+  public int getCalcRouteType();
+  public void setCalcRouteType(int);
+  public void setErrorCode(int);
+  public int[] getRouteid();
+  public void setRouteid(int[]);
+  public int getRouteRequestId();
+  public void setRouteRequestId(int);
+}

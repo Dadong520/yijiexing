@@ -1,0 +1,133 @@
+{
+  "taskId": "NAVIRB-20261031-01",
+  "reviewerRole": "backend",
+  "reviewerSessionId": "01a182c6-c058-76e1-9584-38abfe813799",
+  "reviewedAt": "2026-10-31T22:23:32+08:00",
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-in-app-navigation-20261031",
+  "candidateSha": "83c6fde3a4c70bbb5bc2a2362f0e4e2f93937212",
+  "verdict": "PASS",
+  "acceptanceScope": "Claude driver nonauthor immutable-source workflow/contact review only",
+  "findings": [],
+  "p1Count": 0,
+  "p2Count": 0,
+  "releaseReady": false,
+  "checks": [
+    {
+      "id": "original_business_actions_in_navigation",
+      "result": "PASS_SOURCE",
+      "refs": [
+        "CoreScreens.kt:745-776",
+        "CoreScreens.kt:924-974",
+        "CoreScreens.kt:979-1025",
+        "CoreScreens.kt:1060-1079"
+      ],
+      "detail": "Navigation lower business area reuses exact tripActions lambda, busy/allpendingWP/distancePending gates, latest-order mayAdvanceFrom and expectedStage request. ARRIVED still opens original PIN modal, 4digit UI gate + latest stage recheck and original phoneTail payload; SDK consent does not substitute rider/distance consent."
+    },
+    {
+      "id": "reservation_cancel_distance",
+      "result": "PASS_SOURCE",
+      "refs": [
+        "CoreScreens.kt:764-769",
+        "CoreScreens.kt:940-964",
+        "MainActivity.kt:391-405",
+        "DriverTripDistance.kt"
+      ],
+      "detail": "RESERVED navigation only previews pickup; does not auto start pickup. Explicit advance still original handler, server reservation certification/conflict authority unchanged. Cancellation still main onCancel flow, distance card/original pending predicate remain in lower area; no new approval or distance override API."
+    },
+    {
+      "id": "ordered_original_waypoint_index",
+      "result": "PASS_SOURCE",
+      "refs": [
+        "NavigationSessionRules.kt:66-85",
+        "NavigationSessionRules.kt:107-130",
+        "TripWaypoints.kt:35-116",
+        "TripWaypoints.kt:146-176",
+        "DriverDomain.kt:149-150"
+      ],
+      "detail": "Display uses original waypoint list positions, keeps point.index for server action; pending filters original indices and navigation targets first pending, then final endpoint. Unknown coordinate point stops navigation visibly rather than skipping it. WP confirmation stays explicit and reads latest TRIP/arrived set before originalindex POST. Existing backend does not enforce arrival order; no new claim that it does."
+    },
+    {
+      "id": "sdk_arrival_is_hint_only",
+      "result": "PASS_SOURCE",
+      "refs": [
+        "InAppNavigation.kt:63-87",
+        "InAppNavigation.kt:183-197"
+      ],
+      "detail": "onArriveDestination only NearTarget hint; onArrivedWayPoint no-op. No store/action references in SDK event handlers. Leg progresses only from server-confirmed order state after manual business actions. No automatic order.advance/waypoint/payment from SDK."
+    },
+    {
+      "id": "navigation_owner_and_entry",
+      "result": "PASS_SOURCE",
+      "refs": [
+        "MainActivity.kt:261-290",
+        "MainActivity.kt:403-405",
+        "NavigationSessionRules.kt:55-105",
+        "NativeMap.kt:360-420"
+      ],
+      "detail": "Owner binds account+order; entry reads latest store state and navigable stages, missing coordinates reports unavailable. Account/logout/order/stage/page changes invalidate owner. NativeMap auto observer retains claim semantics but opens in-app owner; legacy URI builders remain test helpers and external launcher was removed. No user external navigation fallback. SDK engine/JNI lifecycle actual behavior is root scope, not established by static review."
+    },
+    {
+      "id": "explicit_contact_request_and_session",
+      "result": "PASS_SOURCE",
+      "refs": [
+        "ConnectedStore.kt:533-555",
+        "PassengerContact.kt:60-98",
+        "StateRequestCoordinator.kt:12-26"
+      ],
+      "detail": "Contact requested only on user tap; URL contains encoded orderId only, credentials and request epoch captured then rechecked before callback. Contact call does not accept state, mutate global error/session/loading/connection or persist phone. Local request generation/alive flag plus latest account/order/stage scope reject delayed responses."
+    },
+    {
+      "id": "temporary_contact_and_dial_confirmation",
+      "result": "PASS_SOURCE",
+      "refs": [
+        "PassengerContact.kt:18-51",
+        "PassengerContact.kt:64-79",
+        "PassengerContact.kt:104-138"
+      ],
+      "detail": "Scope permits four activity stages, participation cancellation excluded. Number held in remember(scope) memory only, onDispose clears, no Saveable/log; tostring excludes number. Parse binds orderId/DIRECT_DIAL/11ASCII digits, failures sanitized. Dialog explicitly discloses direct number/no relay; confirmation clears contact and rechecks latest scope before ACTION_DIAL, no ACTION_CALL. Cancel clears without dial. Stage/owner authorization final authority remains existing root-accepted endpoint."
+    },
+    {
+      "id": "existing_guard_lineage_and_review_scope",
+      "result": "PASS_SOURCE",
+      "refs": [
+        "DriverDomain.kt",
+        "DriverTripDistance.kt",
+        "StateRequestCoordinator.kt"
+      ],
+      "detail": "Compared D1 parent, original domain gates, distance UI/predicate, epoch coordinator unchanged. Read only exact git show83c6 and its immutable parent diff; no review of later dirty state, no backend author-self-acceptance. Root reported exact backend import445787f matching6e1 + independent284 PASS; this is prior separately owned acceptance, not tests rerun here."
+    }
+  ],
+  "actualChecks": [
+    "Central START/STATE/BOARD/current task/role card + true-role memory gate PASS",
+    "Immutable git show83c6 named files and scoped diff against parent",
+    "Contact callbacks/session/temporary-memory/dial callsite trace",
+    "Original guard/domain/distance/epoch files diff empty",
+    "git diff --check83c6^..83c6 scoped driver source exit0"
+  ],
+  "notRun": [
+    "Compilation/JUnit/backend284 (not repeated)",
+    "SDK real engine lifecycle/per-leg JNI/global instance/packaging",
+    "AVD/native smaller-screen keyboard/half-panel touch or control reachability",
+    "Cloud/privateDB/provider/physical phone/real call/funds"
+  ],
+  "limits": [
+    "Source reuses existing business controls; actual reachability/overlay/measurement on half screen requires root native verification.",
+    "SDK gate/static ownership cannot alone prove actual singleton lifecycle or correct provider route callbacks; root explicitly owns those tests.",
+    "Phone ownership is rechecked against latest local state at confirmation; backend authenticates and authorizes each explicit fetch. No assertion of instantaneous remote state visibility before polling.",
+    "Actual dialing successful connection and actual provider navigation remain NOT_RUN here."
+  ],
+  "gitBlobBindings": {
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/MainActivity.kt": "7b025ac333b44e2e1a3840e11c98726ee9e93848",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/CoreScreens.kt": "b230e2b37fb56d51dcc659ce350ab8c510700d10",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/NativeMap.kt": "0bb50ca47e1582a627c99d9ee558262a0cdfad83",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/NavigationSessionRules.kt": "60fa612565251c04aa2dd3b1a15116b9174f2d5c",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/InAppNavigation.kt": "e1f0fbd29ce4c83d9e37355777b9ea1d45872a52",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/TripWaypoints.kt": "c75dad77917611e1b368caabf46233f4fea9c933",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/ConnectedStore.kt": "8e2310935c846faefe684f8451b4a90d1d9e30f5",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/PassengerContact.kt": "e03450e1bedb51d8f00491f6d668ac0a6480a350",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/DriverDomain.kt": "c68ffdc084fb8f677cff074c97ddd29efc7eda4d",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/DriverTripDistance.kt": "4136a5a3a26ce89317298113189f9f6c2c1e2ce2",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/StateRequestCoordinator.kt": "05cf22491fe9f08c1db847e7ca364c5398aa1f4c"
+  },
+  "nextAction": "Root combine exact-head build/JNI/SDK lifecycle/native half-screen results before final product acceptance/merge/release. Reviewer IDLE; new productSHA requires bounded re-review."
+}

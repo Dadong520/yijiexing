@@ -32,16 +32,40 @@ object AmapRuntime {
     val key = mutableKey.asStateFlow()
     private val mutableConsent = MutableStateFlow(false)
     val consent = mutableConsent.asStateFlow()
+    // Navigation processes continuous location and routes, so it has its own notice and consent;
+    // an earlier map-only agreement never counts as agreeing to navigation.
+    private val mutableNavigationConsent = MutableStateFlow(false)
+    val navigationConsent = mutableNavigationConsent.asStateFlow()
+    const val NAVIGATION_NOTICE =
+        "应用内导航由高德导航 SDK（北京高德图强科技有限公司）提供。导航期间将处理设备信息、IP地址、实时定位（GPS）、行驶方向与速度、" +
+            "本段目的地坐标及路线规划数据，用于算路、偏航重算、路况与语音指引。导航只在本页打开时运行，退出导航即停止；" +
+            "导航数据不会用于确认接驾、途经点或到达，订单操作仍需您在下方手动确认。"
     fun configure(config: JSONObject?) {
         val value = config?.optString("androidKey").orEmpty()
         mutableKey.value = if (config?.optBoolean("enabled") == true && value.matches(Regex("[a-f0-9]{32}"))) value else ""
     }
     fun loadConsent(context: Context) {
-        mutableConsent.value = context.getSharedPreferences("amap_privacy_v1", Context.MODE_PRIVATE).getBoolean("accepted", false)
+        val prefs = context.getSharedPreferences("amap_privacy_v1", Context.MODE_PRIVATE)
+        mutableConsent.value = prefs.getBoolean("accepted", false)
+        mutableNavigationConsent.value = prefs.getBoolean("navigation_accepted_v1", false)
     }
     fun agree(context: Context) {
         context.getSharedPreferences("amap_privacy_v1", Context.MODE_PRIVATE).edit().putBoolean("accepted", true).apply()
         mutableConsent.value = true
+    }
+    /** Called only from the explicit button under [NAVIGATION_NOTICE], which also states the map notice. */
+    fun agreeNavigation(context: Context) {
+        context.getSharedPreferences("amap_privacy_v1", Context.MODE_PRIVATE).edit()
+            .putBoolean("accepted", true).putBoolean("navigation_accepted_v1", true).apply()
+        mutableConsent.value = true
+        mutableNavigationConsent.value = true
+    }
+    fun prepareNavigation(context: Context) {
+        check(mutableNavigationConsent.value) { "请先阅读并同意应用内导航说明" }
+        prepare(context)
+        com.amap.api.navi.NaviSetting.updatePrivacyShow(context, true, true)
+        com.amap.api.navi.NaviSetting.updatePrivacyAgree(context, true)
+        com.amap.api.navi.AMapNavi.setApiKey(context, mutableKey.value)
     }
     fun prepare(context: Context) {
         check(mutableConsent.value) { "请先阅读并同意地图服务说明" }

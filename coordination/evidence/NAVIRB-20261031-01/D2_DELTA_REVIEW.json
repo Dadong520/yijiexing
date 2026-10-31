@@ -1,0 +1,128 @@
+{
+  "taskId": "NAVIRB-20261031-01",
+  "phase": "D2_DELTA",
+  "reviewerRole": "backend",
+  "reviewerSessionId": "01a182c6-c058-76e1-9584-38abfe813799",
+  "reviewedAt": "2026-10-31T22:45:33+08:00",
+  "candidateSha": "6cdcee1a68d57465e4196243f22478c69733654c",
+  "deltaBaseSha": "83c6fde3a4c70bbb5bc2a2362f0e4e2f93937212",
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-in-app-navigation-20261031",
+  "verdict": "PASS",
+  "p1Count": 0,
+  "p2Count": 0,
+  "findings": [],
+  "releaseReady": false,
+  "scope": "Eight-file immutable D1→D2 driver delta nonauthor source review only",
+  "checks": [
+    {
+      "check": "New order alert full route and bounded scroll",
+      "result": "PASS_SOURCE",
+      "refs": [
+        "NewOrderAlerts.kt:103-106",
+        "NewOrderAlerts.kt:152-214",
+        "NewOrderAlerts.kt:218-241",
+        "MainActivity.kt:255"
+      ],
+      "detail": "Already-synced full orders passed to dialog; detail uses same RouteStops for all original waypoints. Route/figures scroll in weighted content; actions remain outside with min height. Trigger/dedupe/onOpen dismiss unchanged; if order detail has disappeared, old origin/destination-only fallback remains (no fabricated WP). Actual small-screen measure/reachability root-owned."
+    },
+    {
+      "check": "Accept confirmation complete route only",
+      "result": "PASS_SOURCE",
+      "refs": [
+        "MainActivity.kt:356-369",
+        "NavigationSessionRules.kt:133-136"
+      ],
+      "detail": "Only message expression changed to routeSummary built from ordered stopRows. All original accept request/callback/current protections untouched; new pure unit test asserts closed loop order O/B/C/O, not executed by reviewer."
+    },
+    {
+      "check": "Navigation three-state map and scope",
+      "result": "PASS_SOURCE",
+      "refs": [
+        "CoreScreens.kt:980-1047",
+        "MapPanel.kt:176-254"
+      ],
+      "detail": "Reuses unchanged MapPanelLayout with saveKey=driverTripMapScope(order.id), same chrome scope as main. One fixed map lambda hosts InAppNavigationPanel; stage/next originalWPindex/allWP/distancePending/cancel/participation attention resets collapsed panel toHalf. BackHandler in expanded panel precedes exiting nav, pinned original tripActions. This source placement cannot prove SDK instance survival during actual drag/size changes; root native verifies."
+    },
+    {
+      "check": "Business/PIN controls exact inheritance",
+      "result": "PASS_SOURCE_INHERITED",
+      "detail": "Byte comparisons confirm tripActions block and verify dialog tail exactly D1. DriverDomain, ConnectedStore, TripWaypoints and NativeMap unchanged. Same busy/expectedStage/PIN/allWP/distance consent/reservation/cancel/contact action paths; panel/attention changes do not call any business request."
+    },
+    {
+      "check": "Private demo notice and no real fetch",
+      "result": "PASS_SOURCE",
+      "refs": [
+        "CoreScreens.kt:1027-1034",
+        "PassengerContact.kt:64-71"
+      ],
+      "detail": "Private synthetic examples display unlinked-passenger notice in nav content. ContactAction returns before request state/button when isPrivateExample, displays no callable passenger. Real shared contact function body from generation onward byte-identical D1 (temporary scope/dial safeguards retained)."
+    },
+    {
+      "check": "LinkageError unsupported fallback",
+      "result": "PASS_SOURCE",
+      "refs": [
+        "InAppNavigation.kt:123-125",
+        "InAppNavigation.kt:178-185",
+        "InAppNavigation.kt:358-360"
+      ],
+      "detail": "Engine open catches LinkageError, sets unsupported text, releases and offers exit without retry; business controls remain outside map slot. No external navigation fallback or automatic mutation added. Catch is scoped to engine open, not blanket proof for all ABI/linkage failures across SDK callbacks; runtime/JNI is root scope."
+    },
+    {
+      "check": "Distance wording only",
+      "result": "PASS_SOURCE",
+      "refs": [
+        "DriverTripDistance.kt:205"
+      ],
+      "detail": "Only one displayed sentence changed; no gate, pending predicate, request or consent processing changed."
+    },
+    {
+      "check": "Backend and prior evidence preserved",
+      "result": "PASS_SOURCE_LINEAGE",
+      "detail": "Exact backend subtree D1==D2; root independent284 acceptance inherited without this author re-reviewing backend. D1 REVIEW.json/md preserved byte-for-byte; root reports D1 actual provider/business tests PASS but D2 actual map/UI tests still pending, not claimed here."
+    }
+  ],
+  "changedFiles": [
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/CoreScreens.kt",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/DriverTripDistance.kt",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/InAppNavigation.kt",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/MainActivity.kt",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/NavigationSessionRules.kt",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/NewOrderAlerts.kt",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/PassengerContact.kt",
+    "candidates/driver-0.3.6-r2/android/app/src/test/java/cn/hbzjhs/driver/preview/NavigationSessionRulesTest.kt"
+  ],
+  "mechanicalProofs": [
+    "Original tripActions full block byte-identical",
+    "Original PIN verify dialog through end of CoreScreens byte-identical",
+    "PassengerContact generation onward full suffix byte-identical",
+    "MapPanel/ConnectedStore/TripWaypoints/DriverDomain/NativeMap unchanged",
+    "D1/D2 backend subtree equal"
+  ],
+  "actualChecks": [
+    "Fixed git show/diff object inspection only",
+    "Exact function/suffix comparisons and Git tree equality locally computed",
+    "git diff --checkD1..D2 source exit0",
+    "Central true-role coordination gate PASS"
+  ],
+  "notRun": [
+    "Compilation/JUnit/new routeSummary unit",
+    "AVD/fullscreen/IME/small-screen alert and confirmation geometry",
+    "SDK resize lifecycle/global engine/JNI or provider execution",
+    "Cloud/privateDB/284 backend replay/real phone/funds"
+  ],
+  "priorEvidenceSha256": {
+    "REVIEW.json": "5fc33bb91716c9f3293a7d7770e3c98207de31d0a15374df6270afcac15e62fa",
+    "REVIEW.md": "6e519a9376b477e797c1a2bacb30d5b2fb855bab7cff63f98c0dcd902aa1091a"
+  },
+  "gitBlobBindings": {
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/CoreScreens.kt": "5b3b380e3d79bd5bf93a3fca7b647f648b3fb321",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/DriverTripDistance.kt": "9d5f538991a85162178f6a7624b4ca28044d3d13",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/InAppNavigation.kt": "38e298a9443e4efa35ab9749484d8e37d1521093",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/MainActivity.kt": "426d55b36fe95f99aea7e67ea0281ad76f57a6e3",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/NavigationSessionRules.kt": "9df0201c845df51219bfd1751834660a4a7ba463",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/NewOrderAlerts.kt": "4091c789baaacf21e7a4833cf3cf3a4a9465ae1c",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/PassengerContact.kt": "ee8ab50b87a1b4cf57f5d1d9e44ef5d9ac254ee8",
+    "candidates/driver-0.3.6-r2/android/app/src/test/java/cn/hbzjhs/driver/preview/NavigationSessionRulesTest.kt": "5164420e3e1aff53a9a810778a600c9d36b593ff"
+  },
+  "nextAction": "Root finish exactD2 build/native full-map+panel restore/small-screen/IME tests and SDK resize lifecycle, combine correctly inherited D1 workflows before acceptance/release. Reviewer IDLE."
+}

@@ -1,0 +1,36 @@
+[
+  {
+    "command": [
+      "curl",
+      "--noproxy",
+      "*",
+      "--connect-timeout",
+      "10",
+      "--max-time",
+      "40",
+      "-fsSL",
+      "https://repo.maven.apache.org/maven2/com/amap/api/navi-3dmap-location-search/maven-metadata.xml",
+      "-o",
+      "/Users/dongge/.codex/tmp/yijiexing-navi-sdk-probe-20261031/downloads/bundle-metadata.xml"
+    ],
+    "exitCode": 0,
+    "stderr": ""
+  },
+  {
+    "command": [
+      "curl",
+      "--noproxy",
+      "*",
+      "--connect-timeout",
+      "10",
+      "--max-time",
+      "40",
+      "-fsSL",
+      "https://repo.maven.apache.org/maven2/com/amap/api/navi-3dmap-location-search/11.2.100_3dmap11.2.100_loc11.2.100_sea9.8.1/navi-3dmap-location-search-11.2.100_3dmap11.2.100_loc11.2.100_sea9.8.1.pom",
+      "-o",
+      "/Users/dongge/.codex/tmp/yijiexing-navi-sdk-probe-20261031/downloads/bundle.pom"
+    ],
+    "exitCode": 0,
+    "stderr": ""
+  }
+]

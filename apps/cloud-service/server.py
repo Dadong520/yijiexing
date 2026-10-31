@@ -109,6 +109,11 @@ class Handler(BaseHTTPRequestHandler):
                     else:
                         auth=self.headers.get('Authorization','');require(auth.startswith('Bearer '),'请先登录云端演示司机账户',401);token=auth[7:];driver=svc.authenticate(token)
                         if path=='/api/state' and self.command=='GET':data=svc.data(driver)
+                        elif path=='/api/driver/passenger-contact' and self.command=='GET':
+                            contact_query=parse_qs(u.query,keep_blank_values=True)
+                            require(set(contact_query)=={'orderId'} and len(contact_query['orderId'])==1 and
+                                bool(contact_query['orderId'][0].strip()),'仅允许单个非空orderId参数')
+                            data=svc.driver_passenger_contact(driver,contact_query['orderId'][0])
                         elif path=='/api/auth/logout' and self.command=='POST':svc.db.execute('DELETE FROM sessions WHERE token=?',(token,));data={'loggedOut':True}
                         elif path=='/api/action' and self.command=='POST':
                             if p.get('action')=='auth.logout':svc.db.execute('DELETE FROM sessions WHERE token=?',(token,));data={'loggedOut':True}

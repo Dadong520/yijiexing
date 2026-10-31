@@ -258,7 +258,36 @@ private fun ConnectedApp(store: ConnectedStore, state: DriverState) {
         navigate("detail:$id")
     }
     val route = stack.last()
-    AutoNavigationObserver(store, ::message)
+    // The one in-app navigation owner (account + order). Saveable so rotation keeps navigation mode;
+    // it holds only ids. Any account/order/stage change or leaving the trip page ends it.
+    var navOwnerValue by rememberSaveable { mutableStateOf<String?>(null) }
+    val navOwner = NavigationOwner.decode(navOwnerValue)
+    val account = driverAccount(payload)
+    fun openNavigation(orderId: String) {
+        val currentAccount = driverAccount(store.payload.value)
+        val latest = store.state.value.orders.firstOrNull { it.id == orderId }
+        val decision = NavigationSessionRules.legFor(latest)
+        if (decision is LegDecision.Unavailable) {
+            message(decision.reason)
+            return
+        }
+        if (currentAccount.isBlank()) {
+            message("账号状态同步中，请稍后再试")
+            return
+        }
+        navOwnerValue = NavigationOwner(currentAccount, orderId).encode()
+        if (stack.last() != "detail:$orderId") navigate("detail:$orderId")
+    }
+    LaunchedEffect(navOwner, account, state, route, initialized) {
+        val owner = navOwner ?: return@LaunchedEffect
+        if (!initialized) return@LaunchedEffect
+        val reason =
+            NavigationSessionRules.exitReason(owner, account, state.loggedIn, state.orders.firstOrNull { it.id == owner.orderId }, route)
+                ?: return@LaunchedEffect
+        navOwnerValue = null
+        if (reason.isNotBlank()) message(reason)
+    }
+    AutoNavigationObserver(store, ::openNavigation)
     // A collapsed map panel on the page shown right now hides the tabs (full-screen map). Only a claim
     // for this exact page (this account's listening home, or this order's trip) counts, so leaving the
     // page, signing out or switching account always brings the tabs back.
@@ -327,7 +356,7 @@ private fun ConnectedApp(store: ConnectedStore, state: DriverState) {
                                                 confirm =
                                                     CoreConfirm(
                                                         "确认接单",
-                                                        "${order.origin}\n前往 ${order.destination}",
+                                                        NavigationSessionRules.routeSummary(order),
                                                         "确认接单",
                                                     ) {
                                                         store.perform(
@@ -337,7 +366,7 @@ private fun ConnectedApp(store: ConnectedStore, state: DriverState) {
                                                             if (stack.last() == "root" && tab == 0)
                                                                 navigate("detail:${order.id}")
                                                             audio(R.raw.success_order)
-                                                            navigateForNewLeg(context, store, order.id, order.stage, ::message)
+                                                            navigateForNewLeg(context, store, order.id, order.stage, ::openNavigation)
                                                         }
                                                     }
                                         }
@@ -371,6 +400,9 @@ private fun ConnectedApp(store: ConnectedStore, state: DriverState) {
                                         },
                                         onMessage = ::message,
                                         onHome = { navigate("home") },
+                                        navigating = navOwner != null && navOwner.orderId == id && navOwner.account == account,
+                                        onNavigate = ::openNavigation,
+                                        onExitNavigation = { navOwnerValue = null },
                                     )
                             }
                             route.startsWith("bid:") -> {

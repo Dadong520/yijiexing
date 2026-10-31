@@ -202,7 +202,7 @@ fun DriverTripDistanceCard(
                     )
                     Spacer(modifier = Modifier.height(6.dp))
                     Text(
-                        text = "提示：原订单阶段尚未推进。请等待乘客在端内确认；客户端禁止绕过授权自行推进。",
+                        text = "提示：订单暂未更新。等待乘客确认后，订单才会更新。",
                         fontSize = 14.sp,
                         color = textGrey
                     )

@@ -1,0 +1,35 @@
+{
+  "sourceSha": "83c6fde3a4c70bbb5bc2a2362f0e4e2f93937212",
+  "result": "REPAIR_REQUIRED",
+  "build": "original+QA PASS,94JUnit zero fail,original133014362bytes/original signer,2private values0hits",
+  "provider": "Actual AMap SDK map/road route/instructions and endpoint arrival callback observed on isolated ARM64 emulator with simulated GPS, no physical driving/voice/OEM claim",
+  "pass": [
+    "Hall includes2WP/A-to-A loop; actual server full-leg estimate46.42",
+    "Afteraccept auto in-app navigation; phone explicit authenticated read,confirmation,ACTION_DIAL and back retains navigation; no call placed",
+    "WrongPIN rejected,correctPIN startsTRIP; SDKroute6.3km toWP1",
+    "Manual WP0 ACK moves navigation toWP1index1, manual WP1 ACK moves destinationA; originalindices0,1",
+    "SDKdestination arrival hint leavesTRIP,does not advance; far16367m delivery requires passenger consent and originalstage remains",
+    "Synthetic passenger explicit API consent advancesWAIT_PAY; driver polling exits SDK and shows original unpaid order (n35)"
+  ],
+  "fail": [
+    {
+      "id": "D1-ALERT-WP",
+      "priority": 2,
+      "finding": "Actual new order alert only origin/destination; accepted summary confirmation also omits waypoints",
+      "frames": [
+        "n08-order-alert",
+        "n12-accept-confirm"
+      ]
+    },
+    {
+      "id": "D1-NAV-PANEL",
+      "priority": 2,
+      "finding": "New navigation mode fixed half UI does not inherit user previously required drag-expand/fullscreen; reuse existing MapPanelLayout"
+    }
+  ],
+  "harnessNotes": [
+    "Initial Python3.14 strict CA lacked keyUsage; no control HTTP business call reached server. Preserved initial empty runtime, regenerated proper freshCA and QA-only rebuilt; originalAPK unchanged",
+    "n07 XML/png changed as async neworderdialog appeared, not treated as matching-frame proof; n08 fresh alert used instead",
+    "n29 two transient nullroot dumps were retried after deletion, current freshXML/PNG only used"
+  ]
+}

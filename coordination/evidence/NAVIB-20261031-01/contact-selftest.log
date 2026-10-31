@@ -1,0 +1,104 @@
+test_explicit_read_does_not_log_number_or_audit_it (test_passenger_contact.PassengerContact.test_explicit_read_does_not_log_number_or_audit_it) ... [2026-10-31T22:00:32+08:00] POST /api/passenger/auth/code 200
+[2026-10-31T22:00:33+08:00] POST /api/passenger/auth/login 200
+[2026-10-31T22:00:33+08:00] POST /api/auth/code 200
+[2026-10-31T22:00:33+08:00] POST /api/auth/login 200
+[2026-10-31T22:00:33+08:00] POST /api/action 200
+[2026-10-31T22:00:33+08:00] POST /api/passenger/action 200
+[2026-10-31T22:00:33+08:00] POST /api/action 200
+ok
+test_http_ownership_roles_stages_and_read_only (test_passenger_contact.PassengerContact.test_http_ownership_roles_stages_and_read_only) ... [2026-10-31T22:00:33+08:00] POST /api/passenger/auth/code 200
+[2026-10-31T22:00:33+08:00] POST /api/passenger/auth/login 200
+[2026-10-31T22:00:33+08:00] POST /api/auth/code 200
+[2026-10-31T22:00:33+08:00] POST /api/auth/login 200
+[2026-10-31T22:00:33+08:00] POST /api/action 200
+[2026-10-31T22:00:33+08:00] POST /api/auth/code 200
+[2026-10-31T22:00:33+08:00] POST /api/auth/login 200
+[2026-10-31T22:00:33+08:00] POST /api/passenger/action 200
+[2026-10-31T22:00:33+08:00] GET /api/driver/passenger-contact 404
+[2026-10-31T22:00:33+08:00] POST /api/action 200
+[2026-10-31T22:00:33+08:00] GET /api/driver/passenger-contact 200
+[2026-10-31T22:00:33+08:00] GET /api/driver/passenger-contact 404
+[2026-10-31T22:00:33+08:00] GET /api/driver/passenger-contact 401
+[2026-10-31T22:00:33+08:00] GET /api/driver/passenger-contact 401
+[2026-10-31T22:00:33+08:00] GET /api/driver/passenger-contact 200
+[2026-10-31T22:00:33+08:00] GET /api/driver/passenger-contact 200
+[2026-10-31T22:00:33+08:00] GET /api/driver/passenger-contact 200
+[2026-10-31T22:00:33+08:00] GET /api/driver/passenger-contact 200
+[2026-10-31T22:00:33+08:00] GET /api/driver/passenger-contact 409
+[2026-10-31T22:00:33+08:00] GET /api/driver/passenger-contact 409
+[2026-10-31T22:00:33+08:00] GET /api/driver/passenger-contact 409
+[2026-10-31T22:00:33+08:00] GET /api/driver/passenger-contact 409
+[2026-10-31T22:00:33+08:00] GET /api/driver/passenger-contact 409
+[2026-10-31T22:00:33+08:00] GET /api/driver/passenger-contact 404
+[2026-10-31T22:00:33+08:00] GET /api/driver/passenger-contact 200
+[2026-10-31T22:00:33+08:00] GET /api/driver/passenger-contact 404
+ok
+test_idempotent_create_has_one_private_snapshot_and_hall_does_not_leak (test_passenger_contact.PassengerContact.test_idempotent_create_has_one_private_snapshot_and_hall_does_not_leak) ... [2026-10-31T22:00:33+08:00] POST /api/passenger/auth/code 200
+[2026-10-31T22:00:33+08:00] POST /api/passenger/auth/login 200
+[2026-10-31T22:00:33+08:00] POST /api/auth/code 200
+[2026-10-31T22:00:33+08:00] POST /api/auth/login 200
+[2026-10-31T22:00:33+08:00] POST /api/action 200
+[2026-10-31T22:00:33+08:00] POST /api/passenger/action 200
+[2026-10-31T22:00:33+08:00] POST /api/passenger/action 200
+[2026-10-31T22:00:33+08:00] GET /api/state 200
+[2026-10-31T22:00:33+08:00] GET /api/driver/passenger-contact 404
+[2026-10-31T22:00:33+08:00] GET /api/driver/passenger-contact 400
+/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/tempfile.py:484: ResourceWarning: Implicitly cleaning up <HTTPError 400: 'Bad Request'>
+  _warnings.warn(self.warn_message, ResourceWarning)
+[2026-10-31T22:00:33+08:00] GET /api/driver/passenger-contact 400
+ok
+test_legacy_no_snapshot_unavailable_without_payload_write_or_wrong_booker (test_passenger_contact.PassengerContact.test_legacy_no_snapshot_unavailable_without_payload_write_or_wrong_booker) ... [2026-10-31T22:00:33+08:00] POST /api/passenger/auth/code 200
+[2026-10-31T22:00:33+08:00] POST /api/passenger/auth/login 200
+[2026-10-31T22:00:33+08:00] POST /api/auth/code 200
+[2026-10-31T22:00:33+08:00] POST /api/auth/login 200
+[2026-10-31T22:00:33+08:00] POST /api/action 200
+[2026-10-31T22:00:33+08:00] POST /api/passenger/action 200
+[2026-10-31T22:00:33+08:00] POST /api/action 200
+[2026-10-31T22:00:33+08:00] GET /api/driver/passenger-contact 409
+ok
+test_new_negotiation_claim_snapshots_booker_but_legacy_replay_does_not_backfill (test_passenger_contact.PassengerContact.test_new_negotiation_claim_snapshots_booker_but_legacy_replay_does_not_backfill) ... [2026-10-31T22:00:33+08:00] POST /api/passenger/auth/code 200
+[2026-10-31T22:00:33+08:00] POST /api/passenger/auth/login 200
+[2026-10-31T22:00:33+08:00] POST /api/auth/code 200
+[2026-10-31T22:00:33+08:00] POST /api/auth/login 200
+[2026-10-31T22:00:33+08:00] POST /api/action 200
+[2026-10-31T22:00:33+08:00] POST /api/action 200
+[2026-10-31T22:00:33+08:00] POST /api/action 200
+[2026-10-31T22:00:33+08:00] POST /api/action 200
+[2026-10-31T22:00:33+08:00] POST /api/passenger/action 200
+[2026-10-31T22:00:33+08:00] GET /api/driver/passenger-contact 409
+[2026-10-31T22:00:33+08:00] POST /api/passenger/action 200
+[2026-10-31T22:00:33+08:00] GET /api/driver/passenger-contact 200
+[2026-10-31T22:00:33+08:00] POST /api/passenger/action 200
+[2026-10-31T22:00:33+08:00] GET /api/driver/passenger-contact 409
+ok
+test_rider_edit_delete_restart_and_no_snapshot_leak (test_passenger_contact.PassengerContact.test_rider_edit_delete_restart_and_no_snapshot_leak) ... [2026-10-31T22:00:33+08:00] POST /api/passenger/auth/code 200
+[2026-10-31T22:00:33+08:00] POST /api/passenger/auth/login 200
+[2026-10-31T22:00:33+08:00] POST /api/auth/code 200
+[2026-10-31T22:00:33+08:00] POST /api/auth/login 200
+[2026-10-31T22:00:33+08:00] POST /api/action 200
+[2026-10-31T22:00:33+08:00] POST /api/passenger/action 200
+[2026-10-31T22:00:33+08:00] POST /api/passenger/action 200
+[2026-10-31T22:00:33+08:00] POST /api/action 200
+[2026-10-31T22:00:33+08:00] POST /api/passenger/action 200
+[2026-10-31T22:00:33+08:00] POST /api/passenger/action 200
+[2026-10-31T22:00:33+08:00] GET /api/driver/passenger-contact 200
+[2026-10-31T22:00:33+08:00] GET /api/driver/passenger-contact 200
+[2026-10-31T22:00:33+08:00] GET /api/state 200
+[2026-10-31T22:00:33+08:00] GET /api/driver/passenger-contact 200
+ok
+test_snapshot_failure_rolls_back_order_and_retry_is_atomic (test_passenger_contact.PassengerContact.test_snapshot_failure_rolls_back_order_and_retry_is_atomic) ... [2026-10-31T22:00:34+08:00] POST /api/passenger/auth/code 200
+[2026-10-31T22:00:34+08:00] POST /api/passenger/auth/login 200
+[2026-10-31T22:00:34+08:00] POST /api/auth/code 200
+[2026-10-31T22:00:34+08:00] POST /api/auth/login 200
+[2026-10-31T22:00:34+08:00] POST /api/action 200
+[2026-10-31T22:00:34+08:00] local internal error: IntegrityError: test contact unavailable
+[2026-10-31T22:00:34+08:00] POST /api/passenger/action 500
+/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/tempfile.py:484: ResourceWarning: Implicitly cleaning up <HTTPError 500: 'Internal Server Error'>
+  _warnings.warn(self.warn_message, ResourceWarning)
+[2026-10-31T22:00:34+08:00] POST /api/passenger/action 200
+ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 1.181s
+
+OK

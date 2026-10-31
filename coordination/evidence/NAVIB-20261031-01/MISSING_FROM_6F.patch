@@ -1,0 +1,44 @@
+diff --git a/apps/cloud-service/passenger.py b/apps/cloud-service/passenger.py
+index 78c6349..9171ebc 100644
+--- a/apps/cloud-service/passenger.py
++++ b/apps/cloud-service/passenger.py
+@@ -342,7 +342,13 @@ class PassengerMixin(TripDistanceMixin,NegotiationMixin,PassengerOrderOptionsMix
+         elif action=='order.create':result=self.passenger_create_order(pid,p)
+         elif action=='order.distanceConsent':result=self.passenger_distance_consent(pid,p)
+         elif action=='location.report':result=self.passenger_report_location(pid,p)
+-        elif action in ('negotiation.claim','negotiation.dispute'):result=self.passenger_negotiation_action(pid,action,p)
++        elif action in ('negotiation.claim','negotiation.dispute'):
++            result=self.passenger_negotiation_action(pid,action,p)
++            # Claim is the other path creating a canonical passenger order. It
++            # explicitly binds the booker; never backfill an old claim replay.
++            if action=='negotiation.claim' and not result.get('idempotent'):
++                self.db.execute('INSERT INTO passenger_order_contacts VALUES (?,?,?,?,?)',
++                    (result['order']['id'],pid,profile['name'],profile['mobile'],stamp()))
+         elif action in ('order.blockDriver','order.unblockDriver','order.remark','order.complaint.attach'):result=self.passenger_order_option(pid,action,p)
+         elif action.startswith('order.'):
+             o=self.own_passenger_order(pid,p.get('id'))
+diff --git a/apps/cloud-service/tests/test_passenger_contact.py b/apps/cloud-service/tests/test_passenger_contact.py
+index 5debc25..fc2498b 100644
+--- a/apps/cloud-service/tests/test_passenger_contact.py
++++ b/apps/cloud-service/tests/test_passenger_contact.py
+@@ -98,6 +98,20 @@ class PassengerContact(PolicyCase):
+         self.pa(p['token'],'order.create',payload,rid='atomic-contact')
+         self.assertEqual(len(self.rows()),1)
+ 
++    def test_new_negotiation_claim_snapshots_booker_but_legacy_replay_does_not_backfill(self):
++        import test_negotiation as fixture
++        passenger=self.passenger_login()
++        driver,oid=fixture.NegotiationIntegration.offer(self)
++        offer=self.da(driver['token'],'order.pairOffer',dict(id=oid))['result']
++        order=self.pa(passenger['token'],'negotiation.claim',dict(pairCode=offer['pairCode']))['result']['order']
++        self.contact(driver['token'],oid,409)  # PREPAY still blocked.
++        self.pa(passenger['token'],'order.pay',dict(id=oid,quoteVersion=1,amount=order['fare'],outcome='SUCCESS'))
++        self.assertEqual(self.contact(driver['token'],oid)['mobile'],'13800000101')
++        self.mutate_fixture(lambda svc:svc.db.execute('DELETE FROM passenger_order_contacts WHERE order_id=?',(oid,)))
++        replay=self.pa(passenger['token'],'negotiation.claim',dict(pairCode=offer['pairCode']))
++        self.assertTrue(replay['result']['idempotent'])
++        self.contact(driver['token'],oid,409)
++
+     def test_explicit_read_does_not_log_number_or_audit_it(self):
+         p,d=self.setup_pair();oid=self.create(p['token'])['id'];self.da(d['token'],'order.accept',{'id':oid})
+         audit_before=self.mutate_fixture(lambda svc:[tuple(x) for x in svc.db.execute('SELECT * FROM audits')])

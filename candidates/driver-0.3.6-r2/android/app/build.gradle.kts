@@ -9,8 +9,8 @@ android {
         applicationId = "cn.hbzjhs.dc.driver.cloud"
         minSdk = 26
         targetSdk = 34
-        versionCode = 23
-        versionName = "0.3.20-cloud"
+        versionCode = 24
+        versionName = "0.3.21-cloud"
         buildConfigField("String", "CLOUD_API_ORIGIN", "\"$cloudOrigin\"")
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -20,6 +20,9 @@ android {
     kotlinOptions { jvmTarget = "17" }
     buildTypes { release { isMinifyEnabled = false } }
     testOptions { unitTests.isReturnDefaultValues = true }
+    // The navigation SDK's ARM native libraries are large. Store them compressed in the APK and let
+    // the installer extract them (extractNativeLibs=true), keeping every ABI the SDK ships.
+    packaging { jniLibs { useLegacyPackaging = true } }
 }
 dependencies {
     val composeBom = platform("androidx.compose:compose-bom:2024.06.00")
@@ -31,7 +34,9 @@ dependencies {
     implementation("androidx.compose.material:material-icons-core")
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.8.2")
     implementation("org.maplibre.gl:android-sdk:11.8.0")
-    implementation("com.amap.api:3dmap-location-search:11.2.100_loc11.2.100_sea9.8.1")
+    // Navigation combined package replaces (never accompanies) the old map/location/search package:
+    // both ship the same map classes. Pinned exactly; same map/location 11.2.100 and search 9.8.1.
+    implementation("com.amap.api:navi-3dmap-location-search:11.2.100_3dmap11.2.100_loc11.2.100_sea9.8.1")
     implementation("com.google.zxing:core:3.5.3")
     testImplementation("org.json:json:20240303")
     debugImplementation("androidx.compose.ui:ui-tooling")

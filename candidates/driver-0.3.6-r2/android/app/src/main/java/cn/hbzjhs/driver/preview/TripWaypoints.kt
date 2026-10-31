@@ -9,6 +9,46 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import org.json.JSONObject
+import androidx.compose.foundation.background
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.ui.draw.clip
+
+/**
+ * Origin, every waypoint in original order and the destination, with completed / next markers.
+ * Waypoint labels are display positions; the server identifies stops by [StopRow.waypointIndex].
+ */
+@Composable
+internal fun OrderStopsList(order: DriverOrder, compact: Boolean = false) {
+    Column(Modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(6.dp)) {
+        NavigationSessionRules.stopRows(order).forEach { row ->
+            val color = when {
+                row.waypointIndex != null -> Muted
+                row.label == "起" -> Green
+                else -> Orange
+            }
+            Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.Top) {
+                Box(
+                    Modifier.padding(top = 3.dp, end = 8.dp).widthIn(min = 20.dp).height(20.dp).clip(CircleShape)
+                        .background(color.copy(alpha = 0.15f)).padding(horizontal = 4.dp),
+                    contentAlignment = Alignment.Center,
+                ) { Text(row.label, color = color, fontSize = 11.sp, fontWeight = FontWeight.Bold) }
+                Text(
+                    row.name,
+                    modifier = Modifier.weight(1f),
+                    fontSize = if (compact || row.waypointIndex != null) DriverType.Body else DriverType.Title,
+                    lineHeight = 22.sp,
+                    fontWeight = if (row.waypointIndex != null) FontWeight.Medium else FontWeight.SemiBold,
+                    color = if (row.progress == StopProgress.DONE) Muted else Ink,
+                )
+                when (row.progress) {
+                    StopProgress.DONE -> Text("已完成", color = Muted, fontSize = 12.sp, modifier = Modifier.padding(start = 6.dp, top = 3.dp))
+                    StopProgress.NEXT -> Pill("下一站")
+                    StopProgress.PENDING -> Unit
+                }
+            }
+        }
+    }
+}
 
 @Composable
 internal fun TripWaypoints(order: DriverOrder, store: ConnectedStore, onMessage: (String) -> Unit) {
@@ -51,8 +91,9 @@ internal fun TripWaypoints(order: DriverOrder, store: ConnectedStore, onMessage:
                     fontWeight = FontWeight.Medium,
                     modifier = Modifier.weight(1f).padding(end = 12.dp),
                 )
+                val next = order.stage == Stage.TRIP && order.pendingWaypoints.firstOrNull()?.index == point.index
                 Pill(
-                    if (arrived) "已到达" else if (pendingIndex == point.index) "确认中" else "未到达",
+                    if (arrived) "已到达" else if (pendingIndex == point.index) "确认中" else if (next) "下一站" else "未到达",
                     if (arrived) Green else Muted,
                 )
             }

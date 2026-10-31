@@ -1,0 +1,15 @@
+# RIDEF 工具入口交接（仅路径核对，2026-10-31）
+
+本次未运行构建/AVD/fixture/新测试。以下脚本均有旧任务路径、appId、serial、port 等硬编码：**复制工具到新私有 NAVI QA 目录后适配，不能直接对旧 runtime 运行。无现成一键 fresh bootstrap。**
+
+- 通用工具根：`/Users/dongge/.codex/tmp/yijiexing-ridef-20261031/scripts/`。
+- 原司机构建参考目录：`/Users/dongge/.codex/tmp/yijiexing-ridef-20261031/source/candidates/driver-0.3.6-r2/android/`。实际新验收必须从新任务准确 freeze 导出司机目录，保留原 Gradle signing 配置，不能复用旧产品源/产物。使用导出目录的 `gradlew -p <准确司机导出目录> --offline --no-daemon -I <新offline.init.gradle> testDebugUnitTest assembleDebug`。环境 `JAVA_HOME=/opt/homebrew/opt/openjdk@17/libexec/openjdk.jdk/Contents/Home`、`ANDROID_HOME=/opt/homebrew/share/android-commandlinetools`。原包出口 `app/build/outputs/apk/debug/app-debug.apk`；JUnit `app/build/test-results/testDebugUnitTest`。原 signer SHA256 应核对 `9ffec9b342d12909ff288bd73f23ba104893b39120cb24ea83c9734a0d2b758f`，不能仅凭构建成功认原签名。
+- 原司机独立 QA 模板：`scripts/qa-driver.init.gradle`；同一准确产品源执行 `gradlew ... -I <新qa-driver.init.gradle> assembleDebug`。模板只改独立 buildDir、QA applicationId、CLOUD_API_ORIGIN=https://localhost、debug manifest/QA CA resource；不改产品 Kotlin。旧模板为 `.driver.ridef` 且指向旧 runtime，复制后都须更换；不得覆盖原包输出。QA 包出口模板结构为 `<独立buildDir>/_app/outputs/apk/debug/app-debug.apk`，禁止发布。
+- Maven 模板 `scripts/offline.init.gradle` 只加旧地图本地库。**本轮 navi 固定依赖**另在 `/Users/dongge/.codex/tmp/yijiexing-navi-sdk-probe-20261031/maven/`；新 init/settings 应增加此仓库并替换旧地图依赖，不能叠加。该探针 minimal 工程仅接口编译，不是原签名司机产品构建器。
+- Android 工具：`/opt/homebrew/share/android-commandlinetools/{emulator/emulator,platform-tools/adb,build-tools/34.0.0/aapt,build-tools/34.0.0/apksigner}`。上一隔离 AVD 名 `RIDEF_20261031`，登记文件 `/Users/dongge/.android/avd/RIDEF_20261031.ini` 指向 `/Users/dongge/.codex/tmp/yijiexing-ridef-20261031/avds/RIDEF.avd`。先前入口：`emulator -avd RIDEF_20261031 -port 5584 -no-window -no-audio -no-snapshot -read-only -gpu swiftshader_indirect -cores 2 -memory 2048 -dns-server 127.0.0.1`。这是该任务专用、只读无快照的隔离设备；新任务由root独占分配，不能指向个人AVD。不要设置 ANDROID_AVD_HOME 为旧avds子目录，ini登记在默认目录。此前在此隔离AVD启动后 `adb -s emulator-5584 root` 再建立 reverse443（非root曾bind denied），此条不是任何CLI跳过权限参数。
+- TLS fixture 通用起点：`scripts/fixture-fixed.py`；旧入口 `python3 <复制适配后的>/fixture-fixed.py`，旧脚本监听64362；`control-fixed.py` 是其管理工具，`control.py` 指旧64361，不能混用。复制后将 R/T、导入 backend 路径、FROZEN_SHA、端口及control入口绑定到本次准确新源；**新建空runtime、新CA与localhost server cert/key、新合成身份/DB**。脚本遇 identities.json 会恢复原DB，因此禁止带入旧 identities/fixture.sqlite/WAL/events/control。TLS材料须预先准备在新T/tls/server.crt和server.key，脚本不自动签发；QA manifest/network-security CA资源用同一新CA。原生地址服务成功仍不可由fixture冒称。
+- `scripts/fixture-phase4.py` 仅价格展示投影派生脚本，不作为本轮通用fixture；原R1误单及所有旧runtime完整保留，禁止写入。新业务设置按本轮需求独立构造并显式标合成。
+- 新fixture准备完成后的连通入口：`adb -s <隔离serial> reverse tcp:443 tcp:<新port>`；仅给新QA app安装。结束移除reverse、结束fixture/AVD并读回设备/端口，不能沿用旧CLEANUP当本轮证明。
+- **fresh XML失败保护：** `scripts/ui.py`。每次snap先删 `/sdcard/pui-window.xml`，再dump、检查错误、读取并解析；失败最多6次/间隔0.5秒，不能继续使用上次XML；写当前PNG+XML。命令如 `python3 <复制后的>/ui.py snap <case>`、`tap <精确文字> <case>`。A中的serial和D截图目录均要适配。仍须各case断言app/page/当前值；dump成功不代表到了正确页面。`fill.py`/`gesture.py`可参考；`case-r1.py`/`case-nested.py`为旧专用用例，不适用于新业务直接重放。
+
+上一阶段已清理，无存活 RIDEF AVD/fixture/reverse。本轮仅交接，没有启动它们。frontend IDLE，HANDOFF_RECOMMENDED；root本轮自行验收，当前没有大矩阵派单。

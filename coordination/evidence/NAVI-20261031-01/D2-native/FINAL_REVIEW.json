@@ -1,0 +1,421 @@
+{
+  "sourceSha": "6cdcee1a68d57465e4196243f22478c69733654c",
+  "reviewer": "coordinator, nonauthor of driver and backend behavior",
+  "status": "PASS",
+  "cases": [
+    {
+      "id": "N01",
+      "result": "PASS",
+      "check": "Complete ordered2WP/A-to-A route in actual order alert and acceptance confirmation, normal/360dp-font1.3",
+      "frames": [
+        "d2-06-alert",
+        "d2-07-small-alert",
+        "d2-11-small-confirm-route"
+      ]
+    },
+    {
+      "id": "N02",
+      "result": "PASS",
+      "check": "Accept standard order opens in-app AMapNaviView, without installed external navigation app requirement",
+      "frames": [
+        "d2-12-small-nav-half"
+      ]
+    },
+    {
+      "id": "N03",
+      "result": "PASS",
+      "check": "Actual provider road/turn guidance in embedded SDK; simulated emulator GPS only",
+      "frames": [
+        "d2-15-dialer-return-3",
+        "d2-35-normal-nav-half",
+        "p20-first-navigation-guidance"
+      ]
+    },
+    {
+      "id": "N04",
+      "result": "PASS",
+      "check": "Immutable delegated-rider contact after saved rider changed and removed",
+      "frames": [
+        "d2-13-immutable-rider-phone"
+      ]
+    },
+    {
+      "id": "N05",
+      "result": "PASS",
+      "check": "Explicit ACTION_DIAL has exact13900000987; no Call button pressed; back keeps SDK/order",
+      "frames": [
+        "d2-14-system-dialer",
+        "d2-15-dialer-return-3"
+      ]
+    },
+    {
+      "id": "N06",
+      "result": "PASS",
+      "check": "Actual upward handle drag expands functions; list can scroll to final historical consent item and return top",
+      "frames": [
+        "d2-16-small-up-expanded",
+        "d2-29-small-functions-end",
+        "d2-30-small-functions-return-top"
+      ]
+    },
+    {
+      "id": "N07",
+      "result": "PASS",
+      "check": "Actual downward handle drag reaches full map, app chrome hidden and restore remains; restore tohalf keeps navigation",
+      "frames": [
+        "d2-17-small-down-fullmap",
+        "d2-18-small-restore-half"
+      ]
+    },
+    {
+      "id": "N08",
+      "result": "PASS",
+      "check": "360x640dp font1.3 true numeric IME leaves PIN fields/buttons visible; wrong9999 rejected",
+      "frames": [
+        "d2-21-small-ime",
+        "d2-23-small-pin-rejected"
+      ]
+    },
+    {
+      "id": "N09",
+      "result": "PASS",
+      "check": "Valid actual rider tail0987 at16km distance requests passenger consent, does not startTRIP",
+      "frames": [
+        "d2-24-small-correct-rider-pin",
+        "d2-25-small-boarding-consent"
+      ]
+    },
+    {
+      "id": "N10",
+      "result": "PASS",
+      "check": "While full map, explicit synthetic passenger API consent advances toTRIP; driver refresh restoresHalf/new nextWP guidance",
+      "frames": [
+        "d2-26-small-fullmap-pending",
+        "d2-27-auto-restore-after-consent"
+      ]
+    },
+    {
+      "id": "N11",
+      "result": "PASS",
+      "check": "Premature delivery disabled; opening waypoint confirmation alone does not mark/advance",
+      "frames": [
+        "d2-31-blocked-premature-delivery",
+        "d2-32-small-waypoint1-confirm"
+      ]
+    },
+    {
+      "id": "N12",
+      "result": "PASS",
+      "check": "Explicit original index0 then1 waypoint ACK switches next leg and final return-to-origin; all complete before delivery",
+      "frames": [
+        "d2-33-waypoint2-after-ack",
+        "d2-41-return-origin-final-leg"
+      ]
+    },
+    {
+      "id": "N13",
+      "result": "PASS",
+      "check": "Restore normal screen/font configuration retains navigation/order; source95 tests include lifecycle/late callback ownership traces",
+      "frames": [
+        "d2-34-normal-recreation-keeps-navigation",
+        "d2-35-normal-nav-half"
+      ]
+    },
+    {
+      "id": "N14",
+      "result": "PASS",
+      "check": "SDK exit from full map releases chrome; >one refresh interval no automatic reopen; manual internal reentry available",
+      "frames": [
+        "d2-37-sdk-exit-fullmap",
+        "d2-38-no-automatic-reopen",
+        "d2-39-manual-inapp-reentry"
+      ]
+    },
+    {
+      "id": "N15",
+      "result": "PASS",
+      "check": "Fresh reliable synthetic near-end location plus explicit delivery reachesWAIT_PAY and exitsSDK; no payment executed",
+      "frames": [
+        "d2-42-wait-pay-exits-navigation"
+      ]
+    },
+    {
+      "id": "N16",
+      "result": "PASS",
+      "check": "Fresh own QA data at360/font1.3: guide/login scroll accessible and first navigation notice readable in full panel",
+      "frames": [
+        "p01-fresh-install-guide",
+        "p05-login-bottom",
+        "p15-fresh-full-notice"
+      ]
+    },
+    {
+      "id": "N17",
+      "result": "PASS",
+      "check": "Declining navigation leaves accepted reservation waiting and no forced departure; old other-passenger unpaid order does not block acceptance",
+      "frames": [
+        "p13-reserved-accepted-no-auto-navigation",
+        "p16-decline-keeps-reservation"
+      ]
+    },
+    {
+      "id": "N18",
+      "result": "PASS",
+      "check": "Explicit departure still works without navigation consent; SDK appears only after explicit agreement",
+      "frames": [
+        "p17-explicit-departure-without-consent",
+        "p19-first-consent-starts-sdk",
+        "p20-first-navigation-guidance"
+      ]
+    },
+    {
+      "id": "N19",
+      "result": "PASS",
+      "check": "Synthetic passenger cancellation while full navigation causes automatic SDK exit and usable canceled details",
+      "frames": [
+        "p21-passenger-cancel-exits-sdk"
+      ]
+    }
+  ],
+  "caseCount": 19,
+  "frames": [
+    {
+      "file": "d2-06-alert.png",
+      "bytes": 394467,
+      "sha256": "8531c5f5761a11610c0277a7b8d94dfecfc4e7174bdd19e58af8eecc3ba9a231"
+    },
+    {
+      "file": "d2-06-alert.xml",
+      "bytes": 9326,
+      "sha256": "cf72be5ba83ecec7e2e69c3da18ebd7c432a05871b967e4a93d3f4894a4f0e3c"
+    },
+    {
+      "file": "d2-07-small-alert.png",
+      "bytes": 220805,
+      "sha256": "4f118e04ad7f4403f485329424130acd62b14e3de7f9e54a76eed094f4d54391"
+    },
+    {
+      "file": "d2-07-small-alert.xml",
+      "bytes": 9309,
+      "sha256": "79fb3540ae27092f9e973a6eb4cfbf86b883a5ea0267dc1b4605f76ad12d22c2"
+    },
+    {
+      "file": "d2-11-small-confirm-route.png",
+      "bytes": 191720,
+      "sha256": "5cfc6e93b0ad82714ff99a686e07cbe6a785278cc232e1a9bb93ff4760713658"
+    },
+    {
+      "file": "d2-11-small-confirm-route.xml",
+      "bytes": 4218,
+      "sha256": "fea2c1152a07ffc2923f62d31c10707aeb9e2f6c66009bce44b8ffd67764bd59"
+    },
+    {
+      "file": "d2-13-immutable-rider-phone.png",
+      "bytes": 244103,
+      "sha256": "b2f058c73d9cd6ed52ed49212497f1194fb26aa0a9c6d1c4fcd76e57c8f2ff7e"
+    },
+    {
+      "file": "d2-13-immutable-rider-phone.xml",
+      "bytes": 5315,
+      "sha256": "b4a9df4c9b7b9dfe710702f90d60527299d885b11e287986e0eca5d28794a76a"
+    },
+    {
+      "file": "d2-16-small-up-expanded.png",
+      "bytes": 141408,
+      "sha256": "85254a8a67cabd2b7d858c33e2b98d4a9b07aa992328195a934fa6305dd5b6c1"
+    },
+    {
+      "file": "d2-16-small-up-expanded.xml",
+      "bytes": 12472,
+      "sha256": "dfaef4fd06aa70519f8a8dc2e9928bdbc099abb99b36db311cdb5164290875f9"
+    },
+    {
+      "file": "d2-17-small-down-fullmap.png",
+      "bytes": 607200,
+      "sha256": "ab786d68e16997ff5bcdb213de6ed83b8ac7e55642f61a0b562730dfab46316d"
+    },
+    {
+      "file": "d2-17-small-down-fullmap.xml",
+      "bytes": 6564,
+      "sha256": "883da0be2bc964b62474f4781d8d75266fd92f594aae19f64392eb6b15691a5d"
+    },
+    {
+      "file": "d2-21-small-ime.png",
+      "bytes": 163547,
+      "sha256": "b20604f70a60a009bb3a9c06fb0b370821305f4f968171a8f06d6ae9f7dd4711"
+    },
+    {
+      "file": "d2-21-small-ime.xml",
+      "bytes": 5462,
+      "sha256": "0c8f711b8b427f3b1a6fc52923e4584b37291ff1eb40d973dabdb9a842421fa4"
+    },
+    {
+      "file": "d2-23-small-pin-rejected.png",
+      "bytes": 170916,
+      "sha256": "0f5f82f9ffbdcadbfd0ba077f6e0fafa85d57f5fdd4fb9c71d7e3b830153d845"
+    },
+    {
+      "file": "d2-23-small-pin-rejected.xml",
+      "bytes": 5823,
+      "sha256": "b21a9cd28e10cfc30670157d6ce9dc709b83a170354521f2deab88f04649543e"
+    },
+    {
+      "file": "d2-26-small-fullmap-pending.png",
+      "bytes": 201544,
+      "sha256": "a06e79e946a425376fac981408ed116e56732f43955a8babb8e4235ac3595927"
+    },
+    {
+      "file": "d2-26-small-fullmap-pending.xml",
+      "bytes": 6569,
+      "sha256": "d7250c4ab806b995067748e1d7426ef4bd54e253691bf0b617ccd1878aa27eae"
+    },
+    {
+      "file": "d2-27-auto-restore-after-consent.png",
+      "bytes": 209605,
+      "sha256": "b46e1e9a39df5b6f02621505b64932f6f8191ac43eae824b97800cca42ada66c"
+    },
+    {
+      "file": "d2-27-auto-restore-after-consent.xml",
+      "bytes": 13370,
+      "sha256": "cc599a987c2489c2752f32ae9312d1429cdd3fbfb14cdd1be8d9598eb8710f92"
+    },
+    {
+      "file": "d2-29-small-functions-end.png",
+      "bytes": 222628,
+      "sha256": "c3137b792e8d9a7243baace8e99b590210edea642342fe1b3fd78d1afb0c764e"
+    },
+    {
+      "file": "d2-29-small-functions-end.xml",
+      "bytes": 12327,
+      "sha256": "11c679f666c6e16d7234b07c463d03446845015ae62f6040f37d24d1dd6cd65c"
+    },
+    {
+      "file": "d2-35-normal-nav-half.png",
+      "bytes": 302483,
+      "sha256": "f7c5a1f0b8a49f4b1d3fd7d830e0d9fabd1073c4cdf34c381b452876de65b7fe"
+    },
+    {
+      "file": "d2-35-normal-nav-half.xml",
+      "bytes": 16459,
+      "sha256": "4a25c188e2c701177cade56f596e380bfe97d18e351e4278cf6b99e052b02425"
+    },
+    {
+      "file": "d2-37-sdk-exit-fullmap.png",
+      "bytes": 540883,
+      "sha256": "83850bf3fa7ad3b4dc28ebaa3ce3a176461160a12c91bbb76ca3867ad9cf5756"
+    },
+    {
+      "file": "d2-37-sdk-exit-fullmap.xml",
+      "bytes": 16065,
+      "sha256": "e63c9cb0417a04656d40a82e6914373175df7a53709289686cd039768f601995"
+    },
+    {
+      "file": "d2-42-wait-pay-exits-navigation.png",
+      "bytes": 266726,
+      "sha256": "b9674c8449c2056a63cfe2a1e43bdacef9484d3db0c661c30e6c281e74e46c1f"
+    },
+    {
+      "file": "d2-42-wait-pay-exits-navigation.xml",
+      "bytes": 14629,
+      "sha256": "5c65c0e6974a55b006c8c1a68d4080e9f227e4e5c5f7d76f07f246041d1e38b0"
+    },
+    {
+      "file": "p15-fresh-full-notice.png",
+      "bytes": 312867,
+      "sha256": "5fddcfc5731fee6b191663b7de6eb2c1eb6f820f3e7b2c14719064d211b250d5"
+    },
+    {
+      "file": "p15-fresh-full-notice.xml",
+      "bytes": 8767,
+      "sha256": "2ad4ea99df301e1b56503292afb8de40c6d3a1c9ba5f38913f40d4d4b331d3a6"
+    },
+    {
+      "file": "p16-decline-keeps-reservation.png",
+      "bytes": 221767,
+      "sha256": "5737a2d037a070ba932d9d94fd45887ee22a8c5096edfbc06c067284927623e2"
+    },
+    {
+      "file": "p16-decline-keeps-reservation.xml",
+      "bytes": 15008,
+      "sha256": "2b2c96663215ae410ef6e2c675b0a7a756415656e05245d565e897341e8bab16"
+    },
+    {
+      "file": "p17-explicit-departure-without-consent.png",
+      "bytes": 249839,
+      "sha256": "2507bbdd9fb45e6521d36995f75246973944d3c5356006db2574cbf778eb6b9f"
+    },
+    {
+      "file": "p17-explicit-departure-without-consent.xml",
+      "bytes": 14278,
+      "sha256": "378040c7bbfeebd7bd9c6534da311661806e5c5e20ae37e629226ebccf2318d5"
+    },
+    {
+      "file": "p20-first-navigation-guidance.png",
+      "bytes": 687519,
+      "sha256": "060ff8db75f7aacbc15ef7af7f83c80fdd0643541fe1dc9c7226ee1c80635244"
+    },
+    {
+      "file": "p20-first-navigation-guidance.xml",
+      "bytes": 6937,
+      "sha256": "0ebf6e4cfc5b826a15c81f772d26a72d338e98b33b823fb2711e4ffaeffbb76b"
+    },
+    {
+      "file": "p21-passenger-cancel-exits-sdk.png",
+      "bytes": 167158,
+      "sha256": "94fb29e256bfb62247e54c193e6cad05748b6befa38cc509d4a116e6daa0b825"
+    },
+    {
+      "file": "p21-passenger-cancel-exits-sdk.xml",
+      "bytes": 10309,
+      "sha256": "30793787132925c843f90b2825caafe3ebf5acfdd00bfc743f18e304f28f9d04"
+    }
+  ],
+  "businessTestData": "fresh isolated localTLS/MemoryCAS/SQLite, not cloud business accounts; passenger approvals/cancellation through explicit synthetic API control, not a second passenger app UI",
+  "actualProvider": {
+    "AMapMapAndRoadRoute": true,
+    "turnGuidance": true,
+    "sdkArrivalHintObservedD1": true,
+    "emulatorLocation": "simulated WGS84 positions in Yichang; not physical driving/GPS authenticity proof"
+  },
+  "orders": [
+    {
+      "id": "PORD989cc854d1c7",
+      "scope": "local synthetic standard roundtrip/rider edited+deleted",
+      "finalStage": "WAIT_PAY",
+      "waypoints": [
+        0,
+        1
+      ],
+      "fareCents": 4642,
+      "money": "simulation, not paid"
+    },
+    {
+      "id": "PORD3546b7270be7",
+      "scope": "local synthetic reservation/fresh-consent test",
+      "finalStage": "CANCELLED"
+    }
+  ],
+  "build": {
+    "unitTests": 95,
+    "failures": 0,
+    "originalAPKBytes": 133016738,
+    "sha256": "55b4657b337fc1e6a4324fc30e334655fd31c3bf396965d22d6cbf36d5e9fd9d"
+  },
+  "scopeLimits": [
+    "No real outgoing call; only ACTION_DIAL page inspected",
+    "No physical road driving, OEM/personal phone, audible voice/incoming call, long background/lockscreen or32bitOS verification",
+    "Actual provider failure/retry UI not forced natively; relevant gates and late listener release traces executed in unit tests",
+    "Published passenger23 code tree unchanged; payload source has no same-endpoint client block; server loop create/update scenarios run in284 independent tests",
+    "D1 SDK arrival hint/delivery-far-consent inheritance explicitly limited to unchanged callback/business functions and same backend tree"
+  ],
+  "nonblocking": [
+    "At font1.3 the new-order alert 查看订单 label wraps onto2 lines but remains complete/clickable; normal font single-line; not a clipping failure"
+  ],
+  "harnessNotes": [
+    "Transient nullroot after configuration andSDKview transitions retried after deletingoldXML; no stale dump used",
+    "QA-only fresh CA corrected forPython3.14 strict X509; prior empty failed runtime retained",
+    "Initial source wrapper file has no execute bit; build uses bash; originalAPK unaffected"
+  ],
+  "cleanup": "PASS",
+  "at": "2026-10-31T15:25:19.518522+00:00"
+}

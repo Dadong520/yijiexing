@@ -1,0 +1,127 @@
+{
+  "schemaVersion": 1,
+  "id": "NAVIB-20261031-01",
+  "owner": "backend",
+  "goal": "实现共享后端往返路线安全校验及当前接单司机显式取乘车人联系电话，独立验收由root执行",
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-in-app-navigation-20261031",
+  "branch": "codex/in-app-navigation-20261031",
+  "baseSha": "d5d878e2e56ca11fabc576545c46a277d8e7b985",
+  "allow_paths": [
+    "coordination/tasks/NAVIB-20261031-01.json",
+    "coordination/handoffs/backend.md",
+    "coordination/evidence/NAVIB-20261031-01/",
+    "apps/cloud-service/passenger.py",
+    "apps/cloud-service/server.py",
+    "apps/cloud-service/cloud_server.py",
+    "apps/cloud-service/tests/test_round_trip_navigation.py",
+    "apps/cloud-service/tests/test_passenger_contact.py",
+    "coordination/contracts/NAVI-20261031-01.md"
+  ],
+  "checks": [
+    "User latest replaces external app navigation with actual in-app SDK; no fallback auto external intent",
+    "Loop requires validated waypoint away from start; route distance uses every leg, no fare-rule change or legacy data deletion",
+    "Preserve owner/stage/PIN/distance/passenger consent and waypoint completion gates; SDK arrival never auto advances order",
+    "Only independent experience project; no secrets/APK/private DB in Git; native provider NOT_RUN unless actually verified"
+  ],
+  "status": "QUERY_FIX_READY_FOR_ROOT_IDLE",
+  "acceptance": "PASS",
+  "tests": [
+    {
+      "check": "immutable基线创建/修改/距离/DTO/阶段/电话只读源诊断",
+      "result": "PRELIMINARY_COMPLETE",
+      "sourceSha": "d5d878e2e56ca11fabc576545c46a277d8e7b985"
+    },
+    {
+      "suite": "roundtrip",
+      "command": "python3 -m unittest discover -s apps/cloud-service/tests -p test_round_trip_navigation.py -v",
+      "passed": 9,
+      "failures": 0,
+      "result": "PASS_AUTHOR_SELFTEST",
+      "log": "coordination/evidence/NAVIB-20261031-01/roundtrip-selftest.log",
+      "logSha256": "7be1bb2d760390a0419974eab4fc6255e418d6d7112c1f5273944e974abad7dc"
+    },
+    {
+      "suite": "contact",
+      "command": "python3 -m unittest discover -s apps/cloud-service/tests -p test_passenger_contact.py -v",
+      "passed": 7,
+      "failures": 0,
+      "result": "PASS_AUTHOR_SELFTEST",
+      "log": "coordination/evidence/NAVIB-20261031-01/contact-selftest.log",
+      "logSha256": "c079330e45d8be22b085555c4298f550a7a74c1ff5797e6a468dd8773022e9cb"
+    },
+    {
+      "suite": "passenger",
+      "command": "python3 -m unittest discover -s apps/cloud-service/tests -p test_passenger.py -v",
+      "passed": 21,
+      "failures": 0,
+      "result": "PASS_AUTHOR_SELFTEST",
+      "log": "coordination/evidence/NAVIB-20261031-01/passenger-selftest.log",
+      "logSha256": "988981a520b741f306a23ee5b2dd8ec903b52b4da8045c0871616b8336a22125"
+    },
+    {
+      "suite": "distance",
+      "command": "python3 -m unittest discover -s apps/cloud-service/tests -p test_trip_distance.py -v",
+      "passed": 23,
+      "failures": 0,
+      "result": "PASS_AUTHOR_SELFTEST",
+      "log": "coordination/evidence/NAVIB-20261031-01/distance-selftest.log",
+      "logSha256": "de45f73cb1749f5dc60fef21247edfbe1ca2e19cb7592cfadcb99f3924f594bc"
+    },
+    {
+      "suite": "original",
+      "command": "python3 -m unittest discover -s apps/cloud-service/tests -p test_original_integration.py -v",
+      "passed": 55,
+      "failures": 0,
+      "result": "PASS_AUTHOR_SELFTEST",
+      "log": "coordination/evidence/NAVIB-20261031-01/original-selftest.log",
+      "logSha256": "a731a21073f59277b1fb5bb62ca93543f55f71a13e9a881097ba0da0cdecc274"
+    },
+    {
+      "suite": "negotiation",
+      "command": "python3 -m unittest discover -s apps/cloud-service/tests -p test_negotiation.py -v",
+      "passed": 13,
+      "failures": 0,
+      "result": "PASS_AUTHOR_SELFTEST",
+      "log": "coordination/evidence/NAVIB-20261031-01/negotiation-selftest.log",
+      "logSha256": "611820514d4b33042a1f80bfa487e0cb17f3693331965a7b74273316ff1b85c0"
+    },
+    {
+      "check": "局部保留空值query严格校验HTTP反例",
+      "command": "python3 -m unittest discover -s apps/cloud-service/tests -p test_passenger_contact.py -v",
+      "result": "PASS_AUTHOR_SELFTEST",
+      "passed": 8,
+      "failures": 0,
+      "log": "coordination/evidence/NAVIB-20261031-01/contact-query-fix-selftest.log"
+    }
+  ],
+  "evidence": [
+    "coordination/evidence/NAVIB-20261031-01/PRELIMINARY.md",
+    "coordination/evidence/NAVIB-20261031-01/IMPLEMENTATION.json",
+    "coordination/evidence/NAVIB-20261031-01/IMPLEMENTATION.md",
+    "coordination/evidence/NAVIB-20261031-01/MISSING_FROM_6F.patch",
+    "coordination/evidence/NAVIB-20261031-01/QUERY_FIX.json",
+    "coordination/evidence/NAVIB-20261031-01/QUERY_FIX.md"
+  ],
+  "nextAction": "Backend scope independently accepted; root waits driver native acceptance before combined API/APK publication",
+  "deploy_owner": "coordinator",
+  "releaseReady": false,
+  "updatedAt": "2026-10-31T22:06:15+08:00",
+  "pendingMergeSha": "6e1b1ee02b3cc1a3bd7359e2970d2f3d4c3c59c3",
+  "backendWriteRoot": "/Users/dongge/.codex/tmp/yijiexing-ui-optimization-worktree-20261029",
+  "backendBranch": "codex/in-app-navigation-backend-20261031",
+  "backendBaseSha": "1c8a6422c7fe7fcacce3d0774c55a3ae2698c21a",
+  "independentAcceptanceOwner": "coordinator",
+  "authorSelfTest": "PASS_128",
+  "backendCommitSha": "6e1b1ee02b3cc1a3bd7359e2970d2f3d4c3c59c3",
+  "backendParentSha": "fb0eba38ff2bc598901f9c707a38119f05398fda",
+  "independentReview": {
+    "reviewer": "coordinator",
+    "sourceSha": "445787fcab4c5d2baba7f51ad4db78cd1e2216a0",
+    "authorSha": "6e1b1ee02b3cc1a3bd7359e2970d2f3d4c3c59c3",
+    "backendTreeMatches": true,
+    "fullSuite": 284,
+    "result": "PASS",
+    "evidence": "coordination/evidence/NAVI-20261031-01/backend-independent-final.json"
+  },
+  "acceptanceScope": "backend only, root nonauthor HTTP/source/schema; driver and overall release still NOT_RUN"
+}

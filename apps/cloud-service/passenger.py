@@ -15,6 +15,8 @@ CREATE TABLE IF NOT EXISTS passengers(id TEXT PRIMARY KEY,mobile TEXT UNIQUE,pro
 CREATE TABLE IF NOT EXISTS passenger_sessions(token TEXT PRIMARY KEY,passenger TEXT,expires TEXT);
 CREATE TABLE IF NOT EXISTS passenger_orders(id TEXT PRIMARY KEY,passenger TEXT,driver TEXT,payload TEXT,created TEXT);
 CREATE INDEX IF NOT EXISTS passenger_orders_owner ON passenger_orders(passenger);
+-- Private per-order contact snapshot. Never joined into public order/state DTOs.
+CREATE TABLE IF NOT EXISTS passenger_order_contacts(order_id TEXT PRIMARY KEY,passenger_id TEXT NOT NULL,name TEXT NOT NULL,mobile TEXT NOT NULL,created TEXT NOT NULL);
 CREATE TABLE IF NOT EXISTS passenger_actions(passenger TEXT,request_id TEXT,request_hash TEXT,result TEXT,PRIMARY KEY(passenger,request_id));
 '''
 UNFINISHED = {'AVAILABLE','BID_SENT','PREPAY','RESERVED','PICKUP','ARRIVED','TRIP','WAIT_PAY','WAIT_CONTINUE'}
@@ -249,6 +251,35 @@ class PassengerMixin(TripDistanceMixin,NegotiationMixin,PassengerOrderOptionsMix
         self.credit(driver,st,o);self.save_state(driver,st)
     def validate_point(self,lat,lng):
         require(type(lat) in (int,float) and math.isfinite(lat) and -90<=lat<=90 and type(lng) in (int,float) and math.isfinite(lng) and -180<=lng<=180,'地图坐标无效')
+    def validate_route_endpoints(self, origin, destination, start, end, waypoints):
+        """A same-place trip must actually leave its start via a validated stop."""
+        self.validate_point(*start);self.validate_point(*end)
+        require(isinstance(waypoints,list) and len(waypoints)<=2,'最多支持两个途经点')
+        def different(a,b):return abs(a[0]-b[0])>1e-7 or abs(a[1]-b[1])>1e-7
+        away=False
+        for point in waypoints:
+            require(isinstance(point,dict),'途经点格式无效')
+            textfield(point.get('name'),'途经点',2,100)
+            self.validate_point(point.get('latitude'),point.get('longitude'))
+            away=away or different(start,(point['latitude'],point['longitude']))
+        require(away or origin.casefold()!=destination.casefold(),'上车点和目的地不能相同')
+        require(away or different(start,end),'起终点坐标不能相同')
+
+    def driver_passenger_contact(self, driver, order_id):
+        require(isinstance(order_id,str) and 1<=len(order_id)<=120,'订单编号无效')
+        order=self.shared_order(order_id)
+        require(order is not None and order.get('driverId')==driver,'订单不存在或不属于当前司机',404)
+        require(order.get('stage') in ('RESERVED','PICKUP','ARRIVED','TRIP'),
+            '当前订单阶段不可获取乘车人电话',409,{'reason':'PASSENGER_CONTACT_INACTIVE'})
+        contact=self.db.execute('SELECT passenger_id,name,mobile FROM passenger_order_contacts WHERE order_id=?',(order_id,)).fetchone()
+        # No legacy inference: a rider may have been edited/deleted, and its old
+        # phone tail does not reliably establish a complete telephone number.
+        require(contact is not None and contact['passenger_id']==order.get('passengerId') and
+            isinstance(contact['mobile'],str) and bool(re.fullmatch(r'1\d{10}',contact['mobile'])),
+            '此订单没有可靠的乘车人电话快照，请联系公司客服',409,{'reason':'PASSENGER_CONTACT_UNAVAILABLE'})
+        return {'orderId':order_id,'mobile':contact['mobile'],'name':contact['name'],
+            'contactMode':'DIRECT_DIAL','relayAvailable':False}
+
     def passenger_create_order(self,pid,p):
         destination_pending=p.get('destinationPending',False);require(isinstance(destination_pending,bool),'无终点标记无效')
         require(not destination_pending,'请先选择目的地后再叫车')
@@ -257,9 +288,7 @@ class PassengerMixin(TripDistanceMixin,NegotiationMixin,PassengerOrderOptionsMix
         self.require_passenger_trip_available(pid)
         kind=p.get('kind','STANDARD');require(kind in ('STANDARD','RESERVED','BID'),'乘客订单类型无效')
         origin=textfield(p.get('origin'),'上车点',2,100);dest=textfield(p.get('destination'),'目的地',2,100)
-        require(origin.casefold()!=dest.casefold(),'上车点和目的地不能相同')
         for prefix in ('origin','destination'):self.validate_point(p.get(prefix+'Lat'),p.get(prefix+'Lng'))
-        require(destination_pending or abs(p['originLat']-p['destinationLat'])>1e-7 or abs(p['originLng']-p['destinationLng'])>1e-7,'起终点坐标不能相同')
         city=self.city(p.get('city',profile['city']))['id'];scheduled=p.get('scheduledAt')
         cfg,_,_=self.effective(city);require(cfg['systemEnabled'],'此区域暂停乘客下单',403)
         self.operations.require_feature(city,{'STANDARD':'instant','RESERVED':'reservation','BID':'bidding'}[kind])
@@ -270,6 +299,8 @@ class PassengerMixin(TripDistanceMixin,NegotiationMixin,PassengerOrderOptionsMix
         for i,w in enumerate(waypoints):
             require(isinstance(w,dict),'途经点格式无效');name=textfield(w.get('name'),'途经点',2,100);self.validate_point(w.get('latitude'),w.get('longitude'))
             normalized.append({'id':uid('WP'),'sortNo':i+1,'name':name,'latitude':w['latitude'],'longitude':w['longitude']})
+        self.validate_route_endpoints(origin,dest,(p['originLat'],p['originLng']),
+            (p['destinationLat'],p['destinationLng']),normalized)
         # Explicitly an experience estimate, not a production metered tariff.
         points=[(p['originLat'],p['originLng'])]+[(w['latitude'],w['longitude']) for w in normalized]+[(p['destinationLat'],p['destinationLng'])]
         distance=0
@@ -289,7 +320,12 @@ class PassengerMixin(TripDistanceMixin,NegotiationMixin,PassengerOrderOptionsMix
             if prefix=='destination' and destination_pending:continue
             metadata=self.coordinate_metadata(p.get(prefix+'CoordinateMetadata'),o[prefix+'Lat'],o[prefix+'Lng'])
             if metadata is not None:o[prefix+'CoordinateMetadata']=metadata
-        self.db.execute('INSERT INTO passenger_orders VALUES (?,?,?,?,?)',(o['id'],pid,None,dumps(o),stamp()));return {'order':self.passenger_view(o)}
+        # Both rows are committed/rolled back by the existing request transaction.
+        # The immutable contact never enters public order.payload or action results.
+        self.db.execute('INSERT INTO passenger_orders VALUES (?,?,?,?,?)',(o['id'],pid,None,dumps(o),stamp()))
+        self.db.execute('INSERT INTO passenger_order_contacts VALUES (?,?,?,?,?)',
+            (o['id'],pid,rider['name'],rider['mobile'],stamp()))
+        return {'order':self.passenger_view(o)}
     def passenger_action(self,pid,action,p,request_id=None):
         self.expire_passenger_bids()
         require(isinstance(action,str) and 1<=len(action)<=80,'操作名称无效');require(isinstance(p,dict),'操作参数须为JSON对象')
@@ -306,7 +342,13 @@ class PassengerMixin(TripDistanceMixin,NegotiationMixin,PassengerOrderOptionsMix
         elif action=='order.create':result=self.passenger_create_order(pid,p)
         elif action=='order.distanceConsent':result=self.passenger_distance_consent(pid,p)
         elif action=='location.report':result=self.passenger_report_location(pid,p)
-        elif action in ('negotiation.claim','negotiation.dispute'):result=self.passenger_negotiation_action(pid,action,p)
+        elif action in ('negotiation.claim','negotiation.dispute'):
+            result=self.passenger_negotiation_action(pid,action,p)
+            # Claim is the other path creating a canonical passenger order. It
+            # explicitly binds the booker; never backfill an old claim replay.
+            if action=='negotiation.claim' and not result.get('idempotent'):
+                self.db.execute('INSERT INTO passenger_order_contacts VALUES (?,?,?,?,?)',
+                    (result['order']['id'],pid,profile['name'],profile['mobile'],stamp()))
         elif action in ('order.blockDriver','order.unblockDriver','order.remark','order.complaint.attach'):result=self.passenger_order_option(pid,action,p)
         elif action.startswith('order.'):
             o=self.own_passenger_order(pid,p.get('id'))
@@ -347,8 +389,8 @@ class PassengerMixin(TripDistanceMixin,NegotiationMixin,PassengerOrderOptionsMix
                     require((o['stage']=='AVAILABLE' and not o['bids']) or (o.get('destinationPending') and o['kind']=='STANDARD' and o['stage'] in ('PICKUP','ARRIVED')),'司机接单或报价后不能改变已约定目的地及估价，请取消后重新下单',409)
                     destination=textfield(p.get('destination'),'目的地',2,100);self.validate_point(p.get('destinationLat'),p.get('destinationLng'))
                     metadata=self.coordinate_metadata(p.get('destinationCoordinateMetadata'),p['destinationLat'],p['destinationLng'])
-                    require(destination.casefold()!=o['origin'].casefold(),'起终点名称不能相同')
-                    require(abs(p['destinationLat']-o['originLat'])>1e-7 or abs(p['destinationLng']-o['originLng'])>1e-7,'起终点坐标不能相同')
+                    self.validate_route_endpoints(o['origin'],destination,(o['originLat'],o['originLng']),
+                        (p['destinationLat'],p['destinationLng']),o['waypoints'])
                     points=[(o['originLat'],o['originLng'])]+[(w['latitude'],w['longitude']) for w in o['waypoints']]+[(p['destinationLat'],p['destinationLng'])]
                     distance=0
                     for a,b in zip(points,points[1:]):

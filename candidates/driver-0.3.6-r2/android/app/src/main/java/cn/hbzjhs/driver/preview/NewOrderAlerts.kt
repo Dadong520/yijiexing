@@ -18,6 +18,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -148,6 +149,16 @@ fun NewOrderDialog(
 
                 Spacer(modifier = Modifier.height(14.dp))
 
+                // Route and figures scroll inside a bounded area so the buttons below stay on screen
+                // with large text on small phones.
+                Column(
+                    Modifier.fillMaxWidth().weight(1f, fill = false)
+                        .verticalScroll(androidx.compose.foundation.rememberScrollState())
+                ) {
+                if (detail != null) {
+                    // The shared ordered list: origin, every waypoint in order, destination.
+                    RouteStops(detail, compact = true)
+                } else {
                 Row(verticalAlignment = Alignment.Top) {
                     Text("起：", fontSize = 15.sp, fontWeight = FontWeight.Bold, color = primaryGreen)
                     Text(
@@ -170,6 +181,7 @@ fun NewOrderDialog(
                         maxLines = 2,
                         overflow = TextOverflow.Ellipsis
                     )
+                }
                 }
 
                 Spacer(modifier = Modifier.height(12.dp))
@@ -199,6 +211,7 @@ fun NewOrderDialog(
                 }
                 if (detail != null)
                     Text(newOrderSourceNote(detail.isPrivateExample), fontSize = 12.sp, lineHeight = 16.sp, color = Warm, modifier = Modifier.padding(top = 6.dp))
+                }
 
                 Spacer(modifier = Modifier.height(16.dp))
 
@@ -208,7 +221,7 @@ fun NewOrderDialog(
                 ) {
                     OutlinedButton(
                         onClick = { NewOrderAlerts.dismiss(first.id) },
-                        modifier = Modifier.weight(1f).height(44.dp),
+                        modifier = Modifier.weight(1f).heightIn(min = 44.dp),
                         shape = RoundedCornerShape(8.dp)
                     ) {
                         Text("稍后", fontSize = 14.sp, color = textGrey)
@@ -220,7 +233,7 @@ fun NewOrderDialog(
                             NewOrderAlerts.dismiss(id)
                             onOpen(id)
                         },
-                        modifier = Modifier.weight(1f).height(44.dp),
+                        modifier = Modifier.weight(1f).heightIn(min = 44.dp),
                         colors = ButtonDefaults.buttonColors(containerColor = primaryGreen),
                         shape = RoundedCornerShape(8.dp)
                     ) {

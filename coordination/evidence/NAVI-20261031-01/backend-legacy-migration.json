@@ -1,0 +1,10 @@
+{
+  "sourceCommit": "6afb636",
+  "scope": "private offline clone of45 old passenger_orders; no live write",
+  "oldOrders": 45,
+  "fullRowsEqual": true,
+  "newPrivateContacts": 0,
+  "activeLegacyContactsRejected": 0,
+  "sqliteIntegrity": "ok",
+  "result": "PASS"
+}

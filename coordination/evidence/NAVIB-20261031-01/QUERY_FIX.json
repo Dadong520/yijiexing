@@ -1,0 +1,42 @@
+{
+  "taskId": "NAVIB-20261031-01",
+  "phase": "CONTACT_QUERY_REPAIR",
+  "at": "2026-10-31T22:06:15+08:00",
+  "authorRole": "backend",
+  "commitSha": "6e1b1ee02b3cc1a3bd7359e2970d2f3d4c3c59c3",
+  "parentSha": "fb0eba38ff2bc598901f9c707a38119f05398fda",
+  "changedFiles": [
+    "apps/cloud-service/server.py",
+    "apps/cloud-service/tests/test_passenger_contact.py"
+  ],
+  "change": "Contact route only: parse_qs(u.query,keep_blank_values=True), exactly one orderId key and value, nonblank. Global query parsing and other routes untouched.",
+  "actualTest": {
+    "command": "python3 -m unittest discover -s apps/cloud-service/tests -p test_passenger_contact.py -v",
+    "tests": 8,
+    "failures": 0,
+    "result": "PASS_AUTHOR_SELFTEST",
+    "log": "coordination/evidence/NAVIB-20261031-01/contact-query-fix-selftest.log",
+    "logSha256": "fa9556945c4620d8ff0d3bc3926907dd44fcbaf083c7c46a3c8a5bf8d45278a5"
+  },
+  "counterexamples": [
+    "orderId=valid&orderId=",
+    "orderId=valid&unused=",
+    "orderId="
+  ],
+  "independentAcceptance": "NOT_RUN on this final commit; root owns",
+  "rootReportedPriorIndependentRun": {
+    "importedSource": "6f76ae9f9536f01595f81b8889ce0743ef709fe9",
+    "integrationShaPrefix": "6afb636",
+    "tests": 282,
+    "seconds": 66.526,
+    "result": "PASS_REPORTED_BY_ROOT",
+    "legacyClone": "45 rows unchanged/contact0; no active legacy sample contact read tested"
+  },
+  "importWarning": "Root-reported6f is initial superseded commit; final deliveredfb adds first new negotiation.claim immutable booker snapshot +14line regression. Strict-query second commit alone does not supply that missing diff.",
+  "missingFromImported6fPatch": "coordination/evidence/NAVIB-20261031-01/MISSING_FROM_6F.patch",
+  "notRun": [
+    "New independent root acceptance",
+    "Cloud/privateDB/device/provider/real calls/funds"
+  ],
+  "nextAction": "Root import strict-query commit and account for missing6f→fb claim diff, independently check exact combined tree. Backend IDLE until dispatched."
+}

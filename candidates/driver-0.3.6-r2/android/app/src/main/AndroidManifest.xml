@@ -18,6 +18,8 @@
             <meta-data android:name="android.support.FILE_PROVIDER_PATHS" android:resource="@xml/business_file_paths"/>
         </provider>
         <service android:name=".DriverLocationService" android:foregroundServiceType="location" android:exported="false"/>
+        <!-- Location component inside the AMap navigation package; foreground in-app navigation only. -->
+        <service android:name="com.amap.api.location.APSService" android:exported="false"/>
         <activity android:name=".MainActivity" android:exported="true" android:windowSoftInputMode="adjustResize">
             <intent-filter><action android:name="android.intent.action.MAIN"/><category android:name="android.intent.category.LAUNCHER"/></intent-filter>
         </activity>

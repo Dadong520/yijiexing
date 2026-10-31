@@ -1,0 +1,36 @@
+Compiled from "AMapNaviPath.java"
+public class com.amap.api.navi.model.AMapNaviPath {
+  public com.amap.api.navi.model.AMapNaviPath();
+  public boolean isMpidRestoreRoute();
+  public java.lang.String getLabelId();
+  public long getPathid();
+  public java.lang.String getMainRoadInfo();
+  public java.util.List<com.amap.api.navi.model.AMapNaviCameraInfo> getAllCameras();
+  public int[] getWayPointIndex();
+  public java.util.List<com.amap.api.navi.model.NaviLatLng> getWayPoint();
+  public com.amap.api.navi.model.NaviLatLng getStartPoint();
+  public com.amap.api.navi.model.NaviLatLng getEndPoint();
+  public com.amap.api.navi.model.NaviPoi getStartPoi();
+  public com.amap.api.navi.model.NaviPoi getEndPoi();
+  public com.amap.api.navi.model.NaviLatLng getCenterForPath();
+  public com.amap.api.maps.model.LatLngBounds getBoundsForPath();
+  public java.util.List<com.amap.api.navi.model.AMapNaviStep> getSteps();
+  public java.util.List<com.amap.api.navi.model.NaviLatLng> getCoordList();
+  public int getAllLength();
+  public int getAllTime();
+  public int getStepsCount();
+  public int getTollCost();
+  public java.util.List<com.amap.api.navi.model.AMapTrafficStatus> getTrafficStatuses();
+  public java.lang.String getLabels();
+  public com.amap.api.navi.model.AMapRestrictionInfo getRestrictionInfo();
+  public int[] getCityAdcodeList();
+  public com.amap.api.navi.model.NaviLatLng getCarToFootPoint();
+  public java.util.List<com.amap.api.navi.model.NaviLatLng> getCarToFairwayPointList();
+  public java.util.List<com.amap.api.navi.model.NaviLatLng> getLightList();
+  public java.util.List<com.amap.api.navi.model.AMapNaviLimitInfo> getLimitInfos();
+  public java.util.List<com.amap.api.navi.model.AMapNaviForbiddenInfo> getForbiddenInfos();
+  public java.util.List<com.amap.api.navi.model.AMapTrafficIncidentInfo> getTrafficIncidentInfo();
+  public int getTrafficLightCount();
+  public java.util.List<com.amap.api.navi.model.AMapNaviRouteGuideGroup> getNaviGuideList();
+  public int getRouteType();
+}

@@ -1,0 +1,14 @@
+test_bad_waypoints_are_rejected_before_shape_allowance (test_round_trip_navigation.RoundTripNavigation.test_bad_waypoints_are_rejected_before_shape_allowance) ... ok
+test_create_all_kinds_full_legs_and_unchanged_formula (test_round_trip_navigation.RoundTripNavigation.test_create_all_kinds_full_legs_and_unchanged_formula) ... ok
+test_create_and_update_idempotency_do_not_duplicate_contact_or_reprice (test_round_trip_navigation.RoundTripNavigation.test_create_and_update_idempotency_do_not_duplicate_contact_or_reprice) ... ok
+test_epsilon_and_full_loop_300km_limit (test_round_trip_navigation.RoundTripNavigation.test_epsilon_and_full_loop_300km_limit) ... ok
+test_missing_all_same_and_alias_cannot_fake_a_loop (test_round_trip_navigation.RoundTripNavigation.test_missing_all_same_and_alias_cannot_fake_a_loop) ... ok
+test_plain_update_rejects_return_to_start_without_stops (test_round_trip_navigation.RoundTripNavigation.test_plain_update_rejects_return_to_start_without_stops) ... ok
+test_two_stops_one_same_and_one_away_preserve_order (test_round_trip_navigation.RoundTripNavigation.test_two_stops_one_same_and_one_away_preserve_order) ... ok
+test_update_loop_uses_same_rule_and_fare_and_still_locks_after_accept (test_round_trip_navigation.RoundTripNavigation.test_update_loop_uses_same_rule_and_fare_and_still_locks_after_accept) ... ok
+test_update_total_leg_limit_and_invalid_stop_do_not_change_saved_fare (test_round_trip_navigation.RoundTripNavigation.test_update_total_leg_limit_and_invalid_stop_do_not_change_saved_fare) ... ok
+
+----------------------------------------------------------------------
+Ran 9 tests in 0.062s
+
+OK

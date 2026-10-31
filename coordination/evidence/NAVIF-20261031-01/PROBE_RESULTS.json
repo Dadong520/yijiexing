@@ -1,0 +1,120 @@
+{
+  "task": "NAVIF-20261031-01",
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-in-app-navigation-20261031",
+  "branch": "codex/in-app-navigation-20261031",
+  "baseSha": "d5d878e2e56ca11fabc576545c46a277d8e7b985",
+  "scope": "SDK feasibility only; no product changes/AVD/install/cloud/credentials",
+  "status": "PASS_SCOPED_FEASIBILITY",
+  "artifact": {
+    "coordinate": "com.amap.api:navi-3dmap-location-search:11.2.100_3dmap11.2.100_loc11.2.100_sea9.8.1",
+    "jarPath": "/Users/dongge/.codex/tmp/yijiexing-navi-sdk-probe-20261031/downloads/navi-11.2.100.jar",
+    "sha256": "2504d64ebf52ba4a9731bbf71996f6242fe07f6553fec92efe52f0c5ac7621c1",
+    "bytes": 100458122,
+    "download": "direct curl exit0; no proxy needed; logs/jar-direct.log",
+    "newClassCount": 3772,
+    "oldClassCount": 2952,
+    "duplicateClassesIfBothAdded": 2045,
+    "sameClassByteCount": 0,
+    "sharedExamples": [
+      "com/amap/api/maps/MapView.class",
+      "com/amap/api/location/AMapLocationClient.class",
+      "com/amap/api/services/core/ServiceSettings.class"
+    ],
+    "nativeLibraries": [
+      "lib/armeabi-v7a/libapssdk.so",
+      "lib/armeabi-v7a/libopenssl.so",
+      "lib/armeabi-v7a/libneonui_shared.so",
+      "lib/armeabi-v7a/libAMapSDK_NAVI_v11_2_100.so",
+      "lib/armeabi-v7a/libnui.so",
+      "lib/armeabi-v7a/libneonuijni_public.so",
+      "lib/armeabi-v7a/libc++_shared.so",
+      "lib/arm64-v8a/libapssdk.so",
+      "lib/arm64-v8a/libopenssl.so",
+      "lib/arm64-v8a/libneonui_shared.so",
+      "lib/arm64-v8a/libAMapSDK_NAVI_v11_2_100.so",
+      "lib/arm64-v8a/libnui.so",
+      "lib/arm64-v8a/libneonuijni_public.so",
+      "lib/arm64-v8a/libc++_shared.so"
+    ],
+    "oldClassesMissingCount": 907,
+    "oldMissingPublicApiClasses": [
+      "com/amap/api/maps/model/MVTTileOverlayOptions$Builder.class",
+      "com/amap/api/maps/model/MVTTileOverlayOptions$a.class",
+      "com/amap/api/maps/model/MVTTileProvider$a.class"
+    ]
+  },
+  "commands": [
+    {
+      "command": "Exact argv recorded; direct curl to publisher artifact in Maven Central",
+      "exit": 0,
+      "result": "direct success, no proxy used",
+      "argv": [
+        "curl",
+        "--noproxy",
+        "*",
+        "--connect-timeout",
+        "10",
+        "--max-time",
+        "180",
+        "-fL",
+        "https://repo.maven.apache.org/maven2/com/amap/api/navi-3dmap-location-search/11.2.100_3dmap11.2.100_loc11.2.100_sea9.8.1/navi-3dmap-location-search-11.2.100_3dmap11.2.100_loc11.2.100_sea9.8.1.jar",
+        "-o",
+        "/Users/dongge/.codex/tmp/yijiexing-navi-sdk-probe-20261031/downloads/navi-11.2.100.jar"
+      ]
+    },
+    {
+      "command": "OpenJDK17 javap -public -classpath privatejar 10classes",
+      "exit": 0
+    },
+    {
+      "command": "SDK34/JDK17 gradlew --offline --no-daemon :app:compileDebugJavaWithJavac :app:checkDebugDuplicateClasses :app:mergeDebugNativeLibs",
+      "exit": 0,
+      "seconds": 16,
+      "result": "18tasks; downloaded exactcoordinate resolved from private localMaven repository; MapLibre11.8.0 + baseline Compose/lifecycle dependencies",
+      "workingDirectory": "/Users/dongge/.codex/tmp/yijiexing-navi-sdk-probe-20261031/minimal",
+      "argv": [
+        "/Users/dongge/.codex/tmp/yijiexing-navi-sdk-probe-20261031/minimal/gradlew",
+        "-p",
+        "/Users/dongge/.codex/tmp/yijiexing-navi-sdk-probe-20261031/minimal",
+        "--offline",
+        "--no-daemon",
+        ":app:compileDebugJavaWithJavac",
+        ":app:checkDebugDuplicateClasses",
+        ":app:mergeDebugNativeLibs"
+      ],
+      "environment": {
+        "JAVA_HOME": "/opt/homebrew/opt/openjdk@17/libexec/openjdk.jdk/Contents/Home",
+        "ANDROID_HOME": "/opt/homebrew/share/android-commandlinetools"
+      }
+    },
+    {
+      "command": "same isolated gradlew -PincludeLegacyMap :app:checkDebugDuplicateClasses",
+      "exit": 1,
+      "expectedFailure": true,
+      "result": "Duplicate class reported, proves oldmap+navbundle cannot coexist",
+      "argv": [
+        "/Users/dongge/.codex/tmp/yijiexing-navi-sdk-probe-20261031/minimal/gradlew",
+        "-p",
+        "/Users/dongge/.codex/tmp/yijiexing-navi-sdk-probe-20261031/minimal",
+        "--offline",
+        "--no-daemon",
+        "-PincludeLegacyMap",
+        ":app:checkDebugDuplicateClasses"
+      ]
+    }
+  ],
+  "harnessCorrections": [
+    "Initial missingandroid.useAndroidX=true; harness corrected, original failure kept",
+    "Initial minimal MapLibre graph requested uncached lifecycle2.6 transitives offline; used existing app baseline Compose/lifecycle graph, no downloads needed, original failure kept"
+  ],
+  "privateProbeRoot": "/Users/dongge/.codex/tmp/yijiexing-navi-sdk-probe-20261031",
+  "privateMavenRepository": "/Users/dongge/.codex/tmp/yijiexing-navi-sdk-probe-20261031/maven",
+  "runtime": "NOT_RUN",
+  "productFullBuild": "NOT_RUN",
+  "apkGenerated": false,
+  "credentialsRead": false,
+  "AVDstarted": false,
+  "businessWrites": 0,
+  "mergeSha": null,
+  "next": "Root assigns Claude exact implementation paths; author builds actual app and independent runtime review later"
+}

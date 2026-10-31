@@ -1,0 +1,416 @@
+test_bid_expiration_propagates_without_sandbox (test_passenger.PassengerIntegration.test_bid_expiration_propagates_without_sandbox) ... [2026-10-31T22:00:52+08:00] POST /api/passenger/auth/code 200
+[2026-10-31T22:00:52+08:00] POST /api/passenger/auth/login 200
+[2026-10-31T22:00:52+08:00] POST /api/auth/code 200
+[2026-10-31T22:00:52+08:00] POST /api/auth/login 200
+[2026-10-31T22:00:52+08:00] POST /api/action 200
+[2026-10-31T22:00:52+08:00] POST /api/passenger/action 200
+[2026-10-31T22:00:52+08:00] POST /api/action 200
+[2026-10-31T22:00:52+08:00] GET /api/passenger/state 200
+[2026-10-31T22:00:52+08:00] GET /api/state 200
+[2026-10-31T22:00:52+08:00] POST /api/passenger/action 409
+/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/tempfile.py:484: ResourceWarning: Implicitly cleaning up <HTTPError 409: 'Conflict'>
+  _warnings.warn(self.warn_message, ResourceWarning)
+ok
+test_bid_multiple_drivers_selection_and_prepaid_finish (test_passenger.PassengerIntegration.test_bid_multiple_drivers_selection_and_prepaid_finish) ... [2026-10-31T22:00:53+08:00] POST /api/passenger/auth/code 200
+[2026-10-31T22:00:53+08:00] POST /api/passenger/auth/login 200
+[2026-10-31T22:00:53+08:00] POST /api/auth/code 200
+[2026-10-31T22:00:53+08:00] POST /api/auth/login 200
+[2026-10-31T22:00:53+08:00] POST /api/action 200
+[2026-10-31T22:00:53+08:00] POST /api/auth/code 200
+[2026-10-31T22:00:53+08:00] POST /api/auth/login 200
+[2026-10-31T22:00:53+08:00] POST /api/action 200
+[2026-10-31T22:00:53+08:00] POST /api/passenger/action 200
+[2026-10-31T22:00:53+08:00] POST /api/action 200
+[2026-10-31T22:00:53+08:00] POST /api/action 200
+[2026-10-31T22:00:53+08:00] GET /api/passenger/state 200
+[2026-10-31T22:00:53+08:00] POST /api/passenger/action 200
+[2026-10-31T22:00:53+08:00] POST /api/action 404
+/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/tempfile.py:484: ResourceWarning: Implicitly cleaning up <HTTPError 404: 'Not Found'>
+  _warnings.warn(self.warn_message, ResourceWarning)
+[2026-10-31T22:00:53+08:00] GET /api/passenger/state 200
+[2026-10-31T22:00:53+08:00] POST /api/passenger/action 200
+[2026-10-31T22:00:53+08:00] GET /api/state 200
+[2026-10-31T22:00:53+08:00] POST /api/action 200
+[2026-10-31T22:00:53+08:00] GET /api/state 200
+[2026-10-31T22:00:53+08:00] GET /api/passenger/state 200
+[2026-10-31T22:00:53+08:00] POST /api/passenger/action 200
+[2026-10-31T22:00:53+08:00] POST /api/action 200
+[2026-10-31T22:00:53+08:00] POST /api/action 200
+[2026-10-31T22:00:53+08:00] GET /api/state 200
+[2026-10-31T22:00:53+08:00] POST /api/action 200
+[2026-10-31T22:00:53+08:00] POST /api/action 200
+[2026-10-31T22:00:53+08:00] GET /api/passenger/state 200
+[2026-10-31T22:00:53+08:00] GET /api/state 200
+ok
+test_block_driver_and_complaint_attachment_integrated (test_passenger.PassengerIntegration.test_block_driver_and_complaint_attachment_integrated) ... [2026-10-31T22:00:53+08:00] POST /api/passenger/auth/code 200
+[2026-10-31T22:00:53+08:00] POST /api/passenger/auth/login 200
+[2026-10-31T22:00:53+08:00] POST /api/auth/code 200
+[2026-10-31T22:00:53+08:00] POST /api/auth/login 200
+[2026-10-31T22:00:53+08:00] POST /api/action 200
+[2026-10-31T22:00:53+08:00] POST /api/passenger/action 200
+[2026-10-31T22:00:53+08:00] POST /api/action 200
+[2026-10-31T22:00:53+08:00] GET /api/state 200
+[2026-10-31T22:00:53+08:00] POST /api/action 200
+[2026-10-31T22:00:53+08:00] GET /api/state 200
+[2026-10-31T22:00:53+08:00] GET /api/passenger/state 200
+[2026-10-31T22:00:53+08:00] POST /api/passenger/action 200
+[2026-10-31T22:00:53+08:00] POST /api/action 200
+[2026-10-31T22:00:53+08:00] POST /api/action 200
+[2026-10-31T22:00:53+08:00] GET /api/state 200
+[2026-10-31T22:00:53+08:00] POST /api/action 200
+[2026-10-31T22:00:53+08:00] POST /api/action 200
+[2026-10-31T22:00:53+08:00] POST /api/passenger/action 200
+[2026-10-31T22:00:53+08:00] POST /api/passenger/action 200
+[2026-10-31T22:00:53+08:00] POST /api/passenger/action 200
+[2026-10-31T22:00:53+08:00] GET /api/passenger/files/PCF94eab2c35f0a 200
+[2026-10-31T22:00:53+08:00] POST /api/passenger/auth/code 200
+[2026-10-31T22:00:53+08:00] POST /api/passenger/auth/login 200
+[2026-10-31T22:00:53+08:00] GET /api/passenger/files/PCF94eab2c35f0a 404
+[2026-10-31T22:00:53+08:00] GET /api/passenger/files/PCF94eab2c35f0a 401
+/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/tempfile.py:484: ResourceWarning: Implicitly cleaning up <HTTPError 401: 'Unauthorized'>
+  _warnings.warn(self.warn_message, ResourceWarning)
+[2026-10-31T22:00:53+08:00] POST /api/passenger/action 200
+[2026-10-31T22:00:53+08:00] POST /api/passenger/action 200
+[2026-10-31T22:00:53+08:00] GET /api/state 200
+[2026-10-31T22:00:53+08:00] POST /api/action 404
+[2026-10-31T22:00:53+08:00] POST /api/passenger/action 200
+[2026-10-31T22:00:53+08:00] POST /api/action 200
+ok
+test_cancel_refund_reserved_waypoints_and_external_markers (test_passenger.PassengerIntegration.test_cancel_refund_reserved_waypoints_and_external_markers) ... [2026-10-31T22:00:53+08:00] POST /api/passenger/auth/code 200
+[2026-10-31T22:00:53+08:00] POST /api/passenger/auth/login 200
+[2026-10-31T22:00:53+08:00] POST /api/auth/code 200
+[2026-10-31T22:00:53+08:00] POST /api/auth/login 200
+[2026-10-31T22:00:53+08:00] POST /api/action 200
+[2026-10-31T22:00:53+08:00] POST /api/passenger/action 200
+[2026-10-31T22:00:53+08:00] POST /api/action 200
+[2026-10-31T22:00:53+08:00] POST /api/passenger/action 200
+[2026-10-31T22:00:53+08:00] POST /api/passenger/action 200
+[2026-10-31T22:00:53+08:00] POST /api/passenger/action 200
+[2026-10-31T22:00:53+08:00] GET /api/passenger/state 200
+[2026-10-31T22:00:53+08:00] POST /api/passenger/action 200
+[2026-10-31T22:00:53+08:00] POST /api/action 200
+[2026-10-31T22:00:53+08:00] GET /api/state 200
+[2026-10-31T22:00:53+08:00] POST /api/action 200
+[2026-10-31T22:00:53+08:00] GET /api/state 200
+[2026-10-31T22:00:53+08:00] POST /api/action 200
+[2026-10-31T22:00:53+08:00] GET /api/state 200
+[2026-10-31T22:00:53+08:00] GET /api/passenger/state 200
+[2026-10-31T22:00:53+08:00] POST /api/passenger/action 200
+[2026-10-31T22:00:53+08:00] POST /api/action 200
+[2026-10-31T22:00:53+08:00] POST /api/action 200
+[2026-10-31T22:00:53+08:00] POST /api/action 409
+[2026-10-31T22:00:53+08:00] POST /api/action 200
+[2026-10-31T22:00:53+08:00] GET /api/state 200
+[2026-10-31T22:00:53+08:00] POST /api/action 200
+[2026-10-31T22:00:53+08:00] POST /api/action 200
+[2026-10-31T22:00:53+08:00] POST /api/passenger/action 200
+[2026-10-31T22:00:53+08:00] GET /api/passenger/orders/PORDf2786e81d514/route 200
+[2026-10-31T22:00:53+08:00] GET /api/passenger/orders/PORDf2786e81d514/fees 200
+ok
+test_cross_instance_race_cas_never_assigns_twice (test_passenger.PassengerIntegration.test_cross_instance_race_cas_never_assigns_twice) ... [2026-10-31T22:00:53+08:00] POST /api/passenger/auth/code 200
+[2026-10-31T22:00:53+08:00] POST /api/passenger/auth/login 200
+[2026-10-31T22:00:53+08:00] POST /api/auth/code 200
+[2026-10-31T22:00:53+08:00] POST /api/auth/login 200
+[2026-10-31T22:00:53+08:00] POST /api/action 200
+[2026-10-31T22:00:53+08:00] POST /api/auth/code 200
+[2026-10-31T22:00:53+08:00] POST /api/auth/login 200
+[2026-10-31T22:00:53+08:00] POST /api/action 200
+[2026-10-31T22:00:53+08:00] POST /api/passenger/action 200
+[2026-10-31T22:00:53+08:00] POST /api/action 200
+[2026-10-31T22:00:53+08:00] cloud persistence unavailable: SnapshotConflict
+[2026-10-31T22:00:53+08:00] POST /api/action 503
+/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/tempfile.py:484: ResourceWarning: Implicitly cleaning up <HTTPError 503: 'Service Unavailable'>
+  _warnings.warn(self.warn_message, ResourceWarning)
+[2026-10-31T22:00:53+08:00] GET /api/passenger/state 200
+[2026-10-31T22:00:53+08:00] GET /api/state 200
+[2026-10-31T22:00:53+08:00] GET /api/state 200
+ok
+test_driver_bid_projection_retains_bid_timestamp (test_passenger.PassengerIntegration.test_driver_bid_projection_retains_bid_timestamp) ... [2026-10-31T22:00:54+08:00] POST /api/passenger/auth/code 200
+[2026-10-31T22:00:54+08:00] POST /api/passenger/auth/login 200
+[2026-10-31T22:00:54+08:00] POST /api/auth/code 200
+[2026-10-31T22:00:54+08:00] POST /api/auth/login 200
+[2026-10-31T22:00:54+08:00] POST /api/action 200
+[2026-10-31T22:00:54+08:00] POST /api/passenger/action 200
+[2026-10-31T22:00:54+08:00] POST /api/action 200
+ok
+test_driver_bid_withdraw_reopens_and_order_update_locks_after_bid (test_passenger.PassengerIntegration.test_driver_bid_withdraw_reopens_and_order_update_locks_after_bid) ... [2026-10-31T22:00:54+08:00] POST /api/passenger/auth/code 200
+[2026-10-31T22:00:54+08:00] POST /api/passenger/auth/login 200
+[2026-10-31T22:00:54+08:00] POST /api/auth/code 200
+[2026-10-31T22:00:54+08:00] POST /api/auth/login 200
+[2026-10-31T22:00:54+08:00] POST /api/action 200
+[2026-10-31T22:00:54+08:00] POST /api/passenger/action 200
+[2026-10-31T22:00:54+08:00] POST /api/passenger/action 200
+[2026-10-31T22:00:54+08:00] POST /api/action 200
+[2026-10-31T22:00:54+08:00] POST /api/passenger/action 409
+[2026-10-31T22:00:54+08:00] POST /api/passenger/action 200
+[2026-10-31T22:00:54+08:00] POST /api/action 200
+[2026-10-31T22:00:54+08:00] GET /api/passenger/state 200
+[2026-10-31T22:00:54+08:00] POST /api/action 200
+[2026-10-31T22:00:54+08:00] GET /api/passenger/state 200
+ok
+test_driver_cancel_same_order_continue_and_rider_snapshot (test_passenger.PassengerIntegration.test_driver_cancel_same_order_continue_and_rider_snapshot) ... [2026-10-31T22:00:54+08:00] POST /api/passenger/auth/code 200
+[2026-10-31T22:00:54+08:00] POST /api/passenger/auth/login 200
+[2026-10-31T22:00:54+08:00] POST /api/auth/code 200
+[2026-10-31T22:00:54+08:00] POST /api/auth/login 200
+[2026-10-31T22:00:54+08:00] POST /api/action 200
+[2026-10-31T22:00:54+08:00] POST /api/passenger/action 200
+[2026-10-31T22:00:54+08:00] POST /api/passenger/action 200
+[2026-10-31T22:00:54+08:00] POST /api/passenger/action 200
+[2026-10-31T22:00:54+08:00] POST /api/action 200
+[2026-10-31T22:00:54+08:00] POST /api/action 200
+[2026-10-31T22:00:54+08:00] GET /api/passenger/state 200
+[2026-10-31T22:00:54+08:00] POST /api/passenger/action 200
+[2026-10-31T22:00:54+08:00] POST /api/action 200
+[2026-10-31T22:00:54+08:00] GET /api/state 200
+[2026-10-31T22:00:54+08:00] POST /api/action 200
+[2026-10-31T22:00:54+08:00] GET /api/state 200
+[2026-10-31T22:00:54+08:00] GET /api/passenger/state 200
+[2026-10-31T22:00:54+08:00] POST /api/passenger/action 200
+[2026-10-31T22:00:54+08:00] POST /api/action 200
+[2026-10-31T22:00:54+08:00] POST /api/action 200
+[2026-10-31T22:00:54+08:00] GET /api/state 200
+[2026-10-31T22:00:54+08:00] POST /api/action 200
+[2026-10-31T22:00:54+08:00] POST /api/action 200
+[2026-10-31T22:00:54+08:00] POST /api/passenger/action 200
+[2026-10-31T22:00:54+08:00] POST /api/passenger/action 200
+[2026-10-31T22:00:54+08:00] POST /api/passenger/action 200
+[2026-10-31T22:00:54+08:00] POST /api/passenger/action 200
+[2026-10-31T22:00:54+08:00] GET /api/passenger/state 200
+ok
+test_driver_complaint_preserves_alias_block_attachments_and_result (test_passenger.PassengerIntegration.test_driver_complaint_preserves_alias_block_attachments_and_result) ... [2026-10-31T22:00:54+08:00] POST /api/passenger/auth/code 200
+[2026-10-31T22:00:54+08:00] POST /api/passenger/auth/login 200
+[2026-10-31T22:00:54+08:00] POST /api/auth/code 200
+[2026-10-31T22:00:54+08:00] POST /api/auth/login 200
+[2026-10-31T22:00:54+08:00] POST /api/action 200
+[2026-10-31T22:00:54+08:00] POST /api/passenger/action 200
+[2026-10-31T22:00:54+08:00] POST /api/action 200
+[2026-10-31T22:00:54+08:00] GET /api/state 200
+[2026-10-31T22:00:54+08:00] POST /api/action 200
+[2026-10-31T22:00:54+08:00] GET /api/state 200
+[2026-10-31T22:00:54+08:00] GET /api/passenger/state 200
+[2026-10-31T22:00:54+08:00] POST /api/passenger/action 200
+[2026-10-31T22:00:54+08:00] POST /api/action 200
+[2026-10-31T22:00:54+08:00] POST /api/action 200
+[2026-10-31T22:00:54+08:00] GET /api/state 200
+[2026-10-31T22:00:54+08:00] POST /api/action 200
+[2026-10-31T22:00:54+08:00] POST /api/action 200
+[2026-10-31T22:00:54+08:00] POST /api/passenger/action 200
+[2026-10-31T22:00:54+08:00] POST /api/action 200
+[2026-10-31T22:00:54+08:00] POST /api/action 200
+[2026-10-31T22:00:54+08:00] POST /api/action 200
+[2026-10-31T22:00:54+08:00] POST /api/passenger/action 200
+[2026-10-31T22:00:54+08:00] POST /api/action 403
+/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/tempfile.py:484: ResourceWarning: Implicitly cleaning up <HTTPError 403: 'Forbidden'>
+  _warnings.warn(self.warn_message, ResourceWarning)
+ok
+test_driver_wait_continue_projection_stays_legacy_compatible (test_passenger.PassengerIntegration.test_driver_wait_continue_projection_stays_legacy_compatible) ... [2026-10-31T22:00:54+08:00] POST /api/passenger/auth/code 200
+[2026-10-31T22:00:54+08:00] POST /api/passenger/auth/login 200
+[2026-10-31T22:00:54+08:00] POST /api/auth/code 200
+[2026-10-31T22:00:54+08:00] POST /api/auth/login 200
+[2026-10-31T22:00:54+08:00] POST /api/action 200
+[2026-10-31T22:00:54+08:00] POST /api/passenger/action 200
+[2026-10-31T22:00:54+08:00] POST /api/action 200
+[2026-10-31T22:00:54+08:00] POST /api/action 200
+[2026-10-31T22:00:54+08:00] GET /api/passenger/state 200
+[2026-10-31T22:00:54+08:00] GET /api/state 200
+[2026-10-31T22:00:54+08:00] POST /api/action 200
+ok
+test_no_destination_pickup_requires_completion_and_confirms_price (test_passenger.PassengerIntegration.test_no_destination_pickup_requires_completion_and_confirms_price) ... [2026-10-31T22:00:54+08:00] POST /api/passenger/auth/code 200
+[2026-10-31T22:00:54+08:00] POST /api/passenger/auth/login 200
+[2026-10-31T22:00:54+08:00] POST /api/auth/code 200
+[2026-10-31T22:00:55+08:00] POST /api/auth/login 200
+[2026-10-31T22:00:55+08:00] POST /api/action 200
+[2026-10-31T22:00:55+08:00] POST /api/passenger/action 200
+[2026-10-31T22:00:55+08:00] POST /api/action 200
+[2026-10-31T22:00:55+08:00] GET /api/state 200
+[2026-10-31T22:00:55+08:00] POST /api/action 200
+[2026-10-31T22:00:55+08:00] POST /api/action 409
+[2026-10-31T22:00:55+08:00] POST /api/passenger/action 200
+[2026-10-31T22:00:55+08:00] GET /api/state 200
+[2026-10-31T22:00:55+08:00] GET /api/passenger/state 200
+[2026-10-31T22:00:55+08:00] POST /api/passenger/action 200
+[2026-10-31T22:00:55+08:00] POST /api/action 200
+[2026-10-31T22:00:55+08:00] POST /api/action 200
+[2026-10-31T22:00:55+08:00] GET /api/passenger/state 200
+[2026-10-31T22:00:55+08:00] POST /api/passenger/action 409
+ok
+test_optional_projection_distinguishes_continuation_from_final_cancellation (test_passenger.PassengerIntegration.test_optional_projection_distinguishes_continuation_from_final_cancellation) ... [2026-10-31T22:00:55+08:00] POST /api/passenger/auth/code 200
+[2026-10-31T22:00:55+08:00] POST /api/passenger/auth/login 200
+[2026-10-31T22:00:55+08:00] POST /api/auth/code 200
+[2026-10-31T22:00:55+08:00] POST /api/auth/login 200
+[2026-10-31T22:00:55+08:00] POST /api/action 200
+[2026-10-31T22:00:55+08:00] POST /api/passenger/action 200
+[2026-10-31T22:00:55+08:00] POST /api/action 200
+[2026-10-31T22:00:55+08:00] POST /api/action 200
+[2026-10-31T22:00:55+08:00] GET /api/state 200
+[2026-10-31T22:00:55+08:00] GET /api/passenger/state 200
+[2026-10-31T22:00:55+08:00] POST /api/passenger/action 200
+[2026-10-31T22:00:55+08:00] GET /api/state 200
+[2026-10-31T22:00:55+08:00] POST /api/passenger/action 200
+[2026-10-31T22:00:55+08:00] POST /api/passenger/action 200
+[2026-10-31T22:00:55+08:00] GET /api/state 200
+ok
+test_optional_projection_stages_bid_selection_and_loser_visibility (test_passenger.PassengerIntegration.test_optional_projection_stages_bid_selection_and_loser_visibility) ... [2026-10-31T22:00:55+08:00] POST /api/passenger/auth/code 200
+[2026-10-31T22:00:55+08:00] POST /api/passenger/auth/login 200
+[2026-10-31T22:00:55+08:00] POST /api/auth/code 200
+[2026-10-31T22:00:55+08:00] POST /api/auth/login 200
+[2026-10-31T22:00:55+08:00] POST /api/action 200
+[2026-10-31T22:00:55+08:00] POST /api/auth/code 200
+[2026-10-31T22:00:55+08:00] POST /api/auth/login 200
+[2026-10-31T22:00:55+08:00] POST /api/action 200
+[2026-10-31T22:00:55+08:00] POST /api/passenger/action 200
+[2026-10-31T22:00:55+08:00] POST /api/action 200
+[2026-10-31T22:00:55+08:00] GET /api/state 200
+[2026-10-31T22:00:55+08:00] GET /api/state 200
+[2026-10-31T22:00:55+08:00] POST /api/action 200
+[2026-10-31T22:00:55+08:00] GET /api/state 200
+[2026-10-31T22:00:55+08:00] POST /api/passenger/action 200
+[2026-10-31T22:00:55+08:00] GET /api/state 200
+[2026-10-31T22:00:55+08:00] GET /api/state 200
+[2026-10-31T22:00:55+08:00] GET /api/passenger/state 200
+[2026-10-31T22:00:55+08:00] POST /api/passenger/action 200
+[2026-10-31T22:00:55+08:00] GET /api/state 200
+[2026-10-31T22:00:55+08:00] GET /api/state 200
+ok
+test_optional_projection_stages_follow_standard_trip_without_mutating_canonical (test_passenger.PassengerIntegration.test_optional_projection_stages_follow_standard_trip_without_mutating_canonical) ... [2026-10-31T22:00:55+08:00] POST /api/passenger/auth/code 200
+[2026-10-31T22:00:55+08:00] POST /api/passenger/auth/login 200
+[2026-10-31T22:00:55+08:00] POST /api/auth/code 200
+[2026-10-31T22:00:55+08:00] POST /api/auth/login 200
+[2026-10-31T22:00:55+08:00] POST /api/action 200
+[2026-10-31T22:00:55+08:00] POST /api/passenger/action 200
+[2026-10-31T22:00:55+08:00] GET /api/state 200
+[2026-10-31T22:00:55+08:00] POST /api/action 200
+[2026-10-31T22:00:55+08:00] GET /api/state 200
+[2026-10-31T22:00:55+08:00] GET /api/state 200
+[2026-10-31T22:00:55+08:00] POST /api/action 200
+[2026-10-31T22:00:55+08:00] GET /api/state 200
+[2026-10-31T22:00:55+08:00] GET /api/state 200
+[2026-10-31T22:00:55+08:00] GET /api/passenger/state 200
+[2026-10-31T22:00:55+08:00] POST /api/passenger/action 200
+[2026-10-31T22:00:55+08:00] POST /api/action 200
+[2026-10-31T22:00:55+08:00] POST /api/action 200
+[2026-10-31T22:00:55+08:00] GET /api/state 200
+[2026-10-31T22:00:55+08:00] GET /api/state 200
+[2026-10-31T22:00:55+08:00] POST /api/action 200
+[2026-10-31T22:00:55+08:00] POST /api/action 200
+[2026-10-31T22:00:55+08:00] GET /api/state 200
+[2026-10-31T22:00:55+08:00] POST /api/passenger/action 200
+[2026-10-31T22:00:55+08:00] GET /api/state 200
+[2026-10-31T22:00:55+08:00] GET /api/passenger/state 200
+[2026-10-31T22:00:55+08:00] GET /api/state 200
+ok
+test_passenger_create_validates_points_and_reservation (test_passenger.PassengerIntegration.test_passenger_create_validates_points_and_reservation) ... [2026-10-31T22:00:55+08:00] POST /api/passenger/auth/code 200
+[2026-10-31T22:00:55+08:00] POST /api/passenger/auth/login 200
+[2026-10-31T22:00:55+08:00] POST /api/passenger/action 400
+/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/tempfile.py:484: ResourceWarning: Implicitly cleaning up <HTTPError 400: 'Bad Request'>
+  _warnings.warn(self.warn_message, ResourceWarning)
+[2026-10-31T22:00:55+08:00] POST /api/passenger/action 400
+[2026-10-31T22:00:55+08:00] POST /api/passenger/action 400
+[2026-10-31T22:00:55+08:00] POST /api/passenger/action 400
+[2026-10-31T22:00:55+08:00] POST /api/passenger/action 400
+[2026-10-31T22:00:55+08:00] GET /api/passenger/state 200
+ok
+test_passenger_uncertain_commit_create_retries_once (test_passenger.PassengerIntegration.test_passenger_uncertain_commit_create_retries_once) ... [2026-10-31T22:00:55+08:00] POST /api/passenger/auth/code 200
+[2026-10-31T22:00:55+08:00] POST /api/passenger/auth/login 200
+[2026-10-31T22:00:55+08:00] cloud persistence unavailable: SnapshotUnavailable
+[2026-10-31T22:00:55+08:00] POST /api/passenger/action 503
+[2026-10-31T22:00:55+08:00] POST /api/passenger/action 200
+ok
+test_profile_favorites_feedback_and_block_duplicate_order (test_passenger.PassengerIntegration.test_profile_favorites_feedback_and_block_duplicate_order) ... [2026-10-31T22:00:55+08:00] POST /api/passenger/auth/code 200
+[2026-10-31T22:00:55+08:00] POST /api/passenger/auth/login 200
+[2026-10-31T22:00:55+08:00] POST /api/passenger/action 200
+[2026-10-31T22:00:55+08:00] POST /api/passenger/action 409
+[2026-10-31T22:00:55+08:00] POST /api/passenger/action 409
+[2026-10-31T22:00:55+08:00] POST /api/passenger/action 200
+[2026-10-31T22:00:55+08:00] POST /api/passenger/action 200
+[2026-10-31T22:00:55+08:00] POST /api/passenger/action 200
+[2026-10-31T22:00:55+08:00] POST /api/passenger/action 200
+[2026-10-31T22:00:55+08:00] POST /api/passenger/action 200
+ok
+test_racing_accept_and_cas_no_dual_assignment (test_passenger.PassengerIntegration.test_racing_accept_and_cas_no_dual_assignment) ... [2026-10-31T22:00:55+08:00] POST /api/passenger/auth/code 200
+[2026-10-31T22:00:56+08:00] POST /api/passenger/auth/login 200
+[2026-10-31T22:00:56+08:00] POST /api/auth/code 200
+[2026-10-31T22:00:56+08:00] POST /api/auth/login 200
+[2026-10-31T22:00:56+08:00] POST /api/action 200
+[2026-10-31T22:00:56+08:00] POST /api/auth/code 200
+[2026-10-31T22:00:56+08:00] POST /api/auth/login 200
+[2026-10-31T22:00:56+08:00] POST /api/action 200
+[2026-10-31T22:00:56+08:00] POST /api/passenger/action 200
+[2026-10-31T22:00:56+08:00] POST /api/action 200
+[2026-10-31T22:00:56+08:00] POST /api/action 404
+[2026-10-31T22:00:56+08:00] GET /api/passenger/state 200
+ok
+test_roles_ownership_sandbox_and_idempotency (test_passenger.PassengerIntegration.test_roles_ownership_sandbox_and_idempotency) ... [2026-10-31T22:00:56+08:00] POST /api/passenger/auth/code 200
+[2026-10-31T22:00:56+08:00] POST /api/passenger/auth/login 200
+[2026-10-31T22:00:56+08:00] POST /api/auth/code 200
+[2026-10-31T22:00:56+08:00] POST /api/auth/login 200
+[2026-10-31T22:00:56+08:00] POST /api/action 200
+[2026-10-31T22:00:56+08:00] POST /api/passenger/auth/code 200
+[2026-10-31T22:00:56+08:00] POST /api/passenger/auth/login 200
+[2026-10-31T22:00:56+08:00] POST /api/passenger/action 200
+[2026-10-31T22:00:56+08:00] GET /api/state 401
+[2026-10-31T22:00:56+08:00] GET /api/passenger/state 401
+[2026-10-31T22:00:56+08:00] POST /api/passenger/action 404
+[2026-10-31T22:00:56+08:00] POST /api/passenger/action 404
+[2026-10-31T22:00:56+08:00] POST /api/passenger/action 404
+[2026-10-31T22:00:56+08:00] GET /api/passenger/orders/PORDeedb79005f5d/route 404
+[2026-10-31T22:00:56+08:00] POST /api/passenger/auth/code 403
+[2026-10-31T22:00:56+08:00] POST /api/auth/code 403
+[2026-10-31T22:00:56+08:00] POST /api/passenger/action 200
+[2026-10-31T22:00:56+08:00] POST /api/passenger/action 409
+[2026-10-31T22:00:56+08:00] POST /api/action 200
+[2026-10-31T22:00:56+08:00] POST /api/action 403
+[2026-10-31T22:00:56+08:00] POST /api/local/admin/action 403
+ok
+test_select_driver_revalidates_live_driver_blacklist (test_passenger.PassengerIntegration.test_select_driver_revalidates_live_driver_blacklist) ... [2026-10-31T22:00:56+08:00] POST /api/passenger/auth/code 200
+[2026-10-31T22:00:56+08:00] POST /api/passenger/auth/login 200
+[2026-10-31T22:00:56+08:00] POST /api/auth/code 200
+[2026-10-31T22:00:56+08:00] POST /api/auth/login 200
+[2026-10-31T22:00:56+08:00] POST /api/action 200
+[2026-10-31T22:00:56+08:00] POST /api/passenger/action 200
+[2026-10-31T22:00:56+08:00] POST /api/action 200
+[2026-10-31T22:00:56+08:00] POST /api/action 200
+[2026-10-31T22:00:56+08:00] POST /api/passenger/action 403
+[2026-10-31T22:00:56+08:00] GET /api/passenger/state 200
+ok
+test_standard_shared_full_flow_payment_once_and_restart (test_passenger.PassengerIntegration.test_standard_shared_full_flow_payment_once_and_restart) ... [2026-10-31T22:00:56+08:00] POST /api/passenger/auth/code 200
+[2026-10-31T22:00:56+08:00] POST /api/passenger/auth/login 200
+[2026-10-31T22:00:56+08:00] POST /api/auth/code 200
+[2026-10-31T22:00:56+08:00] POST /api/auth/login 200
+[2026-10-31T22:00:56+08:00] POST /api/action 200
+[2026-10-31T22:00:56+08:00] POST /api/passenger/action 200
+[2026-10-31T22:00:56+08:00] GET /api/state 200
+[2026-10-31T22:00:56+08:00] POST /api/action 200
+[2026-10-31T22:00:56+08:00] GET /api/passenger/state 200
+[2026-10-31T22:00:56+08:00] GET /api/state 200
+[2026-10-31T22:00:56+08:00] POST /api/action 200
+[2026-10-31T22:00:56+08:00] POST /api/action 400
+[2026-10-31T22:00:56+08:00] GET /api/passenger/state 200
+[2026-10-31T22:00:56+08:00] GET /api/state 200
+[2026-10-31T22:00:56+08:00] GET /api/passenger/state 200
+[2026-10-31T22:00:56+08:00] POST /api/passenger/action 200
+[2026-10-31T22:00:56+08:00] POST /api/action 200
+[2026-10-31T22:00:56+08:00] POST /api/action 200
+[2026-10-31T22:00:56+08:00] POST /api/passenger/action 409
+[2026-10-31T22:00:56+08:00] GET /api/state 200
+[2026-10-31T22:00:56+08:00] POST /api/action 200
+[2026-10-31T22:00:56+08:00] POST /api/action 200
+[2026-10-31T22:00:56+08:00] GET /api/passenger/state 200
+[2026-10-31T22:00:56+08:00] POST /api/passenger/action 200
+[2026-10-31T22:00:56+08:00] GET /api/passenger/state 200
+[2026-10-31T22:00:56+08:00] POST /api/passenger/action 200
+[2026-10-31T22:00:56+08:00] POST /api/passenger/action 200
+[2026-10-31T22:00:56+08:00] GET /api/state 200
+[2026-10-31T22:00:56+08:00] POST /api/passenger/action 200
+[2026-10-31T22:00:56+08:00] POST /api/passenger/action 200
+[2026-10-31T22:00:56+08:00] GET /api/state 200
+[2026-10-31T22:00:56+08:00] POST /api/passenger/action 200
+[2026-10-31T22:00:56+08:00] POST /api/passenger/action 409
+[2026-10-31T22:00:56+08:00] POST /api/passenger/action 200
+[2026-10-31T22:00:56+08:00] GET /api/passenger/state 200
+ok
+
+----------------------------------------------------------------------
+Ran 21 tests in 3.944s
+
+OK

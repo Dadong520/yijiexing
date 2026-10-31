@@ -1,0 +1,15 @@
+Compiled from "NaviLatLng.java"
+public class com.amap.api.navi.model.NaviLatLng implements android.os.Parcelable {
+  public static final android.os.Parcelable$Creator<com.amap.api.navi.model.NaviLatLng> CREATOR;
+  public com.amap.api.navi.model.NaviLatLng();
+  public com.amap.api.navi.model.NaviLatLng(double, double);
+  public double getLatitude();
+  public void setLatitude(double);
+  public double getLongitude();
+  public void setLongitude(double);
+  public int describeContents();
+  public void writeToParcel(android.os.Parcel, int);
+  public boolean equals(java.lang.Object);
+  public int hashCode();
+  public java.lang.String toString();
+}

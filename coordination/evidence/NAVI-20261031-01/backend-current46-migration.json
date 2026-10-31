@@ -1,0 +1,10 @@
+{
+  "sourceSha": "6cdcee1a68d57465e4196243f22478c69733654c",
+  "privateCurrentCloudBackupClone": true,
+  "legacyOrders": 46,
+  "fullRowsEqual": true,
+  "newPrivateContacts": 0,
+  "activeLegacyUnavailableObserved": 0,
+  "scope": "offline clone, no live writes; count0 means no active sample, not a positive test",
+  "result": "PASS"
+}
