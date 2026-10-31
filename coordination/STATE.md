@@ -2,7 +2,7 @@
 中央/Users/dongge/Documents/New project 2/coordination唯一权威，协议2026-10-26-v3。唯一coordinator01a17cc7-e0a2-7791-bf1d-4611c09bab22/generation6；context UNKNOWN。root独占状态/验收/合并发布。
 
 ## 新活动2026-10-31
-MAPS用户要求两端地图功能面板上下拖动至全屏；乘客起点定位/终点空，选址页地图在上/空查询/结果在下。Claude fresh 9bc07c4c-731c-4b1f-840b-ce6a0c5dc85a，source /Users/dongge/.codex/tmp/yijiexing-map-panels-20261031。NETC已只读诊断：本机health200/TLS通过、原包origin正确、近期有界日志无429/5xx，用户手机故障NOT_REPRODUCED_NOT_RESOLVED；用户随后明确“已经恢复”；原因未证实，未改服务配置。未发布新版。
+MAPS用户要求两端地图功能面板上下拖动至全屏；乘客起点定位/终点空，选址页地图在上/空查询/结果在下。Claude fresh 9bc07c4c-731c-4b1f-840b-ce6a0c5dc85a，source /Users/dongge/.codex/tmp/yijiexing-map-panels-20261031。NETC已只读诊断：本机health200/TLS通过、原包origin正确、近期有界日志无429/5xx，用户手机故障NOT_REPRODUCED_NOT_RESOLVED；用户随后明确“已经恢复”；原因未证实，未改服务配置。MAPS最终d6源码/原生M1-M3/双unit54/77及构建PASS，cleanup PASS，待PR45准确head合并发布22；当前仍公开21。
 
 ## 当前已公开版本21：测试、合并、发布与实际回读PASS；源码与实际回执均已合并入库
 用户要求测试发布Claude云端9495caa的新24项UI差量。产品最终源ecc9d8d0e63f5ee1c9a8f45df87e92f7b42e0ea5；PR43准确head089ea8c130506b18df6afe28b22f572c10552ea8/CI41063380582 SUCCESS，expected-head squash合并8e8da981faa54de0bd12d24e1921d3d20a3d570b。所有产品树与验收源一致。UIT任务COMPLETE；UITREC/UITR实际receipt/README15项窄审PASS并已合并，不重复部署。

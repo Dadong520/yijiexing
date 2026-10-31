@@ -1,0 +1,33 @@
+{
+  "taskId": "MAPSB-20261031-01",
+  "reviewedAt": "2026-10-31T16:00:52+08:00",
+  "reviewerThreadId": "01a182c6-c058-76e1-9584-38abfe813799",
+  "candidateSha": "ee23c4c71fa979946fc834ccf49b12f03b17031e",
+  "previousRejectedSha": "cbe8190d70db6f4473dc530c2d84cd0500153f2a",
+  "acceptance": "PASS",
+  "scope": "Two-finding repair source delta only; original cloud-page semantic review inherited",
+  "onlyProductDelta": "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/BookingScreens.kt",
+  "closedFindings": [
+    {
+      "id": "MAPSB-01",
+      "result": "PASS",
+      "evidence": "searchFor synchronously invalidates generation and clears name/lat/lng/source/metadata before every query, including blank/single char/name-only historical request. City changes clear selection too. Confirm requires !searching&&!pending and coordinate/name readiness; callback rechecks pending/searching and coordinates. Cancel/failure cannot resurrect priorA. Map/manual place selection remains explicit and generation protected."
+    },
+    {
+      "id": "MAPSB-02",
+      "result": "PASS",
+      "evidence": "Swap enabled only routePointReady on both ends; click rechecks both before originTouched or any draft assignment. Empty/missing/nonfinite/out-of-range coordinate fails original coordinate guard and leaves original draft/GPS manual ownership unchanged."
+    }
+  ],
+  "unchanged": "All product files except BookingScreens identical to prior reviewed candidate; new helper delegates existing coordinate validation. No Store/backend/domain/network/permissions or other page callbacks changed.",
+  "validation": [
+    {
+      "command": "Exactcbe8190..ee23c4c Git delta and selection/swap enable/click guard inspection",
+      "exitCode": 0,
+      "result": "PASS both source findings closed"
+    }
+  ],
+  "notRun": "No full tests/Gradle/GUI repeated; frontend owns native validation",
+  "historicalFailPreserved": "REVIEW_cbe8190.json unchanged",
+  "nextAction": "Root combine frontend exactSHA build/native and release gates; backend IDLE"
+}

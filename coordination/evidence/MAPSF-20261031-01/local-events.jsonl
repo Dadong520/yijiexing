@@ -1,0 +1,17 @@
+{"at": "2026-10-31T15:58:51+08:00", "kind": "PASSENGER_ACTION", "action": "profile.update", "id": null, "result": "SUCCESS", "consentId": null, "choice": null, "coords": {}}
+{"at": "2026-10-31T15:58:51+08:00", "kind": "PASSENGER_ACTION", "action": "favorite.save", "id": null, "result": "SUCCESS", "consentId": null, "choice": null, "coords": {}}
+{"at": "2026-10-31T15:58:51+08:00", "kind": "PASSENGER_ACTION", "action": "profile.update", "id": null, "result": "SUCCESS", "consentId": null, "choice": null, "coords": {}}
+{"at": "2026-10-31T15:58:51+08:00", "kind": "PASSENGER_ACTION", "action": "favorite.save", "id": null, "result": "SUCCESS", "consentId": null, "choice": null, "coords": {}}
+{"at": "2026-10-31T15:58:51+08:00", "kind": "START", "sourceSha": "cbe8190d70db6f4473dc530c2d84cd0500153f2a", "port": 64351}
+{"at": "2026-10-31T16:03:39+08:00", "kind": "PASSENGER_ACTION", "action": "order.create", "id": null, "result": "SUCCESS", "consentId": null, "choice": null, "coords": {"originLat": 30.6687, "originLng": 111.3226, "destinationLat": 30.6645, "destinationLng": 111.3694}}
+{"at": "2026-10-31T16:03:39+08:00", "kind": "SYNTHETIC_CONTROL", "type": "create", "id": null}
+{"at": "2026-10-31T16:03:39+08:00", "kind": "SYNTHETIC_CONTROL", "type": "set", "id": "PORDcb27342228af"}
+{"at": "2026-10-31T16:03:58+08:00", "kind": "SYNTHETIC_CONTROL", "type": "set", "id": "PORDcb27342228af"}
+{"at": "2026-10-31T16:16:36+08:00", "kind": "PASSENGER_ACTION", "action": "order.create", "id": null, "result": "SUCCESS", "consentId": null, "choice": null, "coords": {"originLat": 30.6687, "originLng": 111.32259833333333, "destinationLat": 30.6648, "destinationLng": 111.3674}}
+{"at": "2026-10-31T16:16:47+08:00", "kind": "SYNTHETIC_CONTROL", "type": "state", "id": null}
+{"at": "2026-10-31T16:19:31+08:00", "kind": "SYNTHETIC_CONTROL", "type": "set", "id": "PORDcb27342228af"}
+{"at": "2026-10-31T16:22:02+08:00", "kind": "SYNTHETIC_CONTROL", "type": "set", "id": "PORD7f51c05cec0a"}
+{"at": "2026-10-31T16:23:03+08:00", "kind": "PASSENGER_ACTION", "action": "order.cancel", "id": "PORD7f51c05cec0a", "result": "SUCCESS", "consentId": null, "choice": null, "coords": {}}
+{"at": "2026-10-31T16:25:58+08:00", "kind": "PASSENGER_ACTION", "action": "order.create", "id": null, "result": "SUCCESS", "consentId": null, "choice": null, "coords": {"originLat": 30.6687, "originLng": 111.3226, "destinationLat": 30.704, "destinationLng": 111.2929}}
+{"at": "2026-10-31T16:26:11+08:00", "kind": "SYNTHETIC_CONTROL", "type": "state", "id": null}
+{"at": "2026-10-31T16:34:29+08:00", "kind": "STOP"}

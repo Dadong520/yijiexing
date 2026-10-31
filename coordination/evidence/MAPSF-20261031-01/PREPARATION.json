@@ -1,0 +1,75 @@
+{
+  "taskId": "MAPSF-20261031-01",
+  "preparedAt": "2026-10-31T15:41:42.660394+08:00",
+  "status": "PREPARED_WAIT_EXACT_FREEZE",
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-map-panels-20261031",
+  "branch": "codex/map-panels-20261031",
+  "baseSha": "3587d5af7a5585eff8dbd7921eca348fd905e465",
+  "observedHead": "3587d5af7a5585eff8dbd7921eca348fd905e465",
+  "frozenSha": null,
+  "memoryAssessment": {
+    "state": "HANDOFF_RECOMMENDED",
+    "contextUsedPercent": null,
+    "source": "not_exposed",
+    "decision": "Can safely continue this bounded3group review using short checkpoint. Current source/version/ownership distinct and verified. No new chat or expanded task. Escalate if source/decision conflicts or repeated recovery errors occur."
+  },
+  "preflight": {
+    "memoryGate": "PASS",
+    "adbDevices": "EMPTY",
+    "officialSdkJdkOfflineCacheExist": true,
+    "sourceStatus": "Only coordination checkpoint files dirty at read; no product copied/built/read for review before freeze. Author owns source mutations."
+  },
+  "groups": [
+    {
+      "id": "M1",
+      "scope": "Passenger and driver map/function panel",
+      "status": "NOT_RUN",
+      "cases": [
+        "Collapsed mapfullscreen / intermediate / expanded panel states by up/down drag; verify displayed state and reachable actions, no map obscuring residual overlay.",
+        "Panel content scroll vs sheet drag boundary; map pan/pinch remains map gesture, not unwanted sheet motion; tap actions still reachable.",
+        "Restore after reopen/background/config change as implemented; back/keyboard do not trap panel; small360x640/font1.3 and normal screen.",
+        "Passenger booking/order and driver listening/trip relevant composed screens identified from final diff; record exact covered routes rather than assume all map screens."
+      ]
+    },
+    {
+      "id": "M2",
+      "scope": "New passenger draft origin GPS and destination empty",
+      "status": "NOT_RUN",
+      "cases": [
+        "Fresh draft initially destination text/coordinates/metadata empty; no unsolicited preset destination or auto order.",
+        "GPS allowed/fresh fix supplies origin; denied/unavailable/delayed fix shows explicit state and manual point selection remains reachable.",
+        "Manual origin remains after later GPS/state refresh; old order/reused route is distinguished from fresh draft.",
+        "Required destination validation preserved; returning/cancelling editor does not overwrite existing draft; switching account/new draft resets correct fields."
+      ]
+    },
+    {
+      "id": "M3",
+      "scope": "Passenger location selection page",
+      "status": "NOT_RUN",
+      "cases": [
+        "Map above / query initially empty / fuzzy results below; smallscreen+keyboard results and confirm/back remain reachable.",
+        "Existing point may stay as map selection/context without prefilling search input; blank input cancels outstanding lookup.",
+        "Type queryA thenB/clear/close: stale results cannot overwrite current query/selection; provider unavailability disclosed.",
+        "New and existing address/waypoint/favorite editors cancel/back preserve caller draft; actual selected point keeps name/coordinates/metadata.",
+        "Map tap/drag selection and result selection keep their distinct confirmation semantics, no manual-coordinate bypass."
+      ]
+    }
+  ],
+  "afterFreeze": [
+    "Confirm root exact40SHA/clean committed product and final version; fresh external git archive, no overwrite old UIT source or resources.",
+    "Run affected rule/state unit tests and both original APK assemble; build scoped QA packages with explicit differences only after exact source binding.",
+    "Fresh dedicated isolated AVD + fresh local synthetic fixture; no personal device/cloud business mutations. Capture screenshot/XML for actual transitions and actions.",
+    "Preserve anyFAIL and independent differential retest at later exactSHA; original package hash/version/signer/HTTPS/private-value scans; record inherited tests only with explicit Git basis.",
+    "Cleanup AVD/fixture/reverse, update own task/card, memory gate, return short conclusion to coordinator."
+  ],
+  "notStarted": [
+    "No build/unit/native business acceptance",
+    "No source export/AVD create or boot/fixture/TLS/private identity creation",
+    "No product modification/commit/deploy"
+  ],
+  "limits": [
+    "Actual provider search/map rendering cannot be inferred from mock GPS/local fixtures; mark NOT_RUN or service unavailable unless directly observed.",
+    "No real finance/certification/OEM/background/personal-device claims.",
+    "Only coordinator owns merge/release; NETC connection diagnosis is backend task, not repeated here."
+  ]
+}

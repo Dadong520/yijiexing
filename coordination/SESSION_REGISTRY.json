@@ -34,9 +34,9 @@
       "measurementSource": "not_exposed",
       "measurementAt": null,
       "ackVersion": "2026-10-26-v3",
-      "checkpointId": "NETC-20261031-01",
+      "checkpointId": "MAPSB-20261031-01",
       "handoffPath": "coordination/handoffs/backend.md",
-      "workflowState": "ACTIVE_NETC",
+      "workflowState": "IDLE_MAPSB_D6_PASS",
       "execution": "visible independent Codex thread",
       "roleGeneration": 2
     },
@@ -52,7 +52,7 @@
       "ackVersion": "2026-10-26-v3",
       "checkpointId": "MAPSF-20261031-01",
       "handoffPath": "coordination/handoffs/frontend.md",
-      "workflowState": "MAPSF_PREPARE_WAIT_FREEZE",
+      "workflowState": "IDLE_MAPSF_FINAL_PASS",
       "execution": "visible independent Codex thread",
       "roleGeneration": 2
     },
@@ -103,7 +103,7 @@
       "ackVersion": "2026-10-26-v3",
       "checkpointId": "MAPSC-20261031-01",
       "handoffPath": "coordination/handoffs/claude.md",
-      "workflowState": "ACTIVE_MAPSC",
+      "workflowState": "IDLE_MAPSC_PHASE3_DONE",
       "previousCompletedSessionId": "93f99706-9822-4a37-b5a9-5369a6ac2364",
       "reason": "Fresh official CLI context; screenshot current Opus5.5/high; cloud session012h separately identified"
     }

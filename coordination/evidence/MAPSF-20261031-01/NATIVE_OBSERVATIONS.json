@@ -1,0 +1,51 @@
+{
+  "sourceShaDriver": "cbe8190d70db6f4473dc530c2d84cd0500153f2a",
+  "sourceShaPassenger": "ee23c4c71fa979946fc834ccf49b12f03b17031e",
+  "observations": [
+    {
+      "id": "O1",
+      "state": "FIXED_VERIFIED_D6",
+      "scenario": "Driver home collapsed fullscreen",
+      "actual": "Top certificate/identity and bottom tabs remain; coordinator requires only systembars+smallhandle",
+      "evidence": "native/d09-home-drag-collapsed.png",
+      "finalEvidence": [
+        "f04-booking-fullscreen",
+        "f33-driver-home-final-fullscreen",
+        "f39-passenger-order-fullscreen",
+        "f29-driver-trip-fullscreen-final"
+      ]
+    },
+    {
+      "id": "O2",
+      "state": "FIXED_VERIFIED_D6",
+      "scenario": "Driver trip COLLAPSED restored through720x1280/density320/font1.3 configuration; then tap visible 显示行程操作 twice",
+      "actual": "d26/27 still collapsed after tap; d28 actual upward handle drag restores half. No blanket restorePASS.",
+      "evidence": [
+        "native/d26-trip-small-settled.png+xml",
+        "native/d27-trip-small-restored.png+xml",
+        "native/d28-trip-small-handle-drag.png+xml"
+      ],
+      "finalEvidence": [
+        "f16-driver-small-collapsed-settled",
+        "f17-driver-small-tap-restore",
+        "f18-driver-small-after-tap"
+      ],
+      "verification": "720x1280 density320/font1.3 finalD6 tap restores panel/header; old observation retained, no claim about exact old-cause diagnosis."
+    },
+    {
+      "id": "O3",
+      "state": "EXPECTED_BY_DESIGN_CONFIRMED_COORDINATOR",
+      "scenario": "Passenger fullscreen then720x1280/density320/font1.3 configuration recreation",
+      "actual": "f88/f89 safely returns Half, rather than preserving Collapsed. Current UI remains usable. f92 is actual passenger fullscreen probe despite driver filename; f93 did not produce a frame. f94/95 correctly restore passenger through visible control.",
+      "evidence": [
+        "f88-passenger-fullscreen-config",
+        "f89-passenger-fullscreen-config-settled",
+        "f94-current-page-recovery",
+        "f95-passenger-small-tap-restored"
+      ],
+      "scope": "No claim of passenger fullscreen persistence across configuration recreation; ordinary background fullscreen retainedf87.",
+      "resolution": "D6 PanelSaver intentionally saves Collapsed as Half to restore navigation after configuration recreation. SafeHalf is PASS; preserving fullscreen is not required."
+    }
+  ],
+  "passedSoFar": "Driver home/trip actual3state drag, expandedcontentend and nativeMap bounds/controls resize, backgroundrestoration, newstage autoexposure after actual10s apprefresh. Map region swipes do not move sheet; offline camera/provider success not claimed."
+}

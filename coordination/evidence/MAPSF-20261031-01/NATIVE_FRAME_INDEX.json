@@ -1,0 +1,779 @@
+[
+  {
+    "png": "native/d09-home-drag-collapsed.png",
+    "xml": "native/d09-home-drag-collapsed.xml",
+    "actualSourceSha": "cbe8190d70db6f4473dc530c2d84cd0500153f2a",
+    "sha256": "9d7835a2f62f313a759cd9404104606cb6314653d02a72a52ff564c0db4abf92",
+    "interpretation": "Raw actual frame; acceptance only as specified in FINAL_REVIEW cases"
+  },
+  {
+    "png": "native/d24-trip-small-restored.png",
+    "xml": "native/d24-trip-small-restored.xml",
+    "actualSourceSha": "cbe8190d70db6f4473dc530c2d84cd0500153f2a",
+    "sha256": "a6f7af7c0efda49ca4b05e2660964ea0603714b5d342f683a7d69518835ffbca",
+    "interpretation": "Raw actual frame; acceptance only as specified in FINAL_REVIEW cases"
+  },
+  {
+    "png": "native/d26-trip-small-settled.png",
+    "xml": "native/d26-trip-small-settled.xml",
+    "actualSourceSha": "cbe8190d70db6f4473dc530c2d84cd0500153f2a",
+    "sha256": "0938e6636b9e20a121130b3122e97ea2a90750782b3d0a7d948d4c8d3d005d1b",
+    "interpretation": "Raw actual frame; acceptance only as specified in FINAL_REVIEW cases"
+  },
+  {
+    "png": "native/d27-trip-small-restored.png",
+    "xml": "native/d27-trip-small-restored.xml",
+    "actualSourceSha": "cbe8190d70db6f4473dc530c2d84cd0500153f2a",
+    "sha256": "0938e6636b9e20a121130b3122e97ea2a90750782b3d0a7d948d4c8d3d005d1b",
+    "interpretation": "Raw actual frame; acceptance only as specified in FINAL_REVIEW cases"
+  },
+  {
+    "png": "native/d28-trip-small-handle-drag.png",
+    "xml": "native/d28-trip-small-handle-drag.xml",
+    "actualSourceSha": "cbe8190d70db6f4473dc530c2d84cd0500153f2a",
+    "sha256": "9d85e756b8d9fdc81d196087d3649d706b18c862561dfdb22647c442ef1586ee",
+    "interpretation": "Raw actual frame; acceptance only as specified in FINAL_REVIEW cases"
+  },
+  {
+    "png": "native/f01-passenger-new-half.png",
+    "xml": "native/f01-passenger-new-half.xml",
+    "actualSourceSha": "d6d5206a82f16987fd51371044fb12e76ba9f8d8",
+    "sha256": "556f0c81189c030f0ca37d37ca084e962d24c3e275e3ab1ccbc6ceb804301ac4",
+    "interpretation": "Raw actual frame; acceptance only as specified in FINAL_REVIEW cases"
+  },
+  {
+    "png": "native/f02-booking-drag-expanded.png",
+    "xml": "native/f02-booking-drag-expanded.xml",
+    "actualSourceSha": "d6d5206a82f16987fd51371044fb12e76ba9f8d8",
+    "sha256": "57db5498a0a2a43d9d57e22cf0d55425fa8313d66ce0f11f92a5c8ed2b269dea",
+    "interpretation": "Raw actual frame; acceptance only as specified in FINAL_REVIEW cases"
+  },
+  {
+    "png": "native/f03-booking-last-item.png",
+    "xml": "native/f03-booking-last-item.xml",
+    "actualSourceSha": "d6d5206a82f16987fd51371044fb12e76ba9f8d8",
+    "sha256": "57db5498a0a2a43d9d57e22cf0d55425fa8313d66ce0f11f92a5c8ed2b269dea",
+    "interpretation": "Raw actual frame; acceptance only as specified in FINAL_REVIEW cases"
+  },
+  {
+    "png": "native/f04-booking-fullscreen.png",
+    "xml": "native/f04-booking-fullscreen.xml",
+    "actualSourceSha": "d6d5206a82f16987fd51371044fb12e76ba9f8d8",
+    "sha256": "e9ac96895cc213c31dc81301aaa68516376d28f34b9bddcce4eb18704ca2fc36",
+    "interpretation": "Raw actual frame; acceptance only as specified in FINAL_REVIEW cases"
+  },
+  {
+    "png": "native/f05-booking-tap-restored.png",
+    "xml": "native/f05-booking-tap-restored.xml",
+    "actualSourceSha": "d6d5206a82f16987fd51371044fb12e76ba9f8d8",
+    "sha256": "d5dcc4ff76bd4639603fa4e94e56a48c2f5760af1a1d984cf4159ba0201c1667",
+    "interpretation": "Raw actual frame; acceptance only as specified in FINAL_REVIEW cases"
+  },
+  {
+    "png": "native/f06-empty-swap-guard.png",
+    "xml": "native/f06-empty-swap-guard.xml",
+    "actualSourceSha": "d6d5206a82f16987fd51371044fb12e76ba9f8d8",
+    "sha256": "334847e1a78ceb3d3175fb06311d0e08ba2ec2511ed746854759238c80af4339",
+    "interpretation": "Raw actual frame; acceptance only as specified in FINAL_REVIEW cases"
+  },
+  {
+    "png": "native/f07-final-picker-empty.png",
+    "xml": "native/f07-final-picker-empty.xml",
+    "actualSourceSha": "d6d5206a82f16987fd51371044fb12e76ba9f8d8",
+    "sha256": "c5d222744299185e38e1a1c8a1639b8ea4811356da6c429b472edaff8ea04de3",
+    "interpretation": "Raw actual frame; acceptance only as specified in FINAL_REVIEW cases"
+  },
+  {
+    "png": "native/f08-final-selected.png",
+    "xml": "native/f08-final-selected.xml",
+    "actualSourceSha": "d6d5206a82f16987fd51371044fb12e76ba9f8d8",
+    "sha256": "c1a18f360db8aee03d22ad4d916bcd615f9cd2bc36b17f800200d10cce1a6adf",
+    "interpretation": "Raw actual frame; acceptance only as specified in FINAL_REVIEW cases"
+  },
+  {
+    "png": "native/f09-final-destination.png",
+    "xml": "native/f09-final-destination.xml",
+    "actualSourceSha": "d6d5206a82f16987fd51371044fb12e76ba9f8d8",
+    "sha256": "ac4b4c46ad1f7fe826926d0c7ca73caaaa23795608bc8cd25f3c24f41e432e7b",
+    "interpretation": "Raw actual frame; acceptance only as specified in FINAL_REVIEW cases"
+  },
+  {
+    "png": "native/f10-created-gps-order.png",
+    "xml": "native/f10-created-gps-order.xml",
+    "actualSourceSha": "d6d5206a82f16987fd51371044fb12e76ba9f8d8",
+    "sha256": "8adf5d3fc9c75e23a41e1b275d35fb1c382904f5278f64d6b95cb25929c66091",
+    "interpretation": "Raw actual frame; acceptance only as specified in FINAL_REVIEW cases"
+  },
+  {
+    "png": "native/f11-driver-current.png",
+    "xml": "native/f11-driver-current.xml",
+    "actualSourceSha": "d6d5206a82f16987fd51371044fb12e76ba9f8d8",
+    "sha256": "9137fd093cfb32b4aefa079f4c7900675900cc77f0fc562373843696ec6c4ff6",
+    "interpretation": "Raw actual frame; acceptance only as specified in FINAL_REVIEW cases"
+  },
+  {
+    "png": "native/f12-driver-trip-half.png",
+    "xml": "native/f12-driver-trip-half.xml",
+    "actualSourceSha": "d6d5206a82f16987fd51371044fb12e76ba9f8d8",
+    "sha256": "1b53690dbdfe87738f7ebf554a5ee3b1e8367feee19ab5a438e7453277c37725",
+    "interpretation": "Raw actual frame; acceptance only as specified in FINAL_REVIEW cases"
+  },
+  {
+    "png": "native/f13-driver-trip-small.png",
+    "xml": "native/f13-driver-trip-small.xml",
+    "actualSourceSha": "d6d5206a82f16987fd51371044fb12e76ba9f8d8",
+    "sha256": "6004a7b9f4998091c9184f3984e221acd603309b4cbf13d1073ebe921bfb1f61",
+    "interpretation": "Raw actual frame; acceptance only as specified in FINAL_REVIEW cases"
+  },
+  {
+    "png": "native/f14-driver-small-settled.png",
+    "xml": "native/f14-driver-small-settled.xml",
+    "actualSourceSha": "d6d5206a82f16987fd51371044fb12e76ba9f8d8",
+    "sha256": "8ecb08707e35f5291c378462ec9dac358a498f1d67ba2bde4702b0ed06ee0236",
+    "interpretation": "Raw actual frame; acceptance only as specified in FINAL_REVIEW cases"
+  },
+  {
+    "png": "native/f15-driver-small-fullscreen.png",
+    "xml": "native/f15-driver-small-fullscreen.xml",
+    "actualSourceSha": "d6d5206a82f16987fd51371044fb12e76ba9f8d8",
+    "sha256": "a6b5d63695edacef7697b5dfe2debf4881ea0afb7e03968d37d5f3eeb75c4312",
+    "interpretation": "Raw actual frame; acceptance only as specified in FINAL_REVIEW cases"
+  },
+  {
+    "png": "native/f16-driver-small-collapsed-settled.png",
+    "xml": "native/f16-driver-small-collapsed-settled.xml",
+    "actualSourceSha": "d6d5206a82f16987fd51371044fb12e76ba9f8d8",
+    "sha256": "a6b5d63695edacef7697b5dfe2debf4881ea0afb7e03968d37d5f3eeb75c4312",
+    "interpretation": "Raw actual frame; acceptance only as specified in FINAL_REVIEW cases"
+  },
+  {
+    "png": "native/f17-driver-small-tap-restore.png",
+    "xml": "native/f17-driver-small-tap-restore.xml",
+    "actualSourceSha": "d6d5206a82f16987fd51371044fb12e76ba9f8d8",
+    "sha256": "8ecb08707e35f5291c378462ec9dac358a498f1d67ba2bde4702b0ed06ee0236",
+    "interpretation": "Raw actual frame; acceptance only as specified in FINAL_REVIEW cases"
+  },
+  {
+    "png": "native/f18-driver-small-after-tap.png",
+    "xml": "native/f18-driver-small-after-tap.xml",
+    "actualSourceSha": "d6d5206a82f16987fd51371044fb12e76ba9f8d8",
+    "sha256": "8ecb08707e35f5291c378462ec9dac358a498f1d67ba2bde4702b0ed06ee0236",
+    "interpretation": "Raw actual frame; acceptance only as specified in FINAL_REVIEW cases"
+  },
+  {
+    "png": "native/f19-driver-small-expanded.png",
+    "xml": "native/f19-driver-small-expanded.xml",
+    "actualSourceSha": "d6d5206a82f16987fd51371044fb12e76ba9f8d8",
+    "sha256": "461620e17b94c18003b1e6ef7ba53ff68f4ad08bd1777c3ce2065b850ced6971",
+    "interpretation": "Raw actual frame; acceptance only as specified in FINAL_REVIEW cases"
+  },
+  {
+    "png": "native/f20-driver-small-content-end.png",
+    "xml": "native/f20-driver-small-content-end.xml",
+    "actualSourceSha": "d6d5206a82f16987fd51371044fb12e76ba9f8d8",
+    "sha256": "77157966764a89122ac3a2088c47626ab553ca4116e0e094040926c2cd68dddc",
+    "interpretation": "Raw actual frame; acceptance only as specified in FINAL_REVIEW cases"
+  },
+  {
+    "png": "native/f21-driver-back-half.png",
+    "xml": "native/f21-driver-back-half.xml",
+    "actualSourceSha": "d6d5206a82f16987fd51371044fb12e76ba9f8d8",
+    "sha256": "b5108cc65bdaf817e0a9989031a7b2182d4036ca7e499b82e64134c82f6ac175",
+    "interpretation": "Raw actual frame; acceptance only as specified in FINAL_REVIEW cases"
+  },
+  {
+    "png": "native/f22-driver-trip-final-drag-expanded.png",
+    "xml": "native/f22-driver-trip-final-drag-expanded.xml",
+    "actualSourceSha": "d6d5206a82f16987fd51371044fb12e76ba9f8d8",
+    "sha256": "77157966764a89122ac3a2088c47626ab553ca4116e0e094040926c2cd68dddc",
+    "interpretation": "Raw actual frame; acceptance only as specified in FINAL_REVIEW cases"
+  },
+  {
+    "png": "native/f23-driver-trip-final-drag-fullscreen.png",
+    "xml": "native/f23-driver-trip-final-drag-fullscreen.xml",
+    "actualSourceSha": "d6d5206a82f16987fd51371044fb12e76ba9f8d8",
+    "sha256": "eabb57e259d74ecfc673eec9a4c16fa68f33f26ac5fd930224d71a3bce95756c",
+    "interpretation": "Raw actual frame; acceptance only as specified in FINAL_REVIEW cases"
+  },
+  {
+    "png": "native/f24-driver-stage-await.png",
+    "xml": "native/f24-driver-stage-await.xml",
+    "actualSourceSha": "d6d5206a82f16987fd51371044fb12e76ba9f8d8",
+    "sha256": "cd4827205ae641ddf0f179c5568997ede15554ba7ed2aa6bb5921d86ac097f06",
+    "interpretation": "Pre-poll/configuration transition; not proof of new stage."
+  },
+  {
+    "png": "native/f25-driver-stage-exposed.png",
+    "xml": "native/f25-driver-stage-exposed.xml",
+    "actualSourceSha": "d6d5206a82f16987fd51371044fb12e76ba9f8d8",
+    "sha256": "3d32f49567a428dd6648726b6a3ef66ba1fe6f9368c00ec83e348cb27fd061a3",
+    "interpretation": "Actual external-navigation fallback dialog; usef26 for actual new-stage actions."
+  },
+  {
+    "png": "native/f26-driver-trip-stage-actions.png",
+    "xml": "native/f26-driver-trip-stage-actions.xml",
+    "actualSourceSha": "d6d5206a82f16987fd51371044fb12e76ba9f8d8",
+    "sha256": "bd224111e5751ba2a2ec3dcae2efaaca9ff2685f784f56df6d3357944b13cb27",
+    "interpretation": "Raw actual frame; acceptance only as specified in FINAL_REVIEW cases"
+  },
+  {
+    "png": "native/f27-driver-trip-expand-final.png",
+    "xml": "native/f27-driver-trip-expand-final.xml",
+    "actualSourceSha": "d6d5206a82f16987fd51371044fb12e76ba9f8d8",
+    "sha256": "c4a44355e49fbfa6db4df495dbf406539dca3beeed293c85e5ee2af30271d097",
+    "interpretation": "Raw actual frame; acceptance only as specified in FINAL_REVIEW cases"
+  },
+  {
+    "png": "native/f28-driver-trip-last-final.png",
+    "xml": "native/f28-driver-trip-last-final.xml",
+    "actualSourceSha": "d6d5206a82f16987fd51371044fb12e76ba9f8d8",
+    "sha256": "c4a44355e49fbfa6db4df495dbf406539dca3beeed293c85e5ee2af30271d097",
+    "interpretation": "Raw actual frame; acceptance only as specified in FINAL_REVIEW cases"
+  },
+  {
+    "png": "native/f29-driver-trip-fullscreen-final.png",
+    "xml": "native/f29-driver-trip-fullscreen-final.xml",
+    "actualSourceSha": "d6d5206a82f16987fd51371044fb12e76ba9f8d8",
+    "sha256": "031388be019d0c130ad280c28435c53ff33dbbe6f03d6db54556528e67f0a89d",
+    "interpretation": "Raw actual frame; acceptance only as specified in FINAL_REVIEW cases"
+  },
+  {
+    "png": "native/f30-driver-back-home-chrome.png",
+    "xml": "native/f30-driver-back-home-chrome.xml",
+    "actualSourceSha": "d6d5206a82f16987fd51371044fb12e76ba9f8d8",
+    "sha256": "c7f26ed511a79ea22a2bf0299ca2b901ad9c6239000f551ca8693798b342093a",
+    "interpretation": "Raw actual frame; acceptance only as specified in FINAL_REVIEW cases"
+  },
+  {
+    "png": "native/f31-driver-home-final-expanded.png",
+    "xml": "native/f31-driver-home-final-expanded.xml",
+    "actualSourceSha": "d6d5206a82f16987fd51371044fb12e76ba9f8d8",
+    "sha256": "7f9a15fb6b8c7ed220d5e4fb806c1f36587d9dc47ac4c577d3c191909b428817",
+    "interpretation": "Raw actual frame; acceptance only as specified in FINAL_REVIEW cases"
+  },
+  {
+    "png": "native/f32-driver-home-final-last.png",
+    "xml": "native/f32-driver-home-final-last.xml",
+    "actualSourceSha": "d6d5206a82f16987fd51371044fb12e76ba9f8d8",
+    "sha256": "7f9a15fb6b8c7ed220d5e4fb806c1f36587d9dc47ac4c577d3c191909b428817",
+    "interpretation": "Raw actual frame; acceptance only as specified in FINAL_REVIEW cases"
+  },
+  {
+    "png": "native/f33-driver-home-final-fullscreen.png",
+    "xml": "native/f33-driver-home-final-fullscreen.xml",
+    "actualSourceSha": "d6d5206a82f16987fd51371044fb12e76ba9f8d8",
+    "sha256": "46256632d6dbb38aa0cfa7014761a38a3e41ca343b6afa11f55ee8b4b8e9b34a",
+    "interpretation": "Raw actual frame; acceptance only as specified in FINAL_REVIEW cases"
+  },
+  {
+    "png": "native/f34-driver-home-map-gesture.png",
+    "xml": "native/f34-driver-home-map-gesture.xml",
+    "actualSourceSha": "d6d5206a82f16987fd51371044fb12e76ba9f8d8",
+    "sha256": "46256632d6dbb38aa0cfa7014761a38a3e41ca343b6afa11f55ee8b4b8e9b34a",
+    "interpretation": "Raw actual frame; acceptance only as specified in FINAL_REVIEW cases"
+  },
+  {
+    "png": "native/f35-driver-home-final-restore.png",
+    "xml": "native/f35-driver-home-final-restore.xml",
+    "actualSourceSha": "d6d5206a82f16987fd51371044fb12e76ba9f8d8",
+    "sha256": "ba685b7fc9fe76ae8b1da385505127f71933aab9648bfcb38f1165bb5f52adec",
+    "interpretation": "Raw actual frame; acceptance only as specified in FINAL_REVIEW cases"
+  },
+  {
+    "png": "native/f36-passenger-order-half.png",
+    "xml": "native/f36-passenger-order-half.xml",
+    "actualSourceSha": "d6d5206a82f16987fd51371044fb12e76ba9f8d8",
+    "sha256": "e265cd837fcd3196a2340a523a501a4b29c8edafb0c51b97a4fd3edf9dad9525",
+    "interpretation": "Raw actual frame; acceptance only as specified in FINAL_REVIEW cases"
+  },
+  {
+    "png": "native/f37-passenger-order-expanded.png",
+    "xml": "native/f37-passenger-order-expanded.xml",
+    "actualSourceSha": "d6d5206a82f16987fd51371044fb12e76ba9f8d8",
+    "sha256": "df86eed16bb23f526e80fdf162bd53976e079bca38569eff7db711231c2ae4bb",
+    "interpretation": "Raw actual frame; acceptance only as specified in FINAL_REVIEW cases"
+  },
+  {
+    "png": "native/f38-passenger-order-last.png",
+    "xml": "native/f38-passenger-order-last.xml",
+    "actualSourceSha": "d6d5206a82f16987fd51371044fb12e76ba9f8d8",
+    "sha256": "d7b45a04ee908a75c3d573d8ce29562c307c3b85441a65d2709fd367cb9bd7c8",
+    "interpretation": "Raw actual frame; acceptance only as specified in FINAL_REVIEW cases"
+  },
+  {
+    "png": "native/f39-passenger-order-fullscreen.png",
+    "xml": "native/f39-passenger-order-fullscreen.xml",
+    "actualSourceSha": "d6d5206a82f16987fd51371044fb12e76ba9f8d8",
+    "sha256": "99e05f22c92056196ea0c76f169b77f420a76d8022653404bc2ab1b6f4e15ddb",
+    "interpretation": "Raw actual frame; acceptance only as specified in FINAL_REVIEW cases"
+  },
+  {
+    "png": "native/f40-passenger-order-tap-restore.png",
+    "xml": "native/f40-passenger-order-tap-restore.xml",
+    "actualSourceSha": "d6d5206a82f16987fd51371044fb12e76ba9f8d8",
+    "sha256": "9ab823769a322ae39cf554a75f661fc8520d2a6dc644d3d792f2939d1908a5ce",
+    "interpretation": "Raw actual frame; acceptance only as specified in FINAL_REVIEW cases"
+  },
+  {
+    "png": "native/f41-passenger-order-restored-settled.png",
+    "xml": "native/f41-passenger-order-restored-settled.xml",
+    "actualSourceSha": "d6d5206a82f16987fd51371044fb12e76ba9f8d8",
+    "sha256": "9ab823769a322ae39cf554a75f661fc8520d2a6dc644d3d792f2939d1908a5ce",
+    "interpretation": "Raw actual frame; acceptance only as specified in FINAL_REVIEW cases"
+  },
+  {
+    "png": "native/f42-passenger-order-collapse-before-stage.png",
+    "xml": "native/f42-passenger-order-collapse-before-stage.xml",
+    "actualSourceSha": "d6d5206a82f16987fd51371044fb12e76ba9f8d8",
+    "sha256": "874e1088850a60abbf94082cbb54f4aca541dcb87a05e35f5714dfc063acbad8",
+    "interpretation": "Raw actual frame; acceptance only as specified in FINAL_REVIEW cases"
+  },
+  {
+    "png": "native/f43-passenger-order-map-gesture.png",
+    "xml": "native/f43-passenger-order-map-gesture.xml",
+    "actualSourceSha": "d6d5206a82f16987fd51371044fb12e76ba9f8d8",
+    "sha256": "042b10deabf2338630c54c71a406f7ed64d3ac1af3a0b67f37b9c6da56d9fdac",
+    "interpretation": "Raw actual frame; acceptance only as specified in FINAL_REVIEW cases"
+  },
+  {
+    "png": "native/f44-passenger-stage-exposed.png",
+    "xml": "native/f44-passenger-stage-exposed.xml",
+    "actualSourceSha": "d6d5206a82f16987fd51371044fb12e76ba9f8d8",
+    "sha256": "042b10deabf2338630c54c71a406f7ed64d3ac1af3a0b67f37b9c6da56d9fdac",
+    "interpretation": "Raw actual frame; acceptance only as specified in FINAL_REVIEW cases"
+  },
+  {
+    "png": "native/f45-cancel-gps-order.png",
+    "xml": "native/f45-cancel-gps-order.xml",
+    "actualSourceSha": "d6d5206a82f16987fd51371044fb12e76ba9f8d8",
+    "sha256": "16f450bfb2152191870f3c4d25531b9b7efc8cd37ec53b4b7dcfbfa386911364",
+    "interpretation": "Raw actual frame; acceptance only as specified in FINAL_REVIEW cases"
+  },
+  {
+    "png": "native/f46-cancel-return-booking.png",
+    "xml": "native/f46-cancel-return-booking.xml",
+    "actualSourceSha": "d6d5206a82f16987fd51371044fb12e76ba9f8d8",
+    "sha256": "702223f048bb7624bc9b244b4d36bd7a5f350249d9749e8e7465d0a42736ff2f",
+    "interpretation": "Raw actual frame; acceptance only as specified in FINAL_REVIEW cases"
+  },
+  {
+    "png": "native/f47-new-draft-after-order.png",
+    "xml": "native/f47-new-draft-after-order.xml",
+    "actualSourceSha": "d6d5206a82f16987fd51371044fb12e76ba9f8d8",
+    "sha256": "16311a0f759503e1f69d01eedc72cb8d441f74aeadc5df7648732cb73b3acdb9",
+    "interpretation": "Raw actual frame; acceptance only as specified in FINAL_REVIEW cases"
+  },
+  {
+    "png": "native/f48-manual-origin-picker.png",
+    "xml": "native/f48-manual-origin-picker.xml",
+    "actualSourceSha": "d6d5206a82f16987fd51371044fb12e76ba9f8d8",
+    "sha256": "ca727852d08e77ed20d4f3c4dac602538dc9b2fb498936e5b56c3629b58a7bf2",
+    "interpretation": "Raw actual frame; acceptance only as specified in FINAL_REVIEW cases"
+  },
+  {
+    "png": "native/f49-manual-origin-select.png",
+    "xml": "native/f49-manual-origin-select.xml",
+    "actualSourceSha": "d6d5206a82f16987fd51371044fb12e76ba9f8d8",
+    "sha256": "ef8a447579a76acdf5a49d790c3f174ae5e360b1df0670191a5564aff30f94c8",
+    "interpretation": "Raw actual frame; acceptance only as specified in FINAL_REVIEW cases"
+  },
+  {
+    "png": "native/f50-manual-origin-set.png",
+    "xml": "native/f50-manual-origin-set.xml",
+    "actualSourceSha": "d6d5206a82f16987fd51371044fb12e76ba9f8d8",
+    "sha256": "5120b817aad4ed1547c73395abe06e0620753f8fbd66daeb25aeb3dc21c7186d",
+    "interpretation": "Raw actual frame; acceptance only as specified in FINAL_REVIEW cases"
+  },
+  {
+    "png": "native/f51-existing-origin-empty-query.png",
+    "xml": "native/f51-existing-origin-empty-query.xml",
+    "actualSourceSha": "d6d5206a82f16987fd51371044fb12e76ba9f8d8",
+    "sha256": "673c5ff2977a949d4ded6b431e08059afa369e0dbc770481bb5a820e3c100f1d",
+    "interpretation": "Raw actual frame; acceptance only as specified in FINAL_REVIEW cases"
+  },
+  {
+    "png": "native/f52-existing-select-other.png",
+    "xml": "native/f52-existing-select-other.xml",
+    "actualSourceSha": "d6d5206a82f16987fd51371044fb12e76ba9f8d8",
+    "sha256": "73d40b76c5818bb88950d8202580c7de07be8cceea0a154857ef0e14af749fab",
+    "interpretation": "Raw actual frame; acceptance only as specified in FINAL_REVIEW cases"
+  },
+  {
+    "png": "native/f53-existing-cancel-keeps-manual.png",
+    "xml": "native/f53-existing-cancel-keeps-manual.xml",
+    "actualSourceSha": "d6d5206a82f16987fd51371044fb12e76ba9f8d8",
+    "sha256": "5120b817aad4ed1547c73395abe06e0620753f8fbd66daeb25aeb3dc21c7186d",
+    "interpretation": "Raw actual frame; acceptance only as specified in FINAL_REVIEW cases"
+  },
+  {
+    "png": "native/f54-passenger-small-half.png",
+    "xml": "native/f54-passenger-small-half.xml",
+    "actualSourceSha": "d6d5206a82f16987fd51371044fb12e76ba9f8d8",
+    "sha256": "7750c20ff2d7a6f10c6175670c2770d0c1a5908818fc302df1816600ca44e617",
+    "interpretation": "Raw actual frame; acceptance only as specified in FINAL_REVIEW cases"
+  },
+  {
+    "png": "native/f55-passenger-small-expanded.png",
+    "xml": "native/f55-passenger-small-expanded.xml",
+    "actualSourceSha": "d6d5206a82f16987fd51371044fb12e76ba9f8d8",
+    "sha256": "1b8134bc0bafd69237e85f3e76617bb9e5105a0cb1ce484b6e4ee62992c42d80",
+    "interpretation": "Raw actual frame; acceptance only as specified in FINAL_REVIEW cases"
+  },
+  {
+    "png": "native/f56-passenger-small-route.png",
+    "xml": "native/f56-passenger-small-route.xml",
+    "actualSourceSha": "d6d5206a82f16987fd51371044fb12e76ba9f8d8",
+    "sha256": "d157662ceda59b93f2b0c217f8c588c974ac2ec6180967f6a313d5557ec5a00a",
+    "interpretation": "Raw actual frame; acceptance only as specified in FINAL_REVIEW cases"
+  },
+  {
+    "png": "native/f57-small-picker-empty.png",
+    "xml": "native/f57-small-picker-empty.xml",
+    "actualSourceSha": "d6d5206a82f16987fd51371044fb12e76ba9f8d8",
+    "sha256": "8ac9098b5d550d561c7c7f07c69692ed08d990638889c94f73159e52a47f4621",
+    "interpretation": "Raw actual frame; acceptance only as specified in FINAL_REVIEW cases"
+  },
+  {
+    "png": "native/f58-small-ime-query.png",
+    "xml": "native/f58-small-ime-query.xml",
+    "actualSourceSha": "d6d5206a82f16987fd51371044fb12e76ba9f8d8",
+    "sha256": "b83e147cca8bc10855dfa65a5294b7773476231916c3c317ac1039eaf9ea9ad6",
+    "interpretation": "Raw actual frame; acceptance only as specified in FINAL_REVIEW cases"
+  },
+  {
+    "png": "native/f59-small-query-supersedes.png",
+    "xml": "native/f59-small-query-supersedes.xml",
+    "actualSourceSha": "d6d5206a82f16987fd51371044fb12e76ba9f8d8",
+    "sha256": "2a88bd7720e27ab84dbcc89dfad162ee0064bee329b38038ae3079c38c1282a7",
+    "interpretation": "Raw actual frame; acceptance only as specified in FINAL_REVIEW cases"
+  },
+  {
+    "png": "native/f60-small-query-clear.png",
+    "xml": "native/f60-small-query-clear.xml",
+    "actualSourceSha": "d6d5206a82f16987fd51371044fb12e76ba9f8d8",
+    "sha256": "4ed2cc746dcdc84c046422fc743d683a07cd4842e41a2fad37300e81c91612d6",
+    "interpretation": "Raw actual frame; acceptance only as specified in FINAL_REVIEW cases"
+  },
+  {
+    "png": "native/f61-small-back-hides-ime.png",
+    "xml": "native/f61-small-back-hides-ime.xml",
+    "actualSourceSha": "d6d5206a82f16987fd51371044fb12e76ba9f8d8",
+    "sha256": "6c634e59186dc0a8d07280c9b3a79c903314a7dc5b9a3081d81a7f56a0d820f2",
+    "interpretation": "Raw actual frame; acceptance only as specified in FINAL_REVIEW cases"
+  },
+  {
+    "png": "native/f62-small-cancel-draft-kept.png",
+    "xml": "native/f62-small-cancel-draft-kept.xml",
+    "actualSourceSha": "d6d5206a82f16987fd51371044fb12e76ba9f8d8",
+    "sha256": "09d7fed3c86f9221b05e90a281b6431b03fe4d722297f0bd58182e8078bbed2d",
+    "interpretation": "Raw actual frame; acceptance only as specified in FINAL_REVIEW cases"
+  },
+  {
+    "png": "native/f63-normal-manual-draft.png",
+    "xml": "native/f63-normal-manual-draft.xml",
+    "actualSourceSha": "d6d5206a82f16987fd51371044fb12e76ba9f8d8",
+    "sha256": "5246094aa380d20d5944650eed70ff141af909a704408bb2813c0cebf1dbb7ca",
+    "interpretation": "Raw actual frame; acceptance only as specified in FINAL_REVIEW cases"
+  },
+  {
+    "png": "native/f64-manual-order-destination.png",
+    "xml": "native/f64-manual-order-destination.xml",
+    "actualSourceSha": "d6d5206a82f16987fd51371044fb12e76ba9f8d8",
+    "sha256": "542bf40033a394193afaf854da1b299eeb89cd661ebb8510017bb32b92bb8833",
+    "interpretation": "Raw actual frame; acceptance only as specified in FINAL_REVIEW cases"
+  },
+  {
+    "png": "native/f65-manual-order-select-destination.png",
+    "xml": "native/f65-manual-order-select-destination.xml",
+    "actualSourceSha": "d6d5206a82f16987fd51371044fb12e76ba9f8d8",
+    "sha256": "8febdb388c29b6359670bd7e45551aec763e1bd47bab7d91b3c7061b28d3831e",
+    "interpretation": "Raw actual frame; acceptance only as specified in FINAL_REVIEW cases"
+  },
+  {
+    "png": "native/f66-manual-order-ready.png",
+    "xml": "native/f66-manual-order-ready.xml",
+    "actualSourceSha": "d6d5206a82f16987fd51371044fb12e76ba9f8d8",
+    "sha256": "1da7595da11bdd8be284969599b3ab2375d028bbb31fb6f5676bcf4c91d60dfd",
+    "interpretation": "Raw actual frame; acceptance only as specified in FINAL_REVIEW cases"
+  },
+  {
+    "png": "native/f67-manual-origin-order.png",
+    "xml": "native/f67-manual-origin-order.xml",
+    "actualSourceSha": "d6d5206a82f16987fd51371044fb12e76ba9f8d8",
+    "sha256": "a375910cf4efe49e6a40d0be8ddbd7eadd0c2d58d8e3f4a02ed56bcade5ac4bd",
+    "interpretation": "Raw actual frame; acceptance only as specified in FINAL_REVIEW cases"
+  },
+  {
+    "png": "native/f68-order-fullscreen-before-back.png",
+    "xml": "native/f68-order-fullscreen-before-back.xml",
+    "actualSourceSha": "d6d5206a82f16987fd51371044fb12e76ba9f8d8",
+    "sha256": "c8fbcf5da65d69c8758aa267ef3a16b59666ecc085e1ce6882cd75abd6d4bd0d",
+    "interpretation": "Raw actual frame; acceptance only as specified in FINAL_REVIEW cases"
+  },
+  {
+    "png": "native/f69-passenger-back-booking-chrome.png",
+    "xml": "native/f69-passenger-back-booking-chrome.xml",
+    "actualSourceSha": "d6d5206a82f16987fd51371044fb12e76ba9f8d8",
+    "sha256": "2bbce7931a00fbaf205641401838f2ce68ff85c7df874c68ae8bfe85ef383519",
+    "interpretation": "Raw actual frame; acceptance only as specified in FINAL_REVIEW cases"
+  },
+  {
+    "png": "native/f70-profile-after-map.png",
+    "xml": "native/f70-profile-after-map.xml",
+    "actualSourceSha": "d6d5206a82f16987fd51371044fb12e76ba9f8d8",
+    "sha256": "7981bfc2ccb29eaa1b7310cd097b730903f251dc1b6435584c0075b8e350a1f2",
+    "interpretation": "Raw actual frame; acceptance only as specified in FINAL_REVIEW cases"
+  },
+  {
+    "png": "native/f71-favorites-reuse.png",
+    "xml": "native/f71-favorites-reuse.xml",
+    "actualSourceSha": "d6d5206a82f16987fd51371044fb12e76ba9f8d8",
+    "sha256": "0907b1f053d904a5c7fb5fefed4644415fd52f6c5cc6f72fa8885a2d0583a67f",
+    "interpretation": "Raw actual frame; acceptance only as specified in FINAL_REVIEW cases"
+  },
+  {
+    "png": "native/f72-favorite-edit.png",
+    "xml": "native/f72-favorite-edit.xml",
+    "actualSourceSha": "d6d5206a82f16987fd51371044fb12e76ba9f8d8",
+    "sha256": "ec73d97b03be0514ec89553ceeaf9131faa78cb3aacd50532e67604d6ebc46a6",
+    "interpretation": "Raw actual frame; acceptance only as specified in FINAL_REVIEW cases"
+  },
+  {
+    "png": "native/f73-favorite-picker-empty.png",
+    "xml": "native/f73-favorite-picker-empty.xml",
+    "actualSourceSha": "d6d5206a82f16987fd51371044fb12e76ba9f8d8",
+    "sha256": "a00cd3c9df6e27959e032db1b2766af37aeba733e9e1fd107fa94230a90b88e6",
+    "interpretation": "Raw actual frame; acceptance only as specified in FINAL_REVIEW cases"
+  },
+  {
+    "png": "native/f74-favorite-picker-cancel.png",
+    "xml": "native/f74-favorite-picker-cancel.xml",
+    "actualSourceSha": "d6d5206a82f16987fd51371044fb12e76ba9f8d8",
+    "sha256": "bcc9ac1ee88d52f0f35cca9d3780c829a386e89230dc551129655beb0b5ce545",
+    "interpretation": "Raw actual frame; acceptance only as specified in FINAL_REVIEW cases"
+  },
+  {
+    "png": "native/f75-favorite-edit-cancel.png",
+    "xml": "native/f75-favorite-edit-cancel.xml",
+    "actualSourceSha": "d6d5206a82f16987fd51371044fb12e76ba9f8d8",
+    "sha256": "fb2d42ca1f6d831e43355e8e02dfd83cdcb4e1d9c58edfcbc6c4918222e6a23f",
+    "interpretation": "Raw actual frame; acceptance only as specified in FINAL_REVIEW cases"
+  },
+  {
+    "png": "native/f76-profile-return.png",
+    "xml": "native/f76-profile-return.xml",
+    "actualSourceSha": "d6d5206a82f16987fd51371044fb12e76ba9f8d8",
+    "sha256": "176cc636117256f5dbc4be7e70b0ca4de76d2a9e5fc46b291d8f8c01c4b125b3",
+    "interpretation": "Raw actual frame; acceptance only as specified in FINAL_REVIEW cases"
+  },
+  {
+    "png": "native/f77-profile-lower.png",
+    "xml": "native/f77-profile-lower.xml",
+    "actualSourceSha": "d6d5206a82f16987fd51371044fb12e76ba9f8d8",
+    "sha256": "4f0fc64576917151eba5c3ab0da2ef470ea18f2a101ae198074b7a630ffa916f",
+    "interpretation": "Raw actual frame; acceptance only as specified in FINAL_REVIEW cases"
+  },
+  {
+    "png": "native/f78-profile-logout-entry.png",
+    "xml": "native/f78-profile-logout-entry.xml",
+    "actualSourceSha": "d6d5206a82f16987fd51371044fb12e76ba9f8d8",
+    "sha256": "091b79e66cbcfaada06be4314bf904813bc8e1b340bdb30e6b0271e192204837",
+    "interpretation": "Raw actual frame; acceptance only as specified in FINAL_REVIEW cases"
+  },
+  {
+    "png": "native/f79-logout-confirm.png",
+    "xml": "native/f79-logout-confirm.xml",
+    "actualSourceSha": "d6d5206a82f16987fd51371044fb12e76ba9f8d8",
+    "sha256": "b46ddc84371131cf2af55f184e7723915f1a30f14f225406eaeac87264d9b292",
+    "interpretation": "Raw actual frame; acceptance only as specified in FINAL_REVIEW cases"
+  },
+  {
+    "png": "native/f80-logged-out-chrome.png",
+    "xml": "native/f80-logged-out-chrome.xml",
+    "actualSourceSha": "d6d5206a82f16987fd51371044fb12e76ba9f8d8",
+    "sha256": "73bd1976c4b84f5825d20658b2d53523349cae082d2c11f833baf16f96877418",
+    "interpretation": "Raw actual frame; acceptance only as specified in FINAL_REVIEW cases"
+  },
+  {
+    "png": "native/f81-account-options.png",
+    "xml": "native/f81-account-options.xml",
+    "actualSourceSha": "d6d5206a82f16987fd51371044fb12e76ba9f8d8",
+    "sha256": "dcaaf90f4bb70a0996ca2395a7d9addb8c089780e5a5d61b659e4fb94c15fb02",
+    "interpretation": "Raw actual frame; acceptance only as specified in FINAL_REVIEW cases"
+  },
+  {
+    "png": "native/f82-account1.png",
+    "xml": "native/f82-account1.xml",
+    "actualSourceSha": "d6d5206a82f16987fd51371044fb12e76ba9f8d8",
+    "sha256": "1326adc4fb6d3a284a5710eb0b65565bba6797e5c5f76cf06c117f50a574e8dd",
+    "interpretation": "Raw actual frame; acceptance only as specified in FINAL_REVIEW cases"
+  },
+  {
+    "png": "native/f83-account1-consent.png",
+    "xml": "native/f83-account1-consent.xml",
+    "actualSourceSha": "d6d5206a82f16987fd51371044fb12e76ba9f8d8",
+    "sha256": "bb436a602e480adb69d31835baa7148539c08ae76352ed4f07c4cacaed48c96b",
+    "interpretation": "Raw actual frame; acceptance only as specified in FINAL_REVIEW cases"
+  },
+  {
+    "png": "native/f84-account1-map-restored.png",
+    "xml": "native/f84-account1-map-restored.xml",
+    "actualSourceSha": "d6d5206a82f16987fd51371044fb12e76ba9f8d8",
+    "sha256": "6db08f4027d081d66a057701952102b8a5c8eb7fbc0d89080733dcec0d2cad69",
+    "interpretation": "Raw actual frame; acceptance only as specified in FINAL_REVIEW cases"
+  },
+  {
+    "png": "native/f85-account1-settled.png",
+    "xml": "native/f85-account1-settled.xml",
+    "actualSourceSha": "d6d5206a82f16987fd51371044fb12e76ba9f8d8",
+    "sha256": "25b8f33f8535028dd94596e4ab2429f8dfc919b797fd95d9ccee04894a89ff64",
+    "interpretation": "Raw actual frame; acceptance only as specified in FINAL_REVIEW cases"
+  },
+  {
+    "png": "native/f86-account1-fullscreen.png",
+    "xml": "native/f86-account1-fullscreen.xml",
+    "actualSourceSha": "d6d5206a82f16987fd51371044fb12e76ba9f8d8",
+    "sha256": "6b060a48a13fd06aeb1aaa0ecfbf4a8509eb33651e7d410a39266b1e238683ba",
+    "interpretation": "Raw actual frame; acceptance only as specified in FINAL_REVIEW cases"
+  },
+  {
+    "png": "native/f87-final-background-fullscreen.png",
+    "xml": "native/f87-final-background-fullscreen.xml",
+    "actualSourceSha": "d6d5206a82f16987fd51371044fb12e76ba9f8d8",
+    "sha256": "6b060a48a13fd06aeb1aaa0ecfbf4a8509eb33651e7d410a39266b1e238683ba",
+    "interpretation": "Raw actual frame; acceptance only as specified in FINAL_REVIEW cases"
+  },
+  {
+    "png": "native/f88-passenger-fullscreen-config.png",
+    "xml": "native/f88-passenger-fullscreen-config.xml",
+    "actualSourceSha": "d6d5206a82f16987fd51371044fb12e76ba9f8d8",
+    "sha256": "3a9af2fbc1f52a973165ab0c517de008b16aaa4f8a3227c46fa7c1c2d273fd2e",
+    "interpretation": "Intentional canonicalHalf after configuration; not a preserved-fullscreen frame."
+  },
+  {
+    "png": "native/f89-passenger-fullscreen-config-settled.png",
+    "xml": "native/f89-passenger-fullscreen-config-settled.xml",
+    "actualSourceSha": "d6d5206a82f16987fd51371044fb12e76ba9f8d8",
+    "sha256": "ff8824011aaae88013a1ed9ff93b48e5aa1e46f7412cf917331dcb87440e27ce",
+    "interpretation": "IntentionalHalf; not fullscreen."
+  },
+  {
+    "png": "native/f92-driver-home-small-fullscreen.png",
+    "xml": "native/f92-driver-home-small-fullscreen.xml",
+    "actualSourceSha": "d6d5206a82f16987fd51371044fb12e76ba9f8d8",
+    "sha256": "9bb6b0facf394a1b587a30c70a98b41b4273b84b036b6527fffbb8147c6f233c",
+    "interpretation": "Actual passenger screen despite filename; stale-control probe, not driver evidence."
+  },
+  {
+    "png": "native/f94-current-page-recovery.png",
+    "xml": "native/f94-current-page-recovery.xml",
+    "actualSourceSha": "d6d5206a82f16987fd51371044fb12e76ba9f8d8",
+    "sha256": "a48201d40bda3d6cb776ef74777aeb2c48a9e135a06f8eb6ac807381776d1e88",
+    "interpretation": "Raw actual frame; acceptance only as specified in FINAL_REVIEW cases"
+  },
+  {
+    "png": "native/f95-passenger-small-tap-restored.png",
+    "xml": "native/f95-passenger-small-tap-restored.xml",
+    "actualSourceSha": "d6d5206a82f16987fd51371044fb12e76ba9f8d8",
+    "sha256": "90005edb860914b3351548743198a3f3ce3c0f70779fc65286217587e29dd43c",
+    "interpretation": "Raw actual frame; acceptance only as specified in FINAL_REVIEW cases"
+  },
+  {
+    "png": "native/f96-driver-home-small-actual.png",
+    "xml": "native/f96-driver-home-small-actual.xml",
+    "actualSourceSha": "d6d5206a82f16987fd51371044fb12e76ba9f8d8",
+    "sha256": "fadf6e7bd91d86ceac058c8d9c41fc3a4bbef07974c1cd51b3ea8238fbcbb96c",
+    "interpretation": "Raw actual frame; acceptance only as specified in FINAL_REVIEW cases"
+  },
+  {
+    "png": "native/f97-driver-home-small-fullscreen.png",
+    "xml": "native/f97-driver-home-small-fullscreen.xml",
+    "actualSourceSha": "d6d5206a82f16987fd51371044fb12e76ba9f8d8",
+    "sha256": "b83f6614105fd3bf829b01257788baa48e508087a39eb5cd72063925586f28b6",
+    "interpretation": "Raw actual frame; acceptance only as specified in FINAL_REVIEW cases"
+  },
+  {
+    "png": "native/f98-driver-home-small-restored.png",
+    "xml": "native/f98-driver-home-small-restored.xml",
+    "actualSourceSha": "d6d5206a82f16987fd51371044fb12e76ba9f8d8",
+    "sha256": "70aa123193e5f6885d1614acb8c62fc3e10a6306cf7df89287692d18b6cbca9e",
+    "interpretation": "Raw actual frame; acceptance only as specified in FINAL_REVIEW cases"
+  },
+  {
+    "png": "native/f99-driver-home-small-final.png",
+    "xml": "native/f99-driver-home-small-final.xml",
+    "actualSourceSha": "d6d5206a82f16987fd51371044fb12e76ba9f8d8",
+    "sha256": "70aa123193e5f6885d1614acb8c62fc3e10a6306cf7df89287692d18b6cbca9e",
+    "interpretation": "Raw actual frame; acceptance only as specified in FINAL_REVIEW cases"
+  },
+  {
+    "png": "native/p06-new-draft-no-permission.png",
+    "xml": "native/p06-new-draft-no-permission.xml",
+    "actualSourceSha": "ee23c4c71fa979946fc834ccf49b12f03b17031e",
+    "sha256": "0fdfa60e77eb0ead78600d1b3468a1e142c7a71ea726e989443beed10f627272",
+    "interpretation": "Raw actual frame; acceptance only as specified in FINAL_REVIEW cases"
+  },
+  {
+    "png": "native/p07-new-picker-empty.png",
+    "xml": "native/p07-new-picker-empty.xml",
+    "actualSourceSha": "ee23c4c71fa979946fc834ccf49b12f03b17031e",
+    "sha256": "11d425601a8ea0880a216210a65494be6fd5cfbd95e567cb55d2f744fb47c60c",
+    "interpretation": "Raw actual frame; acceptance only as specified in FINAL_REVIEW cases"
+  },
+  {
+    "png": "native/p08-select-favorite.png",
+    "xml": "native/p08-select-favorite.xml",
+    "actualSourceSha": "ee23c4c71fa979946fc834ccf49b12f03b17031e",
+    "sha256": "b400d15ad84c1b6a46240e796db925b1c5c06ea57945c0b63fbb77b7e6c16d8f",
+    "interpretation": "Raw actual frame; acceptance only as specified in FINAL_REVIEW cases"
+  },
+  {
+    "png": "native/p09-new-query-clears-old.png",
+    "xml": "native/p09-new-query-clears-old.xml",
+    "actualSourceSha": "ee23c4c71fa979946fc834ccf49b12f03b17031e",
+    "sha256": "e73dca48e2203fb22472c4d1a7bf0de503f1b199ee170e09b2aa4257c1e837d3",
+    "interpretation": "Raw actual frame; acceptance only as specified in FINAL_REVIEW cases"
+  },
+  {
+    "png": "native/p11-clear-pending-query.png",
+    "xml": "native/p11-clear-pending-query.xml",
+    "actualSourceSha": "ee23c4c71fa979946fc834ccf49b12f03b17031e",
+    "sha256": "cd8e2392e3912229af6b19207f0519cd8148b824e713a30ba37522166ce94e6f",
+    "interpretation": "Raw actual frame; acceptance only as specified in FINAL_REVIEW cases"
+  },
+  {
+    "png": "native/p13-cancel-new-picker.png",
+    "xml": "native/p13-cancel-new-picker.xml",
+    "actualSourceSha": "ee23c4c71fa979946fc834ccf49b12f03b17031e",
+    "sha256": "8e96ace5e596a3b0063ac5675191e69459f11bfad3bcf4334871478d66c29239",
+    "interpretation": "Raw actual frame; acceptance only as specified in FINAL_REVIEW cases"
+  },
+  {
+    "png": "native/p18-gps-new-draft.png",
+    "xml": "native/p18-gps-new-draft.xml",
+    "actualSourceSha": "ee23c4c71fa979946fc834ccf49b12f03b17031e",
+    "sha256": "fd8ee0cb09cda9ae2edf9187d5b4312a763c40ca66b31fa064c9c4d3ba797ff0",
+    "interpretation": "Raw actual frame; acceptance only as specified in FINAL_REVIEW cases"
+  },
+  {
+    "png": "native/p20-empty-swap-does-nothing.png",
+    "xml": "native/p20-empty-swap-does-nothing.xml",
+    "actualSourceSha": "ee23c4c71fa979946fc834ccf49b12f03b17031e",
+    "sha256": "db6b2e7b30d0459f964da4cd91182fefc8a54f7496805421d33df2e0f290f965",
+    "interpretation": "Raw actual frame; acceptance only as specified in FINAL_REVIEW cases"
+  },
+  {
+    "png": "native/d18-stage-after-poll.png",
+    "xml": "native/d18-stage-after-poll.xml",
+    "actualSourceSha": "cbe8190d70db6f4473dc530c2d84cd0500153f2a",
+    "sha256": "04cbb1446a3abd2453e07b06c97d12a0a7110706d02787d98907a36add5cda66",
+    "interpretation": "Actual original-source frame referenced by FINAL_REVIEW; no relabelled provenance"
+  },
+  {
+    "png": "native/d14-home-collapse-before-stage.png",
+    "xml": "native/d14-home-collapse-before-stage.xml",
+    "actualSourceSha": "cbe8190d70db6f4473dc530c2d84cd0500153f2a",
+    "sha256": "17cb5dc9f246fd3e351481ba73af652822ee96af1d325b4ba92e0ef8ddb2437e",
+    "interpretation": "Actual original-source frame referenced by FINAL_REVIEW; no relabelled provenance"
+  }
+]

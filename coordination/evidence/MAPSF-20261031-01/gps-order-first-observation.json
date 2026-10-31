@@ -1,0 +1,18 @@
+{
+  "actual": {
+    "id": "PORD7f51c05cec0a",
+    "stage": "AVAILABLE",
+    "origin": "我的位置（手机定位）",
+    "originLat": 30.6687,
+    "originLng": 111.32259833333333,
+    "destination": "宜昌东站 · 出租车上客区",
+    "destinationLat": 30.6648,
+    "destinationLng": 111.3674
+  },
+  "intendedGpsB": [
+    30.69,
+    111.34
+  ],
+  "status": "EXPECTED_BY_EXISTING_FRESH_FIX_RULE",
+  "explanation": "Independent test expectation corrected: shouldReplace retains fresh5m GPSA until old fix expires or candidate gains>=10m precision. New equally precise5m GPSB does not replace freshGPSA. Native order correctly stores appliedGPSA; no product failure inferred. Empty swap parentenabled=false separately verified."
+}

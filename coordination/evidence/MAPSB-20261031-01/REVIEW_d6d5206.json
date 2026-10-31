@@ -1,0 +1,36 @@
+{
+  "taskId": "MAPSB-20261031-01",
+  "reviewerThreadId": "01a182c6-c058-76e1-9584-38abfe813799",
+  "reviewedAt": "2026-10-31T16:11:33+08:00",
+  "candidateSha": "d6d5206a82f16987fd51371044fb12e76ba9f8d8",
+  "previousAcceptedSha": "ee23c4c71fa979946fc834ccf49b12f03b17031e",
+  "acceptance": "PASS",
+  "scope": "App chrome ownership/fullscreen source delta only",
+  "changedProductFiles": [
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/BookingScreens.kt",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/MainActivity.kt",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/MapPanel.kt",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/OrderDetail.kt",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/CoreScreens.kt",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/MainActivity.kt",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/MapPanel.kt"
+  ],
+  "findings": [],
+  "conclusions": [
+    "MapChromeHost keeps token->scope map, release removes only own token. Old disposed panel cannot remove new panel claim. Host not persistent, no credential/business state stored.",
+    "Chrome hidden only if currently logged/page scope matches claim. Booking/home scope includes account; route nonmap/logout scope null ignores stale claims. Per-panel DisposableEffect releases on state/scope/token/dispose; new account panel keyed saveKey resets.",
+    "PanelSaver maps Collapsed toHalf on save so returning/recreation cannot restore hidden bars without an active current claim. Order scopes use current order id with page/logged filtering and dispose, not a global hidden flag.",
+    "MainActivity visibility changes are UI chrome only: connection/error messages retained; no business/auth/navigation callback change. Driver qualification banner hides while fullscreen intentionally, returns when panel restores. canAccept/active/online attention and original qualification/order gates untouched.",
+    "Attention stage/payable/cancellable/waypoint/consent changes still reopen collapsed panels; stage leaving map disposes map claim. Handle restore remains available; system back routing retained.",
+    "Prior ee query-selection invalidation, pending confirmation and safe swap code unaffected; no new Store/domain/backend/network/permission changes."
+  ],
+  "notRun": "No business tests/Gradle/GUI repeated; frontend must verify actual fullscreen geometry, lifecycle/account switches and handle recovery on exactSHA",
+  "tests": [
+    {
+      "command": "Exactee23c4c..d6d5206 seven-product-file source delta/ownership-lifecycle review",
+      "exitCode": 0,
+      "result": "PASS narrow source semantics, earlier eePASS inherited"
+    }
+  ],
+  "nextAction": "Root combine independent frontend rebuilt/native acceptance; backend IDLE"
+}

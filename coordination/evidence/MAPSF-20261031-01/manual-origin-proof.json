@@ -1,0 +1,14 @@
+{
+  "actualLocalOrder": {
+    "id": "PORD26edfca92874",
+    "stage": "AVAILABLE",
+    "origin": "MAPSF SameName Place",
+    "originLat": 30.6687,
+    "originLng": 111.3226,
+    "destination": "夷陵广场 · 东侧入口",
+    "destinationLat": 30.704,
+    "destinationLng": 111.2929
+  },
+  "lastDeviceMockGps": "last location=Location[gps 30.719998,111.379998 hAcc=5.0 et=+26m37s208ms alt=25.0 vAcc=0.5 vel=0.0 sAcc=0.5 bear=0.0 bAcc=30.0 {Bundle[{satellites=0, maxCn0=0, meanCn0=0}]}]",
+  "scenario": "Manual pointA survives later mockGPSD, editor cancel and small configuration; actual service order payload retainsA. This is isolated synthetic GPS, not personaldevice/provider success."
+}

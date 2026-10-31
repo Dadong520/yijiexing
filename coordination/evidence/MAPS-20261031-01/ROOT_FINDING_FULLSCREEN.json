@@ -1,0 +1,9 @@
+{
+  "status": "FAIL_ROOT_FULLSCREEN_LAYOUT",
+  "sourceSha": "cbe8190d70db6f4473dc530c2d84cd0500153f2a",
+  "driverTreeSameAt": "ee23c4c71fa979946fc834ccf49b12f03b17031e",
+  "image": "ROOT_FULLSCREEN_BEFORE.png",
+  "sha256": "9d7835a2f62f313a759cd9404104606cb6314653d02a72a52ff564c0db4abf92",
+  "finding": "Collapsed map still loses space to driver identity/certificate bar and bottom navigation; requested full-screen map requires hiding app chrome during collapsed state and safe restoration",
+  "provider": "Unavailable offline QA; not provider evidence"
+}
