@@ -10,15 +10,15 @@
 - 活跃任务：[BOARD](coordination/BOARD.json)；长期决定：[DECISIONS](coordination/DECISIONS.md)；角色细节：handoffs；契约：contracts。
 - 恢复与提交检查：`python3 tools/check_coordination.py --memory-role <role> --session-id <真实会话ID>`；检查器不测量模型内部上下文，不等于业务验收。
 
-## 新单提醒与最近司机竞抢（司机25候选，验收通过待发布）
+## 新单提醒与最近司机竞抢（司机25已发布）
 
 司机听单时，新订单在前台弹窗或后台悬浮窗提示3秒，可直接点击抢单；提示收起后仍可在订单大厅查看。未授予悬浮窗权限时使用系统通知及其“立即抢单”按钮。系统通知与浮窗需要用户在系统设置中授权，系统强杀后需重新打开应用。
 
 普通共享即时、预约订单由首位有效抢单司机开启服务端固定5秒竞抢；截止后从仍符合接单条件的候选中，按入场时有效定位到乘客起点的直线距离选出唯一司机。同距按入场先后及司机ID确定。候选等待期间不开放乘客电话或进入接驾。获派司机在乘客上车前取消，同一订单重新开启下一轮；上车后沿用原取消限制。乘客选价、议价、私有示例和金额规则保持。
 
-产品候选 `36fdf2c1bddd859f3dff22fbeb2d7e70aa94ec7c`，司机 `0.3.22-cloud / code25`，原包名和签名。独立后端307项及2项额外HTTP/CAS测试、司机122项单元测试和8组隔离原生场景通过。Claude主要实现，Codex完成额度中断后的取消弹窗修复，另一会话复核通过。原生使用一个隔离模拟器及合成API对手；未验证多台个人手机、实车、OEM省电和物理语音。见[最终构建](coordination/evidence/GRAB-20261101-01/FINAL_BUILD_PROOF.json)、[原生验收](coordination/evidence/GRAB-20261101-01/native/FINAL_REVIEW.json)及[独立差量复核](coordination/evidence/GRABRB-20261101-01/C2_DELTA_REVIEW.json)。
+产品源 `36fdf2c1bddd859f3dff22fbeb2d7e70aa94ec7c`，司机 `0.3.22-cloud / code25`，原包名和签名。独立后端307项及2项额外HTTP/CAS测试、司机122项单元测试和8组隔离原生场景通过。Claude主要实现，Codex完成额度中断后的取消弹窗修复，另一会话复核通过。原生使用一个隔离模拟器及合成API对手；未验证多台个人手机、实车、OEM省电和物理语音。见[最终构建](coordination/evidence/GRAB-20261101-01/FINAL_BUILD_PROOF.json)、[原生验收](coordination/evidence/GRAB-20261101-01/native/FINAL_REVIEW.json)及[独立差量复核](coordination/evidence/GRABRB-20261101-01/C2_DELTA_REVIEW.json)。
 
-本节为待发布候选；当前公开司机包仍24、乘客仍23。准确CI/合并及独立体验发布回读完成后再记录实际发布。
+[PR51](https://github.com/Dadong520/yijiexing/pull/51)准确headCI通过后已合并，产品merge `03fbf3e198e690d06d7b1dac65e106cf1411865c`。独立体验API的default100及所有既有API标签均切到 `driver-demo-grab-36fdf2c`，标签名与URL保持，临时标签移除，避免旧服务绕过竞抢规则。后台整个配置和IAM、API其他ENV/身份/automatic/min0max1/请求计费/900秒/并发1均保持。司机原包已上传、受generation条件保护归档旧24并提升固定对象；本机从公开HTTPS入口完整下载，文件大小和SHA256与已验原包相同，并对公开下载包实际运行aapt/apksigner核对版本25、包名和原签名。乘客23原包与固定generation保持。发布前后48→48笔原订单及2→2联系人完整行相同，旧数据0丢失/0字段变化，云业务POST0。见[实际发布回执](coordination/evidence/GRAB-20261101-01/release/FINAL-RELEASE-RECEIPT.json)。
 
 ## 应用内导航与途经点往返（司机24已发布）
 
@@ -108,7 +108,7 @@ Claude Code已真实接入并完成主力实现，Gemini按用户决定暂时停
 
 | 项目 | 已发布与核验 | 入口 |
 |---|---|---|
-| 司机Android | 0.3.21-cloud / code24，原签名 | [司机快速入口](https://user-test---driver-demo-phfgquzmua-uw.a.run.app/download) |
+| 司机Android | 0.3.22-cloud / code25，原签名 | [司机快速入口](https://user-test---driver-demo-phfgquzmua-uw.a.run.app/download) |
 | 乘客Android | 1.1.21-experience / code23，原签名 | [乘客快速入口](https://user-test---driver-demo-phfgquzmua-uw.a.run.app/download-passenger) |
 | Web后台 | 继续使用原账号密码 | https://demo-admin.hbzjhs.xyz/ |
 | 体验API | 同一持久数据与HTTPS域名 | https://yijiexing-demo.hbzjhs.xyz |

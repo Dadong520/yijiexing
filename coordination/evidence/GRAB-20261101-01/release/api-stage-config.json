@@ -1,0 +1,21 @@
+{
+  "api": {
+    "checks": {
+      "iamExact": true,
+      "templateConfigPreserved": true,
+      "trafficExactExpected": true,
+      "imageDigestExact": true,
+      "serviceConfigPreserved": true
+    },
+    "readyRevision": "driver-demo-grab-36fdf2c"
+  },
+  "admin": {
+    "checks": {
+      "iamExact": true,
+      "specExact": true,
+      "annotationsExact": true,
+      "trafficExact": true
+    },
+    "readyRevision": "driver-admin-ccui-107e226-test1"
+  }
+}

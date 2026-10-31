@@ -1,0 +1,33 @@
+[
+  {
+    "role": "driver",
+    "url": "https://user-test---driver-demo-phfgquzmua-uw.a.run.app/download.apk",
+    "attempts": [
+      {
+        "transport": "local_direct",
+        "curlExit": 28,
+        "http": 200,
+        "bytes": 126274932,
+        "completeResponse": false
+      },
+      {
+        "transport": "local_direct_retry65s",
+        "curlExit": 0,
+        "http": 200,
+        "bytes": 133079630,
+        "completeResponse": true
+      }
+    ],
+    "bytes": 133079630,
+    "sha256": "3a3f2db718f282fc0a365dcef991be984e7bc32666092bc9d6daa0ac483243ec",
+    "package": "cn.hbzjhs.dc.driver.cloud",
+    "versionName": "0.3.22-cloud",
+    "versionCode": 25,
+    "signerSha256": "9ffec9b342d12909ff288bd73f23ba104893b39120cb24ea83c9734a0d2b758f",
+    "identityVerificationMethod": "Complete public HTTPS response SHA256/size equal original; actual local aapt version/package and apksigner signature verified",
+    "sameBytesAsIndependentlyReviewedBuild": true,
+    "localDownloadCompleted": true,
+    "PASS": true,
+    "publicAPKActualAaptAndApksigner": "PASS local tools on complete public download"
+  }
+]

@@ -23,7 +23,7 @@
     "Independent root/backend review and meaningful unit/HTTP/CAS/isolated native tests before unique root experience release; no current prod/test environment access",
     "Deployment must retarget all existing driver-demo API tags plus default100 to same accepted newrevision, preserve tag names/URLs and admin entirely, preventing legacy writer bypass; explicitly compare other config/IAM"
   ],
-  "status": "ACCEPTED_C2_READY_EXACT_HEAD_CI_MERGE",
+  "status": "ACTUALLY_PUBLISHED_ALL_READBACK_PASS_RECEIPT_PENDING",
   "acceptance": "PASS",
   "tests": [
     {
@@ -89,15 +89,28 @@
     "coordination/evidence/GRAB-20261101-01/native/FINAL_REVIEW.json",
     "coordination/evidence/GRAB-20261101-01/native/CLEANUP.json"
   ],
-  "nextAction": "Sync scoped accepted records, exact head CI/merge, then unique root experience API alltags and driver25 publication/readback",
+  "nextAction": "Metadata-only actual receipt review/CI; never redeploy product",
   "deploy_owner": "coordinator",
   "releaseReady": true,
-  "updatedAt": "2026-10-31T18:02:36.929827+00:00",
+  "updatedAt": "2026-10-31T18:14:22.314481+00:00",
   "backendAcceptedSha": "3bdb8f71743b30f83d65131bb90ed7485690b62b",
   "backendTree": "c5df96a35efc38ca50442b029681b7790b688922",
   "backendAcceptance": "PASS",
   "backendImportedSha": "2eafd7d4353d6afa474ed37e678768902e20d1b2",
   "firstCandidateSha": "65695082d541a648a50a161634f99293f8b12ee7",
   "candidateSha": "36fdf2c1bddd859f3dff22fbeb2d7e70aa94ec7c",
-  "buildCandidateSha": "36fdf2c1bddd859f3dff22fbeb2d7e70aa94ec7c"
+  "buildCandidateSha": "36fdf2c1bddd859f3dff22fbeb2d7e70aa94ec7c",
+  "integrationHeadSha": "ac159173499951ebafb2a95b0a83af38e14ed5e3",
+  "ci": {
+    "id": 41227588478,
+    "conclusion": "success",
+    "status": "completed",
+    "event": "pull_request",
+    "headSha": "ac159173499951ebafb2a95b0a83af38e14ed5e3",
+    "url": "https://github.com/Dadong520/yijiexing/actions/runs/41227588478",
+    "allJobSteps": "success"
+  },
+  "pr": 51,
+  "mergeSha": "03fbf3e198e690d06d7b1dac65e106cf1411865c",
+  "actualReceipt": "coordination/evidence/GRAB-20261101-01/release/FINAL-RELEASE-RECEIPT.json"
 }

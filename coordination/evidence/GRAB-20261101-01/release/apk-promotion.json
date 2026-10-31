@@ -1,0 +1,14 @@
+[
+  {
+    "role": "driver",
+    "fixedObject": "distribution/yijiexing-cloud.apk",
+    "archiveObject": "distribution/archive/before-grab25-36fdf2c/driver.apk",
+    "archivedGeneration": "1793470322802793",
+    "previousFixedGeneration": "1793462374804294",
+    "newFixedGeneration": "1793470326626832",
+    "bytes": 133079630,
+    "sha256": "3a3f2db718f282fc0a365dcef991be984e7bc32666092bc9d6daa0ac483243ec",
+    "generationPreconditions": true,
+    "oldArchiveVerified": true
+  }
+]

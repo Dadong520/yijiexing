@@ -1,0 +1,258 @@
+{
+  "taskId": "GRAB-20261101-01",
+  "publishedAt": "2026-10-31T18:14:22.220912+00:00",
+  "PASS": true,
+  "productSourceSha": "36fdf2c1bddd859f3dff22fbeb2d7e70aa94ec7c",
+  "productMergeSha": "03fbf3e198e690d06d7b1dac65e106cf1411865c",
+  "productPR": 51,
+  "exactHeadCI": {
+    "headSha": "ac159173499951ebafb2a95b0a83af38e14ed5e3",
+    "runId": 41227588478,
+    "conclusion": "success"
+  },
+  "driver": {
+    "versionName": "0.3.22-cloud",
+    "versionCode": 25,
+    "promotion": {
+      "role": "driver",
+      "fixedObject": "distribution/yijiexing-cloud.apk",
+      "archiveObject": "distribution/archive/before-grab25-36fdf2c/driver.apk",
+      "archivedGeneration": "1793470322802793",
+      "previousFixedGeneration": "1793462374804294",
+      "newFixedGeneration": "1793470326626832",
+      "bytes": 133079630,
+      "sha256": "3a3f2db718f282fc0a365dcef991be984e7bc32666092bc9d6daa0ac483243ec",
+      "generationPreconditions": true,
+      "oldArchiveVerified": true
+    },
+    "publicReadback": {
+      "role": "driver",
+      "url": "https://user-test---driver-demo-phfgquzmua-uw.a.run.app/download.apk",
+      "attempts": [
+        {
+          "transport": "local_direct",
+          "curlExit": 28,
+          "http": 200,
+          "bytes": 126274932,
+          "completeResponse": false
+        },
+        {
+          "transport": "local_direct_retry65s",
+          "curlExit": 0,
+          "http": 200,
+          "bytes": 133079630,
+          "completeResponse": true
+        }
+      ],
+      "bytes": 133079630,
+      "sha256": "3a3f2db718f282fc0a365dcef991be984e7bc32666092bc9d6daa0ac483243ec",
+      "package": "cn.hbzjhs.dc.driver.cloud",
+      "versionName": "0.3.22-cloud",
+      "versionCode": 25,
+      "signerSha256": "9ffec9b342d12909ff288bd73f23ba104893b39120cb24ea83c9734a0d2b758f",
+      "identityVerificationMethod": "Complete public HTTPS response SHA256/size equal original; actual local aapt version/package and apksigner signature verified",
+      "sameBytesAsIndependentlyReviewedBuild": true,
+      "localDownloadCompleted": true,
+      "PASS": true,
+      "publicAPKActualAaptAndApksigner": "PASS local tools on complete public download"
+    }
+  },
+  "passenger": {
+    "unchanged": true,
+    "role": "passenger",
+    "versionCode": 23,
+    "versionName": "1.1.21-experience",
+    "generation": "1793446982503923",
+    "sha256": "cb77e6397a809027c117e963b2a4faf8b4b7a65d62a961bdaf519f333dec0842",
+    "bytes": 107270521,
+    "noRebuildUploadOrPromotion": true,
+    "PASS": true
+  },
+  "api": {
+    "project": "yijiexing-driver-demo-1023",
+    "region": "us-west1",
+    "revision": "driver-demo-grab-36fdf2c",
+    "immutableImage": "us-west1-docker.pkg.dev/yijiexing-driver-demo-1023/demo/driver-cloud@sha256:ce8a90484a3dcc5fdec139ab4c3673b36fcefeaca88d43cf8f99950ff94fb262",
+    "defaultPercent": 100,
+    "allExistingAPITagsRetargeted": [
+      "pm-map-qa",
+      "pmv-qa",
+      "pui-qa",
+      "ccui-qa",
+      "user-test"
+    ],
+    "tagNamesAndURLsPreserved": true,
+    "temporaryStageTagRemoved": true,
+    "otherConfigIAMENVSecretSAAutomaticMin0Max1RequestBillingTimeout900Concurrency1Preserved": true,
+    "actualConfigurationProof": "api-after-config.json",
+    "readOnlySmoke": {
+      "phase": "after",
+      "cloudBusinessPosts": 0,
+      "PASS": true,
+      "hosts": [
+        {
+          "host": "https://driver-demo-phfgquzmua-uw.a.run.app",
+          "health": 200,
+          "unauthenticated": 401,
+          "authenticatedNonexistentOrder": 404,
+          "exactNewHandlerMessage": true,
+          "cacheNoStore": true,
+          "tokenSource": "existing unexpired allowed demo driver session, kept private; GET only; nonexistent order ID",
+          "transport": [
+            {
+              "transport": "direct",
+              "exit": 0,
+              "http": 404
+            }
+          ],
+          "PASS": true
+        },
+        {
+          "host": "https://user-test---driver-demo-phfgquzmua-uw.a.run.app",
+          "health": 200,
+          "unauthenticated": 401,
+          "authenticatedNonexistentOrder": 404,
+          "exactNewHandlerMessage": true,
+          "cacheNoStore": true,
+          "tokenSource": "existing unexpired allowed demo driver session, kept private; GET only; nonexistent order ID",
+          "transport": [
+            {
+              "transport": "direct",
+              "exit": 0,
+              "http": 404
+            }
+          ],
+          "PASS": true
+        },
+        {
+          "host": "https://yijiexing-demo.hbzjhs.xyz",
+          "health": 200,
+          "unauthenticated": 401,
+          "authenticatedNonexistentOrder": 404,
+          "exactNewHandlerMessage": true,
+          "cacheNoStore": true,
+          "tokenSource": "existing unexpired allowed demo driver session, kept private; GET only; nonexistent order ID",
+          "transport": [
+            {
+              "transport": "direct",
+              "exit": 0,
+              "http": 404
+            }
+          ],
+          "PASS": true
+        }
+      ]
+    }
+  },
+  "admin": {
+    "entireSpecAnnotationsTrafficIAMUnchanged": true,
+    "revision": "driver-admin-ccui-107e226-test1"
+  },
+  "data": {
+    "source": "current authoritative GCS snapshot, response-bound generation/MD5",
+    "generation": "1793466630274601",
+    "bytes": 10133504,
+    "sha256": "83a78b1f7c18c2b0a15007ee73b678fbbd1f9adf0e769e376504dc05a5e8efcc",
+    "integrity": "ok",
+    "beforeOrderCount": 48,
+    "afterOrderCount": 48,
+    "oldOrdersMissing": 0,
+    "oldOrdersFieldsChanged": 0,
+    "newOrders": 0,
+    "cloudBusinessPostsByCoordinator": 0,
+    "backupAndReadbackOutsideRepository0600": true,
+    "PASS": true,
+    "scope": "passenger_orders and passenger_order_contacts complete stored rows, not all database tables",
+    "contacts": {
+      "table": "passenger_order_contacts",
+      "beforeCount": 2,
+      "afterCount": 2,
+      "oldRowsMissingOrChanged": 0,
+      "newRows": 0
+    }
+  },
+  "publicPages": [
+    {
+      "name": "passenger_landing",
+      "url": "https://user-test---driver-demo-phfgquzmua-uw.a.run.app/download-passenger",
+      "attempts": [
+        {
+          "transport": "direct",
+          "curlExit": 0,
+          "http": 200
+        }
+      ],
+      "http": 200,
+      "expectedContentPresent": true,
+      "bytes": 1452,
+      "bodySha256": "a996427a6f0f048bbb1e9339848d56dc700cf9702455c923720cad717372d4ce",
+      "PASS": true
+    },
+    {
+      "name": "driver_landing",
+      "url": "https://user-test---driver-demo-phfgquzmua-uw.a.run.app/download",
+      "attempts": [
+        {
+          "transport": "direct",
+          "curlExit": 0,
+          "http": 200
+        }
+      ],
+      "http": 200,
+      "expectedContentPresent": true,
+      "bytes": 1345,
+      "bodySha256": "7dad18359e2318e57d43a0285e0d3d199128e7c55a4e962ea2653386723c7920",
+      "PASS": true
+    },
+    {
+      "name": "api_health",
+      "url": "https://yijiexing-demo.hbzjhs.xyz/health",
+      "attempts": [
+        {
+          "transport": "direct",
+          "curlExit": 0,
+          "http": 200
+        }
+      ],
+      "http": 200,
+      "expectedContentPresent": true,
+      "bytes": 118,
+      "bodySha256": "9320ac6fcce184c2ce2e98474209b33546e31354810873bb3ee1ca4357e9596c",
+      "PASS": true
+    },
+    {
+      "name": "admin_login",
+      "url": "https://demo-admin.hbzjhs.xyz/",
+      "attempts": [
+        {
+          "transport": "direct",
+          "curlExit": 0,
+          "http": 200
+        }
+      ],
+      "http": 200,
+      "expectedContentPresent": true,
+      "bytes": 2350,
+      "bodySha256": "38e32f1ef3fc7a0c4780fd2ec18d1b4e27fa785837b7dbd227ec638525090040",
+      "PASS": true
+    }
+  ],
+  "acceptance": {
+    "backendIndependentTests": 307,
+    "extraHTTPAndCASAdversarial": 2,
+    "driverJUnit": 122,
+    "isolatedNativeGroups": 8,
+    "clientNonAuthorDelta": "PASS P1=0/P2=0",
+    "originalAPKSignatureAndIdentity": "PASS",
+    "sourceEvidence": "../FINAL_BUILD_PROOF.json",
+    "nativeEvidence": "../native/FINAL_REVIEW.json"
+  },
+  "cloudBusinessPostsByCoordinator": 0,
+  "runtimeCleanup": "../native/CLEANUP.json",
+  "limitations": [
+    "One dedicated ARM64 emulator plus authenticated synthetic API peer, not several physical driver phones",
+    "Real driving, physical audio, OEM background restrictions and real call connection NOT_RUN",
+    "Mini74 uses frozenv8, current backend competition acceptance is independent307+2",
+    "QAlocalhost trust package was test only and never uploaded; original package only published"
+  ]
+}

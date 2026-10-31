@@ -85,7 +85,9 @@
     "GRAB-20261101-01",
     "GRABB-20261101-01",
     "GRABC-20261101-01",
-    "GRABRB-20261101-01"
+    "GRABRB-20261101-01",
+    "GRABREC-20261101-01",
+    "GRABRER-20261101-01"
   ],
   "releaseOwner": "coordinator",
   "policy": "作者提交→自测→独立验收→协调者合并→部署回读；无业务验收PASS不发布",
@@ -114,10 +116,10 @@
     "coordination/archive/2026-10-26/AUTH-20261026-02.json"
   ],
   "memoryProtocolVersion": "2026-10-26-v3",
-  "currentStage": "GRAB25_ACCEPTED_WAIT_EXACT_CI_MERGE_RELEASE",
+  "currentStage": "GRAB25_PUBLISHED_RECEIPT_REVIEW20_PASS_FINAL_CI",
   "roleAssignments": {
     "coordinator": "GRAB sole review/integration/release",
-    "backend": "IDLE C2nonauthor deltaPASS P1/P2=0",
+    "backend": "IDLE actualreceipt20checks PASS P1/P2=0",
     "frontend": "IDLE HANDOFF_RECOMMENDED SDK feasibility PASS",
     "antigravity": "PAUSED_BY_USER_20261029; no new Gemini dispatch",
     "expert": "IDLE; configuration verified, SDK auth recovered; user deferred actual device test",
