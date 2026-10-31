@@ -1,0 +1,61 @@
+{
+  "fromSha": "9f9ee9b188d47211872d836cbe73ead88d10135a",
+  "reviewedSha": "36fdf2c1bddd859f3dff22fbeb2d7e70aa94ec7c",
+  "reviewType": "NONAUTHOR_BOUNDED_STATIC_DELTA",
+  "verdict": "PASS",
+  "openP1": 0,
+  "openP2": 0,
+  "closedFinding": "GRABRB-P2-01",
+  "sourceAssertions": {
+    "captured_scope_instead_of_id": true,
+    "both_open_entries_capture_latest_account_row": true,
+    "recomposition_checks_and_closes_scope": true,
+    "click_rechecks_latest_logged_in_store": true,
+    "body_uses_captured_scope": true,
+    "exact_scope_equality": true,
+    "pending_only_withdraw": true,
+    "competition_cancel_requires_ownership": true,
+    "missing_competition_fail_closed": true,
+    "legacy_canCancel_preserved": true,
+    "round_only_from_capture": true,
+    "new_test_cross_round_account_stage": true,
+    "new_test_ownership_and_legacy": true
+  },
+  "runtimeTests": "NOT_RUN_BY_BACKEND_ROOT_OWNS_BUILD_NATIVE",
+  "changedFiles": [
+    {
+      "file": "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/CompetitionRules.kt",
+      "sha256": "7204bec101e3a20ac32c58e3ad543f9ebaaabb88f6087c6dd03f6aa979ed1732"
+    },
+    {
+      "file": "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/MainActivity.kt",
+      "sha256": "80b5833e07daefcec73baf126db77e07d05a2d3e4698026dff46e84ed90941b7"
+    },
+    {
+      "file": "candidates/driver-0.3.6-r2/android/app/src/test/java/cn/hbzjhs/driver/preview/CompetitionRulesTest.kt",
+      "sha256": "5fceb419ad2a0b8a57b8aa0bf7f5929c7691b0d356543d8bb23eaa788dbb391e"
+    }
+  ],
+  "traces": [
+    {
+      "case": "old round1 dialog then same account round2 PENDING/assigned",
+      "result": "captured round1 != open(latest round2), stillValid=false; no POST"
+    },
+    {
+      "case": "WITHDRAW becomes assigned same round",
+      "result": "intent/stage scope equality fails; no POST"
+    },
+    {
+      "case": "account changes/logout",
+      "result": "account equality/loggedIn false; no POST"
+    },
+    {
+      "case": "same valid assigned row",
+      "result": "canCancel+driverId match; captured round submitted"
+    },
+    {
+      "case": "BID/NEG/private no competition",
+      "result": "original canCancel eligibility; LEGACY null round; body omits competitionRound"
+    }
+  ]
+}

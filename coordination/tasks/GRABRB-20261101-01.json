@@ -1,0 +1,63 @@
+{
+  "schemaVersion": 1,
+  "id": "GRABRB-20261101-01",
+  "owner": "backend",
+  "goal": "非作者窄审司机竞抢客户端与已验后端契约/时序/授权一致性",
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-order-competition-20261101",
+  "branch": "codex/order-competition-20261101",
+  "baseSha": "29e83a8da4513859eaed073e0096ab1256a1a576",
+  "candidateSha": "36fdf2c1bddd859f3dff22fbeb2d7e70aa94ec7c",
+  "allow_paths": [
+    "coordination/tasks/GRABRB-20261101-01.json",
+    "coordination/handoffs/backend.md",
+    "coordination/evidence/GRABRB-20261101-01/"
+  ],
+  "checks": [
+    "Read immutable candidate client source and accepted contract/backend binding only; no author self-accept backend, no source changes/cloud/native/build/307 rerun",
+    "all shared ordinary accepts include round/requestId, PENDING never grant; owner/currentstage/round only navigation",
+    "fixed server deadline/elapsed clock measured request timing, duplicates and cancel/reopen stale scopes safe",
+    "background direct notification/overlay action scope and nonexported immutable PI; candidate state independent3s reminder, callback epoch/token fencing",
+    "base/candidate poll ownership, real listening fast enough5s/no inactive keepalive; legacy BID/NEG/private flows retained"
+  ],
+  "status": "C2_DELTA_REVIEW_PASS",
+  "acceptance": "PASS",
+  "tests": [
+    {
+      "command": "git show exact SHA objects + source structure assertions + CANCEL_ROUND_TRACE",
+      "result": "STATIC_REVIEW_FAIL_P2_1",
+      "runtime": "NOT_RUN"
+    },
+    {
+      "command": "python3 tools/check_coordination.py --memory-role backend --session-id 01a182c6-c058-76e1-9584-38abfe813799",
+      "result": "PASS"
+    },
+    {
+      "command": "git diff 9f9ee9b..36fdf2c exact3files +13 source assertions +5 source traces",
+      "result": "PASS_BOUNDED_STATIC_DELTA",
+      "runtime": "NOT_RUN"
+    }
+  ],
+  "evidence": [
+    "coordination/evidence/GRABRB-20261101-01/REVIEW.md",
+    "coordination/evidence/GRABRB-20261101-01/SOURCE_MANIFEST.json",
+    "coordination/evidence/GRABRB-20261101-01/CANCEL_SOURCE_EXCERPTS.txt",
+    "coordination/evidence/GRABRB-20261101-01/CANCEL_ROUND_TRACE.json",
+    "coordination/evidence/GRABRB-20261101-01/C2_DELTA_REVIEW.md",
+    "coordination/evidence/GRABRB-20261101-01/C2_DELTA_REVIEW.json",
+    "coordination/evidence/GRABRB-20261101-01/C2_DELTA.diff"
+  ],
+  "nextAction": "root continues C2 exactSHA build/native/integration; backend IDLE; no independent source changes",
+  "deploy_owner": "coordinator",
+  "releaseReady": false,
+  "updatedAt": "2026-11-01T01:52:59+08:00",
+  "reviewedSha": "36fdf2c1bddd859f3dff22fbeb2d7e70aa94ec7c",
+  "findings": [],
+  "closedFindings": [
+    {
+      "id": "GRABRB-P2-01",
+      "fixedInSha": "36fdf2c1bddd859f3dff22fbeb2d7e70aa94ec7c",
+      "verification": "C2_DELTA_REVIEW.json; independent static review"
+    }
+  ],
+  "acceptanceScope": "BOUNDED_NONAUTHOR_CLIENT_SOURCE_DELTA_ONLY"
+}

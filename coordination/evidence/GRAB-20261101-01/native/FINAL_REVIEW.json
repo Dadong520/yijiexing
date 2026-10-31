@@ -1,0 +1,149 @@
+{
+  "sourceSha": "36fdf2c1bddd859f3dff22fbeb2d7e70aa94ec7c",
+  "result": "PASS",
+  "groups": [
+    {
+      "name": "Background3s reminder, floatingFalse, no action retains order in hall",
+      "result": "PASS",
+      "observedSource": "9f9ee9b188d47211872d836cbe73ead88d10135a",
+      "inheritedIdenticalFiles": [
+        "NewOrderAlerts.kt",
+        "DriverSpeech.kt",
+        "DriverLocationService.kt"
+      ],
+      "visibleSampleSeconds": [
+        1.6666,
+        4.2674
+      ],
+      "firstGoneSampleSeconds": 4.7362,
+      "note": "~0.5sec frame sampling; source monotonic3000ms checked, not hardware precision timing"
+    },
+    {
+      "name": "Background overlay direct join, firstfar+near APIpeer, fixed5s and nearest unique winner, loser result",
+      "result": "PASS",
+      "evidence": "c2-direct-observation.json"
+    },
+    {
+      "name": "Winner preboarding cancel sameID/newround2 re-alert, native joins and is awarded",
+      "result": "PASS",
+      "evidence": [
+        "c2-round2-popup.png",
+        "c2-round2-current.xml",
+        "cancel-race-observation.json"
+      ],
+      "note": "initial script read competition from passengerDTO and stopped; root continued exact same order via driverDTO, observed round2PICKUP; no product error"
+    },
+    {
+      "name": "Old cancellation dialog invalidates after sameaccount APIpeer cancel/rejoin round3",
+      "result": "PASS",
+      "evidence": "cancel-race-observation.json"
+    },
+    {
+      "name": "Normal UI cancellation capturedround3 reopens round4, foregroundnewrounddialog",
+      "result": "PASS",
+      "evidence": "normal-cancel-observation.json"
+    },
+    {
+      "name": "Overlaydenied systemnotification direct click, pending then awarded",
+      "result": "PASS",
+      "evidence": "notification-direct-observation.json"
+    },
+    {
+      "name": "360x640 atfont1.3 long2waypoint scrollbody and fixed reachable actionbuttons",
+      "result": "PASS",
+      "evidence": "c2-font-final-6.png"
+    },
+    {
+      "name": "Force-stop and reopen ignoredexisting order stayshall, no repeatneworderdialog",
+      "result": "PASS",
+      "evidence": "c2-restart-existing-not-realerted.xml"
+    }
+  ],
+  "testEnvironment": "dedicatedAPI34ARM64 emulator5588+realTLSHTTP syntheticbackend3bdb and standard authenticated API peer; no cloud business POST",
+  "limitations": [
+    "One actual GUI emulator+APIpeer, not multiple physical phones",
+    "Physical sound/headless-noaudio, OEM power restrictions, real driving and phone calls NOT_RUN",
+    "Token/account/race cases beyond actual cancel trace covered meaningful JUnit/server tests and source review, not all native permutations"
+  ],
+  "harnessFailuresRetainedPrivately": [
+    "early beforeoverlay tap",
+    "textantialias pixelthreshold",
+    "passengerDTO missingcompetition",
+    "UIAutomator nonidle/one overlap snapshot137; finished before final native proof"
+  ],
+  "screenshots": [
+    {
+      "file": "c1-bg-popup-4.png",
+      "sha256": "fdbbbe4da9da30e9d3300fcec9ff52b19ccad8f4fa40042efa321d01a22f15ee"
+    },
+    {
+      "file": "c1-bg-popup-9.png",
+      "sha256": "3bbebe0e8157bdb449716bf6d35a62f80cf29147ba14475f411c85a015b28917"
+    },
+    {
+      "file": "c1-hall-after-popup.png",
+      "sha256": "c900d6b3128b653b99164fe95f5a321967e5dcc0d09dda6d3ddf02c1662b1516"
+    },
+    {
+      "file": "c1-hall-after-popup.xml",
+      "sha256": "f2d28c43cf79234a778dfd0d1b315f7caf7e66c1edd9843182f90b5aab1cdd74"
+    },
+    {
+      "file": "c2-direct-before.png",
+      "sha256": "0748e01e08d095c321855b1ea46e5dbf5c509713e58d7b724000ed746ce58324"
+    },
+    {
+      "file": "c2-round2-popup.png",
+      "sha256": "59d35da7ef7270c2bf1183f7f23fdf064c4952a4cc88aec7f480cf53523f3a3d"
+    },
+    {
+      "file": "c2-round2-current.png",
+      "sha256": "d6cd1ef6356591fb8b1352f6719ccdff1e2877c9296bd901e744ad5b3159f9b1"
+    },
+    {
+      "file": "c2-round2-current.xml",
+      "sha256": "308b6d949511719aea10937b46e9b1e040718599c022dce5715b893108637c09"
+    },
+    {
+      "file": "c2-cancel-open-round2.png",
+      "sha256": "aaa3ebc921a0ba3f85f470c1c8727c23b176ff035d1eb03b63488e9d203b98d8"
+    },
+    {
+      "file": "c2-cancel-open-round2.xml",
+      "sha256": "995742346d6a11283c4161335fafa8cfa14dea99d745583a3ac9a62dff5527f2"
+    },
+    {
+      "file": "c2-cancel-old-dialog-invalidated.png",
+      "sha256": "424eb72c4403a9b9cfd1f2586a963c3e02ce20cf371670731131f8f0106c0c80"
+    },
+    {
+      "file": "c2-cancel-old-dialog-invalidated.xml",
+      "sha256": "e2e79bf10583dd2a95ecd87d4cb45493f4170dd4db2f6f7535c2ee3adcef8508"
+    },
+    {
+      "file": "c2-normal-cancel-submitted.png",
+      "sha256": "bec9477894d549294c71d35006b6b99d35f8dea2bb59f3f6924dce764e221c31"
+    },
+    {
+      "file": "c2-normal-cancel-submitted.xml",
+      "sha256": "b806aebd932174a20e10abb1b06a6b419d70e404eec8c2613a2dbdb8c1f32fd2"
+    },
+    {
+      "file": "c2-notification-direct-before.png",
+      "sha256": "e5d3465383e1df8c3140ba8cfa4e099051bb711c50e9420e14443afc3b989b33"
+    },
+    {
+      "file": "c2-font-final-6.png",
+      "sha256": "82bfcf612ca28123f3796c14e62a61acb97c6e0c863b803adf62de68bae4d403"
+    },
+    {
+      "file": "c2-restart-existing-not-realerted.png",
+      "sha256": "6d9b92aed333d9aeca9f5bdb606bff048ac7c2a73e9b6b62dcffc394c4d1a10d"
+    },
+    {
+      "file": "c2-restart-existing-not-realerted.xml",
+      "sha256": "a4e4e0a3dda8dd592cb1f3c2068eb5ac17fab405251e2a274fdc0525f6f0771f"
+    }
+  ],
+  "at": "2026-10-31T18:02:02.851232+00:00"
+}

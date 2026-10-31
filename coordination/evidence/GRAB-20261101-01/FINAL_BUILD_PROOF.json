@@ -1,0 +1,34 @@
+{
+  "sourceSha": "36fdf2c1bddd859f3dff22fbeb2d7e70aa94ec7c",
+  "roles": {
+    "driver": {
+      "sourceSha": "36fdf2c1bddd859f3dff22fbeb2d7e70aa94ec7c",
+      "package": "cn.hbzjhs.dc.driver.cloud",
+      "versionCode": 25,
+      "versionName": "0.3.22-cloud",
+      "bytes": 133079630,
+      "sha256": "3a3f2db718f282fc0a365dcef991be984e7bc32666092bc9d6daa0ac483243ec",
+      "signerSha256": "9ffec9b342d12909ff288bd73f23ba104893b39120cb24ea83c9734a0d2b758f",
+      "within128MiBLimit": true,
+      "nativeLibraries": 18,
+      "compressedNativeLibraries": 18,
+      "privateValuesScanned": 2,
+      "privateValueHits": 0,
+      "expectedHTTPSOriginFound": true,
+      "qaMaterialAbsent": true,
+      "result": "PASS_BUILD_IDENTITY_ONLY",
+      "runtime": "NOT_RUN",
+      "apk": "/Users/dongge/.codex/tmp/yijiexing-grab-native-20261101/original-driver.apk"
+    }
+  },
+  "driverJUnit": 122,
+  "originalBuild": "PASS",
+  "qaBuild": "PASS",
+  "runtimeProof": "coordination/evidence/GRAB-20261101-01/native/FINAL_REVIEW.json",
+  "passenger": {
+    "unchanged": true,
+    "versionCode": 23,
+    "sha256": "cb77e6397a809027c117e963b2a4faf8b4b7a65d62a961bdaf519f333dec0842"
+  },
+  "QAArtifactNeverPublished": true
+}

@@ -7,7 +7,6 @@
   "branch": "codex/order-competition-20261101",
   "baseSha": "29e83a8da4513859eaed073e0096ab1256a1a576",
   "allow_paths": [
-    "candidates/driver-0.3.6-r2/android/app/src/",
     "coordination/tasks/GRABC-20261101-01.json",
     "coordination/evidence/GRABC-20261101-01/",
     "coordination/handoffs/claude.md"
@@ -20,7 +19,7 @@
     "3s foreground dialog/system overlay direct grab; no duplicate reminders across foreground/background/configchange; explicit overlay grant/fallback/no forbidden full-screen auto activity; token/account/order/round isolation",
     "Independent root/backend review and meaningful unit/HTTP/CAS/isolated native tests before unique root experience release; no current prod/test environment access"
   ],
-  "status": "AUTHOR_PHASE4_REVIEWABLE",
+  "status": "AUTHOR_PHASE5_USAGE_LIMIT_STOPPED_PARTIAL",
   "phase4": "2026-11-01 uncommitted: titles '新订单'/'宜捷行 · 新订单', note '首位司机抢单后开启5秒竞抢，派单结果以服务器为准。提示3秒后收起，仍可在订单大厅查看。' (no TTL/business change); window anchor now startedAt+remainingMs (one transport charge, min with existing; supersedes phase3 -RTT); SELFCHECK Q1/Q3/risks marked superseded. Compile/JUnit/native NOT_RUN.",
   "phase3": "2026-11-01 on HEAD 65695082 (uncommitted): fixed compile shadow (overlay topMargin); shared base cadence 2s listening/1s hot/15s trip/10s fg idle/null not listening with single-flight gate across store/service/candidate poll and DriverUiPresence ownership; service applyState for all shared states; strict Assigned (driverId+owned stage+same parsed round), fail-closed INVALID for shared ordinary missing/malformed competition; window anchor start+remaining-RTT, unmeasured never anchors; same-round INELIGIBLE/WITHDRAWN not re-enterable; neutral CANCELLED/LOST text; receiver goAsync bounded 9s finish-once. Tests updated NOT_RUN.",
   "acceptance": "NOT_RUN",
@@ -33,11 +32,12 @@
     "evidence/GRABC-20261101-01/SELFCHECK.md"
   ],
   "phase1": "Client reminder/direct-action architecture: single process owner GrabAlertBook (3s monotonic from first display, ordered bounded queue, seen LRU/TTL keyed account+order+round), GrabActions one real order.accept per click with credentials/epoch scope, notification action receiver, dialog/overlay share owner; overlay gated only by listening eligibility + system overlay grant (paid bubble gate kept). Uncommitted.",
-  "nextAction": "root: compile + JUnit + source review + isolated AVD of phase1+2 dirty tree against backend SHA; return fixes to same SID",
+  "nextAction": "Root explicitly takes cancellation-only files preserving partial rule; backend nonauthor delta",
   "deploy_owner": "coordinator",
   "releaseReady": false,
-  "updatedAt": "2026-11-01T00:00:00+00:00",
+  "updatedAt": "2026-10-31T17:50:55.684371+00:00",
   "sessionId": "f0e957b7-5f75-4d4b-88a7-0043b2ad9253",
   "model": "claude-opus-5-5",
-  "thinking": "high"
+  "thinking": "high",
+  "phase5": "Official sameSID exit1 usage limit resets02:50Asia/Singapore, no permission denial. Partial CompetitionRules CancelScope additions uncommitted; MainActivity/test not fixed. CLI stopped."
 }

@@ -1,0 +1,10 @@
+{
+  "sourceSha": "36fdf2c1bddd859f3dff22fbeb2d7e70aa94ec7c",
+  "orderId": "PORD8e34666613ce",
+  "round2ModalSnapshot": true,
+  "peerSameAccountCancelledRound": 2,
+  "newRoundWon": 3,
+  "oldDialogClosed": true,
+  "unexpectedCancelRequests": 0,
+  "result": "PASS"
+}

@@ -1,0 +1,75 @@
+Immutable candidate 9f9ee9b188d47211872d836cbe73ead88d10135a
+89:     var tab by rememberSaveable { mutableIntStateOf(0) }
+90:     var orderFilter by rememberSaveable { mutableIntStateOf(0) }
+91:     var stack by rememberSaveable { mutableStateOf(listOf("root")) }
+92:     var confirm by remember { mutableStateOf<CoreConfirm?>(null) }
+93:     var cancelOrder by rememberSaveable { mutableStateOf<String?>(null) }
+94:     var cancelReason by rememberSaveable { mutableStateOf("") }
+95:     var cancelOther by rememberSaveable { mutableStateOf("") }
+447:                                         onCancel = {
+448:                                             cancelReason = ""
+449:                                             cancelOther = ""
+450:                                             cancelOrder = id
+451:                                         },
+452:                                         onMessage = ::message,
+453:                                         onHome = { navigate("home") },
+454:                                         navigating = navOwner != null && navOwner.orderId == id && navOwner.account == account,
+455:                                         onNavigate = ::openNavigation,
+456:                                         onExitNavigation = { navOwnerValue = null },
+457:                                         onGrab = ::grabOrder,
+458:                                         onWithdraw = {
+459:                                             cancelReason = ""
+460:                                             cancelOther = ""
+461:                                             cancelOrder = id
+462:                                         },
+539:     cancelOrder?.let { id ->
+540:         val cancelTarget = state.orders.firstOrNull { it.id == id }
+541:         // An AVAILABLE competition row here is this driver's own candidacy: withdrawing leaves only
+542:         // the current round and never cancels the passenger's order.
+543:         val withdrawing = cancelTarget?.stage == Stage.AVAILABLE && cancelTarget.competition != null
+544:         DriverDialog(
+545:             onDismissRequest = { cancelOrder = null },
+546:             title = { Text(if (withdrawing) "退出本轮竞抢" else "取消订单") },
+547:             text = {
+548:                 Column(Modifier.verticalScroll(rememberScrollState())) {
+549:                     Text(
+550:                         if (withdrawing) "仅退出你本人在本轮的竞抢，不会取消乘客订单。请选择原因。"
+551:                         else "请选择实际取消原因，提交后将保存到订单记录。"
+552:                     )
+553:                     listOf("乘客要求取消", "无法联系乘客", "车辆临时故障", "其他原因").forEach { reason ->
+554:                         Row(
+555:                             Modifier.fillMaxWidth().heightIn(min = 52.dp).selectable(selected = cancelReason == reason, role = Role.RadioButton, onClick = { cancelReason = reason }),
+556:                             verticalAlignment = Alignment.CenterVertically,
+557:                         ) {
+558:                             RadioButton(cancelReason == reason, onClick = null)
+559:                             Text(reason, fontSize = 15.sp, lineHeight = 22.sp, modifier = Modifier.padding(start = 10.dp))
+560:                         }
+561:                     }
+562:                     if (cancelReason == "其他原因")
+563:                         OutlinedTextField(
+564:                             cancelOther,
+565:                             { cancelOther = it.take(160) },
+566:                             label = { Text("请说明原因") },
+567:                             modifier = Modifier.fillMaxWidth(),
+568:                             textStyle = MaterialTheme.typography.bodyLarge,
+569:                         )
+570:                 }
+571:             },
+572:             confirmButton = {
+573:                 DriverTextButton(
+574:                     modifier = Modifier.heightIn(min = 52.dp),
+575:                     enabled =
+576:                         cancelReason.isNotBlank() &&
+577:                             (cancelReason != "其他原因" || cancelOther.isNotBlank()),
+578:                     onClick = {
+579:                         val reason =
+580:                             if (cancelReason == "其他原因") cancelOther.trim() else cancelReason
+581:                         cancelOrder = null
+582:                         // GRAB V1: competition orders carry the round read from state, so a cancel or
+583:                         // withdraw can never land on a newer round of the same order id.
+584:                         val cancelBody = JSONObject().put("id", id).put("reason", reason)
+585:                         cancelTarget?.competition?.let { cancelBody.put("competitionRound", it.round) }
+586:                         store.perform("order.cancel", cancelBody)
+587:                     },
+588:                 ) {
+589:                     Text("确认取消", fontSize = 16.sp, lineHeight = 22.sp, fontWeight = FontWeight.Bold)

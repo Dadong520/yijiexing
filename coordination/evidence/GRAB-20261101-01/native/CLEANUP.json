@@ -1,0 +1,13 @@
+{
+  "sourceSha": "36fdf2c1bddd859f3dff22fbeb2d7e70aa94ec7c",
+  "dedicatedAVD": "GRABR_20261101",
+  "emulatorSerial": "emulator-5588",
+  "QAAppUninstalled": true,
+  "reverse443Removed": true,
+  "emulatorRunnerExitCode": 0,
+  "fixtureExitCode": 0,
+  "ports64366_5588_5589Closed": true,
+  "personalDeviceTouched": false,
+  "PASS": true,
+  "at": "2026-10-31T18:02:36.929827+00:00"
+}
