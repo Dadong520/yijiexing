@@ -1,0 +1,7 @@
+{
+  "initialResult": "FAIL test harness assertion, not a product conclusion",
+  "cause": "Existing synthetic fixture starts with nonzero todayAccepted; absolute1 assertion invalid; replaced by exactly baseline+1. Loser order is removed from projection so unauthorized advance uses404 rather than403.",
+  "originalScriptRetainedPrivate": true,
+  "productSourceChanged": false,
+  "sourceSha": "3bdb8f71743b30f83d65131bb90ed7485690b62b"
+}

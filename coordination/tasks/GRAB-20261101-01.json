@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "id": "GRAB-20261101-01",
+  "owner": "coordinator",
+  "goal": "系统后台3秒新单直接抢单与5秒最近司机竞抢整合/独立验收/发布",
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-order-competition-20261101",
+  "branch": "codex/order-competition-20261101",
+  "baseSha": "29e83a8da4513859eaed073e0096ab1256a1a576",
+  "allow_paths": [
+    "coordination/",
+    "README.md",
+    "candidates/driver-0.3.6-r2/android/app/build.gradle.kts"
+  ],
+  "checks": [
+    "Only ordinary shared STANDARD/RESERVED enter5s competition; BID price choice/negotiated/private demo flow unchanged",
+    "First valid server-side contender opens fixed5seconds; duplicates do not restart, late requests excluded; persisted round/deadline/CAS atomic at most one winner",
+    "Winner nearest validated reported location to passenger origin; deterministic tie; eligibility/reliable location/active trip recheck; losers never navigate or expose contact",
+    "User confirmed: assigned winner cancel beforeboarding reopens sameorderId/newround; afterboarding original cancel restriction; no new auto penalties/fees",
+    "3s foreground dialog/system overlay direct grab; no duplicate reminders across foreground/background/configchange; explicit overlay grant/fallback/no forbidden full-screen auto activity; token/account/order/round isolation",
+    "Independent root/backend review and meaningful unit/HTTP/CAS/isolated native tests before unique root experience release; no current prod/test environment access",
+    "Deployment must retarget all existing driver-demo API tags plus default100 to same accepted newrevision, preserve tag names/URLs and admin entirely, preventing legacy writer bypass; explicitly compare other config/IAM"
+  ],
+  "status": "PHASE2_IMPLEMENTED_FIRST_EXACT_BUILD_PENDING",
+  "acceptance": "NOT_RUN",
+  "tests": [
+    {
+      "suite": "Root independent backend full",
+      "count": 307,
+      "result": "PASS",
+      "sourceSha": "3bdb8f71743b30f83d65131bb90ed7485690b62b"
+    },
+    {
+      "suite": "Root-authored adversarial HTTP/MemoryCAS",
+      "count": 2,
+      "result": "PASS",
+      "sourceSha": "3bdb8f71743b30f83d65131bb90ed7485690b62b"
+    }
+  ],
+  "evidence": [
+    "coordination/evidence/GRAB-20261101-01/USER_RULES.json",
+    "coordination/evidence/GRAB-20261101-01/STANDING_ISOLATED_ANDROID_AUTHORIZATION.json",
+    "coordination/evidence/GRAB-20261101-01/NATIVE_ACCEPTANCE_PLAN.md",
+    "coordination/evidence/GRAB-20261101-01/INTEGRATION_REVIEW_NOTES.md"
+  ],
+  "nextAction": "First exact-source driver compile/JUnit; phase3 must fix basepoll10/15s, ownership/round strictness and any compiler errors",
+  "deploy_owner": "coordinator",
+  "releaseReady": false,
+  "updatedAt": "2026-10-31T16:42:35.588432+00:00",
+  "backendAcceptedSha": "3bdb8f71743b30f83d65131bb90ed7485690b62b",
+  "backendTree": "c5df96a35efc38ca50442b029681b7790b688922",
+  "backendAcceptance": "PASS",
+  "backendImportedSha": "2eafd7d4353d6afa474ed37e678768902e20d1b2"
+}

@@ -258,6 +258,27 @@ class ConnectedStore(app: Application) : AndroidViewModel(app) {
         else mutableInitialized.value = true
     }
 
+    /** A /api/state fetched by the candidate poller lands here too, so the UI needs no second poll. */
+    private val externalState: (LocalApi.Credentials, JSONObject) -> Unit = { credentials, data ->
+        val epoch = requests.snapshot()
+        if (LocalApi.isCurrent(credentials) && data.optJSONObject("state") != null)
+            requests.commitIfCurrent(epoch) {
+                mutableState.value = parseDriverState(data.getJSONObject("state"))
+                mutablePayload.value = JSONObject(data.toString())
+                AmapRuntime.configure(data.optJSONObject("mapConfig"))
+            }
+    }
+
+    // After the listener property above is initialized (Kotlin runs initializers in order).
+    init {
+        GrabActions.addStateListener(externalState)
+    }
+
+    override fun onCleared() {
+        GrabActions.removeStateListener(externalState)
+        super.onCleared()
+    }
+
     fun clearError() {
         mutableError.value = null
     }
@@ -439,6 +460,9 @@ class ConnectedStore(app: Application) : AndroidViewModel(app) {
         requests.commitIfCurrent(epoch) {
             vault.clear()
             LocalApi.token = ""
+            // Ends new-order reminders and this session's candidate waiting; late results are dropped.
+            NewOrderAlerts.clear()
+            GrabActions.endSession()
             mutableSessionAvailable.value = false
             mutableState.value = emptyState()
             mutablePayload.value = JSONObject()
@@ -466,6 +490,8 @@ class ConnectedStore(app: Application) : AndroidViewModel(app) {
     fun refresh(silent: Boolean = false) {
         if (refreshing || LocalApi.token.isBlank()) return
         if (silent && (!automaticRefreshEnabled || android.os.SystemClock.elapsedRealtime() < nextAutomaticRefreshAt)) return
+        // The short candidate poll (or another fresh read) already delivers state; don't double it.
+        if (silent && GrabActions.recentlyRefreshed(5_000L)) return
         refreshing = true
         launchRequest(!silent, onFinally = { refreshing = false }) { epoch, credentials ->
             accept(epoch, LocalApi.request("GET", "/api/state", credentials = credentials))
@@ -563,6 +589,8 @@ class ConnectedStore(app: Application) : AndroidViewModel(app) {
                     mutableState.value = parseDriverState(s)
                     mutablePayload.value = JSONObject(data.toString())
                     AmapRuntime.configure(data.optJSONObject("mapConfig"))
+                    // Window anchors and candidate verdicts read every authoritative state once.
+                    GrabActions.observeState(LocalApi.credentials(), data, from = externalState)
                 }
             }
         }
@@ -692,6 +720,7 @@ class ConnectedStore(app: Application) : AndroidViewModel(app) {
                                 o.optBoolean("pairingRequired", false),
                             ),
                         pairingExpiresAt = o.optString("pairingExpiresAt", ""),
+                        competition = parseCompetition(o),
                     )
                 }
             val e = s.optJSONArray("entries")

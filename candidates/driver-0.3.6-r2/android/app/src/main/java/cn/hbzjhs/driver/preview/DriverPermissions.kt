@@ -263,7 +263,7 @@ fun DriverPermissions(
                                 )
                             }
                             Spacer(modifier = Modifier.height(4.dp))
-                            Text("用途：接收即时派单、乘客取消及状态变动通知。", fontSize = 14.sp, color = textGrey)
+                            Text("用途：新订单通知3秒内可点“立即抢单”，并接收抢单结果、乘客取消及状态变动通知。", fontSize = 14.sp, lineHeight = 20.sp, color = textGrey)
                             Spacer(modifier = Modifier.height(8.dp))
                             Button(
                                 onClick = {
@@ -332,7 +332,7 @@ fun DriverPermissions(
                                 )
                             }
                             Spacer(modifier = Modifier.height(4.dp))
-                            Text("用途：切换到导航或后台时弹出新订单卡片，点击快速查看。", fontSize = 14.sp, color = textGrey)
+                            Text("用途：听单时切到后台或其他应用，新单卡片弹出3秒，可直接点“立即抢单”；只需系统悬浮窗授权，与付费听单悬浮球无关。未授权时改用新订单通知上的“立即抢单”。", fontSize = 14.sp, lineHeight = 20.sp, color = textGrey)
                             Spacer(modifier = Modifier.height(8.dp))
                             Button(
                                 onClick = {

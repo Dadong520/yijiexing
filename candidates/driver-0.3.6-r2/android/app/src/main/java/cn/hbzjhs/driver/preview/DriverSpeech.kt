@@ -47,8 +47,14 @@ class NativeOrderAnnouncer(context: Context) {
             .setUsage(AudioAttributes.USAGE_ASSISTANCE_NAVIGATION_GUIDANCE)
             .setContentType(AudioAttributes.CONTENT_TYPE_SPEECH)
             .build()
-    private val seen = linkedSetOf<String>()
-    private val posted = mutableMapOf<String, Int>()
+    /** New-order notifications by account+order+round, so a new round never reuses an old one. */
+    private val posted = mutableMapOf<GrabAlertKey, Int>()
+    private val retireNotification: (GrabAlertKey) -> Unit = { key ->
+        posted.remove(key)?.let(notifications::cancel)
+    }
+    private val notifyGrabResult: (GrabAlertKey, String) -> Unit = { key, text ->
+        if (!closed && key.account == account) postGrabResult(key, text)
+    }
     private val queue = ArrayDeque<Announcement>()
     private var engine: TextToSpeech? = null
     private var engineReady = false
@@ -86,6 +92,9 @@ class NativeOrderAnnouncer(context: Context) {
                 enableVibration(true)
             }
         )
+        NewOrderAlerts.install(app)
+        NewOrderAlerts.onRetired = retireNotification
+        GrabActions.onBackgroundResult = notifyGrabResult
         main.post {
             if (!closed) {
                 OrderAnnouncementStatus.mutable.value = "正在检查已安装的中文语音"
@@ -200,8 +209,9 @@ class NativeOrderAnnouncer(context: Context) {
         if (identity != account) {
             stopAudio(true)
             cancelNotifications()
-            seen.clear()
-            NewOrderAlerts.clear()
+            // Rebinding ends the previous account's reminders and candidate waiting; persisted seen
+            // keys carry the account, so switching back never replays a round.
+            NewOrderAlerts.bind(identity)
             wasOnline = false
             account = identity
         }
@@ -212,13 +222,21 @@ class NativeOrderAnnouncer(context: Context) {
                 it.optString("stage") == "AVAILABLE" && it.optString("id").isNotBlank()
             }
         val availableIds = available.map { it.optString("id") }.toSet()
+        // Only rounds this driver may still join remind; joined/closed/assigned rounds stay hall-only.
+        val grabbable = available.filter { row ->
+            grabAlertFor(account, row, 0L)?.key?.let { GrabActions.availability(it) } in
+                setOf(GrabAvailability.LEGACY, GrabAvailability.CAN_GRAB)
+        }
+        val liveKeys = grabbable.mapNotNull { grabAlertFor(account, it, 0L)?.key }.toSet()
         posted.keys
-            .filter { it !in availableIds }
+            .filter { it !in liveKeys }
             .toList()
-            .forEach { id -> posted.remove(id)?.let(notifications::cancel) }
+            .forEach { key -> posted.remove(key)?.let(notifications::cancel) }
         queue.removeIf { it.id !in availableIds }
         if (current?.id?.let { it !in availableIds } == true) stopAudio(false)
         val online = state.optBoolean("online")
+        // Going offline really ends local candidate waiting (the server no longer awards offline drivers).
+        if (!online && wasOnline) GrabActions.endSession()
         val firstOnline = online && !wasOnline
         wasOnline = online
         val active = orders.any {
@@ -229,7 +247,7 @@ class NativeOrderAnnouncer(context: Context) {
             remindersEnabled = false
             NewOrderAlerts.clear()
             stopAudio(true)
-            if (online) seen.addAll(availableIds)
+            if (online) NewOrderAlerts.markSeen(account, available)
             OrderAnnouncementStatus.mutable.value =
                 when {
                     !online -> "离线 · 新订单提醒暂停"
@@ -243,13 +261,11 @@ class NativeOrderAnnouncer(context: Context) {
         fun createdAtMillis(order: JSONObject): Long = runCatching {
             java.time.OffsetDateTime.parse(order.optString("createdAt")).toInstant().toEpochMilli()
         }.getOrDefault(0L)
+        // One seen book (account + order + round, bounded by count and TTL) decides both the visual
+        // reminder and the voice/notification below, so they can never disagree or repeat.
+        NewOrderAlerts.retainAvailable(account, grabbable)
         val newOrders =
-            if (firstOnline) listOfNotNull(available.maxByOrNull(::createdAtMillis))
-            else available.filter { it.optString("id") !in seen }.sortedBy(::createdAtMillis)
-        seen.addAll(availableIds)
-        while (seen.size > 4096) seen.remove(seen.first())
-        NewOrderAlerts.retainAvailable(availableIds)
-        newOrders.forEach(NewOrderAlerts::publish)
+            NewOrderAlerts.admit(account, grabbable.sortedBy(::createdAtMillis), onlyNewest = firstOnline)
         val notices = newOrders.map { it to notifyOrder(it, state.optBoolean("voice")) }
         val noticesSummary = notices.map { it.second }.distinct().joinToString("；")
         val wasEnabled = remindersEnabled
@@ -351,8 +367,8 @@ class NativeOrderAnnouncer(context: Context) {
                     NotificationManager.IMPORTANCE_NONE
         )
             return "系统订单通知未授权"
-        val id = order.optString("id")
-        val number = 20000 + (id.hashCode() and 0x3fffffff)
+        val key = grabAlertFor(account, order, 0L)?.key ?: return "系统订单通知未能发送"
+        val number = GrabActionIdentity.notificationId(key)
         val intent =
             Intent(app, MainActivity::class.java)
                 .addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_CLEAR_TOP)
@@ -363,31 +379,82 @@ class NativeOrderAnnouncer(context: Context) {
                 intent,
                 PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT,
             )
+        val directGrab = order.optString("kind") in DIRECT_GRAB_KINDS && key.round.isNotBlank()
         return runCatching {
-                notifications.notify(
-                    number,
+                val builder =
                     androidx.core.app.NotificationCompat.Builder(app, CHANNEL)
                         .setSmallIcon(android.R.drawable.ic_dialog_map)
-                        .setContentTitle("宜捷行 · 云端沙箱新订单")
+                        .setContentTitle(if (directGrab) "宜捷行 · 新订单 · 3秒内可抢" else "宜捷行 · 云端沙箱新订单")
                         .setContentText(
                             "${order.optString("origin")} → ${order.optString("destination")}"
                         )
                         .setStyle(
                             androidx.core.app.NotificationCompat.BigTextStyle()
                                 .bigText(
-                                    "${order.optString("origin")} → ${order.optString("destination")}\n点按返回司机端查看，订单可接状态以服务端为准。"
+                                    "${order.optString("origin")} → ${order.optString("destination")}\n" +
+                                        if (directGrab) "点“立即抢单”加入5秒竞抢，离上车点最近的有效司机获派，结果以服务端为准；提醒结束后可在订单大厅查看。"
+                                        else "点按返回司机端查看，订单可接状态以服务端为准。"
                                 )
                         )
                         .setContentIntent(pending)
                         .setAutoCancel(true)
                         .setSilent(!soundEnabled)
                         .setOnlyAlertOnce(true)
-                        .build(),
-                )
-                posted[id] = number
+                        // A new-order reminder, not a record: it leaves with the 3s reminder (also
+                        // cancelled when the owner retires it); the order itself stays in the hall.
+                        .setTimeoutAfter(GRAB_ALERT_MS)
+                if (directGrab) {
+                    // Explicit non-exported receiver, immutable, and a unique data URI per
+                    // account+order+round: an old action can never be rewritten to a new round or
+                    // another account. No token or extras; the receiver only trusts this identity.
+                    val grab =
+                        PendingIntent.getBroadcast(
+                            app,
+                            GrabActionIdentity.requestCode(key),
+                            Intent(app, GrabActionReceiver::class.java)
+                                .setAction(GrabActionReceiver.ACTION_GRAB)
+                                .setData(android.net.Uri.parse(GrabActionIdentity.uri(key))),
+                            PendingIntent.FLAG_IMMUTABLE,
+                        )
+                    builder.addAction(0, "立即抢单", grab)
+                }
+                notifications.notify(number, builder.build())
+                posted[key] = number
                 "系统订单通知已发送"
             }
             .getOrElse { "系统订单通知未能发送" }
+    }
+
+    /** Background grab result: tells the server's answer; tapping only returns to the app, no navigation. */
+    private fun postGrabResult(key: GrabAlertKey, text: String) {
+        val allowed =
+            Build.VERSION.SDK_INT < 33 ||
+                app.checkSelfPermission(Manifest.permission.POST_NOTIFICATIONS) ==
+                    PackageManager.PERMISSION_GRANTED
+        if (!allowed || !notifications.areNotificationsEnabled()) return
+        // One result notification per account+order+round, replaced in place (joined → final).
+        val number = 1_100_000 + (key.encode().hashCode() and 0x3fffffff) % 1_000_000
+        val pending =
+            PendingIntent.getActivity(
+                app,
+                number,
+                Intent(app, MainActivity::class.java)
+                    .addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_CLEAR_TOP),
+                PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT,
+            )
+        runCatching {
+            notifications.notify(
+                number,
+                androidx.core.app.NotificationCompat.Builder(app, CHANNEL)
+                    .setSmallIcon(android.R.drawable.ic_dialog_map)
+                    .setContentTitle("宜捷行 · 抢单结果")
+                    .setContentText(text)
+                    .setContentIntent(pending)
+                    .setAutoCancel(true)
+                    .setSilent(true)
+                    .build(),
+            )
+        }
     }
 
     private fun startNext() {
@@ -568,6 +635,8 @@ class NativeOrderAnnouncer(context: Context) {
             stopAudio(true)
             cancelNotifications()
             NewOrderAlerts.clear()
+            if (NewOrderAlerts.onRetired === retireNotification) NewOrderAlerts.onRetired = null
+            if (GrabActions.onBackgroundResult === notifyGrabResult) GrabActions.onBackgroundResult = null
             engine?.shutdown()
             engine = null
             OrderAnnouncementStatus.mutable.value = "新订单播报已停止"

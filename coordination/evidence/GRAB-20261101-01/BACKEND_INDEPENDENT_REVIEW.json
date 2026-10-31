@@ -1,0 +1,35 @@
+{
+  "reviewerRole": "coordinator",
+  "reviewerSessionId": "01a17cc7-e0a2-7791-bf1d-4611c09bab22",
+  "sourceSha": "3bdb8f71743b30f83d65131bb90ed7485690b62b",
+  "backendTree": "c5df96a35efc38ca50442b029681b7790b688922",
+  "verdict": "PASS",
+  "scope": "Backend dispatch/transaction/privacy/source independent acceptance only; driver native/integration release remains NOT_RUN",
+  "independentTests": 307,
+  "extraIndependentAdversarialCases": 2,
+  "codeReviewed": [
+    "competition.py persisted clock/candidates/ranking/round/cancel/eligibility/DTO",
+    "server.py durable pre-action due checkpoint with rollback and original GCS CAS response gate",
+    "passenger.py scoped join/replay/withdraw/reopen/projections",
+    "domain/admin scheduling and logout retirement"
+  ],
+  "checks": [
+    "Fixed microsecond5s, no duplicate extension; shared ordinary orders only",
+    "Server-stored WGS84 position snapshot and original120sec/(0,100]m checks at joining; no GPS attestation claim",
+    "Distance/entered/driver deterministic ranking; grant-time online/member/cert/preferences/conflict recheck; no double instant assignment",
+    "At deadline late409 does not roll back checkpoint; CAS uncertain first-write exact retry gives one candidate/award/count increment",
+    "Candidate/loser cannot advance or fetch rider contact; only own recent competition outcomes exposed",
+    "Same-ID cancellation beforeboarding newround, oldround/requestId no reenrollment; postboarding originalrestriction; BID/NEG/private demos unchanged",
+    "Other config/admin/IAM and legacy data preservation still require actual integration/release proof"
+  ],
+  "issues": [],
+  "p1Count": 0,
+  "p2Count": 0,
+  "releaseReady": false,
+  "requiredDeploymentBoundary": "All driver-demo API tags/default must be same new writer version; admin unchanged",
+  "evidence": [
+    "backend-independent-307.json",
+    "backend-adversarial.json",
+    "backend-adversarial-harness-correction.json"
+  ]
+}

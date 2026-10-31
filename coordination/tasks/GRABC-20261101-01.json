@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "id": "GRABC-20261101-01",
+  "owner": "claude",
+  "goal": "司机后台与前台3秒直接竞抢提醒、候选等待与结果/重开新轮客户端集成",
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-order-competition-20261101",
+  "branch": "codex/order-competition-20261101",
+  "baseSha": "29e83a8da4513859eaed073e0096ab1256a1a576",
+  "allow_paths": [
+    "candidates/driver-0.3.6-r2/android/app/src/",
+    "coordination/tasks/GRABC-20261101-01.json",
+    "coordination/evidence/GRABC-20261101-01/",
+    "coordination/handoffs/claude.md"
+  ],
+  "checks": [
+    "Only ordinary shared STANDARD/RESERVED enter5s competition; BID price choice/negotiated/private demo flow unchanged",
+    "First valid server-side contender opens fixed5seconds; duplicates do not restart, late requests excluded; persisted round/deadline/CAS atomic at most one winner",
+    "Winner nearest validated reported location to passenger origin; deterministic tie; eligibility/reliable location/active trip recheck; losers never navigate or expose contact",
+    "User confirmed: assigned winner cancel beforeboarding reopens sameorderId/newround; afterboarding original cancel restriction; no new auto penalties/fees",
+    "3s foreground dialog/system overlay direct grab; no duplicate reminders across foreground/background/configchange; explicit overlay grant/fallback/no forbidden full-screen auto activity; token/account/order/round isolation",
+    "Independent root/backend review and meaningful unit/HTTP/CAS/isolated native tests before unique root experience release; no current prod/test environment access"
+  ],
+  "status": "AUTHOR_PHASE2_REVIEWABLE",
+  "acceptance": "NOT_RUN",
+  "tests": [
+    "GrabAlertRulesTest 11 + CompetitionRulesTest 13 JUnit: NOT_RUN (no Bash)",
+    "compile/existing JUnit/androidTest/AVD/device: NOT_RUN"
+  ],
+  "phase2": "Contract V1 wired: competition round/status/deadline/remainingMs/myOutcome(+selfStatus), competitionResults; single grab entry (hall/detail/confirm/dialog/overlay/notification) order.accept{id,competitionRound}+kept requestId; monotonic window anchor, local close, short bounded candidate poll shared with store/service; verdict only own+owned stage+same round; withdraw/cancel carry round; persisted bounded seen; PI identity per account+order+round; root feedback 1-6 handled. Contract questions Q1-Q4 in SELFCHECK. Uncommitted.",
+  "evidence": [
+    "evidence/GRABC-20261101-01/SELFCHECK.md"
+  ],
+  "phase1": "Client reminder/direct-action architecture: single process owner GrabAlertBook (3s monotonic from first display, ordered bounded queue, seen LRU/TTL keyed account+order+round), GrabActions one real order.accept per click with credentials/epoch scope, notification action receiver, dialog/overlay share owner; overlay gated only by listening eligibility + system overlay grant (paid bubble gate kept). Uncommitted.",
+  "nextAction": "root: compile + JUnit + source review + isolated AVD of phase1+2 dirty tree against backend SHA; return fixes to same SID",
+  "deploy_owner": "coordinator",
+  "releaseReady": false,
+  "updatedAt": "2026-11-01T00:00:00+00:00",
+  "sessionId": "f0e957b7-5f75-4d4b-88a7-0043b2ad9253",
+  "model": "claude-opus-5-5",
+  "thinking": "high"
+}

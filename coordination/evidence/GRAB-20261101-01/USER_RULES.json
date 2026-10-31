@@ -1,0 +1,10 @@
+{
+  "requested": [
+    "3s background order popup with direct grab",
+    "first grab opens5s candidatewindow; nearest-to-origin wins",
+    "assigned driver cancellation beforeboarding restarts a new round; in-trip restriction remains"
+  ],
+  "cancelRuleExplicitlyConfirmed": true,
+  "scopeAssumption": "STANDARD/RESERVED ordinary shared orders, preserve BID passenger price choice",
+  "baselineMain": "29e83a8da4513859eaed073e0096ab1256a1a576"
+}

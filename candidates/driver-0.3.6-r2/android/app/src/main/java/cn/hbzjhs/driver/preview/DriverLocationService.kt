@@ -56,18 +56,20 @@ class DriverLocationService : Service(), LocationListener {
     private var windows: WindowManager? = null
     private var announcer: NativeOrderAnnouncer? = null
     private var orderOverlay: NewOrderOverlay? = null
-    private var shownOverlayId: String? = null
+    private val renderAlerts: () -> Unit = { updateBubble() }
+    /** State fetched by the app or the candidate poll also reaches the announcer: one poll, two readers. */
+    private val sharedState: (LocalApi.Credentials, JSONObject) -> Unit = { _, data -> announcer?.update(data) }
 
     private fun updateBubble() {
-        val notice = NewOrderAlerts.notices.value.lastOrNull()
-        val overlayAllowed = floatingEnabled && floatingAllowed && !DriverUiPresence.visible && Settings.canDrawOverlays(this)
-        if (overlayAllowed && notice != null && shownOverlayId != notice.id) {
-            shownOverlayId = notice.id
-            orderOverlay?.show(notice)
-        } else if (!overlayAllowed || notice == null) {
-            orderOverlay?.hide()
-            shownOverlayId = null
-        }
+        // The 3s new-order reminder is a core listening capability: it needs only the listening
+        // eligibility (enforced where reminders are admitted) and the user's own system overlay grant,
+        // never the paid floating-bubble benefit below. The foreground dialog owns it while visible.
+        val alert = NewOrderAlerts.current.value
+        val overlayAllowed = !DriverUiPresence.visible && Settings.canDrawOverlays(this)
+        if (overlayAllowed && alert != null) {
+            if (orderOverlay?.shownKey != alert.key) orderOverlay?.show(alert)
+            else orderOverlay?.render()
+        } else orderOverlay?.hide()
         val shouldShow =
             floatingEnabled &&
                 floatingAllowed &&
@@ -179,6 +181,8 @@ class DriverLocationService : Service(), LocationListener {
         super.onCreate()
         announcer = NativeOrderAnnouncer(this)
         orderOverlay = NewOrderOverlay(this)
+        NewOrderAlerts.onChanged = renderAlerts
+        GrabActions.addStateListener(sharedState)
         val notifications = getSystemService(NotificationManager::class.java)
         notifications.createNotificationChannel(
             NotificationChannel("driver-location", "接单期间的位置服务", NotificationManager.IMPORTANCE_LOW)
@@ -253,6 +257,11 @@ class DriverLocationService : Service(), LocationListener {
             while (isActive) {
                 delay(1000)
                 withContext(Dispatchers.Main) { updateBubble() }
+                // A state delivered moments ago (app refresh or candidate poll) already reached the
+                // announcer through the shared listener; don't fetch the same thing again.
+                if (SystemClock.elapsedRealtime() >= nextPollAt &&
+                    withContext(Dispatchers.Main) { GrabActions.recentlyRefreshed(5_000L) })
+                    nextPollAt = SystemClock.elapsedRealtime() + 5_000L
                 if (SystemClock.elapsedRealtime() >= nextPollAt) {
                     nextPollAt = SystemClock.elapsedRealtime() + retryDelay
                     val generation = serviceGeneration
@@ -261,6 +270,8 @@ class DriverLocationService : Service(), LocationListener {
                         val data = LocalApi.request("GET", "/api/state", credentials = credentials)
                         withContext(Dispatchers.Main) {
                         if (generation != serviceGeneration || !LocalApi.isCurrent(credentials)) return@withContext
+                        // Anchors windows/resolves candidates, then forwards to the app store.
+                        GrabActions.observeState(credentials, data, from = sharedState)
                         announcer?.update(data)
                         linkAvailable = true
                         retryDelay = 15000L
@@ -280,6 +291,7 @@ class DriverLocationService : Service(), LocationListener {
                                     )
                             }
                         if (state?.optBoolean("online") != true && !inProgress) {
+                            GrabActions.endSession()
                             stopSelf()
                             return@withContext
                         }
@@ -380,6 +392,9 @@ class DriverLocationService : Service(), LocationListener {
 
     override fun onDestroy() {
         serviceGeneration++
+        // Unhook first so clearing reminders below cannot re-add the bubble or overlay.
+        if (NewOrderAlerts.onChanged === renderAlerts) NewOrderAlerts.onChanged = null
+        GrabActions.removeStateListener(sharedState)
         if (::manager.isInitialized) runCatching { manager.removeUpdates(this) }
         bubble?.let { runCatching { windows?.removeView(it) } }
         bubble = null

@@ -42,10 +42,13 @@ class MainActivity : ComponentActivity() {
     override fun onStart() {
         super.onStart()
         DriverUiPresence.visible = true
+        NewOrderAlerts.notifyPresence()
     }
 
     override fun onStop() {
         DriverUiPresence.visible = false
+        // The background overlay takes over the same reminder with its remaining time.
+        NewOrderAlerts.notifyPresence()
         super.onStop()
     }
 
@@ -151,7 +154,8 @@ private fun ConnectedApp(store: ConnectedStore, state: DriverState) {
         }
     fun startListening() {
         if (state.online) {
-            store.perform("driver.online", JSONObject().put("online", false))
+            // Offline really ends local candidate waiting; late results of the old session are dropped.
+            store.perform("driver.online", JSONObject().put("online", false)) { GrabActions.endSession() }
             return
         }
         if (
@@ -244,25 +248,25 @@ private fun ConnectedApp(store: ConnectedStore, state: DriverState) {
             else message("浮窗尚未启用，请在权限与提醒检查中核对系统授权和当前权益")
         }
     }
-    LaunchedEffect(requestedAlertOrder, state.loggedIn) {
-        val id = requestedAlertOrder
-        if (id != null && state.loggedIn) {
-            NewOrderAlerts.consumeOpen()
-            store.refresh()
-            navigate("detail:$id")
-        }
-    }
-    if (!guideShowing && state.loggedIn) NewOrderDialog(state.orders) { id ->
-        NewOrderAlerts.dismiss(id)
-        store.refresh()
-        navigate("detail:$id")
-    }
     val route = stack.last()
     // The one in-app navigation owner (account + order). Saveable so rotation keeps navigation mode;
     // it holds only ids. Any account/order/stage change or leaving the trip page ends it.
     var navOwnerValue by rememberSaveable { mutableStateOf<String?>(null) }
     val navOwner = NavigationOwner.decode(navOwnerValue)
     val account = driverAccount(payload)
+    fun openAlertOrder(orderId: String, bid: Boolean) {
+        store.refresh()
+        navigate(if (bid) "bid:$orderId" else "detail:$orderId")
+    }
+    // An overlay tap on a BID/detail reminder; consumed once and only for the account it came from.
+    LaunchedEffect(requestedAlertOrder, state.loggedIn, account) {
+        if (requestedAlertOrder == null || !state.loggedIn || account.isBlank()) return@LaunchedEffect
+        val key = NewOrderAlerts.consumeOpen(account) ?: return@LaunchedEffect
+        val kind = state.orders.firstOrNull { it.id == key.orderId }?.kind
+        openAlertOrder(key.orderId, kind == OrderKind.BID)
+    }
+    if (!guideShowing && state.loggedIn)
+        NewOrderDialog(state.orders, onOpen = { alert -> openAlertOrder(alert.key.orderId, alert.bid) }, onRejected = ::message)
     fun openNavigation(orderId: String) {
         val currentAccount = driverAccount(store.payload.value)
         val latest = store.state.value.orders.firstOrNull { it.id == orderId }
@@ -288,6 +292,64 @@ private fun ConnectedApp(store: ConnectedStore, state: DriverState) {
         if (reason.isNotBlank()) message(reason)
     }
     AutoNavigationObserver(store, ::openNavigation)
+    // Grab results land once, for the same account and session generation only (consumeResults).
+    // Only a server-confirmed own assignment from a foreground click, re-checked against the store's
+    // current row (same account, owned stage, same round, a navigable leg), follows the existing
+    // post-accept entry. WON history, pending, lost, failed and background results only report.
+    val grabResults by GrabActions.results.collectAsState()
+    LaunchedEffect(grabResults, account) {
+        if (grabResults.isEmpty() || account.isBlank()) return@LaunchedEffect
+        GrabActions.consumeResults(account).forEach { result ->
+            val outcome = result.outcome
+            message(GrabOutcomes.message(outcome))
+            val row = store.state.value.orders.firstOrNull { it.id == outcome.orderId }
+            val confirmed =
+                result.foreground && DriverUiPresence.visible && GrabOutcomes.mayNavigate(outcome) &&
+                    driverAccount(store.payload.value) == result.key.account && row != null &&
+                    row.stage in setOf(Stage.PICKUP, Stage.RESERVED, Stage.ARRIVED, Stage.TRIP) &&
+                    (row.competition == null || row.competition.round.toString() == result.key.round) &&
+                    NavigationSessionRules.legFor(row) !is LegDecision.Unavailable
+            if (confirmed && row != null) {
+                audio(R.raw.success_order)
+                if (stack.last() == "root" && tab == 0) navigate("detail:${row.id}")
+                navigateForNewLeg(context, store, row.id, Stage.AVAILABLE, ::openNavigation)
+            } else if (outcome !is GrabOutcome.Assigned) store.refresh(silent = true)
+        }
+    }
+    /** The one grab entry for hall, detail and confirm: competition orders join with their round. */
+    fun grabOrder(order: DriverOrder) {
+        if (order.kind == OrderKind.BID) {
+            navigate("bid:${order.id}")
+            return
+        }
+        val competition = order.competition
+        if (competition == null) {
+            // No competition object (private examples, other kinds): the original confirm + accept.
+            confirm =
+                CoreConfirm("确认接单", NavigationSessionRules.routeSummary(order), "确认接单") {
+                    store.perform("order.accept", JSONObject().put("id", order.id)) {
+                        if (stack.last() == "root" && tab == 0) navigate("detail:${order.id}")
+                        audio(R.raw.success_order)
+                        navigateForNewLeg(context, store, order.id, order.stage, ::openNavigation)
+                    }
+                }
+            return
+        }
+        when (GrabActions.availability(account, order)) {
+            GrabAvailability.CAN_GRAB ->
+                confirm =
+                    CoreConfirm("确认抢单", NavigationSessionRules.routeSummary(order) + "\n\n" + COMPETITION_NOTE, "确认抢单") {
+                        // Re-checked at click time: an expired window or another round is refused.
+                        GrabActions.submit(competitionKey(account, order.id, competition), foreground = true)?.let(::message)
+                    }
+            GrabAvailability.COMPETING -> message("已在竞抢中，等待派单结果")
+            GrabAvailability.CLOSED_WAITING -> {
+                message("本轮已截止，等待服务端派单结果")
+                store.refresh()
+            }
+            else -> message("该订单本轮不可抢，请刷新订单大厅")
+        }
+    }
     // A collapsed map panel on the page shown right now hides the tabs (full-screen map). Only a claim
     // for this exact page (this account's listening home, or this order's trip) counts, so leaving the
     // page, signing out or switching account always brings the tabs back.
@@ -348,28 +410,7 @@ private fun ConnectedApp(store: ConnectedStore, state: DriverState) {
                             route == "root" ->
                                 when (tab) {
                                     0 ->
-                                        ConnectedHome(store, state, ::navigate, ::startListening) {
-                                            order ->
-                                            if (order.kind == OrderKind.BID)
-                                                navigate("bid:${order.id}")
-                                            else
-                                                confirm =
-                                                    CoreConfirm(
-                                                        "确认接单",
-                                                        NavigationSessionRules.routeSummary(order),
-                                                        "确认接单",
-                                                    ) {
-                                                        store.perform(
-                                                            "order.accept",
-                                                            JSONObject().put("id", order.id),
-                                                        ) {
-                                                            if (stack.last() == "root" && tab == 0)
-                                                                navigate("detail:${order.id}")
-                                                            audio(R.raw.success_order)
-                                                            navigateForNewLeg(context, store, order.id, order.stage, ::openNavigation)
-                                                        }
-                                                    }
-                                        }
+                                        ConnectedHome(store, state, ::navigate, ::startListening, ::grabOrder)
                                     1 -> ConnectedOrders(state, ::navigate, orderFilter) { orderFilter = it }
                                     2 -> ConnectedWallet(store, state, ::navigate)
                                     else ->
@@ -403,6 +444,12 @@ private fun ConnectedApp(store: ConnectedStore, state: DriverState) {
                                         navigating = navOwner != null && navOwner.orderId == id && navOwner.account == account,
                                         onNavigate = ::openNavigation,
                                         onExitNavigation = { navOwnerValue = null },
+                                        onGrab = ::grabOrder,
+                                        onWithdraw = {
+                                            cancelReason = ""
+                                            cancelOther = ""
+                                            cancelOrder = id
+                                        },
                                     )
                             }
                             route.startsWith("bid:") -> {
@@ -480,12 +527,19 @@ private fun ConnectedApp(store: ConnectedStore, state: DriverState) {
         )
     }
     cancelOrder?.let { id ->
+        val cancelTarget = state.orders.firstOrNull { it.id == id }
+        // An AVAILABLE competition row here is this driver's own candidacy: withdrawing leaves only
+        // the current round and never cancels the passenger's order.
+        val withdrawing = cancelTarget?.stage == Stage.AVAILABLE && cancelTarget.competition != null
         DriverDialog(
             onDismissRequest = { cancelOrder = null },
-            title = { Text("取消订单") },
+            title = { Text(if (withdrawing) "退出本轮竞抢" else "取消订单") },
             text = {
                 Column(Modifier.verticalScroll(rememberScrollState())) {
-                    Text("请选择实际取消原因，提交后将保存到订单记录。")
+                    Text(
+                        if (withdrawing) "仅退出你本人在本轮的竞抢，不会取消乘客订单。请选择原因。"
+                        else "请选择实际取消原因，提交后将保存到订单记录。"
+                    )
                     listOf("乘客要求取消", "无法联系乘客", "车辆临时故障", "其他原因").forEach { reason ->
                         Row(
                             Modifier.fillMaxWidth().heightIn(min = 52.dp).selectable(selected = cancelReason == reason, role = Role.RadioButton, onClick = { cancelReason = reason }),
@@ -515,10 +569,11 @@ private fun ConnectedApp(store: ConnectedStore, state: DriverState) {
                         val reason =
                             if (cancelReason == "其他原因") cancelOther.trim() else cancelReason
                         cancelOrder = null
-                        store.perform(
-                            "order.cancel",
-                            JSONObject().put("id", id).put("reason", reason),
-                        )
+                        // GRAB V1: competition orders carry the round read from state, so a cancel or
+                        // withdraw can never land on a newer round of the same order id.
+                        val cancelBody = JSONObject().put("id", id).put("reason", reason)
+                        cancelTarget?.competition?.let { cancelBody.put("competitionRound", it.round) }
+                        store.perform("order.cancel", cancelBody)
                     },
                 ) {
                     Text("确认取消", fontSize = 16.sp, lineHeight = 22.sp, fontWeight = FontWeight.Bold)
