@@ -310,6 +310,62 @@ class CompetitionWatch(private val maxWaitMs: Long = 25_000L) {
     }
 }
 
+/** What a cancel dialog was opened to do; fixed at opening, never re-derived from a later state. */
+enum class CancelIntent { WITHDRAW, ASSIGNED_CANCEL, LEGACY }
+
+/**
+ * Identity of one open cancel/withdraw dialog: account, order, intent, the competition round and
+ * the stage it was opened for. A refreshed state that no longer yields the same scope (new round,
+ * other stage/intent/account/owner) invalidates the dialog; the request only ever carries [round].
+ */
+data class CancelScope(val account: String, val orderId: String, val intent: CancelIntent, val round: Int?, val stage: String) {
+    fun encode(): String = listOf(account, orderId, intent.name, round?.toString().orEmpty(), stage).joinToString("\u001f")
+
+    companion object {
+        fun decode(value: String?): CancelScope? {
+            val p = value?.split('\u001f') ?: return null
+            if (p.size != 5 || p[0].isBlank() || p[1].isBlank() || p[4].isBlank()) return null
+            val intent = runCatching { CancelIntent.valueOf(p[2]) }.getOrNull() ?: return null
+            val round = if (p[3].isEmpty()) null else p[3].toIntOrNull() ?: return null
+            if ((intent == CancelIntent.LEGACY) != (round == null)) return null
+            return CancelScope(p[0], p[1], intent, round, p[4])
+        }
+    }
+}
+
+object CancelScopes {
+    /**
+     * The scope a dialog may open with for [order] as [account] sees it now, or null when neither a
+     * withdrawal nor a cancellation is allowed. Withdraw: own server-PENDING candidacy of an AVAILABLE
+     * round. Assigned cancel: own (driverId) competition order in the original pre-boarding cancel
+     * stages. Legacy: rows without competition (BID/private) under the original canCancel rule.
+     * A shared ordinary row missing its competition fails closed.
+     */
+    fun open(account: String, order: DriverOrder?): CancelScope? {
+        if (account.isBlank() || order == null) return null
+        val c = order.competition
+        return when {
+            c != null && order.stage == Stage.AVAILABLE ->
+                if (c.myOutcome == "PENDING") CancelScope(account, order.id, CancelIntent.WITHDRAW, c.round, order.stage.name) else null
+            c != null ->
+                if (order.canCancel && order.driverId == account) CancelScope(account, order.id, CancelIntent.ASSIGNED_CANCEL, c.round, order.stage.name) else null
+            order.competitionRequired -> null
+            order.canCancel -> CancelScope(account, order.id, CancelIntent.LEGACY, null, order.stage.name)
+            else -> null
+        }
+    }
+
+    /** True only while the latest state still yields exactly the captured scope. */
+    fun stillValid(scope: CancelScope, account: String, latest: DriverOrder?): Boolean =
+        latest?.id == scope.orderId && open(account, latest) == scope
+
+    /** order.cancel payload: the captured round, never one substituted from a newer state. */
+    fun body(scope: CancelScope, reason: String): JSONObject =
+        JSONObject().put("id", scope.orderId).put("reason", reason).apply {
+            scope.round?.let { put("competitionRound", it) }
+        }
+}
+
 /** Bounded record of reminded/dismissed keys (account+order+round only; no token/address/phone/GPS). */
 interface GrabSeenLog {
     fun contains(key: GrabAlertKey): Boolean

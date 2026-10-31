@@ -90,7 +90,7 @@ private fun ConnectedApp(store: ConnectedStore, state: DriverState) {
     var orderFilter by rememberSaveable { mutableIntStateOf(0) }
     var stack by rememberSaveable { mutableStateOf(listOf("root")) }
     var confirm by remember { mutableStateOf<CoreConfirm?>(null) }
-    var cancelOrder by rememberSaveable { mutableStateOf<String?>(null) }
+    var cancelScopeValue by rememberSaveable { mutableStateOf<String?>(null) }
     var cancelReason by rememberSaveable { mutableStateOf("") }
     var cancelOther by rememberSaveable { mutableStateOf("") }
     var wantsOnline by remember { mutableStateOf(false) }
@@ -447,7 +447,7 @@ private fun ConnectedApp(store: ConnectedStore, state: DriverState) {
                                         onCancel = {
                                             cancelReason = ""
                                             cancelOther = ""
-                                            cancelOrder = id
+                                            cancelScopeValue = CancelScopes.open(driverAccount(store.payload.value), store.state.value.orders.firstOrNull { it.id == id })?.encode()
                                         },
                                         onMessage = ::message,
                                         onHome = { navigate("home") },
@@ -458,7 +458,7 @@ private fun ConnectedApp(store: ConnectedStore, state: DriverState) {
                                         onWithdraw = {
                                             cancelReason = ""
                                             cancelOther = ""
-                                            cancelOrder = id
+                                            cancelScopeValue = CancelScopes.open(driverAccount(store.payload.value), store.state.value.orders.firstOrNull { it.id == id })?.encode()
                                         },
                                     )
                             }
@@ -536,13 +536,16 @@ private fun ConnectedApp(store: ConnectedStore, state: DriverState) {
             dismissButton = { DriverTextButton(onClick = { confirm = null }) { Text("返回") } },
         )
     }
-    cancelOrder?.let { id ->
-        val cancelTarget = state.orders.firstOrNull { it.id == id }
-        // An AVAILABLE competition row here is this driver's own candidacy: withdrawing leaves only
-        // the current round and never cancels the passenger's order.
-        val withdrawing = cancelTarget?.stage == Stage.AVAILABLE && cancelTarget.competition != null
+    val cancelScope = CancelScope.decode(cancelScopeValue)
+    val cancelScopeValid = cancelScope != null && state.loggedIn &&
+        CancelScopes.stillValid(cancelScope, driverAccount(payload), state.orders.firstOrNull { it.id == cancelScope.orderId })
+    LaunchedEffect(cancelScopeValue, cancelScopeValid) {
+        if (!cancelScopeValid) cancelScopeValue = null
+    }
+    cancelScope?.takeIf { cancelScopeValid }?.let { captured ->
+        val withdrawing = captured.intent == CancelIntent.WITHDRAW
         DriverDialog(
-            onDismissRequest = { cancelOrder = null },
+            onDismissRequest = { cancelScopeValue = null },
             title = { Text(if (withdrawing) "退出本轮竞抢" else "取消订单") },
             text = {
                 Column(Modifier.verticalScroll(rememberScrollState())) {
@@ -578,18 +581,22 @@ private fun ConnectedApp(store: ConnectedStore, state: DriverState) {
                     onClick = {
                         val reason =
                             if (cancelReason == "其他原因") cancelOther.trim() else cancelReason
-                        cancelOrder = null
-                        // GRAB V1: competition orders carry the round read from state, so a cancel or
-                        // withdraw can never land on a newer round of the same order id.
-                        val cancelBody = JSONObject().put("id", id).put("reason", reason)
-                        cancelTarget?.competition?.let { cancelBody.put("competitionRound", it.round) }
-                        store.perform("order.cancel", cancelBody)
+                        cancelScopeValue = null
+                        // Validate the latest store at click too: recomposition may not yet have
+                        // observed a new round/account/stage. Always submit the captured identity.
+                        val latest = store.state.value
+                        if (latest.loggedIn && CancelScopes.stillValid(
+                                captured, driverAccount(store.payload.value),
+                                latest.orders.firstOrNull { it.id == captured.orderId },
+                            )) {
+                            store.perform("order.cancel", CancelScopes.body(captured, reason))
+                        } else message("订单状态已变化，请重新操作。")
                     },
                 ) {
                     Text("确认取消", fontSize = 16.sp, lineHeight = 22.sp, fontWeight = FontWeight.Bold)
                 }
             },
-            dismissButton = { DriverTextButton(onClick = { cancelOrder = null }) { Text("继续行程") } },
+            dismissButton = { DriverTextButton(onClick = { cancelScopeValue = null }) { Text("继续行程") } },
         )
     }
 }

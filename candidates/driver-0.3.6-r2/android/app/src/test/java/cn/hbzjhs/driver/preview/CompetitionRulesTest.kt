@@ -16,6 +16,40 @@ class CompetitionRulesTest {
     private fun avail(c: OrderCompetition?, deadline: Long? = null, now: Long = 0, pending: Boolean = false, kind: String = "STANDARD", stage: String = "AVAILABLE", required: Boolean = false) =
         CompetitionRules.availability(kind, stage, c, deadline, now, pending, required)
 
+    private fun cancelRow(stage: Stage = Stage.AVAILABLE, round: Int = 1, outcome: String = "PENDING", driver: String = "") =
+        DriverOrder("order1", OrderKind.STANDARD, "起", "终", 1000, "1km", "1", "现在",
+            stage = stage, shared = true, competitionRequired = true, driverId = driver,
+            competition = comp(if (stage == Stage.AVAILABLE) "OPEN" else "ASSIGNED", round, outcome))
+
+    @Test
+    fun cancelDialogCannotFollowAnotherRoundAccountOrStage() {
+        val row = cancelRow()
+        val scope = CancelScopes.open("d1", row)!!
+        assertEquals(CancelIntent.WITHDRAW, scope.intent)
+        assertEquals(scope, CancelScope.decode(scope.encode()))
+        assertTrue(CancelScopes.stillValid(scope, "d1", row))
+        assertFalse(CancelScopes.stillValid(scope, "d1", cancelRow(round = 2)))
+        assertFalse(CancelScopes.stillValid(scope, "d2", row))
+        assertFalse(CancelScopes.stillValid(scope, "d1", cancelRow(outcome = "WITHDRAWN")))
+        assertFalse(CancelScopes.stillValid(scope, "d1", cancelRow(Stage.PICKUP, driver = "d1")))
+        assertEquals(1, CancelScopes.body(scope, "原因").getInt("competitionRound"))
+    }
+
+    @Test
+    fun assignedCancellationRequiresCurrentOwnershipAndPreservesLegacy() {
+        val assigned = cancelRow(Stage.PICKUP, driver = "d1")
+        val scope = CancelScopes.open("d1", assigned)!!
+        assertEquals(CancelIntent.ASSIGNED_CANCEL, scope.intent)
+        assertFalse(CancelScopes.stillValid(scope, "d1", assigned.copy(stage = Stage.ARRIVED)))
+        assertFalse(CancelScopes.stillValid(scope, "d1", assigned.copy(driverId = "d2")))
+        assertNull(CancelScopes.open("d1", assigned.copy(stage = Stage.TRIP)))
+        assertNull(CancelScopes.open("d1", assigned.copy(competition = null)))
+        val legacy = assigned.copy(shared = false, synthetic = true, competition = null, competitionRequired = false)
+        val old = CancelScopes.open("d1", legacy)!!
+        assertEquals(CancelIntent.LEGACY, old.intent)
+        assertFalse(CancelScopes.body(old, "原因").has("competitionRound"))
+    }
+
     @Test
     fun readyOpenDeadlineAndPendingStates() {
         // READY: no first contender yet, deadline null, may grab.
