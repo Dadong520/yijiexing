@@ -17,14 +17,30 @@
     "Driver25 generation-guarded archive/promotion/fullpublic SHA size originalidentity binding; passenger23 fixedgeneration unchanged",
     "48 old order rows and2 contact snapshots retained; no coordinator cloudBusinessPOST; actual limitations accurate"
   ],
-  "status": "ACTUAL_RECEIPT_READY_FOR_NONAUTHOR_REVIEW",
-  "acceptance": "NOT_RUN",
-  "tests": [],
-  "evidence": [
-    "coordination/evidence/GRAB-20261101-01/release/FINAL-RELEASE-RECEIPT.json"
+  "status": "NONAUTHOR_RECEIPT_REVIEW_PASS",
+  "acceptance": "PASS",
+  "tests": [
+    {
+      "command": "Immutable git objects/tree equality and20 receipt/README consistency assertions",
+      "result": "PASS",
+      "checks": 20,
+      "cloudCalls": 0
+    },
+    {
+      "command": "python3 tools/check_coordination.py --memory-role backend --session-id 01a182c6-c058-76e1-9584-38abfe813799",
+      "result": "PASS"
+    }
   ],
-  "nextAction": "Only exact metadata candidate audit, no source edits/build/cloud/fulltests/deploy",
+  "evidence": [
+    "coordination/evidence/GRAB-20261101-01/release/FINAL-RELEASE-RECEIPT.json",
+    "coordination/evidence/GRABRER-20261101-01/REVIEW.json",
+    "coordination/evidence/GRABRER-20261101-01/REVIEW.md"
+  ],
+  "nextAction": "root exact metadata CI/merge; publication already complete, no redeploy; backend IDLE",
   "deploy_owner": "coordinator",
   "releaseReady": false,
-  "updatedAt": "2026-10-31T18:14:22.314481+00:00"
+  "updatedAt": "2026-11-01T02:16:38+08:00",
+  "candidateSha": "b8921e4b5afd026beb0c80ac745677c9a21d3938",
+  "reviewedSha": "b8921e4b5afd026beb0c80ac745677c9a21d3938",
+  "findings": []
 }

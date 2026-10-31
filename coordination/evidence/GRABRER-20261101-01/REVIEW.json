@@ -1,0 +1,113 @@
+{
+  "taskId": "GRABRER-20261101-01",
+  "reviewerRole": "backend",
+  "reviewerSessionId": "01a182c6-c058-76e1-9584-38abfe813799",
+  "reviewedSha": "b8921e4b5afd026beb0c80ac745677c9a21d3938",
+  "baseSha": "03fbf3e198e690d06d7b1dac65e106cf1411865c",
+  "verdict": "PASS",
+  "p1Count": 0,
+  "p2Count": 0,
+  "scope": "Non-author immutable metadata/actual receipt consistency only. No fresh cloud/APK readbacks or own backend acceptance.",
+  "checks": {
+    "01_metadata_only": true,
+    "02_exact_base_parent": true,
+    "03_product_trees_unchanged": true,
+    "04_PR51_merge_exactCI_tree": true,
+    "05_source_backend_image_binding": true,
+    "06_final_driver_build_source": true,
+    "07_build_upload_promotion_public_hash_size": true,
+    "08_public_original_identity": true,
+    "09_public_full_download_proof": true,
+    "10_failed_download_retained_and_retry_complete": true,
+    "11_promotion_guard_and_old_archive": true,
+    "12_all_five_API_tags_default_same_revision": true,
+    "13_API_otherconfig_and_adminIAM_unchanged": true,
+    "14_smoke_GET_only_three_hosts": true,
+    "15_48_old_orders_and2_contacts_fullrows": true,
+    "16_snapshot_identity_and_migration_scope": true,
+    "17_passenger23_fixed_unchanged": true,
+    "18_runtime_limits_and_QA_cleanup": true,
+    "19_README_actual_local_not_cloudbuild_readback": true,
+    "20_scope_not_backend_selfacceptance": true
+  },
+  "productTrees": {
+    "36fdf2c1bddd859f3dff22fbeb2d7e70aa94ec7c": {
+      "apps/cloud-service": "c5df96a35efc38ca50442b029681b7790b688922",
+      "candidates/driver-0.3.6-r2": "6a696d2de85cf2096f36f5fdee07e0d43e32ecc9",
+      "apps/passenger-android": "3ef2c41473a192da4869469dca5765089f6d9bfd"
+    },
+    "03fbf3e198e690d06d7b1dac65e106cf1411865c": {
+      "apps/cloud-service": "c5df96a35efc38ca50442b029681b7790b688922",
+      "candidates/driver-0.3.6-r2": "6a696d2de85cf2096f36f5fdee07e0d43e32ecc9",
+      "apps/passenger-android": "3ef2c41473a192da4869469dca5765089f6d9bfd"
+    },
+    "ac159173499951ebafb2a95b0a83af38e14ed5e3": {
+      "apps/cloud-service": "c5df96a35efc38ca50442b029681b7790b688922",
+      "candidates/driver-0.3.6-r2": "6a696d2de85cf2096f36f5fdee07e0d43e32ecc9",
+      "apps/passenger-android": "3ef2c41473a192da4869469dca5765089f6d9bfd"
+    },
+    "b8921e4b5afd026beb0c80ac745677c9a21d3938": {
+      "apps/cloud-service": "c5df96a35efc38ca50442b029681b7790b688922",
+      "candidates/driver-0.3.6-r2": "6a696d2de85cf2096f36f5fdee07e0d43e32ecc9",
+      "apps/passenger-android": "3ef2c41473a192da4869469dca5765089f6d9bfd"
+    }
+  },
+  "metadataChangedFiles": [
+    "README.md",
+    "coordination/BOARD.json",
+    "coordination/SESSION_REGISTRY.json",
+    "coordination/STATE.md",
+    "coordination/archive/2026-11-01/STATE-before-GRAB25-release.md",
+    "coordination/evidence/GRAB-20261101-01/EXACT_HEAD_CI.json",
+    "coordination/evidence/GRAB-20261101-01/MERGE51_PROOF.json",
+    "coordination/evidence/GRAB-20261101-01/release/FINAL-RELEASE-RECEIPT.json",
+    "coordination/evidence/GRAB-20261101-01/release/api-after-config.json",
+    "coordination/evidence/GRAB-20261101-01/release/api-after-smoke.json",
+    "coordination/evidence/GRAB-20261101-01/release/api-stage-config.json",
+    "coordination/evidence/GRAB-20261101-01/release/api-stage-smoke.json",
+    "coordination/evidence/GRAB-20261101-01/release/apk-https-attempts-driver.json",
+    "coordination/evidence/GRAB-20261101-01/release/apk-https-driver.json",
+    "coordination/evidence/GRAB-20261101-01/release/apk-promotion.json",
+    "coordination/evidence/GRAB-20261101-01/release/apk-upload-candidates.json",
+    "coordination/evidence/GRAB-20261101-01/release/data-after.json",
+    "coordination/evidence/GRAB-20261101-01/release/passenger-unchanged.json",
+    "coordination/evidence/GRAB-20261101-01/release/public-pages-health.json",
+    "coordination/evidence/GRAB-20261101-01/release/transfer-events.json",
+    "coordination/handoffs/coordinator.md",
+    "coordination/tasks/GRAB-20261101-01.json",
+    "coordination/tasks/GRABREC-20261101-01.json",
+    "coordination/tasks/GRABRER-20261101-01.json"
+  ],
+  "evidenceObjectSha256": {
+    "coordination/evidence/GRAB-20261101-01/release/FINAL-RELEASE-RECEIPT.json": "2fccdfe998e325645f779def69cf8db6add14308295c27710ea1ccada198ca19",
+    "coordination/evidence/GRAB-20261101-01/FINAL_BUILD_PROOF.json": "7ac46c82abc82d728c25809000d731ad0a71f7746e47ef369bc765cde623df65",
+    "coordination/evidence/GRAB-20261101-01/MERGE51_PROOF.json": "c046eec54fbdd32ef5a5dcfe6c0b03082fca8cf017e746e44e7500dc4eb20e7e",
+    "coordination/evidence/GRAB-20261101-01/EXACT_HEAD_CI.json": "43f94c8c6fd8962de934934a6a604ff8c3c3764c144a4e4938d1758d7ae6d6d0",
+    "coordination/evidence/GRAB-20261101-01/release/api-after-config.json": "ef9a6e8ea97654b92ac7596cbaac259aae1493d4a034940432d30246204dd477",
+    "coordination/evidence/GRAB-20261101-01/release/api-stage-config.json": "ef9a6e8ea97654b92ac7596cbaac259aae1493d4a034940432d30246204dd477",
+    "coordination/evidence/GRAB-20261101-01/release/api-image-build.json": "86cafb00f077eb60a66e0a4dd2c9397be760571a9fdea26e6d3dbf518f82b360",
+    "coordination/evidence/GRAB-20261101-01/release/apk-promotion.json": "0fc5550f9a78830168040375721be864a3471b66166b29cc3a9569896ddedd40",
+    "coordination/evidence/GRAB-20261101-01/release/apk-https-driver.json": "0aed12dfbcfc9a295efe65c2c74177f677ed5401ebbfada8d4fb2c5ad2a4627e",
+    "coordination/evidence/GRAB-20261101-01/release/apk-https-attempts-driver.json": "fe96e1f09437f84245e371a8b08aa20e2fb4410b1a2851c88b3af69a6a05c468",
+    "coordination/evidence/GRAB-20261101-01/release/apk-upload-candidates.json": "80498a49e53764743fc3f42cab7c4280f27ad0e2d3de3c9ca3bc430106541a0d",
+    "coordination/evidence/GRAB-20261101-01/release/data-before.json": "8f7d7ceac4aaca88b550c584852e88e0c502bb701a4cb77d4bc8d102a057dc42",
+    "coordination/evidence/GRAB-20261101-01/release/data-after.json": "d4e6fd71ddbc60b92cba3e7d3b107255842d953989d68a7f9f92dbb01c6a5c14",
+    "coordination/evidence/GRAB-20261101-01/release/passenger-unchanged.json": "6b38f4890fcaa8986fe87ffead148e407bddce257604cb37ff0c6c70e2cb2467",
+    "coordination/evidence/GRAB-20261101-01/native/FINAL_REVIEW.json": "fcda9fd10d1020e862579c372439aa93fdf6dde9f8085819633ba74eb6ab4332",
+    "coordination/evidence/GRAB-20261101-01/native/CLEANUP.json": "416c5b6170301ca17e7d16e8a25831737a47881c531f4ed94af166ecda999f66",
+    "coordination/evidence/GRAB-20261101-01/release/api-after-smoke.json": "c228480f9a8f15f4f9c6ea05658a89a9c939d2759533fdce67b41a1a781bcc50",
+    "coordination/evidence/GRAB-20261101-01/release/public-pages-health.json": "43c9f4621b786ae3b6212fe17232a670fb1c5c92672ffab1e72a4c0f6a9e763c",
+    "coordination/evidence/GRAB-20261101-01/BACKEND_INDEPENDENT_REVIEW.json": "466fb3586ef676b73880d4ac2c64000a17938dfd885a3e0e5215424c40435bf4",
+    "coordination/evidence/GRAB-20261101-01/backend-current48-migration.json": "bf6d6170880c9b2707d75ecf19d047900d1f47ff763972c63339d3a4cbfe874b",
+    "README.md": "f029a898a261daa86c9d83a170c9667e24c3753281a9f1174afe89cc202ea40a"
+  },
+  "notRun": [
+    "build",
+    "native",
+    "backend307",
+    "cloud calls",
+    "download",
+    "deploy"
+  ],
+  "at": "2026-11-01T02:16:38+08:00"
+}

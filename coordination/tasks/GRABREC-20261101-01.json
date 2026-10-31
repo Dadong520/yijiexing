@@ -16,14 +16,23 @@
     "Driver25 generation-guarded archive/promotion/fullpublic SHA size originalidentity binding; passenger23 fixedgeneration unchanged",
     "48 old order rows and2 contact snapshots retained; no coordinator cloudBusinessPOST; actual limitations accurate"
   ],
-  "status": "ACTUAL_RECEIPT_READY_FOR_NONAUTHOR_REVIEW",
-  "acceptance": "NOT_RUN",
-  "tests": [],
+  "status": "NONAUTHOR20_PASS_READY_EXACT_CI_MERGE",
+  "acceptance": "PASS",
+  "tests": [
+    {
+      "suite": "Nonauthor exactreceipt consistency20",
+      "result": "PASS",
+      "sourceSha": "b8921e4b5afd026beb0c80ac745677c9a21d3938",
+      "P1": 0,
+      "P2": 0
+    }
+  ],
   "evidence": [
     "coordination/evidence/GRAB-20261101-01/release/FINAL-RELEASE-RECEIPT.json"
   ],
-  "nextAction": "Only exact metadata candidate audit, no source edits/build/cloud/fulltests/deploy",
+  "nextAction": "Final metadata exact head CI and merge; product already published, no cloud actions",
   "deploy_owner": "coordinator",
   "releaseReady": false,
-  "updatedAt": "2026-10-31T18:14:22.314481+00:00"
+  "updatedAt": "2026-10-31T18:14:22.314481+00:00",
+  "candidateSha": "b8921e4b5afd026beb0c80ac745677c9a21d3938"
 }
