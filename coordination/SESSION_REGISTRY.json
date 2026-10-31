@@ -15,21 +15,21 @@
       "title": "宜捷行｜产品建议与高德集成总协调",
       "model": "gpt-6.1-sol",
       "memoryStatus": "NORMAL",
-      "reason": "RIDE candidate b3bc07d, independent source PASS; native pending, public still22; context UNKNOWN",
+      "reason": "Version23 public APK/data/runtime/pages all actualPASS; concrete receipt/README independent review and merge remain, context UNKNOWN",
       "contextUsedPercent": null,
       "measurementSource": "not_exposed",
       "measurementAt": null,
       "ackVersion": "2026-10-26-v3",
-      "checkpointId": "RIDE-20261031-01",
+      "checkpointId": "RIDEREC-20261031-01",
       "handoffPath": "coordination/handoffs/coordinator.md",
-      "workflowState": "ACTIVE_RIDE_MERGE_RELEASE"
+      "workflowState": "ACTIVE_RIDEREC_METADATA"
     },
     "backend": {
       "threadId": "01a182c6-c058-76e1-9584-38abfe813799",
       "title": "宜捷行｜后端与业务规则（二代）",
       "model": "gpt-6.1-sol",
       "memoryStatus": "NORMAL",
-      "reason": "Exact phase3 source review PASS, original phase2 FAIL retained; native assigned frontend; context UNKNOWN",
+      "reason": "Final0ef phase4 immutable source PASS; idle until concrete actual receipt review, context UNKNOWN",
       "contextUsedPercent": null,
       "measurementSource": "not_exposed",
       "measurementAt": null,
@@ -45,7 +45,7 @@
       "title": "宜捷行｜司机端与前端验收（二代）",
       "model": "gpt-6.1-sol",
       "memoryStatus": "HANDOFF_RECOMMENDED",
-      "reason": "Limited RIDE A/B ongoing; inherited driver/B provenance exact, final passenger rebuild; context UNKNOWN",
+      "reason": "Final0ef scoped native/build and cleanup PASS. Long bounded task completed; future major task assess successor, context UNKNOWN",
       "contextUsedPercent": null,
       "measurementSource": "not_exposed",
       "measurementAt": null,
@@ -105,7 +105,7 @@
       "handoffPath": "coordination/handoffs/claude.md",
       "workflowState": "IDLE_RIDEC_ACCEPTED",
       "previousCompletedSessionId": "9bc07c4c-731c-4b1f-840b-ce6a0c5dc85a",
-      "reason": "Official exact SID phases1/2/3 exit0, author tests NOT_RUN; do not resume concurrently"
+      "reason": "Exact official SID four phases exit0/no tool refusals; independently accepted final0ef, author tests NOT_RUN"
     }
   },
   "collaborationPreference": {

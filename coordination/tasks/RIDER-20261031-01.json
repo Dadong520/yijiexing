@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "id": "RIDER-20261031-01",
+  "owner": "backend",
+  "goal": "独立复核本轮实际发布回执与README准确版本、来源、范围及回读",
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-ride-flow-polish-20261031",
+  "branch": "codex/ride-flow-receipt-20261031",
+  "baseSha": "a1527d2b27aeb2a5dd97e40736fd8e0bb5f4841f",
+  "allow_paths": [
+    "coordination/tasks/RIDER-20261031-01.json",
+    "coordination/handoffs/backend.md",
+    "coordination/evidence/RIDER-20261031-01/"
+  ],
+  "checks": [
+    "Read-only receipt/README and actual proof audit; no product edit/cloud call/rebuild",
+    "Match product0ef, PR47 mergea152, exact integration CIb78/run41197382855 and actual version23 APK hashes",
+    "Preserve explicit test/source inheritance and provider/physical device/real funds NOT_RUN"
+  ],
+  "status": "PREPARED_WAIT_ACTUAL_RECEIPT",
+  "acceptance": "NOT_RUN",
+  "tests": [],
+  "evidence": [],
+  "nextAction": "Wait root actual release/readback/receipt SHA; no activity before concrete reviewable receipt",
+  "deploy_owner": "coordinator",
+  "releaseReady": false
+}
