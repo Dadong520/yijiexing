@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "id": "RIDE-20261031-01",
+  "owner": "coordinator",
+  "goal": "地点一点确认、目的地页途经点、历史地点修复及成熟网约车风格简化后验收发布",
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-ride-flow-polish-20261031",
+  "branch": "codex/ride-flow-polish-20261031",
+  "baseSha": "c261d78c0108067b6057ff655d1396ec135d815e",
+  "allow_paths": [
+    "coordination/",
+    "README.md",
+    "apps/passenger-android/app/build.gradle.kts",
+    "candidates/driver-0.3.6-r2/android/app/build.gradle.kts"
+  ],
+  "checks": [
+    "User latest direct choice supersedes older second-use-button; selecting place never auto calls ride/payment",
+    "Preserve owner/query generation, valid coordinates, manualGPS, modal priority, full-map/scope restoration and business gates",
+    "No backend/Store/network/prod edits; independent reviewer tests before root exact-head merge/release"
+  ],
+  "status": "SOURCE_FREEZE_PENDING_REVIEW",
+  "acceptance": "NOT_RUN",
+  "tests": [],
+  "evidence": [],
+  "nextAction": "Root freeze then independent compilation/native and source review; no release until PASS",
+  "deploy_owner": "coordinator",
+  "releaseReady": false,
+  "updatedAt": "2026-10-31T10:22:24.928184+00:00"
+}

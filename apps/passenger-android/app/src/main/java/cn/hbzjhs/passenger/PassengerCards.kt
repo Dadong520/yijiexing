@@ -94,7 +94,7 @@ fun PassengerRouteSummary(
             .fillMaxWidth()
             .padding(vertical = 6.dp),
         shape = RoundedCornerShape(12.dp),
-        colors = CardDefaults.cardColors(containerColor = Paper)
+        colors = CardDefaults.cardColors(containerColor = SurfaceMuted)
     ) {
         Column(modifier = Modifier.fillMaxWidth().padding(14.dp)) {
             Row(verticalAlignment = Alignment.Top, modifier = Modifier.fillMaxWidth()) {
@@ -142,6 +142,7 @@ fun PassengerCompactRecord(
     onClick: () -> Unit,
     trailing: @Composable () -> Unit = {}
 ) {
+    // Light row (neutral fill, no raised card) so it can sit inside a panel without nesting cards.
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -149,7 +150,7 @@ fun PassengerCompactRecord(
             .clip(RoundedCornerShape(10.dp))
             .clickable(role = Role.Button, onClick = onClick),
         shape = RoundedCornerShape(10.dp),
-        colors = CardDefaults.cardColors(containerColor = Paper),
+        colors = CardDefaults.cardColors(containerColor = if (selected) BrandSoft else SurfaceMuted),
         border = if (selected) BorderStroke(1.5.dp, Teal) else null
     ) {
         Row(
@@ -164,7 +165,7 @@ fun PassengerCompactRecord(
                     text = title,
                     style = MaterialTheme.typography.bodyMedium,
                     fontWeight = if (selected) FontWeight.Bold else FontWeight.Medium,
-                    color = if (selected) Teal else Ink,
+                    color = if (selected) BrandStrong else Ink,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis
                 )
@@ -198,8 +199,8 @@ fun PassengerManagedRecord(
     onDefault: () -> Unit,
 ) {
     Card(colors = CardDefaults.cardColors(containerColor = androidx.compose.ui.graphics.Color.White),
-        shape = RoundedCornerShape(14.dp), modifier = Modifier.fillMaxWidth()) {
-        Column(Modifier.padding(horizontal = 12.dp, vertical = 8.dp)) {
+        shape = RoundedCornerShape(12.dp), border = BorderStroke(1.dp, DividerTone), modifier = Modifier.fillMaxWidth()) {
+        Column(Modifier.padding(horizontal = 16.dp, vertical = 10.dp)) {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Text(title, color = Ink, fontWeight = FontWeight.SemiBold, modifier = Modifier.weight(1f), maxLines = 2, overflow = TextOverflow.Ellipsis)
                 if (isDefault) Surface(color = Teal.copy(alpha = .10f), shape = RoundedCornerShape(4.dp)) {

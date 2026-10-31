@@ -1,16 +1,23 @@
 package cn.hbzjhs.passenger
 
+import androidx.compose.foundation.ScrollState
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 
@@ -19,6 +26,8 @@ fun PassengerFullPage(
     title: String,
     onBack: () -> Unit,
     bottom: (@Composable ColumnScope.() -> Unit)? = null,
+    // Pages that must bring a part of themselves into view (for example the place picker's query) pass their own.
+    scrollState: ScrollState = rememberScrollState(),
     content: @Composable ColumnScope.() -> Unit
 ) {
     PassengerModalSlot()
@@ -31,36 +40,47 @@ fun PassengerFullPage(
                 .fillMaxSize()
                 .windowInsetsPadding(WindowInsets.safeDrawing)
                 .imePadding(),
-            color = Paper
+            color = Color.White
         ) {
             Column(modifier = Modifier.fillMaxSize()) {
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(horizontal = 8.dp, vertical = 4.dp),
+                        .heightIn(min = 56.dp)
+                        .padding(horizontal = 4.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    PassengerTextButton(onClick = onBack) {
-                        Text(text = "返回", color = Teal)
+                    // Plain back control: the page title, not the back button, carries the weight.
+                    Row(
+                        Modifier
+                            .heightIn(min = 48.dp)
+                            .clickable(role = Role.Button, onClick = onBack)
+                            .padding(horizontal = 12.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = null, tint = Ink, modifier = Modifier.size(20.dp))
+                        Text(text = "返回", color = Ink, fontSize = TypeScale.Body, modifier = Modifier.padding(start = 4.dp))
                     }
                     Text(
                         text = title,
-                        style = MaterialTheme.typography.titleMedium,
+                        fontSize = TypeScale.Title,
+                        fontWeight = FontWeight.Bold,
+                        lineHeight = 22.sp,
                         color = Ink,
                         maxLines = 2,
-                        modifier = Modifier.weight(1f).padding(start = 8.dp)
+                        modifier = Modifier.weight(1f).padding(start = 4.dp, end = 12.dp)
                     )
                 }
-                HorizontalDivider()
+                HorizontalDivider(color = DividerTone)
                 Column(
                     modifier = Modifier.weight(1f).fillMaxWidth()
-                        .verticalScroll(rememberScrollState())
+                        .verticalScroll(scrollState)
                         .padding(horizontal = 16.dp, vertical = 12.dp),
                     verticalArrangement = Arrangement.spacedBy(12.dp),
                     content = content
                 )
                 if (bottom != null) {
-                    HorizontalDivider()
+                    HorizontalDivider(color = DividerTone)
                     Column(
                         modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 12.dp),
                         verticalArrangement = Arrangement.spacedBy(8.dp),

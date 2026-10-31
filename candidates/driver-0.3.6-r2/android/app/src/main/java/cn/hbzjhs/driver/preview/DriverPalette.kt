@@ -15,6 +15,16 @@ val Success = Color(0xFF1B7A3E)
 val SuccessSoft = Color(0xFFEBFAF1)
 val Danger = Color(0xFFB42318)
 val DangerSoft = Color(0xFFFDECEA)
+// RIDEC-20261031-01, shared with the passenger app: white surfaces, hairlines instead of shadows,
+// neutral fills for secondary actions and monochrome list icons.
+/** Card edges and list dividers. */
+val Hairline = Color(0xFFEDF0F2)
+/** Neutral fill for secondary buttons, segmented tracks and icon wells. */
+val SurfaceMuted = Color(0xFFF2F4F6)
+/** Monochrome list icons, so colour is left for state and the one primary action. */
+val IconTone = Color(0xFF5B6773)
+/** Disabled text that stays readable on [SurfaceMuted]. */
+val DisabledText = Color(0xFF6B7682)
 
 /** Module accent for menu/tile icons: tint to soft background. */
 fun moduleAccent(icon: String): Pair<Color, Color> = when (icon) {

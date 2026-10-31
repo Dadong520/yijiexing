@@ -45,58 +45,57 @@ fun ProfileScreen(
   var logout by remember { mutableStateOf(false) }
   var city by remember(p.text("city")) { mutableStateOf(p.text("city")) }
   PageColumn {
-    // Light-3D hero: gradient card, lit avatar and a small car; city lives in the menu below.
-    Box(
+    // Plain account header on the page: initial avatar, name and masked phone; tap to edit.
+    Row(
       Modifier
         .fillMaxWidth()
-        .shadow(8.dp, RoundedCornerShape(20.dp), spotColor = Teal)
-        .background(HeroGradient, RoundedCornerShape(20.dp))
-        .clickable { edit = true }
-        .padding(horizontal = 18.dp, vertical = 20.dp),
+        .clickable(role = androidx.compose.ui.semantics.Role.Button) { edit = true }
+        .padding(vertical = 8.dp),
+      verticalAlignment = Alignment.CenterVertically,
+      horizontalArrangement = Arrangement.spacedBy(14.dp),
     ) {
-      Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(14.dp)) {
-        Box(
-          Modifier
-            .size(58.dp)
-            .shadow(4.dp, CircleShape)
-            .background(androidx.compose.ui.graphics.Brush.verticalGradient(listOf(Color.White, BrandSoft)), CircleShape),
-          contentAlignment = Alignment.Center,
-        ) {
-          Text(p.text("name", "乘").take(1), fontSize = 24.sp, fontWeight = FontWeight.Bold, color = Teal)
-        }
-        Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(4.dp)) {
-          Text(p.text("name", "体验乘客"), fontSize = TypeScale.Page, fontWeight = FontWeight.Bold, color = Color.White)
-          Text(
-            p.text("mobile").let { if (it.length >= 7) it.take(3) + "****" + it.takeLast(4) else it },
-            color = Color.White.copy(alpha = 0.85f),
-            fontSize = TypeScale.Caption,
-          )
-          Text("编辑资料 ›", color = Color.White.copy(alpha = 0.85f), fontSize = TypeScale.Caption)
-        }
-        CarIllustration(Modifier.size(width = 76.dp, height = 52.dp), body = Color.White)
+      Box(
+        Modifier.size(56.dp).background(BrandSoft, CircleShape),
+        contentAlignment = Alignment.Center,
+      ) {
+        Text(p.text("name", "乘").take(1), fontSize = 22.sp, fontWeight = FontWeight.Bold, color = BrandStrong)
       }
+      Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
+        Text(p.text("name", "体验乘客"), fontSize = TypeScale.Page, lineHeight = 28.sp, fontWeight = FontWeight.Bold, color = Ink)
+        Text(
+          p.text("mobile").let { if (it.length >= 7) it.take(3) + "****" + it.takeLast(4) else it } + " · 编辑资料",
+          color = Muted,
+          fontSize = TypeScale.Caption,
+        )
+      }
+      Icon(Icons.AutoMirrored.Filled.KeyboardArrowRight, contentDescription = null, tint = Chevron, modifier = Modifier.size(20.dp))
     }
-    Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-      listOf(
-        Triple("常用地址", "favorites", Icons.Default.Place),
-        Triple("乘车人", "riders", Icons.Default.Person),
-        Triple("发票抬头", "invoiceTitles", Icons.AutoMirrored.Filled.List),
-      ).forEach { (label, page, icon) ->
-        val (tileTint, tileSoft) = iconAccent(icon)
-        Card(
-          onClick = { navigate(page) },
-          colors = CardDefaults.cardColors(containerColor = Color.White),
-          shape = RoundedCornerShape(16.dp),
-          elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
-          modifier = Modifier.weight(1f),
-        ) {
-          Column(Modifier.fillMaxWidth().padding(vertical = 14.dp), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(8.dp)) {
-            Box(
-              Modifier.size(42.dp).shadow(3.dp, RoundedCornerShape(14.dp), spotColor = tileTint)
-                .background(androidx.compose.ui.graphics.Brush.verticalGradient(listOf(tileSoft, tileTint.copy(alpha = 0.28f))), RoundedCornerShape(14.dp)),
-              contentAlignment = Alignment.Center,
-            ) { Icon(icon, null, tint = tileTint, modifier = Modifier.size(22.dp)) }
-            Text(label, color = Ink, fontSize = 14.sp, fontWeight = FontWeight.Medium)
+    // Three shortcuts in one flat strip instead of three raised tiles.
+    Surface(
+      color = Color.White,
+      shape = RoundedCornerShape(12.dp),
+      border = BorderStroke(1.dp, DividerTone),
+      modifier = Modifier.fillMaxWidth(),
+    ) {
+      Row(Modifier.fillMaxWidth().height(IntrinsicSize.Min)) {
+        listOf(
+          Triple("常用地址", "favorites", Icons.Default.Place),
+          Triple("乘车人", "riders", Icons.Default.Person),
+          Triple("发票抬头", "invoiceTitles", Icons.AutoMirrored.Filled.List),
+        ).forEach { (label, page, icon) ->
+          Column(
+            Modifier
+              .weight(1f)
+              .fillMaxHeight()
+              .clickable(role = androidx.compose.ui.semantics.Role.Button) { navigate(page) }
+              .padding(vertical = 12.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(6.dp),
+          ) {
+            Box(Modifier.size(40.dp).background(SurfaceMuted, CircleShape), contentAlignment = Alignment.Center) {
+              Icon(icon, null, tint = BrandStrong, modifier = Modifier.size(20.dp))
+            }
+            Text(label, color = Ink, fontSize = 14.sp, fontWeight = FontWeight.Medium, textAlign = androidx.compose.ui.text.style.TextAlign.Center)
           }
         }
       }
@@ -132,7 +131,7 @@ fun ProfileScreen(
     OutlinedButton(
       onClick = { logout = true },
       modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp),
-      shape = RoundedCornerShape(14.dp),
+      shape = RoundedCornerShape(12.dp),
       colors = ButtonDefaults.outlinedButtonColors(
         containerColor = Color.White,
         contentColor = Danger,
@@ -230,7 +229,8 @@ fun FavoritesScreen(state: JSONObject, store: PassengerStore) {
     // Held across the editor and its address picker so app-wide popups keep waiting.
     PassengerModalSlot()
     if (picking)
-      AddressDialog(address, lat, lng, emptyList(), { picking = false }, city = state.optJSONObject("passenger")?.text("cityName").orEmpty()) { n, a, b, _ ->
+      // One tap fills the address and returns here; the favorite is still only saved by 保存 below.
+      AddressDialog(address, lat, lng, emptyList(), { picking = false }, city = state.optJSONObject("passenger")?.text("cityName").orEmpty(), title = "选择常用地点") { n, a, b, _ ->
         address = n.take(100); lat = a; lng = b; error = ""; picking = false
       }
     else PassengerDialog(

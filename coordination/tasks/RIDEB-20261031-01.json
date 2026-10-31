@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "id": "RIDEB-20261031-01",
+  "owner": "backend",
+  "goal": "只读诊断历史点击无反应及一击选址/途经点业务边界",
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-ride-flow-polish-20261031",
+  "branch": "codex/ride-flow-polish-20261031",
+  "baseSha": "c261d78c0108067b6057ff655d1396ec135d815e",
+  "allow_paths": [
+    "coordination/tasks/RIDEB-20261031-01.json",
+    "coordination/handoffs/backend.md",
+    "coordination/evidence/RIDEB-20261031-01/"
+  ],
+  "checks": [
+    "User latest direct choice supersedes older second-use-button; selecting place never auto calls ride/payment",
+    "Preserve owner/query generation, valid coordinates, manualGPS, modal priority, full-map/scope restoration and business gates",
+    "No backend/Store/network/prod edits; independent reviewer tests before root exact-head merge/release"
+  ],
+  "status": "SOURCE_FREEZE_PENDING_REVIEW",
+  "acceptance": "NOT_RUN",
+  "tests": [
+    {
+      "check": "基线Git对象只读契约与三个AddressDialog调用方审查",
+      "result": "PRELIMINARY_COMPLETE",
+      "sourceSha": "c261d78c0108067b6057ff655d1396ec135d815e"
+    },
+    {
+      "check": "最终实现构建、交互、业务验收",
+      "result": "NOT_RUN",
+      "reason": "并行实现未冻结，尚无最终SHA"
+    }
+  ],
+  "evidence": [
+    "coordination/evidence/RIDEB-20261031-01/PRELIMINARY.md"
+  ],
+  "nextAction": "Root freeze then independent compilation/native and source review; no release until PASS",
+  "deploy_owner": "coordinator",
+  "releaseReady": false,
+  "updatedAt": "2026-10-31T10:22:24.928184+00:00",
+  "pendingMergeSha": null
+}

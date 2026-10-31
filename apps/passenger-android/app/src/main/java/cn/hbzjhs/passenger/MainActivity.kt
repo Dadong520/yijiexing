@@ -55,8 +55,8 @@ import kotlinx.coroutines.delay
 val Teal = Color(0xFF00796E)
 val Ink = Color(0xFF0F1B2A)
 val Muted = Color(0xFF4B5B6B)
-// Neutral cool page grey; the old green-grey read as muddy behind soft green panels.
-val Paper = Color(0xFFF4F6F9)
+// Near-white page; cards are separated by hairlines instead of shadows.
+val Paper = Color(0xFFF7F8FA)
 val Amber = Color(0xFFF59E0B)
 
 class MainActivity : ComponentActivity() {
@@ -346,11 +346,12 @@ fun PageColumn(content: @Composable ColumnScope.() -> Unit) {
 
 @Composable
 fun Panel(title: String? = null, content: @Composable ColumnScope.() -> Unit) {
+  // One flat surface: white, hairline edge, no shadow; titles are plain ink text.
   Card(
     colors = CardDefaults.cardColors(containerColor = Color.White),
-    shape = RoundedCornerShape(16.dp),
-    border = BorderStroke(1.dp, Color(0xFFEDEFF2)),
-    elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
+    shape = RoundedCornerShape(12.dp),
+    border = BorderStroke(1.dp, DividerTone),
+    elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
     modifier = Modifier.fillMaxWidth(),
   ) {
     Column(
@@ -358,17 +359,13 @@ fun Panel(title: String? = null, content: @Composable ColumnScope.() -> Unit) {
       verticalArrangement = Arrangement.spacedBy(Gap.S),
     ) {
       title?.let {
-        Row(verticalAlignment = Alignment.CenterVertically) {
-          Box(Modifier.size(width = 4.dp, height = 14.dp).background(BrandGradient, RoundedCornerShape(2.dp)))
-          Text(
-            it,
-            fontWeight = FontWeight.Bold,
-            fontSize = TypeScale.Title,
-            color = Ink,
-            lineHeight = 22.sp,
-            modifier = Modifier.padding(start = Gap.S),
-          )
-        }
+        Text(
+          it,
+          fontWeight = FontWeight.Bold,
+          fontSize = TypeScale.Title,
+          color = Ink,
+          lineHeight = 22.sp,
+        )
       }
       content()
     }
@@ -418,14 +415,14 @@ fun Field(
     label = { Text(label, fontSize = 14.sp) },
     textStyle = TextStyle(fontSize = TypeScale.Body),
     modifier = Modifier.fillMaxWidth(),
-    shape = RoundedCornerShape(12.dp),
+    shape = RoundedCornerShape(10.dp),
     colors = OutlinedTextFieldDefaults.colors(
       focusedBorderColor = Teal,
       unfocusedBorderColor = ControlOutline,
       focusedLabelColor = Teal,
       unfocusedLabelColor = Muted,
-      focusedContainerColor = Color(0xFFFBFBFC),
-      unfocusedContainerColor = Color(0xFFFBFBFC),
+      focusedContainerColor = Color.White,
+      unfocusedContainerColor = Color.White,
     ),
     singleLine = lines == 1,
     minLines = lines,
@@ -640,7 +637,7 @@ fun PassengerVisualTheme(content: @Composable () -> Unit) {
     surface = Color.White,
     surfaceTint = Color.White,
     onSurface = Ink,
-    surfaceVariant = Color(0xFFEEF3F4),
+    surfaceVariant = SurfaceMuted,
     onSurfaceVariant = Muted,
     outline = ControlOutline,
     outlineVariant = Line,

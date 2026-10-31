@@ -565,45 +565,31 @@ fun ConnectedProfile(
     ) {
         item { PageHeader("司机之家", action = "听单设置", onAction = { navigate("settings") }) }
         item {
-            // Light-3D hero: gradient card, lit avatar and a small car.
+            // Plain identity card: initial avatar, name, vehicle and service score in ink on white.
             val name = d.optString("name", "司机")
-            Box(
-                Modifier
-                    .fillMaxWidth()
-                    .shadow(8.dp, RoundedCornerShape(20.dp), spotColor = Green)
-                    .background(HeroGradient, RoundedCornerShape(20.dp))
-                    .clickable { navigate("driver") }
-                    .padding(horizontal = 18.dp, vertical = 18.dp),
-            ) {
+            SheetCard(Modifier.clickable(role = Role.Button) { navigate("driver") }) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Box(
-                        Modifier.size(56.dp)
-                            .shadow(4.dp, CircleShape)
-                            .background(Brush.verticalGradient(listOf(Color.White, Pale)), CircleShape),
+                        Modifier.size(52.dp).background(Pale, CircleShape),
                         contentAlignment = Alignment.Center,
                     ) {
-                        Text(name.take(1), fontSize = 22.sp, fontWeight = FontWeight.Bold, color = Green)
+                        Text(name.take(1), fontSize = 22.sp, fontWeight = FontWeight.Bold, color = GreenStrong)
                     }
                     Column(Modifier.weight(1f).padding(start = 12.dp), verticalArrangement = Arrangement.spacedBy(3.dp)) {
-                        Text("${name}师傅，您好", fontSize = DriverType.Page, fontWeight = FontWeight.Bold, color = Color.White)
+                        Text("${name}师傅，您好", fontSize = DriverType.Page, lineHeight = 26.sp, fontWeight = FontWeight.Bold, color = Ink)
                         val org = d.optString("organization", d.optString("company", ""))
                         Text(
                             d.optString("licensePlate", d.optString("plate", "未完善车辆资料")) + if (org.isNotBlank()) " · $org" else "",
                             fontSize = DriverType.Caption,
-                            color = Color.White.copy(alpha = 0.85f),
+                            color = Muted,
                             maxLines = 1,
                             overflow = TextOverflow.Ellipsis,
                         )
                         val serviceScoreObj = profile.optJSONObject("serviceScore")
                         val scoreValue = serviceScoreObj?.optInt("value", serviceScoreObj.optInt("score", -1)) ?: -1
-                        Text(
-                            if (scoreValue > 0) "服务分 ${scoreValue} 分" else "服务分 暂未考核",
-                            fontSize = DriverType.Caption,
-                            color = Color.White,
-                            modifier = Modifier.clip(RoundedCornerShape(6.dp)).background(Color.White.copy(alpha = 0.2f)).padding(horizontal = 6.dp, vertical = 2.dp),
-                        )
+                        Pill(if (scoreValue > 0) "服务分 ${scoreValue} 分" else "服务分 暂未考核", GreenStrong, Pale)
                     }
-                    CarIllustration(Modifier.size(width = 72.dp, height = 50.dp), body = Color.White)
+                    Glyph("right", Muted, Modifier.size(18.dp))
                 }
             }
         }
@@ -908,7 +894,7 @@ fun ConnectedTrip(
     // Compact action bar: navigation and the next step share one row so the map and trip details
     // keep most of the screen; cancelling is a small secondary link below.
     val tripActions: @Composable () -> Unit = {
-        Surface(color = Color.White, shadowElevation = 6.dp) {
+        Surface(color = Color.White, border = BorderStroke(1.dp, Hairline)) {
             Column(Modifier.padding(horizontal = Gap.L, vertical = 10.dp)) {
                 val navTarget = if (order.isActive) order.navigationTarget() else null
                 Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(Gap.S)) {
@@ -1613,44 +1599,33 @@ fun ConnectedWallet(store: ConnectedStore, state: DriverState, navigate: (String
     ) {
         item { PageHeader("我的钱包", action = "提现记录", onAction = { navigate("withdrawals") }) }
         item {
-            Surface(color = Green, shape = RoundedCornerShape(18.dp)) {
-                Column(Modifier.fillMaxWidth().padding(horizontal = 20.dp, vertical = 18.dp)) {
-                    Row(verticalAlignment = Alignment.Bottom) {
-                        Column(Modifier.weight(1f)) {
-                            Text("可提现余额（元）· 体验账户", color = Color.White, fontSize = 14.sp)
-                            Text(
-                                money(state.balance),
-                                fontSize = 24.sp,
-                                fontWeight = FontWeight.Bold,
-                                color = Color.White,
-                                modifier = Modifier.padding(top = 6.dp),
-                            )
-                        }
-                        Column(horizontalAlignment = Alignment.End) {
-                            Text("累计收入", color = Color.White, fontSize = 14.sp)
-                            Text(
-                                "¥ ${money(state.todayIncome)}",
-                                color = Color.White,
-                                fontSize = 16.sp,
-                                fontWeight = FontWeight.Bold,
-                                modifier = Modifier.padding(top = 6.dp),
-                            )
-                        }
+            // Balance on a white card in ink; the single teal button is the page's primary action.
+            SheetCard {
+                Row(verticalAlignment = Alignment.Bottom) {
+                    Column(Modifier.weight(1f)) {
+                        Text("可提现余额（元）· 体验账户", color = Muted, fontSize = 14.sp)
+                        Text(
+                            money(state.balance),
+                            fontSize = 28.sp,
+                            lineHeight = 34.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = Ink,
+                            modifier = Modifier.padding(top = 4.dp),
+                        )
                     }
-                    Spacer(Modifier.height(14.dp))
-                    Button(
-                        onClick = { navigate("withdraw") },
-                        modifier = Modifier.fillMaxWidth().heightIn(min = 52.dp),
-                        colors =
-                            ButtonDefaults.buttonColors(
-                                containerColor = Color.White,
-                                contentColor = Green,
-                            ),
-                        shape = RoundedCornerShape(12.dp),
-                    ) {
-                        Text("申请提现", fontSize = 15.sp, fontWeight = FontWeight.SemiBold)
+                    Column(horizontalAlignment = Alignment.End) {
+                        Text("累计收入", color = Muted, fontSize = 14.sp)
+                        Text(
+                            "¥ ${money(state.todayIncome)}",
+                            color = Ink,
+                            fontSize = 16.sp,
+                            fontWeight = FontWeight.Bold,
+                            modifier = Modifier.padding(top = 4.dp),
+                        )
                     }
                 }
+                Spacer(Modifier.height(Gap.M))
+                PrimaryButton("申请提现", Modifier.heightIn(min = 52.dp)) { navigate("withdraw") }
             }
         }
         item {
@@ -1673,7 +1648,7 @@ fun ConnectedWallet(store: ConnectedStore, state: DriverState, navigate: (String
         // One switch picks which list to read, instead of stacking both lists down the page.
         item {
             Row(
-                Modifier.fillMaxWidth().clip(RoundedCornerShape(12.dp)).background(Color(0xFFEAEFF3)).padding(4.dp),
+                Modifier.fillMaxWidth().clip(RoundedCornerShape(12.dp)).background(SurfaceMuted).padding(4.dp),
                 horizontalArrangement = Arrangement.spacedBy(4.dp),
             ) {
                 listOf("订单入账状态 ${settledOrders.size}", "收支明细 ${state.entries.size}").forEachIndexed { index, label ->

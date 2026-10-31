@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "id": "RIDEF-20261031-01",
+  "owner": "frontend",
+  "goal": "限定选址路线与共享样式独立构建原生验收准备",
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-ride-flow-polish-20261031",
+  "branch": "codex/ride-flow-polish-20261031",
+  "baseSha": "c261d78c0108067b6057ff655d1396ec135d815e",
+  "allow_paths": [
+    "coordination/tasks/RIDEF-20261031-01.json",
+    "coordination/handoffs/frontend.md",
+    "coordination/evidence/RIDEF-20261031-01/"
+  ],
+  "checks": [
+    "User latest direct choice supersedes older second-use-button; selecting place never auto calls ride/payment",
+    "Preserve owner/query generation, valid coordinates, manualGPS, modal priority, full-map/scope restoration and business gates",
+    "No backend/Store/network/prod edits; independent reviewer tests before root exact-head merge/release"
+  ],
+  "status": "SOURCE_FREEZE_PENDING_REVIEW",
+  "acceptance": "NOT_RUN",
+  "tests": [
+    {
+      "command": "python3 tools/check_coordination.py --memory-role frontend --session-id 01a182c6-c475-7110-bbae-0deafe6d2385",
+      "status": "PASS"
+    },
+    {
+      "command": "Read-only central checkpoint/role/current task and source branch/HEAD/status; adb devices",
+      "status": "PASS",
+      "head": "c261d78c0108067b6057ff655d1396ec135d815e",
+      "devices": "EMPTY"
+    },
+    {
+      "command": "Relevant unit/dual original+QA build/native A-B",
+      "status": "NOT_RUN",
+      "reason": "Root exact freeze not supplied; preparation only, dirty author product not copied/built"
+    }
+  ],
+  "evidence": [
+    "coordination/evidence/RIDEF-20261031-01/PREPARATION.json"
+  ],
+  "nextAction": "Root freeze then independent compilation/native and source review; no release until PASS",
+  "deploy_owner": "coordinator",
+  "releaseReady": false,
+  "updatedAt": "2026-10-31T10:22:24.928184+00:00"
+}

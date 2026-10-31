@@ -35,6 +35,8 @@ fun OrderDetail(o: JSONObject, store: PassengerStore, busy: Boolean, openOrder: 
   var shownQuote by remember(id) { mutableStateOf<QuoteSnapshot?>(null) }
   var shownPayment by remember(id) { mutableStateOf<PaymentSnapshot?>(null) }
   var dialog by remember(id) { mutableStateOf("") }
+  // Destination picked in the place page, waiting for the passenger to confirm the re-price.
+  var newDestination by remember(id) { mutableStateOf<PickedPlace?>(null) }
   var content by remember(id) { mutableStateOf("") }
   var rating by remember(id) { mutableStateOf(5) }
   var reason by remember { mutableStateOf("行程计划有变") }
@@ -87,9 +89,11 @@ fun OrderDetail(o: JSONObject, store: PassengerStore, busy: Boolean, openOrder: 
   val driverTime = loc?.text("receivedAt")?.takeIf { it.isNotBlank() }?.let { formatTime(it) }
   // Pay and cancel stay pinned to the bottom of the panel so they never need scrolling to find.
   val pinnedActions: @Composable () -> Unit = {
-    Surface(color = Color.White, shadowElevation = 10.dp, modifier = Modifier.fillMaxWidth()) {
+    Column(Modifier.fillMaxWidth().background(Color.White)) {
+      HorizontalDivider(color = DividerTone)
+      // Both buttons share the row height, so a wrapped label never leaves them uneven.
       Row(
-        Modifier.fillMaxWidth().padding(horizontal = Gap.L, vertical = 10.dp),
+        Modifier.fillMaxWidth().height(IntrinsicSize.Min).padding(horizontal = Gap.L, vertical = 10.dp),
         horizontalArrangement = Arrangement.spacedBy(Gap.M),
         verticalAlignment = Alignment.CenterVertically,
       ) {
@@ -97,10 +101,10 @@ fun OrderDetail(o: JSONObject, store: PassengerStore, busy: Boolean, openOrder: 
           OutlinedButton(
             onClick = { cancelChoice = "行程计划有变"; cancelOther = ""; dialog = "cancel" },
             enabled = !busy,
-            modifier = (if (payable) Modifier.weight(1f) else Modifier.fillMaxWidth()).height(50.dp),
-            shape = androidx.compose.foundation.shape.RoundedCornerShape(14.dp),
+            modifier = (if (payable) Modifier.weight(1f) else Modifier.fillMaxWidth()).fillMaxHeight().heightIn(min = 50.dp),
+            shape = androidx.compose.foundation.shape.RoundedCornerShape(12.dp),
             border = androidx.compose.foundation.BorderStroke(1.dp, if (busy) Line else DangerLine),
-            colors = ButtonDefaults.outlinedButtonColors(contentColor = Danger, disabledContentColor = Muted.copy(alpha = 0.6f)),
+            colors = ButtonDefaults.outlinedButtonColors(contentColor = Danger, disabledContentColor = DisabledText),
           ) {
             Icon(Icons.Default.Close, contentDescription = null, modifier = Modifier.size(16.dp))
             Text("取消订单", fontSize = TypeScale.Body, fontWeight = FontWeight.Medium, modifier = Modifier.padding(start = 4.dp))
@@ -110,7 +114,7 @@ fun OrderDetail(o: JSONObject, store: PassengerStore, busy: Boolean, openOrder: 
             if (negotiated) "核对第 ${o.optInt("quoteVersion")} 版并支付 ¥${money(o.optLong("fare"))}"
             else "去支付 ¥${money(o.optLong("fare"))}",
             !busy,
-            modifier = Modifier.weight(if (cancellable) 1.6f else 1f),
+            modifier = Modifier.weight(if (cancellable) 1.6f else 1f).fillMaxHeight(),
           ) {
             shownQuote = if (negotiated) QuoteSnapshot.from(o) else null
             shownPayment = if (negotiated) null else PaymentSnapshot.from(o)
@@ -419,18 +423,43 @@ fun OrderDetail(o: JSONObject, store: PassengerStore, busy: Boolean, openOrder: 
       o.optDouble("destinationLng").toString(),
       emptyList(),
       { dialog = "" },
+      title = if (o.optBoolean("destinationPending")) "补充目的地" else "修改目的地",
+      queryLabel = "搜索目的地",
     ) { name, lat, lng, normalization ->
-      store.action(
-        "order.update",
-        JSONObject()
-          .put("id", id)
-          .put("destination", name)
-          .put("destinationLat", coordinate(lat, true))
-          .put("destinationLng", coordinate(lng, false))
-          .put("destinationCoordinateMetadata", normalization ?: JSONObject.NULL),
-      )
-      dialog = ""
+      // One tap only chooses the address; changing the order and its price stays a separate confirmation.
+      newDestination = PickedPlace(name, coordinate(lat, true), coordinate(lng, false), normalization)
+      dialog = "destinationConfirm"
     }
+  if (dialog == "destinationConfirm") newDestination?.let { place ->
+    PassengerModal(
+      title = if (o.optBoolean("destinationPending")) "确认补充目的地？" else "确认修改目的地？",
+      onDismiss = { newDestination = null; dialog = "" },
+      confirmLabel = "确认并重新估价",
+      confirmEnabled = !busy,
+      onConfirm = {
+        // Re-checked with the order as it is now: a driver may have accepted or quoted meanwhile.
+        val editable = (stage == "AVAILABLE" && o.rows("bids").isEmpty()) ||
+          (o.optBoolean("destinationPending") && stage in listOf("PICKUP", "ARRIVED"))
+        if (editable)
+          store.action(
+            "order.update",
+            JSONObject()
+              .put("id", id)
+              .put("destination", place.name)
+              .put("destinationLat", place.latitude)
+              .put("destinationLng", place.longitude)
+              .put("destinationCoordinateMetadata", place.metadata ?: JSONObject.NULL),
+          )
+        else store.reportError("司机接单或报价后目的地与估价已锁定，需要变更请取消后重新下单。")
+        newDestination = null
+        dialog = ""
+      },
+      dismissLabel = "暂不修改",
+    ) {
+      Text("新目的地：${place.name}", fontWeight = FontWeight.SemiBold)
+      Text("确认后按新目的地重新生成体验估价，以服务端结果为准；支付与退款均为模拟。", color = Muted)
+    }
+  }
   if (dialog == "remark")
     PassengerModal(
       title = "修改用车备注",
@@ -723,21 +752,14 @@ private fun stageMessage(o: JSONObject, negotiated: Boolean): String =
 
 @Composable
 private fun OrderStatusBanner(title: String, message: String, summary: String) {
-  Box(
-    Modifier
-      .fillMaxWidth()
-      .shadow(6.dp, androidx.compose.foundation.shape.RoundedCornerShape(18.dp), spotColor = Teal)
-      .background(HeroGradient, androidx.compose.foundation.shape.RoundedCornerShape(18.dp))
-      .padding(horizontal = Gap.L, vertical = 14.dp),
-  ) {
-    Row(verticalAlignment = Alignment.CenterVertically) {
-      Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(4.dp)) {
-        Text(title, color = Color.White, fontSize = TypeScale.Page, fontWeight = FontWeight.Bold)
-        Text(message, color = Color.White.copy(alpha = 0.92f), fontSize = 14.sp, lineHeight = 20.sp)
-        if (summary.isNotBlank()) Text(summary, color = Color.White.copy(alpha = 0.75f), fontSize = TypeScale.Caption)
-      }
-      CarIllustration(Modifier.padding(start = Gap.S).size(width = 64.dp, height = 44.dp), body = Color(0xFFFFFFFF))
+  // Plain status header: stage in ink with a small teal marker, message as body text.
+  Column(Modifier.fillMaxWidth().padding(top = 4.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
+    Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+      Box(Modifier.size(8.dp).background(Teal, androidx.compose.foundation.shape.CircleShape))
+      Text(title, color = Ink, fontSize = TypeScale.Page, lineHeight = 28.sp, fontWeight = FontWeight.Bold)
     }
+    Text(message, color = Ink, fontSize = 14.sp, lineHeight = 20.sp)
+    if (summary.isNotBlank()) Text(summary, color = Muted, fontSize = TypeScale.Caption, lineHeight = 16.sp)
   }
 }
 
