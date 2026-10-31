@@ -20,10 +20,12 @@
     "3s foreground dialog/system overlay direct grab; no duplicate reminders across foreground/background/configchange; explicit overlay grant/fallback/no forbidden full-screen auto activity; token/account/order/round isolation",
     "Independent root/backend review and meaningful unit/HTTP/CAS/isolated native tests before unique root experience release; no current prod/test environment access"
   ],
-  "status": "AUTHOR_PHASE2_REVIEWABLE",
+  "status": "AUTHOR_PHASE4_REVIEWABLE",
+  "phase4": "2026-11-01 uncommitted: titles '新订单'/'宜捷行 · 新订单', note '首位司机抢单后开启5秒竞抢，派单结果以服务器为准。提示3秒后收起，仍可在订单大厅查看。' (no TTL/business change); window anchor now startedAt+remainingMs (one transport charge, min with existing; supersedes phase3 -RTT); SELFCHECK Q1/Q3/risks marked superseded. Compile/JUnit/native NOT_RUN.",
+  "phase3": "2026-11-01 on HEAD 65695082 (uncommitted): fixed compile shadow (overlay topMargin); shared base cadence 2s listening/1s hot/15s trip/10s fg idle/null not listening with single-flight gate across store/service/candidate poll and DriverUiPresence ownership; service applyState for all shared states; strict Assigned (driverId+owned stage+same parsed round), fail-closed INVALID for shared ordinary missing/malformed competition; window anchor start+remaining-RTT, unmeasured never anchors; same-round INELIGIBLE/WITHDRAWN not re-enterable; neutral CANCELLED/LOST text; receiver goAsync bounded 9s finish-once. Tests updated NOT_RUN.",
   "acceptance": "NOT_RUN",
   "tests": [
-    "GrabAlertRulesTest 11 + CompetitionRulesTest 13 JUnit: NOT_RUN (no Bash)",
+    "GrabAlertRulesTest 11 + CompetitionRulesTest 15 JUnit: NOT_RUN (no Bash); root first compile of 65695082 FAILED (fixed in source, recompile NOT_RUN)",
     "compile/existing JUnit/androidTest/AVD/device: NOT_RUN"
   ],
   "phase2": "Contract V1 wired: competition round/status/deadline/remainingMs/myOutcome(+selfStatus), competitionResults; single grab entry (hall/detail/confirm/dialog/overlay/notification) order.accept{id,competitionRound}+kept requestId; monotonic window anchor, local close, short bounded candidate poll shared with store/service; verdict only own+owned stage+same round; withdraw/cancel carry round; persisted bounded seen; PI identity per account+order+round; root feedback 1-6 handled. Contract questions Q1-Q4 in SELFCHECK. Uncommitted.",

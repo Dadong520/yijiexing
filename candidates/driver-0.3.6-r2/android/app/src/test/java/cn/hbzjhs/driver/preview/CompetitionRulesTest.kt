@@ -13,8 +13,8 @@ class CompetitionRulesTest {
     private fun comp(status: String, round: Int = 1, my: String = "NONE", remaining: Long = 0) =
         OrderCompetition(round, status, if (status == "READY") null else "2026-11-01T08:00:05.000000+08:00", remaining, my)
 
-    private fun avail(c: OrderCompetition?, deadline: Long? = null, now: Long = 0, pending: Boolean = false, kind: String = "STANDARD", stage: String = "AVAILABLE") =
-        CompetitionRules.availability(kind, stage, c, deadline, now, pending)
+    private fun avail(c: OrderCompetition?, deadline: Long? = null, now: Long = 0, pending: Boolean = false, kind: String = "STANDARD", stage: String = "AVAILABLE", required: Boolean = false) =
+        CompetitionRules.availability(kind, stage, c, deadline, now, pending, required)
 
     @Test
     fun readyOpenDeadlineAndPendingStates() {
@@ -30,31 +30,78 @@ class CompetitionRulesTest {
         assertEquals(GrabAvailability.COMPETING, avail(comp("READY"), pending = true))
         assertEquals(GrabAvailability.CLOSED_WAITING, avail(comp("ASSIGNED")))
         assertEquals(GrabAvailability.CLOSED_WAITING, avail(comp("CLOSED")))
-        // Withdrawn/lost stay out of this round; INELIGIBLE (no location) may retry while open.
+        // Any decided outcome of this round keeps the driver out of it; only a new round rejoins.
         assertEquals(GrabAvailability.UNAVAILABLE, avail(comp("OPEN", my = "WITHDRAWN"), deadline = 5_000, now = 1))
-        assertEquals(GrabAvailability.CAN_GRAB, avail(comp("OPEN", my = "INELIGIBLE"), deadline = 5_000, now = 1))
+        assertEquals(GrabAvailability.UNAVAILABLE, avail(comp("OPEN", my = "INELIGIBLE"), deadline = 5_000, now = 1))
+        assertEquals(GrabAvailability.UNAVAILABLE, avail(comp("READY", my = "INELIGIBLE")))
+        assertEquals(GrabAvailability.CAN_GRAB, avail(comp("READY", round = 2, my = "NONE")))
         assertEquals(GrabAvailability.UNAVAILABLE, avail(comp("READY"), stage = "PICKUP"))
     }
 
     @Test
-    fun bidNegotiatedAndPrivateRowsKeepOriginalFlow() {
+    fun bidNegotiatedAndPrivateRowsKeepOriginalFlowButSharedOrdinaryFailsClosed() {
         assertEquals(GrabAvailability.LEGACY, avail(null))
         assertEquals(GrabAvailability.LEGACY, avail(comp("READY"), kind = "BID"))
         assertEquals(GrabAvailability.LEGACY, avail(comp("READY"), kind = "NEGOTIATED"))
         assertNull(parseCompetition(JSONObject().put("id", "p")))
+        // Shared ordinary without competition, or a present-but-malformed one: never the legacy accept.
+        val sharedMissing = JSONObject().put("kind", "STANDARD").put("shared", true)
+        assertTrue(CompetitionRules.required(sharedMissing))
+        assertEquals(GrabAvailability.INVALID, avail(parseCompetition(sharedMissing), required = CompetitionRules.required(sharedMissing)))
+        val malformed = JSONObject().put("kind", "BID").put("competition", JSONObject().put("round", "x"))
+        assertTrue(CompetitionRules.required(malformed))
+        assertEquals(GrabAvailability.INVALID, avail(parseCompetition(malformed), kind = "BID", required = true))
+        // Private example (not shared) and BID without the key keep the original flow.
+        assertFalse(CompetitionRules.required(JSONObject().put("kind", "STANDARD").put("synthetic", true)))
+        assertFalse(CompetitionRules.required(JSONObject().put("kind", "BID").put("shared", true)))
     }
 
     @Test
-    fun windowAnchorsOnMonotonicReceiptAndNeverExtends() {
-        val first = CompetitionWindow.anchor(null, receivedAt = 10_000, remainingMs = 4_000)
-        assertEquals(14_000 - CompetitionWindow.SAFETY_MS, first)
-        // A later poll reporting more time (clock skew/latency) cannot extend the fixed window.
-        assertEquals(first, CompetitionWindow.anchor(first, receivedAt = 11_000, remainingMs = 4_000))
-        // Less time shortens it: the stricter of the two wins.
-        assertEquals(12_000 - CompetitionWindow.SAFETY_MS, CompetitionWindow.anchor(first, receivedAt = 11_000, remainingMs = 1_000))
+    fun windowAnchorsOnMeasuredRequestAndNeverExtends() {
+        // Started 10_000, answered 11_500, remaining 5000: deadline 15_000 — the transport time is
+        // charged once, so 3500 is left after receipt (not the full 5000, and not 2000).
+        val first = CompetitionWindow.anchor(null, RequestTiming(10_000, 11_500), remainingMs = 5_000)!!
+        assertEquals(15_000L, first)
+        assertEquals(3_500L, first - 11_500)
+        assertEquals(GrabAvailability.CAN_GRAB, avail(comp("OPEN"), deadline = first, now = 14_999))
+        assertEquals(GrabAvailability.CLOSED_WAITING, avail(comp("OPEN"), deadline = first, now = first))
+        // A later same-round response reporting more time cannot extend the fixed window.
+        assertEquals(first, CompetitionWindow.anchor(first, RequestTiming(12_000, 12_100), remainingMs = 5_000))
+        // Less time shortens it: the stricter wins.
+        assertEquals(13_000L, CompetitionWindow.anchor(first, RequestTiming(12_000, 12_100), remainingMs = 1_000))
+        // Unmeasured payload: no new anchor; with none before, the round stays closed (refresh, no grab).
+        assertNull(CompetitionWindow.anchor(null, null, remainingMs = 5_000))
+        assertEquals(first, CompetitionWindow.anchor(first, null, remainingMs = 5_000))
+        assertEquals(GrabAvailability.CLOSED_WAITING, avail(comp("OPEN", remaining = 5_000), deadline = null, now = 0))
         // Network delay already ate the window: closed on arrival, no auto resubmit.
-        val late = CompetitionWindow.anchor(null, receivedAt = 20_000, remainingMs = 200)
-        assertEquals(GrabAvailability.CLOSED_WAITING, avail(comp("OPEN", remaining = 200), deadline = late, now = 20_000))
+        val late = CompetitionWindow.anchor(null, RequestTiming(20_000, 21_000), remainingMs = 900)!!
+        assertEquals(GrabAvailability.CLOSED_WAITING, avail(comp("OPEN", remaining = 900), deadline = late, now = 21_000))
+        // READY has no deadline at all and stays grabbable without any anchor.
+        assertEquals(GrabAvailability.CAN_GRAB, avail(comp("READY"), deadline = null))
+    }
+
+    @Test
+    fun baseCadenceIsFastOnlyWhileReallyListening() {
+        fun data(online: Boolean, canAccept: Boolean = true, vararg rows: JSONObject) = JSONObject()
+            .put("features", JSONObject().put("canAcceptOrders", canAccept))
+            .put("state", JSONObject().put("online", online).put("orders", JSONArray().apply { rows.forEach { put(it) } }))
+        val available = JSONObject().put("id", "a").put("kind", "STANDARD").put("stage", "AVAILABLE")
+            .put("competition", JSONObject().put("round", 1).put("status", "READY").put("myOutcome", "NONE"))
+        val open = JSONObject(available.toString()).put("competition", JSONObject().put("round", 1).put("status", "OPEN").put("remainingMs", 3000).put("myOutcome", "NONE"))
+        val trip = JSONObject().put("id", "t").put("kind", "STANDARD").put("stage", "PICKUP")
+        assertEquals(StateCadence.LISTENING_MS, StateCadence.interval(data(true, true, available), foreground = false, localHot = false))
+        assertEquals(StateCadence.HOT_MS, StateCadence.interval(data(true, true, open), foreground = false, localHot = false))
+        assertEquals(StateCadence.HOT_MS, StateCadence.interval(data(true, true, available), foreground = true, localHot = true))
+        // Serving a trip: original 15s in background, original 10s in foreground; never the fast path.
+        assertEquals(StateCadence.TRIP_MS, StateCadence.interval(data(true, true, trip, open), foreground = false, localHot = false))
+        assertEquals(StateCadence.FOREGROUND_IDLE_MS, StateCadence.interval(data(true, true, trip), foreground = true, localHot = false))
+        // Not listening (offline or not allowed) with nothing in progress: background stops polling.
+        assertNull(StateCadence.interval(data(false, true, open), foreground = false, localHot = false))
+        assertNull(StateCadence.interval(data(true, false, open), foreground = false, localHot = false))
+        assertEquals(StateCadence.FOREGROUND_IDLE_MS, StateCadence.interval(data(false), foreground = true, localHot = false))
+        // A waiting reservation does not stop listening (same rule as the announcer).
+        val waiting = JSONObject().put("id", "r").put("kind", "RESERVED").put("stage", "RESERVED")
+        assertEquals(StateCadence.LISTENING_MS, StateCadence.interval(data(true, true, waiting), foreground = false, localHot = false))
     }
 
     @Test
@@ -81,22 +128,30 @@ class CompetitionRulesTest {
                 results.forEach { (id, round, outcome) -> put(JSONObject().put("orderId", id).put("round", round).put("outcome", outcome)) }
             })
 
-    private fun row(id: String, stage: String, round: Int?, status: String = "ASSIGNED", my: String = "NONE") =
-        JSONObject().put("id", id).put("kind", "STANDARD").put("stage", stage).apply {
+    private fun row(id: String, stage: String, round: Int?, status: String = "ASSIGNED", my: String = "NONE", driverId: String? = null) =
+        JSONObject().put("id", id).put("kind", "STANDARD").put("shared", true).put("stage", stage).apply {
             if (round != null) put("competition", JSONObject().put("round", round).put("status", status).put("myOutcome", my))
+            if (driverId != null) put("driverId", driverId)
         }
 
     private val key = GrabAlertKey("d1", "o1", "2")
 
     @Test
-    fun onlyOwnMatchingRoundOwnedRowIsAssignedAndMayNavigate() {
-        val assigned = CompetitionVerdicts.resolve(key, payload("d1", row("o1", "PICKUP", 2, my = "WON")), true)
+    fun onlyOwnDriverIdMatchingRoundOwnedRowIsAssignedAndMayNavigate() {
+        val assigned = CompetitionVerdicts.resolve(key, payload("d1", row("o1", "PICKUP", 2, my = "WON", driverId = "d1")), true)
         assertTrue(assigned is GrabOutcome.Assigned)
         assertTrue(GrabOutcomes.mayNavigate(assigned))
+        // RESERVED kind is assigned in stage RESERVED.
+        val reserved = row("o1", "RESERVED", 2, driverId = "d1").put("kind", "RESERVED")
+        assertTrue(CompetitionVerdicts.resolve(key, payload("d1", reserved), true) is GrabOutcome.Assigned)
         // Another account's payload (switched session) decides nothing.
-        assertTrue(CompetitionVerdicts.resolve(key, payload("d2", row("o1", "PICKUP", 2)), true) is GrabOutcome.Pending)
-        // Owned row of a different round is not this attempt's assignment.
-        assertFalse(CompetitionVerdicts.resolve(key, payload("d1", row("o1", "PICKUP", 3)), true) is GrabOutcome.Assigned)
+        assertTrue(CompetitionVerdicts.resolve(key, payload("d2", row("o1", "PICKUP", 2, driverId = "d2")), true) is GrabOutcome.Pending)
+        // Owned stage but another driverId, no driverId, a different round, or no competition: not ours.
+        assertFalse(CompetitionVerdicts.resolve(key, payload("d1", row("o1", "PICKUP", 2, driverId = "d9")), true) is GrabOutcome.Assigned)
+        assertFalse(CompetitionVerdicts.resolve(key, payload("d1", row("o1", "PICKUP", 2)), true) is GrabOutcome.Assigned)
+        assertFalse(CompetitionVerdicts.resolve(key, payload("d1", row("o1", "PICKUP", 3, driverId = "d1")), true) is GrabOutcome.Assigned)
+        assertFalse(CompetitionVerdicts.resolve(key, payload("d1", row("o1", "PICKUP", null, driverId = "d1")), true) is GrabOutcome.Assigned)
+        assertFalse(CompetitionVerdicts.ownsRow("d1", 2, null))
     }
 
     @Test
@@ -137,6 +192,10 @@ class CompetitionRulesTest {
         assertTrue(GrabOutcomes.message(location).contains("定位"))
         assertFalse(GrabOutcomes.message(location).contains("获派"))
         assertTrue(CompetitionVerdicts.fromFailure("o1", 409, "COMPETITION_ROUND_STALE", "") is GrabOutcome.Lost)
+        // No evidence of who cancelled or why another driver won: wording stays neutral.
+        val cancelled = GrabOutcomes.message(CompetitionVerdicts.finalFor("o1", "CANCELLED"))
+        assertFalse(cancelled.contains("乘客"))
+        assertFalse(GrabOutcomes.message(CompetitionVerdicts.finalFor("o1", "LOST")).contains("更近"))
         val network = CompetitionVerdicts.fromFailure("o1", 0, "", "")
         assertTrue(network is GrabOutcome.Failed && network.retryable)
         assertTrue((CompetitionVerdicts.fromFailure("o1", 401, "", "") as GrabOutcome.Failed).let { !it.retryable })

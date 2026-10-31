@@ -1,0 +1,7 @@
+{
+  "initialFailure": "Test harness compared tuple rows with sqlite.Row objects, unequal types despite identical stored fields",
+  "verification": "Fresh readonly tuple-to-tuple query of both tables confirmed all stored rows identical before harness correction",
+  "correction": "Normalize each row tuple; retain initial clone/script private, rerun fresh clone",
+  "productSourceChanged": false,
+  "sourceSha": "3bdb8f71743b30f83d65131bb90ed7485690b62b"
+}

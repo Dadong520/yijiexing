@@ -47,17 +47,64 @@ fun parseCompetitionResults(data: JSONObject): List<CompetitionResult> {
 fun competitionKey(account: String, orderId: String, competition: OrderCompetition?) =
     GrabAlertKey(account, orderId, competition?.round?.toString().orEmpty())
 
-object CompetitionWindow {
-    /** Network delay is unknown; close locally a little early rather than submit into a closed window. */
-    const val SAFETY_MS = 300L
+/** Monotonic (elapsedRealtime) times of the request that produced a payload; null when unmeasured. */
+data class RequestTiming(val startedAt: Long, val receivedAt: Long)
 
+object CompetitionWindow {
     /**
-     * Local deadline from the server's remainingMs anchored at receipt on the monotonic clock. Never
-     * extended by a later poll (the server window is fixed); wall-clock jumps cannot move it.
+     * Local deadline from the server's remainingMs, on the monotonic clock only. Conservatively the
+     * whole transport time of this request is charged once: receivedAt + remainingMs − (receivedAt −
+     * startedAt) = startedAt + remainingMs, which never lies after the real deadline. No second RTT
+     * is deducted for our future accept; a late arrival is the server's to refuse (409). Never
+     * extended by a later response (the window is fixed). Without a measured request there is no
+     * new anchor: callers treat that as closed and refresh.
      */
-    fun anchor(existing: Long?, receivedAt: Long, remainingMs: Long): Long {
-        val fresh = receivedAt + remainingMs - SAFETY_MS
+    fun anchor(existing: Long?, timing: RequestTiming?, remainingMs: Long): Long? {
+        if (timing == null || timing.receivedAt < timing.startedAt) return existing
+        val fresh = timing.startedAt + remainingMs
         return if (existing == null) fresh else minOf(existing, fresh)
+    }
+}
+
+/**
+ * Base /api/state cadence shared by the foreground store and the background service (one of them
+ * at a time) so another driver's new order or open window is seen well inside 5s. Null = no polling.
+ */
+object StateCadence {
+    const val HOT_MS = 1_000L
+    const val LISTENING_MS = 2_000L
+    const val FOREGROUND_IDLE_MS = 10_000L
+    const val TRIP_MS = 15_000L
+    private val IN_PROGRESS = setOf("BID_SENT", "PREPAY", "RESERVED", "PICKUP", "ARRIVED", "TRIP")
+
+    private fun rows(data: JSONObject) =
+        data.optJSONObject("state")?.optJSONArray("orders").let { a -> (0 until (a?.length() ?: 0)).mapNotNull { a?.optJSONObject(it) } }
+
+    /** Online, allowed to take orders and not serving one (waiting reservations excepted, as in the announcer). */
+    fun listening(data: JSONObject): Boolean {
+        val state = data.optJSONObject("state") ?: return false
+        if (!state.optBoolean("online") || data.optJSONObject("features")?.optBoolean("canAcceptOrders") != true) return false
+        return rows(data).none {
+            it.optString("stage") in setOf("BID_SENT", "PREPAY", "PICKUP", "ARRIVED", "TRIP") ||
+                (it.optString("stage") == "RESERVED" && it.optString("kind") != "RESERVED")
+        }
+    }
+
+    fun inProgress(data: JSONObject): Boolean = rows(data).any { it.optString("stage") in IN_PROGRESS }
+
+    /** A visible round is open or this driver is a pending candidate. */
+    fun hot(data: JSONObject): Boolean = rows(data).any { row ->
+        row.optString("stage") == "AVAILABLE" &&
+            parseCompetition(row)?.let { it.status == "OPEN" || it.myOutcome == "PENDING" } == true
+    }
+
+    fun interval(data: JSONObject, foreground: Boolean, localHot: Boolean): Long? = when {
+        data.optJSONObject("state") == null -> if (foreground) FOREGROUND_IDLE_MS else null
+        listening(data) && (localHot || hot(data)) -> HOT_MS
+        listening(data) -> LISTENING_MS
+        foreground -> FOREGROUND_IDLE_MS
+        inProgress(data) -> TRIP_MS
+        else -> null
     }
 }
 
@@ -68,10 +115,22 @@ enum class GrabAvailability(val label: String) {
     COMPETING("竞抢中·等待结果"),
     CLOSED_WAITING("已截止·等待派单"),
     UNAVAILABLE("本轮不可抢"),
+    /** A row that must carry competition but has none or a malformed one: fail closed. */
+    INVALID("请刷新后再试"),
 }
 
 object CompetitionRules {
     private val DIRECT_KINDS = setOf("STANDARD", "RESERVED")
+
+    /**
+     * Ordinary shared STANDARD/RESERVED rows always carry competition in contract V1, and any row that
+     * has the key must parse. BID/NEGOTIATED/private examples without it keep the original flow.
+     */
+    fun required(kind: String, shared: Boolean, hasCompetitionKey: Boolean): Boolean =
+        hasCompetitionKey || (kind in DIRECT_KINDS && shared)
+
+    fun required(row: JSONObject): Boolean =
+        required(row.optString("kind"), row.optBoolean("shared", false), row.has("competition"))
 
     /**
      * What an AVAILABLE row allows right now. [localDeadline] comes from [CompetitionWindow.anchor];
@@ -84,14 +143,15 @@ object CompetitionRules {
         localDeadline: Long?,
         now: Long,
         localPending: Boolean,
+        required: Boolean = false,
     ): GrabAvailability {
-        if (competition == null || kind !in DIRECT_KINDS) return GrabAvailability.LEGACY
+        if (competition == null) return if (required) GrabAvailability.INVALID else GrabAvailability.LEGACY
+        if (kind !in DIRECT_KINDS) return GrabAvailability.LEGACY
         if (stage != "AVAILABLE") return GrabAvailability.UNAVAILABLE
         if (localPending || competition.myOutcome == "PENDING") return GrabAvailability.COMPETING
-        // Withdrawn/lost in this round stay out of it; a new round resets myOutcome on the server.
-        // INELIGIBLE (e.g. no reliable location) may try again while the window is still open.
-        if (competition.myOutcome in setOf("WITHDRAWN", "LOST", "CANCELLED", "SUPERSEDED", "WON"))
-            return GrabAvailability.UNAVAILABLE
+        // Any decided outcome of this round (incl. INELIGIBLE/WITHDRAWN) keeps the driver out of it;
+        // only a new round (server resets myOutcome) can be joined again.
+        if (competition.myOutcome != "NONE") return GrabAvailability.UNAVAILABLE
         return when (competition.status) {
             "READY" -> GrabAvailability.CAN_GRAB
             "OPEN" ->
@@ -106,11 +166,17 @@ object CompetitionRules {
 private val OWNED_STAGES = setOf("PICKUP", "RESERVED", "ARRIVED", "TRIP")
 
 object CompetitionVerdicts {
+    /** The only shape that counts as assigned: own driverId, owned stage, parsed competition of the same round. */
+    fun ownsRow(account: String, round: Int, row: JSONObject?): Boolean {
+        if (row == null || account.isBlank()) return false
+        val competition = parseCompetition(row) ?: return false
+        return row.optString("driverId") == account && row.optString("stage") in OWNED_STAGES && competition.round == round
+    }
+
     /**
      * Decides one attempt from an authoritative driver payload. Assigned only when the payload is the
-     * same authenticated driver, the order row is in an owned stage, and its round matches (a row
-     * without competition after assignment is accepted on stage+account — see SELFCHECK question).
-     * WON from history without such a row is feedback only and can never navigate.
+     * same authenticated driver and [ownsRow] holds. WON from history without such a row is feedback
+     * only and can never navigate.
      */
     fun resolve(key: GrabAlertKey, data: JSONObject, sentConfirmed: Boolean): GrabOutcome {
         val payloadAccount = data.optJSONObject("profile")?.optJSONObject("driver")?.optString("id").orEmpty()
@@ -121,7 +187,7 @@ object CompetitionVerdicts {
             .firstOrNull { it.optString("id") == key.orderId }
         val competition = row?.let(::parseCompetition)
         val result = parseCompetitionResults(data).firstOrNull { it.orderId == key.orderId && it.round == round }
-        if (row != null && row.optString("stage") in OWNED_STAGES && (competition == null || competition.round == round))
+        if (row != null && ownsRow(key.account, round, row))
             return GrabOutcome.Assigned(key.orderId, row.optString("stage"))
         val outcome =
             result?.outcome?.takeIf { it != "PENDING" && it != "NONE" && it.isNotBlank() }
@@ -139,10 +205,11 @@ object CompetitionVerdicts {
 
     fun finalFor(orderId: String, outcome: String): GrabOutcome = when (outcome) {
         "WON" -> GrabOutcome.WonFeedback(orderId)
-        "LOST" -> GrabOutcome.Lost(orderId, "本轮未获派，离上车点更近的司机已获派")
+        "LOST" -> GrabOutcome.Lost(orderId, "本轮未获派，订单已由其他司机获得")
         "WITHDRAWN" -> GrabOutcome.Lost(orderId, "已退出本轮竞抢")
         "INELIGIBLE" -> GrabOutcome.Lost(orderId, "当前不符合接单条件，未参与本轮派单")
-        "CANCELLED" -> GrabOutcome.Lost(orderId, "乘客已取消订单")
+        // The contract does not say who cancelled; never attribute it to the passenger.
+        "CANCELLED" -> GrabOutcome.Lost(orderId, "本轮已结束或订单已取消")
         "SUPERSEDED" -> GrabOutcome.Lost(orderId, "订单已变更，本轮竞抢作废")
         else -> GrabOutcome.Lost(orderId, "本轮未获派")
     }

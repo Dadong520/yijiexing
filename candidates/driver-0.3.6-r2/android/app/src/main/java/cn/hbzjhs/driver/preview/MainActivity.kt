@@ -189,8 +189,11 @@ private fun ConnectedApp(store: ConnectedStore, state: DriverState) {
             tab = 0
         } else
             owner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                // Only while visible (STARTED); the background service owns polling otherwise. The
+                // cheap local check runs often, the shared gate decides: ≤2s/1s while listening,
+                // the original 10s otherwise, never overlapping another read.
                 while (true) {
-                    delay(10000)
+                    delay(500)
                     store.refresh(silent = true)
                 }
             }
@@ -306,8 +309,9 @@ private fun ConnectedApp(store: ConnectedStore, state: DriverState) {
             val confirmed =
                 result.foreground && DriverUiPresence.visible && GrabOutcomes.mayNavigate(outcome) &&
                     driverAccount(store.payload.value) == result.key.account && row != null &&
+                    row.driverId == result.key.account &&
                     row.stage in setOf(Stage.PICKUP, Stage.RESERVED, Stage.ARRIVED, Stage.TRIP) &&
-                    (row.competition == null || row.competition.round.toString() == result.key.round) &&
+                    row.competition != null && row.competition.round.toString() == result.key.round &&
                     NavigationSessionRules.legFor(row) !is LegDecision.Unavailable
             if (confirmed && row != null) {
                 audio(R.raw.success_order)
@@ -323,8 +327,14 @@ private fun ConnectedApp(store: ConnectedStore, state: DriverState) {
             return
         }
         val competition = order.competition
+        if (competition == null && order.competitionRequired) {
+            // A shared ordinary row without a valid competition fails closed: no legacy accept, no cue.
+            message("订单竞抢信息异常，已刷新，请稍后再试")
+            store.refresh()
+            return
+        }
         if (competition == null) {
-            // No competition object (private examples, other kinds): the original confirm + accept.
+            // No competition object (BID/negotiated/private examples): the original confirm + accept.
             confirm =
                 CoreConfirm("确认接单", NavigationSessionRules.routeSummary(order), "确认接单") {
                     store.perform("order.accept", JSONObject().put("id", order.id)) {

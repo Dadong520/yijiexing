@@ -183,12 +183,15 @@ object GrabActions {
     private val watch = CompetitionWatch()
     /** orderId#round → local monotonic deadline. */
     private val anchors = mutableMapOf<String, Long>()
-    /** orderId → (kind, stage, competition) from the latest authoritative state. */
-    private val known = mutableMapOf<String, Triple<String, String, OrderCompetition?>>()
+    /** One AVAILABLE/owned row as last seen in authoritative state. */
+    private data class KnownRow(val kind: String, val stage: String, val competition: OrderCompetition?, val required: Boolean)
+    private val known = mutableMapOf<String, KnownRow>()
     private val stateListeners = mutableListOf<(LocalApi.Credentials, JSONObject) -> Unit>()
     private var pollJob: Job? = null
     private var oneShot: Job? = null
     private var lastStateAt = Long.MIN_VALUE / 2
+    /** /api/state reads currently on the wire from any base poller or the candidate poll. */
+    private var inFlight = 0
     private val mutableVersion = MutableStateFlow(0L)
     /** Changes whenever availability or an attempt changes; UI reads it to recompose. */
     val version: StateFlow<Long> = mutableVersion.asStateFlow()
@@ -214,8 +217,29 @@ object GrabActions {
         stateListeners.removeAll { it === listener }
     }
 
-    /** Periodic UI/service polls skip while the candidate poll runs or a state just arrived. */
-    fun recentlyRefreshed(windowMs: Long): Boolean = pollJob?.isActive == true || now() - lastStateAt < windowMs
+    /**
+     * Base cadence for the surface that owns polling now (foreground store or background service, by
+     * DriverUiPresence): ≤2s while really listening, ~1s with an open round or own candidacy, the
+     * original long intervals otherwise; null = don't poll (not listening and nothing in progress).
+     */
+    fun baseInterval(data: JSONObject, foreground: Boolean): Long? =
+        StateCadence.interval(data, foreground, localHot = watch.awaiting().isNotEmpty())
+
+    /**
+     * Single-flight gate for periodic reads: refused while any read is on the wire, while the
+     * candidate poll runs (it delivers state to everyone), or when a state is younger than the
+     * interval. Pair every true with [endFetch].
+     */
+    fun tryBeginBaseFetch(intervalMs: Long): Boolean {
+        if (inFlight > 0 || pollJob?.isActive == true) return false
+        if (now() - lastStateAt < intervalMs - 200L) return false
+        inFlight++
+        return true
+    }
+
+    fun endFetch() {
+        if (inFlight > 0) inFlight--
+    }
 
     fun bindAccount(account: String) {
         if (!watch.bind(account)) return
@@ -245,57 +269,84 @@ object GrabActions {
             order.kind.name, order.stage.name, c,
             c?.let { anchors[anchorKey(order.id, it.round)] }, now(),
             watch.isPending(competitionKey(account, order.id, c)),
+            required = order.competitionRequired,
         )
     }
 
     fun availability(key: GrabAlertKey): GrabAvailability {
-        val (kind, stage, c) = known[key.orderId] ?: return GrabAvailability.UNAVAILABLE
-        if (c == null) return GrabAvailability.LEGACY
-        if (c.round.toString() != key.round) return GrabAvailability.UNAVAILABLE
-        return CompetitionRules.availability(kind, stage, c, anchors[anchorKey(key.orderId, c.round)], now(), watch.isPending(key))
+        val row = known[key.orderId] ?: return GrabAvailability.UNAVAILABLE
+        val c = row.competition
+        if (c != null && c.round.toString() != key.round) return GrabAvailability.UNAVAILABLE
+        return CompetitionRules.availability(
+            row.kind, row.stage, c, c?.let { anchors[anchorKey(key.orderId, it.round)] }, now(),
+            watch.isPending(key), required = row.required,
+        )
     }
 
     fun phase(key: GrabAlertKey): CompetitionWatch.Phase? = watch.attempt(key)?.phase
 
     /** From a 3s reminder (dialog/overlay/notification): only while that exact reminder is actionable. */
-    fun grabAlert(key: GrabAlertKey, foreground: Boolean): String? {
-        if (!NewOrderAlerts.isActionable(key)) return "该新单提醒已结束，请在订单大厅查看"
-        return submit(key, foreground)
+    fun grabAlert(key: GrabAlertKey, foreground: Boolean, onDone: () -> Unit = {}): String? {
+        if (!NewOrderAlerts.isActionable(key)) {
+            onDone()
+            return "该新单提醒已结束，请在订单大厅查看"
+        }
+        return submit(key, foreground, onDone)
     }
 
-    /** Returns a message to show, or null when the request started or one is already running. */
-    fun submit(key: GrabAlertKey, foreground: Boolean): String? {
+    /**
+     * Returns a message to show, or null when the request started or one is already running.
+     * [onDone] runs exactly once: immediately when nothing is sent, else when the accept round trip
+     * (and its state read) has finished — the notification receiver uses it to end goAsync.
+     */
+    fun submit(key: GrabAlertKey, foreground: Boolean, onDone: () -> Unit = {}): String? {
+        val (message, job) = start(key, foreground)
+        if (job == null) onDone() else job.invokeOnCompletion { onDone() }
+        return message
+    }
+
+    private fun start(key: GrabAlertKey, foreground: Boolean): Pair<String?, Job?> {
         val credentials = LocalApi.credentials()
-        if (credentials.token.isBlank()) return "请先登录后再抢单"
-        if (key.account.isBlank() || key.account != watch.account) return "账号状态同步中，请稍后再试"
-        val round = key.round.toIntOrNull() ?: return "该订单不参与竞抢"
+        if (credentials.token.isBlank()) return "请先登录后再抢单" to null
+        if (key.account.isBlank() || key.account != watch.account) return "账号状态同步中，请稍后再试" to null
+        val round = key.round.toIntOrNull() ?: return "该订单不参与竞抢" to null
         when (availability(key)) {
             GrabAvailability.CAN_GRAB -> Unit
-            GrabAvailability.COMPETING -> return null
+            GrabAvailability.COMPETING -> return null to null
             GrabAvailability.CLOSED_WAITING -> {
+                // Includes "no measured anchor yet": conservative, one timed read, never a resubmit.
                 refreshOnce(credentials)
-                return "本轮已截止，等待服务端派单结果"
+                return "本轮已截止或剩余时间未知，等待服务端最新状态" to null
             }
-            else -> return "该订单本轮不可抢，请刷新订单大厅"
+            GrabAvailability.INVALID -> {
+                refreshOnce(credentials)
+                return "订单竞抢信息异常，已刷新，请稍后再试" to null
+            }
+            else -> return "该订单本轮不可抢，请刷新订单大厅" to null
         }
-        val attempt = watch.begin(key, now(), foreground) { UUID.randomUUID().toString() } ?: return null
+        val attempt = watch.begin(key, now(), foreground) { UUID.randomUUID().toString() } ?: return null to null
         val generation = watch.generation
         bump()
-        scope.launch {
+        val job = scope.launch {
             fun owns() = generation == watch.generation && LocalApi.isCurrent(credentials)
             val body = JSONObject()
                 .put("action", "order.accept")
                 .put("payload", JSONObject().put("id", key.orderId).put("competitionRound", round))
                 .put("requestId", attempt.requestId)
             try {
+                val postStarted = now()
                 val data = LocalApi.request("POST", "/api/action", body, credentials = credentials)
                 if (!owns()) return@launch
                 // 200 only means "joined/pending"; never success. The outcome comes from state/results.
                 watch.sent(key, attempt.token, CompetitionWatch.Phase.PENDING)
                 if (!DriverUiPresence.visible) onBackgroundResult?.invoke(key, "已加入竞抢，等待派单结果")
-                val state = if (data.has("state")) data else LocalApi.request("GET", "/api/state", credentials = credentials)
-                if (!owns()) return@launch
-                observeState(credentials, state)
+                if (data.has("state")) observeState(credentials, data, timing = RequestTiming(postStarted, now()))
+                else {
+                    val getStarted = now()
+                    val state = LocalApi.request("GET", "/api/state", credentials = credentials)
+                    if (!owns()) return@launch
+                    observeState(credentials, state, timing = RequestTiming(getStarted, now()))
+                }
             } catch (e: CancellationException) {
                 throw e
             } catch (e: LocalApiException) {
@@ -313,14 +364,15 @@ object GrabActions {
                 ensurePolling(credentials)
             }
         }
-        return null
+        return null to job
     }
 
     /**
      * Every authoritative driver payload passes here once (store, service, candidate poll). Anchors
-     * windows, resolves waiting attempts, then forwards to the other listeners ([from] excluded).
+     * windows from the measured [timing] of the request that fetched it (null = unmeasured: no new
+     * anchor), resolves waiting attempts, then forwards to the other listeners ([from] excluded).
      */
-    fun observeState(credentials: LocalApi.Credentials, data: JSONObject, from: Any? = null) {
+    fun observeState(credentials: LocalApi.Credentials, data: JSONObject, from: Any? = null, timing: RequestTiming? = null) {
         if (!LocalApi.isCurrent(credentials)) return
         val account = driverAccount(data)
         val rows = data.optJSONObject("state")?.optJSONArray("orders") ?: return
@@ -335,11 +387,12 @@ object GrabActions {
             if (id.isBlank()) return@forEach
             val c = parseCompetition(row)
             val stage = row.optString("stage")
-            known[id] = Triple(row.optString("kind"), stage, c)
+            known[id] = KnownRow(row.optString("kind"), stage, c, CompetitionRules.required(row))
             if (c != null && c.status == "OPEN" && stage == "AVAILABLE") {
                 val k = anchorKey(id, c.round)
                 liveAnchors += k
-                anchors[k] = CompetitionWindow.anchor(anchors[k], t, c.remainingMs)
+                // Keep the old anchor if this payload was unmeasured; never extend an existing one.
+                CompetitionWindow.anchor(anchors[k], timing, c.remainingMs)?.let { anchors[k] = it }
             }
         }
         anchors.keys.retainAll(liveAnchors)
@@ -381,15 +434,20 @@ object GrabActions {
                 val wait = watch.nextPollDelay(now()) ?: break
                 delay(wait)
                 if (generation != watch.generation || !LocalApi.isCurrent(credentials)) break
-                if (now() - lastStateAt >= wait / 2) {
+                // Shares the wire with base polls: skip while another read is out or one just landed.
+                if (inFlight == 0 && now() - lastStateAt >= wait / 2) {
+                    inFlight++
                     try {
+                        val started = now()
                         val data = LocalApi.request("GET", "/api/state", credentials = credentials)
                         if (generation != watch.generation) break
-                        observeState(credentials, data)
+                        observeState(credentials, data, timing = RequestTiming(started, now()))
                     } catch (e: CancellationException) {
                         throw e
                     } catch (_: Exception) {
                         // Bounded: the attempt times out below instead of polling forever.
+                    } finally {
+                        endFetch()
                     }
                 }
                 sweepTimeouts()
@@ -400,15 +458,19 @@ object GrabActions {
 
     /** One conservative read when the local window has run out (no resubmission). */
     private fun refreshOnce(credentials: LocalApi.Credentials) {
-        if (recentlyRefreshed(1_500L) || oneShot?.isActive == true) return
+        if (oneShot?.isActive == true || !tryBeginBaseFetch(1_000L)) return
         val generation = watch.generation
         oneShot = scope.launch {
             try {
+                val started = now()
                 val data = LocalApi.request("GET", "/api/state", credentials = credentials)
-                if (generation == watch.generation) observeState(credentials, data)
+                if (generation == watch.generation) observeState(credentials, data, timing = RequestTiming(started, now()))
             } catch (e: CancellationException) {
                 throw e
-            } catch (_: Exception) {}
+            } catch (_: Exception) {
+            } finally {
+                endFetch()
+            }
         }
     }
 
@@ -427,13 +489,21 @@ class GrabActionReceiver : BroadcastReceiver() {
         if (intent.action != ACTION_GRAB) return
         // The identity is the PendingIntent's own data (account+order+round); no extras, no token.
         val key = GrabActionIdentity.keyOf(intent.dataString) ?: return
-        GrabActions.grabAlert(key, foreground = false)?.let { message ->
+        // Keeps the broadcast alive only for the short explicit submit: finished exactly once when the
+        // accept round trip ends or after a bound, whichever comes first. No activity is started.
+        val pending = goAsync()
+        val finished = java.util.concurrent.atomic.AtomicBoolean(false)
+        val finish = { if (finished.compareAndSet(false, true)) pending.finish() }
+        Handler(Looper.getMainLooper()).postDelayed({ finish() }, SUBMIT_BOUND_MS)
+        GrabActions.grabAlert(key, foreground = false, onDone = { finish() })?.let { message ->
             GrabActions.onBackgroundResult?.invoke(key, message)
         }
     }
 
     companion object {
         const val ACTION_GRAB = "cn.hbzjhs.driver.preview.GRAB_ORDER"
+        /** Well under the system's background-broadcast limit; the request itself may continue after. */
+        private const val SUBMIT_BOUND_MS = 9_000L
     }
 }
 
@@ -494,7 +564,7 @@ fun NewOrderDialog(
                     .padding(20.dp)
             ) {
                 Text(
-                    text = if (first.directGrab) "新订单 · 3秒内可直接抢单" else "发现新订单",
+                    text = if (first.directGrab) "新订单" else "发现新订单",
                     fontSize = 18.sp,
                     lineHeight = 24.sp,
                     fontWeight = FontWeight.Bold,
@@ -619,7 +689,7 @@ fun CompetitionCard(order: DriverOrder, store: ConnectedStore, onGrab: (DriverOr
         Text(
             when (availability) {
                 GrabAvailability.CAN_GRAB ->
-                    if (order.competition?.status == "OPEN") "已有司机加入，本轮截止前仍可加入竞抢。" else "首位司机加入后开始5秒竞抢。"
+                    if (order.competition?.status == "OPEN") "本轮竞抢已开启，截止前仍可抢单。" else "首位司机抢单后开启5秒竞抢。"
                 GrabAvailability.COMPETING -> "你已加入本轮竞抢，等待服务端派单结果；未获派前不会导航或显示乘客联系方式。"
                 GrabAvailability.CLOSED_WAITING -> "本轮已截止，等待服务端派单结果。"
                 else -> "本轮你已不可参与，订单状态以服务端为准。"
@@ -643,7 +713,8 @@ fun CompetitionCard(order: DriverOrder, store: ConnectedStore, onGrab: (DriverOr
     }
 }
 
-internal const val COMPETITION_NOTE = "点击即加入5秒竞抢，截止时离上车点最近的有效司机获派；是否派给你以服务端结果为准，提醒结束后可在订单大厅查看。"
+// The 3s is only the reminder's life; the 5s window opens once on the server at the first valid grab.
+internal const val COMPETITION_NOTE = "首位司机抢单后开启5秒竞抢，派单结果以服务器为准。提示3秒后收起，仍可在订单大厅查看。"
 
 /**
  * Background surface for the current reminder. Shown only with the user's system overlay grant
@@ -678,7 +749,8 @@ class NewOrderOverlay(private val appContext: Context) {
         val screenWidth = dm.widthPixels
 
         val cardWidth = Math.min((340 * density).toInt(), screenWidth - (32 * density).toInt())
-        val topMargin = (96 * density).toInt()
+        // Not named topMargin: inside LayoutParams.apply below that name must mean the params' field.
+        val overlayTop = (96 * density).toInt()
 
         val rootLayout = LinearLayout(appContext).apply {
             orientation = LinearLayout.VERTICAL
@@ -694,7 +766,7 @@ class NewOrderOverlay(private val appContext: Context) {
         }
 
         val titleView = TextView(appContext).apply {
-            text = if (alert.directGrab) "宜捷行 · 新订单 · 3秒内可抢" else "宜捷行 · 发现新订单"
+            text = if (alert.directGrab) "宜捷行 · 新订单" else "宜捷行 · 发现新订单"
             setTextSize(TypedValue.COMPLEX_UNIT_SP, 16f)
             setTextColor(AndroidColor.parseColor("#00796B"))
             typeface = android.graphics.Typeface.DEFAULT_BOLD
@@ -802,7 +874,7 @@ class NewOrderOverlay(private val appContext: Context) {
             PixelFormat.TRANSLUCENT
         ).apply {
             gravity = Gravity.TOP or Gravity.CENTER_HORIZONTAL
-            y = topMargin
+            y = overlayTop
         }
 
         try {

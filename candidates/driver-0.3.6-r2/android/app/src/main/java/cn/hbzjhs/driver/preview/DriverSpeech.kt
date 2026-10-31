@@ -384,7 +384,7 @@ class NativeOrderAnnouncer(context: Context) {
                 val builder =
                     androidx.core.app.NotificationCompat.Builder(app, CHANNEL)
                         .setSmallIcon(android.R.drawable.ic_dialog_map)
-                        .setContentTitle(if (directGrab) "宜捷行 · 新订单 · 3秒内可抢" else "宜捷行 · 云端沙箱新订单")
+                        .setContentTitle(if (directGrab) "宜捷行 · 新订单" else "宜捷行 · 云端沙箱新订单")
                         .setContentText(
                             "${order.optString("origin")} → ${order.optString("destination")}"
                         )
@@ -392,7 +392,7 @@ class NativeOrderAnnouncer(context: Context) {
                             androidx.core.app.NotificationCompat.BigTextStyle()
                                 .bigText(
                                     "${order.optString("origin")} → ${order.optString("destination")}\n" +
-                                        if (directGrab) "点“立即抢单”加入5秒竞抢，离上车点最近的有效司机获派，结果以服务端为准；提醒结束后可在订单大厅查看。"
+                                        if (directGrab) COMPETITION_NOTE
                                         else "点按返回司机端查看，订单可接状态以服务端为准。"
                                 )
                         )

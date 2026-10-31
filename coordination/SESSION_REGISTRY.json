@@ -103,7 +103,7 @@
       "ackVersion": "2026-10-26-v3",
       "checkpointId": "GRABC-20261101-01",
       "handoffPath": "coordination/handoffs/claude.md",
-      "workflowState": "IDLE_GRABC_PHASE2_WAIT_ROOT_BUILD_REVIEW",
+      "workflowState": "IDLE_GRABC_PHASE4_WAIT_ROOT_ACTUAL_TEST",
       "previousCompletedSessionId": "a6956536-07bf-4683-9cd9-7185a2cf43fa",
       "reason": "Official phase1 exit0/no denials, stage2 sameSID contract+5s waiting; author testsNOT_RUN"
     }

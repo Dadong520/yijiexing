@@ -20,7 +20,7 @@
     "Independent root/backend review and meaningful unit/HTTP/CAS/isolated native tests before unique root experience release; no current prod/test environment access",
     "Deployment must retarget all existing driver-demo API tags plus default100 to same accepted newrevision, preserve tag names/URLs and admin entirely, preventing legacy writer bypass; explicitly compare other config/IAM"
   ],
-  "status": "PHASE2_IMPLEMENTED_FIRST_EXACT_BUILD_PENDING",
+  "status": "C1_PHASE4_READY_EXACT_DRIVER_BUILD_PENDING",
   "acceptance": "NOT_RUN",
   "tests": [
     {
@@ -34,6 +34,12 @@
       "count": 2,
       "result": "PASS",
       "sourceSha": "3bdb8f71743b30f83d65131bb90ed7485690b62b"
+    },
+    {
+      "suite": "Exact D0 driver compiler",
+      "result": "FAIL",
+      "sourceSha": "65695082d541a648a50a161634f99293f8b12ee7",
+      "reason": "NewOrderAlerts.kt722 val cannot be reassigned; JUnit/QA/nativeNOT_RUN"
     }
   ],
   "evidence": [
@@ -42,12 +48,13 @@
     "coordination/evidence/GRAB-20261101-01/NATIVE_ACCEPTANCE_PLAN.md",
     "coordination/evidence/GRAB-20261101-01/INTEGRATION_REVIEW_NOTES.md"
   ],
-  "nextAction": "First exact-source driver compile/JUnit; phase3 must fix basepoll10/15s, ownership/round strictness and any compiler errors",
+  "nextAction": "Freeze final author phase4 code, compile original+QA/JUnit, then actual isolated native and nonauthor contract review",
   "deploy_owner": "coordinator",
   "releaseReady": false,
   "updatedAt": "2026-10-31T16:42:35.588432+00:00",
   "backendAcceptedSha": "3bdb8f71743b30f83d65131bb90ed7485690b62b",
   "backendTree": "c5df96a35efc38ca50442b029681b7790b688922",
   "backendAcceptance": "PASS",
-  "backendImportedSha": "2eafd7d4353d6afa474ed37e678768902e20d1b2"
+  "backendImportedSha": "2eafd7d4353d6afa474ed37e678768902e20d1b2",
+  "firstCandidateSha": "65695082d541a648a50a161634f99293f8b12ee7"
 }

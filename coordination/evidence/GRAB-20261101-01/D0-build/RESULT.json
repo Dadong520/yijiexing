@@ -1,0 +1,17 @@
+{
+  "sourceSha": "65695082d541a648a50a161634f99293f8b12ee7",
+  "originalBuild": 1,
+  "seconds": 30.569030046463013,
+  "argv": [
+    "bash",
+    "/Users/dongge/.codex/tmp/yijiexing-grab-native-20261101/source/candidates/driver-0.3.6-r2/android/gradlew",
+    "-p",
+    "/Users/dongge/.codex/tmp/yijiexing-grab-native-20261101/source/candidates/driver-0.3.6-r2/android",
+    "--offline",
+    "--no-daemon",
+    "-I",
+    "/Users/dongge/.codex/tmp/yijiexing-grab-native-20261101/scripts/offline.init.gradle",
+    "testDebugUnitTest",
+    "assembleDebug"
+  ]
+}

@@ -24,11 +24,26 @@ DriverSpeech：只对LEGACY/CAN_GRAB行提醒（已加入/截止/获派不提醒
 ## 测试
 新/改纯逻辑JUnit：GrabAlertRulesTest 11、CompetitionRulesTest 13（READY/OPEN/截止/时钟偏差、round、真实归属/历史WON拒导航、5s候选不被3s清、持久去重、PI身份、换号旧cleanup不解新busy、重复点击/重试同requestId、有界轮询）。编译/全部JUnit/androidTest/AVD/真机：NOT_RUN（无Bash）。
 
-## 给root的合同疑问（按保守实现）
-Q1 获派后订单行是否仍带competition？缺失时按stage+account认Assigned（有则须同round）。
-Q2 competitionResults按合同取data顶层，不读state内。
-Q3 同轮WITHDRAWN后可否再加入？客户端按不可（UNAVAILABLE）。INELIGIBLE视为窗口内可重试。
-Q4 accept result.pending忽略，只以state/results定论。
+## Phase3（2026-11-01，root首编译失败+D0_SOURCE_REVIEW退回，基于HEAD 65695082，未commit）
+0 编译：NewOrderAlerts overlay中局部`val topMargin`遮蔽LayoutParams.topMargin→改名overlayTop（:722报错根因）。其余仍未编译。
+1 轮询：新StateCadence（纯）：真实上线+canAcceptOrders+无执行单(预约待出发除外)→2s；同时有OPEN/本人PENDING/本地候选→1s；在途后台15s、前台非听单10s；后台不听单且无在途→null不轮询（服务自停）。GrabActions.tryBeginBaseFetch/endFetch单飞门：任一GET在途、候选poll活跃、或状态比interval−200ms新则拒绝；candidate poll/refreshOnce同计inFlight。前台：MainActivity STARTED时500ms本地检查→store.refresh(silent)经门（原错误退避保留）；后台：Service仅在!DriverUiPresence.visible时500ms检查经门，错误退避4s→60s；DriverUiPresence互斥。Service applyState统一处理自己poll与共享state（announcer、listening、floating、离线无在途→endSession+stopSelf），不再滞后。删除recentlyRefreshed(5000)。
+2 归属：CompetitionVerdicts.ownsRow=payload driver.id==key.account且行driverId==account且stage∈PICKUP/RESERVED/ARRIVED/TRIP且competition可解析且round==key.round；无competition不再兜底。CompetitionRules.required(kind,shared,hasKey)：普通shared STANDARD/RESERVED或有competition键→必须可解析，否则GrabAvailability.INVALID（大厅“请刷新后再试”，grabOrder提示+刷新，不走旧确认/不播成功音，不提醒）；BID/NEG/私有示例无键保持原流程。DriverOrder新增driverId/competitionRequired；MainActivity导航前再核store当前行driverId/round/stage/legFor。
+3 截止：CompetitionWindow.anchor(existing, RequestTiming(start,received), remainingMs)=start+remaining−RTT，只缩不延；无测量→不新锚（无旧锚则CLOSED_WAITING+一次refresh，不提交）。所有来源带计时：store refresh/query/perform(POST或补GET)、service poll、candidate poll、accept POST/补GET、refreshOnce；login等无计时不锚。
+4 Q3：同轮myOutcome≠NONE（含INELIGIBLE/WITHDRAWN）一律UNAVAILABLE，仅新round可再抢。文案：CANCELLED“本轮已结束或订单已取消”；LOST“本轮未获派，订单已由其他司机获得”。
+5 Receiver：goAsync；grabAlert/submit新增onDone，未发送立即、发送则accept往返(含state读)完成后、或9s上限先到者finish一次（AtomicBoolean）；不启动Activity；PI仍显式/不可变/唯一account+order+round，旧scope需isActionable。
+测试更新：CompetitionRulesTest新增/改（同轮INELIGIBLE/WITHDRAWN不可、新round可、shared缺/坏competition→INVALID、RTT1500不给满5s、同轮后续不延长、无测量不锚、READY null可抢、cadence 2s/1s/15s/10s/null、driverId/round/无competition拒Assigned、取消/LOST中性文案）。全部NOT_RUN。
+剩余风险：前台500ms/后台500ms本地tick仅本地判断（不发网）；listening判定依赖features.canAcceptOrders；receiver 9s后请求可能仍在进行（结果走通知）；仍需root真实编译可能暴露Phase2其它小错。
 
-## 未完/风险
-未编译，可能有小编译错（overlay import、Compose smart cast等）待root编译反馈；Receiver未goAsync依赖前台服务保活；service flags在候选poll期间最多延后~20s；无countdown数字显示；小屏实际排版需AVD。
+## Phase4（2026-11-01，极小收尾，HEAD 65695082上未commit）
+1 文案：前台Dialog标题“新订单”、Overlay/通知标题“宜捷行 · 新订单”（BID/非直抢原文保留）；COMPETITION_NOTE改“首位司机抢单后开启5秒竞抢，派单结果以服务器为准。提示3秒后收起，仍可在订单大厅查看。”，通知正文复用；详情卡“首位司机抢单后开启5秒竞抢/本轮竞抢已开启，截止前仍可抢单”；权限说明去掉“3秒内可抢”。按钮、TTL、业务未改。
+2 截止锚：改为fresh=startedAt+remainingMs（=receivedAt+remainingMs−一次传输耗时），min(existing,fresh)；不再多减一次RTT，迟到由服务器409裁决。无时序不锚、同轮不延长、READY null可抢、纯elapsedRealtime保持。单测改：start10000/receive11500/remaining5000→15000，收到后剩3500；更晚同轮不延长；更少剩余取严(12000/12100/1000→13000)；传输耗尽→禁抢。（Phase3“−RTT”描述已被本条取代。）
+测试：编译/JUnit/native仍作者NOT_RUN。
+
+## 给root的合同疑问（Phase2历史；结论已被Phase3取代）
+Q1 [已被Phase3取代] 原：缺competition按stage+account认Assigned。现：Assigned须行driverId==account+owned stage+competition可解析且同round，无兜底。
+Q2 competitionResults按合同取data顶层，不读state内（仍为当前事实）。
+Q3 [已被Phase3取代] 原：INELIGIBLE窗口内可重试。现：同轮INELIGIBLE/WITHDRAWN等任何非NONE均不可重入，仅新round。
+Q4 accept result.pending忽略，只以state/results定论（仍为当前事实）。
+
+## 未完/风险（当前）
+仍未经root重编译，可能暴露其它小编译错；无countdown数字显示；小屏实际排版需AVD；receiver已goAsync但9s上限后请求可能仍在进行（结果走通知）；listening判定依赖features.canAcceptOrders。[Phase2历史“Receiver未goAsync”“service flags最多延后~20s”已被Phase3修复取代。]

@@ -1,0 +1,13 @@
+{
+  "operation": "Backend image build only; no CloudRun revision/traffic or APK upload",
+  "project": "yijiexing-driver-demo-1023",
+  "region": "us-west1",
+  "backendSourceSha": "3bdb8f71743b30f83d65131bb90ed7485690b62b",
+  "backendTree": "c5df96a35efc38ca50442b029681b7790b688922",
+  "buildId": "40550617-3e31-4cb5-94d7-36528c64ee88",
+  "statusAtSubmit": "QUEUED",
+  "tag": "us-west1-docker.pkg.dev/yijiexing-driver-demo-1023/demo/driver-cloud:grab-3bdb8f7",
+  "clientProductSource": "Not final yet; require final combined backend tree equality before deployment",
+  "contextFiles": 27,
+  "at": "2026-10-31T17:20:41.995824+00:00"
+}

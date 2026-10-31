@@ -1,0 +1,15 @@
+{
+  "sourceSha": "65695082d541a648a50a161634f99293f8b12ee7",
+  "verdict": "FAIL_NEEDS_PHASE3",
+  "blockers": [
+    "Compiler NewOrderAlerts.kt722 val cannot be reassigned",
+    "Foreground10s/background15s discovery exceeds5s contention; only candidate fastpoll insufficient for other drivers",
+    "Assignment verdict must validate row.driverId plus strict matchinground; missing/malformed competition in a shared ordinary row must fail closed",
+    "Deadline safety300ms does not account for measured network delay; anchor conservatively using known request start/RTT",
+    "INELIGIBLE cannot rejoin same round; cancelled outcome must not falsely attribute passenger"
+  ],
+  "backendAcceptedSha": "3bdb8f71743b30f83d65131bb90ed7485690b62b",
+  "backend307And2ExtraPASS": true,
+  "driverTests": "NOT_RUN compile blocked",
+  "releaseReady": false
+}
