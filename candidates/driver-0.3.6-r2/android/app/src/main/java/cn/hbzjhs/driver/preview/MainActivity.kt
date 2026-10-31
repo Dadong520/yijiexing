@@ -259,14 +259,25 @@ private fun ConnectedApp(store: ConnectedStore, state: DriverState) {
     }
     val route = stack.last()
     AutoNavigationObserver(store, ::message)
+    // A collapsed map panel on the page shown right now hides the tabs (full-screen map). Only a claim
+    // for this exact page (this account's listening home, or this order's trip) counts, so leaving the
+    // page, signing out or switching account always brings the tabs back.
+    val mapChrome = remember { MapChromeHost() }
+    val mapScope =
+        if (!state.loggedIn) null
+        else if (route == "root" && tab == 0) driverHomeMapScope(driverAccount(payload))
+        else if (route.startsWith("detail:")) driverTripMapScope(route.substringAfter(':'))
+        else null
+    val chromeHidden = mapChrome.hiddenFor(mapScope)
     Box(Modifier.fillMaxSize().background(Page), contentAlignment = Alignment.TopCenter) {
+        CompositionLocalProvider(LocalMapChromeHost provides mapChrome) {
         Scaffold(
             Modifier.fillMaxSize().widthIn(max = 650.dp),
             containerColor = Page,
             contentWindowInsets = WindowInsets(0, 0, 0, 0),
             snackbarHost = { SnackbarHost(snackbar) },
             bottomBar = {
-                if (state.loggedIn && route == "root")
+                if (state.loggedIn && route == "root" && !chromeHidden)
                     NavigationBar(
                         modifier = Modifier.heightIn(min = 72.dp),
                         containerColor = Color.White,
@@ -386,6 +397,7 @@ private fun ConnectedApp(store: ConnectedStore, state: DriverState) {
                         }
                     }
             }
+        }
         }
         if (loading)
             Box(

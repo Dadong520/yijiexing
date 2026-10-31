@@ -1,0 +1,65 @@
+{
+  "taskId": "NETC-20261031-01",
+  "reviewedAt": "2026-10-31T15:42:54+08:00",
+  "reviewerThreadId": "01a182c6-c058-76e1-9584-38abfe813799",
+  "sourceBaseSha": "3587d5af7a5585eff8dbd7921eca348fd905e465",
+  "diagnosis": "NOT_REPRODUCED_NOT_RESOLVED",
+  "acceptance": "NOT_RUN",
+  "scope": "Read-only current-host connectivity/runtime/bounded-log diagnosis; no authenticated account request or phone test",
+  "facts": [
+    "Published21 artifacts available locally; complete hashes match published proof and both DEX contain configured HTTPS custom API origin. Both Gradle defaults use same custom API origin.",
+    "Serial curl --noproxy *: custom API health200/2.55s and user-test health200/3.96s, TLS verify0. Admin custom/native both200, custom13.40s/native3.59s. Unauthenticated passenger/state and driver/state return expected401, proving routing/auth boundary only.",
+    "All tested HTTP requests succeeded directly so no proxy fallback used. Local resolver returns198.18.* synthetic addresses; no-env-proxy curl does not bypass system/TUN forwarding. These checks do not establish mobile-network direct reachability.",
+    "CloudRun API/admin ReadyTrue, existingccui107 revisions/traffic100/user-test unchanged; concurrency1/min0/max1/requestCPU true. No service-deployment/IAM/data mutation performed.",
+    "Bounded3h/120 sample returned71: passenger-state42x200 and1x401; driver-state16x200 and1x401; health2x200; other8POST200 and1download200. No429/5xx in sample; those POSTs are pre-existing logs, not reviewer actions.",
+    "One slow20075.44s path was redactedOTHER, not demonstrated API-state path. Additional category query timed out50s; no latency-to-user-failure causal claim."
+  ],
+  "diagnosticLimits": [
+    "Phone/version/network/exact error/failure timestamp unavailable in this scope; no device test or login/credential use.",
+    "Cold start not proven: admin13.4s or individual latency alone does not establish container startup cause.",
+    "No429/5xx in bounded sample does not rule out earlier or unlogged/platform/mobile failures.",
+    "DNS/TLS checked on this host only, with synthetic resolver/TUN layer; public authoritative DNS and phone path not independently verified."
+  ],
+  "hypothesesNotConfirmed": [
+    "Device-network DNS/VPN/proxy path differs from this host",
+    "Transient cold-start or concurrency1 queueing; download shares service, but no current429 or correlated failedAPI evidence",
+    "Client session/auth or timeout could cause generic connection message; observed unauthorized401 not an authenticated-session test"
+  ],
+  "recommendations": [
+    "Root correlate user failure screenshot/time/app role/version/network with bounded server status/latency before code or runtime change.",
+    "If reproduced on phone, compare custom-domain health/native user-test health in that same network and separate TLS/DNS/HTTP429/401/503/timeout; retain exact exception category without credentials.",
+    "Preserve current IAM/min0/max1 and user data; do not restart/redeploy/raise concurrency merely from unconfirmed hypothesis. If sustained429/queueing proven, root scopes compatibility/cost-reviewed fix separately.",
+    "No restoration or business POST required for diagnosis; existing client connect20s/read75s and generic cold-start error mapping should be included in failure correlation."
+  ],
+  "evidence": [
+    "APK_ORIGIN.json",
+    "CONNECTIVITY.json",
+    "RUNTIME_LOG_SUMMARY.json",
+    "SLOW_REQUESTS.json"
+  ],
+  "followupQueryFailure": {
+    "operation": "Read-only bounded request latency categorization",
+    "result": "TIMEOUT50s",
+    "privateRawOutputEmitted": false,
+    "retry": "NOT_RETRIED"
+  },
+  "tests": [
+    {
+      "command": "Serial DNS + direct curl GET health/admin/unauthenticated state",
+      "exitCode": 0,
+      "result": "Current-host transport PASS; user phone fault not reproduced"
+    },
+    {
+      "command": "Read-only gcloud independent project describe + bounded3h logs",
+      "exitCode": 0,
+      "result": "Ready unchanged revisions; sample no429/5xx; second category queryTIMEOUT50s"
+    },
+    {
+      "command": "Local published21APK hash and DEX origin check",
+      "exitCode": 0,
+      "result": "Both hashes/origin match"
+    }
+  ],
+  "noMutation": true,
+  "nextAction": "Root correlate user device failure; backend IDLE, no background polling; no claim fixed"
+}

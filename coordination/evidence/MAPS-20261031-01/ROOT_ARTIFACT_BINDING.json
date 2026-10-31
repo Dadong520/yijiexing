@@ -1,0 +1,39 @@
+{
+  "sourceSha": "d6d5206a82f16987fd51371044fb12e76ba9f8d8",
+  "roles": [
+    {
+      "role": "passenger",
+      "sha256": "23bc9e1a075d3e078212c88b9c3bb5cf2581e7beff8c2be722172a14d78c3554",
+      "bytes": 107237753,
+      "productTree": "c4825567b2f8b9adfd7daf04132207c9e001b93a",
+      "buildSha": "d6d5206a82f16987fd51371044fb12e76ba9f8d8",
+      "testBuildSha": "d6d5206a82f16987fd51371044fb12e76ba9f8d8",
+      "actualJUnit": {
+        "tests": 54,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "junitFiles": 11,
+      "PASS": true
+    },
+    {
+      "role": "driver",
+      "sha256": "5d405099b76244c1938e448b27b957a2cc51af2a12cb042c4e095f23d6b45631",
+      "bytes": 108718725,
+      "productTree": "23b05f529ea5098a1982cc9ea77b664208bd4962",
+      "buildSha": "d6d5206a82f16987fd51371044fb12e76ba9f8d8",
+      "testBuildSha": "d6d5206a82f16987fd51371044fb12e76ba9f8d8",
+      "actualJUnit": {
+        "tests": 77,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "junitFiles": 11,
+      "PASS": true
+    }
+  ],
+  "nativeAcceptance": "PASS_SCOPED_M1_M2_M3",
+  "publication": "NOT_RUN"
+}

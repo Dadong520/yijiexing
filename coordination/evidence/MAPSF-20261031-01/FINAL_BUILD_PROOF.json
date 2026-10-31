@@ -1,0 +1,101 @@
+{
+  "candidateSha": "d6d5206a82f16987fd51371044fb12e76ba9f8d8",
+  "roles": {
+    "passenger": {
+      "candidateSha": "d6d5206a82f16987fd51371044fb12e76ba9f8d8",
+      "buildSha": "d6d5206a82f16987fd51371044fb12e76ba9f8d8",
+      "testBuildSha": "d6d5206a82f16987fd51371044fb12e76ba9f8d8",
+      "inheritedFromPriorCandidate": false,
+      "inheritanceReason": null,
+      "sourceTree": "c4825567b2f8b9adfd7daf04132207c9e001b93a",
+      "trackedFilesByteBound": 108,
+      "apk": "/Users/dongge/.codex/tmp/yijiexing-mapsf-20261031/revisionD6/source/apps/passenger-android/app/build/outputs/apk/debug/app-debug.apk",
+      "sha256": "23bc9e1a075d3e078212c88b9c3bb5cf2581e7beff8c2be722172a14d78c3554",
+      "bytes": 107237753,
+      "packageVersion": "package: name='cn.hbzjhs.dc.passenger.cloud' versionCode='22' versionName='1.1.20-experience' platformBuildVersionName='14' platformBuildVersionCode='34' compileSdkVersion='34' compileSdkVersionCodename='14'",
+      "apksignerExit": 0,
+      "samePriorSigner": true,
+      "httpsPresent": true,
+      "privateValuesScanned": 4,
+      "uncompressedEntriesScanned": 425,
+      "privateExactMatches": 0,
+      "unit": {
+        "tests": 54,
+        "failures": 0,
+        "errors": 0
+      },
+      "commands": "officialSDK/JDK17 offline testDebugUnitTest assembleDebug original; scoped QA assembleDebug",
+      "qa": {
+        "apk": "/Users/dongge/.codex/tmp/yijiexing-mapsf-20261031/revisionD6/build/qa-passenger/_app/outputs/apk/debug/app-debug.apk",
+        "sha256": "ae410b0377c4d7afa4da3e304c1fcb8bdcbd6a4eea183ea57874068068fd2789",
+        "sourceSha": "d6d5206a82f16987fd51371044fb12e76ba9f8d8",
+        "differences": [
+          "QA appId",
+          "localhost TLS endpoint",
+          "debug manifest/networkCA"
+        ],
+        "productKotlinModified": false,
+        "publicationArtifact": false
+      },
+      "sourceSha": "d6d5206a82f16987fd51371044fb12e76ba9f8d8",
+      "signerCertificateSha256": "9ffec9b342d12909ff288bd73f23ba104893b39120cb24ea83c9734a0d2b758f",
+      "identity": {
+        "packageName": "cn.hbzjhs.dc.passenger.cloud",
+        "versionCode": 22,
+        "versionName": "1.1.20-experience"
+      }
+    },
+    "driver": {
+      "candidateSha": "d6d5206a82f16987fd51371044fb12e76ba9f8d8",
+      "buildSha": "d6d5206a82f16987fd51371044fb12e76ba9f8d8",
+      "testBuildSha": "d6d5206a82f16987fd51371044fb12e76ba9f8d8",
+      "inheritedFromPriorCandidate": false,
+      "inheritanceReason": null,
+      "sourceTree": "23b05f529ea5098a1982cc9ea77b664208bd4962",
+      "trackedFilesByteBound": 69,
+      "apk": "/Users/dongge/.codex/tmp/yijiexing-mapsf-20261031/revisionD6/source/candidates/driver-0.3.6-r2/android/app/build/outputs/apk/debug/app-debug.apk",
+      "sha256": "5d405099b76244c1938e448b27b957a2cc51af2a12cb042c4e095f23d6b45631",
+      "bytes": 108718725,
+      "packageVersion": "package: name='cn.hbzjhs.dc.driver.cloud' versionCode='22' versionName='0.3.19-cloud' platformBuildVersionName='14' platformBuildVersionCode='34' compileSdkVersion='34' compileSdkVersionCodename='14'",
+      "apksignerExit": 0,
+      "samePriorSigner": true,
+      "httpsPresent": true,
+      "privateValuesScanned": 4,
+      "uncompressedEntriesScanned": 433,
+      "privateExactMatches": 0,
+      "unit": {
+        "tests": 77,
+        "failures": 0,
+        "errors": 0
+      },
+      "commands": "officialSDK/JDK17 offline testDebugUnitTest assembleDebug original; scoped QA assembleDebug",
+      "qa": {
+        "apk": "/Users/dongge/.codex/tmp/yijiexing-mapsf-20261031/revisionD6/build/qa-driver/_app/outputs/apk/debug/app-debug.apk",
+        "sha256": "d4627e56b2d0c0d978399b3b2dfe94f22e45e249388ca48a424a480455995895",
+        "sourceSha": "d6d5206a82f16987fd51371044fb12e76ba9f8d8",
+        "differences": [
+          "QA appId",
+          "localhost TLS endpoint",
+          "debug manifest/networkCA"
+        ],
+        "productKotlinModified": false,
+        "publicationArtifact": false
+      },
+      "sourceSha": "d6d5206a82f16987fd51371044fb12e76ba9f8d8",
+      "signerCertificateSha256": "9ffec9b342d12909ff288bd73f23ba104893b39120cb24ea83c9734a0d2b758f",
+      "identity": {
+        "packageName": "cn.hbzjhs.dc.driver.cloud",
+        "versionCode": 22,
+        "versionName": "0.3.19-cloud"
+      }
+    }
+  },
+  "scope": "Package/unit binding; native acceptance separately recorded",
+  "fixtureSourceSha": "cbe8190d70db6f4473dc530c2d84cd0500153f2a",
+  "fixtureCloudTreeEqualsFinal": true,
+  "addressDialogSuffixEqualsEE": {
+    "identical": true,
+    "sha256": "a78d75dc8378719b848f99f0c0510cc5e5561288d46c2f95ae6def8ee2a5d217",
+    "reason": "EE native selected-then-type/clear cases may be inherited at exact unchanged AddressDialog+following suffix; final D6 fresh/old/IME interfaces also captured."
+  }
+}

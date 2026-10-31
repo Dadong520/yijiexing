@@ -165,11 +165,24 @@ fun PassengerApp(
       store.clearNotice()
     }
   }
+  // A collapsed map panel on the page shown right now hides the app bars (full-screen map). Only a
+  // claim for this exact page (booking of this passenger, or this order) counts, so leaving the page,
+  // signing out or switching account always brings the bars back. Connection and error notices stay.
+  val mapChrome = remember { MapChromeHost() }
+  val mapScope =
+    if (!logged) null
+    else if (selected.isNotEmpty()) passengerOrderMapScope(selected)
+    else if (page == "home") passengerBookingMapScope(state.optJSONObject("passenger")?.text("id").orEmpty())
+    else null
+  val chromeHidden = mapChrome.hiddenFor(mapScope)
+  CompositionLocalProvider(LocalMapChromeHost provides mapChrome) {
   Scaffold(
     containerColor = Paper,
     snackbarHost = { SnackbarHost(snack) },
     topBar = {
+      if (!chromeHidden || (logged && !connected) || error != null)
       Column(Modifier.background(Color.White).statusBarsPadding()) {
+        if (!chromeHidden)
         Row(
           Modifier.fillMaxWidth().heightIn(min = 56.dp).padding(horizontal = 12.dp),
           verticalAlignment = Alignment.CenterVertically,
@@ -216,7 +229,7 @@ fun PassengerApp(
             Text("连接暂未更新，请刷新重试", color = Amber, fontSize = 13.sp, modifier = Modifier.weight(1f))
             PassengerTextButton(onClick = { store.refresh() }, enabled = !busy) { Text("重试连接") }
           }
-        if (busy) {
+        if (busy && !chromeHidden) {
           LinearProgressIndicator(Modifier.fillMaxWidth())
           Text(
             "正在更新，请稍候…",
@@ -244,7 +257,7 @@ fun PassengerApp(
       }
     },
     bottomBar = {
-      if (logged && selected.isEmpty() && page in listOf("home", "orders", "profile"))
+      if (logged && selected.isEmpty() && page in listOf("home", "orders", "profile") && !chromeHidden)
         NavigationBar(containerColor = Color.White, tonalElevation = 0.dp) {
           listOf(
               Triple("home", "出行", Icons.Default.Home),
@@ -309,6 +322,7 @@ fun PassengerApp(
           else -> ExtraScreen(page, state, store)
         }
     }
+  }
   }
   PassengerAnnouncements(state, store, logged)
   PassengerConfirmPrompts(state, store, logged, busy, openOrderId = selected) {

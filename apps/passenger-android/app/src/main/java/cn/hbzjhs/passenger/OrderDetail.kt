@@ -82,15 +82,73 @@ fun OrderDetail(o: JSONObject, store: PassengerStore, busy: Boolean, openOrder: 
     allState.rows("orders").firstOrNull {
       it.text("id") != id && it.text("stage") == "WAIT_PAY" && !it.optBoolean("paid")
     }
-  Column(Modifier.fillMaxSize()) {
+  val loc = driver?.optJSONObject("location")
+  val hasDriverLoc = loc != null && loc.has("latitude") && loc.has("longitude")
+  val driverTime = loc?.text("receivedAt")?.takeIf { it.isNotBlank() }?.let { formatTime(it) }
+  // Pay and cancel stay pinned to the bottom of the panel so they never need scrolling to find.
+  val pinnedActions: @Composable () -> Unit = {
+    Surface(color = Color.White, shadowElevation = 10.dp, modifier = Modifier.fillMaxWidth()) {
+      Row(
+        Modifier.fillMaxWidth().padding(horizontal = Gap.L, vertical = 10.dp),
+        horizontalArrangement = Arrangement.spacedBy(Gap.M),
+        verticalAlignment = Alignment.CenterVertically,
+      ) {
+        if (cancellable)
+          OutlinedButton(
+            onClick = { cancelChoice = "行程计划有变"; cancelOther = ""; dialog = "cancel" },
+            enabled = !busy,
+            modifier = (if (payable) Modifier.weight(1f) else Modifier.fillMaxWidth()).height(50.dp),
+            shape = androidx.compose.foundation.shape.RoundedCornerShape(14.dp),
+            border = androidx.compose.foundation.BorderStroke(1.dp, if (busy) Line else DangerLine),
+            colors = ButtonDefaults.outlinedButtonColors(contentColor = Danger, disabledContentColor = Muted.copy(alpha = 0.6f)),
+          ) {
+            Icon(Icons.Default.Close, contentDescription = null, modifier = Modifier.size(16.dp))
+            Text("取消订单", fontSize = TypeScale.Body, fontWeight = FontWeight.Medium, modifier = Modifier.padding(start = 4.dp))
+          }
+        if (payable)
+          GradientButton(
+            if (negotiated) "核对第 ${o.optInt("quoteVersion")} 版并支付 ¥${money(o.optLong("fare"))}"
+            else "去支付 ¥${money(o.optLong("fare"))}",
+            !busy,
+            modifier = Modifier.weight(if (cancellable) 1.6f else 1f),
+          ) {
+            shownQuote = if (negotiated) QuoteSnapshot.from(o) else null
+            shownPayment = if (negotiated) null else PaymentSnapshot.from(o)
+            dialog = "pay"
+          }
+      }
+    }
+  }
+  // The route map fills the page behind a draggable panel; pay/cancel stay pinned under the panel
+  // content, and a stage or payability change re-opens a collapsed panel so they never stay hidden.
+  MapPanelLayout(
+    saveKey = passengerOrderMapScope(id),
+    attentionKey = listOf(stage, payable, cancellable),
+    collapsedLabel = if (payable || cancellable) "显示订单与支付/取消操作" else "显示订单详情",
+    map = { mapModifier ->
+      val accuracyVal = loc?.optDouble("accuracy") ?: Double.NaN
+      PassengerMap(
+        originLat = o.optDouble("originLat").toString(),
+        originLng = o.optDouble("originLng").toString(),
+        destinationLat = if (o.optBoolean("destinationPending")) "" else o.optDouble("destinationLat").toString(),
+        destinationLng = if (o.optBoolean("destinationPending")) "" else o.optDouble("destinationLng").toString(),
+        driverLat = if (hasDriverLoc) loc!!.optDouble("latitude").toString() else null,
+        driverLng = if (hasDriverLoc) loc!!.optDouble("longitude").toString() else null,
+        driverReportedTime = driverTime,
+        driverAccuracy = if (!accuracyVal.isNaN() && accuracyVal > 0) "${accuracyVal.toInt()} 米" else null,
+        modifier = mapModifier,
+      )
+    },
+    bottomBar = if (payable || cancellable) pinnedActions else null,
+  ) {
   Column(
     Modifier
-      .weight(1f)
+      .fillMaxSize()
       .verticalScroll(rememberScrollState())
       .padding(horizontal = Gap.L, vertical = Gap.M),
     verticalArrangement = Arrangement.spacedBy(Gap.M),
   ) {
-    // The status message sits above the route map so the passenger sees what changed at a glance.
+    // The status message opens the panel so the passenger sees what changed at a glance.
     OrderStatusBanner(stageName(stage), stageMessage(o, negotiated), orderSummary(o))
     if (unpaidOther != null && stage in listOf("AVAILABLE", "RESERVED", "PICKUP", "PREPAY"))
       OutstandingPaymentNotice { openOrder(unpaidOther.text("id")) }
@@ -110,33 +168,6 @@ fun OrderDetail(o: JSONObject, store: PassengerStore, busy: Boolean, openOrder: 
     Panel("行程路线") {
       if (o.text("scheduledAt").isNotBlank()) {
         KV("计划用车时间", formatTime(o.text("scheduledAt")))
-      }
-      val loc = driver?.optJSONObject("location")
-      val hasDriverLoc = loc != null && loc.has("latitude") && loc.has("longitude")
-      val driverLat = if (hasDriverLoc) loc!!.optDouble("latitude").toString() else null
-      val driverLng = if (hasDriverLoc) loc!!.optDouble("longitude").toString() else null
-      val driverTime = loc?.text("receivedAt")?.takeIf { it.isNotBlank() }?.let { formatTime(it) }
-      val accuracyVal = loc?.optDouble("accuracy") ?: Double.NaN
-      val driverAccuracy = if (!accuracyVal.isNaN() && accuracyVal > 0) "${accuracyVal.toInt()} 米" else null
-
-      Surface(
-        shape = androidx.compose.foundation.shape.RoundedCornerShape(12.dp),
-        border = androidx.compose.foundation.BorderStroke(1.dp, Line),
-        modifier = Modifier
-          .fillMaxWidth()
-          .height(200.dp),
-      ) {
-        PassengerMap(
-          originLat = o.optDouble("originLat").toString(),
-          originLng = o.optDouble("originLng").toString(),
-          destinationLat = if (o.optBoolean("destinationPending")) "" else o.optDouble("destinationLat").toString(),
-          destinationLng = if (o.optBoolean("destinationPending")) "" else o.optDouble("destinationLng").toString(),
-          driverLat = driverLat,
-          driverLng = driverLng,
-          driverReportedTime = driverTime,
-          driverAccuracy = driverAccuracy,
-          modifier = Modifier.fillMaxSize(),
-        )
       }
       if (hasDriverLoc) Note("司机位置更新于 ${driverTime.orEmpty()}")
 
@@ -361,39 +392,6 @@ fun OrderDetail(o: JSONObject, store: PassengerStore, busy: Boolean, openOrder: 
     }
     Spacer(Modifier.height(10.dp))
   }
-  // Pay and cancel stay pinned to the bottom so they never need scrolling to find.
-  if (payable || cancellable)
-    Surface(color = Color.White, shadowElevation = 10.dp, modifier = Modifier.fillMaxWidth()) {
-      Row(
-        Modifier.fillMaxWidth().padding(horizontal = Gap.L, vertical = 10.dp),
-        horizontalArrangement = Arrangement.spacedBy(Gap.M),
-        verticalAlignment = Alignment.CenterVertically,
-      ) {
-        if (cancellable)
-          OutlinedButton(
-            onClick = { cancelChoice = "行程计划有变"; cancelOther = ""; dialog = "cancel" },
-            enabled = !busy,
-            modifier = (if (payable) Modifier.weight(1f) else Modifier.fillMaxWidth()).height(50.dp),
-            shape = androidx.compose.foundation.shape.RoundedCornerShape(14.dp),
-            border = androidx.compose.foundation.BorderStroke(1.dp, if (busy) Line else DangerLine),
-            colors = ButtonDefaults.outlinedButtonColors(contentColor = Danger, disabledContentColor = Muted.copy(alpha = 0.6f)),
-          ) {
-            Icon(Icons.Default.Close, contentDescription = null, modifier = Modifier.size(16.dp))
-            Text("取消订单", fontSize = TypeScale.Body, fontWeight = FontWeight.Medium, modifier = Modifier.padding(start = 4.dp))
-          }
-        if (payable)
-          GradientButton(
-            if (negotiated) "核对第 ${o.optInt("quoteVersion")} 版并支付 ¥${money(o.optLong("fare"))}"
-            else "去支付 ¥${money(o.optLong("fare"))}",
-            !busy,
-            modifier = Modifier.weight(if (cancellable) 1.6f else 1f),
-          ) {
-            shownQuote = if (negotiated) QuoteSnapshot.from(o) else null
-            shownPayment = if (negotiated) null else PaymentSnapshot.from(o)
-            dialog = "pay"
-          }
-      }
-    }
   }
   // Block/pay/driver-choice confirmations keep app-wide popups waiting until they close.
   PassengerModalSlot(dialog.isNotEmpty() || choose != null)
@@ -421,7 +419,6 @@ fun OrderDetail(o: JSONObject, store: PassengerStore, busy: Boolean, openOrder: 
       o.optDouble("destinationLng").toString(),
       emptyList(),
       { dialog = "" },
-      initialNormalization = o.optJSONObject("destinationCoordinateMetadata"),
     ) { name, lat, lng, normalization ->
       store.action(
         "order.update",

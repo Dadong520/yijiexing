@@ -1,0 +1,11 @@
+{
+  "status": "PASS",
+  "at": "2026-10-31T16:37:05.380259+08:00",
+  "adbDevices": "List of devices attached\n\n",
+  "listeners64351_5584_5586": "",
+  "fixtureSession18455": "exit0",
+  "emulatorSession43801": "exit0",
+  "reverse": "removed from exact task-owned serial before emulator stop",
+  "ownBuilds": "All original/QA/unit/proof sessions completed",
+  "privateArtifacts": "APKs/cache/TLS/private identities/DB outside repository only; identities/key/DB0600; no cloud business writes or deployment"
+}

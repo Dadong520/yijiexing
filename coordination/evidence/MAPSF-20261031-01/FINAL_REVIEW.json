@@ -1,0 +1,220 @@
+{
+  "taskId": "MAPSF-20261031-01",
+  "candidateSha": "d6d5206a82f16987fd51371044fb12e76ba9f8d8",
+  "status": "PASS",
+  "scope": "Independent scoped native UI acceptance M1/M2/M3; coordinator owns merge/release",
+  "versionCode": 22,
+  "finalUnitActual": {
+    "passenger": 54,
+    "driver": 77,
+    "failures": 0,
+    "errors": 0,
+    "testBuildSha": "d6d5206a82f16987fd51371044fb12e76ba9f8d8",
+    "inheritedFinalUnitTests": false
+  },
+  "buildProof": "FINAL_BUILD_PROOF.json",
+  "cases": [
+    {
+      "id": "M1-PASSENGER-BOOKING",
+      "status": "PASS",
+      "sourceSha": "d6d5206a82f16987fd51371044fb12e76ba9f8d8",
+      "frames": [
+        "f01-passenger-new-half",
+        "f02-booking-drag-expanded",
+        "f03-booking-last-item",
+        "f04-booking-fullscreen",
+        "f05-booking-tap-restored"
+      ],
+      "actual": "Native dragHalf→Expanded→Collapsed, content lastitem, nativeMap bounds/control resize and no appchrome in fullscreen; visible control restores header/tabs."
+    },
+    {
+      "id": "M1-PASSENGER-ORDER",
+      "status": "PASS",
+      "sourceSha": "d6d5206a82f16987fd51371044fb12e76ba9f8d8",
+      "frames": [
+        "f36-passenger-order-half",
+        "f37-passenger-order-expanded",
+        "f38-passenger-order-last",
+        "f39-passenger-order-fullscreen",
+        "f41-passenger-order-restored-settled",
+        "f42-passenger-order-collapse-before-stage",
+        "f44-passenger-stage-exposed",
+        "f68-order-fullscreen-before-back",
+        "f69-passenger-back-booking-chrome"
+      ],
+      "actual": "Three native drag states, content end and pinnedCancel, fullMap and clickrestore. Explicit synthetic AVAILABLE→ARRIVED stage while collapsed restores panel. Back from fullscreen leaves order and booking chrome restored."
+    },
+    {
+      "id": "M1-DRIVER-HOME",
+      "status": "PASS",
+      "sourceSha": "d6d5206a82f16987fd51371044fb12e76ba9f8d8",
+      "frames": [
+        "f11-driver-current",
+        "f31-driver-home-final-expanded",
+        "f32-driver-home-final-last",
+        "f33-driver-home-final-fullscreen",
+        "f34-driver-home-map-gesture",
+        "f35-driver-home-final-restore",
+        "f96-driver-home-small-actual",
+        "f97-driver-home-small-fullscreen",
+        "f99-driver-home-small-final"
+      ],
+      "actual": "Finalnative3states, contentend, map-region swipe does not move panel; fullscreen hides certificate/identity/tabs; restores them on click, including360dp/font1.3."
+    },
+    {
+      "id": "M1-DRIVER-TRIP",
+      "status": "PASS",
+      "sourceSha": "d6d5206a82f16987fd51371044fb12e76ba9f8d8",
+      "frames": [
+        "f12-driver-trip-half",
+        "f16-driver-small-collapsed-settled",
+        "f18-driver-small-after-tap",
+        "f21-driver-back-half",
+        "f22-driver-trip-final-drag-expanded",
+        "f23-driver-trip-final-drag-fullscreen",
+        "f26-driver-trip-stage-actions",
+        "f28-driver-trip-last-final",
+        "f29-driver-trip-fullscreen-final",
+        "f30-driver-back-home-chrome"
+      ],
+      "actual": "Final3states and lastitem, pinned nav/advance/cancel; small font1.3 button click restores (oldO2 reverified). Back restores home chrome. StageTRIP view/navpoints correct, but stage+configuration sequence is not isolated causal attention proof; originalcbe direct stage attention evidence inherited separately."
+    },
+    {
+      "id": "M1-ATTENTION-INHERITANCE",
+      "status": "PASS_WITH_EXPLICIT_PROVENANCE",
+      "sourceSha": "cbe8190d70db6f4473dc530c2d84cd0500153f2a",
+      "frames": [
+        "d14-home-collapse-before-stage",
+        "d18-stage-after-poll"
+      ],
+      "actual": "Driver native originalcbe collapsed→actual10s statepoll→Half stage actions; attention handler byte-identical finalD6, hash recorded. FinalD6 passenger order stage test isolated without configuration. No relabel of old source or confounded finalsequence."
+    },
+    {
+      "id": "M1-RESTORE-SCOPES",
+      "status": "PASS",
+      "sourceSha": "d6d5206a82f16987fd51371044fb12e76ba9f8d8",
+      "frames": [
+        "f69-passenger-back-booking-chrome",
+        "f70-profile-after-map",
+        "f80-logged-out-chrome",
+        "f84-account1-map-restored",
+        "f87-final-background-fullscreen",
+        "f89-passenger-fullscreen-config-settled",
+        "f95-passenger-small-tap-restored"
+      ],
+      "actual": "Back/page/account leave scope releases hidden chrome; background retains fullscreen; configuration intentionally normalizes toHalf with working navigation, per saver design/coordinator confirmation."
+    },
+    {
+      "id": "M2-EMPTY-DESTINATION-GPS",
+      "status": "PASS",
+      "sourceSha": "d6d5206a82f16987fd51371044fb12e76ba9f8d8",
+      "frames": [
+        "f01-passenger-new-half",
+        "f06-empty-swap-guard",
+        "f07-final-picker-empty",
+        "f10-created-gps-order",
+        "f47-new-draft-after-order"
+      ],
+      "actual": "New draft destination and coordinates absent until selection. Swap parentdisabled when destinationempty. Fresh5m emulatorGPS populates origin; actual local service order stores appliedGPS point. Sameprecision fresh subsequentGPS intentionally retains original per existing rules; initial test expectation corrected transparently.",
+      "dataEvidence": [
+        "gps-order-proof.json",
+        "gps-order-first-observation.json"
+      ]
+    },
+    {
+      "id": "M2-MANUAL-ORIGIN",
+      "status": "PASS",
+      "sourceSha": "d6d5206a82f16987fd51371044fb12e76ba9f8d8",
+      "frames": [
+        "f49-manual-origin-select",
+        "f50-manual-origin-set",
+        "f51-existing-origin-empty-query",
+        "f52-existing-select-other",
+        "f53-existing-cancel-keeps-manual",
+        "f62-small-cancel-draft-kept",
+        "f67-manual-origin-order"
+      ],
+      "actual": "Manual pointA survives different later device mockGPS, cancelled replacement and configuration; actual local order originLat30.6687/lng111.3226 while device lastGPS30.719998/111.379998.",
+      "dataEvidence": [
+        "manual-origin-proof.json"
+      ]
+    },
+    {
+      "id": "M2-DENIED-LOCATION",
+      "status": "PASS_INHERITED_UNCHANGED_PERMISSION_AND_GPS_FLOW",
+      "sourceSha": "ee23c4c71fa979946fc834ccf49b12f03b17031e",
+      "frames": [
+        "p06-new-draft-no-permission",
+        "p18-gps-new-draft"
+      ],
+      "actual": "OriginalEE native no-permission explicit state, then actual system grant/mockGPS; finalD6 changes only host/saveKey in booking and permission implementation unchanged, with final actualGPS/newempty draft evidence. No personaldevice GPS claim."
+    },
+    {
+      "id": "M3-PICKER-FINAL-INTERFACE",
+      "status": "PASS",
+      "sourceSha": "d6d5206a82f16987fd51371044fb12e76ba9f8d8",
+      "frames": [
+        "f07-final-picker-empty",
+        "f48-manual-origin-picker",
+        "f51-existing-origin-empty-query",
+        "f53-existing-cancel-keeps-manual",
+        "f57-small-picker-empty",
+        "f58-small-ime-query",
+        "f59-small-query-supersedes",
+        "f60-small-query-clear",
+        "f61-small-back-hides-ime",
+        "f62-small-cancel-draft-kept",
+        "f73-favorite-picker-empty",
+        "f74-favorite-picker-cancel",
+        "f75-favorite-edit-cancel"
+      ],
+      "actual": "Map above empty query/common/history area; no selection/confirm until actualpick. Existingpoint only map context, query stays empty. RealIME smallscreen input visible; queryA→B→clear, Back hidesIME then headerBack cancels; draft and favorite remain unchanged. Positive provider fuzzy-results rendering not demonstrated in offline environment."
+    },
+    {
+      "id": "M3-SELECT-THEN-TYPE",
+      "status": "PASS_EXACT_UNCHANGED_FUNCTION_INHERITANCE",
+      "sourceSha": "ee23c4c71fa979946fc834ccf49b12f03b17031e",
+      "frames": [
+        "p08-select-favorite",
+        "p09-new-query-clears-old",
+        "p11-clear-pending-query",
+        "p13-cancel-new-picker"
+      ],
+      "actual": "Native select knownpoint then type newquery clears oldselection/coordinates, confirmdisabled. AddressDialog+following suffix byte-identical EE→D6 (FINAL_BUILD_PROOF hash); final interface separately tested onD6."
+    }
+  ],
+  "sourceLineage": {
+    "cbe": "cbe8190d70db6f4473dc530c2d84cd0500153f2a",
+    "ee": "ee23c4c71fa979946fc834ccf49b12f03b17031e",
+    "finalD6": "d6d5206a82f16987fd51371044fb12e76ba9f8d8"
+  },
+  "unchangedAttentionHandlers": {
+    "passenger": {
+      "unchangedAttentionBlock": true,
+      "sha256": "812139e8797d1b901ed0e58b662ecb163df638db87f113d6b1440bb90126bcf7"
+    },
+    "driver": {
+      "unchangedAttentionBlock": true,
+      "sha256": "497bccec30b2e4fa807f695e849c30b6607b5341a3988dc7c98e25a37b1c51ff"
+    }
+  },
+  "frameIndex": "NATIVE_FRAME_INDEX.json",
+  "visualReview": "FINAL_VISUAL_REVIEW.png, actually inspected final4fullscreen/native controls/smallIME/restore",
+  "observations": "NATIVE_OBSERVATIONS.json; O1/O2 finalverified, O3expected canonicalHalf",
+  "harnessNotes": [
+    "First emulator5586 exit134 before registration, fresh5584 bootcompleted and used.",
+    "Early install before bootcompleted returned PackageManagerNPE; boundedbootcheck then successful install. Not productcompile failures.",
+    "Initial equallypreciseGPS replacement expectation was wrong under existing fresh-fix policy; original failed assertion observation retained with corrected expectation, not relabeled as product failure or hidden.",
+    "Stale UI-control chain stopped on exit1; actual current page reread and valid controls retestedf94-99. No result inferred from filenames."
+  ],
+  "limits": [
+    "Actual provider map tiles, road route, POI/fuzzy search positive results, reverse-geocode success, map camera displacement/pinch success NOT_RUN. QA deliberately has no provider credentials and offline DNS; map-region native touch arbitration/size/controls actually tested without claiming underlying provider success.",
+    "No personaldevice/OEM/background-kill reliability/real finance/certification/cloud business mutations/deployment. Only fresh localhost synthetic fixture and emulator mockGPS.",
+    "Synthetic stage assignments/driver association are layout setups, not completed real trip lifecycle. Two actual local creates and one actual local cancel distinguished in events.",
+    "Source framescbe/EE/D6 keep exact attribution. Probe filenames never imply pass; f92 actualpassenger and missing f90/f91/f93 are excluded.",
+    "Platform configuration normalizes Collapsed→Half by design; no fullscreen-persistence requirement or claim.",
+    "Root27/mini74 cbe tests not repeated here; final affected native tests actually54/77 D6 zero failures."
+  ],
+  "cleanup": "PASS; CLEANUP.json",
+  "openProductFindings": []
+}

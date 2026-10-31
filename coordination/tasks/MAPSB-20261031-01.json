@@ -1,0 +1,67 @@
+{
+  "schemaVersion": 1,
+  "id": "MAPSB-20261031-01",
+  "owner": "backend",
+  "goal": "独立复核地图面板与地址选择的业务/并发保护",
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-map-panels-20261031",
+  "branch": "codex/map-panels-20261031",
+  "baseSha": "3587d5af7a5585eff8dbd7921eca348fd905e465",
+  "allow_paths": [
+    "coordination/tasks/MAPSB-20261031-01.json",
+    "coordination/handoffs/backend.md",
+    "coordination/evidence/MAPSB-20261031-01/"
+  ],
+  "checks": [
+    "Compare candidate to3587d5a; no Store/backend/domain changes",
+    "Check owner/GPS/manual/cancel/generation/selection validity",
+    "Preserve gates/callbacks and critical action recovery"
+  ],
+  "status": "SOURCE_FULLSCREEN_DELTA_PASS_IDLE",
+  "acceptance": "PASS",
+  "tests": [
+    {
+      "command": "python3 tools/check_coordination.py --memory-role frontend --session-id 01a182c6-c475-7110-bbae-0deafe6d2385",
+      "status": "PASS"
+    },
+    {
+      "command": "Read-only source branch/HEAD/status; official tooling availability; adb devices",
+      "status": "PASS",
+      "head": "3587d5af7a5585eff8dbd7921eca348fd905e465",
+      "devices": "EMPTY"
+    },
+    {
+      "command": "Build/unit/native3group acceptance",
+      "status": "NOT_RUN",
+      "reason": "Root exact source freeze not supplied; preparation only"
+    },
+    {
+      "command": "Exactcbe8190 vs3587d5a source diff/call-chain review and protected Git object equality",
+      "exitCode": 0,
+      "result": "Two actionable address/swap findings; no broad tests"
+    },
+    {
+      "command": "Exactcbe8190..ee23c4c Git delta and selection/swap enable/click guard inspection",
+      "exitCode": 0,
+      "result": "PASS both source findings closed"
+    },
+    {
+      "command": "Exactee23c4c..d6d5206 seven-product-file source delta/ownership-lifecycle review",
+      "exitCode": 0,
+      "result": "PASS narrow source semantics, earlier eePASS inherited"
+    }
+  ],
+  "evidence": [
+    "coordination/evidence/MAPSF-20261031-01/PREPARATION.json",
+    "coordination/evidence/MAPSB-20261031-01/REVIEW_cbe8190.json",
+    "coordination/evidence/MAPSB-20261031-01/REVIEW_ee23c4c.json",
+    "coordination/evidence/MAPSB-20261031-01/REVIEW_d6d5206.json"
+  ],
+  "nextAction": "Root combine independent frontend rebuilt/native acceptance; backend IDLE",
+  "deploy_owner": "coordinator",
+  "releaseReady": false,
+  "updatedAt": "2026-10-31T16:11:33+08:00",
+  "candidateSha": "d6d5206a82f16987fd51371044fb12e76ba9f8d8",
+  "acceptedSha": "d6d5206a82f16987fd51371044fb12e76ba9f8d8",
+  "pendingMergeSha": "d6d5206a82f16987fd51371044fb12e76ba9f8d8",
+  "reviewer": "backend"
+}

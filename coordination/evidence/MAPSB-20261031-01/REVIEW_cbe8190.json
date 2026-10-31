@@ -1,0 +1,59 @@
+{
+  "taskId": "MAPSB-20261031-01",
+  "reviewerThreadId": "01a182c6-c058-76e1-9584-38abfe813799",
+  "reviewedAt": "2026-10-31T15:58:08+08:00",
+  "candidateSha": "cbe8190d70db6f4473dc530c2d84cd0500153f2a",
+  "baseSha": "3587d5af7a5585eff8dbd7921eca348fd905e465",
+  "acceptance": "FAIL",
+  "scope": "Business-semantic source review only; gestures/rendering delegated frontend",
+  "protectedObjectsEqual": {
+    "apps/cloud-service": true,
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/PassengerStore.kt": true,
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/PassengerPickupDefaults.kt": true,
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/PassengerConfirmPromptRules.kt": true,
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/PassengerModalCoordinator.kt": true,
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/ConnectedStore.kt": true,
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/DriverDomain.kt": true,
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/NavigationAutoRules.kt": true,
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/NavigationContract.kt": true
+  },
+  "findings": [
+    {
+      "id": "MAPSB-01",
+      "priority": "P2",
+      "file": "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/BookingScreens.kt",
+      "line": 608,
+      "problem": "New query retains old chosen point and confirm can submit old selection during debounce or after unrelated search.",
+      "scenario": "Select pointA then typeB: searchFor resets query/results but not name/lat/lng/metadata. pending=true while searching=false for400ms; confirm guard !searching&&name.notBlank remains true and save writesA. After failedB/cancelB, A also stays confirmable although current query isB.",
+      "minimumFix": "Invalidate chosen name/coordinates/metadata on new typed query or explicit unknown-point history search; disable confirm while pending/searching and until a selection belonging to current query or map/common choice is made. Keep initial map center separate, do not silently reuse initial or old selected coordinate. Add focused state-transition regression A selected->B typed->debounce/failure/cancel."
+    },
+    {
+      "id": "MAPSB-02",
+      "priority": "P2",
+      "file": "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/BookingScreens.kt",
+      "line": 334,
+      "problem": "Swap remains enabled when new default destination is empty; it clears GPS origin and permanently marks it manually touched.",
+      "scenario": "New draft has GPS origin and emptydestination; tap交换起终点 -> origin empty, destination oldorigin, originTouched=true. LaterGPS cannot refill, UI now forces manual recovery. Submit guard prevents invalid request but user made no valid swap.",
+      "minimumFix": "Disable swap until both endpoints have confirmed nonblank names and valid coordinates, or reject with clear提示 before changing originTouched/any draft field. Failed swap must preserve draft and automatic GPS ownership."
+    }
+  ],
+  "passedSourceChecks": [
+    "No Store/backend/domain/permission/network/key helper modifications. GPS full-fix owner/generation/manual lookup guards unchanged.",
+    "New destination starts fully empty and explicit require destination/nonblank/coordinate checks precede order.create; no fabricated0 or automatic submit.",
+    "Address initial text/coordinates only position map; query and selection initially blank; save only explicit confirmed chosen point; close cancels and does not save. Existing generation helper retained and map/search callbacks ownership checked.",
+    "Four page wrappers retain event bodies, busy/qualification/one-executing/cancel/pay guards; booking/detail/trip action callbacks moved into supplied bottomBar without auto actions.",
+    "Panel collapsed handle restores half by button; expanded back restoreshalf; attentionKey stage/action flags reopen collapsed detail/trip panels. Native gesture/size/accessibility verification remains frontend."
+  ],
+  "tests": [
+    {
+      "command": "Exactcbe8190 vs3587d5a source diff/call-chain review and protected Git object equality",
+      "exitCode": 0,
+      "result": "Two actionable address/swap findings; no broad tests"
+    }
+  ],
+  "notRun": [
+    "No build/GUI/provider/cloud/businessPOST tests; no source or staging edits"
+  ],
+  "nextAction": "Root author minimal fixMAPSB01/02 then provide exact repair SHA; backend IDLE",
+  "connectionUpdate": "User explicitly confirmed connection recovered. NETC root cause unproven; no further polling or connection testing."
+}

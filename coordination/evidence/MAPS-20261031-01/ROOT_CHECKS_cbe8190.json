@@ -1,0 +1,26 @@
+{
+  "sourceSha": "cbe8190d70db6f4473dc530c2d84cd0500153f2a",
+  "actualTests": [
+    {
+      "command": "python3 -m unittest discover -s tools -p test_check_coordination.py -q",
+      "session": 23583,
+      "exitCode": 0,
+      "passed": 27
+    },
+    {
+      "command": "npm test && npm run check",
+      "session": 21545,
+      "exitCode": 0,
+      "passed": 74,
+      "check": "10pages/25JS/config PASS",
+      "wechat": "NOT_RUN_MISSING_APPID"
+    }
+  ],
+  "protectedTreesUnchanged": {
+    "apps/cloud-service": "033e173314e7339e46c2c78c178b870039609fa9",
+    "apps/admin-console": "86b2ac8af994108b88bf298c8eba725b31fe4a5a",
+    "candidates/passenger-miniprogram-0.1.0": "5236b65283b5bb80939c223aa2abfc3f6534253a"
+  },
+  "android": "Independent frontend pending",
+  "publication": "NOT_RUN"
+}

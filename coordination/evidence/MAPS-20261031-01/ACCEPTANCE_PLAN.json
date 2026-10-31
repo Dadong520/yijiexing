@@ -1,0 +1,24 @@
+{
+  "status": "PLAN_NOT_TESTED",
+  "groups": {
+    "panels": [
+      "Passenger booking/order and driver listening/trip all have collapse/partial/expand states",
+      "Up drag exposes all functions; expanded contents scroll to last item; down drag returns to full map area, handle restores",
+      "Exposed map pan/zoom and panel/content drag do not steal each other; smallscreen/font1.3/IME/back/system insets",
+      "Order stage/account changes do not lose action recovery or bypass business gates"
+    ],
+    "defaults": [
+      "Fresh passenger draft empty destination name and coordinates",
+      "Reliable current location sets start; no permission/poor/stale fix does not fabricate pickup; manual start wins",
+      "Already-filled draft and order are not reset merely opening editor or dragging panel"
+    ],
+    "picker": [
+      "Each start/end open query is empty; initial coordinate may center map independently",
+      "Map above detailed query; fuzzy results below; debounce/cancel/retry/generation gate retained",
+      "Selecting result/map changes draft only on explicit use; dismiss/back retains original",
+      "Unknown/malformed coordinates cannot commit; repeated open, stale result and owner change do not corrupt draft"
+    ]
+  },
+  "sourceBase": "3587d5af7a5585eff8dbd7921eca348fd905e465",
+  "server": "NETC NOT_REPRODUCED_NOT_RESOLVED; waiting user phone error/network; no blind service mutation"
+}

@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "id": "MAPSC-20261031-01",
+  "owner": "claude",
+  "goal": "实现地图拖动面板与乘客选址",
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-map-panels-20261031",
+  "branch": "codex/map-panels-20261031",
+  "baseSha": "3587d5af7a5585eff8dbd7921eca348fd905e465",
+  "allow_paths": [
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/BookingScreens.kt",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/OrderDetail.kt",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/PassengerMap.kt",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/PassengerPickupDefaults.kt",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/MapPanel.kt",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/CoreScreens.kt",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/NativeMap.kt",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/MapPanel.kt",
+    "coordination/handoffs/claude.md",
+    "coordination/evidence/MAPSC-20261031-01/",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/MainActivity.kt",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/MainActivity.kt"
+  ],
+  "checks": [
+    "Preserve current account/order/GPS/manual/modal/search guards",
+    "No live business writes/personal phone/original test or production; root only release",
+    "Actual tests/independent review before completion; NOT_RUN explicit"
+  ],
+  "status": "FULLSCREEN_REPAIRED_WAIT_INDEPENDENT_CHECK",
+  "acceptance": "NOT_RUN",
+  "tests": [],
+  "evidence": [],
+  "nextAction": "Independent review/build/native acceptance; no publication yet",
+  "deploy_owner": "coordinator",
+  "releaseReady": false,
+  "sessionId": "9bc07c4c-731c-4b1f-840b-ce6a0c5dc85a",
+  "model": "claude-opus-5-5",
+  "effort": "high",
+  "candidateSha": "d6d5206a82f16987fd51371044fb12e76ba9f8d8"
+}

@@ -1,0 +1,14 @@
+{
+  "lookback": "3h",
+  "limit": 30,
+  "exitCode": 0,
+  "slowRequests": [
+    {
+      "timestamp": "2026-10-31T07:18:23.035876Z",
+      "method": "GET",
+      "status": 200,
+      "latency": "75.443483197s",
+      "pathCategory": "OTHER_REDACTED"
+    }
+  ]
+}

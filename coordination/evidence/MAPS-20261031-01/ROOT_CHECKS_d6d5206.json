@@ -1,0 +1,18 @@
+{
+  "sourceSha": "d6d5206a82f16987fd51371044fb12e76ba9f8d8",
+  "previousActual": "ROOT_CHECKS_cbe8190.json",
+  "inheritance": "tools27/mini74/project check actualcbe; tools/mini/backend/admin full trees equal. DriverCoreScreens scanned by one mini regression changed only UI; exact targeted regression rerun PASS below. No claim full checks rerun on finalSHA.",
+  "treeEquality": {
+    "tools": "8c703659b26b2b1fcbc8cea608b8bfb04af2e8e6",
+    "candidates/passenger-miniprogram-0.1.0": "5236b65283b5bb80939c223aa2abfc3f6534253a",
+    "apps/cloud-service": "033e173314e7339e46c2c78c178b870039609fa9",
+    "apps/admin-console": "86b2ac8af994108b88bf298c8eba725b31fe4a5a"
+  },
+  "actualTargeted": {
+    "command": "node --test --test-name-pattern='采用累计口径' tests/regression-ag-20261025.test.js",
+    "session": 26898,
+    "exitCode": 0,
+    "passed": 1
+  },
+  "nativeAndAndroid": "frontend final acceptance pending; independent d6 build/unit reported PASS, final proof expected"
+}

@@ -1,0 +1,21 @@
+{
+  "sourceSha": "cbe8190d70db6f4473dc530c2d84cd0500153f2a",
+  "originalUnitAndAssemble": "PASS",
+  "unit": {
+    "passenger": {
+      "tests": 54,
+      "failures": 0,
+      "errors": 0
+    },
+    "driver": {
+      "tests": 77,
+      "failures": 0,
+      "errors": 0
+    }
+  },
+  "logs": {
+    "passenger": "/Users/dongge/.codex/tmp/yijiexing-mapsf-20261031/logs/passenger-original-build.log",
+    "driver": "/Users/dongge/.codex/tmp/yijiexing-mapsf-20261031/logs/driver-original-build.log"
+  },
+  "next": "Root correcting passenger selection edge cases, no pre-fix picker GUI; driverQA and dedicatedAVD prep underway"
+}

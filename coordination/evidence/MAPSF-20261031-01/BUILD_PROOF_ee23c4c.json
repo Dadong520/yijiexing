@@ -1,0 +1,80 @@
+{
+  "candidateSha": "ee23c4c71fa979946fc834ccf49b12f03b17031e",
+  "roles": {
+    "passenger": {
+      "candidateSha": "ee23c4c71fa979946fc834ccf49b12f03b17031e",
+      "buildSha": "ee23c4c71fa979946fc834ccf49b12f03b17031e",
+      "testBuildSha": "ee23c4c71fa979946fc834ccf49b12f03b17031e",
+      "inheritedFromPriorCandidate": false,
+      "inheritanceReason": null,
+      "sourceTree": "47ccfeaf92b4c92c3e56bdc6f926e5ee15b6e3c0",
+      "trackedFilesByteBound": 108,
+      "apk": "/Users/dongge/.codex/tmp/yijiexing-mapsf-20261031/revisionEE/source/apps/passenger-android/app/build/outputs/apk/debug/app-debug.apk",
+      "sha256": "a0801c278bfc176334de73c81bfcf8d3bf5386987f303681b73e6f9c547ec7a5",
+      "bytes": 107237753,
+      "packageVersion": "package: name='cn.hbzjhs.dc.passenger.cloud' versionCode='22' versionName='1.1.20-experience' platformBuildVersionName='14' platformBuildVersionCode='34' compileSdkVersion='34' compileSdkVersionCodename='14'",
+      "apksignerExit": 0,
+      "samePriorSigner": true,
+      "httpsPresent": true,
+      "privateValuesScanned": 4,
+      "uncompressedEntriesScanned": 425,
+      "privateExactMatches": 0,
+      "unit": {
+        "tests": 54,
+        "failures": 0,
+        "errors": 0
+      },
+      "commands": "officialSDK/JDK17 offline testDebugUnitTest assembleDebug original; scoped QA assembleDebug",
+      "qa": {
+        "apk": "/Users/dongge/.codex/tmp/yijiexing-mapsf-20261031/revisionEE/build/qa-passenger/_app/outputs/apk/debug/app-debug.apk",
+        "sha256": "6eb8912e80061d903903301c2f831c4c5b174d288897331f903e5eb2827586c4",
+        "sourceSha": "ee23c4c71fa979946fc834ccf49b12f03b17031e",
+        "differences": [
+          "QA appId",
+          "localhost TLS endpoint",
+          "debug manifest/networkCA"
+        ],
+        "productKotlinModified": false,
+        "publicationArtifact": false
+      }
+    },
+    "driver": {
+      "candidateSha": "ee23c4c71fa979946fc834ccf49b12f03b17031e",
+      "buildSha": "cbe8190d70db6f4473dc530c2d84cd0500153f2a",
+      "testBuildSha": "cbe8190d70db6f4473dc530c2d84cd0500153f2a",
+      "inheritedFromPriorCandidate": true,
+      "inheritanceReason": "Driver complete Git tree identicalcbe\u2192EE",
+      "sourceTree": "c1a52a41aa2745a91fa7441b13c7566b7e1a71d7",
+      "trackedFilesByteBound": 69,
+      "apk": "/Users/dongge/.codex/tmp/yijiexing-mapsf-20261031/source/candidates/driver-0.3.6-r2/android/app/build/outputs/apk/debug/app-debug.apk",
+      "sha256": "676c60f4552b63377b0f0f9db6a8e10f18cb05b03799627249e9e3250ea645ec",
+      "bytes": 108718725,
+      "packageVersion": "package: name='cn.hbzjhs.dc.driver.cloud' versionCode='22' versionName='0.3.19-cloud' platformBuildVersionName='14' platformBuildVersionCode='34' compileSdkVersion='34' compileSdkVersionCodename='14'",
+      "apksignerExit": 0,
+      "samePriorSigner": true,
+      "httpsPresent": true,
+      "privateValuesScanned": 4,
+      "uncompressedEntriesScanned": 433,
+      "privateExactMatches": 0,
+      "unit": {
+        "tests": 77,
+        "failures": 0,
+        "errors": 0
+      },
+      "commands": "officialSDK/JDK17 offline testDebugUnitTest assembleDebug original; scoped QA assembleDebug",
+      "qa": {
+        "apk": "/Users/dongge/.codex/tmp/yijiexing-mapsf-20261031/build/qa-driver/_app/outputs/apk/debug/app-debug.apk",
+        "sha256": "c3faf0948bad6bb8ac59a0c26e294c0cc97275a656882f38bd9633cd722628e4",
+        "sourceSha": "cbe8190d70db6f4473dc530c2d84cd0500153f2a",
+        "differences": [
+          "QA appId",
+          "localhost TLS endpoint",
+          "debug manifest/networkCA"
+        ],
+        "productKotlinModified": false,
+        "publicationArtifact": false
+      }
+    }
+  },
+  "scope": "Package/unit binding; native acceptance separately recorded"
+}

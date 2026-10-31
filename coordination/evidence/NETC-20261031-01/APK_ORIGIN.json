@@ -1,0 +1,16 @@
+[
+  {
+    "role": "passenger",
+    "artifactAvailable": true,
+    "recordedOriginalHttpsPresent": true,
+    "hashMatchesPublished21": true,
+    "configuredOriginFoundInDex": true
+  },
+  {
+    "role": "driver",
+    "artifactAvailable": true,
+    "recordedOriginalHttpsPresent": true,
+    "hashMatchesPublished21": true,
+    "configuredOriginFoundInDex": true
+  }
+]

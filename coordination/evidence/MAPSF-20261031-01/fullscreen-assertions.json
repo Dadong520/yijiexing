@@ -1,0 +1,44 @@
+[
+  {
+    "frame": "f04-booking-fullscreen",
+    "appChromeAbsent": true,
+    "nativeMapBounds": [
+      "[0,128][1080,2169]"
+    ]
+  },
+  {
+    "frame": "f15-driver-small-fullscreen",
+    "appChromeAbsent": true,
+    "nativeMapBounds": [
+      "[0,68][720,1112]"
+    ]
+  },
+  {
+    "frame": "f23-driver-trip-final-drag-fullscreen",
+    "appChromeAbsent": true,
+    "nativeMapBounds": [
+      "[0,68][720,1112]"
+    ]
+  },
+  {
+    "frame": "f29-driver-trip-fullscreen-final",
+    "appChromeAbsent": true,
+    "nativeMapBounds": [
+      "[0,128][1080,2169]"
+    ]
+  },
+  {
+    "frame": "f33-driver-home-final-fullscreen",
+    "appChromeAbsent": true,
+    "nativeMapBounds": [
+      "[0,128][1080,2169]"
+    ]
+  },
+  {
+    "frame": "f39-passenger-order-fullscreen",
+    "appChromeAbsent": true,
+    "nativeMapBounds": [
+      "[0,128][1080,2169]"
+    ]
+  }
+]
