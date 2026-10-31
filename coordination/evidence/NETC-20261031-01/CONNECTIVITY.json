@@ -1,0 +1,83 @@
+{
+  "at": "2026-10-31T15:39:37+08:00",
+  "dns": [
+    {
+      "host": "yijiexing-demo.hbzjhs.xyz",
+      "addresses": [
+        "198.18.0.104"
+      ],
+      "success": true
+    },
+    {
+      "host": "user-test---driver-demo-phfgquzmua-uw.a.run.app",
+      "addresses": [
+        "198.18.0.41"
+      ],
+      "success": true
+    },
+    {
+      "host": "demo-admin.hbzjhs.xyz",
+      "addresses": [
+        "198.18.0.105"
+      ],
+      "success": true
+    },
+    {
+      "host": "user-test---driver-admin-phfgquzmua-uw.a.run.app",
+      "addresses": [
+        "198.18.0.106"
+      ],
+      "success": true
+    }
+  ],
+  "http": [
+    {
+      "host": "yijiexing-demo.hbzjhs.xyz",
+      "path": "/health",
+      "transport": "direct",
+      "exitCode": 0,
+      "metrics_http_ssl_dns_connect_tls_ttfb_total": "200 0 0.004383 0.004855 1.974816 2.546996 2.547252",
+      "error": ""
+    },
+    {
+      "host": "user-test---driver-demo-phfgquzmua-uw.a.run.app",
+      "path": "/health",
+      "transport": "direct",
+      "exitCode": 0,
+      "metrics_http_ssl_dns_connect_tls_ttfb_total": "200 0 0.006142 0.006509 1.823392 3.956596 3.957059",
+      "error": ""
+    },
+    {
+      "host": "demo-admin.hbzjhs.xyz",
+      "path": "/",
+      "transport": "direct",
+      "exitCode": 0,
+      "metrics_http_ssl_dns_connect_tls_ttfb_total": "200 0 0.004042 0.004554 1.562083 13.395603 13.399524",
+      "error": ""
+    },
+    {
+      "host": "user-test---driver-admin-phfgquzmua-uw.a.run.app",
+      "path": "/",
+      "transport": "direct",
+      "exitCode": 0,
+      "metrics_http_ssl_dns_connect_tls_ttfb_total": "200 0 0.011111 0.011977 1.458038 3.584945 3.585470",
+      "error": ""
+    },
+    {
+      "host": "yijiexing-demo.hbzjhs.xyz",
+      "path": "/api/passenger/state",
+      "transport": "direct",
+      "exitCode": 0,
+      "metrics_http_ssl_dns_connect_tls_ttfb_total": "401 0 0.004870 0.005251 2.237606 2.905447 2.905966",
+      "error": ""
+    },
+    {
+      "host": "yijiexing-demo.hbzjhs.xyz",
+      "path": "/api/state",
+      "transport": "direct",
+      "exitCode": 0,
+      "metrics_http_ssl_dns_connect_tls_ttfb_total": "401 0 0.004081 0.004549 1.681422 6.558505 6.558747",
+      "error": ""
+    }
+  ]
+}

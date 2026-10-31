@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "id": "MAPS-20261031-01",
+  "owner": "coordinator",
+  "goal": "两端拖动面板与乘客首页/选址改造验收发布",
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-map-panels-20261031",
+  "branch": "codex/map-panels-20261031",
+  "baseSha": "3587d5af7a5585eff8dbd7921eca348fd905e465",
+  "allow_paths": [
+    "coordination/",
+    "README.md",
+    "apps/passenger-android/app/build.gradle.kts",
+    "candidates/driver-0.3.6-r2/android/app/build.gradle.kts"
+  ],
+  "checks": [
+    "Preserve current account/order/GPS/manual/modal/search guards",
+    "No live business writes/personal phone/original test or production; root only release",
+    "Actual tests/independent review before completion; NOT_RUN explicit"
+  ],
+  "status": "ACTIVE",
+  "acceptance": "NOT_RUN",
+  "tests": [],
+  "evidence": [],
+  "nextAction": "Scoped implementation/diagnosis",
+  "deploy_owner": "coordinator",
+  "releaseReady": false
+}

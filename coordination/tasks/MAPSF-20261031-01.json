@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "id": "MAPSF-20261031-01",
+  "owner": "frontend",
+  "goal": "独立验收两端地图面板和乘客选址，等待准确源码冻结",
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-map-panels-20261031",
+  "branch": "codex/map-panels-20261031",
+  "baseSha": "3587d5af7a5585eff8dbd7921eca348fd905e465",
+  "allow_paths": [
+    "coordination/tasks/MAPSF-20261031-01.json",
+    "coordination/handoffs/frontend.md",
+    "coordination/evidence/MAPSF-20261031-01/"
+  ],
+  "checks": [
+    "No product edits or author self-acceptance",
+    "Official Android tools dedicated isolated emulator only current UI acceptance; no personal device/cloud business writes",
+    "Verify both panels3states/scroll/restore/map gesture/back, blankdestination/GPS/manual origin, blank picker and stale searches/cancel; build/test finalsource and cleanup"
+  ],
+  "status": "PREPARED_WAIT_SOURCE_FREEZE",
+  "acceptance": "NOT_RUN",
+  "tests": [
+    {
+      "command": "python3 tools/check_coordination.py --memory-role frontend --session-id 01a182c6-c475-7110-bbae-0deafe6d2385",
+      "status": "PASS"
+    },
+    {
+      "command": "Read-only source branch/HEAD/status; official tooling availability; adb devices",
+      "status": "PASS",
+      "head": "3587d5af7a5585eff8dbd7921eca348fd905e465",
+      "devices": "EMPTY"
+    },
+    {
+      "command": "Build/unit/native3group acceptance",
+      "status": "NOT_RUN",
+      "reason": "Root exact source freeze not supplied; preparation only"
+    }
+  ],
+  "evidence": [
+    "coordination/evidence/MAPSF-20261031-01/PREPARATION.json"
+  ],
+  "nextAction": "Wait root exact freeze; then narrowly inspect final diff and export/build/test3groups. No background polling.",
+  "deploy_owner": "coordinator",
+  "releaseReady": false,
+  "updatedAt": "2026-10-31T15:41:42.660394+08:00"
+}

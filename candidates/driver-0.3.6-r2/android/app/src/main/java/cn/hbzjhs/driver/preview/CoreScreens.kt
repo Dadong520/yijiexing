@@ -283,11 +283,10 @@ fun ConnectedHome(
     }
     val available = if (selectedKind == null) allAvailable else allAvailable.filter { it.kind == selectedKind }
 
-    BoxWithConstraints(Modifier.fillMaxSize().background(Page)) {
-        // The identity bar sits above the map (never on top of it), and the order sheet keeps
-        // at least ~360dp below the bars so hall/in-trip actions stay reachable on small screens and
-        // with large text; the map gives way first (down to 150dp) instead of squeezing the sheet.
-        val mapHeight = minOf(maxHeight * 0.46f, maxHeight - 420.dp).coerceAtLeast(150.dp)
+    Box(Modifier.fillMaxSize().background(Page)) {
+        // The identity bar sits above the map (never on top of it). The order sheet can be dragged
+        // over the map or down to a handle; at half height it keeps ~360dp so hall/in-trip actions
+        // stay reachable on small screens and with large text, and the map gives way first.
         Column(Modifier.fillMaxSize()) {
             DriverQualificationBanner(payload, navigate)
             Surface(
@@ -339,15 +338,15 @@ fun ConnectedHome(
                     }
                 }
             }
-            Box(Modifier.fillMaxWidth().height(mapHeight)) {
-                NativeMap(Modifier.fillMaxSize(), order = active)
-            }
-            Surface(
+            // An in-trip or listening-state change brings a collapsed sheet back so its actions stay findable.
+            MapPanelLayout(
+                saveKey = "driver-home",
                 modifier = Modifier.fillMaxWidth().weight(1f),
-                shape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp),
-                color = Page,
-                border = BorderStroke(1.dp, Line),
-                shadowElevation = 3.dp
+                attentionKey = listOf(active?.id, active?.stage, state.online, canAccept, online),
+                collapsedLabel = if (active != null) "显示当前行程" else "显示听单与订单大厅",
+                minHalfContent = 300.dp,
+                containerColor = Page,
+                map = { mapModifier -> NativeMap(mapModifier, order = active) },
             ) {
                 LazyColumn(
                     modifier = Modifier.fillMaxSize(),
@@ -779,10 +778,11 @@ fun ConnectedTrip(
             Stage.BID_SENT -> "刷新订单状态"
             else -> "返回听单"
         }
-    Column(Modifier.fillMaxSize()) {
-        PageHeader(title, onBack)
+    // Stages with a route show it as a full map behind a draggable sheet; other stages keep the list.
+    val showMap = order.stage in setOf(Stage.RESERVED, Stage.PICKUP, Stage.ARRIVED, Stage.TRIP)
+    val tripDetails: @Composable (Modifier) -> Unit = { listModifier ->
         LazyColumn(
-            Modifier.weight(1f),
+            listModifier,
             contentPadding = PaddingValues(start = 18.dp, end = 18.dp, bottom = 18.dp),
             verticalArrangement = Arrangement.spacedBy(12.dp),
         ) {
@@ -796,8 +796,6 @@ fun ConnectedTrip(
                 }
             if (order.kind == OrderKind.NEGOTIATED && (order.canPairWithPassenger || order.shared))
                 item { NegotiationSupport(order, store, onMessage) }
-            if (order.stage in setOf(Stage.RESERVED, Stage.PICKUP, Stage.ARRIVED, Stage.TRIP))
-                item { NativeMap(Modifier.fillMaxWidth().height(190.dp), order) }
             if (
                 order.stage in setOf(Stage.BID_SENT, Stage.PREPAY, Stage.WAIT_PAY) &&
                     !(order.kind == OrderKind.NEGOTIATED && order.stage == Stage.PREPAY)
@@ -902,8 +900,10 @@ fun ConnectedTrip(
                 }
             }
         }
-        // Compact action bar: navigation and the next step share one row so the map and trip details
-        // keep most of the screen; cancelling is a small secondary link below.
+    }
+    // Compact action bar: navigation and the next step share one row so the map and trip details
+    // keep most of the screen; cancelling is a small secondary link below.
+    val tripActions: @Composable () -> Unit = {
         Surface(color = Color.White, shadowElevation = 6.dp) {
             Column(Modifier.padding(horizontal = Gap.L, vertical = 10.dp)) {
                 val navTarget = if (order.isActive) order.navigationTarget() else null
@@ -974,6 +974,24 @@ fun ConnectedTrip(
                     )
                 }
             }
+        }
+    }
+    Column(Modifier.fillMaxSize()) {
+        PageHeader(title, onBack)
+        if (showMap)
+            // The action bar stays pinned under the sheet content; a stage or waypoint/consent change
+            // brings a collapsed sheet back so the next step is never left hidden.
+            MapPanelLayout(
+                saveKey = "driver-trip:${order.id}",
+                modifier = Modifier.fillMaxWidth().weight(1f),
+                attentionKey = listOf(order.stage, hasPendingWaypoints, distancePending, order.canCancel),
+                collapsedLabel = "显示行程操作",
+                map = { mapModifier -> NativeMap(mapModifier, order) },
+                bottomBar = tripActions,
+            ) { tripDetails(Modifier.fillMaxSize()) }
+        else {
+            tripDetails(Modifier.weight(1f))
+            tripActions()
         }
     }
     if (verify)

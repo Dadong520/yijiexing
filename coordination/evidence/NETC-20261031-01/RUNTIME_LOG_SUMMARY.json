@@ -1,0 +1,127 @@
+{
+  "at": "2026-10-31T15:40:10+08:00",
+  "services": [
+    {
+      "service": "driver-demo",
+      "ready": "True",
+      "latestReadyRevision": "driver-demo-ccui-107e226-test1",
+      "url": "https://driver-demo-phfgquzmua-uw.a.run.app",
+      "traffic": [
+        {
+          "percent": 100,
+          "revision": "driver-demo-ccui-107e226-test1",
+          "tag": "ccui-qa"
+        },
+        {
+          "percent": null,
+          "revision": "driver-demo-pm-364078b4-qa1",
+          "tag": "pm-map-qa"
+        },
+        {
+          "percent": null,
+          "revision": "driver-demo-pmv-817ed22-test1",
+          "tag": "pmv-qa"
+        },
+        {
+          "percent": null,
+          "revision": "driver-demo-pui-7d6dc60-test1",
+          "tag": "pui-qa"
+        },
+        {
+          "percent": null,
+          "revision": "driver-demo-ccui-107e226-test1",
+          "tag": "user-test"
+        }
+      ],
+      "concurrency": 1,
+      "timeoutSeconds": 900,
+      "minScale": "0",
+      "maxScale": "1",
+      "cpuThrottling": "true"
+    },
+    {
+      "service": "driver-admin",
+      "ready": "True",
+      "latestReadyRevision": "driver-admin-ccui-107e226-test1",
+      "url": "https://driver-admin-phfgquzmua-uw.a.run.app",
+      "traffic": [
+        {
+          "percent": 100,
+          "revision": "driver-admin-ccui-107e226-test1",
+          "tag": "ccui-qa"
+        },
+        {
+          "percent": null,
+          "revision": "driver-admin-pmv-817ed22-test1",
+          "tag": "pmv-qa"
+        },
+        {
+          "percent": null,
+          "revision": "driver-admin-pui-7d6dc60-test1",
+          "tag": "pui-qa"
+        },
+        {
+          "percent": null,
+          "revision": "driver-admin-ccui-107e226-test1",
+          "tag": "user-test"
+        }
+      ],
+      "concurrency": 1,
+      "timeoutSeconds": 300,
+      "minScale": "0",
+      "maxScale": "1",
+      "cpuThrottling": "true"
+    }
+  ],
+  "boundedRequestLogs": {
+    "lookback": "3h",
+    "limit": 120,
+    "returned": 71,
+    "statusPathCounts": [
+      {
+        "method": "POST",
+        "status": 200,
+        "pathCategory": "OTHER_PATH_REDACTED",
+        "count": 8
+      },
+      {
+        "method": "GET",
+        "status": 200,
+        "pathCategory": "/api/state",
+        "count": 16
+      },
+      {
+        "method": "GET",
+        "status": 401,
+        "pathCategory": "/api/state",
+        "count": 1
+      },
+      {
+        "method": "GET",
+        "status": 401,
+        "pathCategory": "/api/passenger/state",
+        "count": 1
+      },
+      {
+        "method": "GET",
+        "status": 200,
+        "pathCategory": "/health",
+        "count": 2
+      },
+      {
+        "method": "GET",
+        "status": 200,
+        "pathCategory": "/api/passenger/state",
+        "count": 42
+      },
+      {
+        "method": "GET",
+        "status": 200,
+        "pathCategory": "/download-passenger.apk",
+        "count": 1
+      }
+    ],
+    "maxLatencySeconds": 75.443483197,
+    "note": "No bodies, query strings, IPs, account IDs or tokens emitted; bounded sample not all traffic"
+  }
+}

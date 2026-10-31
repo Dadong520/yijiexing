@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "id": "NETC-20261031-01",
+  "owner": "backend",
+  "goal": "只读检查App服务器连接故障",
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-map-panels-20261031",
+  "branch": "codex/map-panels-20261031",
+  "baseSha": "3587d5af7a5585eff8dbd7921eca348fd905e465",
+  "allow_paths": [
+    "coordination/tasks/NETC-20261031-01.json",
+    "coordination/handoffs/backend.md",
+    "coordination/evidence/NETC-20261031-01/"
+  ],
+  "checks": [
+    "Preserve current account/order/GPS/manual/modal/search guards",
+    "No live business writes/personal phone/original test or production; root only release",
+    "Actual tests/independent review before completion; NOT_RUN explicit"
+  ],
+  "status": "COMPLETE_USER_CONFIRMED_RECOVERED",
+  "acceptance": "NOT_RUN",
+  "tests": [
+    {
+      "command": "Serial DNS + direct curl GET health/admin/unauthenticated state",
+      "exitCode": 0,
+      "result": "Current-host transport PASS; user phone fault not reproduced"
+    },
+    {
+      "command": "Read-only gcloud independent project describe + bounded3h logs",
+      "exitCode": 0,
+      "result": "Ready unchanged revisions; sample no429/5xx; second category queryTIMEOUT50s"
+    },
+    {
+      "command": "Local published21APK hash and DEX origin check",
+      "exitCode": 0,
+      "result": "Both hashes/origin match"
+    }
+  ],
+  "evidence": [
+    "coordination/evidence/NETC-20261031-01/DIAGNOSIS.json",
+    "coordination/evidence/NETC-20261031-01/APK_ORIGIN.json",
+    "coordination/evidence/NETC-20261031-01/CONNECTIVITY.json",
+    "coordination/evidence/NETC-20261031-01/RUNTIME_LOG_SUMMARY.json",
+    "coordination/evidence/NETC-20261031-01/SLOW_REQUESTS.json"
+  ],
+  "nextAction": "IDLE; user confirmed already recovered; cause not established, no infrastructure changes",
+  "deploy_owner": "coordinator",
+  "releaseReady": false,
+  "updatedAt": "2026-10-31T15:42:54+08:00",
+  "pendingMergeSha": null,
+  "userConfirmedRecovered": true
+}
