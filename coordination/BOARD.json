@@ -116,10 +116,10 @@
     "coordination/archive/2026-10-26/AUTH-20261026-02.json"
   ],
   "memoryProtocolVersion": "2026-10-26-v3",
-  "currentStage": "GRAB25_PUBLISHED_ACTUAL_RECEIPT_REVIEW",
+  "currentStage": "GRAB25_PUBLISHED_RECEIPT_REVIEW20_PASS_FINAL_CI",
   "roleAssignments": {
     "coordinator": "GRAB sole review/integration/release",
-    "backend": "GRABRER bounded actual receipt/README nonauthor audit",
+    "backend": "IDLE actualreceipt20checks PASS P1/P2=0",
     "frontend": "IDLE HANDOFF_RECOMMENDED SDK feasibility PASS",
     "antigravity": "PAUSED_BY_USER_20261029; no new Gemini dispatch",
     "expert": "IDLE; configuration verified, SDK auth recovered; user deferred actual device test",

@@ -22,21 +22,21 @@
       "ackVersion": "2026-10-26-v3",
       "checkpointId": "GRABREC-20261101-01",
       "handoffPath": "coordination/handoffs/coordinator.md",
-      "workflowState": "GRABREC_ACTUAL_RECEIPT_REVIEW"
+      "workflowState": "GRABREC_FINAL_METADATA_CI"
     },
     "backend": {
       "threadId": "01a182c6-c058-76e1-9584-38abfe813799",
       "title": "宜捷行｜后端与业务规则（二代）",
       "model": "gpt-6.1-sol",
       "memoryStatus": "NORMAL",
-      "reason": "Actual publication evidence only; no backend self-acceptance/source edits/cloud",
+      "reason": "Actual metadata candidateb8921e4 nonauthor20PASS P1/P2=0, no cloud/build/source changes",
       "contextUsedPercent": null,
       "measurementSource": "not_exposed",
       "measurementAt": null,
       "ackVersion": "2026-10-26-v3",
       "checkpointId": "GRABRER-20261101-01",
       "handoffPath": "coordination/handoffs/backend.md",
-      "workflowState": "ASSIGNED_ACTUAL_RECEIPT_AUDIT",
+      "workflowState": "IDLE_GRABRER20_PASS",
       "execution": "visible independent Codex thread",
       "roleGeneration": 2
     },

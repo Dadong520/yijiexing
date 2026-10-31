@@ -1,4 +1,4 @@
-# 宜捷行当前：司机25与竞抢API已发布，完整回读PASS；实际回执待独立复核入main
+# 宜捷行当前：司机25与竞抢API已发布，完整回读及实际回执20项独立复核PASS
 中央 /Users/dongge/Documents/New project 2/coordination 唯一权威；协议2026-10-26-v3。coordinator01a17cc7-e0a2-7791-bf1d-4611c09bab22/generation6唯一协调/验收/合并发布，contextUNKNOWN，无常驻自动化。
 
 ## 实际发布GRAB-20261101-01
@@ -13,6 +13,6 @@ Claude主要客户端实现，官方SIDf0e957b7-5f75-4d4b-88a7-0043b2ad9253 Opus
 发布前后48→48旧passenger_orders和2→2 passenger_order_contacts完整行相同，0丢/0改；只比较两表。原始DB/凭据/APK/cache私有0600不入Git，云业务POST0，不还原旧46/45。仅独立projectyijiexing-driver-demo-1023/us-west1，禁止原测试/生产。
 
 ## 当前下一步
-source /Users/dongge/.codex/tmp/yijiexing-order-competition-20261101，仅metadata branch codex/order-competition-receipt-20261101，GRABREC/GRABRER对实际receipt/README窄审及准确CI入main。产品已发，不重复部署/上传/提升；backend收到root精确SHA再窄审。唯一backend可写仍/Users/dongge/.codex/tmp/yijiexing-ui-optimization-worktree-20261029/apps/cloud-service。frontend IDLE/HANDOFF_RECOMMENDED，Gemini暂停，Astra仅堵点，Claude因本轮额度停止，无后台进程/自动化。
+source /Users/dongge/.codex/tmp/yijiexing-order-competition-20261101，仅metadata branch codex/order-competition-receipt-20261101，GRABREC/GRABRER对精确b8921e4实际receipt/README的20项独立窄审PASS/P1P2=0，审查报告随本次metadata保存；最新准确CI/合并状态以GitHub与中央回执为准。产品已发，不重复部署/上传/提升；backend已完成窄审并IDLE。唯一backend可写仍/Users/dongge/.codex/tmp/yijiexing-ui-optimization-worktree-20261029/apps/cloud-service。frontend IDLE/HANDOFF_RECOMMENDED，Gemini暂停，Astra仅堵点，Claude因本轮额度停止，无后台进程/自动化。
 司机 https://user-test---driver-demo-phfgquzmua-uw.a.run.app/download；乘客同域/download-passenger；后台 https://demo-admin.hbzjhs.xyz/；API https://yijiexing-demo.hbzjhs.xyz。
 GOV08用户长期授权本轮及后续宜捷行专用隔离AVD官方Android工具安装/点击输入/测试权限/截图，不再逐批问，不个人手机。BIZ04预约不占即时/单执行；BIZ05运价营销仅配置草稿人工记录；BIZ06终点必填；BIZ07分账单扣差额/余分归平台仅模拟；BIZ08三证60天提醒/审核通过解除/旧有效待审可接/过期禁新单/在途可完；BIZ09公告每用户版本一次可关。定位起点/空终点不盖手动值；无IM/真实资金/录音认证警方联动。微信缺AppID未微信编译/真机/发布，本轮后台无新增模块。旧24全部完成，细节archive/2026-11-01/STATE-before-GRAB25-release.md，勿重复发布。
