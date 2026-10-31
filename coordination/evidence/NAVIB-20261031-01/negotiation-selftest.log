@@ -1,0 +1,237 @@
+test_cancelled_private_pairing_has_no_active_pairing_projection (test_negotiation.NegotiationIntegration.test_cancelled_private_pairing_has_no_active_pairing_projection) ... [2026-10-31T22:00:34+08:00] POST /api/auth/code 200
+[2026-10-31T22:00:34+08:00] POST /api/auth/login 200
+[2026-10-31T22:00:34+08:00] POST /api/action 200
+[2026-10-31T22:00:34+08:00] POST /api/action 200
+[2026-10-31T22:00:34+08:00] POST /api/action 200
+[2026-10-31T22:00:34+08:00] POST /api/action 200
+[2026-10-31T22:00:34+08:00] POST /api/action 200
+[2026-10-31T22:00:34+08:00] GET /api/state 200
+ok
+test_cross_instance_claim_cas_has_only_one_owner (test_negotiation.NegotiationIntegration.test_cross_instance_claim_cas_has_only_one_owner) ... [2026-10-31T22:00:34+08:00] POST /api/auth/code 200
+[2026-10-31T22:00:34+08:00] POST /api/auth/login 200
+[2026-10-31T22:00:34+08:00] POST /api/action 200
+[2026-10-31T22:00:34+08:00] POST /api/action 200
+[2026-10-31T22:00:34+08:00] POST /api/action 200
+[2026-10-31T22:00:34+08:00] POST /api/action 200
+[2026-10-31T22:00:34+08:00] POST /api/passenger/auth/code 200
+[2026-10-31T22:00:34+08:00] POST /api/passenger/auth/login 200
+[2026-10-31T22:00:34+08:00] POST /api/passenger/auth/code 200
+[2026-10-31T22:00:34+08:00] POST /api/passenger/auth/login 200
+[2026-10-31T22:00:34+08:00] POST /api/passenger/action 200
+[2026-10-31T22:00:34+08:00] cloud persistence unavailable: SnapshotConflict
+[2026-10-31T22:00:34+08:00] POST /api/passenger/action 503
+/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/tempfile.py:484: ResourceWarning: Implicitly cleaning up <HTTPError 503: 'Service Unavailable'>
+  _warnings.warn(self.warn_message, ResourceWarning)
+[2026-10-31T22:00:34+08:00] POST /api/passenger/action 409
+/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/tempfile.py:484: ResourceWarning: Implicitly cleaning up <HTTPError 409: 'Conflict'>
+  _warnings.warn(self.warn_message, ResourceWarning)
+[2026-10-31T22:00:34+08:00] GET /api/passenger/state 200
+[2026-10-31T22:00:34+08:00] GET /api/passenger/state 200
+ok
+test_dispute_requote_requires_explicit_current_amount_version (test_negotiation.NegotiationIntegration.test_dispute_requote_requires_explicit_current_amount_version) ... [2026-10-31T22:00:34+08:00] POST /api/passenger/auth/code 200
+[2026-10-31T22:00:34+08:00] POST /api/passenger/auth/login 200
+[2026-10-31T22:00:34+08:00] POST /api/auth/code 200
+[2026-10-31T22:00:34+08:00] POST /api/auth/login 200
+[2026-10-31T22:00:34+08:00] POST /api/action 200
+[2026-10-31T22:00:34+08:00] POST /api/action 200
+[2026-10-31T22:00:34+08:00] POST /api/action 200
+[2026-10-31T22:00:34+08:00] POST /api/action 200
+[2026-10-31T22:00:34+08:00] POST /api/passenger/action 200
+[2026-10-31T22:00:34+08:00] POST /api/passenger/action 409
+[2026-10-31T22:00:34+08:00] POST /api/passenger/action 409
+[2026-10-31T22:00:34+08:00] POST /api/passenger/action 200
+[2026-10-31T22:00:34+08:00] POST /api/passenger/action 200
+[2026-10-31T22:00:34+08:00] POST /api/passenger/action 409
+[2026-10-31T22:00:34+08:00] POST /api/action 200
+[2026-10-31T22:00:34+08:00] POST /api/action 200
+[2026-10-31T22:00:34+08:00] POST /api/action 409
+[2026-10-31T22:00:34+08:00] POST /api/passenger/action 409
+[2026-10-31T22:00:34+08:00] POST /api/passenger/action 200
+[2026-10-31T22:00:34+08:00] GET /api/passenger/state 200
+[2026-10-31T22:00:34+08:00] POST /api/passenger/action 200
+[2026-10-31T22:00:34+08:00] GET /api/passenger/state 200
+[2026-10-31T22:00:34+08:00] POST /api/passenger/action 200
+[2026-10-31T22:00:34+08:00] GET /api/passenger/state 200
+[2026-10-31T22:00:34+08:00] POST /api/passenger/action 200
+[2026-10-31T22:00:34+08:00] POST /api/action 409
+[2026-10-31T22:00:34+08:00] GET /api/passenger/state 200
+ok
+test_expired_or_cancelled_private_offer_cannot_be_claimed (test_negotiation.NegotiationIntegration.test_expired_or_cancelled_private_offer_cannot_be_claimed) ... [2026-10-31T22:00:34+08:00] POST /api/auth/code 200
+[2026-10-31T22:00:34+08:00] POST /api/auth/login 200
+[2026-10-31T22:00:34+08:00] POST /api/action 200
+[2026-10-31T22:00:34+08:00] POST /api/action 200
+[2026-10-31T22:00:34+08:00] POST /api/action 200
+[2026-10-31T22:00:34+08:00] POST /api/passenger/auth/code 200
+[2026-10-31T22:00:34+08:00] POST /api/passenger/auth/login 200
+[2026-10-31T22:00:34+08:00] POST /api/action 200
+[2026-10-31T22:00:34+08:00] POST /api/passenger/action 409
+[2026-10-31T22:00:34+08:00] POST /api/action 200
+[2026-10-31T22:00:34+08:00] POST /api/action 200
+[2026-10-31T22:00:34+08:00] POST /api/passenger/action 409
+ok
+test_old_sandbox_behavior_unchanged_until_pair_offer (test_negotiation.NegotiationIntegration.test_old_sandbox_behavior_unchanged_until_pair_offer) ... [2026-10-31T22:00:35+08:00] POST /api/auth/code 200
+[2026-10-31T22:00:35+08:00] POST /api/auth/login 200
+[2026-10-31T22:00:35+08:00] POST /api/action 200
+[2026-10-31T22:00:35+08:00] POST /api/action 200
+[2026-10-31T22:00:35+08:00] POST /api/action 200
+[2026-10-31T22:00:35+08:00] POST /api/local/admin/action 200
+[2026-10-31T22:00:35+08:00] GET /api/state 200
+[2026-10-31T22:00:35+08:00] GET /api/state 200
+[2026-10-31T22:00:35+08:00] POST /api/action 200
+[2026-10-31T22:00:35+08:00] POST /api/auth/code 200
+[2026-10-31T22:00:35+08:00] POST /api/auth/login 200
+[2026-10-31T22:00:35+08:00] POST /api/action 200
+[2026-10-31T22:00:35+08:00] POST /api/action 200
+[2026-10-31T22:00:35+08:00] POST /api/action 200
+[2026-10-31T22:00:35+08:00] POST /api/action 200
+[2026-10-31T22:00:35+08:00] POST /api/local/admin/action 403
+/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/tempfile.py:484: ResourceWarning: Implicitly cleaning up <HTTPError 403: 'Forbidden'>
+  _warnings.warn(self.warn_message, ResourceWarning)
+ok
+test_pair_claim_real_shared_trip_and_single_credit (test_negotiation.NegotiationIntegration.test_pair_claim_real_shared_trip_and_single_credit) ... [2026-10-31T22:00:35+08:00] POST /api/passenger/auth/code 200
+[2026-10-31T22:00:35+08:00] POST /api/passenger/auth/login 200
+[2026-10-31T22:00:35+08:00] POST /api/auth/code 200
+[2026-10-31T22:00:35+08:00] POST /api/auth/login 200
+[2026-10-31T22:00:35+08:00] POST /api/action 200
+[2026-10-31T22:00:35+08:00] POST /api/action 200
+[2026-10-31T22:00:35+08:00] POST /api/action 200
+[2026-10-31T22:00:35+08:00] POST /api/action 200
+[2026-10-31T22:00:35+08:00] POST /api/passenger/action 200
+[2026-10-31T22:00:35+08:00] GET /api/state 200
+[2026-10-31T22:00:35+08:00] POST /api/passenger/action 200
+[2026-10-31T22:00:35+08:00] GET /api/state 200
+[2026-10-31T22:00:35+08:00] POST /api/action 200
+[2026-10-31T22:00:35+08:00] GET /api/state 200
+[2026-10-31T22:00:35+08:00] GET /api/passenger/state 200
+[2026-10-31T22:00:35+08:00] POST /api/passenger/action 200
+[2026-10-31T22:00:35+08:00] POST /api/action 200
+[2026-10-31T22:00:35+08:00] POST /api/action 200
+[2026-10-31T22:00:35+08:00] GET /api/state 200
+[2026-10-31T22:00:35+08:00] POST /api/action 200
+[2026-10-31T22:00:35+08:00] POST /api/action 200
+[2026-10-31T22:00:35+08:00] GET /api/passenger/state 200
+[2026-10-31T22:00:35+08:00] GET /api/state 200
+[2026-10-31T22:00:35+08:00] POST /api/passenger/action 200
+[2026-10-31T22:00:35+08:00] POST /api/passenger/action 200
+[2026-10-31T22:00:35+08:00] GET /api/state 200
+[2026-10-31T22:00:35+08:00] POST /api/passenger/action 200
+[2026-10-31T22:00:35+08:00] POST /api/passenger/action 200
+[2026-10-31T22:00:35+08:00] GET /api/passenger/state 200
+ok
+test_pair_code_rotation_expiry_claim_and_ownership (test_negotiation.NegotiationIntegration.test_pair_code_rotation_expiry_claim_and_ownership) ... [2026-10-31T22:00:35+08:00] POST /api/auth/code 200
+[2026-10-31T22:00:35+08:00] POST /api/auth/login 200
+[2026-10-31T22:00:35+08:00] POST /api/action 200
+[2026-10-31T22:00:35+08:00] POST /api/action 200
+[2026-10-31T22:00:35+08:00] POST /api/action 200
+[2026-10-31T22:00:35+08:00] POST /api/passenger/auth/code 200
+[2026-10-31T22:00:35+08:00] POST /api/passenger/auth/login 200
+[2026-10-31T22:00:35+08:00] POST /api/passenger/auth/code 200
+[2026-10-31T22:00:35+08:00] POST /api/passenger/auth/login 200
+[2026-10-31T22:00:35+08:00] POST /api/action 200
+[2026-10-31T22:00:35+08:00] POST /api/action 200
+[2026-10-31T22:00:35+08:00] POST /api/action 200
+[2026-10-31T22:00:35+08:00] POST /api/passenger/action 409
+[2026-10-31T22:00:35+08:00] POST /api/passenger/action 400
+/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/tempfile.py:484: ResourceWarning: Implicitly cleaning up <HTTPError 400: 'Bad Request'>
+  _warnings.warn(self.warn_message, ResourceWarning)
+[2026-10-31T22:00:35+08:00] POST /api/passenger/action 200
+[2026-10-31T22:00:35+08:00] POST /api/passenger/action 200
+[2026-10-31T22:00:35+08:00] POST /api/passenger/action 409
+[2026-10-31T22:00:35+08:00] POST /api/passenger/action 404
+/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/tempfile.py:484: ResourceWarning: Implicitly cleaning up <HTTPError 404: 'Not Found'>
+  _warnings.warn(self.warn_message, ResourceWarning)
+[2026-10-31T22:00:35+08:00] POST /api/auth/code 200
+[2026-10-31T22:00:35+08:00] POST /api/auth/login 200
+[2026-10-31T22:00:35+08:00] POST /api/action 404
+[2026-10-31T22:00:35+08:00] POST /api/action 409
+ok
+test_paired_driver_cancel_is_final_and_does_not_enter_marketplace (test_negotiation.NegotiationIntegration.test_paired_driver_cancel_is_final_and_does_not_enter_marketplace) ... [2026-10-31T22:00:35+08:00] POST /api/passenger/auth/code 200
+[2026-10-31T22:00:35+08:00] POST /api/passenger/auth/login 200
+[2026-10-31T22:00:35+08:00] POST /api/auth/code 200
+[2026-10-31T22:00:35+08:00] POST /api/auth/login 200
+[2026-10-31T22:00:35+08:00] POST /api/action 200
+[2026-10-31T22:00:35+08:00] POST /api/action 200
+[2026-10-31T22:00:35+08:00] POST /api/action 200
+[2026-10-31T22:00:35+08:00] POST /api/action 200
+[2026-10-31T22:00:35+08:00] POST /api/passenger/action 200
+[2026-10-31T22:00:35+08:00] POST /api/action 200
+[2026-10-31T22:00:35+08:00] GET /api/passenger/state 200
+[2026-10-31T22:00:35+08:00] POST /api/passenger/action 409
+[2026-10-31T22:00:35+08:00] POST /api/auth/code 200
+[2026-10-31T22:00:35+08:00] POST /api/auth/login 200
+ok
+test_pairing_requires_no_active_passenger_order_and_blocks_fake_code (test_negotiation.NegotiationIntegration.test_pairing_requires_no_active_passenger_order_and_blocks_fake_code) ... [2026-10-31T22:00:35+08:00] POST /api/passenger/auth/code 200
+[2026-10-31T22:00:36+08:00] POST /api/passenger/auth/login 200
+[2026-10-31T22:00:36+08:00] POST /api/auth/code 200
+[2026-10-31T22:00:36+08:00] POST /api/auth/login 200
+[2026-10-31T22:00:36+08:00] POST /api/action 200
+[2026-10-31T22:00:36+08:00] POST /api/action 200
+[2026-10-31T22:00:36+08:00] POST /api/action 200
+[2026-10-31T22:00:36+08:00] POST /api/action 200
+[2026-10-31T22:00:36+08:00] POST /api/passenger/action 200
+[2026-10-31T22:00:36+08:00] POST /api/passenger/action 409
+[2026-10-31T22:00:36+08:00] POST /api/passenger/action 404
+[2026-10-31T22:00:36+08:00] POST /api/passenger/action 200
+[2026-10-31T22:00:36+08:00] POST /api/passenger/action 200
+ok
+test_payment_and_requote_race_preserves_agreed_price (test_negotiation.NegotiationIntegration.test_payment_and_requote_race_preserves_agreed_price) ... [2026-10-31T22:00:36+08:00] POST /api/passenger/auth/code 200
+[2026-10-31T22:00:36+08:00] POST /api/passenger/auth/login 200
+[2026-10-31T22:00:36+08:00] POST /api/auth/code 200
+[2026-10-31T22:00:36+08:00] POST /api/auth/login 200
+[2026-10-31T22:00:36+08:00] POST /api/action 200
+[2026-10-31T22:00:36+08:00] POST /api/action 200
+[2026-10-31T22:00:36+08:00] POST /api/action 200
+[2026-10-31T22:00:36+08:00] POST /api/action 200
+[2026-10-31T22:00:36+08:00] POST /api/passenger/action 200
+[2026-10-31T22:00:36+08:00] POST /api/action 200
+[2026-10-31T22:00:36+08:00] POST /api/passenger/action 409
+[2026-10-31T22:00:36+08:00] GET /api/passenger/state 200
+ok
+test_private_pairing_projection_recovers_after_restart_without_invitation (test_negotiation.NegotiationIntegration.test_private_pairing_projection_recovers_after_restart_without_invitation) ... [2026-10-31T22:00:36+08:00] POST /api/auth/code 200
+[2026-10-31T22:00:36+08:00] POST /api/auth/login 200
+[2026-10-31T22:00:36+08:00] POST /api/action 200
+[2026-10-31T22:00:36+08:00] POST /api/action 200
+[2026-10-31T22:00:36+08:00] POST /api/action 200
+[2026-10-31T22:00:36+08:00] GET /api/state 200
+[2026-10-31T22:00:36+08:00] POST /api/action 200
+[2026-10-31T22:00:36+08:00] GET /api/state 200
+[2026-10-31T22:00:36+08:00] GET /api/state 200
+[2026-10-31T22:00:36+08:00] POST /api/action 200
+[2026-10-31T22:00:36+08:00] POST /api/passenger/auth/code 200
+[2026-10-31T22:00:36+08:00] POST /api/passenger/auth/login 200
+[2026-10-31T22:00:36+08:00] POST /api/passenger/action 200
+[2026-10-31T22:00:36+08:00] GET /api/state 200
+ok
+test_two_passengers_compete_for_single_offer (test_negotiation.NegotiationIntegration.test_two_passengers_compete_for_single_offer) ... [2026-10-31T22:00:36+08:00] POST /api/auth/code 200
+[2026-10-31T22:00:36+08:00] POST /api/auth/login 200
+[2026-10-31T22:00:36+08:00] POST /api/action 200
+[2026-10-31T22:00:36+08:00] POST /api/action 200
+[2026-10-31T22:00:36+08:00] POST /api/action 200
+[2026-10-31T22:00:36+08:00] POST /api/action 200
+[2026-10-31T22:00:36+08:00] POST /api/passenger/auth/code 200
+[2026-10-31T22:00:36+08:00] POST /api/passenger/auth/login 200
+[2026-10-31T22:00:36+08:00] POST /api/passenger/auth/code 200
+[2026-10-31T22:00:36+08:00] POST /api/passenger/auth/login 200
+[2026-10-31T22:00:36+08:00] POST /api/passenger/action 200
+[2026-10-31T22:00:36+08:00] POST /api/passenger/action 409
+[2026-10-31T22:00:36+08:00] GET /api/passenger/state 200
+[2026-10-31T22:00:36+08:00] GET /api/passenger/state 200
+ok
+test_uncertain_claim_commit_is_recoverable_without_duplicate_private_order (test_negotiation.NegotiationIntegration.test_uncertain_claim_commit_is_recoverable_without_duplicate_private_order) ... [2026-10-31T22:00:36+08:00] POST /api/auth/code 200
+[2026-10-31T22:00:36+08:00] POST /api/auth/login 200
+[2026-10-31T22:00:36+08:00] POST /api/action 200
+[2026-10-31T22:00:36+08:00] POST /api/action 200
+[2026-10-31T22:00:36+08:00] POST /api/action 200
+[2026-10-31T22:00:36+08:00] POST /api/action 200
+[2026-10-31T22:00:36+08:00] POST /api/passenger/auth/code 200
+[2026-10-31T22:00:36+08:00] POST /api/passenger/auth/login 200
+[2026-10-31T22:00:36+08:00] cloud persistence unavailable: SnapshotUnavailable
+[2026-10-31T22:00:36+08:00] POST /api/passenger/action 503
+[2026-10-31T22:00:36+08:00] POST /api/passenger/action 200
+[2026-10-31T22:00:36+08:00] GET /api/state 200
+ok
+
+----------------------------------------------------------------------
+Ran 13 tests in 2.606s
+
+OK

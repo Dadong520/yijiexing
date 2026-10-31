@@ -1,0 +1,18 @@
+{
+  "sourceSha": "6cdcee1a68d57465e4196243f22478c69733654c",
+  "package": "cn.hbzjhs.dc.driver.cloud",
+  "versionCode": 24,
+  "versionName": "0.3.21-cloud",
+  "bytes": 133016738,
+  "sha256": "55b4657b337fc1e6a4324fc30e334655fd31c3bf396965d22d6cbf36d5e9fd9d",
+  "signerSha256": "9ffec9b342d12909ff288bd73f23ba104893b39120cb24ea83c9734a0d2b758f",
+  "within128MiBLimit": true,
+  "nativeLibraries": 18,
+  "compressedNativeLibraries": 18,
+  "privateValuesScanned": 2,
+  "privateValueHits": 0,
+  "expectedHTTPSOriginFound": true,
+  "qaMaterialAbsent": true,
+  "result": "PASS_BUILD_IDENTITY_ONLY",
+  "runtime": "NOT_RUN"
+}

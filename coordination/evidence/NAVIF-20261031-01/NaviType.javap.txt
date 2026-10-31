@@ -1,0 +1,7 @@
+Compiled from "NaviType.java"
+public class com.amap.api.navi.enums.NaviType {
+  public static final int NONE;
+  public static final int GPS;
+  public static final int EMULATOR;
+  public static final int CRUISE;
+}

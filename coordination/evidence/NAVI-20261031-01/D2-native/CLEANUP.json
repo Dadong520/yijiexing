@@ -1,0 +1,28 @@
+{
+  "sourceSha": "6cdcee1a68d57465e4196243f22478c69733654c",
+  "ownAVDVerified": "NAVIR_20261031/emulator-5586",
+  "finalLocalOrders": {
+    "roundTrip": "WAIT_PAY",
+    "reservation": "CANCELLED",
+    "count": 2,
+    "originalIndices": [
+      0,
+      1
+    ]
+  },
+  "noOutgoingCallPerformed": true,
+  "unmaskedRiderNotInOrdinaryDriverState": true,
+  "externalAMapAppInstalled": false,
+  "noAutoReopenObservedSeconds": 49.166,
+  "appForceStopped": true,
+  "reverse443Removed": true,
+  "fixtureStopRequested": true,
+  "AVDKillRequested": true,
+  "rawEventsSha256": "11aea8f564d361f550f494e13f8b2ec90ef255fd52373eb30e61c57c642a56f9",
+  "cloudBusinessPosts": 0,
+  "finalProcessReadback": "PASS",
+  "ownEmulatorAbsent": true,
+  "fixture64364Closed": true,
+  "reverseGoneWithDevice": true,
+  "result": "PASS"
+}

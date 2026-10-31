@@ -1,0 +1,18 @@
+{
+  "sourceSha": "6cdcee1a68d57465e4196243f22478c69733654c",
+  "tools": {
+    "tests": 27,
+    "result": "PASS"
+  },
+  "mini": {
+    "tests": 74,
+    "failures": 0,
+    "projectCheck": "PASS",
+    "wechat": "NOT_RUN AppID absent"
+  },
+  "productTreesUnchanged": true,
+  "logHashes": {
+    "local-tools.log": "d9deb73e3e100110b94e02b040cf0482a6362c7312edda552e649e219afd4bf2",
+    "local-mini.log": "16ac6745f588c12eb79c6be613dda50272f43325beae1fad459e045596618e4e"
+  }
+}

@@ -1,0 +1,98 @@
+{
+  "taskId": "NAVIB-20261031-01",
+  "at": "2026-10-31T22:02:41+08:00",
+  "authorRole": "backend",
+  "authorSessionId": "01a182c6-c058-76e1-9584-38abfe813799",
+  "writeRoot": "/Users/dongge/.codex/tmp/yijiexing-ui-optimization-worktree-20261029",
+  "branch": "codex/in-app-navigation-backend-20261031",
+  "baseSha": "1c8a6422c7fe7fcacce3d0774c55a3ae2698c21a",
+  "commitSha": "fb0eba38ff2bc598901f9c707a38119f05398fda",
+  "selfTests": [
+    {
+      "suite": "roundtrip",
+      "command": "python3 -m unittest discover -s apps/cloud-service/tests -p test_round_trip_navigation.py -v",
+      "passed": 9,
+      "failures": 0,
+      "result": "PASS_AUTHOR_SELFTEST",
+      "log": "coordination/evidence/NAVIB-20261031-01/roundtrip-selftest.log",
+      "logSha256": "7be1bb2d760390a0419974eab4fc6255e418d6d7112c1f5273944e974abad7dc"
+    },
+    {
+      "suite": "contact",
+      "command": "python3 -m unittest discover -s apps/cloud-service/tests -p test_passenger_contact.py -v",
+      "passed": 7,
+      "failures": 0,
+      "result": "PASS_AUTHOR_SELFTEST",
+      "log": "coordination/evidence/NAVIB-20261031-01/contact-selftest.log",
+      "logSha256": "c079330e45d8be22b085555c4298f550a7a74c1ff5797e6a468dd8773022e9cb"
+    },
+    {
+      "suite": "passenger",
+      "command": "python3 -m unittest discover -s apps/cloud-service/tests -p test_passenger.py -v",
+      "passed": 21,
+      "failures": 0,
+      "result": "PASS_AUTHOR_SELFTEST",
+      "log": "coordination/evidence/NAVIB-20261031-01/passenger-selftest.log",
+      "logSha256": "988981a520b741f306a23ee5b2dd8ec903b52b4da8045c0871616b8336a22125"
+    },
+    {
+      "suite": "distance",
+      "command": "python3 -m unittest discover -s apps/cloud-service/tests -p test_trip_distance.py -v",
+      "passed": 23,
+      "failures": 0,
+      "result": "PASS_AUTHOR_SELFTEST",
+      "log": "coordination/evidence/NAVIB-20261031-01/distance-selftest.log",
+      "logSha256": "de45f73cb1749f5dc60fef21247edfbe1ca2e19cb7592cfadcb99f3924f594bc"
+    },
+    {
+      "suite": "original",
+      "command": "python3 -m unittest discover -s apps/cloud-service/tests -p test_original_integration.py -v",
+      "passed": 55,
+      "failures": 0,
+      "result": "PASS_AUTHOR_SELFTEST",
+      "log": "coordination/evidence/NAVIB-20261031-01/original-selftest.log",
+      "logSha256": "a731a21073f59277b1fb5bb62ca93543f55f71a13e9a881097ba0da0cdecc274"
+    },
+    {
+      "suite": "negotiation",
+      "command": "python3 -m unittest discover -s apps/cloud-service/tests -p test_negotiation.py -v",
+      "passed": 13,
+      "failures": 0,
+      "result": "PASS_AUTHOR_SELFTEST",
+      "log": "coordination/evidence/NAVIB-20261031-01/negotiation-selftest.log",
+      "logSha256": "611820514d4b33042a1f80bfa487e0cb17f3693331965a7b74273316ff1b85c0"
+    }
+  ],
+  "selfTestTotal": 128,
+  "independentAcceptance": "NOT_RUN (root owns)",
+  "contract": "coordination/contracts/NAVI-20261031-01.md",
+  "changes": [
+    "Shared validated loop exception create/update with at least one away waypoint; existing full-leg fare unchanged",
+    "Private immutable contact snapshot with actual rider/booker on order.create, and explicit booker on first new negotiation.claim; same transaction, no legacy claim backfill",
+    "Authenticated assigned-driver active-stage explicit contact GET, no-store inherited; no legacy inference and no state/payload join"
+  ],
+  "notRun": [
+    "Independent author-external acceptance",
+    "Real cloud/private DB/production data",
+    "Android/SDK/provider/device/real telephone call/funds"
+  ],
+  "limitations": [
+    "Legacy orders lacking immutable contact snapshot return409; no fallback guessing or old payload edits",
+    "WP order/distance semantics unchanged; navigation arrival must not auto advance",
+    "Existing inherited HTTP fixture emits a urllib HTTPError ResourceWarning on some negative responses; assertions all pass"
+  ],
+  "finishedAt": "2026-10-31T22:03:43+08:00",
+  "workingTreeClean": true,
+  "changedFiles": [
+    "apps/cloud-service/passenger.py",
+    "apps/cloud-service/server.py",
+    "apps/cloud-service/tests/test_round_trip_navigation.py",
+    "apps/cloud-service/tests/test_passenger_contact.py"
+  ],
+  "gitBlobIds": {
+    "apps/cloud-service/passenger.py": "9171ebce75d02cf56f1e326de5400bad6a2035fd",
+    "apps/cloud-service/server.py": "c4cad391f0fe821253be17de5a964536b8cc2063",
+    "apps/cloud-service/tests/test_round_trip_navigation.py": "6918ea2d08f8e1568c6936e21580a3b140176966",
+    "apps/cloud-service/tests/test_passenger_contact.py": "fc2498b66753a45a7b88dec5965a21f7e51d28d7"
+  }
+}

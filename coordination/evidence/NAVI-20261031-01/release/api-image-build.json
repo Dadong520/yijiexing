@@ -1,0 +1,22 @@
+{
+  "operation": "API image build only; no CloudRun revision/traffic change",
+  "project": "yijiexing-driver-demo-1023",
+  "sourceSha": "6cdcee1a68d57465e4196243f22478c69733654c",
+  "authorBackendSha": "6e1b1ee02b3cc1a3bd7359e2970d2f3d4c3c59c3",
+  "backendTree": "b8a39107315f82af5a5c6f848a650aa0560a2fad",
+  "buildId": "058f6e6f-715b-4f9b-83ee-93573712935c",
+  "status": "SUCCESS",
+  "images": [
+    {
+      "artifactRegistryPackage": "projects/yijiexing-driver-demo-1023/locations/us-west1/repositories/demo/packages/driver-cloud/versions/sha256:f41b121b02c9ae0fc44539c3ab9894acb95bafb7c5283998e124a7a84f269e6f",
+      "digest": "sha256:f41b121b02c9ae0fc44539c3ab9894acb95bafb7c5283998e124a7a84f269e6f",
+      "name": "us-west1-docker.pkg.dev/yijiexing-driver-demo-1023/demo/driver-cloud:navi-6cdcee1",
+      "pushTiming": {
+        "endTime": "2026-10-31T14:52:22.644545484Z",
+        "startTime": "2026-10-31T14:52:13.472992682Z"
+      }
+    }
+  ],
+  "initialHarnessIssue": "gcloud builds submit streams remote logs on stdout despite format=json, first local parse failed after CLI exit0; actual build queried by exact returned id, not rebuilt",
+  "at": "2026-10-31T14:58:53.680586+00:00"
+}

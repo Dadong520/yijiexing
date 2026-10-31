@@ -1,0 +1,22 @@
+Compiled from "NaviSetting.java"
+public class com.amap.api.navi.NaviSetting {
+  public com.amap.api.navi.NaviSetting(android.content.Context, com.amap.api.navi.core.h);
+  public static void updatePrivacyShow(android.content.Context, boolean, boolean);
+  public static void updatePrivacyAgree(android.content.Context, boolean);
+  public static void updateCountryCode(java.lang.String);
+  public static void setHost(java.lang.String);
+  public int getEtaShowMode();
+  public void setEtaShowMode(int);
+  public boolean isTrafficStatusUpdateEnabled();
+  public void setTrafficStatusUpdateEnabled(boolean);
+  public boolean isTrafficInfoUpdateEnabled();
+  public void setTrafficInfoUpdateEnabled(boolean);
+  public void setEscortMissonID(long);
+  public void setMonitorCameraEnabled(boolean);
+  public boolean isScreenAlwaysBright();
+  public void setScreenAlwaysBright(boolean);
+  public void destroy();
+  public void setOpenNextRoadInfo(boolean);
+  public boolean isFilterShowCrossMessage();
+  public void SetFilterShowCrossMessageStatus(boolean);
+}

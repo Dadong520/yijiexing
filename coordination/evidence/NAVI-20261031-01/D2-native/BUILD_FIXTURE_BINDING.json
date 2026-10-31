@@ -1,0 +1,17 @@
+{
+  "sourceSha": "6cdcee1a68d57465e4196243f22478c69733654c",
+  "originalAPK": "/Users/dongge/.codex/tmp/yijiexing-navir-20261031/original-driver.apk",
+  "qaAPK": "/Users/dongge/.codex/tmp/yijiexing-navir-20261031/build/qa-driver/_app/outputs/apk/debug/app-debug.apk",
+  "qaOnlyDifferences": [
+    "Build directory",
+    "CLOUD_API_ORIGIN=https://localhost",
+    "localhost private QA CA and debug network-security manifest"
+  ],
+  "qaAppId": "same original cloud package within isolated AVD only, necessary for existing SDK binding",
+  "qaBusinessData": "freshD2 localMemoryCAS with synthetic identities+roundtrip2WP; rider edited+removed aftercreate to testimmutablecontact",
+  "provider": "actual AMAP network service configured only in fixture process from privatecurrent experience env; no key in artifact",
+  "fixturePort": 64364,
+  "AVD": "emulator-5586/NAVIR_20261031",
+  "runtimeRoot": "/Users/dongge/.codex/tmp/yijiexing-navir-20261031/runtime",
+  "nativeAcceptance": "NOT_RUN"
+}

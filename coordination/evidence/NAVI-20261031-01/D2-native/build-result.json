@@ -1,0 +1,106 @@
+{
+  "sourceSha": "6cdcee1a68d57465e4196243f22478c69733654c",
+  "originalBuild": 0,
+  "seconds": 54.70268702507019,
+  "argv": [
+    "bash",
+    "/Users/dongge/.codex/tmp/yijiexing-navir-20261031/source/candidates/driver-0.3.6-r2/android/gradlew",
+    "-p",
+    "/Users/dongge/.codex/tmp/yijiexing-navir-20261031/source/candidates/driver-0.3.6-r2/android",
+    "--offline",
+    "--no-daemon",
+    "-I",
+    "/Users/dongge/.codex/tmp/yijiexing-navir-20261031/scripts/offline.init.gradle",
+    "testDebugUnitTest",
+    "assembleDebug"
+  ],
+  "bytes": 133016738,
+  "sha256": "55b4657b337fc1e6a4324fc30e334655fd31c3bf396965d22d6cbf36d5e9fd9d",
+  "tests": [
+    {
+      "name": "cn.hbzjhs.driver.preview.NegotiationContractTest",
+      "tests": "9",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "cn.hbzjhs.driver.preview.DriverSettlementTest",
+      "tests": "9",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "cn.hbzjhs.driver.preview.NavigationSessionRulesTest",
+      "tests": "18",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "cn.hbzjhs.driver.preview.NavigationContractTest",
+      "tests": "7",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "cn.hbzjhs.driver.preview.ReservationAndIncomeTest",
+      "tests": "4",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "cn.hbzjhs.driver.preview.PaymentStatusTest",
+      "tests": "9",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "cn.hbzjhs.driver.preview.ConnectedContractTest",
+      "tests": "7",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "cn.hbzjhs.driver.preview.CertificateDueStatusTest",
+      "tests": "4",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "cn.hbzjhs.driver.preview.DriverCancellationTest",
+      "tests": "8",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "cn.hbzjhs.driver.preview.NavigationAutoRulesTest",
+      "tests": "7",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "cn.hbzjhs.driver.preview.StateRequestCoordinatorTest",
+      "tests": "6",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "cn.hbzjhs.driver.preview.UIODistancePresentationTest",
+      "tests": "7",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    }
+  ],
+  "qaBuild": 0
+}

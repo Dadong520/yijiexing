@@ -10,6 +10,16 @@
 - 活跃任务：[BOARD](coordination/BOARD.json)；长期决定：[DECISIONS](coordination/DECISIONS.md)；角色细节：handoffs；契约：contracts。
 - 恢复与提交检查：`python3 tools/check_coordination.py --memory-role <role> --session-id <真实会话ID>`；检查器不测量模型内部上下文，不等于业务验收。
 
+## 应用内导航与途经点往返（候选24，验收通过待发布）
+
+有有效异地途经点的订单允许起终点相同，保留全路段累计估价与原有最多两个途经点。司机的订单卡、接单确认和新订单弹窗展示完整有序途经信息；应用内嵌高德导航，按下一处未完成途经点逐段指引，完成后再前往终点。功能面板可上拉展开、下拉至全屏地图，并保留恢复入口。
+
+导航页复用接驾、尾号核验、途经点确认、距离与乘客同意、送达等原业务操作。导航到达只提示，不自动推进订单。司机明确点击联系乘客后，服务端仅向当前归属司机开放有效订单的下单联系人快照，确认后打开系统拨号页，不会自动呼出或冒充隐私中继；旧单无可靠号码快照会明确提示不可用。
+
+候选源 `6cdcee1a68d57465e4196243f22478c69733654c`，司机 `0.3.21-cloud / code24`，乘客原 `1.1.21-experience / code23` 源码与安装包保持。Claude实现，Codex独立复核与实际执行后端284、司机95项单测及19组隔离原生场景，原包签名/身份/私有值检查通过。高德真实道路算路和指引已在模拟GPS的隔离ARM64模拟器中观察到；未验证实车行驶、语音、OEM或实际电话接通。范围和产物绑定见[原生验收](coordination/evidence/NAVI-20261031-01/D2-native/FINAL_REVIEW.json)和[构建证明](coordination/evidence/NAVI-20261031-01/FINAL_BUILD_PROOF.json)。
+
+本节记录候选，当前公开安装入口仍为下面版本23；待准确CI/合并及独立体验发布回读后再更新发布回执。
+
 ## 本轮地点选择与界面简化（版本23已发布）
 
 [PR47](https://github.com/Dadong520/yijiexing/pull/47)已合并并实际发布。产品源0ef2a8d3982dfca0e85a3b756a6004c1825ba798，合并SHAa1527d2b27aeb2a5dd97e40736fd8e0bb5f4841f；准确headb78b7fcedbae1be7cffa3360bb9944a450a43c88/CI41197382855 SUCCESS。乘客1.1.21-experience/code23、司机0.3.20-cloud/code23，原包名、原签名可覆盖安装。

@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 1,
+  "id": "NAVI-20261031-01",
+  "owner": "coordinator",
+  "goal": "往返途经路线、司机途经信息及应用内导航行程操作集成验收发布",
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-in-app-navigation-20261031",
+  "branch": "codex/in-app-navigation-20261031",
+  "baseSha": "d5d878e2e56ca11fabc576545c46a277d8e7b985",
+  "allow_paths": [
+    "coordination/",
+    "README.md",
+    "apps/passenger-android/app/build.gradle.kts",
+    "candidates/driver-0.3.6-r2/android/app/build.gradle.kts"
+  ],
+  "checks": [
+    "User latest replaces external app navigation with actual in-app SDK; no fallback auto external intent",
+    "Loop requires validated waypoint away from start; route distance uses every leg, no fare-rule change or legacy data deletion",
+    "Preserve owner/stage/PIN/distance/passenger consent and waypoint completion gates; SDK arrival never auto advances order",
+    "Only independent experience project; no secrets/APK/private DB in Git; native provider NOT_RUN unless actually verified"
+  ],
+  "status": "ACCEPTED_WAIT_EXACT_HEAD_CI_MERGE_RELEASE",
+  "acceptance": "PASS",
+  "tests": [
+    {
+      "suite": "backend independent full",
+      "result": "PASS",
+      "count": 284,
+      "sourceSha": "445787fcab4c5d2baba7f51ad4db78cd1e2216a0"
+    },
+    {
+      "suite": "offline old DB45 migration",
+      "result": "PASS",
+      "scope": "passenger_orders full rows identical, contact0; active legacy positive NOT_RUN"
+    },
+    {
+      "suite": "D1 actual Android",
+      "result": "FAIL",
+      "scope": "Core navigation/provider/phone/PIN/WP/consent/terminalPASS, alert and confirmation missing WP plus fixed navigationpanel needrepair",
+      "sourceSha": "83c6fde3a4c70bbb5bc2a2362f0e4e2f93937212",
+      "evidence": "coordination/evidence/NAVI-20261031-01/D1-native/REVIEW.json"
+    },
+    {
+      "suite": "driver exact original+QA",
+      "result": "PASS",
+      "sourceSha": "6cdcee1a68d57465e4196243f22478c69733654c",
+      "unitTests": 95,
+      "failures": 0
+    },
+    {
+      "suite": "isolated Android actual runtime",
+      "result": "PASS",
+      "groups": 19,
+      "sourceSha": "6cdcee1a68d57465e4196243f22478c69733654c",
+      "cleanup": "PASS",
+      "evidence": "coordination/evidence/NAVI-20261031-01/D2-native/FINAL_REVIEW.json"
+    },
+    {
+      "suite": "driver nonauthor D2 delta review",
+      "result": "PASS",
+      "sourceSha": "6cdcee1a68d57465e4196243f22478c69733654c",
+      "evidence": "coordination/evidence/NAVIRB-20261031-01/D2_DELTA_REVIEW.json"
+    }
+  ],
+  "evidence": [],
+  "nextAction": "Sync canonical compact records, local projectgate, exacthead PR CI/merge; then API digest and driver APK only release/readbacks",
+  "deploy_owner": "coordinator",
+  "releaseReady": true,
+  "updatedAt": "2026-10-31T15:37:00.877017+00:00",
+  "backendImportedSha": "445787fcab4c5d2baba7f51ad4db78cd1e2216a0",
+  "backendAuthorSha": "6e1b1ee02b3cc1a3bd7359e2970d2f3d4c3c59c3",
+  "candidateSha": "6cdcee1a68d57465e4196243f22478c69733654c",
+  "pendingMergeSha": "6cdcee1a68d57465e4196243f22478c69733654c",
+  "buildProofPath": "coordination/evidence/NAVI-20261031-01/FINAL_BUILD_PROOF.json",
+  "releaseTargets": [
+    "driver-demo API image digest",
+    "driver original-signed APK24"
+  ],
+  "notReleasedYet": [
+    "CloudRun revision/traffic",
+    "GCSfixedAPK",
+    "GitHubPR"
+  ]
+}

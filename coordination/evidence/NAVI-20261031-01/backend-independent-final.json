@@ -1,0 +1,13 @@
+{
+  "sourceSha": "445787fcab4c5d2baba7f51ad4db78cd1e2216a0",
+  "authorSha": "6e1b1ee02b3cc1a3bd7359e2970d2f3d4c3c59c3",
+  "backendTreeEquality": true,
+  "tests": 284,
+  "seconds": 67.158,
+  "command": "python3 -m unittest discover -s tests -q",
+  "result": "PASS",
+  "exitCode": 0,
+  "logSha256": "4da3602613bc237b8087eca1dbd53910df1e5193b3a0fbf3569fe323f40ba0a2",
+  "reviewer": "coordinator nonauthor",
+  "cloudBusinessWrites": 0
+}

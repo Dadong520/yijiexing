@@ -1,0 +1,59 @@
+{
+  "schemaVersion": 1,
+  "id": "NAVIRB-20261031-01",
+  "owner": "backend",
+  "goal": "非作者独立审查司机内嵌导航中的原业务门禁和新联系乘客契约；不重复本人backend作者自验",
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-in-app-navigation-20261031",
+  "branch": "codex/in-app-navigation-20261031",
+  "baseSha": "d5d878e2e56ca11fabc576545c46a277d8e7b985",
+  "candidateSha": "6cdcee1a68d57465e4196243f22478c69733654c",
+  "allow_paths": [
+    "coordination/tasks/NAVIRB-20261031-01.json",
+    "coordination/handoffs/backend.md",
+    "coordination/evidence/NAVIRB-20261031-01/"
+  ],
+  "checks": [
+    "Only immutable exact83c6→6cdcee D2 delta source, no product writes/build/AVD/cloud",
+    "Driver contract auth+scope+session; preserve stage/PIN/distance consent/allWP completion/reservation rules",
+    "New endpoint privacy via explicit fetch+confirmation ACTION_DIAL; no fake relay or public phone",
+    "Author backend acceptance byroot284; this review only Claude driver nonauthor"
+  ],
+  "status": "D2_DELTA_SOURCE_PASS_IDLE",
+  "acceptance": "PASS",
+  "tests": [
+    {
+      "check": "固定83c6司机业务/联系契约非作者源审",
+      "result": "PASS_SOURCE",
+      "p1": 0,
+      "p2": 0,
+      "checks": 8,
+      "evidence": "coordination/evidence/NAVIRB-20261031-01/REVIEW.json"
+    },
+    {
+      "check": "编译/SDK/JNI/native/后端284",
+      "result": "NOT_RUN_BY_THIS_REVIEWER",
+      "reason": "root负责，本轮不重复"
+    },
+    {
+      "check": "D2八文件差量及原业务函数字节同一性",
+      "result": "PASS_SOURCE",
+      "sourceSha": "6cdcee1a68d57465e4196243f22478c69733654c",
+      "p1": 0,
+      "p2": 0,
+      "evidence": "coordination/evidence/NAVIRB-20261031-01/D2_DELTA_REVIEW.json"
+    }
+  ],
+  "evidence": [
+    "coordination/evidence/NAVIRB-20261031-01/REVIEW.json",
+    "coordination/evidence/NAVIRB-20261031-01/REVIEW.md",
+    "coordination/evidence/NAVIRB-20261031-01/D2_DELTA_REVIEW.json",
+    "coordination/evidence/NAVIRB-20261031-01/D2_DELTA_REVIEW.md"
+  ],
+  "pendingMergeSha": "6cdcee1a68d57465e4196243f22478c69733654c",
+  "releaseReady": false,
+  "deploy_owner": "coordinator",
+  "nextAction": "root完成D2准确头构建/全屏三态/小屏alert与IME原生，继承原D1业务后统一验收；backend IDLE",
+  "updatedAt": "2026-10-31T22:45:33+08:00",
+  "acceptanceScope": "Immutable D1→D2 eightfile delta source review; root native/build pending",
+  "deltaBaseSha": "83c6fde3a4c70bbb5bc2a2362f0e4e2f93937212"
+}

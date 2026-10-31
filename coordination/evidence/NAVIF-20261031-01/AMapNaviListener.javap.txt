@@ -1,0 +1,39 @@
+Compiled from "AMapNaviListener.java"
+public interface com.amap.api.navi.AMapNaviListener {
+  public abstract void onInitNaviFailure();
+  public abstract void onInitNaviSuccess();
+  public abstract void onStartNavi(int);
+  public abstract void onTrafficStatusUpdate();
+  public abstract void onLocationChange(com.amap.api.navi.model.AMapNaviLocation);
+  public abstract void onGetNavigationText(int, java.lang.String);
+  public abstract void onGetNavigationText(java.lang.String);
+  public abstract void onEndEmulatorNavi();
+  public abstract void onArriveDestination();
+  public abstract void onCalculateRouteFailure(int);
+  public abstract void onReCalculateRouteForYaw();
+  public abstract void onReCalculateRouteForTrafficJam();
+  public abstract void onArrivedWayPoint(int);
+  public abstract void onGpsOpenStatus(boolean);
+  public abstract void onNaviInfoUpdate(com.amap.api.navi.model.NaviInfo);
+  public abstract void updateCameraInfo(com.amap.api.navi.model.AMapNaviCameraInfo[]);
+  public abstract void updateIntervalCameraInfo(com.amap.api.navi.model.AMapNaviCameraInfo, com.amap.api.navi.model.AMapNaviCameraInfo, int);
+  public abstract void onServiceAreaUpdate(com.amap.api.navi.model.AMapServiceAreaInfo[]);
+  public abstract void showCross(com.amap.api.navi.model.AMapNaviCross);
+  public abstract void hideCross();
+  public abstract void showModeCross(com.amap.api.navi.model.AMapModelCross);
+  public abstract void hideModeCross();
+  public abstract void showLaneInfo(com.amap.api.navi.model.AMapLaneInfo[], byte[], byte[]);
+  public abstract void showLaneInfo(com.amap.api.navi.model.AMapLaneInfo);
+  public abstract void hideLaneInfo();
+  public abstract void onCalculateRouteSuccess(int[]);
+  public abstract void notifyParallelRoad(int);
+  public abstract void OnUpdateTrafficFacility(com.amap.api.navi.model.AMapNaviTrafficFacilityInfo[]);
+  public abstract void OnUpdateTrafficFacility(com.amap.api.navi.model.AMapNaviTrafficFacilityInfo);
+  public abstract void updateAimlessModeStatistics(com.amap.api.navi.model.AimLessModeStat);
+  public abstract void updateAimlessModeCongestionInfo(com.amap.api.navi.model.AimLessModeCongestionInfo);
+  public abstract void onPlayRing(int);
+  public abstract void onCalculateRouteSuccess(com.amap.api.navi.model.AMapCalcRouteResult);
+  public abstract void onCalculateRouteFailure(com.amap.api.navi.model.AMapCalcRouteResult);
+  public abstract void onNaviRouteNotify(com.amap.api.navi.model.AMapNaviRouteNotifyData);
+  public abstract void onGpsSignalWeak(boolean);
+}

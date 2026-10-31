@@ -1,0 +1,13 @@
+{
+  "session_id": "a6956536-07bf-4683-9cd9-7185a2cf43fa",
+  "model": "claude-opus-5-5",
+  "permissionMode": "acceptEdits",
+  "cwd": "/Users/dongge/.codex/tmp/yijiexing-in-app-navigation-20261031",
+  "tools": [
+    "Edit",
+    "Glob",
+    "Grep",
+    "Read",
+    "Write"
+  ]
+}

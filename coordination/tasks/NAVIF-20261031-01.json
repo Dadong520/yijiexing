@@ -1,0 +1,62 @@
+{
+  "schemaVersion": 1,
+  "id": "NAVIF-20261031-01",
+  "owner": "frontend",
+  "goal": "先限定官方SDK依赖/API/实际可构建性探测，独立方案证据；当前不运行整套原生验收",
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-in-app-navigation-20261031",
+  "branch": "codex/in-app-navigation-20261031",
+  "baseSha": "d5d878e2e56ca11fabc576545c46a277d8e7b985",
+  "allow_paths": [
+    "coordination/tasks/NAVIF-20261031-01.json",
+    "coordination/handoffs/frontend.md",
+    "coordination/evidence/NAVIF-20261031-01/"
+  ],
+  "checks": [
+    "User latest replaces external app navigation with actual in-app SDK; no fallback auto external intent",
+    "Loop requires validated waypoint away from start; route distance uses every leg, no fare-rule change or legacy data deletion",
+    "Preserve owner/stage/PIN/distance/passenger consent and waypoint completion gates; SDK arrival never auto advances order",
+    "Only independent experience project; no secrets/APK/private DB in Git; native provider NOT_RUN unless actually verified"
+  ],
+  "status": "SDK_FEASIBILITY_COMPLETE",
+  "acceptance": "PASS",
+  "tests": [
+    {
+      "command": "realID memory gate and read-only sourceHEAD/status",
+      "status": "PASS",
+      "head": "d5d878e2e56ca11fabc576545c46a277d8e7b985"
+    },
+    {
+      "command": "official primarydocs + direct Maven fixed metadata/POM/JAR ZIP and SHA",
+      "status": "PASS"
+    },
+    {
+      "command": "javap public 10 classes",
+      "status": "PASS"
+    },
+    {
+      "command": "isolatedGradle SDK34/JDK17 fixed nav+MapLibre compileDebugJavaWithJavac/checkDebugDuplicateClasses/mergeDebugNativeLibs",
+      "status": "PASS",
+      "exit": 0
+    },
+    {
+      "command": "isolatedGradle includeLegacyMap duplicateclasses negativecontrol",
+      "status": "PASS",
+      "expectedExit": 1,
+      "actualExit": 1
+    },
+    {
+      "command": "Full product/native/provider/GPS/looproute/voice/runtimeintegration",
+      "status": "NOT_RUN",
+      "reason": "Bounded SDK feasibility only; prohibited AVD/install/cloud/credentials"
+    }
+  ],
+  "evidence": [
+    "coordination/evidence/NAVIF-20261031-01/SDK_FEASIBILITY.md",
+    "coordination/evidence/NAVIF-20261031-01/PROBE_RESULTS.json",
+    "coordination/evidence/NAVIF-20261031-01/TOOL_HANDOFF.md"
+  ],
+  "nextAction": "IDLE. Root received SDK feasibility and exact RIDEF tool handoff; no build/AVD/newtest run for handoff. Keep HANDOFF_RECOMMENDED.",
+  "deploy_owner": "coordinator",
+  "releaseReady": false,
+  "updatedAt": "2026-10-31T13:55:38.409520+00:00"
+}

@@ -1,0 +1,38 @@
+{
+  "coordinate": "com.amap.api:navi-3dmap-location-search:11.2.100_3dmap11.2.100_loc11.2.100_sea9.8.1",
+  "jarPath": "/Users/dongge/.codex/tmp/yijiexing-navi-sdk-probe-20261031/downloads/navi-11.2.100.jar",
+  "sha256": "2504d64ebf52ba4a9731bbf71996f6242fe07f6553fec92efe52f0c5ac7621c1",
+  "bytes": 100458122,
+  "download": "direct curl exit0; no proxy needed; logs/jar-direct.log",
+  "newClassCount": 3772,
+  "oldClassCount": 2952,
+  "duplicateClassesIfBothAdded": 2045,
+  "sameClassByteCount": 0,
+  "sharedExamples": [
+    "com/amap/api/maps/MapView.class",
+    "com/amap/api/location/AMapLocationClient.class",
+    "com/amap/api/services/core/ServiceSettings.class"
+  ],
+  "nativeLibraries": [
+    "lib/armeabi-v7a/libapssdk.so",
+    "lib/armeabi-v7a/libopenssl.so",
+    "lib/armeabi-v7a/libneonui_shared.so",
+    "lib/armeabi-v7a/libAMapSDK_NAVI_v11_2_100.so",
+    "lib/armeabi-v7a/libnui.so",
+    "lib/armeabi-v7a/libneonuijni_public.so",
+    "lib/armeabi-v7a/libc++_shared.so",
+    "lib/arm64-v8a/libapssdk.so",
+    "lib/arm64-v8a/libopenssl.so",
+    "lib/arm64-v8a/libneonui_shared.so",
+    "lib/arm64-v8a/libAMapSDK_NAVI_v11_2_100.so",
+    "lib/arm64-v8a/libnui.so",
+    "lib/arm64-v8a/libneonuijni_public.so",
+    "lib/arm64-v8a/libc++_shared.so"
+  ],
+  "oldClassesMissingCount": 907,
+  "oldMissingPublicApiClasses": [
+    "com/amap/api/maps/model/MVTTileOverlayOptions$Builder.class",
+    "com/amap/api/maps/model/MVTTileOverlayOptions$a.class",
+    "com/amap/api/maps/model/MVTTileProvider$a.class"
+  ]
+}

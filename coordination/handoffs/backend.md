@@ -1,10 +1,11 @@
 # backend 当前短卡
-ACK2026-10-26-v3；真实ID01a182c6-c058-76e1-9584-38abfe813799；2026-10-31T20:04:23+08:00。context UNKNOWN/not_exposed；NORMAL。root01a17cc7-e0a2-7791-bf1d-4611c09bab22唯一协调合并发布。
+ACK2026-10-26-v3；真实ID01a182c6-c058-76e1-9584-38abfe813799；2026-10-31T22:45:33+08:00。context UNKNOWN/not_exposed；NORMAL。root01a17cc7-e0a2-7791-bf1d-4611c09bab22唯一协调合并发布。
 
-当前RIDER-20261031-01实际回执/README窄审 **PASS**，17项、P1=0/P2=0。精确metadata候选56021bab95a9501cb4908de3690bb9148ed42bd9；base产品mergea1527d2b27aeb2a5dd97e40736fd8e0bb5f4841f，验收产品0ef2a8d3982dfca0e85a3b756a6004c1825ba798；source /Users/dongge/.codex/tmp/yijiexing-ride-flow-polish-20261031 branch codex/ride-flow-receipt-20261031，检查HEAD准确clean。仅写RIDER task/本卡/evidence，无产品README控制或云修改。
+NAVIRB D2差量Claude司机非作者源审 **PASS/IDLE**，P1=0/P2=0。候选6cdcee1a68d57465e4196243f22478c69733654c；D1基线83c6fde3a4c70bbb5bc2a2362f0e4e2f93937212；source /Users/dongge/.codex/tmp/yijiexing-in-app-navigation-20261031 branch codex/in-app-navigation-20261031。只gitshow/diff固定对象，不读活动dirty；仅task/卡/evidence，无产品/构建/AVD/云，releaseReady=false。
 
-5产品root candidate/merge/accepted同树，完整merge repo tree同PR47准确CIheadb78b7fcedbae1be7cffa3360bb9944a450a43c88；41197382855 success与实际receipt/task一致。两原包→root→公开完整HTTPS SHA/size/package/code23/signer一致；乘客1.1.21 cb77e639…0842/107270521，司机0.3.20 237ee0ce…d30f/108718725。候选upload/旧22 generation归档/fixed23提升实际记录一致。乘客direct200；司机325s29MB估>900主动SIGTERM -15后既有proxy完整200，没有误称自然失败。
-45→45旧passenger_orders全行0丢0改0增，同snapshot/SHA/generation，scope只此表；私有DB未读。runtime完整spec/annotations/IAM/revision/traffic比较PASS、min0max1/API900及STATE automatic/request/concurrency1/SA/env约束一致，无CloudRun部署/云业务POST；净化记录一致性审查，未重读raw私有spec。4公开GET actual200。
-乘客0ef新69/原包QA，driverff53实际77/build同tree继承；B3最终75ms/嵌套159ms与phase4六金额新smoke来源准确，原49msFAIL/4aP2保留。Claude四阶段exactSID exit0/无拒绝/自测NOT_RUN。cleanupPASS，provider/OEM/手机/真钱等NOT_RUN及旧offlineP3不冒称完成。README当前23/历史22/入口/1tap/2stop/重新估价/金额/范围准确，差量无APK/DB/SQL/cache/凭据文件。
+D2 alert同RouteStops全WP内容滚动、按钮外置minheight；MainActivity接单只message改routeSummary原顺序站点，原接受回调保持。导航Core980–1047复用MapPanelLayout正确driverTripScope/saveKey/chrome，attention含stage/nextWP原index/allWP/distance/cancel/participation，固定SDKmap槽+原tripActions bottomBar。原tripActions与verifyPIN对话尾部字节完全D1，ConnectedStore/TripWaypoints/DriverDomain/NativeMap/MapPanel未变；stage/PIN/距离同意/预约/全部WP/取消联系均无新旁路。
+私有示例导航补未关联提示，ContactAction提前return不取号；其generation后完整代码字节D1。LinkageError在open可见Unsupported+release+退出，不重试不外跳；不是全SDK异常保证。DriverTripDistance只一文案。backend subtree完全同D1，继承root284，不自验本人backend。
 
-证据coordination/evidence/RIDER-20261031-01/REVIEW.json/md，含17核对与Git blob绑定。实际只读命名证据/Git对象与树重算/跨记录比对/diff --check/角色门禁PASS；没有重编/JUnit/native/网络/云/DB。root将审查入库后准确新metadata头CI合并，不再部署。线上23已实际发布读回，不误写待发布；旧RIDEB phase4PASS证据保留。不轮询、不自动跨chat消息，Claude/Gemini现有安排不改。
+证据coordination/evidence/NAVIRB-20261031-01/D2_DELTA_REVIEW.json/md，8检查/固定blob/原D1报告hash保留。机械字节/树/diff --check与中央门禁PASS。新增routeSummary测试只检视NOT_RUN；root负责D2编译/全屏三态恢复/小屏alert确认滚动/IME/SDK尺寸生命周期。源码不能证明实际拖动不重建SDK或控件几何可达。D1实际provider/phone/PIN/WP/距离/终态由root报告PASS，不冒充D2新测。
+
+前NAVIB最终6e1已root补齐import445787f/backend同树，root独立284/67.158s PASS，45旧单clone不变/contact0且无activelegacy读号样本，不再补导入。root准确头统一最终验收/合并/发布；backend IDLE，不轮询不跨chat不部署。线上23前轮完成，本轮24尚未发布。

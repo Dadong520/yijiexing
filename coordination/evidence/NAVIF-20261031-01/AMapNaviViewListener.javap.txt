@@ -1,0 +1,25 @@
+Compiled from "AMapNaviViewListener.java"
+public interface com.amap.api.navi.AMapNaviViewListener {
+  public abstract void onNaviSetting();
+  public abstract void onNaviCancel();
+  public abstract boolean onNaviBackClick();
+  public abstract void onNaviMapMode(int);
+  public abstract void onNaviTurnClick();
+  public abstract void onNextRoadClick();
+  public abstract void onScanViewButtonClick();
+  public abstract void onLockMap(boolean);
+  public abstract void onNaviViewLoaded();
+  public abstract void onMapTypeChanged(int);
+  public abstract void onNaviViewShowMode(int);
+  public abstract void onStopSpeaking();
+  public abstract void onViewTypeChanged(com.amap.api.navi.AmapPageType);
+  public abstract void onAMapNaviViewExit();
+  public abstract void onStrategyChanged(int);
+  public abstract void onBroadcastModeChanged(int);
+  public abstract void onDayAndNightModeChanged(int);
+  public abstract void onScaleAutoChanged(boolean);
+  public abstract void onListenToVoiceDuringCallChanged(boolean);
+  public abstract void onControlMusicVolumeModeChanged(int);
+  public abstract void onEagleChanged(boolean);
+  public abstract void onNaviRouteHighlightChange(long, int);
+}
