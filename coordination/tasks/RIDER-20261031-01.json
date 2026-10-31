@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "id": "RIDER-20261031-01",
+  "owner": "backend",
+  "goal": "独立复核本轮实际发布回执与README准确版本、来源、范围及回读",
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-ride-flow-polish-20261031",
+  "branch": "codex/ride-flow-receipt-20261031",
+  "baseSha": "a1527d2b27aeb2a5dd97e40736fd8e0bb5f4841f",
+  "allow_paths": [
+    "coordination/tasks/RIDER-20261031-01.json",
+    "coordination/handoffs/backend.md",
+    "coordination/evidence/RIDER-20261031-01/"
+  ],
+  "checks": [
+    "Read-only receipt/README and actual proof audit; no product edit/cloud call/rebuild",
+    "Match product0ef, PR47 mergea152, exact integration CIb78/run41197382855 and actual version23 APK hashes",
+    "Preserve explicit test/source inheritance and provider/physical device/real funds NOT_RUN"
+  ],
+  "status": "ACTUAL_RECEIPT_README_REVIEW_PASS",
+  "acceptance": "PASS",
+  "tests": [
+    {
+      "check": "实际回执README独立窄审",
+      "result": "PASS",
+      "candidateSha": "56021bab95a9501cb4908de3690bb9148ed42bd9",
+      "checks": 17,
+      "p1": 0,
+      "p2": 0,
+      "evidence": "coordination/evidence/RIDER-20261031-01/REVIEW.json"
+    }
+  ],
+  "evidence": [
+    "coordination/evidence/RIDER-20261031-01/REVIEW.json",
+    "coordination/evidence/RIDER-20261031-01/REVIEW.md"
+  ],
+  "nextAction": "root提交本独立报告后准确新metadata头CI合并；已发布23不再部署",
+  "deploy_owner": "coordinator",
+  "releaseReady": false,
+  "candidateSha": "56021bab95a9501cb4908de3690bb9148ed42bd9",
+  "acceptanceScope": "17-item existing actual evidence/README metadata audit; no new deployment or runtime tests",
+  "pendingMergeSha": "56021bab95a9501cb4908de3690bb9148ed42bd9",
+  "updatedAt": "2026-10-31T20:04:23+08:00"
+}

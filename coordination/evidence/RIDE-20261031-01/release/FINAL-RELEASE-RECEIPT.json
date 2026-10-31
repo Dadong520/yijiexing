@@ -1,0 +1,283 @@
+{
+  "releaseId": "20261031-ride-0ef2a8d",
+  "completedAt": "2026-10-31T11:59:52.611841+00:00",
+  "sourceSha": "0ef2a8d3982dfca0e85a3b756a6004c1825ba798",
+  "integrationHeadSha": "b78b7fcedbae1be7cffa3360bb9944a450a43c88",
+  "productMergeSha": "a1527d2b27aeb2a5dd97e40736fd8e0bb5f4841f",
+  "productPullRequest": "https://github.com/Dadong520/yijiexing/pull/47",
+  "ci": {
+    "headSha": "b78b7fcedbae1be7cffa3360bb9944a450a43c88",
+    "runId": 41197382855,
+    "conclusion": "success",
+    "url": "https://github.com/Dadong520/yijiexing/actions/runs/41197382855"
+  },
+  "acceptance": "PASS_SCOPED",
+  "publicationType": "GCS Android APK replacement only",
+  "cloudRunDeployments": 0,
+  "cloudBusinessPostsByCoordinator": 0,
+  "project": "yijiexing-driver-demo-1023",
+  "region": "us-west1",
+  "apps": [
+    {
+      "role": "passenger",
+      "url": "https://user-test---driver-demo-phfgquzmua-uw.a.run.app/download-passenger.apk",
+      "attempts": [
+        {
+          "transport": "direct",
+          "curlExit": 0,
+          "http": 200
+        }
+      ],
+      "bytes": 107270521,
+      "sha256": "cb77e6397a809027c117e963b2a4faf8b4b7a65d62a961bdaf519f333dec0842",
+      "package": "cn.hbzjhs.dc.passenger.cloud",
+      "versionName": "1.1.21-experience",
+      "versionCode": 23,
+      "signerSha256": "9ffec9b342d12909ff288bd73f23ba104893b39120cb24ea83c9734a0d2b758f",
+      "aaptAndApksignerExit": 0,
+      "sameBytesAsIndependentlyReviewedBuild": true,
+      "PASS": true
+    },
+    {
+      "role": "driver",
+      "url": "https://user-test---driver-demo-phfgquzmua-uw.a.run.app/download.apk",
+      "attempts": [
+        {
+          "transport": "direct",
+          "curlExit": -15,
+          "http": 0
+        },
+        {
+          "transport": "existing_proxy_fallback",
+          "curlExit": 0,
+          "http": 200
+        }
+      ],
+      "bytes": 108718725,
+      "sha256": "237ee0ce4feeb24e29ec4257258fb56227d6ea1c95feb9017f15bd737303d30f",
+      "package": "cn.hbzjhs.dc.driver.cloud",
+      "versionName": "0.3.20-cloud",
+      "versionCode": 23,
+      "signerSha256": "9ffec9b342d12909ff288bd73f23ba104893b39120cb24ea83c9734a0d2b758f",
+      "aaptAndApksignerExit": 0,
+      "sameBytesAsIndependentlyReviewedBuild": true,
+      "PASS": true
+    }
+  ],
+  "promotion": [
+    {
+      "role": "passenger",
+      "fixedObject": "distribution/yijiexing-passenger.apk",
+      "archiveObject": "distribution/archive/before-20261031-ride-0ef2a8d/passenger.apk",
+      "archivedGeneration": "1793446978552752",
+      "previousFixedGeneration": "1793436537896076",
+      "newFixedGeneration": "1793446982503923",
+      "bytes": 107270521,
+      "sha256": "cb77e6397a809027c117e963b2a4faf8b4b7a65d62a961bdaf519f333dec0842",
+      "generationPreconditions": true,
+      "oldArchiveVerified": true
+    },
+    {
+      "role": "driver",
+      "fixedObject": "distribution/yijiexing-cloud.apk",
+      "archiveObject": "distribution/archive/before-20261031-ride-0ef2a8d/driver.apk",
+      "archivedGeneration": "1793446989312265",
+      "previousFixedGeneration": "1793436546140162",
+      "newFixedGeneration": "1793446994248649",
+      "bytes": 108718725,
+      "sha256": "237ee0ce4feeb24e29ec4257258fb56227d6ea1c95feb9017f15bd737303d30f",
+      "generationPreconditions": true,
+      "oldArchiveVerified": true
+    }
+  ],
+  "dataBefore": {
+    "source": "atomic current GCS media response; generation/MD5 bound to same response",
+    "generation": "1793441160408859",
+    "bytes": 9965568,
+    "sha256": "2aa07b9824f5ac39bc355fc6d76258ee15df863ffb4cd2907e46cd63773cbe45",
+    "integrity": "ok",
+    "orderCount": 45,
+    "mode": "0600 private outside repository",
+    "transportEvents": []
+  },
+  "dataAfter": {
+    "source": "current authoritative GCS snapshot, response-bound generation/MD5",
+    "generation": "1793441160408859",
+    "bytes": 9965568,
+    "sha256": "2aa07b9824f5ac39bc355fc6d76258ee15df863ffb4cd2907e46cd63773cbe45",
+    "integrity": "ok",
+    "beforeOrderCount": 45,
+    "afterOrderCount": 45,
+    "oldOrdersMissing": 0,
+    "oldOrdersFieldsChanged": 0,
+    "newOrders": 0,
+    "cloudBusinessPostsByCoordinator": 0,
+    "backupAndReadbackOutsideRepository0600": true,
+    "PASS": true,
+    "scope": "passenger_orders full row comparison, not all database tables"
+  },
+  "runtimeReadback": {
+    "project": "yijiexing-driver-demo-1023",
+    "region": "us-west1",
+    "cloudRunMutationsByCoordinator": 0,
+    "services": [
+      {
+        "role": "api",
+        "service": "driver-demo",
+        "revision": "driver-demo-ccui-107e226-test1",
+        "checks": {
+          "fullSpecUnchanged": true,
+          "serviceAnnotationsUnchanged": true,
+          "iamPolicyUnchanged": true,
+          "readyRevisionUnchanged": true,
+          "trafficUnchanged": true
+        },
+        "minScale": "0",
+        "maxScale": "1",
+        "timeoutSeconds": 900,
+        "specSha256": "1b0a229a8a947a7d131ebb2aa2d9468ddce9654307708b0c2beb82588d06b839",
+        "iamSha256": "283b16eb4e4f82142ed1981a5a7abbf4f3368b765d75e85216706d7d5f4f8426",
+        "PASS": true
+      },
+      {
+        "role": "admin",
+        "service": "driver-admin",
+        "revision": "driver-admin-ccui-107e226-test1",
+        "checks": {
+          "fullSpecUnchanged": true,
+          "serviceAnnotationsUnchanged": true,
+          "iamPolicyUnchanged": true,
+          "readyRevisionUnchanged": true,
+          "trafficUnchanged": true
+        },
+        "minScale": "0",
+        "maxScale": "1",
+        "timeoutSeconds": 300,
+        "specSha256": "8e6357aaf2d9c7d9bf6e68612ef8ae375785f7c0a79323292a0998429b908a63",
+        "iamSha256": "b027303221f99da4a53abc6f08be531edcd3e580438df9f626a6d443c26612bf",
+        "PASS": true
+      }
+    ],
+    "allPreserved": true
+  },
+  "dataScope": "passenger_orders full old-row comparison only, not all database tables",
+  "publicPagesAndHealth": [
+    {
+      "name": "passenger_landing",
+      "url": "https://user-test---driver-demo-phfgquzmua-uw.a.run.app/download-passenger",
+      "attempts": [
+        {
+          "transport": "direct",
+          "curlExit": 0,
+          "http": 200
+        }
+      ],
+      "http": 200,
+      "expectedContentPresent": true,
+      "bytes": 1452,
+      "bodySha256": "a996427a6f0f048bbb1e9339848d56dc700cf9702455c923720cad717372d4ce",
+      "PASS": true
+    },
+    {
+      "name": "driver_landing",
+      "url": "https://user-test---driver-demo-phfgquzmua-uw.a.run.app/download",
+      "attempts": [
+        {
+          "transport": "direct",
+          "curlExit": 0,
+          "http": 200
+        }
+      ],
+      "http": 200,
+      "expectedContentPresent": true,
+      "bytes": 1345,
+      "bodySha256": "7dad18359e2318e57d43a0285e0d3d199128e7c55a4e962ea2653386723c7920",
+      "PASS": true
+    },
+    {
+      "name": "api_health",
+      "url": "https://yijiexing-demo.hbzjhs.xyz/health",
+      "attempts": [
+        {
+          "transport": "direct",
+          "curlExit": 0,
+          "http": 200
+        }
+      ],
+      "http": 200,
+      "expectedContentPresent": true,
+      "bytes": 118,
+      "bodySha256": "9320ac6fcce184c2ce2e98474209b33546e31354810873bb3ee1ca4357e9596c",
+      "PASS": true
+    },
+    {
+      "name": "admin_login",
+      "url": "https://demo-admin.hbzjhs.xyz/",
+      "attempts": [
+        {
+          "transport": "direct",
+          "curlExit": 0,
+          "http": 200
+        }
+      ],
+      "http": 200,
+      "expectedContentPresent": true,
+      "bytes": 2350,
+      "bodySha256": "38e32f1ef3fc7a0c4780fd2ec18d1b4e27fa785837b7dbd227ec638525090040",
+      "PASS": true
+    }
+  ],
+  "driverDirectFallback": {
+    "observedBytes": 29011968,
+    "elapsedSeconds": 325.0,
+    "projectedTotalSecondsAtObservedAverage": 1217.9,
+    "directMaxTimeSeconds": 900,
+    "action": "STOP_TASK_OWNED_SLOW_DIRECT_CURL_FOR_BUILTIN_EXISTING_PROXY_FALLBACK",
+    "reason": "Observed average projects full direct transfer beyond its bounded900s deadline; direct partial is not accepted. No public object or product changed."
+  },
+  "mergeTreeBinding": "coordination/evidence/RIDE-20261031-01/MERGE_TREE_BINDING.json",
+  "authorExecution": [
+    "coordination/evidence/RIDEC-20261031-01/EXECUTION.json",
+    "coordination/evidence/RIDEC-20261031-01/PHASE2_EXECUTION.json",
+    "coordination/evidence/RIDEC-20261031-01/PHASE3_EXECUTION.json",
+    "coordination/evidence/RIDEC-20261031-01/PHASE4_EXECUTION.json"
+  ],
+  "rootChecks": "coordination/evidence/RIDE-20261031-01/ROOT_CHECKS_0ef2a8d.json",
+  "rootBinding": "coordination/evidence/RIDE-20261031-01/ROOT_ARTIFACT_BINDING.json",
+  "businessReview": "coordination/evidence/RIDEB-20261031-01/PHASE4_REVIEW.json",
+  "nativeReview": "coordination/evidence/RIDEF-20261031-01/FINAL_REVIEW.json",
+  "buildProof": "coordination/evidence/RIDEF-20261031-01/FINAL_BUILD_PROOF.json",
+  "testAttribution": {
+    "passenger": {
+      "sourceSha": "0ef2a8d3982dfca0e85a3b756a6004c1825ba798",
+      "buildSha": "0ef2a8d3982dfca0e85a3b756a6004c1825ba798",
+      "testBuildSha": "0ef2a8d3982dfca0e85a3b756a6004c1825ba798",
+      "results": {
+        "tests": 69,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "inherited": false
+    },
+    "driver": {
+      "sourceSha": "0ef2a8d3982dfca0e85a3b756a6004c1825ba798",
+      "buildSha": "ff53f570296d0bd97d8dc7ee4e16c915987a8542",
+      "testBuildSha": "ff53f570296d0bd97d8dc7ee4e16c915987a8542",
+      "results": {
+        "tests": 77,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "inherited": true
+    }
+  },
+  "knownLimits": [
+    "Dedicated isolated AVD/local synthetic fixture; no personal phone or live business mutations",
+    "QA intentionally lacks provider credentials; map layout/gesture != actual provider map/search/reverse geocode success",
+    "OEM and real money not validated; funds remain simulated",
+    "WeChat missing AppID, no WeChat compile/device/publication",
+    "Only native UI changed, backend/admin product and runtime unchanged"
+  ]
+}

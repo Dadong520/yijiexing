@@ -1,0 +1,27 @@
+[
+  {
+    "role": "driver",
+    "url": "https://user-test---driver-demo-phfgquzmua-uw.a.run.app/download.apk",
+    "attempts": [
+      {
+        "transport": "direct",
+        "curlExit": -15,
+        "http": 0
+      },
+      {
+        "transport": "existing_proxy_fallback",
+        "curlExit": 0,
+        "http": 200
+      }
+    ],
+    "bytes": 108718725,
+    "sha256": "237ee0ce4feeb24e29ec4257258fb56227d6ea1c95feb9017f15bd737303d30f",
+    "package": "cn.hbzjhs.dc.driver.cloud",
+    "versionName": "0.3.20-cloud",
+    "versionCode": 23,
+    "signerSha256": "9ffec9b342d12909ff288bd73f23ba104893b39120cb24ea83c9734a0d2b758f",
+    "aaptAndApksignerExit": 0,
+    "sameBytesAsIndependentlyReviewedBuild": true,
+    "PASS": true
+  }
+]

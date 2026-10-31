@@ -72,7 +72,9 @@
     "RIDE-20261031-01",
     "RIDEC-20261031-01",
     "RIDEB-20261031-01",
-    "RIDEF-20261031-01"
+    "RIDEF-20261031-01",
+    "RIDER-20261031-01",
+    "RIDEREC-20261031-01"
   ],
   "releaseOwner": "coordinator",
   "policy": "作者提交→自测→独立验收→协调者合并→部署回读；无业务验收PASS不发布",
@@ -101,10 +103,10 @@
     "coordination/archive/2026-10-26/AUTH-20261026-02.json"
   ],
   "memoryProtocolVersion": "2026-10-26-v3",
-  "currentStage": "RIDE_VALIDATED_FINAL_CI_MERGE_PUBLICATION",
+  "currentStage": "RIDE23_RECEIPT_REVIEW_PASS_FINAL_METADATA_CI",
   "roleAssignments": {
-    "coordinator": "Sole integration-head CI/merge/APK-only publication/readback",
-    "backend": "IDLE phase4 source PASS, receipt review later",
+    "coordinator": "RIDEREC actual receipt/README candidate, no further publication",
+    "backend": "IDLE RIDER17 checks PASS56021",
     "frontend": "IDLE final0ef PASS/cleanup done; future major task assess successor",
     "antigravity": "PAUSED_BY_USER_20261029; no new Gemini dispatch",
     "expert": "IDLE; configuration verified, SDK auth recovered; user deferred actual device test",

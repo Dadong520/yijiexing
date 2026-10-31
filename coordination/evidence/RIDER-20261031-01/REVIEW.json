@@ -1,0 +1,187 @@
+{
+  "taskId": "RIDER-20261031-01",
+  "reviewerRole": "backend",
+  "reviewerSessionId": "01a182c6-c058-76e1-9584-38abfe813799",
+  "reviewedAt": "2026-10-31T20:04:23+08:00",
+  "candidateSha": "56021bab95a9501cb4908de3690bb9148ed42bd9",
+  "baseSha": "a1527d2b27aeb2a5dd97e40736fd8e0bb5f4841f",
+  "acceptedProductSha": "0ef2a8d3982dfca0e85a3b756a6004c1825ba798",
+  "integrationHeadSha": "b78b7fcedbae1be7cffa3360bb9944a450a43c88",
+  "ciRunId": 41197382855,
+  "verdict": "PASS",
+  "p1Count": 0,
+  "p2Count": 0,
+  "findings": [],
+  "scope": "Actual receipt/README metadata and named local evidence consistency audit; no fresh cloud/network/package/database execution",
+  "checks": [
+    {
+      "id": 1,
+      "check": "Metadata-only diff",
+      "result": "PASS",
+      "detail": "23 changed paths, README/coordination only; no product writes or binary/database/cache additions."
+    },
+    {
+      "id": 2,
+      "check": "Five product trees preserved",
+      "result": "PASS",
+      "detail": "Candidate metadata/product merge/accepted0ef trees equal for all5 product roots."
+    },
+    {
+      "id": 3,
+      "check": "Product merge equals complete CI tree",
+      "result": "PASS",
+      "detail": "Full repository tree equal, not just Kotlin files; local merge subject identifiesPR47."
+    },
+    {
+      "id": 4,
+      "check": "Source/CI/merge receipt binding",
+      "result": "PASS",
+      "detail": "Matches committed task and MERGE_TREE_BINDING; no remote CI re-query."
+    },
+    {
+      "id": 5,
+      "check": "passenger APK/readback/build agreement",
+      "result": "PASS",
+      "detail": "Original package/version/signature info agrees build/root proof; complete public readback200 matches independently reviewed original, not QA APK."
+    },
+    {
+      "id": 6,
+      "check": "driver APK/readback/build agreement",
+      "result": "PASS",
+      "detail": "Original package/version/signature info agrees build/root proof; complete public readback200 matches independently reviewed original, not QA APK."
+    },
+    {
+      "id": 7,
+      "check": "Driver direct fallback accurately recorded",
+      "result": "PASS",
+      "detail": "Root manually stopped direct after325s/29011968bytes, projected1217.9s>900s; existing proxy fallback full readback200. Partial direct not accepted; no claim natural network failure. Passenger direct200."
+    },
+    {
+      "id": 8,
+      "check": "Actual promotion preserves old22 and installs23",
+      "result": "PASS",
+      "detail": "Two candidate upload records and generation-conditioned archive/fixed promotion match receipt; upload candidate-only stage label remains historical."
+    },
+    {
+      "id": 9,
+      "check": "Data45 full old-row preservation correctly scoped",
+      "result": "PASS",
+      "detail": "passenger_orders only; same9965568byte snapshot and quickcheckok;0600 private outside repository. Does not extend to all tables; DB not reopened by reviewer."
+    },
+    {
+      "id": 10,
+      "check": "Runtime evidence unchanged and limited project",
+      "result": "PASS",
+      "detail": "Recorded fullSpec/annotations/IAM/readyRevision/traffic comparisonsPASS; revisions unchanged, min0/max1/API900. STATE records automatic/request billing/concurrency1/SA/env/secrets preserved under fullspec comparison. Sanitized evidence consistency audited; no new runtime fetch or raw private spec inspection."
+    },
+    {
+      "id": 11,
+      "check": "Public four actual GETs",
+      "result": "PASS",
+      "detail": "Both landing pages, API health and admin login actual direct200/expected content hashes; no business POST or CloudRun deploy recorded."
+    },
+    {
+      "id": 12,
+      "check": "69 new versus77 inherited attributed",
+      "result": "PASS",
+      "detail": "Passenger actual0ef original/QA+69; driver actualff53 original/QA+77 complete tree identical. Root27/mini74 actual4a explicitly inherited by equal tool/scanned trees."
+    },
+    {
+      "id": 13,
+      "check": "Native phase attribution and oldFAIL retained",
+      "result": "PASS",
+      "detail": "Final R1 actual75ms, original49ms FAIL retained; nested159ms B3 native,4a nativeNOT_RUN preserved. Six phase4 normal/small amounts and confirmation/cancel smoke; exact unchanged functions inherit B3,driverB ff53."
+    },
+    {
+      "id": 14,
+      "check": "Four actual author execution receipts",
+      "result": "PASS",
+      "detail": "Same exact official CLI task session/modelOpus5.5high; no author test claims, independent reviewers separate."
+    },
+    {
+      "id": 15,
+      "check": "Cleanup and limitations remain explicit",
+      "result": "PASS",
+      "detail": "AVD/reverse/64361/64362/5584 ended; no physical/OEM/provider-positive/funds/auth/police/coupon/WeChat claims. Old offline MapPanel P3 remains explicit/nonblocking."
+    },
+    {
+      "id": 16,
+      "check": "README current23 historical22 accurate",
+      "result": "PASS",
+      "detail": "Current table/entry URLs23, history22 clearly titled; one-click/unknown-coordinate/2stop/explicit existing-order reprice and scope limits match evidence. General draft wording immediately qualified by existing-order confirmation."
+    },
+    {
+      "id": 17,
+      "check": "Private artifact exclusion and receipt digest",
+      "result": "PASS",
+      "detail": "Metadata diff contains no APK/privateSQL/database/cache/credentials files; recorded independent APK uncompressed private exact matches0. No private credential content accessed/reprinted by reviewer."
+    }
+  ],
+  "productTreeBindings": {
+    "apps/passenger-android": {
+      "56021bab95a9501cb4908de3690bb9148ed42bd9": "3ef2c41473a192da4869469dca5765089f6d9bfd",
+      "a1527d2b27aeb2a5dd97e40736fd8e0bb5f4841f": "3ef2c41473a192da4869469dca5765089f6d9bfd",
+      "0ef2a8d3982dfca0e85a3b756a6004c1825ba798": "3ef2c41473a192da4869469dca5765089f6d9bfd"
+    },
+    "candidates/driver-0.3.6-r2/android": {
+      "56021bab95a9501cb4908de3690bb9148ed42bd9": "ee3c2918d51f69e177d7d74b45afdece1a26c70c",
+      "a1527d2b27aeb2a5dd97e40736fd8e0bb5f4841f": "ee3c2918d51f69e177d7d74b45afdece1a26c70c",
+      "0ef2a8d3982dfca0e85a3b756a6004c1825ba798": "ee3c2918d51f69e177d7d74b45afdece1a26c70c"
+    },
+    "apps/cloud-service": {
+      "56021bab95a9501cb4908de3690bb9148ed42bd9": "033e173314e7339e46c2c78c178b870039609fa9",
+      "a1527d2b27aeb2a5dd97e40736fd8e0bb5f4841f": "033e173314e7339e46c2c78c178b870039609fa9",
+      "0ef2a8d3982dfca0e85a3b756a6004c1825ba798": "033e173314e7339e46c2c78c178b870039609fa9"
+    },
+    "apps/admin-console": {
+      "56021bab95a9501cb4908de3690bb9148ed42bd9": "86b2ac8af994108b88bf298c8eba725b31fe4a5a",
+      "a1527d2b27aeb2a5dd97e40736fd8e0bb5f4841f": "86b2ac8af994108b88bf298c8eba725b31fe4a5a",
+      "0ef2a8d3982dfca0e85a3b756a6004c1825ba798": "86b2ac8af994108b88bf298c8eba725b31fe4a5a"
+    },
+    "candidates/passenger-miniprogram-0.1.0": {
+      "56021bab95a9501cb4908de3690bb9148ed42bd9": "5236b65283b5bb80939c223aa2abfc3f6534253a",
+      "a1527d2b27aeb2a5dd97e40736fd8e0bb5f4841f": "5236b65283b5bb80939c223aa2abfc3f6534253a",
+      "0ef2a8d3982dfca0e85a3b756a6004c1825ba798": "5236b65283b5bb80939c223aa2abfc3f6534253a"
+    }
+  },
+  "evidenceGitBlobIds": {
+    "coordination/evidence/RIDE-20261031-01/release/FINAL-RELEASE-RECEIPT.json": "33bdb53ac6a5760b2889c829ad447b824918fb5a",
+    "coordination/evidence/RIDEF-20261031-01/FINAL_BUILD_PROOF.json": "67789abd3a83deefbc529349ab2f598b97d3cd01",
+    "coordination/evidence/RIDE-20261031-01/ROOT_ARTIFACT_BINDING.json": "64b31184d3d4da566d80b10e00167723f2663e9e",
+    "coordination/tasks/RIDE-20261031-01.json": "afd94a919d10cbf4dc59a17dd55986c0aba05ad9",
+    "coordination/evidence/RIDE-20261031-01/release/apk-https-passenger.json": "703f2397c8948056802ea242d2f64888e971235c",
+    "coordination/evidence/RIDE-20261031-01/release/apk-upload-candidates.json": "544d9309fb95dca1f9010be023e865b051d2a327",
+    "coordination/evidence/RIDE-20261031-01/release/apk-https-driver.json": "96e8f4bddcbd15dafa6d44d20131bd1b57503cda",
+    "coordination/evidence/RIDE-20261031-01/release/driver-direct-performance-fallback.json": "e6286d79f9a0035e44793d8bfea94a7979f73148",
+    "coordination/evidence/RIDE-20261031-01/release/apk-https-attempts-driver.json": "3e18d4078cb2050ba4e5c529e1cd004d94b477cb",
+    "coordination/evidence/RIDE-20261031-01/release/apk-promotion.json": "8de3093b540f2119527629ab3cbfe134e3e3f242",
+    "coordination/evidence/RIDE-20261031-01/release/data-before.json": "60ba89e31ddd5858b43561183fe178ef53f37254",
+    "coordination/evidence/RIDE-20261031-01/release/data-after.json": "16ff9f51045be7c5650cce793d68b0866c7711b8",
+    "coordination/evidence/RIDE-20261031-01/release/runtime-before.json": "c5bc1513ec309355835ab6a14a216c48548fc796",
+    "coordination/evidence/RIDE-20261031-01/release/runtime-after.json": "1fe16ac558b3c1dc82e324195fb08c160d4a7127",
+    "coordination/evidence/RIDE-20261031-01/release/public-pages-health.json": "f92e151b056ecb9130fb44acee6c078d23739535",
+    "coordination/evidence/RIDEF-20261031-01/FINAL_REVIEW.json": "a2818a6a6f3991d72d0218be4f8b6cfd6cac4990",
+    "coordination/evidence/RIDEF-20261031-01/pre-phase4/FINAL_REVIEW.json": "ecc2d72ae967e09c0828bc731e9fd0c7b633f538",
+    "coordination/evidence/RIDEF-20261031-01/PHASE4_NATIVE.json": "d8a98244fa7f71e9799453a0cf8674b2c22c9157",
+    "coordination/evidence/RIDEC-20261031-01/EXECUTION.json": "f1e39599e5b432cc265a2a5877e9981d0842b9cd",
+    "coordination/evidence/RIDEC-20261031-01/PHASE2_EXECUTION.json": "625c3af00868b50a67105aad01789579bcc0a4ba",
+    "coordination/evidence/RIDEC-20261031-01/PHASE3_EXECUTION.json": "f5004558fe75d78ba48d2a2291b44c9ef131d7db",
+    "coordination/evidence/RIDEC-20261031-01/PHASE4_EXECUTION.json": "26cb1af8d01237fa42f33fe6a9a419c1efd8726b",
+    "coordination/evidence/RIDEF-20261031-01/CLEANUP.json": "3b13525fe156e130d71ed5d9bf078543231102af",
+    "coordination/evidence/RIDE-20261031-01/ROOT_CLEANUP_READBACK.json": "65c7f3094ec8f83d279596f388eb0d810ba95ec3",
+    "README.md": "835e6149eb43ea1d656eadcdfa0c6d4bbe3bfd6f"
+  },
+  "actualChecks": [
+    "Immutable candidate Git objects/README/receipt/named evidence read",
+    "5product roots tree equality + full repository merge/CI equality locally recomputed",
+    "Receipt/build/readback/promotion/data/runtime/native/cleanup cross-record comparisons",
+    "git diff --check base..candidate exit0",
+    "True-role central coordination gate PASS"
+  ],
+  "notRun": [
+    "Fresh cloud/network/API/public HTTPS download/upload/promotion/deployment",
+    "Build/JUnit/native/provider/OEM/funds",
+    "PrivateDB rawrow/full runtime spec reinspection; used sanitized existing recorded comparisons"
+  ],
+  "nextAction": "Root commit review report, bind exact new metadata headCI and merge. No additional release or deployment."
+}

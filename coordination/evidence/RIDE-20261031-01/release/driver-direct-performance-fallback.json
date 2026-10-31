@@ -1,0 +1,8 @@
+{
+  "observedBytes": 29011968,
+  "elapsedSeconds": 325.0,
+  "projectedTotalSecondsAtObservedAverage": 1217.9,
+  "directMaxTimeSeconds": 900,
+  "action": "STOP_TASK_OWNED_SLOW_DIRECT_CURL_FOR_BUILTIN_EXISTING_PROXY_FALLBACK",
+  "reason": "Observed average projects full direct transfer beyond its bounded900s deadline; direct partial is not accepted. No public object or product changed."
+}

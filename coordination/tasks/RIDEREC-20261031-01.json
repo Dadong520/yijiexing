@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "id": "RIDEREC-20261031-01",
+  "owner": "coordinator",
+  "goal": "将实际版本23发布回读与README写入仓库，经独立复核与准确headCI合并",
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-ride-flow-polish-20261031",
+  "branch": "codex/ride-flow-receipt-20261031",
+  "baseSha": "a1527d2b27aeb2a5dd97e40736fd8e0bb5f4841f",
+  "allow_paths": [
+    "coordination/",
+    "README.md"
+  ],
+  "checks": [
+    "Actual public full-APK hashes/versions/original signatures and unchanged runtime/data proof before recording publication",
+    "Source product0ef / mergea152 / integrationb78 / CI41197382855 bound accurately",
+    "Non-author backend metadata review then exact-head CI and merge; no product or cloud redeploy"
+  ],
+  "status": "REVIEW_PASS_FINAL_HEAD_CI_PENDING",
+  "acceptance": "PASS",
+  "tests": [
+    {
+      "command": "RIDER independent immutable receipt/README/Git object17 checks",
+      "status": "PASS",
+      "exitCode": 0,
+      "sourceSha": "56021bab95a9501cb4908de3690bb9148ed42bd9"
+    }
+  ],
+  "evidence": [
+    "coordination/evidence/RIDER-20261031-01/REVIEW.json",
+    "coordination/evidence/RIDEREC-20261031-01/CONTENT_BINDING.json",
+    "coordination/evidence/RIDE-20261031-01/release/FINAL-RELEASE-RECEIPT.json"
+  ],
+  "nextAction": "Commit reviewer report and metadata only; exact final-head CI then expected-head merge, no redeploy",
+  "deploy_owner": "coordinator",
+  "releaseReady": false,
+  "productSourceSha": "0ef2a8d3982dfca0e85a3b756a6004c1825ba798",
+  "productMergeSha": "a1527d2b27aeb2a5dd97e40736fd8e0bb5f4841f",
+  "candidateSha": "56021bab95a9501cb4908de3690bb9148ed42bd9",
+  "acceptedSha": "56021bab95a9501cb4908de3690bb9148ed42bd9",
+  "reviewer": "backend"
+}

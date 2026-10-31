@@ -1,0 +1,14 @@
+{
+  "sourceSha": "0ef2a8d3982dfca0e85a3b756a6004c1825ba798",
+  "integrationHeadSha": "b78b7fcedbae1be7cffa3360bb9944a450a43c88",
+  "mergeSha": "a1527d2b27aeb2a5dd97e40736fd8e0bb5f4841f",
+  "fullRepoTreeEqualsCiHead": true,
+  "productTreesEqualAcceptedSource": {
+    "apps/passenger-android": "3ef2c41473a192da4869469dca5765089f6d9bfd",
+    "candidates/driver-0.3.6-r2/android": "ee3c2918d51f69e177d7d74b45afdece1a26c70c",
+    "apps/cloud-service": "033e173314e7339e46c2c78c178b870039609fa9",
+    "apps/admin-console": "86b2ac8af994108b88bf298c8eba725b31fe4a5a",
+    "candidates/passenger-miniprogram-0.1.0": "5236b65283b5bb80939c223aa2abfc3f6534253a"
+  },
+  "PASS": true
+}

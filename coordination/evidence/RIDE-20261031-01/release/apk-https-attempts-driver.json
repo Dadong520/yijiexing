@@ -1,0 +1,12 @@
+[
+  {
+    "transport": "direct",
+    "curlExit": -15,
+    "http": 0
+  },
+  {
+    "transport": "existing_proxy_fallback",
+    "curlExit": 0,
+    "http": 200
+  }
+]
