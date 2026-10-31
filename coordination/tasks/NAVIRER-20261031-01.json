@@ -17,12 +17,28 @@
     "Driver original24 immutable APK/signature/bytes; passenger23 unchanged; API intended revision/tag changes, all other config/admin/IAM preserved",
     "Actual46 order full-row comparison, scoped local SDK and dial-only verification; preserve all physical/voice/OEM/finance NOT_RUN"
   ],
-  "status": "ACTUAL_RECEIPT_READY_FOR_INDEPENDENT_REVIEW",
-  "acceptance": "NOT_RUN",
-  "tests": [],
-  "evidence": [],
-  "nextAction": "After full HTTPS proof, root commits receipt/README candidate then backend independent metadata review",
+  "status": "RECEIPT_REVIEW_PASS_IDLE",
+  "acceptance": "PASS",
+  "tests": [
+    {
+      "check": "实际回执README独立窄审",
+      "result": "PASS",
+      "checks": 18,
+      "p1": 0,
+      "p2": 0,
+      "candidateSha": "8c12e6f5dae00adf68f37ad738b8816593e4a7b1",
+      "evidence": "coordination/evidence/NAVIRER-20261031-01/REVIEW.json"
+    }
+  ],
+  "evidence": [
+    "coordination/evidence/NAVIRER-20261031-01/REVIEW.json",
+    "coordination/evidence/NAVIRER-20261031-01/REVIEW.md"
+  ],
+  "nextAction": "root收录报告后准确新metadata头CI/合并，产品24已发布不再部署；backendIDLE",
   "deploy_owner": "coordinator",
   "releaseReady": false,
-  "updatedAt": "2026-10-31T16:11:00.718071+00:00"
+  "updatedAt": "2026-11-01T00:16:08+08:00",
+  "candidateSha": "8c12e6f5dae00adf68f37ad738b8816593e4a7b1",
+  "acceptanceScope": "18-item existing actual receipt/README immutable metadata audit",
+  "pendingMergeSha": "8c12e6f5dae00adf68f37ad738b8816593e4a7b1"
 }

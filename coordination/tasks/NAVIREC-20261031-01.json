@@ -16,12 +16,26 @@
     "Driver original24 immutable APK/signature/bytes; passenger23 unchanged; API intended revision/tag changes, all other config/admin/IAM preserved",
     "Actual46 order full-row comparison, scoped local SDK and dial-only verification; preserve all physical/voice/OEM/finance NOT_RUN"
   ],
-  "status": "ACTUAL_RECEIPT_READY_FOR_INDEPENDENT_REVIEW",
-  "acceptance": "NOT_RUN",
-  "tests": [],
-  "evidence": [],
-  "nextAction": "After full HTTPS proof, root commits receipt/README candidate then backend independent metadata review",
+  "status": "REVIEW_PASS_FINAL_HEAD_CI_PENDING",
+  "acceptance": "PASS",
+  "tests": [
+    {
+      "check": "Immutable actual receipt/README18 checks",
+      "result": "PASS",
+      "sourceSha": "8c12e6f5dae00adf68f37ad738b8816593e4a7b1",
+      "p1": 0,
+      "p2": 0
+    }
+  ],
+  "evidence": [
+    "coordination/evidence/NAVIRER-20261031-01/REVIEW.json",
+    "coordination/evidence/NAVIREC-20261031-01/CONTENT_BINDING.json"
+  ],
+  "nextAction": "Commit report metadata, exact final-head CI then expected-head merge; no redeploy",
   "deploy_owner": "coordinator",
   "releaseReady": false,
-  "updatedAt": "2026-10-31T16:11:00.718071+00:00"
+  "updatedAt": "2026-10-31T16:17:21.728190+00:00",
+  "candidateSha": "8c12e6f5dae00adf68f37ad738b8816593e4a7b1",
+  "acceptedSha": "8c12e6f5dae00adf68f37ad738b8816593e4a7b1",
+  "reviewer": "backend"
 }

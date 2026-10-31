@@ -18,7 +18,7 @@
     "Preserve owner/stage/PIN/distance/passenger consent and waypoint completion gates; SDK arrival never auto advances order",
     "Only independent experience project; no secrets/APK/private DB in Git; native provider NOT_RUN unless actually verified"
   ],
-  "status": "ACTUALLY_PUBLISHED_ALL_READBACKS_PASS_RECEIPT_PENDING",
+  "status": "COMPLETED_ACTUAL_RELEASE_READBACK_PASS",
   "acceptance": "PASS",
   "tests": [
     {
@@ -62,10 +62,10 @@
     }
   ],
   "evidence": [],
-  "nextAction": "Metadata receipt independent review then exact-head CI/merge; do not redeploy",
+  "nextAction": "No deployment required; NAVIREC metadata final-head CI/merge only",
   "deploy_owner": "coordinator",
   "releaseReady": true,
-  "updatedAt": "2026-10-31T16:11:00.718071+00:00",
+  "updatedAt": "2026-10-31T16:17:21.728190+00:00",
   "backendImportedSha": "445787fcab4c5d2baba7f51ad4db78cd1e2216a0",
   "backendAuthorSha": "6e1b1ee02b3cc1a3bd7359e2970d2f3d4c3c59c3",
   "candidateSha": "6cdcee1a68d57465e4196243f22478c69733654c",

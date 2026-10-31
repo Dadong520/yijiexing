@@ -1,4 +1,4 @@
-# 宜捷行检查点：应用内导航24已发布，所有发布回读PASS，实际回执独立审查中
+# 宜捷行检查点：应用内导航24已发布，所有发布回读PASS，实际回执18项独立审查PASS，metadata CI/合并中
 中央 /Users/dongge/Documents/New project 2/coordination 唯一权威；协议2026-10-26-v3。coordinator01a17cc7-e0a2-7791-bf1d-4611c09bab22/generation6唯一验收/合并/发布；context UNKNOWN，无常驻自动化。
 
 ## 当前NAVI-20261031-01
@@ -18,5 +18,5 @@ API仅image/revision/既定流量tag有意更新；完整其他配置/IAM/ENV/se
 司机 https://user-test---driver-demo-phfgquzmua-uw.a.run.app/download；乘客同域/download-passenger；后台 https://demo-admin.hbzjhs.xyz/；API https://yijiexing-demo.hbzjhs.xyz。
 
 ## 调度与长期边界
-共享后端唯一可写 /Users/dongge/.codex/tmp/yijiexing-ui-optimization-worktree-20261029/apps/cloud-service，backend author6e1b1ee/导入445787f/treeb8a391已完，不编辑重复集成副本。Claude/backend/frontend IDLE，backend仅NAVIRER实际receipt窄审；frontend HANDOFF_RECOMMENDED未来大任务先评估接替，不自建chat；Gemini暂停，Astra仅堵点。
+共享后端唯一可写 /Users/dongge/.codex/tmp/yijiexing-ui-optimization-worktree-20261029/apps/cloud-service，backend author6e1b1ee/导入445787f/treeb8a391已完，不编辑重复集成副本。Claude/backend/frontend IDLE，backend NAVIRER实际receipt18项窄审PASS/IDLE，root仅最终metadata CI/合并；frontend HANDOFF_RECOMMENDED未来大任务先评估接替，不自建chat；Gemini暂停，Astra仅堵点。
 RIDE23 PR47产品+PR48实际回执已全部main d5d878e完成，不重复发布/验收。旧详情见archive/2026-10-31/STATE-before-NAVI24-release.md。BIZ04预约待出发不占即时、明确开始单执行；BIZ05区域运价营销等仅配置草稿与人工记录；BIZ06新单终点必填、旧同ID补齐；BIZ07差额单扣/余分归平台仅模拟；BIZ08三证60天提醒审核通过解除、有效旧证待审可接过期禁新单在途可完；BIZ09每用户公告版本一次可关，原先领后显边界未改。新草稿GPS起点/空终点不盖手动值；无IM/真实资金/录音认证警方联动。微信缺AppID未微信编译/真机/发布；后台本轮无新增模块。

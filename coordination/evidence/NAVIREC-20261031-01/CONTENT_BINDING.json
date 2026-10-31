@@ -1,0 +1,15 @@
+{
+  "immutableContentCandidate": "8c12e6f5dae00adf68f37ad738b8816593e4a7b1",
+  "readmeBlob": "28e212fff577e916491b3f69ecf15ccb1761661e",
+  "actualReceiptBlob": "059fff2eb1fd926c8b658adfd35a5a996567a45a",
+  "productSourceSha": "6cdcee1a68d57465e4196243f22478c69733654c",
+  "productMergeSha": "6a52f55402b49f5d736b68ea58a860a53c7c4a27",
+  "productTrees": {
+    "apps/cloud-service": "b8a39107315f82af5a5c6f848a650aa0560a2fad",
+    "apps/passenger-android": "3ef2c41473a192da4869469dca5765089f6d9bfd",
+    "candidates/driver-0.3.6-r2/android": "7f3c85b562d694bbadb3d35efc36a056955ab4df",
+    "apps/admin-console": "86b2ac8af994108b88bf298c8eba725b31fe4a5a"
+  },
+  "metadataOnly": true,
+  "furtherCloudDeploymentRequired": false
+}

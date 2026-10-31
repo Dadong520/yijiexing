@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "protocolVersion": "2026-10-26-v3",
   "canonicalControlRoot": "/Users/dongge/Documents/New project 2",
-  "updatedAt": "2026-10-31T16:11:00.718071+00:00",
+  "updatedAt": "2026-10-31T16:17:21.728190+00:00",
   "generation": 6,
   "activeCoordinatorRole": "coordinator",
   "retiredCoordinatorThreadIds": [
@@ -20,23 +20,23 @@
       "measurementSource": "not_exposed",
       "measurementAt": null,
       "ackVersion": "2026-10-26-v3",
-      "checkpointId": "NAVI-20261031-01",
+      "checkpointId": "NAVIREC-20261031-01",
       "handoffPath": "coordination/handoffs/coordinator.md",
-      "workflowState": "NAVIREC_ACTUAL_RECEIPT_REVIEW"
+      "workflowState": "NAVIREC_REVIEW_PASS_FINAL_HEAD_CI"
     },
     "backend": {
       "threadId": "01a182c6-c058-76e1-9584-38abfe813799",
       "title": "宜捷行｜后端与业务规则（二代）",
       "model": "gpt-6.1-sol",
       "memoryStatus": "NORMAL",
-      "reason": "Actual API+driver24 publication evidence ready; metadata-only independent review; no cloud or rebuild",
+      "reason": "Actual receipt/README8c12 immutable18 checksPASS; no new cloud/build/test; backendIDLE",
       "contextUsedPercent": null,
       "measurementSource": "not_exposed",
       "measurementAt": null,
       "ackVersion": "2026-10-26-v3",
       "checkpointId": "NAVIRER-20261031-01",
       "handoffPath": "coordination/handoffs/backend.md",
-      "workflowState": "ASSIGNED_NARROW_RECEIPT_REVIEW",
+      "workflowState": "IDLE_NAVIRER_RECEIPT18_PASS",
       "execution": "visible independent Codex thread",
       "roleGeneration": 2
     },
