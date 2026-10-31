@@ -56,7 +56,12 @@ class Handler(BaseHTTPRequestHandler):
                 svc=self.server.service
                 try:
                     require(not self.server.stop_event.is_set(),'云端演示服务正在停止',503)
+                    # One contention receive-time for this request. Due assignments
+                    # are a durable checkpoint even if the later action is rejected;
+                    # the cloud adapter still withholds the response until GCS CAS.
+                    svc._competition_request_time=svc.competition_time()
                     svc.run_scheduled()
+                    svc.db.commit()
                     if path=='/health' and self.command=='GET':data={'status':'ok','environment':'LOCAL_ISOLATED_SANDBOX','originalSpringBackend':False,'serverTime':stamp(),'storage':'SQLite'}
                     elif path=='/api/auth/code' and self.command=='POST':data=svc.code(p.get('mobile'))
                     elif path=='/api/auth/login' and self.command=='POST':data=svc.login(p)
@@ -114,9 +119,9 @@ class Handler(BaseHTTPRequestHandler):
                             require(set(contact_query)=={'orderId'} and len(contact_query['orderId'])==1 and
                                 bool(contact_query['orderId'][0].strip()),'仅允许单个非空orderId参数')
                             data=svc.driver_passenger_contact(driver,contact_query['orderId'][0])
-                        elif path=='/api/auth/logout' and self.command=='POST':svc.db.execute('DELETE FROM sessions WHERE token=?',(token,));data={'loggedOut':True}
+                        elif path=='/api/auth/logout' and self.command=='POST':svc.withdraw_driver_competitions(driver);svc.db.execute('DELETE FROM sessions WHERE token=?',(token,));data={'loggedOut':True}
                         elif path=='/api/action' and self.command=='POST':
-                            if p.get('action')=='auth.logout':svc.db.execute('DELETE FROM sessions WHERE token=?',(token,));data={'loggedOut':True}
+                            if p.get('action')=='auth.logout':svc.withdraw_driver_competitions(driver);svc.db.execute('DELETE FROM sessions WHERE token=?',(token,));data={'loggedOut':True}
                             else:
                                 result=svc.action(driver,p.get('action'),p.get('payload',{}),p.get('requestId'));data=svc.data(driver);data['result']=result
                         elif path=='/api/benefits/catalog' and self.command=='GET':data=svc.catalog(driver,query.get('city',[None])[0])
@@ -157,6 +162,8 @@ class Handler(BaseHTTPRequestHandler):
                     svc.db.commit()
                 except Exception:
                     svc.db.rollback();raise
+                finally:
+                    svc._competition_request_time=None
             self.envelope(data)
             if stop_after_reply:threading.Thread(target=self.server.shutdown,daemon=True).start()
         except ApiError as e:self.send(e.status,{'code':e.code,'message':e.message,'details':e.details})

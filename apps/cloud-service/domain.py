@@ -92,7 +92,7 @@ class Service(QualificationsMixin,PassengerMixin,BenefitsMixin,AdminMixin):
         if not features['canRanking']:profile['ranking']={'period':'体验结束或未开放','myRank':None,'completed':None,'entries':[],'restricted':True}
         st['orders']=sorted([self.project_driver_order(driver,o) for o in st.get('orders',[])],key=lambda o: 0 if o.get('stage') in ('PICKUP','ARRIVED','TRIP','PREPAY','BID_SENT') else (1 if o.get('kind')=='RESERVED' and o.get('stage') in ('AVAILABLE','RESERVED') else 2))
         profile=self.qualifications_profile(profile)
-        return {'operations':self.operations.driver_state(driver),'mapConfig':self.amap_public_config('driver'),'state':st,'profile':profile,'benefits':cat,'features':features,'tripDistanceRules':self.trip_distance_rules(cat['city']['id']),'serverTime':stamp(),'environment':{'name':'云端演示隔离沙箱','sandbox':True,'originalSpringBackend':False,'persistence':'SQLite','network':'Google Cloud独立演示服务，不连接原测试环境'}}
+        return {'operations':self.operations.driver_state(driver),'mapConfig':self.amap_public_config('driver'),'state':st,'profile':profile,'benefits':cat,'features':features,'tripDistanceRules':self.trip_distance_rules(cat['city']['id']),'competitionResults':self.competition_results(driver),'serverTime':stamp(),'environment':{'name':'云端演示隔离沙箱','sandbox':True,'originalSpringBackend':False,'persistence':'SQLite','network':'Google Cloud独立演示服务，不连接原测试环境'}}
     def order(self,st,oid):
         o=next((o for o in st['orders'] if o['id']==oid),None);require(o is not None,'订单不存在',404);return o
     def require_driver_certified(self,driver):
@@ -221,6 +221,7 @@ class Service(QualificationsMixin,PassengerMixin,BenefitsMixin,AdminMixin):
                 level=catalog['subscription']['rightsSnapshot'] if catalog['subscription'] else next(l for l in catalog['levels'] if l['id']=='TRIAL')
                 require(any(r['enabled'] and r['key'] in ('instant','reservation','dispatch','bidding','offlineNegotiation') for r in level['rights']),'当前等级未开放任何接单类型',403)
             require(value or not any(o['stage'] in ('PICKUP','ARRIVED','TRIP') for o in st['orders']),'请完成行程后下线',409);st['online']=value
+            if not value:self.withdraw_driver_competitions(driver)
         elif action=='settings.update':
             if p.get('floating') is True:require(self.features(driver)['canFloating'],'当前等级或体验状态未开放悬浮提醒',403)
             if p.get('voice') is True:require(self.features(driver)['canVoice'],'当前等级或体验状态未开放订单语音',403)
