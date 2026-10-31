@@ -1,0 +1,22 @@
+{
+  "oldSha": "b3bc07dbecbd49d3b5213d96cb11aef53e9ad644",
+  "newSha": "0ef2a8d3982dfca0e85a3b756a6004c1825ba798",
+  "passengerChangedFiles": [
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/OrderDetail.kt"
+  ],
+  "change": "Only independent full-width amount and FlowRow helper layout block; byte equality verified after excluding exactly this block",
+  "inherited": "B3 picker/booking/profile native function tests, confirmations/guards; driver ff53 fulltree",
+  "unitActual": {
+    "tests": 69,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "fixedRuntimeBeforeRows": [
+    {
+      "id": "PORDa0bc5c96c356",
+      "payloadSha256": "17fa7d5bd5d187b6db66df997613409aee25bcb274613d78e95eb94132a4ca28"
+    }
+  ],
+  "readOnlyProjection": "fare/destinationPending changed only in cloned passenger_data DTO; no database writes"
+}

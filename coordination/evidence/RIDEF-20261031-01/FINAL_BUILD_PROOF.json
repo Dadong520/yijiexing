@@ -1,17 +1,17 @@
 {
-  "candidateSha": "b3bc07dbecbd49d3b5213d96cb11aef53e9ad644",
+  "candidateSha": "0ef2a8d3982dfca0e85a3b756a6004c1825ba798",
   "roles": {
     "passenger": {
-      "sourceSha": "b3bc07dbecbd49d3b5213d96cb11aef53e9ad644",
-      "buildSha": "b3bc07dbecbd49d3b5213d96cb11aef53e9ad644",
-      "testBuildSha": "b3bc07dbecbd49d3b5213d96cb11aef53e9ad644",
+      "sourceSha": "0ef2a8d3982dfca0e85a3b756a6004c1825ba798",
+      "buildSha": "0ef2a8d3982dfca0e85a3b756a6004c1825ba798",
+      "testBuildSha": "0ef2a8d3982dfca0e85a3b756a6004c1825ba798",
       "inherited": false,
       "inheritanceReason": null,
-      "sourceTree": "0f1c22b3ffb725753d7df520516bfa7a31c20012",
+      "sourceTree": "3ef2c41473a192da4869469dca5765089f6d9bfd",
       "trackedFilesByteBound": 110,
-      "originalApkPath": "/Users/dongge/.codex/tmp/yijiexing-ridef-20261031/revisionB3/source/apps/passenger-android/app/build/outputs/apk/debug/app-debug.apk",
-      "apk": "/Users/dongge/.codex/tmp/yijiexing-ridef-20261031/revisionB3/source/apps/passenger-android/app/build/outputs/apk/debug/app-debug.apk",
-      "sha256": "ce35050482a7a42d62f97331d356bf93250d15ffb006efd94533d5790df979cc",
+      "originalApkPath": "/Users/dongge/.codex/tmp/yijiexing-ridef-20261031/revisionP4/source/apps/passenger-android/app/build/outputs/apk/debug/app-debug.apk",
+      "apk": "/Users/dongge/.codex/tmp/yijiexing-ridef-20261031/revisionP4/source/apps/passenger-android/app/build/outputs/apk/debug/app-debug.apk",
+      "sha256": "cb77e6397a809027c117e963b2a4faf8b4b7a65d62a961bdaf519f333dec0842",
       "bytes": 107270521,
       "packageVersionLine": "package: name='cn.hbzjhs.dc.passenger.cloud' versionCode='23' versionName='1.1.21-experience' platformBuildVersionName='14' platformBuildVersionCode='34' compileSdkVersion='34' compileSdkVersionCodename='14'",
       "signerCertificateSha256": "9ffec9b342d12909ff288bd73f23ba104893b39120cb24ea83c9734a0d2b758f",
@@ -22,7 +22,7 @@
       "privateValuesScanned": 4,
       "uncompressedEntriesScanned": 425,
       "privateExactMatches": 0,
-      "junitXmlDirectory": "/Users/dongge/.codex/tmp/yijiexing-ridef-20261031/revisionB3/source/apps/passenger-android/app/build/test-results/testDebugUnitTest",
+      "junitXmlDirectory": "/Users/dongge/.codex/tmp/yijiexing-ridef-20261031/revisionP4/source/apps/passenger-android/app/build/test-results/testDebugUnitTest",
       "unit": {
         "tests": 69,
         "failures": 0,
@@ -31,9 +31,9 @@
       },
       "commands": "officialSDK/JDK17 offline testDebugUnitTest assembleDebug original; external QA assembleDebug",
       "qa": {
-        "path": "/Users/dongge/.codex/tmp/yijiexing-ridef-20261031/revisionB3/build/qa-passenger/_app/outputs/apk/debug/app-debug.apk",
-        "sha256": "1874811f95cda61a7b5dbd825532d6a2b975b78e0e1cdb69ef4fea74148e790a",
-        "sourceSha": "b3bc07dbecbd49d3b5213d96cb11aef53e9ad644",
+        "path": "/Users/dongge/.codex/tmp/yijiexing-ridef-20261031/revisionP4/build/qa-passenger/_app/outputs/apk/debug/app-debug.apk",
+        "sha256": "df71e699c3a45e45a9e0d06bcb93681f5d19a4cf759eb9a6f8574262b73623d8",
+        "sourceSha": "0ef2a8d3982dfca0e85a3b756a6004c1825ba798",
         "differences": [
           "QA appId",
           "localhost TLS",
@@ -44,11 +44,11 @@
       }
     },
     "driver": {
-      "sourceSha": "b3bc07dbecbd49d3b5213d96cb11aef53e9ad644",
+      "sourceSha": "0ef2a8d3982dfca0e85a3b756a6004c1825ba798",
       "buildSha": "ff53f570296d0bd97d8dc7ee4e16c915987a8542",
       "testBuildSha": "ff53f570296d0bd97d8dc7ee4e16c915987a8542",
       "inherited": true,
-      "inheritanceReason": "Complete driver Git tree identical ff53\u2192b3; old native B images remainff53",
+      "inheritanceReason": "Complete driver Git tree identical ff53\u2192phase4; old native B images remainff53",
       "sourceTree": "ee3c2918d51f69e177d7d74b45afdece1a26c70c",
       "trackedFilesByteBound": 69,
       "originalApkPath": "/Users/dongge/.codex/tmp/yijiexing-ridef-20261031/source/candidates/driver-0.3.6-r2/android/app/build/outputs/apk/debug/app-debug.apk",

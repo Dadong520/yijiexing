@@ -17,40 +17,90 @@
     "Preserve owner/query generation, valid coordinates, manualGPS, modal priority, full-map/scope restoration and business gates",
     "No backend/Store/network/prod edits; independent reviewer tests before root exact-head merge/release"
   ],
-  "status": "PHASE4_FINAL_VISUAL_REPAIR",
-  "acceptance": "FAIL",
+  "status": "VALIDATED_READY_FOR_CI_MERGE",
+  "acceptance": "PASS",
   "tests": [
     {
-      "command": "root tools27/mini74/projectcheck",
+      "command": "Independent immutable source review phase4 plus prior exact phase3 business protection review",
       "status": "PASS",
-      "sourceSha": "ff53f570296d0bd97d8dc7ee4e16c915987a8542"
+      "exitCode": 0,
+      "sourceSha": "0ef2a8d3982dfca0e85a3b756a6004c1825ba798"
     },
     {
-      "command": "RIDEB independent source review",
+      "command": "Passenger69 testDebugUnitTest/original+QA assemble at0ef; driver77 original+QA inherited entire unchanged ff53 tree",
       "status": "PASS",
-      "sourceSha": "ff53f570296d0bd97d8dc7ee4e16c915987a8542"
+      "exitCode": 0,
+      "sourceSha": "0ef2a8d3982dfca0e85a3b756a6004c1825ba798"
     },
     {
-      "command": "RIDEF build/native",
-      "status": "PENDING"
+      "command": "Native B3 A/B with phase4 amount/button/confirm smoke and explicit unchanged-function inheritance; cleanup",
+      "status": "PASS",
+      "exitCode": 0,
+      "sourceSha": "0ef2a8d3982dfca0e85a3b756a6004c1825ba798"
+    },
+    {
+      "command": "Root actual original APK/signature/HTTPS origin/hash/size/Git byte/JUnit binding and own-resource cleanup",
+      "status": "PASS",
+      "exitCode": 0,
+      "sourceSha": "0ef2a8d3982dfca0e85a3b756a6004c1825ba798"
+    },
+    {
+      "command": "Root tools27/mini74/check inherited from actual4a via exact test/backend/mini/driver Git objects; final integration CI still required",
+      "status": "PASS",
+      "exitCode": 0,
+      "sourceSha": "0ef2a8d3982dfca0e85a3b756a6004c1825ba798"
     }
   ],
   "evidence": [
-    "coordination/evidence/RIDE-20261031-01/ROOT_CHECKS_ff53f57.json",
-    "coordination/evidence/RIDEB-20261031-01/SOURCE_REVIEW.json",
-    "coordination/evidence/RIDE-20261031-01/ROOT_CHECKS_b3bc07d.json",
-    "coordination/evidence/RIDEB-20261031-01/PHASE3_REVIEW.json",
-    "coordination/evidence/RIDE-20261031-01/ROOT_ARTIFACT_BINDING.json",
-    "coordination/evidence/RIDE-20261031-01/ROOT_VISUAL_REVIEW.json",
-    "coordination/evidence/RIDEF-20261031-01/FINAL_BUILD_PROOF.json"
+    {
+      "path": "coordination/evidence/RIDEB-20261031-01/PHASE4_REVIEW.json",
+      "sha256": "fd1c6dba2e70fea702b4c1785e03c36c5cae7429690e2f128cd5c8634651a3d3"
+    },
+    {
+      "path": "coordination/evidence/RIDEF-20261031-01/FINAL_REVIEW.json",
+      "sha256": "74a51600a17576ef274738ceb46fc7e426a642f9a799522ed104fc0151998791"
+    },
+    {
+      "path": "coordination/evidence/RIDEF-20261031-01/FINAL_BUILD_PROOF.json",
+      "sha256": "12aee8ad158225c2f24eefcfd06640d6cf8490c91553be8afb261d9b8acb8c89"
+    },
+    {
+      "path": "coordination/evidence/RIDEF-20261031-01/PHASE4_INHERITANCE.json",
+      "sha256": "db01ecd83b61d8c20e16f121a45d97dde8cd657767d929c9376a22717847e479"
+    },
+    {
+      "path": "coordination/evidence/RIDEF-20261031-01/CLEANUP.json",
+      "sha256": "abc4592d84433ee13515883f7074d501181a1237089d9a9856c8db7c902cc50f"
+    },
+    {
+      "path": "coordination/evidence/RIDE-20261031-01/ROOT_ARTIFACT_BINDING.json",
+      "sha256": "ae19d110edce7233daaed3bc23ed6636b326c3bd75edd9c213080cf8ed205608"
+    },
+    {
+      "path": "coordination/evidence/RIDE-20261031-01/ROOT_CLEANUP_READBACK.json",
+      "sha256": "07bf6a7464b9e8724fd63d8abce0f6b2d8b540d0d88ed56c5a05f595cf1d6dc6"
+    },
+    {
+      "path": "coordination/evidence/RIDE-20261031-01/ROOT_VISUAL_REVIEW.json",
+      "sha256": "2f96e33edb2ed78beb07d919343f1abef1a72f09b2ade3c88920c9d1d00d9572"
+    },
+    {
+      "path": "coordination/evidence/RIDE-20261031-01/ROOT_CHECKS_0ef2a8d.json",
+      "sha256": "77cda008f6c1ff85b73a0739f40811fc7bc6488f8776962215fb59b3574656af"
+    }
   ],
-  "nextAction": "Root actual b25 price split noted, author one-file repair then narrow passenger rebuild/native before release",
+  "nextAction": "Final integration-head CI then expected-head merge; only afterwards APK-only independent experience publication/readback",
   "deploy_owner": "coordinator",
-  "releaseReady": false,
-  "updatedAt": "2026-10-31T10:22:24.928184+00:00",
-  "candidateSha": "b3bc07dbecbd49d3b5213d96cb11aef53e9ad644",
-  "businessReview": "coordination/evidence/RIDEB-20261031-01/PHASE3_REVIEW.json",
-  "rootChecks": "coordination/evidence/RIDE-20261031-01/ROOT_CHECKS_b3bc07d.json",
+  "releaseReady": true,
+  "updatedAt": "2026-10-31T11:33:22.703405+00:00",
+  "candidateSha": "0ef2a8d3982dfca0e85a3b756a6004c1825ba798",
+  "businessReview": "coordination/evidence/RIDEB-20261031-01/PHASE4_REVIEW.json",
+  "rootChecks": "coordination/evidence/RIDE-20261031-01/ROOT_CHECKS_0ef2a8d.json",
   "pullRequest": "https://github.com/Dadong520/yijiexing/pull/47",
-  "nativeReview": "coordination/evidence/RIDEF-20261031-01/FINAL_REVIEW.json"
+  "nativeReview": "coordination/evidence/RIDEF-20261031-01/FINAL_REVIEW.json",
+  "acceptedSha": "0ef2a8d3982dfca0e85a3b756a6004c1825ba798",
+  "reviewer": "frontend",
+  "author": "claude",
+  "authorSessionId": "6c0ddf57-d854-4c5c-a8a9-43f7ee7e3063",
+  "acceptanceScope": "Scoped native UI/source/build; exact unchanged B3/ff53 inheritance explicit, real provider/physical devices/funds NOT_RUN"
 }

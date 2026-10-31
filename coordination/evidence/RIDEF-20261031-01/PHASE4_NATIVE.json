@@ -1,0 +1,107 @@
+{
+  "candidateSha": "0ef2a8d3982dfca0e85a3b756a6004c1825ba798",
+  "status": "PASS",
+  "displayOnlySyntheticAmounts": true,
+  "checks": [
+    {
+      "frame": "g09-normal-eight-settled",
+      "text": "¥8.00",
+      "bounds": [
+        44,
+        1612,
+        1036,
+        1689
+      ],
+      "textHeightPixels": 77,
+      "fontScale": 1,
+      "visualReview": "PASS single line/full digits/no ellipsis or clipping; two helper buttons and bottom cancel reachable"
+    },
+    {
+      "frame": "g22-normal-large",
+      "text": "¥12345.67",
+      "bounds": [
+        44,
+        1612,
+        1036,
+        1689
+      ],
+      "textHeightPixels": 77,
+      "fontScale": 1,
+      "visualReview": "PASS single line/full digits/no ellipsis or clipping; two helper buttons and bottom cancel reachable"
+    },
+    {
+      "frame": "g21-normal-pending",
+      "text": "费用待定",
+      "bounds": [
+        44,
+        1612,
+        1036,
+        1693
+      ],
+      "textHeightPixels": 81,
+      "fontScale": 1,
+      "visualReview": "PASS single line/full digits/no ellipsis or clipping; two helper buttons and bottom cancel reachable"
+    },
+    {
+      "frame": "g10-small-eight",
+      "text": "¥8.00",
+      "bounds": [
+        48,
+        1707,
+        1032,
+        1807
+      ],
+      "textHeightPixels": 100,
+      "fontScale": 1.3,
+      "visualReview": "PASS single line/full digits/no ellipsis or clipping; two helper buttons and bottom cancel reachable"
+    },
+    {
+      "frame": "g12-small-large-settled",
+      "text": "¥12345.67",
+      "bounds": [
+        48,
+        1707,
+        1032,
+        1807
+      ],
+      "textHeightPixels": 100,
+      "fontScale": 1.3,
+      "visualReview": "PASS single line/full digits/no ellipsis or clipping; two helper buttons and bottom cancel reachable"
+    },
+    {
+      "frame": "g20-small-pending",
+      "text": "费用待定",
+      "bounds": [
+        48,
+        1707,
+        1032,
+        1808
+      ],
+      "textHeightPixels": 101,
+      "fontScale": 1.3,
+      "visualReview": "PASS single line/full digits/no ellipsis or clipping; two helper buttons and bottom cancel reachable"
+    }
+  ],
+  "buttons": {
+    "orderInfoOpenBack": "g13/g14 PASS",
+    "helpOpenBack": "g15/g16 PASS",
+    "cancelDialogOtherBlankDisabledAndDismiss": "g17/g18/g19 PASS, no cancel submitted",
+    "repriceConfirmationDismiss": "g26/g27/g28 PASS, no update submitted"
+  },
+  "projectionOnly": "fare800/fare1234567/destinationPending true in cloned response DTO, not stored",
+  "passengerOrderRowsBeforeAfterIdentical": true,
+  "rowHashes": [
+    {
+      "id": "PORDa0bc5c96c356",
+      "payloadSha256": "17fa7d5bd5d187b6db66df997613409aee25bcb274613d78e95eb94132a4ca28"
+    }
+  ],
+  "successfulActionsTotalIncludingB3": {
+    "order.create": 1,
+    "order.update": 1,
+    "favorite.save": 3
+  },
+  "newPhase4BusinessActions": 0,
+  "sourceInheritance": "PHASE4_INHERITANCE.json",
+  "realProvider": "NOT_RUN"
+}

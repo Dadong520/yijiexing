@@ -1,0 +1,65 @@
+{
+  "taskId": "RIDEB-20261031-01",
+  "phase": 4,
+  "reviewerRole": "backend",
+  "reviewerSessionId": "01a182c6-c058-76e1-9584-38abfe813799",
+  "reviewedAt": "2026-10-31T19:24:47+08:00",
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-ride-flow-polish-20261031",
+  "baseSha": "b3bc07dbecbd49d3b5213d96cb11aef53e9ad644",
+  "candidateSha": "0ef2a8d3982dfca0e85a3b756a6004c1825ba798",
+  "verdict": "PASS",
+  "scope": "Single-file amount display layout delta independent source review; frontend final build and normal/360dp-font1.3 native smoke pending",
+  "p1Count": 0,
+  "p2Count": 0,
+  "findings": [],
+  "releaseReady": false,
+  "checks": [
+    {
+      "check": "amount expression and formatter",
+      "result": "PASS_SOURCE",
+      "file": "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/OrderDetail.kt",
+      "line": 163,
+      "detail": "Exact same predicate o.optBoolean(\"destinationPending\"); pending text费用待定; otherwise yen prefix + money(o.optLong(\"fare\")). No switch to estimatedFare, new arithmetic, rounding, parser, currency or money implementation. Font size/weight/color retained; full-width and28.sp lineHeight added."
+    },
+    {
+      "check": "helper button content and callbacks",
+      "result": "PASS_SOURCE",
+      "line": 174,
+      "detail": "IdentifierButton(id,\"订单信息\") and contactPage=true/联系与帮助 unchanged; same order and id. FlowRow replaces horizontal Row/weighted spacer, allows helpers below full-width amount to wrap."
+    },
+    {
+      "check": "all other logic exactly retained",
+      "result": "PASS_SOURCE",
+      "detail": "Exact string comparison proves entire file before former Row and after Panel(\"行程路线\") byte-identical; all declarations/stage/bids/price confirmation predicates, callback payloads, return shields, pinned cancel/pay bar and dialogs unchanged."
+    },
+    {
+      "check": "cross-file inheritance",
+      "result": "PASS_SOURCE_INHERITED",
+      "detail": "git diff base..candidate product names shows only OrderDetail.kt. Other business source and guard logic inherit phase3 source review. Root reports B3 actual69/77/native pass; this source reviewer does not reclassify or rerun those results."
+    }
+  ],
+  "actualChecks": [
+    "Central START/STATE/BOARD/task/card and true-role gate PASS",
+    "Exact HEAD0ef2a8d and clean status observed",
+    "Scoped Git diff shows only one product file changed",
+    "Immutable source inspection and unchanged pre/post display block byte comparison PASS",
+    "git diff --check b3..0ef -- OrderDetail.kt exit0"
+  ],
+  "notRun": [
+    "Build/JUnit/normal-screen and360dp1.3 font/native cancel confirmation smoke (frontend assigned)",
+    "API/DB/cloud/provider/OEM/funds"
+  ],
+  "limitations": [
+    "Full-width amount provides more space but source cannot prove every amount fits every font or screen; no maxLines/softWrap constraint added, so unbounded large values can still wrap. Normal and360dp-font1.3 behavior requires frontend actual screenshots. No requirement inferred for arbitrary unlimited amount widths."
+  ],
+  "reviewedGitBlob": "94f26e9293e64544095c70fb3792ba306cebc0b9",
+  "preservedPriorReviewSha256": {
+    "PHASE3_REVIEW.md": "3c476b7c8245c36ea14b548941cbd42b96649017eda197d4d55b10194da6b2f7",
+    "SOURCE_REVIEW.md": "f1453f2835974dc2e7df58119e5e552a47debcaaf3b5d284d3c1557c52a46e65",
+    "PHASE3_REVIEW.json": "23f797eba0b0fa52d127897600de78131a03446fe022daa7517911f57efd8736",
+    "PHASE2_REVIEW.md": "ccfece0e286c14bde9829b75a6b18a0f820b6625a752df912a9a35d51ffdc350",
+    "SOURCE_REVIEW.json": "78cd1286b909075b2ce27d6df7391ba587429c373c3db6c7fc4dfc6e1946fab3",
+    "PHASE2_REVIEW.json": "d0ca4fd423bed99a5ac87743032bcb6e973c2e8b6cbe9af249125485a79d57e6"
+  },
+  "nextAction": "Root combine exact0ef2 passenger original/QA build,69unit and normal/360dp1.3 amount/cancel-confirm native smoke; other B3 evidence may be inherited only with provenance; root sole merge/deploy owner."
+}

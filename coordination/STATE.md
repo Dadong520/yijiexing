@@ -1,8 +1,8 @@
 # 宜捷行当前检查点 2026-10-31T08:50:19.212123+00:00
 中央/Users/dongge/Documents/New project 2/coordination唯一权威，协议2026-10-26-v3。唯一coordinator01a17cc7-e0a2-7791-bf1d-4611c09bab22/generation6；context UNKNOWN。root独占状态/验收/合并发布。
 
-## 新活动RIDE-20261031-01
-用户要求有效地点一击确认、途经点移目的地页、修历史点击无反应、两端成熟风格简化。source /Users/dongge/.codex/tmp/yijiexing-ride-flow-polish-20261031 branch codex/ride-flow-polish-20261031/base c261d78。Claude官方SID6c0ddf57-d854-4c5c-a8a9-43f7ee7e3063 Opus5.5high三阶段exit0。ff53原生49ms第二tap穿透叫车P1、4a6a嵌套返回误选P2原FAIL保留；最终b3bc07dbecbd49d3b5213d96cb11aef53e9ad644，跨页700ms防误触/commit前检查，RIDEB phase3源审PASS。旧63/77、4a新增时钟测试和构建已有证据；RIDEF正最终乘客69预计单测/原包QA重建与A-B差量，司机同源可明确继承。root工具27/mini74/check按准确不变树归属。draftPR47未合并，未发布23，公开仍22。真实provider成功不在QA证明范围。root独占发布；Claude/backend暂闲、frontend验收中。
+## 新活动RIDE-20261031-01：验收PASS，待最后CI/合并/发布
+source /Users/dongge/.codex/tmp/yijiexing-ride-flow-polish-20261031 branch codex/ride-flow-polish-20261031/base c261d78；最终产品0ef2a8d3982dfca0e85a3b756a6004c1825ba798，Claude官方6c0ddf57-d854-4c5c-a8a9-43f7ee7e3063 Opus5.5high四阶段exit0。地点一击返回、历史schema/无效反馈、目的地页max2途经点、两端扁平样式；原ff53连点叫车P1/4a嵌套误选P2 FAIL保留，B3实际75ms与159ms复验PASS并按函数相同继承。root发现小屏金额拆行，phase4独立整行与按钮FlowRow，正常/360dpfont1.3三金额共六组及确认取消PASS。新乘客69单测/原包QA，driver完整树同ff53继承77，原包名原签名code23。RIDEB phase4/source与RIDEF限定native/build/cleanup、root原APK/JUnit/Git/HTTPS绑定PASS；资源已清。最终APK乘客cb77e639…0842/107270521，司机237ee0ce…d30f/108718725。draftPR47待最终metadata准确headCI/merge，绝未upload/promote23，公开仍22。真实provider/手机/OEM/真钱NOT_RUN；旧MapPanel离线小字裁切非阻塞备注。root独占发布，其他暂闲。
 
 ## MAPS版本22：测试、合并、发布和实际回读PASS；源码与实际回执均已合并入库
 用户要求四主地图页功能面板三态拖动，上拖全展可滚所有项，下拖至全屏；乘客新草稿GPS起点/空终点，选址上地图/空查询框/下模糊结果。Claude官方session9bc07c4c-731c-4b1f-840b-ce6a0c5dc85a/Opus5.5high三阶段exit0。作者无Bash自测NOT_RUN，由不同会话验收。最终产品d6d5206a82f16987fd51371044fb12e76ba9f8d8，PR45准确head125699eb8729e43bd3ec83d2db50bd292b479afd/CI41185604204 SUCCESS，expected-head squash merge49bc669ec8f412756eb782498bcedeecb4098b52；所有产品树同最终验收源。

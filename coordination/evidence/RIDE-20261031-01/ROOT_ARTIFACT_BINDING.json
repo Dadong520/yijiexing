@@ -1,13 +1,13 @@
 {
-  "sourceSha": "b3bc07dbecbd49d3b5213d96cb11aef53e9ad644",
+  "sourceSha": "0ef2a8d3982dfca0e85a3b756a6004c1825ba798",
   "roles": [
     {
       "role": "passenger",
-      "sha256": "ce35050482a7a42d62f97331d356bf93250d15ffb006efd94533d5790df979cc",
+      "sha256": "cb77e6397a809027c117e963b2a4faf8b4b7a65d62a961bdaf519f333dec0842",
       "bytes": 107270521,
-      "productTree": "0f1c22b3ffb725753d7df520516bfa7a31c20012",
-      "buildSha": "b3bc07dbecbd49d3b5213d96cb11aef53e9ad644",
-      "testBuildSha": "b3bc07dbecbd49d3b5213d96cb11aef53e9ad644",
+      "productTree": "3ef2c41473a192da4869469dca5765089f6d9bfd",
+      "buildSha": "0ef2a8d3982dfca0e85a3b756a6004c1825ba798",
+      "testBuildSha": "0ef2a8d3982dfca0e85a3b756a6004c1825ba798",
       "actualJUnit": {
         "tests": 69,
         "failures": 0,
@@ -50,6 +50,6 @@
       "expectedHttpsApiOriginPresent": true
     }
   ],
-  "nativeAcceptance": "SEE_INDEPENDENT_FINAL_REVIEW",
+  "nativeAcceptance": "PASS_SCOPED_EXPLICIT_B3_AND_FF53_INHERITANCE",
   "publication": "NOT_RUN"
 }
