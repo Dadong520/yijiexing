@@ -273,6 +273,13 @@ class NavigationSessionRulesTest {
     }
 
     @Test
+    fun acceptSummaryListsRoundTripStopsInOrder() {
+        val roundTrip = order(Stage.AVAILABLE, listOf(wp(0, "B", b), wp(1, "C2", c)), destination = a)
+            .copy(destination = "A 站")
+        assertEquals("起：A 站\n途1：B\n途2：C2\n终：A 站", NavigationSessionRules.routeSummary(roundTrip))
+    }
+
+    @Test
     fun ownerRoundTripsAndRejectsMalformedValues() {
         val owner = NavigationOwner("d-1", "o-1")
         assertEquals(owner, NavigationOwner.decode(owner.encode()))

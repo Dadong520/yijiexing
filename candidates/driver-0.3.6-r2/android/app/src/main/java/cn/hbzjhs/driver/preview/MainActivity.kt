@@ -356,7 +356,7 @@ private fun ConnectedApp(store: ConnectedStore, state: DriverState) {
                                                 confirm =
                                                     CoreConfirm(
                                                         "确认接单",
-                                                        "${order.origin}\n前往 ${order.destination}",
+                                                        NavigationSessionRules.routeSummary(order),
                                                         "确认接单",
                                                     ) {
                                                         store.perform(

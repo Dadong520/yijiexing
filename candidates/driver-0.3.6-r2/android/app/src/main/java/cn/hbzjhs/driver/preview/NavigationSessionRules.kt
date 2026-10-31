@@ -130,6 +130,10 @@ internal object NavigationSessionRules {
         return rows
     }
 
+    /** Short ordered route text for confirmations: one stop per line, waypoints in array order. */
+    fun routeSummary(order: DriverOrder): String =
+        stopRows(order).joinToString("\n") { "${it.label}：${it.name}" }
+
     /** A fresh, accurate phone fix may serve as the route start; anything else lets the SDK use its own GPS. */
     fun reliableStart(position: DriverPosition?, nowMillis: Long): Wgs84Point? {
         position ?: return null

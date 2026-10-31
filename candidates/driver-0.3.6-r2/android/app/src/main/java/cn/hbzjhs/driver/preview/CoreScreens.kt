@@ -979,14 +979,17 @@ fun ConnectedTrip(
     // works) and returns as soon as the sheet opens or the stage leaves the map.
     val tripScope = driverTripMapScope(order.id)
     val chromeHidden = showMap && LocalMapChromeHost.current?.hiddenFor(tripScope) == true
-    // System back first leaves navigation, then the page as before.
+    // System back: an expanded panel first drops to half (inside MapPanelLayout), then navigation
+    // ends, then the page closes as before.
     androidx.activity.compose.BackHandler(navigating) { onExitNavigation() }
     if (navigating) {
-        // SDK guidance on top; the order's own controls live in a separate area below that the SDK
-        // never covers. The lower area keeps at most half the height and scrolls on small screens.
-        BoxWithConstraints(Modifier.fillMaxSize().imePadding()) {
-            val businessMax = maxHeight * 0.5f
-            Column(Modifier.fillMaxSize()) {
+        // Same three-position panel as the trip map: drag up for every function, down for the map,
+        // to the bottom for a full-screen map (app header and tabs step aside via the trip scope).
+        // The map slot hosts one InAppNavigationPanel at a fixed call site, so dragging only resizes
+        // the same SDK view; it never recreates the controller, re-plans or performs anything.
+        val decision = NavigationSessionRules.legFor(order)
+        Column(Modifier.fillMaxSize()) {
+            if (!chromeHidden)
                 Row(
                     Modifier.fillMaxWidth().background(Color.White).padding(horizontal = 8.dp),
                     verticalAlignment = Alignment.CenterVertically,
@@ -994,26 +997,52 @@ fun ConnectedTrip(
                     Text(title, fontSize = 15.sp, fontWeight = FontWeight.Bold, color = Ink, modifier = Modifier.weight(1f).padding(start = 8.dp))
                     DriverTextButton(onClick = onExitNavigation) { Text("退出导航") }
                 }
-                InAppNavigationPanel(
-                    decision = NavigationSessionRules.legFor(order),
-                    sessionKey = "${driverAccount(store.payload.value)}|${order.id}",
-                    modifier = Modifier.fillMaxWidth().weight(1f),
-                    onExit = onExitNavigation,
-                )
-                Column(Modifier.fillMaxWidth().heightIn(max = businessMax).background(Page)) {
-                    LazyColumn(
-                        Modifier.weight(1f, fill = false),
-                        contentPadding = PaddingValues(horizontal = 12.dp, vertical = 8.dp),
-                        verticalArrangement = Arrangement.spacedBy(8.dp),
-                    ) {
-                        // One list only: in TRIP the waypoint card (with its confirm buttons) shows the stops.
-                        if (order.stage == Stage.TRIP && order.waypoints.isNotEmpty()) item { TripWaypoints(order, store, onMessage) }
-                        else item { SheetCard { RouteStops(order, compact = true) } }
-                        item { DriverTripDistanceCard(order.id, order.stage.name, store) }
-                        if (order.stage == Stage.ARRIVED && order.phoneTail.isNotBlank())
-                            item { SheetCard { DetailRow("乘客手机尾号", order.phoneTail) } }
-                    }
-                    tripActions()
+            MapPanelLayout(
+                saveKey = tripScope,
+                modifier = Modifier.fillMaxWidth().weight(1f),
+                attentionKey = listOf(
+                    order.stage,
+                    order.pendingWaypoints.firstOrNull()?.index,
+                    hasPendingWaypoints,
+                    distancePending,
+                    order.canCancel,
+                    order.participationCancelled,
+                ),
+                collapsedLabel = "显示行程操作",
+                map = { mapModifier ->
+                    InAppNavigationPanel(
+                        decision = decision,
+                        sessionKey = "${driverAccount(store.payload.value)}|${order.id}",
+                        modifier = mapModifier,
+                        onExit = onExitNavigation,
+                    )
+                },
+                bottomBar = tripActions,
+            ) {
+                LazyColumn(
+                    Modifier.fillMaxSize(),
+                    contentPadding = PaddingValues(start = 12.dp, end = 12.dp, top = 4.dp, bottom = 12.dp),
+                    verticalArrangement = Arrangement.spacedBy(8.dp),
+                ) {
+                    item { SharedParticipationNotice(order) }
+                    if (order.isPrivateExample)
+                        item {
+                            SheetCard {
+                                Text("演示订单 · 未关联乘客 App", color = Orange, fontSize = 15.sp, fontWeight = FontWeight.Bold)
+                                Text("此订单用于司机操作体验，未关联真实乘客账户。", color = Muted, fontSize = 13.sp)
+                            }
+                        }
+                    // One list only: in TRIP the waypoint card (with its confirm buttons) shows the stops.
+                    if (order.stage == Stage.TRIP && order.waypoints.isNotEmpty()) item { TripWaypoints(order, store, onMessage) }
+                    else item { SheetCard { RouteStops(order, compact = true) } }
+                    item { DriverTripDistanceCard(order.id, order.stage.name, store) }
+                    if (order.stage == Stage.ARRIVED && order.phoneTail.isNotBlank())
+                        item {
+                            SheetCard {
+                                DetailRow("乘客手机尾号", order.phoneTail)
+                                Text("接到乘客时需要核对尾号，服务端会校验。", fontSize = 13.sp, color = Muted)
+                            }
+                        }
                 }
             }
         }

@@ -62,6 +62,11 @@ internal fun PassengerContactAction(order: DriverOrder, store: ConnectedStore, m
     val context = LocalContext.current
     val payload by store.payload.collectAsState()
     val scope = PassengerContactRules.scope(driverAccount(payload), order) ?: return
+    if (order.isPrivateExample) {
+        // A private demo order has no real passenger: no number is requested, nothing pretends to dial.
+        Text("演示订单未关联乘客，无可联系电话", color = Muted, fontSize = 12.sp, lineHeight = 17.sp, modifier = modifier.padding(top = 10.dp))
+        return
+    }
     var generation by remember(scope) { mutableIntStateOf(0) }
     var loading by remember(scope) { mutableStateOf(false) }
     var contact by remember(scope) { mutableStateOf<PassengerContact?>(null) }

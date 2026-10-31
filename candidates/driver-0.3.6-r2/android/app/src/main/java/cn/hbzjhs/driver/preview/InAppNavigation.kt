@@ -120,6 +120,9 @@ internal sealed class NaviStatus {
     data class Calculating(val leg: NavigationLeg) : NaviStatus()
     data class Navigating(val leg: NavigationLeg) : NaviStatus()
     data class Failed(val message: String) : NaviStatus()
+
+    /** The navigation engine cannot load on this device; retrying would fail the same way. */
+    data class Unsupported(val message: String) : NaviStatus()
 }
 
 /**
@@ -170,6 +173,13 @@ internal class InAppNaviController(private val appContext: Context, val leg: Nav
             status = NaviStatus.Failed(
                 e.message?.takeIf { it.isNotBlank() && e is IllegalStateException } ?: "导航服务初始化失败，请检查网络后重试"
             )
+            release()
+            return null
+        } catch (_: LinkageError) {
+            // The SDK ships ARM navigation libraries only; on other ABIs (or a broken install) loading
+            // fails here. Navigation is unavailable, the order controls below keep working.
+            gate.engineFailed()
+            status = NaviStatus.Unsupported("此设备暂不支持应用内导航（导航组件无法在本机加载）。请退出导航，订单操作不受影响。")
             release()
             return null
         }
@@ -345,6 +355,7 @@ internal fun InAppNavigationPanel(
         when (val s = controller.status) {
             is NaviStatus.Calculating -> StatusChip("正在规划去「${s.leg.name}」的路线…", Modifier.align(Alignment.TopCenter))
             is NaviStatus.Failed -> FailureCard(s.message, onRetry = { attempt++ }, onExit = onExit, Modifier.align(Alignment.Center))
+            is NaviStatus.Unsupported -> FailureCard(s.message, onRetry = null, onExit = onExit, Modifier.align(Alignment.Center))
             is NaviStatus.Navigating -> Unit
         }
         controller.arrivalHint?.let { hint ->
