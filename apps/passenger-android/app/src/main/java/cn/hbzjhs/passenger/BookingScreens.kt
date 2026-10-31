@@ -329,22 +329,28 @@ private fun PassengerBookingDraft(owner: String, state: JSONObject, store: Passe
                 horizontalArrangement = Arrangement.SpaceBetween,
               ) {
                 Text("乘车路线", fontWeight = FontWeight.Bold, fontSize = TypeScale.Title, color = Ink)
+                // Only a complete route can be swapped; an empty or unknown end never clears the GPS
+                // pickup or marks it manual (which would stop GPS from filling it).
                 PassengerTextButton(
                   contentPadding = PaddingValues(horizontal = 6.dp, vertical = 2.dp),
+                  enabled = routePointReady(origin, oLat, oLng) && routePointReady(destination, dLat, dLng),
                   onClick = {
-                    originTouched = true
-                    val address = origin
-                    origin = destination
-                    destination = address
-                    val lat = oLat
-                    oLat = dLat
-                    dLat = lat
-                    val lng = oLng
-                    oLng = dLng
-                    dLng = lng
-                    val metadata = oMetadata
-                    oMetadata = dMetadata
-                    dMetadata = metadata
+                    // Re-checked at tap time with the current draft before touching any field.
+                    if (routePointReady(origin, oLat, oLng) && routePointReady(destination, dLat, dLng)) {
+                      originTouched = true
+                      val address = origin
+                      origin = destination
+                      destination = address
+                      val lat = oLat
+                      oLat = dLat
+                      dLat = lat
+                      val lng = oLng
+                      oLng = dLng
+                      dLng = lng
+                      val metadata = oMetadata
+                      oMetadata = dMetadata
+                      dMetadata = metadata
+                    }
                   },
                 ) {
                   Text("交换起终点", fontSize = TypeScale.Caption)
@@ -508,6 +514,10 @@ private fun PassengerBookingDraft(owner: String, state: JSONObject, store: Passe
   }
 }
 
+/** A route end that may be used or swapped: a real name and finite, in-range coordinates. */
+private fun routePointReady(name: String, lat: String, lng: String): Boolean =
+  name.trim().length >= 2 && runCatching { coordinate(lat, true); coordinate(lng, false) }.isSuccess
+
 /** One titled card on the trip options page, with a lit icon badge. */
 @Composable
 private fun TripOptionSection(
@@ -604,11 +614,14 @@ fun AddressDialog(
   val gate = remember { PassengerLookupGate() }
   fun cancelSearch() { gate.invalidate(); searchJob?.cancel(); searchJob=null; searching=false; pending=false; results=emptyList() }
   val closeEditor = { cancelSearch(); close() }
+  fun clearSelection() { name=""; lat=""; lng=""; source=""; selectedMetadata=null }
   fun selectPlace(n: String, a: String, b: String, from: String, metadata: JSONObject? = null) {
     cancelSearch(); name=n; lat=a; lng=b; source=from; selectedMetadata=metadata; error=""
   }
+  // Any new query text (including empty, one character or a name-only common place) voids the
+  // previous pick at once, so it can never be used during the 400ms wait or after a cancel/failure.
   fun searchFor(text: String) {
-    cancelSearch(); query=text.take(200); typedQuery=query.trim(); pending=typedQuery.length >= 2; error=""
+    cancelSearch(); clearSelection(); query=text.take(200); typedQuery=query.trim(); pending=typedQuery.length >= 2; error=""
   }
   val places =
     (favorites.filter { it.text("address").isNotBlank() }.map {
@@ -634,8 +647,10 @@ fun AddressDialog(
         overflow = TextOverflow.Ellipsis,
       )
       if (error.isNotBlank()) Text(error, color=MaterialTheme.colorScheme.error, fontSize = 13.sp, maxLines = 3, overflow = TextOverflow.Ellipsis)
-      ActionButton("使用此地点", !searching && name.isNotBlank()) {
+      ActionButton("使用此地点", !searching && !pending && routePointReady(name, lat, lng)) {
         runCatching {
+          // Re-checked at tap time: a search still waiting or running means there is no current pick.
+          require(!searching && !pending) { "正在搜索，请从结果中选择地点后再使用" }
           require(name.trim().length >= 2) { "请选择具体地点" }
           require(lat.isNotBlank() && lng.isNotBlank()) { "请从搜索结果、地图或常用地点中选择一个具体地点" }
           coordinate(lat, true); coordinate(lng, false)
@@ -653,7 +668,7 @@ fun AddressDialog(
     val mapModifier = Modifier.fillMaxWidth().height(if (WindowInsets.isImeVisible) 150.dp else 240.dp)
     if (amapKey.isNotBlank()) {
       AmapCanvas(listOfNotNull(shownPoint), mapModifier, onPick = { a, b ->
-        cancelSearch(); name=""; lat=""; lng=""; selectedMetadata=null; source=""; error=""
+        cancelSearch(); clearSelection(); error=""
         val token=gate.next()
         searching=true
         searchJob=scope.launch {
@@ -711,8 +726,12 @@ fun AddressDialog(
         selectPlace(result.name, result.latitude.toString(), result.longitude.toString(), "搜索选定地点", result.metadata)
       }
     }
-    if (amapKey.isNotBlank()) Field(searchCity, {
-      cancelSearch(); searchCity=it.take(40); pending=typedQuery.length >= 2 && typedQuery==query.trim()
+    // A different city means a different search: the old pick is voided too, never confirmed by mistake.
+    if (amapKey.isNotBlank()) Field(searchCity, { value ->
+      if (value.take(40) != searchCity) {
+        cancelSearch(); clearSelection(); error=""; searchCity=value.take(40)
+        pending=typedQuery.length >= 2 && typedQuery==query.trim()
+      }
     }, "搜索城市（可选）")
     if (source.isNotBlank()) Note("$source · 请核对名称与地图位置")
     Note(if (amapKey.isNotBlank()) "输入即搜索，也可点击地图选点；请选择具体车站、入口或建筑。" else "输入即搜索；地址服务可用性依赖设备服务，请核对地点后使用。")

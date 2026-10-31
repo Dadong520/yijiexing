@@ -60,6 +60,22 @@
 8. 无 AMap key 时选址页会显示 MapLibre 预览地图（会请求 openfreemap 瓦片），原来这种情况下不显示地图。
 9. 嵌套滚动：内容在顶部向下快速 fling 时，只有手指确实拖动了面板才会换档；内容自身的 fling 不会带动面板。
 
+## Phase 2（基于 root freeze cbe8190，修非作者审查 2 项 FAIL；仅改 BookingScreens.kt）
+- 同一 session 9bc07c4c-731c-4b1f-840b-ce6a0c5dc85a。其他 panel、版本、控制、任务文件均未动；未碰 frontend 的独立导出目录。未 commit/add。
+- **FAIL1 选址旧 selection 失效**：
+  - 新增 `clearSelection()`（清 name/lat/lng/source/selectedMetadata）。
+  - `searchFor(text)` 先 cancelSearch 再 clearSelection。所有改变查询文本的路径都走它：手输（含清空、1 字）、无坐标常用/历史地点按名称搜索、“重新搜索”。旧点会立即失效，400ms 防抖期间、取消或失败之后都无法再提交。
+  - 城市框只有值确实变化时才 cancelSearch 加 clearSelection，旧点不会被新城市搜索误确认。
+  - 地图点选改为复用 clearSelection。
+  - “使用此地点”：enabled = !searching && !pending && `routePointReady(name, lat, lng)`。点击时再次 require(!searching && !pending)，并重新校验名称 ≥2 以及 `coordinate()` 范围。
+  - query 与 selection 仍然分离：selectPlace 不改 query/typedQuery，所以选中结果不会重新触发查询。debounce、gate、stillWanted 未改。
+- **FAIL2 交换起终点**：
+  - 新增私有顶层函数 `routePointReady(name, lat, lng)`：名称 trim 后 ≥2，且经 `coordinate()` 得到有限、在范围内的经纬度。
+  - 交换按钮 enabled 要求两端都通过 routePointReady。onClick 开头按当前草稿再验一次，通过后才设置 originTouched 并交换任何字段。
+  - 空终点或无效端不会清掉 GPS 起点，也不会把起点标成手动而导致 GPS 不再回填。完整路线交换的 metadata 互换和 manual 标记保持原样。
+  - 这也解决了上面风险 6。
+- 自测：编译、单测、GUI 全部 NOT_RUN。
+
 ## 验收建议（非作者执行）
 - 两端 `assembleDebug` 加现有单测（PassengerAddressLookup/PickupDefaults/Defaults 等应不受影响）。
 - AVD：360×640 小屏、字号 1.3/2.0、三键导航与手势导航、横竖屏切换、进程重建。四个页面逐一验证：拖把手、甩动、内容滚动与面板联动、地图平移缩放不抢手势、三个按钮、TalkBack customActions、Expanded 时返回键、收起后由 attentionKey 自动弹回（用 fixture 改订单阶段或可支付状态）。
