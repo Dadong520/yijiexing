@@ -97,10 +97,10 @@
     "coordination/archive/2026-10-26/AUTH-20261026-02.json"
   ],
   "memoryProtocolVersion": "2026-10-26-v3",
-  "currentStage": "MAPS22_PUBLISHED_RECEIPT_REVIEW",
+  "currentStage": "MAPS22_RECEIPT_REVIEW_PASS_AWAIT_MERGE",
   "roleAssignments": {
     "coordinator": "MAPS22 published/readbacks PASS; MAPSREC actual receipt/README review/merge",
-    "backend": "IDLE independent MAPSB D6 PASS",
+    "backend": "IDLE MAPSR actual receipt/README15 checks PASS",
     "frontend": "IDLE MAPSF finalD6 PASS and cleanup complete",
     "antigravity": "PAUSED_BY_USER_20261029; no new Gemini dispatch",
     "expert": "IDLE; configuration verified, SDK auth recovered; user deferred actual device test",

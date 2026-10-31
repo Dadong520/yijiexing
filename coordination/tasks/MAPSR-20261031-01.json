@@ -16,11 +16,22 @@
     "Metadata only; non-author narrow review and exact-head CI/merge",
     "No product changes or repeat deploy"
   ],
-  "status": "PREPARED_WAIT_ACTUAL_READBACK",
-  "acceptance": "NOT_RUN",
-  "tests": [],
-  "evidence": [],
-  "nextAction": "Wait actual publication/readbacks and root explicit dispatch",
+  "status": "NARROW_RECEIPT_PASS_IDLE",
+  "acceptance": "PASS",
+  "tests": [
+    {
+      "command": "Exactfd96f29 receipt/README/proof consistency and product Git tree equality",
+      "exitCode": 0,
+      "result": "PASS narrow review; no repeated tests or network"
+    }
+  ],
+  "evidence": [
+    "coordination/evidence/MAPSR-20261031-01/REVIEW.json"
+  ],
+  "nextAction": "Root receipt integration with exact-head CI; backend IDLE",
   "deploy_owner": "coordinator",
-  "releaseReady": false
+  "releaseReady": false,
+  "candidateSha": "fd96f29a78e2889554ba6a3c2360335cc490bac2",
+  "acceptedSha": "fd96f29a78e2889554ba6a3c2360335cc490bac2",
+  "updatedAt": "2026-10-31T17:04:39+08:00"
 }
