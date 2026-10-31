@@ -1,0 +1,10 @@
+{
+  "sourceSha": "d6d5206a82f16987fd51371044fb12e76ba9f8d8",
+  "mergeSha": "49bc669ec8f412756eb782498bcedeecb4098b52",
+  "ci": {
+    "headSha": "125699eb8729e43bd3ec83d2db50bd292b479afd",
+    "runId": 41185604204,
+    "conclusion": "success"
+  },
+  "allProductTreesSame": true
+}

@@ -1,17 +1,4 @@
-你现在接任宜捷行项目唯一总协调者 coordinator。项目目录：/Users/dongge/Documents/New project 2；GitHub：Dadong520/yijiexing。请遵守项目2026-10-26-v3或更新的记忆与协作协议。
-
-先读项目AGENTS.md、中央coordination/START_HERE.md、STATE.md、BOARD.json、SESSION_REGISTRY.json、handoffs/coordinator.md及当前明确获派任务；首次按MEMORY_POLICY.md恢复，长期规则按需读DECISIONS.md。中央状态可能比Git工作树快照新，不能用旧副本覆盖它。不得先遍历历史聊天、全部交付目录或重做已完成任务。
-
-我以后只向你发指令。你可继续直接协调登记中的“宜捷行｜后端与业务规则”“宜捷行｜司机端与前端验收”和Gemini/反重力。Codex保持GPT-6.1，Gemini沿用用户已选模型/已验证CLI；主要实现和常规自测优先Gemini，关键业务由后端审核，非作者独立验收，只有coordinator合并部署。既有授权仅在已记录且与当前任务一致的范围内延续，平台要求本人确认的事项仍由我完成。
-
-先核对当前Git/部署/未提交文件、实际资源占用与未通过项，报告三行：当前基线与检查点、未完成/阻塞、下一动作。明确把旧coordinator停止派单，登记你的真实会话ID并通知两角色；未完成交接前不得与旧会话并发修改或发布。不要自动创建其他新会话。
-
-每阶段及约40分钟有效工作保存短卡；发现压缩后恢复成本增加、重复调查或记忆冲突要提前告诉我换新对话，附完整交接。没有可靠上下文遥测写UNKNOWN，不编造百分比。
-
-仅使用独立Google Cloud体验环境yijiexing-driver-demo-1023/us-west1。保留数据、接口、ENV/secret/服务账号/IAM及automatic/min0/max1请求CPU计费，不保活、不自动暂停；当前后台PASSWORD原账号，无Google/IAP前置。禁止原生产/测试，凭据/私有账号库/DB/APK/cache不进源码或聊天，大文件优先直连。无任务不常驻，不因换会话重部署。
-
-最新已交付为PUI乘客端UI：产品PR32合并main a542f6640681956f330e91bc67ecf2f62cfcbda8，产品源码7d6dc6014906c80be87b39f4433ec494ae067098；乘客1.1.15-experience/code17，司机保持0.3.14-cloud/code17。API/admin pui-7d6dc60-test1各100%，user-test同版本；乘客完整HTTPS/hash/包名/版本/原签名回读通过，39旧单全部存储字段一致。发布回执coordination/evidence/PUI-20261028-01/release/FINAL-RELEASE-RECEIPT.json；回执归档PR33是否已合并先看中央STATE。快链https://user-test---driver-demo-phfgquzmua-uw.a.run.app/download（司机）及/download-passenger（乘客）。当前已发布不再等部署，原PMV与PR28/29只历史。
-
-本轮完成13图页面和三类持久默认项；联系页只公司客服确认打开拨号页，司机中继/IM未接；支付退款发票模拟。高德1008/10008仍未过，不重新索Key；微信缺AppID/OEM实机未验；2.0剩余项/PMPOST未集成。root/不同会话独立验收详见NATIVE_REVIEW/SOURCE_BINDING/packaging-review，不重复全套。frontend已建议阶段后换新对话，只有用户明确新开才移交；旧pmv工作树dirty控制快照只读，不覆盖。Gemini两PUI短context精确SUCCESS与hash已核，lease释放。隔离fixture/emulator、构建上传均停止，没有后台自动化。后续按用户体验反馈定向处理，不擅扩范围。
-
-当前已启用反馈驱动自主交付，接任先读AUTONOMY_POLICY.md/CONFIG及ACK。用户只提供体验反馈，root完成内部闭环至体验发布回读；空闲等待，不新增守护/轮询/第二协调者。原始安装PENDING回执是历史阶段，实际激活看后续ACK与CONFIG。
+请先读取 /Users/dongge/Documents/New project 2/coordination/START_HERE.md、STATE.md、BOARD.json、SESSION_REGISTRY.json及coordinator短卡。协议2026-10-26-v3，中央状态优先于工作树旧快照，不遍历历史聊天。
+当前版本22已测试/合并/发布/公开双整包回读PASS，产品源d6d5206a82f16987fd51371044fb12e76ba9f8d8，PR45 merge49bc669ec8f412756eb782498bcedeecb4098b52。乘客1.1.20-experience/司机0.3.19-cloud，原包名原签名。四主地图页三态拖动至真全屏，乘客新草稿GPS起点/空终点，选址上地图/空查询/下模糊结果；非作者54/77实际D6单测及原生PASS。真实provider/OEM/资金未验证。45旧订单全部字段一致；后台API/CloudRun/IAM不改，旧21已归档，不重复发布。
+当前MAPSREC/MAPSR仅实际receipt/README独审入库，后续准确SHA/PR合并状态见中央短卡，不根据本提示猜未完成发布。源码 /Users/dongge/.codex/tmp/yijiexing-map-panels-20261031，receipt branch codex/map-panels-receipt-20261031。共享后端唯一仍UIO树apps/cloud-service；禁止原测试/生产，独立项目min0/max1/请求计费，无保活或自动暂停。
+唯一coordinator仍01a17cc7-e0a2-7791-bf1d-4611c09bab22/generation6。仅用户明确要求接任时才替换登记并停止旧协调者派单，避免双协调发布；不能冒用旧真实ID过门禁。backend/frontend按SESSION_REGISTRY，frontend HANDOFF_RECOMMENDED下个大任务评估接替；Claude主实现/Gemini暂停/Astra仅堵点。无统一上下文遥测，UNKNOWN，不造百分比。

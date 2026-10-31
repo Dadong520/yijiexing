@@ -20,9 +20,9 @@
       "measurementSource": "not_exposed",
       "measurementAt": null,
       "ackVersion": "2026-10-26-v3",
-      "checkpointId": "MAPS-20261031-01",
+      "checkpointId": "MAPSREC-20261031-01",
       "handoffPath": "coordination/handoffs/coordinator.md",
-      "workflowState": "ACTIVE_MAPS"
+      "workflowState": "ACTIVE_MAPSREC"
     },
     "backend": {
       "threadId": "01a182c6-c058-76e1-9584-38abfe813799",
@@ -34,9 +34,9 @@
       "measurementSource": "not_exposed",
       "measurementAt": null,
       "ackVersion": "2026-10-26-v3",
-      "checkpointId": "MAPSB-20261031-01",
+      "checkpointId": "MAPSR-20261031-01",
       "handoffPath": "coordination/handoffs/backend.md",
-      "workflowState": "IDLE_MAPSB_D6_PASS",
+      "workflowState": "PREPARE_RECEIPT_REVIEW",
       "execution": "visible independent Codex thread",
       "roleGeneration": 2
     },

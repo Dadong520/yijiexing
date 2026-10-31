@@ -17,7 +17,7 @@
     "No live business writes/personal phone/original test or production; root only release",
     "Actual tests/independent review before completion; NOT_RUN explicit"
   ],
-  "status": "ACCEPTED_WAIT_EXACT_HEAD_CI_MERGE",
+  "status": "COMPLETE",
   "acceptance": "PASS",
   "tests": [
     {
@@ -73,7 +73,7 @@
       "sha256": "db481c27e5902a456741eff9055d7c4f0210d4b82a31dd4cf8b08126ef568af9"
     }
   ],
-  "nextAction": "Sync actual evidence, exact-head CI and merge PR45 then APK22-only publish/readback",
+  "nextAction": "Product published/readbacks PASS; MAPSREC actual receipt/README independent review and merge, no repeat deployment",
   "deploy_owner": "coordinator",
   "releaseReady": true,
   "candidateSha": "d6d5206a82f16987fd51371044fb12e76ba9f8d8",
@@ -83,13 +83,22 @@
     "evidence": "coordination/evidence/MAPSB-20261031-01/REVIEW_d6d5206.json"
   },
   "pullRequest": "https://github.com/Dadong520/yijiexing/pull/45",
-  "integrationHeadSha": "ee23c4c71fa979946fc834ccf49b12f03b17031e",
+  "integrationHeadSha": "125699eb8729e43bd3ec83d2db50bd292b479afd",
   "acceptedSha": "d6d5206a82f16987fd51371044fb12e76ba9f8d8",
   "reviewer": "frontend",
-  "updatedAt": "2026-10-31T08:40:11.630566+00:00",
+  "updatedAt": "2026-10-31T09:03:27.496778+00:00",
   "nativeReview": {
     "status": "PASS_SCOPED",
     "sha": "d6d5206a82f16987fd51371044fb12e76ba9f8d8",
     "evidence": "coordination/evidence/MAPSF-20261031-01/FINAL_REVIEW.json"
-  }
+  },
+  "mergeSha": "49bc669ec8f412756eb782498bcedeecb4098b52",
+  "ci": {
+    "headSha": "125699eb8729e43bd3ec83d2db50bd292b479afd",
+    "runId": 41185604204,
+    "conclusion": "success"
+  },
+  "publishedVersionCode": 22,
+  "releaseReceipt": "coordination/evidence/MAPS-20261031-01/release/FINAL-RELEASE-RECEIPT.json",
+  "dataPreservation": "PASS_45_OLD_ROWS_ALL_FIELDS_UNCHANGED"
 }

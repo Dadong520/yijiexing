@@ -1,0 +1,23 @@
+[
+  {
+    "phase": 1,
+    "actualSessionId": "9bc07c4c-731c-4b1f-840b-ce6a0c5dc85a",
+    "actualModel": "claude-opus-5-5",
+    "exitCode": 0,
+    "permissionDenials": 0
+  },
+  {
+    "phase": 2,
+    "actualSessionId": "9bc07c4c-731c-4b1f-840b-ce6a0c5dc85a",
+    "actualModel": "claude-opus-5-5",
+    "exitCode": 0,
+    "permissionDenials": 0
+  },
+  {
+    "phase": 3,
+    "actualSessionId": "9bc07c4c-731c-4b1f-840b-ce6a0c5dc85a",
+    "actualModel": "claude-opus-5-5",
+    "exitCode": 0,
+    "permissionDenials": 0
+  }
+]

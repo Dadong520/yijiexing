@@ -1,19 +1,18 @@
-# 宜捷行当前检查点 2026-10-30T13:59:32.295711+00:00
+# 宜捷行当前检查点 2026-10-31T08:50:19.212123+00:00
 中央/Users/dongge/Documents/New project 2/coordination唯一权威，协议2026-10-26-v3。唯一coordinator01a17cc7-e0a2-7791-bf1d-4611c09bab22/generation6；context UNKNOWN。root独占状态/验收/合并发布。
 
-## 新活动2026-10-31
-MAPS用户要求两端地图功能面板上下拖动至全屏；乘客起点定位/终点空，选址页地图在上/空查询/结果在下。Claude fresh 9bc07c4c-731c-4b1f-840b-ce6a0c5dc85a，source /Users/dongge/.codex/tmp/yijiexing-map-panels-20261031。NETC已只读诊断：本机health200/TLS通过、原包origin正确、近期有界日志无429/5xx，用户手机故障NOT_REPRODUCED_NOT_RESOLVED；用户随后明确“已经恢复”；原因未证实，未改服务配置。MAPS最终d6源码/原生M1-M3/双unit54/77及构建PASS，cleanup PASS，待PR45准确head合并发布22；当前仍公开21。
-
-## 当前已公开版本21：测试、合并、发布与实际回读PASS；源码与实际回执均已合并入库
-用户要求测试发布Claude云端9495caa的新24项UI差量。产品最终源ecc9d8d0e63f5ee1c9a8f45df87e92f7b42e0ea5；PR43准确head089ea8c130506b18df6afe28b22f572c10552ea8/CI41063380582 SUCCESS，expected-head squash合并8e8da981faa54de0bd12d24e1921d3d20a3d570b。所有产品树与验收源一致。UIT任务COMPLETE；UITREC/UITR实际receipt/README15项窄审PASS并已合并，不重复部署。
-乘客1.1.19-experience/code21，SHA476ba49f596e5736931e7a21ee3260984f9766029d217fa33abdc69f51185e69；司机0.3.18-cloud/code21，SHA143108f537ec62df06a34cd9bb51ec89d8249ab80141ab9cb1df86f7adb47f0e。原包名/原Signer9ffec9…b758f，原签名可覆盖安装。两公开HTTPS整包size/hash/版本/原签名均actualPASS匹配独立验收原包。初次160秒未完整及并发429保留，服务containerConcurrency1保持；改900秒上限独立下载后两包direct200/exit0。旧20已受generation保护归档，固定21提升完成；不重复upload/promote。
+## MAPS版本22：测试、合并、发布和实际回读PASS；回执独审入库中
+用户要求四主地图页功能面板三态拖动，上拖全展可滚所有项，下拖至全屏；乘客新草稿GPS起点/空终点，选址上地图/空查询框/下模糊结果。Claude官方session9bc07c4c-731c-4b1f-840b-ce6a0c5dc85a/Opus5.5high三阶段exit0。作者无Bash自测NOT_RUN，由不同会话验收。最终产品d6d5206a82f16987fd51371044fb12e76ba9f8d8，PR45准确head125699eb8729e43bd3ec83d2db50bd292b479afd/CI41185604204 SUCCESS，expected-head squash merge49bc669ec8f412756eb782498bcedeecb4098b52；所有产品树同最终验收源。
+乘客1.1.20-experience/code22，原包SHA23bc9e1a075d3e078212c88b9c3bb5cf2581e7beff8c2be722172a14d78c3554/107237753bytes；司机0.3.19-cloud/code22，SHA5d405099b76244c1938e448b27b957a2cc51af2a12cb042c4e095f23d6b45631/108718725bytes。原包名原Signer9ffec9…b758f，原签名可覆盖安装。GCS候选上传41907exit0、fresh备份校验67407exit0、旧21归档/固定22提升62253exit0；不重复upload/promote。两个公开HTTPS整包乘客61231/司机87260均exit0/direct200，大小/哈希/包名/code22/原签名匹配验收原包PASS。实际receipt与README已准备，MAPSREC+MAPSR仅独审入库，不再部署。
 司机 https://user-test---driver-demo-phfgquzmua-uw.a.run.app/download ，乘客同域/download-passenger（对应.apk整包）。后台 https://demo-admin.hbzjhs.xyz/ 原账号密码/无GoogleIAP；API https://yijiexing-demo.hbzjhs.xyz。
 
-## 独立验收与数据边界
-Claude官方本地session93f99706-9822-4a37-b5a9-5369a6ac2364/Opus5.5high四阶段exit0/permissionDenials0，作者无Bash自测NOT_RUN。Codex backend独立ECC源审PASS；frontend G1/P1-P4/D1-D3原生PASS。R1小屏大字截字、R2待审重复催更新均修复独立差量复验，原FAIL保留。actual17d单测54/77零失败，后续UI布局/证件显示明确继承；原包乘客281整树同ECC，司机ECC重新构建。原签名/包名/code21/HTTPS/四私有值0命中PASS。root tools27/mini74/check actual17d后明确源相同继承。独立隔离AVD5584/fixture64341/reverse已全部清理。原图17d/281/ECC按真实源保留，不统一伪改。
-45订单同一GCS generation1793356223301353，发布前后45→45，旧单0丢/0字段改/0新增、SQLite完整性PASS，原始DB外置0600；范围passenger_orders，不宣称全部表。仅独立yijiexing-driver-demo-1023/us-west1，GCS APK更新，无CloudRun部署/云业务POST。API/admin revision仍driver-demo-ccui-107e226-test1/driver-admin-ccui-107e226-test1 100%及user-test同版；完整spec/服务annotations/IAM/ENV/secret/SA/traffic不变，automatic/min0/max1/请求计费/API900/concurrency1保持，不保活不自动暂停。禁止访问原测试/生产。实际FINAL-RELEASE-RECEIPT及README已UITR15项独立窄审PASS，PR44准确head7b2d8f60720ea4c6d12c3281e988bba11c84de68/CI41068369926 SUCCESS，expected-head合并3587d5af7a5585eff8dbd7921eca348fd905e465；Git main已包含真实回执和README。最后合并自引用只记中央，不再开回执循环PR。
-本轮仅原生UI；后台无新模块。合成阶段/资格/账单与mockGPS明确标记，真实provider底图/POI/逆地理/外部高德/OEM/个人手机/真实资金NOT_RUN；未将所有阶段布局称真实业务生命周期。微信缺AppID未微信编译/真机/发布。草稿返回编辑/设置保留，跨底栏重建保留未承诺。公告先领取后显示的既有跨账号/重启持久补弹边界不变。
+## 已验收/数据和资源
+MAPSB独立源审最终PASS，前两P2(新查询复用旧点/空终点swap清GPS)原FAIL保留并修复。root实图发现非真全屏，phase3加页面scope/token chrome host，两MainActivity只UI，不改Store/backend/gates；原root FAIL图保留。MAPSF FINAL_REVIEW限定M1/M2/M3 PASS：四页面三态拖动/滚末项/真全屏/点击恢复/阶段/返回/小屏IME/账号/定位/选址保护；有少数cbe/EE原用例按函数字节相同继承，逐项注明来源，旧图不伪改。实际最终D6双单测54/77零fail/error/skip、双原包与QA重建，原签名/包名/code22/HTTPS/全部条目四私有值0命中。root实际APK hash/size/Git树/原始JUnit独立绑定PASS；root27/mini74/check实际cbe，d6相关树完全相同且CoreScreens扫描用例单独重跑1PASS。配置重建Collapsed→Half为刻意恢复导航，非持久全屏承诺。FINAL_REVIEW/CLEANUP均PASS，测试模拟器、本地TLSfixture、端口转发都已清理，frontend IDLE/HANDOFF_RECOMMENDED(未来大任务评估接替)。
+45旧订单发布前后45→45，0丢失/0字段改/0新增，同GCS generation1793432456709049/快照SHA846f5922cc4e7336f1d33b4671215e2d6a7323063a091aed57a337eb4627a3e0，SQLite quickcheck PASS；范围passenger_orders，不扩称全部表。data17060exit0，runtime7276exit0。仅独立yijiexing-driver-demo-1023/us-west1，GCS APK更新，无CloudRun部署/云业务POST。API/admin revision仍driver-demo-ccui-107e226-test1/driver-admin-ccui-107e226-test1 100%/user-test同版；完整spec/annotations/IAM/ENV/secret/SA/traffic不变，automatic/min0/max1/请求计费/API900/concurrency1保持，不保活不自动暂停。禁止原测试/生产。
+真实provider底图、正向POI/模糊结果成功、逆地理、路线、相机位移/捏合成功NOT_RUN；QA无provider凭据且离线，真实触摸仲裁/尺寸/控件只证明UI。无个人手机/OEM/真实资金/认证/警方联动/云业务写。合成阶段分配和实际本地两create/一cancel区分；不能称真实完整业务生命周期。微信缺AppID未微信编译/真机/发布。本轮仅原生UI，后台无新模块。
 
-## 长期确认与角色
-BIZ04待出发预约不占即时，明确开始接驾后双角色单执行，欠款门禁；无自动处罚或准时保证。BIZ05历史32类仅配置草稿/人工记录。BIZ06新单终点必填、旧单同ID补填。BIZ07差额单扣/余分平台仅模拟。BIZ08三证60天提醒、审核通过替换；有效待审可接、过期禁新单、在途完成。BIZ09每用户每发布版本弹一次可关。默认地址/乘客/抬头只新草稿建议，不覆盖GPS/已填/历史，不自动叫车开票；电话ACTION_DIAL，无IM/中继。后台平台运维→公告/客服电话/乘客配置；司机管理→资质到期；靠下配置与治理→历史草稿与人工记录。地图EXMAP用户已修乘客SHA1字母O为数字0，原SDK请求10008→10000/1POI；JVM合成不等于手机SDK，用户稍后手机验，expert IDLE不轮询。无真实认证/录音/警方联动/资金。PMPOST候选未混入。
-源码树/Users/dongge/.codex/tmp/yijiexing-ui-feedback-20261030，当前receipt branch codex/ui-feedback-receipt-20261030。共享后端唯一可写仍/Users/dongge/.codex/tmp/yijiexing-ui-optimization-worktree-20261029/apps/cloud-service，本轮不改。中央控制独占，工作树仅检查点不反向覆盖。backend/frontend为二代可见Codex；frontend本轮完成后HANDOFF_RECOMMENDED，未知上下文，未来大任务先评估接替；Claude IDLE，Gemini暂停，Astra仅堵点，核心GPT6.1。root/所有角色IDLE等用户体验反馈，无常驻自动化。
+## 连接反馈与长期确认
+NETC只读核对原21包origin、health200/TLS和有界日志，未复现手机故障；本机198.18合成DNS/TUN不能外推手机。用户随后明确“已经恢复”，根因未证实，不继续盲改云配置或轮询。
+BIZ04预约待出发不占即时，明确开始接驾后双角色单执行/欠款门禁；无自动处罚/准时保证。BIZ05历史32类仅配置草稿与人工记录。BIZ06新单终点必填/旧单同ID补齐。BIZ07差额单扣/余分平台仅模拟。BIZ08三证提前60天提醒、审核通过替换；有效待审可接、过期禁新单、在途完成。BIZ09每用户每发布版本弹一次可关。默认乘车人/抬头仅新草稿建议；默认地址可保存但按本次UI-MAP-20261031新草稿终点空，不覆盖手动点/已有草稿/历史。ACTION_DIAL公司电话确认，无IM/中继。公告既有先领后显跨重启持久补弹边界不变。
+后台平台运维→公告/客服电话/乘客配置；司机管理→资质到期；配置与治理→历史草稿与人工记录。地图EXMAP用户已修SHA1字母O→数字0，合成原SDK10008→10000/1POI不等于手机SDK；用户稍后体验，Astra IDLE不轮询。PMPOST候选未混入。
+源码/Users/dongge/.codex/tmp/yijiexing-map-panels-20261031，当前receipt branch codex/map-panels-receipt-20261031。共享后端唯一可写仍UIO树apps/cloud-service，本轮未改。中央控制root独占，工作树仅快照不可反向覆盖。Claude/ backend/ frontend IDLE，root完成发布读回/回执后等反馈；Gemini暂停、Astra仅堵点，核心GPT6.1；无常驻自动化。细节见coordinator短卡及MAPS任务。
