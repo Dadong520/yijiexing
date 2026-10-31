@@ -1,28 +1,22 @@
-# 宜捷行检查点：版本23已测试、合并、发布、完整回读；实际回执已入库
-中央 /Users/dongge/Documents/New project 2/coordination 唯一权威；协议2026-10-26-v3。唯一coordinator01a17cc7-e0a2-7791-bf1d-4611c09bab22/generation6，context UNKNOWN。root独占调度/验收/合并发布，无常驻自动化。
+# 宜捷行检查点：应用内导航24已发布，所有发布回读PASS，实际回执独立审查中
+中央 /Users/dongge/Documents/New project 2/coordination 唯一权威；协议2026-10-26-v3。coordinator01a17cc7-e0a2-7791-bf1d-4611c09bab22/generation6唯一验收/合并/发布；context UNKNOWN，无常驻自动化。
 
-## 新活动NAVI-20261031-01：D2验收PASS，等待CI/合并/发布
-候选6cdcee1a68d57465e4196243f22478c69733654c，source /Users/dongge/.codex/tmp/yijiexing-in-app-navigation-20261031 branch codex/in-app-navigation-20261031。driver24/0.3.21-cloud，passenger原23不重包。Claude官方SIDa695三阶段exit0，backend非作者D2 delta审PASS，根独立backend284/driver95/真实隔离native19组PASS并清理全部AVD/fixture/reverse。loop/联系快照/backend兼容当前46旧单副本全行保持。实际SDK道路导航/指引出现（模拟GPS，非实车语音/OEM），19组范围见NAVI/D2-native/FINAL_REVIEW.json；原包身份与源码见FINAL_BUILD_PROOF.json。旧无快照电话不推断；新订单受控显式直拨并确认系统电话页。
-D1实际弹窗漏WP/固定半屏FAIL已由phase3修，D2真实小屏/IME/三态恢复/电话/途经/终态/首次同意/取消验证PASS，迟到回调隔离由95单测覆盖。API镜像f41b121b已构建但**尚未部署24、未GCS提升、未合并产品PR**。发布root唯一负责；API/admin仍107e226-test1，保IAM/ENV/SA/请求计费/min0max1，admin不改。API新版本须default100与user-test稳定tag同步新revision，其他历史QA tag保留。用户新增46单已备份，勿恢复旧45。
-下一准确head本地门禁/CI/PR合并→备份刷新→API immutable image/流量和driver原包发布回读→真实receipt/README入库。源/进程/镜像/私有路径见coordinator短卡。Gemini停、Claude/backend/frontend IDLE，无新自动化。
+## 当前NAVI-20261031-01
+产品6cdcee1a68d57465e4196243f22478c69733654c；PR49准确headfb50113db859c7b2e75f061d960bad7720e16bbe/CI41216491002 SUCCESS，expected-head squash main6a52f55402b49f5d736b68ea58a860a53c7c4a27，全repo tree同CI head/产品tree同验收6cd。source /Users/dongge/.codex/tmp/yijiexing-in-app-navigation-20261031，当前仅metadata branch codex/in-app-navigation-receipt-20261031/HEAD6a52。Git main产品已合并，待实际回执/README独立复核后另PR入库，不再部署产品。
+司机0.3.21-cloud/code24原包cn.hbzjhs.dc.driver.cloud/原签名9ffec9...b758f，133016738bytes，SHA55b4657b337fc1e6a4324fc30e334655fd31c3bf396965d22d6cbf36d5e9fd9d；已候选上传+受generation保护归档旧23并提升fixedgen1793462374804294。公开HTTPS在同一独立项目一次性CloudBuild中完整下载PASS，全大小/hash精确相同绑定原aapt/apksigner版本24/原签名；本机超时/429/慢速手动停止均保留，不称本机完整下载。乘客原1.1.21-experience/code23/hashcb77e6397a809027c117e963b2a4faf8b4b7a65d62a961bdaf519f333dec0842、固定gen1793446982503923不变，未重包/上传/提升；无需重装乘客。
+实际API revision driver-demo-navi-6cdcee1、digestf41b121b02c9ae0fc44539c3ab9894acb95bafb7c5283998e124a7a84f269e6f（CloudBuild058f6e6f SUCCESS）。stage健康/真实新handler只读smoke通过后，已将default100及user-test稳定tag同时切新；临时navi tag移除，其余历史QA tags原目标保留。custom/default/user-test健康200、无令牌401、合成不存在ID的允许demo司机session只读GET特定新handler404/no-store均PASS；cloudBusinessPOST0。revision实际image digest回读PASS。
 
-## 已完成RIDE / RIDEREC
-用户要求有效地点一击回填返回/去Use、历史点击反馈、途经点入口移目的地页、参考成熟网约车简化两端。Claude官方SID6c0ddf57-d854-4c5c-a8a9-43f7ee7e3063 Opus5.5/high四阶段exit0/0拒绝，自测NOT_RUN；Codex独立源审/原生/产物绑定PASS。最终产品0ef2a8d3982dfca0e85a3b756a6004c1825ba798；PR47准确headb78b7fcedbae1be7cffa3360bb9944a450a43c88/CI41197382855 SUCCESS，expected-head squash mergea1527d2b27aeb2a5dd97e40736fd8e0bb5f4841f，完整repo tree与CI head相同，产品tree与验收源相同。
-sourceRoot /Users/dongge/.codex/tmp/yijiexing-ride-flow-polish-20261031；当前工作branch codex/ride-flow-receipt-20261031/HEADa152。产品原branch codex/ride-flow-polish-20261031已合并。RIDEREC root/RIDER backend已中央建档，等待实际完整回执后只改coordination/README并独立复核、准确headCI合并，不再部署。
+## 能力和独立验收
+有效异地途经点允许起终同点；仍最多2途经/完整坐标/全路段估价与原金额规则。司机新单弹窗/接单确认/卡片/详情完整有序途经；嵌入真实高德导航，按下一未完成途经点逐段切换，最后去终点。SDK到达仅提示，不自动推进业务。导航功能面板上拖全展/下拖全屏/恢复；接驾/尾号/途经确认/送达与原距离及乘客同意规则保持。
+新单联系人在下单/首次议价认领时同事务快照，改删常用乘车人不改变订单联系人；仅归属司机有效阶段显式获取，确认后ACTION_DIAL系统拨号页，未自动呼出/无隐私中继。旧单缺可靠号码快照明确不可用，不推断回填；验收联系功能请新建订单。
+Claude官方SIDa6956536-07bf-4683-9cd9-7185a2cf43fa Opus5.5/high三阶段exit0/0拒绝，作者自测NOT_RUN。backend非作者D2业务deltaPASS；root独立backend284、driver95JUnit/原包+QA构建、19组真实隔离原生场景PASS，D1失败证据保留。实际高德道路/指引出现，模拟GPS非实车，未验语音/OEM/来电/32位手机。实际电话Intent未按呼叫。P3小屏查看订单换行可点非阻断。root tools27/mini74/check及准确headCI通过。FINAL_BUILD_PROOF/D2-native/FINAL_REVIEW.json+CLEANUP.json；QA含localhostCA仅测试，禁止发布，已发布原包。
+所有AVD5586/fixture64364/reverse443/QA app清理读回PASS，无个人设备/后台常驻。private release helper /Users/dongge/.codex/tmp/yijiexing-navi-release-20261031；原包在yijiexing-navir-20261031/original-driver.apk，不重复构建上传提升。
 
-## 实际发布阶段
-原包名/原signer9ffec9…b758f支持覆盖安装。乘客1.1.21-experience/code23，SHA cb77e6397a809027c117e963b2a4faf8b4b7a65d62a961bdaf519f333dec0842/107270521 bytes；司机0.3.20-cloud/code23，SHA237ee0ce4feeb24e29ec4257258fb56227d6ea1c95feb9017f15bd737303d30f/108718725。双候选upload60129 exit0、freshbackup32352 generation未变、promotion82170两fixed已提升23、旧22按generation归档和MD5校验PASS；不要重复upload/promote。仅GCS APK替换，无CloudRun部署。
-公开乘客87678 direct200/司机95286现有proxy200均完整下载，大小/SHA256/包名/版本23/原signer全部匹配独立原包PASS。司机直连因325秒29MB估算超过900秒限制而由root手动停止(-15)，转既有代理完整重下；原因与attempts原样留证，不伪称自然网络失败。public4GET63751均direct200，collect/实际receipt/README已生成。最终回执 coordination/evidence/RIDE-20261031-01/release/FINAL-RELEASE-RECEIPT.json。RIDER对实际receipt/README候选56021bab95a9501cb4908de3690bb9148ed42bd9非作者17项审查PASS；PR48准确head d1e4d83fd415a627de5fc3105377653723fa6d88/CI41199613317 SUCCESS，expected-head合并 d5d878e2e56ca11fabc576545c46a277d8e7b985，main全tree同CI head/产品tree不变。实际receipt和README23均已在Git main，全部完成，无需再开PR，不再上传/提升/重下或部署。私有helper yijiexing-ride-release-stage-20261031，所有传输进程均结束。
-司机 https://user-test---driver-demo-phfgquzmua-uw.a.run.app/download；乘客同域/download-passenger（对应.apk整包）；后台 https://demo-admin.hbzjhs.xyz/ 原账号密码，无GoogleIAP；API https://yijiexing-demo.hbzjhs.xyz。
+## 数据和云资源
+仅独立project yijiexing-driver-demo-1023/us-west1，禁止原测试/生产。发布前后原子GCS DB gen1793461439463737/10043392bytes/SHA640a38bd126e5fedb1979b16f50dbf2fc61c039729eea2093b1cf0fe41ff480d，46→46旧passenger_orders全行0丢/0改/0新，quickcheck PASS；比较范围仅该表。用户新增46单保留，绝不还原旧45。原始DB/凭据/APK/cache私有0600不入Git。
+API仅image/revision/既定流量tag有意更新；完整其他配置/IAM/ENV/secret/SA/automatic/min0/max1/请求计费/API900/concurrency1严格保持。后台driver-admin-ccui-107e226-test1整个spec/annotations/traffic/IAM不变，原账号密码无GoogleIAP。两安装landing/后台/API公开GET200。
+司机 https://user-test---driver-demo-phfgquzmua-uw.a.run.app/download；乘客同域/download-passenger；后台 https://demo-admin.hbzjhs.xyz/；API https://yijiexing-demo.hbzjhs.xyz。
 
-## 验收与范围
-乘客0ef实际69项/原包QA通过；司机完整tree同ff53继承实际77项与原包QA，不伪称重跑。B3单击/历史/2stop CRUD/max2/取消、明确叫车恰一单、重新估价先确认/Profile明确保存、小屏IME、代表页/全屏恢复按精确函数相同继承。原ff53 49ms误叫车P1/4a6a嵌套误选P2 FAIL保留；B3 native实际75ms与159ms通过，原49ms不是最终实测间隔。700ms共享shield在commit前拦截，到期不丢session；打开Booking选址也短窗。root实图发现金额拆行，phase4仅金额独立整行+按钮FlowRow，正常/360dp font1.3的8.00/12345.67/费用待定六组与确认/取消smokePASS。原APK/JUnit/Git全部tracked字节、包名/签名/HTTPS origin及四私有值0命中root再绑定PASS。root与frontend清理回读PASS，AVD5584/fixtures64361,64362/转发关闭，原失败私有数据不抹。
-真实provider底图/POI/模糊/逆地理/路线/相机/捏合成功NOT_RUN；QA无provider凭据且离线，不把触摸/布局证明当真实provider。个人手机/OEM/真钱/认证/警方联动未验，微信缺AppID未编译/真机/发布。旧MapPanel小屏离线重载文案裁切P3非阻塞备注保留。后台/后端/Store/网络产品未改。
-
-## 云资源与数据
-只独立project yijiexing-driver-demo-1023/us-west1，原测试/生产禁止。runtime42414 exit0/API driver-demo-ccui-107e226-test1、admin driver-admin-ccui-107e226-test1及100%流量不变，完整spec/annotations/IAM/ENV/secret/SA/traffic相同；automatic/min0/max1/请求计费/API900/concurrency1，不保活不自动暂停。data75701 exit0，45→45旧订单0丢失/0字段改/0新增，GCS generation1793441160408859、SHA2aa07b9824f5ac39bc355fc6d76258ee15df863ffb4cd2907e46cd63773cbe45。比较scope passenger_orders，不扩称全部表；SQLite快检PASS，原始DB/凭据/APK/cache私有0600不入Git。
-
-## 连接与长期规则
-先前手机连接反馈用户已确认“已经恢复”，根因未证实，不继续盲改云配置。高德SHA1字母O→数字0已由用户修；合成SDK10008→10000不等于手机验证，用户延后实测，Astra闲。
-BIZ04待出发预约不占即时，明确开始接驾后单执行，无自动处罚/准时保证。BIZ05历史32类配置草稿/人工记录，非真实扣款/奖励。BIZ06新单终点必填、旧单同ID补齐。BIZ07差额单扣、余分归平台仅模拟。BIZ08三证60天提醒、审核通过替换；有效旧证待审可接、过期禁新单、在途完成。BIZ09每用户每发布公告版本一次可关，既有先领后显跨重启边界未改。默认项仅新草稿建议；本轮新草稿GPS起点/空终点，不覆盖手动/已有草稿。ACTION_DIAL公司电话，无IM/中继。后台公告/客服电话/乘客配置、资质到期、配置与治理历史草稿已在前基线提供，本轮无新增后台模块。
-共享backend唯一可写仍/Users/dongge/.codex/tmp/yijiexing-ui-optimization-worktree-20261029/apps/cloud-service，本轮未改。root/Claude/backend/frontend全部IDLE，等用户体验反馈，frontend HANDOFF_RECOMMENDED，未来大任务先评估接替，不自建chat；Gemini暂停/Astra仅堵点。公开22旧基线已完整完成并mainc261d78，旧详细回执见archive/2026-10-31/STATE-before-RIDE23-final.md及MAPS证据，不重做。下一步以coordinator短卡具体session为准。
+## 调度与长期边界
+共享后端唯一可写 /Users/dongge/.codex/tmp/yijiexing-ui-optimization-worktree-20261029/apps/cloud-service，backend author6e1b1ee/导入445787f/treeb8a391已完，不编辑重复集成副本。Claude/backend/frontend IDLE，backend仅NAVIRER实际receipt窄审；frontend HANDOFF_RECOMMENDED未来大任务先评估接替，不自建chat；Gemini暂停，Astra仅堵点。
+RIDE23 PR47产品+PR48实际回执已全部main d5d878e完成，不重复发布/验收。旧详情见archive/2026-10-31/STATE-before-NAVI24-release.md。BIZ04预约待出发不占即时、明确开始单执行；BIZ05区域运价营销等仅配置草稿与人工记录；BIZ06新单终点必填、旧同ID补齐；BIZ07差额单扣/余分归平台仅模拟；BIZ08三证60天提醒审核通过解除、有效旧证待审可接过期禁新单在途可完；BIZ09每用户公告版本一次可关，原先领后显边界未改。新草稿GPS起点/空终点不盖手动值；无IM/真实资金/录音认证警方联动。微信缺AppID未微信编译/真机/发布；后台本轮无新增模块。

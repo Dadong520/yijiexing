@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "id": "NAVIREC-20261031-01",
+  "owner": "coordinator",
+  "goal": "将实际API+司机24发布回读和README写入仓库并独立复核合并",
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-in-app-navigation-20261031",
+  "branch": "codex/in-app-navigation-receipt-20261031",
+  "baseSha": "6a52f55402b49f5d736b68ea58a860a53c7c4a27",
+  "allow_paths": [
+    "coordination/",
+    "README.md"
+  ],
+  "checks": [
+    "Read-only actual evidence/README/Git object audit; no product edit/cloud call/rebuild",
+    "Match product6cdcee, merge6a52 PR49, exact H1fb50113 CI41216491002",
+    "Driver original24 immutable APK/signature/bytes; passenger23 unchanged; API intended revision/tag changes, all other config/admin/IAM preserved",
+    "Actual46 order full-row comparison, scoped local SDK and dial-only verification; preserve all physical/voice/OEM/finance NOT_RUN"
+  ],
+  "status": "ACTUAL_RECEIPT_READY_FOR_INDEPENDENT_REVIEW",
+  "acceptance": "NOT_RUN",
+  "tests": [],
+  "evidence": [],
+  "nextAction": "After full HTTPS proof, root commits receipt/README candidate then backend independent metadata review",
+  "deploy_owner": "coordinator",
+  "releaseReady": false,
+  "updatedAt": "2026-10-31T16:11:00.718071+00:00"
+}

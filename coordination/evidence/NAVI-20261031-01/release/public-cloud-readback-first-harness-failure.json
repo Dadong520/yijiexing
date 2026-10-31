@@ -1,0 +1,7 @@
+{
+  "buildId": "9bb7a334-6cdb-43f0-b985-4b5d303b4144",
+  "status": "FAILURE",
+  "cause": "Selected CloudSDK stable container has no python3 executable on PATH; step failed before issuing HTTP request",
+  "remediation": "Use official Python3.12 slim one-off container; same public URL/hash checks; no CloudRun/product/config mutation",
+  "scope": "readback harness failure, not a product or APK hash failure"
+}

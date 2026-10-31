@@ -1,0 +1,8 @@
+{
+  "reason": "Coordinator stopped slow local proxy readback after measured progress projected beyond900s; explicit manual termination, not natural timeout",
+  "pid": 26363,
+  "receivedBytesBeforeStop": 20566016,
+  "expectedBytes": 133016738,
+  "subsequentPlan": "EphemeralCloudBuild in same allowed project downloads exact public URL unauthenticated, computes full hash/size and matches original identity binding; no runtime config changes",
+  "localFilePrivateOutsideGit": true
+}

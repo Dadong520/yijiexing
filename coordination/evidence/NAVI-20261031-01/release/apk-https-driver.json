@@ -1,0 +1,43 @@
+[
+  {
+    "role": "driver",
+    "url": "https://user-test---driver-demo-phfgquzmua-uw.a.run.app/download.apk",
+    "attempts": [
+      {
+        "transport": "direct",
+        "curlExit": 28,
+        "http": 200,
+        "url": "https://user-test---driver-demo-phfgquzmua-uw.a.run.app/download.apk"
+      },
+      {
+        "transport": "existing_proxy_fallback",
+        "curlExit": 56,
+        "http": 429,
+        "url": "https://user-test---driver-demo-phfgquzmua-uw.a.run.app/download.apk"
+      },
+      {
+        "transport": "existing_proxy_retry",
+        "curlExit": -15,
+        "http": 0,
+        "url": "https://user-test---driver-demo-phfgquzmua-uw.a.run.app/download.apk"
+      },
+      {
+        "transport": "ephemeral_CloudBuild_public_HTTPS",
+        "buildId": "1750fc1b-0196-4dcd-aea8-6b5783eaed22",
+        "http": 200,
+        "completeResponse": true
+      }
+    ],
+    "bytes": 133016738,
+    "sha256": "55b4657b337fc1e6a4324fc30e334655fd31c3bf396965d22d6cbf36d5e9fd9d",
+    "package": "cn.hbzjhs.dc.driver.cloud",
+    "versionName": "0.3.21-cloud",
+    "versionCode": 24,
+    "signerSha256": "9ffec9b342d12909ff288bd73f23ba104893b39120cb24ea83c9734a0d2b758f",
+    "identityVerificationMethod": "Full SHA256/size equality with original independently aapt/apksigner-verified APK; no new cloud Android-tool invocation",
+    "originalIdentityEvidence": "coordination/evidence/NAVI-20261031-01/D2-native/original-apk-proof.json",
+    "sameBytesAsIndependentlyReviewedBuild": true,
+    "localDownloadCompleted": false,
+    "PASS": true
+  }
+]

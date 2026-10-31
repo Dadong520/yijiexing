@@ -1,0 +1,9 @@
+{
+  "conclusion": "success",
+  "event": "pull_request",
+  "head_branch": "codex/in-app-navigation-20261031",
+  "head_sha": "fb50113db859c7b2e75f061d960bad7720e16bbe",
+  "html_url": "https://github.com/Dadong520/yijiexing/actions/runs/41216491002",
+  "id": 41216491002,
+  "status": "completed"
+}

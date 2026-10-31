@@ -1,16 +1,10 @@
 {
   "source": "atomic current GCS media response; generation/MD5 bound to same response",
-  "generation": "1793455796289995",
-  "bytes": 10035200,
-  "sha256": "80405189de33e62e268df3261e940e26551ca1ea3789282f80a57f1a38357229",
+  "generation": "1793461439463737",
+  "bytes": 10043392,
+  "sha256": "640a38bd126e5fedb1979b16f50dbf2fc61c039729eea2093b1cf0fe41ff480d",
   "integrity": "ok",
   "orderCount": 46,
   "mode": "0600 private outside repository",
-  "transportEvents": [
-    {
-      "transport": "direct",
-      "exitCode": 28,
-      "details": "WITHHELD"
-    }
-  ]
+  "transportEvents": []
 }

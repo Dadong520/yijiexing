@@ -1,0 +1,10 @@
+[
+  {
+    "role": "driver",
+    "candidateObject": "distribution/candidates/20261031-navi-6cdcee1/driver.apk",
+    "generation": "1793462232191634",
+    "sha256": "55b4657b337fc1e6a4324fc30e334655fd31c3bf396965d22d6cbf36d5e9fd9d",
+    "bytes": 133016738,
+    "status": "CANDIDATE_ONLY_NOT_PUBLISHED"
+  }
+]

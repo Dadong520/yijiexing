@@ -10,17 +10,19 @@
 - 活跃任务：[BOARD](coordination/BOARD.json)；长期决定：[DECISIONS](coordination/DECISIONS.md)；角色细节：handoffs；契约：contracts。
 - 恢复与提交检查：`python3 tools/check_coordination.py --memory-role <role> --session-id <真实会话ID>`；检查器不测量模型内部上下文，不等于业务验收。
 
-## 应用内导航与途经点往返（候选24，验收通过待发布）
+## 应用内导航与途经点往返（司机24已发布）
 
 有有效异地途经点的订单允许起终点相同，保留全路段累计估价与原有最多两个途经点。司机的订单卡、接单确认和新订单弹窗展示完整有序途经信息；应用内嵌高德导航，按下一处未完成途经点逐段指引，完成后再前往终点。功能面板可上拉展开、下拉至全屏地图，并保留恢复入口。
 
 导航页复用接驾、尾号核验、途经点确认、距离与乘客同意、送达等原业务操作。导航到达只提示，不自动推进订单。司机明确点击联系乘客后，服务端仅向当前归属司机开放有效订单的下单联系人快照，确认后打开系统拨号页，不会自动呼出或冒充隐私中继；旧单无可靠号码快照会明确提示不可用。
 
-候选源 `6cdcee1a68d57465e4196243f22478c69733654c`，司机 `0.3.21-cloud / code24`，乘客原 `1.1.21-experience / code23` 源码与安装包保持。Claude实现，Codex独立复核与实际执行后端284、司机95项单测及19组隔离原生场景，原包签名/身份/私有值检查通过。高德真实道路算路和指引已在模拟GPS的隔离ARM64模拟器中观察到；未验证实车行驶、语音、OEM或实际电话接通。范围和产物绑定见[原生验收](coordination/evidence/NAVI-20261031-01/D2-native/FINAL_REVIEW.json)和[构建证明](coordination/evidence/NAVI-20261031-01/FINAL_BUILD_PROOF.json)。
+产品源 `6cdcee1a68d57465e4196243f22478c69733654c`，司机 `0.3.21-cloud / code24`，乘客原 `1.1.21-experience / code23` 源码与安装包保持。Claude实现，Codex独立复核与实际执行后端284、司机95项单测及19组隔离原生场景，原包签名/身份/私有值检查通过。高德真实道路算路和指引已在模拟GPS的隔离ARM64模拟器中观察到；未验证实车行驶、语音、OEM或实际电话接通。范围和产物绑定见[原生验收](coordination/evidence/NAVI-20261031-01/D2-native/FINAL_REVIEW.json)和[构建证明](coordination/evidence/NAVI-20261031-01/FINAL_BUILD_PROOF.json)。
 
-本节记录候选，当前公开安装入口仍为下面版本23；待准确CI/合并及独立体验发布回读后再更新发布回执。
+[PR49](https://github.com/Dadong520/yijiexing/pull/49)已准确head CI通过并合并，产品merge `6a52f55402b49f5d736b68ea58a860a53c7c4a27`。已更新独立体验API与司机安装包，由同一独立项目的一次性校验任务从公开HTTPS入口完整下载，大小和SHA256与独立验收原包一致，以全字节相等绑定原包已验的版本24、包名和原签名；没有冒称在云端重新运行Android验包工具；乘客23原安装包与固定对象generation保持，无需重装乘客。旧司机23受generation条件保护归档。
 
-## 本轮地点选择与界面简化（版本23已发布）
+API `driver-demo-navi-6cdcee1`使用已构建不可变镜像，default100及稳定user-test入口均切新版，其他历史QA tags保持。实际custom/default/user-test只读新接口、健康和鉴权回读通过。API其他配置、IAM、ENV、服务身份、automatic/min0/max1/请求计费/API900秒及并发1保持；后台完整配置与IAM保持原样。发布前后46→46笔旧订单完整存储行相同，0丢失/0字段修改/0新增，比较范围仅passenger_orders。云业务POST0；没有用线上真实订单和资金跑验收。见[实际发布回执](coordination/evidence/NAVI-20261031-01/release/FINAL-RELEASE-RECEIPT.json)。
+
+## 上一轮地点选择与界面简化（历史版本23）
 
 [PR47](https://github.com/Dadong520/yijiexing/pull/47)已合并并实际发布。产品源0ef2a8d3982dfca0e85a3b756a6004c1825ba798，合并SHAa1527d2b27aeb2a5dd97e40736fd8e0bb5f4841f；准确headb78b7fcedbae1be7cffa3360bb9944a450a43c88/CI41197382855 SUCCESS。乘客1.1.21-experience/code23、司机0.3.20-cloud/code23，原包名、原签名可覆盖安装。
 
@@ -96,7 +98,7 @@ Claude Code已真实接入并完成主力实现，Gemini按用户决定暂时停
 
 | 项目 | 已发布与核验 | 入口 |
 |---|---|---|
-| 司机Android | 0.3.20-cloud / code23，原签名 | [司机快速入口](https://user-test---driver-demo-phfgquzmua-uw.a.run.app/download) |
+| 司机Android | 0.3.21-cloud / code24，原签名 | [司机快速入口](https://user-test---driver-demo-phfgquzmua-uw.a.run.app/download) |
 | 乘客Android | 1.1.21-experience / code23，原签名 | [乘客快速入口](https://user-test---driver-demo-phfgquzmua-uw.a.run.app/download-passenger) |
 | Web后台 | 继续使用原账号密码 | https://demo-admin.hbzjhs.xyz/ |
 | 体验API | 同一持久数据与HTTPS域名 | https://yijiexing-demo.hbzjhs.xyz |

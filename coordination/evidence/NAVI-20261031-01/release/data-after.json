@@ -1,0 +1,16 @@
+{
+  "source": "current authoritative GCS snapshot, response-bound generation/MD5",
+  "generation": "1793461439463737",
+  "bytes": 10043392,
+  "sha256": "640a38bd126e5fedb1979b16f50dbf2fc61c039729eea2093b1cf0fe41ff480d",
+  "integrity": "ok",
+  "beforeOrderCount": 46,
+  "afterOrderCount": 46,
+  "oldOrdersMissing": 0,
+  "oldOrdersFieldsChanged": 0,
+  "newOrders": 0,
+  "cloudBusinessPostsByCoordinator": 0,
+  "backupAndReadbackOutsideRepository0600": true,
+  "PASS": true,
+  "scope": "passenger_orders full row comparison, not all database tables"
+}

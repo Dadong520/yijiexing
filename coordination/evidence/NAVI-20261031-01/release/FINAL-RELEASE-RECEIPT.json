@@ -1,0 +1,325 @@
+{
+  "taskId": "NAVI-20261031-01",
+  "status": "ACTUALLY_PUBLISHED_AND_READ_BACK_PASS",
+  "recordedAt": "2026-10-31T16:11:00.662081+00:00",
+  "project": "yijiexing-driver-demo-1023",
+  "region": "us-west1",
+  "productSourceSha": "6cdcee1a68d57465e4196243f22478c69733654c",
+  "integrationHeadSha": "fb50113db859c7b2e75f061d960bad7720e16bbe",
+  "productPullRequest": 49,
+  "productMergeSha": "6a52f55402b49f5d736b68ea58a860a53c7c4a27",
+  "ci": {
+    "id": 41216491002,
+    "headSha": "fb50113db859c7b2e75f061d960bad7720e16bbe",
+    "conclusion": "success",
+    "url": "https://github.com/Dadong520/yijiexing/actions/runs/41216491002"
+  },
+  "driver": {
+    "role": "driver",
+    "url": "https://user-test---driver-demo-phfgquzmua-uw.a.run.app/download.apk",
+    "attempts": [
+      {
+        "transport": "direct",
+        "curlExit": 28,
+        "http": 200,
+        "url": "https://user-test---driver-demo-phfgquzmua-uw.a.run.app/download.apk"
+      },
+      {
+        "transport": "existing_proxy_fallback",
+        "curlExit": 56,
+        "http": 429,
+        "url": "https://user-test---driver-demo-phfgquzmua-uw.a.run.app/download.apk"
+      },
+      {
+        "transport": "existing_proxy_retry",
+        "curlExit": -15,
+        "http": 0,
+        "url": "https://user-test---driver-demo-phfgquzmua-uw.a.run.app/download.apk"
+      },
+      {
+        "transport": "ephemeral_CloudBuild_public_HTTPS",
+        "buildId": "1750fc1b-0196-4dcd-aea8-6b5783eaed22",
+        "http": 200,
+        "completeResponse": true
+      }
+    ],
+    "bytes": 133016738,
+    "sha256": "55b4657b337fc1e6a4324fc30e334655fd31c3bf396965d22d6cbf36d5e9fd9d",
+    "package": "cn.hbzjhs.dc.driver.cloud",
+    "versionName": "0.3.21-cloud",
+    "versionCode": 24,
+    "signerSha256": "9ffec9b342d12909ff288bd73f23ba104893b39120cb24ea83c9734a0d2b758f",
+    "identityVerificationMethod": "Full SHA256/size equality with original independently aapt/apksigner-verified APK; no new cloud Android-tool invocation",
+    "originalIdentityEvidence": "coordination/evidence/NAVI-20261031-01/D2-native/original-apk-proof.json",
+    "sameBytesAsIndependentlyReviewedBuild": true,
+    "localDownloadCompleted": false,
+    "PASS": true
+  },
+  "passengerUnchanged": {
+    "generation": "1793446982503923",
+    "sha256": "cb77e6397a809027c117e963b2a4faf8b4b7a65d62a961bdaf519f333dec0842",
+    "bytes": 107270521,
+    "version": "1.1.21-experience",
+    "versionCode": 23,
+    "newUploadOrPromotion": false,
+    "PASS": true
+  },
+  "apiRevision": {
+    "revision": "driver-demo-navi-6cdcee1",
+    "imageDigest": "us-west1-docker.pkg.dev/yijiexing-driver-demo-1023/demo/driver-cloud@sha256:f41b121b02c9ae0fc44539c3ab9894acb95bafb7c5283998e124a7a84f269e6f",
+    "sourceSha": "6cdcee1a68d57465e4196243f22478c69733654c",
+    "backendTree": "b8a39107315f82af5a5c6f848a650aa0560a2fad",
+    "ready": true,
+    "PASS": true
+  },
+  "apiRuntime": {
+    "api": {
+      "checks": {
+        "iamExact": true,
+        "templateConfigPreserved": true,
+        "trafficExactExpected": true,
+        "imageDigestExact": true,
+        "serviceConfigPreserved": true
+      },
+      "readyRevision": "driver-demo-navi-6cdcee1"
+    },
+    "admin": {
+      "checks": {
+        "iamExact": true,
+        "specExact": true,
+        "annotationsExact": true,
+        "trafficExact": true
+      },
+      "readyRevision": "driver-admin-ccui-107e226-test1"
+    }
+  },
+  "apiReadOnlyLiveProbes": {
+    "phase": "after",
+    "cloudBusinessPosts": 0,
+    "PASS": true,
+    "hosts": [
+      {
+        "host": "https://driver-demo-phfgquzmua-uw.a.run.app",
+        "health": 200,
+        "unauthenticated": 401,
+        "authenticatedNonexistentOrder": 404,
+        "exactNewHandlerMessage": true,
+        "cacheNoStore": true,
+        "tokenSource": "existing unexpired allowed demo driver session, kept private; GET only; nonexistent order ID",
+        "transport": [
+          {
+            "transport": "direct",
+            "exit": 0,
+            "http": 404
+          }
+        ],
+        "PASS": true
+      },
+      {
+        "host": "https://user-test---driver-demo-phfgquzmua-uw.a.run.app",
+        "health": 200,
+        "unauthenticated": 401,
+        "authenticatedNonexistentOrder": 404,
+        "exactNewHandlerMessage": true,
+        "cacheNoStore": true,
+        "tokenSource": "existing unexpired allowed demo driver session, kept private; GET only; nonexistent order ID",
+        "transport": [
+          {
+            "transport": "direct",
+            "exit": 0,
+            "http": 404
+          }
+        ],
+        "PASS": true
+      },
+      {
+        "host": "https://yijiexing-demo.hbzjhs.xyz",
+        "health": 200,
+        "unauthenticated": 401,
+        "authenticatedNonexistentOrder": 404,
+        "exactNewHandlerMessage": true,
+        "cacheNoStore": true,
+        "tokenSource": "existing unexpired allowed demo driver session, kept private; GET only; nonexistent order ID",
+        "transport": [
+          {
+            "transport": "direct",
+            "exit": 0,
+            "http": 404
+          }
+        ],
+        "PASS": true
+      }
+    ]
+  },
+  "apkPromotion": [
+    {
+      "role": "driver",
+      "fixedObject": "distribution/yijiexing-cloud.apk",
+      "archiveObject": "distribution/archive/before-20261031-navi-6cdcee1/driver.apk",
+      "archivedGeneration": "1793462369987770",
+      "previousFixedGeneration": "1793446994248649",
+      "newFixedGeneration": "1793462374804294",
+      "bytes": 133016738,
+      "sha256": "55b4657b337fc1e6a4324fc30e334655fd31c3bf396965d22d6cbf36d5e9fd9d",
+      "generationPreconditions": true,
+      "oldArchiveVerified": true
+    }
+  ],
+  "data": {
+    "source": "current authoritative GCS snapshot, response-bound generation/MD5",
+    "generation": "1793461439463737",
+    "bytes": 10043392,
+    "sha256": "640a38bd126e5fedb1979b16f50dbf2fc61c039729eea2093b1cf0fe41ff480d",
+    "integrity": "ok",
+    "beforeOrderCount": 46,
+    "afterOrderCount": 46,
+    "oldOrdersMissing": 0,
+    "oldOrdersFieldsChanged": 0,
+    "newOrders": 0,
+    "cloudBusinessPostsByCoordinator": 0,
+    "backupAndReadbackOutsideRepository0600": true,
+    "PASS": true,
+    "scope": "passenger_orders full row comparison, not all database tables"
+  },
+  "publicPages": [
+    {
+      "name": "passenger_landing",
+      "url": "https://user-test---driver-demo-phfgquzmua-uw.a.run.app/download-passenger",
+      "attempts": [
+        {
+          "transport": "direct",
+          "curlExit": 0,
+          "http": 200
+        }
+      ],
+      "http": 200,
+      "expectedContentPresent": true,
+      "bytes": 1452,
+      "bodySha256": "a996427a6f0f048bbb1e9339848d56dc700cf9702455c923720cad717372d4ce",
+      "PASS": true
+    },
+    {
+      "name": "driver_landing",
+      "url": "https://user-test---driver-demo-phfgquzmua-uw.a.run.app/download",
+      "attempts": [
+        {
+          "transport": "direct",
+          "curlExit": 0,
+          "http": 200
+        }
+      ],
+      "http": 200,
+      "expectedContentPresent": true,
+      "bytes": 1345,
+      "bodySha256": "7dad18359e2318e57d43a0285e0d3d199128e7c55a4e962ea2653386723c7920",
+      "PASS": true
+    },
+    {
+      "name": "api_health",
+      "url": "https://yijiexing-demo.hbzjhs.xyz/health",
+      "attempts": [
+        {
+          "transport": "direct",
+          "curlExit": 0,
+          "http": 200
+        }
+      ],
+      "http": 200,
+      "expectedContentPresent": true,
+      "bytes": 118,
+      "bodySha256": "9320ac6fcce184c2ce2e98474209b33546e31354810873bb3ee1ca4357e9596c",
+      "PASS": true
+    },
+    {
+      "name": "admin_login",
+      "url": "https://demo-admin.hbzjhs.xyz/",
+      "attempts": [
+        {
+          "transport": "direct",
+          "curlExit": 0,
+          "http": 200
+        }
+      ],
+      "http": 200,
+      "expectedContentPresent": true,
+      "bytes": 2350,
+      "bodySha256": "38e32f1ef3fc7a0c4780fd2ec18d1b4e27fa785837b7dbd227ec638525090040",
+      "PASS": true
+    }
+  ],
+  "publicCloudReadback": {
+    "buildId": "1750fc1b-0196-4dcd-aea8-6b5783eaed22",
+    "status": "SUCCESS",
+    "project": "yijiexing-driver-demo-1023",
+    "region": "us-west1",
+    "operation": "ephemeral unauthenticated public HTTPS APK full response readback, no image build or service mutation",
+    "startTime": "2026-10-31T16:09:37.054690995Z",
+    "finishTime": "2026-10-31T16:09:54.492206Z",
+    "stepImage": "python:3.12-slim",
+    "stepImageDigests": [
+      "sha256:aa943ce411423c7582288f18707ff66eddcbaeb510502d747a72aeb34f30d159"
+    ],
+    "configurationSha256": "c89d26fc7de66eb4c33221527b487d7c3b6a336ffdf339e008feafbb03fafcd1",
+    "actualLogSha256": "c5ec454946b4f7e415f0da5501da3468cb38a4780b9841e8f2343b15469370cd",
+    "proof": {
+      "url": "https://user-test---driver-demo-phfgquzmua-uw.a.run.app/download.apk",
+      "http": 200,
+      "bytes": 133016738,
+      "sha256": "55b4657b337fc1e6a4324fc30e334655fd31c3bf396965d22d6cbf36d5e9fd9d",
+      "completePublicHttpsResponse": true,
+      "authorizationHeaderSent": false,
+      "zipIntegrity": true,
+      "identityMethod": "Exact complete SHA256 equality with independently aapt/apksigner-verified original, not a new cloud Android tool invocation",
+      "PASS": true
+    },
+    "PASS": true
+  },
+  "localDownloadManualStop": {
+    "reason": "Coordinator stopped slow local proxy readback after measured progress projected beyond900s; explicit manual termination, not natural timeout",
+    "pid": 26363,
+    "receivedBytesBeforeStop": 20566016,
+    "expectedBytes": 133016738,
+    "subsequentPlan": "EphemeralCloudBuild in same allowed project downloads exact public URL unauthenticated, computes full hash/size and matches original identity binding; no runtime config changes",
+    "localFilePrivateOutsideGit": true
+  },
+  "acceptance": {
+    "backendIndependentTests": 284,
+    "driverJUnit": 95,
+    "nativeGroups": 19,
+    "nonAuthorDriverReview": "NAVIRB D2_DELTA_REVIEW PASS",
+    "exactAcceptedSource": "6cdcee1a68d57465e4196243f22478c69733654c",
+    "qaCleanup": "D2-native/CLEANUP.json PASS, no remaining AVD/fixture/reverse",
+    "nativeEvidence": "coordination/evidence/NAVI-20261031-01/D2-native/FINAL_REVIEW.json",
+    "buildProof": "coordination/evidence/NAVI-20261031-01/FINAL_BUILD_PROOF.json"
+  },
+  "scopesAndLimitations": [
+    "Native execution used isolated ARM64 Android emulator, simulated GPS and synthetic local orders; actual AMap road map/routing/guidance appeared. No physical drive, voice, OEM, incoming-call or32-bit-device verification.",
+    "Phone flow verified only ACTION_DIAL and return, no real call was placed. Explicit direct calling, no masked-number relay.",
+    "Contact snapshot applies only new orders/first negotiation claim. Legacy orders without reliable snapshot return explicit unavailable, never inferred or backfilled.",
+    "Passenger source and published APK23 unchanged; no passenger recompile/new native matrix claimed in this batch.",
+    "Cloud live checks GET only against nonexistent synthetic order ID with private existing allowed demo driver session; coordinator cloud business POST0. Local full business tests are not real cloud financial transactions.",
+    "Data preservation comparison scope passenger_orders full rows, not every table. Existing46 orders all unchanged.",
+    "Admin product/runtime/IAM unchanged; historical QA tags preserved; API default100 and user-test intentionally moved to new revision.",
+    "Money/payment/refund/withdrawal remain simulated. WeChat missingAppID: no WeChat build/device/release.",
+    "P3 nonblocking small-screen font1.3 view-order text can wrap, remains fully visible/clickable."
+  ],
+  "artifactReadbackMethod": "Complete unauthenticated public HTTPS download in ephemeral allowed-project CloudBuild; full SHA256 matches independently aapt/apksigner-verified original, no new cloud Android-tool invocation. Local incomplete/timeout/429/manual termination attempts preserved separately.",
+  "sourceEvidenceFiles": [
+    "api-image-build.json",
+    "api-stage-config.json",
+    "api-stage-smoke.json",
+    "api-after-config.json",
+    "api-after-smoke.json",
+    "revision-binding.json",
+    "apk-upload-candidates.json",
+    "apk-promotion.json",
+    "apk-https-driver.json",
+    "passenger-unchanged.json",
+    "data-before.json",
+    "data-after.json",
+    "public-pages-health.json",
+    "public-cloud-readback.json",
+    "local-download-manual-stop.json"
+  ],
+  "PASS": true
+}

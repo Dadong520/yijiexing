@@ -1,0 +1,9 @@
+{
+  "pullRequest": 49,
+  "integrationHeadSha": "fb50113db859c7b2e75f061d960bad7720e16bbe",
+  "ciRun": 41216491002,
+  "ciConclusion": "success",
+  "mergeSha": "6a52f55402b49f5d736b68ea58a860a53c7c4a27",
+  "fullRepositoryTreeEqualToCIHead": true,
+  "productTreesEqualToAccepted6cdcee": true
+}

@@ -18,7 +18,7 @@
     "Preserve owner/stage/PIN/distance/passenger consent and waypoint completion gates; SDK arrival never auto advances order",
     "Only independent experience project; no secrets/APK/private DB in Git; native provider NOT_RUN unless actually verified"
   ],
-  "status": "ACCEPTED_WAIT_EXACT_HEAD_CI_MERGE_RELEASE",
+  "status": "ACTUALLY_PUBLISHED_ALL_READBACKS_PASS_RECEIPT_PENDING",
   "acceptance": "PASS",
   "tests": [
     {
@@ -62,10 +62,10 @@
     }
   ],
   "evidence": [],
-  "nextAction": "Sync canonical compact records, local projectgate, exacthead PR CI/merge; then API digest and driver APK only release/readbacks",
+  "nextAction": "Metadata receipt independent review then exact-head CI/merge; do not redeploy",
   "deploy_owner": "coordinator",
   "releaseReady": true,
-  "updatedAt": "2026-10-31T15:37:00.877017+00:00",
+  "updatedAt": "2026-10-31T16:11:00.718071+00:00",
   "backendImportedSha": "445787fcab4c5d2baba7f51ad4db78cd1e2216a0",
   "backendAuthorSha": "6e1b1ee02b3cc1a3bd7359e2970d2f3d4c3c59c3",
   "candidateSha": "6cdcee1a68d57465e4196243f22478c69733654c",
@@ -75,9 +75,20 @@
     "driver-demo API image digest",
     "driver original-signed APK24"
   ],
-  "notReleasedYet": [
-    "CloudRun revision/traffic",
-    "GCSfixedAPK",
-    "GitHubPR"
-  ]
+  "notReleasedYet": [],
+  "integrationHeadSha": "fb50113db859c7b2e75f061d960bad7720e16bbe",
+  "pullRequest": {
+    "number": 49,
+    "url": "https://github.com/Dadong520/yijiexing/pull/49",
+    "headSha": "fb50113db859c7b2e75f061d960bad7720e16bbe",
+    "baseSha": "d5d878e2e56ca11fabc576545c46a277d8e7b985"
+  },
+  "ci": {
+    "id": 41216491002,
+    "headSha": "fb50113db859c7b2e75f061d960bad7720e16bbe",
+    "conclusion": "success",
+    "url": "https://github.com/Dadong520/yijiexing/actions/runs/41216491002"
+  },
+  "mergeSha": "6a52f55402b49f5d736b68ea58a860a53c7c4a27",
+  "actualReceipt": "coordination/evidence/NAVI-20261031-01/release/FINAL-RELEASE-RECEIPT.json"
 }
