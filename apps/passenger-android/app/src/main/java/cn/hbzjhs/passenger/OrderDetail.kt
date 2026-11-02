@@ -7,7 +7,10 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Call
 import androidx.compose.material.icons.filled.Close
+import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Warning
 import androidx.compose.foundation.background
 import androidx.compose.ui.draw.shadow
@@ -177,7 +180,7 @@ fun OrderDetail(o: JSONObject, store: PassengerStore, busy: Boolean, openOrder: 
       verticalArrangement = Arrangement.spacedBy(Gap.S),
     ) {
       IdentifierButton(id, "订单信息")
-      PassengerTextButton(onClick = { contactPage = true }) { Text("联系与帮助") }
+      IconActionButton("联系与帮助", Icons.Default.Call, tint = Success, container = SuccessSoft) { contactPage = true }
     }
     Panel("行程路线") {
       if (o.text("scheduledAt").isNotBlank()) {
@@ -328,14 +331,17 @@ fun OrderDetail(o: JSONObject, store: PassengerStore, busy: Boolean, openOrder: 
     }
     if (driver != null)
       Panel("司机与车辆") {
-        PassengerTextButton(onClick = { driverCard = true }) { Text("查看司机服务卡") }
         Text("${driver.text("name")} · ${driver.text("plate")}", fontWeight = FontWeight.Bold)
         KV("车型", driver.text("vehicleModel", "体验车辆"))
         KV("司机联系方式", driver.text("mobileMasked", "未提供"))
-        PassengerTextButton(onClick = { contactPage = true }) { Text("联系司机 / 公司客服") }
+        // Icon + label pills, two per row, each a full 48dp target.
+        Row(Modifier.fillMaxWidth().height(IntrinsicSize.Min), horizontalArrangement = Arrangement.spacedBy(Gap.S)) {
+          IconActionButton("司机服务卡", Icons.Default.Person, Modifier.weight(1f).fillMaxHeight(), tint = Indigo, container = IndigoSoft) { driverCard = true }
+          IconActionButton("联系司机/客服", Icons.Default.Call, Modifier.weight(1f).fillMaxHeight(), tint = Success, container = SuccessSoft) { contactPage = true }
+        }
         Note("司机电话中继尚未配置；可在联系页查看当前可用服务。")
         if (stage in listOf("DONE", "CANCELLED", "WAIT_PAY"))
-          PassengerTextButton(onClick = { dialog = "block" }, enabled = !busy) { Text("以后不再匹配此司机") }
+          IconActionButton("以后不再匹配此司机", Icons.Default.Close, Modifier.fillMaxWidth(), tint = Muted, container = SurfaceMuted, enabled = !busy) { dialog = "block" }
       }
     if (cancellable)
       ExpandablePanel("其他行程操作", "备注、目的地和取消说明") {
@@ -378,7 +384,7 @@ fun OrderDetail(o: JSONObject, store: PassengerStore, busy: Boolean, openOrder: 
           }
       }
     if (stage in listOf("DONE", "CANCELLED", "WAIT_PAY"))
-      SecondaryButton("投诉与问题反馈", !busy) {
+      IconActionButton("投诉与问题反馈", Icons.Default.Warning, Modifier.fillMaxWidth(), tint = Danger, container = DangerSoft, enabled = !busy) {
         content = ""
         reason = "服务问题"
         dialog = "complaint"
@@ -391,7 +397,7 @@ fun OrderDetail(o: JSONObject, store: PassengerStore, busy: Boolean, openOrder: 
         Note(c.text("reply").ifBlank { "暂无回复，后台回复后会同步显示在这里。" })
         c.rows("attachments").forEach { attachment -> ComplaintImage(attachment, store) }
         if (c.rows("attachments").size < 3)
-          SecondaryButton("从相册添加投诉图片 (${c.rows("attachments").size}/3)", !busy) {
+          SecondaryButton("从相册添加投诉图片 (${c.rows("attachments").size}/3)", !busy, icon = Icons.Default.Add) {
             complaintForImage = c.text("id")
             imagePicker.launch("image/*")
           }

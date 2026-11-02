@@ -958,34 +958,49 @@ fun OrdersScreen(orders: List<JSONObject>, open: (String) -> Unit) {
   val filtered = orders.filter { PassengerUiRules.matchesOrderFilter(it.text("stage"), filter) }
   PageColumn {
     SectionTitle("我的订单", "出行与预约记录")
-    FlowRow(
-      horizontalArrangement = Arrangement.spacedBy(8.dp),
-      verticalArrangement = Arrangement.spacedBy(6.dp),
+    // Compact segmented tabs: one tight track, equal-width 48dp segments, selected one raised white.
+    Row(
+      Modifier
+        .fillMaxWidth()
+        .clip(RoundedCornerShape(14.dp))
+        .background(SurfaceMuted)
+        .padding(4.dp),
+      horizontalArrangement = Arrangement.spacedBy(4.dp),
     ) {
       PassengerUiRules.orderFilters.forEach { f ->
         val selected = filter == f
-        FilterChip(
-          selected = selected,
-          onClick = { filter = f },
-          label = { Text(f, fontSize = 14.sp, fontWeight = if (selected) FontWeight.Bold else FontWeight.Normal) },
-          colors = FilterChipDefaults.filterChipColors(
-            selectedContainerColor = BrandSoft,
-            selectedLabelColor = BrandStrong,
-            containerColor = Color.White,
-            labelColor = Ink,
-          ),
-          border = FilterChipDefaults.filterChipBorder(
-            enabled = true,
-            selected = selected,
-            borderColor = Line,
-            selectedBorderColor = Teal,
-          ),
-          shape = RoundedCornerShape(10.dp),
-        )
+        val count = if (f == "全部") orders.size else orders.count { PassengerUiRules.matchesOrderFilter(it.text("stage"), f) }
+        Box(
+          Modifier
+            .weight(1f)
+            .heightIn(min = 48.dp)
+            .clip(RoundedCornerShape(10.dp))
+            .background(if (selected) Color.White else Color.Transparent)
+            .then(if (selected) Modifier.border(1.dp, Teal.copy(alpha = 0.25f), RoundedCornerShape(10.dp)) else Modifier)
+            .selectable(selected = selected, role = Role.Tab, onClick = { filter = f }),
+          contentAlignment = Alignment.Center,
+        ) {
+          Column(
+            Modifier.padding(horizontal = 2.dp, vertical = 6.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center,
+          ) {
+            Text(
+              f,
+              fontSize = 14.sp,
+              fontWeight = if (selected) FontWeight.Bold else FontWeight.Medium,
+              color = if (selected) BrandStrong else Muted,
+              maxLines = 1,
+              textAlign = TextAlign.Center,
+            )
+            if (count > 0) Text("$count", fontSize = 11.sp, lineHeight = 13.sp, color = if (selected) Teal else DisabledText, maxLines = 1)
+          }
+        }
       }
     }
     if (filtered.isEmpty()) {
       EmptyCard("暂无${filter}订单", "在“出行”页面呼叫用车，订单状态会在这里实时更新。")
+      if (orders.isNotEmpty()) EmptyHint("切换上方分类可查看其他状态的订单。")
     }
     // One flat card per order (no card inside a card); the whole card opens the order.
     filtered.forEach { o ->

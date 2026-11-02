@@ -13,6 +13,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.List
+import androidx.compose.material.icons.automirrored.filled.ExitToApp
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Info
@@ -55,7 +56,7 @@ fun ProfileScreen(
       horizontalArrangement = Arrangement.spacedBy(14.dp),
     ) {
       Box(
-        Modifier.size(56.dp).background(BrandSoft, CircleShape),
+        Modifier.size(56.dp).background(androidx.compose.ui.graphics.Brush.linearGradient(listOf(BrandSoft, SkySoft)), CircleShape),
         contentAlignment = Alignment.Center,
       ) {
         Text(p.text("name", "乘").take(1), fontSize = 22.sp, fontWeight = FontWeight.Bold, color = BrandStrong)
@@ -92,8 +93,9 @@ fun ProfileScreen(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(6.dp),
           ) {
-            Box(Modifier.size(40.dp).background(SurfaceMuted, CircleShape), contentAlignment = Alignment.Center) {
-              Icon(icon, null, tint = BrandStrong, modifier = Modifier.size(20.dp))
+            val (tint, soft) = iconAccent(icon)
+            Box(Modifier.size(44.dp).background(soft, RoundedCornerShape(14.dp)), contentAlignment = Alignment.Center) {
+              Icon(icon, null, tint = tint, modifier = Modifier.size(22.dp))
             }
             Text(label, color = Ink, fontSize = 14.sp, fontWeight = FontWeight.Medium, textAlign = androidx.compose.ui.text.style.TextAlign.Center)
           }
@@ -128,18 +130,7 @@ fun ProfileScreen(
       Note("体验版 ${BuildConfig.VERSION_NAME} · 与司机端共用订单；支付、退款与发票均为模拟，不产生真实资金或凭证。")
       Note("定位需设备授权；地点搜索与逆地理依赖可用服务，导航通过外部地图应用打开。短信、电话中继及实时人工客服尚未接入；投诉支持后台查看和回复。")
     }
-    OutlinedButton(
-      onClick = { logout = true },
-      modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp),
-      shape = RoundedCornerShape(12.dp),
-      colors = ButtonDefaults.outlinedButtonColors(
-        containerColor = Color.White,
-        contentColor = Danger,
-      ),
-      border = BorderStroke(1.dp, DangerLine),
-    ) {
-      Text("退出当前账号", fontSize = TypeScale.Body, fontWeight = FontWeight.Medium)
-    }
+    DangerButton("退出当前账号", icon = Icons.AutoMirrored.Filled.ExitToApp) { logout = true }
   }
   if (edit)
     PassengerModal(
@@ -301,12 +292,15 @@ fun FeedbackScreen(state: JSONObject, store: PassengerStore) {
       }
     }
     Text("提交记录", fontWeight = FontWeight.Bold)
-    if (state.rows("feedback").isEmpty()) EmptyCard("暂无反馈", "提交后会生成云端记录。")
+    if (state.rows("feedback").isEmpty()) {
+      EmptyCard("暂无反馈", "提交后会生成云端记录。")
+      EmptyHint("在上方输入至少 5 个字的意见并提交，记录与回复会显示在这里。")
+    }
     state.rows("feedback").reversed().forEach { f ->
       Panel {
         Text(f.text("content"))
-        KV("状态", supportStatus(f.text("status")))
-        Note(formatTime(f.text("createdAt")))
+        RecordRow("状态", supportStatus(f.text("status")))
+        RecordRow("提交时间", formatTime(f.text("createdAt")))
         Note(f.text("reply").ifBlank { "暂无回复，后台回复后会同步显示在这里。" })
       }
     }
@@ -318,7 +312,10 @@ fun ComplaintsScreen(state: JSONObject, store: PassengerStore) {
   PageColumn {
     SectionTitle("我的投诉", "可在已完成、待支付或已取消订单中提交投诉。")
     val rows = state.rows("orders").flatMap { o -> o.rows("complaints").map { c -> o to c } }
-    if (rows.isEmpty()) EmptyCard("暂无投诉记录", "进入订单详情提交问题，云端保存处理状态。")
+    if (rows.isEmpty()) {
+      EmptyCard("暂无投诉记录", "进入订单详情提交问题，云端保存处理状态。")
+      EmptyHint("打开“订单”中已完成、待支付或已取消的订单，点按“投诉与问题反馈”。")
+    }
     rows.reversed().forEach { (o, c) ->
       Panel {
         Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
