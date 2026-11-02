@@ -1,0 +1,7 @@
+{
+  "partialAttempt": "Stopped by coordinator; no partialhashaccepted",
+  "reason": "Direct download progressing about0.3MB/s;150second bound too short for107/133MB files",
+  "newBoundSecondsPerFile": 900,
+  "streamRestartedFromByte0": true,
+  "serviceConfigChanged": false
+}

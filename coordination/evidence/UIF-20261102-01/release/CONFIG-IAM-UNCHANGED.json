@@ -1,0 +1,26 @@
+[
+  {
+    "role": "api",
+    "kind": "service",
+    "wholeDocumentUnchanged": true,
+    "sha256": "f040c062caacebedba1ea17a09d15aae475bd0f18d248930c4ac9dad40e263ed"
+  },
+  {
+    "role": "api",
+    "kind": "iam",
+    "wholeDocumentUnchanged": true,
+    "sha256": "b889d91193cb50738ff8418eec83691d89bb38b6cdccd1177014744749747b51"
+  },
+  {
+    "role": "admin",
+    "kind": "service",
+    "wholeDocumentUnchanged": true,
+    "sha256": "35f725c8616450f9367f2e0f4e76eade5a9222f0677acf201619bf6cf7d6be2f"
+  },
+  {
+    "role": "admin",
+    "kind": "iam",
+    "wholeDocumentUnchanged": true,
+    "sha256": "c91e2cbf77eab7c6f3dc5e59b150a22997e52c1cd655eebef45a6953bbce8fce"
+  }
+]

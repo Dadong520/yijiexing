@@ -1,0 +1,226 @@
+{
+  "task": "UIF-20261102-01",
+  "status": "PASS_PUBLISHED_AND_READ_BACK",
+  "publishedAt": "2026-11-02T10:44:19.769806+00:00",
+  "candidateSha": "ee38a2e101c6297b5093eb2e180db0f9a38dc54d",
+  "integrationHeadSha": "6d19ed34c28883fbca2e82451875dd99c67b5c4f",
+  "mergeSha": "2d918d3c3b9711d8aa21b0e9d4ca34e70a05faaa",
+  "productPr": 53,
+  "ci": {
+    "id": 41429590905,
+    "headSha": "6d19ed34c28883fbca2e82451875dd99c67b5c4f",
+    "conclusion": "success",
+    "url": "https://github.com/Dadong520/yijiexing/actions/runs/41429590905"
+  },
+  "apps": [
+    {
+      "role": "passenger",
+      "url": "https://user-test---driver-demo-phfgquzmua-uw.a.run.app/download-passenger.apk",
+      "bytes": 107270521,
+      "sha256": "b812e9fe2587103867fcfd4fd2cf65d97aca7af2ef44773e22e4ce148f324be0",
+      "versionCode": 24,
+      "versionName": "1.1.22-experience",
+      "package": "cn.hbzjhs.dc.passenger.cloud",
+      "signerSha256": "9ffec9b342d12909ff288bd73f23ba104893b39120cb24ea83c9734a0d2b758f",
+      "fullHTTPSDownload": true,
+      "actualAaptApkSigner": true,
+      "attempts": [
+        {
+          "transport": "direct",
+          "exitCode": 0,
+          "httpAndBytes": "200 107270521"
+        }
+      ],
+      "result": "PASS"
+    },
+    {
+      "role": "driver",
+      "url": "https://user-test---driver-demo-phfgquzmua-uw.a.run.app/download.apk",
+      "bytes": 133111914,
+      "sha256": "e334c03a24d1c613acccf336f7385be4270fb40248e1588f492a06dce3aa1055",
+      "versionCode": 26,
+      "versionName": "0.3.23-cloud",
+      "package": "cn.hbzjhs.dc.driver.cloud",
+      "signerSha256": "9ffec9b342d12909ff288bd73f23ba104893b39120cb24ea83c9734a0d2b758f",
+      "fullHTTPSDownload": true,
+      "actualAaptApkSigner": true,
+      "attempts": [
+        {
+          "transport": "direct",
+          "exitCode": 0,
+          "httpAndBytes": "200 133111914"
+        }
+      ],
+      "result": "PASS"
+    }
+  ],
+  "promotion": [
+    {
+      "role": "passenger",
+      "fixedObject": "distribution/yijiexing-passenger.apk",
+      "archiveObject": "distribution/archive/before-uif-20261102-driver26-passenger24/passenger.apk",
+      "archivedGeneration": "1793615861649758",
+      "previousFixedGeneration": "1793446982503923",
+      "newFixedGeneration": "1793615867107940",
+      "bytes": 107270521,
+      "sha256": "b812e9fe2587103867fcfd4fd2cf65d97aca7af2ef44773e22e4ce148f324be0",
+      "generationPreconditions": true,
+      "oldArchiveVerified": true
+    },
+    {
+      "role": "driver",
+      "fixedObject": "distribution/yijiexing-cloud.apk",
+      "archiveObject": "distribution/archive/before-uif-20261102-driver26-passenger24/driver.apk",
+      "archivedGeneration": "1793615870471571",
+      "previousFixedGeneration": "1793470326626832",
+      "newFixedGeneration": "1793615873942453",
+      "bytes": 133111914,
+      "sha256": "e334c03a24d1c613acccf336f7385be4270fb40248e1588f492a06dce3aa1055",
+      "generationPreconditions": true,
+      "oldArchiveVerified": true
+    }
+  ],
+  "dataPreservation": {
+    "generation": "1793615437504683",
+    "bytes": 11272192,
+    "sha256": "ebaf4a4de313b4396d8f455aece8cd7484bae410e59e960666de95ee89fff4ca",
+    "integrity": "ok",
+    "conservation": [
+      {
+        "table": "passenger_orders",
+        "before": 51,
+        "after": 51,
+        "lost": 0,
+        "changedExistingFullRows": 1,
+        "columnsCompared": 5,
+        "concurrentChanges": [
+          {
+            "rowIdSha256": "9e8a39670eba1d5a098c21bfe184ae83237f59a5160c9c894912f4578c78ced1",
+            "changedPayloadKeys": [
+              "passengerLocation",
+              "updatedAt"
+            ],
+            "updatedAt": "2026-11-02T18:30:34+08:00",
+            "precedesFirstApkPromotion": true,
+            "allOtherStoredFieldsIdentical": true
+          }
+        ]
+      },
+      {
+        "table": "passenger_order_contacts",
+        "before": 5,
+        "after": 5,
+        "lost": 0,
+        "changedExistingFullRows": 0,
+        "columnsCompared": 5,
+        "concurrentChanges": []
+      }
+    ],
+    "cloudBusinessPostsByRelease": 0
+  },
+  "serviceAndIam": [
+    {
+      "role": "api",
+      "kind": "service",
+      "wholeDocumentUnchanged": true,
+      "sha256": "f040c062caacebedba1ea17a09d15aae475bd0f18d248930c4ac9dad40e263ed"
+    },
+    {
+      "role": "api",
+      "kind": "iam",
+      "wholeDocumentUnchanged": true,
+      "sha256": "b889d91193cb50738ff8418eec83691d89bb38b6cdccd1177014744749747b51"
+    },
+    {
+      "role": "admin",
+      "kind": "service",
+      "wholeDocumentUnchanged": true,
+      "sha256": "35f725c8616450f9367f2e0f4e76eade5a9222f0677acf201619bf6cf7d6be2f"
+    },
+    {
+      "role": "admin",
+      "kind": "iam",
+      "wholeDocumentUnchanged": true,
+      "sha256": "c91e2cbf77eab7c6f3dc5e59b150a22997e52c1cd655eebef45a6953bbce8fce"
+    }
+  ],
+  "publicEndpoints": [
+    {
+      "url": "https://yijiexing-demo.hbzjhs.xyz/health",
+      "http": 200,
+      "title": null,
+      "bytes": 118,
+      "attempts": [
+        {
+          "transport": "direct",
+          "exitCode": 0,
+          "http": "200"
+        }
+      ],
+      "healthOK": true
+    },
+    {
+      "url": "https://user-test---driver-demo-phfgquzmua-uw.a.run.app/download",
+      "http": 200,
+      "title": "宜捷行安卓体验版",
+      "bytes": 1345,
+      "attempts": [
+        {
+          "transport": "direct",
+          "exitCode": 0,
+          "http": "200"
+        }
+      ],
+      "apkLinkPresent": true
+    },
+    {
+      "url": "https://user-test---driver-demo-phfgquzmua-uw.a.run.app/download-passenger",
+      "http": 200,
+      "title": "宜捷行乘客端",
+      "bytes": 1452,
+      "attempts": [
+        {
+          "transport": "direct",
+          "exitCode": 0,
+          "http": "200"
+        }
+      ],
+      "apkLinkPresent": true
+    },
+    {
+      "url": "https://demo-admin.hbzjhs.xyz/",
+      "http": 200,
+      "title": "宜捷行 · 运营管理中心",
+      "bytes": 2350,
+      "attempts": [
+        {
+          "transport": "direct",
+          "exitCode": 0,
+          "http": "200"
+        }
+      ]
+    }
+  ],
+  "apiRevision": "driver-demo-grab-36fdf2c",
+  "adminRevision": "driver-admin-ccui-107e226-test1",
+  "apiAdminRollouts": 0,
+  "cloudBusinessPosts": 0,
+  "originalEnvironmentAccess": false,
+  "author": "claude",
+  "reviewers": [
+    "coordinator native/build",
+    "backend independent source"
+  ],
+  "tests": {
+    "passengerJUnit": 69,
+    "driverJUnit": 127,
+    "tools": 27,
+    "mini": 74
+  },
+  "limits": [
+    "One dedicated API34 emulator with syntheticHTTP peers",
+    "No personalphones/OEM/physicalvoice/realcar/realmoney acceptance",
+    "No new backend/admin functions thisrelease"
+  ],
+  "runtimeResources": "Dedicated emulator and local fixture stopped"
+}

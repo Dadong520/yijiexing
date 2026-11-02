@@ -1,6 +1,6 @@
 {
   "task": "UIF-20261102-01",
-  "status": "PRODUCT_ACCEPTANCE_PASS_RELEASE_PENDING",
+  "status": "PASS_PUBLISHED_READBACK",
   "cases": [
     {
       "id": "P01",
@@ -89,8 +89,8 @@
     {
       "id": "R03",
       "scenario": "ExactCImerge and generationguardedpublish/fullpublicreadback",
-      "status": "NOT_RUN",
-      "evidenceSummary": "Pending exactCImerge/twoAPKpromotion/publicfullreadback"
+      "status": "PASS",
+      "evidenceSummary": "PR53 exactheadCI succeeded thenmerged; two generationguardedAPKs promoted and publicHTTPS fullfiles aapt/apksigner/hash matched; data/config conserved"
     }
   ],
   "sourceSha": "ee38a2e101c6297b5093eb2e180db0f9a38dc54d"
