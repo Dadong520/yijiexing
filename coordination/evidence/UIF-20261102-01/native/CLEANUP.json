@@ -1,0 +1,25 @@
+{
+  "actions": [
+    {
+      "action": "shell am force-stop cn.hbzjhs.dc.driver.cloud",
+      "exitCode": 0
+    },
+    {
+      "action": "shell am force-stop cn.hbzjhs.dc.passenger.cloud",
+      "exitCode": 0
+    },
+    {
+      "action": "reverse --remove tcp:443",
+      "exitCode": 0
+    },
+    {
+      "action": "emu kill",
+      "exitCode": 0
+    }
+  ],
+  "fixtureStopRequested": true,
+  "at": "2026-11-02T10:30:58.059974+00:00",
+  "fixtureExited": 0,
+  "emulatorKillExit": 0,
+  "extraPersistentServices": false
+}

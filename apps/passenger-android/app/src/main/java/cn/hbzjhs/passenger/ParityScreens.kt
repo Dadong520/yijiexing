@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.icons.filled.Call
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -27,9 +28,18 @@ fun PassengerExtrasScreen(page: String, owner: String) {
   PageColumn {
     SectionTitle(when(page) { "coupons" -> "我的卡券 · 演示"; "points" -> "积分 · 演示"; else -> "邀请体验 · 演示" })
     when (page) {
-      "coupons" -> EmptyCard("暂无可用卡券", "领取、有效期、核销及退款规则待服务端接入后开放。")
-      "points" -> EmptyCard("暂无积分记录", "预付成功不视作完单，不在本机发放完单积分。")
-      else -> EmptyCard("暂无邀请记录", "尚无服务端邀请码或真实拉新绑定，不承诺注册送券或首单奖励。")
+      "coupons" -> {
+        EmptyCard("暂无可用卡券", "领取、有效期、核销及退款规则待服务端接入后开放。")
+        EmptyHint("卡券服务开放后，领取的卡券会显示在这里；当前下单按共享服务端报价结算。")
+      }
+      "points" -> {
+        EmptyCard("暂无积分记录", "预付成功不视作完单，不在本机发放完单积分。")
+        EmptyHint("积分服务开放后，积分变动会按时间显示在这里。")
+      }
+      else -> {
+        EmptyCard("暂无邀请记录", "尚无服务端邀请码或真实拉新绑定，不承诺注册送券或首单奖励。")
+        EmptyHint("可使用下方“复制体验说明”向好友介绍体验版。")
+      }
     }
     Panel("尚未接入营销账务") {
       Note("此处是功能演示，不是真实资产。不会抵扣订单、改变报价、发放积分或奖励；订单金额以共享服务端为准。")
@@ -67,10 +77,13 @@ private fun SafetyCenter(owner: String) {
     Panel {
       Text("紧急协助", color = Ink, fontWeight = FontWeight.SemiBold)
       Note("紧急情况请本人拨打当地报警电话；应用不会自动报警。")
-      DangerButton("打开 110 拨号界面") { dial("110") }
+      DangerButton("打开 110 拨号界面", icon = androidx.compose.material.icons.Icons.Default.Call) { dial("110") }
     }
     PassengerSectionHeader("安全联系人 · ${contacts.size}/3", if (contacts.size < 3) "＋ 添加" else null) { editId=null; name=""; phone=""; error=""; editing=true }
-    if (contacts.isEmpty()) EmptyCard("暂无安全联系人", "按需添加，保存后可手动打开拨号。")
+    if (contacts.isEmpty()) {
+      EmptyCard("暂无安全联系人", "按需添加，保存后可手动打开拨号。")
+      EmptyHint("点按上方“＋ 添加”，最多保存 3 位联系人。")
+    }
     contacts.forEach { contact ->
       Panel {
         Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
@@ -78,7 +91,7 @@ private fun SafetyCenter(owner: String) {
             Text(contact.name, color = Ink, fontWeight = FontWeight.SemiBold)
             Note(contact.phone)
           }
-          PassengerTextButton(onClick = { dial(contact.phone) }) { Text("拨号") }
+          IconActionButton("拨号", androidx.compose.material.icons.Icons.Default.Call, tint = Success, container = SuccessSoft) { dial(contact.phone) }
         }
         Row {
           PassengerTextButton(onClick = { editId=contact.id; name=contact.name; phone=contact.phone; error=""; editing=true }) { Text("编辑") }

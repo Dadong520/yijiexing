@@ -3,6 +3,8 @@ package cn.hbzjhs.passenger
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -206,17 +208,21 @@ fun InvoicesScreen(state: JSONObject, store: PassengerStore) {
     }
     if (!PassengerOperations.enabled(state,"invoice")) Note("当前地区未开放新的开票服务；历史订单按各自服务地区判断申请资格，历史回执始终可查。")
     Text("申请记录", fontWeight = FontWeight.Bold)
-    if (invoices.isEmpty()) EmptyCard("暂无模拟回执", "生成后可查看云端保存的订单与抬头快照。")
+    if (invoices.isEmpty()) {
+      EmptyCard("暂无模拟回执", "生成后可查看云端保存的订单与抬头快照。")
+      EmptyHint("在上方选择已完成且模拟支付成功的订单和抬头，即可生成一条记录。")
+    }
     invoices.reversed().forEach { i ->
       ExpandablePanel(i.text("title", "模拟回执"), "¥${money(i.optLong("amount"))} · ${formatTime(i.text("createdAt"))} · 模拟不可报销") {
-        KV("抬头", i.text("title"))
-        KV("金额", "¥${money(i.optLong("amount"))}")
-        KV("生成时间", formatTime(i.text("createdAt")))
+        // Label on the left edge, value on the right edge, like the other record forms.
+        RecordRow("抬头", i.text("title"))
+        RecordRow("金额", "¥${money(i.optLong("amount"))}")
+        RecordRow("生成时间", formatTime(i.text("createdAt")))
         val snapshot = i.optJSONObject("titleSnapshot")
         snapshot?.let { t ->
-          KV("类型", if (t.text("type") == "COMPANY") "企业" else "个人")
-          if (t.text("taxNumber").isNotBlank()) KV("税号", t.text("taxNumber"))
-          if (t.text("email").isNotBlank()) KV("邮箱", t.text("email"))
+          RecordRow("类型", if (t.text("type") == "COMPANY") "企业" else "个人")
+          if (t.text("taxNumber").isNotBlank()) RecordRow("税号", t.text("taxNumber"))
+          if (t.text("email").isNotBlank()) RecordRow("邮箱", t.text("email"))
         }
         IdentifierButton(i.text("id"), "回执编号")
         IdentifierButton(i.text("orderId"))
@@ -254,12 +260,15 @@ fun InvoicesScreen(state: JSONObject, store: PassengerStore) {
 fun BlockedScreen(state: JSONObject, store: PassengerStore) {
   PageColumn {
     SectionTitle("已屏蔽司机", "后续新订单将不再匹配列表中的司机。")
-    if (state.rows("blockedDrivers").isEmpty()) EmptyCard("暂无屏蔽司机", "可在已结束的订单详情中选择不再匹配。")
+    if (state.rows("blockedDrivers").isEmpty()) {
+      EmptyCard("暂无屏蔽司机", "可在已结束的订单详情中选择不再匹配。")
+      EmptyHint("在已完成、待支付或已取消订单的“司机与车辆”中点按“以后不再匹配此司机”。")
+    }
     state.rows("blockedDrivers").forEach { d ->
       Panel(d.text("name")) {
         Text(d.text("plate"))
         Note(d.text("reason"))
-        SecondaryButton("恢复匹配此司机") {
+        SecondaryButton("恢复匹配此司机", icon = Icons.Default.Refresh) {
           store.action("order.unblockDriver", JSONObject().put("driverId", d.text("driverId")))
         }
       }

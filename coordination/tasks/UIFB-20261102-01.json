@@ -1,0 +1,63 @@
+{
+  "schemaVersion": 1,
+  "id": "UIFB-20261102-01",
+  "owner": "backend",
+  "goal": "Non-author exact candidate review for countdown/scope/location correctness and UI action preservation",
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-ui-feedback-20261102",
+  "branch": "codex/ui-feedback-20261102",
+  "baseSha": "874aad43e742e7719519758df36724f540b3a038",
+  "candidateSha": "ee38a2e101c6297b5093eb2e180db0f9a38dc54d",
+  "allow_paths": [
+    "coordination/handoffs/backend.md",
+    "coordination/tasks/UIFB-20261102-01.json",
+    "coordination/evidence/UIFB-20261102-01/"
+  ],
+  "status": "C4_FRESH_LOCATION_BUILD_REVIEW",
+  "acceptance": "PASS",
+  "tests": [
+    {
+      "command": "git show/diff exactcandidate +14 static invariance/guard assertions",
+      "result": "PASS_STATIC_CHECKS_WITH_P2_FINDING",
+      "runtime": "NOT_RUN"
+    },
+    {
+      "command": "python3 tools/check_coordination.py --memory-role backend --session-id 01a182c6-c058-76e1-9584-38abfe813799",
+      "result": "PASS"
+    },
+    {
+      "command": "Immutable onefile diff +11 source checks +10 controlflow traces",
+      "result": "PASS_BOUNDED_DELTA",
+      "runtime": "NOT_RUN"
+    }
+  ],
+  "evidence": [
+    "coordination/evidence/UIFB-20261102-01/REVIEW.md",
+    "coordination/evidence/UIFB-20261102-01/REVIEW.json",
+    "coordination/evidence/UIFB-20261102-01/LOCATION_LIFECYCLE_SOURCE.txt",
+    "coordination/evidence/UIFB-20261102-01/LOCATION_LIFECYCLE_TRACE.json",
+    "coordination/evidence/UIFB-20261102-01/DELTA_REVIEW.md",
+    "coordination/evidence/UIFB-20261102-01/DELTA_REVIEW.json",
+    "coordination/evidence/UIFB-20261102-01/DELTA_REVIEW.diff"
+  ],
+  "checks": [
+    "3s owner lifetime and same-account/round handoff preserved; no local extension",
+    "5s server anchor monotonic/RTT once/no extra network; distinguish BID/NEG",
+    "Cancellation captured fences unchanged; expanded controls preserve actual events",
+    "Location retry live permissions/settings/fix/report, service flags/account/generation and lifetime cleanup",
+    "Passenger methods/models/stores/payment contracts unchanged; root evidence scope truthful"
+  ],
+  "nextAction": "C4 onefile fresh-location delta review and actual native retest",
+  "deploy_owner": "coordinator",
+  "releaseReady": false,
+  "updatedAt": "2026-11-02T18:05:55+08:00",
+  "reviewedSha": "6a40ee3a9eb95d3965824aa8e1348d9a0323f71d",
+  "findings": [],
+  "deltaCandidateSha": "6a40ee3a9eb95d3965824aa8e1348d9a0323f71d",
+  "closedFindings": [
+    {
+      "id": "UIFB-P2-01",
+      "fixedInSha": "6a40ee3a9eb95d3965824aa8e1348d9a0323f71d",
+      "verification": "DELTA_REVIEW.json, independent static delta"
+    }
+  ]
+}

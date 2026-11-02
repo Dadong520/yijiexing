@@ -10,6 +10,14 @@
 - 活跃任务：[BOARD](coordination/BOARD.json)；长期决定：[DECISIONS](coordination/DECISIONS.md)；角色细节：handoffs；契约：contracts。
 - 恢复与提交检查：`python3 tools/check_coordination.py --memory-role <role> --session-id <真实会话ID>`；检查器不测量模型内部上下文，不等于业务验收。
 
+## 11月2日界面反馈（已验收，待体验发布）
+
+乘客与司机统一主次按钮、辅助色和多色图标，完善已有空列表插画；乘客订单页签更紧凑、申请记录对齐、地图面板拖动和恢复入口更易点击。司机钱包与会员卡重新排版，新单提醒显示3秒收起倒计时，5秒竞抢显示服务端实际剩余时间；定位异常提供重新定位入口。
+
+候选 `ee38a2e101c6297b5093eb2e180db0f9a38dc54d`：乘客1.1.22-experience/code24、司机0.3.23-cloud/code26。Claude实现，Codex实际构建与原生验收，另一个Codex会话独立复核。乘客69、司机127单元测试，工具27、小程序74项通过。定位缓存和请求释放问题已修复复测。一个隔离Android14模拟器与合成API对手覆盖3秒提示、后台直接抢单、5秒最近司机授予、取消重开、地图拖动、1.3倍字号与空列表；真实资金、个人设备/OEM和实车未验。本轮不修改管理后台与后端业务。
+
+见[构建证明](coordination/evidence/UIF-20261102-01/build/FINAL-BUILD-PROOF.json)、[原生验收](coordination/evidence/UIF-20261102-01/native/FINAL_REVIEW.json)和[独立差量复核](coordination/evidence/UIFB-20261102-01/C4_DELTA_REVIEW.json)。安装入口仍指向下方已发布版本，实际提升完成后追加发布回执。
+
 ## 新单提醒与最近司机竞抢（司机25已发布）
 
 司机听单时，新订单在前台弹窗或后台悬浮窗提示3秒，可直接点击抢单；提示收起后仍可在订单大厅查看。未授予悬浮窗权限时使用系统通知及其“立即抢单”按钮。系统通知与浮窗需要用户在系统设置中授权，系统强杀后需重新打开应用。

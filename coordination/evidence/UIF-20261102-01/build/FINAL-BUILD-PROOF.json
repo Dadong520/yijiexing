@@ -1,0 +1,59 @@
+{
+  "sourceSha": "ee38a2e101c6297b5093eb2e180db0f9a38dc54d",
+  "roles": {
+    "passenger": {
+      "sourceSha": "d69f290ae73fe1e80f16b3595dc7bdb34d325032",
+      "role": "passenger",
+      "package": "cn.hbzjhs.dc.passenger.cloud",
+      "versionCode": 24,
+      "versionName": "1.1.22-experience",
+      "bytes": 107270521,
+      "sha256": "b812e9fe2587103867fcfd4fd2cf65d97aca7af2ef44773e22e4ce148f324be0",
+      "signerSha256": "9ffec9b342d12909ff288bd73f23ba104893b39120cb24ea83c9734a0d2b758f",
+      "within128MiBLimit": true,
+      "nativeLibraries": 8,
+      "compressedNativeLibraries": 0,
+      "privateValuesScanned": 2,
+      "privateValueHits": 0,
+      "expectedHTTPSOriginFound": true,
+      "qaMaterialAbsent": true,
+      "result": "PASS_BUILD_IDENTITY_ONLY",
+      "runtime": "NOT_RUN",
+      "apk": "/Users/dongge/.codex/tmp/yijiexing-uif-native-20261102/original-passenger.apk",
+      "unitTests": 69
+    },
+    "driver": {
+      "sourceSha": "ee38a2e101c6297b5093eb2e180db0f9a38dc54d",
+      "role": "driver",
+      "package": "cn.hbzjhs.dc.driver.cloud",
+      "versionCode": 26,
+      "versionName": "0.3.23-cloud",
+      "bytes": 133111914,
+      "sha256": "e334c03a24d1c613acccf336f7385be4270fb40248e1588f492a06dce3aa1055",
+      "signerSha256": "9ffec9b342d12909ff288bd73f23ba104893b39120cb24ea83c9734a0d2b758f",
+      "within128MiBLimit": true,
+      "nativeLibraries": 18,
+      "compressedNativeLibraries": 18,
+      "privateValuesScanned": 2,
+      "privateValueHits": 0,
+      "expectedHTTPSOriginFound": true,
+      "qaMaterialAbsent": true,
+      "result": "PASS_BUILD_IDENTITY_ONLY",
+      "runtime": "NOT_RUN",
+      "apk": "/Users/dongge/.codex/tmp/yijiexing-uif-native-20261102/original-driver.apk",
+      "unitTests": 127
+    }
+  },
+  "passengerBuildReuse": {
+    "builtSha": "d69f290ae73fe1e80f16b3595dc7bdb34d325032",
+    "finalSha": "ee38a2e101c6297b5093eb2e180db0f9a38dc54d",
+    "sameWholeProductTree": "33e93af2322d05b0130a3d82325c23fa73320da3"
+  },
+  "driverBuildExactSha": "ee38a2e101c6297b5093eb2e180db0f9a38dc54d",
+  "backendAdminUnchanged": {
+    "apps/cloud-service": "c5df96a35efc38ca50442b029681b7790b688922",
+    "apps/admin-console": "86b2ac8af994108b88bf298c8eba725b31fe4a5a"
+  },
+  "result": "PASS",
+  "nativeAcceptance": "../native/FINAL_REVIEW.json"
+}

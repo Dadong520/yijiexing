@@ -1,0 +1,78 @@
+ExactSHA 6cd71cc6eab1be65f9f65c129b53ae88502cdb4d
+376:     private fun retryLocation() {
+377:         if (!::manager.isInitialized) return
+378:         if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+379:             PositionBus.mutableStatus.value = "尚未授予定位权限"
+380:             return
+381:         }
+382:         val providers = listOf(LocationManager.GPS_PROVIDER, LocationManager.NETWORK_PROVIDER)
+383:             .filter { it in manager.allProviders && manager.isProviderEnabled(it) }
+384:         if (providers.isEmpty()) {
+385:             PositionBus.mutableStatus.value = "请开启系统定位服务"
+386:             return
+387:         }
+388:         val token = ++retryToken
+389:         val requestedAt = SystemClock.elapsedRealtimeNanos()
+390:         forceReport = false
+391:         PositionBus.mutableStatus.value = "正在重新定位…"
+392:         val accept: (Location?) -> Unit = accept@{ location ->
+393:             if (token != retryToken || location == null) return@accept
+394:             // Fresh only: a fix produced after this request (small allowance for clock granularity).
+395:             if (location.elapsedRealtimeNanos < requestedAt - 1_000_000_000L) return@accept
+396:             retryToken++
+397:             forceReport = true
+398:             onLocationChanged(location)
+399:         }
+400:         try {
+401:             providers.forEach { provider ->
+402:                 if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.R)
+403:                     manager.getCurrentLocation(provider, null, mainExecutor) { accept(it) }
+404:                 else {
+405:                     @Suppress("DEPRECATION")
+406:                     manager.requestSingleUpdate(provider, object : LocationListener {
+407:                         override fun onLocationChanged(location: Location) = accept(location)
+408:                         override fun onProviderEnabled(provider: String) {}
+409:                         override fun onProviderDisabled(provider: String) {}
+410:                         @Deprecated("Deprecated in Android")
+411:                         override fun onStatusChanged(provider: String?, status: Int, extras: Bundle?) {}
+412:                     }, Looper.getMainLooper())
+413:                 }
+414:             }
+415:         } catch (e: SecurityException) {
+416:             PositionBus.mutableStatus.value = "定位授权已失效"
+417:             return
+418:         }
+419:         retryHandler.postDelayed({
+420:             if (token == retryToken) {
+421:                 retryToken++
+422:                 PositionBus.mutableStatus.value = "暂未获取到新位置，请移至开阔处后重试"
+423:             }
+424:         }, RETRY_TIMEOUT_MS)
+425:     }
+476:     companion object {
+477:         const val ACTION_RETRY_LOCATION = "cn.hbzjhs.driver.preview.RETRY_LOCATION"
+478:         private const val RETRY_TIMEOUT_MS = 20_000L
+479:         /** True between a successful setup and onDestroy; the activity sends a retry only then. */
+480:         @Volatile var running = false
+481:             private set
+482:     }
+483: 
+484:     override fun onDestroy() {
+485:         running = false
+486:         retryToken++
+487:         retryHandler.removeCallbacksAndMessages(null)
+488:         serviceGeneration++
+489:         // Unhook first so clearing reminders below cannot re-add the bubble or overlay.
+490:         if (NewOrderAlerts.onChanged === renderAlerts) NewOrderAlerts.onChanged = null
+491:         GrabActions.removeStateListener(sharedState)
+492:         if (::manager.isInitialized) runCatching { manager.removeUpdates(this) }
+493:         bubble?.let { runCatching { windows?.removeView(it) } }
+494:         bubble = null
+495:         announcer?.close()
+496:         announcer = null
+497:         orderOverlay?.close()
+498:         orderOverlay = null
+499:         NewOrderAlerts.clear()
+500:         scope.cancel()
+501:         PositionBus.mutableStatus.value = "未启动定位"
+502:         super.onDestroy()

@@ -143,6 +143,16 @@ object NewOrderAlerts {
     fun isActionable(key: GrabAlertKey): Boolean = book.isActionable(key, now())
     fun remainingMs(): Long = book.remainingMs(now())
 
+    /**
+     * Read-only for countdown display: ms left of the reminder now presented for exactly [key]
+     * (bound account, same order and round), else null. Reading never restarts or extends it.
+     */
+    fun reminderRemainingMs(key: GrabAlertKey): Long? {
+        val shown = book.current ?: return null
+        if (shown.key != key || key.account.isBlank() || key.account != book.account) return null
+        return book.remainingMs(now())
+    }
+
     /** Foreground/background switch: hand the same reminder to the other surface, no restart. */
     fun notifyPresence() = main.post { onChanged?.invoke() }
 
@@ -284,6 +294,37 @@ object GrabActions {
     }
 
     fun phase(key: GrabAlertKey): CompetitionWatch.Phase? = watch.attempt(key)?.phase
+
+    /**
+     * Read-only for countdown display: ms left until the already-anchored monotonic deadline of
+     * [order]'s OPEN round as [account] sees it (may be ≤0). Null when the account isn't the bound
+     * one, the round isn't OPEN, or no measured anchor exists (e.g. after a reset) — never invented.
+     */
+    fun competitionRemainingMs(account: String, order: DriverOrder): Long? {
+        val c = order.competition ?: return null
+        if (account.isBlank() || account != watch.account || c.status != "OPEN") return null
+        val deadline = anchors[anchorKey(order.id, c.round)] ?: return null
+        return deadline - now()
+    }
+
+    /** Same for a reminder [key], using the last authoritative row and its exact round. */
+    fun competitionRemainingMs(key: GrabAlertKey): Long? {
+        if (key.account.isBlank() || key.account != watch.account) return null
+        val c = known[key.orderId]?.competition ?: return null
+        if (c.round.toString() != key.round || c.status != "OPEN") return null
+        val deadline = anchors[anchorKey(key.orderId, c.round)] ?: return null
+        return deadline - now()
+    }
+
+    /** What the 5s area of [order] shows for [account]; Hidden for BID/NEGOTIATED/no competition. */
+    fun competitionCountdown(account: String, order: DriverOrder): CountdownPresentation.Competition =
+        CountdownPresentation.competition(order.kind.name, order.competition?.status, competitionRemainingMs(account, order))
+
+    fun competitionCountdown(key: GrabAlertKey): CountdownPresentation.Competition {
+        val row = known[key.orderId] ?: return CountdownPresentation.Competition.Hidden
+        if (row.competition != null && row.competition.round.toString() != key.round) return CountdownPresentation.Competition.Hidden
+        return CountdownPresentation.competition(row.kind, row.competition?.status, competitionRemainingMs(key))
+    }
 
     /** From a 3s reminder (dialog/overlay/notification): only while that exact reminder is actionable. */
     fun grabAlert(key: GrabAlertKey, foreground: Boolean, onDone: () -> Unit = {}): String? {
@@ -530,48 +571,75 @@ fun NewOrderDialog(
     val alert by NewOrderAlerts.current.collectAsState()
     val version by GrabActions.version.collectAsState()
     val first = alert ?: return
-    // Re-evaluates the local window inside the 3s; it never extends the reminder.
+    // Re-evaluates the local window inside the 3s and redraws both countdowns; reading the owner's
+    // remaining time never extends the reminder or the 5s window.
     var tick by remember(first.key) { mutableIntStateOf(0) }
     LaunchedEffect(first.key) {
         while (true) {
-            delay(250)
+            delay(100)
             tick++
         }
     }
     // Display-only lookup of the already-synced order; the reminder lifetime is owned elsewhere.
     val detail = orders.firstOrNull { it.id == first.key.orderId }
     val (label, enabled) = remember(first, version, tick) { alertPrimary(first) }
+    val reminderMs = remember(first.key, tick) { NewOrderAlerts.reminderRemainingMs(first.key) }
+    val competition = remember(first.key, version, tick) {
+        if (first.directGrab) GrabActions.competitionCountdown(first.key) else CountdownPresentation.Competition.Hidden
+    }
 
-    val primaryGreen = Color(0xFF00796B)
-    val textDark = Color(0xFF212121)
-    val textGrey = Color(0xFF757575)
+    val primaryGreen = Green
+    val textDark = Ink
+    val textGrey = Muted
 
     Dialog(
         onDismissRequest = { NewOrderAlerts.dismiss(first.key) },
-        properties = DialogProperties(dismissOnBackPress = true, dismissOnClickOutside = false)
+        properties = DialogProperties(dismissOnBackPress = true, dismissOnClickOutside = false, usePlatformDefaultWidth = false)
     ) {
         Card(
             modifier = Modifier
-                .fillMaxWidth(0.92f)
+                .fillMaxWidth(0.94f)
                 .wrapContentHeight(),
-            shape = RoundedCornerShape(16.dp),
+            shape = RoundedCornerShape(20.dp),
             colors = CardDefaults.cardColors(containerColor = Color.White),
-            elevation = CardDefaults.cardElevation(defaultElevation = 8.dp)
+            elevation = CardDefaults.cardElevation(defaultElevation = 10.dp)
         ) {
+            // 3s reminder progress across the card top: shrinks with the real remaining time.
+            LinearProgressIndicator(
+                progress = { CountdownPresentation.fraction(reminderMs, GRAB_ALERT_MS) },
+                modifier = Modifier.fillMaxWidth().height(6.dp),
+                color = Warm,
+                trackColor = WarmSoft,
+            )
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(20.dp)
+                    .padding(horizontal = 20.dp, vertical = 18.dp)
             ) {
-                Text(
-                    text = if (first.directGrab) "新订单" else "发现新订单",
-                    fontSize = 18.sp,
-                    lineHeight = 24.sp,
-                    fontWeight = FontWeight.Bold,
-                    color = primaryGreen
-                )
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Text(
+                        text = if (first.directGrab) "新订单" else "发现新订单",
+                        fontSize = 22.sp,
+                        lineHeight = 28.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = primaryGreen,
+                        modifier = Modifier.weight(1f),
+                    )
+                    // Large seconds badge of the reminder's own remaining life.
+                    CountdownPresentation.ceilSeconds(reminderMs)?.let { s ->
+                        Column(
+                            Modifier.background(WarmSoft, RoundedCornerShape(14.dp)).padding(horizontal = 12.dp, vertical = 4.dp),
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                        ) {
+                            Text("$s", fontSize = 26.sp, lineHeight = 30.sp, fontWeight = FontWeight.Bold, color = Warm)
+                            Text("秒后收起", fontSize = 11.sp, lineHeight = 14.sp, color = Warm)
+                        }
+                    }
+                }
+                if (competition != CountdownPresentation.Competition.Hidden)
+                    CompetitionCountdownBar(competition, Modifier.padding(top = 10.dp))
 
-                Spacer(modifier = Modifier.height(14.dp))
+                Spacer(modifier = Modifier.height(12.dp))
 
                 // Route and figures scroll inside a bounded area so the buttons below stay on screen
                 // with large text on small phones.
@@ -631,10 +699,10 @@ fun NewOrderDialog(
                 ) {
                     OutlinedButton(
                         onClick = { NewOrderAlerts.dismiss(first.key) },
-                        modifier = Modifier.weight(1f).heightIn(min = 44.dp),
-                        shape = RoundedCornerShape(8.dp)
+                        modifier = Modifier.weight(1f).heightIn(min = 52.dp),
+                        shape = RoundedCornerShape(14.dp)
                     ) {
-                        Text("关闭", fontSize = 14.sp, color = textGrey)
+                        Text("关闭", fontSize = 15.sp, color = textGrey)
                     }
 
                     Button(
@@ -647,11 +715,11 @@ fun NewOrderDialog(
                             }
                         },
                         enabled = enabled,
-                        modifier = Modifier.weight(1.4f).heightIn(min = 44.dp),
+                        modifier = Modifier.weight(1.4f).heightIn(min = 52.dp),
                         colors = ButtonDefaults.buttonColors(containerColor = primaryGreen),
-                        shape = RoundedCornerShape(8.dp)
+                        shape = RoundedCornerShape(14.dp)
                     ) {
-                        Text(label, fontSize = 14.sp, color = Color.White, textAlign = TextAlign.Center)
+                        Text(label, fontSize = 16.sp, fontWeight = FontWeight.Bold, color = Color.White, textAlign = TextAlign.Center)
                     }
                 }
             }
@@ -665,7 +733,14 @@ fun competitionLabel(account: String, order: DriverOrder, version: Long, tick: I
     val availability = GrabActions.availability(account, order)
     if (availability == GrabAvailability.LEGACY) return "立即抢单"
     val retry = GrabActions.phase(competitionKey(account, order.id, order.competition)) == CompetitionWatch.Phase.RETRYABLE
-    return if (retry && availability == GrabAvailability.CAN_GRAB) "重试抢单" else availability.label
+    val base = if (retry && availability == GrabAvailability.CAN_GRAB) "重试抢单" else availability.label
+    // Remaining seconds of the server-anchored 5s window (STANDARD/RESERVED OPEN rounds only).
+    val running = GrabActions.competitionCountdown(account, order) as? CountdownPresentation.Competition.Running
+    return when {
+        running != null && availability == GrabAvailability.CAN_GRAB -> "$base · 剩${running.seconds}秒"
+        running != null && availability == GrabAvailability.COMPETING -> "$base · ${running.seconds}秒出结果"
+        else -> base
+    }
 }
 
 /** Detail page card of an AVAILABLE competition order: status, the same grab entry, own withdraw. */
@@ -677,15 +752,19 @@ fun CompetitionCard(order: DriverOrder, store: ConnectedStore, onGrab: (DriverOr
     var tick by remember(order.id) { mutableIntStateOf(0) }
     LaunchedEffect(order.id, order.competition?.status) {
         while (order.competition?.status == "OPEN") {
-            delay(500)
+            delay(200)
             tick++
         }
     }
     val availability = GrabActions.availability(account, order)
     val label = competitionLabel(account, order, version, tick)
     val serverPending = order.competition?.myOutcome == "PENDING"
+    // Server-anchored 5s window only (same deadline GrabActions enforces); never a local restart.
+    val countdown = remember(order, account, version, tick) { GrabActions.competitionCountdown(account, order) }
     SheetCard {
         Text("5秒竞抢 · 第${order.competition?.round ?: 1}轮", fontSize = 17.sp, fontWeight = FontWeight.Bold, color = Ink)
+        if (countdown != CountdownPresentation.Competition.Hidden)
+            CompetitionCountdownBar(countdown, Modifier.padding(top = 8.dp))
         Text(
             when (availability) {
                 GrabAvailability.CAN_GRAB ->
@@ -706,10 +785,60 @@ fun CompetitionCard(order: DriverOrder, store: ConnectedStore, onGrab: (DriverOr
             onClick = { onGrab(order) },
         )
         // Only a server-confirmed candidacy can be withdrawn; it never cancels the passenger's order.
+        // Full-width 48dp outlined danger action: clearly visible, still below the primary.
         if (serverPending)
-            DriverTextButton(onClick = onWithdraw, modifier = Modifier.padding(top = 4.dp)) {
-                Text("退出本轮竞抢", color = Danger)
+            OutlinedButton(
+                onClick = onWithdraw,
+                modifier = Modifier.fillMaxWidth().padding(top = 8.dp).heightIn(min = 48.dp),
+                shape = RoundedCornerShape(14.dp),
+                border = androidx.compose.foundation.BorderStroke(1.dp, Danger.copy(alpha = 0.4f)),
+                colors = ButtonDefaults.outlinedButtonColors(containerColor = DangerSoft, contentColor = Danger),
+            ) {
+                Text("退出本轮竞抢", fontSize = 15.sp, fontWeight = FontWeight.SemiBold)
             }
+    }
+}
+
+/**
+ * The 5s competition line: big remaining seconds + a shrinking bar while running, or plain status
+ * text (not started / closed and waiting / unknown). Display only.
+ */
+@Composable
+fun CompetitionCountdownBar(c: CountdownPresentation.Competition, modifier: Modifier = Modifier) {
+    if (c == CountdownPresentation.Competition.Hidden) return
+    val running = c as? CountdownPresentation.Competition.Running
+    val tint = when (c) {
+        is CountdownPresentation.Competition.Running -> Danger
+        CountdownPresentation.Competition.NotStarted -> Sky
+        else -> Muted
+    }
+    val soft = when (c) {
+        is CountdownPresentation.Competition.Running -> DangerSoft
+        CountdownPresentation.Competition.NotStarted -> SkySoft
+        else -> SurfaceMuted
+    }
+    Column(
+        modifier.fillMaxWidth().background(soft, RoundedCornerShape(12.dp)).padding(horizontal = 12.dp, vertical = 8.dp),
+    ) {
+        Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            if (running != null)
+                Text("${running.seconds}", fontSize = 28.sp, lineHeight = 32.sp, fontWeight = FontWeight.Bold, color = tint)
+            Text(
+                if (running != null) "秒 · 竞抢剩余，结果以服务器为准" else CountdownPresentation.competitionText(c),
+                fontSize = 13.sp,
+                lineHeight = 18.sp,
+                color = tint,
+                fontWeight = FontWeight.Medium,
+                modifier = Modifier.weight(1f),
+            )
+        }
+        if (running != null)
+            LinearProgressIndicator(
+                progress = { running.fraction },
+                modifier = Modifier.fillMaxWidth().padding(top = 6.dp).height(4.dp),
+                color = tint,
+                trackColor = Color.White,
+            )
     }
 }
 
@@ -727,6 +856,9 @@ class NewOrderOverlay(private val appContext: Context) {
     private var currentKey: GrabAlertKey? = null
     private var primary: Button? = null
     private var shownAlert: GrabAlert? = null
+    private var seconds: TextView? = null
+    private var progress: android.widget.ProgressBar? = null
+    private var competitionLine: TextView? = null
 
     val shownKey: GrabAlertKey? get() = currentKey
 
@@ -748,7 +880,7 @@ class NewOrderOverlay(private val appContext: Context) {
         val density = dm.density
         val screenWidth = dm.widthPixels
 
-        val cardWidth = Math.min((340 * density).toInt(), screenWidth - (32 * density).toInt())
+        val cardWidth = Math.min((380 * density).toInt(), screenWidth - (24 * density).toInt())
         // Not named topMargin: inside LayoutParams.apply below that name must mean the params' field.
         val overlayTop = (96 * density).toInt()
 
@@ -758,20 +890,56 @@ class NewOrderOverlay(private val appContext: Context) {
             setPadding(padding16, padding16, padding16, padding16)
             background = GradientDrawable().apply {
                 setColor(AndroidColor.WHITE)
-                cornerRadius = 16 * density
-                setStroke((2 * density).toInt(), AndroidColor.parseColor("#00796B"))
+                cornerRadius = 20 * density
+                setStroke((3 * density).toInt(), AndroidColor.parseColor("#00796B"))
             }
+            elevation = 12 * density
             // Touches on the card never fall through to the app underneath.
             isClickable = true
         }
 
+        // Title row with the reminder's own big seconds badge (read from the owner, never extended).
+        val header = LinearLayout(appContext).apply {
+            orientation = LinearLayout.HORIZONTAL
+            gravity = Gravity.CENTER_VERTICAL
+        }
         val titleView = TextView(appContext).apply {
             text = if (alert.directGrab) "宜捷行 · 新订单" else "宜捷行 · 发现新订单"
-            setTextSize(TypedValue.COMPLEX_UNIT_SP, 16f)
+            setTextSize(TypedValue.COMPLEX_UNIT_SP, 20f)
             setTextColor(AndroidColor.parseColor("#00796B"))
             typeface = android.graphics.Typeface.DEFAULT_BOLD
         }
-        rootLayout.addView(titleView)
+        header.addView(titleView, LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f))
+        val secondsView = TextView(appContext).apply {
+            setTextSize(TypedValue.COMPLEX_UNIT_SP, 22f)
+            setTextColor(AndroidColor.parseColor("#B45309"))
+            typeface = android.graphics.Typeface.DEFAULT_BOLD
+            val p = (10 * density).toInt()
+            setPadding(p, (2 * density).toInt(), p, (2 * density).toInt())
+            background = GradientDrawable().apply {
+                setColor(AndroidColor.parseColor("#FFF4E5"))
+                cornerRadius = 12 * density
+            }
+        }
+        header.addView(secondsView)
+        rootLayout.addView(header)
+        val progressView = android.widget.ProgressBar(appContext, null, android.R.attr.progressBarStyleHorizontal).apply {
+            max = GRAB_ALERT_MS.toInt()
+            isIndeterminate = false
+            progressTintList = android.content.res.ColorStateList.valueOf(AndroidColor.parseColor("#B45309"))
+            progressBackgroundTintList = android.content.res.ColorStateList.valueOf(AndroidColor.parseColor("#FFF4E5"))
+        }
+        rootLayout.addView(progressView, LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, (6 * density).toInt()).apply {
+            topMargin = (8 * density).toInt()
+        })
+        // The separate 5s competition status/seconds (only for direct-grab kinds; empty otherwise).
+        val competitionView = TextView(appContext).apply {
+            setTextSize(TypedValue.COMPLEX_UNIT_SP, 15f)
+            typeface = android.graphics.Typeface.DEFAULT_BOLD
+            setPadding(0, (8 * density).toInt(), 0, 0)
+            visibility = if (alert.directGrab) View.VISIBLE else View.GONE
+        }
+        rootLayout.addView(competitionView)
 
         // Full ordered route (origin, every waypoint, destination) scrolls in a bounded area so the
         // buttons stay fixed and pressable at 360dp / 1.3x font.
@@ -780,7 +948,7 @@ class NewOrderOverlay(private val appContext: Context) {
             .forEach { (tag, place) ->
                 stops.addView(TextView(appContext).apply {
                     text = "$tag：$place"
-                    setTextSize(TypedValue.COMPLEX_UNIT_SP, 14f)
+                    setTextSize(TypedValue.COMPLEX_UNIT_SP, 16f)
                     setTextColor(AndroidColor.parseColor("#212121"))
                     maxLines = 2
                     setPadding(0, (4 * density).toInt(), 0, (4 * density).toInt())
@@ -808,13 +976,16 @@ class NewOrderOverlay(private val appContext: Context) {
             orientation = LinearLayout.HORIZONTAL
             gravity = Gravity.CENTER_VERTICAL
         }
-        val buttonHeight = (44 * density).toInt()
+        val buttonHeight = (52 * density).toInt()
 
         val btnClose = Button(appContext).apply {
             text = "关闭"
-            setTextSize(TypedValue.COMPLEX_UNIT_SP, 14f)
-            setTextColor(AndroidColor.parseColor("#757575"))
-            background = null
+            setTextSize(TypedValue.COMPLEX_UNIT_SP, 15f)
+            setTextColor(AndroidColor.parseColor("#4B5B6B"))
+            background = GradientDrawable().apply {
+                setColor(AndroidColor.parseColor("#F2F4F6"))
+                cornerRadius = 14 * density
+            }
             minHeight = buttonHeight
             setOnClickListener {
                 NewOrderAlerts.dismiss(alert.key)
@@ -827,12 +998,13 @@ class NewOrderOverlay(private val appContext: Context) {
         val btnOpen = Button(appContext).apply {
             text = label
             isEnabled = enabled
-            setTextSize(TypedValue.COMPLEX_UNIT_SP, 14f)
+            setTextSize(TypedValue.COMPLEX_UNIT_SP, 16f)
+            typeface = android.graphics.Typeface.DEFAULT_BOLD
             setTextColor(AndroidColor.WHITE)
             minHeight = buttonHeight
             background = GradientDrawable().apply {
                 setColor(AndroidColor.parseColor("#00796B"))
-                cornerRadius = 8 * density
+                cornerRadius = 14 * density
             }
             setOnClickListener {
                 if (alert.directGrab) {
@@ -883,6 +1055,10 @@ class NewOrderOverlay(private val appContext: Context) {
             currentKey = alert.key
             shownAlert = alert
             primary = btnOpen
+            seconds = secondsView
+            progress = progressView
+            competitionLine = competitionView
+            tick()
             android.util.Log.i("YJXOrderOverlay", "shown")
         } catch (e: Exception) {
             android.util.Log.w("YJXOrderOverlay", "not-shown:"+e.javaClass.simpleName)
@@ -903,14 +1079,43 @@ class NewOrderOverlay(private val appContext: Context) {
         }
     }
 
+    /**
+     * Redraws both countdowns from their owners (reminder book / server-anchored 5s deadline) every
+     * 200ms while this exact reminder is shown. Read-only: it never extends or re-arms either window;
+     * once the owner retires the reminder the service hides this view and the ticker stops.
+     */
+    private val ticker = Runnable { tick() }
+
+    private fun tick() {
+        mainHandler.removeCallbacks(ticker)
+        val alert = shownAlert ?: return
+        val ms = NewOrderAlerts.reminderRemainingMs(alert.key)
+        seconds?.text = CountdownPresentation.ceilSeconds(ms)?.let { "${it}秒" } ?: ""
+        progress?.progress = (ms ?: 0L).coerceIn(0L, GRAB_ALERT_MS).toInt()
+        if (alert.directGrab) {
+            val c = GrabActions.competitionCountdown(alert.key)
+            competitionLine?.apply {
+                text = CountdownPresentation.competitionText(c)
+                setTextColor(AndroidColor.parseColor(if (c is CountdownPresentation.Competition.Running) "#B42318" else "#4B5B6B"))
+                visibility = if (c == CountdownPresentation.Competition.Hidden) View.GONE else View.VISIBLE
+            }
+        }
+        render()
+        if (ms != null) mainHandler.postDelayed(ticker, 200L)
+    }
+
     fun hide() {
         if (Looper.myLooper() != Looper.getMainLooper()) {
             mainHandler.post { hide() }
             return
         }
+        mainHandler.removeCallbacks(ticker)
         currentKey = null
         primary = null
         shownAlert = null
+        seconds = null
+        progress = null
+        competitionLine = null
         val view = currentView
         if (view != null) {
             try {

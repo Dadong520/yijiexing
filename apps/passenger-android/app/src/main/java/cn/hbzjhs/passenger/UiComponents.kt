@@ -43,19 +43,18 @@ fun MenuRow(title: String, icon: ImageVector, subtitle: String? = null, onClick:
     Modifier
       .fillMaxWidth()
       .clickable(onClick = onClick)
-      .heightIn(min = 48.dp)
+      .heightIn(min = 52.dp)
       .padding(vertical = 6.dp),
-    verticalAlignment = Alignment.CenterVertically,
+    // Long titles/subtitles wrap downward from the top instead of re-centring against the icon.
+    verticalAlignment = if (subtitle == null) Alignment.CenterVertically else Alignment.Top,
     horizontalArrangement = Arrangement.spacedBy(12.dp),
   ) {
-    // Flat list row: a monochrome icon, no tinted tile, so rows scan as one calm list.
-    Icon(
-      icon,
-      contentDescription = null,
-      tint = IconTone,
-      modifier = Modifier.size(22.dp),
-    )
-    Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
+    // Each module keeps its own hue (see iconAccent) in a soft rounded tile.
+    val (tint, soft) = iconAccent(icon)
+    Box(Modifier.size(36.dp).background(soft, RoundedCornerShape(10.dp)), contentAlignment = Alignment.Center) {
+      Icon(icon, contentDescription = null, tint = tint, modifier = Modifier.size(20.dp))
+    }
+    Column(Modifier.weight(1f).padding(top = if (subtitle == null) 0.dp else 1.dp), verticalArrangement = Arrangement.spacedBy(2.dp)) {
       Text(
         title,
         fontSize = TypeScale.Body,
@@ -69,7 +68,7 @@ fun MenuRow(title: String, icon: ImageVector, subtitle: String? = null, onClick:
       Icons.AutoMirrored.Filled.KeyboardArrowRight,
       contentDescription = null,
       tint = Chevron,
-      modifier = Modifier.size(20.dp),
+      modifier = Modifier.size(20.dp).then(if (subtitle == null) Modifier else Modifier.padding(top = 8.dp)),
     )
   }
 }
@@ -240,13 +239,13 @@ fun PassengerModal(
             horizontalArrangement = Arrangement.spacedBy(10.dp),
             verticalAlignment = Alignment.CenterVertically,
           ) {
-            val buttonShape = RoundedCornerShape(12.dp)
+            val buttonShape = RoundedCornerShape(ButtonSize.Corner)
             val buttonPadding = PaddingValues(horizontal = 6.dp, vertical = 6.dp)
             if (extraLabel != null)
               OutlinedButton(
                 onClick = onExtra,
                 enabled = extraEnabled,
-                modifier = Modifier.weight(1f).fillMaxHeight().heightIn(min = 46.dp),
+                modifier = Modifier.weight(1f).fillMaxHeight().heightIn(min = ButtonSize.Min),
                 shape = buttonShape,
                 border = BorderStroke(1.dp, DangerLine),
                 contentPadding = buttonPadding,
@@ -256,7 +255,7 @@ fun PassengerModal(
             Button(
               onClick = onDismiss,
               enabled = dismissEnabled,
-              modifier = Modifier.weight(1f).fillMaxHeight().heightIn(min = 46.dp),
+              modifier = Modifier.weight(1f).fillMaxHeight().heightIn(min = ButtonSize.Min),
               shape = buttonShape,
               colors = ButtonDefaults.buttonColors(
                 containerColor = SurfaceMuted,
@@ -272,7 +271,7 @@ fun PassengerModal(
             Button(
               onClick = onConfirm,
               enabled = confirmEnabled,
-              modifier = Modifier.weight(if (extraLabel != null) 1.4f else 1.2f).fillMaxHeight().heightIn(min = 46.dp),
+              modifier = Modifier.weight(if (extraLabel != null) 1.4f else 1.2f).fillMaxHeight().heightIn(min = ButtonSize.Min),
               shape = buttonShape,
               colors = ButtonDefaults.buttonColors(
                 containerColor = confirmColor,
@@ -329,21 +328,25 @@ fun PassengerTextButton(
   content: @Composable RowScope.() -> Unit,
 ) {
   val role = LocalDialogButtonRole.current
-  val shape = RoundedCornerShape(if (role == DialogButtonRole.None) 10.dp else 12.dp)
+  val shape = RoundedCornerShape(if (role == DialogButtonRole.None) 12.dp else ButtonSize.Corner)
   Button(
     onClick = onClick,
     // Dialog buttons ignore caller sizing so every popup gets the same equal-height button row; they
-    // grow with wrapped labels instead of clipping them.
-    modifier = if (role == DialogButtonRole.None) modifier.heightIn(min = 36.dp) else Modifier.fillMaxWidth().fillMaxHeight().heightIn(min = 46.dp),
+    // grow with wrapped labels instead of clipping them. Every variant keeps a 48dp touch height.
+    modifier = if (role == DialogButtonRole.None) modifier.heightIn(min = ButtonSize.Min) else Modifier.fillMaxWidth().fillMaxHeight().heightIn(min = ButtonSize.Min),
     enabled = enabled,
     shape = shape,
     colors = ButtonDefaults.buttonColors(
-      containerColor = if (role == DialogButtonRole.Confirm) BrandSoft else SurfaceMuted,
+      containerColor = if (role == DialogButtonRole.Dismiss) SurfaceMuted else BrandSoft,
       contentColor = if (role == DialogButtonRole.Dismiss) Ink else BrandStrong,
       disabledContainerColor = SurfaceMuted,
       disabledContentColor = DisabledText,
     ),
-    border = if (role == DialogButtonRole.Confirm) BorderStroke(1.dp, Teal.copy(alpha = 0.45f)) else null,
+    border = when (role) {
+      DialogButtonRole.Confirm -> BorderStroke(1.dp, Teal.copy(alpha = 0.45f))
+      DialogButtonRole.None -> if (enabled) BorderStroke(1.dp, Teal.copy(alpha = 0.18f)) else null
+      DialogButtonRole.Dismiss -> null
+    },
     elevation = ButtonDefaults.buttonElevation(defaultElevation = 0.dp),
     contentPadding = if (role == DialogButtonRole.None) contentPadding else PaddingValues(horizontal = 6.dp, vertical = 6.dp),
   ) {

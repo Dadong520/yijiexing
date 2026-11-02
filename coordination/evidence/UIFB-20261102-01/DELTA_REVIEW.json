@@ -1,0 +1,39 @@
+{
+  "fromSha": "6cd71cc6eab1be65f9f65c129b53ae88502cdb4d",
+  "reviewedSha": "6a40ee3a9eb95d3965824aa8e1348d9a0323f71d",
+  "scope": "Independent immutable onefile static delta; unchanged UI checks reused",
+  "verdict": "PASS",
+  "p1Count": 0,
+  "p2Count": 0,
+  "closedFinding": "UIFB-P2-01",
+  "sourceChecks": {
+    "one_file": true,
+    "legacy_saved_before_register": true,
+    "signal_saved_before_register": true,
+    "idempotent_close_releases_all": true,
+    "finish_identity": true,
+    "answer_identity_credentials_generation": true,
+    "fix_and_empty_finish": true,
+    "retry_normalstart_destroy_cancel": true,
+    "errors_finish": true,
+    "normal_listener_cleanup_preserved": true,
+    "report_captured_and_failure_fenced": true
+  },
+  "controlFlowTraces": {
+    "success": "answer→finish→close, captured one forced report",
+    "all_empty_stale": "last invalid pending→finish→close",
+    "timeout": "request.timeout→finish→close",
+    "new_retry": "cancelRetry before registering new request",
+    "registration_error": "SecurityException/IllegalArgumentException→finish→close partial resources",
+    "normal_start": "cancelRetry before generation++",
+    "destroy": "cancelRetry before normal listener cleanup",
+    "late_old_callback": "identity/closed guard returns before status/cleanup/report",
+    "account_generation_change": "captured mismatch closes only own request without report",
+    "normal_listener": "this retained independently; retry close touches only stored retry resources"
+  },
+  "file": "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/DriverLocationService.kt",
+  "sha256": "a9208305947d941a4124bbed36231ef615cfb35c04fe0f2d73c1f543d5a66083",
+  "runtime": "NOT_RUN; build/native root responsibility",
+  "reviewHarnessCorrection": "Initial arbitrary total cancelRetry text-count threshold failed; replaced with checking three actual lifecycle methods. No product failure.",
+  "at": "2026-11-02T18:05:55+08:00"
+}

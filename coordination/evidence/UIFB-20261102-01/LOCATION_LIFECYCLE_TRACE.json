@@ -1,0 +1,22 @@
+{
+  "type": "SOURCE_DIRECTED_LIFECYCLE_TRACE_NOT_ANDROID_RUNTIME",
+  "minSdk": 26,
+  "affectedAPIs": "26..29: untracked requestSingleUpdate listeners; 30+: null CancellationSignal also prevents explicit cancellation of competing requests",
+  "steps": [
+    "retry1 on no-fix GPS/network registers anonymous listeners L1/L2",
+    "20s timeout increments token and writes status; registered L1/L2 remain",
+    "retry2 registers L3/L4 without removing L1/L2",
+    "stop/offline service destroy removes only service listener this; L1..L4 remain registered until a provider eventually delivers or process dies"
+  ],
+  "sourceFacts": [
+    "anonymous retry listeners are not stored",
+    "no removeUpdates for retry listener exists",
+    "timeout/accept/retry/destroy do not cancel provider requests"
+  ],
+  "result": "P2 lifecycle resource leak",
+  "notClaimed": [
+    "measured battery consumption",
+    "actual API26-29 reproduction",
+    "native pass"
+  ]
+}

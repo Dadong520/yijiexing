@@ -1,0 +1,145 @@
+{
+  "taskId": "UIFB-20261102-01",
+  "reviewedSha": "6cd71cc6eab1be65f9f65c129b53ae88502cdb4d",
+  "baseSha": "874aad43e742e7719519758df36724f540b3a038",
+  "verdict": "FAIL",
+  "p1Count": 0,
+  "p2Count": 1,
+  "findings": [
+    {
+      "id": "UIFB-P2-01",
+      "priority": "P2",
+      "file": "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/DriverLocationService.kt",
+      "start": 406,
+      "end": 412,
+      "title": "Retry location requests are not cancelled at timeout/retry/service destruction",
+      "relatedLines": [
+        403,
+        419,
+        484,
+        492
+      ]
+    }
+  ],
+  "passingStaticChecks": {
+    "cancel_scope_tail_unchanged": true,
+    "competition_pure_rules_unchanged": true,
+    "competition_submit_observe_poll_unchanged": true,
+    "reminder_book_unchanged": true,
+    "reminder_display_exact_key": true,
+    "competition_display_exact_account_round": true,
+    "display_reads_existing_anchor_not_wallclock": true,
+    "BID_NEG_hidden": true,
+    "zero_unknown_display_states": true,
+    "relocate_permission_settings_gates": true,
+    "retry_action_preserves_flags_generation": true,
+    "backend_unchanged": true,
+    "driver_store_domain_manifest_unchanged": true,
+    "passenger_state_network_contracts_unchanged": true
+  },
+  "sourceObjectSha256": [
+    {
+      "path": "apps/passenger-android/app/build.gradle.kts",
+      "sha256": "bde5d8e5f99790d5bf0cd3de333e48c55dccc5bc4cd877730d9f8ad7c64c911e"
+    },
+    {
+      "path": "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/BookingScreens.kt",
+      "sha256": "ff15b4c0039d8f3da632eae4723b62789e9ecbb1afa9ac0d70418e30cabda447"
+    },
+    {
+      "path": "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/ExtraScreens.kt",
+      "sha256": "50a13b23fede41bf928f14fe582e12891f3bc3dc4b5bdf0535b07eb6f2062bbf"
+    },
+    {
+      "path": "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/MapPanel.kt",
+      "sha256": "376c18d30ab6df12f0b01168c664ae0777061b4f496ab689b2e75be0e556efd2"
+    },
+    {
+      "path": "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/OrderDetail.kt",
+      "sha256": "be36e47fda7c64f541b72fff94bf4a9b115460fa8d17c7faa97809b9001a5a47"
+    },
+    {
+      "path": "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/ParityScreens.kt",
+      "sha256": "a5459c9e02e863e72a6c89d907ba2c422888be9807e669266af428323e80cbde"
+    },
+    {
+      "path": "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/PassengerContactPage.kt",
+      "sha256": "963c4681388d9dc29f9959de20d728ddab037a15791ecb4f9ab3271cbfcf6b1a"
+    },
+    {
+      "path": "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/PassengerPalette.kt",
+      "sha256": "decdddeb8ee6999b61302ed91cf51907bdd2cd2786f70667e22f9296e9846473"
+    },
+    {
+      "path": "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/ProfileScreens.kt",
+      "sha256": "3be82e6bab2e4fea823e0bfb2468ef03c2546cb82c1630da92ef378c72ab7d64"
+    },
+    {
+      "path": "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/UIOComponents.kt",
+      "sha256": "d8ccc537e0fc3e0001305dace4fb0f6791e99a47f4d1689428e6a064798ad9cc"
+    },
+    {
+      "path": "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/UiComponents.kt",
+      "sha256": "6100b8a41b3efa441e43baf5c026fb479bf32b43e45aac58979feead31ea0036"
+    },
+    {
+      "path": "candidates/driver-0.3.6-r2/android/app/build.gradle.kts",
+      "sha256": "e6668accf5c0244c53d6dc66c4f499dfb1bbdc3e9313f309a4e28c200fffd2df"
+    },
+    {
+      "path": "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/BusinessKit.kt",
+      "sha256": "b623a65cfe577639b221b0d8ffc6e5f8b301048c7706cff89c8f8c5c65738c25"
+    },
+    {
+      "path": "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/CoreScreens.kt",
+      "sha256": "53f1877504968af19e9b9c2bbc7c9b8ba7b8d2c21e222429a2273e3a4b223034"
+    },
+    {
+      "path": "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/CountdownPresentation.kt",
+      "sha256": "aebf0ec4410a3f09b13dce3147b8892a406f0fd9b09d990323904f5b271fa368"
+    },
+    {
+      "path": "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/DriverLocationService.kt",
+      "sha256": "04ee0c57dac9d381cfcb8bff5644ef42d8eb7f6cd29058eaf695ef19e4722a49"
+    },
+    {
+      "path": "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/DriverPalette.kt",
+      "sha256": "59bbf242f44b8d2199af69cb1296739f55b3bd79fa32dc903bcd709d236304e2"
+    },
+    {
+      "path": "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/MainActivity.kt",
+      "sha256": "95bde1fd1c79ddac7dadd84254a6a899be564d4fedeb3c2c76fb4314e713d0c2"
+    },
+    {
+      "path": "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/MapPanel.kt",
+      "sha256": "e309f4f1f68e8d3ee6ee22711f0bbce48578d0dc3e99cbacb3494d170b13e2df"
+    },
+    {
+      "path": "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/NewOrderAlerts.kt",
+      "sha256": "04f35b45ae72f7dfdd25f3e7622b355e8e438e44ae39cfd1b775c637e80e3a13"
+    },
+    {
+      "path": "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/UIOComponents.kt",
+      "sha256": "8bc90d34a00f8cfb7d7ef0b004708147c3c2cfdd25418a1f3f22c5e8cd8aa7f6"
+    },
+    {
+      "path": "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/UiKit.kt",
+      "sha256": "9b5eb0901279b34db3d0d81b4e806f36f4d96210ed5b9cfd41a1b325b64a1416"
+    },
+    {
+      "path": "candidates/driver-0.3.6-r2/android/app/src/test/java/cn/hbzjhs/driver/preview/CountdownPresentationTest.kt",
+      "sha256": "fb0f1e6f71b81449872fccaa5cfdfe44049c9e9c312b9e4095693f1766f282b5"
+    }
+  ],
+  "runtimeTests": "NOT_RUN",
+  "scope": "Immutable source review only, no build/native/full backend/cloud/source edits",
+  "documentation": {
+    "source": "Android official LocationManager reference",
+    "url": "https://developer.android.com/reference/android/location/LocationManager",
+    "facts": [
+      "requestSingleUpdate documented battery-drain risk",
+      "removeUpdates(listener) removes updates for that specified listener only"
+    ]
+  },
+  "at": "2026-11-02T18:00:47+08:00"
+}

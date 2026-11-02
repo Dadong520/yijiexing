@@ -1,0 +1,9 @@
+# UIFB C4 新采样定位差量复核
+
+**PASS，P1=0/P2=0。** 精确SHA `ee38a2e101c6297b5093eb2e180db0f9a38dc54d`，仅对 `6a40ee3a9eb95d3965824aa8e1348d9a0323f71d`→C4的DriverLocationService.kt审查；Git确认只有此文件变。C3资源清理PASS及原6cd71cc FAIL证据均保持，不修改原任务/审查结论。
+
+所有API使用每provider独立0ms/0m连续listener，先保存在RetryRequest再注册。旧缓存/无效样本只return，不关闭listener或递减pending；新的采样elapsedRealtimeNanos>0且>=请求时刻、经纬有限才采用。首个fresh先finishRetry取消全部retrylistener/timeout，再用捕获的generation/credentials走handleFix(forceReport=true)，正常15秒监听/报告逻辑字节保持。正常listener仍可能展示正常采样状态，这不等同于将旧缓存作为重试成功；C4重试路径本身无旧样本成功反馈/上报。
+
+activeRetry身份/closed与账号凭据revision/服务代际检查保留；旧请求迟到回调不会清理新请求、改状态或上报。一个provider注册IllegalArgument时移除未注册handle并继续其他provider，全失败listeners空立即finish；SecurityException清部分已注册资源。成功、20s超时、新重试、normalstart、destroy均幂等移除精确retrylistener及timer，不碰主服务this listener。持续0ms更新仅在这段有界显式请求内，不新增常驻轮询。
+
+12项静态检查与9类控制流追踪通过，详见C4_DELTA_REVIEW.json及单文件对象hash。无P1/P2剩余阻塞。未运行构建/全量/native/实车或云调用；本PASS是限定源码复核，root正在重构/原生定位的结果不冒称已通过。仅追加本证据和本人短卡，不改源码/中央root控制/原UIFB任务，不派人不发布，当前IDLE。

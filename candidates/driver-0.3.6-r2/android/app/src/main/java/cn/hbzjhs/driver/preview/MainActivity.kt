@@ -112,9 +112,57 @@ private fun ConnectedApp(store: ConnectedStore, state: DriverState) {
                 }
             }
     }
+    /** The location service start intent with every flag from current state (never default extras). */
+    fun locationServiceIntent(): Intent =
+        Intent(context, DriverLocationService::class.java)
+            .putExtra("listening", state.online)
+            .putExtra(
+                "voiceAllowed",
+                state.voice &&
+                    state.online &&
+                    state.activeOrder == null &&
+                    payload.optJSONObject("features")?.optBoolean("canVoice") == true,
+            )
+            .putExtra("floatingEnabled", state.floating)
+            .putExtra(
+                "floatingAllowed",
+                payload.optJSONObject("features")?.optBoolean("canFloating", false) == true,
+            )
+    /**
+     * User-pressed "重新定位": no permission → the existing permission guide; system location off →
+     * system location settings; otherwise a running service gets a fresh-fix request (no restart, so
+     * reminders/competition state survive), or, while listening/on a trip, the normal full start.
+     */
+    fun relocate() {
+        if (context.checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            showPermissionGuide = true
+            return
+        }
+        val lm = context.getSystemService(android.location.LocationManager::class.java)
+        if (lm != null && !androidx.core.location.LocationManagerCompat.isLocationEnabled(lm)) {
+            runCatching {
+                context.startActivity(Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS))
+            }.onFailure { message("无法打开系统定位设置，请在手机设置中开启定位") }
+            return
+        }
+        if (!state.loggedIn || !connected || !(state.online || state.activeOrder != null)) {
+            message("开启听单或进入行程后会自动定位并同步位置")
+            return
+        }
+        if (DriverLocationService.running)
+            runCatching {
+                context.startService(
+                    Intent(context, DriverLocationService::class.java).setAction(DriverLocationService.ACTION_RETRY_LOCATION)
+                )
+            }.onFailure { message("暂时无法重新定位，请稍后再试") }
+        else
+            runCatching { context.startForegroundService(locationServiceIntent()) }
+                .onFailure { message("定位服务暂未启动，请回到首页重新开启听单") }
+    }
     fun navigate(value: String) {
         when (value) {
             "permissions" -> showPermissionGuide = true
+            "relocate" -> relocate()
             "home" -> {
                 tab = 0
                 stack = listOf("root")
