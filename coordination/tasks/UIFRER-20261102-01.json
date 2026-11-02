@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "id": "UIFRER-20261102-01",
+  "owner": "backend",
+  "goal": "Record and independently verify actual UI release receipt; metadata only",
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-ui-feedback-20261102",
+  "branch": "codex/ui-feedback-receipt-20261102",
+  "baseSha": "2d918d3c3b9711d8aa21b0e9d4ca34e70a05faaa",
+  "allow_paths": [
+    "coordination/evidence/UIFRER-20261102-01/",
+    "coordination/handoffs/backend.md"
+  ],
+  "checks": [
+    "Actual two public fullAPK readback hash/signer/version matches exact tested candidates",
+    "ExactCI productmerge and guardedpromotion; preexistingorders/contacts and config/IAM evidence honest",
+    "No product code or deployment changes in receiptPR"
+  ],
+  "status": "COMPLETE",
+  "acceptance": "PASS",
+  "tests": [
+    {
+      "command": "UIFRER exact metadata receipt review:18 consistency checks",
+      "status": "PASS",
+      "exitCode": 0,
+      "sourceSha": "7ccd549ae4cf0fd76e76c8dbdb55d789fbd69e8a"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "coordination/evidence/UIFRER-20261102-01/REVIEW.json",
+      "sha256": "28fbbdc8b54093a880fc339c20c128951ebf5878d5dcd055f9453ea66ec2f574"
+    }
+  ],
+  "nextAction": "Idle",
+  "deploy_owner": "coordinator",
+  "releaseReady": false,
+  "publicationComplete": true,
+  "publishedProductSha": "ee38a2e101c6297b5093eb2e180db0f9a38dc54d",
+  "updatedAt": "2026-11-02T10:44:19.812786+00:00",
+  "candidateSha": "7ccd549ae4cf0fd76e76c8dbdb55d789fbd69e8a",
+  "acceptedSha": "7ccd549ae4cf0fd76e76c8dbdb55d789fbd69e8a",
+  "reviewer": "backend"
+}

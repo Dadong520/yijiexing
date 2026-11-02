@@ -1,0 +1,38 @@
+{
+  "generation": "1793615437504683",
+  "bytes": 11272192,
+  "sha256": "ebaf4a4de313b4396d8f455aece8cd7484bae410e59e960666de95ee89fff4ca",
+  "integrity": "ok",
+  "conservation": [
+    {
+      "table": "passenger_orders",
+      "before": 51,
+      "after": 51,
+      "lost": 0,
+      "changedExistingFullRows": 1,
+      "columnsCompared": 5,
+      "concurrentChanges": [
+        {
+          "rowIdSha256": "9e8a39670eba1d5a098c21bfe184ae83237f59a5160c9c894912f4578c78ced1",
+          "changedPayloadKeys": [
+            "passengerLocation",
+            "updatedAt"
+          ],
+          "updatedAt": "2026-11-02T18:30:34+08:00",
+          "precedesFirstApkPromotion": true,
+          "allOtherStoredFieldsIdentical": true
+        }
+      ]
+    },
+    {
+      "table": "passenger_order_contacts",
+      "before": 5,
+      "after": 5,
+      "lost": 0,
+      "changedExistingFullRows": 0,
+      "columnsCompared": 5,
+      "concurrentChanges": []
+    }
+  ],
+  "cloudBusinessPostsByRelease": 0
+}

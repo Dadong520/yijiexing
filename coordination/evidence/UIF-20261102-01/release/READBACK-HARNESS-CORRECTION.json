@@ -1,0 +1,7 @@
+{
+  "initialRun": "FAIL",
+  "reason": "Client added release query parameter; existing fixedAPK endpoint explicitly rejects any query",
+  "source": "apps/cloud-service/cloud_server.py lines94-98",
+  "correction": "Use exact public APK URL without query; complete hash/signature download rerun required",
+  "serverChange": false
+}

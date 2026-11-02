@@ -59,7 +59,7 @@
   ],
   "candidateSha": "ee38a2e101c6297b5093eb2e180db0f9a38dc54d",
   "releaseReady": true,
-  "publicationComplete": false,
+  "publicationComplete": true,
   "updatedAt": "2026-11-02T10:30:58.136088+00:00",
   "id": "UIF-20261102-01",
   "owner": "coordinator",
@@ -77,8 +77,18 @@
     "Native screen/gesture/touch/largefont/empty-state coverage; isolated emulator only",
     "Independent exact candidate review then exact CI merge, generation guarded two-APK publication and full public readback"
   ],
-  "status": "ACCEPTED_PENDING_CI_MERGE_RELEASE",
-  "nextAction": "Exact productPR CI/merge, generation guarded twoAPK publish and fullpublic readback",
+  "status": "PUBLISHED_READBACK_PASS_RECEIPT_PENDING",
+  "nextAction": "Non-author receipt review and metadata-only receiptPR CI/merge",
   "acceptedSha": "ee38a2e101c6297b5093eb2e180db0f9a38dc54d",
-  "reviewer": "backend"
+  "reviewer": "backend",
+  "integrationHeadSha": "6d19ed34c28883fbca2e82451875dd99c67b5c4f",
+  "mergeSha": "2d918d3c3b9711d8aa21b0e9d4ca34e70a05faaa",
+  "productPr": 53,
+  "ci": {
+    "id": 41429590905,
+    "headSha": "6d19ed34c28883fbca2e82451875dd99c67b5c4f",
+    "conclusion": "success",
+    "url": "https://github.com/Dadong520/yijiexing/actions/runs/41429590905"
+  },
+  "releaseReceipt": "coordination/evidence/UIF-20261102-01/release/FINAL-RELEASE-RECEIPT.json"
 }

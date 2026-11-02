@@ -1,0 +1,18 @@
+[
+  {
+    "role": "passenger",
+    "candidateObject": "distribution/candidates/uif-20261102-driver26-passenger24/passenger.apk",
+    "generation": "1793615734518048",
+    "sha256": "b812e9fe2587103867fcfd4fd2cf65d97aca7af2ef44773e22e4ce148f324be0",
+    "bytes": 107270521,
+    "status": "CANDIDATE_ONLY_NOT_PUBLISHED"
+  },
+  {
+    "role": "driver",
+    "candidateObject": "distribution/candidates/uif-20261102-driver26-passenger24/driver.apk",
+    "generation": "1793615849054355",
+    "sha256": "e334c03a24d1c613acccf336f7385be4270fb40248e1588f492a06dce3aa1055",
+    "bytes": 133111914,
+    "status": "CANDIDATE_ONLY_NOT_PUBLISHED"
+  }
+]

@@ -1,0 +1,77 @@
+{
+  "reviewedSha": "7ccd549ae4cf0fd76e76c8dbdb55d789fbd69e8a",
+  "baseSha": "2d918d3c3b9711d8aa21b0e9d4ca34e70a05faaa",
+  "verdict": "PASS",
+  "p1Count": 0,
+  "p2Count": 0,
+  "scope": "Independent immutable actual receipt/README consistency audit only; no own backend acceptance or fresh cloud validation",
+  "checks": {
+    "metadata_only": true,
+    "exact_parent": true,
+    "four_product_trees_equal": true,
+    "whole_merge_CIhead_tree": true,
+    "PR53_exactCI": true,
+    "C4_build_native_bound": true,
+    "passenger_reuse_identical_tree": true,
+    "both_public_objects_match_receipt": true,
+    "build_public_promotion_upload_identity": true,
+    "code26_code24_fullread": true,
+    "archive_and_fixed_guards": true,
+    "51orders_retained_1change_honest": true,
+    "only_location_time_change_pre_release": true,
+    "5contacts_unchanged": true,
+    "API_admin_whole_service_IAM_same": true,
+    "readback_failures_preserved": true,
+    "native_scope_oldAndroid_NOTRUN": true,
+    "README_truthful_new_versions_data_limits": true
+  },
+  "productTrees": {
+    "ee38a2e101c6297b5093eb2e180db0f9a38dc54d": {
+      "apps/cloud-service": "c5df96a35efc38ca50442b029681b7790b688922",
+      "apps/admin-console": "86b2ac8af994108b88bf298c8eba725b31fe4a5a",
+      "apps/passenger-android": "33e93af2322d05b0130a3d82325c23fa73320da3",
+      "candidates/driver-0.3.6-r2": "e92d0de589df684ef9f03b09cd44edc86f2283cf"
+    },
+    "6d19ed34c28883fbca2e82451875dd99c67b5c4f": {
+      "apps/cloud-service": "c5df96a35efc38ca50442b029681b7790b688922",
+      "apps/admin-console": "86b2ac8af994108b88bf298c8eba725b31fe4a5a",
+      "apps/passenger-android": "33e93af2322d05b0130a3d82325c23fa73320da3",
+      "candidates/driver-0.3.6-r2": "e92d0de589df684ef9f03b09cd44edc86f2283cf"
+    },
+    "2d918d3c3b9711d8aa21b0e9d4ca34e70a05faaa": {
+      "apps/cloud-service": "c5df96a35efc38ca50442b029681b7790b688922",
+      "apps/admin-console": "86b2ac8af994108b88bf298c8eba725b31fe4a5a",
+      "apps/passenger-android": "33e93af2322d05b0130a3d82325c23fa73320da3",
+      "candidates/driver-0.3.6-r2": "e92d0de589df684ef9f03b09cd44edc86f2283cf"
+    },
+    "7ccd549ae4cf0fd76e76c8dbdb55d789fbd69e8a": {
+      "apps/cloud-service": "c5df96a35efc38ca50442b029681b7790b688922",
+      "apps/admin-console": "86b2ac8af994108b88bf298c8eba725b31fe4a5a",
+      "apps/passenger-android": "33e93af2322d05b0130a3d82325c23fa73320da3",
+      "candidates/driver-0.3.6-r2": "e92d0de589df684ef9f03b09cd44edc86f2283cf"
+    }
+  },
+  "objectsSha256": {
+    "coordination/evidence/UIF-20261102-01/release/FINAL-RELEASE-RECEIPT.json": "72970eeb9b31740061a89d1e35bb70c241847a95c11409a7fa3e1902bf618ca8",
+    "coordination/evidence/UIF-20261102-01/build/FINAL-BUILD-PROOF.json": "8a9b3c02af9e097f45dfb3d50fafcb302ab9064e37d58800da822f700751d8fe",
+    "coordination/evidence/UIF-20261102-01/release/PRODUCT-MERGE.json": "da280e799a19919033c76dcab1f73124595aa1f98d828dc4100443c870618f50",
+    "coordination/evidence/UIF-20261102-01/release/PUBLIC-APK-READBACK.json": "5ae96957e688b01190692a7b6b5751e8bccc7206971b9dc63c841e657db1f9f7",
+    "coordination/evidence/UIF-20261102-01/release/apk-promotion.json": "875f7e42fa30649e15847067a65f783744dcf1ec2be9e865236e3f3d975f8d0f",
+    "coordination/evidence/UIF-20261102-01/release/apk-upload-candidates.json": "e4b485aa8d6551645fca4bf5cbf2c383bbf63a76ccb045f025fb44f2799b96ad",
+    "coordination/evidence/UIF-20261102-01/release/CONFIG-IAM-UNCHANGED.json": "ff3cc6a0f211112504000465b18b03e224bbd558d32f5115149f4c5910540c6d",
+    "coordination/evidence/UIF-20261102-01/release/data-after.json": "8f3b2dfbb576ff3d4302bc27911108114640129b9e84156f383f97fdd1eae83c",
+    "coordination/evidence/UIF-20261102-01/native/FINAL_REVIEW.json": "8555f46882f1d8a8c9e5a6e21b579b6587b05b328563a711a93a0817816fed92",
+    "coordination/evidence/UIF-20261102-01/release/READBACK-HARNESS-CORRECTION.json": "e65350e073914bb1a8b00b634c802e71a894148218dddc46dbdfe8ed8850ff3c",
+    "coordination/evidence/UIF-20261102-01/release/READBACK-TRANSFER-RETRY.json": "45f48f2732f2ff6deb88f0a7c3b1e080250748c901accd35396c667cd6707b9b",
+    "README.md": "a1092e619fda9264875f0e04092894e4cc9df72d5e9b4ee08f6fc26022ef6142"
+  },
+  "notRun": [
+    "new download",
+    "build",
+    "fulltests",
+    "native",
+    "cloud",
+    "deploy"
+  ],
+  "at": "2026-11-02T18:46:16+08:00"
+}
