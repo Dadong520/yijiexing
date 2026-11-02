@@ -448,10 +448,10 @@ internal fun BusinessOutlinedButton(
     // Secondary action: soft brand fill with a thin edge, lighter than the gradient primary.
     Button(
         onClick = onClick,
-        modifier = modifier.heightIn(min = 46.dp),
+        modifier = modifier.heightIn(min = DriverButtonSize.Min),
         enabled = enabled,
         border = BorderStroke(1.dp, if (enabled) Green.copy(alpha = 0.35f) else Line),
-        shape = RoundedCornerShape(12.dp),
+        shape = RoundedCornerShape(DriverButtonSize.Corner),
         colors = ButtonDefaults.buttonColors(
             containerColor = Pale,
             contentColor = GreenStrong,

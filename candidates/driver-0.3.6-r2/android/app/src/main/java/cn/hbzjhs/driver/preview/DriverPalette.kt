@@ -26,14 +26,27 @@ val IconTone = Color(0xFF5B6773)
 /** Disabled text that stays readable on [SurfaceMuted]. */
 val DisabledText = Color(0xFF6B7682)
 
-/** Module accent for menu/tile icons: tint to soft background. */
+// UIFC-20261102-01 supporting accents, same values as the passenger app: muted, AA-contrast,
+// only for icons, tiles, empty-state art and the membership/wallet cards; teal stays primary.
+val Indigo = Color(0xFF4338CA)
+val IndigoSoft = Color(0xFFEEF0FF)
+val Rose = Color(0xFFBE185D)
+val RoseSoft = Color(0xFFFDEEF5)
+val Gold = Color(0xFFA16207)
+val GoldSoft = Color(0xFFFEF7E0)
+/** Faint teal wash behind hero blocks; never used for text. */
+val BrandMist = Color(0xFFF4FAF9)
+
+/** Module accent for menu/tile icons: tint to soft background. Each module keeps one hue. */
 fun moduleAccent(icon: String): Pair<Color, Color> = when (icon) {
-    "location", "navigation", "car", "orders", "doc", "scan" -> Sky to SkySoft
-    "wallet", "card", "gift", "chart" -> Warm to WarmSoft
-    "settings", "support", "voice", "bell", "share", "mail" -> Violet to VioletSoft
-    "face", "tool", "calendar", "info" -> Sky to SkySoft
-    "star" -> Warm to WarmSoft
-    "lock", "thumb" -> Success to SuccessSoft
+    "location", "navigation", "scan", "bell" -> Sky to SkySoft
+    "car", "account", "profile", "face", "share" -> Indigo to IndigoSoft
+    "orders", "doc", "calendar" -> Violet to VioletSoft
+    "wallet", "card", "chart" -> Warm to WarmSoft
+    "gift", "star" -> Gold to GoldSoft
+    "thumb", "mail" -> Rose to RoseSoft
+    "lock", "shield", "phone", "check" -> Success to SuccessSoft
     "warning", "exit" -> Danger to DangerSoft
+    "settings", "tool", "info", "support", "voice" -> IconTone to SurfaceMuted
     else -> Green to Pale
 }

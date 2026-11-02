@@ -364,16 +364,26 @@ fun SheetCard(modifier: Modifier = Modifier, content: @Composable ColumnScope.()
     }
 }
 
+/** UIFC-20261102-01 button sizing shared with the passenger app: primary 52dp, others ≥48dp. */
+object DriverButtonSize {
+    val Primary = 52.dp
+    val Min = 48.dp
+    val Corner = 14.dp
+}
+
+private val PrimaryBrush = Brush.horizontalGradient(listOf(Green, GreenStrong))
+
 @Composable
 fun PrimaryButton(label: String, modifier: Modifier = Modifier, enabled: Boolean = true, onClick: () -> Unit) {
-    // The page's one primary action: solid brand teal, no shadow; disabled turns neutral and readable.
-    val shape = RoundedCornerShape(12.dp)
+    // The page's one primary action: a quiet teal sweep with a soft shadow; disabled turns neutral.
+    val shape = RoundedCornerShape(DriverButtonSize.Corner)
     Box(
         modifier
             .fillMaxWidth()
-            .heightIn(min = 48.dp)
+            .heightIn(min = DriverButtonSize.Primary)
+            .then(if (enabled) Modifier.shadow(3.dp, shape, ambientColor = Green, spotColor = Green) else Modifier)
             .clip(shape)
-            .background(if (enabled) Green else SurfaceMuted)
+            .background(if (enabled) PrimaryBrush else SolidColor(SurfaceMuted))
             .clickable(enabled = enabled, role = Role.Button, onClick = onClick)
             .padding(horizontal = 16.dp, vertical = 12.dp),
         contentAlignment = Alignment.Center,
@@ -449,15 +459,25 @@ fun SectionTitle(title: String, subtitle: String = "", action: String? = null, o
 
 @Composable
 fun DetailRow(label: String, value: String, color: Color = Ink) {
+    // Top-aligned: a long value wraps downward from the first line instead of re-centring, and a
+    // fixed gap keeps it apart from the label.
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .padding(vertical = 6.dp),
-        horizontalArrangement = Arrangement.SpaceBetween,
-        verticalAlignment = Alignment.CenterVertically
+        horizontalArrangement = Arrangement.spacedBy(16.dp),
+        verticalAlignment = Alignment.Top
     ) {
         Text(label, color = Muted, fontSize = 14.sp, lineHeight = 20.sp)
-        Text(value, color = color, fontSize = 15.sp, lineHeight = 20.sp, fontWeight = FontWeight.SemiBold)
+        Text(
+            value,
+            color = color,
+            fontSize = 15.sp,
+            lineHeight = 20.sp,
+            fontWeight = FontWeight.SemiBold,
+            textAlign = TextAlign.End,
+            modifier = Modifier.weight(1f),
+        )
     }
 }
 
@@ -466,25 +486,55 @@ fun MenuRow(icon: String, title: String, description: String = "", onClick: () -
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .heightIn(min = 48.dp)
-            .clickable(onClick = onClick)
-            .padding(vertical = 4.dp),
-        verticalAlignment = Alignment.CenterVertically
+            .heightIn(min = 52.dp)
+            .clickable(role = Role.Button, onClick = onClick)
+            .padding(vertical = 6.dp),
+        // With a description the text block starts at the top and wraps downward.
+        verticalAlignment = if (description.isEmpty()) Alignment.CenterVertically else Alignment.Top
     ) {
-        // Flat list row: a monochrome glyph, no tinted tile, so rows scan as one calm list.
-        Glyph(icon, IconTone, Modifier.size(22.dp))
+        // Each module keeps its own hue (moduleAccent) in a soft rounded tile.
+        val (tint, soft) = moduleAccent(icon)
+        Box(Modifier.size(36.dp).background(soft, RoundedCornerShape(10.dp)), contentAlignment = Alignment.Center) {
+            Glyph(icon, tint, Modifier.size(20.dp))
+        }
         Column(
             modifier = Modifier
                 .weight(1f)
                 .padding(horizontal = 12.dp)
+                .padding(top = if (description.isEmpty()) 0.dp else 1.dp),
+            verticalArrangement = Arrangement.spacedBy(2.dp),
         )
         {
             Text(title, fontSize = 15.sp, lineHeight = 20.sp, fontWeight = FontWeight.Medium, color = Ink)
             if (description.isNotEmpty()) {
-                Text(description, color = Muted, fontSize = 12.sp, lineHeight = 16.sp, modifier = Modifier.padding(top = 1.dp))
+                Text(description, color = Muted, fontSize = 12.sp, lineHeight = 17.sp)
             }
         }
-        Glyph("right", Muted, Modifier.size(16.dp))
+        Glyph("right", Muted, Modifier.size(16.dp).then(if (description.isEmpty()) Modifier else Modifier.padding(top = 2.dp)))
+    }
+}
+
+/**
+ * Cancel / exit style action: ≥48dp, red text on a faint red wash with a red edge — clearly
+ * visible and easy to hit, but lighter than the page's primary button.
+ */
+@Composable
+fun CancelActionButton(label: String, modifier: Modifier = Modifier, enabled: Boolean = true, onClick: () -> Unit) {
+    OutlinedButton(
+        onClick = onClick,
+        enabled = enabled,
+        modifier = modifier.heightIn(min = DriverButtonSize.Min),
+        shape = RoundedCornerShape(DriverButtonSize.Corner),
+        border = BorderStroke(1.dp, if (enabled) Danger.copy(alpha = 0.4f) else Line),
+        colors = ButtonDefaults.outlinedButtonColors(
+            containerColor = if (enabled) DangerSoft else Color.White,
+            contentColor = Danger,
+            disabledContentColor = DisabledText,
+        ),
+        contentPadding = PaddingValues(horizontal = 16.dp, vertical = 10.dp),
+    ) {
+        Glyph("close", if (enabled) Danger else DisabledText, Modifier.size(18.dp))
+        Text(label, fontSize = 15.sp, fontWeight = FontWeight.SemiBold, modifier = Modifier.padding(start = 6.dp))
     }
 }
 

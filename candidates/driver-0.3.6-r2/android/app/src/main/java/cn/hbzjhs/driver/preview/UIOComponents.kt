@@ -50,8 +50,10 @@ object DriverType {
     val Caption = 12.sp
 }
 
-private val MemberInk = Color(0xFF5B3A12)
-private val MemberAccent = Color(0xFFB7791F)
+// UIFC-20261102-01: member card retoned from a stand-alone gold to the app's teal family; gold is
+// kept only as a small badge accent so it reads as "membership" without clashing.
+private val MemberInk = GreenStrong
+private val MemberAccent = Gold
 
 /** Brand fill: one flat teal (RIDEC dropped the lit gradients and coloured shadows). */
 val BrandGradient: Brush = SolidColor(Green)
@@ -105,16 +107,21 @@ fun DriverTextButton(
     Button(
         onClick = onClick,
         // Dialog buttons ignore caller sizing so every popup gets the same equal-height button row.
-        modifier = if (role == DialogButtonRole.None) modifier.heightIn(min = 36.dp) else Modifier.fillMaxWidth().height(46.dp),
+        // Every variant keeps a 48dp touch height (UIFC-20261102-01).
+        modifier = if (role == DialogButtonRole.None) modifier.heightIn(min = DriverButtonSize.Min) else Modifier.fillMaxWidth().heightIn(min = DriverButtonSize.Min),
         enabled = enabled,
-        shape = RoundedCornerShape(if (role == DialogButtonRole.None) 10.dp else 12.dp),
+        shape = RoundedCornerShape(if (role == DialogButtonRole.None) 12.dp else DriverButtonSize.Corner),
         colors = ButtonDefaults.buttonColors(
-            containerColor = if (role == DialogButtonRole.Confirm) Pale else SurfaceMuted,
+            containerColor = if (role == DialogButtonRole.Dismiss) SurfaceMuted else Pale,
             contentColor = if (role == DialogButtonRole.Dismiss) Ink else GreenStrong,
             disabledContainerColor = SurfaceMuted,
             disabledContentColor = DisabledText,
         ),
-        border = if (role == DialogButtonRole.Confirm) BorderStroke(1.dp, Green.copy(alpha = 0.45f)) else null,
+        border = when (role) {
+            DialogButtonRole.Confirm -> BorderStroke(1.dp, Green.copy(alpha = 0.45f))
+            DialogButtonRole.None -> if (enabled) BorderStroke(1.dp, Green.copy(alpha = 0.18f)) else null
+            else -> null
+        },
         elevation = ButtonDefaults.buttonElevation(defaultElevation = 0.dp),
         contentPadding = if (role == DialogButtonRole.None) contentPadding else PaddingValues(horizontal = 6.dp),
     ) {
@@ -189,10 +196,7 @@ fun EmptyState(
             Modifier.fillMaxWidth().padding(vertical = Gap.L),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            // The module glyph in a plain neutral circle.
-            Box(Modifier.size(64.dp).clip(CircleShape).background(SurfaceMuted), contentAlignment = Alignment.Center) {
-                Glyph(icon, IconTone, Modifier.size(28.dp))
-            }
+            EmptyIllustration(icon)
             Text(
                 title,
                 fontSize = DriverType.Title,
@@ -210,11 +214,58 @@ fun EmptyState(
                     textAlign = TextAlign.Center,
                     modifier = Modifier.padding(top = 4.dp, start = Gap.L, end = Gap.L),
                 )
+            // The one clear next step of this empty list (only actions that really exist are passed).
             if (actionLabel != null && onAction != null)
-                DriverTextButton(onClick = onAction, modifier = Modifier.padding(top = Gap.M)) {
+                BusinessOutlinedButton(onClick = onAction, modifier = Modifier.padding(top = Gap.M).widthIn(min = 160.dp)) {
                     Text(actionLabel)
                 }
         }
+    }
+}
+
+/**
+ * Empty-state art drawn in code (no bitmaps), same composition as the passenger app: a soft
+ * module-tinted backdrop, a blank record card with placeholder lines, accent sparks and the module
+ * glyph in a white badge. Decorative only.
+ */
+@Composable
+fun EmptyIllustration(icon: String) {
+    val (tint, soft) = moduleAccent(icon)
+    Box(Modifier.size(width = 148.dp, height = 112.dp), contentAlignment = Alignment.Center) {
+        Canvas(Modifier.matchParentSize()) {
+            val w = size.width
+            val h = size.height
+            drawOval(soft, topLeft = Offset(w * 0.12f, h * 0.06f), size = Size(w * 0.76f, h * 0.84f))
+            drawOval(Color(0x140F1B2A), topLeft = Offset(w * 0.22f, h * 0.88f), size = Size(w * 0.56f, h * 0.08f))
+            drawRoundRect(tint.copy(alpha = 0.16f), topLeft = Offset(w * 0.36f, h * 0.2f), size = Size(w * 0.42f, h * 0.56f), cornerRadius = CornerRadius(h * 0.06f))
+            drawRoundRect(Color.White, topLeft = Offset(w * 0.28f, h * 0.26f), size = Size(w * 0.42f, h * 0.58f), cornerRadius = CornerRadius(h * 0.06f))
+            drawRoundRect(Line, topLeft = Offset(w * 0.28f, h * 0.26f), size = Size(w * 0.42f, h * 0.58f), cornerRadius = CornerRadius(h * 0.06f), style = androidx.compose.ui.graphics.drawscope.Stroke(width = 1.2f * density))
+            listOf(0.62f, 0.7f, 0.78f).forEachIndexed { i, y ->
+                drawRoundRect(if (i == 0) tint.copy(alpha = 0.35f) else Hairline, topLeft = Offset(w * 0.34f, h * y - h * 0.02f), size = Size(w * (if (i == 2) 0.18f else 0.3f), h * 0.04f), cornerRadius = CornerRadius(h * 0.02f))
+            }
+            drawCircle(tint.copy(alpha = 0.45f), radius = h * 0.03f, center = Offset(w * 0.18f, h * 0.3f))
+            drawCircle(Gold.copy(alpha = 0.5f), radius = h * 0.022f, center = Offset(w * 0.84f, h * 0.2f))
+            drawCircle(tint.copy(alpha = 0.3f), radius = h * 0.018f, center = Offset(w * 0.86f, h * 0.7f))
+        }
+        Box(
+            Modifier.offset(y = (-14).dp).size(44.dp).shadow(3.dp, CircleShape).background(Color.White, CircleShape).padding(4.dp).background(soft, CircleShape),
+            contentAlignment = Alignment.Center,
+        ) {
+            Glyph(icon, tint, Modifier.size(22.dp))
+        }
+    }
+}
+
+/** Short next-step hint under an empty state; only describes flows that exist. */
+@Composable
+fun EmptyHint(text: String) {
+    Row(
+        Modifier.fillMaxWidth().clip(RoundedCornerShape(10.dp)).background(BrandMist).padding(horizontal = 12.dp, vertical = 10.dp),
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
+        verticalAlignment = Alignment.Top,
+    ) {
+        Glyph("info", Green, Modifier.size(18.dp))
+        Text(text, color = Muted, fontSize = DriverType.Caption, lineHeight = 18.sp, modifier = Modifier.weight(1f))
     }
 }
 
@@ -288,21 +339,22 @@ fun MembershipIdentityCard(store: ConnectedStore, navigate: (String) -> Unit) {
         subscription?.let { mRights(it) } ?: emptyList()
     }
     val features = payload.optJSONObject("features") ?: JSONObject()
-    // Flat light-gold member card with a hairline edge: distinct, but no gradient or shadow.
+    // Brand-toned member card: soft teal wash to white with a teal hairline, gold only on the badge.
     Surface(
         modifier = Modifier.fillMaxWidth(),
-        shape = RoundedCornerShape(12.dp),
-        color = Color(0xFFFFF8EA),
-        border = BorderStroke(1.dp, Color(0xFFF1DEB8)),
+        shape = RoundedCornerShape(16.dp),
+        color = Color.White,
+        border = BorderStroke(1.dp, Green.copy(alpha = 0.22f)),
         shadowElevation = 0.dp,
     ) {
         Column(
             Modifier.fillMaxWidth()
+                .background(Brush.linearGradient(listOf(Pale, BrandMist, Color.White)))
                 .padding(Gap.L)
         ) {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Box(
-                    Modifier.size(40.dp).clip(CircleShape).background(Color.White),
+                    Modifier.size(40.dp).clip(CircleShape).background(GoldSoft),
                     contentAlignment = Alignment.Center,
                 ) {
                     Glyph("gift", MemberAccent, Modifier.size(22.dp))
@@ -360,17 +412,18 @@ fun MembershipIdentityCard(store: ConnectedStore, navigate: (String) -> Unit) {
                     onClick = {
                         navigate(if (trial?.mText("status") == "ENDED" && !active) mRoute("expiry") else mRoute())
                     },
-                    modifier = Modifier.weight(1f).heightIn(min = 44.dp),
-                    shape = RoundedCornerShape(10.dp),
-                    colors = ButtonDefaults.buttonColors(containerColor = MemberInk, contentColor = Color(0xFFFFF6E3)),
+                    modifier = Modifier.weight(1f).heightIn(min = DriverButtonSize.Min),
+                    shape = RoundedCornerShape(DriverButtonSize.Corner),
+                    colors = ButtonDefaults.buttonColors(containerColor = Green, contentColor = Color.White),
                 ) {
                     Text(if (active) "管理会员" else "查看权益", fontWeight = FontWeight.Bold)
                 }
                 OutlinedButton(
                     onClick = { navigate(mRoute("records")) },
-                    modifier = Modifier.weight(1f).heightIn(min = 44.dp),
-                    shape = RoundedCornerShape(10.dp),
+                    modifier = Modifier.weight(1f).heightIn(min = DriverButtonSize.Min),
+                    shape = RoundedCornerShape(DriverButtonSize.Corner),
                     border = BorderStroke(1.dp, MemberInk.copy(alpha = 0.4f)),
+                    colors = ButtonDefaults.outlinedButtonColors(containerColor = Color.White),
                 ) {
                     Text("开通记录", color = MemberInk)
                 }

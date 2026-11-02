@@ -57,6 +57,11 @@ class DriverLocationService : Service(), LocationListener {
     private var announcer: NativeOrderAnnouncer? = null
     private var orderOverlay: NewOrderOverlay? = null
     private val renderAlerts: () -> Unit = { updateBubble() }
+    /** Bumped per retry and when it resolves/times out, so a late callback can't act twice. */
+    private var retryToken = 0L
+    /** The next fix comes from a user retry: report it once even inside the normal throttle. */
+    private var forceReport = false
+    private val retryHandler = android.os.Handler(Looper.getMainLooper())
     /** State fetched by the app or the candidate poll also reaches the announcer: one poll, two readers. */
     private val sharedState: (LocalApi.Credentials, JSONObject) -> Unit = { _, data -> applyState(data) }
     /** Latest authoritative payload (main thread); decides this service's background cadence. */
@@ -223,6 +228,7 @@ class DriverLocationService : Service(), LocationListener {
             stopSelf()
             return
         }
+        running = true
         try {
             val providers =
                 listOf(LocationManager.GPS_PROVIDER, LocationManager.NETWORK_PROVIDER).filter {
@@ -346,6 +352,12 @@ class DriverLocationService : Service(), LocationListener {
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        // User-pressed "重新定位" on a running service: ask the system for a fresh fix only. The
+        // generation, listening/voice/floating flags, reminders and candidate state stay untouched.
+        if (intent?.action == ACTION_RETRY_LOCATION) {
+            retryLocation()
+            return START_NOT_STICKY
+        }
         serviceGeneration++
         floatingEnabled = intent?.getBooleanExtra("floatingEnabled", false) ?: false
         floatingAllowed = intent?.getBooleanExtra("floatingAllowed", false) ?: false
@@ -356,12 +368,70 @@ class DriverLocationService : Service(), LocationListener {
         return START_NOT_STICKY
     }
 
+    /**
+     * One user-requested fresh fix through the same LocationManager listeners. Only a fix newer than
+     * the request is accepted (no cached/stale coordinates replayed); it is reported once through the
+     * normal location.report path even inside the 15s throttle. Times out with an honest status.
+     */
+    private fun retryLocation() {
+        if (!::manager.isInitialized) return
+        if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            PositionBus.mutableStatus.value = "尚未授予定位权限"
+            return
+        }
+        val providers = listOf(LocationManager.GPS_PROVIDER, LocationManager.NETWORK_PROVIDER)
+            .filter { it in manager.allProviders && manager.isProviderEnabled(it) }
+        if (providers.isEmpty()) {
+            PositionBus.mutableStatus.value = "请开启系统定位服务"
+            return
+        }
+        val token = ++retryToken
+        val requestedAt = SystemClock.elapsedRealtimeNanos()
+        forceReport = false
+        PositionBus.mutableStatus.value = "正在重新定位…"
+        val accept: (Location?) -> Unit = accept@{ location ->
+            if (token != retryToken || location == null) return@accept
+            // Fresh only: a fix produced after this request (small allowance for clock granularity).
+            if (location.elapsedRealtimeNanos < requestedAt - 1_000_000_000L) return@accept
+            retryToken++
+            forceReport = true
+            onLocationChanged(location)
+        }
+        try {
+            providers.forEach { provider ->
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.R)
+                    manager.getCurrentLocation(provider, null, mainExecutor) { accept(it) }
+                else {
+                    @Suppress("DEPRECATION")
+                    manager.requestSingleUpdate(provider, object : LocationListener {
+                        override fun onLocationChanged(location: Location) = accept(location)
+                        override fun onProviderEnabled(provider: String) {}
+                        override fun onProviderDisabled(provider: String) {}
+                        @Deprecated("Deprecated in Android")
+                        override fun onStatusChanged(provider: String?, status: Int, extras: Bundle?) {}
+                    }, Looper.getMainLooper())
+                }
+            }
+        } catch (e: SecurityException) {
+            PositionBus.mutableStatus.value = "定位授权已失效"
+            return
+        }
+        retryHandler.postDelayed({
+            if (token == retryToken) {
+                retryToken++
+                PositionBus.mutableStatus.value = "暂未获取到新位置，请移至开阔处后重试"
+            }
+        }, RETRY_TIMEOUT_MS)
+    }
+
     override fun onLocationChanged(location: Location) {
         if (!location.latitude.isFinite() || !location.longitude.isFinite()) return
         PositionBus.latest.value =
             DriverPosition(location.latitude, location.longitude, location.accuracy, location.time)
         PositionBus.mutableStatus.value = "已定位 · 精度约 ${location.accuracy.toInt()} 米"
-        if (System.currentTimeMillis() - lastSent < 14500 || LocalApi.token.isBlank()) return
+        val forced = forceReport
+        forceReport = false
+        if ((!forced && System.currentTimeMillis() - lastSent < 14500) || LocalApi.token.isBlank()) return
         lastSent = System.currentTimeMillis()
         val generation = serviceGeneration
         val credentials = LocalApi.credentials()
@@ -403,7 +473,18 @@ class DriverLocationService : Service(), LocationListener {
     @Deprecated("Deprecated in Android")
     override fun onStatusChanged(provider: String?, status: Int, extras: Bundle?) {}
 
+    companion object {
+        const val ACTION_RETRY_LOCATION = "cn.hbzjhs.driver.preview.RETRY_LOCATION"
+        private const val RETRY_TIMEOUT_MS = 20_000L
+        /** True between a successful setup and onDestroy; the activity sends a retry only then. */
+        @Volatile var running = false
+            private set
+    }
+
     override fun onDestroy() {
+        running = false
+        retryToken++
+        retryHandler.removeCallbacksAndMessages(null)
         serviceGeneration++
         // Unhook first so clearing reminders below cannot re-add the bubble or overlay.
         if (NewOrderAlerts.onChanged === renderAlerts) NewOrderAlerts.onChanged = null

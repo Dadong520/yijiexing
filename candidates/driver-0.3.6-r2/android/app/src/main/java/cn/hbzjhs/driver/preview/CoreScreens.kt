@@ -31,6 +31,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
@@ -277,10 +278,17 @@ fun ConnectedHome(
     val grabVersion by GrabActions.version.collectAsState()
     // Ticks only while some round's 5s window is open, so "已截止" appears without a server poll.
     val grabTick by produceState(0, allAvailable.any { it.competition?.status == "OPEN" }) {
+        // Local redraw only (no network): keeps the 5s seconds on hall buttons current.
         while (allAvailable.any { it.competition?.status == "OPEN" }) {
-            kotlinx.coroutines.delay(500)
+            kotlinx.coroutines.delay(250)
             value++
         }
+    }
+    val positionStatus by PositionBus.status.collectAsState()
+    // Shown only while location matters (listening or on a trip) and the service reports a problem;
+    // "正在…" progress states are not problems.
+    val locationIssue = positionStatus.takeIf {
+        (state.online || active != null) && !it.startsWith("已定位") && !it.startsWith("正在")
     }
     val availableKinds = OrderKind.values().filter { kind -> allAvailable.any { it.kind == kind } }
     var kindFilter by rememberSaveable { mutableStateOf<String?>(null) }
@@ -377,6 +385,24 @@ fun ConnectedHome(
                                     }
                                     CoreTextButton(onClick = { store.refresh() }, modifier = Modifier.heightIn(min = 48.dp)) {
                                         Text("重试", fontSize = 14.sp, fontWeight = FontWeight.Bold)
+                                    }
+                                }
+                            }
+                        }
+                    // Location problem while listening or on a trip: the status plus a real retry button.
+                    if (locationIssue != null)
+                        item {
+                            SheetCard {
+                                Row(verticalAlignment = Alignment.CenterVertically) {
+                                    Box(Modifier.size(36.dp).background(WarmSoft, RoundedCornerShape(10.dp)), contentAlignment = Alignment.Center) {
+                                        Glyph("location", Warm, Modifier.size(20.dp))
+                                    }
+                                    Column(Modifier.weight(1f).padding(horizontal = 10.dp)) {
+                                        Text("定位异常", fontWeight = FontWeight.Bold, fontSize = 15.sp, color = Warm)
+                                        Text(locationIssue, color = Muted, fontSize = 12.sp, lineHeight = 16.sp)
+                                    }
+                                    BusinessOutlinedButton(onClick = { navigate("relocate") }) {
+                                        Text("重新定位", fontSize = 14.sp)
                                     }
                                 }
                             }
@@ -629,7 +655,12 @@ fun ConnectedProfile(
         item {
             SheetCard {
                 ProfileGroupTitle("出车工具与状态")
-                DetailRow("定位", positionStatus)
+                DetailRow("定位", positionStatus, if (positionStatus.startsWith("已定位")) Ink else Orange)
+                // Real retry: permission guide / system location settings / fresh fix (MainActivity).
+                BusinessOutlinedButton(onClick = { navigate("relocate") }, modifier = Modifier.fillMaxWidth().padding(bottom = 4.dp)) {
+                    Glyph("location", modifier = Modifier.size(18.dp))
+                    Text("重新定位", modifier = Modifier.padding(start = 6.dp))
+                }
                 DetailRow("语音播报", if (state.online) speechStatus else "下线中")
                 Row(
                     Modifier.fillMaxWidth().padding(top = 4.dp).background(Pale, RoundedCornerShape(8.dp)).padding(8.dp),
@@ -973,9 +1004,11 @@ fun ConnectedTrip(
                 )
                 }
                 if (order.canCancel || PassengerContactRules.eligible(order))
-                    Row(Modifier.fillMaxWidth().padding(top = 6.dp), verticalAlignment = Alignment.Top) {
+                    Row(Modifier.fillMaxWidth().padding(top = 6.dp), verticalAlignment = Alignment.Top, horizontalArrangement = Arrangement.spacedBy(Gap.S)) {
                         PassengerContactAction(order, store, Modifier.weight(1f))
-                        if (order.canCancel) DriverTextButton(onClick = onCancel) { Text("取消订单", color = Muted) }
+                        // ≥48dp outlined danger action: easy to hit, still visually below the primary.
+                        // onCancel keeps MainActivity's captured cancellation scope and click re-check.
+                        if (order.canCancel) CancelActionButton("取消订单", onClick = onCancel)
                     }
                 if (hasPendingWaypoints) {
                     Text(
@@ -1690,33 +1723,50 @@ fun ConnectedWallet(store: ConnectedStore, state: DriverState, navigate: (String
     ) {
         item { PageHeader("我的钱包", action = "提现记录", onAction = { navigate("withdrawals") }) }
         item {
-            // Balance on a white card in ink; the single teal button is the page's primary action.
-            SheetCard {
-                Row(verticalAlignment = Alignment.Bottom) {
-                    Column(Modifier.weight(1f)) {
-                        Text("可提现余额（元）· 体验账户", color = Muted, fontSize = 14.sp)
-                        Text(
-                            money(state.balance),
-                            fontSize = 28.sp,
-                            lineHeight = 34.sp,
-                            fontWeight = FontWeight.Bold,
-                            color = Ink,
-                            modifier = Modifier.padding(top = 4.dp),
-                        )
+            // Layered balance card: teal-to-deep-teal header with the balance as the hero figure and
+            // soft decorative rings, then the income figure in its own white chip. Same values only.
+            Surface(
+                modifier = Modifier.fillMaxWidth(),
+                shape = RoundedCornerShape(18.dp),
+                color = Color.White,
+                border = BorderStroke(1.dp, Hairline),
+            ) {
+                Column {
+                    Box(
+                        Modifier
+                            .fillMaxWidth()
+                            .background(Brush.linearGradient(listOf(Green, GreenStrong)))
+                            .drawBehind {
+                                drawCircle(Color.White.copy(alpha = 0.08f), radius = size.height * 0.9f, center = androidx.compose.ui.geometry.Offset(size.width * 0.95f, 0f))
+                                drawCircle(Color.White.copy(alpha = 0.06f), radius = size.height * 0.55f, center = androidx.compose.ui.geometry.Offset(size.width * 0.78f, size.height))
+                            }
+                            .padding(horizontal = 18.dp, vertical = 18.dp),
+                    ) {
+                        Column {
+                            Text("可提现余额（元）· 体验账户", color = Color.White.copy(alpha = 0.85f), fontSize = 14.sp)
+                            Text(
+                                money(state.balance),
+                                fontSize = 34.sp,
+                                lineHeight = 40.sp,
+                                fontWeight = FontWeight.Bold,
+                                color = Color.White,
+                                modifier = Modifier.padding(top = 6.dp),
+                            )
+                        }
                     }
-                    Column(horizontalAlignment = Alignment.End) {
-                        Text("累计收入", color = Muted, fontSize = 14.sp)
-                        Text(
-                            "¥ ${money(state.todayIncome)}",
-                            color = Ink,
-                            fontSize = 16.sp,
-                            fontWeight = FontWeight.Bold,
-                            modifier = Modifier.padding(top = 4.dp),
-                        )
+                    Column(Modifier.padding(16.dp)) {
+                        Row(
+                            Modifier.fillMaxWidth().background(WarmSoft, RoundedCornerShape(12.dp)).padding(horizontal = 14.dp, vertical = 10.dp),
+                            verticalAlignment = Alignment.CenterVertically,
+                        ) {
+                            Glyph("chart", Warm, Modifier.size(20.dp))
+                            Text("累计收入", color = Muted, fontSize = 14.sp, modifier = Modifier.weight(1f).padding(start = 8.dp))
+                            Text("¥ ${money(state.todayIncome)}", color = Warm, fontSize = 18.sp, fontWeight = FontWeight.Bold)
+                        }
+                        Spacer(Modifier.height(Gap.M))
+                        PrimaryButton("申请提现", Modifier.heightIn(min = 52.dp)) { navigate("withdraw") }
                     }
                 }
-                Spacer(Modifier.height(Gap.M))
-                PrimaryButton("申请提现", Modifier.heightIn(min = 52.dp)) { navigate("withdraw") }
             }
         }
         item {
@@ -1747,7 +1797,7 @@ fun ConnectedWallet(store: ConnectedStore, state: DriverState, navigate: (String
                     Box(
                         Modifier
                             .weight(1f)
-                            .heightIn(min = 40.dp)
+                            .heightIn(min = 48.dp)
                             .shadow(if (selected) 2.dp else 0.dp, RoundedCornerShape(10.dp))
                             .clip(RoundedCornerShape(10.dp))
                             .background(if (selected) Color.White else Color.Transparent)
