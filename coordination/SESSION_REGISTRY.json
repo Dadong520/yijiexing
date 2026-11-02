@@ -36,7 +36,7 @@
       "ackVersion": "2026-10-26-v3",
       "checkpointId": "UIFRER-20261102-01",
       "handoffPath": "coordination/handoffs/backend.md",
-      "workflowState": "PENDING_UIFRER",
+      "workflowState": "IDLE_UIFRER_PASS",
       "execution": "visible independent Codex thread",
       "roleGeneration": 2
     },
