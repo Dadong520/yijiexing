@@ -1,0 +1,19 @@
+{
+  "sourceSha": "d69f290ae73fe1e80f16b3595dc7bdb34d325032",
+  "role": "passenger",
+  "package": "cn.hbzjhs.dc.passenger.cloud",
+  "versionCode": 24,
+  "versionName": "1.1.22-experience",
+  "bytes": 107270521,
+  "sha256": "b812e9fe2587103867fcfd4fd2cf65d97aca7af2ef44773e22e4ce148f324be0",
+  "signerSha256": "9ffec9b342d12909ff288bd73f23ba104893b39120cb24ea83c9734a0d2b758f",
+  "within128MiBLimit": true,
+  "nativeLibraries": 8,
+  "compressedNativeLibraries": 0,
+  "privateValuesScanned": 2,
+  "privateValueHits": 0,
+  "expectedHTTPSOriginFound": true,
+  "qaMaterialAbsent": true,
+  "result": "PASS_BUILD_IDENTITY_ONLY",
+  "runtime": "NOT_RUN"
+}
