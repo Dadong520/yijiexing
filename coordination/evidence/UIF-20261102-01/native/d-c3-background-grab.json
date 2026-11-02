@@ -1,0 +1,123 @@
+{
+  "sourceSha": "6a40ee3a9eb95d3965824aa8e1348d9a0323f71d",
+  "actualOverlayClick": true,
+  "pendingBeforeAward": true,
+  "pendingCompetition": {
+    "round": 1,
+    "status": "OPEN",
+    "deadline": "2026-11-02T18:10:12.078956+08:00",
+    "serverNow": "2026-11-02T18:10:08.175627+08:00",
+    "serverTime": "2026-11-02T18:10:08.175627+08:00",
+    "selfStatus": "PENDING",
+    "remainingMs": 3904,
+    "myOutcome": "PENDING"
+  },
+  "finalStage": "PICKUP",
+  "ownerCorrect": true,
+  "frames": [
+    {
+      "afterClick": 1.0167015716433525e-05,
+      "path": "/Users/dongge/.codex/tmp/yijiexing-uif-native-20261102/screenshots/d-c3-background-grab/00.png"
+    },
+    {
+      "afterClick": 0.5520082089933567,
+      "path": "/Users/dongge/.codex/tmp/yijiexing-uif-native-20261102/screenshots/d-c3-background-grab/01.png"
+    },
+    {
+      "afterClick": 1.1016885839635506,
+      "path": "/Users/dongge/.codex/tmp/yijiexing-uif-native-20261102/screenshots/d-c3-background-grab/02.png"
+    },
+    {
+      "afterClick": 1.6591931669972837,
+      "path": "/Users/dongge/.codex/tmp/yijiexing-uif-native-20261102/screenshots/d-c3-background-grab/03.png"
+    },
+    {
+      "afterClick": 2.2124535419861786,
+      "path": "/Users/dongge/.codex/tmp/yijiexing-uif-native-20261102/screenshots/d-c3-background-grab/04.png"
+    },
+    {
+      "afterClick": 2.7654189169988967,
+      "path": "/Users/dongge/.codex/tmp/yijiexing-uif-native-20261102/screenshots/d-c3-background-grab/05.png"
+    },
+    {
+      "afterClick": 3.34526608401211,
+      "path": "/Users/dongge/.codex/tmp/yijiexing-uif-native-20261102/screenshots/d-c3-background-grab/06.png"
+    },
+    {
+      "afterClick": 3.901106291974429,
+      "path": "/Users/dongge/.codex/tmp/yijiexing-uif-native-20261102/screenshots/d-c3-background-grab/07.png"
+    },
+    {
+      "afterClick": 4.45742925000377,
+      "path": "/Users/dongge/.codex/tmp/yijiexing-uif-native-20261102/screenshots/d-c3-background-grab/08.png"
+    },
+    {
+      "afterClick": 5.021719000011217,
+      "path": "/Users/dongge/.codex/tmp/yijiexing-uif-native-20261102/screenshots/d-c3-background-grab/09.png"
+    },
+    {
+      "afterClick": 5.593186834012158,
+      "path": "/Users/dongge/.codex/tmp/yijiexing-uif-native-20261102/screenshots/d-c3-background-grab/10.png"
+    },
+    {
+      "afterClick": 6.166008416970726,
+      "path": "/Users/dongge/.codex/tmp/yijiexing-uif-native-20261102/screenshots/d-c3-background-grab/11.png"
+    },
+    {
+      "afterClick": 6.720849709003232,
+      "path": "/Users/dongge/.codex/tmp/yijiexing-uif-native-20261102/screenshots/d-c3-background-grab/12.png"
+    },
+    {
+      "afterClick": 7.2825052089756355,
+      "path": "/Users/dongge/.codex/tmp/yijiexing-uif-native-20261102/screenshots/d-c3-background-grab/13.png"
+    },
+    {
+      "afterClick": 7.827863583981525,
+      "path": "/Users/dongge/.codex/tmp/yijiexing-uif-native-20261102/screenshots/d-c3-background-grab/14.png"
+    },
+    {
+      "afterClick": 8.382247374975123,
+      "path": "/Users/dongge/.codex/tmp/yijiexing-uif-native-20261102/screenshots/d-c3-background-grab/15.png"
+    },
+    {
+      "afterClick": 8.94416449998971,
+      "path": "/Users/dongge/.codex/tmp/yijiexing-uif-native-20261102/screenshots/d-c3-background-grab/16.png"
+    },
+    {
+      "afterClick": 9.52055662497878,
+      "path": "/Users/dongge/.codex/tmp/yijiexing-uif-native-20261102/screenshots/d-c3-background-grab/17.png"
+    },
+    {
+      "afterClick": 10.192158458987251,
+      "path": "/Users/dongge/.codex/tmp/yijiexing-uif-native-20261102/screenshots/d-c3-background-grab/18.png"
+    },
+    {
+      "afterClick": 10.757621124968864,
+      "path": "/Users/dongge/.codex/tmp/yijiexing-uif-native-20261102/screenshots/d-c3-background-grab/19.png"
+    },
+    {
+      "afterClick": 11.328428375010844,
+      "path": "/Users/dongge/.codex/tmp/yijiexing-uif-native-20261102/screenshots/d-c3-background-grab/20.png"
+    },
+    {
+      "afterClick": 11.887124124972615,
+      "path": "/Users/dongge/.codex/tmp/yijiexing-uif-native-20261102/screenshots/d-c3-background-grab/21.png"
+    },
+    {
+      "afterClick": 12.454882958962116,
+      "path": "/Users/dongge/.codex/tmp/yijiexing-uif-native-20261102/screenshots/d-c3-background-grab/22.png"
+    },
+    {
+      "afterClick": 13.03168137499597,
+      "path": "/Users/dongge/.codex/tmp/yijiexing-uif-native-20261102/screenshots/d-c3-background-grab/23.png"
+    },
+    {
+      "afterClick": 13.576603499997873,
+      "path": "/Users/dongge/.codex/tmp/yijiexing-uif-native-20261102/screenshots/d-c3-background-grab/24.png"
+    },
+    {
+      "afterClick": 14.146629541995935,
+      "path": "/Users/dongge/.codex/tmp/yijiexing-uif-native-20261102/screenshots/d-c3-background-grab/25.png"
+    }
+  ]
+}

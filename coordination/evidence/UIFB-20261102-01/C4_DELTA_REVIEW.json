@@ -1,0 +1,37 @@
+{
+  "reviewedSha": "ee38a2e101c6297b5093eb2e180db0f9a38dc54d",
+  "fromSha": "6a40ee3a9eb95d3965824aa8e1348d9a0323f71d",
+  "verdict": "PASS",
+  "p1Count": 0,
+  "p2Count": 0,
+  "scope": "onefile immutable C4 source delta only, C3 resource cleanup PASS retained",
+  "sourceChecks": {
+    "onefile_delta": true,
+    "strict_fresh_sample": true,
+    "cached_sample_ignored_without_finishing": true,
+    "continuous_request_all_API": true,
+    "listener_held_before_registration": true,
+    "fresh_closes_all_then_reports_captured": true,
+    "ownership_and_session_fences": true,
+    "idempotent_resource_cleanup": true,
+    "lifecycle_cancels_unchanged": true,
+    "provider_error_fallback_and_all_empty": true,
+    "normal_fix_reporting_tail_unchanged": true,
+    "normal_15sec_setup_unchanged": true
+  },
+  "traces": [
+    "cached t<request: ignored; provider listener stays registered until fresh/timeout",
+    "fresh t>=request: finish closes all retry listeners/timeout then one forced captured report",
+    "second provider late after success: active identity rejects",
+    "new retry/normalstart/destroy: cancelRetry closes previous resources",
+    "one provider IllegalArgument: discard unregistered handle and keep other provider",
+    "all providers IllegalArgument: empty set finishes with failure, no timer left",
+    "SecurityException after partial registration: finish closes all saved listeners",
+    "account/generation mismatch: finish own active request without handleFix/report",
+    "no fresh until20s: timeout finishes/unregisters, no indefinite retry updates"
+  ],
+  "file": "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/DriverLocationService.kt",
+  "sha256": "8a11ac007651bdb0c7c34ec773e2ea787ccd9be3d63c9cad09d26dfab84d9a9a",
+  "runtime": "NOT_RUN; root build/native responsibility",
+  "at": "2026-11-02T18:23:33+08:00"
+}

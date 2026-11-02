@@ -1,0 +1,139 @@
+{
+  "sourceSha": "6cd71cc6eab1be65f9f65c129b53ae88502cdb4d",
+  "case": "d-foreground-reminder",
+  "frames": [
+    {
+      "at": 1.9579892978072166e-06,
+      "path": "/Users/dongge/.codex/tmp/yijiexing-uif-native-20261102/screenshots/d-foreground-reminder/00.png"
+    },
+    {
+      "at": 0.23964599997270852,
+      "path": "/Users/dongge/.codex/tmp/yijiexing-uif-native-20261102/screenshots/d-foreground-reminder/01.png"
+    },
+    {
+      "at": 0.48850391601445153,
+      "path": "/Users/dongge/.codex/tmp/yijiexing-uif-native-20261102/screenshots/d-foreground-reminder/02.png"
+    },
+    {
+      "at": 0.7221942499745637,
+      "path": "/Users/dongge/.codex/tmp/yijiexing-uif-native-20261102/screenshots/d-foreground-reminder/03.png"
+    },
+    {
+      "at": 1.1310847499989904,
+      "path": "/Users/dongge/.codex/tmp/yijiexing-uif-native-20261102/screenshots/d-foreground-reminder/04.png"
+    },
+    {
+      "at": 1.4003565830062144,
+      "path": "/Users/dongge/.codex/tmp/yijiexing-uif-native-20261102/screenshots/d-foreground-reminder/05.png"
+    },
+    {
+      "at": 1.6725511659751646,
+      "path": "/Users/dongge/.codex/tmp/yijiexing-uif-native-20261102/screenshots/d-foreground-reminder/06.png"
+    },
+    {
+      "at": 1.918462332978379,
+      "path": "/Users/dongge/.codex/tmp/yijiexing-uif-native-20261102/screenshots/d-foreground-reminder/07.png"
+    },
+    {
+      "at": 2.19242066598963,
+      "path": "/Users/dongge/.codex/tmp/yijiexing-uif-native-20261102/screenshots/d-foreground-reminder/08.png"
+    },
+    {
+      "at": 2.45429345802404,
+      "path": "/Users/dongge/.codex/tmp/yijiexing-uif-native-20261102/screenshots/d-foreground-reminder/09.png"
+    },
+    {
+      "at": 2.714303500019014,
+      "path": "/Users/dongge/.codex/tmp/yijiexing-uif-native-20261102/screenshots/d-foreground-reminder/10.png"
+    },
+    {
+      "at": 2.9665656249853782,
+      "path": "/Users/dongge/.codex/tmp/yijiexing-uif-native-20261102/screenshots/d-foreground-reminder/11.png"
+    },
+    {
+      "at": 3.21455924998736,
+      "path": "/Users/dongge/.codex/tmp/yijiexing-uif-native-20261102/screenshots/d-foreground-reminder/12.png"
+    },
+    {
+      "at": 3.4547091660206206,
+      "path": "/Users/dongge/.codex/tmp/yijiexing-uif-native-20261102/screenshots/d-foreground-reminder/13.png"
+    },
+    {
+      "at": 3.721887457999401,
+      "path": "/Users/dongge/.codex/tmp/yijiexing-uif-native-20261102/screenshots/d-foreground-reminder/14.png"
+    },
+    {
+      "at": 3.9558628749800846,
+      "path": "/Users/dongge/.codex/tmp/yijiexing-uif-native-20261102/screenshots/d-foreground-reminder/15.png"
+    },
+    {
+      "at": 4.199227166012861,
+      "path": "/Users/dongge/.codex/tmp/yijiexing-uif-native-20261102/screenshots/d-foreground-reminder/16.png"
+    },
+    {
+      "at": 4.4460813329787925,
+      "path": "/Users/dongge/.codex/tmp/yijiexing-uif-native-20261102/screenshots/d-foreground-reminder/17.png"
+    },
+    {
+      "at": 4.683973499981221,
+      "path": "/Users/dongge/.codex/tmp/yijiexing-uif-native-20261102/screenshots/d-foreground-reminder/18.png"
+    },
+    {
+      "at": 4.918812500021886,
+      "path": "/Users/dongge/.codex/tmp/yijiexing-uif-native-20261102/screenshots/d-foreground-reminder/19.png"
+    },
+    {
+      "at": 5.168490374984685,
+      "path": "/Users/dongge/.codex/tmp/yijiexing-uif-native-20261102/screenshots/d-foreground-reminder/20.png"
+    },
+    {
+      "at": 5.418702040973585,
+      "path": "/Users/dongge/.codex/tmp/yijiexing-uif-native-20261102/screenshots/d-foreground-reminder/21.png"
+    },
+    {
+      "at": 5.668475500016939,
+      "path": "/Users/dongge/.codex/tmp/yijiexing-uif-native-20261102/screenshots/d-foreground-reminder/22.png"
+    },
+    {
+      "at": 5.909100125019904,
+      "path": "/Users/dongge/.codex/tmp/yijiexing-uif-native-20261102/screenshots/d-foreground-reminder/23.png"
+    },
+    {
+      "at": 6.154860290989745,
+      "path": "/Users/dongge/.codex/tmp/yijiexing-uif-native-20261102/screenshots/d-foreground-reminder/24.png"
+    },
+    {
+      "at": 6.39790516596986,
+      "path": "/Users/dongge/.codex/tmp/yijiexing-uif-native-20261102/screenshots/d-foreground-reminder/25.png"
+    },
+    {
+      "at": 6.6459712910000235,
+      "path": "/Users/dongge/.codex/tmp/yijiexing-uif-native-20261102/screenshots/d-foreground-reminder/26.png"
+    },
+    {
+      "at": 6.897691999969538,
+      "path": "/Users/dongge/.codex/tmp/yijiexing-uif-native-20261102/screenshots/d-foreground-reminder/27.png"
+    }
+  ],
+  "background": false,
+  "finalStage": "AVAILABLE",
+  "visualDetection": {
+    "method": "popup dims observed blank background pixel10,100; inspect shownframes separately",
+    "visibleIndices": [
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13
+    ],
+    "firstAt": 0.7221942499745637,
+    "lastAt": 3.4547091660206206,
+    "nextHiddenAt": 3.721887457999401
+  }
+}

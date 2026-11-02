@@ -1,0 +1,84 @@
+{
+  "schemaVersion": 1,
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-ui-feedback-20261102",
+  "branch": "codex/ui-feedback-20261102",
+  "baseSha": "874aad43e742e7719519758df36724f540b3a038",
+  "deploy_owner": "coordinator",
+  "acceptance": "PASS",
+  "tests": [
+    {
+      "command": "driver exactC4 gradlew testDebugUnitTest assembleDebug offline JDK17 + QA assembleDebug (127 tests)",
+      "status": "PASS",
+      "exitCode": 0,
+      "sourceSha": "ee38a2e101c6297b5093eb2e180db0f9a38dc54d"
+    },
+    {
+      "command": "passenger gradlew testDebugUnitTest assembleDebug + QA at d69f290; wholeproducttree33e93af equals C4 (69 tests)",
+      "status": "PASS",
+      "exitCode": 0,
+      "sourceSha": "ee38a2e101c6297b5093eb2e180db0f9a38dc54d"
+    },
+    {
+      "command": "python3 -m unittest discover -s tools -p test_check_coordination.py -v (27)",
+      "status": "PASS",
+      "exitCode": 0,
+      "sourceSha": "ee38a2e101c6297b5093eb2e180db0f9a38dc54d"
+    },
+    {
+      "command": "miniprogram npm test (74) && npm run check",
+      "status": "PASS",
+      "exitCode": 0,
+      "sourceSha": "ee38a2e101c6297b5093eb2e180db0f9a38dc54d"
+    },
+    {
+      "command": "root isolated native P01-P05 D01-D07 evidence FINAL_REVIEW with source/reuse limits",
+      "status": "PASS",
+      "exitCode": 0,
+      "sourceSha": "ee38a2e101c6297b5093eb2e180db0f9a38dc54d"
+    },
+    {
+      "command": "backend C4_DELTA_REVIEW 12static/9traces PASS; priorC2/C3 review retained",
+      "status": "PASS",
+      "exitCode": 0,
+      "sourceSha": "ee38a2e101c6297b5093eb2e180db0f9a38dc54d"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "coordination/evidence/UIF-20261102-01/build/FINAL-BUILD-PROOF.json",
+      "sha256": "89a8c8acd03b4760c5d7aea23070ad8611e43b232967cb257b3b2d0a8928e63c"
+    },
+    {
+      "path": "coordination/evidence/UIF-20261102-01/native/FINAL_REVIEW.json",
+      "sha256": "af6984c9f060fb22ecbacb9efb4251d93d5b47dedf6e0c5fe542328835b8b2c8"
+    },
+    {
+      "path": "coordination/evidence/UIFB-20261102-01/C4_DELTA_REVIEW.json",
+      "sha256": "c41b42b264ef415c93ba176c289a24ea7b3d1f4279dc75be890cf7987e69370a"
+    }
+  ],
+  "candidateSha": "ee38a2e101c6297b5093eb2e180db0f9a38dc54d",
+  "releaseReady": true,
+  "publicationComplete": false,
+  "updatedAt": "2026-11-02T10:30:58.136088+00:00",
+  "id": "UIF-20261102-01",
+  "owner": "coordinator",
+  "goal": "Implement11.02UIfeedback through Claude; independent tests/review and publish two Android experiences",
+  "allow_paths": [
+    "coordination/",
+    "README.md",
+    "apps/passenger-android/app/build.gradle.kts",
+    "candidates/driver-0.3.6-r2/android/app/build.gradle.kts"
+  ],
+  "checks": [
+    "Two app original/QA builds and applicable unit tests",
+    "3s actual reminder and server-anchored5s countdown; no extension or new polling; scope/round cancellation fences",
+    "Actual location retry permission/settings/data path",
+    "Native screen/gesture/touch/largefont/empty-state coverage; isolated emulator only",
+    "Independent exact candidate review then exact CI merge, generation guarded two-APK publication and full public readback"
+  ],
+  "status": "ACCEPTED_PENDING_CI_MERGE_RELEASE",
+  "nextAction": "Exact productPR CI/merge, generation guarded twoAPK publish and fullpublic readback",
+  "acceptedSha": "ee38a2e101c6297b5093eb2e180db0f9a38dc54d",
+  "reviewer": "backend"
+}

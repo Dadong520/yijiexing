@@ -1,0 +1,27 @@
+{
+  "sourceSha": "ee38a2e101c6297b5093eb2e180db0f9a38dc54d",
+  "case": "Actual repeat UI relocation requests report freshfix inside normal14.5second throttle",
+  "normalFixA": {
+    "lat": 30.680098333333333,
+    "at": "2026-11-02T18:27:00+08:00"
+  },
+  "freshFixB": {
+    "lat": 30.680198333333333,
+    "at": "2026-11-02T18:27:01+08:00"
+  },
+  "elapsedAtoB": 0.8755799580249004,
+  "repeatClicks": 2,
+  "observation": [
+    {
+      "elapsedSinceA": 0.5177688329713419,
+      "latitude": 30.680098333333333,
+      "receivedAt": "2026-11-02T18:27:00+08:00"
+    },
+    {
+      "elapsedSinceA": 0.8755764170200564,
+      "latitude": 30.680198333333333,
+      "receivedAt": "2026-11-02T18:27:01+08:00"
+    }
+  ],
+  "result": "PASS"
+}

@@ -1,0 +1,97 @@
+{
+  "task": "UIF-20261102-01",
+  "status": "PRODUCT_ACCEPTANCE_PASS_RELEASE_PENDING",
+  "cases": [
+    {
+      "id": "P01",
+      "scenario": "Passenger shared buttons/tabs multicolor profile,48dp touch/1.3font",
+      "status": "PASS",
+      "evidenceSummary": "Native profile/tabs/buttons at1.0 and1.3 font; target48dp; contact icons source reviewed"
+    },
+    {
+      "id": "P02",
+      "scenario": "Application records aligned readable labels/values",
+      "status": "PASS",
+      "evidenceSummary": "Real synthetic receipt application, expanded long companytitle at1.3font; edge-aligned labels/values"
+    },
+    {
+      "id": "P03",
+      "scenario": "Existing empty coupons,receipts,points,invites,feedback,blocked",
+      "status": "PASS",
+      "evidenceSummary": "Native empty coupons,receipts,points,invite,feedback,blocked viewed"
+    },
+    {
+      "id": "P04",
+      "scenario": "Home panel drag all3anchors; fullscreen restore touch; nested scroll",
+      "status": "PASS",
+      "evidenceSummary": "Native home drag half/fullmap/expanded and restore;1.3font restore"
+    },
+    {
+      "id": "P05",
+      "scenario": "Orderdetail panel drag/restore and pinned cancellation/payment actions",
+      "status": "PASS",
+      "evidenceSummary": "Native detail3anchors, cancel dialog, pinned pay, synthetic paymentDONE"
+    },
+    {
+      "id": "D01",
+      "scenario": "Driver shared buttons/menuicons/membership/wallet/longrows",
+      "status": "PASS",
+      "evidenceSummary": "Native membership/profile multicolor icons/wallet;1.3font multiline labels top aligned"
+    },
+    {
+      "id": "D02",
+      "scenario": "Foreground3second reminder accurate remaining and lifetime",
+      "status": "PASS",
+      "evidenceSummary": "C2 foreground actual3/2/1frames,visible2.73s pluscaptureuncertainty,nextframehidden; reminder code identical C4"
+    },
+    {
+      "id": "D03",
+      "scenario": "Background overlay3second reminder remaining and directjoin",
+      "status": "PASS",
+      "evidenceSummary": "C3 background round2 sameorder reminder; actual native background directjoin PENDING thenPICKUP"
+    },
+    {
+      "id": "D04",
+      "scenario": "5second servercompetition countdown decreases,endswaiting; BID excluded",
+      "status": "PASS",
+      "evidenceSummary": "C3 actual native firstfar joins, nearer APIpeer joins, fixed5sec countdown/nearest wins; BID largefont has3sec reminder and no5seccompetition"
+    },
+    {
+      "id": "D05",
+      "scenario": "Withdraw/cancel larger hit-target retains account/round/stage capturedguards",
+      "status": "PASS",
+      "evidenceSummary": "Native1.3font cancel49dp, reason+confirmation, preboarding returnsAVAILABLE; independent capturedscope/round/stage review"
+    },
+    {
+      "id": "D06",
+      "scenario": "Location denied/off settings recovery and realnewfix/report",
+      "status": "PASS",
+      "evidenceSummary": "C4 repeat realUIretry force-reports freshposition0.8756s afterA inside15sec throttle; success cleanup onlynormal15sec listeners. Locationoff opensSettings. Permissiondenied path source-reviewed only"
+    },
+    {
+      "id": "D07",
+      "scenario": "Driver existing empty lists/placeholders",
+      "status": "PASS",
+      "evidenceSummary": "Native driverorders/blacklist/wallet empty artwork; existing BusinessEmpty delegates samecomponent forothermodules; modulevalues remain synthetic"
+    },
+    {
+      "id": "R01",
+      "scenario": "Original package signer/origin/QAexclusion/128MiB",
+      "status": "PASS",
+      "evidenceSummary": "Both originalsigner/pkg/origin/QAabsence/privatevalueabsence and128MiB checks"
+    },
+    {
+      "id": "R02",
+      "scenario": "Twoapp build/tests and independent exactSHA review",
+      "status": "PASS",
+      "evidenceSummary": "Passenger69 exactproducttree reuse,driver127 exactC4; original/QA builds; tools27/mini74/check; backendC4diffPASS"
+    },
+    {
+      "id": "R03",
+      "scenario": "ExactCImerge and generationguardedpublish/fullpublicreadback",
+      "status": "NOT_RUN",
+      "evidenceSummary": "Pending exactCImerge/twoAPKpromotion/publicfullreadback"
+    }
+  ],
+  "sourceSha": "ee38a2e101c6297b5093eb2e180db0f9a38dc54d"
+}

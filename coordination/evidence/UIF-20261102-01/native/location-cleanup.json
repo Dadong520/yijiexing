@@ -1,0 +1,11 @@
+{
+  "sourceSha": "ee38a2e101c6297b5093eb2e180db0f9a38dc54d",
+  "activeDriverRequestsAfterRepeatRetrySuccess": [
+    "service: ProviderRequest[@+15s0ms, WorkSource{10193 cn.hbzjhs.dc.driver.cloud}]",
+    "10193/cn.hbzjhs.dc.driver.cloud/3527B1FD Request[@+15s0ms BALANCED, WorkSource{10193 cn.hbzjhs.dc.driver.cloud}]",
+    "service: ProviderRequest[@+15s0ms, HIGH_ACCURACY, WorkSource{10193 cn.hbzjhs.dc.driver.cloud}]",
+    "10193/cn.hbzjhs.dc.driver.cloud/3527B1FD Request[@+15s0ms HIGH_ACCURACY, WorkSource{10193 cn.hbzjhs.dc.driver.cloud}]"
+  ],
+  "onlyNormal15SecondRequestsRemain": true,
+  "result": "PASS"
+}
