@@ -57,10 +57,7 @@ class DriverLocationService : Service(), LocationListener {
     private var announcer: NativeOrderAnnouncer? = null
     private var orderOverlay: NewOrderOverlay? = null
     private val renderAlerts: () -> Unit = { updateBubble() }
-    /** Bumped per retry and when it resolves/times out, so a late callback can't act twice. */
-    private var retryToken = 0L
-    /** The next fix comes from a user retry: report it once even inside the normal throttle. */
-    private var forceReport = false
+    /** Main-thread handler for the retry timeout only (see RetryRequest). */
     private val retryHandler = android.os.Handler(Looper.getMainLooper())
     /** State fetched by the app or the candidate poll also reaches the announcer: one poll, two readers. */
     private val sharedState: (LocalApi.Credentials, JSONObject) -> Unit = { _, data -> applyState(data) }
@@ -358,6 +355,8 @@ class DriverLocationService : Service(), LocationListener {
             retryLocation()
             return START_NOT_STICKY
         }
+        // A normal start command opens a new service session: a retry made for the old one ends.
+        cancelRetry()
         serviceGeneration++
         floatingEnabled = intent?.getBooleanExtra("floatingEnabled", false) ?: false
         floatingAllowed = intent?.getBooleanExtra("floatingAllowed", false) ?: false
@@ -369,11 +368,64 @@ class DriverLocationService : Service(), LocationListener {
     }
 
     /**
-     * One user-requested fresh fix through the same LocationManager listeners. Only a fix newer than
-     * the request is accepted (no cached/stale coordinates replayed); it is reported once through the
-     * normal location.report path even inside the 15s throttle. Times out with an honest status.
+     * One user "重新定位" request and every system resource it holds: the retry-only listeners
+     * (Android 8–10 requestSingleUpdate), the CancellationSignals (Android 11+ getCurrentLocation)
+     * and its timeout. It captures the service generation and credentials it was made for. Main
+     * thread only. [close] is idempotent and releases everything; it never touches the normal 15s
+     * listener (`this`) or any other request.
+     */
+    private inner class RetryRequest(
+        val generation: Long,
+        val credentials: LocalApi.Credentials,
+        val requestedAtNanos: Long,
+    ) {
+        val listeners = mutableListOf<LocationListener>()
+        val signals = mutableListOf<android.os.CancellationSignal>()
+        var pending = 0
+        var closed = false
+            private set
+        val timeout = Runnable { finishRetry(this, "暂未获取到新位置，请移至开阔处后重试") }
+
+        fun close() {
+            if (closed) return
+            closed = true
+            retryHandler.removeCallbacks(timeout)
+            signals.forEach { runCatching { it.cancel() } }
+            signals.clear()
+            if (::manager.isInitialized) listeners.forEach { runCatching { manager.removeUpdates(it) } }
+            listeners.clear()
+        }
+    }
+
+    /** The only live retry; replaced (old one closed first) by a new request. */
+    private var activeRetry: RetryRequest? = null
+
+    /** Lifecycle cancel (new retry, normal restart command, destroy): releases the live retry, if any. */
+    private fun cancelRetry() {
+        activeRetry?.close()
+        activeRetry = null
+    }
+
+    /**
+     * Ends [request] only if it is still the live one, so a late callback of an old request can
+     * neither clean up nor overwrite the status of a newer one. [status] null = keep the status
+     * already set by the caller (e.g. the accepted fix).
+     */
+    private fun finishRetry(request: RetryRequest, status: String?) {
+        if (activeRetry !== request) return
+        cancelRetry()
+        status?.let { PositionBus.mutableStatus.value = it }
+    }
+
+    /**
+     * One user-requested fresh fix through LocationManager. Only a fix newer than the request is
+     * accepted (no cached/stale coordinates replayed); it is reported once through the normal
+     * location.report path with the request's own credentials, even inside the 15s throttle. Every
+     * end (fix, all providers empty, timeout, permission loss, new request, restart, destroy)
+     * releases the retry-only system requests.
      */
     private fun retryLocation() {
+        cancelRetry()
         if (!::manager.isInitialized) return
         if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             PositionBus.mutableStatus.value = "尚未授予定位权限"
@@ -385,56 +437,82 @@ class DriverLocationService : Service(), LocationListener {
             PositionBus.mutableStatus.value = "请开启系统定位服务"
             return
         }
-        val token = ++retryToken
-        val requestedAt = SystemClock.elapsedRealtimeNanos()
-        forceReport = false
+        val credentials = LocalApi.credentials()
+        if (credentials.token.isBlank()) {
+            PositionBus.mutableStatus.value = "请先登录后再重新定位"
+            return
+        }
+        val request = RetryRequest(serviceGeneration, credentials, SystemClock.elapsedRealtimeNanos())
+        activeRetry = request
         PositionBus.mutableStatus.value = "正在重新定位…"
-        val accept: (Location?) -> Unit = accept@{ location ->
-            if (token != retryToken || location == null) return@accept
+        // One provider answered (fix, stale fix or null). Late answers of a closed/replaced request
+        // are ignored entirely.
+        val answer: (Location?) -> Unit = answer@{ location ->
+            if (activeRetry !== request || request.closed) return@answer
+            if (request.generation != serviceGeneration || !LocalApi.isCurrent(request.credentials)) {
+                // Session or account changed under it: drop the fix, release the request, no report.
+                finishRetry(request, null)
+                return@answer
+            }
+            request.pending--
             // Fresh only: a fix produced after this request (small allowance for clock granularity).
-            if (location.elapsedRealtimeNanos < requestedAt - 1_000_000_000L) return@accept
-            retryToken++
-            forceReport = true
-            onLocationChanged(location)
+            val fresh = location != null && location.latitude.isFinite() && location.longitude.isFinite() &&
+                location.elapsedRealtimeNanos >= request.requestedAtNanos - 1_000_000_000L
+            if (fresh) {
+                finishRetry(request, null)
+                handleFix(location!!, forceReport = true, generation = request.generation, credentials = request.credentials)
+            } else if (request.pending <= 0)
+                finishRetry(request, "暂未获取到新位置，请移至开阔处后重试")
         }
         try {
             providers.forEach { provider ->
-                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.R)
-                    manager.getCurrentLocation(provider, null, mainExecutor) { accept(it) }
-                else {
-                    @Suppress("DEPRECATION")
-                    manager.requestSingleUpdate(provider, object : LocationListener {
-                        override fun onLocationChanged(location: Location) = accept(location)
+                if (activeRetry !== request) return@forEach
+                request.pending++
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.R) {
+                    val signal = android.os.CancellationSignal()
+                    request.signals += signal
+                    manager.getCurrentLocation(provider, signal, mainExecutor) { answer(it) }
+                } else {
+                    val listener = object : LocationListener {
+                        override fun onLocationChanged(location: Location) = answer(location)
                         override fun onProviderEnabled(provider: String) {}
                         override fun onProviderDisabled(provider: String) {}
                         @Deprecated("Deprecated in Android")
                         override fun onStatusChanged(provider: String?, status: Int, extras: Bundle?) {}
-                    }, Looper.getMainLooper())
+                    }
+                    // Held before registering so close() can always remove it.
+                    request.listeners += listener
+                    @Suppress("DEPRECATION")
+                    manager.requestSingleUpdate(provider, listener, Looper.getMainLooper())
                 }
             }
         } catch (e: SecurityException) {
-            PositionBus.mutableStatus.value = "定位授权已失效"
+            // Releases whatever was already registered; reported as a failure, never as success.
+            finishRetry(request, "定位授权已失效")
+            return
+        } catch (e: IllegalArgumentException) {
+            finishRetry(request, "定位服务暂不可用，请稍后重试")
             return
         }
-        retryHandler.postDelayed({
-            if (token == retryToken) {
-                retryToken++
-                PositionBus.mutableStatus.value = "暂未获取到新位置，请移至开阔处后重试"
-            }
-        }, RETRY_TIMEOUT_MS)
+        if (activeRetry === request) retryHandler.postDelayed(request.timeout, RETRY_TIMEOUT_MS)
     }
 
     override fun onLocationChanged(location: Location) {
+        handleFix(location, forceReport = false, generation = serviceGeneration, credentials = LocalApi.credentials())
+    }
+
+    /**
+     * Shared fix path of the normal listener and a retry. [forceReport] (retry only) skips the 15s
+     * throttle once; the report always uses the [credentials]/[generation] the fix was taken for.
+     */
+    private fun handleFix(location: Location, forceReport: Boolean, generation: Long, credentials: LocalApi.Credentials) {
         if (!location.latitude.isFinite() || !location.longitude.isFinite()) return
         PositionBus.latest.value =
             DriverPosition(location.latitude, location.longitude, location.accuracy, location.time)
         PositionBus.mutableStatus.value = "已定位 · 精度约 ${location.accuracy.toInt()} 米"
-        val forced = forceReport
-        forceReport = false
-        if ((!forced && System.currentTimeMillis() - lastSent < 14500) || LocalApi.token.isBlank()) return
+        if ((!forceReport && System.currentTimeMillis() - lastSent < 14500) || credentials.token.isBlank()) return
+        if (generation != serviceGeneration || !LocalApi.isCurrent(credentials)) return
         lastSent = System.currentTimeMillis()
-        val generation = serviceGeneration
-        val credentials = LocalApi.credentials()
         scope.launch {
             try {
                 LocalApi.request(
@@ -483,7 +561,8 @@ class DriverLocationService : Service(), LocationListener {
 
     override fun onDestroy() {
         running = false
-        retryToken++
+        // Releases retry-only listeners/signals/timeout; the normal listener is removed below.
+        cancelRetry()
         retryHandler.removeCallbacksAndMessages(null)
         serviceGeneration++
         // Unhook first so clearing reminders below cannot re-add the bubble or overlay.
