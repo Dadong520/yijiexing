@@ -101,6 +101,7 @@ fun normalizeAmapPoint(context: Context, rawLatitude: Double, rawLongitude: Doub
 }
 
 @Composable
+@OptIn(ExperimentalLayoutApi::class)
 fun AmapCanvas(
     points: List<AmapPlacePoint>,
     modifier: Modifier = Modifier,
@@ -113,11 +114,15 @@ fun AmapCanvas(
     LaunchedEffect(context) { AmapRuntime.loadConsent(context) }
     if (!consent) {
         Surface(modifier) {
+            // Sized by the map slot, so the text scrolls inside it and wraps freely; the two actions share
+            // one wrapping row to keep the closing note in view on short map slots.
             Column(Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
                 Text("启用地图服务", style = MaterialTheme.typography.titleMedium)
                 Text("高德地图由北京高德图强科技有限公司提供。启用后将处理设备信息、IP地址、搜索词和地图操作位置，用于地图展示与地点搜索。")
-                PassengerTextButton(onClick = { context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://lbs.amap.com/pages/privacy/"))) }) { Text("阅读高德隐私政策") }
-                Button(onClick = { AmapRuntime.agree(context) }) { Text("同意并启用地图") }
+                FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                    Button(onClick = { AmapRuntime.agree(context) }, modifier = Modifier.heightIn(min = 48.dp)) { Text("同意并启用地图") }
+                    PassengerTextButton(onClick = { context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://lbs.amap.com/pages/privacy/"))) }) { Text("阅读高德隐私政策") }
+                }
                 Text("您可继续使用其他功能，稍后再启用地图。", style = MaterialTheme.typography.bodySmall)
             }
         }

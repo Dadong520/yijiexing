@@ -37,6 +37,7 @@ fun ProfileScreen(
   state: JSONObject,
   store: PassengerStore,
   settings: () -> Unit,
+  permissions: () -> Unit = {},
   navigate: (String) -> Unit,
 ) {
   val busy by store.busy.collectAsState()
@@ -126,6 +127,8 @@ fun ProfileScreen(
       MenuRow("公告、客服与服务说明", Icons.Default.Notifications) { navigate("help") }
     }
     Panel("应用与连接") {
+      MenuRow("定位权限", Icons.Default.LocationOn, "查看授权与定位状态，开启系统定位") { permissions() }
+      HorizontalDivider(color = DividerTone, thickness = 0.8.dp)
       MenuRow("连接状态", Icons.Default.Settings, "网络异常时重试") { settings() }
       Note("体验版 ${BuildConfig.VERSION_NAME} · 与司机端共用订单；支付、退款与发票均为模拟，不产生真实资金或凭证。")
       Note("定位需设备授权；地点搜索与逆地理依赖可用服务，导航通过外部地图应用打开。短信、电话中继及实时人工客服尚未接入；投诉支持后台查看和回复。")

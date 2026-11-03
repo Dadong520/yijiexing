@@ -1,0 +1,12 @@
+[
+  {
+    "role": "passenger",
+    "samePackageUpgrade": "PASS",
+    "versionCode": 25
+  },
+  {
+    "role": "driver",
+    "samePackageUpgrade": "PASS",
+    "versionCode": 27
+  }
+]

@@ -22,7 +22,7 @@
         <service android:name="com.amap.api.location.APSService" android:exported="false"/>
         <!-- In-process target of the new-order notification's explicit "立即抢单" action only. -->
         <receiver android:name=".GrabActionReceiver" android:exported="false"/>
-        <activity android:name=".MainActivity" android:exported="true" android:windowSoftInputMode="adjustResize">
+        <activity android:name=".MainActivity" android:exported="true" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize">
             <intent-filter><action android:name="android.intent.action.MAIN"/><category android:name="android.intent.category.LAUNCHER"/></intent-filter>
         </activity>
     </application>

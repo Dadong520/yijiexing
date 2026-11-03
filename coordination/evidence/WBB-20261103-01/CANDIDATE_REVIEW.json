@@ -1,0 +1,33 @@
+{
+  "candidateSha": "0ee42cf18ebbf4afb3ea09b41dbe420d9c1f5601",
+  "baseSha": "22dfb6a636f6dde1a73c2906252df3d5deffdd24",
+  "headAtReview": "0ee42cf18ebbf4afb3ea09b41dbe420d9c1f5601",
+  "branch": "codex/workbuddy-fixes-20261103",
+  "statusAtEnd": "",
+  "diffCheck": 0,
+  "changedFiles": [
+    "apps/passenger-android/app/build.gradle.kts",
+    "apps/passenger-android/app/src/main/AndroidManifest.xml",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/AmapSupport.kt",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/BookingScreens.kt",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/MainActivity.kt",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/OrderDetail.kt",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/PassengerPermissions.kt",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/PassengerPickupDefaults.kt",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/PlaceSelection.kt",
+    "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/ProfileScreens.kt",
+    "apps/passenger-android/app/src/test/java/cn/hbzjhs/passenger/PassengerPickupDefaultsTest.kt",
+    "apps/passenger-android/app/src/test/java/cn/hbzjhs/passenger/PlaceSelectionTest.kt",
+    "candidates/driver-0.3.6-r2/android/app/build.gradle.kts",
+    "candidates/driver-0.3.6-r2/android/app/src/main/AndroidManifest.xml",
+    "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/AmapSupport.kt"
+  ],
+  "verdict": "PASS_STATIC_REVIEW",
+  "p1": 0,
+  "p2": 0,
+  "checksReviewed": 13,
+  "businessAcceptance": "NOT_RUN_BY_BACKEND_THIS_STAGE",
+  "buildNativeSigningApkVerification": "coordinator-owned; NOT_RUN_BY_BACKEND",
+  "productEdits": false,
+  "commitOrDeploy": false
+}

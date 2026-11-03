@@ -1,8 +1,8 @@
-# coordinator 11.02实际发布回执
-协议2026-10-26-v3/root01a17cc7-e0a2-7791-bf1d-4611c09bab22唯一协调/contextUNKNOWN。
-产品C4 ee38a2e101c6297b5093eb2e180db0f9a38dc54d已验已发布，PR53 merge2d918d3c3b9711d8aa21b0e9d4ca34e70a05faaa/准确head6d19ed3/CI41429590905 PASS。两端公开完整下载版本原签名hashPASS；原生和build证据evidence/UIF，backendC4证据UIFB。C2/C3定位问题已修保留原失败；69/127/27/74测试PASS。司机26/0.3.23-cloud，乘客24/1.1.22-experience。实际回执见evidence/UIF-20261102-01/release/FINAL-RELEASE-RECEIPT.json，不重新发布。
-当前UIFREC-20261102-01；source /Users/dongge/.codex/tmp/yijiexing-ui-feedback-20261102，branch codex/ui-feedback-receipt-20261102，base产品merge2d918d3；只元数据/README，不业务源码。下一步冻结回执commit→backend UIFRER独立审查→精确CI回执PR合并→最终核main和短卡。
-真实发布：固定passenger1793615867107940/driver1793615873942453，旧25/23归档。API/admin完整配置/IAM保持。51订单5联系人全保留；1订单passengerLocation+updatedAt在18:30:34先于18:37发布更新，其余字段一致，不声称0字段变化。没有云业务POST。公开下载首次加query被现有固定URL规则拒绝，校验脚本已改exactURL；初次150s限制太短主动停止partial，改900s完整下载后PASS，证据保留。
-AVD5590和fixturePTY70018均已停止、reverse移除；Claude四phase已停止；backend仅此次回执审查；无常驻。R=~/.codex/tmp/yijiexing-uif-native-20261102，L=~/.codex/tmp/yijiexing-uif-release-20261102，私有keys/APK/DB在外置目录不入Git。用户GOV08授权后续隔离AVD，常规体验发布授权持续。已知边界个人手机/OEM/物理声音/实车/真实资金未验；小程序缺AppID未微信编译。
-
-回执候选7ccd549ae4cf0fd76e76c8dbdb55d789fbd69e8a已获backend独立18检查PASS/P1P2=0，证据evidence/UIFRER-20261102-01。下一步包含审查报告的最终head跑CI、合并回执PR；不再发布APK。
+# coordinator WB验收完成待发布
+协议2026-10-26-v3；root01a17cc7-e0a2-7791-bf1d-4611c09bab22唯一协调发布，contextUNKNOWN。WB/WBC/WBB-20261103-01；source /Users/dongge/.codex/tmp/yijiexing-workbuddy-20261103 branch codex/workbuddy-fixes-20261103 base22dfb6a candidate0ee42cf18ebbf4afb3ea09b41dbe420d9c1f5601。
+WorkBuddy14项核实：#1/#2/#10比错不同乘客两单，后端只读证据WBB/FIRST_STAGE_REVIEW；不改计价取消轮询。#14原点击区域48dp，#4个人页可继续滚动。修正定位有效新fix/远距离恢复、首页路线卡完整、近30m同名历史去重、顶栏权限入口移我的、两端授权流与竖屏。固定浅色不新增暗色主题。
+Claude SID466f8898-78a4-4285-b31f-33738a2a8600 Opus5.5/high已exit0，原作者测试NOT_RUN；root原/QA experience构建passenger77 driver127 PASS，QA trust需includeSubdomains=false已修外置配置后PASS。backend候选15文件独立reviewPASS。root真包非debug/无Preview/双ARM/同证书/原HTTPS无QA材料PASS；工具27/小程序74/checkPASS。
+原生5592 Android14 ARM64/1080x2400/420：覆盖升级24→25/26→27、正常及130%字体首页、US定位重试→宜昌无需重启、新fix替换/手选保护、权限入口、授权末句、双竖屏PASS。同单PORDf489bab7bb73乘客02/司机01完整原生发单、抢单、尾号、上车/送达同意、模拟支付两端DONE/2926分PASS；第二合成单原生取消两端CANCELLED/司机列表PASS。原包安装启动、run-as拒绝PASS，无FATAL。
+新包passenger25/1.1.23-experience 42569541bytes hash18e6485980284eb046e2ef05124b7260d6ab9cfc22257b24fb61ecd952ceebc0；driver27/0.3.24-cloud 115439686bytes hash0cb9faec2468f47c8f0370ef142b42638311c14dcf8b29425dcb589e355092b7。证据WB/build/FINAL-BUILD-PROOF.json及native/FINAL_REVIEW.json、ASSESSMENT.md。
+尚未合并发布，旧公开仍26/24(main22dfb6a)。下一步同步任务证据和中央快照→CI精确head→merge→generation保护APK发布/公开整包回读→回执PR。API/admin不rollout，私有配置4份已捕获wb27-before-*，需发布前刷新只读数据库快照。
+R=~/.codex/tmp/yijiexing-wb-native-20261103 AVD5592 PTY8712+fixture64369 PTY25746仍运行（原包已清合成登录）；应结束。L=~/.codex/tmp/yijiexing-wb-release-20261103 release-binding尚{}不可上传。D=~/.codex/private/yijiexing；无云业务写。GOV08后续专用AVD已授权无需问。仅独立project yijiexing-driver-demo-1023/us-west1，后台共享目录不改；Gemini暂停。个人真机/OEM/实车/真实资金未验；微信AppID缺未原生编译发布。

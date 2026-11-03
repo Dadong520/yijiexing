@@ -1,0 +1,20 @@
+{
+  "orderId": "PORDf489bab7bb73",
+  "passenger": "synthetic02",
+  "driver": "synthetic01",
+  "passengerStage": "DONE",
+  "driverStage": "DONE",
+  "fareCentsBoth": 2926,
+  "nativeActions": [
+    "create",
+    "grabAndConfirm",
+    "arrive",
+    "phoneTail",
+    "pickupConsent",
+    "dropoff",
+    "dropoffConsent",
+    "simulatedPayment"
+  ],
+  "cloudBusinessPosts": 0,
+  "result": "PASS"
+}

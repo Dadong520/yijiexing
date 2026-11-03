@@ -1,0 +1,7 @@
+{
+  "orderId": "PORDc0a02018c2ae",
+  "passengerStage": "CANCELLED",
+  "driverStage": "CANCELLED",
+  "setup": "API synthetic creation/assignment then native passenger cancellation",
+  "result": "PASS"
+}

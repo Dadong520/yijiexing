@@ -1,0 +1,62 @@
+{
+  "sourceSha": "0ee42cf18ebbf4afb3ea09b41dbe420d9c1f5601",
+  "roles": {
+    "passenger": {
+      "sourceSha": "0ee42cf18ebbf4afb3ea09b41dbe420d9c1f5601",
+      "role": "passenger",
+      "package": "cn.hbzjhs.dc.passenger.cloud",
+      "versionCode": 25,
+      "versionName": "1.1.23-experience",
+      "bytes": 42569541,
+      "sha256": "18e6485980284eb046e2ef05124b7260d6ab9cfc22257b24fb61ecd952ceebc0",
+      "signerSha256": "9ffec9b342d12909ff288bd73f23ba104893b39120cb24ea83c9734a0d2b758f",
+      "within128MiBLimit": true,
+      "nativeLibraries": 6,
+      "compressedNativeLibraries": 6,
+      "privateValuesScanned": 2,
+      "privateValueHits": 0,
+      "expectedHTTPSOriginFound": true,
+      "qaMaterialAbsent": true,
+      "result": "PASS_BUILD_IDENTITY_ONLY",
+      "runtime": "PASS_ORIGINAL_LAUNCH_AND_QA_SAME_SOURCE_BUSINESS_FLOW",
+      "debuggable": false,
+      "previewActivityAbsent": true,
+      "abis": [
+        "arm64-v8a",
+        "armeabi-v7a"
+      ],
+      "portraitMainActivity": true,
+      "apk": "/Users/dongge/.codex/tmp/yijiexing-wb-native-20261103/original-passenger.apk",
+      "qaBuild": 0
+    },
+    "driver": {
+      "sourceSha": "0ee42cf18ebbf4afb3ea09b41dbe420d9c1f5601",
+      "role": "driver",
+      "package": "cn.hbzjhs.dc.driver.cloud",
+      "versionCode": 27,
+      "versionName": "0.3.24-cloud",
+      "bytes": 115439686,
+      "sha256": "0cb9faec2468f47c8f0370ef142b42638311c14dcf8b29425dcb589e355092b7",
+      "signerSha256": "9ffec9b342d12909ff288bd73f23ba104893b39120cb24ea83c9734a0d2b758f",
+      "within128MiBLimit": true,
+      "nativeLibraries": 16,
+      "compressedNativeLibraries": 16,
+      "privateValuesScanned": 2,
+      "privateValueHits": 0,
+      "expectedHTTPSOriginFound": true,
+      "qaMaterialAbsent": true,
+      "result": "PASS_BUILD_IDENTITY_ONLY",
+      "runtime": "PASS_ORIGINAL_LAUNCH_AND_QA_SAME_SOURCE_BUSINESS_FLOW",
+      "debuggable": false,
+      "previewActivityAbsent": true,
+      "abis": [
+        "arm64-v8a",
+        "armeabi-v7a"
+      ],
+      "portraitMainActivity": true,
+      "apk": "/Users/dongge/.codex/tmp/yijiexing-wb-native-20261103/original-driver.apk",
+      "qaBuild": 0
+    }
+  },
+  "nativeAcceptance": "PASS"
+}

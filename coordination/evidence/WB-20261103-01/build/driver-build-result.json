@@ -1,0 +1,129 @@
+{
+  "sourceSha": "0ee42cf18ebbf4afb3ea09b41dbe420d9c1f5601",
+  "role": "driver",
+  "originalBuild": 0,
+  "seconds": 149.71440386772156,
+  "argv": [
+    "bash",
+    "/Users/dongge/.codex/tmp/yijiexing-wb-native-20261103/source-driver/candidates/driver-0.3.6-r2/android/gradlew",
+    "-p",
+    "/Users/dongge/.codex/tmp/yijiexing-wb-native-20261103/source-driver/candidates/driver-0.3.6-r2/android",
+    "--offline",
+    "--no-daemon",
+    "-I",
+    "/Users/dongge/.codex/tmp/yijiexing-wb-native-20261103/scripts/offline.init.gradle",
+    "testExperienceUnitTest",
+    "assembleExperience"
+  ],
+  "bytes": 115439686,
+  "sha256": "0cb9faec2468f47c8f0370ef142b42638311c14dcf8b29425dcb589e355092b7",
+  "tests": [
+    {
+      "name": "cn.hbzjhs.driver.preview.NegotiationContractTest",
+      "tests": "9",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "cn.hbzjhs.driver.preview.DriverSettlementTest",
+      "tests": "9",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "cn.hbzjhs.driver.preview.NavigationSessionRulesTest",
+      "tests": "18",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "cn.hbzjhs.driver.preview.NavigationContractTest",
+      "tests": "7",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "cn.hbzjhs.driver.preview.ReservationAndIncomeTest",
+      "tests": "4",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "cn.hbzjhs.driver.preview.PaymentStatusTest",
+      "tests": "9",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "cn.hbzjhs.driver.preview.ConnectedContractTest",
+      "tests": "7",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "cn.hbzjhs.driver.preview.CountdownPresentationTest",
+      "tests": "5",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "cn.hbzjhs.driver.preview.CertificateDueStatusTest",
+      "tests": "4",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "cn.hbzjhs.driver.preview.DriverCancellationTest",
+      "tests": "8",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "cn.hbzjhs.driver.preview.NavigationAutoRulesTest",
+      "tests": "7",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "cn.hbzjhs.driver.preview.CompetitionRulesTest",
+      "tests": "16",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "cn.hbzjhs.driver.preview.GrabAlertRulesTest",
+      "tests": "11",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "cn.hbzjhs.driver.preview.StateRequestCoordinatorTest",
+      "tests": "6",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "cn.hbzjhs.driver.preview.UIODistancePresentationTest",
+      "tests": "7",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    }
+  ],
+  "qaBuild": 0,
+  "qaFixtureFix": "Explicit includeSubdomains=false required by release lint; local QA trust config only"
+}

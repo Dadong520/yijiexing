@@ -77,6 +77,62 @@ class PlaceSelectionTest {
   }
 
   @Test
+  fun historyRepeatsWithTinyCoordinateDriftAreShownOnce() {
+    // WB-20261103 #7: the same restaurant stored twice, points differing in the 5th–6th decimal.
+    val name = "麦当劳(宜昌璟里中心餐厅)康龙国际广场·龙吟台"
+    val rows = PlaceSelection.pickerRows(
+      favorites = emptyList(),
+      history = listOf(
+        history(name, 30.692013, 111.286512),
+        history(" $name ", 30.692041, 111.286498),
+        history("三峡游客中心", 30.6778, 111.2944),
+      ),
+    )
+    assertEquals(listOf(name, "三峡游客中心"), rows.map { it.name })
+    // The first stored point is the one kept.
+    assertEquals(30.692013, (rows[0].resolution as PlaceResolution.Ready).place.latitude, 0.0)
+  }
+
+  @Test
+  fun sameNameFarApartOrDifferentNamesAreNeverMerged() {
+    val rows = PlaceSelection.pickerRows(
+      favorites = emptyList(),
+      history = listOf(
+        // Same chain name in two cities, and two branches ~200 m apart in one city.
+        history("麦当劳", 30.6920, 111.2865),
+        history("麦当劳", 30.5928, 114.3055),
+        history("麦当劳", 30.6938, 111.2865),
+        // Different names at one point stay separate.
+        history("宜昌东站", 30.6648, 111.3674),
+        history("宜昌东站 · 出租车上客区", 30.6648, 111.3674),
+      ),
+    )
+    assertEquals(5, rows.size)
+  }
+
+  @Test
+  fun knownAndUnknownPointsOfOneNameStayApart() {
+    val rows = PlaceSelection.pickerRows(
+      favorites = emptyList(),
+      history = listOf(history("老地址", null, null), history("老地址", 30.70, 111.29), history("老地址", 0, 0)),
+    )
+    // Unknown points collapse to one search-by-name row; the usable point keeps its one-tap row.
+    assertEquals(2, rows.size)
+    assertTrue(rows[0].resolution is PlaceResolution.SearchByName)
+    assertTrue(rows[1].resolution is PlaceResolution.Ready)
+  }
+
+  @Test
+  fun sameNameThresholdIsAFewMetres() {
+    val a = PlaceSelection.resolve("夷陵广场", 30.7040, 111.2929)
+    // ~22 m north: one place saved twice.
+    assertTrue(PlaceSelection.samePlace("夷陵广场", a, "夷陵广场", PlaceSelection.resolve("夷陵广场", 30.7042, 111.2929)))
+    // ~44 m north: kept apart.
+    assertFalse(PlaceSelection.samePlace("夷陵广场", a, "夷陵广场", PlaceSelection.resolve("夷陵广场", 30.7044, 111.2929)))
+    assertEquals(111.2, PlaceSelection.distanceMeters(30.0, 111.0, 30.001, 111.0), 0.5)
+  }
+
+  @Test
   fun aSecondTapNeverCommitsAgain() {
     val session = PlacePickSession()
     val first = PlaceSelection.resolve("宜昌东站", 30.6648, 111.3674)

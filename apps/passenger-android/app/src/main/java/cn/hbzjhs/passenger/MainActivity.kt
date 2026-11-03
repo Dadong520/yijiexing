@@ -207,17 +207,24 @@ fun PassengerApp(
             color = Teal,
             modifier = Modifier.weight(1f),
           )
-          PassengerTextButton(onClick = { showPermissionGuide = true }) { Text("权限", color = Teal) }
           if (logged) {
+            // The service city (where trips are offered), not the phone's current location. Location
+            // permission and connection live in 我的 → 应用与连接; faults still show below this bar.
             Text(
-              state.optJSONObject("passenger")?.text("cityName", "宜昌市").orEmpty(),
+              "服务城市 " + state.optJSONObject("passenger")?.text("cityName", "宜昌市").orEmpty(),
               color = Muted,
-              fontSize = 14.sp,
+              fontSize = 13.sp,
+              maxLines = 1,
             )
             IconButton(onClick = { store.refresh() }, enabled = !busy) {
               Icon(Icons.Default.Refresh, contentDescription = "刷新订单", tint = Teal)
             }
-          } else PassengerTextButton(onClick = { settings = true }) { Text("连接设置") }
+          } else {
+            // Before sign-in there is no 我的 page, so both entries stay here.
+            PassengerTextButton(onClick = { showPermissionGuide = true }) { Text("定位权限", color = Teal) }
+            Spacer(Modifier.width(6.dp))
+            PassengerTextButton(onClick = { settings = true }) { Text("连接设置") }
+          }
         }
         if (logged && !connected)
           Row(
@@ -313,7 +320,7 @@ fun PassengerApp(
               page = "home"
             }
           "orders" -> OrdersScreen(state.rows("orders")) { selected = it }
-          "profile" -> ProfileScreen(state, store, settings = { settings = true }) { page = it }
+          "profile" -> ProfileScreen(state, store, settings = { settings = true }, permissions = { showPermissionGuide = true }) { page = it }
           "coupons", "points", "invite", "safety" -> PassengerExtrasScreen(page, state.optJSONObject("passenger")?.text("id").orEmpty())
           "favorites" -> FavoritesScreen(state, store)
           "feedback" -> FeedbackScreen(state, store)
