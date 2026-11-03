@@ -15,12 +15,12 @@
     "Preserve cloud configuration/IAM/data",
     "Independent receipt review and exact CI merge"
   ],
-  "status": "WAIT_PUBLIC_READBACK",
+  "status": "CANDIDATE_RECEIPT_REVIEW",
   "acceptance": "NOT_RUN",
   "tests": [],
   "evidence": [],
-  "nextAction": "Wait for root public readback then metadata receipt",
+  "nextAction": "Independent metadata review then exact-head CI merge",
   "deploy_owner": "coordinator",
   "releaseReady": false,
-  "publicationComplete": false
+  "publicationComplete": true
 }
