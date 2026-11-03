@@ -18,7 +18,7 @@
     "Native sameorder fullflow and confirmed report repro/fix",
     "Independent review exactCImerge and fullpublic APK readback"
   ],
-  "status": "ACCEPTED_AWAIT_CI_MERGE",
+  "status": "COMPLETE",
   "acceptance": "PASS",
   "tests": [
     {
@@ -76,12 +76,22 @@
       "sha256": "0d2bc00330e893a669858c5c0962d4cdbba391c23c272ed09c08f3ebee67c6da"
     }
   ],
-  "nextAction": "Root exact CI merge then APK publication/readback",
+  "nextAction": "Published; receipt-only PR pending; wait for user feedback",
   "deploy_owner": "coordinator",
   "releaseReady": true,
-  "publicationComplete": false,
+  "publicationComplete": true,
   "updatedAt": "2026-11-03T10:40:57.070373+00:00",
   "candidateSha": "0ee42cf18ebbf4afb3ea09b41dbe420d9c1f5601",
   "acceptedSha": "0ee42cf18ebbf4afb3ea09b41dbe420d9c1f5601",
-  "reviewer": "backend"
+  "reviewer": "backend",
+  "integrationHeadSha": "d4a89bbb385ad88222007d9e493caa9c0082f69c",
+  "mergeSha": "cd3fd461210bac7206c93fb2c2f7cbcc17e2892f",
+  "productPr": 55,
+  "ci": {
+    "id": 41624535534,
+    "headSha": "d4a89bbb385ad88222007d9e493caa9c0082f69c",
+    "conclusion": "success",
+    "url": "https://github.com/Dadong520/yijiexing/actions/runs/41624535534"
+  },
+  "releaseReceipt": "coordination/evidence/WB-20261103-01/release/FINAL-RELEASE-RECEIPT.json"
 }

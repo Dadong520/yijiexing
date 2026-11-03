@@ -1,0 +1,11 @@
+{
+  "integrationHeadSha": "d4a89bbb385ad88222007d9e493caa9c0082f69c",
+  "mergeSha": "cd3fd461210bac7206c93fb2c2f7cbcc17e2892f",
+  "pr": "https://github.com/Dadong520/yijiexing/pull/55",
+  "ci": {
+    "conclusion": "success",
+    "databaseId": 41624535534,
+    "headSha": "d4a89bbb385ad88222007d9e493caa9c0082f69c",
+    "url": "https://github.com/Dadong520/yijiexing/actions/runs/41624535534"
+  }
+}

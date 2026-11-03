@@ -1,0 +1,10 @@
+{
+  "fixtureStopped": true,
+  "fixtureStopAt": "2026-11-03T19:04:02+08:00",
+  "dedicatedEmulator": "emulator-5592",
+  "emulatorProcessExitCode": 0,
+  "fixtureProcessExitCode": 0,
+  "claudeSession": "466f8898-78a4-4285-b31f-33738a2a8600",
+  "claudeExitCode": 0,
+  "noNewBackgroundDaemon": true
+}
