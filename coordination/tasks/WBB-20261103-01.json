@@ -74,12 +74,13 @@
       "sha256": "0d2bc00330e893a669858c5c0962d4cdbba391c23c272ed09c08f3ebee67c6da"
     }
   ],
-  "nextAction": "Idle; root owns publication",
+  "nextAction": "Idle, product and receipt independent review complete",
   "deploy_owner": "coordinator",
   "releaseReady": false,
   "publicationComplete": false,
   "updatedAt": "2026-11-03T10:40:57.071811+00:00",
   "candidateSha": "0ee42cf18ebbf4afb3ea09b41dbe420d9c1f5601",
   "acceptedSha": "0ee42cf18ebbf4afb3ea09b41dbe420d9c1f5601",
-  "reviewer": "coordinator"
+  "reviewer": "coordinator",
+  "receiptReviewHeadSha": "1e3849cc8d723447589341a543dcdbfa0d965d0c"
 }

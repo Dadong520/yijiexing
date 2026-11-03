@@ -1,0 +1,102 @@
+{
+  "receiptHead": "1e3849cc8d723447589341a543dcdbfa0d965d0c",
+  "productMergeBase": "cd3fd461210bac7206c93fb2c2f7cbcc17e2892f",
+  "result": "PASS",
+  "checks": [
+    {
+      "check": "Frozen receipt HEAD exact and clean",
+      "result": "PASS"
+    },
+    {
+      "check": "18 metadata files only",
+      "result": "PASS"
+    },
+    {
+      "check": "Four product trees unchanged candidate/integration/merge/receipt",
+      "result": "PASS"
+    },
+    {
+      "check": "Product merge whole tree equals CI head",
+      "result": "PASS"
+    },
+    {
+      "check": "Merge includes exact CI head and source ancestor",
+      "result": "PASS"
+    },
+    {
+      "check": "Receipt task merge CI identifiers consistent",
+      "result": "PASS"
+    },
+    {
+      "check": "Full public readback and promotion arrays equal receipt",
+      "result": "PASS"
+    },
+    {
+      "check": "Both original build and published identity fully match",
+      "result": "PASS"
+    },
+    {
+      "check": "Version25/27 and dual ARM/nondebug match declarations",
+      "result": "PASS"
+    },
+    {
+      "check": "Upload promotion public hashes and lengths match",
+      "result": "PASS"
+    },
+    {
+      "check": "Whole config/IAM comparison arrays agree",
+      "result": "PASS"
+    },
+    {
+      "check": "Before/after snapshot generation size hash integrity unchanged",
+      "result": "PASS"
+    },
+    {
+      "check": "53 orders 7 contacts full-row comparison conserved",
+      "result": "PASS"
+    },
+    {
+      "check": "Endpoint arrays agree and pass",
+      "result": "PASS"
+    },
+    {
+      "check": "Cleanup matches stopped declaration",
+      "result": "PASS"
+    },
+    {
+      "check": "Native acceptance qualified by local QA fixture and original smoke",
+      "result": "PASS"
+    },
+    {
+      "check": "All WB referenced evidence hashes resolve as committed blobs",
+      "result": "PASS"
+    },
+    {
+      "check": "Publication status no cloud rollout/business post and scoped limitations",
+      "result": "PASS"
+    }
+  ],
+  "changedFiles": [
+    "README.md",
+    "coordination/BOARD.json",
+    "coordination/SESSION_REGISTRY.json",
+    "coordination/STATE.md",
+    "coordination/evidence/WB-20261103-01/ASSESSMENT.md",
+    "coordination/evidence/WB-20261103-01/native/CLEANUP.json",
+    "coordination/evidence/WB-20261103-01/release/CONFIG-IAM-UNCHANGED.json",
+    "coordination/evidence/WB-20261103-01/release/FINAL-RELEASE-RECEIPT.json",
+    "coordination/evidence/WB-20261103-01/release/PRODUCT-MERGE.json",
+    "coordination/evidence/WB-20261103-01/release/PUBLIC-APK-READBACK.json",
+    "coordination/evidence/WB-20261103-01/release/PUBLIC-ENDPOINTS.json",
+    "coordination/evidence/WB-20261103-01/release/apk-promotion.json",
+    "coordination/evidence/WB-20261103-01/release/apk-upload-candidates.json",
+    "coordination/evidence/WB-20261103-01/release/data-after.json",
+    "coordination/evidence/WB-20261103-01/release/transfer-events.json",
+    "coordination/handoffs/coordinator.md",
+    "coordination/tasks/WB-20261103-01.json",
+    "coordination/tasks/WBREC-20261103-01.json"
+  ],
+  "p1": 0,
+  "p2": 0,
+  "scope": "Frozen committed metadata consistency only; no download, runtime, live cloud or GitHub recheck"
+}

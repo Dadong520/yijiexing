@@ -15,12 +15,27 @@
     "Preserve cloud configuration/IAM/data",
     "Independent receipt review and exact CI merge"
   ],
-  "status": "CANDIDATE_RECEIPT_REVIEW",
-  "acceptance": "NOT_RUN",
-  "tests": [],
-  "evidence": [],
-  "nextAction": "Independent metadata review then exact-head CI merge",
+  "status": "RECEIPT_REVIEW_PASS_AWAIT_CI",
+  "acceptance": "PASS",
+  "tests": [
+    {
+      "command": "Independent frozen receipt 18 consistency checks; product trees unchanged",
+      "status": "PASS",
+      "exitCode": 0,
+      "sourceSha": "1e3849cc8d723447589341a543dcdbfa0d965d0c"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "coordination/evidence/WBB-20261103-01/RECEIPT_REVIEW.json",
+      "sha256": "26c1b9b78c4221735c1f7d64897d95646b07635cd4b86866379aa4bdd85ddd58"
+    }
+  ],
+  "nextAction": "Exact metadata CI then merge; no product deployment",
   "deploy_owner": "coordinator",
   "releaseReady": false,
-  "publicationComplete": true
+  "publicationComplete": true,
+  "candidateSha": "1e3849cc8d723447589341a543dcdbfa0d965d0c",
+  "reviewer": "backend",
+  "acceptedSha": "1e3849cc8d723447589341a543dcdbfa0d965d0c"
 }
