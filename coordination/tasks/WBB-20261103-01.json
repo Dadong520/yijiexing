@@ -1,0 +1,85 @@
+{
+  "schemaVersion": 1,
+  "id": "WBB-20261103-01",
+  "owner": "backend",
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-workbuddy-20261103",
+  "branch": "codex/workbuddy-fixes-20261103",
+  "baseSha": "22dfb6a636f6dde1a73c2906252df3d5deffdd24",
+  "goal": "Verify WorkBuddy report against evidence; fix confirmed issues, independently validate and publish experiences",
+  "allow_paths": [
+    "coordination/evidence/WBB-20261103-01/",
+    "coordination/handoffs/backend.md"
+  ],
+  "checks": [
+    "Verify order identity before synchronization/money conclusions",
+    "Original nonddebuggable package identity/signature and twoapp tests/builds",
+    "Native sameorder fullflow and confirmed report repro/fix",
+    "Independent review exactCImerge and fullpublic APK readback"
+  ],
+  "status": "COMPLETE",
+  "acceptance": "PASS",
+  "tests": [
+    {
+      "command": "gradlew --offline testExperienceUnitTest assembleExperience: passenger77 driver127; QA assembleExperience after local trust lint fix",
+      "status": "PASS",
+      "exitCode": 0,
+      "sourceSha": "0ee42cf18ebbf4afb3ea09b41dbe420d9c1f5601"
+    },
+    {
+      "command": "python3 scripts/proof.py passenger/driver + actual original/QA same-certificate install and original nondebug launch",
+      "status": "PASS",
+      "exitCode": 0,
+      "sourceSha": "0ee42cf18ebbf4afb3ea09b41dbe420d9c1f5601"
+    },
+    {
+      "command": "python3 -m unittest discover -s tools -p test_check_coordination.py -v:27",
+      "status": "PASS",
+      "exitCode": 0,
+      "sourceSha": "0ee42cf18ebbf4afb3ea09b41dbe420d9c1f5601"
+    },
+    {
+      "command": "miniprogram npm test:74 and npm run check",
+      "status": "PASS",
+      "exitCode": 0,
+      "sourceSha": "0ee42cf18ebbf4afb3ea09b41dbe420d9c1f5601"
+    },
+    {
+      "command": "root officialADB isolated native sequence and sameorder/cancel JSON assertions; see native/FINAL_REVIEW.json",
+      "status": "PASS",
+      "exitCode": 0,
+      "sourceSha": "0ee42cf18ebbf4afb3ea09b41dbe420d9c1f5601"
+    },
+    {
+      "command": "backend exact candidate diff review and unchanged-backend-tree reuse of 4 HTTP tests plus3 assertion groups",
+      "status": "PASS",
+      "exitCode": 0,
+      "sourceSha": "0ee42cf18ebbf4afb3ea09b41dbe420d9c1f5601"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "coordination/evidence/WB-20261103-01/build/FINAL-BUILD-PROOF.json",
+      "sha256": "13814450de79dfe02e68d2cd8135fe912225281c9f4088aece262b4db87bf7b1"
+    },
+    {
+      "path": "coordination/evidence/WB-20261103-01/native/FINAL_REVIEW.json",
+      "sha256": "c0cc0b8dfdc265d86edd1f3c69a6f5aec9daaa467c231d1628e67350664be2cf"
+    },
+    {
+      "path": "coordination/evidence/WBB-20261103-01/CANDIDATE_REVIEW.md",
+      "sha256": "eff39923cf161cf4a735ad5742cbaff8e03c568b4f2cac625ab4c0e1e984b482"
+    },
+    {
+      "path": "coordination/evidence/WBB-20261103-01/FIRST_STAGE_REVIEW.md",
+      "sha256": "0d2bc00330e893a669858c5c0962d4cdbba391c23c272ed09c08f3ebee67c6da"
+    }
+  ],
+  "nextAction": "Idle; root owns publication",
+  "deploy_owner": "coordinator",
+  "releaseReady": false,
+  "publicationComplete": false,
+  "updatedAt": "2026-11-03T10:40:57.071811+00:00",
+  "candidateSha": "0ee42cf18ebbf4afb3ea09b41dbe420d9c1f5601",
+  "acceptedSha": "0ee42cf18ebbf4afb3ea09b41dbe420d9c1f5601",
+  "reviewer": "coordinator"
+}

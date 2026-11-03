@@ -1,0 +1,9 @@
+{
+  "status": "PASS",
+  "checks": [
+    "same order PICKUP and integer fare equal across authenticated passenger/driver HTTP state",
+    "assigned STANDARD passenger cancellation projects CANCELLED to owning driver",
+    "unassigned cancellation removes same order from driver hall"
+  ],
+  "environment": "localhost ephemeral HTTP + SQLite + MemoryCAS; no cloud access"
+}

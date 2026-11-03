@@ -1,0 +1,16 @@
+[
+  {
+    "role": "passenger",
+    "install": "PASS",
+    "launch": "PASS",
+    "debugAttachRunAsDenied": true,
+    "cloudLoginOrBusinessMutation": "NOT_RUN"
+  },
+  {
+    "role": "driver",
+    "install": "PASS",
+    "launch": "PASS",
+    "debugAttachRunAsDenied": true,
+    "cloudLoginOrBusinessMutation": "NOT_RUN"
+  }
+]

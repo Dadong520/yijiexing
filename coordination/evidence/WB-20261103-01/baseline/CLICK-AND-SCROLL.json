@@ -1,0 +1,29 @@
+{
+  "installedBaseline": "public passenger24 product source identical QA localhost variant",
+  "display": "1080x2400 density420",
+  "targets": [
+    {
+      "text": "交换起终点",
+      "bounds": [
+        831,
+        1501,
+        1038,
+        1627
+      ],
+      "heightDp": 48.0
+    },
+    {
+      "text": "权限",
+      "bounds": [
+        662,
+        74,
+        814,
+        200
+      ],
+      "heightDp": 48.0
+    }
+  ],
+  "profile": "after actual scrolling full bottom explanation and logout visible; invitation not last row",
+  "report14": "Not reproduced; actual clickable ancestor >=48dp",
+  "report4profile": "Not reproduced; original list scrolling works"
+}

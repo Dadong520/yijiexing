@@ -1,0 +1,44 @@
+[
+  {
+    "role": "passenger",
+    "bytes": 107270521,
+    "sha256": "b812e9fe2587103867fcfd4fd2cf65d97aca7af2ef44773e22e4ce148f324be0",
+    "debuggable": true,
+    "previewActivity": false,
+    "abis": [
+      "arm64-v8a",
+      "armeabi-v7a",
+      "x86",
+      "x86_64"
+    ],
+    "compressedNativeBytesByAbi": {
+      "arm64-v8a": 37435944,
+      "armeabi-v7a": 25925464,
+      "x86": 11576904,
+      "x86_64": 11613896
+    },
+    "compressedNativeLibraries": 0,
+    "nativeLibraries": 8
+  },
+  {
+    "role": "driver",
+    "bytes": 133111914,
+    "sha256": "e334c03a24d1c613acccf336f7385be4270fb40248e1588f492a06dce3aa1055",
+    "debuggable": true,
+    "previewActivity": true,
+    "abis": [
+      "arm64-v8a",
+      "armeabi-v7a",
+      "x86",
+      "x86_64"
+    ],
+    "compressedNativeBytesByAbi": {
+      "arm64-v8a": 41544333,
+      "armeabi-v7a": 35666022,
+      "x86": 4254193,
+      "x86_64": 4176158
+    },
+    "compressedNativeLibraries": 18,
+    "nativeLibraries": 18
+  }
+]

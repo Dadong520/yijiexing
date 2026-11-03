@@ -1,0 +1,32 @@
+{
+  "sourceSha": "0ee42cf18ebbf4afb3ea09b41dbe420d9c1f5601",
+  "reviewer": "coordinator nonauthor Android UI; backend independent review of all 15files including root Gradles",
+  "result": "PASS",
+  "environment": "dedicated emulator-5592 Android14 ARM64 1080x2400 420dpi; real local TLS HTTP server with synthetic identities only",
+  "qaBuild": "same source and experience variant; changes only localhost origin and scoped QA trust certificate; original packages independently launch checked",
+  "checks": {
+    "sameCertificateUpgradeBoth": "PASS",
+    "originalRunAsDeniedBoth": "PASS",
+    "homeDestinationVisibleFont100And130": "PASS",
+    "USRelocateToYichangNoRestart": "PASS",
+    "newDistantFixReplacesStaleWithoutWaiting120s": "PASS",
+    "manualOriginNotOverwritten": "PASS",
+    "nativeSameOrderCreateGrab5sPhoneTailPickupConsentDropoffConsentPayment": "PASS",
+    "sameOrderFare2926Both": "PASS",
+    "nativePassengerCancelAssignedDriverListCancelled": "PASS",
+    "profilePermissionEntryUsable": "PASS",
+    "driverConsentLastLineVisible": "PASS",
+    "portraitBoth": "PASS",
+    "noFatalInCrashBuffer": "PASS"
+  },
+  "sameOrder": "PORDf489bab7bb73",
+  "cancelOrder": "PORDc0a02018c2ae",
+  "backendTreeUnchanged": "c5df96a35efc38ca50442b029681b7790b688922",
+  "limits": [
+    "Synthetic fixture and emulator GPS; no personal phone/OEM/real driving",
+    "Original production-origin packages only launch and identity smoke; business flow uses QA origin variant",
+    "No real funds, commercial store review, dark theme or tablet/foldable acceptance",
+    "Backend 4tests+3assertions reuse unchanged backend tree; no full unrelated suite rerun"
+  ],
+  "cloudBusinessMutations": 0
+}

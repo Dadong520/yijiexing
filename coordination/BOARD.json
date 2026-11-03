@@ -92,7 +92,10 @@
     "UIFC-20261102-01",
     "UIFB-20261102-01",
     "UIFREC-20261102-01",
-    "UIFRER-20261102-01"
+    "UIFRER-20261102-01",
+    "WB-20261103-01",
+    "WBC-20261103-01",
+    "WBB-20261103-01"
   ],
   "releaseOwner": "coordinator",
   "policy": "作者提交→自测→独立验收→协调者合并→部署回读；无业务验收PASS不发布",
@@ -121,15 +124,15 @@
     "coordination/archive/2026-10-26/AUTH-20261026-02.json"
   ],
   "memoryProtocolVersion": "2026-10-26-v3",
-  "currentStage": "UIF_PUBLISHED_RECEIPT_FINAL_CI",
+  "currentStage": "WB_ACCEPTED_AWAIT_CI_MERGE",
   "roleAssignments": {
-    "coordinator": "UIFREC metadata receipt review/CI merge",
-    "backend": "IDLE UIFRER receipt18checksPASS",
+    "coordinator": "WB verify/build/native/release",
+    "backend": "WBB exact candidate review PASS; idle",
     "frontend": "IDLE HANDOFF_RECOMMENDED SDK feasibility PASS",
     "antigravity": "PAUSED_BY_USER_20261029; no new Gemini dispatch",
     "expert": "IDLE; configuration verified, SDK auth recovered; user deferred actual device test",
-    "claude": "IDLE Phase4 source done"
+    "claude": "WBC confirmedAndroid fixes"
   },
   "collaborationDecision": "GOV07 user Claude Code main implementation; Gemini temporarily paused; visible Codex role reviews and root unique release",
-  "updatedAt": "2026-11-02T10:44:19.812786+00:00"
+  "updatedAt": "2026-11-03T10:26:46.598794+00:00"
 }
