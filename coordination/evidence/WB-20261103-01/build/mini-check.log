@@ -1,0 +1,5 @@
+
+> yijiexing-passenger-miniprogram@0.1.0 check
+> node scripts/check-project.js
+
+{"pages":10,"parsedJavaScript":25,"configuration":"PASS","wechatCompilation":"NOT_RUN_REQUIRES_DEVELOPER_TOOLS","appId":"NOT_CONFIGURED"}

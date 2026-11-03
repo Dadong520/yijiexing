@@ -1,0 +1,108 @@
+{
+  "sourceSha": "0ee42cf18ebbf4afb3ea09b41dbe420d9c1f5601",
+  "role": "passenger",
+  "originalBuild": 0,
+  "seconds": 128.3077199459076,
+  "argv": [
+    "bash",
+    "/Users/dongge/.codex/tmp/yijiexing-wb-native-20261103/source-passenger/apps/passenger-android/gradlew",
+    "-p",
+    "/Users/dongge/.codex/tmp/yijiexing-wb-native-20261103/source-passenger/apps/passenger-android",
+    "--offline",
+    "--no-daemon",
+    "-I",
+    "/Users/dongge/.codex/tmp/yijiexing-wb-native-20261103/scripts/offline.init.gradle",
+    "testExperienceUnitTest",
+    "assembleExperience"
+  ],
+  "bytes": 42569541,
+  "sha256": "18e6485980284eb046e2ef05124b7260d6ab9cfc22257b24fb61ecd952ceebc0",
+  "tests": [
+    {
+      "name": "cn.hbzjhs.passenger.PassengerRulesTest",
+      "tests": "4",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "cn.hbzjhs.passenger.NegotiationTest",
+      "tests": "4",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "cn.hbzjhs.passenger.PassengerPickupDefaultsTest",
+      "tests": "16",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "cn.hbzjhs.passenger.PaymentConfirmationTest",
+      "tests": "4",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "cn.hbzjhs.passenger.OrderIdentityTest",
+      "tests": "2",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "cn.hbzjhs.passenger.PassengerUiRulesTest",
+      "tests": "2",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "cn.hbzjhs.passenger.PassengerDefaultsTest",
+      "tests": "5",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "cn.hbzjhs.passenger.PendingRequestJournalTest",
+      "tests": "4",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "cn.hbzjhs.passenger.OrderFarePresentationTest",
+      "tests": "2",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "cn.hbzjhs.passenger.PassengerConfirmPromptRulesTest",
+      "tests": "11",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "cn.hbzjhs.passenger.PassengerOperationsTest",
+      "tests": "4",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "cn.hbzjhs.passenger.PlaceSelectionTest",
+      "tests": "19",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    }
+  ],
+  "qaBuild": 0,
+  "qaFixtureFix": "Explicit includeSubdomains=false required by release lint; local QA trust config only"
+}
