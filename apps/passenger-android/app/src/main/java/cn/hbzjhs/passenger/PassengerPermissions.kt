@@ -243,7 +243,7 @@ fun PassengerPermissions(
     }
 
     val shouldShow = forceOpen || !seenGuide
-    // UI-only: the guide (first automatic or opened from the top bar) keeps app-wide popups waiting.
+    // UI-only: the guide (first automatic, or opened from 我的 / the sign-in top bar) keeps app-wide popups waiting.
     PassengerModalSlot(shouldShow)
     if (!shouldShow) return
 
@@ -336,7 +336,7 @@ fun PassengerPermissions(
                             locationLauncher.launch(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION))
                         }
                     },
-                    modifier = Modifier.fillMaxWidth().height(44.dp),
+                    modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp),
                     colors = ButtonDefaults.buttonColors(containerColor = primaryGreen),
                     shape = RoundedCornerShape(8.dp)
                 ) {
@@ -355,7 +355,7 @@ fun PassengerPermissions(
                         seenGuide = true
                         onDismiss()
                     },
-                    modifier = Modifier.fillMaxWidth().height(44.dp),
+                    modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp),
                     shape = RoundedCornerShape(8.dp)
                 ) {
                     Text("稍后设置", fontSize = 14.sp, color = textGrey)

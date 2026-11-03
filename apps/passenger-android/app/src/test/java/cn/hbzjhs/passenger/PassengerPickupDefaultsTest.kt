@@ -43,6 +43,50 @@ class PassengerPickupDefaultsTest {
   }
 
   @Test
+  fun aNewerFarFixCorrectsADriftedFirstFixWithoutWaitingForItToAge() {
+    // WB-20261103 #3: first fix in California, then a real fix in Yichang at the same accuracy.
+    val drifted = PickupFix(38.50, -122.80, 5f, now - 20_000L)
+    val real = PickupFix(30.6920, 111.2865, 5f, now - 1_000L)
+    assertTrue(PassengerPickupDefaults.moved(drifted, real))
+    assertTrue(PassengerPickupDefaults.shouldReplace(drifted, real, false, now))
+    // An older far fix never replaces a newer one, and a manual pickup is never overwritten.
+    assertFalse(PassengerPickupDefaults.shouldReplace(real, drifted.copy(time = now - 30_000L), false, now))
+    assertFalse(PassengerPickupDefaults.shouldReplace(drifted, real, true, now))
+  }
+
+  @Test
+  fun jitterWithinAccuracyDoesNotRefillThePickup() {
+    val applied = fix(acc = 30f, ageMs = 5_000L)
+    // ~150 m away with 30 m + 30 m accuracy: below 200 m + both radii.
+    val nearby = fix(acc = 30f, lat = 30.70135)
+    assertFalse(PassengerPickupDefaults.moved(applied, nearby))
+    assertFalse(PassengerPickupDefaults.shouldReplace(applied, nearby, false, now))
+  }
+
+  @Test
+  fun tripLimitIsOnlyFlaggedWhenCertainlyOver300Km() {
+    // California pickup → 宜昌东站: far over the limit.
+    val far = PassengerPickupDefaults.straightTripKm("38.50", "-122.80", "30.6648", "111.3674")
+    assertTrue(PassengerPickupDefaults.tripTooFar(far))
+    // A normal city trip, and unknown or zero points, are never flagged on the device.
+    assertFalse(PassengerPickupDefaults.tripTooFar(PassengerPickupDefaults.straightTripKm("30.6920", "111.2865", "30.6648", "111.3674")))
+    assertNull(PassengerPickupDefaults.straightTripKm("", "111.2865", "30.6648", "111.3674"))
+    assertNull(PassengerPickupDefaults.straightTripKm("0", "0", "30.6648", "111.3674"))
+    assertFalse(PassengerPickupDefaults.tripTooFar(null))
+    // Just over 300 km is left to the server's own check.
+    assertFalse(PassengerPickupDefaults.tripTooFar(300.5))
+    assertTrue(PassengerPickupDefaults.tripTooFar(301.5))
+  }
+
+  @Test
+  fun retryOnlyAcceptsAFixNewerThanTheOneBeingRetried() {
+    val retried = fix(ageMs = 10_000L)
+    assertFalse(PassengerPickupDefaults.freshAfter(retried, retried.time))
+    assertFalse(PassengerPickupDefaults.freshAfter(null, 0L))
+    assertTrue(PassengerPickupDefaults.freshAfter(fix(ageMs = 1_000L), retried.time))
+  }
+
+  @Test
   fun manualChoiceAlwaysWins() {
     assertFalse(PassengerPickupDefaults.shouldReplace(null, fix(), true, now))
     assertFalse(PassengerPickupDefaults.acceptLookup("t", "t", true, true))

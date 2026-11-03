@@ -28,7 +28,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.layout.positionInParent
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
@@ -110,12 +113,15 @@ private fun PassengerBookingDraft(owner: String, state: JSONObject, store: Passe
   var gpsFix by rememberSaveable { mutableStateOf("") }
   var gpsGeneration by rememberSaveable { mutableStateOf(0) }
   var gpsNamed by rememberSaveable { mutableStateOf(false) }
+  // Set by "重新定位": fixes at or before this time (the one being retried) are not used again.
+  var gpsFloor by rememberSaveable { mutableStateOf(0L) }
   // Every manual pickup change (pick, swap, history) sets originTouched; it also retires any lookup in flight.
   LaunchedEffect(originTouched) { if (originTouched) gpsGeneration++ }
   LaunchedEffect(position, originTouched) {
     val fix = position?.let { PickupFix(it.latitude, it.longitude, it.accuracy, it.time) }
     // Only an empty pickup or one still filled from GPS follows the phone; a manual choice always wins.
     if (originTouched || (!originFromGps && origin.isNotBlank())) return@LaunchedEffect
+    if (!PassengerPickupDefaults.freshAfter(fix, gpsFloor)) return@LaunchedEffect
     if (!PassengerPickupDefaults.shouldReplace(PickupFix.parse(gpsFix), fix, originTouched, System.currentTimeMillis())) return@LaunchedEffect
     // Device fixes are WGS84, the same system the booking coordinates use.
     originFromGps = true
@@ -155,11 +161,30 @@ private fun PassengerBookingDraft(owner: String, state: JSONObject, store: Passe
   val enabledKinds = listOf("STANDARD", "RESERVED", "BID").filter { PassengerOperations.kindEnabled(state,it) }
   LaunchedEffect(enabledKinds) { if (kind !in enabledKinds) kind = enabledKinds.firstOrNull().orEmpty() }
   val stops = listOf(waypointName, waypointName2).filter { it.isNotBlank() }
+  // "重新定位": drop the current pickup and wait for a newer phone fix; the passenger can still pick
+  // one by hand at any time, and a later manual choice is never overwritten.
+  fun relocate() {
+    gpsFloor = maxOf(gpsFloor, PickupFix.parse(gpsFix)?.time ?: 0L, position?.time ?: 0L)
+    originTouched = false
+    originFromGps = false
+    origin = ""
+    oLat = ""
+    oLng = ""
+    oMetadata = ""
+    gpsFix = ""
+    gpsNamed = false
+    gpsGeneration++
+  }
+  val tripKm = PassengerPickupDefaults.straightTripKm(oLat, oLng, dLat, dLng)
+  val tripTooFar = PassengerPickupDefaults.tripTooFar(tripKm)
+  val serviceCity = state.optJSONObject("passenger")?.text("cityName", "宜昌市").orEmpty()
   val submitOrder: () -> Unit = {
     runCatching {
         require(PassengerOperations.kindEnabled(state,kind)) { "当前地区未开放此叫车类型，请刷新后选择。" }
         require(destination.isNotBlank()) { "请先选择目的地" }
         require(origin.trim().length >= 2 && destination.trim().length >= 2) { "请填写完整起点和终点" }
+        // The server still checks the whole route; this only points at the fix before sending.
+        require(!tripTooFar) { "上车点与目的地相距约 ${tripKm?.toInt()} 公里，超出体验行程 300 公里范围。请在下方重新定位或手动选择上车点。" }
         val payload =
           JSONObject()
             .put("kind", kind)
@@ -202,12 +227,18 @@ private fun PassengerBookingDraft(owner: String, state: JSONObject, store: Passe
       .onFailure { store.reportError(it.message ?: "请检查填写内容") }
   }
   val unpaid = state.rows("orders").firstOrNull { it.text("stage") == "WAIT_PAY" && !it.optBoolean("paid") }
+  // Bottom edge of the pickup/destination card inside the scrolling content, so the half-open panel
+  // shows both ends in full above the call button (the map gives way, within a bound).
+  val density = LocalDensity.current
+  var routeBottom by remember { mutableStateOf(0.dp) }
   // Drag the panel over the map for every function, or down to a small handle for the whole map.
   // A new trip or unpaid order brings a collapsed panel back so its entry is never left hidden.
   MapPanelLayout(
     saveKey = passengerBookingMapScope(owner),
     attentionKey = listOf(active?.text("id"), active?.text("stage"), unpaid?.text("id")),
     collapsedLabel = "显示叫车面板",
+    // 8dp is the content's own top padding, 8dp a little air under the card.
+    minHalfContent = (routeBottom + 16.dp).coerceIn(160.dp, 360.dp),
     map = { mapModifier ->
       PassengerMap(
         originLat = oLat,
@@ -275,6 +306,15 @@ private fun PassengerBookingDraft(owner: String, state: JSONObject, store: Passe
               Icon(Icons.AutoMirrored.Filled.KeyboardArrowRight, contentDescription = null, tint = BrandStrong, modifier = Modifier.size(16.dp))
             }
           }
+          if (tripTooFar)
+            PickupFarNotice(
+              km = tripKm?.toInt() ?: 0,
+              fromGps = originFromGps && !originTouched,
+              serviceCity = serviceCity,
+              enabled = !returnShield.active,
+              onRelocate = { if (returnShield.allows()) relocate() },
+              onPick = { if (returnShield.allows()) openEditor("origin") },
+            )
           if (enabledKinds.isNotEmpty())
             KindSegments(
               listOf("STANDARD" to "即刻出发", "RESERVED" to "预约叫车", "BID" to "司机竞价").filter { it.first in enabledKinds },
@@ -320,7 +360,9 @@ private fun PassengerBookingDraft(owner: String, state: JSONObject, store: Passe
             shape = RoundedCornerShape(12.dp),
             color = Color.White,
             border = BorderStroke(1.dp, Line),
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier.fillMaxWidth().onGloballyPositioned { c ->
+              routeBottom = with(density) { (c.positionInParent().y + c.size.height).toDp() }
+            },
           ) {
             Column(Modifier.padding(start = 14.dp, end = 8.dp)) {
               AddressRow(
@@ -328,7 +370,9 @@ private fun PassengerBookingDraft(owner: String, state: JSONObject, store: Passe
                 origin.ifBlank {
                   // Without permission or with location off, say so instead of waiting for a fix forever.
                   if (position == null && ("权限" in gpsStatus || "关闭" in gpsStatus)) "未获取手机定位（$gpsStatus），点此选择上车点"
-                  else if (position == null) "正在获取手机定位…（可点此选择上车点）" else "点此选择上车点"
+                  else if (position == null) "正在获取手机定位…（可点此选择上车点）"
+                  else if ((position?.time ?: 0L) <= gpsFloor) "正在重新定位，等待新的手机定位…（可点此选择上车点）"
+                  else "点此选择上车点"
                 },
                 placeholder = origin.isBlank(),
               ) { openEditor("origin") }
@@ -552,6 +596,36 @@ fun rememberReturnTapShield(): ReturnTapShield {
     shield.settle()
   }
   return shield
+}
+
+/**
+ * Shown when pickup and destination are certainly over the trip limit: says why, and offers the two
+ * fixes right here (a new phone fix, or choosing the pickup by hand). It never moves either point.
+ */
+@OptIn(ExperimentalLayoutApi::class)
+@Composable
+private fun PickupFarNotice(km: Int, fromGps: Boolean, serviceCity: String, enabled: Boolean, onRelocate: () -> Unit, onPick: () -> Unit) {
+  Column(
+    Modifier
+      .fillMaxWidth()
+      .clip(RoundedCornerShape(12.dp))
+      .background(WarmSoft)
+      .padding(horizontal = 12.dp, vertical = 10.dp),
+    verticalArrangement = Arrangement.spacedBy(8.dp),
+  ) {
+    Text("上车点距目的地约 $km 公里", fontWeight = FontWeight.SemiBold, fontSize = TypeScale.Body, color = Ink)
+    Text(
+      (if (fromGps) "手机定位可能发生漂移，或您不在服务城市（$serviceCity）附近。" else "所选上车点不在目的地附近。") +
+        "体验行程须在 300 公里内，请重新定位或手动选择上车点。",
+      fontSize = TypeScale.Caption,
+      lineHeight = 18.sp,
+      color = Ink,
+    )
+    FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+      PassengerTextButton(enabled = enabled, onClick = onRelocate) { Text("重新定位") }
+      PassengerTextButton(enabled = enabled, onClick = onPick) { Text("手动选上车点") }
+    }
+  }
 }
 
 /** A route end that may be used or swapped: a real name and finite, in-range coordinates. */

@@ -70,21 +70,49 @@ object PlaceSelection {
       row.optJSONObject("coordinateMetadata"),
     )
 
+  /** Two stored points this close (metres) under the same name are one place saved twice. */
+  const val SAME_PLACE_M = 30.0
+
+  /** Name used to compare repeats: trimmed, inner whitespace collapsed. Display text is unchanged. */
+  fun sameNameKey(name: String): String = name.trim().replace(Regex("\\s+"), " ")
+
+  /** Great-circle distance in metres between two WGS84 points. */
+  fun distanceMeters(lat1: Double, lng1: Double, lat2: Double, lng2: Double): Double {
+    val r = 6_371_000.0
+    val p1 = Math.toRadians(lat1)
+    val p2 = Math.toRadians(lat2)
+    val dp = Math.toRadians(lat2 - lat1)
+    val dl = Math.toRadians(lng2 - lng1)
+    val a = Math.sin(dp / 2) * Math.sin(dp / 2) + Math.cos(p1) * Math.cos(p2) * Math.sin(dl / 2) * Math.sin(dl / 2)
+    return 2 * r * Math.asin(Math.min(1.0, Math.sqrt(a)))
+  }
+
+  /**
+   * Whether two rows are the same place shown twice: the same name and both points usable and within
+   * [SAME_PLACE_M], or the same name with both points unknown. A same-named place elsewhere (another
+   * branch, another city) keeps its own row; a known point is never merged into an unknown one.
+   */
+  fun samePlace(aName: String, a: PlaceResolution, bName: String, b: PlaceResolution): Boolean {
+    if (sameNameKey(aName) != sameNameKey(bName)) return false
+    return when {
+      a is PlaceResolution.Ready && b is PlaceResolution.Ready ->
+        distanceMeters(a.place.latitude, a.place.longitude, b.place.latitude, b.place.longitude) <= SAME_PLACE_M
+      a is PlaceResolution.SearchByName && b is PlaceResolution.SearchByName -> true
+      else -> false
+    }
+  }
+
   /**
    * Common rows (favorites, then built-in experience places) followed by history rows. Rows without a
-   * name are dropped; a history row that repeats a common row (same name and point) is shown once, as
-   * common. Rows whose point is unknown stay visible so the passenger can search them by name.
+   * name are dropped; a row that repeats an earlier one ([samePlace]: same name, point within a few
+   * metres) is shown once, keeping the earlier one (common first, then history in the server's order). Rows whose
+   * point is unknown stay visible so the passenger can search them by name.
    */
   fun pickerRows(favorites: List<JSONObject>, history: List<JSONObject>, presets: List<PickedPlace> = emptyList()): List<PlaceRow> {
-    val seen = HashSet<Triple<String, Double?, Double?>>()
-    fun key(name: String, resolution: PlaceResolution) = when (resolution) {
-      is PlaceResolution.Ready -> Triple(name, resolution.place.latitude, resolution.place.longitude)
-      else -> Triple(name, null, null)
-    }
     val rows = ArrayList<PlaceRow>()
     fun add(group: PlaceGroup, name: String, resolution: PlaceResolution, isDefault: Boolean) {
       if (resolution is PlaceResolution.Unusable) return
-      if (seen.add(key(name, resolution))) rows += PlaceRow(group, name, resolution, isDefault)
+      if (rows.none { samePlace(it.name, it.resolution, name, resolution) }) rows += PlaceRow(group, name, resolution, isDefault)
     }
     favorites.forEach { row ->
       val name = row.optString("address").takeUnless { it == "null" }.orEmpty().trim()

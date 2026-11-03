@@ -8,15 +8,29 @@ android {
         applicationId = "cn.hbzjhs.dc.passenger.cloud"
         minSdk = 26
         targetSdk = 34
-        versionCode = 24
-        versionName = "1.1.22-experience"
+        versionCode = 25
+        versionName = "1.1.23-experience"
         buildConfigField("String", "CLOUD_API_ORIGIN", "\"$cloudOrigin\"")
     }
+    // Compress native map libraries in sideload APKs; AGP sets extraction for installation.
+    packaging { jniLibs { useLegacyPackaging = true } }
     buildFeatures { compose = true; buildConfig = true }
     composeOptions { kotlinCompilerExtensionVersion = "1.5.14" }
     compileOptions { sourceCompatibility = JavaVersion.VERSION_17; targetCompatibility = JavaVersion.VERSION_17 }
     kotlinOptions { jvmTarget = "17" }
-    buildTypes { release { isMinifyEnabled = false } }
+    buildTypes {
+        release { isMinifyEnabled = false }
+        // Public sideload experience: non-debuggable, no debug tooling. Keep the existing
+        // experience certificate so installed test apps and AMap bindings remain compatible.
+        create("experience") {
+            initWith(getByName("release"))
+            isDebuggable = false
+            isJniDebuggable = false
+            signingConfig = signingConfigs.getByName("debug")
+            matchingFallbacks += listOf("release")
+            ndk { abiFilters += listOf("arm64-v8a", "armeabi-v7a") }
+        }
+    }
 }
 dependencies {
     implementation(platform("androidx.compose:compose-bom:2024.06.00"))

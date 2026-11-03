@@ -405,6 +405,8 @@ fun OrderDetail(o: JSONObject, store: PassengerStore, busy: Boolean, openOrder: 
       }
     }
     ExpandablePanel("订单动态") {
+      // The same id the driver app shows, so both sides can check they mean one order.
+      KV("订单编号", id)
       KV("创建时间", formatTime(o.text("createdAt")))
       o.rows("events").takeLast(12).reversed().forEach { e ->
         Note("${formatTime(e.text("at"))} · ${eventName(e.text("type"))}")

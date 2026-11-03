@@ -9,8 +9,8 @@ android {
         applicationId = "cn.hbzjhs.dc.driver.cloud"
         minSdk = 26
         targetSdk = 34
-        versionCode = 26
-        versionName = "0.3.23-cloud"
+        versionCode = 27
+        versionName = "0.3.24-cloud"
         buildConfigField("String", "CLOUD_API_ORIGIN", "\"$cloudOrigin\"")
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -18,7 +18,19 @@ android {
     composeOptions { kotlinCompilerExtensionVersion = "1.5.14" }
     compileOptions { sourceCompatibility = JavaVersion.VERSION_17; targetCompatibility = JavaVersion.VERSION_17 }
     kotlinOptions { jvmTarget = "17" }
-    buildTypes { release { isMinifyEnabled = false } }
+    buildTypes {
+        release { isMinifyEnabled = false }
+        // Public sideload experience: non-debuggable, no debug tooling. Keep the existing
+        // experience certificate so installed test apps and AMap bindings remain compatible.
+        create("experience") {
+            initWith(getByName("release"))
+            isDebuggable = false
+            isJniDebuggable = false
+            signingConfig = signingConfigs.getByName("debug")
+            matchingFallbacks += listOf("release")
+            ndk { abiFilters += listOf("arm64-v8a", "armeabi-v7a") }
+        }
+    }
     testOptions { unitTests.isReturnDefaultValues = true }
     // The navigation SDK's ARM native libraries are large. Store them compressed in the APK and let
     // the installer extract them (extractNativeLibs=true), keeping every ABI the SDK ships.
