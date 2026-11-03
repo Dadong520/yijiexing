@@ -1,0 +1,57 @@
+[
+  {
+    "url": "https://yijiexing-demo.hbzjhs.xyz/health",
+    "http": 200,
+    "title": null,
+    "bytes": 118,
+    "attempts": [
+      {
+        "transport": "direct",
+        "exitCode": 0,
+        "http": "200"
+      }
+    ],
+    "healthOK": true
+  },
+  {
+    "url": "https://user-test---driver-demo-phfgquzmua-uw.a.run.app/download",
+    "http": 200,
+    "title": "宜捷行安卓体验版",
+    "bytes": 1345,
+    "attempts": [
+      {
+        "transport": "direct",
+        "exitCode": 0,
+        "http": "200"
+      }
+    ],
+    "apkLinkPresent": true
+  },
+  {
+    "url": "https://user-test---driver-demo-phfgquzmua-uw.a.run.app/download-passenger",
+    "http": 200,
+    "title": "宜捷行乘客端",
+    "bytes": 1452,
+    "attempts": [
+      {
+        "transport": "direct",
+        "exitCode": 0,
+        "http": "200"
+      }
+    ],
+    "apkLinkPresent": true
+  },
+  {
+    "url": "https://demo-admin.hbzjhs.xyz/",
+    "http": 200,
+    "title": "宜捷行 · 运营管理中心",
+    "bytes": 2350,
+    "attempts": [
+      {
+        "transport": "direct",
+        "exitCode": 0,
+        "http": "200"
+      }
+    ]
+  }
+]

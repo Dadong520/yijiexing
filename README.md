@@ -10,7 +10,17 @@
 - 活跃任务：[BOARD](coordination/BOARD.json)；长期决定：[DECISIONS](coordination/DECISIONS.md)；角色细节：handoffs；契约：contracts。
 - 恢复与提交检查：`python3 tools/check_coordination.py --memory-role <role> --session-id <真实会话ID>`；检查器不测量模型内部上下文，不等于业务验收。
 
-## 11月2日界面反馈（乘客24、司机26已发布）
+## 11月3日WorkBuddy复核整改（乘客25、司机27已发布）
+
+报告中取消不同步、状态不更新和金额不一致比较了不同乘客的两张订单，不能作为该三项故障证据。同单原生发单、竞抢、上车/送达确认、模拟支付及取消已复测通过。逐项依据见[报告复核与整改](coordination/evidence/WB-20261103-01/ASSESSMENT.md)。
+
+修复异常定位恢复、首页半展开起终点完整显示、近距离同名历史地点去重、权限入口与手机竖屏。两端使用非调试experience构建，移除预览组件；双ARM与原生库压缩后乘客107.27→42.57MB、司机133.11→115.44MB，保留备用地图和原签名升级兼容。
+
+产品源0ee42cf，[PR55](https://github.com/Dadong520/yijiexing/pull/55)精确headCI通过，merge cd3fd461210bac7206c93fb2c2f7cbcc17e2892f。乘客1.1.23-experience/code25、司机0.3.24-cloud/code27已发布，公开HTTPS整包回读核对版本/签名/哈希通过。两端77+127单测、tools27/mini74/check、独立源码审查与Android14隔离原生矩阵通过。原生业务为本地TLS合成数据，真实手机/OEM/实车/真实资金未验；固定浅色保留，未新增暗色或平板适配。
+
+后台/API配置、IAM和revision未变，无云业务POST；订单保留、旧包归档和完整下载证明见[发布回执](coordination/evidence/WB-20261103-01/release/FINAL-RELEASE-RECEIPT.json)。本轮AVD、fixture和作者CLI均停止。
+
+## 11月2日界面反馈（历史乘客24、司机26）
 
 乘客与司机统一主次按钮、辅助色和多色图标，完善已有空列表插画；乘客订单页签更紧凑、申请记录对齐、地图面板拖动和恢复入口更易点击。司机钱包与会员卡重新排版，新单提醒显示3秒收起倒计时，5秒竞抢显示服务端实际剩余时间；定位异常提供重新定位入口。
 
@@ -118,8 +128,8 @@ Claude Code已真实接入并完成主力实现，Gemini按用户决定暂时停
 
 | 项目 | 已发布与核验 | 入口 |
 |---|---|---|
-| 司机Android | 0.3.23-cloud / code26，原签名 | [司机快速入口](https://user-test---driver-demo-phfgquzmua-uw.a.run.app/download) |
-| 乘客Android | 1.1.22-experience / code24，原签名 | [乘客快速入口](https://user-test---driver-demo-phfgquzmua-uw.a.run.app/download-passenger) |
+| 司机Android | 0.3.24-cloud / code27，原签名 | [司机快速入口](https://user-test---driver-demo-phfgquzmua-uw.a.run.app/download) |
+| 乘客Android | 1.1.23-experience / code25，原签名 | [乘客快速入口](https://user-test---driver-demo-phfgquzmua-uw.a.run.app/download-passenger) |
 | Web后台 | 继续使用原账号密码 | https://demo-admin.hbzjhs.xyz/ |
 | 体验API | 同一持久数据与HTTPS域名 | https://yijiexing-demo.hbzjhs.xyz |
 | 微信小程序 | 源码74测试通过；缺AppID，未微信编译/真机/发布 | candidates/passenger-miniprogram-0.1.0/miniprogram |

@@ -1,0 +1,208 @@
+{
+  "task": "WB-20261103-01",
+  "result": "PASS_PUBLISHED_AND_READ_BACK",
+  "sourceSha": "0ee42cf18ebbf4afb3ea09b41dbe420d9c1f5601",
+  "integrationHeadSha": "d4a89bbb385ad88222007d9e493caa9c0082f69c",
+  "mergeSha": "cd3fd461210bac7206c93fb2c2f7cbcc17e2892f",
+  "productPr": 55,
+  "ci": {
+    "id": 41624535534,
+    "headSha": "d4a89bbb385ad88222007d9e493caa9c0082f69c",
+    "conclusion": "success",
+    "url": "https://github.com/Dadong520/yijiexing/actions/runs/41624535534"
+  },
+  "publishedAt": "2026-11-03T11:15:04.274845+00:00",
+  "apks": [
+    {
+      "role": "passenger",
+      "url": "https://user-test---driver-demo-phfgquzmua-uw.a.run.app/download-passenger.apk",
+      "bytes": 42569541,
+      "sha256": "18e6485980284eb046e2ef05124b7260d6ab9cfc22257b24fb61ecd952ceebc0",
+      "versionCode": 25,
+      "versionName": "1.1.23-experience",
+      "package": "cn.hbzjhs.dc.passenger.cloud",
+      "signerSha256": "9ffec9b342d12909ff288bd73f23ba104893b39120cb24ea83c9734a0d2b758f",
+      "fullHTTPSDownload": true,
+      "actualAaptApkSigner": true,
+      "debuggable": false,
+      "previewActivityAbsent": true,
+      "attempts": [
+        {
+          "transport": "direct",
+          "exitCode": 0,
+          "httpAndBytes": "200 42569541"
+        }
+      ],
+      "result": "PASS"
+    },
+    {
+      "role": "driver",
+      "url": "https://user-test---driver-demo-phfgquzmua-uw.a.run.app/download.apk",
+      "bytes": 115439686,
+      "sha256": "0cb9faec2468f47c8f0370ef142b42638311c14dcf8b29425dcb589e355092b7",
+      "versionCode": 27,
+      "versionName": "0.3.24-cloud",
+      "package": "cn.hbzjhs.dc.driver.cloud",
+      "signerSha256": "9ffec9b342d12909ff288bd73f23ba104893b39120cb24ea83c9734a0d2b758f",
+      "fullHTTPSDownload": true,
+      "actualAaptApkSigner": true,
+      "debuggable": false,
+      "previewActivityAbsent": true,
+      "attempts": [
+        {
+          "transport": "direct",
+          "exitCode": 0,
+          "httpAndBytes": "200 115439686"
+        }
+      ],
+      "result": "PASS"
+    }
+  ],
+  "promotion": [
+    {
+      "role": "passenger",
+      "fixedObject": "distribution/yijiexing-passenger.apk",
+      "archiveObject": "distribution/archive/before-wb-20261103-01/passenger.apk",
+      "archivedGeneration": "1793704225811328",
+      "previousFixedGeneration": "1793615867107940",
+      "newFixedGeneration": "1793704229658241",
+      "bytes": 42569541,
+      "sha256": "18e6485980284eb046e2ef05124b7260d6ab9cfc22257b24fb61ecd952ceebc0",
+      "generationPreconditions": true,
+      "oldArchiveVerified": true
+    },
+    {
+      "role": "driver",
+      "fixedObject": "distribution/yijiexing-cloud.apk",
+      "archiveObject": "distribution/archive/before-wb-20261103-01/driver.apk",
+      "archivedGeneration": "1793704235522032",
+      "previousFixedGeneration": "1793615873942453",
+      "newFixedGeneration": "1793704240376438",
+      "bytes": 115439686,
+      "sha256": "0cb9faec2468f47c8f0370ef142b42638311c14dcf8b29425dcb589e355092b7",
+      "generationPreconditions": true,
+      "oldArchiveVerified": true
+    }
+  ],
+  "configAndIAM": [
+    {
+      "role": "api",
+      "kind": "service",
+      "wholeDocumentUnchanged": true,
+      "sha256": "f040c062caacebedba1ea17a09d15aae475bd0f18d248930c4ac9dad40e263ed"
+    },
+    {
+      "role": "api",
+      "kind": "iam",
+      "wholeDocumentUnchanged": true,
+      "sha256": "b889d91193cb50738ff8418eec83691d89bb38b6cdccd1177014744749747b51"
+    },
+    {
+      "role": "admin",
+      "kind": "service",
+      "wholeDocumentUnchanged": true,
+      "sha256": "35f725c8616450f9367f2e0f4e76eade5a9222f0677acf201619bf6cf7d6be2f"
+    },
+    {
+      "role": "admin",
+      "kind": "iam",
+      "wholeDocumentUnchanged": true,
+      "sha256": "c91e2cbf77eab7c6f3dc5e59b150a22997e52c1cd655eebef45a6953bbce8fce"
+    }
+  ],
+  "data": {
+    "generation": "1793697654464051",
+    "bytes": 12816384,
+    "sha256": "2800f44b81afe8f27c652db594af722cda56f44c725596bb9b7078716b0ed147",
+    "integrity": "ok",
+    "conservation": [
+      {
+        "table": "passenger_orders",
+        "before": 53,
+        "after": 53,
+        "lost": 0,
+        "changedExistingFullRows": 0,
+        "columnsCompared": 5,
+        "concurrentChanges": []
+      },
+      {
+        "table": "passenger_order_contacts",
+        "before": 7,
+        "after": 7,
+        "lost": 0,
+        "changedExistingFullRows": 0,
+        "columnsCompared": 5,
+        "concurrentChanges": []
+      }
+    ],
+    "cloudBusinessPostsByRelease": 0
+  },
+  "endpoints": [
+    {
+      "url": "https://yijiexing-demo.hbzjhs.xyz/health",
+      "http": 200,
+      "title": null,
+      "bytes": 118,
+      "attempts": [
+        {
+          "transport": "direct",
+          "exitCode": 0,
+          "http": "200"
+        }
+      ],
+      "healthOK": true
+    },
+    {
+      "url": "https://user-test---driver-demo-phfgquzmua-uw.a.run.app/download",
+      "http": 200,
+      "title": "宜捷行安卓体验版",
+      "bytes": 1345,
+      "attempts": [
+        {
+          "transport": "direct",
+          "exitCode": 0,
+          "http": "200"
+        }
+      ],
+      "apkLinkPresent": true
+    },
+    {
+      "url": "https://user-test---driver-demo-phfgquzmua-uw.a.run.app/download-passenger",
+      "http": 200,
+      "title": "宜捷行乘客端",
+      "bytes": 1452,
+      "attempts": [
+        {
+          "transport": "direct",
+          "exitCode": 0,
+          "http": "200"
+        }
+      ],
+      "apkLinkPresent": true
+    },
+    {
+      "url": "https://demo-admin.hbzjhs.xyz/",
+      "http": 200,
+      "title": "宜捷行 · 运营管理中心",
+      "bytes": 2350,
+      "attempts": [
+        {
+          "transport": "direct",
+          "exitCode": 0,
+          "http": "200"
+        }
+      ]
+    }
+  ],
+  "backendRevision": "driver-demo-grab-36fdf2c",
+  "adminRevision": "driver-admin-ccui-107e226-test1",
+  "cloudServiceRollouts": 0,
+  "cloudBusinessPosts": 0,
+  "nativeAndCLIStopped": true,
+  "limits": [
+    "Android14 dedicated emulator and synthetic realHTTP fixture business acceptance",
+    "Real personal phones/OEM/real driving/real money NOT_RUN",
+    "Fixed light theme retained; no tablet/foldable acceptance",
+    "ARM64/v7a direct APK experience only; not an app-store release"
+  ]
+}

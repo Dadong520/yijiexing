@@ -1,0 +1,27 @@
+{
+  "generation": "1793697654464051",
+  "bytes": 12816384,
+  "sha256": "2800f44b81afe8f27c652db594af722cda56f44c725596bb9b7078716b0ed147",
+  "integrity": "ok",
+  "conservation": [
+    {
+      "table": "passenger_orders",
+      "before": 53,
+      "after": 53,
+      "lost": 0,
+      "changedExistingFullRows": 0,
+      "columnsCompared": 5,
+      "concurrentChanges": []
+    },
+    {
+      "table": "passenger_order_contacts",
+      "before": 7,
+      "after": 7,
+      "lost": 0,
+      "changedExistingFullRows": 0,
+      "columnsCompared": 5,
+      "concurrentChanges": []
+    }
+  ],
+  "cloudBusinessPostsByRelease": 0
+}

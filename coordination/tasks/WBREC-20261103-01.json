@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "id": "WBREC-20261103-01",
+  "owner": "coordinator",
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-workbuddy-receipt-20261103",
+  "branch": "codex/workbuddy-receipt-20261103",
+  "baseSha": "cd3fd461210bac7206c93fb2c2f7cbcc17e2892f",
+  "goal": "Record verified public APK publication and report corrections; no product changes",
+  "allow_paths": [
+    "coordination/",
+    "README.md"
+  ],
+  "checks": [
+    "Actual public APK hash/package/version/certificate match accepted source",
+    "Preserve cloud configuration/IAM/data",
+    "Independent receipt review and exact CI merge"
+  ],
+  "status": "WAIT_PUBLIC_READBACK",
+  "acceptance": "NOT_RUN",
+  "tests": [],
+  "evidence": [],
+  "nextAction": "Wait for root public readback then metadata receipt",
+  "deploy_owner": "coordinator",
+  "releaseReady": false,
+  "publicationComplete": false
+}
