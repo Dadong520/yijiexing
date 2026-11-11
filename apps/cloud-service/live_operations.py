@@ -7,7 +7,8 @@ from common import *
 
 LIVE_OPS_ACTIONS = frozenset({'ops.company.save', 'ops.driverCompany.set',
     'ops.announcement.save', 'ops.announcement.publish', 'ops.announcement.withdraw',
-    'ops.passengerFeatures.save', 'ops.passengerFeatures.publish'})
+    'ops.passengerFeatures.save', 'ops.passengerFeatures.publish',
+    'ops.heatmap.save', 'ops.mallProduct.save', 'ops.mallRedemption.ship', 'ops.pointsRule.save'})
 CLIENTS = ('MINIPROGRAM', 'PASSENGER_ANDROID')
 FEATURES = ('instant', 'reservation', 'bidding', 'invoice')
 
@@ -77,7 +78,14 @@ class LiveOperations:
 
     def selected_company(self, pid):
         value = self.get('passengerCompany', pid)
-        return self.company_view(value['companyId'] if value else None, 'SELECTED')
+        if value and value.get('companyId'):
+            return self.company_view(value['companyId'], 'SELECTED')
+        # 修改意见3.0: a maintained phone must reach passengers without an extra
+        # manual step. With exactly one enabled company it is the platform default.
+        enabled = self.public_companies()
+        if len(enabled) == 1:
+            return self.company_view(enabled[0]['id'], 'DEFAULT')
+        return self.company_view(None, 'SELECTED')
 
     def capture_order_company(self, o):
         # Legacy orders have no marker: do not manufacture historical ownership.
@@ -99,7 +107,7 @@ class LiveOperations:
 
     def announcement_content(self, p):
         scope, target = self.scope(p.get('scope'), p.get('target'))
-        audiences = p.get('audiences', ['MINIPROGRAM'])
+        audiences = p.get('audiences', list(CLIENTS))
         require(isinstance(audiences, list) and 1 <= len(audiences) <= 2, '公告受众无效')
         for a in audiences:
             self.validate_client(a)
@@ -183,6 +191,9 @@ class LiveOperations:
     def state(self):
         return {'companies': self.rows('company'), 'driverCompanies': self.rows('driverCompany'),
             'announcements': self.rows('announcement'), 'passengerFeatureConfigs': self.rows('features'),
+            'heatmapThresholds': self.rows('heatmap'), 'mallProducts': self.rows('mallProduct'),
+            'mallRedemptions': sorted(self.rows('mallRedemption'), key=lambda r: r['createdAt'], reverse=True),
+            'pointsRules': [self.svc.points_rule(a) for a in ('PASSENGER', 'DRIVER')],
             'serverDate': now().date().isoformat()}
 
     def admin_action(self, action, p, actor):
@@ -230,6 +241,53 @@ class LiveOperations:
             else:
                 value.update(status='WITHDRAWN', published=None)
             kind, result = 'announcement', 'announcement'
+        elif action == 'ops.heatmap.save':
+            self.fields(p, {'city','expectedVersion','passenger','driver'}, {'city','expectedVersion','passenger','driver'})
+            oid = self.svc.city(self.identifier(p['city']))['id']
+            before = self.get('heatmap', oid); self.expected(before, p)
+            value = {'city': oid, 'version': before['version']+1 if before else 1, 'updatedAt': stamp()}
+            for key in ('passenger', 'driver'):
+                limits = p[key]
+                if limits is not None:
+                    self.fields(limits, {'low','mid','high'}, {'low','mid','high'})
+                    require(all(type(limits[k]) is int and 1 <= limits[k] <= 100000 for k in ('low','mid','high'))
+                            and limits['low'] < limits['mid'] < limits['high'], '热力阈值须为递增的正整数（低<中<高）')
+                    limits = {k: limits[k] for k in ('low','mid','high')}
+                value[key] = limits
+            kind, result = 'heatmap', 'heatmapThreshold'
+        elif action == 'ops.mallProduct.save':
+            self.fields(p, {'id','expectedVersion','audience','name','description','points','stock','type','enabled'},
+                        {'audience','name','points','stock','type','enabled'})
+            oid = self.identifier(p['id']) if 'id' in p else uid('MP')
+            before = self.get('mallProduct', oid)
+            if 'id' in p: require(before is not None, '商品不存在', 404)
+            self.expected(before, p)
+            require(p['audience'] in ('PASSENGER', 'DRIVER') and p['type'] in ('VIRTUAL', 'PHYSICAL') and type(p['enabled']) is bool, '商品对象、类型或状态无效')
+            require(before is None or before['audience'] == p['audience'], '已创建商品不能更换适用对象', 409)
+            require(type(p['points']) is int and 1 <= p['points'] <= 10000000, '兑换积分须为正整数')
+            require(type(p['stock']) is int and 0 <= p['stock'] <= 1000000, '可兑换数须为非负整数')
+            value = {'id': oid, 'audience': p['audience'], 'name': textfield(p['name'], '商品名称', 1, 60),
+                'description': textfield(p.get('description') or '', '商品说明', 0, 500), 'points': p['points'],
+                'stock': p['stock'], 'type': p['type'], 'enabled': p['enabled'],
+                'redeemed': before.get('redeemed', 0) if before else 0,
+                'version': before['version']+1 if before else 1, 'updatedAt': stamp()}
+            kind, result = 'mallProduct', 'mallProduct'
+        elif action == 'ops.mallRedemption.ship':
+            self.fields(p, {'id','expectedVersion','shipNote'}, {'id','expectedVersion','shipNote'})
+            oid = self.identifier(p['id']); before = self.get('mallRedemption', oid)
+            require(before is not None, '兑换记录不存在', 404); self.expected(before, p)
+            require(before['status'] == 'PENDING_SHIPMENT', '仅待发货的实物兑换可登记发货', 409)
+            value = {**clone(before), 'status': 'SHIPPED', 'shippedAt': stamp(), 'version': before['version']+1,
+                'shipNote': textfield(p['shipNote'], '发货说明', 2, 200), 'shippedBy': actor}
+            kind, result = 'mallRedemption', 'mallRedemption'
+        elif action == 'ops.pointsRule.save':
+            self.fields(p, {'audience','expectedVersion','perOrder','enabled'}, {'audience','expectedVersion','perOrder','enabled'})
+            require(p['audience'] in ('PASSENGER', 'DRIVER') and type(p['enabled']) is bool, '积分规则对象或状态无效')
+            require(type(p['perOrder']) is int and 0 <= p['perOrder'] <= 10000, '每单积分须为0至10000的整数')
+            oid = p['audience']; before = self.get('pointsRule', oid); self.expected(before, p)
+            value = {'audience': oid, 'perOrder': p['perOrder'], 'enabled': p['enabled'],
+                'version': before['version']+1 if before else 1, 'updatedAt': stamp()}
+            kind, result = 'pointsRule', 'pointsRule'
         else:
             save = action.endswith('.save')
             self.fields(p, {'scope','target','expectedVersion','features'} if save else

@@ -321,7 +321,8 @@ fun PassengerApp(
             }
           "orders" -> OrdersScreen(state.rows("orders")) { selected = it }
           "profile" -> ProfileScreen(state, store, settings = { settings = true }, permissions = { showPermissionGuide = true }) { page = it }
-          "coupons", "points", "invite", "safety" -> PassengerExtrasScreen(page, state.optJSONObject("passenger")?.text("id").orEmpty())
+          "points" -> PointsScreen(state, store)
+          "coupons", "invite", "safety" -> PassengerExtrasScreen(page, state.optJSONObject("passenger")?.text("id").orEmpty())
           "favorites" -> FavoritesScreen(state, store)
           "feedback" -> FeedbackScreen(state, store)
           "complaints" -> ComplaintsScreen(state, store)

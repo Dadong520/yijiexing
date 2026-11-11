@@ -261,7 +261,7 @@ class PassengerIntegration(unittest.TestCase):
         self.assertEqual(reply['profile']['blacklist'][0]['phoneTail'],'0101')
         self.assertEqual(self.da(dtok,'order.complaint',payload,rid='driver-complaint-once')['result']['complaint']['id'],complaint['id'])
         replay=self.da(dtok,'order.complaint',payload);self.assertEqual(len(replay['profile']['blacklist']),1)
-        blocked=self.create(pt)['id'];self.da(dtok,'order.accept',{'id':blocked},expected=403)
+        blocked=self.create(pt)['id'];self.da(dtok,'order.accept',{'id':blocked},expected=404)
     def test_driver_wait_continue_projection_stays_legacy_compatible(self):
         p,d=self.setup_pair();pt,dtok=p['token'],d['token'];oid=self.create(pt,'BID')['id'];self.da(dtok,'order.bid',{'id':oid,'amount':2000});self.pa(pt,'order.selectDriver',{'id':oid,'driverId':d['profile']['driver']['id']})
         reply=self.da(dtok,'order.cancel',{'id':oid,'reason':'司机取消测试'})

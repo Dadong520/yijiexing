@@ -92,7 +92,11 @@ class LiveOperationsTests(unittest.TestCase):
         s=self.login()['session'];p=self.user();other=self.user('13800000102');d=self.user('13800000001',True)
         self.assertEqual(self.ps(p['token'])['operations']['company']['status'],'UNCONFIGURED')
         c=self.company(s);self.pa(p['token'],'ops.company.select',{'companyId':c['id']})
+        # 修改意见3.0: the only enabled company is the default for passengers without a choice.
+        self.assertEqual(self.ps(other['token'])['operations']['company']['source'],'DEFAULT')
+        second=self.company(s,name='第二出租车公司')
         self.assertEqual(self.ps(other['token'])['operations']['company']['status'],'UNCONFIGURED')
+        self.action(s,'ops.company.save',{'id':second['id'],'expectedVersion':second['version'],'name':second['name'],'supportPhone':None,'enabled':False})
         self.action(s,'ops.driverCompany.set',{'driverId':d['profile']['driver']['id'],'companyId':c['id'],'expectedVersion':0})
         self.assertEqual(self.public('/api/state',token=d['token'])[0]['operations']['company']['id'],c['id'])
         fresh=self.start('driver');self.assertEqual(self.ps(p['token'],server=fresh)['operations']['company']['id'],c['id'])
@@ -145,7 +149,7 @@ class LiveOperationsTests(unittest.TestCase):
         self.assertEqual(self.ps(p['token'],server=self.start('driver'))['operations']['announcements'],[])
 
     def test_announcement_audience_region_publish_edit_and_withdraw(self):
-        s=self.login()['session'];p=self.user();a=self.announcement(s,scope='CITY',target='420500')
+        s=self.login()['session'];p=self.user();a=self.announcement(s,scope='CITY',target='420500',audiences=['MINIPROGRAM'])
         self.assertEqual(self.ps(p['token'],'PASSENGER_ANDROID')['operations']['announcements'],[])
         content={**a['draft'],'id':a['id'],'expectedVersion':a['version'],'title':'新草稿'}
         draft=self.action(s,'ops.announcement.save',content)['result']['announcement']
@@ -317,3 +321,21 @@ class LiveOperationsTests(unittest.TestCase):
         self.assertTrue(orders[a]['invoiceApplicationEnabled']);self.assertFalse(orders[b]['invoiceApplicationEnabled'])
         self.assertEqual(self.pa(p['token'],'invoice.apply',{'orderId':b,'titleId':title['id']})['result']['invoice'],receipt)
         self.assertEqual(self.pa(p['token'],'invoice.apply',{'orderId':a,'titleId':title['id']})['result']['invoice']['orderId'],a)
+
+    def test_feedback3_new_datasets_export_state_and_permissions(self):
+        s = self.login()['session']
+        self.action(s, 'ops.heatmap.save', {'city': '420500', 'expectedVersion': 0, 'passenger': {'low': 1, 'mid': 2, 'high': 3}, 'driver': None})
+        self.user('13800000001', driver=True)
+        wallets = self.request('query?dataset=driverWallets', session=s)
+        self.assertGreaterEqual(wallets['total'], 1)
+        self.assertEqual(wallets['items'][0]['accountNoLabel'], '未开户（扫呗分账未接入）')
+        self.assertGreaterEqual(self.request('query?dataset=driverDailyBalances', session=s)['total'], 1)
+        self.assertIn('text/csv', self.request('export?dataset=driverDailyBalances', session=s)['mime'])
+        invoices = self.request('query?dataset=invoices&role=PASSENGER&titleType=COMPANY&companyName=x', session=s)
+        self.assertEqual(invoices['total'], 0)
+        self.assertIn('text/csv', self.request('export?dataset=driverWallets', session=s)['mime'])
+        self.assertIn('text/csv', self.request('export?dataset=invoices', session=s)['mime'])
+        state = self.request('state', session=s)
+        self.assertEqual(state['operations']['heatmapThresholds'][0]['passenger']['high'], 3)
+        self.assertEqual([r['audience'] for r in state['operations']['pointsRules']], ['PASSENGER', 'DRIVER'])
+        self.request('support-file?source=ORDER_COMPLAINT&ownerId=none&fileId=none', session=s, expected=404)

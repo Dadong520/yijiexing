@@ -5,6 +5,7 @@ from admin import AdminMixin
 from qualifications import QualificationsMixin
 from live_operations import LiveOperations
 from passenger import PassengerMixin
+from engagement import EngagementMixin
 import sqlite3, threading
 
 SCHEMA='''
@@ -23,10 +24,10 @@ CREATE TABLE IF NOT EXISTS files(id TEXT PRIMARY KEY,driver TEXT,mime TEXT,conte
 CREATE TABLE IF NOT EXISTS actions(driver TEXT,request_id TEXT,request_hash TEXT,result TEXT,PRIMARY KEY(driver,request_id));
 '''
 ACTIVE={'BID_SENT','PREPAY','RESERVED','PICKUP','ARRIVED','TRIP'}
-class Service(QualificationsMixin,PassengerMixin,BenefitsMixin,AdminMixin):
+class Service(EngagementMixin,QualificationsMixin,PassengerMixin,BenefitsMixin,AdminMixin):
     def __init__(self,db_path):
         self.lock=threading.RLock();self.db=sqlite3.connect(str(db_path),check_same_thread=False);self.db.row_factory=sqlite3.Row
-        self.db.execute('PRAGMA journal_mode=WAL');self.db.execute('PRAGMA foreign_keys=ON');self.db.executescript(SCHEMA);self.init_passenger()
+        self.db.execute('PRAGMA journal_mode=WAL');self.db.execute('PRAGMA foreign_keys=ON');self.db.executescript(SCHEMA);self.init_passenger();self.init_engagement()
         if not self.db.execute('SELECT 1 FROM configs').fetchone():
             self.db.execute('INSERT INTO configs VALUES (?,?,?,?,?,?,?)',('national','CN',dumps(default_config()),None,1,1,stamp()))
             for code in ('CENTRAL','SOUTH'):self.db.execute('INSERT INTO configs VALUES (?,?,?,?,?,?,?)',('region',code,'{}',None,1,1,stamp()))
@@ -38,7 +39,8 @@ class Service(QualificationsMixin,PassengerMixin,BenefitsMixin,AdminMixin):
     def close(self):self.db.close()
     def account(self,driver):
         row=self.db.execute('SELECT * FROM accounts WHERE id=?',(driver,)).fetchone();require(row is not None,'司机账户不存在',404);return row
-    def save_state(self,driver,state):self.db.execute('UPDATE accounts SET state=? WHERE id=?',(dumps(state),driver))
+    def save_state(self,driver,state):
+        self.db.execute('UPDATE accounts SET state=? WHERE id=?',(dumps(state),driver));self.track_online(driver,bool(state.get('online')))
     def save_profile(self,driver,profile):self.db.execute('UPDATE accounts SET profile=? WHERE id=?',(dumps(profile),driver))
     def audit(self,actor,action,before,after):
         self.db.execute('INSERT INTO audits(actor,action,before_value,after_value,created) VALUES (?,?,?,?,?)',(actor,action,dumps(before),dumps(after),stamp()))
@@ -92,6 +94,7 @@ class Service(QualificationsMixin,PassengerMixin,BenefitsMixin,AdminMixin):
         if not features['canRanking']:profile['ranking']={'period':'体验结束或未开放','myRank':None,'completed':None,'entries':[],'restricted':True}
         st['orders']=sorted([self.project_driver_order(driver,o) for o in st.get('orders',[])],key=lambda o: 0 if o.get('stage') in ('PICKUP','ARRIVED','TRIP','PREPAY','BID_SENT') else (1 if o.get('kind')=='RESERVED' and o.get('stage') in ('AVAILABLE','RESERVED') else 2))
         profile=self.qualifications_profile(profile)
+        profile['pointsMall']=self.mall_view('DRIVER',driver)
         return {'operations':self.operations.driver_state(driver),'mapConfig':self.amap_public_config('driver'),'state':st,'profile':profile,'benefits':cat,'features':features,'tripDistanceRules':self.trip_distance_rules(cat['city']['id']),'competitionResults':self.competition_results(driver),'serverTime':stamp(),'environment':{'name':'云端演示隔离沙箱','sandbox':True,'originalSpringBackend':False,'persistence':'SQLite','network':'Google Cloud独立演示服务，不连接原测试环境'}}
     def order(self,st,oid):
         o=next((o for o in st['orders'] if o['id']==oid),None);require(o is not None,'订单不存在',404);return o
@@ -134,14 +137,16 @@ class Service(QualificationsMixin,PassengerMixin,BenefitsMixin,AdminMixin):
         require(pickup_distance<=st['range'],'订单超出当前接单偏好设置的范围',403,{'distanceKm':pickup_distance,'preferenceKm':st['range']})
         settings_key={'instant':'instant','reservation':'reservation','bidding':'bidding'}.get(key)
         if settings_key:require(st[settings_key],'当前订单类型已在接单偏好中关闭',403)
-        require(not any(b['phoneTail']==o['phoneTail'] for b in json.loads(self.account(driver)['profile'])['blacklist']),'乘客在黑名单中，不能接此订单',403)
+        require(self.driver_passenger_allowed(driver,o),'乘客在黑名单中，不能接此订单',403)
         self.require_driver_certified(driver)
     def credit(self,driver,st,o):
         if o['stage']!='DONE' or o['credited']:return
         o['credited']=True;o['completedAt']=stamp();st['balance']+=o['fare'];st['todayIncome']+=o['fare'];st['todayCompleted']+=1
         st['entries'].insert(0,{'id':uid('WE'),'title':'行程收入 '+o['id'],'amount':o['fare'],'note':'云端演示沙箱，不代表真实资金','createdAt':stamp(),'time':stamp()})
         self.db.execute('UPDATE accounts SET trial_completed=trial_completed+1 WHERE id=?',(driver,))
-        p=json.loads(self.account(driver)['profile']);p['points']['balance']+=1;p['points']['total']+=1;p['points']['entries'].insert(0,{'title':'完成云端演示订单','delta':1,'date':stamp()});self.save_profile(driver,p)
+        p=json.loads(self.account(driver)['profile']);earned=self.driver_points_per_order()
+        if earned>0:
+            p['points']['balance']+=earned;p['points']['total']+=earned;p['points']['entries'].insert(0,{'title':'完成订单 '+o['id'],'delta':earned,'date':stamp()});self.save_profile(driver,p)
     def save_image(self,driver,data):
         require(isinstance(data,str) and len(data)<=1400000,'图片须小于1MB')
         if data.startswith('data:'):data=data.split(',',1)[-1]
@@ -305,7 +310,9 @@ class Service(QualificationsMixin,PassengerMixin,BenefitsMixin,AdminMixin):
             tail=str(p.get('phoneTail',''));require(bool(re.fullmatch(r'\d{4}',tail)),'请输入4位演示乘客尾号');require(not any(b['phoneTail']==tail for b in profile['blacklist']),'该乘客已在黑名单',409)
             b={'id':uid('BL'),'phoneTail':tail,'reason':textfield(p.get('reason'),'原因',2,200),'createdAt':stamp()};profile['blacklist'].append(b);result={'blacklist':b}
         elif action=='blacklist.remove':
-            require(any(b['id']==p.get('id') for b in profile['blacklist']),'黑名单记录不存在',404);profile['blacklist']=[b for b in profile['blacklist'] if b['id']!=p.get('id')]
+            require(any(b['id']==p.get('id') for b in profile['blacklist']),'黑名单记录不存在',404);profile['blacklist']=[b for b in profile['blacklist'] if b['id']!=p.get('id')];self.unblock_passenger_entry(driver,p.get('id'))
+        elif action=='points.redeem':
+            result=self.mall_redeem('DRIVER',driver,profile['points'],p)
         elif action=='feedback.submit':
             f={'id':uid('FB'),'content':textfield(p.get('content'),'反馈内容',5,2000),'status':'PENDING','reply':'','createdAt':stamp(),'attachmentFileIds':self.attachments(driver,p,3)};profile['feedback'].insert(0,f);result={'feedback':f}
         elif action=='order.complaint':

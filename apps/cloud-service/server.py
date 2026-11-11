@@ -93,6 +93,7 @@ class Handler(BaseHTTPRequestHandler):
                                 if path=='/api/local/admin/v2/state' and self.command=='GET':data=console.state(user)
                                 elif path=='/api/local/admin/v2/query' and self.command=='GET':data=console.query(user,parse_qs(u.query,keep_blank_values=True))
                                 elif path=='/api/local/admin/v2/certificate-file' and self.command=='GET':data=console.certificate_file(user,query.get('driverId',[''])[0],query.get('type',[''])[0],query.get('side',['front'])[0],query.get('source',['REVIEW'])[0])
+                                elif path=='/api/local/admin/v2/support-file' and self.command=='GET':data=console.support_file(user,query.get('source',[''])[0],query.get('ownerId',[''])[0],query.get('fileId',[''])[0])
                                 elif path=='/api/local/admin/v2/action' and self.command=='POST':
                                     result=console.action(user,p.get('action'),p.get('payload',{}),p.get('requestId'));data={'result':result,'state':console.state(user)}
                                 elif path=='/api/local/admin/v2/logout' and self.command=='POST':data=console.logout(session)
@@ -142,7 +143,7 @@ class Handler(BaseHTTPRequestHandler):
                         elif path=='/api/location/latest' and self.command=='GET':
                             value=svc.account(driver)['location'];data={'location':json.loads(value) if value else None}
                         elif path=='/api/heatmap' and self.command=='GET':
-                            svc.check_right(driver,'heatmap');data={'source':'synthetic','updatedAt':stamp(),'points':[{'lat':30.6645,'lng':111.3694,'weight':.9,'latitude':30.6645,'longitude':111.3694,'intensity':.9},{'lat':30.6687,'lng':111.3226,'weight':.7,'latitude':30.6687,'longitude':111.3226,'intensity':.7},{'lat':30.7066,'lng':111.2842,'weight':.6,'latitude':30.7066,'longitude':111.2842,'intensity':.6}],'notice':'云端演示合成订单热力，不代表实时供需'}
+                            svc.check_right(driver,'heatmap');data=svc.driver_heatmap(driver,query.get('type',['passenger'])[0])
                         elif path=='/api/notifications' and self.command=='GET':
                             a=svc.account(driver);profile=json.loads(a['profile']);st=json.loads(a['state'])
                             items=list(profile['notices'])
@@ -151,7 +152,7 @@ class Handler(BaseHTTPRequestHandler):
                             for r in svc.db.execute('SELECT * FROM audits WHERE actor=? ORDER BY id DESC LIMIT 30',('DRIVER:'+driver,)):
                                 items.append({'id':'AUDIT-'+str(r['id']),'title':'云端演示账户操作','content':r['action'],'createdAt':r['created'],'type':'ACCOUNT'})
                             data={'items':sorted(items,key=lambda i:i['createdAt'],reverse=True),'notifications':items,'sandbox':True}
-                        elif path=='/api/ranking' and self.command=='GET':svc.check_right(driver,'ranking');data=json.loads(svc.account(driver)['profile'])['ranking']
+                        elif path=='/api/ranking' and self.command=='GET':svc.check_right(driver,'ranking');data=svc.driver_ranking(driver,query.get('metric',['orders'])[0],query.get('period',['day'])[0])
                         elif path=='/api/local/sample-image-base64' and self.command=='GET':data={'imageBase64':base64.b64encode((ROOT/'static/sandbox-certificate-sample.png').read_bytes()).decode(),'sandbox':True}
                         elif path=='/api/local/sample-image' and self.command=='GET':svc.db.commit();return self.send(200,(ROOT/'static/sandbox-certificate-sample.png').read_bytes(),'image/png')
                         elif path.startswith('/api/files/') and self.command=='GET':

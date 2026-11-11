@@ -174,7 +174,7 @@ class PassengerMixin(CompetitionMixin,TripDistanceMixin,NegotiationMixin,Passeng
         self.operations.capture_order_company(o)
         self.refresh_distance_consent(o,persist=False)
         o['updatedAt']=stamp()
-        if event:o['events'].append({'type':event,'at':stamp()})
+        if event:o['events'].append({'type':event,'at':stamp(),'stage':o.get('stage')})
         self.db.execute('UPDATE passenger_orders SET driver=?,payload=? WHERE id=?',(o.get('driverId'),dumps(o),o['id']))
     def driver_public(self,driver):
         a=self.account(driver);d=json.loads(a['profile'])['driver']
@@ -212,14 +212,14 @@ class PassengerMixin(CompetitionMixin,TripDistanceMixin,NegotiationMixin,Passeng
             cfg,_,_=self.effective(city['id']);regions.append({'id':city['id'],'name':city['name'],'enabled':bool(cfg['systemEnabled'])})
         extras=self.passenger_extra_data(pid)
         favorites=self.project_default_rows(profile['favorites'],extras['defaults']['favoriteId'])
-        return {'operations':self.operations.passenger_state(pid,client,orders),**extras,'mapConfig':self.amap_public_config('passenger'),'tripDistanceRules':self.trip_distance_rules(profile['city']),'historicalLocations':historical[:20],'regions':regions,'passenger':{k:v for k,v in profile.items() if k not in ('favorites','feedback')},'orders':orders,'favorites':favorites,'feedback':profile['feedback'],
+        return {'operations':self.operations.passenger_state(pid,client,orders),**extras,'pointsMall':self.mall_view('PASSENGER',pid),'mapConfig':self.amap_public_config('passenger'),'tripDistanceRules':self.trip_distance_rules(profile['city']),'historicalLocations':historical[:20],'regions':regions,'passenger':{k:v for k,v in profile.items() if k not in ('favorites','feedback')},'orders':orders,'favorites':favorites,'feedback':profile['feedback'],
             'notices':[{'title':'独立体验环境','content':'双端共享实际创建的订单；短信、支付、退款为模拟。路线仅为坐标示意。后台可查看和回复已保存投诉；实时人工客服、电话中继和推送未配置。'}],
             'features':{'payment':'SIMULATED','sms':'SIMULATED','route':'SCHEMATIC','driverLocation':True,'externalPush':False,'humanSupport':False},
             'environment':{'name':'宜捷行独立云体验环境','sandbox':True,'originalSpringBackend':False,'network':'Google Cloud独立体验服务，不连接原测试环境'},'serverTime':stamp()}
     def sync_shared_orders(self,driver):
         self.settle_competitions()
         self.expire_passenger_bids()
-        a=self.account(driver);st=json.loads(a['state']);city=json.loads(a['profile'])['driver']['city']
+        a=self.account(driver);st=json.loads(a['state']);driver_profile=json.loads(a['profile']);city=driver_profile['driver']['city'];blacklist=driver_profile.get('blacklist',[])
         private=[o for o in st['orders'] if not o.get('shared')]
         for value in private:
             value['distanceEnforcement']='SYNTHETIC_DEMO_EXEMPT'
@@ -233,7 +233,7 @@ class PassengerMixin(CompetitionMixin,TripDistanceMixin,NegotiationMixin,Passeng
         visible=[]
         for row in self.db.execute('SELECT payload FROM passenger_orders ORDER BY created DESC,rowid DESC'):
             o=json.loads(row['payload']);self.refresh_distance_consent(o);assigned=o.get('driverId');bid=next((b for b in o['bids'] if b['driverId']==driver),None)
-            if assigned==driver or (not assigned and o['stage']=='AVAILABLE' and o['city']==city and self.passenger_driver_allowed(o['passengerId'],driver)):
+            if assigned==driver or (not assigned and o['stage']=='AVAILABLE' and o['city']==city and self.passenger_driver_allowed(o['passengerId'],driver) and (bid or self.driver_passenger_allowed(driver,o,blacklist))):
                 value=self.trip_order_view(o);value.pop('passengerId',None)
                 value['company']=self.operations.company_view(o.get('companyId'),'ORDER');value.pop('bids',None);value.pop('complaints',None)
                 value.setdefault('fareVersion',self.order_fare_version(o))
@@ -253,7 +253,7 @@ class PassengerMixin(CompetitionMixin,TripDistanceMixin,NegotiationMixin,Passeng
     def shared_credit(self,o):
         if o['stage']!='DONE' or o['credited']:return
         driver=o['driverId'];st=self.sync_shared_orders(driver)
-        self.credit(driver,st,o);self.save_state(driver,st)
+        self.credit(driver,st,o);self.save_state(driver,st);self.award_passenger_points(o)
     def validate_point(self,lat,lng):
         require(type(lat) in (int,float) and math.isfinite(lat) and -90<=lat<=90 and type(lng) in (int,float) and math.isfinite(lng) and -180<=lng<=180,'地图坐标无效')
     def validate_route_endpoints(self, origin, destination, start, end, waypoints):
@@ -478,6 +478,14 @@ class PassengerMixin(CompetitionMixin,TripDistanceMixin,NegotiationMixin,Passeng
             if request_id:self.db.execute('INSERT INTO actions VALUES (?,?,?,?)',(driver,request_id,fp,dumps(result)))
             self.sync_shared_orders(driver)
             return result
+        if action=='order.blockPassenger':
+            # Private to the driver: no order event, so the passenger is not told.
+            require(o.get('driverId')==driver or driver in (o.get('previousDrivers') or []),'仅可拉黑本人服务过的订单乘客',403)
+            profile=json.loads(self.account(driver)['profile'])
+            entry=self.block_passenger(driver,profile,o,textfield(p.get('reason') or '司机主动拉黑','拉黑原因',2,200))
+            self.save_profile(driver,profile);result={'blacklist':entry,'orderId':o['id']}
+            if request_id:self.db.execute('INSERT INTO actions VALUES (?,?,?,?)',(driver,request_id,fp,dumps(result)))
+            self.audit('DRIVER:'+driver,action,None,{'id':o['id'],'shared':True});return result
         projected=self.order(st,p.get('id'))
         if action in ('order.accept','order.bid'):
             feature={'BID':'bidding','RESERVED':'reservation'}.get(o['kind'],'instant')
@@ -517,9 +525,9 @@ class PassengerMixin(CompetitionMixin,TripDistanceMixin,NegotiationMixin,Passeng
                 require(o['stage'] in ('DONE','CANCELLED','WAIT_PAY','WAIT_CONTINUE'),'结束订单后可投诉')
                 profile=json.loads(self.account(driver)['profile']);f={'id':uid('CP'),'orderId':o['id'],'reason':textfield(p.get('reason'),'投诉类型',2,100),'content':textfield(p.get('content'),'投诉内容',5,2000),'status':'PENDING','reply':'','createdAt':stamp(),'attachmentFileIds':self.attachments(driver,p,9)}
                 profile['complaints'].insert(0,f)
-                if p.get('blockUser') is True and not any(b['phoneTail']==o['phoneTail'] for b in profile['blacklist']):
-                    profile['blacklist'].append({'id':uid('BL'),'phoneTail':o['phoneTail'],'reason':'投诉加入：'+f['reason'],'createdAt':stamp()})
+                if p.get('blockUser') is True:self.block_passenger(driver,profile,o,'投诉加入：'+f['reason'])
                 self.save_profile(driver,profile);complaint_result=f
+
             else:raise ApiError(403,'共享乘客订单不支持此司机操作')
         self.save_state(driver,st);self.shared_credit(o);self.save_shared(o,'DRIVER_'+action.split('.')[1].upper());self.sync_shared_orders(driver)
         result={'order':self.order(json.loads(self.account(driver)['state']),o['id'])} if any(x['id']==o['id'] for x in json.loads(self.account(driver)['state'])['orders']) else {'orderId':o['id'],'withdrawn':True}

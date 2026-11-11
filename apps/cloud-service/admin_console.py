@@ -7,6 +7,7 @@ from common import *
 from admin_queries import AdminQueries
 from operations_drafts import OperationsDrafts, OPS_ACTIONS
 from live_operations import LIVE_OPS_ACTIONS
+import admin_extras
 
 READ = {'orders.read','drivers.read','passengers.read','payments.read','support.read','config.read','statistics.read','audit.read'}
 ROLES = {
@@ -89,6 +90,7 @@ class AdminConsole:
             self.svc.refresh_distance_consent(o)
             o.setdefault('fareVersion',self.svc.order_fare_version(o))
             o['distanceRules']=self.svc.trip_distance_rules(o['city']) if o.get('city') else None
+            o['timeline']=admin_extras.order_timeline(self.svc,o);o['feeBreakdown']=admin_extras.fee_breakdown(o)
         return orders
     def state(self,user):
         orders=self.orders();base=self.svc.admin_state()
@@ -127,6 +129,7 @@ class AdminConsole:
         out['operationDrafts'] = (self.operation_drafts.state() if 'config.read' in user['permissions'] else
             {'catalog': [], 'drafts': [], 'records': [], 'policyLabel': '无配置读取权限', 'draftOnly': True})
         out['operations'] = self.svc.operations.state() if 'config.read' in user['permissions'] else {}
+        out['operations']['pointsAccounts'] = self.svc.points_accounts() if {'drivers.read','passengers.read'} <= set(user['permissions']) else []
         out['operations']['qualificationAlerts'] = self.svc.qualification_alerts() if 'drivers.read' in user['permissions'] else []
         if 'users.manage' in user['permissions']:out['users']=[self.user(r) for r in self.db.execute('SELECT * FROM console_users ORDER BY username')]
         return out
@@ -218,6 +221,11 @@ class AdminConsole:
         require(row['mime'] in ('image/png','image/jpeg'),'不支持此附件格式',415)
         self.svc.audit('ADMIN:'+user['username'],'certificate.view',None,{'driverId':driver_id,'type':certificate_type,'side':side,'fileId':fid})
         return {'fileId':row['id'],'mimeType':row['mime'],'imageBase64':base64.b64encode(row['content']).decode(),'source':'REVIEW' if candidate else 'ACTIVE','submissionId':candidate['submissionId'] if candidate else None}
+    def support_file(self,user,source,owner,file_id):
+        self.permit(user,'support.read')
+        result=admin_extras.support_file(self.svc,source,owner,file_id)
+        self.svc.audit('ADMIN:'+user['username'],'support.file.view',None,{'source':source,'ownerId':owner,'fileId':file_id})
+        return result
     def query(self,user,params):
         dataset = params.get('dataset')
         if isinstance(dataset, list) and len(dataset) == 1:dataset = dataset[0]
@@ -232,7 +240,7 @@ class AdminConsole:
         result=AdminQueries(self,user).select(filters,paginate=False)
         dataset=result['dataset'];rows=result['items']
         order_fields=['id','passengerId','driverId','stage','fare','paymentStatus','origin','destination','createdAt','passengerMobile','driverName','driverMobile','plate','city','kind','fareSource','cancellationType','cancelledAt']
-        fields={'orders':order_fields,'drivers':['id','mobile','name','city','currentLevel','online','certificateStatus','vehicleType','plate'],'passengers':['id','mobile','name','city'],'payments':['orderId','fare','paymentStatus','refundAmount','currentRefundAmount','historicalRefundAmount','refundRecords','paymentMode','id','recordType','accountId','createdAt','amount','status'],'support':['id','source','ownerId','orderId','status','content','reply','rowId','accountId','createdAt'],'audit':['id','actor','action','created','before_value','after_value'],'cancellations':order_fields+['cancellationStatus'],'refunds':['id','orderId','accountId','driverId','amount','refundedAt','refundSource','roundIndex','paymentMode'],'statistics':['date','orderCount','completedCount','cancelledCount','activeCount','paidFare','refundAmount']}[dataset]
+        fields={'orders':order_fields,'drivers':['id','mobile','name','city','currentLevel','online','certificateStatus','vehicleType','plate'],'passengers':['id','mobile','name','city'],'payments':['orderId','fare','paymentStatus','refundAmount','currentRefundAmount','historicalRefundAmount','refundRecords','paymentMode','id','recordType','accountId','createdAt','amount','status'],'support':['id','source','ownerId','orderId','status','content','reply','rowId','accountId','createdAt'],'audit':['id','actor','action','created','before_value','after_value'],'cancellations':order_fields+['cancellationStatus'],'refunds':['id','orderId','accountId','driverId','amount','refundedAt','refundSource','roundIndex','paymentMode'],'statistics':['date','orderCount','completedCount','cancelledCount','activeCount','paidFare','refundAmount'],'invoices':['id','source','mobile','createdAt','titleType','title','taxNumber','amount','email','issuedAt','invoiceStatus','companyName','invoiceKind','orderId','accountId','accountName'],'driverWallets':['driverId','accountNoLabel','name','mobile','balance','pendingAmount','withdrawnAmount','withdrawingAmount','lastWithdrawalAt','bankCardCount'],'driverDailyBalances':['date','driverId','name','mobile','income','expense','closingBalance']}[dataset]
         buf=io.StringIO();writer=csv.writer(buf);writer.writerow(fields)
         def safe(v):
             s=dumps(v) if isinstance(v,(dict,list)) else '' if v is None else str(v)

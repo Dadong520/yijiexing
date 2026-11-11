@@ -650,6 +650,7 @@ fun NewOrderDialog(
                 if (detail != null) {
                     // The shared ordered list: origin, every waypoint in order, destination.
                     RouteStops(detail, compact = true)
+                    PassengerRemarkLine(detail, maxLines = 3)
                 } else {
                     (listOf("起" to first.origin) + first.waypoints.mapIndexed { i, name -> "途${i + 1}" to name } + listOf("终" to first.destination))
                         .forEach { (tag, place) ->

@@ -179,7 +179,7 @@ class PassengerDefaultsTests(fixtures.PolicyCase):
         def complete(s):
             order=s.shared_order(o['id']);order.update(stage='DONE',paid=True);s.save_shared(order)
         self.mutate_fixture(complete)
-        self.pa(p['token'],'invoice.apply',{'orderId':o['id']},expected=404)
+        self.pa(p['token'],'invoice.apply',{'orderId':o['id']},expected=400)
         self.assertEqual(self.ps(p)['invoices'],[])
         self.pa(p['token'],'invoice.apply',{'orderId':o['id'],'titleId':t['id']})
 

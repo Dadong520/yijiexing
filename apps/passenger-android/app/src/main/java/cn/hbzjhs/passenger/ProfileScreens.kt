@@ -113,7 +113,7 @@ fun ProfileScreen(
     Panel("权益与活动") {
       MenuRow("我的卡券", Icons.Default.Star, "0 张 · 演示，不参与订单抵扣") { navigate("coupons") }
       HorizontalDivider(color = DividerTone, thickness = 0.8.dp)
-      MenuRow("积分", Icons.Default.Favorite, "0 分 · 演示，未接营销账务") { navigate("points") }
+      MenuRow("积分商城", Icons.Default.Favorite, "${state.optJSONObject("points")?.optLong("balance") ?: 0L} 分 · 可兑换商品") { navigate("points") }
       HorizontalDivider(color = DividerTone, thickness = 0.8.dp)
       MenuRow("邀请好友", Icons.Default.Share, "演示 · 无实际奖励") { navigate("invite") }
     }

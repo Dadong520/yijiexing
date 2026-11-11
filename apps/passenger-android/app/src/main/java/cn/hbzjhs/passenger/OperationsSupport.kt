@@ -39,7 +39,7 @@ fun PassengerCompanyPhone(company: JSONObject?) {
   Panel("公司客服电话") {
     KV("公司", company?.text("name").orEmpty().takeUnless { it.isBlank() || it == "null" } ?: "未配置公司")
     KV("电话", if (status == "CONFIGURED" && phone.isNotBlank()) phone else if(status == "DISABLED") "公司已停用" else "未配置")
-    Note(when(company?.text("source")) { "ORDER" -> "按当前订单记录的公司提供客服。"; "SELECTED" -> "按您选择的公司提供客服，不改变订单或司机归属。"; else -> "公司由后台维护，未配置时不提供虚构号码。" })
+    Note(when(company?.text("source")) { "ORDER" -> "按当前订单记录的公司提供客服。"; "SELECTED" -> "按您选择的公司提供客服，不改变订单或司机归属。"; "DEFAULT" -> "平台默认服务公司的客服电话。"; else -> "公司由后台维护，未配置时不提供虚构号码。" })
     if (status == "CONFIGURED" && phone.isNotBlank()) ActionButton("联系公司客服") { confirm = true }
     if(error.isNotBlank()) Text(error, color=MaterialTheme.colorScheme.error)
   }

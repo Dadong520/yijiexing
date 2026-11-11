@@ -91,7 +91,7 @@ class CompetitionMixin:
         require(set(p) <= {'id', 'competitionRound'}, '竞抢只接受订单和轮次参数')
         rnd = self.require_competition_round(o, p)
         profile=json.loads(self.account(driver)['profile'])
-        require(profile['driver']['city']==o['city'] and self.passenger_driver_allowed(o['passengerId'],driver),'订单不存在',404)
+        require(profile['driver']['city']==o['city'] and self.passenger_driver_allowed(o['passengerId'],driver) and self.driver_passenger_allowed(driver,o,profile.get('blacklist',[])),'订单不存在',404)
         require(o['stage'] == 'AVAILABLE' and not o.get('driverId'), '本轮已结束或订单已获派', 409, {'reason': 'COMPETITION_CLOSED'})
         row = self.competition_row(o)
         previous = self.db.execute('SELECT outcome FROM order_contenders WHERE order_id=? AND round=? AND driver=?', (o['id'], rnd, driver)).fetchone()

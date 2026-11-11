@@ -6,13 +6,14 @@ The query and CSV export deliberately share one validated selection path.
 from collections import defaultdict
 from common import *
 from seed import CITIES
+import admin_extras
 
 DATASETS = {
     'orders': 'orders.read', 'drivers': 'drivers.read',
     'passengers': 'passengers.read', 'payments': 'payments.read',
     'support': 'support.read', 'audit': 'audit.read',
     'statistics': 'statistics.read', 'cancellations': 'orders.read',
-    'refunds': 'payments.read',
+    'refunds': 'payments.read', 'invoices': 'payments.read', 'driverWallets': 'payments.read', 'driverDailyBalances': 'payments.read',
 }
 ORDER_FILTERS = {
     'kind': '订单类型', 'fareSource': '费用来源', 'passengerMobile': '乘客账号电话',
@@ -34,6 +35,10 @@ FILTERS = {
     'audit': {'actor': '操作者', 'action': '操作'},
     'refunds': {'orderId': '订单编号', 'accountId': '乘客账号', 'driverId': '司机账号',
                 'refundSource': '退款轮次来源'},
+    'invoices': {'mobile': '手机号', 'id': '发票请求流水号', 'titleType': '抬头类型', 'invoiceStatus': '开票状态',
+                 'role': '申请来源', 'companyName': '所属公司', 'orderId': '订单编号'},
+    'driverWallets': {'driverId': '司机账号', 'name': '司机姓名', 'mobile': '联系方式', 'city': '行政区划'},
+    'driverDailyBalances': {'driverId': '司机账号', 'name': '司机姓名', 'mobile': '联系方式'},
 }
 UNSUPPORTED = {
     'billingMode': '原后台线上/线下计费模式未在共享订单持久保存，费用来源不等于计费模式。',
@@ -46,6 +51,7 @@ FIXED = {
               'WAIT_PAY', 'DONE', 'CANCELLED', 'WAIT_CONTINUE'],
     'cancellationType': ['PASSENGER', 'DRIVER', 'ADMIN'],
     'recordType': ['ORDER', 'WITHDRAWAL'], 'refundStatus': ['NONE', 'HAS_REFUND'],
+    'titleType': ['PERSONAL', 'COMPANY'], 'role': ['PASSENGER', 'DRIVER'], 'invoiceStatus': ['SIMULATED_ISSUED', 'SANDBOX_ACCEPTED'],
     'refundSource': ['HISTORY', 'CURRENT'],
     'paymentStatus': ['UNPAID', 'SUCCESS', 'FAILED', 'PROCESSING', 'CANCELLED', 'REFUNDED'],
     'withdrawalStatus': ['PENDING', 'SANDBOX_APPROVED', 'REJECTED'],
@@ -57,7 +63,8 @@ FIXED = {
 }
 ENUMS = {'kind', 'stage', 'cancellationType', 'recordType', 'refundStatus',
          'refundSource', 'source', 'paymentStatus', 'withdrawalStatus',
-         'status', 'certificateStatus', 'currentLevel', 'fareSource', 'vehicleType'}
+         'status', 'certificateStatus', 'currentLevel', 'fareSource', 'vehicleType',
+         'role', 'invoiceStatus', 'titleType'}
 LABELS = {
     'kind': {'STANDARD': '即时用车', 'RESERVED': '预约用车', 'BID': '司机报价', 'NEGOTIATED': '议价用车'},
     'stage': {'AVAILABLE': '待接单', 'PREPAY': '待预付（模拟）', 'RESERVED': '预约待接驾',
@@ -76,12 +83,14 @@ LABELS = {
     'currentLevel': {'TRIAL': '体验权益', 'NORMAL': '普通权益', 'VIP': 'VIP权益'},
     'status': {'PENDING': '待处理', 'REPLIED': '已回复', 'RECORDED': '已记录'},
     'city': {c['id']: c['name'] for c in CITIES},
+    'role': {'PASSENGER': '乘客端', 'DRIVER': '司机端'}, 'titleType': {'PERSONAL': '个人', 'COMPANY': '企业'},
+    'invoiceStatus': {'SIMULATED_ISSUED': '已开具（模拟回执）', 'SANDBOX_ACCEPTED': '已受理（模拟）'},
 }
 EXACT = ENUMS | {'driverId', 'passengerId', 'accountId', 'city'}
 DATE_FIELDS = {'orders': 'createdAt', 'drivers': None, 'passengers': None,
                'payments': 'createdAt', 'support': 'createdAt', 'audit': 'created',
                'statistics': 'createdAt', 'cancellations': 'cancelledAt',
-               'refunds': 'refundedAt'}
+               'refunds': 'refundedAt', 'invoices': 'createdAt', 'driverWallets': None, 'driverDailyBalances': 'dateAt'}
 SEARCH_FIELDS = {
     'orders': ['id', 'origin', 'destination', 'passengerId', 'driverId', 'passengerName',
                'passengerMobile', 'driverName', 'driverMobile', 'plate', 'city', 'remark'],
@@ -91,6 +100,9 @@ SEARCH_FIELDS = {
     'support': ['id', 'rowId', 'orderId', 'accountId', 'content', 'reason', 'reply'],
     'audit': ['id', 'actor', 'action'],
     'refunds': ['id', 'orderId', 'accountId', 'driverId'],
+    'invoices': ['id', 'orderId', 'accountId', 'accountName', 'mobile', 'title', 'taxNumber'],
+    'driverWallets': ['id', 'name', 'mobile'],
+    'driverDailyBalances': ['driverId', 'name', 'mobile'],
 }
 ORDER_DEFINITION = ('共享passenger_orders权威记录；排除司机私有演示订单。金额为整数分。'
     'paidFare仅为DONE且仍paid订单的fare，不是历史收款或清分收入；'
@@ -217,6 +229,12 @@ class AdminQueries:
                                  'driverId': r['id'], 'withdrawalStatus': w.get('status'),
                                  'paymentMode': 'SIMULATED'})
             return rows
+        if dataset == 'invoices':
+            return admin_extras.invoice_rows(self.svc)
+        if dataset == 'driverWallets':
+            return admin_extras.wallet_rows(self.svc, self.console.orders())
+        if dataset == 'driverDailyBalances':
+            return admin_extras.daily_balance_rows(self.svc)
         if dataset == 'audit':
             return [dict(r) for r in self.db.execute('SELECT * FROM audits ORDER BY id')]
         if dataset == 'passengers':
@@ -319,6 +337,13 @@ class AdminQueries:
                        'orderFare': sum(r.get('fare', 0) for r in order),
                        'refundAmount': sum(r.get('refundAmount', 0) for r in order),
                        'withdrawalAmount': sum(r.get('amount', 0) for r in withdrawals)}
+        elif dataset == 'invoices':
+            summary = {'invoiceCount': len(selected), 'invoiceAmount': sum(r.get('amount', 0) for r in selected)}
+        elif dataset == 'driverWallets':
+            summary = {'driverCount': len(selected), 'balance': sum(r['balance'] for r in selected),
+                       'pendingAmount': sum(r['pendingAmount'] for r in selected),
+                       'withdrawnAmount': sum(r['withdrawnAmount'] for r in selected),
+                       'withdrawingAmount': sum(r['withdrawingAmount'] for r in selected)}
         else:
             summary = {}
         if dataset == 'statistics':
@@ -344,7 +369,10 @@ class AdminQueries:
                       'drivers': '实际accounts账号及持久profile，不使用城市预置司机数量；无登记日期。',
                       'passengers': '实际passengers账号及持久profile，不从掩码还原手机号；无登记日期。',
                       'audit': '全部持久audits记录，查询不受旧state最近200条限制。',
-                      'support': '持久共享订单评价/投诉及乘客、司机反馈/投诉；保留来源和原记录ID。'}[dataset]
+                      'support': '持久共享订单评价/投诉及乘客、司机反馈/投诉；保留来源和原记录ID。',
+                      'invoices': '乘客行程开票申请与司机会员费开票申请各一行；均为模拟回执，未连接税务开票平台，不支持冲红与重开。',
+                      'driverDailyBalances': '每位司机每个有流水的日期一行（当日始终列出）：日终余额由当前余额按钱包流水逆推，按UTC+8归日；金额为模拟账务。',
+                      'driverWallets': '每位司机一行：余额为已入账模拟余额；待入账为已送达或已完成但尚未入账的订单金额；已提现为审核通过的模拟提现；提现中为待审核提现。扫呗虚拟账号未接入。'}[dataset]
         return {'dataset': dataset, 'items': selected[(page-1)*size:page*size] if paginate else selected,
                 'total': total, 'page': page, 'pageSize': size, 'schema': schema, 'options': options,
                 'summary': summary, 'definition': definition + LIMITS,

@@ -546,6 +546,22 @@ fun RouteStops(order: DriverOrder, compact: Boolean = false) {
     OrderStopsList(order, compact)
 }
 
+/** One shared presentation of the passenger's note; renders nothing when there is none. */
+@Composable
+fun PassengerRemarkLine(order: DriverOrder, maxLines: Int = Int.MAX_VALUE) {
+    if (order.shared && order.passengerRemark.isNotBlank())
+        Text(
+            "乘客备注：${order.passengerRemark}",
+            color = Orange,
+            fontSize = 14.sp,
+            lineHeight = 20.sp,
+            fontWeight = FontWeight.Medium,
+            maxLines = maxLines,
+            overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis,
+            modifier = Modifier.padding(top = 6.dp),
+        )
+}
+
 @Composable
 fun OrderCard(order: DriverOrder, action: String? = null, onClick: () -> Unit) {
     SheetCard {
@@ -600,6 +616,7 @@ fun OrderCard(order: DriverOrder, action: String? = null, onClick: () -> Unit) {
             fontSize = 12.sp,
             lineHeight = 16.sp
         )
+        PassengerRemarkLine(order, maxLines = 2)
         Spacer(Modifier.height(10.dp))
         if (action == null && order.stage != Stage.AVAILABLE)
             BusinessOutlinedButton(onClick = onClick, modifier = Modifier.fillMaxWidth()) { Text("查看详情") }

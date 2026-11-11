@@ -26,15 +26,11 @@ fun PassengerExtrasScreen(page: String, owner: String) {
   val context = LocalContext.current
   var message by remember(owner, page) { mutableStateOf("") }
   PageColumn {
-    SectionTitle(when(page) { "coupons" -> "我的卡券 · 演示"; "points" -> "积分 · 演示"; else -> "邀请体验 · 演示" })
+    SectionTitle(when(page) { "coupons" -> "我的卡券 · 演示"; else -> "邀请体验 · 演示" })
     when (page) {
       "coupons" -> {
         EmptyCard("暂无可用卡券", "领取、有效期、核销及退款规则待服务端接入后开放。")
         EmptyHint("卡券服务开放后，领取的卡券会显示在这里；当前下单按共享服务端报价结算。")
-      }
-      "points" -> {
-        EmptyCard("暂无积分记录", "预付成功不视作完单，不在本机发放完单积分。")
-        EmptyHint("积分服务开放后，积分变动会按时间显示在这里。")
       }
       else -> {
         EmptyCard("暂无邀请记录", "尚无服务端邀请码或真实拉新绑定，不承诺注册送券或首单奖励。")
@@ -42,13 +38,13 @@ fun PassengerExtrasScreen(page: String, owner: String) {
       }
     }
     Panel("尚未接入营销账务") {
-      Note("此处是功能演示，不是真实资产。不会抵扣订单、改变报价、发放积分或奖励；订单金额以共享服务端为准。")
+      Note("此处是功能演示，不是真实资产。不会抵扣订单、改变报价或发放奖励；订单金额以共享服务端为准。")
       if (page == "invite") {
         Note("尚无服务端邀请码或真实拉新绑定，不承诺注册送券或首单奖励。")
         SecondaryButton("复制体验说明") {
           runCatching {
             val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-            clipboard.setPrimaryClip(ClipData.newPlainText("宜捷行体验说明", "邀请了解宜捷行独立体验版：邀请、积分和卡券目前仅作功能演示，无注册奖励、无实际抵扣或拉新绑定。"))
+            clipboard.setPrimaryClip(ClipData.newPlainText("宜捷行体验说明", "邀请了解宜捷行独立体验版：邀请和卡券目前仅作功能演示，无注册奖励、无实际抵扣或拉新绑定。"))
           }.onSuccess { message = "体验说明已复制" }.onFailure { message = "复制失败，请重试" }
         }
       }

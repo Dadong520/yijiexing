@@ -95,7 +95,7 @@ fun InvoiceTitlesScreen(state: JSONObject, store: PassengerStore) {
   var remove by remember { mutableStateOf<JSONObject?>(null) }
   PageColumn {
     PassengerSectionHeader("发票抬头", "＋ 添加") { edit = JSONObject() }
-    Note("用于生成模拟回执，不可用于实际报销。默认抬头只为新申请提供初次建议。")
+    Note("常用抬头可在开票时直接选择；不保存也可在开票时填写。模拟回执不可用于实际报销。")
     if (state.rows("invoiceTitles").isEmpty()) EmptyCard("暂无发票抬头", "可添加个人或企业抬头。")
     state.rows("invoiceTitles").forEach { t ->
       val isDefault = PassengerDefaults.id(state, "INVOICE_TITLE") == t.text("id")
@@ -168,6 +168,16 @@ fun InvoicesScreen(state: JSONObject, store: PassengerStore) {
   var orderId by rememberSaveable(owner) { mutableStateOf("") }
   var titleId by rememberSaveable(owner) { mutableStateOf(PassengerDefaults.draftSelection("", false, PassengerDefaults.id(state, "INVOICE_TITLE"), titles.map { it.text("id") }.toSet())) }
   var confirm by remember(owner) { mutableStateOf(false) }
+  var typing by rememberSaveable(owner) { mutableStateOf(false) }
+  var inlineType by rememberSaveable(owner) { mutableStateOf("PERSONAL") }
+  var inlineTitle by rememberSaveable(owner) { mutableStateOf("") }
+  var inlineTax by rememberSaveable(owner) { mutableStateOf("") }
+  var inlineEmail by rememberSaveable(owner) { mutableStateOf("") }
+  var saveTitle by rememberSaveable(owner) { mutableStateOf(false) }
+  // No saved or default title is required: with none saved the form is shown directly.
+  val manual = typing || titles.isEmpty()
+  val inlineValid = inlineTitle.isNotBlank() && (inlineType != "COMPANY" || inlineTax.trim().length in setOf(15, 18, 20) && inlineTax.trim().all { it.isLetterOrDigit() && it.code < 128 })
+  val titleReady = if (manual) inlineValid else titles.any { it.text("id") == titleId }
   LaunchedEffect(titles.map { it.text("id") }, owner) {
     if (titleId.isNotBlank() && titles.none { it.text("id") == titleId }) { titleId = ""; confirm = false }
   }
@@ -198,11 +208,22 @@ fun InvoicesScreen(state: JSONObject, store: PassengerStore) {
         )
       }
       Text("选择发票抬头", fontWeight = FontWeight.Bold)
-      if (titles.isEmpty()) Note("请先返回“我的 → 发票抬头”添加抬头。")
+      if (titles.isNotEmpty()) PassengerCompactRecord("填写新抬头", "本次直接填写，无需提前保存", typing, { typing = true; titleId = "" })
       titles.forEach { t ->
-        PassengerCompactRecord(t.text("title"), "${if (t.text("type") == "COMPANY") "企业" else "个人"}${if (PassengerDefaults.id(state, "INVOICE_TITLE") == t.text("id")) " · 默认" else ""}", titleId == t.text("id"), { titleId = t.text("id") }, trailing = { RadioButton(titleId == t.text("id"), onClick = null) })
+        PassengerCompactRecord(t.text("title"), "${if (t.text("type") == "COMPANY") "企业" else "个人"}${if (PassengerDefaults.id(state, "INVOICE_TITLE") == t.text("id")) " · 默认" else ""}", titleId == t.text("id"), { typing = false; titleId = t.text("id") }, trailing = { RadioButton(titleId == t.text("id"), onClick = null) })
       }
-      ActionButton("生成模拟回执", selectedEligible && titles.any { it.text("id") == titleId } && !busy) {
+      if (manual) {
+        Row {
+          FilterChip(inlineType == "PERSONAL", { inlineType = "PERSONAL" }, label = { Text("个人") })
+          Spacer(Modifier.width(8.dp))
+          FilterChip(inlineType == "COMPANY", { inlineType = "COMPANY" }, label = { Text("企业") })
+        }
+        Field(inlineTitle, { inlineTitle = it.take(100) }, "发票抬头")
+        if (inlineType == "COMPANY") Field(inlineTax, { inlineTax = it.take(20) }, "纳税人识别号（15、18或20位）")
+        Field(inlineEmail, { inlineEmail = it.take(254) }, "邮箱（可选，不发送邮件）", KeyboardType.Email)
+        PassengerDefaultCheck(saveTitle, "保存为常用抬头") { saveTitle = it }
+      }
+      ActionButton("生成模拟回执", selectedEligible && titleReady && !busy) {
         confirm = true
       }
     }
@@ -235,16 +256,19 @@ fun InvoicesScreen(state: JSONObject, store: PassengerStore) {
     PassengerDialog(
       onDismissRequest = { confirm = false },
       title = { Text("确认生成模拟回执") },
-      text = { Text("将使用所选抬头保存云端模拟申请，不会开具真实税务发票，也不会发送邮件。") },
+      text = { Text("将使用${if (manual) "填写的" else "所选"}抬头保存云端模拟申请，不会开具真实税务发票，也不会发送邮件。") },
       confirmButton = {
         PassengerTextButton(
-          enabled = !busy && selectedEligible && titles.any { it.text("id") == titleId },
+          enabled = !busy && selectedEligible && titleReady,
           onClick = {
-            store.action(
-              "invoice.apply",
-              JSONObject().put("orderId", orderId).put("titleId", titleId),
-            ) {
+            val payload = JSONObject().put("orderId", orderId)
+            if (manual) {
+              payload.put("type", inlineType).put("title", inlineTitle.trim()).put("email", inlineEmail.trim()).put("saveTitle", saveTitle)
+              if (inlineType == "COMPANY") payload.put("taxNumber", inlineTax.trim())
+            } else payload.put("titleId", titleId)
+            store.action("invoice.apply", payload) {
               orderId = ""
+              inlineTitle = ""; inlineTax = ""; inlineEmail = ""; saveTitle = false; typing = false
             }
             confirm = false
           }
