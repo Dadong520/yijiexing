@@ -1,0 +1,129 @@
+{
+  "task": "FBCF-20261111-01",
+  "scope": "Android implementation author selftest only; independent reviewer backend and root integration pending",
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-ui-optimization-worktree-20261029",
+  "branch": "claude/feedback3-20261110",
+  "head": "22e60230edebf3a53d5f9ace48c08aa4eb4ced11",
+  "baseSha": "571d939f0f7190e1d602b3b3a61f33ed5b203ffd",
+  "uncommitted": true,
+  "files": [
+    {
+      "path": "apps/passenger-android/app/build.gradle.kts",
+      "sha256": "e14c9b0f139afc351a752d99e3c9255ac9133ece42cc0da28f03faaacb41a97f"
+    },
+    {
+      "path": "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/BookingScreens.kt",
+      "sha256": "1cc80f150e5fa8ca19ea495a09a31904ba79805db8f28abcb5a09e3e6c093304"
+    },
+    {
+      "path": "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/ExtraScreens.kt",
+      "sha256": "479d8dded46ba0cc610b41fd122f86901fc4f299d67f56de7bef275a73e34c90"
+    },
+    {
+      "path": "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/Feedback3Rules.kt",
+      "sha256": "a303e531ecd1b42f96d90a337c40facdcf30e1310657e9db1ff7e10c6fe8780c"
+    },
+    {
+      "path": "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/Feedback3Screens.kt",
+      "sha256": "cd86e5634cf0d799dea4fa26a4b88ba0f107c53727967600b27476823919a0b9"
+    },
+    {
+      "path": "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/MainActivity.kt",
+      "sha256": "58cb4aa089728c1e1fee042336ab51059e9618111b73b58cdd9ef9fe2721ad57"
+    },
+    {
+      "path": "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/OrderDetail.kt",
+      "sha256": "89fef5853d3b874bb524a4ea675d242c9bef250db55e4e566357e67f1659b293"
+    },
+    {
+      "path": "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/ParityScreens.kt",
+      "sha256": "58b7b26bb2be4fd3adcb3511067a3549daf0257d6b40ecf39b04c922de7de9cf"
+    },
+    {
+      "path": "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/PassengerConfirmPrompts.kt",
+      "sha256": "0e85919699042bd184cd8c46efc9705114df9e1759da1208c778d4c0883a3fd2"
+    },
+    {
+      "path": "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/PassengerStore.kt",
+      "sha256": "40a054f2a7f302588f089fc0a00e661aa9971cdc9f80bcf8952ae0f00284f71c"
+    },
+    {
+      "path": "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/ProfileScreens.kt",
+      "sha256": "ef6b0b4684d242079560b1cdb7d8cc86a54cc84093517b23f9c8c4a01421e88a"
+    },
+    {
+      "path": "apps/passenger-android/app/src/test/java/cn/hbzjhs/passenger/Feedback3PricingTest.kt",
+      "sha256": "9c68d615c924c1fc24531a3f234626f376b1da16d5c238bc5ab803ee6df24b2f"
+    },
+    {
+      "path": "candidates/driver-0.3.6-r2/android/app/build.gradle.kts",
+      "sha256": "dbddd740baf7438c0faa54526ad89bf01fb8f9770d60b9086c2b94dc1c7007ed"
+    },
+    {
+      "path": "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/BusinessCommunity.kt",
+      "sha256": "12871007156d00d9315efbbaadcd5a3e55f6eda26c8f1c3888f120614e0e53dd"
+    },
+    {
+      "path": "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/BusinessSupport.kt",
+      "sha256": "ab6c184b0afc74eca92fef3930478fe625de1c17da38e535571874442d48bc91"
+    },
+    {
+      "path": "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/ConnectedStore.kt",
+      "sha256": "b30265a707f804079d885cad9e92860e21cc823d861c5aeff7a79fcb2b38971b"
+    },
+    {
+      "path": "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/CoreScreens.kt",
+      "sha256": "cff54aa32ff4e2c94ae603560d709881b9908264b84ec12b2aa0180620e23215"
+    },
+    {
+      "path": "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/Feedback3Presentation.kt",
+      "sha256": "b4b50534bb0549b0b97e027c3eaf5e71bef465321a5fd608ea8033c91c1d8525"
+    }
+  ],
+  "unit": {
+    "passenger": {
+      "tests": 84,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "driver": {
+      "tests": 127,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  },
+  "junitDirectories": {
+    "passenger": "/Users/dongge/.codex/tmp/yijiexing-ui-optimization-worktree-20261029/apps/passenger-android/app/build/test-results/testExperienceUnitTest",
+    "driver": "/Users/dongge/.codex/tmp/yijiexing-ui-optimization-worktree-20261029/candidates/driver-0.3.6-r2/android/app/build/test-results/testExperienceUnitTest"
+  },
+  "mini": {
+    "tests": 74,
+    "failures": 0,
+    "check": "PASS",
+    "wechatCompilation": "NOT_RUN_REQUIRES_DEVELOPER_TOOLS"
+  },
+  "commands": {
+    "passenger": "JAVA_HOME=/opt/homebrew/opt/openjdk@17/libexec/openjdk.jdk/Contents/Home ANDROID_HOME=/opt/homebrew/share/android-commandlinetools ./gradlew --offline --no-daemon -I /Users/dongge/.codex/tmp/yijiexing-wb-native-20261103/scripts/offline.init.gradle testExperienceUnitTest compileExperienceKotlin",
+    "driver": "Same env/init/tasks, bash ./gradlew because existing wrapper not executable",
+    "mini": "npm test && npm run check, cwd candidates/passenger-miniprogram-0.1.0/miniprogram"
+  },
+  "initialEntryFailures": [
+    {
+      "requestedMiniParent": "ENOENT package.json, exit254; rerun actual nested miniprogram directory PASS"
+    },
+    {
+      "driverDirectGradlew": "Existing wrapper nonexecutable, exit126; bash wrapper PASS, no chmod"
+    }
+  ],
+  "notRun": [
+    "AVD/native UI/real devices",
+    "Client-server runtime integration",
+    "APK assembly/signature/publication",
+    "Independent business acceptance"
+  ],
+  "commit": null,
+  "deploy": false,
+  "updatedAt": "2026-11-12T08:41:15.505083+08:00"
+}

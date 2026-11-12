@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="cn.hbzjhs.driver.preview.ConnectedContractTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2026-11-12T03:01:23" hostname="dongge-2.local" time="0.008">
+  <properties/>
+  <testcase name="waypointIndexesAndArrivalsRemainAuthoritative" classname="cn.hbzjhs.driver.preview.ConnectedContractTest" time="0.004"/>
+  <testcase name="emptyStateDoesNotInventTripsOrMoney" classname="cn.hbzjhs.driver.preview.ConnectedContractTest" time="0.0"/>
+  <testcase name="malformedStagesFailInsteadOfBecomingCompleted" classname="cn.hbzjhs.driver.preview.ConnectedContractTest" time="0.0"/>
+  <testcase name="moneyUsesExactCents" classname="cn.hbzjhs.driver.preview.ConnectedContractTest" time="0.002"/>
+  <testcase name="serverMoneyAndCoordinatesAreRetained" classname="cn.hbzjhs.driver.preview.ConnectedContractTest" time="0.0"/>
+  <testcase name="accessCodeMustBeCompleteAndCannotContainWhitespaceOrHeaderControls" classname="cn.hbzjhs.driver.preview.ConnectedContractTest" time="0.001"/>
+  <testcase name="endpointIsConfinedToExactCloudBuildOrigin" classname="cn.hbzjhs.driver.preview.ConnectedContractTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

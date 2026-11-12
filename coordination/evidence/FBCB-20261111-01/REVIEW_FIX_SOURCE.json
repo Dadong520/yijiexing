@@ -1,0 +1,36 @@
+{
+  "baseSha": "c46479ff3d03831d23ca281046065294fd4f1b0a",
+  "headSha": "c46479ff3d03831d23ca281046065294fd4f1b0a",
+  "commitCreated": false,
+  "passed": 344,
+  "durationSeconds": 85.138,
+  "testCommand": "python3 -m unittest discover -s tests",
+  "exitCode": 0,
+  "testLogSha256": "d48866c3066be2bcaac62e19367d68d8485298b78f1453e758586aaf98e5c1bf",
+  "files": [
+    {
+      "path": "apps/cloud-service/admin_console.py",
+      "sha256": "dfdfd0f8b3ef769effc4e0972926b093a7e24167ba5821c45d1cac32a5f4a9be"
+    },
+    {
+      "path": "apps/cloud-service/coupons.py",
+      "sha256": "c877954a1c5e8884e1c6afa1b2f361030ade8298c51565ec80a49b3fce02f1db"
+    },
+    {
+      "path": "apps/cloud-service/domain.py",
+      "sha256": "799108892e2f6f4b9e0ee9cc789540a93f51735fba8c3890542dcbf6447cce02"
+    },
+    {
+      "path": "apps/cloud-service/passenger.py",
+      "sha256": "c439ef7135b7064fd8d7582fb0ba308002ac0e7c2781e94d766bda0eaa581f49"
+    },
+    {
+      "path": "apps/cloud-service/pricing.py",
+      "sha256": "62a72574058047741936036273b97477d152bdebc7a5d3a66a93f56c9dbc0d25"
+    },
+    {
+      "path": "apps/cloud-service/tests/test_feedback3_phase2.py",
+      "sha256": "27fbe4c8a9db8d60b38e196c0cfa23425df5d868d8b4a7ec95649e6080ea4e05"
+    }
+  ]
+}

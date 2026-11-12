@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="cn.hbzjhs.passenger.PlaceSelectionTest" tests="19" skipped="0" failures="0" errors="0" timestamp="2026-11-12T00:38:14" hostname="dongge-2.local" time="0.005">
+  <properties/>
+  <testcase name="unknownOrBrokenPointsAreNeverUsedAndNeverBecomeZero" classname="cn.hbzjhs.passenger.PlaceSelectionTest" time="0.001"/>
+  <testcase name="secondTapInsideTheWindowIsRefusedAndAllowedFromTheBoundary" classname="cn.hbzjhs.passenger.PlaceSelectionTest" time="0.001"/>
+  <testcase name="lateMapLookupCannotOverwriteANewerChoice" classname="cn.hbzjhs.passenger.PlaceSelectionTest" time="0.0"/>
+  <testcase name="returnGuardIsOpenUntilArmed" classname="cn.hbzjhs.passenger.PlaceSelectionTest" time="0.0"/>
+  <testcase name="windowIsBoundedEvenIfTheClockRunsBackwards" classname="cn.hbzjhs.passenger.PlaceSelectionTest" time="0.0"/>
+  <testcase name="sameNameFarApartOrDifferentNamesAreNeverMerged" classname="cn.hbzjhs.passenger.PlaceSelectionTest" time="0.001"/>
+  <testcase name="historyRepeatsWithTinyCoordinateDriftAreShownOnce" classname="cn.hbzjhs.passenger.PlaceSelectionTest" time="0.0"/>
+  <testcase name="sameNameThresholdIsAFewMetres" classname="cn.hbzjhs.passenger.PlaceSelectionTest" time="0.0"/>
+  <testcase name="defaultGuardCoversAStandardDoubleTapOnTheRealMonotonicClock" classname="cn.hbzjhs.passenger.PlaceSelectionTest" time="0.0"/>
+  <testcase name="validHistoryRowIsReadyInOneTapWithItsMetadata" classname="cn.hbzjhs.passenger.PlaceSelectionTest" time="0.0"/>
+  <testcase name="anUnusableTapDoesNotUseUpTheSession" classname="cn.hbzjhs.passenger.PlaceSelectionTest" time="0.0"/>
+  <testcase name="aTapRefusedByTheShieldLeavesThePickerUsable" classname="cn.hbzjhs.passenger.PlaceSelectionTest" time="0.001"/>
+  <testcase name="pickDuringTheSearchWaitRetiresThatSearch" classname="cn.hbzjhs.passenger.PlaceSelectionTest" time="0.001"/>
+  <testcase name="aSecondTapNeverCommitsAgain" classname="cn.hbzjhs.passenger.PlaceSelectionTest" time="0.0"/>
+  <testcase name="knownAndUnknownPointsOfOneNameStayApart" classname="cn.hbzjhs.passenger.PlaceSelectionTest" time="0.0"/>
+  <testcase name="pickerListsKeepUnknownHistoryVisibleAndShowRepeatsOnce" classname="cn.hbzjhs.passenger.PlaceSelectionTest" time="0.0"/>
+  <testcase name="armingAgainRestartsTheWindowFromNow" classname="cn.hbzjhs.passenger.PlaceSelectionTest" time="0.0"/>
+  <testcase name="stopsFillInOrderUpToTwo" classname="cn.hbzjhs.passenger.PlaceSelectionTest" time="0.0"/>
+  <testcase name="onlyTheNewestMapLookupCommitsAndOnlyWithAValidPoint" classname="cn.hbzjhs.passenger.PlaceSelectionTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

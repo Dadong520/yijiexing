@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="cn.hbzjhs.driver.preview.PaymentStatusTest" tests="9" skipped="0" failures="0" errors="0" timestamp="2026-11-12T00:39:08" hostname="dongge-2.local" time="0.002">
+  <properties/>
+  <testcase name="refundAmountUsesServerCentsAndDoesNotAppearForOtherStatuses" classname="cn.hbzjhs.driver.preview.PaymentStatusTest" time="0.001"/>
+  <testcase name="oldPrivateSnapshotsWithoutStatusKeepTheirPaidFlagFallback" classname="cn.hbzjhs.driver.preview.PaymentStatusTest" time="0.0"/>
+  <testcase name="cancelledPrepaidBidDisplaysTheServerRefundAndExactAmount" classname="cn.hbzjhs.driver.preview.PaymentStatusTest" time="0.0"/>
+  <testcase name="refundedUncreditedOrderNeverDisplaysTheCalculatedFareAsIncome" classname="cn.hbzjhs.driver.preview.PaymentStatusTest" time="0.0"/>
+  <testcase name="onlyServerCreditedFlagLabelsIncomeAsRecorded" classname="cn.hbzjhs.driver.preview.PaymentStatusTest" time="0.0"/>
+  <testcase name="unknownPaymentStatusDoesNotInventPaymentOrRefundSuccess" classname="cn.hbzjhs.driver.preview.PaymentStatusTest" time="0.0"/>
+  <testcase name="explicitPaymentStatusTakesPriorityOverTheLegacyPaidFlag" classname="cn.hbzjhs.driver.preview.PaymentStatusTest" time="0.0"/>
+  <testcase name="absentOrInvalidRefundAmountIsNotReplacedWithFareOrZero" classname="cn.hbzjhs.driver.preview.PaymentStatusTest" time="0.0"/>
+  <testcase name="unfinishedAndUncreditedCompletedOrdersLabelIncomeAsAnEstimate" classname="cn.hbzjhs.driver.preview.PaymentStatusTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

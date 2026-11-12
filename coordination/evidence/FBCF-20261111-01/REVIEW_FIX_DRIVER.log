@@ -1,0 +1,52 @@
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/8.7/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
+> Task :app:buildKotlinToolingMetadata UP-TO-DATE
+> Task :app:checkKotlinGradlePluginConfigurationErrors
+> Task :app:preBuild UP-TO-DATE
+> Task :app:preExperienceBuild UP-TO-DATE
+> Task :app:generateExperienceBuildConfig
+> Task :app:checkExperienceAarMetadata UP-TO-DATE
+> Task :app:generateExperienceResValues UP-TO-DATE
+> Task :app:mapExperienceSourceSetPaths
+> Task :app:generateExperienceResources
+> Task :app:packageExperienceResources
+> Task :app:createExperienceCompatibleScreenManifests UP-TO-DATE
+> Task :app:extractDeepLinksExperience UP-TO-DATE
+> Task :app:parseExperienceLocalResources
+> Task :app:processExperienceMainManifest
+> Task :app:processExperienceManifest
+> Task :app:javaPreCompileExperience UP-TO-DATE
+> Task :app:preExperienceUnitTestBuild UP-TO-DATE
+> Task :app:javaPreCompileExperienceUnitTest UP-TO-DATE
+> Task :app:processExperienceManifestForPackage
+> Task :app:mergeExperienceResources
+> Task :app:processExperienceResources
+> Task :app:compileExperienceKotlin
+w: file:///Users/dongge/.codex/tmp/yijiexing-ui-optimization-worktree-20261029/candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/BusinessCommunity.kt:410:53 Parameter 'profile' is never used
+w: file:///Users/dongge/.codex/tmp/yijiexing-ui-optimization-worktree-20261029/candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/BusinessCommunity.kt:498:5 Parameter 'onMessage' is never used
+w: file:///Users/dongge/.codex/tmp/yijiexing-ui-optimization-worktree-20261029/candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/CompetitionRules.kt:201:65 Unnecessary safe call on a non-null receiver of type JSONObject?
+w: file:///Users/dongge/.codex/tmp/yijiexing-ui-optimization-worktree-20261029/candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/CoreScreens.kt:591:5 Parameter 'onOrders' is never used
+w: file:///Users/dongge/.codex/tmp/yijiexing-ui-optimization-worktree-20261029/candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/CoreScreens.kt:592:5 Parameter 'onWallet' is never used
+w: file:///Users/dongge/.codex/tmp/yijiexing-ui-optimization-worktree-20261029/candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/CoreScreens.kt:1744:21 Parameter 'store' is never used
+w: file:///Users/dongge/.codex/tmp/yijiexing-ui-optimization-worktree-20261029/candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/DriverPermissions.kt:131:9 Parameter 'results' is never used, could be renamed to _
+w: file:///Users/dongge/.codex/tmp/yijiexing-ui-optimization-worktree-20261029/candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/DriverPermissions.kt:149:9 Variable 'lightGreen' is never used
+w: file:///Users/dongge/.codex/tmp/yijiexing-ui-optimization-worktree-20261029/candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/MainActivity.kt:337:13 Name shadowed: owner
+w: file:///Users/dongge/.codex/tmp/yijiexing-ui-optimization-worktree-20261029/candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/MembershipCatalogScreens.kt:90:51 Unnecessary non-null assertion (!!) on a non-null receiver of type JSONObject
+w: file:///Users/dongge/.codex/tmp/yijiexing-ui-optimization-worktree-20261029/candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/MembershipCatalogScreens.kt:114:21 'LinearProgressIndicator(Float, Modifier = ..., Color = ..., Color = ..., StrokeCap = ...): Unit' is deprecated. Use the overload that takes `progress` as a lambda
+w: file:///Users/dongge/.codex/tmp/yijiexing-ui-optimization-worktree-20261029/candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/MembershipUi.kt:290:30 Unsafe use of a nullable receiver of type Any?
+w: file:///Users/dongge/.codex/tmp/yijiexing-ui-optimization-worktree-20261029/candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/UiKit.kt:98:43 'List: ImageVector' is deprecated. Use the AutoMirrored version at Icons.AutoMirrored.Outlined.List
+w: file:///Users/dongge/.codex/tmp/yijiexing-ui-optimization-worktree-20261029/candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/UiKit.kt:100:34 'ArrowBack: ImageVector' is deprecated. Use the AutoMirrored version at Icons.AutoMirrored.Outlined.ArrowBack
+w: file:///Users/dongge/.codex/tmp/yijiexing-ui-optimization-worktree-20261029/candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/UiKit.kt:101:35 'KeyboardArrowRight: ImageVector' is deprecated. Use the AutoMirrored version at Icons.AutoMirrored.Outlined.KeyboardArrowRight
+w: file:///Users/dongge/.codex/tmp/yijiexing-ui-optimization-worktree-20261029/candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/UiKit.kt:120:34 'ExitToApp: ImageVector' is deprecated. Use the AutoMirrored version at Icons.AutoMirrored.Outlined.ExitToApp
+
+> Task :app:compileExperienceJavaWithJavac
+> Task :app:processExperienceJavaRes UP-TO-DATE
+> Task :app:bundleExperienceClassesToCompileJar
+> Task :app:bundleExperienceClassesToRuntimeJar
+> Task :app:compileExperienceUnitTestKotlin
+> Task :app:compileExperienceUnitTestJavaWithJavac NO-SOURCE
+> Task :app:processExperienceUnitTestJavaRes UP-TO-DATE
+> Task :app:testExperienceUnitTest
+
+BUILD SUCCESSFUL in 59s
+26 actionable tasks: 17 executed, 9 up-to-date

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="cn.hbzjhs.driver.preview.DriverCancellationTest" tests="8" skipped="0" failures="0" errors="0" timestamp="2026-11-12T03:01:23" hostname="dongge-2.local" time="0.011">
+  <properties/>
+  <testcase name="unpaidPrivateOrdersPreserveTheExistingCancellationFlow" classname="cn.hbzjhs.driver.preview.DriverCancellationTest" time="0.0"/>
+  <testcase name="startedFinishedAndUnassignedOrdersCannotCancelEvenWhenShared" classname="cn.hbzjhs.driver.preview.DriverCancellationTest" time="0.005"/>
+  <testcase name="cancelledDriverParticipationNeverRegainsTheCancellationAction" classname="cn.hbzjhs.driver.preview.DriverCancellationTest" time="0.0"/>
+  <testcase name="selectedPrepaidBidRetainsCancellationAfterParsingServerSnapshot" classname="cn.hbzjhs.driver.preview.DriverCancellationTest" time="0.001"/>
+  <testcase name="refundedContinuationSnapshotIsInactiveAndCannotBeCancelledAgain" classname="cn.hbzjhs.driver.preview.DriverCancellationTest" time="0.0"/>
+  <testcase name="onlyUnpaidBidsCanBeWithdrawnWhileAwaitingSelection" classname="cn.hbzjhs.driver.preview.DriverCancellationTest" time="0.0"/>
+  <testcase name="privatePaidOrdersRemainBlockedAtEveryStage" classname="cn.hbzjhs.driver.preview.DriverCancellationTest" time="0.004"/>
+  <testcase name="selectedSharedOrdersUseTheServerPreTripCancellationStages" classname="cn.hbzjhs.driver.preview.DriverCancellationTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

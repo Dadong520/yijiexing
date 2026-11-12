@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="cn.hbzjhs.driver.preview.NavigationSessionRulesTest" tests="18" skipped="0" failures="0" errors="0" timestamp="2026-11-12T03:01:23" hostname="dongge-2.local" time="0.011">
+  <properties/>
+  <testcase name="pickupStagesHeadToOriginIncludingWaitingReservation" classname="cn.hbzjhs.driver.preview.NavigationSessionRulesTest" time="0.001"/>
+  <testcase name="lateResultsNeverOverrideTheFirstDecision" classname="cn.hbzjhs.driver.preview.NavigationSessionRulesTest" time="0.001"/>
+  <testcase name="repeatedRetriesAndReleaseOnAccountSwitchKeepOnlyTheNewestSession" classname="cn.hbzjhs.driver.preview.NavigationSessionRulesTest" time="0.0"/>
+  <testcase name="passengerContactIsBoundToOrderStageAndNeverPrinted" classname="cn.hbzjhs.driver.preview.NavigationSessionRulesTest" time="0.001"/>
+  <testcase name="sdkReroutesWhileNavigatingAreNotNewRequests" classname="cn.hbzjhs.driver.preview.NavigationSessionRulesTest" time="0.0"/>
+  <testcase name="outOfOrderAcknowledgementStillTargetsFirstPendingOriginalIndex" classname="cn.hbzjhs.driver.preview.NavigationSessionRulesTest" time="0.0"/>
+  <testcase name="routeStartUsesOnlyFreshAccuratePhoneFixes" classname="cn.hbzjhs.driver.preview.NavigationSessionRulesTest" time="0.0"/>
+  <testcase name="arrivalIsOnlyAHintWhileNavigating" classname="cn.hbzjhs.driver.preview.NavigationSessionRulesTest" time="0.0"/>
+  <testcase name="tripFollowsServerAcknowledgedWaypointsByOriginalIndexThenDestination" classname="cn.hbzjhs.driver.preview.NavigationSessionRulesTest" time="0.004"/>
+  <testcase name="acceptSummaryListsRoundTripStopsInOrder" classname="cn.hbzjhs.driver.preview.NavigationSessionRulesTest" time="0.001"/>
+  <testcase name="switchingToANearbyLegBeforeTheOldRequestFinishesNeverStartsTheOldRoute" classname="cn.hbzjhs.driver.preview.NavigationSessionRulesTest" time="0.0"/>
+  <testcase name="endedOrdersExitAndLeavingThePageEndsSilently" classname="cn.hbzjhs.driver.preview.NavigationSessionRulesTest" time="0.0"/>
+  <testcase name="roundTripToTheStartIsTwoSeparateLegs" classname="cn.hbzjhs.driver.preview.NavigationSessionRulesTest" time="0.0"/>
+  <testcase name="missingPointsAreUnavailableWithoutSkippingAhead" classname="cn.hbzjhs.driver.preview.NavigationSessionRulesTest" time="0.0"/>
+  <testcase name="eachRequestDecidesOnceWhicheverCallbackStyleArrivesFirst" classname="cn.hbzjhs.driver.preview.NavigationSessionRulesTest" time="0.0"/>
+  <testcase name="plannedRouteMustEndAtThisLeg" classname="cn.hbzjhs.driver.preview.NavigationSessionRulesTest" time="0.001"/>
+  <testcase name="ownerRoundTripsAndRejectsMalformedValues" classname="cn.hbzjhs.driver.preview.NavigationSessionRulesTest" time="0.0"/>
+  <testcase name="stopRowsKeepEveryWaypointInArrayOrderWithProgress" classname="cn.hbzjhs.driver.preview.NavigationSessionRulesTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

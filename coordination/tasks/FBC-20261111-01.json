@@ -1,0 +1,103 @@
+{
+  "schemaVersion": 1,
+  "id": "FBC-20261111-01",
+  "owner": "claude",
+  "reviewer": "backend",
+  "secondaryReviewer": "frontend",
+  "deploy_owner": "coordinator",
+  "goal": "完成《修改意见3.0》全部确认需求（含计价分账、空车费、公司分账账户、优惠券资金池、积分拉新、服务分、开票冲红重开与技术服务费），全量测试、非作者交叉复核、隔离模拟器验收并发布至体验环境",
+  "baseSha": "571d939f0f7190e1d602b3b3a61f33ed5b203ffd",
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-ui-optimization-worktree-20261029",
+  "branch": "claude/feedback3-20261110",
+  "allow_paths": [
+    "apps/cloud-service/**",
+    "apps/admin-console/**",
+    "apps/passenger-android/**",
+    "candidates/driver-0.3.6-r2/android/**",
+    "coordination/**"
+  ],
+  "checks": [
+    "python3 -m unittest discover -s tests (apps/cloud-service: 344 PASS)",
+    "node --test operations.test.js (10 PASS) & python3 -m unittest test_iap_browser.py (18 PASS)",
+    "python3 -m unittest discover -s tools/tests (27 PASS) && python3 tools/check_coordination.py",
+    "npm test && npm run check (candidates/passenger-miniprogram-0.1.0: 74 PASS)",
+    "Passenger(v26, 89 JUnit) & Driver(v28, 133 JUnit) testExperienceUnitTest + assembleExperience + proof",
+    "Non-author cross-review V2 (backend + frontend PASS) + live SQLite copy upgrade probe + isolated AVD FB3_20261112 E2E"
+  ],
+  "status": "ACCEPTED_READY_FOR_MERGE_AND_DEPLOY",
+  "acceptance": "PASS",
+  "releaseReady": true,
+  "publicationComplete": false,
+  "candidateSha": "6548ceca164f9abd74e516a577b2e78c5edb27a5",
+  "acceptedSha": "6548ceca164f9abd74e516a577b2e78c5edb27a5",
+  "tests": [
+    {
+      "command": "python3 -m unittest discover -s tests (apps/cloud-service: 344 tests)",
+      "status": "PASS",
+      "exitCode": 0,
+      "sourceSha": "6548ceca164f9abd74e516a577b2e78c5edb27a5"
+    },
+    {
+      "command": "node --test web/operations.test.js (10) && python3 -m unittest backend/test_iap_browser.py (18)",
+      "status": "PASS",
+      "exitCode": 0,
+      "sourceSha": "6548ceca164f9abd74e516a577b2e78c5edb27a5"
+    },
+    {
+      "command": "gradlew --offline testExperienceUnitTest assembleExperience + APK identity/cert/secret proof (Passenger v26: 89 tests; Driver v28: 133 tests)",
+      "status": "PASS",
+      "exitCode": 0,
+      "sourceSha": "6548ceca164f9abd74e516a577b2e78c5edb27a5"
+    },
+    {
+      "command": "miniprogram npm test (74) && npm run check + tools unittest (27)",
+      "status": "PASS",
+      "exitCode": 0,
+      "sourceSha": "6548ceca164f9abd74e516a577b2e78c5edb27a5"
+    },
+    {
+      "command": "Non-author delta cross-reviews V2: backend client/admin review PASS + frontend backend/financial review PASS",
+      "status": "PASS",
+      "exitCode": 0,
+      "sourceSha": "6548ceca164f9abd74e516a577b2e78c5edb27a5"
+    },
+    {
+      "command": "Live GCS SQLite copy upgrade probe + local Admin/TLS API E2E + isolated AVD emulator-5592 v25->v26/v27->v28 upgrade & UI acceptance (0 crashes)",
+      "status": "PASS",
+      "exitCode": 0,
+      "sourceSha": "6548ceca164f9abd74e516a577b2e78c5edb27a5"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "coordination/evidence/FBC-20261111-01/NON_AUTHOR_CLIENT_ADMIN_REVIEW_V2.md",
+      "sha256": "01912735c98b4d7c4b37fd6ebe9c65a98823cbea0f3eb8f9b6955c5a141a02aa"
+    },
+    {
+      "path": "coordination/evidence/FBCB-20261111-01/NON_AUTHOR_BACKEND_REVIEW_V2.md",
+      "sha256": "d2633b19015f8d58e1a186c061b82bd14c0c63e6ae2d6f73de86ba45d4fecc85"
+    },
+    {
+      "path": "coordination/evidence/FBC-20261111-01/release/CANDIDATE-BUILD-PROOF.json",
+      "sha256": "4d6e4e12642506008193f16e1816a73ca9bdcaf2910c6a5b1374a928349447b9"
+    },
+    {
+      "path": "coordination/evidence/FBC-20261111-01/release/snapshot-upgrade-probe.json",
+      "sha256": "3a7f66fc3ce9aed44a99828a9c1dce49f8d63dbed15932ebaf851281f6cac18a"
+    },
+    {
+      "path": "coordination/evidence/FBC-20261111-01/native/admin-and-api-e2e-receipt.json",
+      "sha256": "5a45c47051f643a9bd07c7146d86ffd9ea0489641192a19dc8af0f79cd50f7a6"
+    },
+    {
+      "path": "coordination/evidence/FBC-20261111-01/native/NATIVE_ACCEPTANCE_SUMMARY.json",
+      "sha256": "06599316ae2c73cb1b79fcb02b913f894c2be7e3a3763df7d664efccd74a73b7"
+    },
+    {
+      "path": "coordination/evidence/FBC-20261111-01/admin-browser-tests.log",
+      "sha256": "d4f1df7592f2e4ba2199e11d43d35caa8628ec39d08c523de9fe63c8df5fb486"
+    }
+  ],
+  "nextAction": "Push coordination records to PR #57, verify exact-SHA project-gate CI PASS, merge PR #57 to main, and deploy Cloud Run (driver-demo + driver-admin) & GCS APKs (v26/v28) with full public HTTPS readback",
+  "updatedAt": "2026-11-12T06:05:36.838082+00:00"
+}

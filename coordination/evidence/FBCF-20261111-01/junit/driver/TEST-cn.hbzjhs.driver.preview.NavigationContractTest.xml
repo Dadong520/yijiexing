@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="cn.hbzjhs.driver.preview.NavigationContractTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2026-11-12T00:39:08" hostname="dongge-2.local" time="0.005">
+  <properties/>
+  <testcase name="cancelledOrdersCannotNavigateAndFinishedOrdersUseDestination" classname="cn.hbzjhs.driver.preview.NavigationContractTest" time="0.0"/>
+  <testcase name="invalidOrMissingCoordinatesSearchByNameAndNeverInventDestination" classname="cn.hbzjhs.driver.preview.NavigationContractTest" time="0.002"/>
+  <testcase name="amapUsesSeparateNameAndWgs84WithoutClientOffset" classname="cn.hbzjhs.driver.preview.NavigationContractTest" time="0.0"/>
+  <testcase name="webFallbackDeclaresWgs84AndCannotReopenNativeApp" classname="cn.hbzjhs.driver.preview.NavigationContractTest" time="0.001"/>
+  <testcase name="tripNeverSkipsNextUnvisitedWaypointEvenIfItHasNoCoordinates" classname="cn.hbzjhs.driver.preview.NavigationContractTest" time="0.0"/>
+  <testcase name="namesRoundTripChineseSpacesSymbolsAndLiteralPercentExactlyOnce" classname="cn.hbzjhs.driver.preview.NavigationContractTest" time="0.001"/>
+  <testcase name="preTripStagesNavigateToPickupInsteadOfFinalDestination" classname="cn.hbzjhs.driver.preview.NavigationContractTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

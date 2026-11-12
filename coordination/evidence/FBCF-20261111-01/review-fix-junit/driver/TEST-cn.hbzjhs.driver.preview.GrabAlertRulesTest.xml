@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="cn.hbzjhs.driver.preview.GrabAlertRulesTest" tests="11" skipped="0" failures="0" errors="0" timestamp="2026-11-12T03:01:23" hostname="dongge-2.local" time="0.003">
+  <properties/>
+  <testcase name="firstOnlineRemindsOnlyNewestAndMarksRestSeen" classname="cn.hbzjhs.driver.preview.GrabAlertRulesTest" time="0.0"/>
+  <testcase name="onlyStandardAndReservedWithRoundOfferDirectGrab" classname="cn.hbzjhs.driver.preview.GrabAlertRulesTest" time="0.0"/>
+  <testcase name="accountSwitchEndsRemindersAndSwitchingBackDoesNotReplaySameRound" classname="cn.hbzjhs.driver.preview.GrabAlertRulesTest" time="0.0"/>
+  <testcase name="persistedSeenSurvivesProcessRestartAndStaysBounded" classname="cn.hbzjhs.driver.preview.GrabAlertRulesTest" time="0.001"/>
+  <testcase name="keyRoundTripsAndRejectsMalformed" classname="cn.hbzjhs.driver.preview.GrabAlertRulesTest" time="0.0"/>
+  <testcase name="multipleNewOrdersPresentInOrderOneAtATimeAndQueueIsBounded" classname="cn.hbzjhs.driver.preview.GrabAlertRulesTest" time="0.001"/>
+  <testcase name="withdrawnClosedOrNewRoundLeavesImmediately" classname="cn.hbzjhs.driver.preview.GrabAlertRulesTest" time="0.001"/>
+  <testcase name="queuedReminderTooOldIsSkippedInsteadOfShownLate" classname="cn.hbzjhs.driver.preview.GrabAlertRulesTest" time="0.0"/>
+  <testcase name="newRoundOfSameOrderRemindsAgainAndOldRoundIsNotActionable" classname="cn.hbzjhs.driver.preview.GrabAlertRulesTest" time="0.0"/>
+  <testcase name="lifetimeRunsFromFirstDisplayAndPollingDoesNotRestartIt" classname="cn.hbzjhs.driver.preview.GrabAlertRulesTest" time="0.0"/>
+  <testcase name="clearEndsRemindersButKeepsSeenSoOfflineOnlineDoesNotReplay" classname="cn.hbzjhs.driver.preview.GrabAlertRulesTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

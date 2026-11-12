@@ -1,0 +1,112 @@
+{
+  "task": "FBC-20261111-01",
+  "sourceSha": "6548ceca164f9abd74e516a577b2e78c5edb27a5",
+  "result": "PASS",
+  "verifiedAt": "2026-11-12T06:05:36.838082+00:00",
+  "avd": {
+    "name": "FB3_20261112",
+    "serial": "emulator-5592",
+    "androidRuntimeCrashLines": 0,
+    "cleanShutdownVerified": true,
+    "adbDevicesAfterShutdown": []
+  },
+  "sameCertificateUpgrade": {
+    "passenger": {
+      "package": "cn.hbzjhs.dc.passenger.cloud",
+      "fromVersionCode": 25,
+      "toVersionCode": 26,
+      "toVersionName": "1.1.24-experience",
+      "apkSha256": "6ebd711796b5f7d3bdddf54622f9747d183097a72b29de3d49bd14a3bf1fc025",
+      "screenshot": "01-orig-passenger-upgrade-v26.png",
+      "result": "PASS"
+    },
+    "driver": {
+      "package": "cn.hbzjhs.dc.driver.cloud",
+      "fromVersionCode": 27,
+      "toVersionCode": 28,
+      "toVersionName": "0.3.25-cloud",
+      "apkSha256": "cd4616c1aa2c5eb809ada62ca0e8a9021565719d00b6bbbc2d0d57a6e0bf6802",
+      "screenshot": "02-orig-driver-upgrade-v28.png",
+      "result": "PASS"
+    }
+  },
+  "adminAndApiE2E": {
+    "receiptPath": "coordination/evidence/FBC-20261111-01/native/admin-and-api-e2e-receipt.json",
+    "unsignedCompanyGateBlocked403": true,
+    "signedCompanySplitAccount": "****1234",
+    "settledOrderSplitVerified": {
+      "orderId": "PORDc32f3e4cfd7a",
+      "tripFare": 2900,
+      "serviceFee": 500,
+      "couponAmount": 300,
+      "paidAmount": 3100,
+      "driverAmount": 2829,
+      "companyCommission": 248,
+      "platformCommission": 299,
+      "scanPaySplit": 3376
+    },
+    "invoiceRedFlushAndReissueVerified": true,
+    "techServiceInvoiceVerified": {
+      "amount": 299,
+      "taxAmount": 17,
+      "amountExcludingTax": 282
+    },
+    "responsibleCancelEmptyRunFeeVerified": {
+      "orderId": "PORD600fb707d63a",
+      "amount": 300
+    }
+  },
+  "nativeUiScenarios": [
+    "Passenger login optional invite code input (04-passenger-login-invite.png)",
+    "Passenger unpaid empty-run fee prompt & booking banner + simulated settlement to PAID (05-passenger-home-debt.png, 05b-passenger-home-debt-banner.png, 17-passenger-cancel-fee-detail.png, 17b-passenger-cancel-fee-paid.png, 17c-passenger-cancel-fee-paid-done.png)",
+    "Passenger coupon center RANGE validity 11-01 00:00 至 12-31 23:59 & my coupons (07-passenger-my-coupons.png, 07b-passenger-coupon-center-range.png)",
+    "Passenger invite friends code/count/points & receipt red-flush/reissue history (08-passenger-invite.png, 09-passenger-invoices-reissue.png)",
+    "Passenger settled order detail ¥29+¥5-¥3=¥31 breakdown (10b-passenger-settled-order-detail.png, 10c-passenger-settled-order-fees.png)",
+    "Driver login optional invite code input & home (11-driver-login-invite.png, 12-driver-home.png)",
+    "Driver settled order ¥28.29 split breakdown & cancelled order independent ¥3.00 empty-run fee UNPAID->PAID + wallet ledger +3.00/+28.29 (13b-driver-cancelled-empty-fee-unpaid.png, 14c-driver-settled-fee-split-expanded.png, 18b-driver-orders-empty-fee-paid-confirmed.png, 19b-driver-wallet-ledger-paid.png)",
+    "Driver profile & 5-level service score boundaries ≥110 / 100–110 / 90–100 / 80–90 / <80 without NaN (16c-driver-profile-bottom-menu.png, 16d-driver-service-score-page.png)"
+  ],
+  "screenshotCount": 36,
+  "screenshots": [
+    "01-orig-passenger-upgrade-v26.png",
+    "02-orig-driver-upgrade-v28.png",
+    "03-passenger-launch.png",
+    "04-passenger-login-invite.png",
+    "05-passenger-after-login.png",
+    "05-passenger-home-debt.png",
+    "05b-passenger-home-debt-banner.png",
+    "06-passenger-profile.png",
+    "07-passenger-my-coupons.png",
+    "07b-passenger-coupon-center-range.png",
+    "08-passenger-invite.png",
+    "09-passenger-invoices-reissue.png",
+    "10-passenger-orders-list.png",
+    "10b-passenger-settled-order-detail.png",
+    "10c-passenger-settled-order-fees.png",
+    "11-driver-login-invite.png",
+    "12-driver-home.png",
+    "13-driver-orders-list.png",
+    "13b-driver-cancelled-empty-fee-unpaid.png",
+    "13c-driver-cancelled-empty-fee-scroll.png",
+    "14-driver-settled-order-detail.png",
+    "14b-driver-settled-fee-split.png",
+    "14c-driver-settled-fee-split-expanded.png",
+    "15-driver-profile-actual.png",
+    "15-driver-profile.png",
+    "16-driver-service-score-levels.png",
+    "16b-driver-service-score-levels-scroll.png",
+    "16c-driver-profile-bottom-menu.png",
+    "16d-driver-service-score-page.png",
+    "17-passenger-cancel-fee-detail.png",
+    "17b-passenger-cancel-fee-paid.png",
+    "17c-passenger-cancel-fee-paid-done.png",
+    "18-driver-orders-empty-fee-paid.png",
+    "18b-driver-orders-empty-fee-paid-confirmed.png",
+    "19-driver-wallet-entries.png",
+    "19b-driver-wallet-ledger-paid.png"
+  ],
+  "simulatedBoundariesExplicit": [
+    "All payments, splits, company/driver withdrawals, coupon pool recharges, empty-run fee settlements, and passenger/tech-service invoices are simulated Demonstration records (no live Saobei/bank/tax gateway connected).",
+    "WeChat miniprogram unchanged per user confirmation (74/74 regression tests green)."
+  ]
+}

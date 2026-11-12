@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="cn.hbzjhs.passenger.PassengerPickupDefaultsTest" tests="16" skipped="0" failures="0" errors="0" timestamp="2026-11-12T00:38:14" hostname="dongge-2.local" time="0.023">
+  <properties/>
+  <testcase name="aNewerFarFixCorrectsADriftedFirstFixWithoutWaitingForItToAge" classname="cn.hbzjhs.passenger.PassengerPickupDefaultsTest" time="0.0"/>
+  <testcase name="usableFollowsExistingLocationStandards" classname="cn.hbzjhs.passenger.PassengerPickupDefaultsTest" time="0.0"/>
+  <testcase name="fixTokenRoundTrips" classname="cn.hbzjhs.passenger.PassengerPickupDefaultsTest" time="0.004"/>
+  <testcase name="staleFirstFixIsNotALock" classname="cn.hbzjhs.passenger.PassengerPickupDefaultsTest" time="0.0"/>
+  <testcase name="manualChoiceAlwaysWins" classname="cn.hbzjhs.passenger.PassengerPickupDefaultsTest" time="0.001"/>
+  <testcase name="onlyClearlyBetterFreshFixReplaces" classname="cn.hbzjhs.passenger.PassengerPickupDefaultsTest" time="0.0"/>
+  <testcase name="lookupGateOnlyLetsNewestWrite" classname="cn.hbzjhs.passenger.PassengerPickupDefaultsTest" time="0.0"/>
+  <testcase name="sameQueryRetryWorksAfterFailureOrCancel" classname="cn.hbzjhs.passenger.PassengerPickupDefaultsTest" time="0.013"/>
+  <testcase name="tripLimitIsOnlyFlaggedWhenCertainlyOver300Km" classname="cn.hbzjhs.passenger.PassengerPickupDefaultsTest" time="0.001"/>
+  <testcase name="jitterWithinAccuracyDoesNotRefillThePickup" classname="cn.hbzjhs.passenger.PassengerPickupDefaultsTest" time="0.0"/>
+  <testcase name="newerSearchTakesOverOlderOne" classname="cn.hbzjhs.passenger.PassengerPickupDefaultsTest" time="0.001"/>
+  <testcase name="retryOnlyAcceptsAFixNewerThanTheOneBeingRetried" classname="cn.hbzjhs.passenger.PassengerPickupDefaultsTest" time="0.0"/>
+  <testcase name="waitingSearchStopsWhenTextChanged" classname="cn.hbzjhs.passenger.PassengerPickupDefaultsTest" time="0.0"/>
+  <testcase name="waitingSearchIsRetiredByManualActionBeforeAnyRequest" classname="cn.hbzjhs.passenger.PassengerPickupDefaultsTest" time="0.0"/>
+  <testcase name="lookupIsBoundToAccountGenerationAndFix" classname="cn.hbzjhs.passenger.PassengerPickupDefaultsTest" time="0.002"/>
+  <testcase name="inFlightSearchCannotWriteAfterManualAction" classname="cn.hbzjhs.passenger.PassengerPickupDefaultsTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

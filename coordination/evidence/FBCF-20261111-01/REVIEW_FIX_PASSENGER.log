@@ -1,0 +1,47 @@
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/8.7/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
+> Task :app:buildKotlinToolingMetadata UP-TO-DATE
+> Task :app:checkKotlinGradlePluginConfigurationErrors
+> Task :app:preBuild UP-TO-DATE
+> Task :app:preExperienceBuild UP-TO-DATE
+> Task :app:generateExperienceBuildConfig
+> Task :app:checkExperienceAarMetadata UP-TO-DATE
+> Task :app:generateExperienceResValues UP-TO-DATE
+> Task :app:mapExperienceSourceSetPaths
+> Task :app:generateExperienceResources
+> Task :app:packageExperienceResources
+> Task :app:createExperienceCompatibleScreenManifests UP-TO-DATE
+> Task :app:extractDeepLinksExperience UP-TO-DATE
+> Task :app:parseExperienceLocalResources
+> Task :app:processExperienceMainManifest
+> Task :app:processExperienceManifest
+> Task :app:javaPreCompileExperience UP-TO-DATE
+> Task :app:preExperienceUnitTestBuild UP-TO-DATE
+> Task :app:javaPreCompileExperienceUnitTest UP-TO-DATE
+> Task :app:processExperienceManifestForPackage
+> Task :app:mergeExperienceResources
+> Task :app:processExperienceResources
+
+> Task :app:compileExperienceKotlin
+w: file:///Users/dongge/.codex/tmp/yijiexing-ui-optimization-worktree-20261029/apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/BookingScreens.kt:939:11 Name shadowed: city
+w: file:///Users/dongge/.codex/tmp/yijiexing-ui-optimization-worktree-20261029/apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/MainActivity.kt:116:7 Variable 'syncAt' is never used
+w: file:///Users/dongge/.codex/tmp/yijiexing-ui-optimization-worktree-20261029/apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/MainActivity.kt:493:43 Parameter 'configured' is never used
+w: file:///Users/dongge/.codex/tmp/yijiexing-ui-optimization-worktree-20261029/apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/MainActivity.kt:521:40 Parameter 'configured' is never used
+w: file:///Users/dongge/.codex/tmp/yijiexing-ui-optimization-worktree-20261029/apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/PassengerConfirmPrompts.kt:70:7 Variable 'blocked' is never used
+w: file:///Users/dongge/.codex/tmp/yijiexing-ui-optimization-worktree-20261029/apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/PassengerPermissions.kt:133:26 This declaration overrides deprecated member but not marked as deprecated itself. Please add @Deprecated annotation or suppress. See https://youtrack.jetbrains.com/issue/KT-47902 for details
+w: file:///Users/dongge/.codex/tmp/yijiexing-ui-optimization-worktree-20261029/apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/PassengerTripDistance.kt:267:17 Variable 'lastReportedTime' is assigned but never accessed
+w: file:///Users/dongge/.codex/tmp/yijiexing-ui-optimization-worktree-20261029/apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/PassengerTripDistance.kt:268:17 Variable 'lastReportedOrderId' is assigned but never accessed
+w: file:///Users/dongge/.codex/tmp/yijiexing-ui-optimization-worktree-20261029/apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/PassengerTripDistance.kt:299:29 The value 'pos.time' assigned to 'var lastReportedTime: Long defined in cn.hbzjhs.passenger.PassengerTripLocationReporter.`<anonymous>`.`<anonymous>`' is never used
+w: file:///Users/dongge/.codex/tmp/yijiexing-ui-optimization-worktree-20261029/apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/PassengerTripDistance.kt:300:29 The value 'activeOrderId' assigned to 'var lastReportedOrderId: String defined in cn.hbzjhs.passenger.PassengerTripLocationReporter.`<anonymous>`.`<anonymous>`' is never used
+
+> Task :app:compileExperienceJavaWithJavac
+> Task :app:processExperienceJavaRes UP-TO-DATE
+> Task :app:bundleExperienceClassesToCompileJar
+> Task :app:bundleExperienceClassesToRuntimeJar
+> Task :app:compileExperienceUnitTestKotlin
+> Task :app:compileExperienceUnitTestJavaWithJavac NO-SOURCE
+> Task :app:processExperienceUnitTestJavaRes UP-TO-DATE
+> Task :app:testExperienceUnitTest
+
+BUILD SUCCESSFUL in 52s
+26 actionable tasks: 17 executed, 9 up-to-date

@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updated": "2026-10-31T16:42:35.588432+00:00",
+  "updated": "2026-11-12T06:05:36.838082+00:00",
   "coordinator": "coordinator",
   "activeTaskIds": [
     "WX-20261025-01",
@@ -96,7 +96,10 @@
     "WB-20261103-01",
     "WBC-20261103-01",
     "WBB-20261103-01",
-    "WBREC-20261103-01"
+    "WBREC-20261103-01",
+    "FBC-20261111-01",
+    "FBCB-20261111-01",
+    "FBCF-20261111-01"
   ],
   "releaseOwner": "coordinator",
   "policy": "作者提交→自测→独立验收→协调者合并→部署回读；无业务验收PASS不发布",
@@ -125,15 +128,15 @@
     "coordination/archive/2026-10-26/AUTH-20261026-02.json"
   ],
   "memoryProtocolVersion": "2026-10-26-v3",
-  "currentStage": "WB_PUBLISHED_WBREC_REVIEW",
+  "currentStage": "FB3_ACCEPTED_MERGING_AND_DEPLOYING",
   "roleAssignments": {
-    "coordinator": "WBREC receipt review/merge only",
-    "backend": "WBB bounded receipt review",
-    "frontend": "IDLE HANDOFF_RECOMMENDED SDK feasibility PASS",
+    "coordinator": "FBC-20261111-01 PR #57 exact-SHA CI merge + Cloud Run & APK v26/v28 release readback",
+    "backend": "IDLE; FBCB-20261111-01 & NON_AUTHOR_CLIENT_ADMIN_REVIEW_V2 PASS",
+    "frontend": "IDLE (HANDOFF_RECOMMENDED); FBCF-20261111-01 & NON_AUTHOR_BACKEND_REVIEW_V2 PASS",
     "antigravity": "PAUSED_BY_USER_20261029; no new Gemini dispatch",
     "expert": "IDLE; configuration verified, SDK auth recovered; user deferred actual device test",
-    "claude": "WBC confirmedAndroid fixes"
+    "claude": "IDLE; Phase 1 & Phase 2 core modules integrated in 6548ceca"
   },
-  "collaborationDecision": "GOV07 user Claude Code main implementation; Gemini temporarily paused; visible Codex role reviews and root unique release",
-  "updatedAt": "2026-11-03T10:26:46.598794+00:00"
+  "collaborationDecision": "2026-11-11 user authorized parallel execution across backend & frontend visible Codex sessions using gpt-6.1-sol; non-author cross-review and root release",
+  "updatedAt": "2026-11-12T06:05:36.838082+00:00"
 }

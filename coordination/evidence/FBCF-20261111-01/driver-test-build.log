@@ -1,0 +1,39 @@
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/8.7/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
+> Task :app:buildKotlinToolingMetadata UP-TO-DATE
+> Task :app:checkKotlinGradlePluginConfigurationErrors
+> Task :app:preBuild UP-TO-DATE
+> Task :app:preExperienceBuild UP-TO-DATE
+> Task :app:generateExperienceBuildConfig UP-TO-DATE
+> Task :app:checkExperienceAarMetadata UP-TO-DATE
+> Task :app:generateExperienceResValues UP-TO-DATE
+> Task :app:mapExperienceSourceSetPaths UP-TO-DATE
+> Task :app:generateExperienceResources UP-TO-DATE
+> Task :app:mergeExperienceResources UP-TO-DATE
+> Task :app:packageExperienceResources UP-TO-DATE
+> Task :app:parseExperienceLocalResources UP-TO-DATE
+> Task :app:createExperienceCompatibleScreenManifests UP-TO-DATE
+> Task :app:extractDeepLinksExperience UP-TO-DATE
+> Task :app:processExperienceMainManifest UP-TO-DATE
+> Task :app:processExperienceManifest UP-TO-DATE
+> Task :app:processExperienceManifestForPackage UP-TO-DATE
+> Task :app:processExperienceResources UP-TO-DATE
+> Task :app:javaPreCompileExperience UP-TO-DATE
+> Task :app:preExperienceUnitTestBuild UP-TO-DATE
+> Task :app:javaPreCompileExperienceUnitTest UP-TO-DATE
+
+> Task :app:compileExperienceKotlin
+w: file:///Users/dongge/.codex/tmp/yijiexing-ui-optimization-worktree-20261029/candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/BusinessCommunity.kt:410:53 Parameter 'profile' is never used
+w: file:///Users/dongge/.codex/tmp/yijiexing-ui-optimization-worktree-20261029/candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/BusinessCommunity.kt:498:5 Parameter 'onMessage' is never used
+
+> Task :app:compileExperienceJavaWithJavac UP-TO-DATE
+> Task :app:processExperienceJavaRes UP-TO-DATE
+> Task :app:bundleExperienceClassesToCompileJar
+> Task :app:bundleExperienceClassesToRuntimeJar
+> Task :app:compileExperienceUnitTestKotlin UP-TO-DATE
+> Task :app:compileExperienceUnitTestJavaWithJavac NO-SOURCE
+> Task :app:processExperienceUnitTestJavaRes UP-TO-DATE
+> Task :app:testExperienceUnitTest
+
+BUILD SUCCESSFUL in 12s
+26 actionable tasks: 5 executed, 21 up-to-date

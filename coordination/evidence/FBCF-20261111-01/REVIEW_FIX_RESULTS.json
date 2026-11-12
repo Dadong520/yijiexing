@@ -1,0 +1,95 @@
+{
+  "task": "FBCF-20261111-01 review fixes R1/R2/R4/R6",
+  "updatedAt": "2026-11-12T03:02:34.035670+00:00",
+  "authorRole": "frontend",
+  "sessionId": "01a182c6-c475-7110-bbae-0deafe6d2385",
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-ui-optimization-worktree-20261029",
+  "branch": "claude/feedback3-20261110",
+  "workingHead": "c46479ff3d03831d23ca281046065294fd4f1b0a",
+  "committed": false,
+  "independentAcceptance": "NOT_RUN",
+  "files": [
+    {
+      "path": "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/Feedback3Rules.kt",
+      "sha256": "95dd06b4ffe431ee4a490617b3f7bf7d5333b05e86a3401f8b634e4fcce1aaef"
+    },
+    {
+      "path": "apps/passenger-android/app/src/main/java/cn/hbzjhs/passenger/ParityScreens.kt",
+      "sha256": "0e6cd9edc28ccd70b88a670853b7c599d0f6f47e776faa94ddaf40c54771501b"
+    },
+    {
+      "path": "apps/passenger-android/app/src/test/java/cn/hbzjhs/passenger/CouponValidityTest.kt",
+      "sha256": "c117261323ee45dbcb6b897dc7d5f8825ac725ea42ccef540a441409c1c9adec"
+    },
+    {
+      "path": "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/BusinessCommunity.kt",
+      "sha256": "235f7439dea3b5c70c8d4369fb45a3632f6493a078a9cf6debaf9637b951fc38"
+    },
+    {
+      "path": "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/BusinessSupport.kt",
+      "sha256": "fcc67749b51c1e2f1406dc2a2d80ccee634a25ac354fd9b36db9c274023683b3"
+    },
+    {
+      "path": "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/ConnectedStore.kt",
+      "sha256": "a94bce75da4a008500be27726b8d5f86d65469776c7901d70551fc4cb53c469c"
+    },
+    {
+      "path": "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/CoreScreens.kt",
+      "sha256": "894e1c41e8a6845e91bb0a537020f7c1cf2b149ec13ad83e8b85db54104e46af"
+    },
+    {
+      "path": "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/DriverDomain.kt",
+      "sha256": "f80aba0e8994de161d179fca8c3e92e47c925b6e3d1400fc2858bfe8babaab33"
+    },
+    {
+      "path": "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/Feedback3Presentation.kt",
+      "sha256": "b68fa3545608d72311a59faaee98346806ca93f3cced18b1f4ad7e2623406e35"
+    },
+    {
+      "path": "candidates/driver-0.3.6-r2/android/app/src/main/java/cn/hbzjhs/driver/preview/UiKit.kt",
+      "sha256": "77f4020dbbde632c71bcc35a2a30d4ae8781f479774a2739b264c8e47ac6f89d"
+    },
+    {
+      "path": "candidates/driver-0.3.6-r2/android/app/src/test/java/cn/hbzjhs/driver/preview/Feedback3PresentationTest.kt",
+      "sha256": "92eb4e7d1472f0ef6257288d1b2f799e3e08c916d5670755c2ed5ec5dd815613"
+    }
+  ],
+  "results": {
+    "passenger": {
+      "status": "PASS",
+      "exitCode": 0,
+      "tests": 89,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "driver": {
+      "status": "PASS",
+      "exitCode": 0,
+      "tests": 133,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  },
+  "mini": {
+    "tests": 74,
+    "failures": 0,
+    "skipped": 0,
+    "npmTestExitCode": 0,
+    "npmCheckExitCode": 0,
+    "configuration": "PASS",
+    "wechatCompilation": "NOT_RUN_REQUIRES_DEVELOPER_TOOLS"
+  },
+  "commands": {
+    "android": "JAVA_HOME=/opt/homebrew/opt/openjdk@17/libexec/openjdk.jdk/Contents/Home ANDROID_HOME=/opt/homebrew/share/android-commandlinetools bash ./gradlew --offline --no-daemon -I /Users/dongge/.codex/tmp/yijiexing-wb-native-20261103/scripts/offline.init.gradle testExperienceUnitTest compileExperienceKotlin",
+    "mini": "npm test && npm run check (candidates/passenger-miniprogram-0.1.0/miniprogram)",
+    "diff": "git diff --check -- apps/passenger-android candidates/driver-0.3.6-r2/android"
+  },
+  "notRun": [
+    "Independent review of new fixes",
+    "Android device/UI/runtime integration",
+    "APK signing/upgrade",
+    "Deployment"
+  ]
+}

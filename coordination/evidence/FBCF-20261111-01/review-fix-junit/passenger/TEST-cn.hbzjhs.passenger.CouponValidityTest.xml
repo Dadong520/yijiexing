@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="cn.hbzjhs.passenger.CouponValidityTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2026-11-12T03:01:14" hostname="dongge-2.local" time="0.02">
+  <properties/>
+  <testcase name="missingValidityDataDoesNotInventZeroDayExpiry" classname="cn.hbzjhs.passenger.CouponValidityTest" time="0.006"/>
+  <testcase name="rangeUsesBothDatesInsteadOfMissingDayCount" classname="cn.hbzjhs.passenger.CouponValidityTest" time="0.01"/>
+  <testcase name="daysUsesPositiveClaimDuration" classname="cn.hbzjhs.passenger.CouponValidityTest" time="0.002"/>
+  <testcase name="rangeWithOnlyEndShowsDeadline" classname="cn.hbzjhs.passenger.CouponValidityTest" time="0.0"/>
+  <testcase name="legacyFixedUsesSameDateContract" classname="cn.hbzjhs.passenger.CouponValidityTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

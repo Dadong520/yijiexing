@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="cn.hbzjhs.passenger.PassengerConfirmPromptRulesTest" tests="11" skipped="0" failures="0" errors="0" timestamp="2026-11-12T03:01:14" hostname="dongge-2.local" time="0.032">
+  <properties/>
+  <testcase name="settlingOnePromptKeepsOtherOrdersPending" classname="cn.hbzjhs.passenger.PassengerConfirmPromptRulesTest" time="0.008"/>
+  <testcase name="answerableNeedsPendingSameStage" classname="cn.hbzjhs.passenger.PassengerConfirmPromptRulesTest" time="0.001"/>
+  <testcase name="idleWithoutSuccessCallbackIsAFailureNotASuccess" classname="cn.hbzjhs.passenger.PassengerConfirmPromptRulesTest" time="0.0"/>
+  <testcase name="tapTimeCheckRefusesChangedOrExpiredRequests" classname="cn.hbzjhs.passenger.PassengerConfirmPromptRulesTest" time="0.001"/>
+  <testcase name="modalCoordinatorReleasesTokens" classname="cn.hbzjhs.passenger.PassengerConfirmPromptRulesTest" time="0.018"/>
+  <testcase name="settledListIsBoundedAndDeduplicated" classname="cn.hbzjhs.passenger.PassengerConfirmPromptRulesTest" time="0.001"/>
+  <testcase name="keysAreScopedByAccountAndOrder" classname="cn.hbzjhs.passenger.PassengerConfirmPromptRulesTest" time="0.0"/>
+  <testcase name="blankOrMalformedExpiryIsNeverUnexpired" classname="cn.hbzjhs.passenger.PassengerConfirmPromptRulesTest" time="0.001"/>
+  <testcase name="failedOrDeferredPromptOnlyAffectsItself" classname="cn.hbzjhs.passenger.PassengerConfirmPromptRulesTest" time="0.0"/>
+  <testcase name="heldAnnouncementWaitsForNewPageWithoutDeadlockingPrompt" classname="cn.hbzjhs.passenger.PassengerConfirmPromptRulesTest" time="0.001"/>
+  <testcase name="announcementIsClaimedOnceAndNeverUnderAnotherModal" classname="cn.hbzjhs.passenger.PassengerConfirmPromptRulesTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

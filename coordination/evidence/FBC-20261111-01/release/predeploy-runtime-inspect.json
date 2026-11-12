@@ -1,0 +1,130 @@
+{
+  "services": {
+    "api": {
+      "service": "driver-demo",
+      "latestReadyRevisionName": "driver-demo-grab-36fdf2c",
+      "traffic": [
+        {
+          "percent": 100,
+          "revisionName": "driver-demo-grab-36fdf2c",
+          "tag": "ccui-qa",
+          "url": "https://ccui-qa---driver-demo-phfgquzmua-uw.a.run.app"
+        },
+        {
+          "revisionName": "driver-demo-grab-36fdf2c",
+          "tag": "pm-map-qa",
+          "url": "https://pm-map-qa---driver-demo-phfgquzmua-uw.a.run.app"
+        },
+        {
+          "revisionName": "driver-demo-grab-36fdf2c",
+          "tag": "pmv-qa",
+          "url": "https://pmv-qa---driver-demo-phfgquzmua-uw.a.run.app"
+        },
+        {
+          "revisionName": "driver-demo-grab-36fdf2c",
+          "tag": "pui-qa",
+          "url": "https://pui-qa---driver-demo-phfgquzmua-uw.a.run.app"
+        },
+        {
+          "revisionName": "driver-demo-grab-36fdf2c",
+          "tag": "user-test",
+          "url": "https://user-test---driver-demo-phfgquzmua-uw.a.run.app"
+        }
+      ],
+      "serviceDocSha256": "a7c67bbbc144850cf111938547ed9bca68ca6da316407441b0fc288398babf75",
+      "iamDocSha256": "105e32d08138579391a57e0bbfe4d947b9e123e2f7043ee7afa17569a9f00ec5",
+      "minScale": "0",
+      "maxScale": "1"
+    },
+    "admin": {
+      "service": "driver-admin",
+      "latestReadyRevisionName": "driver-admin-ccui-107e226-test1",
+      "traffic": [
+        {
+          "percent": 100,
+          "revisionName": "driver-admin-ccui-107e226-test1",
+          "tag": "ccui-qa",
+          "url": "https://ccui-qa---driver-admin-phfgquzmua-uw.a.run.app"
+        },
+        {
+          "revisionName": "driver-admin-pmv-817ed22-test1",
+          "tag": "pmv-qa",
+          "url": "https://pmv-qa---driver-admin-phfgquzmua-uw.a.run.app"
+        },
+        {
+          "revisionName": "driver-admin-pui-7d6dc60-test1",
+          "tag": "pui-qa",
+          "url": "https://pui-qa---driver-admin-phfgquzmua-uw.a.run.app"
+        },
+        {
+          "revisionName": "driver-admin-ccui-107e226-test1",
+          "tag": "user-test",
+          "url": "https://user-test---driver-admin-phfgquzmua-uw.a.run.app"
+        }
+      ],
+      "serviceDocSha256": "49dcb84c0786a3e1307ebebd3719098560be5b9bb7f108bc43999eb486f44c1e",
+      "iamDocSha256": "99180f12aaa185b7b798b61ff7bc5967b0596809a6d39568dd81a50d302d051a",
+      "minScale": "0",
+      "maxScale": "1"
+    }
+  },
+  "apks": {
+    "passenger": {
+      "object": "distribution/yijiexing-passenger.apk",
+      "generation": "1793704229658241",
+      "bytes": 42569541,
+      "sha256": "18e6485980284eb046e2ef05124b7260d6ab9cfc22257b24fb61ecd952ceebc0",
+      "transport": "direct"
+    },
+    "driver": {
+      "object": "distribution/yijiexing-cloud.apk",
+      "generation": "1793704240376438",
+      "bytes": 115439686,
+      "sha256": "0cb9faec2468f47c8f0370ef142b42638311c14dcf8b29425dcb589e355092b7",
+      "transport": "direct"
+    }
+  },
+  "snapshot": {
+    "generation": "1794304758478603",
+    "bytes": 13467648,
+    "sha256": "6df69a255732a96de25b7668375254db73ecf33bc30fe6b0595e690721ef371a",
+    "integrity": "ok",
+    "tableCounts": {
+      "accounts": 3,
+      "actions": 12170,
+      "approvals": 0,
+      "audits": 739,
+      "batches": 0,
+      "codes": 0,
+      "configs": 6,
+      "console_actions": 17,
+      "console_login_attempts": 2,
+      "console_sessions": 11,
+      "console_users": 3,
+      "files": 4,
+      "invoices": 0,
+      "live_announcement_acks": 0,
+      "live_operations": 3,
+      "member_orders": 2,
+      "negotiation_offers": 1,
+      "operation_drafts": 0,
+      "operation_records": 0,
+      "order_competitions": 3,
+      "order_contenders": 3,
+      "passenger_actions": 13247,
+      "passenger_complaint_files": 4,
+      "passenger_extras": 3,
+      "passenger_order_contacts": 10,
+      "passenger_orders": 56,
+      "passenger_sessions": 26,
+      "passengers": 3,
+      "scheduled": 0,
+      "sessions": 29,
+      "subscriptions": 2
+    },
+    "companiesCount": 1,
+    "driverCompanyBindingsCount": 0,
+    "driverCompanyBindings": [],
+    "transport": "direct"
+  }
+}

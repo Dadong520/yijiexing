@@ -1,0 +1,87 @@
+{
+  "id": "FBCB-20261111-01",
+  "owner": "backend",
+  "reviewer": "frontend",
+  "deploy_owner": "coordinator",
+  "goal": "按coordination/contracts/FBC-20261111-01.md完成apps/cloud-service第二阶段接线（invoice_ops、ops_extras、公司分账账户/流水/上线门禁、乘客计价预览、后台数据集与分账/费用投影）及全量后端单测",
+  "baseSha": "571d939f0f7190e1d602b3b3a61f33ed5b203ffd",
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-ui-optimization-worktree-20261029",
+  "branch": "claude/feedback3-20261110",
+  "allow_paths": [
+    "apps/cloud-service/**",
+    "coordination/tasks/FBCB-20261111-01.json",
+    "coordination/handoffs/backend.md",
+    "coordination/evidence/FBCB-20261111-01/**"
+  ],
+  "checks": [
+    "python3 -m unittest discover -s tests (apps/cloud-service)",
+    "10/5/0.5/50%分账实例及D>0/D<=0恒等式、实际里程计价、空车费、公司分账开户门禁、资金池5000/500预警熔断、积分拉新、服务分、发票冲红重开与技术服务费单测全绿"
+  ],
+  "status": "ACCEPTED_IN_CANDIDATE",
+  "acceptance": "PASS",
+  "tests": [
+    {
+      "command": "python3 -m unittest discover -s tests",
+      "status": "PASS",
+      "passed": 338,
+      "failed": 0,
+      "errors": 0,
+      "durationSeconds": 82.45,
+      "exitCode": 0,
+      "evidence": "coordination/evidence/FBCB-20261111-01/AMOUNT_TIER_FINAL_TEST.log",
+      "source": "Latest uncommitted WIP after AMOUNT tier correction; SOURCE_MANIFEST.json"
+    },
+    {
+      "command": "git diff --check -- . (apps/cloud-service)",
+      "status": "PASS",
+      "exitCode": 0
+    },
+    {
+      "command": "python3 tools/check_coordination.py --memory-role backend --session-id 01a182c6-c058-76e1-9584-38abfe813799",
+      "status": "PASS",
+      "exitCode": 0
+    }
+  ],
+  "evidence": [
+    {
+      "path": "coordination/evidence/FBCB-20261111-01/SUMMARY.md",
+      "sha256": "5de414d1c3b4e3c44184ccbee9dd2993053374c368ee4418ef126365fd35880d"
+    },
+    {
+      "path": "coordination/evidence/FBCB-20261111-01/REVIEW_FIX_SUMMARY.md",
+      "sha256": "220b3e3575a436df3f8f4173a504aaba12cfe34d34793454d404799ad7d89325"
+    },
+    {
+      "path": "coordination/evidence/FBCB-20261111-01/NON_AUTHOR_BACKEND_REVIEW_V2.md",
+      "sha256": "d2633b19015f8d58e1a186c061b82bd14c0c63e6ae2d6f73de86ba45d4fecc85"
+    }
+  ],
+  "nextAction": "Included in accepted candidate 6548ceca; coordinator merging PR #57 and deploying to experience environment",
+  "updatedAt": "2026-11-12T06:05:36.838082+00:00",
+  "workingHeadSha": "6548ceca164f9abd74e516a577b2e78c5edb27a5",
+  "pendingMergeSha": "6548ceca164f9abd74e516a577b2e78c5edb27a5",
+  "selfTest": "PASS",
+  "remainingIssues": [],
+  "authoredFiles": [
+    "apps/cloud-service/admin_console.py",
+    "apps/cloud-service/admin_extras.py",
+    "apps/cloud-service/admin_queries.py",
+    "apps/cloud-service/company_split.py",
+    "apps/cloud-service/competition.py",
+    "apps/cloud-service/coupons.py",
+    "apps/cloud-service/domain.py",
+    "apps/cloud-service/growth.py",
+    "apps/cloud-service/invoice_ops.py",
+    "apps/cloud-service/live_operations.py",
+    "apps/cloud-service/ops_extras.py",
+    "apps/cloud-service/passenger.py",
+    "apps/cloud-service/passenger_extras.py",
+    "apps/cloud-service/pricing.py",
+    "apps/cloud-service/tests/test_feedback3.py",
+    "apps/cloud-service/tests/test_feedback3_phase2.py",
+    "apps/cloud-service/tests/test_live_operations.py",
+    "apps/cloud-service/tests/test_passenger_extras.py"
+  ],
+  "commitCreated": true,
+  "acceptedSha": "6548ceca164f9abd74e516a577b2e78c5edb27a5"
+}

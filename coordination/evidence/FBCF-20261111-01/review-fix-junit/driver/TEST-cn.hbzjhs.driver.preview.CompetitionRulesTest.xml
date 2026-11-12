@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="cn.hbzjhs.driver.preview.CompetitionRulesTest" tests="16" skipped="0" failures="0" errors="0" timestamp="2026-11-12T03:01:23" hostname="dongge-2.local" time="0.035">
+  <properties/>
+  <testcase name="parsesContractNamesAndAliases" classname="cn.hbzjhs.driver.preview.CompetitionRulesTest" time="0.013"/>
+  <testcase name="assignedCancellationRequiresCurrentOwnershipAndPreservesLegacy" classname="cn.hbzjhs.driver.preview.CompetitionRulesTest" time="0.003"/>
+  <testcase name="fiveSecondCandidacyOutlivesTheThreeSecondReminder" classname="cn.hbzjhs.driver.preview.CompetitionRulesTest" time="0.004"/>
+  <testcase name="candidateWaitsThenGetsAnHonestFinalResult" classname="cn.hbzjhs.driver.preview.CompetitionRulesTest" time="0.002"/>
+  <testcase name="cancelDialogCannotFollowAnotherRoundAccountOrStage" classname="cn.hbzjhs.driver.preview.CompetitionRulesTest" time="0.001"/>
+  <testcase name="onlyOwnDriverIdMatchingRoundOwnedRowIsAssignedAndMayNavigate" classname="cn.hbzjhs.driver.preview.CompetitionRulesTest" time="0.0"/>
+  <testcase name="bidNegotiatedAndPrivateRowsKeepOriginalFlowButSharedOrdinaryFailsClosed" classname="cn.hbzjhs.driver.preview.CompetitionRulesTest" time="0.0"/>
+  <testcase name="accountSwitchCleanupNeverReleasesTheNewSessionsBusyAttempt" classname="cn.hbzjhs.driver.preview.CompetitionRulesTest" time="0.001"/>
+  <testcase name="windowAnchorsOnMeasuredRequestAndNeverExtends" classname="cn.hbzjhs.driver.preview.CompetitionRulesTest" time="0.001"/>
+  <testcase name="historicalWonWithoutOwnedRowIsFeedbackOnly" classname="cn.hbzjhs.driver.preview.CompetitionRulesTest" time="0.0"/>
+  <testcase name="readyOpenDeadlineAndPendingStates" classname="cn.hbzjhs.driver.preview.CompetitionRulesTest" time="0.0"/>
+  <testcase name="baseCadenceIsFastOnlyWhileReallyListening" classname="cn.hbzjhs.driver.preview.CompetitionRulesTest" time="0.002"/>
+  <testcase name="contractFailureReasonsAreExplainedWithoutClaimingAWinner" classname="cn.hbzjhs.driver.preview.CompetitionRulesTest" time="0.0"/>
+  <testcase name="repeatedClickIsIgnoredAndRetryReusesRequestId" classname="cn.hbzjhs.driver.preview.CompetitionRulesTest" time="0.005"/>
+  <testcase name="notificationActionIdentityIsPerAccountOrderRound" classname="cn.hbzjhs.driver.preview.CompetitionRulesTest" time="0.001"/>
+  <testcase name="candidatePollIsShortThenBoundedAndStops" classname="cn.hbzjhs.driver.preview.CompetitionRulesTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
