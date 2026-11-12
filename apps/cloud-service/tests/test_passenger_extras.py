@@ -8,11 +8,12 @@ import unittest
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1]))
 from common import ApiError, require
 from passenger_extras import PassengerExtrasMixin
+from invoice_ops import InvoiceOpsMixin
 from benefits import BenefitsMixin
 from live_operations import LiveOperations
 
 
-class ExtrasService(PassengerExtrasMixin, BenefitsMixin):
+class ExtrasService(InvoiceOpsMixin, PassengerExtrasMixin, BenefitsMixin):
     def __init__(self, path):
         self.db = sqlite3.connect(path)
         self.db.row_factory = sqlite3.Row

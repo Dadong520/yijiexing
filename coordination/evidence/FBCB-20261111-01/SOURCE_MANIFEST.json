@@ -1,0 +1,189 @@
+{
+  "head": "22e60230edebf3a53d5f9ace48c08aa4eb4ced11",
+  "commit": "NOT_CREATED",
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-ui-optimization-worktree-20261029/apps/cloud-service",
+  "files": [
+    {
+      "path": "apps/cloud-service/admin_console.py",
+      "sha256": "d259a87f147a791a9f4b641e9b8dc06eee5a2b344c4d23f7b3ce5e66aa8df585"
+    },
+    {
+      "path": "apps/cloud-service/admin_extras.py",
+      "sha256": "e5efef037764287eb188ce77b5716e45d281d23cfc834a1ceb336b5d06e9638f"
+    },
+    {
+      "path": "apps/cloud-service/admin_queries.py",
+      "sha256": "e65fd6db2e0b21b5cf29be9167ebe5f05df3572aaaada3cf1cb799d1656b0b3b"
+    },
+    {
+      "path": "apps/cloud-service/company_split.py",
+      "sha256": "64c6d3c4ea0d4c277d75f3758462b1b1b608114b41d865e9bf1e5fc877690fc9"
+    },
+    {
+      "path": "apps/cloud-service/competition.py",
+      "sha256": "d82c910c19a62d59d2eb91e6e9c3560abd1097c2715246365dcbfb025f20fc2c"
+    },
+    {
+      "path": "apps/cloud-service/coupons.py",
+      "sha256": "3be81bbdf9abf3f0eb7d873ea80b2574641a2c6ec6dadbe4bec20c57f5dabf99"
+    },
+    {
+      "path": "apps/cloud-service/domain.py",
+      "sha256": "e0b536e3d46d516b06c3850f6fa92d59cc0c2efdce17b1573b0d63c4688585bc"
+    },
+    {
+      "path": "apps/cloud-service/growth.py",
+      "sha256": "ba5ba1eebbb7a00702b8bbb2dfd442088d843e5a7686a038a772cff1cf80c60e"
+    },
+    {
+      "path": "apps/cloud-service/invoice_ops.py",
+      "sha256": "a2565de7ea542b9243026317d197bc2952c621edbe87dff17c5f2e371b147533"
+    },
+    {
+      "path": "apps/cloud-service/live_operations.py",
+      "sha256": "8631b9deaa94571d396e1b052f450572c6ca5f095c17deab459be66dc7f89774"
+    },
+    {
+      "path": "apps/cloud-service/ops_extras.py",
+      "sha256": "662419974f74597521a649cec5b026f5976bafc847fca32c3c146533e8ab2f12"
+    },
+    {
+      "path": "apps/cloud-service/passenger.py",
+      "sha256": "dfa06e0711d25480446644e269456ab09c455485f37fdaf6a61b23e99f3c7a2d"
+    },
+    {
+      "path": "apps/cloud-service/passenger_extras.py",
+      "sha256": "7da549c220b81da7b3498cded14202e9a0d61567bf8cc606be49e02cb53cb672"
+    },
+    {
+      "path": "apps/cloud-service/pricing.py",
+      "sha256": "d0a27405cf1b138e87713b2cdb0e4fc6e88abfeab637ae3b9c25c5e9917def0f"
+    },
+    {
+      "path": "apps/cloud-service/tests/test_feedback3.py",
+      "sha256": "bfd5cf86f84cd65e760bbac68188f18f8d1a76dfe59b8beb6409b73a205cc9e0"
+    },
+    {
+      "path": "apps/cloud-service/tests/test_feedback3_phase2.py",
+      "sha256": "289f2ed25a74f3f28116fbd029cd5ac55e20c91c09a3d78b0684f8c77b262e98"
+    },
+    {
+      "path": "apps/cloud-service/tests/test_live_operations.py",
+      "sha256": "79f71a68f557ee4550d76e60f12bb15042123e682f4d85ca13b67bf3148ffe78"
+    },
+    {
+      "path": "apps/cloud-service/tests/test_passenger_extras.py",
+      "sha256": "fe14187fc500512a8fe68172464818d56631e99af7c889fe6e8e7ff2374593b4"
+    }
+  ],
+  "allBackendWipFiles": [
+    {
+      "path": "apps/cloud-service/admin.py",
+      "sha256": "0a2c9714c11025f7ac6a0318811b06b20291318649bbfa93254cbbf495a27bc6"
+    },
+    {
+      "path": "apps/cloud-service/admin_console.py",
+      "sha256": "d259a87f147a791a9f4b641e9b8dc06eee5a2b344c4d23f7b3ce5e66aa8df585"
+    },
+    {
+      "path": "apps/cloud-service/admin_extras.py",
+      "sha256": "e5efef037764287eb188ce77b5716e45d281d23cfc834a1ceb336b5d06e9638f"
+    },
+    {
+      "path": "apps/cloud-service/admin_queries.py",
+      "sha256": "e65fd6db2e0b21b5cf29be9167ebe5f05df3572aaaada3cf1cb799d1656b0b3b"
+    },
+    {
+      "path": "apps/cloud-service/company_split.py",
+      "sha256": "64c6d3c4ea0d4c277d75f3758462b1b1b608114b41d865e9bf1e5fc877690fc9"
+    },
+    {
+      "path": "apps/cloud-service/competition.py",
+      "sha256": "d82c910c19a62d59d2eb91e6e9c3560abd1097c2715246365dcbfb025f20fc2c"
+    },
+    {
+      "path": "apps/cloud-service/coupons.py",
+      "sha256": "3be81bbdf9abf3f0eb7d873ea80b2574641a2c6ec6dadbe4bec20c57f5dabf99"
+    },
+    {
+      "path": "apps/cloud-service/domain.py",
+      "sha256": "e0b536e3d46d516b06c3850f6fa92d59cc0c2efdce17b1573b0d63c4688585bc"
+    },
+    {
+      "path": "apps/cloud-service/engagement.py",
+      "sha256": "09e240ea25b4b25ba80e2153eb3c81e859b978b4f1331b930302cad4a17bb7de"
+    },
+    {
+      "path": "apps/cloud-service/growth.py",
+      "sha256": "ba5ba1eebbb7a00702b8bbb2dfd442088d843e5a7686a038a772cff1cf80c60e"
+    },
+    {
+      "path": "apps/cloud-service/invoice_ops.py",
+      "sha256": "a2565de7ea542b9243026317d197bc2952c621edbe87dff17c5f2e371b147533"
+    },
+    {
+      "path": "apps/cloud-service/live_operations.py",
+      "sha256": "8631b9deaa94571d396e1b052f450572c6ca5f095c17deab459be66dc7f89774"
+    },
+    {
+      "path": "apps/cloud-service/ops_extras.py",
+      "sha256": "662419974f74597521a649cec5b026f5976bafc847fca32c3c146533e8ab2f12"
+    },
+    {
+      "path": "apps/cloud-service/passenger.py",
+      "sha256": "dfa06e0711d25480446644e269456ab09c455485f37fdaf6a61b23e99f3c7a2d"
+    },
+    {
+      "path": "apps/cloud-service/passenger_extras.py",
+      "sha256": "7da549c220b81da7b3498cded14202e9a0d61567bf8cc606be49e02cb53cb672"
+    },
+    {
+      "path": "apps/cloud-service/pricing.py",
+      "sha256": "d0a27405cf1b138e87713b2cdb0e4fc6e88abfeab637ae3b9c25c5e9917def0f"
+    },
+    {
+      "path": "apps/cloud-service/tests/policy_helpers.py",
+      "sha256": "c9e100c261af85466674d428b1408c3ef67e940c6e1bb497c3e7a3cb6cb34b53"
+    },
+    {
+      "path": "apps/cloud-service/tests/test_destination_required.py",
+      "sha256": "21a8aba7c4ee6c63da80aad509dcda425c31141d4c0e429cc420c1399095517e"
+    },
+    {
+      "path": "apps/cloud-service/tests/test_fare_confirmation.py",
+      "sha256": "5f3b2125851fdd91a62811025c74ab59f6888c14c750abe7da44992cc32680c7"
+    },
+    {
+      "path": "apps/cloud-service/tests/test_feedback3.py",
+      "sha256": "bfd5cf86f84cd65e760bbac68188f18f8d1a76dfe59b8beb6409b73a205cc9e0"
+    },
+    {
+      "path": "apps/cloud-service/tests/test_feedback3_phase2.py",
+      "sha256": "289f2ed25a74f3f28116fbd029cd5ac55e20c91c09a3d78b0684f8c77b262e98"
+    },
+    {
+      "path": "apps/cloud-service/tests/test_live_operations.py",
+      "sha256": "79f71a68f557ee4550d76e60f12bb15042123e682f4d85ca13b67bf3148ffe78"
+    },
+    {
+      "path": "apps/cloud-service/tests/test_passenger_extras.py",
+      "sha256": "fe14187fc500512a8fe68172464818d56631e99af7c889fe6e8e7ff2374593b4"
+    },
+    {
+      "path": "apps/cloud-service/tests/test_round_trip_navigation.py",
+      "sha256": "d1702549c2784390079e1c77b9da5e5feb3223e4a0248da6ba89435c27d284d8"
+    },
+    {
+      "path": "apps/cloud-service/tests/test_trip_distance.py",
+      "sha256": "a03656678d5e46c70d4f08b8a7cbc10dd21a2a0fdb2f59437bd58c127e8de323"
+    },
+    {
+      "path": "apps/cloud-service/tests/test_wait_pay_policy.py",
+      "sha256": "9f71d63a64169aa9340c7298461b661b5209e5641ebf8f6b5e2f9b4dad3e958a"
+    },
+    {
+      "path": "apps/cloud-service/trip_distance.py",
+      "sha256": "3056a44d0abc9db949818f039fc910cda456b1d0248c648cb7b4ae74565e20fd"
+    }
+  ]
+}

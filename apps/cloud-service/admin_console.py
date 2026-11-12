@@ -7,6 +7,7 @@ from common import *
 from admin_queries import AdminQueries
 from operations_drafts import OperationsDrafts, OPS_ACTIONS
 from live_operations import LIVE_OPS_ACTIONS
+import admin_extras
 
 READ = {'orders.read','drivers.read','passengers.read','payments.read','support.read','config.read','statistics.read','audit.read'}
 ROLES = {
@@ -89,6 +90,7 @@ class AdminConsole:
             self.svc.refresh_distance_consent(o)
             o.setdefault('fareVersion',self.svc.order_fare_version(o))
             o['distanceRules']=self.svc.trip_distance_rules(o['city']) if o.get('city') else None
+            o['timeline']=admin_extras.order_timeline(self.svc,o);o['feeBreakdown']=admin_extras.fee_breakdown(o)
         return orders
     def state(self,user):
         orders=self.orders();base=self.svc.admin_state()
@@ -127,6 +129,16 @@ class AdminConsole:
         out['operationDrafts'] = (self.operation_drafts.state() if 'config.read' in user['permissions'] else
             {'catalog': [], 'drafts': [], 'records': [], 'policyLabel': '无配置读取权限', 'draftOnly': True})
         out['operations'] = self.svc.operations.state() if 'config.read' in user['permissions'] else {}
+        if 'payments.read' not in user['permissions']:
+            for key in ('companySplitAccounts', 'companySplitLedger', 'couponPool', 'couponPoolEntries', 'couponPoolAlerts',
+                        'invoiceReissues', 'invoiceIssuer', 'techFeeRows', 'orderSettlements'):
+                out['operations'].pop(key, None)
+        if 'passengers.read' not in user['permissions']:
+            out['operations'].pop('referrals', None)
+        if 'drivers.read' not in user['permissions']:
+            out['operations'].pop('serviceScoreEntries', None)
+            out['operations'].pop('serviceScoreStats', None)
+        out['operations']['pointsAccounts'] = self.svc.points_accounts() if {'drivers.read','passengers.read'} <= set(user['permissions']) else []
         out['operations']['qualificationAlerts'] = self.svc.qualification_alerts() if 'drivers.read' in user['permissions'] else []
         if 'users.manage' in user['permissions']:out['users']=[self.user(r) for r in self.db.execute('SELECT * FROM console_users ORDER BY username')]
         return out
@@ -158,17 +170,40 @@ class AdminConsole:
         before=clone(o)
         if action=='order.cancel':
             require(o['stage'] in ('AVAILABLE','WAIT_CONTINUE','PREPAY','RESERVED','PICKUP','ARRIVED'),'当前状态不允许后台取消',409)
+            require(type(p.get('responsible',False)) is bool,'有责标记须为布尔值')
             o.update(stage='CANCELLED',cancelReason=reason,cancelledBy='ADMIN')
-            if o['paid']:o.update(paid=False,paymentStatus='REFUNDED',refundAmount=o['fare'],refundedAt=stamp(),refundMode='SIMULATED')
+            self.svc.apply_cancellation(o,'ADMIN',p.get('responsible') is True)
         elif action=='order.adjustFare':
             require(o['stage']=='WAIT_PAY' and not o['paid'],'仅待支付且未付款订单可调整费用',409)
-            amount=cents(p.get('amount'),'调整后费用');version=self.svc.order_fare_version(o)+1
+            amount=cents(p.get('amount'),'调整后费用',allow_zero='tripFare' in o);version=self.svc.order_fare_version(o)+1
+            if 'tripFare' in o:
+                service=o.get('serviceFee',0)
+                require(amount>=service,'调整后实付金额不能低于区域服务费',409)
+                net=amount-service;face=o.get('couponFaceValue',0);threshold=o.get('couponThreshold',0)
+                # Invert payable = trip + service - eligible discount. Prefer the
+                # eligible solution in the overlap of a full-reduction coupon.
+                if not o.get('couponId'):
+                    trip=net
+                elif threshold<=face and net==0:
+                    trip=min(max(threshold,o.get('tripFare',threshold)),face)
+                elif net+face>=max(threshold,face):
+                    trip=net+face
+                elif net<threshold:
+                    trip=net
+                else:
+                    raise ApiError(409,'调整金额无法满足优惠券门槛与运价约束，请重新核对金额')
+                coupon=min(face,trip) if o.get('couponId') and trip>=threshold else 0
+                require(type(trip) is int and trip>=0 and 0<=coupon<=trip and trip+service-coupon==amount,
+                        '调整金额无法满足优惠券门槛与运价约束，请重新核对金额',409)
+                o.update(tripFare=trip,couponAmount=coupon)
             o.setdefault('adjustments',[]).append({'before':o['fare'],'after':amount,'fareVersion':version,'reason':reason,'actor':actor,'at':stamp()});o.update(fare=amount,fareVersion=version,fareSource='ADMIN_SIMULATED_ADJUSTMENT')
         else:
             require(o['stage']=='DONE' and o['paid'] and not o.get('refundAmount'),'仅已完成已支付且未退款订单可模拟全退',409)
             if o.get('credited'):
-                st=self.svc.sync_shared_orders(o['driverId']);require(st['balance']>=o['fare'],'司机可用模拟余额不足，退款需人工规则确认',409)
-                st['balance']-=o['fare'];st['entries'].insert(0,{'id':uid('WE'),'title':'模拟订单退款 '+o['id'],'amount':-o['fare'],'note':reason,'createdAt':stamp(),'time':stamp()});self.svc.save_state(o['driverId'],st)
+                credited=(o.get('settlement') or {}).get('driverAmount',o['fare'])
+                st=self.svc.sync_shared_orders(o['driverId']);require(st['balance']>=credited,'司机可用模拟余额不足，退款需人工规则确认',409)
+                st['balance']-=credited;st['entries'].insert(0,{'id':uid('WE'),'title':'模拟订单退款 '+o['id'],'amount':-credited,'note':reason,'createdAt':stamp(),'time':stamp()});self.svc.save_state(o['driverId'],st)
+            self.svc.reverse_company_split(o)
             o.update(paid=False,paymentStatus='REFUNDED',refundAmount=o['fare'],refundedAt=stamp(),refundMode='SIMULATED',refundReason=reason)
         o.setdefault('adminOperations',[]).append({'action':action,'actor':actor,'reason':reason,'at':stamp()})
         self.svc.save_shared(o,'ADMIN_'+action.split('.')[1].upper())
@@ -218,6 +253,11 @@ class AdminConsole:
         require(row['mime'] in ('image/png','image/jpeg'),'不支持此附件格式',415)
         self.svc.audit('ADMIN:'+user['username'],'certificate.view',None,{'driverId':driver_id,'type':certificate_type,'side':side,'fileId':fid})
         return {'fileId':row['id'],'mimeType':row['mime'],'imageBase64':base64.b64encode(row['content']).decode(),'source':'REVIEW' if candidate else 'ACTIVE','submissionId':candidate['submissionId'] if candidate else None}
+    def support_file(self,user,source,owner,file_id):
+        self.permit(user,'support.read')
+        result=admin_extras.support_file(self.svc,source,owner,file_id)
+        self.svc.audit('ADMIN:'+user['username'],'support.file.view',None,{'source':source,'ownerId':owner,'fileId':file_id})
+        return result
     def query(self,user,params):
         dataset = params.get('dataset')
         if isinstance(dataset, list) and len(dataset) == 1:dataset = dataset[0]
@@ -232,7 +272,7 @@ class AdminConsole:
         result=AdminQueries(self,user).select(filters,paginate=False)
         dataset=result['dataset'];rows=result['items']
         order_fields=['id','passengerId','driverId','stage','fare','paymentStatus','origin','destination','createdAt','passengerMobile','driverName','driverMobile','plate','city','kind','fareSource','cancellationType','cancelledAt']
-        fields={'orders':order_fields,'drivers':['id','mobile','name','city','currentLevel','online','certificateStatus','vehicleType','plate'],'passengers':['id','mobile','name','city'],'payments':['orderId','fare','paymentStatus','refundAmount','currentRefundAmount','historicalRefundAmount','refundRecords','paymentMode','id','recordType','accountId','createdAt','amount','status'],'support':['id','source','ownerId','orderId','status','content','reply','rowId','accountId','createdAt'],'audit':['id','actor','action','created','before_value','after_value'],'cancellations':order_fields+['cancellationStatus'],'refunds':['id','orderId','accountId','driverId','amount','refundedAt','refundSource','roundIndex','paymentMode'],'statistics':['date','orderCount','completedCount','cancelledCount','activeCount','paidFare','refundAmount']}[dataset]
+        fields={'orderSettlements':['id','orderId','settledAt','city','companyId','companyName','driverId','orderFee','tripFare','serviceFee','couponAmount','paidAmount','tripPayFee','tripSplitFee','paidPayFee','paidSplitFee','platformDifference','mapServiceFee','companyCommission','platformCommission','driverAmount','scanPayIncome','scanPaySplit'],'orders':order_fields,'drivers':['id','mobile','name','city','currentLevel','online','certificateStatus','vehicleType','plate'],'passengers':['id','mobile','name','city'],'payments':['orderId','fare','paymentStatus','refundAmount','currentRefundAmount','historicalRefundAmount','refundRecords','paymentMode','id','recordType','accountId','createdAt','amount','status'],'support':['id','source','ownerId','orderId','status','content','reply','rowId','accountId','createdAt'],'audit':['id','actor','action','created','before_value','after_value'],'cancellations':order_fields+['cancellationStatus'],'refunds':['id','orderId','accountId','driverId','amount','refundedAt','refundSource','roundIndex','paymentMode'],'statistics':['date','orderCount','completedCount','cancelledCount','activeCount','paidFare','refundAmount'],'invoices':['id','source','mobile','createdAt','titleType','title','taxNumber','amount','email','issuedAt','invoiceStatus','companyName','invoiceKind','orderId','accountId','accountName','redFlushedAt','redFlushReason','reissuedAs','reissueOf','reissueStatus'],'driverWallets':['driverId','accountNoLabel','name','mobile','balance','pendingAmount','withdrawnAmount','withdrawingAmount','lastWithdrawalAt','bankCardCount'],'driverDailyBalances':['date','driverId','name','mobile','income','expense','closingBalance']}[dataset]
         buf=io.StringIO();writer=csv.writer(buf);writer.writerow(fields)
         def safe(v):
             s=dumps(v) if isinstance(v,(dict,list)) else '' if v is None else str(v)

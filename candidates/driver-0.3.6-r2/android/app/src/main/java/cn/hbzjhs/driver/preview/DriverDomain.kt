@@ -73,6 +73,9 @@ data class DriverOrder(
     val settlementStatus: String = "",
     val settlementLabel: String = "",
     val netIncome: Long? = null,
+    val cancelFeeAmount: Long = 0,
+    val cancelFeeStatus: String = "",
+    val cancelFeeResponsible: String = "",
     // GRAB V1: present only on ordinary shared STANDARD/RESERVED; null keeps the original flow.
     val competition: OrderCompetition? = null,
     // True when this row must carry a valid competition (shared ordinary or has the key); a missing or
@@ -224,3 +227,10 @@ object DriverRules {
 }
 
 fun money(cents: Long) = BigDecimal.valueOf(cents, 2).setScale(2).toPlainString()
+
+
+private const val AUTO_REMARK = "乘客实际创建 · 独立体验订单"
+
+/** What the passenger actually wrote. The server's auto-filled text is not a passenger note. */
+val DriverOrder.passengerRemark: String
+    get() = remark.trim().takeUnless { it.endsWith(AUTO_REMARK) }.orEmpty()

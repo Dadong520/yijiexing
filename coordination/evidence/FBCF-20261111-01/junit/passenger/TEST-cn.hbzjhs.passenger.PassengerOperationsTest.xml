@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="cn.hbzjhs.passenger.PassengerOperationsTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2026-11-12T00:38:14" hostname="dongge-2.local" time="0.0">
+  <properties/>
+  <testcase name="legacyStateKeepsOriginalFunctionsWithoutInventingConfig" classname="cn.hbzjhs.passenger.PassengerOperationsTest" time="0.0"/>
+  <testcase name="featureRefreshImmediatelyChangesAllowedNewKinds" classname="cn.hbzjhs.passenger.PassengerOperationsTest" time="0.0"/>
+  <testcase name="legacyInvoiceFlagFallsBackOnlyWhenAbsentAndDoesNotTrustMalformedValues" classname="cn.hbzjhs.passenger.PassengerOperationsTest" time="0.0"/>
+  <testcase name="orderInvoiceFlagOverridesTheCurrentProfileCityInBothDirections" classname="cn.hbzjhs.passenger.PassengerOperationsTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

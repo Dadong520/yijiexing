@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="cn.hbzjhs.driver.preview.CountdownPresentationTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2026-11-12T03:01:23" hostname="dongge-2.local" time="0.003">
+  <properties/>
+  <testcase name="competitionStates" classname="cn.hbzjhs.driver.preview.CountdownPresentationTest" time="0.001"/>
+  <testcase name="competitionOnlyForDirectKinds" classname="cn.hbzjhs.driver.preview.CountdownPresentationTest" time="0.001"/>
+  <testcase name="texts" classname="cn.hbzjhs.driver.preview.CountdownPresentationTest" time="0.0"/>
+  <testcase name="ceilRoundsUpAndClampsAtZero" classname="cn.hbzjhs.driver.preview.CountdownPresentationTest" time="0.0"/>
+  <testcase name="fractionIsBoundedAndUnknownIsEmpty" classname="cn.hbzjhs.driver.preview.CountdownPresentationTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

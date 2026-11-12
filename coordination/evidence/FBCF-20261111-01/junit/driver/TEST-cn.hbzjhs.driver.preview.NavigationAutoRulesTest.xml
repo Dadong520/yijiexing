@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="cn.hbzjhs.driver.preview.NavigationAutoRulesTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2026-11-12T00:39:08" hostname="dongge-2.local" time="0.005">
+  <properties/>
+  <testcase name="eachAccountOrderLegOpensOnceEvenAfterRestart" classname="cn.hbzjhs.driver.preview.NavigationAutoRulesTest" time="0.003"/>
+  <testcase name="observerNeedsCompletedConnectedAccountSnapshot" classname="cn.hbzjhs.driver.preview.NavigationAutoRulesTest" time="0.0"/>
+  <testcase name="firstSnapshotIsOnlyABaseline" classname="cn.hbzjhs.driver.preview.NavigationAutoRulesTest" time="0.0"/>
+  <testcase name="missingIdentityNeverNavigates" classname="cn.hbzjhs.driver.preview.NavigationAutoRulesTest" time="0.0"/>
+  <testcase name="tripDistanceRequestThatKeepsTripNeverNavigates" classname="cn.hbzjhs.driver.preview.NavigationAutoRulesTest" time="0.0"/>
+  <testcase name="onlyRealLegStartsCount" classname="cn.hbzjhs.driver.preview.NavigationAutoRulesTest" time="0.0"/>
+  <testcase name="memoryIsBounded" classname="cn.hbzjhs.driver.preview.NavigationAutoRulesTest" time="0.002"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

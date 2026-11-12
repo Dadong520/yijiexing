@@ -111,11 +111,11 @@ fun ProfileScreen(
       MenuRow("服务城市", Icons.Default.LocationOn, p.text("cityName", "宜昌市")) { edit = true }
     }
     Panel("权益与活动") {
-      MenuRow("我的卡券", Icons.Default.Star, "0 张 · 演示，不参与订单抵扣") { navigate("coupons") }
+      MenuRow("我的卡券", Icons.Default.Star, "${state.rows("coupons").count { it.text("status") == "UNUSED" }} 张可用") { navigate("coupons") }
       HorizontalDivider(color = DividerTone, thickness = 0.8.dp)
-      MenuRow("积分", Icons.Default.Favorite, "0 分 · 演示，未接营销账务") { navigate("points") }
+      MenuRow("积分商城", Icons.Default.Favorite, "${state.optJSONObject("points")?.optLong("balance") ?: 0L} 分 · 可兑换商品") { navigate("points") }
       HorizontalDivider(color = DividerTone, thickness = 0.8.dp)
-      MenuRow("邀请好友", Icons.Default.Share, "演示 · 无实际奖励") { navigate("invite") }
+      MenuRow("邀请好友", Icons.Default.Share, state.optJSONObject("referral")?.let { "邀请码 ${it.text("code", it.text("inviteCode"))} · ${it.optLong("awarded", it.optLong("reward"))}积分" } ?: "邀请码待同步") { navigate("invite") }
     }
     Panel("帮助与反馈") {
       MenuRow("我的投诉", Icons.Default.Warning) { navigate("complaints") }

@@ -135,6 +135,8 @@ class AdminMixin:
                         if v['status']!='SKIPPED':v['status']=task['status']
                     b['error']=task.get('error');self.db.execute('UPDATE batches SET payload=? WHERE id=?',(dumps(b),b['id']))
         self.settle_competitions()
+        self.expire_coupons()
+        self.evaluate_daily_scores()
 
     def batch_preview(self,p):
         targets=set(p.get('cities',[]))

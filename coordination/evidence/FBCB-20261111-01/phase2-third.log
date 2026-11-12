@@ -1,0 +1,385 @@
+[2026-11-12T08:39:44+08:00] POST /api/passenger/auth/code 200
+[2026-11-12T08:39:44+08:00] POST /api/passenger/auth/login 200
+[2026-11-12T08:39:45+08:00] POST /api/auth/code 200
+[2026-11-12T08:39:45+08:00] POST /api/auth/login 200
+[2026-11-12T08:39:45+08:00] POST /api/action 200
+[2026-11-12T08:39:45+08:00] POST /api/passenger/action 200
+.[2026-11-12T08:39:45+08:00] POST /api/passenger/auth/code 200
+[2026-11-12T08:39:45+08:00] POST /api/passenger/auth/login 200
+[2026-11-12T08:39:45+08:00] POST /api/auth/code 200
+[2026-11-12T08:39:45+08:00] POST /api/auth/login 200
+[2026-11-12T08:39:45+08:00] POST /api/action 200
+[2026-11-12T08:39:45+08:00] POST /api/passenger/action 200
+[2026-11-12T08:39:45+08:00] POST /api/passenger/action 200
+E[2026-11-12T08:39:45+08:00] POST /api/passenger/auth/code 200
+[2026-11-12T08:39:45+08:00] POST /api/passenger/auth/login 200
+[2026-11-12T08:39:45+08:00] POST /api/auth/code 200
+[2026-11-12T08:39:45+08:00] POST /api/auth/login 200
+[2026-11-12T08:39:45+08:00] POST /api/action 200
+[2026-11-12T08:39:45+08:00] POST /api/passenger/action 200
+[2026-11-12T08:39:45+08:00] GET /api/state 200
+[2026-11-12T08:39:45+08:00] POST /api/action 200
+[2026-11-12T08:39:45+08:00] POST /api/action 200
+[2026-11-12T08:39:45+08:00] GET /api/state 200
+[2026-11-12T08:39:45+08:00] GET /api/state 200
+[2026-11-12T08:39:45+08:00] POST /api/action 200
+[2026-11-12T08:39:45+08:00] GET /api/state 200
+[2026-11-12T08:39:45+08:00] GET /api/passenger/state 200
+[2026-11-12T08:39:45+08:00] POST /api/passenger/action 200
+[2026-11-12T08:39:45+08:00] POST /api/action 200
+[2026-11-12T08:39:45+08:00] POST /api/action 200
+[2026-11-12T08:39:45+08:00] GET /api/state 200
+[2026-11-12T08:39:45+08:00] POST /api/action 200
+[2026-11-12T08:39:45+08:00] POST /api/action 200
+[2026-11-12T08:39:45+08:00] GET /api/passenger/state 200
+[2026-11-12T08:39:45+08:00] POST /api/passenger/action 200
+[2026-11-12T08:39:45+08:00] GET /api/passenger/state 200
+.[2026-11-12T08:39:45+08:00] POST /api/passenger/auth/code 200
+[2026-11-12T08:39:45+08:00] POST /api/passenger/auth/login 200
+[2026-11-12T08:39:45+08:00] POST /api/auth/code 200
+[2026-11-12T08:39:45+08:00] POST /api/auth/login 200
+[2026-11-12T08:39:45+08:00] POST /api/action 200
+[2026-11-12T08:39:45+08:00] POST /api/passenger/action 200
+[2026-11-12T08:39:45+08:00] GET /api/state 200
+[2026-11-12T08:39:45+08:00] POST /api/action 200
+[2026-11-12T08:39:45+08:00] POST /api/action 200
+[2026-11-12T08:39:45+08:00] GET /api/state 200
+[2026-11-12T08:39:45+08:00] GET /api/state 200
+[2026-11-12T08:39:45+08:00] POST /api/action 200
+[2026-11-12T08:39:45+08:00] GET /api/state 200
+[2026-11-12T08:39:45+08:00] POST /api/passenger/action 200
+[2026-11-12T08:39:45+08:00] GET /api/passenger/state 200
+[2026-11-12T08:39:45+08:00] POST /api/passenger/action 409
+/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/tempfile.py:484: ResourceWarning: Implicitly cleaning up <HTTPError 409: 'Conflict'>
+  _warnings.warn(self.warn_message, ResourceWarning)
+[2026-11-12T08:39:45+08:00] POST /api/passenger/action 409
+[2026-11-12T08:39:45+08:00] POST /api/passenger/action 200
+[2026-11-12T08:39:45+08:00] GET /api/state 200
+[2026-11-12T08:39:45+08:00] POST /api/passenger/action 409
+[2026-11-12T08:39:45+08:00] POST /api/passenger/action 200
+.[2026-11-12T08:39:45+08:00] POST /api/passenger/auth/code 200
+[2026-11-12T08:39:45+08:00] POST /api/passenger/auth/login 200
+[2026-11-12T08:39:45+08:00] POST /api/auth/code 200
+[2026-11-12T08:39:45+08:00] POST /api/auth/login 200
+[2026-11-12T08:39:45+08:00] POST /api/action 200
+[2026-11-12T08:39:45+08:00] POST /api/passenger/action 200
+[2026-11-12T08:39:45+08:00] POST /api/passenger/action 200
+[2026-11-12T08:39:45+08:00] GET /api/state 200
+[2026-11-12T08:39:45+08:00] POST /api/action 200
+[2026-11-12T08:39:45+08:00] POST /api/action 200
+[2026-11-12T08:39:45+08:00] GET /api/state 200
+[2026-11-12T08:39:45+08:00] POST /api/action 200
+[2026-11-12T08:39:45+08:00] GET /api/passenger/state 200
+[2026-11-12T08:39:45+08:00] GET /api/passenger/state 200
+[2026-11-12T08:39:45+08:00] POST /api/passenger/action 200
+[2026-11-12T08:39:45+08:00] POST /api/passenger/action 200
+[2026-11-12T08:39:45+08:00] POST /api/passenger/action 200
+.[2026-11-12T08:39:45+08:00] POST /api/passenger/auth/code 200
+[2026-11-12T08:39:45+08:00] POST /api/passenger/auth/login 200
+[2026-11-12T08:39:45+08:00] POST /api/auth/code 200
+[2026-11-12T08:39:45+08:00] POST /api/auth/login 200
+[2026-11-12T08:39:45+08:00] POST /api/action 200
+[2026-11-12T08:39:45+08:00] POST /api/action 403
+/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/tempfile.py:484: ResourceWarning: Implicitly cleaning up <HTTPError 403: 'Forbidden'>
+  _warnings.warn(self.warn_message, ResourceWarning)
+[2026-11-12T08:39:45+08:00] POST /api/passenger/action 200
+[2026-11-12T08:39:45+08:00] POST /api/action 403
+[2026-11-12T08:39:45+08:00] POST /api/action 200
+[2026-11-12T08:39:45+08:00] GET /api/state 200
+[2026-11-12T08:39:45+08:00] POST /api/action 200
+[2026-11-12T08:39:45+08:00] POST /api/action 200
+[2026-11-12T08:39:45+08:00] GET /api/state 200
+[2026-11-12T08:39:45+08:00] GET /api/passenger/state 200
+.[2026-11-12T08:39:46+08:00] POST /api/passenger/auth/code 200
+[2026-11-12T08:39:46+08:00] POST /api/passenger/auth/login 200
+[2026-11-12T08:39:46+08:00] POST /api/auth/code 200
+[2026-11-12T08:39:46+08:00] POST /api/auth/login 200
+[2026-11-12T08:39:46+08:00] POST /api/action 200
+[2026-11-12T08:39:46+08:00] POST /api/passenger/action 200
+[2026-11-12T08:39:46+08:00] GET /api/state 200
+[2026-11-12T08:39:46+08:00] POST /api/action 200
+[2026-11-12T08:39:46+08:00] POST /api/action 200
+[2026-11-12T08:39:46+08:00] GET /api/state 200
+[2026-11-12T08:39:46+08:00] GET /api/state 200
+[2026-11-12T08:39:46+08:00] POST /api/action 200
+[2026-11-12T08:39:46+08:00] GET /api/state 200
+[2026-11-12T08:39:46+08:00] GET /api/passenger/state 200
+[2026-11-12T08:39:46+08:00] POST /api/passenger/action 200
+[2026-11-12T08:39:46+08:00] POST /api/action 200
+[2026-11-12T08:39:46+08:00] POST /api/action 200
+[2026-11-12T08:39:46+08:00] GET /api/state 200
+[2026-11-12T08:39:46+08:00] POST /api/action 200
+[2026-11-12T08:39:46+08:00] POST /api/action 200
+[2026-11-12T08:39:46+08:00] GET /api/passenger/state 200
+[2026-11-12T08:39:46+08:00] POST /api/passenger/action 200
+E[2026-11-12T08:39:46+08:00] POST /api/passenger/auth/code 200
+[2026-11-12T08:39:46+08:00] POST /api/passenger/auth/login 200
+[2026-11-12T08:39:46+08:00] POST /api/auth/code 200
+[2026-11-12T08:39:46+08:00] POST /api/auth/login 200
+[2026-11-12T08:39:46+08:00] POST /api/action 200
+[2026-11-12T08:39:46+08:00] POST /api/passenger/action 200
+[2026-11-12T08:39:46+08:00] GET /api/state 200
+[2026-11-12T08:39:46+08:00] POST /api/action 200
+[2026-11-12T08:39:46+08:00] POST /api/action 200
+[2026-11-12T08:39:46+08:00] GET /api/state 200
+[2026-11-12T08:39:46+08:00] GET /api/state 200
+[2026-11-12T08:39:46+08:00] POST /api/action 200
+[2026-11-12T08:39:46+08:00] GET /api/state 200
+[2026-11-12T08:39:46+08:00] GET /api/passenger/state 200
+[2026-11-12T08:39:46+08:00] POST /api/passenger/action 200
+[2026-11-12T08:39:46+08:00] POST /api/action 200
+[2026-11-12T08:39:46+08:00] POST /api/action 200
+[2026-11-12T08:39:46+08:00] GET /api/state 200
+[2026-11-12T08:39:46+08:00] POST /api/action 200
+[2026-11-12T08:39:46+08:00] POST /api/action 200
+[2026-11-12T08:39:46+08:00] GET /api/passenger/state 200
+[2026-11-12T08:39:46+08:00] POST /api/passenger/action 200
+[2026-11-12T08:39:46+08:00] GET /api/passenger/state 200
+..[2026-11-12T08:39:46+08:00] POST /api/passenger/auth/code 200
+[2026-11-12T08:39:46+08:00] POST /api/passenger/auth/login 200
+[2026-11-12T08:39:46+08:00] POST /api/auth/code 200
+[2026-11-12T08:39:46+08:00] POST /api/auth/login 200
+[2026-11-12T08:39:46+08:00] POST /api/action 200
+[2026-11-12T08:39:46+08:00] POST /api/passenger/action 200
+[2026-11-12T08:39:46+08:00] POST /api/passenger/action 200
+[2026-11-12T08:39:46+08:00] GET /api/state 200
+[2026-11-12T08:39:46+08:00] POST /api/action 200
+[2026-11-12T08:39:46+08:00] POST /api/action 200
+[2026-11-12T08:39:46+08:00] GET /api/state 200
+[2026-11-12T08:39:46+08:00] GET /api/state 200
+[2026-11-12T08:39:46+08:00] POST /api/action 200
+[2026-11-12T08:39:46+08:00] GET /api/state 200
+[2026-11-12T08:39:46+08:00] GET /api/passenger/state 200
+[2026-11-12T08:39:46+08:00] POST /api/passenger/action 200
+[2026-11-12T08:39:46+08:00] POST /api/action 200
+[2026-11-12T08:39:46+08:00] POST /api/action 200
+[2026-11-12T08:39:46+08:00] GET /api/state 200
+[2026-11-12T08:39:46+08:00] POST /api/action 200
+[2026-11-12T08:39:46+08:00] POST /api/action 200
+[2026-11-12T08:39:46+08:00] GET /api/passenger/state 200
+[2026-11-12T08:39:46+08:00] POST /api/passenger/action 200
+[2026-11-12T08:39:46+08:00] POST /api/passenger/action 200
+[2026-11-12T08:39:46+08:00] POST /api/passenger/action 409
+..[2026-11-12T08:39:46+08:00] POST /api/passenger/auth/code 200
+[2026-11-12T08:39:46+08:00] POST /api/passenger/auth/login 200
+[2026-11-12T08:39:46+08:00] POST /api/auth/code 200
+[2026-11-12T08:39:46+08:00] POST /api/auth/login 200
+[2026-11-12T08:39:46+08:00] POST /api/action 200
+.[2026-11-12T08:39:46+08:00] POST /api/passenger/auth/code 200
+[2026-11-12T08:39:46+08:00] POST /api/passenger/auth/login 200
+[2026-11-12T08:39:46+08:00] POST /api/auth/code 200
+[2026-11-12T08:39:46+08:00] POST /api/auth/login 200
+[2026-11-12T08:39:46+08:00] POST /api/action 200
+[2026-11-12T08:39:46+08:00] POST /api/passenger/action 200
+[2026-11-12T08:39:46+08:00] GET /api/state 200
+[2026-11-12T08:39:46+08:00] POST /api/action 200
+[2026-11-12T08:39:46+08:00] POST /api/action 200
+[2026-11-12T08:39:46+08:00] GET /api/state 200
+[2026-11-12T08:39:46+08:00] GET /api/state 200
+[2026-11-12T08:39:46+08:00] POST /api/action 200
+[2026-11-12T08:39:46+08:00] GET /api/state 200
+[2026-11-12T08:39:46+08:00] GET /api/passenger/state 200
+[2026-11-12T08:39:46+08:00] POST /api/passenger/action 200
+[2026-11-12T08:39:46+08:00] POST /api/action 200
+[2026-11-12T08:39:46+08:00] POST /api/action 200
+[2026-11-12T08:39:46+08:00] GET /api/state 200
+[2026-11-12T08:39:46+08:00] POST /api/action 200
+[2026-11-12T08:39:46+08:00] POST /api/action 200
+[2026-11-12T08:39:46+08:00] GET /api/passenger/state 200
+[2026-11-12T08:39:46+08:00] POST /api/passenger/action 200
+[2026-11-12T08:39:46+08:00] GET /api/passenger/state 200
+[2026-11-12T08:39:46+08:00] POST /api/passenger/action 200
+[2026-11-12T08:39:46+08:00] POST /api/passenger/action 200
+[2026-11-12T08:39:46+08:00] POST /api/passenger/action 409
+[2026-11-12T08:39:46+08:00] GET /api/passenger/state 200
+[2026-11-12T08:39:46+08:00] GET /api/passenger/state 200
+.[2026-11-12T08:39:47+08:00] POST /api/passenger/auth/code 200
+[2026-11-12T08:39:47+08:00] POST /api/passenger/auth/login 200
+[2026-11-12T08:39:47+08:00] POST /api/auth/code 200
+[2026-11-12T08:39:47+08:00] POST /api/auth/login 200
+[2026-11-12T08:39:47+08:00] POST /api/action 200
+[2026-11-12T08:39:47+08:00] POST /api/passenger/action 200
+[2026-11-12T08:39:47+08:00] GET /api/state 200
+[2026-11-12T08:39:47+08:00] POST /api/action 200
+[2026-11-12T08:39:47+08:00] POST /api/action 200
+[2026-11-12T08:39:47+08:00] GET /api/state 200
+[2026-11-12T08:39:47+08:00] GET /api/state 200
+[2026-11-12T08:39:47+08:00] POST /api/action 200
+[2026-11-12T08:39:47+08:00] GET /api/state 200
+[2026-11-12T08:39:47+08:00] GET /api/passenger/state 200
+[2026-11-12T08:39:47+08:00] POST /api/passenger/action 200
+[2026-11-12T08:39:47+08:00] POST /api/action 200
+[2026-11-12T08:39:47+08:00] POST /api/action 200
+[2026-11-12T08:39:47+08:00] GET /api/state 200
+[2026-11-12T08:39:47+08:00] POST /api/action 200
+[2026-11-12T08:39:47+08:00] POST /api/action 200
+[2026-11-12T08:39:47+08:00] GET /api/passenger/state 200
+[2026-11-12T08:39:47+08:00] POST /api/passenger/action 200
+[2026-11-12T08:39:47+08:00] GET /api/passenger/state 200
+[2026-11-12T08:39:47+08:00] POST /api/passenger/action 200
+[2026-11-12T08:39:47+08:00] POST /api/passenger/auth/code 200
+[2026-11-12T08:39:47+08:00] POST /api/passenger/auth/login 200
+[2026-11-12T08:39:47+08:00] POST /api/passenger/action 404
+/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/tempfile.py:484: ResourceWarning: Implicitly cleaning up <HTTPError 404: 'Not Found'>
+  _warnings.warn(self.warn_message, ResourceWarning)
+[2026-11-12T08:39:47+08:00] POST /api/passenger/action 200
+[2026-11-12T08:39:47+08:00] GET /api/passenger/state 200
+[2026-11-12T08:39:47+08:00] POST /api/passenger/action 200
+.[2026-11-12T08:39:47+08:00] POST /api/passenger/auth/code 200
+[2026-11-12T08:39:47+08:00] POST /api/passenger/auth/login 200
+[2026-11-12T08:39:47+08:00] POST /api/auth/code 200
+[2026-11-12T08:39:47+08:00] POST /api/auth/login 200
+[2026-11-12T08:39:47+08:00] POST /api/action 200
+[2026-11-12T08:39:47+08:00] POST /api/passenger/auth/code 200
+[2026-11-12T08:39:47+08:00] POST /api/passenger/auth/login 200
+[2026-11-12T08:39:47+08:00] POST /api/passenger/auth/code 200
+[2026-11-12T08:39:47+08:00] POST /api/passenger/auth/login 200
+[2026-11-12T08:39:47+08:00] GET /api/state 200
+.[2026-11-12T08:39:47+08:00] POST /api/passenger/auth/code 200
+[2026-11-12T08:39:47+08:00] POST /api/passenger/auth/login 200
+[2026-11-12T08:39:47+08:00] POST /api/auth/code 200
+[2026-11-12T08:39:47+08:00] POST /api/auth/login 200
+[2026-11-12T08:39:47+08:00] POST /api/action 200
+[2026-11-12T08:39:47+08:00] POST /api/passenger/action 409
+.[2026-11-12T08:39:47+08:00] POST /api/passenger/auth/code 200
+[2026-11-12T08:39:47+08:00] POST /api/passenger/auth/login 200
+[2026-11-12T08:39:47+08:00] POST /api/auth/code 200
+[2026-11-12T08:39:47+08:00] POST /api/auth/login 200
+[2026-11-12T08:39:47+08:00] POST /api/action 200
+[2026-11-12T08:39:47+08:00] POST /api/passenger/action 200
+[2026-11-12T08:39:47+08:00] POST /api/action 200
+[2026-11-12T08:39:47+08:00] POST /api/passenger/action 200
+[2026-11-12T08:39:47+08:00] GET /api/passenger/state 200
+[2026-11-12T08:39:47+08:00] POST /api/passenger/action 200
+[2026-11-12T08:39:47+08:00] GET /api/state 200
+[2026-11-12T08:39:47+08:00] POST /api/action 200
+[2026-11-12T08:39:47+08:00] GET /api/state 200
+[2026-11-12T08:39:47+08:00] POST /api/passenger/action 200
+[2026-11-12T08:39:47+08:00] GET /api/state 200
+.[2026-11-12T08:39:47+08:00] POST /api/passenger/auth/code 200
+[2026-11-12T08:39:47+08:00] POST /api/passenger/auth/login 200
+[2026-11-12T08:39:47+08:00] POST /api/auth/code 200
+[2026-11-12T08:39:47+08:00] POST /api/auth/login 200
+[2026-11-12T08:39:47+08:00] POST /api/action 200
+[2026-11-12T08:39:47+08:00] GET /api/passenger/state 200
+[2026-11-12T08:39:47+08:00] POST /api/passenger/action 200
+[2026-11-12T08:39:47+08:00] GET /api/state 200
+[2026-11-12T08:39:47+08:00] POST /api/action 200
+[2026-11-12T08:39:48+08:00] POST /api/action 200
+[2026-11-12T08:39:48+08:00] GET /api/state 200
+[2026-11-12T08:39:48+08:00] GET /api/state 200
+[2026-11-12T08:39:48+08:00] POST /api/action 200
+[2026-11-12T08:39:48+08:00] GET /api/state 200
+[2026-11-12T08:39:48+08:00] GET /api/passenger/state 200
+[2026-11-12T08:39:48+08:00] POST /api/passenger/action 200
+[2026-11-12T08:39:48+08:00] POST /api/action 200
+[2026-11-12T08:39:48+08:00] POST /api/action 200
+[2026-11-12T08:39:48+08:00] GET /api/state 200
+[2026-11-12T08:39:48+08:00] POST /api/action 200
+[2026-11-12T08:39:48+08:00] POST /api/action 200
+[2026-11-12T08:39:48+08:00] GET /api/passenger/state 200
+[2026-11-12T08:39:48+08:00] POST /api/passenger/action 200
+[2026-11-12T08:39:48+08:00] GET /api/passenger/state 200
+[2026-11-12T08:39:48+08:00] POST /api/passenger/action 200
+[2026-11-12T08:39:48+08:00] GET /api/state 200
+[2026-11-12T08:39:48+08:00] POST /api/action 200
+[2026-11-12T08:39:48+08:00] POST /api/action 200
+[2026-11-12T08:39:48+08:00] GET /api/state 200
+[2026-11-12T08:39:48+08:00] GET /api/state 200
+[2026-11-12T08:39:48+08:00] POST /api/action 200
+[2026-11-12T08:39:48+08:00] GET /api/state 200
+[2026-11-12T08:39:48+08:00] GET /api/passenger/state 200
+[2026-11-12T08:39:48+08:00] POST /api/passenger/action 200
+[2026-11-12T08:39:48+08:00] POST /api/action 200
+[2026-11-12T08:39:48+08:00] POST /api/action 200
+[2026-11-12T08:39:48+08:00] GET /api/state 200
+[2026-11-12T08:39:48+08:00] POST /api/action 200
+[2026-11-12T08:39:48+08:00] POST /api/action 200
+[2026-11-12T08:39:48+08:00] GET /api/passenger/state 200
+[2026-11-12T08:39:48+08:00] POST /api/passenger/action 200
+[2026-11-12T08:39:48+08:00] GET /api/passenger/state 200
+[2026-11-12T08:39:48+08:00] GET /api/passenger/state 200
+[2026-11-12T08:39:48+08:00] GET /api/state 200
+[2026-11-12T08:39:48+08:00] GET /api/state 200
+.[2026-11-12T08:39:48+08:00] POST /api/passenger/auth/code 200
+[2026-11-12T08:39:48+08:00] POST /api/passenger/auth/login 200
+[2026-11-12T08:39:48+08:00] POST /api/auth/code 200
+[2026-11-12T08:39:48+08:00] POST /api/auth/login 200
+[2026-11-12T08:39:48+08:00] POST /api/action 200
+[2026-11-12T08:39:48+08:00] POST /api/passenger/action 200
+[2026-11-12T08:39:48+08:00] GET /api/state 200
+[2026-11-12T08:39:48+08:00] POST /api/action 200
+[2026-11-12T08:39:48+08:00] POST /api/action 200
+[2026-11-12T08:39:48+08:00] GET /api/state 200
+[2026-11-12T08:39:48+08:00] GET /api/state 200
+[2026-11-12T08:39:48+08:00] POST /api/action 200
+[2026-11-12T08:39:48+08:00] GET /api/state 200
+[2026-11-12T08:39:48+08:00] GET /api/passenger/state 200
+[2026-11-12T08:39:48+08:00] POST /api/passenger/action 200
+[2026-11-12T08:39:48+08:00] POST /api/action 200
+[2026-11-12T08:39:48+08:00] POST /api/action 200
+[2026-11-12T08:39:48+08:00] GET /api/state 200
+[2026-11-12T08:39:48+08:00] POST /api/action 200
+[2026-11-12T08:39:48+08:00] POST /api/action 200
+[2026-11-12T08:39:48+08:00] GET /api/passenger/state 200
+[2026-11-12T08:39:48+08:00] POST /api/passenger/action 200
+[2026-11-12T08:39:48+08:00] GET /api/passenger/state 200
+[2026-11-12T08:39:48+08:00] GET /api/state 200
+[2026-11-12T08:39:48+08:00] POST /api/passenger/action 200
+[2026-11-12T08:39:48+08:00] GET /api/state 200
+[2026-11-12T08:39:48+08:00] POST /api/passenger/action 200
+[2026-11-12T08:39:48+08:00] GET /api/state 200
+[2026-11-12T08:39:48+08:00] POST /api/passenger/action 200
+[2026-11-12T08:39:48+08:00] GET /api/state 200
+[2026-11-12T08:39:48+08:00] POST /api/action 200
+[2026-11-12T08:39:48+08:00] POST /api/action 200
+[2026-11-12T08:39:48+08:00] GET /api/state 200
+[2026-11-12T08:39:48+08:00] GET /api/state 200
+[2026-11-12T08:39:48+08:00] POST /api/action 200
+[2026-11-12T08:39:48+08:00] GET /api/state 200
+[2026-11-12T08:39:48+08:00] GET /api/passenger/state 200
+[2026-11-12T08:39:48+08:00] POST /api/passenger/action 200
+[2026-11-12T08:39:48+08:00] POST /api/action 200
+[2026-11-12T08:39:48+08:00] POST /api/action 200
+[2026-11-12T08:39:48+08:00] GET /api/state 200
+[2026-11-12T08:39:48+08:00] POST /api/action 200
+[2026-11-12T08:39:48+08:00] POST /api/action 200
+[2026-11-12T08:39:48+08:00] GET /api/passenger/state 200
+[2026-11-12T08:39:48+08:00] POST /api/passenger/action 200
+[2026-11-12T08:39:48+08:00] GET /api/passenger/state 200
+[2026-11-12T08:39:48+08:00] GET /api/state 200
+[2026-11-12T08:39:48+08:00] POST /api/passenger/action 200
+[2026-11-12T08:39:48+08:00] GET /api/state 200
+..
+======================================================================
+ERROR: test_admin_cancel_coupon_and_prepaid_driver_cancel_returns_coupon (test_feedback3_phase2.Phase2.test_admin_cancel_coupon_and_prepaid_driver_cancel_returns_coupon)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/dongge/.codex/tmp/yijiexing-ui-optimization-worktree-20261029/apps/cloud-service/tests/test_feedback3_phase2.py", line 318, in test_admin_cancel_coupon_and_prepaid_driver_cancel_returns_coupon
+    self.mutate_fixture(cancel)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^
+  File "/Users/dongge/.codex/tmp/yijiexing-ui-optimization-worktree-20261029/apps/cloud-service/tests/policy_helpers.py", line 31, in mutate_fixture
+    result=callback(svc);svc.db.commit();self.driver.coordinator.finish();return result
+  File "/Users/dongge/.codex/tmp/yijiexing-ui-optimization-worktree-20261029/apps/cloud-service/tests/test_feedback3_phase2.py", line 317, in cancel
+    current=s.shared_order(o['id']);AdminConsole(s).order_action('order.cancel',dict(id=o['id'],expectedStage=current['stage'],expectedFare=current['fare'],fareVersion=current['fareVersion'],confirmed=True,reason='模拟后台取消',responsible=False),'ADMIN:test')
+                                                                                                                                                                        ~~~~~~~^^^^^^^^^^^^^^^
+KeyError: 'fareVersion'
+
+======================================================================
+ERROR: test_company_refund_reversal_and_pending_wallet_income (test_feedback3_phase2.Phase2.test_company_refund_reversal_and_pending_wallet_income)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/dongge/.codex/tmp/yijiexing-ui-optimization-worktree-20261029/apps/cloud-service/tests/test_feedback3_phase2.py", line 343, in test_company_refund_reversal_and_pending_wallet_income
+    self.mutate_fixture(refund)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^
+  File "/Users/dongge/.codex/tmp/yijiexing-ui-optimization-worktree-20261029/apps/cloud-service/tests/policy_helpers.py", line 31, in mutate_fixture
+    result=callback(svc);svc.db.commit();self.driver.coordinator.finish();return result
+  File "/Users/dongge/.codex/tmp/yijiexing-ui-optimization-worktree-20261029/apps/cloud-service/tests/test_feedback3_phase2.py", line 340, in refund
+    current=s.shared_order(o['id']);AdminConsole(s).order_action('order.refund',dict(id=o['id'],expectedStage='DONE',expectedFare=current['fare'],fareVersion=current['fareVersion'],confirmed=True,reason='模拟全额退款'),'ADMIN:test')
+                                                                                                                                                              ~~~~~~~^^^^^^^^^^^^^^^
+KeyError: 'fareVersion'
+
+----------------------------------------------------------------------
+Ran 20 tests in 3.530s
+
+FAILED (errors=2)

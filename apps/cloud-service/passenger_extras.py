@@ -15,6 +15,8 @@ class PassengerExtrasMixin:
         row = self.db.execute('SELECT payload FROM passenger_extras WHERE pid=?', (pid,)).fetchone()
         data = json.loads(row['payload']) if row else {'riders': [], 'invoiceTitles': [], 'invoices': []}
         data.setdefault('blockedDrivers', [])
+        data.setdefault('points', {'balance': 0, 'total': 0, 'entries': []})
+        data.setdefault('coupons', [])
         # Legacy/no-default/dangling references project safely without read-time
         # mutation, automatic selection or guessing from arbitrary row flags.
         raw = data.get('defaults') if isinstance(data.get('defaults'), dict) else {}
@@ -79,6 +81,7 @@ class PassengerExtrasMixin:
 
     def passenger_extra_data(self, pid):
         data = clone(self._passenger_extra_store(pid))
+        data['invoiceReissues'] = self.passenger_reissues(pid)
         for kind in ('RIDER', 'INVOICE_TITLE'):
             key, collection = DEFAULT_KINDS[kind]
             data[collection] = self.project_default_rows(data[collection], data['defaults'][key])
@@ -108,8 +111,23 @@ class PassengerExtrasMixin:
         }
         return data
 
+    @staticmethod
+    def invoice_title_fields(p):
+        kind = p.get('type', 'PERSONAL'); require(kind in ('PERSONAL', 'COMPANY'), '抬头类型无效')
+        title = textfield(p.get('title'), '发票抬头', 1, 100)
+        tax = p.get('taxNumber', '').strip() if isinstance(p.get('taxNumber', ''), str) else ''
+        if kind == 'COMPANY':
+            require(bool(re.fullmatch(r'(?:[0-9A-Za-z]{15}|[0-9A-Za-z]{18}|[0-9A-Za-z]{20})', tax)), '企业税号须为15、18或20位字母数字')
+        else:
+            tax = ''
+        email = p.get('email', '')
+        require(isinstance(email, str) and len(email) <= 254 and (not email or bool(re.fullmatch(r'[^\s@]+@[^\s@]+\.[^\s@]+', email))), '邮箱格式无效')
+        return {'type': kind, 'title': title, 'taxNumber': tax.upper(), 'email': email}
+
     def passenger_extra_action(self, pid, action, p):
         require(isinstance(p, dict), '操作参数须为对象')
+        if action == 'invoice.reissue.apply':
+            return self.passenger_reissue_apply(pid, p)
         data = self._passenger_extra_store(pid)
         if action in ('rider.save', 'invoice.title.save'):
             self.validate_default_flag(p)
@@ -134,22 +152,14 @@ class PassengerExtrasMixin:
             self.clear_default_reference(data, 'RIDER', row['id'])
             data['riders'].remove(row); result = {'removed': row['id']}
         elif action == 'invoice.title.save':
-            kind = p.get('type', 'PERSONAL'); require(kind in ('PERSONAL', 'COMPANY'), '抬头类型无效')
-            title = textfield(p.get('title'), '发票抬头', 1, 100)
-            tax = p.get('taxNumber', '').strip() if isinstance(p.get('taxNumber', ''), str) else ''
-            if kind == 'COMPANY':
-                require(bool(re.fullmatch(r'(?:[0-9A-Za-z]{15}|[0-9A-Za-z]{18}|[0-9A-Za-z]{20})', tax)), '企业税号须为15、18或20位字母数字')
-            else:
-                tax = ''
-            email = p.get('email', '')
-            require(isinstance(email, str) and len(email) <= 254 and (not email or bool(re.fullmatch(r'[^\s@]+@[^\s@]+\.[^\s@]+', email))), '邮箱格式无效')
+            fields = self.invoice_title_fields(p)
             rows = data['invoiceTitles']; tid = p.get('id')
             if tid:
                 row = self._owned_extra(rows, tid, '发票抬头')
             else:
                 require(len(rows) < 20, '最多保存20个发票抬头', 409)
                 row = {'id': uid('IT'), 'createdAt': stamp()}; rows.append(row)
-            row.update(type=kind, title=title, taxNumber=tax.upper(), email=email, updatedAt=stamp())
+            row.update(**fields, updatedAt=stamp())
             result = {'invoiceTitle': {**clone(row), 'isDefault': self.apply_default_flag(data, 'INVOICE_TITLE', row['id'], p)}}
         elif action == 'invoice.title.remove':
             row = self._owned_extra(data['invoiceTitles'], p.get('id'), '发票抬头')
@@ -159,16 +169,40 @@ class PassengerExtrasMixin:
             order = self.own_passenger_order(pid, p.get('orderId'))
             require(order.get('stage') == 'DONE' and order.get('paid') is True, '仅已完成且已模拟支付的订单可以申请回执', 409)
             existing = next((i for i in data['invoices'] if i['orderId'] == order['id']), None)
+            # 修改意见3.0: a saved/default title is optional. The passenger may pick a
+            # saved title or type one in while applying (optionally keeping it).
+            inline = None if p.get('titleId') else self.invoice_title_fields(p)
             if existing:
-                require(existing['titleId'] == p.get('titleId'), '此订单已申请模拟回执，不能重复开具到不同抬头', 409)
+                snapshot = existing.get('titleSnapshot', {})
+                same = existing['titleId'] == p.get('titleId') if inline is None else (
+                    snapshot.get('title') == inline['title'] and snapshot.get('taxNumber', '') == inline['taxNumber'])
+                require(same, '此订单已申请模拟回执，不能重复开具到不同抬头', 409)
                 return {'invoice': clone(existing)}
             self.operations.require_feature(order['city'], 'invoice')
-            title = self._owned_extra(data['invoiceTitles'], p.get('titleId'), '发票抬头')
+            if inline is None:
+                title = self._owned_extra(data['invoiceTitles'], p.get('titleId'), '发票抬头')
+            else:
+                title = {'id': None, **inline}
+                if p.get('saveTitle') is True:
+                    match = next((t for t in data['invoiceTitles'] if t['title'] == inline['title'] and t.get('taxNumber', '') == inline['taxNumber']), None)
+                    if match is None and len(data['invoiceTitles']) < 20:
+                        match = {'id': uid('IT'), 'createdAt': stamp(), **inline, 'updatedAt': stamp()}
+                        data['invoiceTitles'].append(match)
+                    if match is not None:
+                        title = match
             row = {'id': uid('SI'), 'orderId': order['id'], 'titleId': title['id'],
                    'title': title['title'], 'titleSnapshot': clone(title), 'amount': order['fare'],
                    'status': 'SIMULATED_ISSUED', 'simulated': True, 'createdAt': stamp(),
                    'notice': '模拟开票回执 · 未连接税务开票平台 · 不是税务发票，不可报销，未发送邮件'}
             data['invoices'].insert(0, row); result = {'invoice': clone(row)}
+        elif action == 'coupon.claim':
+            require(set(p) == {'templateId'}, '领取参数无效')
+            t = self.operations.get('couponTemplate', self.operations.identifier(p['templateId']))
+            require(t is not None and t['enabled'] and t['claimable'], '此优惠券不在领券中心', 404)
+            require(any(v['id'] == t['id'] for v in self.coupon_templates(True)), '此优惠券不在领取时间范围内', 409)
+            result = {'coupon': self.issue_coupon(pid, data, t['id'], 'CLAIM')}
+        elif action == 'points.redeem':
+            result = self.mall_redeem('PASSENGER', pid, data['points'], p)
         else:
             raise ApiError(404, '乘客操作不存在')
         self._save_passenger_extras(pid, data)

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="cn.hbzjhs.driver.preview.UIODistancePresentationTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2026-11-12T03:01:23" hostname="dongge-2.local" time="0.018">
+  <properties/>
+  <testcase name="zeroIsAValidKnownDistance" classname="cn.hbzjhs.driver.preview.UIODistancePresentationTest" time="0.016"/>
+  <testcase name="plainNumbersAndDecimalsGetSingleKm" classname="cn.hbzjhs.driver.preview.UIODistancePresentationTest" time="0.0"/>
+  <testcase name="pendingConfirmationKeepsPendingTextWithoutKm" classname="cn.hbzjhs.driver.preview.UIODistancePresentationTest" time="0.0"/>
+  <testcase name="missingValuesAreNotProvided" classname="cn.hbzjhs.driver.preview.UIODistancePresentationTest" time="0.001"/>
+  <testcase name="newOrderNoteSeparatesPrivateDemoFromSharedSandbox" classname="cn.hbzjhs.driver.preview.UIODistancePresentationTest" time="0.0"/>
+  <testcase name="existingUnitIsNotRepeated" classname="cn.hbzjhs.driver.preview.UIODistancePresentationTest" time="0.0"/>
+  <testcase name="nonFiniteNegativeAndNonNumericNeverGetKm" classname="cn.hbzjhs.driver.preview.UIODistancePresentationTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

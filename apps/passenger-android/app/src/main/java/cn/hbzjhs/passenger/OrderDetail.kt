@@ -96,6 +96,7 @@ fun OrderDetail(o: JSONObject, store: PassengerStore, busy: Boolean, openOrder: 
   // While the place page has just closed, a fast second tap must not open them either.
   val pinnedActions: @Composable () -> Unit = {
     Column(Modifier.fillMaxWidth().background(Color.White)) {
+      CancelFeePayment(o, store)
       HorizontalDivider(color = DividerTone)
       // Both buttons share the row height, so a wrapped label never leaves them uneven.
       Row(
@@ -134,7 +135,7 @@ fun OrderDetail(o: JSONObject, store: PassengerStore, busy: Boolean, openOrder: 
   // content, and a stage or payability change re-opens a collapsed panel so they never stay hidden.
   MapPanelLayout(
     saveKey = passengerOrderMapScope(id),
-    attentionKey = listOf(stage, payable, cancellable),
+    attentionKey = listOf(stage, payable, cancellable, o.optJSONObject("cancelFee")?.text("status")),
     collapsedLabel = if (payable || cancellable) "显示订单与支付/取消操作" else "显示订单详情",
     map = { mapModifier ->
       val accuracyVal = loc?.optDouble("accuracy") ?: Double.NaN
@@ -150,7 +151,7 @@ fun OrderDetail(o: JSONObject, store: PassengerStore, busy: Boolean, openOrder: 
         modifier = mapModifier,
       )
     },
-    bottomBar = if (payable || cancellable) pinnedActions else null,
+    bottomBar = if (payable || cancellable || o.optJSONObject("cancelFee")?.text("status") == "UNPAID") pinnedActions else null,
   ) {
   Column(
     Modifier
@@ -304,6 +305,13 @@ fun OrderDetail(o: JSONObject, store: PassengerStore, busy: Boolean, openOrder: 
         fontWeight = FontWeight.Bold,
         color = Ink,
       )
+      KV("运价费", "¥${money(o.optLong("tripFare", o.optLong("fare")))}")
+      KV("区域服务费", "¥${money(o.optLong("serviceFee"))}")
+      KV("优惠券抵扣", "−¥${money(o.optLong("couponAmount"))}${o.text("couponLabel").takeIf { it.isNotBlank() }?.let { " · $it" }.orEmpty()}")
+      KV(if (o.optBoolean("paid")) "乘客实付" else "乘客应付", "¥${money(o.optLong("fare"))}")
+      o.optJSONObject("cancelFee")?.let { cf ->
+        KV("空车费", "¥${money(cf.optLong("amount"))} · ${if (cf.text("status") == "PAID") "已模拟支付" else "待支付"}")
+      }
       farePresentation.notice?.let { Note(it) }
       KV(
         "支付状态",
@@ -322,7 +330,8 @@ fun OrderDetail(o: JSONObject, store: PassengerStore, busy: Boolean, openOrder: 
           farePresentation.detailLabel,
           if (o.optBoolean("destinationPending")) "待定（目的地未补充）" else "¥${money(f.optLong("fare"))}",
         )
-        KV("服务费", "¥${money(f.optLong("serviceFee"))}")
+        f.optJSONObject("fareDetail")?.let { detail -> FareDetailRows(detail) }
+        KV("区域服务费", "¥${money(f.optLong("serviceFee"))}")
         KV("支付手续费", "¥${money(f.optLong("paymentFee"))}")
         Note(f.text("policyLabel", "独立体验估价"))
       }

@@ -4,6 +4,11 @@ import unittest
 from test_cloud import CloudIntegration
 from test_passenger import PassengerIntegration
 
+def driver_share(fare):
+    """司机分账金额 for a company-less order without service fee or coupon."""
+    from pricing import settlement_split
+    return settlement_split(fare, 0, 0, 0, 100)['driverAmount']
+
 class PolicyCase(unittest.TestCase):
     setUp=CloudIntegration.setUp
     tearDown=CloudIntegration.tearDown

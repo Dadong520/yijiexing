@@ -1,0 +1,95 @@
+{
+  "result": "PASS",
+  "adminHttpServed": {
+    "html": 200,
+    "js": 200,
+    "css": 200,
+    "state": 200
+  },
+  "unsignedCompanyGateBlocked403": true,
+  "companySplitAccount": {
+    "companyId": "COMP3b63aa7b26ae",
+    "status": "SIGNED",
+    "bankAccountMask": "****1234",
+    "availableBalance": 248,
+    "ledgerCount": 1
+  },
+  "settledOrder1": {
+    "orderFee": 3400,
+    "tripFare": 2900,
+    "serviceFee": 500,
+    "couponAmount": 300,
+    "paidAmount": 3100,
+    "tripPayFee": 17,
+    "tripSplitFee": 4,
+    "servicePayFee": 3,
+    "serviceSplitFee": 1,
+    "paidPayFee": 19,
+    "paidSplitFee": 5,
+    "platformDifference": 3,
+    "differenceBorneBy": "SERVICE_FEE",
+    "commissionable": 497,
+    "mapServiceFee": 50,
+    "platformRate": 50,
+    "companyRate": 50,
+    "platformCommission": 299,
+    "companyCommission": 248,
+    "driverAmount": 2829,
+    "scanPayIncome": 3381,
+    "scanPaySplit": 3376,
+    "orderId": "PORDc32f3e4cfd7a",
+    "driverId": "D078f8e4c9599",
+    "companyId": "COMP3b63aa7b26ae",
+    "companyName": "宜捷行测试运营四公司",
+    "settledAt": "2026-11-12T13:19:12+08:00",
+    "simulated": true,
+    "id": "PORDc32f3e4cfd7a",
+    "city": "420500",
+    "settlementStatus": "CREDITED",
+    "refundAmount": 0
+  },
+  "invoicesInQuery": [
+    {
+      "id": "SI31650b00f85c",
+      "status": "SIMULATED_ISSUED",
+      "title": "宜昌测试贸易有限公司",
+      "reissuedAs": null,
+      "reissueOf": "SIb7f8ab2304bb"
+    },
+    {
+      "id": "SIb7f8ab2304bb",
+      "status": "RED_FLUSHED",
+      "title": "个人测试抬头",
+      "reissuedAs": "SI31650b00f85c",
+      "reissueOf": null
+    }
+  ],
+  "techServiceInvoice": {
+    "id": "COMP3b63aa7b26ae:2026-11",
+    "companyId": "COMP3b63aa7b26ae",
+    "month": "2026-11",
+    "amount": 299,
+    "taxRate": 6,
+    "taxAmount": 17,
+    "amountExcludingTax": 282,
+    "buyerTitle": "宜捷行测试运营四公司",
+    "buyerTaxNumber": "91420500MA49ABCDEF",
+    "sellerName": "湖北宜捷行科技有限公司",
+    "sellerTaxNumber": "91420500MA49123456",
+    "orderCount": 1,
+    "status": "SIMULATED_ISSUED",
+    "issuedAt": "2026-11-12T13:22:45+08:00",
+    "issuedBy": "ADMIN:admin",
+    "version": 1,
+    "notice": "技术服务费模拟发票 · 未连接税务开票平台"
+  },
+  "cancelledOrder2EmptyRunFee": {
+    "orderId": "PORD600fb707d63a",
+    "cancelFee": {
+      "amount": 300,
+      "status": "UNPAID",
+      "responsible": "PASSENGER",
+      "createdAt": "2026-11-12T13:22:50+08:00"
+    }
+  }
+}

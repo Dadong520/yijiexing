@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="cn.hbzjhs.driver.preview.NegotiationContractTest" tests="9" skipped="0" failures="0" errors="0" timestamp="2026-11-12T03:01:23" hostname="dongge-2.local" time="0.049">
+  <properties/>
+  <testcase name="legacyPrivateOrdersAreOptInAndCannotRequoteSharedPrices" classname="cn.hbzjhs.driver.preview.NegotiationContractTest" time="0.0"/>
+  <testcase name="requoteUsesTheExactShownCurrentVersionAndIntegerCents" classname="cn.hbzjhs.driver.preview.NegotiationContractTest" time="0.001"/>
+  <testcase name="invalidOrExpiredInvitationsNeverBecomeQrPayload" classname="cn.hbzjhs.driver.preview.NegotiationContractTest" time="0.002"/>
+  <testcase name="stateRetainsPairingMetadataWithoutAnyInvitationCredential" classname="cn.hbzjhs.driver.preview.NegotiationContractTest" time="0.0"/>
+  <testcase name="staleSnapshotCannotSilentlySubmitAgainstTheNewVersionOrAmount" classname="cn.hbzjhs.driver.preview.NegotiationContractTest" time="0.001"/>
+  <testcase name="validInvitationUsesServerClockAndHidesCredentialInToString" classname="cn.hbzjhs.driver.preview.NegotiationContractTest" time="0.0"/>
+  <testcase name="qrRoundTripContainsOnlyTheValidatedPairingUri" classname="cn.hbzjhs.driver.preview.NegotiationContractTest" time="0.044"/>
+  <testcase name="invalidAmountsAndMissingVersionsCannotBeSubmitted" classname="cn.hbzjhs.driver.preview.NegotiationContractTest" time="0.0"/>
+  <testcase name="sharedDisputesAndCanonicalContinuationRemainDistinctFromDriverStage" classname="cn.hbzjhs.driver.preview.NegotiationContractTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

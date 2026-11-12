@@ -1,0 +1,75 @@
+{
+  "id": "FBCF-20261111-01",
+  "owner": "frontend",
+  "reviewer": "backend",
+  "deploy_owner": "coordinator",
+  "goal": "按coordination/contracts/FBC-20261111-01.md完成乘客Android(code26/1.1.24-experience)与司机Android(code28/0.3.25-cloud)第二阶段界面与交互接线，确保小程序源码检查与两端单测编译通过",
+  "baseSha": "571d939f0f7190e1d602b3b3a61f33ed5b203ffd",
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-ui-optimization-worktree-20261029",
+  "branch": "claude/feedback3-20261110",
+  "allow_paths": [
+    "apps/passenger-android/**",
+    "candidates/driver-0.3.6-r2/android/**",
+    "coordination/tasks/FBCF-20261111-01.json",
+    "coordination/handoffs/frontend.md",
+    "coordination/evidence/FBCF-20261111-01/**"
+  ],
+  "checks": [
+    "乘客端：登录选填邀请码、叫车页区域运价+服务费预估与选券抵扣、待付空车费提示与结清、订单详情费用明细、领券中心/我的卡券、邀请好友、回执冲红重开状态与申请重开、versionCode=26",
+    "司机端：登录选填邀请码、费用明细展示运价费/手续费/分账费/地图服务费/司机分账额、服务分等级说明与拉新规则展示核对、versionCode=28",
+    "npm test && npm run check (candidates/passenger-miniprogram-0.1.0) + Passenger/Driver testExperienceUnitTest"
+  ],
+  "status": "ACCEPTED_IN_CANDIDATE",
+  "acceptance": "PASS",
+  "tests": [
+    {
+      "command": "Passenger testExperienceUnitTest compileExperienceKotlin offline",
+      "status": "PASS",
+      "tests": 84,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "command": "Driver bash gradlew testExperienceUnitTest compileExperienceKotlin offline",
+      "status": "PASS",
+      "tests": 127,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "command": "miniprogram npm test && npm run check (actual nested package directory)",
+      "status": "PASS",
+      "tests": 74
+    },
+    {
+      "command": "git diff --check Android-only + central memory realID gate",
+      "status": "PASS"
+    },
+    {
+      "command": "Independent review/runtime UI/integration/APK/deploy",
+      "status": "NOT_RUN",
+      "reason": "Owner selftest only; root/reviewer next"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "coordination/evidence/FBCF-20261111-01/SUMMARY.md",
+      "sha256": "77a2ffe80e2885a6ec5a312fb24d760feae35ce3fafa37e0afc61ebea4904918"
+    },
+    {
+      "path": "coordination/evidence/FBCF-20261111-01/REVIEW_FIX_SUMMARY.md",
+      "sha256": "1286a940d608f3cba6e3337883b3aa6e57850055699ac47693663f278473061a"
+    },
+    {
+      "path": "coordination/evidence/FBC-20261111-01/NON_AUTHOR_CLIENT_ADMIN_REVIEW_V2.md",
+      "sha256": "01912735c98b4d7c4b37fd6ebe9c65a98823cbea0f3eb8f9b6955c5a141a02aa"
+    }
+  ],
+  "nextAction": "Included in accepted candidate 6548ceca; coordinator merging PR #57 and deploying v26/v28 APKs to experience environment",
+  "releaseReady": true,
+  "sourceHead": "6548ceca164f9abd74e516a577b2e78c5edb27a5",
+  "updatedAt": "2026-11-12T06:05:36.838082+00:00",
+  "acceptedSha": "6548ceca164f9abd74e516a577b2e78c5edb27a5"
+}

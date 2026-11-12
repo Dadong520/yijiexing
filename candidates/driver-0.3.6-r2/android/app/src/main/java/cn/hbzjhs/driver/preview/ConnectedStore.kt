@@ -404,7 +404,7 @@ class ConnectedStore(app: Application) : AndroidViewModel(app) {
         }
 
     /** One serialized login operation; never nests the public request/login/refresh jobs. */
-    fun loginExperience(phone: String) {
+    fun loginExperience(phone: String, inviteCode: String = "") {
         if (mutableLoading.value) {
             mutableError.value = "上一项操作仍在处理中，请稍候再试"
             return
@@ -418,7 +418,7 @@ class ConnectedStore(app: Application) : AndroidViewModel(app) {
             val code = LocalApi.request("POST", "/api/auth/code", JSONObject().put("mobile", mobile), false, credentials)
                 .getString("verificationCode")
             if (!requests.isCurrent(epoch)) return@launchRequest
-            val login = LocalApi.request("POST", "/api/auth/login", JSONObject().put("mobile", mobile).put("code", code), false, credentials)
+            val login = LocalApi.request("POST", "/api/auth/login", JSONObject().put("mobile", mobile).put("code", code).apply { inviteCode.trim().uppercase(java.util.Locale.ROOT).takeIf { it.isNotBlank() }?.let { put("inviteCode", it) } }, false, credentials)
             val token = login.getString("token")
             require(token.isNotBlank()) { "服务未返回有效登录凭证" }
             if (!requests.isCurrent(epoch)) return@launchRequest
@@ -439,12 +439,12 @@ class ConnectedStore(app: Application) : AndroidViewModel(app) {
         }
     }
 
-    fun login(mobile: String, code: String) {
+    fun login(mobile: String, code: String, inviteCode: String = "") {
         requests.invalidate()
         resetRequestStatus()
         pendingKeys.clear()
         launchRequest(authenticated = false) { epoch, credentials ->
-            val data = LocalApi.request("POST", "/api/auth/login", JSONObject().put("mobile", mobile).put("code", code), false, credentials)
+            val data = LocalApi.request("POST", "/api/auth/login", JSONObject().put("mobile", mobile).put("code", code).apply { inviteCode.trim().uppercase(java.util.Locale.ROOT).takeIf { it.isNotBlank() }?.let { put("inviteCode", it) } }, false, credentials)
             requests.commitIfCurrent(epoch) {
                 val token = data.getString("token")
                 vault.save(token)
@@ -682,7 +682,11 @@ class ConnectedStore(app: Application) : AndroidViewModel(app) {
                                 }
                             }
                             .toSet()
+                    val cancelFee = parseDriverCancelFee(o.optJSONObject("cancelFee"))
                     DriverOrder(
+                        cancelFeeAmount = cancelFee.amount,
+                        cancelFeeStatus = cancelFee.status,
+                        cancelFeeResponsible = cancelFee.responsible,
                         id = o.getString("id"),
                         synthetic = o.optBoolean("synthetic", false),
                         kind = OrderKind.valueOf(o.getString("kind")),

@@ -48,6 +48,7 @@ import org.json.JSONObject
 
 @Composable
 fun LocalLogin(store: ConnectedStore) {
+    var inviteCode by rememberSaveable { mutableStateOf("") }
     var selectedPhone by rememberSaveable { mutableStateOf("13800000003") }
     var connectionDialog by remember { mutableStateOf(false) }
     var agreed by rememberSaveable { mutableStateOf(false) }
@@ -136,6 +137,7 @@ fun LocalLogin(store: ConnectedStore) {
             }
         }
 
+        OutlinedTextField(inviteCode, { inviteCode = it.take(20) }, label = { Text("邀请码（选填，首次注册有效）") }, singleLine = true, modifier = Modifier.fillMaxWidth().padding(top = 12.dp))
         Spacer(Modifier.height(12.dp))
         Row(
             Modifier.fillMaxWidth()
@@ -162,7 +164,7 @@ fun LocalLogin(store: ConnectedStore) {
             if (loading) "正在进入…" else "进入体验",
             enabled = !loading && agreed,
             onClick = {
-                store.loginExperience(selectedPhone)
+                store.loginExperience(selectedPhone, inviteCode)
             },
         )
 
@@ -309,6 +311,8 @@ fun ConnectedHome(
         val homeScope = driverHomeMapScope(driverAccount(payload))
         val chromeHidden = LocalMapChromeHost.current?.hiddenFor(homeScope) == true
         Column(Modifier.fillMaxSize()) {
+            if (!chromeHidden && payload.optJSONObject("operations")?.optJSONObject("company")?.optString("splitAccountStatus") == "UNSIGNED")
+                Text("所属公司尚未开通模拟分账账户，开通后可上线接单", color = Orange, modifier = Modifier.fillMaxWidth().padding(12.dp))
             if (!chromeHidden) DriverQualificationBanner(payload, navigate)
             if (!chromeHidden) Surface(
                 modifier = Modifier.fillMaxWidth(),
@@ -420,6 +424,7 @@ fun ConnectedHome(
                                 }
                                 Spacer(Modifier.height(8.dp))
                                 RouteStops(active)
+                                PassengerRemarkLine(active)
                                 Spacer(Modifier.height(10.dp))
                                 PrimaryButton("继续当前行程", onClick = { navigate("detail:${active.id}") })
                             }
@@ -599,6 +604,9 @@ fun ConnectedProfile(
         verticalArrangement = Arrangement.spacedBy(Gap.M),
     ) {
         item { PageHeader("司机之家", action = "听单设置", onAction = { navigate("settings") }) }
+        if (payload.optJSONObject("operations")?.optJSONObject("company")?.optString("splitAccountStatus") == "UNSIGNED") item {
+            BusinessHint("所属公司尚未开通模拟分账账户，开通后可上线接单")
+        }
         item {
             // Plain identity card: initial avatar, name, vehicle and service score in ink on white.
             val name = d.optString("name", "司机")
@@ -908,8 +916,23 @@ fun ConnectedTrip(
                         Text("目的地待乘客补充 · 费用待定，不是免费。补齐后双方需核对体验报价。", color = Orange, fontSize = 15.sp)
                     DetailRow("预计里程", "${order.mileage} km")
                     if (order.kind == OrderKind.RESERVED) DetailRow("计划用车时间", order.scheduledTimeText)
-                    if (order.remark.isNotBlank())
-                        Text("备注：${order.remark}", fontSize = 13.sp, color = Muted)
+                    if (order.passengerRemark.isNotBlank())
+                        Surface(
+                            color = WarmSoft,
+                            shape = RoundedCornerShape(10.dp),
+                            modifier = Modifier.fillMaxWidth().padding(top = 10.dp),
+                        ) {
+                            Column(Modifier.padding(12.dp)) {
+                                Text("乘客备注", fontSize = 13.sp, color = Muted)
+                                Text(
+                                    order.passengerRemark,
+                                    fontSize = 16.sp,
+                                    fontWeight = FontWeight.SemiBold,
+                                    color = Ink,
+                                    modifier = Modifier.padding(top = 4.dp),
+                                )
+                            }
+                        }
                 }
             }
             item { DriverTripDistanceCard(order.id, order.stage.name, store) }
@@ -935,9 +958,12 @@ fun ConnectedTrip(
                     DetailRow("支付状态", order.paymentStatusLabel)
                     DetailRow("入账状态", order.incomeLabel)
                     order.refundAmountText?.let { DetailRow("模拟退款金额", it) }
+                    order.cancelFeeDisplay().text?.let { BusinessHint(it) }
                     MenuRow("wallet", "查看费用明细") { navigate("fees/${order.id}") }
                     if (order.stage in setOf(Stage.DONE, Stage.WAIT_PAY, Stage.CANCELLED))
                         MenuRow("support", "订单投诉") { navigate("complaint/${order.id}") }
+                    if (order.shared && order.stage in setOf(Stage.DONE, Stage.WAIT_PAY, Stage.CANCELLED))
+                        BlockPassengerRow(order.id, store, onMessage)
                 }
             }
         }
@@ -1082,6 +1108,7 @@ fun ConnectedTrip(
                     // One list only: in TRIP the waypoint card (with its confirm buttons) shows the stops.
                     if (order.stage == Stage.TRIP && order.waypoints.isNotEmpty()) item { TripWaypoints(order, store, onMessage) }
                     else item { SheetCard { RouteStops(order, compact = true) } }
+                    if (order.shared && order.passengerRemark.isNotBlank()) item { SheetCard { PassengerRemarkLine(order) } }
                     item { DriverTripDistanceCard(order.id, order.stage.name, store) }
                     if (order.stage == Stage.ARRIVED && order.phoneTail.isNotBlank())
                         item {
@@ -1185,6 +1212,7 @@ fun ConnectedBid(
                     Pill("竞价订单")
                     Spacer(Modifier.height(16.dp))
                     RouteStops(order)
+                    PassengerRemarkLine(order)
                     DetailRow("预计里程", "${order.mileage} km")
                 }
             }
@@ -1917,14 +1945,14 @@ fun ConnectedWallet(store: ConnectedStore, state: DriverState, navigate: (String
 fun ConnectedHeat(store: ConnectedStore, onBack: () -> Unit) {
     var data by remember { mutableStateOf<JSONObject?>(null) }
     var failure by remember { mutableStateOf<String?>(null) }
-    var period by rememberSaveable { mutableStateOf("current") }
+    var type by rememberSaveable { mutableStateOf("passenger") }
     fun reload() {
-        store.query("/api/heatmap?period=$period", onFailure = { failure = it }) {
+        store.query("/api/heatmap?type=$type", onFailure = { failure = it }) {
             data = it
             failure = null
         }
     }
-    LaunchedEffect(period) { reload() }
+    LaunchedEffect(type) { reload() }
     val points = data?.optJSONArray("points")
     val coords =
         (0 until (points?.length() ?: 0)).map { i ->
@@ -1934,16 +1962,16 @@ fun ConnectedHeat(store: ConnectedStore, onBack: () -> Unit) {
             }
         }
     Column(Modifier.fillMaxSize()) {
-        PageHeader("订单热力分布", onBack, action = "刷新", onAction = { reload() })
+        PageHeader("热力分布", onBack, action = "刷新", onAction = { reload() })
         Column(Modifier.weight(1f).verticalScroll(rememberScrollState()).padding(18.dp)) {
             FlowRow(
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
                 verticalArrangement = Arrangement.spacedBy(8.dp),
             ) {
-                listOf("current" to "当前", "peak" to "晚高峰", "day" to "全天").forEach { (key, label) ->
+                listOf("passenger" to "客流热力", "driver" to "司机热力").forEach { (key, label) ->
                     FilterChip(
-                        period == key,
-                        { period = key },
+                        type == key,
+                        { type = key },
                         label = { Text(label, fontSize = 15.sp) },
                         modifier = Modifier.heightIn(min = 52.dp),
                     )
@@ -1953,9 +1981,13 @@ fun ConnectedHeat(store: ConnectedStore, onBack: () -> Unit) {
             NativeMap(Modifier.fillMaxWidth().height(240.dp), heatPoints = coords)
             Spacer(Modifier.height(16.dp))
             SheetCard {
-                Text("${coords.size} 个热点", fontSize = 20.sp, fontWeight = FontWeight.Bold)
                 Text(
-                    data?.optString("source", "独立服务热区") ?: "加载中",
+                    if (data?.optBoolean("render") == false) "普通地图" else "${coords.size} 个热点",
+                    fontSize = 20.sp,
+                    fontWeight = FontWeight.Bold,
+                )
+                Text(
+                    data?.optString("notice").orEmpty().ifBlank { "加载中" },
                     fontSize = 15.sp,
                     color = Muted,
                     modifier = Modifier.padding(top = 8.dp),

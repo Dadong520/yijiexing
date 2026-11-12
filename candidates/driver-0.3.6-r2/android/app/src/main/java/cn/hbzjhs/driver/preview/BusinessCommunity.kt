@@ -32,7 +32,7 @@ internal fun BusinessBlacklist(
     var remove by remember { mutableStateOf<JSONObject?>(null) }
     val entries = profile.bList("blacklist")
     BusinessPage("乘客黑名单", store, onBack, if (adding) "收起" else "添加", { adding = !adding }) {
-        item { BusinessHint("云端沙箱按合成乘客尾号模拟屏蔽。真实平台应按乘客账号标识处理，避免尾号相同造成误匹配。") }
+        item { BusinessHint("从订单详情拉黑时按乘客账号屏蔽；手动添加时按手机尾号屏蔽，尾号相同的乘客都不会再派单给你。") }
         if (adding)
             item {
                 SheetCard {
@@ -97,7 +97,100 @@ internal fun BusinessBlacklist(
 }
 
 @Composable
-internal fun BusinessPoints(store: ConnectedStore, profile: JSONObject, onBack: () -> Unit) {
+internal fun BlockPassengerRow(orderId: String, store: ConnectedStore, onMessage: (String) -> Unit) {
+    var confirm by remember { mutableStateOf(false) }
+    MenuRow("face", "拉黑此乘客") { confirm = true }
+    if (confirm)
+        BusinessConfirm(
+            "拉黑乘客",
+            "拉黑后将不再收到该乘客账号的新订单，乘客不会收到通知。可在“乘客黑名单”中移除。",
+            "确认拉黑",
+            { confirm = false },
+        ) {
+            confirm = false
+            store.perform("order.blockPassenger", bJson("id" to orderId, "reason" to "司机主动拉黑")) {
+                onMessage("已拉黑，不再接收该乘客的新订单")
+            }
+        }
+}
+
+@Composable
+private fun PointsMall(store: ConnectedStore, profile: JSONObject, balance: Long, onMessage: (String) -> Unit) {
+    val busy by store.loading.collectAsState()
+    val mall = profile.bObj("pointsMall")
+    var redeem by remember { mutableStateOf<JSONObject?>(null) }
+    var name by rememberSaveable { mutableStateOf("") }
+    var mobile by rememberSaveable { mutableStateOf("") }
+    var address by rememberSaveable { mutableStateOf("") }
+    Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+        Text("积分商城", fontSize = 20.sp, fontWeight = FontWeight.Bold)
+        if (mall.bList("products").isEmpty()) BusinessEmpty("暂无可兑换商品，上架后会显示在这里")
+        mall.bList("products").forEach { product ->
+            val cost = product.optLong("points")
+            val stock = product.optInt("stock")
+            SheetCard {
+                Text(product.bText("name"), fontSize = 17.sp, fontWeight = FontWeight.Bold)
+                if (product.optString("description").isNotBlank())
+                    Text(product.optString("description"), fontSize = 15.sp, color = Muted, modifier = Modifier.padding(top = 4.dp))
+                Spacer(Modifier.height(8.dp))
+                DetailRow("所需积分", cost.toString(), Green)
+                DetailRow("剩余可兑", "$stock 份")
+                DetailRow("类型", if (product.optString("type") == "PHYSICAL") "实物 · 需填写收货信息" else "虚拟权益")
+                PrimaryButton(
+                    if (stock <= 0) "已兑完" else if (balance < cost) "积分不足" else "立即兑换",
+                    enabled = !busy && stock > 0 && balance >= cost,
+                ) { redeem = product }
+            }
+        }
+        if (mall.bList("redemptions").isNotEmpty()) Text("兑换记录", fontSize = 17.sp, fontWeight = FontWeight.Bold)
+        mall.bList("redemptions").forEach { row ->
+            SheetCard {
+                DetailRow(row.bText("productName"), "-${row.optLong("points")} 积分")
+                DetailRow(
+                    "状态",
+                    when (row.optString("status")) {
+                        "PENDING_SHIPMENT" -> "待发货"
+                        "SHIPPED" -> "已发货"
+                        else -> "已完成"
+                    },
+                )
+                if (row.optString("shipNote").isNotBlank()) DetailRow("物流", row.optString("shipNote"))
+                DetailRow("兑换时间", row.bText("createdAt"))
+            }
+        }
+        BusinessHint(mall.bText("notice", fallback = "积分不可提现或转让。"))
+    }
+    redeem?.let { product ->
+        val physical = product.optString("type") == "PHYSICAL"
+        val ready = !physical || (name.isNotBlank() && mobile.matches(Regex("1\\d{10}")) && address.trim().length >= 5)
+        AlertDialog(
+            onDismissRequest = { redeem = null },
+            title = { Text("兑换 ${product.bText("name")}") },
+            text = {
+                Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                    Text("将扣除 ${product.optLong("points")} 积分，兑换后不可撤销。", fontSize = 15.sp)
+                    if (physical) {
+                        BusinessField(name, { name = it.take(30) }, "收货人")
+                        BusinessField(mobile, { mobile = it.filter(Char::isDigit).take(11) }, "收货手机号", numeric = true)
+                        BusinessField(address, { address = it.take(200) }, "收货地址", minLines = 2)
+                    }
+                }
+            },
+            confirmButton = {
+                BusinessTextButton(enabled = !busy && ready, onClick = {
+                    val payload = bJson("productId" to product.bText("id"))
+                    if (physical) payload.put("receiverName", name.trim()).put("receiverMobile", mobile).put("receiverAddress", address.trim())
+                    redeem = null
+                    store.perform("points.redeem", payload) { onMessage("兑换成功") }
+                }) { Text("确认兑换") }
+            },
+            dismissButton = { BusinessTextButton(onClick = { redeem = null }) { Text("取消") } },
+        )
+    }
+}
+
+@Composable
+internal fun BusinessPoints(store: ConnectedStore, profile: JSONObject, onBack: () -> Unit, onMessage: (String) -> Unit) {
     val points = profile.bObj("points")
     val entries = points.bList("entries").ifEmpty { points.bList("records") }
     var selectedMonth by rememberSaveable { mutableStateOf("全部月份") }
@@ -129,6 +222,8 @@ internal fun BusinessPoints(store: ConnectedStore, profile: JSONObject, onBack: 
                 BusinessHint("明细由服务端记账；完成订单后刷新可查看积分变化。")
             }
         }
+        item { PointsMall(store, profile, points.optLong("balance"), onMessage) }
+        item { Text("积分明细", fontSize = 17.sp, fontWeight = FontWeight.Bold) }
         item {
             Box {
                 BusinessOutlinedButton(onClick = { monthMenu = true }) { Text("$selectedMonth ▾") }
@@ -148,7 +243,6 @@ internal fun BusinessPoints(store: ConnectedStore, profile: JSONObject, onBack: 
         }
         if (filtered.isEmpty()) item { BusinessEmpty("本月暂无积分记录", actionLabel = "刷新") { store.refresh() } }
         items(filtered) { entry -> BusinessLedgerRow(entry, "积分变动") }
-        item { BusinessHint("奖励规则属于沙箱演练配置，不代表正式平台发放承诺。") }
     }
 }
 
@@ -172,9 +266,17 @@ internal fun BusinessServiceScore(store: ConnectedStore, profile: JSONObject, on
                 BusinessHint("评分及变动均读取演示服务记录；提交投诉或反馈不自动代表违规成立。")
             }
         }
+        item { SheetCard {
+            SectionTitle("服务分等级区间")
+            score.bList("levels").forEach { level -> DetailRow(level.bText("name"), serviceScoreRangeText(level)) }
+            if (score.bList("levels").isEmpty()) BusinessHint("等级区间待服务端同步")
+        } }
         item { SectionTitle("评分变动记录") }
         if (entries.isEmpty()) item { BusinessEmpty("暂无评分变动", actionLabel = "刷新") { store.refresh() } }
-        items(entries) { entry -> BusinessLedgerRow(entry, "服务分变动") }
+        items(entries) { entry ->
+            BusinessLedgerRow(entry, "服务分变动")
+            if (entry.has("scoreAfter")) SheetCard { DetailRow("变动后分数", "${entry.optDouble("scoreAfter")} 分") }
+        }
     }
 }
 
@@ -219,12 +321,12 @@ internal fun BusinessReferral(
 ) {
     val referral = profile.bObj("referrals")
     val records = referral.bList("entries").ifEmpty { referral.bList("records") }
-    val code = referral.bText("code", fallback = "")
+    val code = referral.bText("code", "inviteCode", fallback = "")
     val context = LocalContext.current
     BusinessPage("分享拉新", store, onBack) {
         item {
             SheetCard {
-                Pill("演示活动演练")
+                Pill("模拟积分拉新")
                 Spacer(Modifier.height(18.dp))
                 Text("好服务，值得被分享", fontSize = 25.sp, fontWeight = FontWeight.Bold)
                 Text(
@@ -258,7 +360,7 @@ internal fun BusinessReferral(
                                         type = "text/plain"
                                         putExtra(
                                             Intent.EXTRA_TEXT,
-                                            "宜捷行司机端云端沙箱邀请码：$code（仅供演练，非正式活动）",
+                                            "宜捷行司机邀请码：$code（模拟积分奖励，不产生真实现金奖励）",
                                         )
                                     }
                                 context.startActivity(Intent.createChooser(intent, "选择分享方式"))
@@ -278,7 +380,7 @@ internal fun BusinessReferral(
             SheetCard {
                 DetailRow(
                     "受邀人",
-                    record.bText("name", "phoneTail", "mobileMasked", fallback = "演示合成乘客"),
+                    record.bText("name", "phoneTail", "mobileMasked", fallback = "受邀用户"),
                 )
                 DetailRow("邀请时间", record.bText("date", "createdAt"))
                 DetailRow(
@@ -298,10 +400,7 @@ internal fun BusinessReferral(
         }
         item {
             BusinessHint(
-                referral.bText(
-                    "rules",
-                    fallback = "邀请码由演示服务生成，数据为合成活动记录。正式推广链接、奖励核算和乘客注册仍需接入平台活动系统。",
-                )
+                driverReferralRuleText(referral.optJSONObject("rule"))
             )
         }
     }
@@ -313,11 +412,15 @@ internal fun BusinessRanking(store: ConnectedStore, profile: JSONObject, onBack:
     var failure by remember { mutableStateOf("") }
     var loaded by remember { mutableStateOf(false) }
     var revision by remember { mutableIntStateOf(0) }
-    LaunchedEffect(revision) {
+    var metric by rememberSaveable { mutableStateOf("orders") }
+    var period by rememberSaveable { mutableStateOf("day") }
+    val periods = if (metric == "orders") listOf("day", "month", "year") else listOf("day", "week", "month", "year")
+    val periodNames = mapOf("day" to "日", "week" to "周", "month" to "月", "year" to "年")
+    LaunchedEffect(revision, metric, period) {
         loaded = false
         failure = ""
         store.query(
-            "/api/ranking",
+            "/api/ranking?metric=$metric&period=$period",
             onFailure = {
                 failure = it
                 loaded = true
@@ -330,7 +433,24 @@ internal fun BusinessRanking(store: ConnectedStore, profile: JSONObject, onBack:
     }
     val entries = ranking.bList("entries").ifEmpty { ranking.bList("records") }
     var filter by rememberSaveable { mutableStateOf("全部") }
-    BusinessPage("接单排行", store, onBack, "刷新", { revision++ }) {
+    BusinessPage("司机排行", store, onBack, "刷新", { revision++ }) {
+        item {
+            Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                    listOf("orders" to "接单数", "online" to "在线时长").forEach { (key, label) ->
+                        FilterChip(metric == key, {
+                            metric = key
+                            if (key == "orders" && period == "week") period = "day"
+                        }, label = { Text(label) })
+                    }
+                }
+                Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                    periods.forEach { key ->
+                        FilterChip(period == key, { period = key }, label = { Text(periodNames.getValue(key)) })
+                    }
+                }
+            }
+        }
         if (!loaded || failure.isNotBlank())
             item { BusinessEmpty(if (failure.isNotBlank()) failure else "正在校验权益并获取排行…") }
         if (loaded && failure.isBlank()) {
@@ -344,8 +464,8 @@ internal fun BusinessRanking(store: ConnectedStore, profile: JSONObject, onBack:
                         else "暂无排名",
                         Green,
                     )
-                    DetailRow("完成订单", "${ranking.optInt("completed")} 单")
-                    BusinessHint("数据由隔离服务提供；同名合成司机不对应真实人员。")
+                    DetailRow(if (metric == "orders") "完成订单" else "在线时长", ranking.bText("myValueLabel"))
+                    BusinessHint("${ranking.bText("cityName", fallback = "当前区域")} · ${ranking.bText("scope", fallback = "同区域司机排行")}")
                 }
             }
             item {
@@ -360,8 +480,8 @@ internal fun BusinessRanking(store: ConnectedStore, profile: JSONObject, onBack:
                 SheetCard {
                     DetailRow(
                         "${entry.optInt("rank")}  ${entry.bText("name")}",
-                        "${entry.optInt("completed")} 单",
-                        if (entry.optInt("rank") in 1..3) Green else Ink,
+                        entry.bText("valueLabel"),
+                        if (entry.optBoolean("isMe") || entry.optInt("rank") in 1..3) Green else Ink,
                     )
                 }
             }

@@ -95,7 +95,7 @@ fun InvoiceTitlesScreen(state: JSONObject, store: PassengerStore) {
   var remove by remember { mutableStateOf<JSONObject?>(null) }
   PageColumn {
     PassengerSectionHeader("发票抬头", "＋ 添加") { edit = JSONObject() }
-    Note("用于生成模拟回执，不可用于实际报销。默认抬头只为新申请提供初次建议。")
+    Note("常用抬头可在开票时直接选择；不保存也可在开票时填写。模拟回执不可用于实际报销。")
     if (state.rows("invoiceTitles").isEmpty()) EmptyCard("暂无发票抬头", "可添加个人或企业抬头。")
     state.rows("invoiceTitles").forEach { t ->
       val isDefault = PassengerDefaults.id(state, "INVOICE_TITLE") == t.text("id")
@@ -168,10 +168,26 @@ fun InvoicesScreen(state: JSONObject, store: PassengerStore) {
   var orderId by rememberSaveable(owner) { mutableStateOf("") }
   var titleId by rememberSaveable(owner) { mutableStateOf(PassengerDefaults.draftSelection("", false, PassengerDefaults.id(state, "INVOICE_TITLE"), titles.map { it.text("id") }.toSet())) }
   var confirm by remember(owner) { mutableStateOf(false) }
+  var typing by rememberSaveable(owner) { mutableStateOf(false) }
+  var inlineType by rememberSaveable(owner) { mutableStateOf("PERSONAL") }
+  var inlineTitle by rememberSaveable(owner) { mutableStateOf("") }
+  var inlineTax by rememberSaveable(owner) { mutableStateOf("") }
+  var inlineEmail by rememberSaveable(owner) { mutableStateOf("") }
+  var saveTitle by rememberSaveable(owner) { mutableStateOf(false) }
+  // No saved or default title is required: with none saved the form is shown directly.
+  val manual = typing || titles.isEmpty()
+  val inlineValid = inlineTitle.isNotBlank() && (inlineType != "COMPANY" || inlineTax.trim().length in setOf(15, 18, 20) && inlineTax.trim().all { it.isLetterOrDigit() && it.code < 128 })
+  val titleReady = if (manual) inlineValid else titles.any { it.text("id") == titleId }
   LaunchedEffect(titles.map { it.text("id") }, owner) {
     if (titleId.isNotBlank() && titles.none { it.text("id") == titleId }) { titleId = ""; confirm = false }
   }
   val busy by store.busy.collectAsState()
+  var reissueInvoice by remember(owner) { mutableStateOf<JSONObject?>(null) }
+  var reissueReason by remember(owner) { mutableStateOf("") }
+  var reissueType by remember(owner) { mutableStateOf("PERSONAL") }
+  var reissueTitle by remember(owner) { mutableStateOf("") }
+  var reissueTax by remember(owner) { mutableStateOf("") }
+  var reissueEmail by remember(owner) { mutableStateOf("") }
   val invoices = state.rows("invoices")
   val available =
     state.rows("orders").filter { o ->
@@ -198,11 +214,22 @@ fun InvoicesScreen(state: JSONObject, store: PassengerStore) {
         )
       }
       Text("选择发票抬头", fontWeight = FontWeight.Bold)
-      if (titles.isEmpty()) Note("请先返回“我的 → 发票抬头”添加抬头。")
+      if (titles.isNotEmpty()) PassengerCompactRecord("填写新抬头", "本次直接填写，无需提前保存", typing, { typing = true; titleId = "" })
       titles.forEach { t ->
-        PassengerCompactRecord(t.text("title"), "${if (t.text("type") == "COMPANY") "企业" else "个人"}${if (PassengerDefaults.id(state, "INVOICE_TITLE") == t.text("id")) " · 默认" else ""}", titleId == t.text("id"), { titleId = t.text("id") }, trailing = { RadioButton(titleId == t.text("id"), onClick = null) })
+        PassengerCompactRecord(t.text("title"), "${if (t.text("type") == "COMPANY") "企业" else "个人"}${if (PassengerDefaults.id(state, "INVOICE_TITLE") == t.text("id")) " · 默认" else ""}", titleId == t.text("id"), { typing = false; titleId = t.text("id") }, trailing = { RadioButton(titleId == t.text("id"), onClick = null) })
       }
-      ActionButton("生成模拟回执", selectedEligible && titles.any { it.text("id") == titleId } && !busy) {
+      if (manual) {
+        Row {
+          FilterChip(inlineType == "PERSONAL", { inlineType = "PERSONAL" }, label = { Text("个人") })
+          Spacer(Modifier.width(8.dp))
+          FilterChip(inlineType == "COMPANY", { inlineType = "COMPANY" }, label = { Text("企业") })
+        }
+        Field(inlineTitle, { inlineTitle = it.take(100) }, "发票抬头")
+        if (inlineType == "COMPANY") Field(inlineTax, { inlineTax = it.take(20) }, "纳税人识别号（15、18或20位）")
+        Field(inlineEmail, { inlineEmail = it.take(254) }, "邮箱（可选，不发送邮件）", KeyboardType.Email)
+        PassengerDefaultCheck(saveTitle, "保存为常用抬头") { saveTitle = it }
+      }
+      ActionButton("生成模拟回执", selectedEligible && titleReady && !busy) {
         confirm = true
       }
     }
@@ -213,8 +240,23 @@ fun InvoicesScreen(state: JSONObject, store: PassengerStore) {
       EmptyHint("在上方选择已完成且模拟支付成功的订单和抬头，即可生成一条记录。")
     }
     invoices.reversed().forEach { i ->
-      ExpandablePanel(i.text("title", "模拟回执"), "¥${money(i.optLong("amount"))} · ${formatTime(i.text("createdAt"))} · 模拟不可报销") {
+      ExpandablePanel(i.text("title", "模拟回执"), "¥${money(i.optLong("amount"))} · ${formatTime(i.text("createdAt"))} · ${if(i.text("status") == "RED_FLUSHED") "已冲红" else "模拟已开具"}${when(i.text("reissueStatus")) { "PENDING" -> " · 重开待审"; "APPROVED" -> " · 重开已通过"; "REJECTED" -> " · 重开已驳回"; else -> "" }} · 模拟不可报销") {
         // Label on the left edge, value on the right edge, like the other record forms.
+        RecordRow("状态", if(i.text("status") == "RED_FLUSHED") "已冲红" else "已开具模拟回执")
+        if(i.text("redFlushReason").isNotBlank()) RecordRow("冲红原因", i.text("redFlushReason"))
+        if(i.text("reissueStatus").isNotBlank()) RecordRow("重开状态", when(i.text("reissueStatus")) { "PENDING" -> "重开待审"; "APPROVED" -> "重开已通过"; "REJECTED" -> "重开已驳回"; else -> i.text("reissueStatus") })
+        if(i.text("reissuedAs").isNotBlank()) RecordRow("重开为", i.text("reissuedAs"))
+        if(i.text("reissueOf").isNotBlank()) RecordRow("原回执", i.text("reissueOf"))
+        if(i.text("status") == "SIMULATED_ISSUED" && i.text("reissueStatus") != "PENDING") SecondaryButton("申请重开", !busy) {
+          reissueInvoice = i; reissueReason = ""
+          val t = i.optJSONObject("titleSnapshot") ?: JSONObject()
+          reissueType = t.text("type", "PERSONAL"); reissueTitle = t.text("title", i.text("title"))
+          reissueTax = t.text("taxNumber"); reissueEmail = t.text("email")
+        }
+        state.rows("invoiceReissues").filter { it.text("invoiceId") == i.text("id") }.forEach { request ->
+          RecordRow("重开申请", "${request.text("status")} · ${request.text("reason")}")
+          if(request.text("decision").isNotBlank()) RecordRow("审核意见", request.text("decision"))
+        }
         RecordRow("抬头", i.text("title"))
         RecordRow("金额", "¥${money(i.optLong("amount"))}")
         RecordRow("生成时间", formatTime(i.text("createdAt")))
@@ -230,21 +272,46 @@ fun InvoicesScreen(state: JSONObject, store: PassengerStore) {
       }
     }
   }
+  reissueInvoice?.let { shown ->
+    val current = state.rows("invoices").firstOrNull { it.text("id") == shown.text("id") }
+    val eligible = current?.text("status") == "SIMULATED_ISSUED" && current.text("reissueStatus") != "PENDING"
+    val valid = reissueReason.trim().length in 2..200 && reissueTitle.trim().isNotEmpty() &&
+      (reissueType != "COMPANY" || reissueTax.trim().length in setOf(15,18,20) && reissueTax.trim().all { it.isLetterOrDigit() && it.code < 128 })
+    PassengerDialog(onDismissRequest = { if (!busy) reissueInvoice = null }, title = { Text("申请重开模拟回执") }, text = {
+      Column(Modifier.verticalScroll(rememberScrollState())) {
+        Note("提交后由后台审核；不产生真实税务发票。")
+        Field(reissueReason, { reissueReason = it.take(200) }, "重开原因（2-200字）")
+        Row { FilterChip(reissueType == "PERSONAL", { reissueType = "PERSONAL" }, label = { Text("个人") }); FilterChip(reissueType == "COMPANY", { reissueType = "COMPANY" }, label = { Text("企业") }) }
+        Field(reissueTitle, { reissueTitle = it.take(100) }, "重开抬头")
+        if (reissueType == "COMPANY") Field(reissueTax, { reissueTax = it.take(20) }, "企业税号（必填）")
+        Field(reissueEmail, { reissueEmail = it.take(254) }, "邮箱（选填）", KeyboardType.Email)
+        if (!eligible) Text("回执状态已变化，请关闭后刷新", color = Danger)
+      }
+    }, confirmButton = { PassengerTextButton(enabled = !busy && eligible && valid, onClick = {
+      val latest = store.state.value.rows("invoices").firstOrNull { it.text("id") == shown.text("id") }
+      if (store.state.value.optJSONObject("passenger")?.text("id") != owner || latest?.text("status") != "SIMULATED_ISSUED" || latest.text("reissueStatus") == "PENDING") {
+        store.reportError("回执状态已变化，请刷新后重试")
+      } else store.action("invoice.reissue.apply", JSONObject().put("invoiceId", shown.text("id")).put("reason", reissueReason.trim()).put("type", reissueType).put("title", reissueTitle.trim()).put("taxNumber", if(reissueType == "COMPANY") reissueTax.trim() else "").put("email", reissueEmail.trim())) { reissueInvoice = null }
+    }) { Text("提交重开申请") } }, dismissButton = { PassengerTextButton(onClick = { reissueInvoice = null }, enabled = !busy) { Text("取消") } })
+  }
   PassengerModalSlot(confirm && selectedEligible)
   if (confirm && selectedEligible)
     PassengerDialog(
       onDismissRequest = { confirm = false },
       title = { Text("确认生成模拟回执") },
-      text = { Text("将使用所选抬头保存云端模拟申请，不会开具真实税务发票，也不会发送邮件。") },
+      text = { Text("将使用${if (manual) "填写的" else "所选"}抬头保存云端模拟申请，不会开具真实税务发票，也不会发送邮件。") },
       confirmButton = {
         PassengerTextButton(
-          enabled = !busy && selectedEligible && titles.any { it.text("id") == titleId },
+          enabled = !busy && selectedEligible && titleReady,
           onClick = {
-            store.action(
-              "invoice.apply",
-              JSONObject().put("orderId", orderId).put("titleId", titleId),
-            ) {
+            val payload = JSONObject().put("orderId", orderId)
+            if (manual) {
+              payload.put("type", inlineType).put("title", inlineTitle.trim()).put("email", inlineEmail.trim()).put("saveTitle", saveTitle)
+              if (inlineType == "COMPANY") payload.put("taxNumber", inlineTax.trim())
+            } else payload.put("titleId", titleId)
+            store.action("invoice.apply", payload) {
               orderId = ""
+              inlineTitle = ""; inlineTax = ""; inlineEmail = ""; saveTitle = false; typing = false
             }
             confirm = false
           }

@@ -293,7 +293,7 @@ class PassengerStore(app: Application) : AndroidViewModel(app) {
   }
 
   /** Full auth chain runs inside one busy operation; it never calls public refresh(). */
-  fun loginExperience(phone: String) {
+  fun loginExperience(phone: String, inviteCode: String = "") {
     if (_busy.value) {
       _error.value = "上一项操作仍在处理中，请稍候再试"
       return
@@ -307,7 +307,7 @@ class PassengerStore(app: Application) : AndroidViewModel(app) {
       val code = PassengerApi.request("POST", "/api/passenger/auth/code", JSONObject().put("mobile", mobile), false)
         .getString("verificationCode")
       if (generation != sessionGeneration) return@run
-      val login = PassengerApi.request("POST", "/api/passenger/auth/login", JSONObject().put("mobile", mobile).put("code", code), false)
+      val login = PassengerApi.request("POST", "/api/passenger/auth/login", JSONObject().put("mobile", mobile).put("code", code).apply { inviteCode.trim().uppercase(java.util.Locale.ROOT).takeIf { it.isNotBlank() }?.let { put("inviteCode", it) } }, false)
       val token = login.getString("token")
       require(token.isNotBlank()) { "服务未返回有效登录凭证" }
       if (generation != sessionGeneration) return@run
@@ -323,14 +323,14 @@ class PassengerStore(app: Application) : AndroidViewModel(app) {
     }
   }
 
-  fun login(mobile: String, code: String) = run {
+  fun login(mobile: String, code: String, inviteCode: String = "") = run {
     val generation = sessionGeneration
     requireMobile(mobile)
     val d =
       PassengerApi.request(
         "POST",
         "/api/passenger/auth/login",
-        JSONObject().put("mobile", mobile).put("code", code),
+        JSONObject().put("mobile", mobile).put("code", code).apply { inviteCode.trim().uppercase(java.util.Locale.ROOT).takeIf { it.isNotBlank() }?.let { put("inviteCode", it) } },
         false,
       )
     if (generation != sessionGeneration) return@run

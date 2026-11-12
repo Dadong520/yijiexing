@@ -178,8 +178,12 @@ class TripDistanceMixin:
             require(not o.get('destinationPending'), '请等待乘客补充目的地后再开始行程', 409)
             o['fareConfirmed'] = True
             o['fareConfirmedAt'] = stamp()
+            o['tripStartedAt'] = stamp()
+        if stage == 'PICKUP':
+            o['arrivedAt'] = stamp()
         if stage == 'TRIP':
             require(len(o.get('arrivedWaypoints', [])) == len(o.get('waypoints', [])), '请先确认全部途经点', 409)
+            self.finalize_trip_fare(o)
         o['stage'] = {'RESERVED': 'PICKUP', 'PICKUP': 'ARRIVED', 'ARRIVED': 'TRIP',
                       'TRIP': 'DONE' if o.get('paid') else 'WAIT_PAY'}[stage]
 

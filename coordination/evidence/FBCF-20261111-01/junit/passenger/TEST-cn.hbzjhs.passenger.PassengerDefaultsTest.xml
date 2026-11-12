@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="cn.hbzjhs.passenger.PassengerDefaultsTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2026-11-12T00:38:14" hostname="dongge-2.local" time="0.0">
+  <properties/>
+  <testcase name="deletedSelectionFallsBackWithoutChoosingTheNextDefault" classname="cn.hbzjhs.passenger.PassengerDefaultsTest" time="0.0"/>
+  <testcase name="currentTopLevelReferenceWinsOverStaleRowFlags" classname="cn.hbzjhs.passenger.PassengerDefaultsTest" time="0.0"/>
+  <testcase name="initialSuggestionCannotOverwriteUserChoiceOrSelfOnRefresh" classname="cn.hbzjhs.passenger.PassengerDefaultsTest" time="0.0"/>
+  <testcase name="removedOrOtherAccountReferencesAreNeverSelected" classname="cn.hbzjhs.passenger.PassengerDefaultsTest" time="0.0"/>
+  <testcase name="oldStateDoesNotTurnTheFirstRecordIntoADefault" classname="cn.hbzjhs.passenger.PassengerDefaultsTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

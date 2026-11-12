@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="cn.hbzjhs.driver.preview.DriverSettlementTest" tests="9" skipped="0" failures="0" errors="0" timestamp="2026-11-12T00:39:08" hostname="dongge-2.local" time="0.001">
+  <properties/>
+  <testcase name="latePaymentOfOldTripPreservesNewTripAndOnlyUsesServerBalance" classname="cn.hbzjhs.driver.preview.DriverSettlementTest" time="0.0"/>
+  <testcase name="endedUnpaidTripsDoNotOccupyDriverForPrivateOrSharedOrders" classname="cn.hbzjhs.driver.preview.DriverSettlementTest" time="0.0"/>
+  <testcase name="cancelledParticipationCannotBecomeACollectionOrCurrentTrip" classname="cn.hbzjhs.driver.preview.DriverSettlementTest" time="0.0"/>
+  <testcase name="exampleLabelUsesServerMarkerAndNeverLabelsSharedPassengerOrders" classname="cn.hbzjhs.driver.preview.DriverSettlementTest" time="0.0"/>
+  <testcase name="olderUnpaidOrderNeverHidesCurrentNewTripRegardlessOfListOrder" classname="cn.hbzjhs.driver.preview.DriverSettlementTest" time="0.0"/>
+  <testcase name="staleTripActionsCannotAdvanceChangedOrCancelledOrders" classname="cn.hbzjhs.driver.preview.DriverSettlementTest" time="0.0"/>
+  <testcase name="everyTransportStageStillOccupiesDriverWhileSettlementDoesNot" classname="cn.hbzjhs.driver.preview.DriverSettlementTest" time="0.001"/>
+  <testcase name="failedOrProcessingPaymentsRemainCollectibleWithoutOccupyingDriver" classname="cn.hbzjhs.driver.preview.DriverSettlementTest" time="0.0"/>
+  <testcase name="waitingPrepaymentIsNotConfusedWithEndedTripCollection" classname="cn.hbzjhs.driver.preview.DriverSettlementTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

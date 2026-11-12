@@ -8,8 +8,8 @@ android {
         applicationId = "cn.hbzjhs.dc.passenger.cloud"
         minSdk = 26
         targetSdk = 34
-        versionCode = 25
-        versionName = "1.1.23-experience"
+        versionCode = 26
+        versionName = "1.1.24-experience"
         buildConfigField("String", "CLOUD_API_ORIGIN", "\"$cloudOrigin\"")
     }
     // Compress native map libraries in sideload APKs; AGP sets extraction for installation.

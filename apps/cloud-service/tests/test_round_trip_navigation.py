@@ -22,10 +22,11 @@ class RoundTripNavigation(unittest.TestCase):
     def test_create_all_kinds_full_legs_and_unchanged_formula(self):
         # Exact north/south arc, two legs (not zero endpoint distance).
         km = 6371 * math.pi / 180 * .1 * 2
-        expected = max(800, int(round((8 + max(0, km * 1.3 - 2) * 2.4) * 100)))
+        # 修改意见3.0 区域运价（宜昌默认）：8元/2公里，之后每500米0.8元，夜间/回空费按规则加收。
         for kind in ('STANDARD', 'RESERVED', 'BID'):
             o = self.pa('order.create', self.payload(kind=kind, scheduledAt=stamp(now()+dt.timedelta(hours=1))))['order']
-            self.assertEqual(o['estimatedFare'], expected)
+            expected = self.svc.estimate_trip_fare(o['city'], km * 1.3 * 1000, now() if kind != 'RESERVED' else dt.datetime.fromisoformat(o['scheduledAt']))[0]
+            self.assertEqual(o['estimatedTripFare'], expected); self.assertEqual(o['estimatedFare'], expected + o['serviceFee'])
             self.assertEqual(o['mileage'], f'{km*1.3:.1f}')
             self.assertEqual([x['sortNo'] for x in o['waypoints']], [1])
             self.pa('order.cancel', dict(id=o['id'], reason='结束隔离测试'))
@@ -72,7 +73,7 @@ class RoundTripNavigation(unittest.TestCase):
         update = dict(id=o['id'],destination='回环起点',destinationLat=30.,destinationLng=111.)
         current = self.pa('order.update',update)['order']
         km = 6371*math.pi/180*.1*2
-        self.assertEqual(current['fare'],int(round((8+(km*1.3-2)*2.4)*100)))
+        self.assertEqual(current['fare'],self.svc.estimate_trip_fare(current['city'],km*1.3*1000,now())[0])
         with self.assertRaises(ApiError):self.pa('order.update', update, pid='P2')
         self.da('order.accept',dict(id=o['id']))
         with self.assertRaises(ApiError):self.pa('order.update',update)

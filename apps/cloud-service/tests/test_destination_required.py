@@ -62,6 +62,6 @@ class DestinationRequiredTests(PolicyCase):
         current=self.pa(pt,'order.update',{'id':oid,'destination':'宜昌东站','destinationLat':30.6645,'destinationLng':111.3694})['result']['order']
         self.assertFalse(current['destinationPending']);self.assertGreater(current['fare'],0)
         self.da(driver,'order.advance',{'id':oid,'phoneTail':'0101'});self.da(driver,'order.advance',{'id':oid})
-        self.assertEqual(self.get_order(pt,oid)['stage'],'WAIT_PAY')
-        self.pa(pt,'order.pay',{'id':oid,'outcome':'SUCCESS'})
+        final=self.get_order(pt,oid);self.assertEqual(final['stage'],'WAIT_PAY')
+        self.pa(pt,'order.pay',{'id':oid,'outcome':'SUCCESS','expectedFare':final['fare'],'fareVersion':final['fareVersion']})
         self.assertEqual(self.get_order(pt,oid)['stage'],'DONE')

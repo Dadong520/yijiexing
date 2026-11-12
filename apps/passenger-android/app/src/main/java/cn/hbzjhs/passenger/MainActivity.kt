@@ -321,7 +321,8 @@ fun PassengerApp(
             }
           "orders" -> OrdersScreen(state.rows("orders")) { selected = it }
           "profile" -> ProfileScreen(state, store, settings = { settings = true }, permissions = { showPermissionGuide = true }) { page = it }
-          "coupons", "points", "invite", "safety" -> PassengerExtrasScreen(page, state.optJSONObject("passenger")?.text("id").orEmpty())
+          "points" -> PointsScreen(state, store)
+          "coupons", "invite", "safety" -> PassengerExtrasScreen(page, state.optJSONObject("passenger")?.text("id").orEmpty(), state, store)
           "favorites" -> FavoritesScreen(state, store)
           "feedback" -> FeedbackScreen(state, store)
           "complaints" -> ComplaintsScreen(state, store)
@@ -518,6 +519,7 @@ fun SettingsDialog(store: PassengerStore, configured: Boolean, close: () -> Unit
 
 @Composable
 fun LoginScreen(store: PassengerStore, configured: Boolean, settings: () -> Unit) {
+  var inviteCode by rememberSaveable { mutableStateOf("") }
   var mobile by rememberSaveable { mutableStateOf("13800000102") }
   var agreed by rememberSaveable { mutableStateOf(false) }
   var accountMenu by remember { mutableStateOf(false) }
@@ -588,6 +590,7 @@ fun LoginScreen(store: PassengerStore, configured: Boolean, settings: () -> Unit
             }
           }
         }
+        Field(inviteCode, { inviteCode = it.take(20) }, "邀请码（选填，首次注册有效）")
         Row(
           verticalAlignment = Alignment.CenterVertically,
           modifier = Modifier
@@ -607,7 +610,7 @@ fun LoginScreen(store: PassengerStore, configured: Boolean, settings: () -> Unit
           Text(it, color = MaterialTheme.colorScheme.error, fontSize = 14.sp)
         }
         ActionButton(if (busy) "正在进入…" else "进入体验", agreed && !busy) {
-          store.loginExperience(mobile)
+          store.loginExperience(mobile, inviteCode)
         }
       }
       Panel("体验说明与数据范围") {

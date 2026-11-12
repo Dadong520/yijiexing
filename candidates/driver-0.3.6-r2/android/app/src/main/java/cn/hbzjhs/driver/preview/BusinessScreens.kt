@@ -46,7 +46,7 @@ fun BusinessEntry(
         route == "blacklist" -> BusinessBlacklist(store, profile, onBack, onMessage)
         route == "feedback" -> BusinessFeedback(store, profile, onBack, onMessage)
         route == "help" -> BusinessHelp(store, profile, onBack, navigate, onMessage)
-        route == "points" -> BusinessPoints(store, profile, onBack)
+        route == "points" -> BusinessPoints(store, profile, onBack, onMessage)
         route == "serviceScore" || route == "servicescore" ->
             BusinessServiceScore(store, profile, onBack)
         route == "referral" -> BusinessReferral(store, profile, onBack, onMessage)
