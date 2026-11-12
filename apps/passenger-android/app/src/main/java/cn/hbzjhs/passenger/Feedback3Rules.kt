@@ -59,3 +59,18 @@ internal fun referralRuleText(rule: JSONObject?): String {
   val bonuses = rule.rows("bonuses").joinToString("；") { "累计${it.optInt("count", it.optInt("from"))}人加${it.optInt("points")}积分" }
   return "${if (rule.optBoolean("enabled", true)) "" else "活动已暂停 · "}$trigger · ${if (rule.optBoolean("tiered")) "阶梯奖励 $tiers" else "固定${rule.optInt("points")}积分"} · ${if (rule.optBoolean("cumulative")) "累计奖励" else "非累计奖励"} · 单账号上限100人${if (bonuses.isBlank()) "" else " · $bonuses"}"
 }
+
+internal fun couponValidityText(coupon: JSONObject): String = when (coupon.text("validity")) {
+  "RANGE", "FIXED" -> {
+    val start = coupon.text("validStartAt").takeUnless { it == "null" }.orEmpty()
+    val end = coupon.text("validEndAt").takeUnless { it == "null" }.orEmpty()
+    when {
+      start.isNotBlank() && end.isNotBlank() -> "有效期 ${formatTime(start)} 至 ${formatTime(end)}"
+      end.isNotBlank() -> "有效期至 ${formatTime(end)}"
+      start.isNotBlank() -> "有效期自 ${formatTime(start)}起，截止时间待同步"
+      else -> "有效期待同步"
+    }
+  }
+  "DAYS" -> coupon.optInt("validDays").takeIf { it > 0 }?.let { "领取后${it}天有效" } ?: "有效期待同步"
+  else -> "有效期待同步"
+}

@@ -263,8 +263,10 @@ internal fun BusinessFees(
         if (fees == null) item { BusinessEmpty(if (failed.isBlank()) "正在加载服务端费用明细…" else failed) }
         fees?.let { fee ->
             val estimatedIncome = fee.optLong("income", fee.optLong("driverIncome"))
-            val incomeLabel = order?.incomeLabel ?: "预计收入（未核对入账）"
-            val displayedIncome = order?.incomeForDisplay(estimatedIncome) ?: estimatedIncome
+            val income = driverFeeIncome(order, estimatedIncome)
+            val incomeLabel = income.label
+            val displayedIncome = income.amount
+            val cancelFee = if (fee.has("cancelFee")) parseDriverCancelFee(fee.optJSONObject("cancelFee")) else order?.cancelFeeDisplay()
             item {
                 SheetCard {
                     if (order != null && order.paymentStatus == "REFUNDED") {
@@ -296,6 +298,7 @@ internal fun BusinessFees(
                     DetailRow("订单编号", id)
                     if (order != null) DetailRow("订单类型", order.kind.title)
                     DetailRow("运价费", "¥${money(fee.optLong("fare"))}")
+                    cancelFee?.text?.let { BusinessHint(it) }
                 }
             }
             item {
@@ -310,7 +313,7 @@ internal fun BusinessFees(
                         DetailRow("地图服务费", "¥${money(fee.optLong("mapServiceFee"))}")
                         if (fee.optLong("passengerServiceFee") > 0) BusinessHint("区域服务费 ¥${money(fee.optLong("passengerServiceFee"))} 不计入司机收入")
                         HorizontalDivider(color = Line, modifier = Modifier.padding(vertical = 10.dp))
-                        DetailRow("司机分账金额", "¥${money(fee.optLong("income", fee.optLong("driverIncome")))}", Green)
+                        DetailRow(incomeLabel, "¥${money(displayedIncome)}", if (income.credited) Green else Muted)
                         BusinessHint(fee.bText("policyLabel", fallback = "暂未返回计费政策说明"))
                     }
                 }

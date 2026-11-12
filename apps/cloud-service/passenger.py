@@ -111,6 +111,8 @@ class PassengerMixin(CompetitionMixin,TripDistanceMixin,NegotiationMixin,Passeng
         is_shared=bool(o.get('shared') or (oid and self.shared_order(oid)))
         canonical=self.shared_order(oid) if (oid and is_shared) else None
         if is_shared:
+            fee_owner=canonical or o
+            o['cancelFee']=clone(fee_owner.get('cancelFee')) if driver and fee_owner.get('driverId')==driver else None
             o=self.trip_order_view(o)
             if self.competition_enabled(canonical or o):o['competition']=self.competition_view(driver,canonical or o)
             for key in ('passengerId','bids','complaints'):o.pop(key,None)

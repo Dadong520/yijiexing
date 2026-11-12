@@ -63,7 +63,7 @@ private fun PassengerCoupons(state: JSONObject, store: PassengerStore) {
       templates.forEach { c -> Panel(c.text("label", c.text("name", "优惠券"))) {
         Note(c.text("description")); KV("面额", "¥${money(c.optLong("amount"))}"); KV("门槛", "运价费满¥${money(c.optLong("threshold"))}")
         KV("剩余数量", c.optInt("remaining").toString()); KV("领取情况", "${c.optInt("claimedCount")}/${c.optInt("perUserLimit", 1)}")
-        Note(if(c.text("validity") == "FIXED") "有效期至 ${formatTime(c.text("validEndAt"))}" else "领取后${c.optInt("validDays")}天有效")
+        Note(couponValidityText(c))
         ActionButton("领取优惠券", !busy && !state.optBoolean("couponPoolFused") && c.optInt("remaining") > 0 && c.optInt("claimedCount") < c.optInt("perUserLimit", 1)) {
           claimProblem = ""; store.clearError(); claiming = true
           store.action("coupon.claim", JSONObject().put("templateId", c.text("id"))) { claiming = false }

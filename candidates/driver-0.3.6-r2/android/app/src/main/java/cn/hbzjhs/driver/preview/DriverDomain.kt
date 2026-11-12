@@ -73,6 +73,9 @@ data class DriverOrder(
     val settlementStatus: String = "",
     val settlementLabel: String = "",
     val netIncome: Long? = null,
+    val cancelFeeAmount: Long = 0,
+    val cancelFeeStatus: String = "",
+    val cancelFeeResponsible: String = "",
     // GRAB V1: present only on ordinary shared STANDARD/RESERVED; null keeps the original flow.
     val competition: OrderCompetition? = null,
     // True when this row must carry a valid competition (shared ordinary or has the key); a missing or

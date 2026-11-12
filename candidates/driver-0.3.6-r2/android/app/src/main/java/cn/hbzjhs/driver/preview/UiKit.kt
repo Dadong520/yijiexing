@@ -617,6 +617,7 @@ fun OrderCard(order: DriverOrder, action: String? = null, onClick: () -> Unit) {
             lineHeight = 16.sp
         )
         PassengerRemarkLine(order, maxLines = 2)
+        order.cancelFeeDisplay().text?.let { Text(it, color = Muted, fontSize = 12.sp, lineHeight = 16.sp) }
         Spacer(Modifier.height(10.dp))
         if (action == null && order.stage != Stage.AVAILABLE)
             BusinessOutlinedButton(onClick = onClick, modifier = Modifier.fillMaxWidth()) { Text("查看详情") }

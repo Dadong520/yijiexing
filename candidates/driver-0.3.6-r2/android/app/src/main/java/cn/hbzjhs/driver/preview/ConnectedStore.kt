@@ -682,7 +682,11 @@ class ConnectedStore(app: Application) : AndroidViewModel(app) {
                                 }
                             }
                             .toSet()
+                    val cancelFee = parseDriverCancelFee(o.optJSONObject("cancelFee"))
                     DriverOrder(
+                        cancelFeeAmount = cancelFee.amount,
+                        cancelFeeStatus = cancelFee.status,
+                        cancelFeeResponsible = cancelFee.responsible,
                         id = o.getString("id"),
                         synthetic = o.optBoolean("synthetic", false),
                         kind = OrderKind.valueOf(o.getString("kind")),

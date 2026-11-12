@@ -268,7 +268,7 @@ internal fun BusinessServiceScore(store: ConnectedStore, profile: JSONObject, on
         }
         item { SheetCard {
             SectionTitle("服务分等级区间")
-            score.bList("levels").forEach { level -> DetailRow(level.bText("name"), "${level.optDouble("min")}–${level.optDouble("max")}分") }
+            score.bList("levels").forEach { level -> DetailRow(level.bText("name"), serviceScoreRangeText(level)) }
             if (score.bList("levels").isEmpty()) BusinessHint("等级区间待服务端同步")
         } }
         item { SectionTitle("评分变动记录") }

@@ -392,3 +392,124 @@ class Phase2(PolicyCase):
             sample['fare']=99
             self.assertEqual(s.order_points('PASSENGER',sample,pid)[0],0)
         self.mutate_fixture(reset)
+
+    def admin_adjust(self, oid, amount):
+        from admin_console import AdminConsole
+        def apply(s):
+            o=s.shared_order(oid)
+            return AdminConsole(s).order_action('order.adjustFare',dict(id=oid,expectedStage=o['stage'],
+                expectedFare=o['fare'],fareVersion=s.order_fare_version(o),confirmed=True,reason='调价约束回归',amount=amount),'ADMIN:phase2')['order']
+        return self.mutate_fixture(apply)
+
+    def discounted_wait_pay(self, full=True, expired=False):
+        p,d=self.setup_pair();self.fund()
+        t=self.ops('ops.couponTemplate.save',dict(name='调价测试券',type='FULL_REDUCTION' if full else 'DIRECT',
+            threshold=1000 if full else 0,amount=300 if full else 500,validity='DAYS',validDays=7,
+            totalQuantity=10,perUserLimit=2,claimable=True,enabled=True))['couponTemplate']
+        cid=self.pa(p['token'],'coupon.claim',{'templateId':t['id']})['result']['coupon']['id']
+        self.ops('ops.serviceFee.save',dict(city='420500',expectedVersion=0,amount=500,enabled=True))
+        o=self.create(p['token'],couponId=cid);self.da(d['token'],'order.accept',dict(id=o['id']));self.finish(d['token'],o['id'])
+        def normalize(s):
+            current=s.shared_order(o['id']);s.apply_order_price(current,1200 if full else 200);s.save_shared(current)
+            if expired:
+                data=s._passenger_extra_store(p['passenger']['id'])
+                next(x for x in data['coupons'] if x['id']==cid)['expiresAt']=stamp(now()-dt.timedelta(seconds=1))
+                s._save_passenger_extras(p['passenger']['id'],data)
+        self.mutate_fixture(normalize)
+        return p,d,self.get_order(p['token'],o['id']),cid
+
+    def test_admin_adjust_rejects_service_discount_and_returns_unused_zero_coupon(self):
+        p,d,o,cid=self.discounted_wait_pay()
+        with self.assertRaises(ApiError) as error:self.admin_adjust(o['id'],400)
+        self.assertEqual(error.exception.status,409)
+        self.assertEqual(self.get_order(p['token'],o['id'])['fare'],1400)
+        adjusted=self.admin_adjust(o['id'],1000)
+        self.assertEqual((adjusted['tripFare'],adjusted['serviceFee'],adjusted['couponAmount'],adjusted['fare']),(500,500,0,1000))
+        self.pa(p['token'],'order.pay',dict(id=o['id'],expectedFare=1000,fareVersion=adjusted['fareVersion']))
+        state=self.request('/api/passenger/state',token=p['token']);coupon=next(x for x in state['coupons'] if x['id']==cid)
+        self.assertEqual((coupon['status'],coupon['orderId']),('UNUSED',None))
+        pool=self.mutate_fixture(lambda s:s.coupon_pool());self.assertEqual((pool['frozen'],pool['used']),(300,0))
+        settled=self.get_order(p['token'],o['id'])['settlement']
+        self.assertEqual(settled['scanPaySplit'],sum(settled[k] for k in ('driverAmount','companyCommission','platformCommission')))
+
+    def test_admin_adjust_direct_coupon_cap_and_full_reduction_overlap(self):
+        p,d,o,cid=self.discounted_wait_pay(full=False)
+        at_service=self.admin_adjust(o['id'],500)
+        self.assertEqual((at_service['tripFare'],at_service['couponAmount'],at_service['fare']),(200,200,500))
+        adjusted=self.admin_adjust(o['id'],1001)
+        self.assertEqual((adjusted['tripFare'],adjusted['couponAmount'],adjusted['fare']),(1001,500,1001))
+        self.pa(p['token'],'order.pay',dict(id=o['id'],expectedFare=1001,fareVersion=adjusted['fareVersion']))
+        settled=self.get_order(p['token'],o['id'])['settlement']
+        self.assertEqual(settled['scanPaySplit'],sum(settled[k] for k in ('driverAmount','companyCommission','platformCommission')))
+        # At the discontinuity, choose the eligible full-reduction solution.
+        t=self.ops('ops.couponTemplate.save',dict(name='重叠区间满减券',type='FULL_REDUCTION',threshold=1000,amount=300,
+            validity='DAYS',validDays=7,totalQuantity=10,perUserLimit=2,claimable=True,enabled=True))['couponTemplate']
+        cid=self.pa(p['token'],'coupon.claim',{'templateId':t['id']})['result']['coupon']['id']
+        nxt=self.create(p['token'],couponId=cid);self.da(d['token'],'order.accept',dict(id=nxt['id']));self.finish(d['token'],nxt['id'])
+        overlap=self.admin_adjust(nxt['id'],1200)
+        self.assertEqual((overlap['tripFare'],overlap['couponAmount'],overlap['fare']),(1000,300,1200))
+
+    def test_zero_discount_expired_locked_coupon_unfreezes_on_payment(self):
+        p,d,o,cid=self.discounted_wait_pay(expired=True)
+        adjusted=self.admin_adjust(o['id'],1000)
+        self.pa(p['token'],'order.pay',dict(id=o['id'],expectedFare=1000,fareVersion=adjusted['fareVersion']))
+        state=self.request('/api/passenger/state',token=p['token']);coupon=next(x for x in state['coupons'] if x['id']==cid)
+        self.assertEqual(coupon['status'],'EXPIRED')
+        pool=self.mutate_fixture(lambda s:s.coupon_pool());self.assertEqual((pool['available'],pool['frozen'],pool['used']),(1000000,0,0))
+
+    def test_prepay_cancel_grace_debt_payment_and_driver_cancel_fee_projection(self):
+        p,d=self.setup_pair();did=d['profile']['driver']['id']
+        self.ops('ops.tariff.save',dict(DEFAULT_TARIFF,city='420500',expectedVersion=0,emptyFee=300))
+        for elapsed,charged in [(119,False),(120,False),(121,True)]:
+            with self.subTest(elapsed=elapsed):
+                o=self.create(p['token'],kind='BID');self.da(d['token'],'order.bid',dict(id=o['id'],amount=1200))
+                self.pa(p['token'],'order.selectDriver',dict(id=o['id'],driverId=did))
+                clock=parse_time(stamp())
+                def backdate(s):
+                    current=s.shared_order(o['id']);current['acceptedAt']=stamp(clock-dt.timedelta(seconds=elapsed));s.save_shared(current)
+                self.mutate_fixture(backdate)
+                with patch('pricing.now',return_value=clock):
+                    cancelled=self.pa(p['token'],'order.cancel',dict(id=o['id'],reason='待预付取消测试'))['result']['order']
+                self.assertEqual(bool(cancelled.get('cancelFee')),charged)
+                if not charged:continue
+                self.assertEqual(cancelled['cancelFee']['status'],'UNPAID')
+                debt=self.pa(p['token'],'order.create',dict(kind='STANDARD',origin='测试起点',destination='测试终点',originLat=30.6687,originLng=111.3226,destinationLat=30.6645,destinationLng=111.3694),expected=409)
+                self.assertEqual(debt['details']['reason'],'PASSENGER_OUTSTANDING_CANCEL_FEE')
+                state=self.projected(d['token'],o['id']);fees=self.request('/api/orders/'+o['id']+'/fees',token=d['token'])
+                self.assertEqual(state['cancelFee']['amount'],300);self.assertEqual(fees['cancelFee']['status'],'UNPAID')
+                hidden=self.mutate_fixture(lambda s:s.project_driver_order('not-the-owner',s.shared_order(o['id'])))
+                self.assertIsNone(hidden.get('cancelFee'))
+                balance=self.state(d['token'])['balance']
+                self.pa(p['token'],'order.payCancelFee',dict(id=o['id'],expectedAmount=300))
+                self.assertEqual(self.state(d['token'])['balance'],balance+300)
+                self.assertEqual(self.projected(d['token'],o['id'])['cancelFee']['status'],'PAID')
+                self.assertEqual(self.request('/api/orders/'+o['id']+'/fees',token=d['token'])['cancelFee']['status'],'PAID')
+        # Reserved pre-departure exemption remains even after an old acceptance.
+        self.mutate_fixture(lambda s:self.assertFalse(s.passenger_cancel_responsible(dict(driverId=did,kind='RESERVED',stage='RESERVED',city='420500',acceptedAt=stamp(now()-dt.timedelta(hours=1))))))
+        self.create(p['token'])
+
+    def test_coupon_center_exposes_fixed_range_start_and_end(self):
+        p,d=self.setup_pair()
+        start=stamp(now()-dt.timedelta(hours=1));end=stamp(now()+dt.timedelta(days=1))
+        t=self.ops('ops.couponTemplate.save',dict(name='固定日期券',type='DIRECT',amount=300,validity='RANGE',
+            validStartAt=start,validEndAt=end,totalQuantity=10,perUserLimit=1,claimable=True,enabled=True))['couponTemplate']
+        row=next(x for x in self.request('/api/passenger/state',token=p['token'])['couponCenter'] if x['id']==t['id'])
+        self.assertEqual((row['validity'],row['validStartAt'],row['validEndAt']),('RANGE',start,end))
+
+    def test_admin_adjust_zero_payable_and_coupon_inverse_boundaries(self):
+        p,d,o,cid=self.discounted_wait_pay(full=False)
+        from admin_console import AdminConsole
+        def verify(s):
+            current=s.shared_order(o['id']);current.update(serviceFee=0,tripFare=200,couponAmount=200,fare=0)
+            s.save_shared(current)
+            console=AdminConsole(s)
+            for threshold,face in [(0,500),(300,500),(1000,300),(0,0)]:
+                for amount in [0,1,299,300,499,500,699,700,999,1000,1001]:
+                    current=s.shared_order(o['id']);current.update(couponThreshold=threshold,couponFaceValue=face)
+                    s.save_shared(current)
+                    result=console.order_action('order.adjustFare',dict(id=o['id'],expectedStage='WAIT_PAY',expectedFare=current['fare'],
+                        fareVersion=s.order_fare_version(current),confirmed=True,reason='分值逆向边界',amount=amount),'ADMIN:phase2')['order']
+                    expected=min(face,result['tripFare']) if result['tripFare']>=threshold else 0
+                    self.assertEqual(result['couponAmount'],expected)
+                    self.assertEqual(result['tripFare']-expected,result['fare']);self.assertEqual(result['fare'],amount)
+        self.mutate_fixture(verify)

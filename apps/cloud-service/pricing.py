@@ -251,7 +251,7 @@ class PricingMixin:
         return None
 
     def passenger_cancel_responsible(self, o):
-        if not o.get('driverId') or o['stage'] not in ('PICKUP', 'ARRIVED', 'RESERVED'):
+        if not o.get('driverId') or o['stage'] not in ('PREPAY', 'PICKUP', 'ARRIVED', 'RESERVED'):
             return False
         if o['stage'] == 'ARRIVED':
             return True

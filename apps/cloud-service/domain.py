@@ -363,10 +363,11 @@ class Service(InvoiceOpsMixin,CompanySplitMixin,GrowthMixin,PricingMixin,CouponM
         self.sync_shared_orders(driver)
         st=json.loads(self.account(driver)['state']);o=self.order(st,oid)
         canonical=self.shared_order(oid) if o.get('shared') else None
+        cancel_fee=clone(canonical.get('cancelFee')) if canonical and (not canonical.get('driverId') or canonical['driverId']==driver) else None
         if canonical and (not canonical.get('driverId') or canonical['driverId']==driver) and 'tripFare' in canonical:
             s=canonical.get('settlement') or self.order_settlement(canonical)
             return {'orderId':oid,'fare':s['tripFare'],'income':s['driverAmount'],'paymentFee':s['tripPayFee'],'splitFee':s['tripSplitFee'],
                 'mapServiceFee':s['mapServiceFee'],'serviceFee':0,'passengerServiceFee':s['serviceFee'],'splitMode':'FEEDBACK3_FORMULA',
-                'final':bool(canonical.get('settlement')),'fareDetail':canonical.get('fareDetail'),
+                'final':bool(canonical.get('settlement')),'fareDetail':canonical.get('fareDetail'),'cancelFee':cancel_fee,
                 'policyLabel':'司机分账金额=运价费-运价费手续费(0.6%)-运价费分账费(0.15%)-地图服务费；区域服务费由平台与公司分账，司机不参与。模拟账务。','sandbox':True}
-        return {'orderId':oid,'fare':o['fare'],'income':o['fare'],'paymentFee':0,'splitFee':0,'mapServiceFee':0,'serviceFee':0,'splitMode':'SANDBOX_NO_DEDUCTION','policyLabel':'云端演示沙箱：未接原计费策略，不收取服务费','sandbox':True}
+        return {'orderId':oid,'fare':o['fare'],'income':o['fare'],'paymentFee':0,'splitFee':0,'mapServiceFee':0,'serviceFee':0,'splitMode':'SANDBOX_NO_DEDUCTION','cancelFee':cancel_fee,'policyLabel':'云端演示沙箱：未接原计费策略，不收取服务费','sandbox':True}

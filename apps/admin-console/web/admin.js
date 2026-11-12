@@ -1207,8 +1207,8 @@ async function invoicesAdmin(){
     `${esc(r.id)}<small>${esc(r.invoiceKind)}${r.reissueOf?' · 重开自 '+esc(r.reissueOf):''}</small>`,esc(r.source),esc(r.mobile||'—'),time(r.createdAt),r.titleType==='COMPANY'?'企业':'个人',`<b>${esc(r.title)}</b>`,esc(r.taxNumber||'—'),money(r.amount),esc(r.email||'—'),time(r.issuedAt),`${badge(r.invoiceStatus)}${r.reissueStatus?`<small>重开申请：${esc(label(r.reissueStatus))}</small>`:''}`,esc(r.companyName||'未归属'),`<button data-invoice="${esc(r.id)}">详情与处理</button>`]);
   if(!rows)return;
   $$('[data-invoice]').forEach(b=>b.onclick=()=>{const r=rows.find(x=>x.id===b.dataset.invoice);const linked=r.role==='PASSENGER'&&dataset('orders').some(o=>o.id===r.orderId);
-    const canHandle=r.role==='PASSENGER'&&r.invoiceStatus==='SIMULATED_ISSUED'&&can('config.write');
-    modal('开票记录详情','<p class="notice">模拟回执，未连接税务开票平台，不可作为正式税务报销凭证；冲红与重开会同步更新乘客端回执记录。</p>'+details({'申请编号':esc(r.id),'开票类型':esc(r.invoiceKind),'申请方':esc(queryChoiceLabel(r.role))+' · '+esc(r.accountName||'')+' · '+esc(r.accountId),'手机号':esc(r.mobile),'关联订单':esc(r.orderId),'发票抬头':esc(r.title),'抬头类型':r.titleType==='COMPANY'?'企业':'个人','税号':esc(r.taxNumber||'—'),'接收邮箱':esc(r.email||'未填写'),'开票金额':money(r.amount),'状态':badge(r.invoiceStatus),'冲红信息':r.redFlushedAt?`${time(r.redFlushedAt)} · ${esc(r.redFlushReason||'')}`:'未冲红','关联重开单':esc(r.reissuedAs||r.reissueOf||'无'),'重开申请状态':r.reissueStatus?badge(r.reissueStatus):'无','申请时间':time(r.createdAt)}),[['关闭','',close],...(linked?[['查看关联订单','',()=>orderDetail(r.orderId)]]:[]),...(canHandle?[['模拟冲红','danger',()=>invoiceRedFlushModal(r)],['冲红并重开','primary',()=>invoiceReissueModal(r)]]:[])]);});
+    const perm=invoiceActionPermissions(r,can('config.write'));
+    modal('开票记录详情','<p class="notice">模拟回执，未连接税务开票平台，不可作为正式税务报销凭证；冲红与重开会同步更新乘客端回执记录。</p>'+details({'申请编号':esc(r.id),'开票类型':esc(r.invoiceKind),'申请方':esc(queryChoiceLabel(r.role))+' · '+esc(r.accountName||'')+' · '+esc(r.accountId),'手机号':esc(r.mobile),'关联订单':esc(r.orderId),'发票抬头':esc(r.title),'抬头类型':r.titleType==='COMPANY'?'企业':'个人','税号':esc(r.taxNumber||'—'),'接收邮箱':esc(r.email||'未填写'),'开票金额':money(r.amount),'状态':badge(r.invoiceStatus),'冲红信息':r.redFlushedAt?`${time(r.redFlushedAt)} · ${esc(r.redFlushReason||'')}`:'未冲红','关联重开单':esc(r.reissuedAs||r.reissueOf||'无'),'重开申请状态':r.reissueStatus?badge(r.reissueStatus):'无','申请时间':time(r.createdAt)}),[['关闭','',close],...(linked?[['查看关联订单','',()=>orderDetail(r.orderId)]]:[]),...(perm.canRedFlush?[['模拟冲红','danger',()=>invoiceRedFlushModal(r)]]:[]),...(perm.canReissue?[[perm.reissueLabel,'primary',()=>invoiceReissueModal(r)]]:[])]);});
 }
 async function driverWalletsAdmin(){
   await queryListing('driverWallets','司机钱包明细','查看司机钱包余额、待入账、提现与绑卡情况。金额均为模拟账务。',['账户号','司机姓名','联系方式','钱包余额(元)','待入账金额(元)','已提现金额(元)','提现中金额(元)','上次提现时间','绑定银行卡数'],r=>[
@@ -1333,6 +1333,20 @@ function validateScoreLevels(levels){
   }
   return {ok:true,levels};
 }
+function invoiceActionPermissions(r,canWrite){
+  const isPassenger=Boolean(r&&r.role==='PASSENGER'&&canWrite);
+  const canRedFlush=isPassenger&&r.invoiceStatus==='SIMULATED_ISSUED';
+  const canReissue=isPassenger&&(r.invoiceStatus==='SIMULATED_ISSUED'||r.invoiceStatus==='RED_FLUSHED')&&!r.reissuedAs;
+  const reissueLabel=r?.invoiceStatus==='RED_FLUSHED'?'重开模拟回执':'冲红并重开';
+  return {canRedFlush,canReissue,reissueLabel};
+}
+function companySplitLedgerTypeInfo(type){
+  if(type==='ORDER_SPLIT')return {cls:'good',label:'订单佣金分账'};
+  if(type==='WITHDRAWAL')return {cls:'warn',label:'模拟对公提现'};
+  if(type==='REFUND_REVERSAL')return {cls:'bad',label:'退款分账冲回'};
+  const raw=String(type||'').trim();
+  return {cls:'',label:raw?`待核对（${raw}）`:'待核对'};
+}
 
 async function orderSettlementsAdmin(){
   const rows=await queryListing('orderSettlements','订单分账记录','按单次差额费分账恒等式展示已完成共享订单的运价费、区域服务费、优惠券抵扣与司机/公司/平台三方分账（整数分模拟账务）。',['订单 / 城市','所属公司 / 司机','订单费用 / 实付','运价费 / 服务费 / 券','司机分账','公司佣金','平台佣金 / 差额','分账时间','操作'],r=>[
@@ -1433,7 +1447,7 @@ function companySplitLedgerAdmin(){
   $('#content').innerHTML=head('公司分账账户明细','查看出租车公司订单佣金入账与对公模拟提现流水。')+
     '<section class="panel"><h2>已签约公司账户概览与提现</h2>'+(accounts.length?table(['出租车公司','虚拟户 / 对公卡','当前可提现余额','累计入账','累计提现','操作'],accounts.map(a=>{const c=companies.find(x=>x.id===a.companyId);return `<tr><td><b>${esc(c?.name||a.companyId)}</b></td><td>${esc(a.virtualAccount)}<small>${esc(a.bankName)} ${esc(a.bankAccountMask)}</small></td><td><b>${money(a.availableBalance)}</b></td><td>${money(a.totalCredited)}</td><td>${money(a.totalWithdrawn)}</td><td><button data-company-withdraw="${esc(a.companyId)}" ${can('config.write')&&a.status==='SIGNED'&&a.availableBalance>0?'':'disabled'}>模拟对公提现</button></td></tr>`;})):'<div class="empty">尚无已开户的公司分账账户。</div>')+'</section>'+
     `<section class="panel"><div class="toolbar"><h2>分账收支流水（共 ${rows.length} 条）</h2><select id="splitLedgerFilter"><option value="">全部公司</option>${companies.map(c=>`<option value="${esc(c.id)}" ${c.id===splitLedgerCompany?'selected':''}>${esc(c.name)}</option>`).join('')}</select></div>`+
-    (rows.length?table(['流水编号','出租车公司','变动类型','关联订单 / 备注','变动金额','变动后可用余额','时间'],rows.map(e=>`<tr><td>${esc(e.id)}</td><td>${esc(companies.find(c=>c.id===e.companyId)?.name||e.companyId)}</td><td>${e.type==='WITHDRAWAL'?'<span class="badge warn">模拟对公提现</span>':'<span class="badge good">订单佣金分账</span>'}</td><td>${esc(e.orderId||e.note||'—')}${e.operator?`<small>操作人：${esc(e.operator)}</small>`:''}</td><td><b>${e.amount>=0?'+':''}${money(e.amount)}</b></td><td>${money(e.availableAfter)}</td><td>${time(e.createdAt)}</td></tr>`)):'<div class="empty">暂无公司分账流水。</div>')+'</section>';
+    (rows.length?table(['流水编号','出租车公司','变动类型','关联订单 / 备注','变动金额','变动后可用余额','时间'],rows.map(e=>{const t=companySplitLedgerTypeInfo(e.type);return `<tr><td>${esc(e.id)}</td><td>${esc(companies.find(c=>c.id===e.companyId)?.name||e.companyId)}</td><td><span class="badge${t.cls?' '+t.cls:''}">${esc(t.label)}</span></td><td>${esc(e.orderId||e.note||'—')}${e.operator?`<small>操作人：${esc(e.operator)}</small>`:''}</td><td><b>${e.amount>=0?'+':''}${money(e.amount)}</b></td><td>${money(e.availableAfter)}</td><td>${time(e.createdAt)}</td></tr>`;})):'<div class="empty">暂无公司分账流水。</div>')+'</section>';
   $('#splitLedgerFilter').onchange=e=>{splitLedgerCompany=e.target.value;companySplitLedgerAdmin();};
   $$('[data-company-withdraw]').forEach(b=>b.onclick=()=>{
     const a=accounts.find(x=>x.companyId===b.dataset.companyWithdraw),c=companies.find(x=>x.id===a.companyId),requestId=requestUUID();
@@ -1453,10 +1467,11 @@ function invoiceRedFlushModal(r){
 }
 function invoiceReissueModal(r){
   const requestId=requestUUID();
-  modal('冲红并重开模拟回执 · '+r.id,`<p class="notice">原回执 ${esc(r.id)} 将先自动冲红，并按新抬头生成重开模拟回执（金额保持 ${money(r.amount)}）。</p><div class="grid2"><label>抬头类型<select id="riType"><option value="PERSONAL" ${r.titleType!=='COMPANY'?'selected':''}>个人</option><option value="COMPANY" ${r.titleType==='COMPANY'?'selected':''}>企业</option></select></label><label>新发票抬头<input id="riTitle" maxlength="100" value="${esc(r.title||'')}"></label><label>企业税号（企业必填）<input id="riTax" maxlength="20" value="${esc(r.taxNumber||'')}"></label><label>接收邮箱（选填）<input id="riEmail" type="email" maxlength="100" value="${esc(r.email||'')}"></label></div><label>重开原因（2-200字）<textarea id="riReason" minlength="2" maxlength="200" placeholder="例如：变更为企业抬头"></textarea></label>`,[['返回','',close],['确认重开','primary',async()=>{
+  const alreadyRed=r.invoiceStatus==='RED_FLUSHED';
+  modal((alreadyRed?'重开模拟回执 · ':'冲红并重开模拟回执 · ')+r.id,`<p class="notice">${alreadyRed?`原回执 ${esc(r.id)} 已冲红，将直接按新抬头生成重开模拟回执（金额保持 ${money(r.amount)}）。`:`原回执 ${esc(r.id)} 将先自动冲红，并按新抬头生成重开模拟回执（金额保持 ${money(r.amount)}）。`}</p><div class="grid2"><label>抬头类型<select id="riType"><option value="PERSONAL" ${r.titleType!=='COMPANY'?'selected':''}>个人</option><option value="COMPANY" ${r.titleType==='COMPANY'?'selected':''}>企业</option></select></label><label>新发票抬头<input id="riTitle" maxlength="100" value="${esc(r.title||'')}"></label><label>企业税号（企业必填）<input id="riTax" maxlength="20" value="${esc(r.taxNumber||'')}"></label><label>接收邮箱（选填）<input id="riEmail" type="email" maxlength="100" value="${esc(r.email||'')}"></label></div><label>重开原因（2-200字）<textarea id="riReason" minlength="2" maxlength="200" placeholder="例如：变更为企业抬头"></textarea></label>`,[['返回','',close],['确认重开','primary',async()=>{
     const type=$('#riType').value,title=$('#riTitle').value.trim(),taxNumber=$('#riTax').value.trim().toUpperCase(),email=$('#riEmail').value.trim(),reason=$('#riReason').value.trim();
     if(!title)throw Error('请填写新发票抬头');if(type==='COMPANY'&&!taxNumber)throw Error('企业抬头须填写税号');if(reason.length<2)throw Error('请填写至少2个字的重开原因');
-    await operationsWrite('ops.invoice.reissue',{passengerId:r.accountId,invoiceId:r.id,reason,type,title,taxNumber,email},requestId);close();toast('已冲红原回执并生成新模拟回执');
+    await operationsWrite('ops.invoice.reissue',{passengerId:r.accountId,invoiceId:r.id,reason,type,title,taxNumber,email},requestId);close();toast(alreadyRed?'已生成重开模拟回执':'已冲红原回执并生成新模拟回执');
   }]]);
 }
 

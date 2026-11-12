@@ -958,6 +958,7 @@ fun ConnectedTrip(
                     DetailRow("支付状态", order.paymentStatusLabel)
                     DetailRow("入账状态", order.incomeLabel)
                     order.refundAmountText?.let { DetailRow("模拟退款金额", it) }
+                    order.cancelFeeDisplay().text?.let { BusinessHint(it) }
                     MenuRow("wallet", "查看费用明细") { navigate("fees/${order.id}") }
                     if (order.stage in setOf(Stage.DONE, Stage.WAIT_PAY, Stage.CANCELLED))
                         MenuRow("support", "订单投诉") { navigate("complaint/${order.id}") }

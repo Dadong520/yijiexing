@@ -161,6 +161,9 @@ class CouponMixin:
         o['estimatedFare'] = o['fare']
 
     def consume_order_coupon(self, o):
+        if o.get('couponAmount', 0) == 0:
+            self.release_order_coupon(o)
+            return
         data, c = self._order_coupon(o)
         if not c or c['status'] != 'LOCKED':
             return
@@ -177,5 +180,5 @@ class CouponMixin:
                    'type': t['type'], 'threshold': t['threshold'], 'amount': t['amount'],
                    'remaining': t['totalQuantity'] - t['issued'], 'claimedCount': claimed.get(t['id'], 0),
                    'perUserLimit': t['perUserLimit'], 'validity': t['validity'], 'validDays': t.get('validDays'),
-                   'validEndAt': t.get('validEndAt')} for t in self.coupon_templates(True)]
+                   'validStartAt': t.get('validStartAt'), 'validEndAt': t.get('validEndAt')} for t in self.coupon_templates(True)]
         return {'coupons': data.get('coupons', []), 'couponCenter': center, 'couponPoolFused': self.pool_fused()}

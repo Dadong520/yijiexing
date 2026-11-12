@@ -37,7 +37,7 @@ test('overview counts active replacement and legacy pending once per certificate
 });
 
 const phase2Source=source.slice(source.indexOf('function nonNegInt('),source.indexOf('async function orderSettlementsAdmin('));
-const phase2=vm.runInNewContext(phase2Source+'\n({nonNegInt,computeCouponPreview,validateAcceptSlots24h,validateScoreLevels});',{Number,String,Array,Error,Math});
+const phase2=vm.runInNewContext(phase2Source+'\n({nonNegInt,computeCouponPreview,validateAcceptSlots24h,validateScoreLevels,invoiceActionPermissions,companySplitLedgerTypeInfo});',{Number,String,Array,Error,Math,Boolean});
 
 test('coupon live preview computes exact cents issuance cost and enforces full-reduction threshold > amount',()=>{
   const ok=phase2.computeCouponPreview({
@@ -99,6 +99,21 @@ test('service score 5-level validator enforces contiguous thresholds and open ex
     {name:'待提升司机',min:80,max:90},
     {name:'风险司机',min:null,max:80}
   ]).ok,false);
+});
+
+test('standalone red-flushed passenger invoice remains reissuable once until reissuedAs is set',()=>{
+  assert.deepEqual({...phase2.invoiceActionPermissions({role:'PASSENGER',invoiceStatus:'SIMULATED_ISSUED'},true)},{canRedFlush:true,canReissue:true,reissueLabel:'冲红并重开'});
+  assert.deepEqual({...phase2.invoiceActionPermissions({role:'PASSENGER',invoiceStatus:'RED_FLUSHED'},true)},{canRedFlush:false,canReissue:true,reissueLabel:'重开模拟回执'});
+  assert.deepEqual({...phase2.invoiceActionPermissions({role:'PASSENGER',invoiceStatus:'RED_FLUSHED',reissuedAs:'SI-NEW'},true)},{canRedFlush:false,canReissue:false,reissueLabel:'重开模拟回执'});
+  assert.deepEqual({...phase2.invoiceActionPermissions({role:'DRIVER',invoiceStatus:'SIMULATED_ISSUED'},true)},{canRedFlush:false,canReissue:false,reissueLabel:'冲红并重开'});
+  assert.deepEqual({...phase2.invoiceActionPermissions({role:'PASSENGER',invoiceStatus:'RED_FLUSHED'},false)},{canRedFlush:false,canReissue:false,reissueLabel:'重开模拟回执'});
+});
+
+test('company split ledger explicitly distinguishes order split, withdrawal, refund reversal and unknown types',()=>{
+  assert.deepEqual({...phase2.companySplitLedgerTypeInfo('ORDER_SPLIT')},{cls:'good',label:'订单佣金分账'});
+  assert.deepEqual({...phase2.companySplitLedgerTypeInfo('WITHDRAWAL')},{cls:'warn',label:'模拟对公提现'});
+  assert.deepEqual({...phase2.companySplitLedgerTypeInfo('REFUND_REVERSAL')},{cls:'bad',label:'退款分账冲回'});
+  assert.deepEqual({...phase2.companySplitLedgerTypeInfo('CUSTOM_ADJUST')},{cls:'',label:'待核对（CUSTOM_ADJUST）'});
 });
 
 test('all sidebar nav pages are registered in pages, navPaths and render dispatch',()=>{

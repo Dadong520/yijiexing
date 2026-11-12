@@ -175,10 +175,28 @@ class AdminConsole:
             self.svc.apply_cancellation(o,'ADMIN',p.get('responsible') is True)
         elif action=='order.adjustFare':
             require(o['stage']=='WAIT_PAY' and not o['paid'],'仅待支付且未付款订单可调整费用',409)
-            amount=cents(p.get('amount'),'调整后费用');version=self.svc.order_fare_version(o)+1
-            o.setdefault('adjustments',[]).append({'before':o['fare'],'after':amount,'fareVersion':version,'reason':reason,'actor':actor,'at':stamp()});o.update(fare=amount,fareVersion=version,fareSource='ADMIN_SIMULATED_ADJUSTMENT')
+            amount=cents(p.get('amount'),'调整后费用',allow_zero='tripFare' in o);version=self.svc.order_fare_version(o)+1
             if 'tripFare' in o:
-                trip=amount-o.get('serviceFee',0)+o.get('couponAmount',0);require(trip>=0,'调整后费用不能低于区域服务费',409);o['tripFare']=trip
+                service=o.get('serviceFee',0)
+                require(amount>=service,'调整后实付金额不能低于区域服务费',409)
+                net=amount-service;face=o.get('couponFaceValue',0);threshold=o.get('couponThreshold',0)
+                # Invert payable = trip + service - eligible discount. Prefer the
+                # eligible solution in the overlap of a full-reduction coupon.
+                if not o.get('couponId'):
+                    trip=net
+                elif threshold<=face and net==0:
+                    trip=min(max(threshold,o.get('tripFare',threshold)),face)
+                elif net+face>=max(threshold,face):
+                    trip=net+face
+                elif net<threshold:
+                    trip=net
+                else:
+                    raise ApiError(409,'调整金额无法满足优惠券门槛与运价约束，请重新核对金额')
+                coupon=min(face,trip) if o.get('couponId') and trip>=threshold else 0
+                require(type(trip) is int and trip>=0 and 0<=coupon<=trip and trip+service-coupon==amount,
+                        '调整金额无法满足优惠券门槛与运价约束，请重新核对金额',409)
+                o.update(tripFare=trip,couponAmount=coupon)
+            o.setdefault('adjustments',[]).append({'before':o['fare'],'after':amount,'fareVersion':version,'reason':reason,'actor':actor,'at':stamp()});o.update(fare=amount,fareVersion=version,fareSource='ADMIN_SIMULATED_ADJUSTMENT')
         else:
             require(o['stage']=='DONE' and o['paid'] and not o.get('refundAmount'),'仅已完成已支付且未退款订单可模拟全退',409)
             if o.get('credited'):
