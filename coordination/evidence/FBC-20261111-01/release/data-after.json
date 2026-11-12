@@ -1,0 +1,42 @@
+{
+  "generation": "1794304758478603",
+  "bytes": 13467648,
+  "sha256": "6df69a255732a96de25b7668375254db73ecf33bc30fe6b0595e690721ef371a",
+  "integrity": "ok",
+  "conservation": [
+    {
+      "table": "accounts",
+      "before": 3,
+      "after": 3,
+      "lost": 0,
+      "changedExistingRows": 0,
+      "commonColumnsCompared": 8
+    },
+    {
+      "table": "passengers",
+      "before": 3,
+      "after": 3,
+      "lost": 0,
+      "changedExistingRows": 0,
+      "commonColumnsCompared": 3
+    },
+    {
+      "table": "passenger_orders",
+      "before": 56,
+      "after": 56,
+      "lost": 0,
+      "changedExistingRows": 0,
+      "commonColumnsCompared": 5
+    },
+    {
+      "table": "passenger_order_contacts",
+      "before": 10,
+      "after": 10,
+      "lost": 0,
+      "changedExistingRows": 0,
+      "commonColumnsCompared": 5
+    }
+  ],
+  "cloudBusinessPostsByRelease": 0,
+  "verifiedAt": "2026-11-12T07:50:15.294231+00:00"
+}

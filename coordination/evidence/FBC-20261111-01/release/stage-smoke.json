@@ -1,0 +1,40 @@
+{
+  "requests": [
+    {
+      "url": "https://fb3-qa---driver-demo-phfgquzmua-uw.a.run.app/health",
+      "expectedHttp": 200,
+      "http": 200,
+      "sourceBytesEqual": null,
+      "PASS": true
+    },
+    {
+      "url": "https://fb3-qa---driver-admin-phfgquzmua-uw.a.run.app/",
+      "expectedHttp": 200,
+      "http": 200,
+      "sourceBytesEqual": true,
+      "PASS": true
+    },
+    {
+      "url": "https://fb3-qa---driver-admin-phfgquzmua-uw.a.run.app/static/admin.css",
+      "expectedHttp": 200,
+      "http": 200,
+      "sourceBytesEqual": true,
+      "PASS": true
+    },
+    {
+      "url": "https://fb3-qa---driver-admin-phfgquzmua-uw.a.run.app/static/admin.js",
+      "expectedHttp": 200,
+      "http": 200,
+      "sourceBytesEqual": true,
+      "PASS": true
+    },
+    {
+      "url": "https://fb3-qa---driver-admin-phfgquzmua-uw.a.run.app/api/local/admin/v2/state",
+      "expectedHttp": 401,
+      "http": 401,
+      "sourceBytesEqual": null,
+      "PASS": true
+    }
+  ],
+  "cloudBusinessPosts": 0
+}

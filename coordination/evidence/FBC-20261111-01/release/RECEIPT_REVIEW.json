@@ -1,0 +1,252 @@
+{
+  "schemaVersion": 1,
+  "result": "PASS",
+  "reviewType": "LIMITED_INDEPENDENT_RECEIPT_CONSISTENCY_REVIEW",
+  "reviewerRole": "backend",
+  "reviewerSessionId": "01a182c6-c058-76e1-9584-38abfe813799",
+  "model": "gpt-6.1-sol (unchanged)",
+  "reviewedAt": "2026-11-12T07:53:40.781036+00:00",
+  "sourceSha": "6548ceca164f9abd74e516a577b2e78c5edb27a5",
+  "integrationHeadSha": "1fcc05879d6c05cfde7c2a67b45eaf9e71a2a46d",
+  "mergeSha": "9a76fc4e466092eaa85308d556ca35e454e688ca",
+  "productPr": 57,
+  "receiptWorktree": "/Users/dongge/.codex/tmp/yijiexing-fb3-receipt-20261112",
+  "checks": [
+    {
+      "check": "merge_identity",
+      "result": "PASS",
+      "detail": "PR57, source/integration/merge SHA and CI exact equality"
+    },
+    {
+      "check": "runtime_final_equals_detail",
+      "result": "PASS",
+      "detail": "Exact JSON comparison of both services"
+    },
+    {
+      "check": "runtime_versions_and_policy",
+      "result": "PASS",
+      "detail": "Both services expected revision, 100% traffic/tag, min0/max1, request billing and preserved policy flags"
+    },
+    {
+      "check": "staged_images_match_published",
+      "result": "PASS",
+      "detail": "Staged digest/revision agrees with published runtime; historical STAGED_NO_TRAFFIC is a prior phase"
+    },
+    {
+      "check": "public_apks_exact",
+      "result": "PASS",
+      "detail": "One-time public-download build ID/status and all APK fields match final"
+    },
+    {
+      "check": "candidate_source",
+      "result": "PASS",
+      "detail": "Candidate proof source SHA matches accepted source"
+    },
+    {
+      "check": "passenger_apk_identity",
+      "result": "PASS",
+      "detail": "Public full original, candidate and promoted object agree; QA APK hash is deliberately different"
+    },
+    {
+      "check": "passenger_public_download_boundary",
+      "result": "PASS",
+      "detail": "Anonymous full HTTPS/ZIP evidence; original local Android identity proof reused, no claim of cloud aapt rerun"
+    },
+    {
+      "check": "passenger_candidate_test_proof",
+      "result": "PASS",
+      "detail": "Recorded suite totals and zero failures/errors/skips agree; original versus QA artifact distinguished; tests not rerun"
+    },
+    {
+      "check": "driver_apk_identity",
+      "result": "PASS",
+      "detail": "Public full original, candidate and promoted object agree; QA APK hash is deliberately different"
+    },
+    {
+      "check": "driver_public_download_boundary",
+      "result": "PASS",
+      "detail": "Anonymous full HTTPS/ZIP evidence; original local Android identity proof reused, no claim of cloud aapt rerun"
+    },
+    {
+      "check": "driver_candidate_test_proof",
+      "result": "PASS",
+      "detail": "Recorded suite totals and zero failures/errors/skips agree; original versus QA artifact distinguished; tests not rerun"
+    },
+    {
+      "check": "promotion_exact",
+      "result": "PASS",
+      "detail": "Final promotion and generation-protected archive records agree"
+    },
+    {
+      "check": "data_exact",
+      "result": "PASS",
+      "detail": "Data generation/full byte SHA/size unchanged, integrity ok, no release business POST recorded"
+    },
+    {
+      "check": "data_conservation",
+      "result": "PASS",
+      "detail": "accounts3/passengers3/orders56/contacts10, no lost/changed existing rows in recorded comparisons"
+    },
+    {
+      "check": "public_endpoints",
+      "result": "PASS",
+      "detail": "Final and detailed endpoint statuses/source-byte flags agree"
+    },
+    {
+      "check": "receipt_baseline",
+      "result": "PASS",
+      "detail": "Receipt HEAD 9a76fc4e466092eaa85308d556ca35e454e688ca"
+    },
+    {
+      "check": "receipt_paths_only",
+      "result": "PASS",
+      "detail": "Compared tracked diff including index and all untracked paths; 9 tracked and 14 untracked; README/coordination only"
+    },
+    {
+      "check": "tree_apps/cloud-service",
+      "result": "PASS",
+      "detail": "Accepted source, CI integration and merge trees equal; receipt tracked content unchanged"
+    },
+    {
+      "check": "tree_apps/admin-console",
+      "result": "PASS",
+      "detail": "Accepted source, CI integration and merge trees equal; receipt tracked content unchanged"
+    },
+    {
+      "check": "tree_apps/passenger-android",
+      "result": "PASS",
+      "detail": "Accepted source, CI integration and merge trees equal; receipt tracked content unchanged"
+    },
+    {
+      "check": "tree_candidates/driver-0.3.6-r2/android",
+      "result": "PASS",
+      "detail": "Accepted source, CI integration and merge trees equal; receipt tracked content unchanged"
+    },
+    {
+      "check": "receipt_evidence_copies",
+      "result": "PASS",
+      "detail": "All 11 reviewed evidence files match receipt worktree copies byte-for-byte"
+    },
+    {
+      "check": "receipt_diff_format",
+      "result": "PASS",
+      "detail": "git diff --check against product merge PASS"
+    }
+  ],
+  "productTreeEvidence": [
+    {
+      "path": "apps/cloud-service",
+      "trees": {
+        "6548ceca164f9abd74e516a577b2e78c5edb27a5": "afa1c5bfa83fb6d77db81ff0000bb437128e8d41",
+        "1fcc05879d6c05cfde7c2a67b45eaf9e71a2a46d": "afa1c5bfa83fb6d77db81ff0000bb437128e8d41",
+        "9a76fc4e466092eaa85308d556ca35e454e688ca": "afa1c5bfa83fb6d77db81ff0000bb437128e8d41"
+      }
+    },
+    {
+      "path": "apps/admin-console",
+      "trees": {
+        "6548ceca164f9abd74e516a577b2e78c5edb27a5": "cc401572960a413d23a25104e9a86f6fae9c0d93",
+        "1fcc05879d6c05cfde7c2a67b45eaf9e71a2a46d": "cc401572960a413d23a25104e9a86f6fae9c0d93",
+        "9a76fc4e466092eaa85308d556ca35e454e688ca": "cc401572960a413d23a25104e9a86f6fae9c0d93"
+      }
+    },
+    {
+      "path": "apps/passenger-android",
+      "trees": {
+        "6548ceca164f9abd74e516a577b2e78c5edb27a5": "cd2ea8eb3c1df8555dd1cd5c9256ea8240114616",
+        "1fcc05879d6c05cfde7c2a67b45eaf9e71a2a46d": "cd2ea8eb3c1df8555dd1cd5c9256ea8240114616",
+        "9a76fc4e466092eaa85308d556ca35e454e688ca": "cd2ea8eb3c1df8555dd1cd5c9256ea8240114616"
+      }
+    },
+    {
+      "path": "candidates/driver-0.3.6-r2/android",
+      "trees": {
+        "6548ceca164f9abd74e516a577b2e78c5edb27a5": "00fe5a0bbd67caf61c6f4d5a24689f3a6a1b8139",
+        "1fcc05879d6c05cfde7c2a67b45eaf9e71a2a46d": "00fe5a0bbd67caf61c6f4d5a24689f3a6a1b8139",
+        "9a76fc4e466092eaa85308d556ca35e454e688ca": "00fe5a0bbd67caf61c6f4d5a24689f3a6a1b8139"
+      }
+    }
+  ],
+  "receiptChangedTrackedPaths": [
+    "README.md",
+    "coordination/BOARD.json",
+    "coordination/NEW_CHAT_PROMPT.txt",
+    "coordination/SESSION_REGISTRY.json",
+    "coordination/STATE.md",
+    "coordination/handoffs/coordinator.md",
+    "coordination/tasks/FBC-20261111-01.json",
+    "coordination/tasks/FBCB-20261111-01.json",
+    "coordination/tasks/FBCF-20261111-01.json"
+  ],
+  "receiptUntrackedPaths": [
+    "coordination/evidence/FBC-20261111-01/release/FINAL-RELEASE-RECEIPT.json",
+    "coordination/evidence/FBC-20261111-01/release/PRODUCT-MERGE.json",
+    "coordination/evidence/FBC-20261111-01/release/PUBLIC-APK-READBACK.json",
+    "coordination/evidence/FBC-20261111-01/release/PUBLIC-ENDPOINTS.json",
+    "coordination/evidence/FBC-20261111-01/release/admin-build-manifest.json",
+    "coordination/evidence/FBC-20261111-01/release/apk-promotion.json",
+    "coordination/evidence/FBC-20261111-01/release/apk-upload-candidates.json",
+    "coordination/evidence/FBC-20261111-01/release/builds-submitted.json",
+    "coordination/evidence/FBC-20261111-01/release/data-after.json",
+    "coordination/evidence/FBC-20261111-01/release/data-before.json",
+    "coordination/evidence/FBC-20261111-01/release/runtime-after.json",
+    "coordination/evidence/FBC-20261111-01/release/stage-smoke.json",
+    "coordination/evidence/FBC-20261111-01/release/staged-revisions.json",
+    "coordination/evidence/FBC-20261111-01/release/transfer-events.json"
+  ],
+  "evidenceFiles": [
+    {
+      "path": "coordination/evidence/FBC-20261111-01/release/FINAL-RELEASE-RECEIPT.json",
+      "sha256": "ce928e05f53a92bc10538f5dde1b2b6abdcc7cbc57b1228dbff68e146033c39c"
+    },
+    {
+      "path": "coordination/evidence/FBC-20261111-01/release/PRODUCT-MERGE.json",
+      "sha256": "41403fb1fe2c653797b01b000a49ee05b959bad2abfb2c2e2e9932eafe324420"
+    },
+    {
+      "path": "coordination/evidence/FBC-20261111-01/release/PUBLIC-APK-READBACK.json",
+      "sha256": "3e9eaf938b8f4794861c99e2d3f4a81e04a8328ea5950d113eda248eab6eef58"
+    },
+    {
+      "path": "coordination/evidence/FBC-20261111-01/release/runtime-after.json",
+      "sha256": "5b58eb6155d1b360c21a46082a81b1dc722981efd948dda7ffc30542c7c2c13c"
+    },
+    {
+      "path": "coordination/evidence/FBC-20261111-01/release/data-before.json",
+      "sha256": "7a5bc66a780fc938f072e24fd541fc4d016073454000f6b1f18c610175e32502"
+    },
+    {
+      "path": "coordination/evidence/FBC-20261111-01/release/data-after.json",
+      "sha256": "de90535ca7edca9e3584e7fff89fe88b2bf17e8f7e58322f709cdc73cf289d3b"
+    },
+    {
+      "path": "coordination/evidence/FBC-20261111-01/release/apk-promotion.json",
+      "sha256": "2f62fce003d1016f05947c12b6c83ad9d1dfdab9f96e6d00ce313be2171239e0"
+    },
+    {
+      "path": "coordination/evidence/FBC-20261111-01/release/CANDIDATE-BUILD-PROOF.json",
+      "sha256": "4d6e4e12642506008193f16e1816a73ca9bdcaf2910c6a5b1374a928349447b9"
+    },
+    {
+      "path": "coordination/evidence/FBC-20261111-01/release/PUBLIC-ENDPOINTS.json",
+      "sha256": "ad66897e63c8b783e638a94afcf8a18ce0f6f880384843fd2978cbfdc91bc382"
+    },
+    {
+      "path": "coordination/evidence/FBC-20261111-01/release/apk-upload-candidates.json",
+      "sha256": "9bfa5b64a327c4b60658f06a8179803faffb880ece986df9ad7dd1947fbc42b6"
+    },
+    {
+      "path": "coordination/evidence/FBC-20261111-01/release/staged-revisions.json",
+      "sha256": "395595c787804e94ada9803b068529214bbb109f057154869d3abbd5bbabcc1a"
+    }
+  ],
+  "failures": [],
+  "limitations": [
+    "Offline consistency review of supplied central evidence and local Git objects; no fresh Cloud Run/GCS/Cloud Build API query or public download in this review.",
+    "Cloud Build a064e16b-93b8-4ffa-a7b6-699c84607a45 is the recorded one-time anonymous complete-download check. Same-region execution was supplied by coordinator; this review did not independently query build location.",
+    "No cloud aapt/apksigner invocation claimed; complete public bytes match the locally verified accepted original according to the supplied evidence.",
+    "No test suite, Android build, emulator, physical-device test, development, deployment, commit or push performed.",
+    "Historical build submission QUEUED and staged STAGED_NO_TRAFFIC are earlier lifecycle snapshots, not final-status assertions.",
+    "PASS covers receipt consistency and product-directory isolation, not renewed independent financial-rule acceptance or ongoing runtime monitoring."
+  ]
+}

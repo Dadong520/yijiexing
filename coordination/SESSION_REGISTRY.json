@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "protocolVersion": "2026-10-26-v3",
   "canonicalControlRoot": "/Users/dongge/Documents/New project 2",
-  "updatedAt": "2026-11-12T06:05:36.838082+00:00",
+  "updatedAt": "2026-11-12T07:51:47.484187+00:00",
   "generation": 6,
   "activeCoordinatorRole": "coordinator",
   "retiredCoordinatorThreadIds": [
@@ -15,14 +15,14 @@
       "title": "宜捷行｜产品建议与高德集成总协调",
       "model": "gpt-6.1-sol",
       "memoryStatus": "NORMAL",
-      "reason": "FB3 candidate 6548ceca accepted across non-author reviews & isolated AVD; merging PR #57 and deploying",
+      "reason": "FB3 published; public full APK readback, SQLite preservation and independent receipt review PASS",
       "contextUsedPercent": null,
       "measurementSource": "not_exposed",
       "measurementAt": null,
       "ackVersion": "2026-10-26-v3",
       "checkpointId": "FBC-20261111-01",
       "handoffPath": "coordination/handoffs/coordinator.md",
-      "workflowState": "MERGING_AND_DEPLOYING_FB3"
+      "workflowState": "IDLE_FB3_COMPLETE"
     },
     "backend": {
       "threadId": "01a182c6-c058-76e1-9584-38abfe813799",

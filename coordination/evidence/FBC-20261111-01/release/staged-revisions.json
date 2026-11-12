@@ -1,0 +1,20 @@
+[
+  {
+    "role": "api",
+    "service": "driver-demo",
+    "revision": "driver-demo-fb3-9a76fc4",
+    "url": "https://fb3-qa---driver-demo-phfgquzmua-uw.a.run.app",
+    "image": "us-west1-docker.pkg.dev/yijiexing-driver-demo-1023/demo/driver-cloud@sha256:1a955bc1aeab6bb60327f264ac17c63ed90e4989ee17d05d5be86ea5cdef6a70",
+    "runtimeSpecExceptImageUnchanged": true,
+    "status": "STAGED_NO_TRAFFIC"
+  },
+  {
+    "role": "admin",
+    "service": "driver-admin",
+    "revision": "driver-admin-fb3-9a76fc4",
+    "url": "https://fb3-qa---driver-admin-phfgquzmua-uw.a.run.app",
+    "image": "us-west1-docker.pkg.dev/yijiexing-driver-demo-1023/demo/admin-ui@sha256:2dc916793b7b9663d8106f5bb50da5119a0cf57d6ea25970b32be84f29a9b509",
+    "runtimeSpecExceptImageUnchanged": true,
+    "status": "STAGED_NO_TRAFFIC"
+  }
+]

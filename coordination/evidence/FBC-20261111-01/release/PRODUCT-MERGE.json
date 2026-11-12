@@ -1,0 +1,13 @@
+{
+  "productPr": 57,
+  "sourceSha": "6548ceca164f9abd74e516a577b2e78c5edb27a5",
+  "integrationHeadSha": "1fcc05879d6c05cfde7c2a67b45eaf9e71a2a46d",
+  "mergeSha": "9a76fc4e466092eaa85308d556ca35e454e688ca",
+  "ci": {
+    "id": 43166175875,
+    "headSha": "1fcc05879d6c05cfde7c2a67b45eaf9e71a2a46d",
+    "conclusion": "success",
+    "url": "https://github.com/Dadong520/yijiexing/actions/runs/43166175875"
+  },
+  "productTreesIdenticalToAcceptedSource": true
+}

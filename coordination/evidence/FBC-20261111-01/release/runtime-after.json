@@ -1,0 +1,28 @@
+{
+  "api": {
+    "service": "driver-demo",
+    "readyRevision": "driver-demo-fb3-9a76fc4",
+    "image": "us-west1-docker.pkg.dev/yijiexing-driver-demo-1023/demo/driver-cloud@sha256:1a955bc1aeab6bb60327f264ac17c63ed90e4989ee17d05d5be86ea5cdef6a70",
+    "trafficPercent": 100,
+    "userTestTag": "driver-demo-fb3-9a76fc4",
+    "runtimeSpecExceptImageUnchanged": true,
+    "scalingAndBillingAnnotationsUnchanged": true,
+    "iamExactUnchanged": true,
+    "minScale": "0",
+    "maxScale": "1",
+    "requestCpuBilling": "true"
+  },
+  "admin": {
+    "service": "driver-admin",
+    "readyRevision": "driver-admin-fb3-9a76fc4",
+    "image": "us-west1-docker.pkg.dev/yijiexing-driver-demo-1023/demo/admin-ui@sha256:2dc916793b7b9663d8106f5bb50da5119a0cf57d6ea25970b32be84f29a9b509",
+    "trafficPercent": 100,
+    "userTestTag": "driver-admin-fb3-9a76fc4",
+    "runtimeSpecExceptImageUnchanged": true,
+    "scalingAndBillingAnnotationsUnchanged": true,
+    "iamExactUnchanged": true,
+    "minScale": "0",
+    "maxScale": "1",
+    "requestCpuBilling": "true"
+  }
+}
