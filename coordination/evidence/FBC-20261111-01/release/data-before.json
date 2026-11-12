@@ -1,0 +1,13 @@
+{
+  "generation": "1794304758478603",
+  "bytes": 13467648,
+  "sha256": "6df69a255732a96de25b7668375254db73ecf33bc30fe6b0595e690721ef371a",
+  "integrity": "ok",
+  "counts": {
+    "accounts": 3,
+    "passengers": 3,
+    "passenger_orders": 56,
+    "passenger_order_contacts": 10
+  },
+  "capturedAt": "2026-11-12T06:16:44.235758+00:00"
+}

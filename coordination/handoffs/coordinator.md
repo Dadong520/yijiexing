@@ -1,5 +1,4 @@
-# coordinator：《修改意见3.0》候选 `6548cec` 验收通过，执行合并与体验发布
-协议2026-10-26-v3；root `01a17cc7-e0a2-7791-bf1d-4611c09bab22` 唯一协调/验收/发布；context UNKNOWN。
-
-- 主任务 `FBC-20261111-01`（含 `FBCB-20261111-01`、`FBCF-20261111-01`）冻结源码 `6548ceca164f9abd74e516a577b2e78c5edb27a5` 已完成全套单测（后端344、后台10+18、乘客89、司机133、小程序74、工具27）、双角色非作者交叉复核 V2 `PASS`、线上 SQLite 副本升级探测 `PASS`、本地后台+TLS API 全闭环及专用隔离模拟器 `FB3_20261112` 覆盖升级（25→26、27→28）与司乘实机界面验收 `PASS`（0 崩溃，环境已回收）。
-- 下一步：提交协调与验收证据到 `claude/feedback3-20261110`（保持4个产品目录 git tree 与 `6548ceca164f9abd74e516a577b2e78c5edb27a5` 字节一致），等待 PR #57 `project-gate` 通过后合并 `main`，发布 `driver-demo`、`driver-admin` 与乘客26/司机28体验包并执行公网 HTTPS 回读及发布回执归档。
+# coordinator：FB3已发布，回执入库收尾
+协议2026-10-26-v3；root 01a17cc7-e0a2-7791-bf1d-4611c09bab22 唯一协调/验收/发布。context UNKNOWN，已保存压缩恢复检查点。
+产品PR57 merge 9a76fc4e466092eaa85308d556ca35e454e688ca；source6548ceca164f9abd74e516a577b2e78c5edb27a5。后台/API fb3-9a76fc4及双APK乘客26/司机28已发布，云端公开整包读回/旧库3+3+56+10零丢失PASS。完整测试和非作者源码审查已PASS，不重复构建部署。慢连接临时429已清理恢复；全部账务/税务模拟，小程序未改。隔离AVD/fixture已停止。
+回执树 /Users/dongge/.codex/tmp/yijiexing-fb3-receipt-20261112，branch codex/fb3-release-receipt-20261112，仅coordination与README；非作者回执有限核验24/24 PASS，下一步仅回执PR检查合并；产品已可用户验收，勿重复部署。不能误判产品仍待发布。

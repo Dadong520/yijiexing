@@ -17,7 +17,7 @@
     "python3 -m unittest discover -s tests (apps/cloud-service)",
     "10/5/0.5/50%分账实例及D>0/D<=0恒等式、实际里程计价、空车费、公司分账开户门禁、资金池5000/500预警熔断、积分拉新、服务分、发票冲红重开与技术服务费单测全绿"
   ],
-  "status": "ACCEPTED_IN_CANDIDATE",
+  "status": "COMPLETE",
   "acceptance": "PASS",
   "tests": [
     {
@@ -56,8 +56,8 @@
       "sha256": "d2633b19015f8d58e1a186c061b82bd14c0c63e6ae2d6f73de86ba45d4fecc85"
     }
   ],
-  "nextAction": "Included in accepted candidate 6548ceca; coordinator merging PR #57 and deploying to experience environment",
-  "updatedAt": "2026-11-12T06:05:36.838082+00:00",
+  "nextAction": "Published and public readback PASS; idle pending user feedback.",
+  "updatedAt": "2026-11-12T07:51:47.484187+00:00",
   "workingHeadSha": "6548ceca164f9abd74e516a577b2e78c5edb27a5",
   "pendingMergeSha": "6548ceca164f9abd74e516a577b2e78c5edb27a5",
   "selfTest": "PASS",
@@ -83,5 +83,7 @@
     "apps/cloud-service/tests/test_passenger_extras.py"
   ],
   "commitCreated": true,
-  "acceptedSha": "6548ceca164f9abd74e516a577b2e78c5edb27a5"
+  "acceptedSha": "6548ceca164f9abd74e516a577b2e78c5edb27a5",
+  "publicationComplete": true,
+  "mergeSha": "9a76fc4e466092eaa85308d556ca35e454e688ca"
 }

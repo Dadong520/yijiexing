@@ -24,10 +24,10 @@
     "Passenger(v26, 89 JUnit) & Driver(v28, 133 JUnit) testExperienceUnitTest + assembleExperience + proof",
     "Non-author cross-review V2 (backend + frontend PASS) + live SQLite copy upgrade probe + isolated AVD FB3_20261112 E2E"
   ],
-  "status": "ACCEPTED_READY_FOR_MERGE_AND_DEPLOY",
+  "status": "COMPLETE",
   "acceptance": "PASS",
   "releaseReady": true,
-  "publicationComplete": false,
+  "publicationComplete": true,
   "candidateSha": "6548ceca164f9abd74e516a577b2e78c5edb27a5",
   "acceptedSha": "6548ceca164f9abd74e516a577b2e78c5edb27a5",
   "tests": [
@@ -98,6 +98,21 @@
       "sha256": "d4f1df7592f2e4ba2199e11d43d35caa8628ec39d08c523de9fe63c8df5fb486"
     }
   ],
-  "nextAction": "Push coordination records to PR #57, verify exact-SHA project-gate CI PASS, merge PR #57 to main, and deploy Cloud Run (driver-demo + driver-admin) & GCS APKs (v26/v28) with full public HTTPS readback",
-  "updatedAt": "2026-11-12T06:05:36.838082+00:00"
+  "nextAction": "Published and public readback PASS; idle pending user feedback.",
+  "updatedAt": "2026-11-12T07:51:47.484187+00:00",
+  "mergeSha": "9a76fc4e466092eaa85308d556ca35e454e688ca",
+  "integrationHeadSha": "1fcc05879d6c05cfde7c2a67b45eaf9e71a2a46d",
+  "ci": {
+    "id": 43166175875,
+    "headSha": "1fcc05879d6c05cfde7c2a67b45eaf9e71a2a46d",
+    "conclusion": "success",
+    "url": "https://github.com/Dadong520/yijiexing/actions/runs/43166175875"
+  },
+  "productPr": 57,
+  "releaseReceipt": "coordination/evidence/FBC-20261111-01/release/FINAL-RELEASE-RECEIPT.json",
+  "receiptReview": {
+    "result": "PASS",
+    "path": "coordination/evidence/FBC-20261111-01/release/RECEIPT_REVIEW.json",
+    "sha256": "050c1f21b93ed7f8284e8242525261be5dd1267cbd0eda4bd9f3f6e27a24ac98"
+  }
 }

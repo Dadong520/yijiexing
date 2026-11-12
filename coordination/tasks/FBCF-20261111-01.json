@@ -19,7 +19,7 @@
     "司机端：登录选填邀请码、费用明细展示运价费/手续费/分账费/地图服务费/司机分账额、服务分等级说明与拉新规则展示核对、versionCode=28",
     "npm test && npm run check (candidates/passenger-miniprogram-0.1.0) + Passenger/Driver testExperienceUnitTest"
   ],
-  "status": "ACCEPTED_IN_CANDIDATE",
+  "status": "COMPLETE",
   "acceptance": "PASS",
   "tests": [
     {
@@ -67,9 +67,11 @@
       "sha256": "01912735c98b4d7c4b37fd6ebe9c65a98823cbea0f3eb8f9b6955c5a141a02aa"
     }
   ],
-  "nextAction": "Included in accepted candidate 6548ceca; coordinator merging PR #57 and deploying v26/v28 APKs to experience environment",
+  "nextAction": "Published and public readback PASS; idle pending user feedback.",
   "releaseReady": true,
   "sourceHead": "6548ceca164f9abd74e516a577b2e78c5edb27a5",
-  "updatedAt": "2026-11-12T06:05:36.838082+00:00",
-  "acceptedSha": "6548ceca164f9abd74e516a577b2e78c5edb27a5"
+  "updatedAt": "2026-11-12T07:51:47.484187+00:00",
+  "acceptedSha": "6548ceca164f9abd74e516a577b2e78c5edb27a5",
+  "publicationComplete": true,
+  "mergeSha": "9a76fc4e466092eaa85308d556ca35e454e688ca"
 }

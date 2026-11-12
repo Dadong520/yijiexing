@@ -1,0 +1,18 @@
+{
+  "mergeSha": "9a76fc4e466092eaa85308d556ca35e454e688ca",
+  "acceptedSourceSha": "6548ceca164f9abd74e516a577b2e78c5edb27a5",
+  "builds": [
+    {
+      "role": "api",
+      "buildId": "cd35964d-fd57-49bc-a56d-557389d39b8d",
+      "status": "QUEUED",
+      "tag": "us-west1-docker.pkg.dev/yijiexing-driver-demo-1023/demo/driver-cloud:fb3-9a76fc4"
+    },
+    {
+      "role": "admin",
+      "buildId": "8b3214b6-be95-4f2f-b026-f1468d3fcf94",
+      "status": "QUEUED",
+      "tag": "us-west1-docker.pkg.dev/yijiexing-driver-demo-1023/demo/admin-ui:fb3-9a76fc4"
+    }
+  ]
+}

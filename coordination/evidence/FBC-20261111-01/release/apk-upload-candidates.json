@@ -1,0 +1,22 @@
+[
+  {
+    "role": "passenger",
+    "candidateObject": "distribution/candidates/fb3-20261112/passenger.apk",
+    "generation": "1794465226222264",
+    "sha256": "6ebd711796b5f7d3bdddf54622f9747d183097a72b29de3d49bd14a3bf1fc025",
+    "bytes": 42607909,
+    "versionCode": 26,
+    "versionName": "1.1.24-experience",
+    "status": "CANDIDATE_UPLOADED"
+  },
+  {
+    "role": "driver",
+    "candidateObject": "distribution/candidates/fb3-20261112/driver.apk",
+    "generation": "1794465945659825",
+    "sha256": "cd4616c1aa2c5eb809ada62ca0e8a9021565719d00b6bbbc2d0d57a6e0bf6802",
+    "bytes": 115457718,
+    "versionCode": 28,
+    "versionName": "0.3.25-cloud",
+    "status": "CANDIDATE_UPLOADED"
+  }
+]
