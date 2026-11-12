@@ -4,11 +4,15 @@ All writes join the existing SQLite transaction and snapshot CAS. No I/O, jobs,
 payments, company signing or notification delivery are performed here.
 """
 from common import *
+from ops_extras import EXTRA_ACTIONS, OpsExtras, integer
+from company_split import SPLIT_ACTIONS
+from pricing import DEFAULT_TARIFF
+from seed import CITIES
 
 LIVE_OPS_ACTIONS = frozenset({'ops.company.save', 'ops.driverCompany.set',
     'ops.announcement.save', 'ops.announcement.publish', 'ops.announcement.withdraw',
     'ops.passengerFeatures.save', 'ops.passengerFeatures.publish',
-    'ops.heatmap.save', 'ops.mallProduct.save', 'ops.mallRedemption.ship', 'ops.pointsRule.save'})
+    'ops.heatmap.save', 'ops.mallProduct.save', 'ops.mallRedemption.ship', 'ops.pointsRule.save'}) | EXTRA_ACTIONS | SPLIT_ACTIONS
 CLIENTS = ('MINIPROGRAM', 'PASSENGER_ANDROID')
 FEATURES = ('instant', 'reservation', 'bidding', 'invoice')
 
@@ -55,10 +59,11 @@ class LiveOperations:
         return {'status': 'CONFIGURED' if c and c['enabled'] else 'DISABLED' if c else 'UNCONFIGURED',
             'id': c['id'] if c else None, 'name': c['name'] if c else None,
             'supportPhone': c['supportPhone'] if c and c['enabled'] else None,
-            'version': c['version'] if c else None, 'source': source if c else 'NONE'}
+            'version': c['version'] if c else None, 'source': source if c else 'NONE',
+            'splitAccountStatus': ('SIGNED' if (self.get('companySplitAccount', company_id) or {}).get('status') == 'SIGNED' else 'UNSIGNED') if c else None}
 
     def public_companies(self):
-        return [clone(c) for c in self.rows('company') if c['enabled']]
+        return [{**self.company_view(c['id'], 'AVAILABLE'), 'enabled': c['enabled'], 'updatedAt': c.get('updatedAt')} for c in self.rows('company') if c['enabled']]
 
     def driver_state(self, driver):
         link = self.get('driverCompany', driver)
@@ -186,10 +191,24 @@ class LiveOperations:
                 selected = self.company_view(o['companyId'], 'ORDER')
                 break
         return {'companies': self.public_companies(), 'company': selected,
-            'announcements': self.eligible(pid, client), 'passengerFeatures': self.effective_features(city)}
+            'announcements': self.eligible(pid, client), 'passengerFeatures': self.effective_features(city),
+            'pricing': {'city': city, 'tariff': self.svc.tariff(city), 'serviceFee': self.svc.region_service_fee(city)},
+            'cityPricing': {c['id']: {'tariff': self.svc.tariff(c['id']), 'serviceFee': self.svc.region_service_fee(c['id'])} for c in CITIES}}
 
     def state(self):
-        return {'companies': self.rows('company'), 'driverCompanies': self.rows('driverCompany'),
+        pool = self.svc.coupon_pool()
+        extras = {'defaultTariff': clone(DEFAULT_TARIFF), 'tariffs': self.rows('tariff'), 'serviceFees': self.rows('serviceFee'),
+            'companySplitAccounts': self.rows('companySplitAccount'), 'companySplitLedger': self.rows('companySplitEntry'),
+            'couponPool': {**pool, 'warnThreshold': 500000, 'fuseThreshold': 50000, 'fused': self.svc.pool_fused()},
+            'couponPoolEntries': self.rows('couponPoolEntry'), 'couponPoolAlerts': self.rows('couponPoolAlert'),
+            'couponTemplates': self.rows('couponTemplate'), 'newUserCoupon': self.get('newUserCoupon', 'CONFIG'),
+            'referralRules': [self.svc.referral_rule(a) for a in ('PASSENGER', 'DRIVER')], 'referrals': self.svc.referral_records(),
+            'serviceScoreRule': self.svc.score_rule(),
+            'serviceScoreEntries': [dict(r) for r in self.db.execute('SELECT * FROM service_score_entries ORDER BY created DESC')],
+            'serviceScoreStats': [{'driverId': r['driver'], 'score': r['score'], 'level': self.svc.score_level(r['score'])} for r in self.db.execute('SELECT * FROM driver_service_scores')],
+            'invoiceReissues': self.rows('invoiceReissue'), 'invoiceIssuer': self.svc.invoice_issuer(),
+            'techFeeRows': self.svc.tech_fee_rows(), 'orderSettlements': self.svc.order_settlement_rows()}
+        return {**extras, 'companies': self.rows('company'), 'driverCompanies': self.rows('driverCompany'),
             'announcements': self.rows('announcement'), 'passengerFeatureConfigs': self.rows('features'),
             'heatmapThresholds': self.rows('heatmap'), 'mallProducts': self.rows('mallProduct'),
             'mallRedemptions': sorted(self.rows('mallRedemption'), key=lambda r: r['createdAt'], reverse=True),
@@ -198,8 +217,14 @@ class LiveOperations:
 
     def admin_action(self, action, p, actor):
         require(action in LIVE_OPS_ACTIONS, '不支持的运营操作', 404)
+        if action in SPLIT_ACTIONS:
+            return self.svc.company_split_action(action, p, actor)
+        if action in EXTRA_ACTIONS:
+            kind, before, value = OpsExtras(self).handle(action, p, actor)
+            self.svc.audit(actor, action, before, value)
+            return {kind: clone(value)}
         if action == 'ops.company.save':
-            self.fields(p, {'id','expectedVersion','name','supportPhone','enabled'}, {'name','supportPhone','enabled'})
+            self.fields(p, {'id','expectedVersion','name','supportPhone','enabled','mapServiceFee','platformRate','invoiceTitle','taxNumber'}, {'name','supportPhone','enabled'})
             oid = self.identifier(p['id']) if 'id' in p else uid('COMP')
             before = self.get('company', oid)
             if 'id' in p: require(before is not None, '公司不存在', 404)
@@ -212,6 +237,12 @@ class LiveOperations:
             value = {'id': oid, 'name': textfield(p['name'],'公司名称',1,120),
                 'supportPhone': phone.strip() if phone else None, 'enabled': p['enabled'],
                 'version': before['version']+1 if before else 1, 'updatedAt': stamp()}
+            value['mapServiceFee'] = integer(p.get('mapServiceFee', (before or {}).get('mapServiceFee', 0)), '地图服务费', 0, 100000)
+            value['platformRate'] = integer(p.get('platformRate', (before or {}).get('platformRate', 50)), '平台比例', 0, 100)
+            value['invoiceTitle'] = textfield(p.get('invoiceTitle', (before or {}).get('invoiceTitle', '')), '开票抬头', 0, 100)
+            tax = p.get('taxNumber', (before or {}).get('taxNumber', ''))
+            require(isinstance(tax, str) and (not tax or re.fullmatch(r'(?:[0-9A-Z]{15}|[0-9A-Z]{18}|[0-9A-Z]{20})', tax)), '商户税号须为空或15、18、20位大写字母数字')
+            value['taxNumber'] = tax
             kind, result = 'company', 'company'
         elif action == 'ops.driverCompany.set':
             self.fields(p, {'driverId','companyId','expectedVersion'}, {'driverId','companyId','expectedVersion'})
@@ -281,12 +312,14 @@ class LiveOperations:
                 'shipNote': textfield(p['shipNote'], '发货说明', 2, 200), 'shippedBy': actor}
             kind, result = 'mallRedemption', 'mallRedemption'
         elif action == 'ops.pointsRule.save':
-            self.fields(p, {'audience','expectedVersion','perOrder','enabled'}, {'audience','expectedVersion','perOrder','enabled'})
+            self.fields(p, {'audience','expectedVersion','perOrder','enabled','rules'}, {'audience','expectedVersion','enabled'})
+            require(('perOrder' in p) != ('rules' in p), '请选择旧版每单积分或新版规则之一')
             require(p['audience'] in ('PASSENGER', 'DRIVER') and type(p['enabled']) is bool, '积分规则对象或状态无效')
-            require(type(p['perOrder']) is int and 0 <= p['perOrder'] <= 10000, '每单积分须为0至10000的整数')
+            if 'perOrder' in p: integer(p['perOrder'], '每单积分', 0, 10000)
             oid = p['audience']; before = self.get('pointsRule', oid); self.expected(before, p)
-            value = {'audience': oid, 'perOrder': p['perOrder'], 'enabled': p['enabled'],
+            value = {'audience': oid, 'perOrder': p.get('perOrder', 0), 'enabled': p['enabled'],
                 'version': before['version']+1 if before else 1, 'updatedAt': stamp()}
+            if 'rules' in p: value['rules'] = OpsExtras(self).points_rules(oid, p['rules'])
             kind, result = 'pointsRule', 'pointsRule'
         else:
             save = action.endswith('.save')

@@ -145,10 +145,10 @@ class Feedback3(PolicyCase):
         self.assertTrue(all(s['done'] for s in timeline['steps'])); self.assertFalse(timeline['inferred'])
         self.assertIn('公里', timeline['steps'][2]['mileage'])
         amounts = {l['key']: l['amount'] for l in fees['lines']}
-        self.assertEqual((amounts['fare'], amounts['paid'], amounts['driverIncome'], amounts['refund']), (done['fare'],) * 3 + (0,))
+        self.assertEqual((amounts['fare'], amounts['paid'], amounts['driverIncome'], amounts['refund']), (done['fare'], done['fare'], done['settlement']['driverAmount'], 0))
         daily = self.mutate_fixture(admin_extras.daily_balance_rows)
         today = next(r for r in daily if r['driverId'] == d['profile']['driver']['id'] and r['date'] == __import__('common').now().date().isoformat())
-        self.assertGreaterEqual(today['income'], done['fare'])
+        self.assertGreaterEqual(today['income'], done['settlement']['driverAmount'])
         self.assertEqual(today['closingBalance'], self.state(d['token'])['balance'])
         mine = next(w for w in wallets if w['driverId'] == d['profile']['driver']['id'])
         self.assertEqual((mine['pendingAmount'], mine['withdrawingAmount'], mine['bankCardCount'] >= 0), (0, 0, True))

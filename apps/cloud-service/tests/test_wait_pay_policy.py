@@ -6,7 +6,7 @@ import threading
 import urllib.request
 import urllib.error
 import uuid
-from policy_helpers import PolicyCase
+from policy_helpers import PolicyCase, driver_share
 from test_cloud import ACCESS
 from domain import ACTIVE
 
@@ -57,7 +57,7 @@ class WaitPayPolicyTests(PolicyCase):
         self.pa(p['token'],'order.pay',payload,rid='late-payment',expected=503)
         self.pa(p['token'],'order.pay',payload,rid='late-payment');self.pa(p['token'],'order.pay',payload)
         state=self.state(dt);self.assertEqual(self.get_order(p2['token'],b['id']),original)
-        self.assertEqual(state['balance'],balance+a['fare']);self.assertEqual([o['id'] for o in state['orders'] if o['stage'] in ACTIVE],[b['id']])
+        self.assertEqual(state['balance'],balance+driver_share(a['fare']));self.assertEqual([o['id'] for o in state['orders'] if o['stage'] in ACTIVE],[b['id']])
         self.assertEqual(sum(e['title']=='行程收入 '+a['id'] for e in state['entries']),1)
         reboot=self.start();restored=self.request('/api/state',token=dt,server=reboot)['state'];self.assertEqual([o['id'] for o in restored['orders'] if o['stage'] in ACTIVE],[b['id']])
 
@@ -109,7 +109,7 @@ class WaitPayPolicyTests(PolicyCase):
         self.assertEqual(self.get_order(p['token'],a['id'])['stage'],'DONE')
         self.assertEqual(self.get_order(p2['token'],b['id'])['stage'],'PICKUP')
         state=self.state(d['token']);self.assertEqual([o['id'] for o in state['orders'] if o['stage'] in ACTIVE],[b['id']])
-        self.assertEqual(state['balance'],balance+a['fare']);self.assertEqual(sum(e['title']=='行程收入 '+a['id'] for e in state['entries']),1)
+        self.assertEqual(state['balance'],balance+driver_share(a['fare']));self.assertEqual(sum(e['title']=='行程收入 '+a['id'] for e in state['entries']),1)
 
     def test_negotiation_revalidates_certification_on_create_and_claim(self):
         p,d=self.setup_pair();self.enable_negotiation();did=d['profile']['driver']['id']

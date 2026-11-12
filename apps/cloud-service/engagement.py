@@ -211,21 +211,6 @@ class EngagementMixin:
         points = data.setdefault('points', {'balance': 0, 'total': 0, 'entries': []})
         return points
 
-    def award_passenger_points(self, o):
-        pid = o.get('passengerId')
-        rule = self.points_rule('PASSENGER')
-        if not pid or o.get('passengerPointsAwarded') or not rule['enabled'] or rule['perOrder'] <= 0:
-            return
-        if not self.db.execute('SELECT 1 FROM passengers WHERE id=?', (pid,)).fetchone():
-            return
-        data = self._passenger_extra_store(pid)
-        points = self.passenger_points(data)
-        points['balance'] += rule['perOrder']; points['total'] += rule['perOrder']
-        points['entries'].insert(0, {'id': uid('PT'), 'title': '完成行程 ' + o['id'], 'delta': rule['perOrder'], 'date': stamp()})
-        del points['entries'][200:]
-        self._save_passenger_extras(pid, data)
-        o['passengerPointsAwarded'] = rule['perOrder']
-
     def driver_points_per_order(self):
         rule = self.points_rule('DRIVER')
         return rule['perOrder'] if rule['enabled'] else 0

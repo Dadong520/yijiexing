@@ -178,10 +178,26 @@ private fun PassengerBookingDraft(owner: String, state: JSONObject, store: Passe
   val tripKm = PassengerPickupDefaults.straightTripKm(oLat, oLng, dLat, dLng)
   val tripTooFar = PassengerPickupDefaults.tripTooFar(tripKm)
   val serviceCity = state.optJSONObject("passenger")?.text("cityName", "宜昌市").orEmpty()
+  var couponChoice by rememberSaveable { mutableStateOf("AUTO") }
+  val previewNow by produceState(java.time.Instant.now()) { while (true) { kotlinx.coroutines.delay(30_000); value = java.time.Instant.now() } }
+  val routeCoordinates = listOf(oLat to oLng) +
+    (if (waypointName.isNotBlank()) listOf(waypointLat to waypointLng) else emptyList()) +
+    (if (waypointName2.isNotBlank()) listOf(waypointLat2 to waypointLng2) else emptyList()) + listOf(dLat to dLng)
+  val preview = runCatching {
+    val points = routeCoordinates.map { (lat,lng) -> (lat.toDoubleOrNull() ?: error("未选点")) to (lng.toDoubleOrNull() ?: error("未选点")) }
+    val meters = BookingPricing.routeMeters(points) ?: error("未选点")
+    val localTime = if (kind == "RESERVED") LocalDateTime.parse(date).atZone(ZoneId.systemDefault()).withZoneSameInstant(ZoneId.of("Asia/Shanghai")).toLocalTime()
+      else previewNow.atZone(ZoneId.of("Asia/Shanghai")).toLocalTime()
+    BookingPricing.estimate(state, state.optJSONObject("passenger")?.text("city", "420500") ?: "420500", meters, localTime)
+  }.getOrNull()
+  val availableCoupons = preview?.let { BookingPricing.usableCoupons(state, it.tripFare, previewNow) }.orEmpty()
+  val chosenCoupon = if (couponChoice == "AUTO") availableCoupons.firstOrNull() else availableCoupons.firstOrNull { it.text("id") == couponChoice }
+  val cancelDebt = outstandingCancelFee(state.rows("orders"))
   val submitOrder: () -> Unit = {
     runCatching {
         require(PassengerOperations.kindEnabled(state,kind)) { "当前地区未开放此叫车类型，请刷新后选择。" }
         require(destination.isNotBlank()) { "请先选择目的地" }
+        require(cancelDebt == null) { "请先结清待付空车费" }
         require(origin.trim().length >= 2 && destination.trim().length >= 2) { "请填写完整起点和终点" }
         // The server still checks the whole route; this only points at the fix before sending.
         require(!tripTooFar) { "上车点与目的地相距约 ${tripKm?.toInt()} 公里，超出体验行程 300 公里范围。请在下方重新定位或手动选择上车点。" }
@@ -220,6 +236,7 @@ private fun PassengerBookingDraft(owner: String, state: JSONObject, store: Passe
               .put("longitude", coordinate(waypointLng2, false))
           )
         if (points.length() > 0) payload.put("waypoints", points)
+        chosenCoupon?.let { payload.put("couponId", it.text("id")) }
         store.action("order.create", payload) { result ->
           result.optJSONObject("order")?.text("id")?.let(openOrder)
         }
@@ -235,7 +252,7 @@ private fun PassengerBookingDraft(owner: String, state: JSONObject, store: Passe
   // A new trip or unpaid order brings a collapsed panel back so its entry is never left hidden.
   MapPanelLayout(
     saveKey = passengerBookingMapScope(owner),
-    attentionKey = listOf(active?.text("id"), active?.text("stage"), unpaid?.text("id")),
+    attentionKey = listOf(active?.text("id"), active?.text("stage"), unpaid?.text("id"), cancelDebt?.text("id")),
     collapsedLabel = "显示叫车面板",
     // 8dp is the content's own top padding, 8dp a little air under the card.
     minHalfContent = (routeBottom + 16.dp).coerceIn(160.dp, 360.dp),
@@ -254,12 +271,12 @@ private fun PassengerBookingDraft(owner: String, state: JSONObject, store: Passe
         HorizontalDivider(color = DividerTone)
         Box(Modifier.padding(horizontal = 16.dp, vertical = 10.dp)) {
           ActionButton(
-            if (active != null) "查看当前行程" else if (enabledKinds.isEmpty()) "当前地区暂无开放叫车" else "确认呼叫 · ${kindName(kind)}",
-            !busy && !submitting && (active != null || enabledKinds.isNotEmpty()) && !returnShield.active,
+            if (cancelDebt != null) "先结清待付空车费" else if (active != null) "查看当前行程" else if (enabledKinds.isEmpty()) "当前地区暂无开放叫车" else "确认呼叫 · ${kindName(kind)}",
+            !busy && !submitting && (cancelDebt != null || active != null || enabledKinds.isNotEmpty()) && !returnShield.active,
           ) {
             // Checked against the clock at tap time: a second tap from the place page just closed is ignored.
             if (!returnShield.allows()) return@ActionButton
-            if (active != null) openOrder(active.text("id")) else submitOrder()
+            if (cancelDebt != null) openOrder(cancelDebt.text("id")) else if (active != null) openOrder(active.text("id")) else submitOrder()
           }
         }
       }
@@ -272,6 +289,7 @@ private fun PassengerBookingDraft(owner: String, state: JSONObject, store: Passe
             .padding(horizontal = 16.dp, vertical = 8.dp),
           verticalArrangement = Arrangement.spacedBy(12.dp),
         ) {
+          cancelDebt?.let { CancelFeeNotice(it, openOrder) }
           unpaid?.let { order -> OutstandingPaymentNotice { openOrder(order.text("id")) } }
           // Several waiting reservations collapse into one slim line pointing at the earliest.
           reservations.minByOrNull { it.text("scheduledAt") }?.let { reservation ->
@@ -391,6 +409,7 @@ private fun PassengerBookingDraft(owner: String, state: JSONObject, store: Passe
               }
             }
           }
+          preview?.let { BookingPricePreview(state, it, couponChoice, { couponChoice = it }, !busy && !returnShield.active) }
           if (enabledKinds.isEmpty()) Note("当前服务地区暂无开放的叫车类型，历史行程仍可查看。")
           Note(
             (if (kind == "BID") "下单后等待司机报价，选定司机后模拟预付。"
@@ -1032,6 +1051,7 @@ fun OrdersScreen(orders: List<JSONObject>, open: (String) -> Unit) {
   val filtered = orders.filter { PassengerUiRules.matchesOrderFilter(it.text("stage"), filter) }
   PageColumn {
     SectionTitle("我的订单", "出行与预约记录")
+    outstandingCancelFee(orders)?.let { CancelFeeNotice(it, open) }
     // Compact segmented tabs: one tight track, equal-width 48dp segments, selected one raised white.
     Row(
       Modifier

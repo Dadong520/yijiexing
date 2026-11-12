@@ -9,6 +9,7 @@ from seed import CITIES
 import admin_extras
 
 DATASETS = {
+    'orderSettlements': 'payments.read',
     'orders': 'orders.read', 'drivers': 'drivers.read',
     'passengers': 'passengers.read', 'payments': 'payments.read',
     'support': 'support.read', 'audit': 'audit.read',
@@ -23,6 +24,7 @@ ORDER_FILTERS = {
     'company': '所属公司', 'assigned': '是否指派',
 }
 FILTERS = {
+    'orderSettlements': {'city': '行政区划', 'companyId': '公司编号'},
     'orders': ORDER_FILTERS, 'statistics': ORDER_FILTERS, 'cancellations': ORDER_FILTERS,
     'drivers': {'driverId': '司机账号', 'mobile': '司机电话', 'city': '行政区划',
                 'currentLevel': '司机等级', 'certificateStatus': '资质状态',
@@ -51,7 +53,7 @@ FIXED = {
               'WAIT_PAY', 'DONE', 'CANCELLED', 'WAIT_CONTINUE'],
     'cancellationType': ['PASSENGER', 'DRIVER', 'ADMIN'],
     'recordType': ['ORDER', 'WITHDRAWAL'], 'refundStatus': ['NONE', 'HAS_REFUND'],
-    'titleType': ['PERSONAL', 'COMPANY'], 'role': ['PASSENGER', 'DRIVER'], 'invoiceStatus': ['SIMULATED_ISSUED', 'SANDBOX_ACCEPTED'],
+    'titleType': ['PERSONAL', 'COMPANY'], 'role': ['PASSENGER', 'DRIVER'], 'invoiceStatus': ['SIMULATED_ISSUED', 'SANDBOX_ACCEPTED', 'RED_FLUSHED'],
     'refundSource': ['HISTORY', 'CURRENT'],
     'paymentStatus': ['UNPAID', 'SUCCESS', 'FAILED', 'PROCESSING', 'CANCELLED', 'REFUNDED'],
     'withdrawalStatus': ['PENDING', 'SANDBOX_APPROVED', 'REJECTED'],
@@ -84,14 +86,15 @@ LABELS = {
     'status': {'PENDING': '待处理', 'REPLIED': '已回复', 'RECORDED': '已记录'},
     'city': {c['id']: c['name'] for c in CITIES},
     'role': {'PASSENGER': '乘客端', 'DRIVER': '司机端'}, 'titleType': {'PERSONAL': '个人', 'COMPANY': '企业'},
-    'invoiceStatus': {'SIMULATED_ISSUED': '已开具（模拟回执）', 'SANDBOX_ACCEPTED': '已受理（模拟）'},
+    'invoiceStatus': {'SIMULATED_ISSUED': '已开具（模拟回执）', 'SANDBOX_ACCEPTED': '已受理（模拟）', 'RED_FLUSHED': '已冲红（模拟）'},
 }
-EXACT = ENUMS | {'driverId', 'passengerId', 'accountId', 'city'}
-DATE_FIELDS = {'orders': 'createdAt', 'drivers': None, 'passengers': None,
+EXACT = ENUMS | {'driverId', 'passengerId', 'accountId', 'city', 'companyId'}
+DATE_FIELDS = {'orderSettlements': 'settledAt', 'orders': 'createdAt', 'drivers': None, 'passengers': None,
                'payments': 'createdAt', 'support': 'createdAt', 'audit': 'created',
                'statistics': 'createdAt', 'cancellations': 'cancelledAt',
                'refunds': 'refundedAt', 'invoices': 'createdAt', 'driverWallets': None, 'driverDailyBalances': 'dateAt'}
 SEARCH_FIELDS = {
+    'orderSettlements': ['orderId', 'driverId', 'companyId', 'companyName', 'city'],
     'orders': ['id', 'origin', 'destination', 'passengerId', 'driverId', 'passengerName',
                'passengerMobile', 'driverName', 'driverMobile', 'plate', 'city', 'remark'],
     'drivers': ['id', 'name', 'mobile', 'city', 'plate', 'vehicleType'],
@@ -200,6 +203,8 @@ class AdminQueries:
         return orders
 
     def rows(self, dataset):
+        if dataset == 'orderSettlements':
+            return self.svc.order_settlement_rows()
         if dataset in ('orders', 'statistics', 'cancellations', 'refunds', 'payments'):
             orders = self.orders()
             if dataset in ('orders', 'statistics'):
@@ -328,6 +333,9 @@ class AdminQueries:
             selected.append(row)
         if dataset in ('orders', 'cancellations', 'statistics'):
             summary = order_summary(selected)
+        elif dataset == 'orderSettlements':
+            summary = {'settlementCount': len(selected), **{k: sum(r.get(k, 0) for r in selected) for k in
+                ('orderFee', 'tripFare', 'serviceFee', 'couponAmount', 'paidAmount', 'driverAmount', 'companyCommission', 'platformCommission', 'mapServiceFee', 'platformDifference')}}
         elif dataset == 'refunds':
             summary = {'refundCount': len(selected), 'refundAmount': sum(r.get('amount', 0) for r in selected)}
         elif dataset == 'payments':
@@ -361,7 +369,8 @@ class AdminQueries:
                 selected.sort(key=lambda r: timestamp(r.get(date_field)) if timestamp(r.get(date_field)) is not None else float('-inf'), reverse=True)
         total = len(selected)
         summary.update(rowCount=total, missingDateCount=missing_date)
-        definition = {'orders': ORDER_DEFINITION,
+        definition = {'orderSettlements': '一笔已保存订单分账一行；按分账时间、订单城市与公司筛选，整数分模拟账务，不代表扫呗或银行实际结算。',
+                      'orders': ORDER_DEFINITION,
                       'statistics': ORDER_DEFINITION + '按UTC+8订单创建日归组；日期条件筛选订单创建日，并非退款发生日。',
                       'cancellations': ORDER_DEFINITION + '仅当前CANCELLED/WAIT_CONTINUE；后者待乘客续叫，不是已终结。最后取消事件时间缺失保持未知，不展示为历史全部取消次数。',
                       'refunds': '每笔共享订单的refundHistory各轮及当前refundAmount分别一行；不按金额/时间去重，按退款发生时间筛选。',
@@ -370,9 +379,9 @@ class AdminQueries:
                       'passengers': '实际passengers账号及持久profile，不从掩码还原手机号；无登记日期。',
                       'audit': '全部持久audits记录，查询不受旧state最近200条限制。',
                       'support': '持久共享订单评价/投诉及乘客、司机反馈/投诉；保留来源和原记录ID。',
-                      'invoices': '乘客行程开票申请与司机会员费开票申请各一行；均为模拟回执，未连接税务开票平台，不支持冲红与重开。',
+                      'invoices': '乘客行程开票申请与司机会员费开票申请各一行；均为模拟回执，未连接税务开票平台，支持模拟冲红与重开，保留原单关联。',
                       'driverDailyBalances': '每位司机每个有流水的日期一行（当日始终列出）：日终余额由当前余额按钱包流水逆推，按UTC+8归日；金额为模拟账务。',
-                      'driverWallets': '每位司机一行：余额为已入账模拟余额；待入账为已送达或已完成但尚未入账的订单金额；已提现为审核通过的模拟提现；提现中为待审核提现。扫呗虚拟账号未接入。'}[dataset]
+                      'driverWallets': '每位司机一行：余额为已入账模拟余额；待入账为已送达或已完成但尚未入账的司机应得分账额；已提现为审核通过的模拟提现；提现中为待审核提现。扫呗虚拟账号未接入。'}[dataset]
         return {'dataset': dataset, 'items': selected[(page-1)*size:page*size] if paginate else selected,
                 'total': total, 'page': page, 'pageSize': size, 'schema': schema, 'options': options,
                 'summary': summary, 'definition': definition + LIMITS,

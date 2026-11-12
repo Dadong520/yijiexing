@@ -253,7 +253,8 @@ class TripDistanceRules(unittest.TestCase):
         self.assertEqual('DONE', self.order()['stage']); self.decide(request); self.decide(request)
         self.pa('order.pay', {'id': self.oid})
         state = json.loads(self.svc.account('D1')['state'])
-        self.assertEqual(before+2000, state['balance']); self.assertEqual(3, state['todayCompleted'])
+        from policy_helpers import driver_share
+        self.assertEqual(before+driver_share(2000), state['balance']); self.assertEqual(3, state['todayCompleted'])
         self.assertEqual(1, sum(r.get('title') == '行程收入 ' + self.oid for r in state['entries']))
 
     def test_rule_snapshot_not_weakened_and_hierarchical_config_audited(self):

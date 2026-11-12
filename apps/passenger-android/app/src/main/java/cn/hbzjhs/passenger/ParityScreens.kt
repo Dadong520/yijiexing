@@ -17,39 +17,88 @@ import androidx.compose.ui.unit.dp
 import org.json.JSONObject
 
 @Composable
-fun PassengerExtrasScreen(page: String, owner: String) {
+fun PassengerExtrasScreen(page: String, owner: String, state: JSONObject, store: PassengerStore) {
   if (owner.isBlank() || owner == "null") {
-    PageColumn { EmptyCard("请先登录", "登录后查看本账号的体验功能。") }
+    PageColumn { EmptyCard("请先登录", "登录后查看本账号的功能。") }
     return
   }
-  if (page == "safety") { SafetyCenter(owner); return }
-  val context = LocalContext.current
-  var message by remember(owner, page) { mutableStateOf("") }
-  PageColumn {
-    SectionTitle(when(page) { "coupons" -> "我的卡券 · 演示"; else -> "邀请体验 · 演示" })
+  key(owner) {
     when (page) {
-      "coupons" -> {
-        EmptyCard("暂无可用卡券", "领取、有效期、核销及退款规则待服务端接入后开放。")
-        EmptyHint("卡券服务开放后，领取的卡券会显示在这里；当前下单按共享服务端报价结算。")
-      }
-      else -> {
-        EmptyCard("暂无邀请记录", "尚无服务端邀请码或真实拉新绑定，不承诺注册送券或首单奖励。")
-        EmptyHint("可使用下方“复制体验说明”向好友介绍体验版。")
-      }
+      "safety" -> SafetyCenter(owner)
+      "coupons" -> PassengerCoupons(state, store)
+      else -> PassengerReferral(state)
     }
-    Panel("尚未接入营销账务") {
-      Note("此处是功能演示，不是真实资产。不会抵扣订单、改变报价或发放奖励；订单金额以共享服务端为准。")
-      if (page == "invite") {
-        Note("尚无服务端邀请码或真实拉新绑定，不承诺注册送券或首单奖励。")
-        SecondaryButton("复制体验说明") {
-          runCatching {
-            val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-            clipboard.setPrimaryClip(ClipData.newPlainText("宜捷行体验说明", "邀请了解宜捷行独立体验版：邀请和卡券目前仅作功能演示，无注册奖励、无实际抵扣或拉新绑定。"))
-          }.onSuccess { message = "体验说明已复制" }.onFailure { message = "复制失败，请重试" }
+  }
+}
+
+@Composable
+private fun PassengerCoupons(state: JSONObject, store: PassengerStore) {
+  var center by remember { mutableStateOf(false) }
+  var claiming by remember { mutableStateOf(false) }
+  var claimProblem by remember { mutableStateOf("") }
+  val busy by store.busy.collectAsState()
+  val error by store.error.collectAsState()
+  LaunchedEffect(busy, claiming) {
+    if (claiming && !busy) {
+      if (error != null) claimProblem = "当前营销余额不足，无法领取\n${error}"
+      claiming = false
+    }
+  }
+  PageColumn {
+    SectionTitle("我的卡券与领券中心", "优惠券由服务端发放，模拟抵扣运价费，不兑换现金。")
+    Row { FilterChip(!center, { center = false }, label = { Text("我的卡券") }); FilterChip(center, { center = true }, label = { Text("领券中心") }) }
+    if (state.optBoolean("couponPoolFused") || claimProblem.isNotBlank()) Text(claimProblem.ifBlank { "当前营销余额不足，无法领取" }, color = Danger)
+    if (!center) {
+      val coupons = state.rows("coupons")
+      if (coupons.isEmpty()) EmptyCard("暂无卡券", "前往领券中心查看可领取的券。")
+      coupons.forEach { c -> Panel(c.text("label", c.text("name", "优惠券"))) {
+        KV("状态", when(c.text("status")) { "UNUSED" -> "可用"; "LOCKED" -> "锁定中"; "USED" -> "已使用"; "EXPIRED" -> "已过期"; else -> "待同步" })
+        KV("面额", "¥${money(c.optLong("amount"))}"); KV("使用门槛", "运价费满¥${money(c.optLong("threshold"))}")
+        KV("有效期", "${formatTime(c.text("validFrom"))} 至 ${formatTime(c.text("expiresAt"))}")
+        if (c.text("orderId").isNotBlank()) IdentifierButton(c.text("orderId"))
+      } }
+    } else {
+      val templates = state.rows("couponCenter")
+      if (templates.isEmpty()) EmptyCard("暂无可领取优惠券", "请稍后刷新查看。")
+      templates.forEach { c -> Panel(c.text("label", c.text("name", "优惠券"))) {
+        Note(c.text("description")); KV("面额", "¥${money(c.optLong("amount"))}"); KV("门槛", "运价费满¥${money(c.optLong("threshold"))}")
+        KV("剩余数量", c.optInt("remaining").toString()); KV("领取情况", "${c.optInt("claimedCount")}/${c.optInt("perUserLimit", 1)}")
+        Note(if(c.text("validity") == "FIXED") "有效期至 ${formatTime(c.text("validEndAt"))}" else "领取后${c.optInt("validDays")}天有效")
+        ActionButton("领取优惠券", !busy && !state.optBoolean("couponPoolFused") && c.optInt("remaining") > 0 && c.optInt("claimedCount") < c.optInt("perUserLimit", 1)) {
+          claimProblem = ""; store.clearError(); claiming = true
+          store.action("coupon.claim", JSONObject().put("templateId", c.text("id"))) { claiming = false }
         }
-      }
-      if (message.isNotBlank()) Text(message, color = Teal)
+      } }
     }
+  }
+}
+
+@Composable
+private fun PassengerReferral(state: JSONObject) {
+  val referral = state.optJSONObject("referral") ?: JSONObject()
+  val code = referral.text("code", referral.text("inviteCode"))
+  val context = LocalContext.current
+  var message by remember(code) { mutableStateOf("") }
+  PageColumn {
+    SectionTitle("邀请好友", "服务端记录模拟积分拉新，不发生真实现金奖励。")
+    Panel("我的专属邀请码") {
+      Text(code.ifBlank { "邀请码待同步" }, color = Teal, fontWeight = FontWeight.Bold)
+      SecondaryButton("复制邀请码", code.isNotBlank()) {
+        runCatching { (context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager).setPrimaryClip(ClipData.newPlainText("宜捷行邀请码", code)) }
+          .onSuccess { message = "邀请码已复制" }.onFailure { message = "复制失败，请重试" }
+      }
+      if (message.isNotBlank()) Note(message)
+      KV("已邀请人数", referral.optInt("invited", referral.optInt("count")).toString())
+      KV("已达标人数", referral.optInt("completed").toString())
+      KV("累计获得积分", referral.optLong("awarded", referral.optLong("reward")).toString())
+      Note(referralRuleText(referral.optJSONObject("rule")))
+    }
+    val records = referral.rows("records")
+    if (records.isEmpty()) EmptyCard("暂无邀请明细", "好友首次注册填写邀请码后显示绑定与达标情况。")
+    records.forEach { row -> Panel(row.text("mobileMasked", row.text("phoneTail", "受邀用户"))) {
+      KV("邀请时间", formatTime(row.text("createdAt"))); KV("达标状态", row.text("status"))
+      KV("奖励积分", row.optLong("reward").toString())
+    } }
   }
 }
 

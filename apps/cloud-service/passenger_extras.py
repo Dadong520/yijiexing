@@ -16,6 +16,7 @@ class PassengerExtrasMixin:
         data = json.loads(row['payload']) if row else {'riders': [], 'invoiceTitles': [], 'invoices': []}
         data.setdefault('blockedDrivers', [])
         data.setdefault('points', {'balance': 0, 'total': 0, 'entries': []})
+        data.setdefault('coupons', [])
         # Legacy/no-default/dangling references project safely without read-time
         # mutation, automatic selection or guessing from arbitrary row flags.
         raw = data.get('defaults') if isinstance(data.get('defaults'), dict) else {}
@@ -80,6 +81,7 @@ class PassengerExtrasMixin:
 
     def passenger_extra_data(self, pid):
         data = clone(self._passenger_extra_store(pid))
+        data['invoiceReissues'] = self.passenger_reissues(pid)
         for kind in ('RIDER', 'INVOICE_TITLE'):
             key, collection = DEFAULT_KINDS[kind]
             data[collection] = self.project_default_rows(data[collection], data['defaults'][key])
@@ -124,6 +126,8 @@ class PassengerExtrasMixin:
 
     def passenger_extra_action(self, pid, action, p):
         require(isinstance(p, dict), '操作参数须为对象')
+        if action == 'invoice.reissue.apply':
+            return self.passenger_reissue_apply(pid, p)
         data = self._passenger_extra_store(pid)
         if action in ('rider.save', 'invoice.title.save'):
             self.validate_default_flag(p)
@@ -191,6 +195,12 @@ class PassengerExtrasMixin:
                    'status': 'SIMULATED_ISSUED', 'simulated': True, 'createdAt': stamp(),
                    'notice': '模拟开票回执 · 未连接税务开票平台 · 不是税务发票，不可报销，未发送邮件'}
             data['invoices'].insert(0, row); result = {'invoice': clone(row)}
+        elif action == 'coupon.claim':
+            require(set(p) == {'templateId'}, '领取参数无效')
+            t = self.operations.get('couponTemplate', self.operations.identifier(p['templateId']))
+            require(t is not None and t['enabled'] and t['claimable'], '此优惠券不在领券中心', 404)
+            require(any(v['id'] == t['id'] for v in self.coupon_templates(True)), '此优惠券不在领取时间范围内', 409)
+            result = {'coupon': self.issue_coupon(pid, data, t['id'], 'CLAIM')}
         elif action == 'points.redeem':
             result = self.mall_redeem('PASSENGER', pid, data['points'], p)
         else:

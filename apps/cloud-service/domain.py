@@ -6,6 +6,11 @@ from qualifications import QualificationsMixin
 from live_operations import LiveOperations
 from passenger import PassengerMixin
 from engagement import EngagementMixin
+from pricing import PricingMixin
+from coupons import CouponMixin
+from growth import GrowthMixin
+from invoice_ops import InvoiceOpsMixin
+from company_split import CompanySplitMixin
 import sqlite3, threading
 
 SCHEMA='''
@@ -24,10 +29,10 @@ CREATE TABLE IF NOT EXISTS files(id TEXT PRIMARY KEY,driver TEXT,mime TEXT,conte
 CREATE TABLE IF NOT EXISTS actions(driver TEXT,request_id TEXT,request_hash TEXT,result TEXT,PRIMARY KEY(driver,request_id));
 '''
 ACTIVE={'BID_SENT','PREPAY','RESERVED','PICKUP','ARRIVED','TRIP'}
-class Service(EngagementMixin,QualificationsMixin,PassengerMixin,BenefitsMixin,AdminMixin):
+class Service(InvoiceOpsMixin,CompanySplitMixin,GrowthMixin,PricingMixin,CouponMixin,EngagementMixin,QualificationsMixin,PassengerMixin,BenefitsMixin,AdminMixin):
     def __init__(self,db_path):
         self.lock=threading.RLock();self.db=sqlite3.connect(str(db_path),check_same_thread=False);self.db.row_factory=sqlite3.Row
-        self.db.execute('PRAGMA journal_mode=WAL');self.db.execute('PRAGMA foreign_keys=ON');self.db.executescript(SCHEMA);self.init_passenger();self.init_engagement()
+        self.db.execute('PRAGMA journal_mode=WAL');self.db.execute('PRAGMA foreign_keys=ON');self.db.executescript(SCHEMA);self.init_passenger();self.init_engagement();self.init_growth()
         if not self.db.execute('SELECT 1 FROM configs').fetchone():
             self.db.execute('INSERT INTO configs VALUES (?,?,?,?,?,?,?)',('national','CN',dumps(default_config()),None,1,1,stamp()))
             for code in ('CENTRAL','SOUTH'):self.db.execute('INSERT INTO configs VALUES (?,?,?,?,?,?,?)',('region',code,'{}',None,1,1,stamp()))
@@ -70,6 +75,7 @@ class Service(EngagementMixin,QualificationsMixin,PassengerMixin,BenefitsMixin,A
                 for key in ('distance','mileage'):o[key]=re.sub('公里','',o[key])
             for entry in st['entries']:entry['note']=entry.get('subtitle','云端演示沙箱')+' · '+entry['time']
             self.db.execute('INSERT INTO accounts VALUES (?,?,?,?,?,?,?,?)',(driver,m,dumps(st),dumps(profile),'',stamp(),2,None))
+            self.register_referral('DRIVER',driver,p.get('inviteCode'))
         else:driver=a['id']
         token=secrets.token_urlsafe(32);self.db.execute('INSERT INTO sessions VALUES (?,?,?)',(token,driver,stamp(now()+dt.timedelta(days=7))))
         self.audit('DRIVER:'+driver,'auth.login',None,{'sandbox':True})
@@ -95,6 +101,7 @@ class Service(EngagementMixin,QualificationsMixin,PassengerMixin,BenefitsMixin,A
         st['orders']=sorted([self.project_driver_order(driver,o) for o in st.get('orders',[])],key=lambda o: 0 if o.get('stage') in ('PICKUP','ARRIVED','TRIP','PREPAY','BID_SENT') else (1 if o.get('kind')=='RESERVED' and o.get('stage') in ('AVAILABLE','RESERVED') else 2))
         profile=self.qualifications_profile(profile)
         profile['pointsMall']=self.mall_view('DRIVER',driver)
+        profile['serviceScore']=self.service_score_view(driver);profile['referrals']=self.referral_view('DRIVER',driver)
         return {'operations':self.operations.driver_state(driver),'mapConfig':self.amap_public_config('driver'),'state':st,'profile':profile,'benefits':cat,'features':features,'tripDistanceRules':self.trip_distance_rules(cat['city']['id']),'competitionResults':self.competition_results(driver),'serverTime':stamp(),'environment':{'name':'云端演示隔离沙箱','sandbox':True,'originalSpringBackend':False,'persistence':'SQLite','network':'Google Cloud独立演示服务，不连接原测试环境'}}
     def order(self,st,oid):
         o=next((o for o in st['orders'] if o['id']==oid),None);require(o is not None,'订单不存在',404);return o
@@ -115,12 +122,14 @@ class Service(EngagementMixin,QualificationsMixin,PassengerMixin,BenefitsMixin,A
         if 'expectedStage' in p:
             require(p['expectedStage']==o['stage'],'订单状态已变化，请刷新后重新确认操作',409,{'reason':'ORDER_STAGE_STALE'})
     def require_negotiation_driver(self,driver,st,order_id=None):
+        self.require_company_split(driver)
         self.check_right(driver,'offlineNegotiation');require(st['online'],'请先上线',409)
         require(not any(o['stage'] in ACTIVE and not (o.get('kind')=='RESERVED' and o.get('stage') in ('AVAILABLE','RESERVED')) and o['id']!=order_id for o in st['orders']),'请先完成当前订单',409)
         self.require_driver_certified(driver)
 
 
     def new_accept(self,driver,st,o,key):
+        self.require_company_split(driver)
         require(st['online'],'请先上线听单',409);require(not any(x['stage'] in ACTIVE and not (x.get('kind')=='RESERVED' and x.get('stage') in ('AVAILABLE','RESERVED')) for x in st['orders']),'请先完成进行中订单',409)
         require(o['stage']=='AVAILABLE','订单已被处理，请刷新',409)
         pid=o.get('passengerId') or o.get('passenger')
@@ -141,12 +150,11 @@ class Service(EngagementMixin,QualificationsMixin,PassengerMixin,BenefitsMixin,A
         self.require_driver_certified(driver)
     def credit(self,driver,st,o):
         if o['stage']!='DONE' or o['credited']:return
-        o['credited']=True;o['completedAt']=stamp();st['balance']+=o['fare'];st['todayIncome']+=o['fare'];st['todayCompleted']+=1
-        st['entries'].insert(0,{'id':uid('WE'),'title':'行程收入 '+o['id'],'amount':o['fare'],'note':'云端演示沙箱，不代表真实资金','createdAt':stamp(),'time':stamp()})
+        amount=o['settlement']['driverAmount'] if o.get('settlement') else o['fare']
+        o['credited']=True;o['completedAt']=stamp();st['balance']+=amount;st['todayIncome']+=amount;st['todayCompleted']+=1
+        st['entries'].insert(0,{'id':uid('WE'),'title':'行程收入 '+o['id'],'amount':amount,'note':'云端演示沙箱，不代表真实资金','createdAt':stamp(),'time':stamp()})
         self.db.execute('UPDATE accounts SET trial_completed=trial_completed+1 WHERE id=?',(driver,))
-        p=json.loads(self.account(driver)['profile']);earned=self.driver_points_per_order()
-        if earned>0:
-            p['points']['balance']+=earned;p['points']['total']+=earned;p['points']['entries'].insert(0,{'title':'完成订单 '+o['id'],'delta':earned,'date':stamp()});self.save_profile(driver,p)
+        self.award_driver_points(driver,o)
     def save_image(self,driver,data):
         require(isinstance(data,str) and len(data)<=1400000,'图片须小于1MB')
         if data.startswith('data:'):data=data.split(',',1)[-1]
@@ -221,6 +229,7 @@ class Service(EngagementMixin,QualificationsMixin,PassengerMixin,BenefitsMixin,A
         if action=='driver.online':
             value=p.get('online');require(isinstance(value,bool),'上线状态无效')
             if value:
+                self.require_company_split(driver)
                 self.require_driver_certified(driver)
                 catalog=self.catalog(driver);require(catalog['canAccept'],'体验结束或当前城市等级未开放新增接单，请查看会员权益',403,{'trial':catalog['trial']})
                 level=catalog['subscription']['rightsSnapshot'] if catalog['subscription'] else next(l for l in catalog['levels'] if l['id']=='TRIAL')
@@ -328,7 +337,7 @@ class Service(EngagementMixin,QualificationsMixin,PassengerMixin,BenefitsMixin,A
                 for o in st['orders']:
                     if o['stage']=='AVAILABLE':o['city']=city['id']
         elif action=='location.report':
-            location=self.trip_location(p);self.db.execute('UPDATE accounts SET location=? WHERE id=?',(dumps(location),driver));result={'location':location}
+            location=self.trip_location(p);self.db.execute('UPDATE accounts SET location=? WHERE id=?',(dumps(location),driver));self.meter_location(driver,location);result={'location':location}
         elif action=='local.reset':
             require(not self.subscriptions(driver)['history'],'账户已有会员记录，不能清空交易历史',409)
             fresh=initial_state()
@@ -353,4 +362,11 @@ class Service(EngagementMixin,QualificationsMixin,PassengerMixin,BenefitsMixin,A
     def fees(self,driver,oid):
         self.sync_shared_orders(driver)
         st=json.loads(self.account(driver)['state']);o=self.order(st,oid)
+        canonical=self.shared_order(oid) if o.get('shared') else None
+        if canonical and (not canonical.get('driverId') or canonical['driverId']==driver) and 'tripFare' in canonical:
+            s=canonical.get('settlement') or self.order_settlement(canonical)
+            return {'orderId':oid,'fare':s['tripFare'],'income':s['driverAmount'],'paymentFee':s['tripPayFee'],'splitFee':s['tripSplitFee'],
+                'mapServiceFee':s['mapServiceFee'],'serviceFee':0,'passengerServiceFee':s['serviceFee'],'splitMode':'FEEDBACK3_FORMULA',
+                'final':bool(canonical.get('settlement')),'fareDetail':canonical.get('fareDetail'),
+                'policyLabel':'司机分账金额=运价费-运价费手续费(0.6%)-运价费分账费(0.15%)-地图服务费；区域服务费由平台与公司分账，司机不参与。模拟账务。','sandbox':True}
         return {'orderId':oid,'fare':o['fare'],'income':o['fare'],'paymentFee':0,'splitFee':0,'mapServiceFee':0,'serviceFee':0,'splitMode':'SANDBOX_NO_DEDUCTION','policyLabel':'云端演示沙箱：未接原计费策略，不收取服务费','sandbox':True}

@@ -88,6 +88,7 @@ class CompetitionMixin:
         return st
 
     def join_competition(self, driver, o, p):
+        self.require_company_split(driver)
         require(set(p) <= {'id', 'competitionRound'}, '竞抢只接受订单和轮次参数')
         rnd = self.require_competition_round(o, p)
         profile=json.loads(self.account(driver)['profile'])
@@ -158,6 +159,7 @@ class CompetitionMixin:
                         continue
                     winner = candidate['driver']
                     o['driverId'] = winner
+                    o['acceptedAt'] = stamp()
                     o['stage'] = 'RESERVED' if o['kind'] == 'RESERVED' else 'PICKUP'
                     o['cancelledBy'] = None
                     o['cancelReason'] = None
@@ -190,7 +192,10 @@ class CompetitionMixin:
         require(o['stage'] in ('RESERVED', 'PICKUP', 'ARRIVED'), '当前订单不能取消', 409)
         require(not o.get('paid'), '此订单已付款，请通过原退款处理流程操作，暂不自动重开', 409)
         reason = textfield(p.get('reason', '司机取消'), '取消原因', 2, 200)
-        # No fare/payment/refund/penalty mutation. Contact remains the immutable rider.
+        # Cancellation returns the coupon; the reopened round has no unlocked discount.
+        self.release_order_coupon(o)
+        self.clear_released_coupon(o)
+        # Contact remains the immutable rider.
         o.update(stage='AVAILABLE', driverId=None, cancelReason=reason, cancelledBy='DRIVER', arrivedWaypoints=[])
         self.save_shared(o, 'COMPETITION_REOPENED')
         self.db.execute("UPDATE order_contenders SET outcome='CANCELLED' WHERE order_id=? AND round=? AND driver=?", (o['id'], rnd, driver))

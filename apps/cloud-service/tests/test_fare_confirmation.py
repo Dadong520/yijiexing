@@ -1,7 +1,7 @@
 """Expected integer fare + monotonic fareVersion protect payment/admin decisions."""
 import json
 import uuid
-from policy_helpers import PolicyCase
+from policy_helpers import PolicyCase, driver_share
 from admin_console import AdminConsole
 from common import ApiError
 
@@ -33,7 +33,7 @@ class FareConfirmationTests(PolicyCase):
         current=self.get_order(p['token'],oid);self.assertEqual(current['stage'],'WAIT_PAY');self.assertFalse(current['paid']);self.assertEqual(self.state(d['token'])['balance'],balance)
         payload={'id':oid,'expectedFare':amount,'fareVersion':2,'outcome':'SUCCESS'}
         self.pa(p['token'],'order.pay',payload,rid='confirmed-pay');self.pa(p['token'],'order.pay',payload,rid='confirmed-pay');self.pa(p['token'],'order.pay',payload)
-        self.assertEqual(self.state(d['token'])['balance'],balance+amount)
+        self.assertEqual(self.state(d['token'])['balance'],balance+driver_share(amount))
         self.assertEqual(sum(e['title']=='行程收入 '+oid for e in self.state(d['token'])['entries']),1)
 
     def test_admin_same_amount_adjustment_still_versions_and_replay_does_not_increment(self):
@@ -64,7 +64,7 @@ class FareConfirmationTests(PolicyCase):
         self.admin_order('order.refund',oid,stage='DONE',expectedFare=1234,fareVersion=1,rid='one-refund')
         self.admin_order('order.refund',oid,stage='DONE',expectedFare=1234,fareVersion=1,rid='one-refund')
         self.pa(p['token'],'order.pay',pay,rid='before-refund');self.pa(p['token'],'order.pay',pay,expected=409)
-        final=self.get_order(p['token'],oid);self.assertEqual(final['paymentStatus'],'REFUNDED');self.assertFalse(final['paid']);self.assertEqual(self.state(d['token'])['balance'],balance-1234)
+        final=self.get_order(p['token'],oid);self.assertEqual(final['paymentStatus'],'REFUNDED');self.assertFalse(final['paid']);self.assertEqual(self.state(d['token'])['balance'],balance-driver_share(1234))
 
     def test_bid_prepay_expected_quote_strict(self):
         p,d=self.setup_pair();oid=self.create(p['token'],'BID')['id'];self.da(d['token'],'order.bid',{'id':oid,'amount':3600});self.pa(p['token'],'order.selectDriver',{'id':oid,'driverId':d['profile']['driver']['id']})

@@ -48,6 +48,7 @@ import org.json.JSONObject
 
 @Composable
 fun LocalLogin(store: ConnectedStore) {
+    var inviteCode by rememberSaveable { mutableStateOf("") }
     var selectedPhone by rememberSaveable { mutableStateOf("13800000003") }
     var connectionDialog by remember { mutableStateOf(false) }
     var agreed by rememberSaveable { mutableStateOf(false) }
@@ -136,6 +137,7 @@ fun LocalLogin(store: ConnectedStore) {
             }
         }
 
+        OutlinedTextField(inviteCode, { inviteCode = it.take(20) }, label = { Text("邀请码（选填，首次注册有效）") }, singleLine = true, modifier = Modifier.fillMaxWidth().padding(top = 12.dp))
         Spacer(Modifier.height(12.dp))
         Row(
             Modifier.fillMaxWidth()
@@ -162,7 +164,7 @@ fun LocalLogin(store: ConnectedStore) {
             if (loading) "正在进入…" else "进入体验",
             enabled = !loading && agreed,
             onClick = {
-                store.loginExperience(selectedPhone)
+                store.loginExperience(selectedPhone, inviteCode)
             },
         )
 
@@ -309,6 +311,8 @@ fun ConnectedHome(
         val homeScope = driverHomeMapScope(driverAccount(payload))
         val chromeHidden = LocalMapChromeHost.current?.hiddenFor(homeScope) == true
         Column(Modifier.fillMaxSize()) {
+            if (!chromeHidden && payload.optJSONObject("operations")?.optJSONObject("company")?.optString("splitAccountStatus") == "UNSIGNED")
+                Text("所属公司尚未开通模拟分账账户，开通后可上线接单", color = Orange, modifier = Modifier.fillMaxWidth().padding(12.dp))
             if (!chromeHidden) DriverQualificationBanner(payload, navigate)
             if (!chromeHidden) Surface(
                 modifier = Modifier.fillMaxWidth(),
@@ -600,6 +604,9 @@ fun ConnectedProfile(
         verticalArrangement = Arrangement.spacedBy(Gap.M),
     ) {
         item { PageHeader("司机之家", action = "听单设置", onAction = { navigate("settings") }) }
+        if (payload.optJSONObject("operations")?.optJSONObject("company")?.optString("splitAccountStatus") == "UNSIGNED") item {
+            BusinessHint("所属公司尚未开通模拟分账账户，开通后可上线接单")
+        }
         item {
             // Plain identity card: initial avatar, name, vehicle and service score in ink on white.
             val name = d.optString("name", "司机")

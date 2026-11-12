@@ -110,6 +110,10 @@ class LiveOperationsTests(unittest.TestCase):
         s=self.login()['session'];p=self.user();other=self.user('13800000102');d=self.user('13800000001',True)
         did=d['profile']['driver']['id'];a=self.company(s);b=self.company(s,name='第二家公司')
         self.action(s,'ops.driverCompany.set',{'driverId':did,'companyId':a['id'],'expectedVersion':0})
+        blocked = self.da(d['token'],'driver.online',{'online':True},expected=403)
+        self.assertEqual(blocked.get('details',{}).get('reason', blocked.get('reason')), 'COMPANY_SPLIT_ACCOUNT_REQUIRED')
+        self.action(s,'ops.company.save',{'id':a['id'],'expectedVersion':a['version'],'name':a['name'],'supportPhone':None,'enabled':True,'taxNumber':'91420500MA4ABCDE1X'})
+        self.action(s,'ops.companySplit.open',{'companyId':a['id'],'expectedVersion':0,'accountName':'测试公司','bankName':'模拟银行','bankAccount':'62'+'0'*14})
         self.da(d['token'],'driver.online',{'online':True})
         o=self.pa(p['token'],'order.create',self.order_payload())['result']['order']
         self.da(d['token'],'order.accept',{'id':o['id']})

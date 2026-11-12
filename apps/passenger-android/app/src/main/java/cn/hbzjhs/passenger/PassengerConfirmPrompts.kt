@@ -48,6 +48,8 @@ private fun JSONObject.confirmPrompt(account: String, now: Instant): ConfirmProm
     ConfirmPrompt(PassengerConfirmPromptRules.key(account, id, question), id, title, message, primary)
   // Financial prompts only open the existing order page; nothing is paid or confirmed from here.
   return when {
+    optJSONObject("cancelFee")?.text("status") == "UNPAID" ->
+      prompt("cancelFee:${optJSONObject("cancelFee")?.optLong("amount")}", "您有待付空车费", "本单有待付空车费，结清前无法创建新行程。请进入订单核对后模拟支付。", "去结清")
     stage == "AVAILABLE" && text("kind") == "BID" && rows("bids").isNotEmpty() ->
       prompt("bids:${rows("bids").size}", "有司机报价了", "已有 ${rows("bids").size} 位司机报价，请选择司机。", "去选择司机")
     stage == "PREPAY" ->

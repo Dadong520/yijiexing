@@ -266,9 +266,17 @@ internal fun BusinessServiceScore(store: ConnectedStore, profile: JSONObject, on
                 BusinessHint("评分及变动均读取演示服务记录；提交投诉或反馈不自动代表违规成立。")
             }
         }
+        item { SheetCard {
+            SectionTitle("服务分等级区间")
+            score.bList("levels").forEach { level -> DetailRow(level.bText("name"), "${level.optDouble("min")}–${level.optDouble("max")}分") }
+            if (score.bList("levels").isEmpty()) BusinessHint("等级区间待服务端同步")
+        } }
         item { SectionTitle("评分变动记录") }
         if (entries.isEmpty()) item { BusinessEmpty("暂无评分变动", actionLabel = "刷新") { store.refresh() } }
-        items(entries) { entry -> BusinessLedgerRow(entry, "服务分变动") }
+        items(entries) { entry ->
+            BusinessLedgerRow(entry, "服务分变动")
+            if (entry.has("scoreAfter")) SheetCard { DetailRow("变动后分数", "${entry.optDouble("scoreAfter")} 分") }
+        }
     }
 }
 
@@ -313,12 +321,12 @@ internal fun BusinessReferral(
 ) {
     val referral = profile.bObj("referrals")
     val records = referral.bList("entries").ifEmpty { referral.bList("records") }
-    val code = referral.bText("code", fallback = "")
+    val code = referral.bText("code", "inviteCode", fallback = "")
     val context = LocalContext.current
     BusinessPage("分享拉新", store, onBack) {
         item {
             SheetCard {
-                Pill("演示活动演练")
+                Pill("模拟积分拉新")
                 Spacer(Modifier.height(18.dp))
                 Text("好服务，值得被分享", fontSize = 25.sp, fontWeight = FontWeight.Bold)
                 Text(
@@ -352,7 +360,7 @@ internal fun BusinessReferral(
                                         type = "text/plain"
                                         putExtra(
                                             Intent.EXTRA_TEXT,
-                                            "宜捷行司机端云端沙箱邀请码：$code（仅供演练，非正式活动）",
+                                            "宜捷行司机邀请码：$code（模拟积分奖励，不产生真实现金奖励）",
                                         )
                                     }
                                 context.startActivity(Intent.createChooser(intent, "选择分享方式"))
@@ -372,7 +380,7 @@ internal fun BusinessReferral(
             SheetCard {
                 DetailRow(
                     "受邀人",
-                    record.bText("name", "phoneTail", "mobileMasked", fallback = "演示合成乘客"),
+                    record.bText("name", "phoneTail", "mobileMasked", fallback = "受邀用户"),
                 )
                 DetailRow("邀请时间", record.bText("date", "createdAt"))
                 DetailRow(
@@ -392,10 +400,7 @@ internal fun BusinessReferral(
         }
         item {
             BusinessHint(
-                referral.bText(
-                    "rules",
-                    fallback = "邀请码由演示服务生成，数据为合成活动记录。正式推广链接、奖励核算和乘客注册仍需接入平台活动系统。",
-                )
+                driverReferralRuleText(referral.optJSONObject("rule"))
             )
         }
     }

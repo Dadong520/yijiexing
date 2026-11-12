@@ -280,7 +280,7 @@ internal fun BusinessFees(
                     } else if (order != null) {
                         Text(order.paymentStatusLabel, fontSize = 13.sp, color = Muted)
                     }
-                    Text(incomeLabel, color = Ink, fontSize = 15.sp, modifier = Modifier.padding(top = 16.dp))
+                    Text("司机分账金额 · $incomeLabel", color = Ink, fontSize = 15.sp, modifier = Modifier.padding(top = 16.dp))
                     Text(
                         "¥${money(displayedIncome)}",
                         fontSize = if (order?.paymentStatus == "REFUNDED") 28.sp else 36.sp,
@@ -295,7 +295,7 @@ internal fun BusinessFees(
                     SectionTitle("订单信息")
                     DetailRow("订单编号", id)
                     if (order != null) DetailRow("订单类型", order.kind.title)
-                    DetailRow("订单金额", "¥${money(fee.optLong("fare"))}")
+                    DetailRow("运价费", "¥${money(fee.optLong("fare"))}")
                 }
             }
             item {
@@ -305,12 +305,12 @@ internal fun BusinessFees(
                         modifier = Modifier.fillMaxWidth(),
                     ) { Text(if (showFeeDetails) "收起费用明细" else "展开费用明细") }
                     if (showFeeDetails) {
-                        DetailRow("支付手续费", "¥${money(fee.optLong("paymentFee"))}")
-                        DetailRow("分账手续费", "¥${money(fee.optLong("splitFee"))}")
+                        DetailRow("支付手续费(0.6%)", "¥${money(fee.optLong("paymentFee"))}")
+                        DetailRow("分账费(0.15%)", "¥${money(fee.optLong("splitFee"))}")
                         DetailRow("地图服务费", "¥${money(fee.optLong("mapServiceFee"))}")
-                        DetailRow("服务费", "¥${money(fee.optLong("serviceFee"))}")
+                        if (fee.optLong("passengerServiceFee") > 0) BusinessHint("区域服务费 ¥${money(fee.optLong("passengerServiceFee"))} 不计入司机收入")
                         HorizontalDivider(color = Line, modifier = Modifier.padding(vertical = 10.dp))
-                        DetailRow(incomeLabel, "¥${money(displayedIncome)}", Green)
+                        DetailRow("司机分账金额", "¥${money(fee.optLong("income", fee.optLong("driverIncome")))}", Green)
                         BusinessHint(fee.bText("policyLabel", fallback = "暂未返回计费政策说明"))
                     }
                 }

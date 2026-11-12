@@ -42,6 +42,8 @@ class PassengerMixin(CompetitionMixin,TripDistanceMixin,NegotiationMixin,Passeng
         else:
             pid=uid('P');profile={'id':pid,'mobile':mobile,'name':'体验乘客'+mobile[-2:],'city':'420500','cityName':'宜昌市','favorites':[],'feedback':[]}
             self.db.execute('INSERT INTO passengers VALUES (?,?,?)',(pid,mobile,dumps(profile)))
+            self.issue_new_user_coupons(pid)
+            self.register_referral('PASSENGER',pid,p.get('inviteCode'))
         token=secrets.token_urlsafe(32)
         self.db.execute('INSERT INTO passenger_sessions VALUES (?,?,?)',(token,pid,stamp(now()+dt.timedelta(days=7))))
         result=self.passenger_data(pid,p.get('client','MINIPROGRAM'));result['token']=token;return result
@@ -87,6 +89,8 @@ class PassengerMixin(CompetitionMixin,TripDistanceMixin,NegotiationMixin,Passeng
         orders=[json.loads(r['payload']) for r in self.db.execute('SELECT payload FROM passenger_orders WHERE passenger=?',(pid,))]
         require(not any(o['stage']=='WAIT_PAY' and not o.get('paid') for o in orders),
             '请先支付已结束行程的欠款后再叫车',409,{'reason':'PASSENGER_OUTSTANDING_PAYMENT'})
+        require(not any((o.get('cancelFee') or {}).get('status')=='UNPAID' for o in orders),
+            '请先支付有责取消产生的空车费后再叫车',409,{'reason':'PASSENGER_OUTSTANDING_CANCEL_FEE'})
         require(not any(o['stage'] in UNFINISHED and not (o.get('kind')=='RESERVED' and o.get('stage') in ('AVAILABLE','RESERVED')) for o in orders),'请先完成或取消当前订单',409)
     def order_fare_version(self,o):
         return o.get('fareVersion',0)
@@ -142,7 +146,7 @@ class PassengerMixin(CompetitionMixin,TripDistanceMixin,NegotiationMixin,Passeng
             elif cur_refund and not credited:
                 status,label,net='REFUNDED','已退款 · 未入账',0
             elif credited and not cur_refund:
-                status,label,net='CREDITED','已入账（模拟）',fare if assigned else 0
+                status,label,net='CREDITED','已入账（模拟）',(ref.get('settlement') or {}).get('driverAmount',fare) if assigned else 0
             elif stage=='DONE' and paid and not credited:
                 status,label,net='PENDING_CREDIT','待入账（模拟）',0
             elif stage=='WAIT_PAY' and not paid:
@@ -156,7 +160,7 @@ class PassengerMixin(CompetitionMixin,TripDistanceMixin,NegotiationMixin,Passeng
         o['settlementStatus']=status
         o['settlementLabel']=label
         o['netIncome']=int(net)
-        o['settlementUpdatedAt']=stamp()
+        o['settlementUpdatedAt']=(ref or {}).get('updatedAt') or (ref or {}).get('completedAt') or (ref or {}).get('createdAt')
         return o
 
     def driver_result_view(self,driver,result=None):
@@ -171,6 +175,8 @@ class PassengerMixin(CompetitionMixin,TripDistanceMixin,NegotiationMixin,Passeng
             value['order']=self.project_driver_order(driver,order)
         return value
     def save_shared(self,o,event=None):
+        if o.get('stage') in ('CANCELLED','WAIT_CONTINUE'):self.release_order_coupon(o)
+        self.score_order_events(o)
         self.operations.capture_order_company(o)
         self.refresh_distance_consent(o,persist=False)
         o['updatedAt']=stamp()
@@ -211,6 +217,7 @@ class PassengerMixin(CompetitionMixin,TripDistanceMixin,NegotiationMixin,Passeng
         for city in CITIES:
             cfg,_,_=self.effective(city['id']);regions.append({'id':city['id'],'name':city['name'],'enabled':bool(cfg['systemEnabled'])})
         extras=self.passenger_extra_data(pid)
+        extras.update(self.passenger_coupon_view(pid,extras));extras['referral']=self.referral_view('PASSENGER',pid)
         favorites=self.project_default_rows(profile['favorites'],extras['defaults']['favoriteId'])
         return {'operations':self.operations.passenger_state(pid,client,orders),**extras,'pointsMall':self.mall_view('PASSENGER',pid),'mapConfig':self.amap_public_config('passenger'),'tripDistanceRules':self.trip_distance_rules(profile['city']),'historicalLocations':historical[:20],'regions':regions,'passenger':{k:v for k,v in profile.items() if k not in ('favorites','feedback')},'orders':orders,'favorites':favorites,'feedback':profile['feedback'],
             'notices':[{'title':'独立体验环境','content':'双端共享实际创建的订单；短信、支付、退款为模拟。路线仅为坐标示意。后台可查看和回复已保存投诉；实时人工客服、电话中继和推送未配置。'}],
@@ -237,6 +244,7 @@ class PassengerMixin(CompetitionMixin,TripDistanceMixin,NegotiationMixin,Passeng
                 value=self.trip_order_view(o);value.pop('passengerId',None)
                 value['company']=self.operations.company_view(o.get('companyId'),'ORDER');value.pop('bids',None);value.pop('complaints',None)
                 value.setdefault('fareVersion',self.order_fare_version(o))
+                if 'tripFare' in o:value.update(payableFare=o['fare'],fare=o['tripFare'],passengerServiceFee=o.get('serviceFee',0))
                 if bid and not assigned:value['stage']='BID_SENT';value['fare']=bid['amount'];value['bidAt']=bid['createdAt']
                 # Keep the shipped driver's Stage.valueOf parser compatible while
                 # the passenger retains the canonical continuation decision.
@@ -253,7 +261,10 @@ class PassengerMixin(CompetitionMixin,TripDistanceMixin,NegotiationMixin,Passeng
     def shared_credit(self,o):
         if o['stage']!='DONE' or o['credited']:return
         driver=o['driverId'];st=self.sync_shared_orders(driver)
-        self.credit(driver,st,o);self.save_state(driver,st);self.award_passenger_points(o)
+        o['settlement']=self.order_settlement(o)
+        require(o['settlement']['driverAmount'] >= 0, '地图服务费高于运价净额，请联系后台修正费用配置后重试模拟结算', 409, {'reason': 'SETTLEMENT_NEGATIVE_DRIVER_AMOUNT'})
+        self.credit_company_split(o)
+        self.credit(driver,st,o);self.save_state(driver,st);self.consume_order_coupon(o);self.award_passenger_points(o)
     def validate_point(self,lat,lng):
         require(type(lat) in (int,float) and math.isfinite(lat) and -90<=lat<=90 and type(lng) in (int,float) and math.isfinite(lng) and -180<=lng<=180,'地图坐标无效')
     def validate_route_endpoints(self, origin, destination, start, end, waypoints):
@@ -313,8 +324,7 @@ class PassengerMixin(CompetitionMixin,TripDistanceMixin,NegotiationMixin,Passeng
             lat1,lat2=map(math.radians,(a[0],b[0]));dl=math.radians(b[0]-a[0]);dn=math.radians(b[1]-a[1]);h=math.sin(dl/2)**2+math.cos(lat1)*math.cos(lat2)*math.sin(dn/2)**2
             distance+=6371*2*math.asin(min(1,math.sqrt(max(0,h))))
         require(distance<=300,'体验行程须在300公里范围内')
-        estimate=max(800,int(round((8+max(0,distance*1.3-2)*2.4)*100)))
-        if destination_pending:estimate=0
+        estimate=0
         o={'id':uid('PORD'),'companyId':None,'companyAssignmentRecorded':False,'passengerId':pid,'driverId':None,'kind':kind,'origin':origin,'destination':dest,'city':city,'stage':'AVAILABLE','fare':estimate,'estimatedFare':estimate,'destinationPending':destination_pending,'fareConfirmed':False,
             'originLat':p['originLat'],'originLng':p['originLng'],'destinationLat':p['destinationLat'],'destinationLng':p['destinationLng'],'coordinateSystem':'WGS84','coordinatesSynthetic':False,
             'distance':'1.0','mileage':f'{distance*1.3:.1f}','time':scheduled if kind=='RESERVED' else '现在','scheduledAt':scheduled if kind=='RESERVED' else None,
@@ -325,6 +335,9 @@ class PassengerMixin(CompetitionMixin,TripDistanceMixin,NegotiationMixin,Passeng
             if prefix=='destination' and destination_pending:continue
             metadata=self.coordinate_metadata(p.get(prefix+'CoordinateMetadata'),o[prefix+'Lat'],o[prefix+'Lng'])
             if metadata is not None:o[prefix+'CoordinateMetadata']=metadata
+        self.price_new_order(o,distance*1.3*1000,parse_time(scheduled) if kind=='RESERVED' else now())
+        if p.get('couponId'):
+            self.lock_coupon(pid,o,p['couponId']);self.apply_order_price(o,o['tripFare']);o['estimatedFare']=o['fare']
         # Both rows are committed/rolled back by the existing request transaction.
         # The immutable contact never enters public order.payload or action results.
         self.db.execute('INSERT INTO passenger_orders VALUES (?,?,?,?,?)',(o['id'],pid,None,dumps(o),stamp()))
@@ -368,7 +381,7 @@ class PassengerMixin(CompetitionMixin,TripDistanceMixin,NegotiationMixin,Passeng
                 self.assert_no_trip_conflict(driver_id=driver,passenger_id=pid,exclude_order_id=o['id'])
                 eligibility_state={**st,'orders':[x for x in st['orders'] if x['id']!=o['id']]}
                 self.new_accept(driver,eligibility_state,{**o,'stage':'AVAILABLE'},'bidding')
-                o.update(driverId=driver,fare=bid['amount'],stage='PREPAY');st['todayAccepted']+=1;self.save_state(driver,st)
+                o.update(driverId=driver,stage='PREPAY',acceptedAt=stamp());o['fare']=None;self.apply_order_price(o,bid['amount']);st['todayAccepted']+=1;self.save_state(driver,st)
             elif action=='order.pay':
                 outcome=p.get('outcome','SUCCESS');require(outcome in ('SUCCESS','FAILED','PENDING','CANCEL'),'支付结果无效')
                 self.validate_negotiation_payment(o,p)
@@ -384,8 +397,13 @@ class PassengerMixin(CompetitionMixin,TripDistanceMixin,NegotiationMixin,Passeng
                     self.shared_credit(o)
             elif action=='order.cancel':
                 require(o['stage'] in ('AVAILABLE','PREPAY','RESERVED','PICKUP','ARRIVED','WAIT_CONTINUE'),'当前订单不能取消',409)
+                responsible=self.passenger_cancel_responsible(o)
                 o['cancelReason']=textfield(p.get('reason'),'取消原因',2,200);o['cancelledBy']='PASSENGER';o['stage']='CANCELLED'
-                if o['paid']:o.update(paid=False,paymentStatus='REFUNDED',refundAmount=o['fare'],refundedAt=stamp(),refundMode='SIMULATED')
+                self.apply_cancellation(o,'PASSENGER',responsible)
+            elif action=='order.payCancelFee':
+                fee=o.get('cancelFee');require(fee is not None and fee['status']=='UNPAID','此订单没有待支付的空车费',409)
+                require(type(p.get('expectedAmount')) is int and p['expectedAmount']==fee['amount'],'空车费金额已变化，请刷新后确认',409)
+                fee.update(status='PAID',paidAt=stamp(),source='PASSENGER_PAYMENT');self.credit_cancel_fee(o)
             elif action=='order.update':
                 require(o['stage'] in ('AVAILABLE','PREPAY','RESERVED','PICKUP','ARRIVED'),'当前阶段不能修改订单',409)
                 require(set(p)<={'id','remark','destination','destinationLat','destinationLng','destinationCoordinateMetadata'},'不支持修改这些订单字段')
@@ -402,8 +420,10 @@ class PassengerMixin(CompetitionMixin,TripDistanceMixin,NegotiationMixin,Passeng
                     for a,b in zip(points,points[1:]):
                         la,lb=map(math.radians,(a[0],b[0]));h=math.sin(math.radians(b[0]-a[0])/2)**2+math.cos(la)*math.cos(lb)*math.sin(math.radians(b[1]-a[1])/2)**2
                         distance+=12742*math.asin(min(1,math.sqrt(max(0,h))))
-                    require(distance<=300,'体验行程须在300公里内');estimate=max(800,int(round((8+max(0,distance*1.3-2)*2.4)*100)))
-                    o.update(destination=destination,destinationLat=p['destinationLat'],destinationLng=p['destinationLng'],estimatedFare=estimate,fare=estimate,mileage=f'{distance*1.3:.1f}',destinationPending=False,fareSource='DEMO_ESTIMATE')
+                    require(distance<=300,'体验行程须在300公里内')
+                    trip,detail=self.estimate_trip_fare(o['city'],distance*1.3*1000,parse_time(o['scheduledAt']) if o.get('scheduledAt') else now())
+                    o.update(destination=destination,destinationLat=p['destinationLat'],destinationLng=p['destinationLng'],mileage=f'{distance*1.3:.1f}',destinationPending=False,fareSource='DEMO_ESTIMATE')
+                    self.apply_order_price(o,trip,detail);o.update(estimatedFare=o['fare'],estimatedTripFare=trip)
                     if metadata is None:o.pop('destinationCoordinateMetadata',None)
                     else:o['destinationCoordinateMetadata']=metadata
             elif action=='order.continue':
@@ -415,10 +435,11 @@ class PassengerMixin(CompetitionMixin,TripDistanceMixin,NegotiationMixin,Passeng
                     o.setdefault('previousDrivers',[]).append(o.get('driverId'))
                     if o.get('refundAmount'):o.setdefault('refundHistory',[]).append({'amount':o.pop('refundAmount'),'at':o.pop('refundedAt',None),'driverId':o.get('driverId'),'mode':'SIMULATED'})
                     o.pop('paidAt',None);o.pop('refundMode',None)
+                    self.clear_released_coupon(o)
                     o.update(stage='AVAILABLE',driverId=None,bids=[],paid=False,credited=False,paymentStatus='UNPAID',fare=o['estimatedFare'],fareConfirmed=False,arrivedWaypoints=[],cancelledBy=None,cancelReason=None)
                     if o['kind']=='BID':o['expiresAt']=stamp(now()+dt.timedelta(minutes=10))
             elif action=='order.evaluate':
-                require(o['stage']=='DONE','完成行程后才可评价',409);rating=p.get('rating');require(type(rating) is int and 1<=rating<=5,'评价分数须为1到5')
+                require(o['stage']=='DONE','完成行程后才可评价',409);rating=p.get('rating');require(type(rating) in (int,float) and math.isfinite(rating) and 0.5<=rating<=5 and (rating*2)%1==0,'评价分数须为0.5到5的半分档')
                 content=textfield(p.get('content') or '','评价内容',0,1000)
                 if o['evaluation']:require(o['evaluation']['rating']==rating and o['evaluation']['content']==content,'此订单已评价',409)
                 else:o['evaluation']={'rating':rating,'content':content,'createdAt':stamp()}
@@ -498,7 +519,7 @@ class PassengerMixin(CompetitionMixin,TripDistanceMixin,NegotiationMixin,Passeng
                 require(o['kind']!='BID','竞价订单请报价')
                 if o['kind']!='RESERVED':
                     self.assert_no_trip_conflict(driver_id=driver,passenger_id=o.get('passengerId'),exclude_order_id=o['id'])
-                o['driverId']=driver;o['stage']='RESERVED' if o['kind']=='RESERVED' else 'PICKUP';st['todayAccepted']+=1
+                o['driverId']=driver;o['acceptedAt']=stamp();o['stage']='RESERVED' if o['kind']=='RESERVED' else 'PICKUP';st['todayAccepted']+=1
         else:
             require(o.get('driverId')==driver or (action=='order.cancel' and any(b['driverId']==driver for b in o['bids'])),'此订单不属于当前司机',403)
             if action=='order.advance':
@@ -539,4 +560,4 @@ class PassengerMixin(CompetitionMixin,TripDistanceMixin,NegotiationMixin,Passeng
         return {'orderId':oid,'coordinates':[[o['originLng'],o['originLat']]]+[[w['longitude'],w['latitude']] for w in o['waypoints']]+[[o['destinationLng'],o['destinationLat']]],'destinationPending':o.get('destinationPending',False),'source':'synthetic','coordinateSystem':'WGS84','notice':'坐标连线示意，未接实时路径规划，不能替代道路导航'}
     def passenger_fees(self,pid,oid):
         o=self.own_passenger_order(pid,oid)
-        return {'orderId':oid,'fare':o['fare'],'estimatedFare':o['estimatedFare'],'paymentFee':0,'serviceFee':0,'paid':o['paid'],'paymentStatus':o['paymentStatus'],'refundAmount':o.get('refundAmount',0),'sandbox':True,'policyLabel':'目的地待补充，费用未确定' if o.get('destinationPending') else '体验估价或选定报价；模拟支付，不收取真实款项'}
+        return {'orderId':oid,'fare':o['fare'],'estimatedFare':o['estimatedFare'],'paymentFee':0,'serviceFee':o.get('serviceFee',0),'tripFare':o.get('tripFare',o['fare']),'couponAmount':o.get('couponAmount',0),'couponLabel':o.get('couponLabel'),'fareDetail':o.get('fareDetail'),'cancelFee':o.get('cancelFee'),'paid':o['paid'],'paymentStatus':o['paymentStatus'],'refundAmount':o.get('refundAmount',0),'sandbox':True,'policyLabel':'目的地待补充，费用未确定' if o.get('destinationPending') else '体验估价或选定报价；模拟支付，不收取真实款项'}
