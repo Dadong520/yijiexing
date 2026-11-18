@@ -2,9 +2,12 @@ package cn.hbzjhs.passenger
 
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -13,6 +16,7 @@ import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Warning
 import androidx.compose.foundation.background
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -25,6 +29,7 @@ import androidx.compose.ui.semantics.*
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.delay
 import org.json.JSONObject
 
@@ -50,8 +55,14 @@ fun OrderDetail(o: JSONObject, store: PassengerStore, busy: Boolean, openOrder: 
   var contactPage by rememberSaveable(id) { mutableStateOf(false) }
   var fees by
     remember(id, o.optLong("fare"), o.optBoolean("paid")) { mutableStateOf<JSONObject?>(null) }
+  LaunchedEffect(id, stage, o.optLong("fare"), o.optBoolean("paid")) {
+    try {
+      fees = PassengerApi.request("GET", "/api/passenger/orders/$id/fees")
+    } catch (e: CancellationException) {
+      throw e
+    } catch (_: Exception) {}
+  }
   var sortLow by remember { mutableStateOf(true) }
-  var showRoute by remember(id) { mutableStateOf(false) }
   var driverCard by remember(id) { mutableStateOf(false) }
   var choose by remember { mutableStateOf<JSONObject?>(null) }
   var complaintForImage by remember { mutableStateOf("") }
@@ -188,22 +199,44 @@ fun OrderDetail(o: JSONObject, store: PassengerStore, busy: Boolean, openOrder: 
         KV("计划用车时间", formatTime(o.text("scheduledAt")))
       }
       if (hasDriverLoc) Note("司机位置更新于 ${driverTime.orEmpty()}")
-
-      Text("出发  ${o.text("origin")}", fontWeight = FontWeight.Bold)
-      o.rows("waypoints").forEachIndexed { index, w ->
-        val arrived =
-          o.optJSONArray("arrivedWaypoints")?.let { a ->
-            (0 until a.length()).any { a.optInt(it) == index }
-          } == true
-        Text(
-          "途经 ${index+1}  ${w.text("name",w.text("waypointName"))}  ${if(arrived)"✓ 已到达" else "待到达"}",
-          color = Muted,
-        )
+      val waypoints = o.rows("waypoints")
+      val arrivedSet = o.optJSONArray("arrivedWaypoints")?.let { a -> (0 until a.length()).map { a.optInt(it) }.toSet() } ?: emptySet()
+      Surface(
+        color = Paper,
+        shape = RoundedCornerShape(10.dp),
+        border = BorderStroke(1.dp, DividerTone),
+        modifier = Modifier.fillMaxWidth(),
+      ) {
+        Column(Modifier.padding(horizontal = 12.dp, vertical = 10.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+          OrderRouteNode(
+            dot = Teal,
+            tag = "起点",
+            tagColor = BrandStrong,
+            tagBg = BrandSoft,
+            address = o.text("origin"),
+            hasNext = true,
+          )
+          waypoints.forEachIndexed { index, w ->
+            val arrived = index in arrivedSet
+            OrderRouteNode(
+              dot = Sky,
+              tag = "途经 ${index + 1} · ${if (arrived) "已到达" else "待到达"}",
+              tagColor = if (arrived) Success else Sky,
+              tagBg = if (arrived) SuccessSoft else SkySoft,
+              address = w.text("name", w.text("waypointName")),
+              hasNext = true,
+            )
+          }
+          OrderRouteNode(
+            dot = Amber,
+            tag = "终点",
+            tagColor = Warm,
+            tagBg = WarmSoft,
+            address = if (o.optBoolean("destinationPending")) "目的地待补充" else o.text("destination"),
+            hasNext = false,
+          )
+        }
       }
-      Text(
-        if (o.optBoolean("destinationPending")) "到达  目的地待补充" else "到达  ${o.text("destination")}",
-        fontWeight = FontWeight.Bold,
-      )
       if (o.optBoolean("destinationPending")) {
         val canSupply = (stage == "AVAILABLE" && o.rows("bids").isEmpty()) || stage in listOf("PICKUP", "ARRIVED")
         Spacer(Modifier.height(4.dp))
@@ -211,14 +244,10 @@ fun OrderDetail(o: JSONObject, store: PassengerStore, busy: Boolean, openOrder: 
           dialog = "destination"
         }
       }
-      PassengerTextButton(onClick = { showRoute = !showRoute }) {
-        Text(if (showRoute) "收起乘车人与备注信息" else "乘车人与备注信息")
-      }
-      if (showRoute) {
-        if (o.text("remark").isNotBlank()) KV("乘客备注", o.text("remark"))
-        o.optJSONObject("rider")?.let { KV("乘车人", it.text("name")) }
-        KV("乘车手机号尾号", o.text("phoneTail"))
-      }
+      HorizontalDivider(color = DividerTone)
+      o.optJSONObject("rider")?.let { KV("乘车人", it.text("name")) }
+      KV("乘车手机号尾号", o.text("phoneTail").ifBlank { "未提供" })
+      if (o.text("remark").isNotBlank()) KV("乘客备注", o.text("remark"))
     }
     PassengerTripDistanceCard(o, store, busy)
     if (stage == "WAIT_CONTINUE")
@@ -297,14 +326,26 @@ fun OrderDetail(o: JSONObject, store: PassengerStore, busy: Boolean, openOrder: 
       }
     Panel("费用明细") {
       val farePresentation = orderFarePresentation(o)
-      Note(farePresentation.label)
-      Text(
-        if (o.optBoolean("destinationPending")) "费用待定（并非免费）" else "¥${money(o.optLong("fare"))}",
-        fontSize = TypeScale.Page,
-        lineHeight = 28.sp,
-        fontWeight = FontWeight.Bold,
-        color = Ink,
-      )
+      Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.SpaceBetween) {
+        Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
+          Note(farePresentation.label)
+          Text(
+            if (o.optBoolean("destinationPending")) "费用待定（并非免费）" else "¥${money(o.optLong("fare"))}",
+            fontSize = 20.sp,
+            lineHeight = 26.sp,
+            fontWeight = FontWeight.Bold,
+            color = BrandStrong,
+          )
+        }
+        PassengerTextButton(
+          onClick = { store.query("/api/passenger/orders/$id/fees") { fees = it } },
+          enabled = !busy,
+          contentPadding = PaddingValues(horizontal = 10.dp, vertical = 4.dp),
+        ) {
+          Text("刷新明细", fontSize = TypeScale.Caption)
+        }
+      }
+      HorizontalDivider(color = DividerTone)
       KV("运价费", "¥${money(o.optLong("tripFare", o.optLong("fare")))}")
       KV("区域服务费", "¥${money(o.optLong("serviceFee"))}")
       KV("优惠券抵扣", "−¥${money(o.optLong("couponAmount"))}${o.text("couponLabel").takeIf { it.isNotBlank() }?.let { " · $it" }.orEmpty()}")
@@ -318,14 +359,8 @@ fun OrderDetail(o: JSONObject, store: PassengerStore, busy: Boolean, openOrder: 
         paymentName(o.text("paymentStatus", if (o.optBoolean("paid")) "SUCCESS" else "UNPAID")),
       )
       if (o.optLong("refundAmount") > 0) KV("模拟退款金额", "¥${money(o.optLong("refundAmount"))}")
-      Note("体验计价 · 支付和退款均为模拟")
-      PassengerTextButton(
-        onClick = { store.query("/api/passenger/orders/$id/fees") { fees = it } },
-        enabled = !busy,
-      ) {
-        Text(if (fees == null) "展开费用明细" else "刷新费用明细")
-      }
       fees?.let { f ->
+        HorizontalDivider(color = DividerTone)
         KV(
           farePresentation.detailLabel,
           if (o.optBoolean("destinationPending")) "待定（目的地未补充）" else "¥${money(f.optLong("fare"))}",
@@ -335,6 +370,7 @@ fun OrderDetail(o: JSONObject, store: PassengerStore, busy: Boolean, openOrder: 
         KV("支付手续费", "¥${money(f.optLong("paymentFee"))}")
         Note(f.text("policyLabel", "独立体验估价"))
       }
+      Note("体验计价 · 支付和退款均为模拟")
       if (stage in listOf("PREPAY", "WAIT_PAY") && negotiated && o.text("negotiationStatus") != "OFFERED")
         Note("请等待司机重新报价，之后再次核对金额。")
     }
@@ -783,12 +819,40 @@ private fun stageMessage(o: JSONObject, negotiated: Boolean): String =
   }
 
 @Composable
+private fun OrderRouteNode(
+  dot: Color,
+  tag: String,
+  tagColor: Color,
+  tagBg: Color,
+  address: String,
+  hasNext: Boolean,
+) {
+  Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.Top, horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+    Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.padding(top = 4.dp)) {
+      Box(Modifier.size(10.dp).background(dot, CircleShape))
+      if (hasNext) Box(Modifier.padding(top = 4.dp).size(width = 2.dp, height = 22.dp).background(Line))
+    }
+    Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(3.dp)) {
+      Box(
+        Modifier
+          .clip(RoundedCornerShape(5.dp))
+          .background(tagBg)
+          .padding(horizontal = 6.dp, vertical = 1.dp)
+      ) {
+        Text(tag, color = tagColor, fontSize = 11.sp, fontWeight = FontWeight.SemiBold)
+      }
+      Text(address, color = Ink, fontSize = TypeScale.Body, fontWeight = FontWeight.SemiBold, lineHeight = 20.sp)
+    }
+  }
+}
+
+@Composable
 private fun OrderStatusBanner(title: String, message: String, summary: String) {
   // Plain status header: stage in ink with a small teal marker, message as body text.
   Column(Modifier.fillMaxWidth().padding(top = 4.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
     Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
       Box(Modifier.size(8.dp).background(Teal, androidx.compose.foundation.shape.CircleShape))
-      Text(title, color = Ink, fontSize = TypeScale.Page, lineHeight = 28.sp, fontWeight = FontWeight.Bold)
+      Text(title, color = Ink, fontSize = TypeScale.Page, lineHeight = 24.sp, fontWeight = FontWeight.Bold)
     }
     Text(message, color = Ink, fontSize = 14.sp, lineHeight = 20.sp)
     if (summary.isNotBlank()) Text(summary, color = Muted, fontSize = TypeScale.Caption, lineHeight = 16.sp)

@@ -12,6 +12,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.geometry.Offset
@@ -44,9 +45,9 @@ object Gap {
  * text smallest. Screens use these instead of ad-hoc sizes.
  */
 object DriverType {
-    val Page = 20.sp
-    val Title = 16.sp
-    val Body = 15.sp
+    val Page = 17.sp
+    val Title = 15.sp
+    val Body = 14.sp
     val Caption = 12.sp
 }
 
@@ -339,41 +340,50 @@ fun MembershipIdentityCard(store: ConnectedStore, navigate: (String) -> Unit) {
         subscription?.let { mRights(it) } ?: emptyList()
     }
     val features = payload.optJSONObject("features") ?: JSONObject()
-    // Brand-toned member card: soft teal wash to white with a teal hairline, gold only on the badge.
+    val cardGold = Color(0xFFF3D08A)
+    val cardGoldStrong = Color(0xFFD6A84E)
+    val cardDark = Color(0xFF172D2B)
+    val cardDarkEnd = Color(0xFF23423E)
+    val cardInk = Color(0xFF1B2B29)
+    // Prestige dark-teal & champagne-gold VIP membership card.
     Surface(
         modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(16.dp),
-        color = Color.White,
-        border = BorderStroke(1.dp, Green.copy(alpha = 0.22f)),
-        shadowElevation = 0.dp,
+        color = cardDark,
+        border = BorderStroke(1.dp, cardGoldStrong.copy(alpha = 0.55f)),
+        shadowElevation = 2.dp,
     ) {
         Column(
             Modifier.fillMaxWidth()
-                .background(Brush.linearGradient(listOf(Pale, BrandMist, Color.White)))
+                .background(Brush.linearGradient(listOf(cardDark, cardDarkEnd, Color(0xFF132220))))
+                .drawBehind {
+                    drawCircle(cardGold.copy(alpha = 0.08f), radius = size.height * 0.85f, center = Offset(size.width * 0.94f, 0f))
+                    drawCircle(cardGold.copy(alpha = 0.05f), radius = size.height * 0.45f, center = Offset(size.width * 0.75f, size.height))
+                }
                 .padding(Gap.L)
         ) {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Box(
-                    Modifier.size(40.dp).clip(CircleShape).background(GoldSoft),
+                    Modifier.size(40.dp).clip(CircleShape).background(cardGold.copy(alpha = 0.18f)),
                     contentAlignment = Alignment.Center,
                 ) {
-                    Glyph("gift", MemberAccent, Modifier.size(22.dp))
+                    Glyph("gift", cardGold, Modifier.size(21.dp))
                 }
                 Column(Modifier.weight(1f).padding(start = Gap.M)) {
-                    Text("会员司机", color = MemberInk.copy(alpha = 0.75f), fontSize = DriverType.Caption)
+                    Text("宜捷行 · 司机会员卡", color = cardGold.copy(alpha = 0.85f), fontSize = DriverType.Caption, fontWeight = FontWeight.Medium)
                     Text(
-                        if (active) subscription!!.mText("levelName") else if (trial != null) "体验权益" else "尚未开通会员",
-                        color = MemberInk,
-                        fontSize = DriverType.Page,
+                        if (active) subscription!!.mText("levelName") else if (trial != null) "体验权益卡" else "尚未开通会员",
+                        color = Color.White,
+                        fontSize = 18.sp,
                         fontWeight = FontWeight.Bold,
                     )
                 }
                 Text(
                     if (active) "生效中" else if (trial?.mText("status") == "ENDED") "已结束" else if (trial != null) "体验中" else "未开通",
-                    color = MemberAccent,
+                    color = cardInk,
                     fontSize = DriverType.Caption,
                     fontWeight = FontWeight.Bold,
-                    modifier = Modifier.clip(RoundedCornerShape(6.dp)).background(Color.White.copy(alpha = 0.7f)).padding(horizontal = 8.dp, vertical = 4.dp),
+                    modifier = Modifier.clip(RoundedCornerShape(8.dp)).background(cardGold).padding(horizontal = 8.dp, vertical = 4.dp),
                 )
             }
             Spacer(Modifier.height(Gap.M))
@@ -384,8 +394,8 @@ fun MembershipIdentityCard(store: ConnectedStore, navigate: (String) -> Unit) {
                     trial.mText("status") == "ENDED" -> "体验已结束 · 历史订单与钱包保留"
                     else -> "体验剩余 ${trial.mNumber("daysRemaining")} 天 · ${trial.mNumber("ordersRemaining")} 单"
                 },
-                color = MemberInk,
-                fontSize = 14.sp,
+                color = Color.White.copy(alpha = 0.9f),
+                fontSize = 13.sp,
             )
             Spacer(Modifier.height(Gap.S))
             val shown = rights.take(3).map { it.mText("name", it.mText("title", it.mText("label"))) }.filter { it != "—" }
@@ -394,16 +404,16 @@ fun MembershipIdentityCard(store: ConnectedStore, navigate: (String) -> Unit) {
                     shown.forEach {
                         Text(
                             it,
-                            color = MemberInk,
+                            color = cardGold,
                             fontSize = DriverType.Caption,
-                            modifier = Modifier.clip(RoundedCornerShape(6.dp)).background(Color.White.copy(alpha = 0.6f)).padding(horizontal = 6.dp, vertical = 2.dp),
+                            modifier = Modifier.clip(RoundedCornerShape(6.dp)).background(Color.White.copy(alpha = 0.1f)).padding(horizontal = 8.dp, vertical = 3.dp),
                         )
                     }
                 }
             else
                 Text(
                     "接单 ${if (features.optBoolean("canAcceptOrders")) "可用" else "不可用"} · 线下议价 ${if (features.optBoolean("canNegotiate")) "可用" else "未开放"} · 热力 ${if (features.optBoolean("canHeatmap")) "可用" else "未开放"}",
-                    color = MemberInk.copy(alpha = 0.85f),
+                    color = Color.White.copy(alpha = 0.78f),
                     fontSize = DriverType.Caption,
                 )
             Spacer(Modifier.height(Gap.M))
@@ -414,7 +424,7 @@ fun MembershipIdentityCard(store: ConnectedStore, navigate: (String) -> Unit) {
                     },
                     modifier = Modifier.weight(1f).heightIn(min = DriverButtonSize.Min),
                     shape = RoundedCornerShape(DriverButtonSize.Corner),
-                    colors = ButtonDefaults.buttonColors(containerColor = Green, contentColor = Color.White),
+                    colors = ButtonDefaults.buttonColors(containerColor = cardGold, contentColor = cardInk),
                 ) {
                     Text(if (active) "管理会员" else "查看权益", fontWeight = FontWeight.Bold)
                 }
@@ -422,10 +432,10 @@ fun MembershipIdentityCard(store: ConnectedStore, navigate: (String) -> Unit) {
                     onClick = { navigate(mRoute("records")) },
                     modifier = Modifier.weight(1f).heightIn(min = DriverButtonSize.Min),
                     shape = RoundedCornerShape(DriverButtonSize.Corner),
-                    border = BorderStroke(1.dp, MemberInk.copy(alpha = 0.4f)),
-                    colors = ButtonDefaults.outlinedButtonColors(containerColor = Color.White),
+                    border = BorderStroke(1.dp, cardGold.copy(alpha = 0.5f)),
+                    colors = ButtonDefaults.outlinedButtonColors(containerColor = Color.White.copy(alpha = 0.08f)),
                 ) {
-                    Text("开通记录", color = MemberInk)
+                    Text("开通记录", color = Color.White)
                 }
             }
         }

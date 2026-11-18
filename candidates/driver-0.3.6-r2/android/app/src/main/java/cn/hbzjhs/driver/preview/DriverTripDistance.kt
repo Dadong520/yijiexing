@@ -80,7 +80,8 @@ fun driverHasPendingDistanceConsent(orderId: String, stage: String, store: Conne
 fun DriverTripDistanceCard(
     orderId: String,
     stage: String,
-    store: ConnectedStore
+    store: ConnectedStore,
+    onRelocate: (() -> Unit)? = null,
 ) {
     val rawPayload by store.payload.collectAsState()
     val order = findOrder(rawPayload, orderId) ?: return
@@ -215,11 +216,23 @@ fun DriverTripDistanceCard(
                     ) {
                         Text("刷新乘客确认状态", fontSize = 14.sp, color = Color.White)
                     }
+                    if (onRelocate != null && reasonText.contains("司机定位")) {
+                        Spacer(modifier = Modifier.height(8.dp))
+                        BusinessOutlinedButton(onClick = onRelocate, modifier = Modifier.fillMaxWidth()) {
+                            Text("重新定位", fontSize = 14.sp)
+                        }
+                    }
                 }
                 status == "REJECTED" -> {
                     Text("乘客已拒绝本次${typeLabel}确认", fontWeight = FontWeight.Bold, fontSize = 15.sp, color = alertAmber)
                     Spacer(modifier = Modifier.height(4.dp))
                     Text("订单维持当前阶段。司机可调整定位或与乘客沟通后，重新移动到位再次申请。", fontSize = 14.sp, color = textDark)
+                    if (onRelocate != null) {
+                        Spacer(modifier = Modifier.height(8.dp))
+                        BusinessOutlinedButton(onClick = onRelocate, modifier = Modifier.fillMaxWidth()) {
+                            Text("重新定位", fontSize = 14.sp)
+                        }
+                    }
                 }
                 status == "EXPIRED" || (status == "PENDING" && isExpired) -> {
                     Text("本次确认请求已超时失效", fontWeight = FontWeight.Bold, fontSize = 15.sp, color = Color.Red)
@@ -232,6 +245,12 @@ fun DriverTripDistanceCard(
                         shape = RoundedCornerShape(8.dp)
                     ) {
                         Text("刷新订单状态", fontSize = 14.sp, color = primaryGreen)
+                    }
+                    if (onRelocate != null) {
+                        Spacer(modifier = Modifier.height(8.dp))
+                        BusinessOutlinedButton(onClick = onRelocate, modifier = Modifier.fillMaxWidth()) {
+                            Text("重新定位", fontSize = 14.sp)
+                        }
                     }
                 }
                 status == "APPROVED" -> {

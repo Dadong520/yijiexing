@@ -228,7 +228,7 @@ fun MapPanelLayout(
   }
   BoxWithConstraints(modifier.fillMaxSize().clipToBounds()) {
     val full = constraints.maxHeight.toFloat()
-    val handle = if (handlePx > 0) handlePx.toFloat() else with(density) { 96.dp.toPx() }
+    val handle = if (handlePx > 0) handlePx.toFloat() else with(density) { 48.dp.toPx() }
     val bar = if (bottomBar == null) 0f else barPx.toFloat()
     val collapsedTop = (full - handle).coerceAtLeast(0f)
     // Half height keeps the handle, the pinned actions and some content visible even on small
@@ -257,8 +257,8 @@ fun MapPanelLayout(
           val placeable = measurable.measure(c.copy(minHeight = h, maxHeight = h))
           layout(placeable.width, h) { placeable.place(0, 0) }
         },
-      shape = RoundedCornerShape(topStart = 24.dp, topEnd = 24.dp),
-      color = Color.White,
+      shape = RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp),
+      color = Paper,
       shadowElevation = 8.dp,
       border = BorderStroke(1.dp, Line),
     ) {
@@ -308,6 +308,7 @@ private fun MapPanelHandle(panel: MapPanelState, collapsedLabel: String, modifie
   Column(
     modifier
       .fillMaxWidth()
+      .heightIn(min = 48.dp)
       .clickable(onClickLabel = if (next == MapPanelValue.Expanded) "展开全部功能" else "半屏显示地图和功能", role = Role.Button) {
         panel.animateTo(next)
       }
@@ -322,19 +323,19 @@ private fun MapPanelHandle(panel: MapPanelState, collapsedLabel: String, modifie
             .takeIf { value != MapPanelValue.Collapsed },
         )
       }
-      .padding(horizontal = 8.dp),
+      .padding(horizontal = 12.dp),
     horizontalAlignment = Alignment.CenterHorizontally,
   ) {
-    // Larger grab bar with a visible swipe hint; the whole handle strip (not only the bar) drags.
+    // Gesture-only handle strip: drag up/down or tap to cycle panel states without bulky pinned buttons.
     Box(
       Modifier
         .padding(top = 10.dp, bottom = 4.dp)
-        .size(width = 48.dp, height = 5.dp)
-        .background(ControlOutline.copy(alpha = 0.55f), CircleShape),
+        .size(width = 44.dp, height = 4.dp)
+        .background(ControlOutline.copy(alpha = 0.5f), CircleShape),
     )
     Text(
       when (value) {
-        MapPanelValue.Collapsed -> "上滑或点按恢复面板"
+        MapPanelValue.Collapsed -> "上滑或点按恢复 · $collapsedLabel"
         MapPanelValue.Half -> "上滑展开全部 · 下滑看地图"
         MapPanelValue.Expanded -> "下滑回到半屏"
       },
@@ -342,36 +343,7 @@ private fun MapPanelHandle(panel: MapPanelState, collapsedLabel: String, modifie
       fontSize = TypeScale.Caption,
       maxLines = 1,
       overflow = TextOverflow.Ellipsis,
-      modifier = Modifier.clearAndSetSemantics {},
+      modifier = Modifier.padding(bottom = 8.dp).clearAndSetSemantics {},
     )
-    // Every state shows the same single-line row of 48dp pills, so the handle height never jumps.
-    Row(
-      Modifier.fillMaxWidth().padding(top = 4.dp, bottom = 8.dp),
-      horizontalArrangement = Arrangement.spacedBy(10.dp),
-      verticalAlignment = Alignment.CenterVertically,
-    ) {
-      if (value == MapPanelValue.Collapsed) {
-        IconActionButton(
-          collapsedLabel,
-          Icons.Default.KeyboardArrowUp,
-          modifier = Modifier.weight(1f),
-          tint = Color.White,
-          container = Teal,
-        ) { panel.animateTo(MapPanelValue.Half) }
-      } else {
-        IconActionButton(
-          "看地图",
-          Icons.Default.KeyboardArrowDown,
-          modifier = Modifier.weight(1f),
-          tint = Sky,
-          container = SkySoft,
-        ) { panel.animateTo(MapPanelValue.Collapsed) }
-        IconActionButton(
-          if (value == MapPanelValue.Expanded) "收起一半" else "展开全部",
-          if (value == MapPanelValue.Expanded) Icons.Default.KeyboardArrowDown else Icons.Default.KeyboardArrowUp,
-          modifier = Modifier.weight(1f),
-        ) { panel.animateTo(if (value == MapPanelValue.Expanded) MapPanelValue.Half else MapPanelValue.Expanded) }
-      }
-    }
   }
 }

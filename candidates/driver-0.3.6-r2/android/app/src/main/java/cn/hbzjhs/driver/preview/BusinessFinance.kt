@@ -2,6 +2,8 @@
 
 package cn.hbzjhs.driver.preview
 
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.background
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.selection.selectable
@@ -15,6 +17,7 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -45,10 +48,15 @@ internal fun BusinessBanks(
         item { BusinessHint("演示仅接收 9000 开头的演示卡号，不调用银行，不绑定真实账户。") }
         if (cards.isEmpty()) item { BusinessEmpty("尚未添加演示银行卡，点击右上角添加。") }
         items(cards, key = { it.bText("id") }) { card ->
-            Surface(shape = RoundedCornerShape(20.dp), color = Green) {
-                Column(Modifier.fillMaxWidth().padding(20.dp)) {
+            Surface(shape = RoundedCornerShape(18.dp), color = GreenStrong, shadowElevation = 2.dp) {
+                Column(
+                    Modifier
+                        .fillMaxWidth()
+                        .background(Brush.linearGradient(listOf(Green, GreenStrong)))
+                        .padding(18.dp)
+                ) {
                     Row(verticalAlignment = Alignment.CenterVertically) {
-                        Glyph("card", Color.White, Modifier.size(30.dp))
+                        Glyph("card", Color.White, Modifier.size(28.dp))
                         Text(
                             card.bText("bankName"),
                             color = Color.White,
@@ -57,37 +65,55 @@ internal fun BusinessBanks(
                             modifier = Modifier.weight(1f).padding(start = 12.dp),
                         )
                         if (card.optBoolean("isDefault"))
-                            Pill("默认", Color.White, Color.White.copy(alpha = .2f))
+                            Pill("默认", GreenStrong, Color.White.copy(alpha = 0.92f))
                     }
                     Text(
                         bCardNumber(card),
                         color = Color.White,
-                        fontSize = 23.sp,
-                        modifier = Modifier.padding(vertical = 20.dp),
+                        fontSize = 20.sp,
+                        fontWeight = FontWeight.SemiBold,
+                        modifier = Modifier.padding(vertical = 18.dp),
                     )
                     Text(
                         "持卡人 · ${card.bText("holder")}",
                         color = Color.White.copy(alpha = .85f),
-                        fontSize = 15.sp,
+                        fontSize = 14.sp,
                     )
                     FlowRow(
-                        Modifier.fillMaxWidth().padding(top = 12.dp),
-                        horizontalArrangement = Arrangement.End,
+                        Modifier.fillMaxWidth().padding(top = 14.dp),
+                        horizontalArrangement = Arrangement.spacedBy(10.dp, Alignment.End),
                         verticalArrangement = Arrangement.spacedBy(8.dp),
                     ) {
                         if (!card.optBoolean("isDefault"))
-                            BusinessTextButton(
+                            OutlinedButton(
                                 onClick = {
                                     store.perform("bank.default", bJson("id" to card.bText("id"))) {
                                         onMessage("默认提现卡已更新")
                                     }
                                 },
                                 enabled = !busy,
+                                modifier = Modifier.heightIn(min = 42.dp),
+                                shape = RoundedCornerShape(10.dp),
+                                border = BorderStroke(1.dp, Color.White.copy(alpha = 0.72f)),
+                                colors = ButtonDefaults.outlinedButtonColors(
+                                    containerColor = Color.White.copy(alpha = 0.14f),
+                                    contentColor = Color.White,
+                                ),
                             ) {
-                                Text("设为默认", color = Color.White)
+                                Text("设为默认", fontSize = 13.sp, fontWeight = FontWeight.SemiBold)
                             }
-                        BusinessTextButton(onClick = { remove = card }, enabled = !busy) {
-                            Text("解除绑定", color = Color.White)
+                        Button(
+                            onClick = { remove = card },
+                            enabled = !busy,
+                            modifier = Modifier.heightIn(min = 42.dp),
+                            shape = RoundedCornerShape(10.dp),
+                            colors = ButtonDefaults.buttonColors(
+                                containerColor = Color.White,
+                                contentColor = Danger,
+                            ),
+                            elevation = ButtonDefaults.buttonElevation(defaultElevation = 0.dp),
+                        ) {
+                            Text("解除绑定", fontSize = 13.sp, fontWeight = FontWeight.Bold)
                         }
                     }
                 }
@@ -241,7 +267,10 @@ internal fun BusinessPassword(
                     if (mode == "change")
                         BusinessField(
                             oldPassword,
-                            { oldPassword = it.filter(Char::isDigit).take(6) },
+                            {
+                                oldPassword = it.filter(Char::isDigit).take(6)
+                                if (validation.isNotBlank()) validation = ""
+                            },
                             "原交易密码",
                             password = true,
                         )
@@ -277,18 +306,26 @@ internal fun BusinessPassword(
                     }
                     BusinessField(
                         password,
-                        { password = it.filter(Char::isDigit).take(6) },
+                        {
+                            password = it.filter(Char::isDigit).take(6)
+                            if (validation.isNotBlank()) validation = ""
+                        },
                         "新交易密码",
                         password = true,
                     )
                     BusinessField(
                         confirmation,
-                        { confirmation = it.filter(Char::isDigit).take(6) },
+                        {
+                            confirmation = it.filter(Char::isDigit).take(6)
+                            if (validation.isNotBlank()) validation = ""
+                        },
                         "确认新交易密码",
                         password = true,
                     )
                     if (validation.isNotBlank())
-                        Text(validation, color = MaterialTheme.colorScheme.error, fontSize = 15.sp)
+                        Surface(color = DangerSoft, shape = RoundedCornerShape(8.dp), modifier = Modifier.fillMaxWidth().padding(top = 6.dp)) {
+                            Text(validation, color = Danger, fontSize = 14.sp, modifier = Modifier.padding(horizontal = 12.dp, vertical = 8.dp))
+                        }
                     Spacer(Modifier.height(12.dp))
                     PrimaryButton("确认${if (mode == "reset") "重置" else "保存"}", enabled = !busy) {
                         validation =
@@ -296,7 +333,8 @@ internal fun BusinessPassword(
                                 password.length != 6 -> "交易密码需为 6 位数字"
                                 confirmation != password -> "两次输入的密码不一致"
                                 mode == "change" && oldPassword.length != 6 -> "请输入原 6 位交易密码"
-                                mode == "reset" && code.isBlank() -> "请先获取并输入验证码"
+                                mode == "change" && password == oldPassword -> "新交易密码不能与原密码相同"
+                                mode == "reset" && code.length < 6 -> "请输入 6 位验证码"
                                 else -> ""
                             }
                         if (validation.isBlank())
@@ -307,6 +345,10 @@ internal fun BusinessPassword(
                                     "oldPassword" to oldPassword,
                                     "code" to code,
                                 ),
+                                onFailure = { err ->
+                                    validation = err
+                                    if (mode == "change") oldPassword = ""
+                                },
                             ) {
                                 password = ""
                                 confirmation = ""
@@ -413,19 +455,35 @@ internal fun BusinessWithdraw(
             }
         item {
             SheetCard {
-                if (hasPassword)
+                if (hasPassword) {
                     BusinessField(
                         password,
-                        { password = it.filter(Char::isDigit).take(6) },
+                        {
+                            password = it.filter(Char::isDigit).take(6)
+                            if (validation.isNotBlank()) validation = ""
+                        },
                         "6 位交易密码",
                         password = true,
                     )
-                else {
+                    Text("提交后由服务端实时校验交易密码，密码错误将被拒绝提现。", color = Muted, fontSize = 12.sp)
+                } else {
                     Text("尚未设置交易密码", color = Orange)
                     BusinessTextButton(onClick = { navigate("walletsettings/set") }) { Text("先设置交易密码") }
                 }
                 if (validation.isNotBlank())
-                    Text(validation, color = MaterialTheme.colorScheme.error, fontSize = 15.sp)
+                    Surface(
+                        color = DangerSoft,
+                        shape = RoundedCornerShape(8.dp),
+                        modifier = Modifier.fillMaxWidth().padding(top = 8.dp),
+                    ) {
+                        Text(
+                            validation,
+                            color = Danger,
+                            fontSize = 14.sp,
+                            fontWeight = FontWeight.Medium,
+                            modifier = Modifier.padding(horizontal = 12.dp, vertical = 8.dp),
+                        )
+                    }
                 Spacer(Modifier.height(12.dp))
                 PrimaryButton("提交提现申请", enabled = !busy && hasPassword && cards.isNotEmpty()) {
                     val value = cents()
@@ -458,6 +516,10 @@ internal fun BusinessWithdraw(
                     "password" to password,
                     "bankCardId" to selectedId,
                 ),
+                onFailure = { err ->
+                    validation = err
+                    password = ""
+                },
             ) { reply ->
                 success = bResult(reply)
                 amount = ""

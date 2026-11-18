@@ -97,6 +97,19 @@ private fun ConnectedApp(store: ConnectedStore, state: DriverState) {
     var showPermissionGuide by rememberSaveable { mutableStateOf(false) }
     var pendingFloatingEnable by rememberSaveable { mutableStateOf(false) }
     val requestedAlertOrder by NewOrderAlerts.openRequested.collectAsState()
+    val latestLoggedIn by rememberUpdatedState(state.loggedIn)
+    val latestDriverId by rememberUpdatedState(
+        payload.optJSONObject("profile")?.optJSONObject("driver")?.optString("id").orEmpty()
+    )
+    var offlineRelocateGen by remember { mutableIntStateOf(0) }
+    var cancelOfflineRelocate by remember { mutableStateOf<(() -> Unit)?>(null) }
+    DisposableEffect(state.loggedIn, latestDriverId) {
+        onDispose {
+            offlineRelocateGen++
+            cancelOfflineRelocate?.invoke()
+            cancelOfflineRelocate = null
+        }
+    }
     val holder = rememberSaveableStateHolder()
     val snackbar = remember { SnackbarHostState() }
     val scope = rememberCoroutineScope()
@@ -129,9 +142,9 @@ private fun ConnectedApp(store: ConnectedStore, state: DriverState) {
                 payload.optJSONObject("features")?.optBoolean("canFloating", false) == true,
             )
     /**
-     * User-pressed "重新定位": no permission → the existing permission guide; system location off →
-     * system location settings; otherwise a running service gets a fresh-fix request (no restart, so
-     * reminders/competition state survive), or, while listening/on a trip, the normal full start.
+     * User-pressed "重新定位": works both while listening/in-trip and while resting (e.g. from profile).
+     * No permission -> permission guide; system location off -> system location settings; otherwise
+     * delegates to running DriverLocationService or acquires a direct single fix via LocationManager.
      */
     fun relocate() {
         if (context.checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -139,25 +152,106 @@ private fun ConnectedApp(store: ConnectedStore, state: DriverState) {
             return
         }
         val lm = context.getSystemService(android.location.LocationManager::class.java)
-        if (lm != null && !androidx.core.location.LocationManagerCompat.isLocationEnabled(lm)) {
+        if (lm == null || !androidx.core.location.LocationManagerCompat.isLocationEnabled(lm)) {
+            PositionBus.mutableStatus.value = "请开启系统定位服务"
             runCatching {
                 context.startActivity(Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS))
             }.onFailure { message("无法打开系统定位设置，请在手机设置中开启定位") }
             return
         }
-        if (!state.loggedIn || !connected || !(state.online || state.activeOrder != null)) {
-            message("开启听单或进入行程后会自动定位并同步位置")
+        if (!state.loggedIn) {
+            message("请先登录后再重新定位")
             return
         }
-        if (DriverLocationService.running)
+        if (DriverLocationService.running) {
+            PositionBus.mutableStatus.value = "正在重新定位…"
             runCatching {
                 context.startService(
                     Intent(context, DriverLocationService::class.java).setAction(DriverLocationService.ACTION_RETRY_LOCATION)
                 )
+                message("正在刷新定位…")
             }.onFailure { message("暂时无法重新定位，请稍后再试") }
-        else
-            runCatching { context.startForegroundService(locationServiceIntent()) }
-                .onFailure { message("定位服务暂未启动，请回到首页重新开启听单") }
+            return
+        }
+        if (state.online || state.activeOrder != null) {
+            PositionBus.mutableStatus.value = "正在获取位置"
+            runCatching {
+                context.startForegroundService(locationServiceIntent())
+                message("正在启动定位服务…")
+            }.onFailure { message("定位服务暂未启动，请回到首页重新开启听单") }
+            return
+        }
+        // Resting (offline, e.g. triggered from Profile): perform a direct one-shot fix with strict freshness & account guards.
+        val providers = listOf(android.location.LocationManager.GPS_PROVIDER, android.location.LocationManager.NETWORK_PROVIDER)
+            .filter { it in lm.allProviders && lm.isProviderEnabled(it) }
+        if (providers.isEmpty()) {
+            PositionBus.mutableStatus.value = "请开启系统定位服务"
+            message("请开启系统定位服务后重试")
+            return
+        }
+        cancelOfflineRelocate?.invoke()
+        cancelOfflineRelocate = null
+        val requestGen = ++offlineRelocateGen
+        val requestDriverId = latestDriverId
+        PositionBus.mutableStatus.value = "正在重新定位…"
+        val nowMs = System.currentTimeMillis()
+        val cached = providers
+            .mapNotNull { runCatching { lm.getLastKnownLocation(it) }.getOrNull() }
+            .filter { isUsableDriverFix(it.latitude, it.longitude, it.accuracy, it.time, nowMs, 120_000L) }
+            .maxByOrNull { it.time }
+        if (cached != null) {
+            PositionBus.latest.value = DriverPosition(cached.latitude, cached.longitude, cached.accuracy, cached.time)
+            PositionBus.mutableStatus.value = "已定位 · 精度约 ${cached.accuracy.toInt()} 米"
+            message("定位已更新（精度约 ${cached.accuracy.toInt()} 米）")
+            return
+        }
+        val handler = android.os.Handler(android.os.Looper.getMainLooper())
+        val listeners = mutableListOf<android.location.LocationListener>()
+        var settled = false
+        val finish: () -> Unit = {
+            listeners.forEach { runCatching { lm.removeUpdates(it) } }
+            listeners.clear()
+        }
+        val timeout = Runnable {
+            if (settled) return@Runnable
+            settled = true
+            finish()
+            if (cancelOfflineRelocate != null && offlineRelocateGen == requestGen) {
+                cancelOfflineRelocate = null
+            }
+            if (offlineRelocateGen != requestGen || !latestLoggedIn || latestDriverId != requestDriverId) return@Runnable
+            PositionBus.mutableStatus.value = "暂未获取到新位置，请移至开阔处后重试"
+            message("暂未获取到新位置，请移至开阔处后重试")
+        }
+        cancelOfflineRelocate = {
+            settled = true
+            handler.removeCallbacks(timeout)
+            finish()
+        }
+        providers.forEach { provider ->
+            val listener = object : android.location.LocationListener {
+                override fun onLocationChanged(loc: android.location.Location) {
+                    if (settled || offlineRelocateGen != requestGen) return
+                    val callbackNow = System.currentTimeMillis()
+                    if (!isUsableDriverFix(loc.latitude, loc.longitude, loc.accuracy, loc.time, callbackNow, 120_000L)) return
+                    settled = true
+                    handler.removeCallbacks(timeout)
+                    finish()
+                    if (offlineRelocateGen == requestGen) cancelOfflineRelocate = null
+                    if (!latestLoggedIn || latestDriverId != requestDriverId) return
+                    PositionBus.latest.value = DriverPosition(loc.latitude, loc.longitude, loc.accuracy, loc.time)
+                    PositionBus.mutableStatus.value = "已定位 · 精度约 ${loc.accuracy.toInt()} 米"
+                    message("已更新定位（精度约 ${loc.accuracy.toInt()} 米）")
+                }
+                override fun onProviderEnabled(p: String) {}
+                override fun onProviderDisabled(p: String) {}
+                @Deprecated("Deprecated in Android")
+                override fun onStatusChanged(p: String?, s: Int, e: Bundle?) {}
+            }
+            listeners += listener
+            runCatching { lm.requestLocationUpdates(provider, 0L, 0f, listener, android.os.Looper.getMainLooper()) }
+        }
+        handler.postDelayed(timeout, 8000L)
     }
     fun navigate(value: String) {
         when (value) {
@@ -648,3 +742,16 @@ private fun ConnectedApp(store: ConnectedStore, state: DriverState) {
         )
     }
 }
+
+/** Validates resting-mode location fixes: rejects (0,0), non-positive accuracy, and >120s stale caches. */
+internal fun isUsableDriverFix(
+    lat: Double,
+    lng: Double,
+    accuracy: Float,
+    sampleTimeMs: Long,
+    nowMs: Long,
+    maxAgeMs: Long = 120_000L,
+): Boolean =
+    lat.isFinite() && lng.isFinite() && !(lat == 0.0 && lng == 0.0) &&
+        accuracy.isFinite() && accuracy > 0f &&
+        sampleTimeMs > 0L && (nowMs - sampleTimeMs) in -60_000L..maxAgeMs

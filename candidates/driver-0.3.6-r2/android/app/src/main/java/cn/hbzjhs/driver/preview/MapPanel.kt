@@ -184,7 +184,7 @@ fun MapPanelLayout(
     collapsedLabel: String = "显示功能面板",
     halfMapFraction: Float = 0.46f,
     minHalfContent: Dp = 160.dp,
-    containerColor: Color = Color.White,
+    containerColor: Color = Page,
     map: @Composable (Modifier) -> Unit,
     bottomBar: (@Composable () -> Unit)? = null,
     content: @Composable BoxScope.() -> Unit,
@@ -230,7 +230,7 @@ fun MapPanelLayout(
     }
     BoxWithConstraints(modifier.fillMaxSize().clipToBounds()) {
         val full = constraints.maxHeight.toFloat()
-        val handle = if (handlePx > 0) handlePx.toFloat() else with(density) { 96.dp.toPx() }
+        val handle = if (handlePx > 0) handlePx.toFloat() else with(density) { 48.dp.toPx() }
         val bar = if (bottomBar == null) 0f else barPx.toFloat()
         val collapsedTop = (full - handle).coerceAtLeast(0f)
         // Half height keeps the handle, the pinned actions and some content visible even on small
@@ -310,6 +310,7 @@ private fun MapPanelHandle(panel: MapPanelState, collapsedLabel: String, modifie
     Column(
         modifier
             .fillMaxWidth()
+            .heightIn(min = 48.dp)
             .clickable(onClickLabel = if (next == MapPanelValue.Expanded) "展开全部功能" else "半屏显示地图和功能", role = Role.Button) {
                 panel.animateTo(next)
             }
@@ -324,19 +325,19 @@ private fun MapPanelHandle(panel: MapPanelState, collapsedLabel: String, modifie
                         .takeIf { value != MapPanelValue.Collapsed },
                 )
             }
-            .padding(horizontal = 8.dp),
+            .padding(horizontal = 12.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        // Larger grab bar plus a swipe hint (same as the passenger app); the whole strip drags.
+        // Gesture-only handle strip: drag up/down or tap to cycle panel states without fixed buttons.
         Box(
             Modifier
                 .padding(top = 10.dp, bottom = 4.dp)
-                .size(width = 48.dp, height = 5.dp)
-                .background(ControlOutline.copy(alpha = 0.55f), CircleShape),
+                .size(width = 44.dp, height = 4.dp)
+                .background(ControlOutline.copy(alpha = 0.5f), CircleShape),
         )
         Text(
             when (value) {
-                MapPanelValue.Collapsed -> "上滑或点按恢复面板"
+                MapPanelValue.Collapsed -> "上滑或点按恢复 · $collapsedLabel"
                 MapPanelValue.Half -> "上滑展开全部 · 下滑看地图"
                 MapPanelValue.Expanded -> "下滑回到半屏"
             },
@@ -344,55 +345,7 @@ private fun MapPanelHandle(panel: MapPanelState, collapsedLabel: String, modifie
             fontSize = DriverType.Caption,
             maxLines = 1,
             overflow = TextOverflow.Ellipsis,
-            modifier = Modifier.clearAndSetSemantics {},
+            modifier = Modifier.padding(bottom = 8.dp).clearAndSetSemantics {},
         )
-        // Every state shows the same single-line row of 48dp pills, so the handle height never jumps.
-        Row(
-            Modifier.fillMaxWidth().padding(top = 4.dp, bottom = 8.dp),
-            horizontalArrangement = Arrangement.spacedBy(10.dp),
-            verticalAlignment = Alignment.CenterVertically,
-        ) {
-            if (value == MapPanelValue.Collapsed) {
-                HandlePill(collapsedLabel, Icons.Outlined.KeyboardArrowUp, Color.White, Green, Modifier.weight(1f)) {
-                    panel.animateTo(MapPanelValue.Half)
-                }
-            } else {
-                HandlePill("看地图", Icons.Outlined.KeyboardArrowDown, Sky, SkySoft, Modifier.weight(1f)) {
-                    panel.animateTo(MapPanelValue.Collapsed)
-                }
-                HandlePill(
-                    if (value == MapPanelValue.Expanded) "收起一半" else "展开全部",
-                    if (value == MapPanelValue.Expanded) Icons.Outlined.KeyboardArrowDown else Icons.Outlined.KeyboardArrowUp,
-                    GreenStrong,
-                    Pale,
-                    Modifier.weight(1f),
-                ) { panel.animateTo(if (value == MapPanelValue.Expanded) MapPanelValue.Half else MapPanelValue.Expanded) }
-            }
-        }
-    }
-}
-
-/** 48dp icon + visible label pill for the handle; the label is what screen readers announce. */
-@Composable
-private fun HandlePill(
-    label: String,
-    icon: androidx.compose.ui.graphics.vector.ImageVector,
-    tint: Color,
-    container: Color,
-    modifier: Modifier,
-    onClick: () -> Unit,
-) {
-    Row(
-        modifier
-            .heightIn(min = 48.dp)
-            .clip(RoundedCornerShape(14.dp))
-            .background(container)
-            .clickable(role = Role.Button, onClick = onClick)
-            .padding(horizontal = 12.dp, vertical = 10.dp),
-        horizontalArrangement = Arrangement.spacedBy(6.dp, Alignment.CenterHorizontally),
-        verticalAlignment = Alignment.CenterVertically,
-    ) {
-        androidx.compose.material3.Icon(icon, contentDescription = null, tint = tint, modifier = Modifier.size(20.dp))
-        Text(label, color = tint, fontSize = DriverType.Body, fontWeight = androidx.compose.ui.text.font.FontWeight.SemiBold, maxLines = 2, overflow = TextOverflow.Ellipsis)
     }
 }

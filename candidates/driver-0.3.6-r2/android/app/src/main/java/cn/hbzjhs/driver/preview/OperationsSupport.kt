@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -22,6 +23,45 @@ internal fun certificateCurrentlyValid(cert: JSONObject): Boolean =
 /** Expired or not yet effective: the existing rule pauses new orders (in-trip orders can finish). */
 internal fun certificateOutOfDate(cert: JSONObject): Boolean =
     cert.optString("validity") in setOf("EXPIRED", "NOT_EFFECTIVE")
+
+/** Effective badge text + tint + background taking real expiry and pending state into account. */
+internal fun certificateEffectiveBadge(cert: JSONObject): Triple<String, Color, Color> {
+    val reviewing = certificateInReview(cert)
+    val validity = cert.optString("validity")
+    val status = cert.optString("status")
+    return when {
+        validity == "EXPIRED" -> Triple(if (reviewing) "已过期 · 审核中" else "已过期", Danger, DangerSoft)
+        validity == "NOT_EFFECTIVE" -> Triple("未生效", Warm, WarmSoft)
+        status == "REJECTED" -> Triple("已驳回", Danger, DangerSoft)
+        reviewing -> Triple("新材料待审核", Sky, SkySoft)
+        validity == "EXPIRING" -> Triple("${cert.optInt("daysRemaining")}天后到期", Warm, WarmSoft)
+        validity == "UNKNOWN" -> Triple("有效期未确认", Warm, WarmSoft)
+        status == "APPROVED" -> Triple("已通过", Success, SuccessSoft)
+        else -> Triple(bStatus(status), IconTone, SurfaceMuted)
+    }
+}
+
+/** Overall qualification summary across all certificates; never masks expired/invalid certs as healthy. */
+internal fun qualificationSummary(certificates: List<JSONObject>): Triple<String, Color, Boolean> {
+    val expired = certificates.count { it.optString("validity") == "EXPIRED" }
+    val notEffective = certificates.count { it.optString("validity") == "NOT_EFFECTIVE" }
+    val rejected = certificates.count { it.optString("status") == "REJECTED" && !certificateInReview(it) }
+    val reviewing = certificates.count { certificateInReview(it) }
+    val expiring = certificates.count { it.optString("validity") == "EXPIRING" }
+    val unknown = certificates.count { it.optString("validity") == "UNKNOWN" }
+    val invalid = certificates.count { !certificateCurrentlyValid(it) }
+    return when {
+        expired > 0 -> Triple("${expired}项证件已过期（暂停新接单）", Danger, true)
+        notEffective > 0 -> Triple("${notEffective}项证件尚未生效（暂停新接单）", Warm, true)
+        rejected > 0 -> Triple("${rejected}项证件被驳回，请重新提交", Danger, true)
+        reviewing > 0 -> Triple("${reviewing}项证件审核中", Sky, false)
+        expiring > 0 -> Triple("${expiring}项证件即将到期，请及时更新", Warm, true)
+        unknown > 0 -> Triple("${unknown}项证件有效期待补全", Warm, true)
+        certificates.isEmpty() -> Triple("资质资料待同步", Muted, false)
+        invalid > 0 -> Triple("${invalid}项证件待核验或更新", Warm, true)
+        else -> Triple("全部证件有效", Success, false)
+    }
+}
 
 @Composable
 internal fun DriverCertificateStatus(cert: JSONObject) {
@@ -67,14 +107,18 @@ internal fun DriverQualificationBanner(payload: JSONObject, navigate: (String) -
     val outOfDate = reviewing.filter { certificateOutOfDate(it) }
     val unconfirmed = reviewing.filterNot { certificateOutOfDate(it) }
     if (alerts.isNotEmpty() || reviewing.isNotEmpty()) {
-        Surface(color = WarmSoft, modifier = Modifier.fillMaxWidth()) {
+        val expiredAlerts = alerts.count { it.optString("validity") == "EXPIRED" }
+        val otherAlerts = alerts.size - expiredAlerts
+        val urgent = expiredAlerts > 0 || outOfDate.isNotEmpty()
+        Surface(color = if (urgent) DangerSoft else WarmSoft, modifier = Modifier.fillMaxWidth()) {
             Row(Modifier.padding(horizontal = 12.dp, vertical = 6.dp), verticalAlignment = androidx.compose.ui.Alignment.CenterVertically) {
                 val message = listOfNotNull(
-                    "${alerts.size}项证件需更新".takeIf { alerts.isNotEmpty() },
+                    "${expiredAlerts}项证件已过期（暂停新接单）".takeIf { expiredAlerts > 0 },
+                    "${otherAlerts}项证件需更新".takeIf { otherAlerts > 0 },
                     "${outOfDate.size}项证件不在有效期、审核中，暂停新增接单".takeIf { outOfDate.isNotEmpty() },
                     "${unconfirmed.size}项证件当前材料有效期未确认或未通过、审核中，请以审核结果为准".takeIf { unconfirmed.isNotEmpty() },
                 ).joinToString("；")
-                Text(message, modifier = Modifier.weight(1f), color = Warm, fontSize = 13.sp)
+                Text(message, modifier = Modifier.weight(1f), color = if (urgent) Danger else Warm, fontSize = 13.sp)
                 DriverTextButton(onClick = { navigate("qualification") }) { Text(if (alerts.isNotEmpty()) "去更新" else "查看") }
             }
         }

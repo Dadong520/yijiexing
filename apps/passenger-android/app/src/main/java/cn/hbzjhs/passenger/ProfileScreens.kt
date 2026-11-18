@@ -22,7 +22,11 @@ import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Place
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.*
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -47,30 +51,82 @@ fun ProfileScreen(
   var logout by remember { mutableStateOf(false) }
   var city by remember(p.text("city")) { mutableStateOf(p.text("city")) }
   PageColumn {
-    // Plain account header on the page: initial avatar, name and masked phone; tap to edit.
-    Row(
-      Modifier
-        .fillMaxWidth()
-        .clickable(role = androidx.compose.ui.semantics.Role.Button) { edit = true }
-        .padding(vertical = 8.dp),
-      verticalAlignment = Alignment.CenterVertically,
-      horizontalArrangement = Arrangement.spacedBy(14.dp),
+    // Rich gradient profile identity card with quick account summary.
+    val unusedCoupons = state.rows("coupons").count { it.text("status") == "UNUSED" }
+    val pointsBalance = state.optJSONObject("points")?.optLong("balance") ?: 0L
+    val maskedMobile = p.text("mobile").let { if (it.length >= 7) it.take(3) + "****" + it.takeLast(4) else it }
+    Surface(
+      onClick = { edit = true },
+      shape = RoundedCornerShape(16.dp),
+      color = Teal,
+      shadowElevation = 2.dp,
+      modifier = Modifier.fillMaxWidth(),
     ) {
-      Box(
-        Modifier.size(56.dp).background(androidx.compose.ui.graphics.Brush.linearGradient(listOf(BrandSoft, SkySoft)), CircleShape),
-        contentAlignment = Alignment.Center,
+      Column(
+        Modifier
+          .fillMaxWidth()
+          .background(Brush.linearGradient(listOf(Teal, BrandStrong)))
+          .drawBehind {
+            drawCircle(Color.White.copy(alpha = 0.08f), radius = size.height * 0.85f, center = Offset(size.width * 0.92f, 0f))
+            drawCircle(Color.White.copy(alpha = 0.06f), radius = size.height * 0.45f, center = Offset(size.width * 0.72f, size.height))
+          }
+          .padding(16.dp),
+        verticalArrangement = Arrangement.spacedBy(12.dp),
       ) {
-        Text(p.text("name", "乘").take(1), fontSize = 22.sp, fontWeight = FontWeight.Bold, color = BrandStrong)
+        Row(
+          Modifier.fillMaxWidth(),
+          verticalAlignment = Alignment.CenterVertically,
+          horizontalArrangement = Arrangement.spacedBy(12.dp),
+        ) {
+          Box(
+            Modifier
+              .size(54.dp)
+              .clip(CircleShape)
+              .background(Color.White.copy(alpha = 0.92f)),
+            contentAlignment = Alignment.Center,
+          ) {
+            Text(p.text("name", "乘").take(1), fontSize = 20.sp, fontWeight = FontWeight.Bold, color = BrandStrong)
+          }
+          Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(4.dp)) {
+            Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+              Text(p.text("name", "体验乘客"), fontSize = 18.sp, lineHeight = 24.sp, fontWeight = FontWeight.Bold, color = Color.White)
+              Box(
+                Modifier
+                  .clip(RoundedCornerShape(6.dp))
+                  .background(Color.White.copy(alpha = 0.2f))
+                  .padding(horizontal = 6.dp, vertical = 2.dp)
+              ) {
+                Text(p.text("cityName", "宜昌市"), color = Color.White, fontSize = 11.sp, fontWeight = FontWeight.Medium)
+              }
+            }
+            Text(maskedMobile, color = Color.White.copy(alpha = 0.85f), fontSize = TypeScale.Caption)
+          }
+          Box(
+            Modifier
+              .clip(RoundedCornerShape(10.dp))
+              .background(Color.White.copy(alpha = 0.2f))
+              .padding(horizontal = 10.dp, vertical = 6.dp),
+          ) {
+            Text("编辑资料", color = Color.White, fontSize = TypeScale.Caption, fontWeight = FontWeight.SemiBold)
+          }
+        }
+        Row(
+          Modifier
+            .fillMaxWidth()
+            .clip(RoundedCornerShape(10.dp))
+            .background(Color.White.copy(alpha = 0.14f))
+            .padding(horizontal = 12.dp, vertical = 8.dp),
+          verticalAlignment = Alignment.CenterVertically,
+          horizontalArrangement = Arrangement.SpaceBetween,
+        ) {
+          Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(14.dp)) {
+            Text("可用卡券 $unusedCoupons 张", color = Color.White, fontSize = TypeScale.Caption, fontWeight = FontWeight.SemiBold)
+            Text("·", color = Color.White.copy(alpha = 0.6f), fontSize = TypeScale.Caption)
+            Text("积分 $pointsBalance 分", color = Color.White, fontSize = TypeScale.Caption, fontWeight = FontWeight.SemiBold)
+          }
+          CarIllustration(Modifier.size(width = 48.dp, height = 28.dp), body = Color.White)
+        }
       }
-      Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
-        Text(p.text("name", "体验乘客"), fontSize = TypeScale.Page, lineHeight = 28.sp, fontWeight = FontWeight.Bold, color = Ink)
-        Text(
-          p.text("mobile").let { if (it.length >= 7) it.take(3) + "****" + it.takeLast(4) else it } + " · 编辑资料",
-          color = Muted,
-          fontSize = TypeScale.Caption,
-        )
-      }
-      Icon(Icons.AutoMirrored.Filled.KeyboardArrowRight, contentDescription = null, tint = Chevron, modifier = Modifier.size(20.dp))
     }
     // Three shortcuts in one flat strip instead of three raised tiles.
     Surface(

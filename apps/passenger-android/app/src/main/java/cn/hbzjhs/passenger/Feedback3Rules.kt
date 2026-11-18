@@ -5,6 +5,7 @@ import java.math.BigDecimal
 import java.math.RoundingMode
 import java.time.Instant
 import java.time.LocalTime
+import java.time.OffsetDateTime
 import kotlin.math.*
 
 internal data class BookingFare(val tripFare: Long, val serviceFee: Long, val meters: Double, val night: Boolean, val returning: Boolean) {
@@ -44,10 +45,17 @@ internal object BookingPricing {
       12742000 * asin(sqrt(h.coerceIn(0.0, 1.0)))
     } * 1.3
   }
+  private fun parseTimestamp(raw: String): Instant? =
+    runCatching { OffsetDateTime.parse(raw).toInstant() }.getOrElse {
+      runCatching { Instant.parse(raw) }.getOrNull()
+    }
+
   fun usableCoupons(state: JSONObject, tripFare: Long, now: Instant = Instant.now()): List<JSONObject> = state.rows("coupons").filter {
+    val from = it.text("validFrom")
+    val until = it.text("expiresAt")
     it.text("status") == "UNUSED" && it.text("id").isNotBlank() && tripFare >= it.optLong("threshold", 0) && it.optLong("amount") > 0 &&
-      (it.text("validFrom").isBlank() || runCatching { !Instant.parse(it.text("validFrom")).isAfter(now) }.getOrDefault(false)) &&
-      (it.text("expiresAt").isBlank() || runCatching { Instant.parse(it.text("expiresAt")).isAfter(now) }.getOrDefault(false))
+      (from.isBlank() || parseTimestamp(from)?.let { t -> !t.isAfter(now) } == true) &&
+      (until.isBlank() || parseTimestamp(until)?.let { t -> t.isAfter(now) } == true)
   }.sortedWith(compareByDescending<JSONObject> { it.optLong("amount").coerceAtMost(tripFare) }.thenBy { it.text("id") })
 }
 

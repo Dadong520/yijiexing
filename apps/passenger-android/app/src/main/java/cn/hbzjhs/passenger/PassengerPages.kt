@@ -28,6 +28,7 @@ fun PassengerFullPage(
     bottom: (@Composable ColumnScope.() -> Unit)? = null,
     // Pages that must bring a part of themselves into view (for example the place picker's query) pass their own.
     scrollState: ScrollState = rememberScrollState(),
+    headerTrailing: (@Composable RowScope.() -> Unit)? = null,
     content: @Composable ColumnScope.() -> Unit
 ) {
     PassengerModalSlot()
@@ -40,9 +41,10 @@ fun PassengerFullPage(
                 .fillMaxSize()
                 .windowInsetsPadding(WindowInsets.safeDrawing)
                 .imePadding(),
-            color = Color.White
+            color = Paper
         ) {
             Column(modifier = Modifier.fillMaxSize()) {
+                Surface(color = Color.White) {
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -68,8 +70,10 @@ fun PassengerFullPage(
                         lineHeight = 22.sp,
                         color = Ink,
                         maxLines = 2,
-                        modifier = Modifier.weight(1f).padding(start = 4.dp, end = 12.dp)
+                        modifier = Modifier.weight(1f).padding(start = 4.dp, end = 8.dp)
                     )
+                    headerTrailing?.invoke(this)
+                }
                 }
                 HorizontalDivider(color = DividerTone)
                 Column(
@@ -81,11 +85,13 @@ fun PassengerFullPage(
                 )
                 if (bottom != null) {
                     HorizontalDivider(color = DividerTone)
-                    Column(
-                        modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 12.dp),
-                        verticalArrangement = Arrangement.spacedBy(8.dp),
-                        content = bottom
-                    )
+                    Surface(color = Color.White) {
+                        Column(
+                            modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 12.dp),
+                            verticalArrangement = Arrangement.spacedBy(8.dp),
+                            content = bottom
+                        )
+                    }
                 }
             }
         }

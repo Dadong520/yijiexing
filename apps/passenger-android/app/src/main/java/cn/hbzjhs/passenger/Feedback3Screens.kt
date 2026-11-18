@@ -1,32 +1,89 @@
 package cn.hbzjhs.passenger
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import org.json.JSONObject
 
 @Composable
 internal fun BookingPricePreview(state: JSONObject, fare: BookingFare, choice: String, choose: (String) -> Unit, enabled: Boolean) {
   var menu by remember { mutableStateOf(false) }
+  val allUnused = state.rows("coupons").filter { it.text("status") == "UNUSED" }
   val coupons = BookingPricing.usableCoupons(state, fare.tripFare)
   val selected = if (choice == "AUTO") coupons.firstOrNull() else coupons.firstOrNull { it.text("id") == choice }
-  Panel("计价预估") {
-    KV("运价费", "¥${money(fare.tripFare)}")
-    if (fare.serviceFee > 0) KV("区域服务费", "¥${money(fare.serviceFee)}")
-    Box {
-      PassengerTextButton(onClick = { menu = true }, enabled = enabled) {
-        Text("优惠券：${selected?.let { it.text("label", it.text("name")) } ?: "不使用优惠券"} ▾")
+  Panel("计价预估与优惠券") {
+    Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp), verticalAlignment = Alignment.CenterVertically) {
+      Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
+        Text("运价费 ¥${money(fare.tripFare)}${if (fare.serviceFee > 0) " · 服务费 ¥${money(fare.serviceFee)}" else ""}", color = Ink, fontSize = TypeScale.Body, fontWeight = FontWeight.SemiBold)
+        Text("约${"%.2f".format(java.util.Locale.ROOT, fare.meters / 1000)}公里${if (fare.night) " · 夜间" else ""}${if (fare.returning) " · 含回空" else ""}", color = Muted, fontSize = TypeScale.Caption)
       }
-      DropdownMenu(menu, { menu = false }) {
-        DropdownMenuItem(text = { Text("自动选择最大优惠") }, onClick = { choose("AUTO"); menu = false })
-        DropdownMenuItem(text = { Text("不使用优惠券") }, onClick = { choose(""); menu = false })
-        coupons.forEach { c -> DropdownMenuItem(text = { Text("${c.text("label", c.text("name"))} · 满¥${money(c.optLong("threshold"))}减¥${money(c.optLong("amount"))}") }, onClick = { choose(c.text("id")); menu = false }) }
+      Box(
+        Modifier
+          .clip(RoundedCornerShape(8.dp))
+          .background(BrandSoft)
+          .padding(horizontal = 10.dp, vertical = 6.dp)
+      ) {
+        Text("预计 ¥${money(fare.payable(selected))}", color = BrandStrong, fontWeight = FontWeight.Bold, fontSize = TypeScale.Title)
       }
     }
-    KV("优惠券抵扣", "−¥${money(fare.discount(selected))}")
-    KV("预计实付", "¥${money(fare.payable(selected))}")
-    Note("按各段直线距离×1.3预估，约${"%.2f".format(java.util.Locale.ROOT, fare.meters/1000)}公里，不含实时等候费；优惠仅抵运价费。最终按服务端计价及券状态结算。${if(fare.night) " 夜间计价" else ""}${if(fare.returning) " 含回空加收" else ""}")
+    Box(Modifier.fillMaxWidth()) {
+      if (coupons.isEmpty()) {
+        Row(
+          Modifier
+            .fillMaxWidth()
+            .clip(RoundedCornerShape(10.dp))
+            .background(SurfaceMuted)
+            .padding(horizontal = 12.dp, vertical = 10.dp),
+          horizontalArrangement = Arrangement.SpaceBetween,
+          verticalAlignment = Alignment.CenterVertically,
+        ) {
+          Text("优惠券", color = Muted, fontSize = TypeScale.Body)
+          Text(
+            if (allUnused.isEmpty()) "暂无优惠券" else "暂无满足当前运价门槛的优惠券",
+            color = DisabledText,
+            fontSize = TypeScale.Caption,
+            fontWeight = FontWeight.Medium,
+          )
+        }
+      } else {
+        PassengerTextButton(onClick = { menu = true }, enabled = enabled, modifier = Modifier.fillMaxWidth()) {
+          val label = when {
+            selected != null && choice == "AUTO" -> "已选最大优惠：${selected.text("label", selected.text("name"))} (−¥${money(fare.discount(selected))}) ▾"
+            selected != null -> "优惠券：${selected.text("label", selected.text("name"))} (−¥${money(fare.discount(selected))}) ▾"
+            else -> "优惠券：不使用优惠券（有 ${coupons.size} 张可用）▾"
+          }
+          Text(label)
+        }
+        DropdownMenu(menu, { menu = false }) {
+          DropdownMenuItem(
+            text = { Text("自动选择最大优惠（推荐 · 省¥${money(fare.discount(coupons.first()))}）", color = BrandStrong, fontWeight = FontWeight.SemiBold) },
+            onClick = { choose("AUTO"); menu = false },
+          )
+          coupons.forEach { c ->
+            DropdownMenuItem(
+              text = { Text("${c.text("label", c.text("name"))} · 满¥${money(c.optLong("threshold"))}减¥${money(c.optLong("amount"))}") },
+              onClick = { choose(c.text("id")); menu = false },
+            )
+          }
+          DropdownMenuItem(text = { Text("不使用优惠券", color = Muted) }, onClick = { choose(""); menu = false })
+        }
+      }
+    }
+    if (selected != null) {
+      Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
+        Text("优惠券抵扣", color = Muted, fontSize = TypeScale.Caption)
+        Text("−¥${money(fare.discount(selected))}", color = Warm, fontWeight = FontWeight.SemiBold, fontSize = TypeScale.Caption)
+      }
+    }
+    Note("按各段直线距离×1.3预估，不含实时等候费；优惠仅抵运价费，最终以服务端结算为准。")
   }
 }
 

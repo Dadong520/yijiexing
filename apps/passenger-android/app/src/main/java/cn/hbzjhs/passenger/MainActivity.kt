@@ -55,8 +55,8 @@ import kotlinx.coroutines.delay
 val Teal = Color(0xFF00796E)
 val Ink = Color(0xFF0F1B2A)
 val Muted = Color(0xFF4B5B6B)
-// Near-white page; cards are separated by hairlines instead of shadows.
-val Paper = Color(0xFFF7F8FA)
+// Distinct cool grey-blue backdrop so white cards stand out with crisp contrast.
+val Paper = Color(0xFFEEF2F5)
 val Amber = Color(0xFFF59E0B)
 
 class MainActivity : ComponentActivity() {
@@ -203,7 +203,7 @@ fun PassengerApp(
           Text(
             "宜捷行",
             fontWeight = FontWeight.Bold,
-            fontSize = 20.sp,
+            fontSize = 18.sp,
             color = Teal,
             modifier = Modifier.weight(1f),
           )
@@ -354,12 +354,12 @@ fun PageColumn(content: @Composable ColumnScope.() -> Unit) {
 
 @Composable
 fun Panel(title: String? = null, content: @Composable ColumnScope.() -> Unit) {
-  // One flat surface: white, hairline edge, no shadow; titles are plain ink text.
+  // White card against cool-grey Paper backdrop with a subtle accent bar on titled cards.
   Card(
     colors = CardDefaults.cardColors(containerColor = Color.White),
-    shape = RoundedCornerShape(12.dp),
+    shape = RoundedCornerShape(14.dp),
     border = BorderStroke(1.dp, DividerTone),
-    elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
+    elevation = CardDefaults.cardElevation(defaultElevation = 1.dp),
     modifier = Modifier.fillMaxWidth(),
   ) {
     Column(
@@ -367,13 +367,24 @@ fun Panel(title: String? = null, content: @Composable ColumnScope.() -> Unit) {
       verticalArrangement = Arrangement.spacedBy(Gap.S),
     ) {
       title?.let {
-        Text(
-          it,
-          fontWeight = FontWeight.Bold,
-          fontSize = TypeScale.Title,
-          color = Ink,
-          lineHeight = 22.sp,
-        )
+        Row(
+          verticalAlignment = Alignment.CenterVertically,
+          horizontalArrangement = Arrangement.spacedBy(8.dp),
+        ) {
+          Box(
+            Modifier
+              .size(width = 4.dp, height = 15.dp)
+              .clip(RoundedCornerShape(2.dp))
+              .background(Teal)
+          )
+          Text(
+            it,
+            fontWeight = FontWeight.Bold,
+            fontSize = TypeScale.Title,
+            color = Ink,
+            lineHeight = 22.sp,
+          )
+        }
       }
       content()
     }
@@ -564,7 +575,7 @@ fun LoginScreen(store: PassengerStore, configured: Boolean, settings: () -> Unit
         ) {
           Text(
             "宜捷出行，欢迎您！",
-            fontSize = 22.sp,
+            fontSize = 18.sp,
             fontWeight = FontWeight.Bold,
             color = Ink,
           )
