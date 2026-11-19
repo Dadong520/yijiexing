@@ -2,6 +2,7 @@ package cn.hbzjhs.passenger
 
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.material.icons.filled.*
+import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -26,13 +27,19 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.layout.positionInParent
+import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
@@ -266,17 +273,58 @@ private fun PassengerBookingDraft(owner: String, state: JSONObject, store: Passe
       )
     },
     bottomBar = {
-      // One strong action per page: the call button. A hairline separates it instead of a shadow.
+      // Price preview + primary call action in one tight row so passengers see exact payable fare at a glance.
       Column(Modifier.fillMaxWidth().background(Color.White)) {
         HorizontalDivider(color = DividerTone)
-        Box(Modifier.padding(horizontal = 16.dp, vertical = 10.dp)) {
-          ActionButton(
-            if (cancelDebt != null) "先结清待付空车费" else if (active != null) "查看当前行程" else if (enabledKinds.isEmpty()) "当前地区暂无开放叫车" else "确认呼叫 · ${kindName(kind)}",
-            !busy && !submitting && (cancelDebt != null || active != null || enabledKinds.isNotEmpty()) && !returnShield.active,
+        val hasUnusedCoupon = state.rows("coupons").any { it.text("status") == "UNUSED" }
+        val showInlineEstimate = preview != null && cancelDebt == null && active == null && enabledKinds.isNotEmpty()
+        if (showInlineEstimate && preview != null) {
+          val estimatedPayable = preview.payable(chosenCoupon)
+          val discount = preview.discount(chosenCoupon)
+          Row(
+            Modifier
+              .fillMaxWidth()
+              .padding(horizontal = 16.dp, vertical = 10.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(12.dp),
           ) {
-            // Checked against the clock at tap time: a second tap from the place page just closed is ignored.
-            if (!returnShield.allows()) return@ActionButton
-            if (cancelDebt != null) openOrder(cancelDebt.text("id")) else if (active != null) openOrder(active.text("id")) else submitOrder()
+            Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
+              Row(verticalAlignment = Alignment.Bottom, horizontalArrangement = Arrangement.spacedBy(4.dp)) {
+                Text("预计", fontSize = TypeScale.Caption, color = Muted)
+                Text("¥${money(estimatedPayable)}", fontSize = 18.sp, fontWeight = FontWeight.Bold, color = BrandStrong)
+              }
+              Text(
+                when {
+                  chosenCoupon != null && discount > 0 -> "已减¥${money(discount)} · ${chosenCoupon.text("label", chosenCoupon.text("name"))}"
+                  availableCoupons.isEmpty() && !hasUnusedCoupon -> "运价¥${money(preview.tripFare)} · 暂无优惠券"
+                  availableCoupons.isEmpty() -> "运价¥${money(preview.tripFare)} · 暂无可用券"
+                  else -> "运价¥${money(preview.tripFare)}${if (preview.serviceFee > 0) " + 服务¥${money(preview.serviceFee)}" else ""}"
+                },
+                fontSize = 11.sp,
+                color = if (discount > 0) Warm else Muted,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
+              )
+            }
+            GradientButton(
+              "立即用车 · ${kindName(kind)}",
+              !busy && !submitting && !returnShield.active,
+              modifier = Modifier.weight(1.35f),
+            ) {
+              if (!returnShield.allows()) return@GradientButton
+              submitOrder()
+            }
+          }
+        } else {
+          Box(Modifier.padding(horizontal = 16.dp, vertical = 10.dp)) {
+            ActionButton(
+              if (cancelDebt != null) "先结清待付空车费" else if (active != null) "查看当前行程" else if (enabledKinds.isEmpty()) "当前地区暂无开放叫车" else "立即用车 · ${kindName(kind)}",
+              !busy && !submitting && (cancelDebt != null || active != null || enabledKinds.isNotEmpty()) && !returnShield.active,
+            ) {
+              // Checked against the clock at tap time: a second tap from the place page just closed is ignored.
+              if (!returnShield.allows()) return@ActionButton
+              if (cancelDebt != null) openOrder(cancelDebt.text("id")) else if (active != null) openOrder(active.text("id")) else submitOrder()
+            }
           }
         }
       }
@@ -339,38 +387,48 @@ private fun PassengerBookingDraft(owner: String, state: JSONObject, store: Passe
               kind,
             ) { kind = it }
           Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
-            Text("您要去哪儿？", fontWeight = FontWeight.Bold, fontSize = TypeScale.Page, lineHeight = 28.sp, color = Ink, modifier = Modifier.weight(1f))
-            // Only a complete route can be swapped; an empty or unknown end never clears the GPS
-            // pickup or marks it manual (which would stop GPS from filling it).
-            PassengerTextButton(
-              contentPadding = PaddingValues(horizontal = 10.dp, vertical = 2.dp),
-              enabled = routePointReady(origin, oLat, oLng) && routePointReady(destination, dLat, dLng) && !returnShield.active,
-              onClick = {
-                // Re-checked at tap time with the current draft before touching any field.
-                if (returnShield.allows() && routePointReady(origin, oLat, oLng) && routePointReady(destination, dLat, dLng)) {
-                  originTouched = true
-                  val address = origin
-                  origin = destination
-                  destination = address
-                  val lat = oLat
-                  oLat = dLat
-                  dLat = lat
-                  val lng = oLng
-                  oLng = dLng
-                  dLng = lng
-                  val metadata = oMetadata
-                  oMetadata = dMetadata
-                  dMetadata = metadata
-                  // The reversed trip passes its stops in reverse order too.
-                  if (waypointName.isNotBlank() && waypointName2.isNotBlank()) {
-                    val n = waypointName; waypointName = waypointName2; waypointName2 = n
-                    val a = waypointLat; waypointLat = waypointLat2; waypointLat2 = a
-                    val b = waypointLng; waypointLng = waypointLng2; waypointLng2 = b
+            Text("您要去哪儿？", fontWeight = FontWeight.Bold, fontSize = TypeScale.Page, lineHeight = 24.sp, color = Ink, modifier = Modifier.weight(1f))
+            // Only a complete route can be swapped; icon button keeps the header clean while keeping a 48dp touch area.
+            val swapEnabled = routePointReady(origin, oLat, oLng) && routePointReady(destination, dLat, dLng) && !returnShield.active
+            Box(
+              Modifier
+                .sizeIn(minWidth = 48.dp, minHeight = 48.dp)
+                .clip(RoundedCornerShape(12.dp))
+                .clickable(enabled = swapEnabled, role = Role.Button, onClickLabel = "交换起终点") {
+                  if (returnShield.allows() && routePointReady(origin, oLat, oLng) && routePointReady(destination, dLat, dLng)) {
+                    originTouched = true
+                    val address = origin
+                    origin = destination
+                    destination = address
+                    val lat = oLat
+                    oLat = dLat
+                    dLat = lat
+                    val lng = oLng
+                    oLng = dLng
+                    dLng = lng
+                    val metadata = oMetadata
+                    oMetadata = dMetadata
+                    dMetadata = metadata
+                    // The reversed trip passes its stops in reverse order too.
+                    if (waypointName.isNotBlank() && waypointName2.isNotBlank()) {
+                      val n = waypointName; waypointName = waypointName2; waypointName2 = n
+                      val a = waypointLat; waypointLat = waypointLat2; waypointLat2 = a
+                      val b = waypointLng; waypointLng = waypointLng2; waypointLng2 = b
+                    }
                   }
                 }
-              },
+                .semantics { contentDescription = "交换起终点" },
+              contentAlignment = Alignment.Center,
             ) {
-              Text("交换起终点", fontSize = TypeScale.Caption)
+              Box(
+                Modifier
+                  .size(36.dp)
+                  .clip(RoundedCornerShape(10.dp))
+                  .background(if (swapEnabled) BrandSoft else SurfaceMuted),
+                contentAlignment = Alignment.Center,
+              ) {
+                SwapRouteIcon(tint = if (swapEnabled) BrandStrong else DisabledText, modifier = Modifier.size(18.dp))
+              }
             }
           }
           // The route reads top to bottom as the trip runs: pickup, stops, destination.
@@ -504,12 +562,14 @@ private fun PassengerBookingDraft(owner: String, state: JSONObject, store: Passe
     fun leave() = openEditor(if (stopSlot > 0) "destination" else "")
     val back = { leave() }
     val stopsEditor: (@Composable ColumnScope.() -> Unit)? =
-      if (target == "destination" && stops.isNotEmpty()) {
+      if (target == "destination" && (stops.isNotEmpty() || nextSlot != null)) {
         {
           RouteStopsEditor(
             origin = origin,
             stops = stops,
+            destination = destination,
             enabled = !returnShield.active,
+            onAddStop = if (nextSlot != null) ({ if (returnShield.allows()) openEditor("waypoint$nextSlot") }) else null,
             // Tap-time clock checks: a second tap from the stop page just closed edits nothing.
             onEdit = { index -> if (returnShield.allows()) openEditor("waypoint${index + 1}") },
             onRemove = { index ->
@@ -690,28 +750,90 @@ private fun KindSegments(kinds: List<Pair<String, String>>, selected: String, on
   }
 }
 
-/** The trip's stops shown on the destination page, each editable or removable. */
+/** Up-down swap arrows drawn without external icon dependencies. */
 @Composable
-private fun RouteStopsEditor(origin: String, stops: List<String>, enabled: Boolean, onEdit: (Int) -> Unit, onRemove: (Int) -> Unit) {
-  Column(Modifier.fillMaxWidth()) {
-    Note("行程路线 · 按顺序经过，最多 2 个途经点")
-    StopLine(Teal, "起点", origin.ifBlank { "上车点待选择" })
-    stops.forEachIndexed { index, name ->
-      Row(
-        Modifier.fillMaxWidth().heightIn(min = 48.dp),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(8.dp),
-      ) {
-        Box(Modifier.size(8.dp).background(IconTone, CircleShape))
-        Column(Modifier.weight(1f)) {
-          Text("途经点 ${index + 1}", color = Muted, fontSize = TypeScale.Caption, lineHeight = 16.sp)
-          Text(name, color = Ink, fontSize = TypeScale.Body, fontWeight = FontWeight.Medium, lineHeight = 20.sp)
+private fun SwapRouteIcon(tint: Color, modifier: Modifier = Modifier) {
+  Canvas(modifier) {
+    val w = size.width
+    val h = size.height
+    val stroke = 2.dp.toPx()
+    // Up arrow (left)
+    drawLine(tint, Offset(w * 0.32f, h * 0.8f), Offset(w * 0.32f, h * 0.2f), stroke, StrokeCap.Round)
+    drawLine(tint, Offset(w * 0.32f, h * 0.2f), Offset(w * 0.16f, h * 0.38f), stroke, StrokeCap.Round)
+    drawLine(tint, Offset(w * 0.32f, h * 0.2f), Offset(w * 0.48f, h * 0.38f), stroke, StrokeCap.Round)
+    // Down arrow (right)
+    drawLine(tint, Offset(w * 0.68f, h * 0.2f), Offset(w * 0.68f, h * 0.8f), stroke, StrokeCap.Round)
+    drawLine(tint, Offset(w * 0.68f, h * 0.8f), Offset(w * 0.52f, h * 0.62f), stroke, StrokeCap.Round)
+    drawLine(tint, Offset(w * 0.68f, h * 0.8f), Offset(w * 0.84f, h * 0.62f), stroke, StrokeCap.Round)
+  }
+}
+
+/** The trip's route card (pickup, stops, destination) on the destination/waypoint picker page. */
+@Composable
+private fun RouteStopsEditor(
+  origin: String,
+  stops: List<String>,
+  destination: String = "",
+  enabled: Boolean,
+  onAddStop: (() -> Unit)? = null,
+  onEdit: (Int) -> Unit,
+  onRemove: (Int) -> Unit,
+) {
+  Surface(
+    color = Color.White,
+    shape = RoundedCornerShape(14.dp),
+    border = BorderStroke(1.dp, DividerTone),
+    shadowElevation = 1.dp,
+    modifier = Modifier.fillMaxWidth(),
+  ) {
+    Column(Modifier.padding(horizontal = 14.dp, vertical = 12.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+      Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.SpaceBetween) {
+        Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+          Box(Modifier.size(width = 4.dp, height = 14.dp).clip(RoundedCornerShape(2.dp)).background(Teal))
+          Text("行程路线与途经点", fontWeight = FontWeight.Bold, fontSize = TypeScale.Title, color = Ink)
         }
-        PassengerTextButton(enabled = enabled, onClick = { onEdit(index) }) { Text("修改") }
-        PassengerTextButton(enabled = enabled, onClick = { onRemove(index) }) { Text("删除", color = if (enabled) Danger else DisabledText) }
+        if (onAddStop != null) {
+          PassengerTextButton(
+            enabled = enabled,
+            onClick = onAddStop,
+            modifier = Modifier.heightIn(min = 36.dp),
+            contentPadding = PaddingValues(horizontal = 10.dp, vertical = 4.dp),
+          ) {
+            Icon(Icons.Default.Add, contentDescription = null, modifier = Modifier.size(15.dp))
+            Text("途经点 (${stops.size}/2)", fontSize = TypeScale.Caption, modifier = Modifier.padding(start = 2.dp))
+          }
+        } else {
+          Note("最多 2 个途经点")
+        }
       }
+      HorizontalDivider(color = DividerTone)
+      StopLine(Teal, "起点", origin.ifBlank { "上车点待选择" })
+      stops.forEachIndexed { index, name ->
+        Row(
+          Modifier.fillMaxWidth().heightIn(min = 48.dp),
+          verticalAlignment = Alignment.CenterVertically,
+          horizontalArrangement = Arrangement.spacedBy(8.dp),
+        ) {
+          Box(
+            Modifier.size(18.dp).background(SkySoft, CircleShape),
+            contentAlignment = Alignment.Center,
+          ) {
+            Text("${index + 1}", color = Sky, fontSize = 11.sp, fontWeight = FontWeight.Bold)
+          }
+          Column(Modifier.weight(1f)) {
+            Text("途经点 ${index + 1}", color = Sky, fontSize = TypeScale.Caption, lineHeight = 16.sp)
+            Text(name, color = Ink, fontSize = TypeScale.Body, fontWeight = FontWeight.Medium, lineHeight = 20.sp)
+          }
+          IconButton(enabled = enabled, onClick = { onEdit(index) }, modifier = Modifier.size(40.dp)) {
+            Icon(Icons.Default.Edit, contentDescription = "修改途经点 ${index + 1}", tint = if (enabled) Teal else DisabledText, modifier = Modifier.size(18.dp))
+          }
+          IconButton(enabled = enabled, onClick = { onRemove(index) }, modifier = Modifier.size(40.dp)) {
+            Icon(Icons.Default.Close, contentDescription = "删除途经点 ${index + 1}", tint = if (enabled) Danger else DisabledText, modifier = Modifier.size(18.dp))
+          }
+        }
+      }
+      StopLine(Amber, "终点", destination.ifBlank { "在下方搜索或地图上点选" })
     }
-    StopLine(Amber, "终点", "在下方搜索或选择")
   }
 }
 
@@ -879,144 +1001,243 @@ fun AddressDialog(
     cancelSearch(); deliver(place)
   }
   val rows = PlaceSelection.pickerRows(favorites.filter { it.text("address").isNotBlank() }, history, ExperiencePlaces)
+  var mapFullscreen by rememberSaveable { mutableStateOf(false) }
+  var showCityDialog by remember { mutableStateOf(false) }
+  var searchFocused by remember { mutableStateOf(false) }
+  val focusManager = LocalFocusManager.current
   // Full-screen picker: title back and system back both call close() without touching the draft.
-  PassengerFullPage(title, closeEditor, scrollState = pageScroll) {
+  PassengerFullPage(
+    title,
+    closeEditor,
+    scrollState = pageScroll,
+    headerTrailing = if (amapKey.isNotBlank()) ({
+      Row(
+        Modifier
+          .padding(end = 10.dp)
+          .clip(RoundedCornerShape(10.dp))
+          .background(SurfaceMuted)
+          .clickable(role = Role.Button, onClickLabel = "切换搜索城市") { showCityDialog = true }
+          .padding(horizontal = 10.dp, vertical = 6.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(4.dp),
+      ) {
+        Icon(Icons.Default.LocationOn, contentDescription = null, tint = Muted, modifier = Modifier.size(14.dp))
+        Text(searchCity.ifBlank { "全部城市" }, color = Muted, fontSize = TypeScale.Caption, maxLines = 1)
+      }
+    }) else null,
+  ) {
     fun finite(value: String) = value.toDoubleOrNull()?.takeIf { it.isFinite() }
     // The current point only positions the view; it is never resubmitted.
     val shownPoint = finite(initialLat)?.let { a -> finite(initialLng)?.let { b -> AmapPlacePoint(a, b, initial.ifBlank { "当前地点" }) } }
-    // The keyboard takes room from the page, so the map gives way to keep results in view.
-    val mapModifier = Modifier.fillMaxWidth().height(if (WindowInsets.isImeVisible) 150.dp else 240.dp)
-    if (amapKey.isNotBlank()) {
-      AmapCanvas(listOfNotNull(shownPoint), mapModifier, onPick = { a, b ->
-        // A refused tap starts no lookup and cancels nothing; panning and zooming are not clicks.
-        if (!session.committed && interactionAllowed()) {
-          cancelSearch(); error=""; hint=""
-          val token = session.beginLookup()
-          if (token != null) {
-            locating = true
-            searchJob = scope.launch {
-              try {
-                val found = reverseAmapAddress(context, a, b)
-                // Handed over only if this is still the newest request and its point is usable.
-                if (session.isCurrent(token)) {
-                  val place = session.commitLookup(token, PlaceSelection.resolve(found.name, found.latitude, found.longitude, found.metadata))
-                  if (!deliver(place)) error = "这个位置没有可用的地址或坐标，请换个位置点选，或搜索附近地点"
+    // Larger default map height, plus an explicit fullscreen map toggle for fine picking.
+    val mapHeight = when {
+      mapFullscreen -> 560.dp
+      searchFocused && typedQuery.isNotBlank() -> 180.dp
+      else -> 310.dp
+    }
+    Surface(
+      color = Color.White,
+      shape = RoundedCornerShape(14.dp),
+      border = BorderStroke(1.dp, DividerTone),
+      shadowElevation = 1.dp,
+      modifier = Modifier.fillMaxWidth(),
+    ) {
+      Box(Modifier.fillMaxWidth().height(mapHeight)) {
+        val mapModifier = Modifier.fillMaxSize()
+        if (amapKey.isNotBlank()) {
+          AmapCanvas(listOfNotNull(shownPoint), mapModifier, onPick = { a, b ->
+            // A refused tap starts no lookup and cancels nothing; panning and zooming are not clicks.
+            if (!session.committed && interactionAllowed()) {
+              cancelSearch(); error=""; hint=""
+              val token = session.beginLookup()
+              if (token != null) {
+                locating = true
+                searchJob = scope.launch {
+                  try {
+                    val found = reverseAmapAddress(context, a, b)
+                    // Handed over only if this is still the newest request and its point is usable.
+                    if (session.isCurrent(token)) {
+                      val place = session.commitLookup(token, PlaceSelection.resolve(found.name, found.latitude, found.longitude, found.metadata))
+                      if (!deliver(place)) error = "这个位置没有可用的地址或坐标，请换个位置点选，或搜索附近地点"
+                    }
+                  } catch (e: CancellationException) { throw e }
+                  catch (e: Exception) { if (session.isCurrent(token)) error = e.message ?: "地图地点解析失败，请重试" }
+                  finally { if (session.isCurrent(token)) locating = false }
                 }
-              } catch (e: CancellationException) { throw e }
-              catch (e: Exception) { if (session.isCurrent(token)) error = e.message ?: "地图地点解析失败，请重试" }
-              finally { if (session.isCurrent(token)) locating = false }
+              }
+            }
+          }, notice = "点地图即选定该位置")
+        } else {
+          PassengerMap(
+            originLat = shownPoint?.latitude?.toString().orEmpty(),
+            originLng = shownPoint?.longitude?.toString().orEmpty(),
+            destinationLat = "",
+            destinationLng = "",
+            modifier = mapModifier,
+          )
+        }
+        Surface(
+          onClick = {
+            mapFullscreen = !mapFullscreen
+            if (mapFullscreen) focusManager.clearFocus()
+          },
+          shape = RoundedCornerShape(12.dp),
+          color = Color.White.copy(alpha = 0.94f),
+          border = BorderStroke(1.dp, Line),
+          shadowElevation = 2.dp,
+          modifier = Modifier.align(Alignment.TopEnd).padding(8.dp),
+        ) {
+          Text(
+            if (mapFullscreen) "收起全屏地图" else "展开全屏地图选点",
+            color = BrandStrong,
+            fontSize = TypeScale.Caption,
+            fontWeight = FontWeight.SemiBold,
+            modifier = Modifier.padding(horizontal = 10.dp, vertical = 6.dp),
+          )
+        }
+      }
+    }
+    routeStops?.invoke(this)
+    Surface(
+      color = Color.White,
+      shape = RoundedCornerShape(14.dp),
+      border = BorderStroke(1.dp, DividerTone),
+      shadowElevation = 1.dp,
+      modifier = Modifier.fillMaxWidth(),
+    ) {
+      Column(Modifier.padding(horizontal = 14.dp, vertical = 12.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+        Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+          Box(Modifier.weight(1f).onFocusChanged { searchFocused = it.isFocused }) { Field(query, { value -> if (value != query) searchFor(value) }, queryLabel) }
+          if (onAddStop != null && routeStops == null)
+            PassengerTextButton(
+              enabled = shield?.active != true,
+              onClick = { if (!session.committed && interactionAllowed()) { cancelSearch(); onAddStop() } },
+              modifier = Modifier.heightIn(min = 48.dp),
+              contentPadding = PaddingValues(horizontal = 10.dp, vertical = 4.dp),
+            ) {
+              Icon(Icons.Default.Add, contentDescription = null, modifier = Modifier.size(16.dp))
+              Text("途经点", modifier = Modifier.padding(start = 2.dp))
+            }
+        }
+        if (initial.isNotBlank()) Note("当前：${initial.trim()} · 点选新地点即替换，返回则不修改")
+        LaunchedEffect(typedQuery, searchCity, retryTick) {
+          val text=typedQuery
+          if (text.length < 2 || query.trim()!=text || session.committed) return@LaunchedEffect
+          val city=searchCity
+          // Ownership is taken before the 400ms wait: any pick, map tap, cancel or closing invalidates the
+          // gate and retires this run while it waits.
+          PassengerAddressLookup.debounced(
+            gate,
+            stillWanted = { query.trim()==text && typedQuery==text && !session.committed },
+            wait = { delay(PassengerAddressLookup.DEBOUNCE_MS) },
+            begin = { searchJob?.cancel(); searchJob=null; error=""; results=emptyList(); searching=true },
+            fetch = { searchSystemAddresses(context, text, city) },
+            publish = { found ->
+              results=found
+              if (found.isEmpty()) error="未找到地址，请补充城市和详细名称，或在地图上点选。"
+            },
+            fail = { e -> error=e.message ?: "地址搜索暂不可用，请重试或在地图选点。" },
+            end = { searching=false; pending=false },
+          )
+        }
+        // Progress and notices sit right under the query so they are always seen.
+        if (locating) {
+          Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            CircularProgressIndicator(Modifier.size(16.dp), strokeWidth = 2.dp, color = Teal)
+            Text("正在识别地图位置…", color = Ink, fontSize = TypeScale.Body, modifier = Modifier.weight(1f))
+            PassengerTextButton(onClick = { cancelSearch() }) { Text("取消") }
+          }
+        } else if (searching) {
+          LinearProgressIndicator(Modifier.fillMaxWidth())
+          PassengerTextButton(onClick={cancelSearch(); typedQuery=""}) { Text("取消搜索") }
+        } else if (query.isNotBlank() && query.trim().length < 2) {
+          Note("再输入几个字即可自动搜索")
+        } else if (!pending && results.isEmpty() && query.trim().length >= 2) {
+          // Small retry for the same text after a failure, cancel or another pick; no persistent search button.
+          if (typedQuery.isBlank() && error.isBlank()) Note("已取消搜索，可重新搜索或改用常用、地图地点")
+          PassengerTextButton(onClick={ searchFor(query); retryTick++ }) { Text("重新搜索“${query.trim().take(20)}”", fontSize = 13.sp) }
+        }
+        if (hint.isNotBlank())
+          Text(
+            hint,
+            color = Ink,
+            fontSize = 13.sp,
+            lineHeight = 18.sp,
+            modifier = Modifier.fillMaxWidth().clip(RoundedCornerShape(8.dp)).background(WarmSoft).padding(horizontal = 10.dp, vertical = 8.dp),
+          )
+        if (error.isNotBlank()) Text(error, color = MaterialTheme.colorScheme.error, fontSize = 13.sp, lineHeight = 18.sp)
+        if (results.isNotEmpty()) {
+          Column(Modifier.fillMaxWidth()) {
+            results.forEachIndexed { idx, result ->
+              PlaceListRow(result.name, "搜索结果 · 点击即选定", Icons.Default.LocationOn) { pickResult(result) }
+              if (idx < results.lastIndex) HorizontalDivider(Modifier.padding(start = 34.dp), color = DividerTone)
             }
           }
         }
-      }, notice = "点地图即选定该位置")
-    } else {
-      PassengerMap(
-        originLat = shownPoint?.latitude?.toString().orEmpty(),
-        originLng = shownPoint?.longitude?.toString().orEmpty(),
-        destinationLat = "",
-        destinationLng = "",
-        modifier = mapModifier,
-      )
-    }
-    routeStops?.invoke(this)
-    Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-      Box(Modifier.weight(1f)) { Field(query, { value -> if (value != query) searchFor(value) }, queryLabel) }
-      if (onAddStop != null)
-        PassengerTextButton(
-          enabled = shield?.active != true,
-          onClick = { if (!session.committed && interactionAllowed()) { cancelSearch(); onAddStop() } },
-          modifier = Modifier.heightIn(min = 48.dp),
-          contentPadding = PaddingValues(horizontal = 10.dp, vertical = 4.dp),
-        ) {
-          Icon(Icons.Default.Add, contentDescription = null, modifier = Modifier.size(16.dp))
-          Text("途经点", modifier = Modifier.padding(start = 2.dp))
-        }
-    }
-    if (initial.isNotBlank()) Note("当前：${initial.trim()} · 点选新地点即替换，返回则不修改")
-    LaunchedEffect(typedQuery, searchCity, retryTick) {
-      val text=typedQuery
-      if (text.length < 2 || query.trim()!=text || session.committed) return@LaunchedEffect
-      val city=searchCity
-      // Ownership is taken before the 400ms wait: any pick, map tap, cancel or closing invalidates the
-      // gate and retires this run while it waits.
-      PassengerAddressLookup.debounced(
-        gate,
-        stillWanted = { query.trim()==text && typedQuery==text && !session.committed },
-        wait = { delay(PassengerAddressLookup.DEBOUNCE_MS) },
-        begin = { searchJob?.cancel(); searchJob=null; error=""; results=emptyList(); searching=true },
-        fetch = { searchSystemAddresses(context, text, city) },
-        publish = { found ->
-          results=found
-          if (found.isEmpty()) error="未找到地址，请补充城市和详细名称，或在地图上点选。"
-        },
-        fail = { e -> error=e.message ?: "地址搜索暂不可用，请重试或在地图选点。" },
-        end = { searching=false; pending=false },
-      )
-    }
-    // Progress and notices sit right under the query so they are always seen.
-    if (locating) {
-      Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-        CircularProgressIndicator(Modifier.size(16.dp), strokeWidth = 2.dp, color = Teal)
-        Text("正在识别地图位置…", color = Ink, fontSize = 14.sp, modifier = Modifier.weight(1f))
-        PassengerTextButton(onClick = { cancelSearch() }) { Text("取消") }
-      }
-    } else if (searching) {
-      LinearProgressIndicator(Modifier.fillMaxWidth())
-      PassengerTextButton(onClick={cancelSearch(); typedQuery=""}) { Text("取消搜索") }
-    } else if (query.isNotBlank() && query.trim().length < 2) {
-      Note("再输入几个字即可自动搜索")
-    } else if (!pending && results.isEmpty() && query.trim().length >= 2) {
-      // Small retry for the same text after a failure, cancel or another pick; no persistent search button.
-      if (typedQuery.isBlank() && error.isBlank()) Note("已取消搜索，可重新搜索或改用常用、地图地点")
-      PassengerTextButton(onClick={ searchFor(query); retryTick++ }) { Text("重新搜索“${query.trim().take(20)}”", fontSize = 13.sp) }
-    }
-    if (hint.isNotBlank())
-      Text(
-        hint,
-        color = Ink,
-        fontSize = 13.sp,
-        lineHeight = 18.sp,
-        modifier = Modifier.fillMaxWidth().clip(RoundedCornerShape(8.dp)).background(WarmSoft).padding(horizontal = 10.dp, vertical = 8.dp),
-      )
-    if (error.isNotBlank()) Text(error, color = MaterialTheme.colorScheme.error, fontSize = 13.sp, lineHeight = 18.sp)
-    if (results.isNotEmpty()) {
-      Column(Modifier.fillMaxWidth()) {
-        results.forEach { result ->
-          PlaceListRow(result.name, "搜索结果 · 点击即选定", Icons.Default.LocationOn) { pickResult(result) }
-          HorizontalDivider(Modifier.padding(start = 34.dp), color = DividerTone)
-        }
       }
     }
-    // A different city means a different search; older requests are retired.
-    if (amapKey.isNotBlank()) Field(searchCity, { value ->
-      if (value.take(40) != searchCity) {
-        cancelSearch(); error=""; hint=""; searchCity=value.take(40)
-        pending=typedQuery.length >= 2 && typedQuery==query.trim()
-      }
-    }, "搜索城市（可选）")
     listOf(PlaceGroup.COMMON to "收藏与常用地点", PlaceGroup.HISTORY to "历史地点").forEach { (group, section) ->
       val shown = rows.filter { it.group == group }
       if (shown.isNotEmpty()) {
-        Column(Modifier.fillMaxWidth()) {
-          Text(section, fontWeight = FontWeight.SemiBold, fontSize = TypeScale.Caption, color = Muted, modifier = Modifier.padding(top = 4.dp, bottom = 2.dp))
-          shown.forEach { row ->
-            val subtitle = when (val resolution = row.resolution) {
-              is PlaceResolution.Ready -> if (row.isDefault) "默认常用地址 · 点击即选定" else "点击即选定"
-              is PlaceResolution.SearchByName -> "${resolution.reason} · 点击按名称搜索"
-              is PlaceResolution.Unusable -> resolution.reason
+        Surface(
+          color = Color.White,
+          shape = RoundedCornerShape(14.dp),
+          border = BorderStroke(1.dp, DividerTone),
+          shadowElevation = 1.dp,
+          modifier = Modifier.fillMaxWidth(),
+        ) {
+          Column(Modifier.padding(horizontal = 14.dp, vertical = 12.dp)) {
+            Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp), modifier = Modifier.padding(bottom = 4.dp)) {
+              Box(Modifier.size(width = 4.dp, height = 14.dp).clip(RoundedCornerShape(2.dp)).background(if (group == PlaceGroup.COMMON) Sky else Indigo))
+              Text(section, fontWeight = FontWeight.Bold, fontSize = TypeScale.Title, color = Ink)
             }
-            PlaceListRow(
-              row.name,
-              subtitle,
-              if (group == PlaceGroup.HISTORY) Icons.Default.Refresh else if (row.isDefault) Icons.Default.Star else Icons.Default.LocationOn,
-              warn = row.resolution !is PlaceResolution.Ready,
-            ) { pickRow(row) }
-            HorizontalDivider(Modifier.padding(start = 34.dp), color = DividerTone)
+            shown.forEachIndexed { idx, row ->
+              val subtitle = when (val resolution = row.resolution) {
+                is PlaceResolution.Ready -> if (row.isDefault) "默认常用地址 · 点击即选定" else "点击即选定"
+                is PlaceResolution.SearchByName -> "${resolution.reason} · 点击按名称搜索"
+                is PlaceResolution.Unusable -> resolution.reason
+              }
+              PlaceListRow(
+                row.name,
+                subtitle,
+                if (group == PlaceGroup.HISTORY) Icons.Default.Refresh else if (row.isDefault) Icons.Default.Star else Icons.Default.LocationOn,
+                warn = row.resolution !is PlaceResolution.Ready,
+              ) { pickRow(row) }
+              if (idx < shown.lastIndex) HorizontalDivider(Modifier.padding(start = 34.dp), color = DividerTone)
+            }
           }
         }
       }
     }
     Note(if (amapKey.isNotBlank()) "输入即搜索，也可点地图选点；请选择具体车站、入口或建筑。" else "输入即搜索；地址服务可用性依赖设备服务，请核对地点后使用。")
+  }
+  if (showCityDialog) {
+    var draftCity by remember(searchCity) { mutableStateOf(searchCity) }
+    PassengerModal(
+      title = "切换搜索城市",
+      onDismiss = { showCityDialog = false },
+      confirmLabel = "确定",
+      onConfirm = {
+        val next = draftCity.trim().take(40)
+        if (next != searchCity) {
+          cancelSearch(); error = ""; hint = ""; searchCity = next
+          pending = typedQuery.length >= 2 && typedQuery == query.trim()
+        }
+        showCityDialog = false
+      },
+    ) {
+      FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+        listOf("宜昌市", "武汉市", "深圳市", "").forEach { preset ->
+          val label = preset.ifBlank { "全部城市" }
+          FilterChip(
+            selected = draftCity.trim() == preset,
+            onClick = { draftCity = preset },
+            label = { Text(label) },
+          )
+        }
+      }
+      Field(draftCity, { draftCity = it.take(40) }, "输入城市名称（留空表示不限）")
+    }
   }
 }
 

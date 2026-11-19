@@ -1,0 +1,33 @@
+{
+  "result": "PASS",
+  "sourceSha": "413439a9fc9ea396bf0e6da5529b87a7c9e1043a",
+  "originalUpgrade": {
+    "passenger": [
+      26,
+      27
+    ],
+    "driver": [
+      28,
+      29
+    ]
+  },
+  "avd": "UIF_RELEASE_20261119/emulator-5596",
+  "crashLines": 0,
+  "fixtureStopped": true,
+  "emulatorStopAcknowledged": true,
+  "screenshots": {
+    "passenger-fees-scroll.png": "3ec65b011eed57651e8b07e82bc2a0510cb9f25eaea393cc0dc1047fc0c11e91",
+    "passenger-fees-refreshed.png": "3ec65b011eed57651e8b07e82bc2a0510cb9f25eaea393cc0dc1047fc0c11e91",
+    "driver-online-retrying.png": "398163c1421c938017d9c92e4830da0c65249323247d7bda990716f5fe6ee8fd",
+    "driver-online-located.png": "017c7d8fc9c206bbb58cdb6d963a56cd5154454fa9caf6ddf2ed38bca5630194"
+  },
+  "scenarios": [
+    "Original signed APKs installed in place, versions read from system package manager",
+    "QA builds of the same source with isolated TLS endpoint: order fee showed without a tap then manual refresh kept expected fields",
+    "Online driver pressed relocate, injected updated emulator GPS, online/located states observed; stale rejection checked separately by unit regression and code review"
+  ],
+  "notRun": [
+    "No-fix online timeout reproduction on physical device",
+    "Real maps, OEM background behavior, personal phones and live transactions"
+  ]
+}

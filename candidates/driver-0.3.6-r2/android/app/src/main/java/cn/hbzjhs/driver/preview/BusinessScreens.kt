@@ -70,6 +70,8 @@ private fun BusinessDriver(
     onMessage: (String) -> Unit,
 ) {
     val driver = profile.bObj("driver")
+    val certificates = profile.bList("certificates")
+    val (qualText, qualColor, qualNeedsAction) = qualificationSummary(certificates)
     val state by store.state.collectAsState()
     val busy by store.loading.collectAsState()
     val displayName = driver.bText("name", fallback = "演示司机")
@@ -81,15 +83,15 @@ private fun BusinessDriver(
             SheetCard {
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Surface(color = Pale, shape = CircleShape) {
-                        Box(Modifier.size(58.dp), contentAlignment = Alignment.Center) {
-                            Glyph("profile", modifier = Modifier.size(30.dp))
+                        Box(Modifier.size(54.dp), contentAlignment = Alignment.Center) {
+                            Glyph("profile", modifier = Modifier.size(28.dp))
                         }
                     }
                     Column(Modifier.weight(1f).padding(start = 14.dp)) {
-                        Text(displayName, fontSize = 23.sp, fontWeight = FontWeight.Bold)
+                        Text(displayName, fontSize = 18.sp, fontWeight = FontWeight.Bold)
                         Text(
                             driver.bText("organization", fallback = "宜捷行 · 独立演示服务"),
-                            fontSize = 15.sp,
+                            fontSize = 14.sp,
                             color = Muted,
                         )
                     }
@@ -101,18 +103,12 @@ private fun BusinessDriver(
                 DetailRow("车牌", driver.bText("plate", "carNo"))
                 DetailRow("服务区域", driver.bText("cityName", "city"))
                 DetailRow("车型", driver.bText("vehicleType", "vehicleModel"))
-                DetailRow(
-                    "资质状态",
-                    bStatus(
-                        driver.bText(
-                            "certificationStatus",
-                            "certification",
-                            "status",
-                            fallback = "",
-                        )
-                    ),
-                    Green,
-                )
+                DetailRow("资质状态", qualText, qualColor)
+                if (qualNeedsAction) {
+                    Spacer(Modifier.height(8.dp))
+                    PrimaryButton("去更新资质证件") { navigate("qualification") }
+                }
+                Spacer(Modifier.height(4.dp))
                 BusinessTextButton(onClick = { editing = !editing }) {
                     Text(if (editing) "取消编辑" else "修改显示姓名")
                 }
@@ -144,7 +140,7 @@ private fun BusinessDriver(
                 ) {
                     navigate("serviceScore")
                 }
-                MenuRow("doc", "资质证件") { navigate("qualification") }
+                MenuRow("doc", "资质证件", qualText) { navigate("qualification") }
                 MenuRow("gift", "我的积分") { navigate("points") }
             }
         }
@@ -190,16 +186,17 @@ private fun BusinessCertificates(
         item { BusinessHint("支持车辆保单、驾驶证正反面、从业资格证。图片上传至独立演示服务后，进入待审核状态。请使用样例图片。") }
         items(listOf("insurance", "license", "qualification")) { type ->
             val cert = certificates.firstOrNull { it.bText("type") == type } ?: JSONObject()
+            val (badgeLabel, badgeTint, badgeBg) = certificateEffectiveBadge(cert)
             SheetCard {
                 Row(verticalAlignment = Alignment.CenterVertically) {
-                    Glyph("shield", modifier = Modifier.size(30.dp))
+                    Glyph("shield", badgeTint, modifier = Modifier.size(28.dp))
                     Text(
                         cert.bText("title", "name", fallback = bCertificateTitle(type)),
                         fontSize = 15.sp,
                         fontWeight = FontWeight.Bold,
                         modifier = Modifier.weight(1f).padding(start = 12.dp),
                     )
-                    Pill(bStatus(cert.bText("status", fallback = "")))
+                    Pill(badgeLabel, badgeTint, badgeBg)
                 }
                 Spacer(Modifier.height(12.dp))
                 DetailRow("生效日期", cert.bText("validFrom"))
@@ -315,8 +312,9 @@ private fun BusinessCertificateEdit(
     }
     BusinessPage(bCertificateTitle(type), store, onBack) {
         item {
+            val (badgeLabel, badgeTint, badgeBg) = certificateEffectiveBadge(cert)
             SheetCard {
-                Pill(bStatus(cert.bText("status", fallback = "")))
+                Pill(badgeLabel, badgeTint, badgeBg)
                 DriverCertificateStatus(cert)
                 cert.optJSONObject("pending")?.let { pending ->
                     BusinessHint("新材料待审核：${pending.optString("validFrom")} 至 ${pending.optString("validUntil")}。通过后才替换当前材料。")

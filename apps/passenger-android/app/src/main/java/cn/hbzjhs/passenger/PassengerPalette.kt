@@ -27,9 +27,9 @@ import androidx.compose.ui.graphics.vector.ImageVector
 // tint is only for small selected states; neutral grey fills carry secondary actions.
 val BrandStrong = Color(0xFF005F56)
 val BrandSoft = Color(0xFFEAF5F3)
-val Line = Color(0xFFE2E6EA)
+val Line = Color(0xFFDDE3E9)
 val ControlOutline = Color(0xFF71818C)
-val DividerTone = Color(0xFFEDF0F2)
+val DividerTone = Color(0xFFE1E7EC)
 val Chevron = Color(0xFF8A96A1)
 /** Neutral fill for secondary buttons, segmented tracks and icon wells. */
 val SurfaceMuted = Color(0xFFF2F4F6)

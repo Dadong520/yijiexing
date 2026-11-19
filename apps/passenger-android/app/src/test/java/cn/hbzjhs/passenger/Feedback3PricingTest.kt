@@ -39,6 +39,11 @@ class Feedback3PricingTest {
     val state=JSONObject().put("coupons",coupons)
     assertEquals(listOf("A","B"),BookingPricing.usableCoupons(state,1000,Instant.parse("2026-11-11T00:00:00Z")).map{it.text("id")})
     assertTrue(BookingPricing.usableCoupons(state,999,Instant.parse("2026-11-11T00:00:00Z")).isEmpty())
+    val tzCoupons = JSONArray()
+      .put(coupon("TZ_LOW", 300).put("validFrom", "2026-11-10T00:00:00+08:00").put("expiresAt", "2026-11-20T23:59:59+08:00"))
+      .put(coupon("TZ_BEST", 800).put("validFrom", "2026-11-10T00:00:00+08:00").put("expiresAt", "2026-11-20T23:59:59+08:00"))
+    val tzState = JSONObject().put("coupons", tzCoupons)
+    assertEquals(listOf("TZ_BEST", "TZ_LOW"), BookingPricing.usableCoupons(tzState, 1000, Instant.parse("2026-11-11T00:00:00Z")).map { it.text("id") })
   }
   @Test fun roundTripCountsEveryLegAndInvalidCoordinatesDoNotBecomeZero() {
     val a=30.6 to 111.3;val b=30.61 to 111.32

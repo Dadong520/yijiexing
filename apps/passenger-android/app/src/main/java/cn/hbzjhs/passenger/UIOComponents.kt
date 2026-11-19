@@ -53,9 +53,9 @@ object Gap {
  * helper text the smallest. Screens use these instead of ad-hoc sizes.
  */
 object TypeScale {
-  val Page = 20.sp
-  val Title = 16.sp
-  val Body = 15.sp
+  val Page = 17.sp
+  val Title = 15.sp
+  val Body = 14.sp
   val Caption = 12.sp
 }
 

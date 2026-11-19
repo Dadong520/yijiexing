@@ -42,8 +42,8 @@ val Ink = Color(0xFF0F1B2A)
 val Muted = Color(0xFF4B5B6B)
 // Soft brand tint only for small selected states; near-white page behind white cards.
 val Pale = Color(0xFFEAF5F3)
-val Page = Color(0xFFF7F8FA)
-val Line = Color(0xFFE2E6EA)
+val Page = Color(0xFFEEF2F5)
+val Line = Color(0xFFDDE3E9)
 val Orange = Color(0xFFB45309)
 
 @Composable
@@ -352,13 +352,13 @@ fun Pill(text: String, color: Color = Green, bg: Color = Pale) {
 
 @Composable
 fun SheetCard(modifier: Modifier = Modifier, content: @Composable ColumnScope.() -> Unit) {
-    // One flat surface: white, hairline edge, no shadow.
+    // Crisp white card over cool-grey Page backdrop with subtle elevation.
     Surface(
         modifier = modifier.fillMaxWidth(),
         color = Color.White,
-        shape = RoundedCornerShape(12.dp),
-        border = BorderStroke(1.dp, Hairline),
-        shadowElevation = 0.dp
+        shape = RoundedCornerShape(14.dp),
+        border = BorderStroke(1.dp, Line),
+        shadowElevation = 1.dp
     ) {
         Column(Modifier.padding(horizontal = 16.dp, vertical = 12.dp), content = content)
     }
@@ -419,7 +419,7 @@ fun PageHeader(title: String, onBack: (() -> Unit)? = null, action: String? = nu
         Text(
             text = title,
             fontSize = DriverType.Page,
-            lineHeight = 26.sp,
+            lineHeight = 24.sp,
             fontWeight = FontWeight.Bold,
             color = Ink,
             modifier = Modifier.weight(1f).padding(horizontal = 6.dp)
@@ -444,9 +444,12 @@ fun SectionTitle(title: String, subtitle: String = "", action: String? = null, o
         verticalAlignment = Alignment.CenterVertically
     ) {
         Column(modifier = Modifier.weight(1f)) {
-            Text(title, fontSize = 16.sp, lineHeight = 22.sp, fontWeight = FontWeight.Bold, color = Ink)
+            Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+                Box(Modifier.size(width = 4.dp, height = 14.dp).clip(RoundedCornerShape(2.dp)).background(Green))
+                Text(title, fontSize = DriverType.Title, lineHeight = 21.sp, fontWeight = FontWeight.Bold, color = Ink)
+            }
             if (subtitle.isNotEmpty()) {
-                Text(subtitle, color = Muted, fontSize = 12.sp, lineHeight = 16.sp, modifier = Modifier.padding(top = 1.dp))
+                Text(subtitle, color = Muted, fontSize = 12.sp, lineHeight = 16.sp, modifier = Modifier.padding(top = 2.dp))
             }
         }
         if (action != null) {

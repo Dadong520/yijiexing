@@ -45,8 +45,8 @@ object PositionBus {
  * the request never passes, so an old position is never presented or reported as a new one.
  */
 internal object RetryFreshness {
-    fun isFresh(latitude: Double, longitude: Double, fixElapsedNanos: Long, requestedAtNanos: Long): Boolean =
-        latitude.isFinite() && longitude.isFinite() && fixElapsedNanos > 0L && fixElapsedNanos >= requestedAtNanos
+    fun isFresh(fixElapsedNanos: Long, requestedAtNanos: Long, nowElapsedNanos: Long): Boolean =
+        fixElapsedNanos > 0L && fixElapsedNanos in requestedAtNanos..nowElapsedNanos
 }
 
 object DriverUiPresence {
@@ -392,7 +392,10 @@ class DriverLocationService : Service(), LocationListener {
         val listeners = mutableListOf<LocationListener>()
         var closed = false
             private set
-        val timeout = Runnable { finishRetry(this, "暂未获取到新位置，请移至开阔处后重试") }
+        val timeout = Runnable {
+            val current = generation == serviceGeneration && LocalApi.isCurrent(credentials)
+            finishRetry(this, if (current) "暂未获取到新位置，请移至开阔处后重试" else null)
+        }
 
         fun close() {
             if (closed) return
@@ -462,8 +465,13 @@ class DriverLocationService : Service(), LocationListener {
                 finishRetry(request, null)
                 return@answer
             }
-            if (!RetryFreshness.isFresh(location.latitude, location.longitude, location.elapsedRealtimeNanos, request.requestedAtNanos))
-                return@answer
+            val fresh = RetryFreshness.isFresh(
+                location.elapsedRealtimeNanos, request.requestedAtNanos, SystemClock.elapsedRealtimeNanos(),
+            )
+            if (!fresh || !isUsableDriverFix(
+                    location.latitude, location.longitude, location.accuracy, location.time,
+                    System.currentTimeMillis(),
+                )) return@answer
             // Release every retry listener (incl. the other provider) and the timeout first.
             finishRetry(request, null)
             handleFix(location, forceReport = true, generation = request.generation, credentials = request.credentials)
@@ -559,7 +567,7 @@ class DriverLocationService : Service(), LocationListener {
 
     companion object {
         const val ACTION_RETRY_LOCATION = "cn.hbzjhs.driver.preview.RETRY_LOCATION"
-        private const val RETRY_TIMEOUT_MS = 20_000L
+        private const val RETRY_TIMEOUT_MS = 10_000L
         /** True between a successful setup and onDestroy; the activity sends a retry only then. */
         @Volatile var running = false
             private set
