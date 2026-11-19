@@ -19,7 +19,7 @@
     "非作者复核及隔离模拟器覆盖升级",
     "固定对象保护、双公开整包回读与云配置/数据核验"
   ],
-  "status": "ACCEPTED_READY_FOR_RELEASE",
+  "status": "COMPLETE",
   "acceptance": "PASS",
   "tests": [
     {
@@ -75,10 +75,21 @@
       "sha256": "93b4372074aa09570bc0fc1476eb5b36e545b38af30f7ed50478e93b7f6462da"
     }
   ],
-  "nextAction": "CI精确提交通过后合并；只更新体验双APK，检查公开整包和数据。",
-  "updatedAt": "2026-11-19T02:15:43.174422+00:00",
+  "nextAction": "双端发布与公网整包校验完毕，等用户验收反馈。",
+  "updatedAt": "2026-11-19T02:18:52.889139+00:00",
   "candidateSha": "413439a9fc9ea396bf0e6da5529b87a7c9e1043a",
   "acceptedSha": "413439a9fc9ea396bf0e6da5529b87a7c9e1043a",
   "releaseReady": true,
-  "publicationComplete": false
+  "publicationComplete": true,
+  "productPr": 59,
+  "mergeSha": "9605bcc2a92127203d9a424c187b2b370633300d",
+  "integrationHeadSha": "5b1f0195562d2de84767980fc6eb48daecf477ea",
+  "ci": {
+    "conclusion": "success",
+    "databaseId": 44443020573,
+    "headSha": "5b1f0195562d2de84767980fc6eb48daecf477ea",
+    "status": "completed",
+    "url": "https://github.com/Dadong520/yijiexing/actions/runs/44443020573"
+  },
+  "releaseReceipt": "coordination/evidence/UIF-20261118-01/release/FINAL-RELEASE-RECEIPT.json"
 }

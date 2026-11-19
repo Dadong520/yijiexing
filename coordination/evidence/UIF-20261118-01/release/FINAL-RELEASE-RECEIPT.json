@@ -1,0 +1,181 @@
+{
+  "sourceSha": "413439a9fc9ea396bf0e6da5529b87a7c9e1043a",
+  "integrationHeadSha": "5b1f0195562d2de84767980fc6eb48daecf477ea",
+  "mergeSha": "9605bcc2a92127203d9a424c187b2b370633300d",
+  "productPr": 59,
+  "ci": {
+    "conclusion": "success",
+    "databaseId": 44443020573,
+    "headSha": "5b1f0195562d2de84767980fc6eb48daecf477ea",
+    "status": "completed",
+    "url": "https://github.com/Dadong520/yijiexing/actions/runs/44443020573"
+  },
+  "productTreesIdentical": true,
+  "result": "PASS_PUBLISHED_AND_READ_BACK",
+  "verifiedAt": "2026-11-19T02:18:52.889139+00:00",
+  "project": "yijiexing-driver-demo-1023",
+  "region": "us-west1",
+  "build": {
+    "sourceSha": "413439a9fc9ea396bf0e6da5529b87a7c9e1043a",
+    "roles": {
+      "passenger": {
+        "role": "passenger",
+        "package": "cn.hbzjhs.dc.passenger.cloud",
+        "versionCode": 27,
+        "versionName": "1.1.25-experience",
+        "sha256": "b0c3d28a292f7013cba314ea51c1a4f45da0db5984253c8351a3556bac4e9c84",
+        "bytes": 42629277,
+        "signerSha256": "9ffec9b342d12909ff288bd73f23ba104893b39120cb24ea83c9734a0d2b758f",
+        "debuggable": false,
+        "unitTests": 89,
+        "compressedNativeLibraries": 6,
+        "expectedHTTPSOrigin": true,
+        "qaOriginAbsent": true
+      },
+      "driver": {
+        "role": "driver",
+        "package": "cn.hbzjhs.dc.driver.cloud",
+        "versionCode": 29,
+        "versionName": "0.3.26-cloud",
+        "sha256": "253bd9a410f7ad714d19b409997ccbac3380155da6882b3eb4a61df9d3418327",
+        "bytes": 115470822,
+        "signerSha256": "9ffec9b342d12909ff288bd73f23ba104893b39120cb24ea83c9734a0d2b758f",
+        "debuggable": false,
+        "unitTests": 137,
+        "compressedNativeLibraries": 16,
+        "expectedHTTPSOrigin": true,
+        "qaOriginAbsent": true
+      }
+    }
+  },
+  "apks": {
+    "cloudBuildId": "4977727c-8ad9-459c-a61b-d0a270b409d2",
+    "cloudBuildStatus": "SUCCESS",
+    "apks": [
+      {
+        "role": "passenger",
+        "bytes": 42629277,
+        "sha256": "b0c3d28a292f7013cba314ea51c1a4f45da0db5984253c8351a3556bac4e9c84",
+        "package": "cn.hbzjhs.dc.passenger.cloud",
+        "versionCode": 27,
+        "versionName": "1.1.25-experience",
+        "signerSha256": "9ffec9b342d12909ff288bd73f23ba104893b39120cb24ea83c9734a0d2b758f",
+        "url": "https://user-test---driver-demo-phfgquzmua-uw.a.run.app/download-passenger.apk",
+        "http": 200,
+        "fullHTTPSDownload": true,
+        "authorizationHeaderSent": false,
+        "zipIntegrity": true,
+        "identityMethod": "Complete public bytes equal locally aapt/apksigner-verified accepted original; no cloud Android tool invocation",
+        "result": "PASS"
+      },
+      {
+        "role": "driver",
+        "bytes": 115470822,
+        "sha256": "253bd9a410f7ad714d19b409997ccbac3380155da6882b3eb4a61df9d3418327",
+        "package": "cn.hbzjhs.dc.driver.cloud",
+        "versionCode": 29,
+        "versionName": "0.3.26-cloud",
+        "signerSha256": "9ffec9b342d12909ff288bd73f23ba104893b39120cb24ea83c9734a0d2b758f",
+        "url": "https://user-test---driver-demo-phfgquzmua-uw.a.run.app/download.apk",
+        "http": 200,
+        "fullHTTPSDownload": true,
+        "authorizationHeaderSent": false,
+        "zipIntegrity": true,
+        "identityMethod": "Complete public bytes equal locally aapt/apksigner-verified accepted original; no cloud Android tool invocation",
+        "result": "PASS"
+      }
+    ]
+  },
+  "promotion": [
+    {
+      "role": "passenger",
+      "fixed": "distribution/yijiexing-passenger.apk",
+      "archive": "distribution/archive/before-uif-20261119/passenger.apk",
+      "archiveGeneration": "1795054647618695",
+      "oldGeneration": "1794465967683614",
+      "newGeneration": "1795054658328171",
+      "sha256": "b0c3d28a292f7013cba314ea51c1a4f45da0db5984253c8351a3556bac4e9c84",
+      "bytes": 42629277
+    },
+    {
+      "role": "driver",
+      "fixed": "distribution/yijiexing-cloud.apk",
+      "archive": "distribution/archive/before-uif-20261119/driver.apk",
+      "archiveGeneration": "1795054653034116",
+      "oldGeneration": "1794465978391604",
+      "newGeneration": "1795054663669421",
+      "sha256": "253bd9a410f7ad714d19b409997ccbac3380155da6882b3eb4a61df9d3418327",
+      "bytes": 115470822
+    }
+  ],
+  "cloudBefore": {
+    "driver-demo": {
+      "revision": "driver-demo-fb3-9a76fc4",
+      "specSha256": "f107687a9a9856456e81fbf10218121ee9a5d56d25b3762baaab6095bda3e6b2",
+      "iamSha256": "b889d91193cb50738ff8418eec83691d89bb38b6cdccd1177014744749747b51"
+    },
+    "driver-admin": {
+      "revision": "driver-admin-fb3-9a76fc4",
+      "specSha256": "04073d439161e2289b98e17c190658dca76707de4f977733b5ceb2ccef70ad2a",
+      "iamSha256": "c91e2cbf77eab7c6f3dc5e59b150a22997e52c1cd655eebef45a6953bbce8fce"
+    },
+    "snapshot": {
+      "generation": "1795045776959499",
+      "size": 17281024,
+      "md5_hash": "0pz4AwLmNZYQ7HP62AtLIw=="
+    }
+  },
+  "cloudAfter": {
+    "driver-demo": {
+      "revision": "driver-demo-fb3-9a76fc4",
+      "specSha256": "f107687a9a9856456e81fbf10218121ee9a5d56d25b3762baaab6095bda3e6b2",
+      "iamSha256": "b889d91193cb50738ff8418eec83691d89bb38b6cdccd1177014744749747b51"
+    },
+    "driver-admin": {
+      "revision": "driver-admin-fb3-9a76fc4",
+      "specSha256": "04073d439161e2289b98e17c190658dca76707de4f977733b5ceb2ccef70ad2a",
+      "iamSha256": "c91e2cbf77eab7c6f3dc5e59b150a22997e52c1cd655eebef45a6953bbce8fce"
+    },
+    "snapshot": {
+      "generation": "1795045776959499",
+      "size": 17281024,
+      "md5_hash": "0pz4AwLmNZYQ7HP62AtLIw=="
+    },
+    "servicesUnchanged": true,
+    "snapshotUnchanged": true
+  },
+  "native": {
+    "result": "PASS",
+    "sourceSha": "413439a9fc9ea396bf0e6da5529b87a7c9e1043a",
+    "originalUpgrade": {
+      "passenger": [
+        26,
+        27
+      ],
+      "driver": [
+        28,
+        29
+      ]
+    },
+    "avd": "UIF_RELEASE_20261119/emulator-5596",
+    "crashLines": 0,
+    "fixtureStopped": true,
+    "emulatorStopAcknowledged": true,
+    "screenshots": {
+      "passenger-fees-scroll.png": "3ec65b011eed57651e8b07e82bc2a0510cb9f25eaea393cc0dc1047fc0c11e91",
+      "passenger-fees-refreshed.png": "3ec65b011eed57651e8b07e82bc2a0510cb9f25eaea393cc0dc1047fc0c11e91",
+      "driver-online-retrying.png": "398163c1421c938017d9c92e4830da0c65249323247d7bda990716f5fe6ee8fd",
+      "driver-online-located.png": "017c7d8fc9c206bbb58cdb6d963a56cd5154454fa9caf6ddf2ed38bca5630194"
+    },
+    "scenarios": [
+      "Original signed APKs installed in place, versions read from system package manager",
+      "QA builds of the same source with isolated TLS endpoint: order fee showed without a tap then manual refresh kept expected fields",
+      "Online driver pressed relocate, injected updated emulator GPS, online/located states observed; stale rejection checked separately by unit regression and code review"
+    ],
+    "notRun": [
+      "No-fix online timeout reproduction on physical device",
+      "Real maps, OEM background behavior, personal phones and live transactions"
+    ]
+  },
+  "scope": "Two fixed APK objects only; identical service specs, IAM and SQLite object generation/MD5; no cloud business posts. Emulator and synthetic fixtures; live map and physical device testing NOT_RUN."
+}

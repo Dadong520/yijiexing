@@ -1,0 +1,38 @@
+{
+  "cloudBuildId": "4977727c-8ad9-459c-a61b-d0a270b409d2",
+  "cloudBuildStatus": "SUCCESS",
+  "apks": [
+    {
+      "role": "passenger",
+      "bytes": 42629277,
+      "sha256": "b0c3d28a292f7013cba314ea51c1a4f45da0db5984253c8351a3556bac4e9c84",
+      "package": "cn.hbzjhs.dc.passenger.cloud",
+      "versionCode": 27,
+      "versionName": "1.1.25-experience",
+      "signerSha256": "9ffec9b342d12909ff288bd73f23ba104893b39120cb24ea83c9734a0d2b758f",
+      "url": "https://user-test---driver-demo-phfgquzmua-uw.a.run.app/download-passenger.apk",
+      "http": 200,
+      "fullHTTPSDownload": true,
+      "authorizationHeaderSent": false,
+      "zipIntegrity": true,
+      "identityMethod": "Complete public bytes equal locally aapt/apksigner-verified accepted original; no cloud Android tool invocation",
+      "result": "PASS"
+    },
+    {
+      "role": "driver",
+      "bytes": 115470822,
+      "sha256": "253bd9a410f7ad714d19b409997ccbac3380155da6882b3eb4a61df9d3418327",
+      "package": "cn.hbzjhs.dc.driver.cloud",
+      "versionCode": 29,
+      "versionName": "0.3.26-cloud",
+      "signerSha256": "9ffec9b342d12909ff288bd73f23ba104893b39120cb24ea83c9734a0d2b758f",
+      "url": "https://user-test---driver-demo-phfgquzmua-uw.a.run.app/download.apk",
+      "http": 200,
+      "fullHTTPSDownload": true,
+      "authorizationHeaderSent": false,
+      "zipIntegrity": true,
+      "identityMethod": "Complete public bytes equal locally aapt/apksigner-verified accepted original; no cloud Android tool invocation",
+      "result": "PASS"
+    }
+  ]
+}

@@ -1,1 +1,1 @@
-请先读中央 /Users/dongge/Documents/New project 2/coordination 的START_HERE、STATE、BOARD、SESSION_REGISTRY和coordinator短卡，协议2026-10-26-v3。FB3产品已PR57合并9a76fc4并发布双服务及乘客26/司机28，双公开整包回读PASS；先核对回执合并状态，禁止重复发布。唯一协调者仍01a17cc7-e0a2-7791-bf1d-4611c09bab22；仅用户明确接任可换登记。context UNKNOWN。
+从中央 /Users/dongge/Documents/New project 2/coordination 读取 START_HERE、STATE、BOARD、SESSION_REGISTRY、coordinator短卡。协议2026-10-26-v3，唯一协调者01a17cc7-e0a2-7791-bf1d-4611c09bab22。UIF-20261118-01 已PR59合并和体验发布，乘客27、司机29；公开整包和运行配置检查PASS。按STATE确认回执合并与实际源码基线，勿重复部署。context UNKNOWN。
