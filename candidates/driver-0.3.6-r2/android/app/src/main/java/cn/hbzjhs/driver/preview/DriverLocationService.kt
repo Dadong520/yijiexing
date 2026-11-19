@@ -45,8 +45,8 @@ object PositionBus {
  * the request never passes, so an old position is never presented or reported as a new one.
  */
 internal object RetryFreshness {
-    fun isFresh(latitude: Double, longitude: Double, fixElapsedNanos: Long, requestedAtNanos: Long): Boolean =
-        latitude.isFinite() && longitude.isFinite() && fixElapsedNanos > 0L && fixElapsedNanos >= requestedAtNanos
+    fun isFresh(fixElapsedNanos: Long, requestedAtNanos: Long, nowElapsedNanos: Long): Boolean =
+        fixElapsedNanos > 0L && fixElapsedNanos in requestedAtNanos..nowElapsedNanos
 }
 
 object DriverUiPresence {
@@ -393,24 +393,8 @@ class DriverLocationService : Service(), LocationListener {
         var closed = false
             private set
         val timeout = Runnable {
-            // Fallback to a valid recent system location (<=120s) on stationary devices/emulators.
-            val fallback = if (::manager.isInitialized) {
-                listOf(LocationManager.GPS_PROVIDER, LocationManager.NETWORK_PROVIDER)
-                    .filter { it in manager.allProviders }
-                    .mapNotNull { runCatching { manager.getLastKnownLocation(it) }.getOrNull() }
-                    .filter {
-                        it.latitude.isFinite() && it.longitude.isFinite() &&
-                            !(it.latitude == 0.0 && it.longitude == 0.0) &&
-                            System.currentTimeMillis() - it.time <= 120_000L
-                    }
-                    .maxByOrNull { it.time }
-            } else null
-            if (fallback != null && generation == serviceGeneration && LocalApi.isCurrent(credentials)) {
-                finishRetry(this, null)
-                handleFix(fallback, forceReport = true, generation = generation, credentials = credentials)
-            } else {
-                finishRetry(this, "暂未获取到新位置，请移至开阔处后重试")
-            }
+            val current = generation == serviceGeneration && LocalApi.isCurrent(credentials)
+            finishRetry(this, if (current) "暂未获取到新位置，请移至开阔处后重试" else null)
         }
 
         fun close() {
@@ -481,12 +465,13 @@ class DriverLocationService : Service(), LocationListener {
                 finishRetry(request, null)
                 return@answer
             }
-            val fresh = RetryFreshness.isFresh(location.latitude, location.longitude, location.elapsedRealtimeNanos, request.requestedAtNanos)
-            val recentEnough = location.latitude.isFinite() && location.longitude.isFinite() &&
-                !(location.latitude == 0.0 && location.longitude == 0.0) &&
-                SystemClock.elapsedRealtimeNanos() - request.requestedAtNanos >= 3_000_000_000L &&
-                System.currentTimeMillis() - location.time <= 120_000L
-            if (!fresh && !recentEnough) return@answer
+            val fresh = RetryFreshness.isFresh(
+                location.elapsedRealtimeNanos, request.requestedAtNanos, SystemClock.elapsedRealtimeNanos(),
+            )
+            if (!fresh || !isUsableDriverFix(
+                    location.latitude, location.longitude, location.accuracy, location.time,
+                    System.currentTimeMillis(),
+                )) return@answer
             // Release every retry listener (incl. the other provider) and the timeout first.
             finishRetry(request, null)
             handleFix(location, forceReport = true, generation = request.generation, credentials = request.credentials)

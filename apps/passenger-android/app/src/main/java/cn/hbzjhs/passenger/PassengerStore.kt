@@ -498,10 +498,17 @@ class PassengerStore(app: Application) : AndroidViewModel(app) {
     if (generation == sessionGeneration) _notice.value = "投诉图片已上传并保存"
   }
 
-  fun query(path: String, done: (JSONObject) -> Unit) = run {
+  /** A screen-scoped read must not deliver a response from a previous login. */
+  internal suspend fun readForCurrentSession(path: String): JSONObject? {
     val generation = sessionGeneration
-    val data = PassengerApi.request("GET", path)
-    if (generation == sessionGeneration) done(data)
+    val token = PassengerApi.token
+    if (token.isBlank()) return null
+    val data = PassengerApi.request("GET", path, tokenOverride = token)
+    return data.takeIf { generation == sessionGeneration && token == PassengerApi.token }
+  }
+
+  fun query(path: String, done: (JSONObject) -> Unit) = run {
+    readForCurrentSession(path)?.let(done)
   }
 }
 

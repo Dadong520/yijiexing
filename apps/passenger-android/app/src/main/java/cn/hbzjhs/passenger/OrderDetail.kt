@@ -53,14 +53,25 @@ fun OrderDetail(o: JSONObject, store: PassengerStore, busy: Boolean, openOrder: 
   var cancelChoice by rememberSaveable(id) { mutableStateOf("行程计划有变") }
   var cancelOther by rememberSaveable(id) { mutableStateOf("") }
   var contactPage by rememberSaveable(id) { mutableStateOf(false) }
-  var fees by
-    remember(id, o.optLong("fare"), o.optBoolean("paid")) { mutableStateOf<JSONObject?>(null) }
-  LaunchedEffect(id, stage, o.optLong("fare"), o.optBoolean("paid")) {
+  val fare = o.optLong("fare")
+  val paid = o.optBoolean("paid")
+  val cancelFeeStatus = o.optJSONObject("cancelFee")?.text("status")
+  var fees by remember(id, stage, fare, paid, cancelFeeStatus) { mutableStateOf<JSONObject?>(null) }
+  var feeRefresh by remember(id) { mutableIntStateOf(0) }
+  var feeError by remember(id, stage, fare, paid, cancelFeeStatus) { mutableStateOf(false) }
+  var feeLoading by remember(id) { mutableStateOf(false) }
+  LaunchedEffect(id, stage, fare, paid, cancelFeeStatus, feeRefresh) {
+    feeLoading = true
+    feeError = false
     try {
-      fees = PassengerApi.request("GET", "/api/passenger/orders/$id/fees")
+      store.readForCurrentSession("/api/passenger/orders/$id/fees")?.let { fees = it }
     } catch (e: CancellationException) {
       throw e
-    } catch (_: Exception) {}
+    } catch (_: Exception) {
+      feeError = true
+    } finally {
+      feeLoading = false
+    }
   }
   var sortLow by remember { mutableStateOf(true) }
   var driverCard by remember(id) { mutableStateOf(false) }
@@ -338,8 +349,8 @@ fun OrderDetail(o: JSONObject, store: PassengerStore, busy: Boolean, openOrder: 
           )
         }
         PassengerTextButton(
-          onClick = { store.query("/api/passenger/orders/$id/fees") { fees = it } },
-          enabled = !busy,
+          onClick = { feeRefresh++ },
+          enabled = !busy && !feeLoading,
           contentPadding = PaddingValues(horizontal = 10.dp, vertical = 4.dp),
         ) {
           Text("刷新明细", fontSize = TypeScale.Caption)
@@ -370,6 +381,7 @@ fun OrderDetail(o: JSONObject, store: PassengerStore, busy: Boolean, openOrder: 
         KV("支付手续费", "¥${money(f.optLong("paymentFee"))}")
         Note(f.text("policyLabel", "独立体验估价"))
       }
+      if (feeError) Note("暂未获取到最新费用明细，请刷新重试")
       Note("体验计价 · 支付和退款均为模拟")
       if (stage in listOf("PREPAY", "WAIT_PAY") && negotiated && o.text("negotiationStatus") != "OFFERED")
         Note("请等待司机重新报价，之后再次核对金额。")
