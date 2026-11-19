@@ -10,7 +10,13 @@
 - 活跃任务：[BOARD](coordination/BOARD.json)；长期决定：[DECISIONS](coordination/DECISIONS.md)；角色细节：handoffs；契约：contracts。
 - 恢复与提交检查：`python3 tools/check_coordination.py --memory-role <role> --session-id <真实会话ID>`；检查器不测量模型内部上下文，不等于业务验收。
 
-## 11月12日《修改意见3.0》（乘客26、司机28已发布）
+## 11月19日司乘 Android 界面优化（乘客27、司机29）
+
+[PR59](https://github.com/Dadong520/yijiexing/pull/59) 已合并。乘客端更新选址面板、优惠券和订单费用明细，司机端更新听单、定位、资质、钱包与个人页。两端保留原签名，乘客 `1.1.25-experience`（27）、司机 `0.3.26-cloud`（29）。
+
+双端构建、89/137项单测、小程序74项回归、非作者复核及隔离模拟器覆盖升级通过。公开下载整包匹配验收包，后台/API及业务数据快照保持。[发布回执](coordination/evidence/UIF-20261118-01/release/FINAL-RELEASE-RECEIPT.json)。
+
+## 11月12日《修改意见3.0》（历史乘客26、司机28）
 
 区域运价和服务费、订单分账、公司分账账户、空车费结清、优惠券资金池/制券预览、新人券、积分拉新、服务分与发票冲红重开/技术服务费模拟开票已接入双Android与管理后台。后台可直接查找区域运价管理、区域服务费管理、公司分账账户管理、优惠券资金池、制作优惠券等菜单。
 
@@ -136,8 +142,8 @@ Claude Code已真实接入并完成主力实现，Gemini按用户决定暂时停
 
 | 项目 | 已发布与核验 | 入口 |
 |---|---|---|
-| 司机Android | 0.3.25-cloud / code28，原签名 | [司机快速入口](https://user-test---driver-demo-phfgquzmua-uw.a.run.app/download) |
-| 乘客Android | 1.1.24-experience / code26，原签名 | [乘客快速入口](https://user-test---driver-demo-phfgquzmua-uw.a.run.app/download-passenger) |
+| 司机Android | 0.3.26-cloud / code29，原签名 | [司机快速入口](https://user-test---driver-demo-phfgquzmua-uw.a.run.app/download) |
+| 乘客Android | 1.1.25-experience / code27，原签名 | [乘客快速入口](https://user-test---driver-demo-phfgquzmua-uw.a.run.app/download-passenger) |
 | Web后台 | 继续使用原账号密码 | https://demo-admin.hbzjhs.xyz/ |
 | 体验API | 同一持久数据与HTTPS域名 | https://yijiexing-demo.hbzjhs.xyz |
 | 微信小程序 | 源码74测试通过；缺AppID，未微信编译/真机/发布 | candidates/passenger-miniprogram-0.1.0/miniprogram |
