@@ -1,0 +1,72 @@
+{
+  "task": "UIF-20261118-01",
+  "sourceSha": "fa4ae6b718c5fa07704e6c0d89e00c228d294fc9",
+  "branch": "gemini/ui-feedback-20261118",
+  "result": "PASS",
+  "avd": {
+    "name": "UIF_20261118",
+    "serial": "emulator-5594",
+    "round1FatalCrashLines": 0,
+    "round2FatalCrashLines": 0,
+    "cleanShutdownVerified": true,
+    "adbDevicesAfterShutdown": []
+  },
+  "sameCertificateUpgrade": {
+    "passenger": {
+      "package": "cn.hbzjhs.dc.passenger.cloud",
+      "fromApk": "original-passenger.apk (v26)",
+      "toVersionCode": 26,
+      "toVersionName": "1.1.24-experience",
+      "apkSha256": "a040830a1df55d7937ba95ee25728322b5d6aca09cd40ad5b8fd512d66f8e3c5",
+      "result": "PASS"
+    },
+    "driver": {
+      "package": "cn.hbzjhs.dc.driver.cloud",
+      "fromApk": "original-driver.apk (v28)",
+      "toVersionCode": 28,
+      "toVersionName": "0.3.25-cloud",
+      "apkSha256": "fe14f3be7ea37b07e4f45f54cd6455d600513ca7089b87594b0a585083c4d4b2",
+      "result": "PASS"
+    }
+  },
+  "verifiedScenarios": [
+    "Global UI: #EEF2F5 canvas, 14.dp cards, accent vertical bars, downscaled typography, gesture-only map panels (no bottom buttons)",
+    "Passenger: Home map panel collapse/restore gestures (02a/02b/02c)",
+    "Passenger: Larger 310.dp picker map + top-bar city selector + categorized cards + 560.dp TopEnd \"展开全屏地图选点\" unblocking AMap zoom buttons (03/03b)",
+    "Passenger: +08:00 timezone coupon parsing auto-selecting maximum discount 满8减6 (-¥6.00) + merged bottom booking bar (04)",
+    "Passenger: Order detail silent /fees auto-load (CancellationException rethrown), timeline route card & direct rider/fee breakdown (05/05b)",
+    "Passenger: Teal gradient profile card with car illustration (06)",
+    "Driver: Resting relocate uses isUsableDriverFix (<=120s, accuracy>0, non-zero), generation & session guards without stale-cache fallback on timeout; verified on device \"已定位 · 精度约 5 米\" (r2-d2-relocated-verified)",
+    "Driver: Online idle fixes \"点击下线 · 停止听单\" at bottom without duplicate header button (07/07b)",
+    "Driver: Teal gradient profile card, dark gold VIP membership card & 2x2 tools grid (08a/08b)",
+    "Driver: Expired policy certificate with legacy APPROVED flags accurately triggers red Danger banner & badge \"1项证件已过期（暂停新接单）\" / \"已过期\" (08/08d/09/09b)",
+    "Driver: Single-row order filters, wallet header with total income, high-contrast white/red bank unbind button & clean wrong-password error feedback with input reset (10/11/12/13)"
+  ],
+  "screenshotCount": 24,
+  "screenshots": [
+    "01b-passenger-login-clean.png",
+    "02a-passenger-home-map-enabled.png",
+    "02b-passenger-home-collapsed.png",
+    "02c-passenger-home-restored.png",
+    "03-passenger-address-dialog.png",
+    "03b-passenger-address-fullscreen-map.png",
+    "04-passenger-booking-coupon-max.png",
+    "05-passenger-order-detail-auto-fees.png",
+    "05b-passenger-order-detail-fees-scroll.png",
+    "06-passenger-profile-card.png",
+    "07-driver-home-offline.png",
+    "07b-driver-home-online-bottom-stop.png",
+    "08-driver-profile-expired-alert.png",
+    "08a-driver-profile-top.png",
+    "08b-driver-profile-tools.png",
+    "08c-driver-profile-relocated.png",
+    "08d-driver2-profile-expired-row.png",
+    "09-driver-qualification-summary.png",
+    "09b-driver-certificates-badge.png",
+    "10-driver-orders-single-row-filter.png",
+    "11-driver-wallet-header.png",
+    "12-driver-banks-unbind-contrast.png",
+    "13-driver-withdraw-wrong-pwd-error.png",
+    "r2-d2-relocated-verified.png"
+  ]
+}

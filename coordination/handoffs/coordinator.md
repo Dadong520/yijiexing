@@ -1,4 +1,4 @@
-# coordinator：FB3已发布，回执入库收尾
-协议2026-10-26-v3；root 01a17cc7-e0a2-7791-bf1d-4611c09bab22 唯一协调/验收/发布。context UNKNOWN，已保存压缩恢复检查点。
-产品PR57 merge 9a76fc4e466092eaa85308d556ca35e454e688ca；source6548ceca164f9abd74e516a577b2e78c5edb27a5。后台/API fb3-9a76fc4及双APK乘客26/司机28已发布，云端公开整包读回/旧库3+3+56+10零丢失PASS。完整测试和非作者源码审查已PASS，不重复构建部署。慢连接临时429已清理恢复；全部账务/税务模拟，小程序未改。隔离AVD/fixture已停止。
-回执树 /Users/dongge/.codex/tmp/yijiexing-fb3-receipt-20261112，branch codex/fb3-release-receipt-20261112，仅coordination与README；非作者回执有限核验24/24 PASS，下一步仅回执PR检查合并；产品已可用户验收，勿重复部署。不能误判产品仍待发布。
+# coordinator：UIF-20261118-01 独立验收与体验发布
+协议2026-10-26-v3。唯一协调/发布 root 01a17cc7-e0a2-7791-bf1d-4611c09bab22；context UNKNOWN。
+2026-11-19 用户确认验收通过后发布。Gemini提交 fa4ae6b718c5fa07704e6c0d89e00c228d294fc9，main基线 42d3a6a94066fcd41480cf5faae7e52944763cb7。另建发布树 /Users/dongge/.codex/tmp/yijiexing-uif-20261119-release，分支 codex/uif-20261119-release，产品候选 413439a9fc9ea396bf0e6da5529b87a7c9e1043a。乘客1.1.25-experience/27、司机0.3.26-cloud/29；恢复在线重定位新采样门禁，费用同一请求路径与会话保护。独立复核和覆盖升级进行中，小程序74/74及check已通过。
+工作证据 coordination/evidence/UIF-20261118-01/，私有构建 /Users/dongge/.codex/tmp/yijiexing-uif-publish-20261119。专用emulator-5596和本地TLS64396仅root本轮持有。仅替换独立体验固定双APK；后台、共享后端、小程序产品目录无改动，线上先保护旧包、再整包回读。
