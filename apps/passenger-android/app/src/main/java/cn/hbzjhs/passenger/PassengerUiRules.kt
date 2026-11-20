@@ -15,4 +15,14 @@ internal object PassengerUiRules {
     "已取消" -> stage == "CANCELLED"
     else -> true
   }
+  fun orderFilterCountText(count: Int): String = count.coerceAtLeast(0).toString()
+
+  enum class ComplaintTone { PENDING, POSITIVE, NEGATIVE, NEUTRAL }
+
+  fun complaintStatusTone(status: String): ComplaintTone = when (status.trim().uppercase()) {
+    "PENDING", "PROCESSING", "OPEN", "NEW" -> ComplaintTone.PENDING
+    "REPLIED", "RESOLVED", "APPROVED", "DONE", "COMPLETED" -> ComplaintTone.POSITIVE
+    "REJECTED", "FAILED" -> ComplaintTone.NEGATIVE
+    else -> ComplaintTone.NEUTRAL
+  }
 }

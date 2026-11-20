@@ -9,15 +9,19 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
 import androidx.compose.material.icons.filled.DateRange
+import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 
 @Composable
 fun PassengerSectionHeader(
@@ -28,14 +32,15 @@ fun PassengerSectionHeader(
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .defaultMinSize(minHeight = 48.dp)
-            .padding(vertical = 4.dp),
+            .defaultMinSize(minHeight = 40.dp)
+            .padding(vertical = 2.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
         Text(
             text = title,
-            style = MaterialTheme.typography.titleMedium,
+            fontSize = TypeScale.Page,
+            lineHeight = 28.sp,
             fontWeight = FontWeight.Bold,
             color = Ink,
             modifier = Modifier.weight(1f, fill = false),
@@ -43,11 +48,20 @@ fun PassengerSectionHeader(
             overflow = TextOverflow.Ellipsis
         )
         if (!action.isNullOrEmpty()) {
-            PassengerTextButton(
+            Surface(
                 onClick = onAction,
-                modifier = Modifier.defaultMinSize(minHeight = 40.dp),
+                shape = RoundedCornerShape(10.dp),
+                color = BrandSoft,
+                border = BorderStroke(1.dp, Teal.copy(alpha = 0.25f)),
+                modifier = Modifier.heightIn(min = 36.dp),
             ) {
-                Text(text = action, style = MaterialTheme.typography.labelLarge)
+                Text(
+                    text = action,
+                    color = BrandStrong,
+                    fontSize = 13.sp,
+                    fontWeight = FontWeight.SemiBold,
+                    modifier = Modifier.padding(horizontal = 12.dp, vertical = 7.dp),
+                )
             }
         }
     }
@@ -92,19 +106,13 @@ fun PassengerRouteSummary(
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = 6.dp),
+            .padding(vertical = 4.dp),
         shape = RoundedCornerShape(12.dp),
         colors = CardDefaults.cardColors(containerColor = SurfaceMuted)
     ) {
-        Column(modifier = Modifier.fillMaxWidth().padding(14.dp)) {
-            Row(verticalAlignment = Alignment.Top, modifier = Modifier.fillMaxWidth()) {
-                Box(
-                    modifier = Modifier
-                        .padding(top = 5.dp, end = 10.dp)
-                        .size(8.dp)
-                        .clip(CircleShape)
-                        .background(Teal)
-                )
+        Column(modifier = Modifier.fillMaxWidth().padding(12.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+            Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+                RouteBadgeIcon(RoutePinKind.ORIGIN)
                 Text(
                     text = origin,
                     style = MaterialTheme.typography.bodyMedium,
@@ -113,15 +121,8 @@ fun PassengerRouteSummary(
                     softWrap = true
                 )
             }
-            Spacer(modifier = Modifier.height(10.dp))
-            Row(verticalAlignment = Alignment.Top, modifier = Modifier.fillMaxWidth()) {
-                Box(
-                    modifier = Modifier
-                        .padding(top = 5.dp, end = 10.dp)
-                        .size(8.dp)
-                        .clip(CircleShape)
-                        .background(Amber)
-                )
+            Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+                RouteBadgeIcon(RoutePinKind.DESTINATION)
                 Text(
                     text = destination,
                     style = MaterialTheme.typography.bodyMedium,
@@ -198,21 +199,96 @@ fun PassengerManagedRecord(
     onRemove: () -> Unit,
     onDefault: () -> Unit,
 ) {
-    Card(colors = CardDefaults.cardColors(containerColor = androidx.compose.ui.graphics.Color.White),
-        shape = RoundedCornerShape(12.dp), border = BorderStroke(1.dp, DividerTone), modifier = Modifier.fillMaxWidth()) {
-        Column(Modifier.padding(horizontal = 16.dp, vertical = 10.dp)) {
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Text(title, color = Ink, fontWeight = FontWeight.SemiBold, modifier = Modifier.weight(1f), maxLines = 2, overflow = TextOverflow.Ellipsis)
-                if (isDefault) Surface(color = Teal.copy(alpha = .10f), shape = RoundedCornerShape(4.dp)) {
-                    Text("默认", color = Teal, style = MaterialTheme.typography.labelMedium, modifier = Modifier.padding(horizontal = 6.dp, vertical = 3.dp))
+    Card(
+        colors = CardDefaults.cardColors(containerColor = Color.White),
+        shape = RoundedCornerShape(12.dp),
+        border = BorderStroke(1.dp, if (isDefault) Teal.copy(alpha = 0.45f) else DividerTone),
+        modifier = Modifier.fillMaxWidth(),
+    ) {
+        Column(
+            Modifier.padding(horizontal = 12.dp, vertical = 10.dp),
+            verticalArrangement = Arrangement.spacedBy(6.dp),
+        ) {
+            Row(
+                Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+            ) {
+                DefaultRadioDot(
+                    selected = isDefault,
+                    onClick = if (!busy) onDefault else null,
+                    labelDescription = if (isDefault) "取消默认" else "设为默认",
+                )
+                Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
+                    Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+                        Text(
+                            title,
+                            color = Ink,
+                            fontSize = TypeScale.Title,
+                            fontWeight = FontWeight.SemiBold,
+                            modifier = Modifier.weight(1f, fill = false),
+                            maxLines = 2,
+                            overflow = TextOverflow.Ellipsis,
+                        )
+                        if (isDefault) {
+                            Box(
+                                Modifier
+                                    .clip(RoundedCornerShape(6.dp))
+                                    .background(BrandSoft)
+                                    .padding(horizontal = 6.dp, vertical = 2.dp),
+                            ) {
+                                Text("默认", color = BrandStrong, fontSize = 11.sp, fontWeight = FontWeight.SemiBold)
+                            }
+                        }
+                    }
+                    Text(
+                        subtitle,
+                        color = Muted,
+                        fontSize = TypeScale.Caption,
+                        lineHeight = 18.sp,
+                        maxLines = 2,
+                        overflow = TextOverflow.Ellipsis,
+                    )
                 }
             }
-            Text(subtitle, color = Muted, style = MaterialTheme.typography.bodyMedium, maxLines = 2, overflow = TextOverflow.Ellipsis)
-            Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
-                PassengerTextButton(enabled = !busy, onClick = onDefault) { Text(if (isDefault) "取消默认" else "设为默认") }
-                Row {
-                    PassengerTextButton(enabled = !busy, onClick = onEdit) { Text("编辑") }
-                    PassengerTextButton(enabled = !busy, onClick = onRemove) { Text("删除", color = Muted) }
+            Row(
+                Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.End),
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                Surface(
+                    onClick = onEdit,
+                    enabled = !busy,
+                    shape = RoundedCornerShape(8.dp),
+                    color = BrandSoft,
+                    border = BorderStroke(1.dp, Teal.copy(alpha = 0.22f)),
+                    modifier = Modifier.heightIn(min = 34.dp),
+                ) {
+                    Row(
+                        Modifier.padding(horizontal = 10.dp, vertical = 6.dp),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(4.dp),
+                    ) {
+                        Icon(Icons.Default.Edit, contentDescription = null, tint = if (!busy) BrandStrong else DisabledText, modifier = Modifier.size(14.dp))
+                        Text("编辑", color = if (!busy) BrandStrong else DisabledText, fontSize = 12.sp, fontWeight = FontWeight.SemiBold)
+                    }
+                }
+                Surface(
+                    onClick = onRemove,
+                    enabled = !busy,
+                    shape = RoundedCornerShape(8.dp),
+                    color = DangerSoft,
+                    border = BorderStroke(1.dp, DangerLine),
+                    modifier = Modifier.heightIn(min = 34.dp),
+                ) {
+                    Row(
+                        Modifier.padding(horizontal = 10.dp, vertical = 6.dp),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(4.dp),
+                    ) {
+                        Icon(Icons.Default.Delete, contentDescription = null, tint = if (!busy) Danger else DisabledText, modifier = Modifier.size(14.dp))
+                        Text("删除", color = if (!busy) Danger else DisabledText, fontSize = 12.sp, fontWeight = FontWeight.SemiBold)
+                    }
                 }
             }
         }
@@ -221,8 +297,17 @@ fun PassengerManagedRecord(
 
 @Composable
 fun PassengerDefaultCheck(checked: Boolean, label: String, onChange: (Boolean) -> Unit) {
-    Row(Modifier.fillMaxWidth().defaultMinSize(minHeight = 48.dp).clickable(role = Role.Checkbox) { onChange(!checked) }, verticalAlignment = Alignment.CenterVertically) {
-        Checkbox(checked, onCheckedChange = null)
-        Text(label, color = Ink, style = MaterialTheme.typography.bodyMedium)
+    Row(
+        Modifier
+            .fillMaxWidth()
+            .defaultMinSize(minHeight = 40.dp)
+            .clip(RoundedCornerShape(8.dp))
+            .clickable(role = Role.RadioButton) { onChange(!checked) }
+            .padding(vertical = 4.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
+    ) {
+        DefaultRadioDot(selected = checked, onClick = null)
+        Text(label, color = Ink, fontSize = TypeScale.Body)
     }
 }

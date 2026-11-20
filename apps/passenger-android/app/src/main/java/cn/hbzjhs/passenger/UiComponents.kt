@@ -15,13 +15,17 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.background
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
+import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.material.icons.filled.LocationOn
@@ -29,6 +33,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
@@ -121,7 +126,7 @@ fun ExpandablePanel(
 /**
  * One stop of a route (or a place field): a small marker, a caption and the place. [placeholder]
  * renders the text as a muted prompt instead of a chosen place. [dot] overrides the marker colour
- * (pickup teal, destination amber by default).
+ * (pickup teal, destination amber by default). When [pinKind] is provided, renders the unified route badge.
  */
 @Composable
 fun AddressRow(
@@ -130,31 +135,36 @@ fun AddressRow(
   emphasize: Boolean = false,
   placeholder: Boolean = false,
   dot: Color? = null,
+  pinKind: RoutePinKind? = null,
   onClick: () -> Unit,
 ) {
   Row(
     Modifier
       .fillMaxWidth()
       .clickable(role = Role.Button, onClick = onClick)
-      .heightIn(min = 56.dp)
-      .padding(vertical = 8.dp),
+      .heightIn(min = 52.dp)
+      .padding(vertical = 7.dp),
     verticalAlignment = Alignment.CenterVertically,
-    horizontalArrangement = Arrangement.spacedBy(12.dp),
+    horizontalArrangement = Arrangement.spacedBy(10.dp),
   ) {
-    Box(
-      modifier = Modifier
-        .size(10.dp)
-        .background(
-          dot ?: if (emphasize) Amber else Teal,
-          CircleShape,
-        ),
-    )
+    if (pinKind != null) {
+      RouteBadgeIcon(pinKind)
+    } else {
+      Box(
+        modifier = Modifier
+          .size(10.dp)
+          .background(
+            dot ?: if (emphasize) Amber else Teal,
+            CircleShape,
+          ),
+      )
+    }
     Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
       Text(label, color = Muted, fontSize = TypeScale.Caption, lineHeight = 16.sp)
       Text(
         address,
         fontWeight = if (placeholder) FontWeight.Medium else if (emphasize) FontWeight.Bold else FontWeight.SemiBold,
-        fontSize = if (emphasize) 17.sp else TypeScale.Title,
+        fontSize = if (emphasize) 16.sp else TypeScale.Title,
         lineHeight = 22.sp,
         color = if (placeholder) Muted else Ink,
       )
@@ -403,5 +413,133 @@ fun PassengerDialog(
         }
       }
     }
+  }
+}
+
+/** 全乘客端统一样式的分段切换栏：浅灰底槽 + 白色高亮浮块。 */
+@Composable
+fun PassengerSegmentTabs(
+  items: List<String>,
+  selectedIndex: Int,
+  onSelect: (Int) -> Unit,
+  modifier: Modifier = Modifier,
+  enabled: Boolean = true,
+) {
+  Row(
+    modifier
+      .fillMaxWidth()
+      .clip(RoundedCornerShape(10.dp))
+      .background(SurfaceMuted)
+      .padding(3.dp),
+    horizontalArrangement = Arrangement.spacedBy(4.dp),
+  ) {
+    items.forEachIndexed { idx, label ->
+      val on = idx == selectedIndex
+      Box(
+        Modifier
+          .weight(1f)
+          .heightIn(min = 38.dp)
+          .clip(RoundedCornerShape(8.dp))
+          .background(if (on) Color.White else Color.Transparent)
+          .then(if (on) Modifier.border(1.dp, Teal.copy(alpha = 0.25f), RoundedCornerShape(8.dp)) else Modifier)
+          .selectable(selected = on, enabled = enabled, role = Role.Tab, onClick = { onSelect(idx) })
+          .padding(horizontal = 8.dp, vertical = 6.dp),
+        contentAlignment = Alignment.Center,
+      ) {
+        Text(
+          label,
+          fontSize = 13.sp,
+          lineHeight = 18.sp,
+          fontWeight = if (on) FontWeight.Bold else FontWeight.Medium,
+          color = if (!enabled) DisabledText else if (on) BrandStrong else Muted,
+          maxLines = 1,
+          textAlign = TextAlign.Center,
+        )
+      }
+    }
+  }
+}
+
+/** 全乘客端统一样式单选胶囊，替代风格不统一的默认 FilterChip。 */
+@Composable
+fun PassengerChoiceChip(
+  label: String,
+  selected: Boolean,
+  enabled: Boolean = true,
+  onClick: () -> Unit,
+  modifier: Modifier = Modifier,
+) {
+  Surface(
+    onClick = onClick,
+    enabled = enabled,
+    shape = RoundedCornerShape(10.dp),
+    color = if (!enabled) SurfaceMuted else if (selected) BrandSoft else Color.White,
+    border = BorderStroke(1.dp, if (!enabled) DividerTone else if (selected) Teal else Line),
+    modifier = modifier.heightIn(min = 36.dp),
+  ) {
+    Box(Modifier.padding(horizontal = 12.dp, vertical = 6.dp), contentAlignment = Alignment.Center) {
+      Text(
+        label,
+        fontSize = 13.sp,
+        lineHeight = 18.sp,
+        fontWeight = if (selected) FontWeight.SemiBold else FontWeight.Medium,
+        color = if (!enabled) DisabledText else if (selected) BrandStrong else Ink,
+        maxLines = 1,
+      )
+    }
+  }
+}
+
+/** 默认项圆圈指示器：高亮品牌绿外晕+对勾圆圈，非默认呈空心细环。 */
+@Composable
+fun DefaultRadioDot(
+  selected: Boolean,
+  onClick: (() -> Unit)? = null,
+  labelDescription: String = if (selected) "已设为默认" else "设为默认",
+  modifier: Modifier = Modifier,
+) {
+  val ringModifier = modifier
+    .size(if (onClick != null) 34.dp else 22.dp)
+    .clip(CircleShape)
+    .then(
+      if (onClick != null) Modifier.clickable(role = Role.RadioButton, onClickLabel = labelDescription, onClick = onClick)
+      else Modifier,
+    )
+  Box(ringModifier, contentAlignment = Alignment.Center) {
+    Box(
+      Modifier
+        .size(22.dp)
+        .clip(CircleShape)
+        .background(if (selected) BrandSoft else Color.Transparent),
+      contentAlignment = Alignment.Center,
+    ) {
+      if (selected) {
+        Box(Modifier.size(16.dp).clip(CircleShape).background(Teal), contentAlignment = Alignment.Center) {
+          Icon(Icons.Default.Check, contentDescription = null, tint = Color.White, modifier = Modifier.size(11.dp))
+        }
+      } else {
+        Box(Modifier.size(16.dp).border(1.5.dp, ControlOutline, CircleShape))
+      }
+    }
+  }
+}
+
+/** 投诉状态分色标签。 */
+@Composable
+fun ComplaintStatusBadge(status: String, modifier: Modifier = Modifier) {
+  val (tint, bg) = when (PassengerUiRules.complaintStatusTone(status)) {
+    PassengerUiRules.ComplaintTone.PENDING -> Warm to WarmSoft
+    PassengerUiRules.ComplaintTone.POSITIVE -> Success to SuccessSoft
+    PassengerUiRules.ComplaintTone.NEGATIVE -> Danger to DangerSoft
+    PassengerUiRules.ComplaintTone.NEUTRAL -> Muted to SurfaceMuted
+  }
+  Box(
+    modifier
+      .clip(RoundedCornerShape(6.dp))
+      .background(bg)
+      .padding(horizontal = 8.dp, vertical = 3.dp),
+    contentAlignment = Alignment.Center,
+  ) {
+    Text(supportStatus(status), color = tint, fontSize = TypeScale.Caption, fontWeight = FontWeight.SemiBold)
   }
 }

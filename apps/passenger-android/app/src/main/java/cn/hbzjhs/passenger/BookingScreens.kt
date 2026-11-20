@@ -316,7 +316,7 @@ private fun PassengerBookingDraft(owner: String, state: JSONObject, store: Passe
             }
           }
         } else {
-          Box(Modifier.padding(horizontal = 16.dp, vertical = 10.dp)) {
+          Box(Modifier.padding(horizontal = Gap.L, vertical = Gap.M)) {
             ActionButton(
               if (cancelDebt != null) "先结清待付空车费" else if (active != null) "查看当前行程" else if (enabledKinds.isEmpty()) "当前地区暂无开放叫车" else "立即用车 · ${kindName(kind)}",
               !busy && !submitting && (cancelDebt != null || active != null || enabledKinds.isNotEmpty()) && !returnShield.active,
@@ -334,8 +334,8 @@ private fun PassengerBookingDraft(owner: String, state: JSONObject, store: Passe
           Modifier
             .fillMaxSize()
             .verticalScroll(rememberScrollState())
-            .padding(horizontal = 16.dp, vertical = 8.dp),
-          verticalArrangement = Arrangement.spacedBy(12.dp),
+            .padding(horizontal = Gap.L, vertical = Gap.M),
+          verticalArrangement = Arrangement.spacedBy(Gap.M),
         ) {
           cancelDebt?.let { CancelFeeNotice(it, openOrder) }
           unpaid?.let { order -> OutstandingPaymentNotice { openOrder(order.text("id")) } }
@@ -387,7 +387,7 @@ private fun PassengerBookingDraft(owner: String, state: JSONObject, store: Passe
               kind,
             ) { kind = it }
           Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
-            Text("您要去哪儿？", fontWeight = FontWeight.Bold, fontSize = TypeScale.Page, lineHeight = 24.sp, color = Ink, modifier = Modifier.weight(1f))
+            Text("您要去哪儿？", fontWeight = FontWeight.Bold, fontSize = TypeScale.Page, lineHeight = 28.sp, color = Ink, modifier = Modifier.weight(1f))
             // Only a complete route can be swapped; icon button keeps the header clean while keeping a 48dp touch area.
             val swapEnabled = routePointReady(origin, oLat, oLng) && routePointReady(destination, dLat, dLng) && !returnShield.active
             Box(
@@ -440,7 +440,7 @@ private fun PassengerBookingDraft(owner: String, state: JSONObject, store: Passe
               routeBottom = with(density) { (c.positionInParent().y + c.size.height).toDp() }
             },
           ) {
-            Column(Modifier.padding(start = 14.dp, end = 8.dp)) {
+            Column(Modifier.padding(start = 12.dp, end = 8.dp)) {
               AddressRow(
                 "上车点",
                 origin.ifBlank {
@@ -451,17 +451,19 @@ private fun PassengerBookingDraft(owner: String, state: JSONObject, store: Passe
                   else "点此选择上车点"
                 },
                 placeholder = origin.isBlank(),
+                pinKind = RoutePinKind.ORIGIN,
               ) { openEditor("origin") }
-              HorizontalDivider(Modifier.padding(start = 22.dp), color = DividerTone)
+              HorizontalDivider(Modifier.padding(start = 32.dp), color = DividerTone)
               if (stops.isNotEmpty()) {
-                AddressRow("途经点 · ${stops.size}/2 · 点此修改", stops.joinToString("  →  "), dot = IconTone) { openEditor("destination") }
-                HorizontalDivider(Modifier.padding(start = 22.dp), color = DividerTone)
+                AddressRow("途经点 · ${stops.size}/2 · 点此修改", stops.joinToString("  →  "), pinKind = RoutePinKind.WAYPOINT) { openEditor("destination") }
+                HorizontalDivider(Modifier.padding(start = 32.dp), color = DividerTone)
               }
               AddressRow(
                 "目的地",
                 destination.ifBlank { "点此选择目的地，可添加途经点" },
                 emphasize = true,
                 placeholder = destination.isBlank(),
+                pinKind = RoutePinKind.DESTINATION,
               ) {
                 openEditor("destination")
               }
@@ -786,65 +788,64 @@ private fun RouteStopsEditor(
     shadowElevation = 1.dp,
     modifier = Modifier.fillMaxWidth(),
   ) {
-    Column(Modifier.padding(horizontal = 14.dp, vertical = 12.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+    Column(Modifier.padding(horizontal = Gap.L, vertical = Gap.M), verticalArrangement = Arrangement.spacedBy(Gap.S)) {
       Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.SpaceBetween) {
         Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
           Box(Modifier.size(width = 4.dp, height = 14.dp).clip(RoundedCornerShape(2.dp)).background(Teal))
           Text("行程路线与途经点", fontWeight = FontWeight.Bold, fontSize = TypeScale.Title, color = Ink)
         }
         if (onAddStop != null) {
-          PassengerTextButton(
-            enabled = enabled,
+          Surface(
             onClick = onAddStop,
-            modifier = Modifier.heightIn(min = 36.dp),
-            contentPadding = PaddingValues(horizontal = 10.dp, vertical = 4.dp),
+            enabled = enabled,
+            shape = RoundedCornerShape(10.dp),
+            color = if (enabled) BrandSoft else SurfaceMuted,
+            border = if (enabled) BorderStroke(1.dp, Teal.copy(alpha = 0.25f)) else null,
+            modifier = Modifier.heightIn(min = 34.dp),
           ) {
-            Icon(Icons.Default.Add, contentDescription = null, modifier = Modifier.size(15.dp))
-            Text("途经点 (${stops.size}/2)", fontSize = TypeScale.Caption, modifier = Modifier.padding(start = 2.dp))
+            Row(Modifier.padding(horizontal = 10.dp, vertical = 6.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(4.dp)) {
+              Icon(Icons.Default.Add, contentDescription = null, tint = if (enabled) BrandStrong else DisabledText, modifier = Modifier.size(15.dp))
+              Text("途经 (${stops.size}/2)", fontSize = TypeScale.Caption, fontWeight = FontWeight.SemiBold, color = if (enabled) BrandStrong else DisabledText)
+            }
           }
         } else {
           Note("最多 2 个途经点")
         }
       }
       HorizontalDivider(color = DividerTone)
-      StopLine(Teal, "起点", origin.ifBlank { "上车点待选择" })
+      StopLine(RoutePinKind.ORIGIN, "起点", origin.ifBlank { "上车点待选择" })
       stops.forEachIndexed { index, name ->
         Row(
-          Modifier.fillMaxWidth().heightIn(min = 48.dp),
+          Modifier.fillMaxWidth().heightIn(min = 44.dp),
           verticalAlignment = Alignment.CenterVertically,
           horizontalArrangement = Arrangement.spacedBy(8.dp),
         ) {
-          Box(
-            Modifier.size(18.dp).background(SkySoft, CircleShape),
-            contentAlignment = Alignment.Center,
-          ) {
-            Text("${index + 1}", color = Sky, fontSize = 11.sp, fontWeight = FontWeight.Bold)
-          }
+          RouteBadgeIcon(RoutePinKind.WAYPOINT, index = index + 1)
           Column(Modifier.weight(1f)) {
             Text("途经点 ${index + 1}", color = Sky, fontSize = TypeScale.Caption, lineHeight = 16.sp)
             Text(name, color = Ink, fontSize = TypeScale.Body, fontWeight = FontWeight.Medium, lineHeight = 20.sp)
           }
-          IconButton(enabled = enabled, onClick = { onEdit(index) }, modifier = Modifier.size(40.dp)) {
+          IconButton(enabled = enabled, onClick = { onEdit(index) }, modifier = Modifier.size(36.dp)) {
             Icon(Icons.Default.Edit, contentDescription = "修改途经点 ${index + 1}", tint = if (enabled) Teal else DisabledText, modifier = Modifier.size(18.dp))
           }
-          IconButton(enabled = enabled, onClick = { onRemove(index) }, modifier = Modifier.size(40.dp)) {
+          IconButton(enabled = enabled, onClick = { onRemove(index) }, modifier = Modifier.size(36.dp)) {
             Icon(Icons.Default.Close, contentDescription = "删除途经点 ${index + 1}", tint = if (enabled) Danger else DisabledText, modifier = Modifier.size(18.dp))
           }
         }
       }
-      StopLine(Amber, "终点", destination.ifBlank { "在下方搜索或地图上点选" })
+      StopLine(RoutePinKind.DESTINATION, "终点", destination.ifBlank { "在下方搜索或地图上点选" })
     }
   }
 }
 
 @Composable
-private fun StopLine(dot: Color, label: String, value: String) {
+private fun StopLine(kind: RoutePinKind, label: String, value: String) {
   Row(
-    Modifier.fillMaxWidth().padding(vertical = 6.dp),
+    Modifier.fillMaxWidth().padding(vertical = 4.dp),
     verticalAlignment = Alignment.CenterVertically,
     horizontalArrangement = Arrangement.spacedBy(8.dp),
   ) {
-    Box(Modifier.size(8.dp).background(dot, CircleShape))
+    RouteBadgeIcon(kind)
     Text(label, color = Muted, fontSize = TypeScale.Caption)
     Text(value, color = Ink, fontSize = TypeScale.Body, maxLines = 2, overflow = TextOverflow.Ellipsis, modifier = Modifier.weight(1f))
   }
@@ -879,19 +880,7 @@ private fun TripOptionSection(
 
 @Composable
 private fun RiderChoice(label: String, selected: Boolean, onClick: () -> Unit) {
-  FilterChip(
-    selected = selected,
-    onClick = onClick,
-    label = { Text(label, fontSize = 14.sp) },
-    leadingIcon = if (selected) ({ Icon(Icons.Default.Check, contentDescription = null, modifier = Modifier.size(16.dp)) }) else null,
-    colors = FilterChipDefaults.filterChipColors(
-      selectedContainerColor = BrandSoft,
-      selectedLabelColor = BrandStrong,
-      selectedLeadingIconColor = BrandStrong,
-    ),
-    border = FilterChipDefaults.filterChipBorder(enabled = true, selected = selected, borderColor = Line, selectedBorderColor = Teal),
-    shape = RoundedCornerShape(10.dp),
-  )
+  PassengerChoiceChip(label = label, selected = selected, onClick = onClick)
 }
 
 /** Built-in experience places offered next to the passenger's own common places. */
@@ -1081,19 +1070,19 @@ fun AddressDialog(
             mapFullscreen = !mapFullscreen
             if (mapFullscreen) focusManager.clearFocus()
           },
-          shape = RoundedCornerShape(12.dp),
+          shape = RoundedCornerShape(10.dp),
           color = Color.White.copy(alpha = 0.94f),
           border = BorderStroke(1.dp, Line),
           shadowElevation = 2.dp,
-          modifier = Modifier.align(Alignment.TopEnd).padding(8.dp),
+          modifier = Modifier
+            .align(Alignment.TopEnd)
+            .padding(8.dp)
+            .size(38.dp)
+            .semantics { contentDescription = if (mapFullscreen) "收起全屏地图" else "展开全屏地图" },
         ) {
-          Text(
-            if (mapFullscreen) "收起全屏地图" else "展开全屏地图选点",
-            color = BrandStrong,
-            fontSize = TypeScale.Caption,
-            fontWeight = FontWeight.SemiBold,
-            modifier = Modifier.padding(horizontal = 10.dp, vertical = 6.dp),
-          )
+          Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+            FullscreenIcon(expanded = mapFullscreen, tint = BrandStrong, modifier = Modifier.size(18.dp))
+          }
         }
       }
     }
@@ -1105,18 +1094,26 @@ fun AddressDialog(
       shadowElevation = 1.dp,
       modifier = Modifier.fillMaxWidth(),
     ) {
-      Column(Modifier.padding(horizontal = 14.dp, vertical = 12.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+      Column(Modifier.padding(horizontal = Gap.L, vertical = Gap.M), verticalArrangement = Arrangement.spacedBy(Gap.S)) {
         Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
           Box(Modifier.weight(1f).onFocusChanged { searchFocused = it.isFocused }) { Field(query, { value -> if (value != query) searchFor(value) }, queryLabel) }
           if (onAddStop != null && routeStops == null)
-            PassengerTextButton(
-              enabled = shield?.active != true,
+            Surface(
               onClick = { if (!session.committed && interactionAllowed()) { cancelSearch(); onAddStop() } },
-              modifier = Modifier.heightIn(min = 48.dp),
-              contentPadding = PaddingValues(horizontal = 10.dp, vertical = 4.dp),
+              enabled = shield?.active != true,
+              shape = RoundedCornerShape(10.dp),
+              color = if (shield?.active != true) BrandSoft else SurfaceMuted,
+              border = if (shield?.active != true) BorderStroke(1.dp, Teal.copy(alpha = 0.25f)) else null,
+              modifier = Modifier.height(48.dp).semantics { contentDescription = "添加途经点" },
             ) {
-              Icon(Icons.Default.Add, contentDescription = null, modifier = Modifier.size(16.dp))
-              Text("途经点", modifier = Modifier.padding(start = 2.dp))
+              Row(
+                Modifier.padding(horizontal = 10.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(4.dp),
+              ) {
+                Icon(Icons.Default.Add, contentDescription = null, tint = if (shield?.active != true) BrandStrong else DisabledText, modifier = Modifier.size(18.dp))
+                Text("途经", fontSize = 13.sp, fontWeight = FontWeight.SemiBold, color = if (shield?.active != true) BrandStrong else DisabledText)
+              }
             }
         }
         if (initial.isNotBlank()) Note("当前：${initial.trim()} · 点选新地点即替换，返回则不修改")
@@ -1145,11 +1142,17 @@ fun AddressDialog(
           Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
             CircularProgressIndicator(Modifier.size(16.dp), strokeWidth = 2.dp, color = Teal)
             Text("正在识别地图位置…", color = Ink, fontSize = TypeScale.Body, modifier = Modifier.weight(1f))
-            PassengerTextButton(onClick = { cancelSearch() }) { Text("取消") }
+            IconButton(onClick = { cancelSearch() }, modifier = Modifier.size(34.dp)) {
+              Icon(Icons.Default.Close, contentDescription = "取消地图识别", tint = Muted, modifier = Modifier.size(18.dp))
+            }
           }
         } else if (searching) {
-          LinearProgressIndicator(Modifier.fillMaxWidth())
-          PassengerTextButton(onClick={cancelSearch(); typedQuery=""}) { Text("取消搜索") }
+          Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            LinearProgressIndicator(Modifier.weight(1f))
+            IconButton(onClick = { cancelSearch(); typedQuery = "" }, modifier = Modifier.size(34.dp)) {
+              Icon(Icons.Default.Close, contentDescription = "取消搜索", tint = Muted, modifier = Modifier.size(18.dp))
+            }
+          }
         } else if (query.isNotBlank() && query.trim().length < 2) {
           Note("再输入几个字即可自动搜索")
         } else if (!pending && results.isEmpty() && query.trim().length >= 2) {
@@ -1229,10 +1232,10 @@ fun AddressDialog(
       FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
         listOf("宜昌市", "武汉市", "深圳市", "").forEach { preset ->
           val label = preset.ifBlank { "全部城市" }
-          FilterChip(
+          PassengerChoiceChip(
+            label = label,
             selected = draftCity.trim() == preset,
             onClick = { draftCity = preset },
-            label = { Text(label) },
           )
         }
       }
@@ -1273,42 +1276,49 @@ fun OrdersScreen(orders: List<JSONObject>, open: (String) -> Unit) {
   PageColumn {
     SectionTitle("我的订单", "出行与预约记录")
     outstandingCancelFee(orders)?.let { CancelFeeNotice(it, open) }
-    // Compact segmented tabs: one tight track, equal-width 48dp segments, selected one raised white.
+    // 订单分类与数量左右排列，无订单明确显示 0。
     Row(
       Modifier
         .fillMaxWidth()
-        .clip(RoundedCornerShape(14.dp))
+        .clip(RoundedCornerShape(10.dp))
         .background(SurfaceMuted)
-        .padding(4.dp),
+        .padding(3.dp),
       horizontalArrangement = Arrangement.spacedBy(4.dp),
     ) {
       PassengerUiRules.orderFilters.forEach { f ->
         val selected = filter == f
         val count = if (f == "全部") orders.size else orders.count { PassengerUiRules.matchesOrderFilter(it.text("stage"), f) }
+        val countText = PassengerUiRules.orderFilterCountText(count)
         Box(
           Modifier
             .weight(1f)
-            .heightIn(min = 48.dp)
-            .clip(RoundedCornerShape(10.dp))
+            .heightIn(min = 38.dp)
+            .clip(RoundedCornerShape(8.dp))
             .background(if (selected) Color.White else Color.Transparent)
-            .then(if (selected) Modifier.border(1.dp, Teal.copy(alpha = 0.25f), RoundedCornerShape(10.dp)) else Modifier)
+            .then(if (selected) Modifier.border(1.dp, Teal.copy(alpha = 0.25f), RoundedCornerShape(8.dp)) else Modifier)
             .selectable(selected = selected, role = Role.Tab, onClick = { filter = f }),
           contentAlignment = Alignment.Center,
         ) {
-          Column(
-            Modifier.padding(horizontal = 2.dp, vertical = 6.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center,
+          Row(
+            Modifier.padding(horizontal = 4.dp, vertical = 6.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(4.dp, Alignment.CenterHorizontally),
           ) {
             Text(
               f,
-              fontSize = 14.sp,
+              fontSize = 13.sp,
               fontWeight = if (selected) FontWeight.Bold else FontWeight.Medium,
               color = if (selected) BrandStrong else Muted,
               maxLines = 1,
-              textAlign = TextAlign.Center,
             )
-            if (count > 0) Text("$count", fontSize = 11.sp, lineHeight = 13.sp, color = if (selected) Teal else DisabledText, maxLines = 1)
+            Text(
+              countText,
+              fontSize = 11.sp,
+              lineHeight = 14.sp,
+              fontWeight = FontWeight.SemiBold,
+              color = if (selected) Teal else Muted,
+              maxLines = 1,
+            )
           }
         }
       }
@@ -1326,7 +1336,7 @@ fun OrdersScreen(orders: List<JSONObject>, open: (String) -> Unit) {
         border = BorderStroke(1.dp, DividerTone),
         modifier = Modifier.fillMaxWidth(),
       ) {
-        Column(Modifier.padding(horizontal = 16.dp, vertical = 12.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
+        Column(Modifier.padding(horizontal = Gap.L, vertical = Gap.M), verticalArrangement = Arrangement.spacedBy(Gap.S)) {
           Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
             Text(kindName(o.text("kind")), color = Muted, fontSize = 13.sp, modifier = Modifier.weight(1f))
             Text(stageName(o.text("stage")), color = if (o.text("stage") == "CANCELLED") Muted else BrandStrong, fontWeight = FontWeight.SemiBold, fontSize = 14.sp)

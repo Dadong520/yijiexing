@@ -366,15 +366,12 @@ internal fun ColumnScope.MembershipCompareScreen(
     ) {
         item { MembershipCityBar(catalog, "compare", navigate) }
         item {
-            FlowRow(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
-                levels.forEach { level ->
-                    FilterChip(
-                        selected = mLevelId(level) == selected,
-                        onClick = { selected = mLevelId(level) },
-                        label = { Text(level.mText("name"), fontSize = 15.sp) },
-                        modifier = Modifier.heightIn(min = 52.dp),
-                    )
-                }
+            if (levels.isNotEmpty()) {
+                DriverSegmentTabs(
+                    items = levels.map { it.mText("name") },
+                    selectedIndex = levels.indexOfFirst { mLevelId(it) == selected }.coerceAtLeast(0),
+                    onSelect = { idx -> selected = mLevelId(levels[idx]) },
+                )
             }
         }
         current?.let { level ->

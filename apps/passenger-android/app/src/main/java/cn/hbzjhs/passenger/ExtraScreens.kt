@@ -1,18 +1,38 @@
 package cn.hbzjhs.passenger
 
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Close
+import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.asImageBitmap
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import androidx.compose.ui.window.Dialog
+import androidx.compose.ui.window.DialogProperties
+import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import org.json.JSONObject
 
 @Composable
@@ -35,11 +55,35 @@ fun RidersScreen(state: JSONObject, store: PassengerStore) {
     PassengerSectionHeader("乘车人", "＋ 添加") { edit = JSONObject() }
     Note("为他人叫车可选择乘车人，司机核验所选手机号尾号。")
     val self = state.optJSONObject("passenger") ?: JSONObject()
-    Panel {
-      Text("${self.text("name", "当前账号")} · 本人", fontWeight = FontWeight.SemiBold, color = Ink)
-      Note(self.text("mobile").let { if (it.isNotBlank()) "账号尾号 ${it.takeLast(4)}" else "当前登录账号" })
-      if (PassengerDefaults.id(state, "RIDER").isBlank()) Text("新行程由本人乘车", color = Teal)
-      else PassengerTextButton(enabled = !busy, onClick = { PassengerDefaults.set(store, "RIDER", null) }) { Text("恢复本人为新行程建议") }
+    val selfIsDefault = PassengerDefaults.id(state, "RIDER").isBlank()
+    Surface(
+      color = Color.White,
+      shape = RoundedCornerShape(12.dp),
+      border = BorderStroke(1.dp, if (selfIsDefault) Teal.copy(alpha = 0.45f) else DividerTone),
+      modifier = Modifier.fillMaxWidth(),
+    ) {
+      Row(
+        Modifier.padding(horizontal = 12.dp, vertical = 10.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
+      ) {
+        DefaultRadioDot(
+          selected = selfIsDefault,
+          onClick = if (!busy && !selfIsDefault) ({ PassengerDefaults.set(store, "RIDER", null) }) else null,
+          labelDescription = "恢复本人为默认乘车人",
+        )
+        Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
+          Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+            Text("${self.text("name", "当前账号")} · 本人", fontSize = TypeScale.Title, fontWeight = FontWeight.SemiBold, color = Ink)
+            if (selfIsDefault) {
+              Box(Modifier.clip(RoundedCornerShape(6.dp)).background(BrandSoft).padding(horizontal = 6.dp, vertical = 2.dp)) {
+                Text("默认", color = BrandStrong, fontSize = 11.sp, fontWeight = FontWeight.SemiBold)
+              }
+            }
+          }
+          Note(self.text("mobile").let { if (it.isNotBlank()) "账号尾号 ${it.takeLast(4)} · 新行程由本人乘车" else "当前登录账号" })
+        }
+      }
     }
     if (state.rows("riders").isEmpty()) EmptyCard("暂无其他乘车人", "可添加常用乘车人；默认建议只用于新行程草稿。")
     state.rows("riders").forEach { r ->
@@ -58,7 +102,7 @@ fun RidersScreen(state: JSONObject, store: PassengerStore) {
       onDismissRequest = { edit = null },
       title = { Text("乘车人资料") },
       text = {
-        Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+        Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
           Field(name, { name = it.take(30) }, "姓名")
           Field(mobile, { mobile = it.take(11) }, "11 位手机号", KeyboardType.Phone)
           PassengerDefaultCheck(isDefault, "设为新行程默认乘车人") { isDefault = it }
@@ -117,13 +161,13 @@ fun InvoiceTitlesScreen(state: JSONObject, store: PassengerStore) {
       text = {
         Column(
           Modifier.verticalScroll(rememberScrollState()),
-          verticalArrangement = Arrangement.spacedBy(12.dp),
+          verticalArrangement = Arrangement.spacedBy(8.dp),
         ) {
-          Row {
-            FilterChip(type == "PERSONAL", { type = "PERSONAL" }, label = { Text("个人") })
-            Spacer(Modifier.width(8.dp))
-            FilterChip(type == "COMPANY", { type = "COMPANY" }, label = { Text("企业") })
-          }
+          PassengerSegmentTabs(
+            items = listOf("个人", "企业"),
+            selectedIndex = if (type == "COMPANY") 1 else 0,
+            onSelect = { type = if (it == 1) "COMPANY" else "PERSONAL" },
+          )
           Field(title, { title = it }, "发票抬头")
           if (type == "COMPANY") Field(tax, { tax = it }, "纳税人识别号（体验资料）")
           Field(email, { email = it }, "邮箱（可选，不发送邮件）", KeyboardType.Email)
@@ -219,11 +263,11 @@ fun InvoicesScreen(state: JSONObject, store: PassengerStore) {
         PassengerCompactRecord(t.text("title"), "${if (t.text("type") == "COMPANY") "企业" else "个人"}${if (PassengerDefaults.id(state, "INVOICE_TITLE") == t.text("id")) " · 默认" else ""}", titleId == t.text("id"), { typing = false; titleId = t.text("id") }, trailing = { RadioButton(titleId == t.text("id"), onClick = null) })
       }
       if (manual) {
-        Row {
-          FilterChip(inlineType == "PERSONAL", { inlineType = "PERSONAL" }, label = { Text("个人") })
-          Spacer(Modifier.width(8.dp))
-          FilterChip(inlineType == "COMPANY", { inlineType = "COMPANY" }, label = { Text("企业") })
-        }
+        PassengerSegmentTabs(
+          items = listOf("个人", "企业"),
+          selectedIndex = if (inlineType == "COMPANY") 1 else 0,
+          onSelect = { inlineType = if (it == 1) "COMPANY" else "PERSONAL" },
+        )
         Field(inlineTitle, { inlineTitle = it.take(100) }, "发票抬头")
         if (inlineType == "COMPANY") Field(inlineTax, { inlineTax = it.take(20) }, "纳税人识别号（15、18或20位）")
         Field(inlineEmail, { inlineEmail = it.take(254) }, "邮箱（可选，不发送邮件）", KeyboardType.Email)
@@ -278,10 +322,14 @@ fun InvoicesScreen(state: JSONObject, store: PassengerStore) {
     val valid = reissueReason.trim().length in 2..200 && reissueTitle.trim().isNotEmpty() &&
       (reissueType != "COMPANY" || reissueTax.trim().length in setOf(15,18,20) && reissueTax.trim().all { it.isLetterOrDigit() && it.code < 128 })
     PassengerDialog(onDismissRequest = { if (!busy) reissueInvoice = null }, title = { Text("申请重开模拟回执") }, text = {
-      Column(Modifier.verticalScroll(rememberScrollState())) {
+      Column(Modifier.verticalScroll(rememberScrollState()), verticalArrangement = Arrangement.spacedBy(8.dp)) {
         Note("提交后由后台审核；不产生真实税务发票。")
         Field(reissueReason, { reissueReason = it.take(200) }, "重开原因（2-200字）")
-        Row { FilterChip(reissueType == "PERSONAL", { reissueType = "PERSONAL" }, label = { Text("个人") }); FilterChip(reissueType == "COMPANY", { reissueType = "COMPANY" }, label = { Text("企业") }) }
+        PassengerSegmentTabs(
+          items = listOf("个人", "企业"),
+          selectedIndex = if (reissueType == "COMPANY") 1 else 0,
+          onSelect = { reissueType = if (it == 1) "COMPANY" else "PERSONAL" },
+        )
         Field(reissueTitle, { reissueTitle = it.take(100) }, "重开抬头")
         if (reissueType == "COMPANY") Field(reissueTax, { reissueTax = it.take(20) }, "企业税号（必填）")
         Field(reissueEmail, { reissueEmail = it.take(254) }, "邮箱（选填）", KeyboardType.Email)
@@ -343,29 +391,153 @@ fun BlockedScreen(state: JSONObject, store: PassengerStore) {
   }
 }
 
+/** 投诉附图列表条带：自动异步加载缩略图，点击可放大全屏预览，失败支持重试。 */
+@OptIn(ExperimentalLayoutApi::class)
+@Composable
+fun ComplaintAttachmentStrip(attachments: List<JSONObject>, store: PassengerStore) {
+  if (attachments.isEmpty()) return
+  FlowRow(
+    Modifier.fillMaxWidth(),
+    horizontalArrangement = Arrangement.spacedBy(8.dp),
+    verticalArrangement = Arrangement.spacedBy(8.dp),
+  ) {
+    attachments.forEach { attachment -> ComplaintImage(attachment, store) }
+  }
+}
+
 @Composable
 fun ComplaintImage(attachment: JSONObject, store: PassengerStore) {
-  var bitmap by remember(attachment.text("id")) { mutableStateOf<android.graphics.Bitmap?>(null) }
-  PassengerTextButton(
+  val fid = attachment.text("id")
+  val path = attachment.text("path").ifBlank { if (fid.isNotBlank()) "/api/passenger/files/$fid" else "" }
+  var reloadTick by remember(fid, path) { mutableIntStateOf(0) }
+  var bitmap by remember(fid, path) { mutableStateOf<android.graphics.Bitmap?>(null) }
+  var loading by remember(fid, path) { mutableStateOf(false) }
+  var loadError by remember(fid, path) { mutableStateOf<String?>(null) }
+  var previewOpen by remember(fid, path) { mutableStateOf(false) }
+
+  LaunchedEffect(fid, path, reloadTick) {
+    if (path.isBlank()) {
+      loadError = "附件路径缺失"
+      return@LaunchedEffect
+    }
+    loading = true
+    loadError = null
+    try {
+      val data = store.readForCurrentSession("$path?encoding=base64")
+      if (data == null) {
+        loadError = "请先登录后查看"
+      } else {
+        val rawBase64 = data.text("imageBase64")
+        val decoded = withContext(Dispatchers.IO) {
+          val bytes = android.util.Base64.decode(rawBase64, android.util.Base64.DEFAULT)
+          android.graphics.BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
+        }
+        if (decoded != null) {
+          bitmap = decoded
+        } else {
+          loadError = "图片解码失败"
+        }
+      }
+    } catch (e: CancellationException) {
+      throw e
+    } catch (_: Exception) {
+      loadError = "图片加载失败"
+    } finally {
+      loading = false
+    }
+  }
+
+  val kb = (attachment.optLong("size") / 1024L).coerceAtLeast(1L)
+  Surface(
     onClick = {
-      store.query(attachment.text("path") + "?encoding=base64") { data ->
-        runCatching {
-            val bytes =
-              android.util.Base64.decode(data.text("imageBase64"), android.util.Base64.DEFAULT)
-            android.graphics.BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
+      when {
+        bitmap != null -> previewOpen = true
+        !loading -> reloadTick++
+      }
+    },
+    shape = RoundedCornerShape(10.dp),
+    color = SurfaceMuted,
+    border = BorderStroke(1.dp, if (loadError != null) DangerLine else Line),
+    modifier = Modifier.size(86.dp),
+  ) {
+    Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+      when {
+        bitmap != null -> {
+          Image(
+            bitmap = bitmap!!.asImageBitmap(),
+            contentDescription = "本人上传的投诉图片",
+            modifier = Modifier.fillMaxSize().clip(RoundedCornerShape(10.dp)),
+            contentScale = ContentScale.Crop,
+          )
+          Box(
+            Modifier
+              .align(Alignment.BottomEnd)
+              .padding(4.dp)
+              .clip(RoundedCornerShape(4.dp))
+              .background(Color.Black.copy(alpha = 0.55f))
+              .padding(horizontal = 4.dp, vertical = 1.dp),
+          ) {
+            Text("${kb}KB", color = Color.White, fontSize = 10.sp)
           }
-          .onSuccess { bitmap = it }
-          .onFailure { store.reportError("投诉图片解码失败，请重试") }
+        }
+        loading -> {
+          Column(horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(4.dp)) {
+            CircularProgressIndicator(Modifier.size(20.dp), strokeWidth = 2.dp, color = Teal)
+            Text("加载中", color = Muted, fontSize = 11.sp)
+          }
+        }
+        else -> {
+          Column(horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(3.dp), modifier = Modifier.padding(6.dp)) {
+            Icon(Icons.Default.Refresh, contentDescription = "重试加载照片", tint = Danger, modifier = Modifier.size(18.dp))
+            Text("点击重试", color = Danger, fontSize = 11.sp, fontWeight = FontWeight.Medium)
+          }
+        }
       }
     }
-  ) {
-    Text("查看投诉图片 · ${attachment.optLong("size")/1024} KB")
   }
-  bitmap?.let { b ->
-    androidx.compose.foundation.Image(
-      bitmap = b.asImageBitmap(),
-      contentDescription = "本人上传的投诉图片",
-      modifier = Modifier.fillMaxWidth().heightIn(max = 280.dp),
-    )
+
+  if (previewOpen && bitmap != null) {
+    PassengerModalSlot()
+    Dialog(
+      onDismissRequest = { previewOpen = false },
+      properties = DialogProperties(usePlatformDefaultWidth = false, decorFitsSystemWindows = false),
+    ) {
+      Box(
+        Modifier
+          .fillMaxSize()
+          .background(Color.Black.copy(alpha = 0.78f))
+          .safeDrawingPadding()
+          .padding(16.dp),
+        contentAlignment = Alignment.Center,
+      ) {
+        Surface(
+          shape = RoundedCornerShape(16.dp),
+          color = Color.White,
+          modifier = Modifier.fillMaxWidth(),
+        ) {
+          Column(Modifier.padding(14.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
+            Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.SpaceBetween) {
+              Column {
+                Text("投诉凭证照片", fontSize = TypeScale.Title, fontWeight = FontWeight.Bold, color = Ink)
+                Note("约 ${kb} KB")
+              }
+              IconButton(onClick = { previewOpen = false }, modifier = Modifier.size(36.dp)) {
+                Icon(Icons.Default.Close, contentDescription = "关闭预览", tint = Ink)
+              }
+            }
+            Image(
+              bitmap = bitmap!!.asImageBitmap(),
+              contentDescription = "投诉图片大图预览",
+              modifier = Modifier
+                .fillMaxWidth()
+                .heightIn(min = 180.dp, max = 440.dp)
+                .clip(RoundedCornerShape(10.dp))
+                .background(SurfaceMuted),
+              contentScale = ContentScale.Fit,
+            )
+          }
+        }
+      }
+    }
   }
 }

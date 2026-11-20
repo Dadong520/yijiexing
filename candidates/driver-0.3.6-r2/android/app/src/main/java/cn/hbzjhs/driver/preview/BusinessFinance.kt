@@ -552,21 +552,13 @@ internal fun BusinessWithdrawals(store: ConnectedStore, profile: JSONObject, onB
     var filter by rememberSaveable { mutableStateOf("全部") }
     val selected = records.filter { filter == "全部" || bStatus(it.bText("status")) == filter }
     BusinessPage("提现记录", store, onBack) {
+        val statusOptions = listOf("全部", "待处理", "沙箱已通过", "已驳回")
         item {
-            FlowRow(
-                Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(8.dp),
-                verticalArrangement = Arrangement.spacedBy(8.dp),
-            ) {
-                listOf("全部", "待处理", "沙箱已通过", "已驳回").forEach { f ->
-                    FilterChip(
-                        filter == f, { filter = f },
-                        label = { Text(f, fontSize = 15.sp) },
-                        modifier = Modifier.heightIn(min = 52.dp),
-                        colors = FilterChipDefaults.filterChipColors(selectedContainerColor = Pale, selectedLabelColor = Green, labelColor = Ink),
-                    )
-                }
-            }
+            DriverScrollableTabs(
+                items = statusOptions,
+                selectedIndex = statusOptions.indexOf(filter).coerceAtLeast(0),
+                onSelect = { filter = statusOptions[it] },
+            )
         }
         if (selected.isEmpty()) item { BusinessEmpty("当前分类暂无提现记录") }
         items(selected, key = { it.bText("id") }) { record ->

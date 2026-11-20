@@ -18,4 +18,17 @@ class PassengerUiRulesTest {
     assertFalse(PassengerUiRules.matchesOrderFilter("CANCELLED","进行中"))
     assertTrue(PassengerUiRules.matchesOrderFilter("DONE","已完成"))
   }
+  @Test fun orderFilterCountAlwaysShowsZeroAndPositiveCounts() {
+    assertEquals("0", PassengerUiRules.orderFilterCountText(0))
+    assertEquals("0", PassengerUiRules.orderFilterCountText(-2))
+    assertEquals("5", PassengerUiRules.orderFilterCountText(5))
+  }
+  @Test fun complaintStatusToneSeparatesPendingPositiveNegativeAndNeutral() {
+    assertEquals(PassengerUiRules.ComplaintTone.PENDING, PassengerUiRules.complaintStatusTone("PENDING"))
+    assertEquals(PassengerUiRules.ComplaintTone.PENDING, PassengerUiRules.complaintStatusTone("processing"))
+    assertEquals(PassengerUiRules.ComplaintTone.POSITIVE, PassengerUiRules.complaintStatusTone("REPLIED"))
+    assertEquals(PassengerUiRules.ComplaintTone.POSITIVE, PassengerUiRules.complaintStatusTone("RESOLVED"))
+    assertEquals(PassengerUiRules.ComplaintTone.NEGATIVE, PassengerUiRules.complaintStatusTone("REJECTED"))
+    assertEquals(PassengerUiRules.ComplaintTone.NEUTRAL, PassengerUiRules.complaintStatusTone("CLOSED"))
+  }
 }

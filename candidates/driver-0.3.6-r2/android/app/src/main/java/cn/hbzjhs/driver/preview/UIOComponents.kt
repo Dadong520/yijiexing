@@ -18,12 +18,16 @@ import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.graphics.StrokeCap
+import androidx.compose.ui.graphics.StrokeJoin
+import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -32,12 +36,12 @@ import org.json.JSONObject
 
 // UIO-20261029-01 presentation helpers; no business rules live here.
 
-/** Spacing scale shared by the optimized screens: 8 / 12 / 16 / 24. */
+/** Spacing scale shared by the optimized screens: 6 / 10 / 12 / 16. */
 object Gap {
-    val S = 8.dp
-    val M = 12.dp
-    val L = 16.dp
-    val XL = 24.dp
+    val S = 6.dp
+    val M = 10.dp
+    val L = 12.dp
+    val XL = 16.dp
 }
 
 /**
@@ -45,8 +49,8 @@ object Gap {
  * text smallest. Screens use these instead of ad-hoc sizes.
  */
 object DriverType {
-    val Page = 17.sp
-    val Title = 15.sp
+    val Page = 20.sp
+    val Title = 16.sp
     val Body = 14.sp
     val Caption = 12.sp
 }
@@ -61,28 +65,41 @@ val BrandGradient: Brush = SolidColor(Green)
 /** Kept for source compatibility; heroes are now plain white surfaces. */
 val HeroGradient: Brush = SolidColor(Green)
 
-/** Small light-3D car on a road, used to decorate headers and empty states. */
+/** 流线型新能源轿车简笔插画。 */
 @Composable
 fun CarIllustration(modifier: Modifier = Modifier, body: Color = Green) {
     Canvas(modifier) {
         val w = size.width
         val h = size.height
-        drawOval(Color(0x220F1B2A), topLeft = Offset(w * 0.08f, h * 0.84f), size = Size(w * 0.84f, h * 0.12f))
-        drawRoundRect(
-            Brush.verticalGradient(listOf(body.copy(alpha = 0.75f), body), startY = h * 0.42f, endY = h * 0.82f),
-            topLeft = Offset(w * 0.06f, h * 0.44f), size = Size(w * 0.88f, h * 0.36f), cornerRadius = CornerRadius(h * 0.16f),
+        drawLine(
+            body.copy(alpha = 0.28f),
+            Offset(w * 0.04f, h * 0.84f),
+            Offset(w * 0.96f, h * 0.84f),
+            strokeWidth = h * 0.05f,
+            cap = StrokeCap.Round,
         )
-        drawRoundRect(
-            Brush.verticalGradient(listOf(body.copy(alpha = 0.55f), body.copy(alpha = 0.9f)), startY = h * 0.16f, endY = h * 0.5f),
-            topLeft = Offset(w * 0.22f, h * 0.18f), size = Size(w * 0.52f, h * 0.32f), cornerRadius = CornerRadius(h * 0.14f),
-        )
-        drawRoundRect(Color(0xCCE8F7FF), topLeft = Offset(w * 0.28f, h * 0.24f), size = Size(w * 0.19f, h * 0.2f), cornerRadius = CornerRadius(h * 0.06f))
-        drawRoundRect(Color(0xCCE8F7FF), topLeft = Offset(w * 0.5f, h * 0.24f), size = Size(w * 0.18f, h * 0.2f), cornerRadius = CornerRadius(h * 0.06f))
-        drawRoundRect(Color(0x55FFFFFF), topLeft = Offset(w * 0.12f, h * 0.48f), size = Size(w * 0.7f, h * 0.05f), cornerRadius = CornerRadius(h * 0.03f))
-        drawCircle(Color(0xFFFFD27A), radius = h * 0.05f, center = Offset(w * 0.9f, h * 0.58f))
-        listOf(0.27f, 0.73f).forEach { x ->
-            drawCircle(Color(0xFF243447), radius = h * 0.13f, center = Offset(w * x, h * 0.8f))
-            drawCircle(Color(0xFFCBD5DF), radius = h * 0.055f, center = Offset(w * x, h * 0.8f))
+        val shell = Path().apply {
+            moveTo(w * 0.08f, h * 0.72f)
+            cubicTo(w * 0.06f, h * 0.56f, w * 0.12f, h * 0.44f, w * 0.22f, h * 0.42f)
+            cubicTo(w * 0.31f, h * 0.20f, w * 0.45f, h * 0.15f, w * 0.62f, h * 0.17f)
+            cubicTo(w * 0.73f, h * 0.19f, w * 0.80f, h * 0.32f, w * 0.86f, h * 0.40f)
+            cubicTo(w * 0.94f, h * 0.43f, w * 0.95f, h * 0.58f, w * 0.92f, h * 0.72f)
+            close()
+        }
+        drawPath(shell, body.copy(alpha = 0.24f))
+        drawPath(shell, body.copy(alpha = 0.92f), style = Stroke(width = h * 0.075f, cap = StrokeCap.Round, join = StrokeJoin.Round))
+        val cabin = Path().apply {
+            moveTo(w * 0.28f, h * 0.41f)
+            cubicTo(w * 0.35f, h * 0.24f, w * 0.46f, h * 0.22f, w * 0.60f, h * 0.23f)
+            cubicTo(w * 0.68f, h * 0.24f, w * 0.74f, h * 0.32f, w * 0.78f, h * 0.41f)
+            close()
+        }
+        drawPath(cabin, body.copy(alpha = 0.42f))
+        drawLine(body.copy(alpha = 0.85f), Offset(w * 0.53f, h * 0.23f), Offset(w * 0.50f, h * 0.41f), strokeWidth = h * 0.055f, cap = StrokeCap.Round)
+        listOf(0.26f, 0.74f).forEach { cx ->
+            drawCircle(body.copy(alpha = 0.96f), radius = h * 0.15f, center = Offset(w * cx, h * 0.74f))
+            drawCircle(Color(0xFF0A4D46).copy(alpha = 0.38f), radius = h * 0.08f, center = Offset(w * cx, h * 0.74f))
+            drawCircle(body.copy(alpha = 0.96f), radius = h * 0.032f, center = Offset(w * cx, h * 0.74f))
         }
     }
 }

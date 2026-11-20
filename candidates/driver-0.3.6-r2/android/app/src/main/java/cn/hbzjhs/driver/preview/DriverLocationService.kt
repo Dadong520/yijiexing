@@ -30,13 +30,63 @@ data class DriverPosition(
     val longitude: Double,
     val accuracy: Float,
     val time: Long,
+    val elapsedMs: Long = 0L,
 )
 
 object PositionBus {
     internal val latest = MutableStateFlow<DriverPosition?>(null)
     internal val mutableStatus = MutableStateFlow("未启动定位")
+    @Volatile internal var lastServerSyncedElapsedMs: Long = 0L
+    @Volatile internal var lastServerSyncedAccuracy: Float = 0f
     val position = latest.asStateFlow()
     val status = mutableStatus.asStateFlow()
+
+    internal fun resetSyncState() {
+        lastServerSyncedElapsedMs = 0L
+        lastServerSyncedAccuracy = 0f
+    }
+
+    internal fun refreshDisplayStatus(nowElapsedMs: Long = SystemClock.elapsedRealtime()) {
+        val pos = latest.value ?: return
+        val synced = lastServerSyncedElapsedMs > 0L && LocationUploadPolicy.isUsableAccuracy(lastServerSyncedAccuracy)
+        val cur = mutableStatus.value
+        if (cur.startsWith("已定位") || cur.startsWith("定位精度不足")) {
+            mutableStatus.value = LocationUploadPolicy.displayStatus(pos.accuracy, pos.elapsedMs, nowElapsedMs, synced)
+        }
+    }
+
+    /** 若本地已有新鲜有效的真实 WGS84 定位但尚未同步到服务端（或已隔 15 秒以上），抢单前先行真实上报。 */
+    internal suspend fun syncCachedFixBeforeGrab(credentials: LocalApi.Credentials) {
+        if (credentials.token.isBlank()) return
+        val pos = latest.value ?: return
+        val nowElapsed = SystemClock.elapsedRealtime()
+        if (!LocationUploadPolicy.needsPreGrabResync(pos.accuracy, pos.elapsedMs, lastServerSyncedElapsedMs, lastServerSyncedAccuracy, nowElapsed)) {
+            return
+        }
+        runCatching {
+            LocalApi.request(
+                "POST",
+                "/api/action",
+                JSONObject()
+                    .put("action", "location.report")
+                    .put(
+                        "payload",
+                        JSONObject()
+                            .put("latitude", pos.latitude)
+                            .put("longitude", pos.longitude)
+                            .put("accuracy", pos.accuracy)
+                            .put("time", pos.time),
+                    )
+                    .put("requestId", UUID.randomUUID().toString()),
+                credentials = credentials,
+            )
+            lastServerSyncedElapsedMs = SystemClock.elapsedRealtime()
+            lastServerSyncedAccuracy = pos.accuracy
+            if (LocalApi.isCurrent(credentials)) {
+                mutableStatus.value = LocationUploadPolicy.displayStatus(pos.accuracy, pos.elapsedMs, SystemClock.elapsedRealtime(), syncedToServer = true)
+            }
+        }
+    }
 }
 
 /**
@@ -58,6 +108,8 @@ class DriverLocationService : Service(), LocationListener {
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
     @Volatile private var serviceGeneration = 0L
     private var lastSent = 0L
+    private var lastSentAccuracy = 0f
+    private var keepAliveRequest: RetryRequest? = null
     private var floatingEnabled = false
     private var floatingAllowed = false
     private var listening = true
@@ -267,6 +319,27 @@ class DriverLocationService : Service(), LocationListener {
             stopSelf()
         }
         scope.launch {
+            var lastKeepAliveCheckElapsed = 0L
+            while (isActive) {
+                delay(15_000L)
+                val nowElapsed = SystemClock.elapsedRealtime()
+                withContext(Dispatchers.Main) {
+                    PositionBus.refreshDisplayStatus(nowElapsed)
+                    if (!running || !listening || activeRetry != null || keepAliveRequest != null) return@withContext
+                    if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) return@withContext
+                    val pos = PositionBus.latest.value
+                    val needKeepAlive = pos == null ||
+                        !LocationUploadPolicy.isUsableAccuracy(pos.accuracy) ||
+                        (nowElapsed - pos.elapsedMs) >= LocationUploadPolicy.KEEPALIVE_INTERVAL_MS ||
+                        (nowElapsed - PositionBus.lastServerSyncedElapsedMs) >= LocationUploadPolicy.KEEPALIVE_INTERVAL_MS
+                    if (needKeepAlive && nowElapsed - lastKeepAliveCheckElapsed >= LocationUploadPolicy.KEEPALIVE_INTERVAL_MS) {
+                        lastKeepAliveCheckElapsed = nowElapsed
+                        requestBackgroundKeepAliveFix()
+                    }
+                }
+            }
+        }
+        scope.launch {
             // Error backoff only; 0 = healthy. The normal cadence comes from the shared gate.
             var retryDelay = 0L
             var nextAllowedAt = 0L
@@ -415,6 +488,78 @@ class DriverLocationService : Service(), LocationListener {
         activeRetry = null
     }
 
+    private fun cancelKeepAlive() {
+        keepAliveRequest?.close()
+        keepAliveRequest = null
+    }
+
+    /**
+     * 在线听单期间静默保活（不修改界面“正在重新定位”文案），若静止导致系统未回调，则主动向系统
+     * LocationManager 请求一个真正新鲜的硬件采样点并走统一上报路径。
+     */
+    private fun requestBackgroundKeepAliveFix() {
+        cancelKeepAlive()
+        if (!::manager.isInitialized || !running || !listening) return
+        if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) return
+        val providers = listOf(LocationManager.GPS_PROVIDER, LocationManager.NETWORK_PROVIDER)
+            .filter { it in manager.allProviders && manager.isProviderEnabled(it) }
+        if (providers.isEmpty()) return
+        val credentials = LocalApi.credentials()
+        if (credentials.token.isBlank()) return
+        val request = RetryRequest(serviceGeneration, credentials, SystemClock.elapsedRealtimeNanos())
+        keepAliveRequest = request
+        val answer: (Location) -> Unit = answer@{ location ->
+            if (keepAliveRequest !== request || request.closed) return@answer
+            if (request.generation != serviceGeneration || !LocalApi.isCurrent(request.credentials)) {
+                keepAliveRequest?.close()
+                if (keepAliveRequest === request) keepAliveRequest = null
+                return@answer
+            }
+            val fresh = RetryFreshness.isFresh(
+                location.elapsedRealtimeNanos,
+                request.requestedAtNanos,
+                SystemClock.elapsedRealtimeNanos(),
+            )
+            if (!fresh || !isUsableDriverFix(
+                    location.latitude, location.longitude, location.accuracy, location.time,
+                    System.currentTimeMillis(),
+                )
+            ) return@answer
+            if (!LocationUploadPolicy.isUsableAccuracy(location.accuracy)) return@answer
+            keepAliveRequest?.close()
+            if (keepAliveRequest === request) keepAliveRequest = null
+            handleFix(location, forceReport = true, generation = request.generation, credentials = request.credentials)
+        }
+        try {
+            providers.forEach { provider ->
+                if (keepAliveRequest !== request) return@forEach
+                val listener = object : LocationListener {
+                    override fun onLocationChanged(location: Location) = answer(location)
+                    override fun onProviderEnabled(provider: String) {}
+                    override fun onProviderDisabled(provider: String) {}
+                    @Deprecated("Deprecated in Android")
+                    override fun onStatusChanged(provider: String?, status: Int, extras: Bundle?) {}
+                }
+                request.listeners += listener
+                try {
+                    manager.requestLocationUpdates(provider, 0L, 0f, listener, Looper.getMainLooper())
+                } catch (_: IllegalArgumentException) {
+                    request.listeners -= listener
+                }
+            }
+        } catch (_: SecurityException) {
+            cancelKeepAlive()
+            return
+        }
+        if (request.listeners.isEmpty()) {
+            cancelKeepAlive()
+            return
+        }
+        retryHandler.postDelayed({
+            if (keepAliveRequest === request) cancelKeepAlive()
+        }, 8_000L)
+    }
+
     /**
      * Ends [request] only if it is still the live one, so a late callback of an old request can
      * neither clean up nor overwrite the status of a newer one. [status] null = keep the status
@@ -516,17 +661,29 @@ class DriverLocationService : Service(), LocationListener {
     }
 
     /**
-     * Shared fix path of the normal listener and a retry. [forceReport] (retry only) skips the 15s
-     * throttle once; the report always uses the [credentials]/[generation] the fix was taken for.
+     * Shared fix path of the normal listener and a retry. [forceReport] (retry/keep-alive) bypasses
+     * the 15s throttle when valid; coarse fixes never overwrite a recent precise fix on the server.
      */
     private fun handleFix(location: Location, forceReport: Boolean, generation: Long, credentials: LocalApi.Credentials) {
         if (!location.latitude.isFinite() || !location.longitude.isFinite()) return
+        val nowElapsed = SystemClock.elapsedRealtime()
+        val usableAccuracy = LocationUploadPolicy.isUsableAccuracy(location.accuracy)
+        val hasRecentGood = lastSent > 0L && LocationUploadPolicy.isUsableAccuracy(lastSentAccuracy) &&
+            (nowElapsed - lastSent) < LocationUploadPolicy.STALE_GOOD_PROTECT_MS
+        if (!usableAccuracy && hasRecentGood && !forceReport) {
+            return
+        }
         PositionBus.latest.value =
-            DriverPosition(location.latitude, location.longitude, location.accuracy, location.time)
-        PositionBus.mutableStatus.value = "已定位 · 精度约 ${location.accuracy.toInt()} 米"
-        if ((!forceReport && System.currentTimeMillis() - lastSent < 14500) || credentials.token.isBlank()) return
+            DriverPosition(location.latitude, location.longitude, location.accuracy, location.time, nowElapsed)
+        val synced = PositionBus.lastServerSyncedElapsedMs > 0L &&
+            LocationUploadPolicy.isUsableAccuracy(PositionBus.lastServerSyncedAccuracy)
+        PositionBus.mutableStatus.value = LocationUploadPolicy.displayStatus(location.accuracy, nowElapsed, nowElapsed, synced)
+        if (credentials.token.isBlank()) return
+        if (!LocationUploadPolicy.shouldUpload(location.accuracy, nowElapsed, lastSent, lastSentAccuracy, forceReport)) return
         if (generation != serviceGeneration || !LocalApi.isCurrent(credentials)) return
-        lastSent = System.currentTimeMillis()
+        val sendMarker = nowElapsed
+        lastSent = sendMarker
+        lastSentAccuracy = location.accuracy
         scope.launch {
             try {
                 LocalApi.request(
@@ -540,11 +697,23 @@ class DriverLocationService : Service(), LocationListener {
                         .put("requestId", UUID.randomUUID().toString()),
                     credentials = credentials,
                 )
+                withContext(Dispatchers.Main) {
+                    if (generation != serviceGeneration || !LocalApi.isCurrent(credentials)) return@withContext
+                    val completedAt = SystemClock.elapsedRealtime()
+                    PositionBus.lastServerSyncedElapsedMs = completedAt
+                    PositionBus.lastServerSyncedAccuracy = location.accuracy
+                    PositionBus.mutableStatus.value =
+                        LocationUploadPolicy.displayStatus(location.accuracy, nowElapsed, completedAt, syncedToServer = true)
+                }
             } catch (e: CancellationException) {
                 throw e
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) {
                     if (generation != serviceGeneration || !LocalApi.isCurrent(credentials)) return@withContext
+                    if (lastSent == sendMarker) {
+                        lastSent = 0L
+                        lastSentAccuracy = 0f
+                    }
                     PositionBus.mutableStatus.value = "已定位 · 位置同步暂不可用"
                     if (e is LocalApiException &&
                         (e.status in setOf(401, 503) || e.details.optString("reason") in
@@ -575,8 +744,10 @@ class DriverLocationService : Service(), LocationListener {
 
     override fun onDestroy() {
         running = false
-        // Releases retry-only listeners and timeout; the normal listener is removed below.
+        // Releases retry-only and keep-alive listeners; the normal listener is removed below.
         cancelRetry()
+        cancelKeepAlive()
+        PositionBus.resetSyncState()
         retryHandler.removeCallbacksAndMessages(null)
         serviceGeneration++
         // Unhook first so clearing reminders below cannot re-add the bubble or overlay.

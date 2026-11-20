@@ -1,37 +1,44 @@
 package cn.hbzjhs.passenger
 
-import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
-import androidx.compose.foundation.clickable
-import androidx.compose.ui.graphics.Color
-import androidx.compose.material.icons.filled.*
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.background
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.List
 import androidx.compose.material.icons.automirrored.filled.ExitToApp
+import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
+import androidx.compose.material.icons.automirrored.filled.List
 import androidx.compose.material.icons.filled.AccountCircle
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Info
+import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Place
 import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
+import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
-import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import org.json.JSONObject
@@ -50,11 +57,11 @@ fun ProfileScreen(
   var name by remember(p.text("name")) { mutableStateOf(p.text("name")) }
   var logout by remember { mutableStateOf(false) }
   var city by remember(p.text("city")) { mutableStateOf(p.text("city")) }
+  val unusedCoupons = state.rows("coupons").count { it.text("status") == "UNUSED" }
+  val pointsBalance = state.optJSONObject("points")?.optLong("balance") ?: 0L
+  val maskedMobile = p.text("mobile").let { if (it.length >= 7) it.take(3) + "****" + it.takeLast(4) else it }
   PageColumn {
     // Rich gradient profile identity card with quick account summary.
-    val unusedCoupons = state.rows("coupons").count { it.text("status") == "UNUSED" }
-    val pointsBalance = state.optJSONObject("points")?.optLong("balance") ?: 0L
-    val maskedMobile = p.text("mobile").let { if (it.length >= 7) it.take(3) + "****" + it.takeLast(4) else it }
     Surface(
       onClick = { edit = true },
       shape = RoundedCornerShape(16.dp),
@@ -124,7 +131,7 @@ fun ProfileScreen(
             Text("·", color = Color.White.copy(alpha = 0.6f), fontSize = TypeScale.Caption)
             Text("积分 $pointsBalance 分", color = Color.White, fontSize = TypeScale.Caption, fontWeight = FontWeight.SemiBold)
           }
-          CarIllustration(Modifier.size(width = 48.dp, height = 28.dp), body = Color.White)
+          CarIllustration(Modifier.size(width = 58.dp, height = 30.dp), body = Color.White)
         }
       }
     }
@@ -195,7 +202,7 @@ fun ProfileScreen(
     PassengerModal(
       title = "编辑个人资料",
       onDismiss = { edit = false },
-      confirmLabel = "保存",
+      confirmLabel = "保存资料",
       confirmEnabled = !busy && name.trim().length in 2..30,
       onConfirm = {
         val payload = JSONObject().put("name", name.trim())
@@ -204,23 +211,93 @@ fun ProfileScreen(
         edit = false
       },
     ) {
-      Field(name, { name = it.take(30) }, "昵称（2–30 字）")
-      Text("体验城市", fontWeight = FontWeight.SemiBold, color = Ink)
-      state.rows("regions").forEach { r ->
-        val selected = city == r.text("id")
-        FilterChip(
-          selected = selected,
-          onClick = { city = r.text("id") },
-          enabled = r.optBoolean("enabled"),
-          label = { Text(r.text("name") + if (r.optBoolean("enabled")) "" else " · 未开放") },
-          colors = FilterChipDefaults.filterChipColors(
-            selectedContainerColor = Teal,
-            selectedLabelColor = Color.White,
-          ),
-          shape = RoundedCornerShape(8.dp),
-        )
+      Row(
+        Modifier
+          .fillMaxWidth()
+          .clip(RoundedCornerShape(10.dp))
+          .background(BrandMist)
+          .border(1.dp, DividerTone, RoundedCornerShape(10.dp))
+          .padding(horizontal = 10.dp, vertical = 8.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(10.dp),
+      ) {
+        Box(
+          Modifier.size(34.dp).clip(CircleShape).background(Teal),
+          contentAlignment = Alignment.Center,
+        ) {
+          Text(name.trim().ifBlank { p.text("name", "乘") }.take(1), color = Color.White, fontWeight = FontWeight.Bold, fontSize = 15.sp)
+        }
+        Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(1.dp)) {
+          Text(maskedMobile.ifBlank { "体验账号" }, color = Ink, fontSize = 13.sp, fontWeight = FontWeight.SemiBold)
+          Note("当前体验城市：${p.text("cityName", "宜昌市")}")
+        }
       }
-      Note("区域开通范围由云端控制；存在进行中的订单时不能切换城市。地点坐标需自行选择到对应城市。")
+      Field(name, { name = it.take(30) }, "昵称（2–30 字）")
+      HorizontalDivider(color = DividerTone)
+      Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.SpaceBetween) {
+        Text("选择体验城市", fontSize = TypeScale.Title, fontWeight = FontWeight.Bold, color = Ink)
+        Text("云端区域配置", color = Muted, fontSize = 11.sp)
+      }
+      val regionRows = state.rows("regions").chunked(2)
+      Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+        regionRows.forEach { pair ->
+          Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            pair.forEach { r ->
+              val isOpen = r.optBoolean("enabled")
+              val selected = city == r.text("id")
+              Surface(
+                onClick = { if (isOpen) city = r.text("id") },
+                enabled = isOpen,
+                shape = RoundedCornerShape(10.dp),
+                color = if (!isOpen) SurfaceMuted else if (selected) BrandSoft else Color.White,
+                border = BorderStroke(if (selected) 1.5.dp else 1.dp, if (!isOpen) DividerTone else if (selected) Teal else Line),
+                modifier = Modifier.weight(1f),
+              ) {
+                Row(
+                  Modifier.padding(horizontal = 10.dp, vertical = 10.dp),
+                  verticalAlignment = Alignment.CenterVertically,
+                  horizontalArrangement = Arrangement.spacedBy(6.dp),
+                ) {
+                  Icon(
+                    Icons.Default.LocationOn,
+                    contentDescription = null,
+                    tint = if (!isOpen) DisabledText else if (selected) Teal else IconTone,
+                    modifier = Modifier.size(16.dp),
+                  )
+                  Column(Modifier.weight(1f)) {
+                    Text(
+                      r.text("name"),
+                      fontSize = 14.sp,
+                      fontWeight = if (selected) FontWeight.Bold else FontWeight.SemiBold,
+                      color = if (!isOpen) DisabledText else if (selected) BrandStrong else Ink,
+                      maxLines = 1,
+                      overflow = TextOverflow.Ellipsis,
+                    )
+                    Text(
+                      if (isOpen) "可体验" else "未开放",
+                      fontSize = 11.sp,
+                      color = if (!isOpen) DisabledText else if (selected) Teal else Muted,
+                    )
+                  }
+                  if (isOpen) DefaultRadioDot(selected = selected, onClick = null)
+                }
+              }
+            }
+            if (pair.size == 1) Spacer(Modifier.weight(1f))
+          }
+        }
+      }
+      Text(
+        "进行中订单结束后方可切换城市；选择地点时需对应所选城市。",
+        color = Muted,
+        fontSize = TypeScale.Caption,
+        lineHeight = 17.sp,
+        modifier = Modifier
+          .fillMaxWidth()
+          .clip(RoundedCornerShape(8.dp))
+          .background(SurfaceMuted)
+          .padding(horizontal = 10.dp, vertical = 8.dp),
+      )
     }
   PassengerModalSlot(logout)
   if (logout)
@@ -288,16 +365,55 @@ fun FavoritesScreen(state: JSONObject, store: PassengerStore) {
       }
     else PassengerDialog(
       onDismissRequest = { if (pickShield.allows()) edit = null },
-      title = { Text("保存常用地址") },
+      title = { Text(if (f.has("id")) "编辑常用地址" else "添加常用地址") },
       text = {
         Column(
           Modifier.verticalScroll(rememberScrollState()),
-          verticalArrangement = Arrangement.spacedBy(10.dp),
+          verticalArrangement = Arrangement.spacedBy(8.dp),
         ) {
+          Row(
+            Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(6.dp),
+            verticalAlignment = Alignment.CenterVertically,
+          ) {
+            listOf("家", "公司", "学校").forEach { preset ->
+              PassengerChoiceChip(
+                label = preset,
+                selected = label.trim() == preset,
+                onClick = { label = preset },
+              )
+            }
+          }
           Field(label, { label = it.take(30) }, "标签（例如家、公司）")
-          AddressRow("地点", address.ifBlank { "点此搜索或在地图上选择" }) { picking = true }
+          Surface(
+            onClick = { picking = true },
+            shape = RoundedCornerShape(10.dp),
+            color = Paper,
+            border = BorderStroke(1.dp, if (address.isNotBlank()) Teal.copy(alpha = 0.4f) else ControlOutline),
+            modifier = Modifier.fillMaxWidth(),
+          ) {
+            Row(
+              Modifier.fillMaxWidth().padding(horizontal = 12.dp, vertical = 10.dp),
+              verticalAlignment = Alignment.CenterVertically,
+              horizontalArrangement = Arrangement.spacedBy(10.dp),
+            ) {
+              RouteBadgeIcon(RoutePinKind.ORIGIN)
+              Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
+                Text("地点位置", color = Muted, fontSize = TypeScale.Caption)
+                Text(
+                  address.ifBlank { "点击在地图上点选或搜索地点" },
+                  color = if (address.isBlank()) Muted else Ink,
+                  fontSize = TypeScale.Body,
+                  fontWeight = if (address.isBlank()) FontWeight.Normal else FontWeight.Medium,
+                  maxLines = 2,
+                  overflow = TextOverflow.Ellipsis,
+                )
+              }
+              Icon(Icons.AutoMirrored.Filled.KeyboardArrowRight, contentDescription = null, tint = Chevron, modifier = Modifier.size(18.dp))
+            }
+          }
           PassengerDefaultCheck(isDefault, "设为默认常用地址") { if (pickShield.allows()) isDefault = it }
-          if (error.isNotBlank()) Text(error, color = MaterialTheme.colorScheme.error)
+          if (error.isNotBlank()) Text(error, color = MaterialTheme.colorScheme.error, fontSize = 13.sp)
         }
       },
       confirmButton = {
@@ -368,6 +484,14 @@ fun FeedbackScreen(state: JSONObject, store: PassengerStore) {
 
 @Composable
 fun ComplaintsScreen(state: JSONObject, store: PassengerStore) {
+  val busy by store.busy.collectAsState()
+  var targetOrderId by remember { mutableStateOf("") }
+  var targetComplaintId by remember { mutableStateOf("") }
+  val imagePicker = rememberLauncherForActivityResult(ActivityResultContracts.GetContent()) { uri ->
+    if (uri != null && targetOrderId.isNotBlank() && targetComplaintId.isNotBlank()) {
+      store.uploadComplaint(targetOrderId, targetComplaintId, uri)
+    }
+  }
   PageColumn {
     SectionTitle("我的投诉", "可在已完成、待支付或已取消订单中提交投诉。")
     val rows = state.rows("orders").flatMap { o -> o.rows("complaints").map { c -> o to c } }
@@ -376,14 +500,34 @@ fun ComplaintsScreen(state: JSONObject, store: PassengerStore) {
       EmptyHint("打开“订单”中已完成、待支付或已取消的订单，点按“投诉与问题反馈”。")
     }
     rows.reversed().forEach { (o, c) ->
+      val attachments = c.rows("attachments")
+      val canAttach = attachments.size < 3 && o.text("stage") in listOf("DONE", "CANCELLED", "WAIT_PAY")
       Panel {
-        Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
-          Text(c.text("reason", "订单投诉"), color = Ink, fontWeight = FontWeight.SemiBold, modifier = Modifier.weight(1f))
-          Text(supportStatus(c.text("status")), color = Teal)
+        Row(
+          Modifier.fillMaxWidth(),
+          verticalAlignment = Alignment.CenterVertically,
+          horizontalArrangement = Arrangement.SpaceBetween,
+        ) {
+          Text(
+            c.text("reason", "订单投诉"),
+            color = Ink,
+            fontSize = TypeScale.Title,
+            fontWeight = FontWeight.SemiBold,
+            modifier = Modifier.weight(1f).padding(end = 8.dp),
+          )
+          ComplaintStatusBadge(c.text("status"))
         }
-        Text(c.text("content").ifBlank { "未提供投诉正文" }, color = Ink)
-        c.rows("attachments").forEach { ComplaintImage(it, store) }
-        Text(c.text("reply").takeIf { it.isNotBlank() }?.let { "处理回复：$it" } ?: "暂无回复，后台回复后会在这里显示。", color = Muted)
+        Text(c.text("content").ifBlank { "未提供投诉正文" }, color = Ink, fontSize = TypeScale.Body)
+        ComplaintAttachmentStrip(attachments, store)
+        if (attachments.isEmpty()) Note("暂未上传投诉照片${if (canAttach) "，可点击下方按钮从相册补充。" else "。"}")
+        if (canAttach) {
+          SecondaryButton("从相册补充投诉照片 (${attachments.size}/3)", !busy, icon = Icons.Default.Add) {
+            targetOrderId = o.text("id")
+            targetComplaintId = c.text("id")
+            imagePicker.launch("image/*")
+          }
+        }
+        Text(c.text("reply").takeIf { it.isNotBlank() }?.let { "处理回复：$it" } ?: "暂无回复，后台回复后会在这里显示。", color = Muted, fontSize = 13.sp)
         Note(formatTime(c.text("createdAt")))
         ExpandablePanel("关联行程", "${o.text("origin")} → ${o.text("destination")}") {
           Note(orderSummary(o))

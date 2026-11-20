@@ -65,9 +65,9 @@ fun PassengerFullPage(
                     }
                     Text(
                         text = title,
-                        fontSize = TypeScale.Title,
+                        fontSize = TypeScale.Page,
                         fontWeight = FontWeight.Bold,
-                        lineHeight = 22.sp,
+                        lineHeight = 26.sp,
                         color = Ink,
                         maxLines = 2,
                         modifier = Modifier.weight(1f).padding(start = 4.dp, end = 8.dp)
@@ -79,16 +79,16 @@ fun PassengerFullPage(
                 Column(
                     modifier = Modifier.weight(1f).fillMaxWidth()
                         .verticalScroll(scrollState)
-                        .padding(horizontal = 16.dp, vertical = 12.dp),
-                    verticalArrangement = Arrangement.spacedBy(12.dp),
+                        .padding(horizontal = Gap.L, vertical = Gap.M),
+                    verticalArrangement = Arrangement.spacedBy(Gap.M),
                     content = content
                 )
                 if (bottom != null) {
                     HorizontalDivider(color = DividerTone)
                     Surface(color = Color.White) {
                         Column(
-                            modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 12.dp),
-                            verticalArrangement = Arrangement.spacedBy(8.dp),
+                            modifier = Modifier.fillMaxWidth().padding(horizontal = Gap.L, vertical = Gap.M),
+                            verticalArrangement = Arrangement.spacedBy(Gap.S),
                             content = bottom
                         )
                     }

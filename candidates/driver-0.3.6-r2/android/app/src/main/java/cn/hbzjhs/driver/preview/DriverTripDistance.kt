@@ -90,35 +90,21 @@ fun DriverTripDistanceCard(
     val enforcement = order.optString("distanceEnforcement")
     val isSyntheticDemo = enforcement == "SYNTHETIC_DEMO_EXEMPT" || !isShared
 
-    val primaryGreen = Color(0xFF00796B)
-    val alertAmber = Color(0xFFE65100)
-    val textDark = Color(0xFF212121)
-    val textGrey = Color(0xFF757575)
-    val bgWarning = Color(0xFFFFF3E0)
-    val bgInfo = Color(0xFFE0F2F1)
-
     if (isSyntheticDemo) {
-        Card(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(vertical = 8.dp),
-            shape = RoundedCornerShape(12.dp),
-            colors = CardDefaults.cardColors(containerColor = bgWarning)
-        ) {
-            Column(modifier = Modifier.padding(14.dp)) {
-                Text(
-                    text = "演示订单模式说明",
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 15.sp,
-                    color = alertAmber
-                )
-                Spacer(modifier = Modifier.height(4.dp))
-                Text(
-                    text = "本单为司机端本地演示订单，无真实乘客端交互，系统不创建伪造乘客同意。真实共享订单将严格执行乘客确认流程。",
-                    fontSize = 14.sp,
-                    color = textDark
-                )
+        SheetCard {
+            Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                Box(Modifier.size(28.dp).background(WarmSoft, androidx.compose.foundation.shape.CircleShape), contentAlignment = Alignment.Center) {
+                    Glyph("info", Warm, Modifier.size(16.dp))
+                }
+                Text("演示订单模式说明", fontWeight = FontWeight.Bold, fontSize = DriverType.Title, color = Warm)
             }
+            Spacer(modifier = Modifier.height(6.dp))
+            Text(
+                text = "本单为司机端本地演示订单，无真实乘客端交互，系统不创建伪造乘客同意。真实共享订单将严格执行乘客确认流程。",
+                fontSize = DriverType.Body,
+                lineHeight = 20.sp,
+                color = Ink,
+            )
         }
         return
     }
@@ -161,108 +147,93 @@ fun DriverTripDistanceCard(
     val reasonText = translateDistanceReason(consent.optString("reason"))
     val isExpired = remainingSeconds <= 0 && expiresEpoch != null
 
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(vertical = 8.dp),
-        shape = RoundedCornerShape(12.dp),
-        colors = CardDefaults.cardColors(containerColor = if (status == "PENDING") bgInfo else Color(0xFFF5F5F5))
-    ) {
-        Column(modifier = Modifier.padding(14.dp)) {
-            when {
-                status == "PENDING" && expectedStage == stage -> {
-                    Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.SpaceBetween,
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Text(
-                            text = "等待乘客同意$typeLabel",
-                            fontWeight = FontWeight.Bold,
-                            fontSize = 15.sp,
-                            color = primaryGreen
-                        )
-                        Text(
-                            text = if (isExpired) "已超时失效" else "有效期: ${remainingSeconds}秒",
-                            fontSize = 14.sp,
-                            fontWeight = FontWeight.SemiBold,
-                            color = if (isExpired) Color.Red else alertAmber
-                        )
-                    }
+    SheetCard {
+        when {
+            status == "PENDING" && expectedStage == stage -> {
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(
+                        text = "等待乘客同意$typeLabel",
+                        fontWeight = FontWeight.Bold,
+                        fontSize = DriverType.Title,
+                        color = GreenStrong
+                    )
+                    Pill(
+                        if (isExpired) "已超时失效" else "${remainingSeconds}秒",
+                        if (isExpired) Danger else Warm,
+                        if (isExpired) DangerSoft else WarmSoft,
+                    )
+                }
+                Spacer(modifier = Modifier.height(6.dp))
+                DetailRow("直线距离", "$distanceMeters (阈值 $thresholdMeters)")
+                DetailRow("原因说明", reasonText)
+                Text(
+                    text = "提示：等待乘客在乘客端确认后，订单才会更新。",
+                    fontSize = DriverType.Caption,
+                    color = Muted
+                )
+                Spacer(modifier = Modifier.height(8.dp))
+                PrimaryButton("刷新乘客确认状态") { store.refresh() }
+                if (onRelocate != null && reasonText.contains("司机定位")) {
                     Spacer(modifier = Modifier.height(6.dp))
-                    Text(
-                        text = "直线距离：$distanceMeters (免确认阈值: $thresholdMeters)",
-                        fontSize = 14.sp,
-                        color = textDark
-                    )
-                    Spacer(modifier = Modifier.height(2.dp))
-                    Text(
-                        text = "未免确认原因：$reasonText",
-                        fontSize = 14.sp,
-                        color = textGrey
-                    )
-                    Spacer(modifier = Modifier.height(6.dp))
-                    Text(
-                        text = "提示：订单暂未更新。等待乘客确认后，订单才会更新。",
-                        fontSize = 14.sp,
-                        color = textGrey
-                    )
-                    Spacer(modifier = Modifier.height(10.dp))
-                    Button(
-                        onClick = { store.refresh() },
-                        modifier = Modifier.fillMaxWidth().height(44.dp),
-                        colors = ButtonDefaults.buttonColors(containerColor = primaryGreen),
-                        shape = RoundedCornerShape(8.dp)
-                    ) {
-                        Text("刷新乘客确认状态", fontSize = 14.sp, color = Color.White)
-                    }
-                    if (onRelocate != null && reasonText.contains("司机定位")) {
-                        Spacer(modifier = Modifier.height(8.dp))
-                        BusinessOutlinedButton(onClick = onRelocate, modifier = Modifier.fillMaxWidth()) {
-                            Text("重新定位", fontSize = 14.sp)
-                        }
+                    BusinessOutlinedButton(onClick = onRelocate, modifier = Modifier.fillMaxWidth()) {
+                        Text("重新定位", fontSize = DriverType.Body)
                     }
                 }
-                status == "REJECTED" -> {
-                    Text("乘客已拒绝本次${typeLabel}确认", fontWeight = FontWeight.Bold, fontSize = 15.sp, color = alertAmber)
-                    Spacer(modifier = Modifier.height(4.dp))
-                    Text("订单维持当前阶段。司机可调整定位或与乘客沟通后，重新移动到位再次申请。", fontSize = 14.sp, color = textDark)
-                    if (onRelocate != null) {
-                        Spacer(modifier = Modifier.height(8.dp))
-                        BusinessOutlinedButton(onClick = onRelocate, modifier = Modifier.fillMaxWidth()) {
-                            Text("重新定位", fontSize = 14.sp)
-                        }
-                    }
-                }
-                status == "EXPIRED" || (status == "PENDING" && isExpired) -> {
-                    Text("本次确认请求已超时失效", fontWeight = FontWeight.Bold, fontSize = 15.sp, color = Color.Red)
-                    Spacer(modifier = Modifier.height(4.dp))
-                    Text("订单维持当前阶段。请核实双方定位后重新发起。", fontSize = 14.sp, color = textDark)
+            }
+            status == "REJECTED" -> {
+                Text("乘客已拒绝本次${typeLabel}确认", fontWeight = FontWeight.Bold, fontSize = DriverType.Title, color = Warm)
+                Spacer(modifier = Modifier.height(4.dp))
+                Text("订单维持当前阶段。司机可调整定位或与乘客沟通后，重新移动到位再次申请。", fontSize = DriverType.Body, color = Ink)
+                if (onRelocate != null) {
                     Spacer(modifier = Modifier.height(8.dp))
-                    OutlinedButton(
-                        onClick = { store.refresh() },
-                        modifier = Modifier.fillMaxWidth().height(44.dp),
-                        shape = RoundedCornerShape(8.dp)
+                    BusinessOutlinedButton(onClick = onRelocate, modifier = Modifier.fillMaxWidth()) {
+                        Text("重新定位", fontSize = DriverType.Body)
+                    }
+                }
+            }
+            status == "EXPIRED" || (status == "PENDING" && isExpired) -> {
+                Text("本次确认请求已超时失效", fontWeight = FontWeight.Bold, fontSize = DriverType.Title, color = Danger)
+                Spacer(modifier = Modifier.height(4.dp))
+                Text("订单维持当前阶段。请核实双方定位后重新发起。", fontSize = DriverType.Body, color = Ink)
+                Spacer(modifier = Modifier.height(8.dp))
+                BusinessOutlinedButton(onClick = { store.refresh() }, modifier = Modifier.fillMaxWidth()) {
+                    Text("刷新订单状态", fontSize = DriverType.Body)
+                }
+                if (onRelocate != null) {
+                    Spacer(modifier = Modifier.height(6.dp))
+                    BusinessOutlinedButton(onClick = onRelocate, modifier = Modifier.fillMaxWidth()) {
+                        Text("重新定位", fontSize = DriverType.Body)
+                    }
+                }
+            }
+            status == "APPROVED" -> {
+                // 与"已安全送达"卡片保持一致：左侧圆形对勾徽标 + 标题 + 副标题
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Box(
+                        Modifier.size(32.dp).background(Pale, androidx.compose.foundation.shape.CircleShape),
+                        contentAlignment = Alignment.Center,
                     ) {
-                        Text("刷新订单状态", fontSize = 14.sp, color = primaryGreen)
+                        Glyph("check", GreenStrong, Modifier.size(18.dp))
                     }
-                    if (onRelocate != null) {
-                        Spacer(modifier = Modifier.height(8.dp))
-                        BusinessOutlinedButton(onClick = onRelocate, modifier = Modifier.fillMaxWidth()) {
-                            Text("重新定位", fontSize = 14.sp)
-                        }
+                    Column(Modifier.padding(start = 12.dp)) {
+                        Text("乘客已同意确认", fontSize = DriverType.Title, fontWeight = FontWeight.Bold, color = Ink)
+                        Text(
+                            "本次距离已核验完成，请依照最新订单状态继续服务",
+                            fontSize = DriverType.Caption,
+                            color = Muted,
+                            modifier = Modifier.padding(top = 2.dp),
+                        )
                     }
                 }
-                status == "APPROVED" -> {
-                    Text("乘客已同意确认 (历史已生效)", fontWeight = FontWeight.Bold, fontSize = 15.sp, color = primaryGreen)
-                    Spacer(modifier = Modifier.height(4.dp))
-                    Text("本次距离已核验完成，请依照最新订单状态继续服务。", fontSize = 14.sp, color = textDark)
-                }
-                else -> {
-                    Text("确认请求失效 (状态: $status)", fontWeight = FontWeight.Bold, fontSize = 15.sp, color = textGrey)
-                    Spacer(modifier = Modifier.height(4.dp))
-                    Text("前置请求已被新操作覆盖或取消。", fontSize = 14.sp, color = textGrey)
-                }
+            }
+            else -> {
+                Text("确认请求已变更 ($status)", fontWeight = FontWeight.Bold, fontSize = DriverType.Title, color = Muted)
+                Spacer(modifier = Modifier.height(4.dp))
+                Text("前置请求已被新操作覆盖或取消。", fontSize = DriverType.Caption, color = Muted)
             }
         }
     }
