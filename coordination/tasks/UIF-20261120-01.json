@@ -19,7 +19,7 @@
     "定位/竞抢、投诉图和导航入口差量复核",
     "双端单测构建、小程序回归、CI和整包读回"
   ],
-  "status": "ACCEPTED_READY_FOR_RELEASE",
+  "status": "COMPLETE",
   "acceptance": "PASS",
   "tests": [
     {
@@ -75,10 +75,21 @@
       "sha256": "74a2a9684a64b4ec9f6a3906cf4d2e4cda7ef6321a0779b91b4af638345f8d27"
     }
   ],
-  "nextAction": "合并GitHub检查通过的提交并发布双APK，完整验证公网下载。",
-  "updatedAt": "2026-11-21T03:03:47.800516+00:00",
+  "nextAction": "双端发布与公网整包校验完毕，等用户验收反馈。",
+  "updatedAt": "2026-11-21T03:05:59.513583+00:00",
   "candidateSha": "4cdaa9381564c9bc4fc5d3bd481d1484fecff4a5",
   "acceptedSha": "4cdaa9381564c9bc4fc5d3bd481d1484fecff4a5",
   "releaseReady": true,
-  "publicationComplete": false
+  "publicationComplete": true,
+  "productPr": 61,
+  "mergeSha": "0ebd2f4a33b6b461a92642eb92e2ebe61a3af502",
+  "integrationHeadSha": "a091671f6c096862fb3747943ba7281705b9de50",
+  "ci": {
+    "conclusion": "success",
+    "databaseId": 44859168804,
+    "headSha": "a091671f6c096862fb3747943ba7281705b9de50",
+    "status": "completed",
+    "url": "https://github.com/Dadong520/yijiexing/actions/runs/44859168804"
+  },
+  "releaseReceipt": "coordination/evidence/UIF-20261120-01/release/FINAL-RELEASE-RECEIPT.json"
 }

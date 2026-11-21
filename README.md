@@ -10,6 +10,12 @@
 - 活跃任务：[BOARD](coordination/BOARD.json)；长期决定：[DECISIONS](coordination/DECISIONS.md)；角色细节：handoffs；契约：contracts。
 - 恢复与提交检查：`python3 tools/check_coordination.py --memory-role <role> --session-id <真实会话ID>`；检查器不测量模型内部上下文，不等于业务验收。
 
+## 11月21日司乘 Android 体验版（乘客28、司机30）
+
+[PR61](https://github.com/Dadong520/yijiexing/pull/61) 已合并。乘客侧更新选址、订单和投诉图片预览；司机侧更新竞抢倒计时、接驾联系、位置同步和钱包。乘客 `1.1.26-experience`（28）、司机 `0.3.27-cloud`（30），可覆盖升级。
+
+双端91/141项单测、小程序74项回归、非作者复核与隔离模拟器通过。双公开安装包完整下载匹配原签名验收包。后台、API和数据快照保持。[发布回执](coordination/evidence/UIF-20261120-01/release/FINAL-RELEASE-RECEIPT.json)。
+
 ## 11月19日司乘 Android 界面优化（乘客27、司机29）
 
 [PR59](https://github.com/Dadong520/yijiexing/pull/59) 已合并。乘客端更新选址面板、优惠券和订单费用明细，司机端更新听单、定位、资质、钱包与个人页。两端保留原签名，乘客 `1.1.25-experience`（27）、司机 `0.3.26-cloud`（29）。
@@ -142,8 +148,8 @@ Claude Code已真实接入并完成主力实现，Gemini按用户决定暂时停
 
 | 项目 | 已发布与核验 | 入口 |
 |---|---|---|
-| 司机Android | 0.3.26-cloud / code29，原签名 | [司机快速入口](https://user-test---driver-demo-phfgquzmua-uw.a.run.app/download) |
-| 乘客Android | 1.1.25-experience / code27，原签名 | [乘客快速入口](https://user-test---driver-demo-phfgquzmua-uw.a.run.app/download-passenger) |
+| 司机Android | 0.3.27-cloud / code30，原签名 | [司机快速入口](https://user-test---driver-demo-phfgquzmua-uw.a.run.app/download) |
+| 乘客Android | 1.1.26-experience / code28，原签名 | [乘客快速入口](https://user-test---driver-demo-phfgquzmua-uw.a.run.app/download-passenger) |
 | Web后台 | 继续使用原账号密码 | https://demo-admin.hbzjhs.xyz/ |
 | 体验API | 同一持久数据与HTTPS域名 | https://yijiexing-demo.hbzjhs.xyz |
 | 微信小程序 | 源码74测试通过；缺AppID，未微信编译/真机/发布 | candidates/passenger-miniprogram-0.1.0/miniprogram |

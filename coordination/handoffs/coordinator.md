@@ -1,4 +1,4 @@
-# coordinator：UIF-20261120-01 独立验收与发布
-协议2026-10-26-v3。root 01a17cc7-e0a2-7791-bf1d-4611c09bab22 唯一协调/发布，context UNKNOWN。
-Gemini候选2e2fc0508d743c99f283e4d04afbfe06907037c9基于a81779627cdba1b1f6119e2c16318d5a3c158550。root验收分支 codex/uif-20261121-release，提交4cdaa9381564c9bc4fc5d3bd481d1484fecff4a5，工作树 /Users/dongge/.codex/tmp/yijiexing-uif-20261121-release。抢单关键路径去除等待定位，真实采样/账号/上传顺序保护；补回导航联系，投诉图按需加载和受控解码；乘客28司机30。两Sol会话审查，定位差量PASS，导航与图片复核进行中。小程序74、工具27通过，正式包/QA构建中。仅发布独立GCS双APK。
-证据 coordination/evidence/UIF-20261120-01/release；私有测试 /Users/dongge/.codex/tmp/yijiexing-uif-publish-20261121，仅emulator-5580及本地TLS64401。
+# coordinator：UIF-20261120-01 已合并发布
+协议2026-10-26-v3，root 01a17cc7-e0a2-7791-bf1d-4611c09bab22 唯一协调/发布；context UNKNOWN。
+产品 PR61 merge 0ebd2f4a33b6b461a92642eb92e2ebe61a3af502；实际构建源 4cdaa9381564c9bc4fc5d3bd481d1484fecff4a5；工作树 /Users/dongge/.codex/tmp/yijiexing-uif-20261121-release。乘客28/司机30、原签名、双公开整包验证及旧包归档通过；API、后台、IAM、快照均无变化。
+91/141单测、小程序74、tools27、两次独立复核和隔离模拟器通过，AVD与fixture已回收。真实手机与实车导航未验。验收证据 coordination/evidence/UIF-20261120-01/release/FINAL-RELEASE-RECEIPT.json。
