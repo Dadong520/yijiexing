@@ -375,6 +375,7 @@ object GrabActions {
                 .put("payload", JSONObject().put("id", key.orderId).put("competitionRound", round))
                 .put("requestId", attempt.requestId)
             try {
+                if (!owns()) return@launch
                 val postStarted = now()
                 val data = LocalApi.request("POST", "/api/action", body, credentials = credentials)
                 if (!owns()) return@launch

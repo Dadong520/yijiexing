@@ -13,11 +13,16 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.outlined.Add
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.asImageBitmap
@@ -112,8 +117,8 @@ internal fun BusinessPage(
             if (loading) LinearProgressIndicator(Modifier.fillMaxWidth())
             LazyColumn(
                 Modifier.weight(1f).then(if (bottomBar == null) Modifier.imePadding() else Modifier),
-                contentPadding = PaddingValues(start = 18.dp, end = 18.dp, top = 8.dp, bottom = 36.dp),
-                verticalArrangement = Arrangement.spacedBy(12.dp),
+                contentPadding = PaddingValues(start = Gap.L, end = Gap.L, top = Gap.S, bottom = 28.dp),
+                verticalArrangement = Arrangement.spacedBy(Gap.M),
             ) {
                 if (!error.isNullOrBlank())
                     item {
@@ -282,6 +287,7 @@ internal fun BusinessImageSelector(
     onImage: (String) -> Unit,
     store: ConnectedStore,
     onMessage: (String) -> Unit,
+    compact: Boolean = false,
 ) {
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
@@ -322,78 +328,132 @@ internal fun BusinessImageSelector(
                     processing = false
                 }
         }
+    fun launchCamera() {
+        runCatching {
+                val directory =
+                    File(context.cacheDir, "business-captures").apply { mkdirs() }
+                directory
+                    .listFiles()
+                    ?.filter {
+                        System.currentTimeMillis() - it.lastModified() > 86_400_000L
+                    }
+                    ?.forEach { it.delete() }
+                val file = File.createTempFile("certificate-", ".jpg", directory)
+                capturePath = file.absolutePath
+                val uri =
+                    FileProvider.getUriForFile(
+                        context,
+                        "${context.packageName}.business-files",
+                        file,
+                    )
+                camera.launch(uri)
+            }
+            .onFailure {
+                if (capturePath.isNotBlank()) File(capturePath).delete()
+                capturePath = ""
+                onMessage("此设备没有可用相机或拍摄权限，请从相册选择")
+            }
+    }
     Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-        Text(label, fontSize = 15.sp, fontWeight = FontWeight.Medium)
-        val bitmap = remember(image) { if (image.isBlank()) null else bBitmap(image) }
-        if (bitmap != null) {
-            Image(
-                bitmap.asImageBitmap(),
-                contentDescription = label,
-                modifier = Modifier.fillMaxWidth().height(160.dp),
-                contentScale = ContentScale.Fit,
-            )
-            BusinessTextButton(onClick = { onImage("") }) { Text("移除此图片") }
-        } else
-            Box(Modifier.fillMaxWidth().heightIn(min = 80.dp).background(Pale, RoundedCornerShape(12.dp))) {
-                Text(
-                    if (processing) "正在处理图片…" else "待选择图片",
-                    modifier = Modifier.padding(20.dp),
-                    color = Muted,
-                    fontSize = 15.sp,
+        if (!compact) {
+            Text(label, fontSize = 15.sp, fontWeight = FontWeight.Medium)
+            val bitmap = remember(image) { if (image.isBlank()) null else bBitmap(image) }
+            if (bitmap != null) {
+                Image(
+                    bitmap.asImageBitmap(),
+                    contentDescription = label,
+                    modifier = Modifier.fillMaxWidth().height(160.dp),
+                    contentScale = ContentScale.Fit,
                 )
+                BusinessTextButton(onClick = { onImage("") }) { Text("移除此图片") }
+            } else
+                Box(Modifier.fillMaxWidth().heightIn(min = 80.dp).background(Pale, RoundedCornerShape(12.dp))) {
+                    Text(
+                        if (processing) "正在处理图片…" else "待选择图片",
+                        modifier = Modifier.padding(20.dp),
+                        color = Muted,
+                        fontSize = 15.sp,
+                    )
+                }
+            Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                BusinessOutlinedButton(
+                    onClick = { album.launch("image/*") },
+                    enabled = !processing,
+                    modifier = Modifier.fillMaxWidth(),
+                ) { Text("相册选择") }
+                BusinessOutlinedButton(
+                    onClick = { launchCamera() },
+                    enabled = !processing,
+                    modifier = Modifier.fillMaxWidth(),
+                ) { Text("拍照") }
             }
-        Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-            BusinessOutlinedButton(
-                onClick = { album.launch("image/*") },
-                enabled = !processing,
-                modifier = Modifier.fillMaxWidth(),
-            ) {
-                Text("相册选择")
-            }
-            BusinessOutlinedButton(
+            BusinessTextButton(
                 onClick = {
-                    runCatching {
-                            val directory =
-                                File(context.cacheDir, "business-captures").apply { mkdirs() }
-                            // A capture interrupted by an app/process exit is cleared next time
-                            // this feature opens.
-                            directory
-                                .listFiles()
-                                ?.filter {
-                                    System.currentTimeMillis() - it.lastModified() > 86_400_000L
-                                }
-                                ?.forEach { it.delete() }
-                            val file = File.createTempFile("certificate-", ".jpg", directory)
-                            capturePath = file.absolutePath
-                            val uri =
-                                FileProvider.getUriForFile(
-                                    context,
-                                    "${context.packageName}.business-files",
-                                    file,
-                                )
-                            camera.launch(uri)
-                        }
-                        .onFailure {
-                            if (capturePath.isNotBlank()) File(capturePath).delete()
-                            capturePath = ""
-                            onMessage("此设备没有可用相机或拍摄权限，请从相册选择")
-                        }
-                },
-                enabled = !processing,
-                modifier = Modifier.fillMaxWidth(),
+                    store.query("/api/local/sample-image-base64") { reply ->
+                        val source = bData(reply).bText("imageBase64", "base64", fallback = "")
+                        if (source.isNotBlank()) onImage(source) else onMessage("未获取到样例图片")
+                    }
+                }
+            ) { Text("使用带水印的沙箱样例", fontSize = 15.sp) }
+        } else {
+            // 投诉/反馈附件紧凑一排图标按钮（不占多余空白大框）。
+            Row(
+                Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                verticalAlignment = Alignment.CenterVertically,
             ) {
-                Text("拍照")
-            }
-        }
-        BusinessTextButton(
-            onClick = {
-                store.query("/api/local/sample-image-base64") { reply ->
-                    val source = bData(reply).bText("imageBase64", "base64", fallback = "")
-                    if (source.isNotBlank()) onImage(source) else onMessage("未获取到样例图片")
+                Surface(
+                    onClick = { album.launch("image/*") },
+                    enabled = !processing,
+                    shape = RoundedCornerShape(10.dp),
+                    color = Pale,
+                    border = BorderStroke(1.dp, Green.copy(alpha = 0.25f)),
+                    modifier = Modifier.weight(1f).heightIn(min = 42.dp),
+                ) {
+                    Row(
+                        Modifier.padding(horizontal = 10.dp, vertical = 8.dp),
+                        horizontalArrangement = Arrangement.spacedBy(5.dp, Alignment.CenterHorizontally),
+                        verticalAlignment = Alignment.CenterVertically,
+                    ) {
+                        Icon(Icons.Default.Add, contentDescription = null, tint = GreenStrong, modifier = Modifier.size(16.dp))
+                        Text(if (processing) "处理中…" else "相册图片", color = GreenStrong, fontSize = 13.sp, fontWeight = FontWeight.SemiBold)
+                    }
+                }
+                Surface(
+                    onClick = { launchCamera() },
+                    enabled = !processing,
+                    shape = RoundedCornerShape(10.dp),
+                    color = SurfaceMuted,
+                    border = BorderStroke(1.dp, Line),
+                    modifier = Modifier.weight(1f).heightIn(min = 42.dp),
+                ) {
+                    Row(
+                        Modifier.padding(horizontal = 10.dp, vertical = 8.dp),
+                        horizontalArrangement = Arrangement.spacedBy(5.dp, Alignment.CenterHorizontally),
+                        verticalAlignment = Alignment.CenterVertically,
+                    ) {
+                        Glyph("scan", Ink, Modifier.size(15.dp))
+                        Text("拍照上传", color = Ink, fontSize = 13.sp, fontWeight = FontWeight.SemiBold)
+                    }
+                }
+                Surface(
+                    onClick = {
+                        store.query("/api/local/sample-image-base64") { reply ->
+                            val source = bData(reply).bText("imageBase64", "base64", fallback = "")
+                            if (source.isNotBlank()) onImage(source) else onMessage("未获取到样例图片")
+                        }
+                    },
+                    enabled = !processing,
+                    shape = RoundedCornerShape(10.dp),
+                    color = Color.White,
+                    border = BorderStroke(1.dp, Line),
+                    modifier = Modifier.heightIn(min = 42.dp),
+                ) {
+                    Box(Modifier.padding(horizontal = 10.dp, vertical = 8.dp), contentAlignment = Alignment.Center) {
+                        Text("样例", color = Muted, fontSize = 12.sp, fontWeight = FontWeight.Medium)
+                    }
                 }
             }
-        ) {
-            Text("使用带水印的沙箱样例", fontSize = 15.sp)
         }
     }
 }

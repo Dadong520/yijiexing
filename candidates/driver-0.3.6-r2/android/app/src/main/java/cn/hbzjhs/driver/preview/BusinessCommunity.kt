@@ -435,20 +435,22 @@ internal fun BusinessRanking(store: ConnectedStore, profile: JSONObject, onBack:
     var filter by rememberSaveable { mutableStateOf("全部") }
     BusinessPage("司机排行", store, onBack, "刷新", { revision++ }) {
         item {
-            Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
-                Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                    listOf("orders" to "接单数", "online" to "在线时长").forEach { (key, label) ->
-                        FilterChip(metric == key, {
-                            metric = key
-                            if (key == "orders" && period == "week") period = "day"
-                        }, label = { Text(label) })
-                    }
-                }
-                Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                    periods.forEach { key ->
-                        FilterChip(period == key, { period = key }, label = { Text(periodNames.getValue(key)) })
-                    }
-                }
+            Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                val metricItems = listOf("orders" to "接单数", "online" to "在线时长")
+                DriverSegmentTabs(
+                    items = metricItems.map { it.second },
+                    selectedIndex = metricItems.indexOfFirst { it.first == metric }.coerceAtLeast(0),
+                    onSelect = { idx ->
+                        val nextKey = metricItems[idx].first
+                        metric = nextKey
+                        if (nextKey == "orders" && period == "week") period = "day"
+                    },
+                )
+                DriverSegmentTabs(
+                    items = periods.map { periodNames.getValue(it) },
+                    selectedIndex = periods.indexOf(period).coerceAtLeast(0),
+                    onSelect = { idx -> period = periods[idx] },
+                )
             }
         }
         if (!loaded || failure.isNotBlank())
@@ -469,11 +471,12 @@ internal fun BusinessRanking(store: ConnectedStore, profile: JSONObject, onBack:
                 }
             }
             item {
-                Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                    listOf("全部", "前 3 名").forEach { label ->
-                        FilterChip(filter == label, { filter = label }, label = { Text(label) })
-                    }
-                }
+                val rankFilters = listOf("全部", "前 3 名")
+                DriverSegmentTabs(
+                    items = rankFilters,
+                    selectedIndex = rankFilters.indexOf(filter).coerceAtLeast(0),
+                    onSelect = { filter = rankFilters[it] },
+                )
             }
             if (entries.isEmpty()) item { BusinessEmpty("当前周期暂无排行") }
             items(if (filter == "前 3 名") entries.take(3) else entries) { entry ->

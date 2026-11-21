@@ -9,8 +9,8 @@ android {
         applicationId = "cn.hbzjhs.dc.driver.cloud"
         minSdk = 26
         targetSdk = 34
-        versionCode = 29
-        versionName = "0.3.26-cloud"
+        versionCode = 30
+        versionName = "0.3.27-cloud"
         buildConfigField("String", "CLOUD_API_ORIGIN", "\"$cloudOrigin\"")
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }

@@ -4,24 +4,30 @@ package cn.hbzjhs.driver.preview
 
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.foundation.selection.toggleable
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -36,38 +42,66 @@ private fun BusinessAttachments(
     store: ConnectedStore,
     onMessage: (String) -> Unit,
 ) {
-    Text("图片附件 ${images.size}/$maximum", fontSize = 15.sp, fontWeight = FontWeight.Medium)
-    images.forEachIndexed { index, base64 ->
-        val bitmap = remember(base64) { bBitmap(base64) }
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp),
-        ) {
-            if (bitmap != null)
-                Image(
-                    bitmap.asImageBitmap(),
-                    "附件 ${index + 1}",
-                    modifier = Modifier.size(72.dp),
-                    contentScale = ContentScale.Fit,
-                )
-            Text(
-                "图片 ${index + 1}",
-                fontSize = 15.sp,
-                modifier = Modifier.weight(1f).padding(start = 12.dp),
-            )
-            BusinessTextButton(onClick = { onImages(images.filterIndexed { i, _ -> i != index }) }) {
-                Text("移除")
+    Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+        Text("图片附件 ${images.size}/$maximum（可选）", fontSize = 14.sp, fontWeight = FontWeight.Medium, color = Ink)
+        if (images.isNotEmpty()) {
+            FlowRow(
+                Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                verticalArrangement = Arrangement.spacedBy(8.dp),
+            ) {
+                images.forEachIndexed { index, base64 ->
+                    val bitmap = remember(base64) { bBitmap(base64) }
+                    Box(Modifier.size(72.dp)) {
+                        Surface(
+                            shape = RoundedCornerShape(10.dp),
+                            color = SurfaceMuted,
+                            border = BorderStroke(1.dp, Line),
+                            modifier = Modifier.fillMaxSize(),
+                        ) {
+                            if (bitmap != null) {
+                                Image(
+                                    bitmap.asImageBitmap(),
+                                    "附件 ${index + 1}",
+                                    modifier = Modifier.fillMaxSize(),
+                                    contentScale = ContentScale.Crop,
+                                )
+                            } else {
+                                Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                                    Text("图${index + 1}", fontSize = 12.sp, color = Muted)
+                                }
+                            }
+                        }
+                        Box(
+                            Modifier
+                                .align(Alignment.TopEnd)
+                                .padding(3.dp)
+                                .size(20.dp)
+                                .clip(CircleShape)
+                                .background(Color.Black.copy(alpha = 0.62f))
+                                .clickable(role = Role.Button) {
+                                    onImages(images.filterIndexed { i, _ -> i != index })
+                                }
+                                .semantics { contentDescription = "移除附件 ${index + 1}" },
+                            contentAlignment = Alignment.Center,
+                        ) {
+                            Glyph("close", Color.White, Modifier.size(12.dp))
+                        }
+                    }
+                }
             }
         }
+        if (images.size < maximum) {
+            BusinessImageSelector(
+                label = "添加附件",
+                image = "",
+                onImage = { base64 -> if (base64.isNotBlank()) onImages(images + base64) },
+                store = store,
+                onMessage = onMessage,
+                compact = true,
+            )
+        }
     }
-    if (images.size < maximum)
-        BusinessImageSelector(
-            "添加附件（可选）",
-            "",
-            { base64 -> if (base64.isNotBlank()) onImages(images + base64) },
-            store,
-            onMessage,
-        )
 }
 
 @Composable
@@ -102,17 +136,11 @@ internal fun BusinessFeedback(
         else null
     BusinessPage("意见反馈", store, onBack, bottomBar = feedbackSubmitBar) {
         item {
-            FlowRow(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                listOf("提交反馈", "我的反馈", "投诉记录").forEachIndexed { index, label ->
-                    FilterChip(
-                        tab == index,
-                        { tab = index },
-                        label = { Text(label, fontSize = 15.sp) },
-                        modifier = Modifier.heightIn(min = 52.dp),
-                        colors = FilterChipDefaults.filterChipColors(selectedContainerColor = Pale, selectedLabelColor = Green, labelColor = Ink),
-                    )
-                }
-            }
+            DriverSegmentTabs(
+                items = listOf("提交反馈", "我的反馈", "投诉记录"),
+                selectedIndex = tab,
+                onSelect = { tab = it },
+            )
         }
         if (tab == 0) {
             item {
@@ -251,7 +279,6 @@ internal fun BusinessFees(
     var fees by remember(id) { mutableStateOf<JSONObject?>(null) }
     var failed by remember(id) { mutableStateOf("") }
     var revision by remember { mutableIntStateOf(0) }
-    var showFeeDetails by rememberSaveable(id) { mutableStateOf(false) }
     LaunchedEffect(id, revision) {
         failed = ""
         fees = null
@@ -303,19 +330,14 @@ internal fun BusinessFees(
             }
             item {
                 SheetCard {
-                    BusinessOutlinedButton(
-                        onClick = { showFeeDetails = !showFeeDetails },
-                        modifier = Modifier.fillMaxWidth(),
-                    ) { Text(if (showFeeDetails) "收起费用明细" else "展开费用明细") }
-                    if (showFeeDetails) {
-                        DetailRow("支付手续费(0.6%)", "¥${money(fee.optLong("paymentFee"))}")
-                        DetailRow("分账费(0.15%)", "¥${money(fee.optLong("splitFee"))}")
-                        DetailRow("地图服务费", "¥${money(fee.optLong("mapServiceFee"))}")
-                        if (fee.optLong("passengerServiceFee") > 0) BusinessHint("区域服务费 ¥${money(fee.optLong("passengerServiceFee"))} 不计入司机收入")
-                        HorizontalDivider(color = Line, modifier = Modifier.padding(vertical = 10.dp))
-                        DetailRow(incomeLabel, "¥${money(displayedIncome)}", if (income.credited) Green else Muted)
-                        BusinessHint(fee.bText("policyLabel", fallback = "暂未返回计费政策说明"))
-                    }
+                    SectionTitle("费用构成明细")
+                    DetailRow("支付手续费(0.6%)", "¥${money(fee.optLong("paymentFee"))}")
+                    DetailRow("分账费(0.15%)", "¥${money(fee.optLong("splitFee"))}")
+                    DetailRow("地图服务费", "¥${money(fee.optLong("mapServiceFee"))}")
+                    if (fee.optLong("passengerServiceFee") > 0) BusinessHint("区域服务费 ¥${money(fee.optLong("passengerServiceFee"))} 不计入司机收入")
+                    HorizontalDivider(color = Line, modifier = Modifier.padding(vertical = 8.dp))
+                    DetailRow(incomeLabel, "¥${money(displayedIncome)}", if (income.credited) Green else Muted)
+                    BusinessHint(fee.bText("policyLabel", fallback = "暂未返回计费政策说明"))
                 }
             }
             item { SheetCard { MenuRow("support", "对此订单有疑问") { navigate("complaint/$id") } } }
@@ -380,7 +402,6 @@ internal fun BusinessComplaint(
             SheetCard {
                 DetailRow("订单编号", id)
                 if (order != null) {
-                    DetailRow("乘客尾号", order.phoneTail)
                     RouteStops(order, compact = true)
                     BusinessHint(
                         if (order.stage in setOf(Stage.DONE, Stage.CANCELLED, Stage.WAIT_PAY))

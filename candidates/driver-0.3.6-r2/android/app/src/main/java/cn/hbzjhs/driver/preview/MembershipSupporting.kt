@@ -134,20 +134,12 @@ internal fun ColumnScope.MembershipInvoiceScreen(
                 item { SectionTitle("填写发票信息") }
                 item {
                     SheetCard {
-                        Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                            FilterChip(
-                                kind == "COMPANY",
-                                onClick = { kind = "COMPANY" },
-                                label = { Text("企业抬头") },
-                                enabled = !submitting,
-                            )
-                            FilterChip(
-                                kind == "PERSONAL",
-                                onClick = { kind = "PERSONAL" },
-                                label = { Text("个人抬头") },
-                                enabled = !submitting,
-                            )
-                        }
+                        DriverSegmentTabs(
+                            items = listOf("企业抬头", "个人抬头"),
+                            selectedIndex = if (kind == "COMPANY") 0 else 1,
+                            onSelect = { idx -> kind = if (idx == 0) "COMPANY" else "PERSONAL" },
+                            enabled = !submitting,
+                        )
                         OutlinedTextField(
                             value = title,
                             onValueChange = {

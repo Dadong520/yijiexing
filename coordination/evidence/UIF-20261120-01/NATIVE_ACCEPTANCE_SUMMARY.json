@@ -1,0 +1,75 @@
+{
+  "sessionId": "b152769c-93ce-47d7-b74d-7ec5590080cf",
+  "worktree": "/Users/dongge/.codex/tmp/yijiexing-gemini-ui-20261120",
+  "branch": "gemini/ui-feedback-20261120",
+  "candidateCommit": "2e2fc0508d743c99f283e4d04afbfe06907037c9",
+  "isolatedEnvironment": {
+    "rootDir": "/Users/dongge/.codex/tmp/yijiexing-gemini-native-20261120",
+    "avdName": "UIF_20261120",
+    "emulatorSerial": "emulator-5596",
+    "localTlsFixture": "https://127.0.0.1:64370",
+    "cleanupVerified": true
+  },
+  "inPlaceUpgradeVerification": {
+    "passenger": {
+      "fromVersion": "1.1.24-experience (26)",
+      "toVersion": "1.1.25-experience (27)",
+      "command": "adb -s emulator-5596 install -r qa-passenger.apk",
+      "sessionRetained": true,
+      "status": "PASS"
+    },
+    "driver": {
+      "fromVersion": "0.3.25-cloud (28)",
+      "toVersion": "0.3.26-cloud (29)",
+      "command": "adb -s emulator-5596 install -r qa-driver.apk",
+      "sessionRetained": true,
+      "status": "PASS"
+    }
+  },
+  "logcatAudit": {
+    "logFile": "/Users/dongge/.codex/tmp/yijiexing-gemini-native-20261120/runtime/logcat_final.txt",
+    "fatalExceptions": 0,
+    "anrCount": 0,
+    "status": "PASS"
+  },
+  "screenshots": {
+    "passenger": [
+      "p00_baseline_home.png",
+      "p01_home.png",
+      "p02_address_picker.png",
+      "p03_address_picker_fullscreen.png",
+      "p04_orders_list.png",
+      "p05_order_completed.png",
+      "p05b_order_completed_bottom.png",
+      "p05e_order_help_card.png",
+      "p06_profile.png",
+      "p07_edit_profile.png",
+      "p08_saved_addresses.png",
+      "p09_add_address_dialog.png",
+      "p10_riders.png",
+      "p11_invoices.png",
+      "p12_coupons.png",
+      "p13_points_mall.png",
+      "p14_points_records.png",
+      "p15_complaints.png",
+      "p16_complaint_image_preview.png"
+    ],
+    "driver": [
+      "d00_baseline_lobby.png",
+      "d01_lobby.png",
+      "d01c_lobby_expanded.png",
+      "d02_lobby_grabbing.png",
+      "d03_trip_pickup.png",
+      "d04_trip_arrived.png",
+      "d04b_trip_arrived_expanded.png",
+      "d04e_distance_consent_approved.png",
+      "d05_wait_pay.png",
+      "d06_my_orders.png",
+      "d07_order_fees.png",
+      "d08_order_complaint.png",
+      "d09_wallet.png",
+      "d10a_driver_profile.png",
+      "d10_heatmap.png"
+    ]
+  }
+}

@@ -2,12 +2,16 @@ package cn.hbzjhs.driver.preview
 
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.runtime.*
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
@@ -360,7 +364,7 @@ fun SheetCard(modifier: Modifier = Modifier, content: @Composable ColumnScope.()
         border = BorderStroke(1.dp, Line),
         shadowElevation = 1.dp
     ) {
-        Column(Modifier.padding(horizontal = 16.dp, vertical = 12.dp), content = content)
+        Column(Modifier.padding(horizontal = Gap.L, vertical = Gap.M), content = content)
     }
 }
 
@@ -419,7 +423,7 @@ fun PageHeader(title: String, onBack: (() -> Unit)? = null, action: String? = nu
         Text(
             text = title,
             fontSize = DriverType.Page,
-            lineHeight = 24.sp,
+            lineHeight = 28.sp,
             fontWeight = FontWeight.Bold,
             color = Ink,
             modifier = Modifier.weight(1f).padding(horizontal = 6.dp)
@@ -565,8 +569,133 @@ fun PassengerRemarkLine(order: DriverOrder, maxLines: Int = Int.MAX_VALUE) {
         )
 }
 
+/** 全司机端统一分段切换栏：紧凑灰槽 + 白色高亮卡片。 */
 @Composable
-fun OrderCard(order: DriverOrder, action: String? = null, onClick: () -> Unit) {
+fun DriverSegmentTabs(
+    items: List<String>,
+    selectedIndex: Int,
+    onSelect: (Int) -> Unit,
+    modifier: Modifier = Modifier,
+    enabled: Boolean = true,
+) {
+    Row(
+        modifier
+            .fillMaxWidth()
+            .clip(RoundedCornerShape(10.dp))
+            .background(SurfaceMuted)
+            .padding(3.dp),
+        horizontalArrangement = Arrangement.spacedBy(4.dp),
+    ) {
+        items.forEachIndexed { idx, label ->
+            val on = idx == selectedIndex
+            Box(
+                Modifier
+                    .weight(1f)
+                    .heightIn(min = 38.dp)
+                    .clip(RoundedCornerShape(8.dp))
+                    .background(if (on) Color.White else Color.Transparent)
+                    .then(if (on) Modifier.border(1.dp, Green.copy(alpha = 0.25f), RoundedCornerShape(8.dp)) else Modifier)
+                    .selectable(selected = on, enabled = enabled, role = Role.Tab, onClick = { onSelect(idx) })
+                    .padding(horizontal = 8.dp, vertical = 6.dp),
+                contentAlignment = Alignment.Center,
+            ) {
+                Text(
+                    label,
+                    fontSize = 13.sp,
+                    lineHeight = 18.sp,
+                    fontWeight = if (on) FontWeight.Bold else FontWeight.Medium,
+                    color = if (!enabled) DisabledText else if (on) GreenStrong else Muted,
+                    maxLines = 1,
+                    textAlign = TextAlign.Center,
+                )
+            }
+        }
+    }
+}
+
+/** 全司机端统一横向多选筛选标签，紧凑统一间距与统一样式。 */
+@Composable
+fun DriverScrollableTabs(
+    items: List<String>,
+    selectedIndex: Int,
+    onSelect: (Int) -> Unit,
+    modifier: Modifier = Modifier,
+    enabled: Boolean = true,
+) {
+    Row(
+        modifier
+            .fillMaxWidth()
+            .horizontalScroll(rememberScrollState()),
+        horizontalArrangement = Arrangement.spacedBy(6.dp),
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        items.forEachIndexed { idx, label ->
+            val on = idx == selectedIndex
+            Surface(
+                onClick = { onSelect(idx) },
+                enabled = enabled,
+                shape = RoundedCornerShape(10.dp),
+                color = if (!enabled) SurfaceMuted else if (on) Pale else Color.White,
+                border = BorderStroke(1.dp, if (!enabled) Hairline else if (on) Green else Line),
+                modifier = Modifier.heightIn(min = 36.dp),
+            ) {
+                Box(Modifier.padding(horizontal = 12.dp, vertical = 6.dp), contentAlignment = Alignment.Center) {
+                    Text(
+                        label,
+                        fontSize = 13.sp,
+                        lineHeight = 18.sp,
+                        fontWeight = if (on) FontWeight.SemiBold else FontWeight.Medium,
+                        color = if (!enabled) DisabledText else if (on) GreenStrong else Muted,
+                        maxLines = 1,
+                        softWrap = false,
+                    )
+                }
+            }
+        }
+    }
+}
+
+/** 轻量订单类型边框标签，视觉形式与订单状态明显区分。 */
+@Composable
+fun OrderTypeTag(kind: OrderKind) {
+    val labelColor = if (kind == OrderKind.BID) Orange else Muted
+    Box(
+        Modifier
+            .clip(RoundedCornerShape(6.dp))
+            .background(SurfaceMuted)
+            .border(1.dp, Line, RoundedCornerShape(6.dp))
+            .padding(horizontal = 7.dp, vertical = 2.dp),
+        contentAlignment = Alignment.Center,
+    ) {
+        Text(kind.title, color = labelColor, fontSize = 11.sp, fontWeight = FontWeight.SemiBold)
+    }
+}
+
+/** 语义化订单状态圆点+文字，与订单类型标签形成清晰视觉分层。 */
+@Composable
+fun OrderStatusIndicator(order: DriverOrder) {
+    val (color, label) = when {
+        order.participationCancelled -> Muted to "未中标·已取消"
+        order.stage == Stage.WAIT_PAY -> Orange to order.stage.title
+        order.stage == Stage.DONE -> Success to order.stage.title
+        order.stage == Stage.CANCELLED -> Muted to order.stage.title
+        else -> GreenStrong to order.stage.title
+    }
+    Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(5.dp)) {
+        Box(Modifier.size(7.dp).clip(CircleShape).background(color))
+        Text(label, color = color, fontSize = 13.sp, fontWeight = FontWeight.Bold)
+    }
+}
+
+@Composable
+fun OrderCard(
+    order: DriverOrder,
+    action: String? = null,
+    actionEnabled: Boolean = true,
+    competitionHint: String? = null,
+    competitionProgress: Float? = null,
+    onClick: () -> Unit,
+) {
     SheetCard {
         if (order.isPrivateExample) {
             Text(
@@ -575,7 +704,7 @@ fun OrderCard(order: DriverOrder, action: String? = null, onClick: () -> Unit) {
                 fontSize = 12.sp,
                 lineHeight = 16.sp,
                 fontWeight = FontWeight.Medium,
-                modifier = Modifier.padding(bottom = 6.dp)
+                modifier = Modifier.padding(bottom = 4.dp)
             )
         }
         Row(
@@ -583,48 +712,88 @@ fun OrderCard(order: DriverOrder, action: String? = null, onClick: () -> Unit) {
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-                Pill(
-                    order.kind.title,
-                    if (order.kind == OrderKind.BID) Orange else Green,
-                    if (order.kind == OrderKind.BID) WarmSoft else Pale
-                )
+            Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                OrderTypeTag(order.kind)
                 if (order.stage == Stage.AVAILABLE)
                     Text(
                         "距乘客 ${kmOrMissing(order.distance)}",
-                        color = Green,
+                        color = GreenStrong,
                         fontSize = 13.sp,
                         fontWeight = FontWeight.Bold
                     )
-                else StageBadge(order)
             }
-            Text(
-                if (order.destinationPending) "费用待定" else "¥${money(order.fare)}",
-                fontSize = DriverType.Page,
-                lineHeight = 26.sp,
-                fontWeight = FontWeight.Bold,
-                color = Ink
-            )
+            if (order.stage == Stage.AVAILABLE) {
+                Text(
+                    if (order.destinationPending) "费用待定" else "¥${money(order.fare)}",
+                    fontSize = DriverType.Page,
+                    lineHeight = 26.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = Ink
+                )
+            } else {
+                OrderStatusIndicator(order)
+            }
         }
         Spacer(Modifier.height(8.dp))
         RouteStops(order, compact = true)
         if (order.kind == OrderKind.RESERVED)
-            Text("计划用车 ${order.scheduledTimeText}", color = Green, fontSize = 14.sp, fontWeight = FontWeight.SemiBold)
+            Text("计划用车 ${order.scheduledTimeText}", color = Green, fontSize = 13.sp, fontWeight = FontWeight.SemiBold, modifier = Modifier.padding(top = 4.dp))
         Spacer(Modifier.height(6.dp))
-        Text(
-            if (order.destinationPending) "目的地待补充"
-            else if (order.kind == OrderKind.BID && order.stage == Stage.AVAILABLE) "参考报价 · 预估行程 ${kmOrMissing(order.mileage)}"
-            else "预估行程 · ${kmOrMissing(order.mileage)}",
-            color = Muted,
-            fontSize = 12.sp,
-            lineHeight = 16.sp
-        )
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            Text(
+                if (order.destinationPending) "目的地待补充"
+                else if (order.kind == OrderKind.BID && order.stage == Stage.AVAILABLE) "参考报价 · 预估行程 ${kmOrMissing(order.mileage)}"
+                else "预估行程 · ${kmOrMissing(order.mileage)}",
+                color = Muted,
+                fontSize = 12.sp,
+                lineHeight = 16.sp,
+                modifier = Modifier.weight(1f),
+            )
+            if (order.stage != Stage.AVAILABLE) {
+                Text(
+                    if (order.destinationPending) "费用待定" else "¥${money(order.fare)}",
+                    fontSize = 17.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = Ink,
+                )
+            }
+        }
         PassengerRemarkLine(order, maxLines = 2)
         order.cancelFeeDisplay().text?.let { Text(it, color = Muted, fontSize = 12.sp, lineHeight = 16.sp) }
-        Spacer(Modifier.height(10.dp))
+        if (!competitionHint.isNullOrBlank()) {
+            Spacer(Modifier.height(8.dp))
+            Column(
+                Modifier
+                    .fillMaxWidth()
+                    .clip(RoundedCornerShape(8.dp))
+                    .background(if (competitionProgress != null) Pale else SurfaceMuted)
+                    .padding(horizontal = 10.dp, vertical = 6.dp),
+                verticalArrangement = Arrangement.spacedBy(5.dp),
+            ) {
+                Text(
+                    competitionHint,
+                    color = if (competitionProgress != null) GreenStrong else Muted,
+                    fontSize = 12.sp,
+                    fontWeight = FontWeight.SemiBold,
+                )
+                if (competitionProgress != null) {
+                    LinearProgressIndicator(
+                        progress = { competitionProgress.coerceIn(0f, 1f) },
+                        modifier = Modifier.fillMaxWidth().height(4.dp).clip(RoundedCornerShape(2.dp)),
+                        color = Green,
+                        trackColor = Color.White,
+                    )
+                }
+            }
+        }
+        Spacer(Modifier.height(8.dp))
         if (action == null && order.stage != Stage.AVAILABLE)
-            BusinessOutlinedButton(onClick = onClick, modifier = Modifier.fillMaxWidth()) { Text("查看详情") }
-        else PrimaryButton(action ?: "查看详情", onClick = onClick)
+            BusinessOutlinedButton(onClick = onClick, enabled = actionEnabled, modifier = Modifier.fillMaxWidth()) { Text("查看详情") }
+        else PrimaryButton(action ?: "查看详情", enabled = actionEnabled, onClick = onClick)
     }
 }
 

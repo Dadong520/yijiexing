@@ -12,6 +12,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Call
+import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Warning
@@ -182,28 +183,86 @@ fun OrderDetail(o: JSONObject, store: PassengerStore, busy: Boolean, openOrder: 
       .padding(horizontal = Gap.L, vertical = Gap.M),
     verticalArrangement = Arrangement.spacedBy(Gap.M),
   ) {
-    // The status message opens the panel so the passenger sees what changed at a glance.
-    OrderStatusBanner(stageName(stage), stageMessage(o, negotiated), orderSummary(o))
-    if (unpaidOther != null && stage in listOf("AVAILABLE", "RESERVED", "PICKUP", "PREPAY"))
-      OutstandingPaymentNotice { openOrder(unpaidOther.text("id")) }
-    // The amount gets its own full-width line so small screens and large fonts never split it; the
-    // two helper buttons wrap on the line below instead of squeezing it.
-    Text(
-      if (o.optBoolean("destinationPending")) "费用待定"
-      else "¥${money(o.optLong("fare"))}",
-      fontSize = TypeScale.Page,
-      lineHeight = 28.sp,
-      fontWeight = FontWeight.Bold,
-      color = Ink,
-      modifier = Modifier.fillMaxWidth(),
-    )
-    FlowRow(
-      Modifier.fillMaxWidth(),
-      horizontalArrangement = Arrangement.spacedBy(Gap.S),
-      verticalArrangement = Arrangement.spacedBy(Gap.S),
-    ) {
-      IdentifierButton(id, "订单信息")
-      IconActionButton("联系与帮助", Icons.Default.Call, tint = Success, container = SuccessSoft) { contactPage = true }
+    if (stage == "DONE") {
+      // 已完成订单顶部重点展示金额 Hero，订单信息与联系帮助移至底部统一整理。
+      Surface(
+        shape = RoundedCornerShape(16.dp),
+        color = Color.White,
+        border = BorderStroke(1.dp, DividerTone),
+        shadowElevation = 1.dp,
+        modifier = Modifier.fillMaxWidth(),
+      ) {
+        Column(
+          Modifier.fillMaxWidth().padding(horizontal = Gap.XL, vertical = Gap.L),
+          verticalArrangement = Arrangement.spacedBy(Gap.S),
+        ) {
+          Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.SpaceBetween) {
+            Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+              Box(Modifier.size(26.dp).clip(CircleShape).background(SuccessSoft), contentAlignment = Alignment.Center) {
+                Icon(Icons.Default.Check, contentDescription = null, tint = Success, modifier = Modifier.size(16.dp))
+              }
+              Text("订单已完成", color = Ink, fontSize = TypeScale.Page, lineHeight = 26.sp, fontWeight = FontWeight.Bold)
+            }
+            Box(
+              Modifier
+                .clip(RoundedCornerShape(6.dp))
+                .background(BrandSoft)
+                .padding(horizontal = 8.dp, vertical = 3.dp),
+            ) {
+              Text(kindName(o.text("kind")), color = BrandStrong, fontSize = TypeScale.Caption, fontWeight = FontWeight.SemiBold)
+            }
+          }
+          HorizontalDivider(color = DividerTone)
+          Column(Modifier.fillMaxWidth().padding(vertical = 4.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
+            Row(verticalAlignment = Alignment.Bottom, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+              Text(
+                if (o.optBoolean("destinationPending")) "费用待定"
+                else "¥${money(o.optLong("fare"))}",
+                fontSize = 34.sp,
+                lineHeight = 40.sp,
+                fontWeight = FontWeight.Bold,
+                color = BrandStrong,
+              )
+              if (paid) {
+                Box(
+                  Modifier
+                    .padding(bottom = 5.dp)
+                    .clip(RoundedCornerShape(6.dp))
+                    .background(SuccessSoft)
+                    .padding(horizontal = 7.dp, vertical = 2.dp),
+                ) {
+                  Text("模拟已支付", color = Success, fontSize = 11.sp, fontWeight = FontWeight.SemiBold)
+                }
+              }
+            }
+            Text(stageMessage(o, negotiated), color = Muted, fontSize = 13.sp, lineHeight = 18.sp)
+          }
+        }
+      }
+    } else {
+      // The status message opens the panel so the passenger sees what changed at a glance.
+      OrderStatusBanner(stageName(stage), stageMessage(o, negotiated), orderSummary(o))
+      if (unpaidOther != null && stage in listOf("AVAILABLE", "RESERVED", "PICKUP", "PREPAY"))
+        OutstandingPaymentNotice { openOrder(unpaidOther.text("id")) }
+      // The amount gets its own full-width line so small screens and large fonts never split it; the
+      // two helper buttons wrap on the line below instead of squeezing it.
+      Text(
+        if (o.optBoolean("destinationPending")) "费用待定"
+        else "¥${money(o.optLong("fare"))}",
+        fontSize = 26.sp,
+        lineHeight = 32.sp,
+        fontWeight = FontWeight.Bold,
+        color = BrandStrong,
+        modifier = Modifier.fillMaxWidth(),
+      )
+      FlowRow(
+        Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.spacedBy(Gap.S),
+        verticalArrangement = Arrangement.spacedBy(Gap.S),
+      ) {
+        IdentifierButton(id, "订单信息")
+        IconActionButton("联系与帮助", Icons.Default.Call, tint = Success, container = SuccessSoft) { contactPage = true }
+      }
     }
     Panel("行程路线") {
       if (o.text("scheduledAt").isNotBlank()) {
@@ -220,7 +279,7 @@ fun OrderDetail(o: JSONObject, store: PassengerStore, busy: Boolean, openOrder: 
       ) {
         Column(Modifier.padding(horizontal = 12.dp, vertical = 10.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
           OrderRouteNode(
-            dot = Teal,
+            pinKind = RoutePinKind.ORIGIN,
             tag = "起点",
             tagColor = BrandStrong,
             tagBg = BrandSoft,
@@ -230,7 +289,8 @@ fun OrderDetail(o: JSONObject, store: PassengerStore, busy: Boolean, openOrder: 
           waypoints.forEachIndexed { index, w ->
             val arrived = index in arrivedSet
             OrderRouteNode(
-              dot = Sky,
+              pinKind = RoutePinKind.WAYPOINT,
+              waypointIndex = index + 1,
               tag = "途经 ${index + 1} · ${if (arrived) "已到达" else "待到达"}",
               tagColor = if (arrived) Success else Sky,
               tagBg = if (arrived) SuccessSoft else SkySoft,
@@ -239,7 +299,7 @@ fun OrderDetail(o: JSONObject, store: PassengerStore, busy: Boolean, openOrder: 
             )
           }
           OrderRouteNode(
-            dot = Amber,
+            pinKind = RoutePinKind.DESTINATION,
             tag = "终点",
             tagColor = Warm,
             tagBg = WarmSoft,
@@ -316,13 +376,11 @@ fun OrderDetail(o: JSONObject, store: PassengerStore, busy: Boolean, openOrder: 
           )
           Note("本次体验报价有效期 10 分钟 · 截止 ${formatTime(o.text("expiresAt"))}；以云端订单状态为准。")
         }
-        FlowRow(
-          horizontalArrangement = Arrangement.spacedBy(8.dp),
-          verticalArrangement = Arrangement.spacedBy(4.dp),
-        ) {
-          FilterChip(sortLow, { sortLow = true }, label = { Text("价格从低到高") })
-          FilterChip(!sortLow, { sortLow = false }, label = { Text("最新报价") })
-        }
+        PassengerSegmentTabs(
+          items = listOf("价格从低到高", "最新报价"),
+          selectedIndex = if (sortLow) 0 else 1,
+          onSelect = { sortLow = it == 0 },
+        )
         val bids =
           if (sortLow) o.rows("bids").sortedBy { it.optLong("amount") }
           else o.rows("bids").sortedByDescending { it.text("createdAt") }
@@ -448,11 +506,13 @@ fun OrderDetail(o: JSONObject, store: PassengerStore, busy: Boolean, openOrder: 
       }
     o.rows("complaints").forEach { c ->
       Panel("投诉记录") {
-        IdentifierButton(c.text("id"), "投诉编号")
-        KV("状态", supportStatus(c.text("status")))
+        Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.SpaceBetween) {
+          IdentifierButton(c.text("id"), "投诉编号")
+          ComplaintStatusBadge(c.text("status"))
+        }
         Text(c.text("content"))
         Note(c.text("reply").ifBlank { "暂无回复，后台回复后会同步显示在这里。" })
-        c.rows("attachments").forEach { attachment -> ComplaintImage(attachment, store) }
+        ComplaintAttachmentStrip(c.rows("attachments"), store)
         if (c.rows("attachments").size < 3)
           SecondaryButton("从相册添加投诉图片 (${c.rows("attachments").size}/3)", !busy, icon = Icons.Default.Add) {
             complaintForImage = c.text("id")
@@ -461,6 +521,25 @@ fun OrderDetail(o: JSONObject, store: PassengerStore, busy: Boolean, openOrder: 
         Note("图片会压缩至 512 KB 以内并上传到本订单投诉，供您和有权限的后台处理人员查看。")
       }
     }
+    if (stage == "DONE")
+      Panel("订单信息与帮助") {
+        KV("完成概况", orderSummary(o))
+        KV("下单时间", formatTime(o.text("createdAt")))
+        Row(
+          Modifier.fillMaxWidth().height(IntrinsicSize.Min),
+          horizontalArrangement = Arrangement.spacedBy(Gap.S),
+          verticalAlignment = Alignment.CenterVertically,
+        ) {
+          IdentifierButton(id, "订单信息")
+          IconActionButton(
+            "联系与帮助",
+            Icons.Default.Call,
+            Modifier.weight(1f).fillMaxHeight(),
+            tint = Success,
+            container = SuccessSoft,
+          ) { contactPage = true }
+        }
+      }
     ExpandablePanel("订单动态") {
       // The same id the driver app shows, so both sides can check they mean one order.
       KV("订单编号", id)
@@ -832,7 +911,8 @@ private fun stageMessage(o: JSONObject, negotiated: Boolean): String =
 
 @Composable
 private fun OrderRouteNode(
-  dot: Color,
+  pinKind: RoutePinKind,
+  waypointIndex: Int? = null,
   tag: String,
   tagColor: Color,
   tagBg: Color,
@@ -840,9 +920,9 @@ private fun OrderRouteNode(
   hasNext: Boolean,
 ) {
   Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.Top, horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-    Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.padding(top = 4.dp)) {
-      Box(Modifier.size(10.dp).background(dot, CircleShape))
-      if (hasNext) Box(Modifier.padding(top = 4.dp).size(width = 2.dp, height = 22.dp).background(Line))
+    Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.padding(top = 1.dp)) {
+      RouteBadgeIcon(pinKind, waypointIndex)
+      if (hasNext) Box(Modifier.padding(top = 3.dp).size(width = 2.dp, height = 18.dp).background(Line))
     }
     Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(3.dp)) {
       Box(

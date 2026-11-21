@@ -12,6 +12,10 @@ import org.json.JSONObject
 import androidx.compose.foundation.background
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.PlatformTextStyle
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.style.TextAlign
 
 /**
  * Origin, every waypoint in original order and the destination, with completed / next markers.
@@ -21,17 +25,41 @@ import androidx.compose.ui.draw.clip
 internal fun OrderStopsList(order: DriverOrder, compact: Boolean = false) {
     Column(Modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(6.dp)) {
         NavigationSessionRules.stopRows(order).forEach { row ->
-            val color = when {
-                row.waypointIndex != null -> Muted
-                row.label == "起" -> Green
-                else -> Orange
+            val (dot, halo) = when {
+                row.waypointIndex != null -> Sky to SkySoft
+                row.label == "起" -> Green to Pale
+                else -> Orange to WarmSoft
             }
+            val singleChar = row.label.length == 1
             Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.Top) {
                 Box(
-                    Modifier.padding(top = 3.dp, end = 8.dp).widthIn(min = 20.dp).height(20.dp).clip(CircleShape)
-                        .background(color.copy(alpha = 0.15f)).padding(horizontal = 4.dp),
+                    Modifier
+                        .padding(top = 1.dp, end = 8.dp)
+                        .then(if (singleChar) Modifier.size(22.dp) else Modifier.widthIn(min = 24.dp).height(22.dp))
+                        .clip(CircleShape)
+                        .background(halo)
+                        .padding(horizontal = if (singleChar) 0.dp else 4.dp),
                     contentAlignment = Alignment.Center,
-                ) { Text(row.label, color = color, fontSize = 11.sp, fontWeight = FontWeight.Bold) }
+                ) {
+                    Box(
+                        Modifier
+                            .then(if (singleChar) Modifier.size(18.dp) else Modifier.fillMaxHeight().padding(vertical = 2.dp))
+                            .clip(CircleShape)
+                            .background(dot)
+                            .padding(horizontal = if (singleChar) 0.dp else 4.dp),
+                        contentAlignment = Alignment.Center,
+                    ) {
+                        Text(
+                            text = row.label,
+                            color = Color.White,
+                            fontSize = 10.sp,
+                            lineHeight = 10.sp,
+                            fontWeight = FontWeight.Bold,
+                            textAlign = TextAlign.Center,
+                            style = TextStyle(platformStyle = PlatformTextStyle(includeFontPadding = false)),
+                        )
+                    }
+                }
                 Text(
                     row.name,
                     modifier = Modifier.weight(1f),

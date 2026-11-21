@@ -574,11 +574,12 @@ fun coordinate(value: String, latitude: Boolean): Double {
 }
 
 fun supportStatus(value: String): String =
-  when (value) {
-    "PENDING" -> "待处理"
+  when (value.trim().uppercase()) {
+    "PENDING", "OPEN", "NEW" -> "待处理"
     "REPLIED" -> "已回复"
     "PROCESSING" -> "处理中"
     "RESOLVED" -> "已解决"
+    "REJECTED" -> "已驳回"
     "CLOSED" -> "已关闭"
     else -> value
   }

@@ -1,0 +1,32 @@
+{
+  "result": "PASS",
+  "sourceSha": "4cdaa9381564c9bc4fc5d3bd481d1484fecff4a5",
+  "originalUpgrade": {
+    "passenger": [
+      27,
+      28
+    ],
+    "driver": [
+      29,
+      30
+    ]
+  },
+  "avd": "UIF_RELEASE_20261121/emulator-5580",
+  "crashLines": 0,
+  "fixtureStopped": true,
+  "emulatorStopAcknowledged": true,
+  "screenshots": {
+    "passenger-complaint-preview.png": "9e1d924e7db65763994858f64c52f09f5d3a45e4c42314b0ac3cb4a26caf1494",
+    "driver-competition-live.png": "30aaa75b155d3760fb9bbbbad2163c7fa7b0a00d7c7399b55a2ed601ad71311e",
+    "driver-competition-assigned.png": "10db303986dad73dc1490fab281bdde4651dc9705a2b5c09e554a9408d27ae1a"
+  },
+  "scenarios": [
+    "Original signed APKs installed over prior public builds, versions read from package manager",
+    "QA builds from identical source using isolated TLS: passenger real synthetic PNG thumbnail, preview and dismissal",
+    "Driver account online; fresh simulated GPS, then shared order 5-second pending countdown and server assignment without manual relocate",
+    "Navigation consent panel retains contact entry. Tapped it, server returned authorized synthetic order contact and opened confirm modal. No call was placed."
+  ],
+  "notRun": [
+    "Full real device, OEM background, physical drive and route guidance; consent was not exchanged for live navigation in this batch"
+  ]
+}

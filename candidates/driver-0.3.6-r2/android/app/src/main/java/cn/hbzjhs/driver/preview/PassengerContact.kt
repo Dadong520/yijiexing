@@ -3,13 +3,19 @@ package cn.hbzjhs.driver.preview
 import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.net.Uri
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -52,6 +58,145 @@ internal object PassengerContactRules {
         }
 }
 
+@Composable
+private fun PassengerContactConfirmDialog(
+    contact: PassengerContact,
+    order: DriverOrder,
+    alive: java.util.concurrent.atomic.AtomicBoolean,
+    scope: String,
+    currentScope: () -> String?,
+    onDismiss: () -> Unit,
+    onFailure: (String) -> Unit,
+) {
+    val context = LocalContext.current
+    DriverDialog(
+        onDismissRequest = onDismiss,
+        title = { Text("联系乘客") },
+        text = {
+            Column(Modifier.heightIn(max = 320.dp).verticalScroll(rememberScrollState()), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                Text(contact.name, fontSize = 16.sp, fontWeight = FontWeight.SemiBold, color = Ink)
+                Text(contact.mobile, fontSize = 20.sp, fontWeight = FontWeight.Bold, color = Ink)
+                Text(
+                    "将打开系统拨号页面并填入号码，是否拨出由你在拨号页决定。这是直接拨打乘客号码，不是隐私中继；本应用不会自动接通，也不会保存号码。",
+                    fontSize = 13.sp,
+                    lineHeight = 20.sp,
+                    color = Muted,
+                )
+            }
+        },
+        confirmButton = {
+            DriverTextButton(onClick = {
+                onDismiss()
+                if (!alive.get() || currentScope() != scope || contact.orderId != order.id) {
+                    onFailure("订单状态已变化，未打开拨号")
+                    return@DriverTextButton
+                }
+                try {
+                    context.startActivity(Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", contact.mobile, null)))
+                } catch (_: ActivityNotFoundException) {
+                    onFailure("未找到系统拨号应用")
+                } catch (_: SecurityException) {
+                    onFailure("无法打开系统拨号页面")
+                }
+            }) { Text("打开拨号") }
+        },
+        dismissButton = { DriverTextButton(onClick = onDismiss) { Text("取消") } },
+    )
+}
+
+/**
+ * 悬浮「联系乘客」按钮：点击请求真实乘客号码并在弹窗二次确认后再进系统拨号，保持完整安全协议。
+ */
+@Composable
+internal fun PassengerContactFab(order: DriverOrder, store: ConnectedStore, modifier: Modifier = Modifier) {
+    val payload by store.payload.collectAsState()
+    val scope = PassengerContactRules.scope(driverAccount(payload), order) ?: return
+    if (order.isPrivateExample) return
+    var generation by remember(scope) { mutableIntStateOf(0) }
+    var loading by remember(scope) { mutableStateOf(false) }
+    var contact by remember(scope) { mutableStateOf<PassengerContact?>(null) }
+    var failure by remember(scope) { mutableStateOf<String?>(null) }
+    val alive = remember(scope) { java.util.concurrent.atomic.AtomicBoolean(true) }
+    DisposableEffect(scope) {
+        onDispose {
+            alive.set(false)
+            contact = null
+        }
+    }
+    fun currentScope(): String? =
+        PassengerContactRules.scope(driverAccount(store.payload.value), store.state.value.orders.firstOrNull { it.id == order.id })
+
+    Column(modifier, horizontalAlignment = Alignment.End, verticalArrangement = Arrangement.spacedBy(6.dp)) {
+        failure?.let {
+            Surface(
+                shape = RoundedCornerShape(8.dp),
+                color = DangerSoft,
+                border = BorderStroke(1.dp, Danger.copy(alpha = 0.25f)),
+                shadowElevation = 2.dp,
+            ) {
+                Text(
+                    it,
+                    color = Danger,
+                    fontSize = 11.sp,
+                    modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
+                )
+            }
+        }
+        Surface(
+            onClick = {
+                if (loading) return@Surface
+                val request = ++generation
+                loading = true
+                failure = null
+                contact = null
+                store.fetchPassengerContact(order.id) { result ->
+                    if (!alive.get() || request != generation) return@fetchPassengerContact
+                    loading = false
+                    if (currentScope() != scope) {
+                        failure = "订单状态已变化，请重试"
+                        return@fetchPassengerContact
+                    }
+                    result.onSuccess { contact = it }.onFailure { failure = it.message ?: "获取乘客电话失败" }
+                }
+            },
+            enabled = !loading,
+            shape = RoundedCornerShape(24.dp),
+            color = GreenStrong,
+            shadowElevation = 6.dp,
+            border = BorderStroke(1.dp, Color.White.copy(alpha = 0.25f)),
+            modifier = Modifier
+                .heightIn(min = 44.dp)
+                .semantics { contentDescription = "联系乘客" },
+        ) {
+            Row(
+                Modifier.padding(horizontal = 14.dp, vertical = 10.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(6.dp),
+            ) {
+                Glyph("phone", Color.White, Modifier.size(16.dp))
+                Text(
+                    if (loading) "获取中…" else "联系乘客",
+                    color = Color.White,
+                    fontSize = 13.sp,
+                    fontWeight = FontWeight.SemiBold,
+                )
+            }
+        }
+    }
+
+    contact?.let { c ->
+        PassengerContactConfirmDialog(
+            contact = c,
+            order = order,
+            alive = alive,
+            scope = scope,
+            currentScope = ::currentScope,
+            onDismiss = { contact = null },
+            onFailure = { failure = it },
+        )
+    }
+}
+
 /**
  * Explicit "联系乘客": fetches the rider's number only on tap, shows it in a confirmation dialog and
  * hands it to the system dialer (ACTION_DIAL) only after the driver confirms. Nothing is persisted,
@@ -59,7 +204,6 @@ internal object PassengerContactRules {
  */
 @Composable
 internal fun PassengerContactAction(order: DriverOrder, store: ConnectedStore, modifier: Modifier = Modifier) {
-    val context = LocalContext.current
     val payload by store.payload.collectAsState()
     val scope = PassengerContactRules.scope(driverAccount(payload), order) ?: return
     if (order.isPrivateExample) {
@@ -107,39 +251,14 @@ internal fun PassengerContactAction(order: DriverOrder, store: ConnectedStore, m
     }
 
     contact?.let { c ->
-        DriverDialog(
-            onDismissRequest = { contact = null },
-            title = { Text("联系乘客") },
-            text = {
-                Column(Modifier.heightIn(max = 320.dp).verticalScroll(rememberScrollState()), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                    Text(c.name, fontSize = 16.sp, fontWeight = FontWeight.SemiBold, color = Ink)
-                    Text(c.mobile, fontSize = 20.sp, fontWeight = FontWeight.Bold, color = Ink)
-                    Text(
-                        "将打开系统拨号页面并填入号码，是否拨出由你在拨号页决定。这是直接拨打乘客号码，不是隐私中继；本应用不会自动接通，也不会保存号码。",
-                        fontSize = 13.sp,
-                        lineHeight = 20.sp,
-                        color = Muted,
-                    )
-                }
-            },
-            confirmButton = {
-                DriverTextButton(onClick = {
-                    contact = null
-                    // Re-check the latest order owner and stage right before handing over the number.
-                    if (!alive.get() || currentScope() != scope || c.orderId != order.id) {
-                        failure = "订单状态已变化，未打开拨号"
-                        return@DriverTextButton
-                    }
-                    try {
-                        context.startActivity(Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", c.mobile, null)))
-                    } catch (_: ActivityNotFoundException) {
-                        failure = "未找到系统拨号应用"
-                    } catch (_: SecurityException) {
-                        failure = "无法打开系统拨号页面"
-                    }
-                }) { Text("打开拨号") }
-            },
-            dismissButton = { DriverTextButton(onClick = { contact = null }) { Text("取消") } },
+        PassengerContactConfirmDialog(
+            contact = c,
+            order = order,
+            alive = alive,
+            scope = scope,
+            currentScope = ::currentScope,
+            onDismiss = { contact = null },
+            onFailure = { failure = it },
         )
     }
 }

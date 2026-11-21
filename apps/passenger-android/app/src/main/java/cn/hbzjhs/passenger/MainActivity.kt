@@ -346,7 +346,7 @@ fun PageColumn(content: @Composable ColumnScope.() -> Unit) {
     Modifier
       .fillMaxSize()
       .verticalScroll(rememberScrollState())
-      .padding(horizontal = Gap.L, vertical = Gap.L),
+      .padding(horizontal = Gap.L, vertical = Gap.M),
     verticalArrangement = Arrangement.spacedBy(Gap.M),
     content = content,
   )

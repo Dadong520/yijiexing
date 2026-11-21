@@ -1,9 +1,15 @@
 package cn.hbzjhs.passenger
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
+import androidx.compose.material.icons.automirrored.filled.List
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
@@ -22,13 +28,37 @@ fun PointsScreen(state: JSONObject, store: PassengerStore) {
   val redemptions = mall.rows("redemptions")
   val entries = points.rows("entries")
   var redeem by remember(owner) { mutableStateOf<JSONObject?>(null) }
+  var showEntriesPage by rememberSaveable(owner) { mutableStateOf(false) }
   var name by rememberSaveable(owner) { mutableStateOf("") }
   var mobile by rememberSaveable(owner) { mutableStateOf("") }
   var address by rememberSaveable(owner) { mutableStateOf("") }
   PageColumn {
     SectionTitle("积分商城", "完成行程获得积分，可兑换平台商品。")
     Panel("我的积分") {
-      Text(balance.toString(), fontSize = 40.sp, fontWeight = FontWeight.Bold, color = Teal)
+      Row(
+        Modifier.fillMaxWidth(),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.SpaceBetween,
+      ) {
+        Text(balance.toString(), fontSize = 38.sp, fontWeight = FontWeight.Bold, color = Teal)
+        Surface(
+          onClick = { showEntriesPage = true },
+          shape = RoundedCornerShape(10.dp),
+          color = BrandSoft,
+          border = BorderStroke(1.dp, Teal.copy(alpha = 0.25f)),
+          modifier = Modifier.heightIn(min = 36.dp),
+        ) {
+          Row(
+            Modifier.padding(horizontal = 10.dp, vertical = 6.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(4.dp),
+          ) {
+            Icon(Icons.AutoMirrored.Filled.List, contentDescription = null, tint = BrandStrong, modifier = Modifier.size(15.dp))
+            Text("积分明细 (${entries.size})", color = BrandStrong, fontSize = 13.sp, fontWeight = FontWeight.SemiBold)
+            Icon(Icons.AutoMirrored.Filled.KeyboardArrowRight, contentDescription = null, tint = BrandStrong, modifier = Modifier.size(16.dp))
+          }
+        }
+      }
       RecordRow("累计获得", points.optLong("total").toString())
       mall.optJSONObject("rule")?.let { rule ->
         if (rule.optBoolean("enabled") && rule.optInt("perOrder") > 0) Note("每完成一笔行程获得 ${rule.optInt("perOrder")} 积分。")
@@ -58,13 +88,44 @@ fun PointsScreen(state: JSONObject, store: PassengerStore) {
         HorizontalDivider(color = DividerTone, thickness = 0.8.dp)
       }
     }
-    if (entries.isNotEmpty()) Panel("积分明细") {
-      entries.take(50).forEach { row ->
-        val delta = row.optLong("delta")
-        RecordRow("${row.text("title")}\n${formatTime(row.text("date"))}", "${if (delta > 0) "+" else ""}$delta")
+    Note(mall.text("notice", "积分不可提现或转让。"))
+  }
+  if (showEntriesPage) {
+    PassengerFullPage(
+      title = "积分明细",
+      onBack = { showEntriesPage = false },
+    ) {
+      Panel("积分概览") {
+        RecordRow("当前可用积分", balance.toString())
+        RecordRow("累计获得积分", points.optLong("total").toString())
+      }
+      if (entries.isEmpty()) {
+        EmptyCard("暂无积分明细", "完成行程或参与活动获得积分后会记录在这里。")
+      } else {
+        Panel("收支记录（共 ${entries.size} 条）") {
+          entries.take(50).forEachIndexed { idx, row ->
+            val delta = row.optLong("delta")
+            Row(
+              Modifier.fillMaxWidth().padding(vertical = 4.dp),
+              verticalAlignment = Alignment.CenterVertically,
+              horizontalArrangement = Arrangement.SpaceBetween,
+            ) {
+              Column(Modifier.weight(1f).padding(end = 8.dp), verticalArrangement = Arrangement.spacedBy(2.dp)) {
+                Text(row.text("title", "积分变动"), color = Ink, fontSize = TypeScale.Body, fontWeight = FontWeight.Medium)
+                Note(formatTime(row.text("date")))
+              }
+              Text(
+                "${if (delta > 0) "+" else ""}$delta",
+                color = if (delta >= 0) Success else Warm,
+                fontSize = TypeScale.Title,
+                fontWeight = FontWeight.Bold,
+              )
+            }
+            if (idx < entries.take(50).lastIndex) HorizontalDivider(color = DividerTone, thickness = 0.8.dp)
+          }
+        }
       }
     }
-    Note(mall.text("notice", "积分不可提现或转让。"))
   }
   PassengerModalSlot(redeem != null)
   redeem?.let { p ->

@@ -46,7 +46,11 @@ private fun PassengerCoupons(state: JSONObject, store: PassengerStore) {
   }
   PageColumn {
     SectionTitle("我的卡券与领券中心", "优惠券由服务端发放，模拟抵扣运价费，不兑换现金。")
-    Row { FilterChip(!center, { center = false }, label = { Text("我的卡券") }); FilterChip(center, { center = true }, label = { Text("领券中心") }) }
+    PassengerSegmentTabs(
+      items = listOf("我的卡券", "领券中心"),
+      selectedIndex = if (center) 1 else 0,
+      onSelect = { center = it == 1 },
+    )
     if (state.optBoolean("couponPoolFused") || claimProblem.isNotBlank()) Text(claimProblem.ifBlank { "当前营销余额不足，无法领取" }, color = Danger)
     if (!center) {
       val coupons = state.rows("coupons")
@@ -60,15 +64,18 @@ private fun PassengerCoupons(state: JSONObject, store: PassengerStore) {
     } else {
       val templates = state.rows("couponCenter")
       if (templates.isEmpty()) EmptyCard("暂无可领取优惠券", "请稍后刷新查看。")
-      templates.forEach { c -> Panel(c.text("label", c.text("name", "优惠券"))) {
-        Note(c.text("description")); KV("面额", "¥${money(c.optLong("amount"))}"); KV("门槛", "运价费满¥${money(c.optLong("threshold"))}")
-        KV("剩余数量", c.optInt("remaining").toString()); KV("领取情况", "${c.optInt("claimedCount")}/${c.optInt("perUserLimit", 1)}")
-        Note(couponValidityText(c))
-        ActionButton("领取优惠券", !busy && !state.optBoolean("couponPoolFused") && c.optInt("remaining") > 0 && c.optInt("claimedCount") < c.optInt("perUserLimit", 1)) {
-          claimProblem = ""; store.clearError(); claiming = true
-          store.action("coupon.claim", JSONObject().put("templateId", c.text("id"))) { claiming = false }
+      templates.forEach { c ->
+        val claimable = !busy && !state.optBoolean("couponPoolFused") && c.optInt("remaining") > 0 && c.optInt("claimedCount") < c.optInt("perUserLimit", 1)
+        Panel(c.text("label", c.text("name", "优惠券"))) {
+          Note(c.text("description")); KV("面额", "¥${money(c.optLong("amount"))}"); KV("门槛", "运价费满¥${money(c.optLong("threshold"))}")
+          KV("剩余数量", c.optInt("remaining").toString()); KV("领取情况", "${c.optInt("claimedCount")}/${c.optInt("perUserLimit", 1)}")
+          Note(couponValidityText(c))
+          ActionButton(if (c.optInt("claimedCount") >= c.optInt("perUserLimit", 1)) "已达领取上限" else if (c.optInt("remaining") <= 0) "已领完" else "领取优惠券", claimable) {
+            claimProblem = ""; store.clearError(); claiming = true
+            store.action("coupon.claim", JSONObject().put("templateId", c.text("id"))) { claiming = false }
+          }
         }
-      } }
+      }
     }
   }
 }
