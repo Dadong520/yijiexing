@@ -1288,37 +1288,46 @@ fun ConnectedTrip(
                 },
                 bottomBar = tripActions,
             ) {
-                LazyColumn(
-                    Modifier.fillMaxSize(),
-                    contentPadding = PaddingValues(start = Gap.L, end = Gap.L, top = Gap.S, bottom = if (showContactFab) 72.dp else Gap.M),
-                    verticalArrangement = Arrangement.spacedBy(Gap.M),
-                ) {
-                    item { SharedParticipationNotice(order) }
-                    if (order.isPrivateExample)
-                        item {
-                            SheetCard {
-                                Text("演示订单 · 未关联乘客 App", color = Orange, fontSize = 15.sp, fontWeight = FontWeight.Bold)
-                                Text("此订单用于司机操作体验，未关联真实乘客账户。", color = Muted, fontSize = 13.sp)
+                Box(Modifier.fillMaxSize()) {
+                    LazyColumn(
+                        Modifier.fillMaxSize(),
+                        contentPadding = PaddingValues(start = Gap.L, end = Gap.L, top = Gap.S, bottom = if (showContactFab) 72.dp else Gap.M),
+                        verticalArrangement = Arrangement.spacedBy(Gap.M),
+                    ) {
+                        item { SharedParticipationNotice(order) }
+                        if (order.isPrivateExample)
+                            item {
+                                SheetCard {
+                                    Text("演示订单 · 未关联乘客 App", color = Orange, fontSize = 15.sp, fontWeight = FontWeight.Bold)
+                                    Text("此订单用于司机操作体验，未关联真实乘客账户。", color = Muted, fontSize = 13.sp)
+                                }
                             }
-                        }
-                    // One list only: in TRIP the waypoint card (with its confirm buttons) shows the stops.
-                    if (order.stage == Stage.TRIP && order.waypoints.isNotEmpty()) item { TripWaypoints(order, store, onMessage) }
-                    else item { SheetCard { RouteStops(order, compact = true) } }
-                    if (order.shared && order.passengerRemark.isNotBlank()) item { SheetCard { PassengerRemarkLine(order) } }
-                    item { DriverTripDistanceCard(order.id, order.stage.name, store, onRelocate = { navigate("relocate") }) }
-                    if (order.stage == Stage.ARRIVED)
-                        item {
-                            SheetCard {
-                                Text("等待核验上车", fontSize = DriverType.Title, fontWeight = FontWeight.Bold, color = Ink)
-                                Text(
-                                    "接到乘客后请口头询问乘客手机尾号后 4 位，点击下方按钮输入核对，服务端验证通过后开始行程。",
-                                    fontSize = 13.sp,
-                                    lineHeight = 19.sp,
-                                    color = Muted,
-                                    modifier = Modifier.padding(top = 4.dp),
-                                )
+                        // One list only: in TRIP the waypoint card (with its confirm buttons) shows the stops.
+                        if (order.stage == Stage.TRIP && order.waypoints.isNotEmpty()) item { TripWaypoints(order, store, onMessage) }
+                        else item { SheetCard { RouteStops(order, compact = true) } }
+                        if (order.shared && order.passengerRemark.isNotBlank()) item { SheetCard { PassengerRemarkLine(order) } }
+                        item { DriverTripDistanceCard(order.id, order.stage.name, store, onRelocate = { navigate("relocate") }) }
+                        if (order.stage == Stage.ARRIVED)
+                            item {
+                                SheetCard {
+                                    Text("等待核验上车", fontSize = DriverType.Title, fontWeight = FontWeight.Bold, color = Ink)
+                                    Text(
+                                        "接到乘客后请口头询问乘客手机尾号后 4 位，点击下方按钮输入核对，服务端验证通过后开始行程。",
+                                        fontSize = 13.sp,
+                                        lineHeight = 19.sp,
+                                        color = Muted,
+                                        modifier = Modifier.padding(top = 4.dp),
+                                    )
+                                }
                             }
-                        }
+                    }
+                    if (showContactFab) {
+                        PassengerContactFab(
+                            order,
+                            store,
+                            Modifier.align(Alignment.BottomEnd).padding(end = 14.dp, bottom = 12.dp),
+                        )
+                    }
                 }
             }
         }
