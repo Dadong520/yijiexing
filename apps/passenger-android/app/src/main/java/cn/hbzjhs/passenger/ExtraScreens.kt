@@ -33,6 +33,8 @@ import androidx.compose.ui.window.DialogProperties
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 import org.json.JSONObject
 
 @Composable
@@ -391,6 +393,8 @@ fun BlockedScreen(state: JSONObject, store: PassengerStore) {
   }
 }
 
+private val complaintImageLoads = Mutex()
+
 /** 投诉附图列表条带：自动异步加载缩略图，点击可放大全屏预览，失败支持重试。 */
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
@@ -401,14 +405,18 @@ fun ComplaintAttachmentStrip(attachments: List<JSONObject>, store: PassengerStor
     horizontalArrangement = Arrangement.spacedBy(8.dp),
     verticalArrangement = Arrangement.spacedBy(8.dp),
   ) {
-    attachments.forEach { attachment -> ComplaintImage(attachment, store) }
+    val state by store.state.collectAsState()
+    val accountId = state.optJSONObject("passenger")?.text("id").orEmpty()
+    if (accountId.isNotBlank()) attachments.forEach { attachment ->
+      key(accountId, attachment.text("id")) { ComplaintImage(attachment, store, accountId) }
+    }
   }
 }
 
 @Composable
-fun ComplaintImage(attachment: JSONObject, store: PassengerStore) {
+private fun ComplaintImage(attachment: JSONObject, store: PassengerStore, accountId: String) {
   val fid = attachment.text("id")
-  val path = attachment.text("path").ifBlank { if (fid.isNotBlank()) "/api/passenger/files/$fid" else "" }
+  val path = if (fid.matches(Regex("PCF[a-fA-F0-9]+"))) "/api/passenger/files/$fid" else ""
   var reloadTick by remember(fid, path) { mutableIntStateOf(0) }
   var bitmap by remember(fid, path) { mutableStateOf<android.graphics.Bitmap?>(null) }
   var loading by remember(fid, path) { mutableStateOf(false) }
@@ -423,21 +431,18 @@ fun ComplaintImage(attachment: JSONObject, store: PassengerStore) {
     loading = true
     loadError = null
     try {
-      val data = store.readForCurrentSession("$path?encoding=base64")
-      if (data == null) {
-        loadError = "请先登录后查看"
-      } else {
-        val rawBase64 = data.text("imageBase64")
-        val decoded = withContext(Dispatchers.IO) {
-          val bytes = android.util.Base64.decode(rawBase64, android.util.Base64.DEFAULT)
-          android.graphics.BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
-        }
-        if (decoded != null) {
-          bitmap = decoded
-        } else {
-          loadError = "图片解码失败"
-        }
+      val token = PassengerApi.token
+      fun isCurrentAccount() = token.isNotBlank() && PassengerApi.token == token &&
+        store.state.value.optJSONObject("passenger")?.text("id") == accountId
+      val decoded = complaintImageLoads.withLock {
+        if (!isCurrentAccount()) return@withLock null
+        val data = store.readForCurrentSession("$path?encoding=base64")
+        if (data?.text("fileId") != fid) return@withLock null
+        withContext(Dispatchers.IO) { decodeComplaintPreview(data.text("imageBase64")) }
       }
+      if (!isCurrentAccount()) return@LaunchedEffect
+      if (decoded != null) bitmap = decoded
+      else loadError = "图片加载失败"
     } catch (e: CancellationException) {
       throw e
     } catch (_: Exception) {
@@ -540,4 +545,20 @@ fun ComplaintImage(attachment: JSONObject, store: PassengerStore) {
       }
     }
   }
+}
+
+
+private fun decodeComplaintPreview(encoded: String): android.graphics.Bitmap? {
+  if (encoded.isEmpty() || encoded.length > 700_000) return null
+  val bytes = android.util.Base64.decode(encoded, android.util.Base64.DEFAULT)
+  if (bytes.size > 512 * 1024) return null
+  val options = android.graphics.BitmapFactory.Options().apply { inJustDecodeBounds = true }
+  android.graphics.BitmapFactory.decodeByteArray(bytes, 0, bytes.size, options)
+  if (options.outWidth !in 1..4096 || options.outHeight !in 1..4096) return null
+  options.inSampleSize = 1
+  while (maxOf(options.outWidth, options.outHeight) / options.inSampleSize > 1200) {
+    options.inSampleSize *= 2
+  }
+  options.inJustDecodeBounds = false
+  return android.graphics.BitmapFactory.decodeByteArray(bytes, 0, bytes.size, options)
 }

@@ -375,8 +375,7 @@ object GrabActions {
                 .put("payload", JSONObject().put("id", key.orderId).put("competitionRound", round))
                 .put("requestId", attempt.requestId)
             try {
-                // 抢单前同步已采集的新鲜精准 WGS84 坐标至服务端（不伪造坐标或时间）
-                PositionBus.syncCachedFixBeforeGrab(credentials)
+                if (!owns()) return@launch
                 val postStarted = now()
                 val data = LocalApi.request("POST", "/api/action", body, credentials = credentials)
                 if (!owns()) return@launch

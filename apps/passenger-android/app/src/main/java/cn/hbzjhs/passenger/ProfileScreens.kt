@@ -7,6 +7,8 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -492,14 +494,18 @@ fun ComplaintsScreen(state: JSONObject, store: PassengerStore) {
       store.uploadComplaint(targetOrderId, targetComplaintId, uri)
     }
   }
-  PageColumn {
-    SectionTitle("我的投诉", "可在已完成、待支付或已取消订单中提交投诉。")
-    val rows = state.rows("orders").flatMap { o -> o.rows("complaints").map { c -> o to c } }
+  val rows = state.rows("orders").flatMap { o -> o.rows("complaints").map { c -> o to c } }
+  LazyColumn(
+    Modifier.fillMaxSize(),
+    contentPadding = PaddingValues(horizontal = 16.dp, vertical = 12.dp),
+    verticalArrangement = Arrangement.spacedBy(10.dp),
+  ) {
+    item { SectionTitle("我的投诉", "可在已完成、待支付或已取消订单中提交投诉。") }
     if (rows.isEmpty()) {
-      EmptyCard("暂无投诉记录", "进入订单详情提交问题，云端保存处理状态。")
-      EmptyHint("打开“订单”中已完成、待支付或已取消的订单，点按“投诉与问题反馈”。")
+      item { EmptyCard("暂无投诉记录", "进入订单详情提交问题，云端保存处理状态。") }
+      item { EmptyHint("打开“订单”中已完成、待支付或已取消的订单，点按“投诉与问题反馈”。") }
     }
-    rows.reversed().forEach { (o, c) ->
+    items(rows.asReversed(), key = { (o, c) -> o.text("id") + ":" + c.text("id") }) { (o, c) ->
       val attachments = c.rows("attachments")
       val canAttach = attachments.size < 3 && o.text("stage") in listOf("DONE", "CANCELLED", "WAIT_PAY")
       Panel {

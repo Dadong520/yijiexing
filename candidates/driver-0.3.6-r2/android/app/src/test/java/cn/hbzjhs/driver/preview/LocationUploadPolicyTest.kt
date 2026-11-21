@@ -13,7 +13,7 @@ class LocationUploadPolicyTest {
                 nowElapsedMs = 120_000L,
                 lastUploadedElapsedMs = lastSent,
                 lastUploadedAccuracyM = 12f,
-                forceReport = false,
+                forceReport = true,
             )
         )
     }
@@ -41,34 +41,13 @@ class LocationUploadPolicyTest {
     }
 
     @Test
-    fun preGrabResyncTriggersOnlyWhenLocalFixIsFreshAndSyncIsOlderThan15s() {
-        assertTrue(
-            LocationUploadPolicy.needsPreGrabResync(
-                latestAccuracyM = 18f,
-                latestElapsedMs = 200_000L,
-                lastSyncedElapsedMs = 180_000L,
-                lastSyncedAccuracyM = 18f,
-                nowElapsedMs = 205_000L,
-            )
-        )
-        assertFalse(
-            LocationUploadPolicy.needsPreGrabResync(
-                latestAccuracyM = 18f,
-                latestElapsedMs = 200_000L,
-                lastSyncedElapsedMs = 200_000L,
-                lastSyncedAccuracyM = 18f,
-                nowElapsedMs = 205_000L,
-            )
-        )
-        assertFalse(
-            LocationUploadPolicy.needsPreGrabResync(
-                latestAccuracyM = 18f,
-                latestElapsedMs = 50_000L,
-                lastSyncedElapsedMs = 50_000L,
-                lastSyncedAccuracyM = 18f,
-                nowElapsedMs = 200_000L,
-            )
-        )
+    fun sampleAgeIsMeasuredFromTheFixNotTheCallback() {
+        val now = 205_000L
+        assertFalse(LocationUploadPolicy.isRecentSample(0L, now))
+        assertFalse(LocationUploadPolicy.isRecentSample(now + 1L, now))
+        assertFalse(LocationUploadPolicy.isRecentSample(now - 110_001L, now))
+        assertTrue(LocationUploadPolicy.isRecentSample(now - 110_000L, now))
+        assertTrue(LocationUploadPolicy.isRecentSample(now, now))
     }
 
     @Test

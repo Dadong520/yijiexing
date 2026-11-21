@@ -11,15 +11,14 @@ internal object LocationUploadPolicy {
     const val FRESH_WINDOW_MS = 110_000L
     const val KEEPALIVE_INTERVAL_MS = 45_000L
     const val THROTTLE_MS = 14_500L
-    const val PRE_GRAB_RESYNC_MS = 15_000L
     const val STALE_GOOD_PROTECT_MS = 90_000L
 
     fun isUsableAccuracy(accuracyM: Float): Boolean =
         accuracyM.isFinite() && accuracyM > 0f && accuracyM <= MAX_USABLE_ACCURACY_M
 
-    fun isFreshForGrab(accuracyM: Float, fixElapsedMs: Long, nowElapsedMs: Long): Boolean =
-        isUsableAccuracy(accuracyM) && fixElapsedMs > 0L && nowElapsedMs >= fixElapsedMs &&
-            (nowElapsedMs - fixElapsedMs) <= FRESH_WINDOW_MS
+    fun isRecentSample(sampleElapsedMs: Long, nowElapsedMs: Long): Boolean =
+        sampleElapsedMs > 0L && sampleElapsedMs <= nowElapsedMs &&
+            (nowElapsedMs - sampleElapsedMs) <= FRESH_WINDOW_MS
 
     fun shouldUpload(
         accuracyM: Float,
@@ -30,7 +29,7 @@ internal object LocationUploadPolicy {
     ): Boolean {
         val usable = isUsableAccuracy(accuracyM)
         val lastUsable = lastUploadedElapsedMs > 0L && isUsableAccuracy(lastUploadedAccuracyM)
-        if (!usable && lastUsable && !forceReport && (nowElapsedMs - lastUploadedElapsedMs) < STALE_GOOD_PROTECT_MS) {
+        if (!usable && lastUsable && (nowElapsedMs - lastUploadedElapsedMs) < STALE_GOOD_PROTECT_MS) {
             return false
         }
         if (forceReport) return true
@@ -39,25 +38,13 @@ internal object LocationUploadPolicy {
         return (nowElapsedMs - lastUploadedElapsedMs) >= THROTTLE_MS
     }
 
-    fun needsPreGrabResync(
-        latestAccuracyM: Float,
-        latestElapsedMs: Long,
-        lastSyncedElapsedMs: Long,
-        lastSyncedAccuracyM: Float,
-        nowElapsedMs: Long,
-    ): Boolean {
-        if (!isFreshForGrab(latestAccuracyM, latestElapsedMs, nowElapsedMs)) return false
-        if (lastSyncedElapsedMs <= 0L || !isUsableAccuracy(lastSyncedAccuracyM)) return true
-        return (nowElapsedMs - lastSyncedElapsedMs) >= PRE_GRAB_RESYNC_MS
-    }
-
     fun displayStatus(
         accuracyM: Float,
         fixElapsedMs: Long,
         nowElapsedMs: Long,
         syncedToServer: Boolean,
     ): String {
-        if (fixElapsedMs <= 0L || nowElapsedMs - fixElapsedMs > FRESH_WINDOW_MS) {
+        if (!isRecentSample(fixElapsedMs, nowElapsedMs)) {
             return "定位已超时 · 请点击重新定位"
         }
         if (!isUsableAccuracy(accuracyM)) {
