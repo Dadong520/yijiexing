@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "protocolVersion": "2026-10-26-v3",
   "canonicalControlRoot": "/Users/dongge/Documents/New project 2",
-  "updatedAt": "2026-11-19T02:18:52.889139+00:00",
+  "updatedAt": "2026-11-20T16:51:00.000000+00:00",
   "generation": 6,
   "activeCoordinatorRole": "coordinator",
   "retiredCoordinatorThreadIds": [
@@ -65,10 +65,12 @@
       "measurementAt": null,
       "ackVersion": "2026-10-26-v3",
       "handoffPath": "coordination/handoffs/antigravity.md",
-      "workflowState": "IDLE_UIF_PUBLISHED",
+      "workflowState": "READY_FOR_COORDINATOR_REVIEW",
       "conversationId": "b152769c-93ce-47d7-b74d-7ec5590080cf",
-      "checkpointId": "UIF-20261118-01",
-      "reason": "UIF-20261118-01 delivered; PR59 merged, Android 27/29 published and verified",
+      "checkpointId": "UIF-20261120-01",
+      "branch": "gemini/ui-feedback-20261120",
+      "candidateCommit": "2e2fc0508d743c99f283e4d04afbfe06907037c9",
+      "reason": "UIF-20261120-01 DONE on gemini/ui-feedback-20261120; tests/QA/subagent PASS; ready for coordinator",
       "lastCompletedConversationId": "9cada792-824e-4702-a2f0-1ca27d03b098"
     },
     "expert": {

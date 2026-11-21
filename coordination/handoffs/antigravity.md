@@ -1,35 +1,27 @@
-# antigravity：UI 设计反馈优化与隔离实测已完成（待协调者合并发布）
+# antigravity：UIF-20261120-01 双端 UI 优化与实测验收完成（待协调者合并发布）
 
-ACK `2026-10-26-v3`；真实 `conversationId`：`b152769c-93ce-47d7-b74d-7ec5590080cf`；前序已归档会话：`9cada792-824e-4702-a2f0-1ca27d03b098`；`context`：UNKNOWN（`measurementSource: not_exposed`）。
-唯一协调、合并与发布负责人仍为 Codex root（`01a17cc7-e0a2-7791-bf1d-4611c09bab22`）；本角色未修改 `activeCoordinatorRole`，未自行提交 PR、合并 `main` 或部署云端。
+ACK `2026-10-26-v3`；真实 `conversationId`：`b152769c-93ce-47d7-b74d-7ec5590080cf`；前序归档会话：`9cada792-824e-4702-a2f0-1ca27d03b098`；`context`：UNKNOWN（`measurementSource: not_exposed`）。
+唯一协调、合并与发布负责人仍为 Codex root（`01a17cc7-e0a2-7791-bf1d-4611c09bab22`）；本角色未修改 `activeCoordinatorRole` 及 `sessions.coordinator`，未自行 push、提交 PR、合并 `main`、改动版本号或部署云端。
 
-## 候选版本与允许路径范围
-- 独立工作树：`/Users/dongge/.codex/tmp/yijiexing-gemini-ui-20261118`
-- 分支：`gemini/ui-feedback-20261118`
-- 基线（`origin/main`）：`42d3a6a94066fcd41480cf5faae7e52944763cb7`
-- 最终候选提交 SHA：`fa4ae6b718c5fa07704e6c0d89e00c228d294fc9`（`git status` clean，`git diff --check` 无告警）
-- 修改范围（22 个文件）：仅限 `apps/passenger-android/`（10 源码 + 1 单测）与 `candidates/driver-0.3.6-r2/android/`（10 源码 + 1 单测）；未改动后端、管理后台、小程序、既有签名配置、包名、防连点盾、竞抢与计价分账契约。
+## 候选版本与允许修改范围
+- 独立工作树：`/Users/dongge/.codex/tmp/yijiexing-gemini-ui-20261120`
+- 任务分支：`gemini/ui-feedback-20261120`
+- 基线（`origin/main`）：`a81779627cdba1b1f6119e2c16318d5a3c158550`
+- 冻结候选 SHA：`2e2fc0508d743c99f283e4d04afbfe06907037c9`（`git status` clean）
+- 修改范围（30 个文件，+2535 / -962）：仅限 `apps/passenger-android/`（13 源码 + 1 单测）与 `candidates/driver-0.3.6-r2/android/`（15 源码 + 1 单测）；未改动后端、管理后台、小程序、版本号、包名或签名配置，未引入 `material-icons-extended`。
 
-## 关键优化与缺陷修复清单
-1. **全局视觉与字号**：统一页面底色 `#EEF2F5`、`Line = #DDE3E9`、`14.dp` 卡片、主题竖条小标题，字号统一下调一号（17/15/14/12.sp），地图面板移除底部大按钮仅保留拖拽抓手与手势切换。
-2. **乘客端核心优化**：
-   - `BookingScreens.kt`：自定义起终点互换图标、融合底栏预估与优惠摘要、顶栏城市切换胶囊、分类白卡；修复 Dialog 内 `WindowInsets.isImeVisible` 误判导致高度锁死的缺陷，默认 `310.dp` 并在点击“展开全屏地图选点”切换至 `560.dp`（右上角避让缩放按钮）。
-   - `Feedback3Rules.kt` & `Feedback3Screens.kt`：新增 `parseTimestamp` 兼容 `+08:00` 与 `Z`，修复优惠券全部被过滤无法自动选中最大优惠的问题（已补充 `+08:00` 单测）。
-   - `OrderDetail.kt`：进入页面通过 `LaunchedEffect` 静默自动拉取 `/fees`（显式透传 `CancellationException`），时间轴路线卡直接展示乘车人、尾号与明细。
-   - `ProfileScreens.kt`：升级顶部青绿渐变个人名片卡与车辆插画。
-3. **司机端核心优化**：
-   - `OperationsSupport.kt` & `BusinessScreens.kt` & `CoreScreens.kt`：新增 `certificateEffectiveBadge`、`qualificationSummary`（含 `!certificateCurrentlyValid` 兜底）及 `DriverQualificationBanner` 红色过期横幅，杜绝过期证件因历史 `APPROVED` 残留误显正常（已增补 4 项单测场景）。
-   - `MainActivity.kt` & `DriverLocationService.kt` & `DriverTripDistance.kt`：重构休息/离线态单次重定位及运行时定位超时策略（`10s` + 120s 有效协调兜底），新增 `isUsableDriverFix`、代数防重入及登出/切号校验，彻底禁止超时放行陈旧缓存。
-   - `CoreScreens.kt` & `UIOComponents.kt`：在线空闲底栏固定“点击下线 · 停止听单”、青绿渐变名片卡、黑金鎏金 VIP 会员卡、2x2 出车工具网格、我的订单单排筛选条及我的钱包累计收入整合。
-   - `BusinessFinance.kt`：深绿银行卡白底红字“解除绑定”与高对比“设为默认”；提现与改密 `onFailure` 增加内联红框报错并清空错误密码。
+## 24 项优化与修复摘要
+1. **整体统一（3 项）**：收紧并统一全端间距 token `Gap(6/10/12/16.dp)` 与页面/卡片内边距；主标语放大至 `19–20.sp`（`TypeScale`/`DriverType`）；重绘双层正圆「起/终」徽标并关闭 `includeFontPadding` 实现单字几何居中。
+2. **乘客端（10 项）**：选址页右上角新增 `38.dp` 图标化展开/收起全屏地图及操作图标化；已完成订单顶部重设计为实付金额 Hero 卡、底部新增「订单信息与帮助」卡；订单列表分类与数量左右排列且 0 单明确显示 `0`（含单测）；个人中心重绘流线型车辆插画；常用地址/乘车人/发票抬头左设默认高亮圆圈、右下紧凑间距 `编辑`/`删除`；添加地址弹窗接入快捷标签与统一描边选址框；编辑资料弹窗重设计为 2 列体验城市选择卡网格；全端替换为统一 `PassengerSegmentTabs` / `PassengerChoiceChip`（零 `FilterChip`）；积分商城“积分明细”拆入独立子页；我的投诉自动加载渲染真实 PNG 缩略图、支持点击大图预览与失败重试，且 `PENDING`/`REPLIED`/`REJECTED` 分色展示（保留 `413439a` `readForCurrentSession`/`feeRefresh`/`feeError`）。
+3. **司机端（11 项，含 3a/3b）**：新增 `LocationUploadPolicy` 与 4 项单测，实现精准定位优先、粗定位不覆盖近期精准点、上报异常回滚节流、听单超 45s 静默 8s 保活取点（遵守 `RetryFreshness.isFresh`，无定位泄漏与伪造）、抢单前同步新鲜缓存点；抢单大厅补齐 5 秒竞抢倒计时进度条与等待态禁用重复点击（严格遵守 `DECISIONS.md`「5 秒最近合格唯一获派」服务端规则）；接驾联系乘客改为右下悬浮 `PassengerContactFab`，取消与到达按钮合并一排；彻底移除 `ARRIVED` 及投诉页乘客手机尾号展示；待付款「刷新支付状态」图标化并统一「乘客已同意确认」卡片风格；我的订单区分类型标签与状态圆点徽标并修复正圆单字居中；费用明细默认常驻展开；投诉图片附件收紧为一排图标按钮；我的钱包重设计为实体银行卡质感+内置「申请提现」并移除旧提现大卡与蓝色常驻横幅；热力分布未配置改柔和 `info` 提示卡；全端 Tab/筛选统一为 `DriverSegmentTabs`/`DriverScrollableTabs`（零 `FilterChip`）。
 
-## 全量验证与实测证据
-- **乘客 Android**：89 项单测全部通过（0 fail/skip）；Release APK SHA256 `a040830a1df55d7937ba95ee25728322b5d6aca09cd40ad5b8fd512d66f8e3c5`（42,629,269 bytes）。
-- **司机 Android**：136 项单测全部通过（0 fail/skip）；Release APK SHA256 `fe14f3be7ea37b07e4f45f54cd6455d600513ca7089b87594b0a585083c4d4b2`（115,468,462 bytes）。
-- **其他端与回归**：业务后端 `344/344` PASS、后台规则 `10/10` PASS、小程序 `74/74` PASS + 配置检查 PASS、协调校验与单测 `27/27` PASS；后台 IAP 测试 `NOT_RUN_MISSING_DEPENDENCY`（本机 Python 环境缺第三方包 `cryptography`/`google-auth`）。
-- **隔离模拟器（`UIF_20261118` / `emulator-5594`）**：同证书覆盖升级（v26/v28 -> 新正式包 -> QA 包）PASS，24 张实机截图归档完备，`FATAL EXCEPTION | E AndroidRuntime = 0`，模拟器和本地 TLS Fixture 已全部关停回收。
-- **独立非作者审查**：子会话 `2fb043bb-0262-4172-869a-9a2ff5e4cdff` 首轮发现 `MainActivity.kt` 离线兜底 BLOCKING 并在 `fa4ae6b` 修复后出具 V2 PASS。
-- **证据目录**：`/Users/dongge/Documents/New project 2/coordination/evidence/UIF-20261118-01/`（含 `CANDIDATE-BUILD-PROOF.json`、`INDEPENDENT_SUBAGENT_REVIEW.md` 及 `native/NATIVE_ACCEPTANCE_SUMMARY.json` + 24 张截图）。
+## 实测验收与独立复核证据
+- **乘客端构建与单测**：`gradlew testExperienceUnitTest assembleExperience` **PASS**（14 suites，91 tests，0 failures/skipped）；正式体验 APK SHA256：`c3df8568b6963212a4768c1009e1fc58d59b68ff4fddf243aa30e1ead2a6292f`（`1.1.25-experience` / v27）。
+- **司机端构建与单测**：`gradlew testExperienceUnitTest assembleExperience` **PASS**（18 suites，141 tests，0 failures/skipped）；正式体验 APK SHA256：`39e630d4419c780d122218d685bbc6d2601be1068f51e767e4bc230d6a7f43cf`（`0.3.26-cloud` / v29）。
+- **小程序回归校验**：`npm test && npm run check` **PASS**（74/74 tests，0 failures，`check-project.js` PASS；`wechatDeveloperToolsCompilation: NOT_RUN_REQUIRES_DEVELOPER_TOOLS`）。
+- **隔离模拟器实测（`UIF_20261120` / `emulator-5596`）**：旧版基线（v26/v28）登录态后覆盖升级至新版 QA APK（v27/v29），冷重启登录态保留；免手动重定位直接抢单成功；34 张实测 PNG 截图（乘客 19 + 司机 15）逐张检视无瑕疵；`logcat_final.txt` 检查 Fatal/ANR 均为 0；测试后端与模拟器已全部停机清理。
+- **独立只读子代理交叉复核**：全新 `research` 子代理（`59d9aff9-42bb-4a4f-bea0-f28714cfce8c`）审查代码、红线与全部实测截图后出具 **`PASS`**（Blocker/High/Medium/Low 均 0）。
+- **完整证据目录**：`/Users/dongge/.codex/tmp/yijiexing-gemini-native-20261120/`（`CANDIDATE-BUILD-PROOF.json`、`NATIVE_ACCEPTANCE_SUMMARY.json`、`INDEPENDENT_SUBAGENT_REVIEW.md`、`screenshots/`）。
 
 ## 下一步交接（由 Codex root 执行）
-请协调者（`01a17cc7-e0a2-7791-bf1d-4611c09bab22`）审阅或按需发起跨模型验收，确认后将 `/Users/dongge/.codex/tmp/yijiexing-gemini-ui-20261118` 分支 `gemini/ui-feedback-20261118`（SHA `fa4ae6b718c5fa07704e6c0d89e00c228d294fc9`）提交 PR、经 CI 校验并合并至 `main`，按既有包名与体验签名执行双端体验发布与公开回读。
+请协调者（`01a17cc7-e0a2-7791-bf1d-4611c09bab22`）审阅候选分支 `gemini/ui-feedback-20261120`（SHA `2e2fc0508d743c99f283e4d04afbfe06907037c9`），确认后提交 PR、运行全端 CI 并合并发布双端体验包；如后续业务决定将 5 秒竞抢改为即时秒抢，须由协调侧调整后端及 `DECISIONS.md`。

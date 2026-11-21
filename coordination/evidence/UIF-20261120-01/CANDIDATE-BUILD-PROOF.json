@@ -1,0 +1,48 @@
+{
+  "sessionId": "b152769c-93ce-47d7-b74d-7ec5590080cf",
+  "role": "antigravity",
+  "worktree": "/Users/dongge/.codex/tmp/yijiexing-gemini-ui-20261120",
+  "branch": "gemini/ui-feedback-20261120",
+  "baseCommit": "a81779627cdba1b1f6119e2c16318d5a3c158550",
+  "candidateCommit": "2e2fc0508d743c99f283e4d04afbfe06907037c9",
+  "generatedAt": "2026-11-20T23:25:00+08:00",
+  "artifacts": {
+    "passengerExperienceApk": {
+      "path": "/Users/dongge/.codex/tmp/yijiexing-gemini-ui-20261120/apps/passenger-android/app/build/outputs/apk/experience/app-experience.apk",
+      "sha256": "c3df8568b6963212a4768c1009e1fc58d59b68ff4fddf243aa30e1ead2a6292f",
+      "versionName": "1.1.25-experience",
+      "versionCode": 27
+    },
+    "driverExperienceApk": {
+      "path": "/Users/dongge/.codex/tmp/yijiexing-gemini-ui-20261120/candidates/driver-0.3.6-r2/android/app/build/outputs/apk/experience/app-experience.apk",
+      "sha256": "39e630d4419c780d122218d685bbc6d2601be1068f51e767e4bc230d6a7f43cf",
+      "versionName": "0.3.26-cloud",
+      "versionCode": 29
+    }
+  },
+  "unitTestsAndChecks": {
+    "passengerUnitTest": {
+      "command": "gradlew testExperienceUnitTest assembleExperience",
+      "suites": 14,
+      "tests": 91,
+      "failures": 0,
+      "skipped": 0,
+      "status": "PASS"
+    },
+    "driverUnitTest": {
+      "command": "gradlew testExperienceUnitTest assembleExperience",
+      "suites": 18,
+      "tests": 141,
+      "failures": 0,
+      "skipped": 0,
+      "status": "PASS"
+    },
+    "passengerMiniprogram": {
+      "command": "npm test && npm run check",
+      "tests": 74,
+      "failures": 0,
+      "checkProject": "PASS",
+      "wechatDeveloperToolsCompilation": "NOT_RUN_REQUIRES_DEVELOPER_TOOLS"
+    }
+  }
+}

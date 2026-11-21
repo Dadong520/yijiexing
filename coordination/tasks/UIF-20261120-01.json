@@ -1,0 +1,84 @@
+{
+  "id": "UIF-20261120-01",
+  "owner": "antigravity",
+  "reviewer": "backend",
+  "secondaryReviewer": "frontend",
+  "deploy_owner": "coordinator",
+  "goal": "独立验收双Android反馈优化，修复抢单定位、导航联系与投诉图片回归，发布并核对双体验APK",
+  "baseSha": "a81779627cdba1b1f6119e2c16318d5a3c158550",
+  "sourceRoot": "/Users/dongge/.codex/tmp/yijiexing-uif-20261121-release",
+  "branch": "codex/uif-20261121-release",
+  "allow_paths": [
+    "apps/passenger-android/**",
+    "candidates/driver-0.3.6-r2/android/**",
+    "coordination/**",
+    "README.md"
+  ],
+  "checks": [
+    "双端签名和版本Code单调递增、原包升级",
+    "定位/竞抢、投诉图和导航入口差量复核",
+    "双端单测构建、小程序回归、CI和整包读回"
+  ],
+  "status": "ACCEPTED_READY_FOR_RELEASE",
+  "acceptance": "PASS",
+  "tests": [
+    {
+      "command": "Passenger / Driver: bash gradlew --offline testExperienceUnitTest assembleExperience (91 / 141)",
+      "status": "PASS",
+      "exitCode": 0,
+      "sourceSha": "4cdaa9381564c9bc4fc5d3bd481d1484fecff4a5"
+    },
+    {
+      "command": "miniprogram npm test (74) && npm run check",
+      "status": "PASS",
+      "exitCode": 0,
+      "sourceSha": "4cdaa9381564c9bc4fc5d3bd481d1484fecff4a5"
+    },
+    {
+      "command": "python3 -m unittest discover -s tools -p test_check_coordination.py (27)",
+      "status": "PASS",
+      "exitCode": 0,
+      "sourceSha": "4cdaa9381564c9bc4fc5d3bd481d1484fecff4a5"
+    },
+    {
+      "command": "Independent source review and exact package signature/version/hash checks",
+      "status": "PASS",
+      "exitCode": 0,
+      "sourceSha": "4cdaa9381564c9bc4fc5d3bd481d1484fecff4a5"
+    },
+    {
+      "command": "Isolated AVD same-signer upgrade and delta acceptance",
+      "status": "PASS",
+      "exitCode": 0,
+      "sourceSha": "4cdaa9381564c9bc4fc5d3bd481d1484fecff4a5"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "coordination/evidence/UIF-20261120-01/CANDIDATE-BUILD-PROOF.json",
+      "sha256": "e40fffa5463ca2cd44dc2167f1361b2e86d800084d4d73fb16a2ae086fc36106"
+    },
+    {
+      "path": "coordination/evidence/UIF-20261120-01/NATIVE_ACCEPTANCE_SUMMARY.json",
+      "sha256": "fd0e71df9438e944990498e9ff390f7021d333915d3ae6169bf3c2dfd512dee6"
+    },
+    {
+      "path": "coordination/evidence/UIF-20261120-01/release/INDEPENDENT-REVIEW.md",
+      "sha256": "65a4051a9130fef384f1dae65c7d0f4cda0f90a34b1f65873a4161fb0a39d297"
+    },
+    {
+      "path": "coordination/evidence/UIF-20261120-01/release/BUILD-PROOF.json",
+      "sha256": "08f0c2f9791f79b06942d2a6abc166bbdb1cbdfef88ce5c0d8a69acacfb06f66"
+    },
+    {
+      "path": "coordination/evidence/UIF-20261120-01/release/FINAL-NATIVE-ACCEPTANCE.json",
+      "sha256": "74a2a9684a64b4ec9f6a3906cf4d2e4cda7ef6321a0779b91b4af638345f8d27"
+    }
+  ],
+  "nextAction": "合并GitHub检查通过的提交并发布双APK，完整验证公网下载。",
+  "updatedAt": "2026-11-21T03:03:47.800516+00:00",
+  "candidateSha": "4cdaa9381564c9bc4fc5d3bd481d1484fecff4a5",
+  "acceptedSha": "4cdaa9381564c9bc4fc5d3bd481d1484fecff4a5",
+  "releaseReady": true,
+  "publicationComplete": false
+}

@@ -1,0 +1,33 @@
+{
+  "sourceSha": "4cdaa9381564c9bc4fc5d3bd481d1484fecff4a5",
+  "roles": {
+    "passenger": {
+      "role": "passenger",
+      "package": "cn.hbzjhs.dc.passenger.cloud",
+      "versionCode": 28,
+      "versionName": "1.1.26-experience",
+      "sha256": "9d7e6a461cd9401f1f368880ca0b44d15db64510b8d4c0d8ed69f0d2974591a5",
+      "bytes": 42661521,
+      "signerSha256": "9ffec9b342d12909ff288bd73f23ba104893b39120cb24ea83c9734a0d2b758f",
+      "debuggable": false,
+      "unitTests": 91,
+      "compressedNativeLibraries": 6,
+      "expectedHTTPSOrigin": true,
+      "qaOriginAbsent": true
+    },
+    "driver": {
+      "role": "driver",
+      "package": "cn.hbzjhs.dc.driver.cloud",
+      "versionCode": 30,
+      "versionName": "0.3.27-cloud",
+      "sha256": "6f15c2aa05e3ae5ebcd9a8490c43239b8ea49041f51df2a551b95b2cdce2229b",
+      "bytes": 115490458,
+      "signerSha256": "9ffec9b342d12909ff288bd73f23ba104893b39120cb24ea83c9734a0d2b758f",
+      "debuggable": false,
+      "unitTests": 141,
+      "compressedNativeLibraries": 16,
+      "expectedHTTPSOrigin": true,
+      "qaOriginAbsent": true
+    }
+  }
+}
