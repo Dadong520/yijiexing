@@ -1,0 +1,17 @@
+{
+  "driver-demo": {
+    "revision": "driver-demo-fb3-9a76fc4",
+    "specSha256": "f107687a9a9856456e81fbf10218121ee9a5d56d25b3762baaab6095bda3e6b2",
+    "iamSha256": "b889d91193cb50738ff8418eec83691d89bb38b6cdccd1177014744749747b51"
+  },
+  "driver-admin": {
+    "revision": "driver-admin-fb3-9a76fc4",
+    "specSha256": "04073d439161e2289b98e17c190658dca76707de4f977733b5ceb2ccef70ad2a",
+    "iamSha256": "c91e2cbf77eab7c6f3dc5e59b150a22997e52c1cd655eebef45a6953bbce8fce"
+  },
+  "snapshot": {
+    "generation": "1795170563837205",
+    "size": 17870848,
+    "md5_hash": "Ii52degKdybUdIvmXiyKXw=="
+  }
+}
